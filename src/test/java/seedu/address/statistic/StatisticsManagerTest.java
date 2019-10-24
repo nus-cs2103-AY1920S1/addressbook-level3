@@ -3,7 +3,6 @@ package seedu.address.statistic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.util.TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_COST_1;
-import static seedu.address.commons.util.TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_GRAPH;
 import static seedu.address.commons.util.TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_PROFIT_1;
 import static seedu.address.commons.util.TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_REVENUE_1;
 

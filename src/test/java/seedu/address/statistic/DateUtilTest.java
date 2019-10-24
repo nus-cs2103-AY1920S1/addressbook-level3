@@ -5,11 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.util.TypicalStatsPayload;
 import seedu.address.model.order.Order;
 import seedu.address.testutil.TypicalOrders;
 
@@ -27,7 +25,7 @@ public class DateUtilTest {
         Order testOrder = TypicalOrders.ORDERONESTATS;
         assertEquals(testOrder.getSchedule().get().getCalendar().get(Calendar.YEAR), DateUtil.extractYear(testOrder));
     }
-/*
+    /*
     @Test
     public void testExtractListOfYearMonth() {
         TestListOfYearMonthStub testStub = new TestListOfYearMonthStub();

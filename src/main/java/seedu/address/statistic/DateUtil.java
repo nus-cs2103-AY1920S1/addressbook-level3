@@ -5,7 +5,6 @@ import static seedu.address.commons.util.StringUtil.convertCalendarDateToString;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import seedu.address.model.order.Order;
 
