@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SecureIT`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -186,6 +186,8 @@ Step 5. Should the user wish to view a more detailed report for a specific passw
 to view a more detailed analysis of the specified password.
 
 The following sequence diagram shows how the analyse functionality works:
+
+image::AnalysePasswordSequenceDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: How analyse/analyse strong executes
