@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes DeleteReminderCommand;
+
+if() then ([Index present])
+    if() then ([Index within bound])
+        : Delete the specified reminder
+         from the current reminder list;
+        : Update the list display;
+    else ([Index out of bound])
+        : Show Invalid error
+         Index message;
+    endif
+else([Index absent])
+    : Show Invalid command
+     format error message;
+endif
+stop
+@enduml

@@ -134,8 +134,8 @@ Deletes a spending in the specified index from the list. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the spending at the specified `INDEX`.
+* The index refers to the index number shown in the displayed spending list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -250,6 +250,31 @@ Sorts current spending displayed by Name in descending order.
 Displays a list of all available tags. +
 Format: `ltags`
 
+=== Adding a reminder: `reminder`
+Adds a reminder to the reminder list
+Format: `reminder d/DATE m/MESSAGE`
+
+Examples:
+
+* `reminder d/30/08/2020 m/Pay school fees` +
+* `reminder d/3 days from now m/Pay phone bill` +
+
+=== Deleting a reminder: `dreminder`
+Deletes a reminder at the specified `INDEX`.
+Format: `dreminder INDEX`
+
+****
+* Deletes the reminder at the specified `INDEX`.
+* The index refers to the index number shown in the displayed reminder list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `dreminder 2` +
+Deletes the second reminder in the list based on the current results shown.
+
+
 === Importing data : `import`
 Imports data from a CSV file specified by file path. +
 Format: `import p/FILE_PATH` +
@@ -343,7 +368,7 @@ Format: `exit`
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Feature | Command
-| *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
+| *Add spending* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 | *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
 e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
@@ -363,7 +388,11 @@ e.g. `export p/C:\Users\User\Documents\importfile.csv` +
 e.g. `stats d/01/01/2019 d/07/01/2019` +
 | *Sort*| `sort [PREFIX/SORT_ORDER]` +
 e.g. `sort d/DESC c/ASC` +
-| *List all tags*| `ltags` +
+| *List all tags*| `ltags`
+| *Add reminder*| `reminder d/DATE m/MESSAGE` +
+e.g. `reminder n/30/08/2020 m/Pay school fee`
+| *Delete reminder* | `dreminder INDEX` +
+e.g. `dreminder 2`
 | *Undo*| `undo` +
 | *Redo*| `redo` +
 | *Graph*| `graph d/STARTDATE d/ENDDATE` +
