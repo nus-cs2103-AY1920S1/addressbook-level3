@@ -33,8 +33,15 @@ public class EventManpowerAllocatedList {
     }
 
     /**
+     * Frees all employees for an Event.
+     */
+    public boolean freeEmployees() {
+        manpowerList = new ArrayList<String>();
+        return true;
+    }
+
+    /**
      * Allocates employee to the Manpower List for an Event.
-     *
      * @param employee to be allocated
      * @return boolean to represent if employee is successfully allocated to event
      */

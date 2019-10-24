@@ -33,7 +33,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.fetch = null;
-        type = null;
+        this.type = "";
     }
 
     /**
@@ -55,7 +55,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.fetch = fetch;
         this.exit = exit;
-        type = null;
+        this.type = "";
     }
 
     /**

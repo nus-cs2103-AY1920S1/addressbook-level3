@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AssignDateCommand;
 import seedu.address.logic.commands.AutoAllocateCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeallocateCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DisplayScheduleCommand;
@@ -79,6 +80,9 @@ public class AddressBookParser {
 
         case FetchEventCommand.COMMAND_WORD:
             return new FetchEventCommandParser().parse(arguments);
+
+        case DeallocateCommand.COMMAND_WORD:
+            return new DeallocateCommandParser().parse(arguments);
 
         case DisplayScheduleForDateCommand.COMMAND_WORD:
             return new DisplayScheduleForDateParser().parse(arguments);
