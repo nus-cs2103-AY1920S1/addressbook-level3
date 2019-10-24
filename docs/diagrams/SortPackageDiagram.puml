@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+
+package "Sorting"{
+    Class SpendingComparator UI_COLOR_T3
+    Class SortField UI_COLOR_T3
+    Class SortAttribute LOGIC_COLOR_T3
+    Class SortOrder LOGIC_COLOR_T3
+
+    SortField --> SortAttribute
+    SortField --> SortOrder
+
+    SpendingComparator --> SortField
+}
+
+package "Commands" {
+    Class SortCommand UI_COLOR_T3
+
+    SortCommand ..> SpendingComparator
+    SortCommand --> SortField
+}
+
+@enduml

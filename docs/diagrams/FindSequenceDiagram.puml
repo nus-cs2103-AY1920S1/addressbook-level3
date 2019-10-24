@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "f:FindCommand" as FindCommand LOGIC_COLOR
+participant ":SpendingPredicateList" as SpendingPredicateList LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("find n/apple")
+activate LogicManager
+
+LogicManager -> SpendingBookParser : parseCommand("find n/apple")
+activate SpendingBookParser
+
+create FindCommandParser
+SpendingBookParser -> FindCommandParser
+activate FindCommandParser
+
+FindCommandParser --> SpendingBookParser
+deactivate FindCommandParser
+
+SpendingBookParser -> FindCommandParser : parse(" n/apple")
+activate FindCommandParser
+
+create FindCommand
+FindCommandParser -> FindCommand : predicates
+activate FindCommand
+
+create SpendingPredicateList
+FindCommand -> SpendingPredicateList :
+activate SpendingPredicateList
+
+SpendingPredicateList --> FindCommand
+
+deactivate SpendingPredicateList
+
+FindCommand --> FindCommandParser : f
+
+deactivate FindCommand
+
+FindCommandParser --> SpendingBookParser : f
+deactivate FindCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommandParser -[hidden]-> SpendingBookParser
+destroy FindCommandParser
+
+SpendingBookParser --> LogicManager : f
+deactivate SpendingBookParser
+
+LogicManager -> FindCommand : execute()
+activate FindCommand
+
+FindCommand -> FindCommand : reduce()
+activate FindCommand
+
+FindCommand --> FindCommand : predicate
+
+deactivate FindCommand
+
+FindCommand -> Model : updateFilteredSpendingList(predicate)
+activate Model
+
+Model --> FindCommand
+deactivate Model
+
+create CommandResult
+FindCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindCommand
+deactivate CommandResult
+
+FindCommand --> LogicManager : result
+deactivate FindCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

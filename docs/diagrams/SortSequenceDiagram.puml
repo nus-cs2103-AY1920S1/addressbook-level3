@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "s:SortCommand" as SortCommand LOGIC_COLOR
+participant ":SpendingComparator" as SpendingComparator LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("sort n/ASC")
+activate LogicManager
+
+LogicManager -> SpendingBookParser : parseCommand("sort n/ASC")
+activate SpendingBookParser
+
+create SortCommandParser
+SpendingBookParser -> SortCommandParser
+activate SortCommandParser
+
+SortCommandParser --> SpendingBookParser
+deactivate SortCommandParser
+
+SpendingBookParser -> SortCommandParser : parse(" n/ASC")
+activate SortCommandParser
+
+create SortCommand
+SortCommandParser -> SortCommand : fields
+activate SortCommand
+
+SortCommand --> SortCommandParser : s
+deactivate SortCommand
+
+SortCommandParser --> SpendingBookParser : s
+deactivate SortCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SortCommandParser -[hidden]-> SpendingBookParser
+destroy SortCommandParser
+
+SpendingBookParser --> LogicManager : s
+deactivate SpendingBookParser
+
+LogicManager -> SortCommand : execute()
+activate SortCommand
+
+create SpendingComparator
+SortCommand -> SpendingComparator
+activate SpendingComparator
+
+SpendingComparator --> SortCommand : comparator
+deactivate SpendingComparator
+
+SortCommand -> Model : updateSortedSpendingList(comparator)
+activate Model
+
+Model --> SortCommand
+deactivate Model
+
+create CommandResult
+SortCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SortCommand
+deactivate CommandResult
+
+SortCommand --> LogicManager : result
+deactivate SortCommand
+
+destroy SpendingComparator
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

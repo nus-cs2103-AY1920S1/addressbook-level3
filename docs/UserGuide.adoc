@@ -104,13 +104,13 @@ Examples:
 * `add n/milo c/1.50 r/I love milo` +
 * `add n/gold class movie ticket d/15/1/2019 c/13.00 r/important t/entertainment` +
 
-=== Updating a spending : `update`
+=== Editing a spending : `edit`
 
-Updates a spending in the specified index in the list. +
-Format: `update i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
+Edits a spending in the specified index in the list. +
+Format: `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
-* Updates the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
@@ -119,13 +119,13 @@ Format: `update i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 Examples:
 
-* `update 1 c/100` +
+* `edit 1 c/100` +
 Updates the cost of the first spending to `100`.
 * `edit 2 n/chicken rice` +
 Updates the name of the third spending to `chicken rice`.
-* `update 5 c/500 n/flight tickets` +
+* `edit 5 c/500 n/flight tickets` +
 Updates both the cost of the fifth spending to `500` and its name to `flight tickets`.
-* `update 10 t/vegetable` +
+* `edit 10 t/vegetable` +
 Overwrites existing tags of the tenth spending to `vegetable`.
 
 === Deleting a spending : `delete`
@@ -157,24 +157,28 @@ Examples:
 * `list` +
 Displays the list of all spending sorted by date in descending order (most recent on top).
 
-=== Find by attribute : `find`
+=== Finding a spending : `find`
 
-Searches for spending based on given keywords, cost range, date range, remarks or tags. +
-At least one search field must be present.
+Finds a spending based on given keywords, cost range, date range, remarks or tags. +
 
 [NOTE]
-When searching for multiple tags, any tag listed will be matched.
+At least one search field must be present.
 
-[TIP]
-Date range can be input in the following ways: +
-`d/DATE_START d/DATE_END` +
-`d/DATE_START to DATE_END` +
-`d/DATE_START - DATE_END`
+****
+* When searching for multiple tags, any tag specified will be matched.
+* Date range can be input in the following ways:
 
-[TIP]
-Cost range can be input in the following ways: +
-`c/COST_MIN c/COST_MAX` +
-`c/COST_MIN-COST_MAX`
+** `d/DATE_START d/DATE_END`
+** `d/DATE_START to DATE_END`
+** `d/DATE_START - DATE_END`
+
+* Cost range can be input in the following ways:
+
+** `c/COST_MIN c/COST_MAX`
+** `c/COST_MIN-COST_MAX`
+
+
+****
 
 Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
 
@@ -202,7 +206,7 @@ Overwrites existing budget of current month if budget has already been set.
 Example:
 
 * `budget m/500000` +
-Sets a budget of `$500,000` for this month
+Sets a budget of $`500,000` for this month
 
 === Generating statistics : `stats`
 Returns an overview of the spending which include:
@@ -371,7 +375,7 @@ Format: `exit`
 | *Add spending* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 | *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
-e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
+e.g. `edit i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
