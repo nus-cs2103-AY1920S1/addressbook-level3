@@ -221,7 +221,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         stagedAddressBook.setPerson(target, editedPerson);
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
     @Override
