@@ -308,14 +308,14 @@ image::MergeActivityDiagram.png[]
 
 The `display` mechanism follows the Model-View-Controller framework. The model is facilitated by the `AddressBook`
 instance, which provides the data the controller needs.
-(Question: should I list out all the methods which the controller uses to access the model? ie getPolicyPopularityBreakdown, getGenderBreakdown etc)
 The controller is facilitated by an abstract class `DisplayController`, which extends `UIPart<Region>`.
-Every supported visual format extends this abstract class.
+Every supported format controller extends this abstract class.
 
+(Purpose: Show OOP solution)
 (TODO: show class diagram)
 
 The view is facilitated by the associated FXML. These views share a common
-CSS, and also have their own CSS file.
+CSS, and also have their individual CSS file.
 
 [NOTE]
 In the event a controller cannot display a particular indicator, it will throw a `parseException` error,
@@ -341,10 +341,12 @@ Step 4. Finally, the `MainWindow` calls `Visual#getRoot()` and displays the view
 
 The following sequence diagram shows how the `display` operation works:
 
+(Purpose: Show interaction between UI, Controller, Model)
 image::MergeSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes the display command:
 
+(Purpose: Show logic flow of UI)
 image::MergeActivityDiagram.png[]
 
 ==== Design Considerations

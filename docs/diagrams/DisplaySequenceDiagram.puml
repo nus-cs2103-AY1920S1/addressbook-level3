@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+Participant ":UI" as ui UI_COLOR
+Participant ":DisplayController" as display_controller STORAGE_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> display_controller ** : DisplayController(Logic, DisplayIndicator)
+activate display_controller STORAGE_COLOR
+display_controller -> display_controller++ : setPPB()
+note right: PPB := Policy Popularity Breakdown
+display_controller -[STORAGE_COLOR]> logic: getPPB()
+
+activate logic LOGIC_COLOR
+logic -[LOGIC_COLOR]> model: getPPB()
+
+activate model MODEL_COLOR
+model -[MODEL_COLOR]> model:
+
+model -[MODEL_COLOR]-> logic : PPB
+deactivate model
+
+logic -[LOGIC_COLOR]-> display_controller : PPB
+deactivate logic
+
+return done
+display_controller -[STORAGE_COLOR]-> ui
+deactivate display_controller
+
+@enduml
