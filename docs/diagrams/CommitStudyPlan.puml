@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title After command "commit [COMMIT_MESSAGE]"
+
+class ModulePlanner as "__:ModulePlanner__"
+class VersionTrackingManager as "__:VersionTrackingManager__"
+class StudyPlanCommitManagerList as "__:StudyPlanCommitManagerList__"
+class StudyPlanCommitManager as "__activeStudyPlanManager:StudyPlanCommitManager___"
+class CommitList as "__:CommitList__"
+class Commit as "__:Commit__"
+
+package equal <<rectangle>> {
+    class ActiveStudyPlan as "__activeStudyPlan:StudyPlan__"
+    class ClonedStudyPlan as "__clone:StudyPlan__"
+    note right: cloned and added
+}
+
+ModulePlanner --> VersionTrackingManager
+ModulePlanner --> ActiveStudyPlan
+VersionTrackingManager --> StudyPlanCommitManagerList
+StudyPlanCommitManagerList --> StudyPlanCommitManager
+StudyPlanCommitManager --> CommitList
+CommitList --> Commit
+Commit --> ClonedStudyPlan
+
+@end

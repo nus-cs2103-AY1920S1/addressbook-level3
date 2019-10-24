@@ -265,6 +265,11 @@ public class ValidModsCommandTest {
         public HashMap<String, Module> getModulesFromActiveSp() {
             throw new AssertionError("This method should not be called.");
         }
+
+        //@Override
+        public void deleteAllModulesInSemester(SemesterName semesterName) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     @Test
