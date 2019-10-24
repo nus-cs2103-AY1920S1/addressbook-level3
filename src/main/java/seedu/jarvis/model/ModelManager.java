@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.OptionalDouble;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -286,8 +286,8 @@ public class ModelManager implements Model {
      * @param purchase to be deleted
      */
     @Override
-    public void deletePurchase(Purchase purchase) {
-        financeTracker.deleteSinglePurchase(purchase);
+    public Purchase deletePurchase(Purchase purchase) {
+        return financeTracker.deleteSinglePurchase(purchase);
     }
 
 
@@ -361,8 +361,8 @@ public class ModelManager implements Model {
      * @param installment
      */
     @Override
-    public void deleteInstallment(Installment installment) {
-        financeTracker.deleteInstallment(installment);
+    public Installment deleteInstallment(Installment installment) {
+        return financeTracker.deleteInstallment(installment);
     }
 
     /**
@@ -405,7 +405,7 @@ public class ModelManager implements Model {
      * @return Optional containing the monthly limit
      */
     @Override
-    public OptionalDouble getMonthlyLimit() {
+    public Optional<MonthlyLimit> getMonthlyLimit() {
         return financeTracker.getMonthlyLimit();
     }
 

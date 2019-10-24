@@ -92,7 +92,7 @@ public class RemoveInstallmentCommand extends Command {
      * @param model {@code Model} which the command should inversely operate on.
      * @return {@code CommandResult} of a successful restore of the deleted {@code Installment}
      * if the {@code Installment} is not already in the finance tracker
-     * @throws CommandException If the installment to be added will be in conflict with an existing task
+     * @throws CommandException If the installment to be added will be in conflict with an existing installment
      * in the finance tracker
      */
     @Override
