@@ -27,18 +27,19 @@ public class AddTaskToMemberParser implements Parser<AddTaskToMemberCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTaskToMemberCommand parse(String args) throws ParseException {
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID)
-                    || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskToMemberCommand.MESSAGE_USAGE));
-            }
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddTaskToMemberCommand.MESSAGE_USAGE));
+        }
 
-            MemberId id = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());
-            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
+        MemberId id = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
 
-            return new AddTaskToMemberCommand(index, id);
+        return new AddTaskToMemberCommand(index, id);
 
     }
 

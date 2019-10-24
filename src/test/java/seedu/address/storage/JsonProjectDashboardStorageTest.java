@@ -3,8 +3,13 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalInventories.MAKEUP;
+import static seedu.address.testutil.TypicalInventories.PARTY_EQUIPS;
+import static seedu.address.testutil.TypicalTasksMembers.ANDY;
+import static seedu.address.testutil.TypicalTasksMembers.BENSON;
 import static seedu.address.testutil.TypicalTasksMembers.FAREWELL_PARTY;
 import static seedu.address.testutil.TypicalTasksMembers.FIND_VP;
+import static seedu.address.testutil.TypicalTasksMembers.JOHN_DOE;
 import static seedu.address.testutil.TypicalTasksMembers.ORDER_SHIRTS;
 import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
@@ -18,6 +23,8 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.member.Member;
 
 public class JsonProjectDashboardStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonProjectDashboardStorageTest");
@@ -64,7 +71,7 @@ public class JsonProjectDashboardStorageTest {
             readProjectDashboard("invalidAndValidTaskProjectDashboard.json"));
     }
 
-    /*@Test
+    @Test
     public void readAndSaveProjectDashboard_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
         ProjectDashboard original = getTypicalProjectDashboard();
@@ -77,6 +84,9 @@ public class JsonProjectDashboardStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addTask(FIND_VP);
+        original.addInventory(MAKEUP);
+        original.addMember(ANDY);
+        original.addMapping(new TasMemMapping(1, 7));
         original.removeTask(ORDER_SHIRTS);
         jsonProjectDashboardStorage.saveProjectDashboard(original, filePath);
         readBack = jsonProjectDashboardStorage.readProjectDashBoard(filePath).get();
@@ -84,11 +94,15 @@ public class JsonProjectDashboardStorageTest {
 
         // Save and read without specifying file path
         original.addTask(FAREWELL_PARTY);
+        original.addInventory(PARTY_EQUIPS);
+        original.addMember(BENSON);
+        original.addMapping(new TasMemMapping(3, 8));
+        original.removeTask(FAREWELL_PARTY);
         jsonProjectDashboardStorage.saveProjectDashboard(original); // file path not specified
         readBack = jsonProjectDashboardStorage.readProjectDashBoard().get(); // file path not specified
         assertEquals(original, new ProjectDashboard(readBack));
 
-    }*/
+    }
 
     @Test
     public void saveProjectDashboard_nullProjectDashboard_throwsNullPointerException() {

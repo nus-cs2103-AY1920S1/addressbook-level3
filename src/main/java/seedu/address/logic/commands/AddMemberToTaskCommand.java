@@ -22,11 +22,11 @@ public class AddMemberToTaskCommand extends Command {
             + "by the memberId used in the displayed member list, to the task indicated "
             + "by the member ID. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TASK_INDEX + "TASK_INDEX"
+            + PREFIX_TASK_INDEX + "TASK_INDEX "
             + PREFIX_MEMBER_ID + "MEMBER_ID \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_INDEX + " 2 "
-            + PREFIX_MEMBER_ID + " JD";
+            + PREFIX_MEMBER_ID + "JD";
 
     public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
     public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
@@ -74,7 +74,7 @@ public class AddMemberToTaskCommand extends Command {
 
         Task involvedTask = lastShownTaskList.get(taskId.getZeroBased());
         TasMemMapping mappingToAdd = createMapping(taskId.getZeroBased(), memberIndex);
-        if(model.hasMapping(mappingToAdd)) {
+        if (model.hasMapping(mappingToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MAPPING);
         }
         model.addMapping(mappingToAdd);

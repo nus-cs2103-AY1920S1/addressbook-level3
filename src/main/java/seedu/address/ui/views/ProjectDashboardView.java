@@ -3,6 +3,7 @@ package seedu.address.ui.views;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -55,7 +56,8 @@ public class ProjectDashboardView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new TaskCard(task, getIndex() + 1).getRoot());
+                TaskCard cardToRender = new TaskCard(task, getIndex() + 1);
+                setGraphic(cardToRender.getRoot());
             }
         }
     }
