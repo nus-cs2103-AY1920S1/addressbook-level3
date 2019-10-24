@@ -1,28 +1,36 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAddressBook.getSinglePersonAddressBook;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.PersonBuilder;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.logic.commands.merge.MergePolicyConfirmedCommand;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
 import seedu.address.testutil.TestUtil.ModelStub;
 
 public class MergePolicyConfirmedCommandTest {
+
+    private Model model = new ModelManager(getSinglePersonAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullCommand_throwsNullPointerException() {
@@ -31,39 +39,54 @@ public class MergePolicyConfirmedCommandTest {
 
     @Test
     public void execute_mergeConfirmedWithOneMergeLeft_mergeSuccessful() throws Exception {
-        Policy validPolicy = new PolicyBuilder().build();
-        Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
-        MergePolicyCommandStub mergeCommandStub = new MergePolicyCommandStub(inputPolicy);
-        ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
-        CommandResult commandResult = new MergePolicyConfirmedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergePolicyConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS,
-            Description.DATA_TYPE)
-            + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-            inputPolicy), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPolicy(), inputPolicy);
+        Policy originalPolicy = new PolicyBuilder(model.getFilteredPolicyList().get(0)).build();
+        Policy inputPolicy = new PolicyBuilder(originalPolicy).withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
+                .build();
+        MergePolicyCommandStub mergeCommandStub = new MergePolicyCommandStub(inputPolicy, originalPolicy);
+        MergePolicyConfirmedCommand mergePersonConfirmedCommand = new MergePolicyConfirmedCommand(mergeCommandStub);
+        String expectedMessage = String.format(MergePolicyConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS,
+                Description.DATA_TYPE)
+                + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
+                inputPolicy);
+        Person person = model.getFilteredPersonList().get(0);
+        Person editedPerson = new PersonBuilder(person).removePolicies(originalPolicy).addPolicies(inputPolicy).build();
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPolicy(originalPolicy, inputPolicy);
+        expectedModel.setPerson(person, editedPerson);
+        expectedModel.saveAddressBookState();
+        assertCommandSuccess(mergePersonConfirmedCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_mergeConfirmedWithMoreThanOneMergeLeft_mergeSuccessful() throws Exception {
-        Policy validPolicy = new PolicyBuilder().build();
-        Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
-            .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
+        Policy originalPolicy = new PolicyBuilder(model.getFilteredPolicyList().get(0)).build();
+        Policy inputPolicy = new PolicyBuilder(originalPolicy).withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
+                .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
+        Policy expectedPolicy = new PolicyBuilder(originalPolicy).withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
+                .build();
         MergePolicyCommandStubWithMultipleMerges mergeCommandStub =
-            new MergePolicyCommandStubWithMultipleMerges(inputPolicy);
-        ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
-        CommandResult commandResult = new MergePolicyConfirmedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergePolicyConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS, Description.DATA_TYPE)
-            + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPolicy(), new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
-            .build());
+                new MergePolicyCommandStubWithMultipleMerges(inputPolicy, originalPolicy);
+        MergePolicyConfirmedCommand mergePersonConfirmedCommand = new MergePolicyConfirmedCommand(mergeCommandStub);
+        String expectedMessage = String.format(MergePolicyConfirmedCommand.MESSAGE_MERGE_FIELD_SUCCESS,
+                Description.DATA_TYPE)
+                + "\n" + mergeCommandStub.getNextMergePrompt();
+        Person person = model.getFilteredPersonList().get(0);
+        Person editedPerson = new PersonBuilder(person).removePolicies(originalPolicy).addPolicies(expectedPolicy)
+                .build();
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPolicy(originalPolicy, expectedPolicy);
+        expectedModel.setPerson(person, editedPerson);
+        expectedModel.saveAddressBookState();
+        assertCommandSuccess(mergePersonConfirmedCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
+        Policy policy = new PolicyBuilder().build();
         Policy health = new PolicyBuilder().withName("Health Insurance").build();
         Policy fire = new PolicyBuilder().withName("Fire Insurance").build();
-        MergePolicyCommandStub commandWithHealth = new MergePolicyCommandStub(health);
-        MergePolicyCommandStub commandWithFire = new MergePolicyCommandStub(fire);
+        MergePolicyCommandStub commandWithHealth = new MergePolicyCommandStub(health, policy);
+        MergePolicyCommandStub commandWithFire = new MergePolicyCommandStub(fire, policy);
         MergePolicyConfirmedCommand mergeHealthCommand = new MergePolicyConfirmedCommand(commandWithHealth);
         MergePolicyConfirmedCommand mergeFireCommand = new MergePolicyConfirmedCommand(commandWithFire);
 
@@ -90,10 +113,11 @@ public class MergePolicyConfirmedCommandTest {
          *
          * @param inputPolicy
          */
-        private Policy originalPolicy = new PolicyBuilder().build();
+        private Policy originalPolicy;
 
-        public MergePolicyCommandStub(Policy inputPolicy) {
+        public MergePolicyCommandStub(Policy inputPolicy, Policy originalPolicy) {
             super(inputPolicy);
+            this.originalPolicy = originalPolicy;
         }
 
         public void updateOriginalPolicy(Policy editedPolicy) {
@@ -135,13 +159,14 @@ public class MergePolicyConfirmedCommandTest {
          *
          * @param inputPolicy
          */
-        private Policy originalPolicy = new PolicyBuilder().build();
+        private Policy originalPolicy;
         private ArrayList<String> dataTypes = new ArrayList<>();
 
-        public MergePolicyCommandStubWithMultipleMerges(Policy inputPolicy) {
+        public MergePolicyCommandStubWithMultipleMerges(Policy inputPolicy, Policy originalPolicy) {
             super(inputPolicy);
             dataTypes.add(Description.DATA_TYPE);
             dataTypes.add(Coverage.DATA_TYPE);
+            this.originalPolicy = originalPolicy;
         }
 
         public void updateOriginalPolicy(Policy editedPolicy) {

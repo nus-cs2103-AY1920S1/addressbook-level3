@@ -182,7 +182,6 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_KASSANDRA = "23 Nov 2019 at 09:57 PM";
     public static final String VALID_EXPIRY_DATE_CAR_INSURANCE = "24 Nov 2019 at 09:57 PM";
 
-
     public static final String POLICY_NAME_DESC_HEALTH = " " + PREFIX_NAME + VALID_NAME_HEALTH_INSURANCE;
     public static final String POLICY_NAME_DESC_FIRE = " " + PREFIX_NAME + VALID_NAME_FIRE_INSURANCE;
     public static final String DESCRIPTION_DESC_HEALTH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_HEALTH_INSURANCE;
@@ -221,6 +220,8 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
+            System.out.println(result.getFeedbackToUser());
+            System.out.println(expectedCommandResult.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
