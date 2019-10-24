@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.EditCommand;
+import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.exceptions.DeckAlreadyExistsException;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.model.exceptions.InvalidInputException;
+import dream.fcard.util.FileReadWrite;
 
 /**
  * Enum of regex and response function pairs used by Responder to evaluate input.
@@ -135,7 +137,7 @@ enum Responses {
         try {
             Deck examDeck = programState.getDeck(deckName);
             ExamRunner examRunner = new ExamRunner(examDeck);
-            examRunner.runExam();
+            examRunner.initExam();
             return true; // capture is valid, end checking other commands
         } catch (DeckNotFoundException dnfExc) {
             System.out.println(dnfExc.getMessage());

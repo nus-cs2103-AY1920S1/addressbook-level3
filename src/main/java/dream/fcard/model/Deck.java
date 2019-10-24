@@ -245,7 +245,6 @@ public class Deck implements JsonInterface {
         int chosenCardIndex = rand.nextInt(list.size());
         return list.get(chosenCardIndex);
     }
-  
     public int getNumCards() {
         return cards.size();
     }

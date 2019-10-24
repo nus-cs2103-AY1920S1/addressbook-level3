@@ -1,6 +1,7 @@
 package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
+
 import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -15,7 +16,6 @@ public class FrontBackCard extends FlashCard {
     protected String back;
     protected String front;
     protected Statistics stats;
-  
     /**
      * Constructor to create a FrontBackCard.
      * Takes in 2 String, front text and back text.
