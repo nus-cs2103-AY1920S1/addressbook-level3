@@ -91,6 +91,10 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
+    public static Person getSinglePerson() {
+        return ALICE;
+    }
+
     public static ObservableMap<String, Integer> getTypicalPolicyPopularityBreakdown() {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
         result.put(HEALTH_INSURANCE.getName().toString(), 1);
