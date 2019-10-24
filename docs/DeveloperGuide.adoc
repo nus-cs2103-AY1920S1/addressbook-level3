@@ -129,7 +129,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Category` list in `Address Book`, which `FlashCard` can reference. This would allow `Address Book` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[width = "300"]
 
 [[Design-Storage]]
 === Storage component
