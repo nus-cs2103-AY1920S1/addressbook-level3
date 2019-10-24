@@ -14,8 +14,6 @@ import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
-import javafx.scene.Node;
-
 /**
  * FrontBackCard with additional data of multiple choices.
  */
@@ -119,16 +117,15 @@ public class MultipleChoiceCard extends FrontBackCard {
 
     /**
      * Render the front of card to GUI node.
-     *
-     * @return Node of front of card.
+     *.
      */
     //@@author huiminlim
     @Override
-    public Node renderFront() {
+    public void renderFront() {
         // Shuffle choices first
         shuffleChoices();
 
-        return super.renderFront();
+        super.renderFront();
     }
     //@author
 

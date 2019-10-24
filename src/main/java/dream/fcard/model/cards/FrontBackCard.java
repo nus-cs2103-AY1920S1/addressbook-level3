@@ -6,7 +6,6 @@ import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Card that evaluates input to match back of card.
@@ -54,28 +53,6 @@ public class FrontBackCard extends FlashCard {
         obj.put(Schema.FRONT_FIELD, front);
         obj.put(Schema.BACK_FIELD, back);
         return new JsonValue(obj);
-    }
-
-    /**
-     * Render the front of card to GUI node.
-     *
-     * @return Node of front of card.
-     */
-    @Override
-    public Node renderFront() {
-        // temporary
-        return null;
-    }
-
-    /**
-     * Render the back of card to GUI node.
-     *
-     * @return Node of back of card.
-     */
-    @Override
-    public Node renderBack() {
-        // temporary
-        return null;
     }
 
     /**
