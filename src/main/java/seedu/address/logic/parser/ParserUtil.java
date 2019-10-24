@@ -2,7 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,8 +13,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.eatery.Address;
+import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.eatery.Review;
+import seedu.address.model.eatery.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -72,10 +78,10 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
+        if (!Tag.isValidTag(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return Tag.create(trimmedTag);
     }
 
     /**
@@ -88,5 +94,73 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code category} is invalid.
+     */
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCat = category.trim();
+        if (!Category.isValidCategory(trimmedCat)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+        }
+        return Category.create(trimmedCat);
+    }
+
+    /**
+     *Trims leading and trailing white spaces.
+     *
+     * @param reviewDescription
+     * @throws ParseException if the given {@code reviewDescription} is invalid.
+     */
+    public static String parseReviewDescription(String reviewDescription) throws ParseException {
+        requireNonNull(reviewDescription);
+        String trimmedDescription = reviewDescription.trim();
+        if (!Review.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Review.REVIEW_CONSTRAINTS);
+        }
+        return trimmedDescription;
+    }
+
+    /**
+     * Parses {@code reviewCost} to double value.
+     *
+     * @throws ParseException if the given {@code reviewCost} is invalid.
+     */
+    public static double parseReviewCost(String reviewCost) throws ParseException {
+        requireNonNull(reviewCost);
+        String trimmedCost = reviewCost.trim();
+        if (!Review.isValidCost(Double.valueOf(trimmedCost))) {
+            throw new ParseException(Review.REVIEW_CONSTRAINTS);
+        }
+        return Double.valueOf(trimmedCost);
+    }
+
+    /**
+     * Parses {@code reviewRating} to integer value corresponding to rating.
+     *
+     * @throws ParseException if the given {@code reviewRating} is invalid.
+     */
+    public static int parseReviewRating(String reviewRating) throws ParseException {
+        requireNonNull(reviewRating);
+        String trimmedRating = reviewRating.trim();
+        if (!Review.isValidRating(reviewRating)) {
+            throw new ParseException(Review.REVIEW_CONSTRAINTS);
+        }
+        return Integer.valueOf(trimmedRating);
+    }
+
+    /**
+     * Parses {@code reviewDate} to corresponding date.
+     */
+    public static Date parseReviewDate(String reviewDate) throws java.text.ParseException {
+        requireNonNull(reviewDate);
+        String trimmedDate = reviewDate.trim();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.parse(trimmedDate);
     }
 }

@@ -25,6 +25,7 @@ public class EateryTest {
     public void isSameEatery() {
         // same object -> returns true
         assertTrue(ALICE.isSameEatery(ALICE));
+        assertTrue(ALICE.isSameEatery(new EateryBuilder(ALICE).build()));
 
         // null -> returns false
         assertFalse(ALICE.isSameEatery(null));
@@ -35,10 +36,10 @@ public class EateryTest {
         editedAlice = new EateryBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameEatery(editedAlice));
 
-        // same name, different attributes -> returns true
+        // same name, different attributes -> returns false
         editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameEatery(editedAlice));
+        assertFalse(ALICE.isSameEatery(editedAlice));
     }
 
     @Test

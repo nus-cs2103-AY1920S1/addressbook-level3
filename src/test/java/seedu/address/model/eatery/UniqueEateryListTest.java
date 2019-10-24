@@ -44,7 +44,7 @@ public class UniqueEateryListTest {
         uniqueEateryList.add(ALICE);
         Eatery editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(uniqueEateryList.contains(editedAlice));
+        assertFalse(uniqueEateryList.contains(editedAlice));
     }
 
     @Test
