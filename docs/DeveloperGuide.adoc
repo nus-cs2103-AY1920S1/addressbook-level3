@@ -321,11 +321,11 @@ Use Case: user adds an expense
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
-=== Use Case 09: Set TrackerReminder
+=== Use Case 09: Set GeneralReminder
 
 ==== MSS
 
-. User adds a TrackerReminder, indicates the quota which if exceeded will activate the reminder, and the tags nad keywords that entries should have to be tracked;
+. User adds a GeneralReminder, indicates the quota which if exceeded will activate the reminder, and the tags/ keywords that entries should have to be tracked;
 . guiltTrip() notifies user that Reminder has been added.
 
 Use case ends.
@@ -335,11 +335,11 @@ Use case ends.
 . 1a. user does not indicate if he wants to track entries with keywords or tags.
 Reminder tracks all entries.
 
-=== Use Case 10: Set DateReminder
+=== Use Case 10: Set TargetedReminder
 
 ==== MSS
 
-. User adds a DateReminder, indicate the index of the entry to track and the period before the event date to activate reminder.
+. User adds a TargetedReminder, indicate the index of the entry to target and the period before the entry date to activate reminder.
 . guiltTrip() notifies user that Reminder has been added.
 
 Use case ends.
