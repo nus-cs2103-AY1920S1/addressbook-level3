@@ -42,10 +42,10 @@ public class SortCommandParser implements Parser<SortCommand> {
             case END_DESCENDING:
                 return "END_TIME_REVERSE";
 
-            case NAME_ASCENDING:
+            case TYPE_ASCENDING:
                 return "ALPHABETICAL";
 
-            case NAME_DESCENDING:
+            case TYPE_DESCENDING:
                 return "ALPHABETICAL_REVERSE";
 
             case PRIORITY_ASCENDING:
@@ -67,6 +67,6 @@ public class SortCommandParser implements Parser<SortCommand> {
  * Specifies expected user input format
  */
 enum Order {
-    START_ASCENDING, START_DESCENDING, END_ASCENDING, END_DESCENDING, NAME_ASCENDING, NAME_DESCENDING,
+    START_ASCENDING, START_DESCENDING, END_ASCENDING, END_DESCENDING, TYPE_ASCENDING, TYPE_DESCENDING,
     PRIORITY_ASCENDING, PRIORITY_DESCENDING
 }

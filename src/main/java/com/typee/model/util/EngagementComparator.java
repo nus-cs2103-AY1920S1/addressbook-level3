@@ -58,7 +58,7 @@ public enum EngagementComparator implements Comparator<Engagement> {
     };
 
     public static final String MESSAGE_PROPERTY_CONSTRAINTS =
-            "Please enter a proper ordering method. Please try: e.g. sort start_time";
+            "Please enter a proper ordering method. Please try: e.g. sort start_ascending";
 
     public static EngagementComparator getComparator(String order)
             throws IllegalArgumentException {
