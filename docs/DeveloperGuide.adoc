@@ -16,6 +16,19 @@ endif::[]
 
 By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+
+=== LiBerry
+LiBerry is a desktop app for librarians to *quickly manage their community libraries!*
+LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the
+benefits of a Graphical User Interface (GUI).
+You can type quickly and serve your long line of borrowers in a short amount of time.
+LiBerry can manage all your books and borrowers efficiently and meticulously.
+
+=== Purpose of Developer Guide
+
+=== Legend
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -164,7 +177,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save LiBerry data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -378,7 +391,7 @@ The new `Borrower` instance is created by copying the details of the borrower fr
 object being added into its `currentLoanList`. The new borrower object then replaces the old borrower object in the
 `BorrowerRecords` object in the model. These two steps are done through the method call to `Model#servingBorrowerNewLoan(loan)`.
 The new `Book` instance is also created by copying the details of the original book object, and likewise, with this `Loan` object added into it.
-Similarly, the new book object also replaces the old book object in the `Catalog` object in the model through the call to
+Similarly, the new book object replaces the old book object in the `Catalog` object in the model through the call to
 `Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support immutability of the objects.
 
 ===== Returning
@@ -441,7 +454,7 @@ and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whol
 in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
 on their `LoanId` s.
 ** Pros: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
-Also, LoanRecords thus serve as a single source of truth.
+Also, `LoanRecords` thus serve as a single source of truth.
 ** Cons: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
 after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
 also be fast enough as there can be hundreds of thousands of loans.
@@ -451,8 +464,8 @@ also be fast enough as there can be hundreds of thousands of loans.
 * **Alternative 1:** Use a list data structure, such as an `ArrayList` to store the loans in the model component.
 ** Pros: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
 ** Cons: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
-correct associated `Loan` object. These additional time taken adds up when reading the storage files during the starting
-up of the application and can make the application feel laggy and unresponsive at the start.
+correct associated `Loan` object. The additional time taken adds up when reading the storage files during the starting
+up of the application. Thus, it can make the application feel laggy and unresponsive at the start.
 
 * **Alternative 2 (selected choice):** Use a `HashMap` to store the loans, where the key is its `LoanId`.
 ** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
