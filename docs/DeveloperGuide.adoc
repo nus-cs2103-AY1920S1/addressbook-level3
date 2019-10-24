@@ -315,6 +315,7 @@ Use case ends.
 [discrete]
 === Use case: Running a test using Front Back Cards
 *MSS*
+
 1. User enters command to start test with a deck of card and supplies deck name.
 2. System obtains the deck of cards. 
 3. System starts test session.
@@ -329,6 +330,7 @@ Step 4-8 repeated until there are no cards in the deck remaining.
 Use case ends.
 
 *Extensions*
+
 * 1a. System does not find a deck with the deck name specified by the user
 ** 1a1. System tells user that there is no deck with specified name.
 ** 1a2. System exits test creation.
@@ -345,6 +347,7 @@ Use case ends.
 [discrete]
 === Use case: Creating a deck of cards
 *MSS*
+
 1. User enters command to create a deck.
 2. System creates a new deck.
 3. User enters command to create a new card in the deck.
@@ -375,6 +378,7 @@ Steps 4-9 are repeated until there are no more cards in the test set.
 Use case ends.
 
 *Extensions*
+
 * 1a. System does not find a deck with the deck name specified by the user
 ** 1a1. System tells user that there is no deck with specified name.
 ** 1a2. System exits test creation.
@@ -399,6 +403,7 @@ Steps 6a1-6a3 repeats until the User enters a valid choice.
 [discrete]
 === Use case: Timed Test with a deck of Multiple Choice Cards 
 *MSS*
+
 1. User enters command to start test on a deck.
 +
 (System creates a test subset)
@@ -417,6 +422,7 @@ Steps 4-9 are repeated until there are no more cards in the test set.
 Use case ends.
 
 *Extensions*
+
 * 1a. System does not find a deck with the deck name specified by the user
 ** 1a1. System tells user that there is no deck with specified name.
 ** 1a2. System exits test creation.
@@ -454,6 +460,7 @@ Use case ends.
 Use case ends.
 
 *Extension*
+
 * 1a. User enters duplicated choices.
 ** 1a1. System detects duplicated choices in choices provided by user.
 ** 1a2. System tells User that there are duplicates in chocies provided.
