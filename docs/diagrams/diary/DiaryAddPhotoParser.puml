@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "p:AddPhotoParser" as AddPhotoParser LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant ":ImageChooser" as ImageChooser LOGIC_COLOR
+participant "c:AddPhotoCommand" as AddPhotoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Photo" as Photo MODEL_COLOR
+end box
+
+
+[--> AddPhotoParser : parse(userInput)
+activate AddPhotoParser
+
+AddPhotoParser -> ArgumentTokenizer : tokenize(userInput, ...prefixes)
+activate ArgumentTokenizer
+ArgumentTokenizer --> AddPhotoParser : argMultimap
+deactivate ArgumentTokenizer
+
+
+opt File Chooser Prefix is present in argMultimap
+create ImageChooser
+AddPhotoParser -> ImageChooser : new
+AddPhotoParser -> ImageChooser : showDialog()
+activate ImageChooser
+ImageChooser --> AddPhotoParser : imageFile
+deactivate ImageChooser
+end
+
+AddPhotoParser -> AddPhotoParser : getFilePath(argMultimap, imageFile)
+
+AddPhotoParser -> AddPhotoParser : parseDescription(argMultimap, imageFile)
+
+AddPhotoParser -> AddPhotoParser : parseDateTime(argMultimap, imageFile)
+
+create Photo
+AddPhotoParser -> Photo : new Photo(photo)
+
+create AddPhotoCommand
+AddPhotoParser -> AddPhotoCommand : new AddPhotoCommand(filePath, description, dateTaken)
+
+[<--AddPhotoParser : c
+deactivate AddPhotoParser
+
+
+AddPhotoParser -[LOGIC_COLOR_T1]> AddPhotoParser
+destroy AddPhotoParser
+
+@enduml
