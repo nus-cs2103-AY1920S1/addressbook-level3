@@ -230,14 +230,14 @@ A convenient financial tracker targeted at users who prefer typing over other in
 |Medium|As a lazy and expert user|I want to be able to define my own shortcuts to certain functionality myself (eg. spend mala ytd lunch 10.50), and extend/customize them from time to time|so that I can complete commands with convenience and ease.
 |Medium|As a student with limited income|I need a visualizer to show my urgent wishlist|so I can see how much I have saved to each goal.
 |Medium|As a student with limited income|I need a visualizer|so I can see my expenses in proportion to my income at a glance.
-|Medium|As a student who has difficulty planning his finances |I want to have an app help me calculate what to prioritize and how heavily I should prioritize to best meet my needs. I would like the app to have filters|so I can choose what category of spending to prioritize.
+|Medium|As a student who has difficulty planning his finances |I want the app to help me calculate what to prioritize and how heavily I should prioritize to best meet my needs|so I can prioritise what I should be spending my money on.
 |Medium|As a user who do not have the habit of tracking my expenses|I want to receive some incentive/motivation when I track my expenses|so that I would continue tracking it in the long run.
 |Medium|As a forgetful user|I need to have the ability to add notes to my wishlist detailing where I want to buy the product, link to buy the product etc|so that I can easily refer to the wishlist whenever I forget about the details.
-|Medium|As a student facing problems with student debt|I need an app to help me plan my spending with respect to my loan|so that I can work on paying off my loan eventually
+|Medium|As a student facing problems with student debt|I need an app to help me plan my spending with respect to my loan|so that I can work on paying off my loan eventually.
 |Medium|As a student trying to address his/her spending habits|I need an app that reminds me if I am spending too much|so that I can work on reducing my spending and improve my habits.
 |Low|As a user|I would like to be able to import details for my wishlist using external files |so that I do not need to key each item in individually.
-|Low|As a student who’s easily influenced|I want the app to provide me with painful reminders|So that I will be wrecked with guilt after indulging in stuff I do not need.
-|Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record quickly.
+|Low|As a student who’s easily influenced|I want the app to provide me with reminders|So that I do not overindulge in things I do not need.
+|Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record many expenses quickly.
 |===
 
 [appendix]
