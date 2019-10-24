@@ -2,11 +2,12 @@ package dukecooks.logic.parser.exercise;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.exercise.FindExerciseCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
-import org.junit.jupiter.api.Test;
 
 public class FindExerciseCommandParserTest {
 

@@ -4,8 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dukecooks.commons.core.Messages;
-import dukecooks.logic.commands.stats.StatisticsCommand;
-import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.ClearCommand;
 import dukecooks.logic.commands.Command;
@@ -15,6 +13,8 @@ import dukecooks.logic.commands.ExitCommand;
 import dukecooks.logic.commands.FindCommand;
 import dukecooks.logic.commands.HelpCommand;
 import dukecooks.logic.commands.ListCommand;
+import dukecooks.logic.commands.stats.StatisticsCommand;
+import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.

@@ -1,6 +1,5 @@
 package dukecooks.logic.commands.profile;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DOB;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_GENDER;
@@ -8,6 +7,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import dukecooks.logic.commands.EditCommand;
-import dukecooks.model.Model;
-import dukecooks.model.common.Name;
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.logic.commands.CommandResult;
+import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.model.Model;
+import dukecooks.model.common.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;

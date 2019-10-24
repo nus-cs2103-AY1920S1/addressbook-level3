@@ -5,10 +5,10 @@ import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.logic.commands.dashboard.ListTaskCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
+import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
 
 /**

@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import dukecooks.logic.commands.DeleteCommand;
-import dukecooks.model.Model;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandResult;
+import dukecooks.logic.commands.DeleteCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.model.Model;
 import dukecooks.model.recipe.components.Recipe;
 
 /**

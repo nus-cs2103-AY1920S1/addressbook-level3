@@ -2,9 +2,9 @@ package dukecooks.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
 
-import dukecooks.model.Model;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.ListCommand;
+import dukecooks.model.Model;
 
 /**
  * Lists all persons in the Duke Cooks to the user.

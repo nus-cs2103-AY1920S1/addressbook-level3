@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.dashboard.components.UniqueDashboardList;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the dashboard level

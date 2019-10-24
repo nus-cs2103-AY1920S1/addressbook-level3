@@ -1,23 +1,23 @@
 package dukecooks.storage.exercise;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.HOON;
 import static dukecooks.testutil.exercise.TypicalExercises.IDA;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.exercise.WorkoutPlanner;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class JsonWorkoutPlannerStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
@@ -49,12 +49,14 @@ public class JsonWorkoutPlannerStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        Assert.assertThrows(DataConversionException.class, () -> readWorkoutPlanner("notJsonFormatWorkoutPlanner.json"));
+        Assert.assertThrows(DataConversionException.class, ()
+            -> readWorkoutPlanner("notJsonFormatWorkoutPlanner.json"));
     }
 
     @Test
     public void readDukeCooks_invalidPersonDukeCooks_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readWorkoutPlanner("invalidExerciseWorkoutPlanner.json"));
+        Assert.assertThrows(DataConversionException.class, ()
+            -> readWorkoutPlanner("invalidExerciseWorkoutPlanner.json"));
     }
 
     @Test

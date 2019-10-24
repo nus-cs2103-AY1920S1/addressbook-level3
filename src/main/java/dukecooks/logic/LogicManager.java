@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import dukecooks.storage.Storage;
-import javafx.collections.ObservableList;
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.commands.Command;
@@ -25,6 +23,8 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.storage.Storage;
+import javafx.collections.ObservableList;
 
 
 /**

@@ -1,7 +1,6 @@
 package dukecooks.model;
 
 import static java.util.Objects.requireNonNull;
-import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -16,6 +15,12 @@ import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.diary.components.Diary;
+import dukecooks.model.health.HealthRecords;
+import dukecooks.model.health.ReadOnlyHealthRecords;
+import dukecooks.model.health.components.Record;
+import dukecooks.model.profile.ReadOnlyUserProfile;
+import dukecooks.model.profile.UserProfile;
+import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
@@ -24,12 +29,6 @@ import dukecooks.model.workout.exercise.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import dukecooks.model.health.HealthRecords;
-import dukecooks.model.health.ReadOnlyHealthRecords;
-import dukecooks.model.health.components.Record;
-import dukecooks.model.profile.ReadOnlyUserProfile;
-import dukecooks.model.profile.UserProfile;
-import dukecooks.model.profile.person.Person;
 
 /**
  * Represents the in-memory model of Duke Cooks data.

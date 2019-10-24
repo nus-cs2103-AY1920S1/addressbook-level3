@@ -1,15 +1,16 @@
 package dukecooks.model.recipe;
 
+import static dukecooks.testutil.recipe.TypicalRecipes.BURGER;
+import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
-import static dukecooks.testutil.recipe.TypicalRecipes.BURGER;
-import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.recipe.components.Recipe;
@@ -17,8 +18,6 @@ import dukecooks.model.recipe.components.UniqueRecipeList;
 import dukecooks.model.recipe.exceptions.DuplicateRecipeException;
 import dukecooks.model.recipe.exceptions.RecipeNotFoundException;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class UniqueRecipeListTest {
@@ -161,7 +160,8 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipes_listWithDuplicateRecipes_throwsDuplicateRecipeException() {
         List<Recipe> listWithDuplicateRecipes = Arrays.asList(MILO, MILO);
-        Assert.assertThrows(DuplicateRecipeException.class, () -> uniqueRecipeList.setRecipes(listWithDuplicateRecipes));
+        Assert.assertThrows(DuplicateRecipeException.class, ()
+            -> uniqueRecipeList.setRecipes(listWithDuplicateRecipes));
     }
 
     @Test

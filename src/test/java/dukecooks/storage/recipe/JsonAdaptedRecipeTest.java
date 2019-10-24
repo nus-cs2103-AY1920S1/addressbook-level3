@@ -1,12 +1,13 @@
 package dukecooks.storage.recipe;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.common.Name;
@@ -15,7 +16,6 @@ import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedRecipeTest {
     private static final String INVALID_NAME = "@melette";
@@ -53,7 +53,8 @@ public class JsonAdaptedRecipeTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(null, VALID_INGREDIENTS,
                 VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
-        String expectedMessage = String.format(JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT,
+                Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 

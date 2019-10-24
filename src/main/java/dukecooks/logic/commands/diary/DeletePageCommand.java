@@ -1,8 +1,8 @@
 package dukecooks.logic.commands.diary;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_NUMBER;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;

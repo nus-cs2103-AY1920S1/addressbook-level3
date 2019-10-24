@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.commons.core.Config;
+import dukecooks.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

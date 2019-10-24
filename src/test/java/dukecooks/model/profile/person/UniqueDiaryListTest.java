@@ -1,23 +1,22 @@
 package dukecooks.model.profile.person;
 
+import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
+import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
-import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
-import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import dukecooks.testutil.Assert;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.UniqueDiaryList;
 import dukecooks.model.diary.exceptions.DiaryNotFoundException;
 import dukecooks.model.diary.exceptions.DuplicateDiaryException;
+import dukecooks.testutil.Assert;
 import dukecooks.testutil.diary.DiaryBuilder;
 
 public class UniqueDiaryListTest {

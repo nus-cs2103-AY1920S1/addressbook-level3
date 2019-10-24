@@ -2,11 +2,11 @@ package dukecooks.model.workout.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class ExerciseNameTest {
 

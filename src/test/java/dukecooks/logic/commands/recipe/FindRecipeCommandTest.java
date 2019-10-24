@@ -1,16 +1,17 @@
 package dukecooks.logic.commands.recipe;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static dukecooks.testutil.recipe.TypicalRecipes.CHICKEN;
 import static dukecooks.testutil.recipe.TypicalRecipes.TEA;
 import static dukecooks.testutil.recipe.TypicalRecipes.TUNA;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandTestUtil;
@@ -18,7 +19,6 @@ import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindRecipeCommand}.

@@ -3,11 +3,11 @@ package dukecooks.logic.commands;
 import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.logic.commands.exercise.ClearExerciseCommand;
 import dukecooks.logic.commands.recipe.ClearRecipeCommand;
 import dukecooks.model.Model;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.recipe.RecipeBook;

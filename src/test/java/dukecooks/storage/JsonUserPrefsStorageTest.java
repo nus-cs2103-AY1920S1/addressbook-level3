@@ -2,19 +2,19 @@ package dukecooks.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.model.UserPrefs;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class JsonUserPrefsStorageTest {
 

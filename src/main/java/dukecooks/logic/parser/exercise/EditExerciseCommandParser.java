@@ -1,6 +1,5 @@
 package dukecooks.logic.parser.exercise;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DISTANCE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
@@ -9,6 +8,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
+import static java.util.Objects.requireNonNull;
 
 import java.util.HashSet;
 import java.util.Set;

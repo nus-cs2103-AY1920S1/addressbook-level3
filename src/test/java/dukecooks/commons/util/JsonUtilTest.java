@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import dukecooks.testutil.SerializableTestClass;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.testutil.SerializableTestClass;
 import dukecooks.testutil.TestUtil;
 
 /**

@@ -1,8 +1,8 @@
 package dukecooks.logic.parser.diary;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
+import static java.util.Objects.requireNonNull;
 
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.diary.EditDiaryCommand;

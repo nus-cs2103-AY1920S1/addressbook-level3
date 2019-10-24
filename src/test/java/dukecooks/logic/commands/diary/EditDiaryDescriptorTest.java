@@ -1,12 +1,9 @@
 package dukecooks.logic.commands.diary;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import dukecooks.logic.commands.CommandTestUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.testutil.diary.EditDiaryDescriptorBuilder;
 
 public class EditDiaryDescriptorTest {
@@ -14,7 +11,8 @@ public class EditDiaryDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditDiaryCommand.EditDiaryDescriptor descriptorWithSameValues = new EditDiaryCommand.EditDiaryDescriptor(CommandTestUtil.DESC_AMY_DIARY);
+        EditDiaryCommand.EditDiaryDescriptor descriptorWithSameValues = new EditDiaryCommand
+                .EditDiaryDescriptor(CommandTestUtil.DESC_AMY_DIARY);
         Assertions.assertTrue(CommandTestUtil.DESC_AMY_DIARY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -30,7 +28,8 @@ public class EditDiaryDescriptorTest {
         Assertions.assertFalse(CommandTestUtil.DESC_AMY_DIARY.equals(CommandTestUtil.DESC_BOB_DIARY));
 
         // different name -> returns false
-        EditDiaryCommand.EditDiaryDescriptor editedAmy = new EditDiaryDescriptorBuilder(CommandTestUtil.DESC_AMY_DIARY).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditDiaryCommand.EditDiaryDescriptor editedAmy = new EditDiaryDescriptorBuilder(CommandTestUtil
+                .DESC_AMY_DIARY).withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(CommandTestUtil.DESC_AMY_DIARY.equals(editedAmy));
     }
 }

@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;

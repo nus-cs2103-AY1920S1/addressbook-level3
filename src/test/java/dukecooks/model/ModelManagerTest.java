@@ -1,9 +1,5 @@
 package dukecooks.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
 import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
@@ -12,10 +8,16 @@ import static dukecooks.testutil.profile.TypicalProfiles.ALICE;
 import static dukecooks.testutil.profile.TypicalProfiles.BENSON;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.model.diary.DiaryRecords;
@@ -25,9 +27,6 @@ import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 import dukecooks.model.workout.exercise.WorkoutPlanner;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.diary.DiaryRecordBuilder;
 import dukecooks.testutil.exercise.WorkoutPlannerBuilder;
 import dukecooks.testutil.profile.UserProfileBuilder;

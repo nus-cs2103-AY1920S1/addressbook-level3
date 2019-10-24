@@ -1,7 +1,7 @@
 package dukecooks.model.common;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's name in Duke Cooks.

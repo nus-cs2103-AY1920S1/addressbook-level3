@@ -1,9 +1,8 @@
 package dukecooks.model.health.components;
 
-import dukecooks.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
-import static dukecooks.commons.util.AppUtil.checkArgument;
+
+import dukecooks.commons.util.AppUtil;
 
 /**
  * Represents User's input value for the record.

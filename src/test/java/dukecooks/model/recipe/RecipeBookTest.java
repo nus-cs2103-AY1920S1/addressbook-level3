@@ -1,27 +1,25 @@
 package dukecooks.model.recipe;
 
+import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
+import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
-import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
-import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.exceptions.DuplicateRecipeException;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
+import dukecooks.testutil.recipe.RecipeBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class RecipeBookTest {
 

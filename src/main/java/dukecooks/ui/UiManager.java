@@ -2,15 +2,15 @@ package dukecooks.ui;
 
 import java.util.logging.Logger;
 
+import dukecooks.MainApp;
+import dukecooks.commons.core.LogsCenter;
+import dukecooks.commons.util.StringUtil;
+import dukecooks.logic.Logic;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import dukecooks.MainApp;
-import dukecooks.commons.core.LogsCenter;
-import dukecooks.commons.util.StringUtil;
-import dukecooks.logic.Logic;
 
 /**
  * The manager of the UI component.

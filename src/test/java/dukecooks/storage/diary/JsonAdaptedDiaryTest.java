@@ -1,16 +1,16 @@
 package dukecooks.storage.diary;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.diary.TypicalDiaries.BRUNCH;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedDiaryTest {
     private static final String INVALID_DIARY_NAME = "R@chel";
@@ -37,7 +37,8 @@ public class JsonAdaptedDiaryTest {
     @Test
     public void toModelType_nullDiaryName_throwsIllegalValueException() {
         JsonAdaptedDiary diary = new JsonAdaptedDiary(null, VALID_PAGES);
-        String expectedMessage = String.format(JsonAdaptedDiary.MISSING_FIELD_MESSAGE_FORMAT, DiaryName.class.getSimpleName());
+        String expectedMessage = String.format(JsonAdaptedDiary.MISSING_FIELD_MESSAGE_FORMAT,
+                DiaryName.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, diary::toModelType);
     }
 

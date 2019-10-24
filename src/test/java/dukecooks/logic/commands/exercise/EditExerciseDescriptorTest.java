@@ -1,12 +1,9 @@
 package dukecooks.logic.commands.exercise;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import dukecooks.logic.commands.CommandTestUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
 
 public class EditExerciseDescriptorTest {
@@ -14,7 +11,8 @@ public class EditExerciseDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditExerciseCommand.EditExerciseDescriptor descriptorWithSameValues = new EditExerciseCommand.EditExerciseDescriptor(CommandTestUtil.DESC_PUSHUP);
+        EditExerciseCommand.EditExerciseDescriptor descriptorWithSameValues = new EditExerciseCommand
+                .EditExerciseDescriptor(CommandTestUtil.DESC_PUSHUP);
         Assertions.assertTrue(CommandTestUtil.DESC_PUSHUP.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -30,13 +28,15 @@ public class EditExerciseDescriptorTest {
         Assertions.assertFalse(CommandTestUtil.DESC_PUSHUP.equals(CommandTestUtil.DESC_SITUP));
 
         // different name -> returns false
-        EditExerciseCommand.EditExerciseDescriptor editedAmy = new EditExerciseDescriptorBuilder(CommandTestUtil.DESC_PUSHUP)
+        EditExerciseCommand.EditExerciseDescriptor editedAmy = new EditExerciseDescriptorBuilder(CommandTestUtil
+                .DESC_PUSHUP)
                 .withName(CommandTestUtil.VALID_NAME_SITUP).build();
         Assertions.assertFalse(CommandTestUtil.DESC_PUSHUP.equals(editedAmy));
 
         // different tags -> returns false
         editedAmy = new EditExerciseDescriptorBuilder(CommandTestUtil.DESC_PUSHUP)
-                .withDetails(null, null, null, null, null, CommandTestUtil.VALID_REPS_SIXTY)
+                .withDetails(null, null, null, null, null,
+                        CommandTestUtil.VALID_REPS_SIXTY)
                 .build();
         Assertions.assertFalse(CommandTestUtil.DESC_PUSHUP.equals(editedAmy));
     }

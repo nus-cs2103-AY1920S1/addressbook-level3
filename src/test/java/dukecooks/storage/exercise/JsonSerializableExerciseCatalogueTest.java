@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import dukecooks.commons.util.JsonUtil;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.commons.util.JsonUtil;
+import dukecooks.model.workout.exercise.WorkoutPlanner;
 import dukecooks.testutil.exercise.TypicalExercises;
 
 public class JsonSerializableExerciseCatalogueTest {

@@ -1,10 +1,9 @@
 package dukecooks.model.recipe;
 
-import static dukecooks.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class IngredientTest {
 

@@ -2,13 +2,14 @@ package dukecooks.logic.commands.diary;
 
 import static dukecooks.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.diary.components.Diary;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -25,7 +26,8 @@ public class AddDiaryCommandIntegrationTest {
     @Test
     public void execute_duplicateDiaries_throwsCommandException() {
         Diary diaryInList = model.getDiaryRecords().getDiaryList().get(0);
-        CommandTestUtil.assertDiaryCommandFailure(new AddDiaryCommand(diaryInList), model, AddDiaryCommand.MESSAGE_DUPLICATE_DIARY);
+        CommandTestUtil.assertDiaryCommandFailure(new AddDiaryCommand(diaryInList), model,
+                AddDiaryCommand.MESSAGE_DUPLICATE_DIARY);
     }
 
 }

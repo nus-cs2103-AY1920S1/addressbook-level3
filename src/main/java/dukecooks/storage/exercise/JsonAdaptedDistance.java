@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
-import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
 import dukecooks.model.workout.exercise.details.Distance;
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
+import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
 
 /**
  * Jackson-friendly version of {@link Distance}.

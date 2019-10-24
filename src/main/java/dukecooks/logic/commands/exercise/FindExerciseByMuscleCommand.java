@@ -2,11 +2,11 @@ package dukecooks.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
 
+import dukecooks.commons.core.Messages;
+import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.FindCommand;
 import dukecooks.model.Model;
 import dukecooks.model.workout.exercise.components.MusclesTrainedContainsKeywordsPredicate;
-import dukecooks.commons.core.Messages;
-import dukecooks.logic.commands.CommandResult;
 
 /**
  * Finds and lists all Exercise in Workout Planner whose muscles trained contains any of the argument keywords.

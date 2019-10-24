@@ -1,17 +1,17 @@
 package dukecooks.model.dashboard.components;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import dukecooks.model.dashboard.exceptions.DashboardNotFoundException;
 import dukecooks.model.dashboard.exceptions.DuplicateDashboardException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of dashboards that enforces uniqueness between its elements and does not allow nulls.

@@ -1,9 +1,8 @@
 package dukecooks.model;
 
-import static dukecooks.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class UserPrefsTest {
 

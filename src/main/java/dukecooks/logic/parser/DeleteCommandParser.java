@@ -5,18 +5,18 @@ import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dukecooks.logic.commands.diary.DeleteDiaryCommand;
-import dukecooks.logic.commands.diary.DeletePageCommand;
-import dukecooks.logic.parser.diary.DeleteDiaryCommandParser;
-import dukecooks.logic.parser.diary.DeletePageCommandParser;
-import dukecooks.logic.parser.exercise.DeleteExerciseCommandParser;
-import dukecooks.logic.parser.recipe.DeleteRecipeCommandParser;
 import dukecooks.logic.commands.DeleteCommand;
 import dukecooks.logic.commands.dashboard.DeleteTaskCommand;
+import dukecooks.logic.commands.diary.DeleteDiaryCommand;
+import dukecooks.logic.commands.diary.DeletePageCommand;
 import dukecooks.logic.commands.exercise.DeleteExerciseCommand;
 import dukecooks.logic.commands.recipe.DeleteRecipeCommand;
 import dukecooks.logic.parser.dashboard.DeleteTaskCommandParser;
+import dukecooks.logic.parser.diary.DeleteDiaryCommandParser;
+import dukecooks.logic.parser.diary.DeletePageCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.logic.parser.exercise.DeleteExerciseCommandParser;
+import dukecooks.logic.parser.recipe.DeleteRecipeCommandParser;
 
 /**
  * Parses input arguments and creates a new DeleteRecipeCommand object

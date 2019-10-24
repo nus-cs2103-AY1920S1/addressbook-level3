@@ -2,7 +2,6 @@ package dukecooks.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,12 +9,12 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import dukecooks.testutil.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import dukecooks.commons.core.Config;
 import dukecooks.commons.exceptions.DataConversionException;
+import dukecooks.testutil.Assert;
 
 public class ConfigUtilTest {
 

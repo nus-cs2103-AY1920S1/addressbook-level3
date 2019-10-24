@@ -1,16 +1,15 @@
 package dukecooks.model.workout.exercise;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.SITUP;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.exercise.ExerciseBuilder;
 
 public class ExerciseTest {
@@ -30,7 +29,8 @@ public class ExerciseTest {
         assertFalse(ABS_ROLLOUT.isSameExercise(null));
 
         // different name -> returns false
-        Exercise editedAbsRollout = new ExerciseBuilder(ABS_ROLLOUT).withName(CommandTestUtil.VALID_NAME_PUSHUP).build();
+        Exercise editedAbsRollout = new ExerciseBuilder(ABS_ROLLOUT).withName(CommandTestUtil.VALID_NAME_PUSHUP)
+                .build();
         assertFalse(ABS_ROLLOUT.isSameExercise(editedAbsRollout));
 
         // same name, same muscles, same intensity, different attributes -> returns true

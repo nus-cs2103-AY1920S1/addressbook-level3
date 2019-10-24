@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class RecipeExerciseNameContainsKeywordsPredicateTest {

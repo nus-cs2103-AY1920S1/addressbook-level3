@@ -1,17 +1,17 @@
 package dukecooks.commons.util;
 
+import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import dukecooks.testutil.Assert;
 import org.junit.jupiter.api.Test;
+
+import dukecooks.testutil.Assert;
 
 public class CollectionUtilTest {
     @Test

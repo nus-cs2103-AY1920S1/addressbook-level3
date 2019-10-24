@@ -2,9 +2,9 @@ package dukecooks.logic.commands.stats;
 
 import static java.util.Objects.requireNonNull;
 
-import dukecooks.model.Model;
 import dukecooks.logic.commands.Command;
 import dukecooks.logic.commands.CommandResult;
+import dukecooks.model.Model;
 
 /**
  * Adds a person to Duke Cooks.

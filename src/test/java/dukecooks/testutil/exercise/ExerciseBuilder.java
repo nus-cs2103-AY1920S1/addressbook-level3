@@ -5,14 +5,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import dukecooks.model.util.SampleDataUtil;
-import dukecooks.model.workout.exercise.details.ExerciseDetail;
-import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
-import dukecooks.model.workout.exercise.details.unit.WeightUnit;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.model.workout.exercise.components.MusclesTrained;
+import dukecooks.model.workout.exercise.details.ExerciseDetail;
+import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
+import dukecooks.model.workout.exercise.details.unit.WeightUnit;
 
 /**
  * A utility class to help with building Person objects.

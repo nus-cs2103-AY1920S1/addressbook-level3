@@ -1,7 +1,7 @@
 package dukecooks.model.dashboard;
 
-import javafx.collections.ObservableList;
 import dukecooks.model.dashboard.components.Dashboard;
+import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of Duke Cooks

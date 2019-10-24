@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.exercise.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
-import dukecooks.commons.exceptions.IllegalValueException;
 
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.

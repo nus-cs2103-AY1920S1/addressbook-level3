@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import dukecooks.commons.util.JsonUtil;
-import dukecooks.model.recipe.RecipeBook;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.commons.util.JsonUtil;
+import dukecooks.model.recipe.RecipeBook;
 import dukecooks.testutil.recipe.TypicalRecipes;
 
 public class JsonSerializableRecipeBookTest {

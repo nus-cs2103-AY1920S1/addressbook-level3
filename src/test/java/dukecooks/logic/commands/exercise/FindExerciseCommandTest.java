@@ -1,16 +1,17 @@
 package dukecooks.logic.commands.exercise;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static dukecooks.testutil.exercise.TypicalExercises.CURTSY_LUNGE;
 import static dukecooks.testutil.exercise.TypicalExercises.EXPLOSIVE_PUSHUP;
 import static dukecooks.testutil.exercise.TypicalExercises.FLYE;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandTestUtil;
@@ -18,7 +19,6 @@ import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

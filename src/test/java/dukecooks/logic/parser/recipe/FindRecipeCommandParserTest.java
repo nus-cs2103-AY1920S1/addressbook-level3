@@ -2,11 +2,12 @@ package dukecooks.logic.parser.recipe;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.recipe.FindRecipeCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
-import org.junit.jupiter.api.Test;
 
 public class FindRecipeCommandParserTest {
 

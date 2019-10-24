@@ -1,9 +1,10 @@
 package dukecooks.logic.commands.exercise;
 
+import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
@@ -14,8 +15,6 @@ import dukecooks.model.UserPrefs;
 import dukecooks.model.workout.exercise.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
 import dukecooks.testutil.exercise.ExerciseBuilder;
 
@@ -29,8 +28,10 @@ public class EditExerciseCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Exercise editedExercise = new ExerciseBuilder().build();
-        EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(editedExercise).build();
-        EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE, descriptor);
+        EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(editedExercise)
+                .build();
+        EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
+                descriptor);
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
@@ -47,12 +48,14 @@ public class EditExerciseCommandTest {
 
         ExerciseBuilder exerciseInList = new ExerciseBuilder(lastExercise);
         Exercise editedExercise = exerciseInList.withName(CommandTestUtil.VALID_NAME_SITUP)
-                .withDetails(null, null, null, null, null, CommandTestUtil.VALID_SETS_FIVE)
+                .withDetails(null, null, null, null, null,
+                        CommandTestUtil.VALID_SETS_FIVE)
                 .build();
 
         EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder()
                 .withName(CommandTestUtil.VALID_NAME_SITUP)
-                .withDetails(null, null, null, null, null, CommandTestUtil.VALID_SETS_FIVE)
+                .withDetails(null, null, null, null, null,
+                        CommandTestUtil.VALID_SETS_FIVE)
                 .build();
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(indexLastExercise, descriptor);
 
@@ -68,7 +71,8 @@ public class EditExerciseCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
                 new EditExerciseCommand.EditExerciseDescriptor());
-        Exercise editedExercise = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE.getZeroBased());
+        Exercise editedExercise = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE
+                .getZeroBased());
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
@@ -81,8 +85,10 @@ public class EditExerciseCommandTest {
     public void execute_filteredList_success() {
         CommandTestUtil.showExerciseAtIndex(model, TypicalIndexes.INDEX_FIRST_EXERCISE);
 
-        Exercise exerciseInFilteredList = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE.getZeroBased());
-        Exercise editedExercise = new ExerciseBuilder(exerciseInFilteredList).withName(CommandTestUtil.VALID_NAME_SITUP).build();
+        Exercise exerciseInFilteredList = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE
+                .getZeroBased());
+        Exercise editedExercise = new ExerciseBuilder(exerciseInFilteredList).withName(CommandTestUtil
+                .VALID_NAME_SITUP).build();
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
                 new EditExerciseDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_SITUP).build());
 
@@ -96,12 +102,15 @@ public class EditExerciseCommandTest {
 
     @Test
     public void execute_duplicateExerciseUnfilteredList_failure() {
-        Exercise firstExercise = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE.getZeroBased());
+        Exercise firstExercise = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE
+                .getZeroBased());
         EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(firstExercise)
                 .build();
-        EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_SECOND_EXERCISE, descriptor);
+        EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_SECOND_EXERCISE,
+                descriptor);
 
-        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model, EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
+        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model,
+                EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
     @Test
@@ -109,11 +118,13 @@ public class EditExerciseCommandTest {
         CommandTestUtil.showExerciseAtIndex(model, TypicalIndexes.INDEX_FIRST_EXERCISE);
 
         // edit exercise in filtered list into a duplicate in Duke Cooks
-        Exercise exerciseInList = model.getWorkoutPlanner().getExerciseList().get(TypicalIndexes.INDEX_SECOND_EXERCISE.getZeroBased());
+        Exercise exerciseInList = model.getWorkoutPlanner().getExerciseList().get(TypicalIndexes
+                .INDEX_SECOND_EXERCISE.getZeroBased());
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
                 new EditExerciseDescriptorBuilder(exerciseInList).build());
 
-        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model, EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
+        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model,
+                EditExerciseCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
     @Test
@@ -123,7 +134,8 @@ public class EditExerciseCommandTest {
                 .withName(CommandTestUtil.VALID_NAME_SITUP).build();
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(outOfBoundIndex, descriptor);
 
-        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model,
+                Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     /**
@@ -140,17 +152,20 @@ public class EditExerciseCommandTest {
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(outOfBoundIndex,
                 new EditExerciseDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_SITUP).build());
 
-        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        CommandTestUtil.assertExerciseCommandFailure(editExerciseCommand, model,
+                Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditExerciseCommand standardCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE, CommandTestUtil.DESC_PUSHUP);
+        final EditExerciseCommand standardCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
+                CommandTestUtil.DESC_PUSHUP);
 
         // same values -> returns true
         EditExerciseCommand.EditExerciseDescriptor copyDescriptor = new EditExerciseCommand
                 .EditExerciseDescriptor(CommandTestUtil.DESC_PUSHUP);
-        EditExerciseCommand commandWithSameValues = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE, copyDescriptor);
+        EditExerciseCommand commandWithSameValues = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
+                copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -163,10 +178,12 @@ public class EditExerciseCommandTest {
         assertFalse(standardCommand.equals(new ClearExerciseCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditExerciseCommand(TypicalIndexes.INDEX_SECOND_EXERCISE, CommandTestUtil.DESC_PUSHUP)));
+        assertFalse(standardCommand.equals(new EditExerciseCommand(TypicalIndexes.INDEX_SECOND_EXERCISE,
+                CommandTestUtil.DESC_PUSHUP)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE, CommandTestUtil.DESC_SITUP)));
+        assertFalse(standardCommand.equals(new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
+                CommandTestUtil.DESC_SITUP)));
     }
 
 }

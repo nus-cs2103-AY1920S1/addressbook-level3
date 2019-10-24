@@ -1,7 +1,6 @@
 package dukecooks.model.health.components;
 
 import static java.util.Objects.requireNonNull;
-import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;

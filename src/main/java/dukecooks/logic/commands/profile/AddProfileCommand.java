@@ -3,9 +3,9 @@ package dukecooks.logic.commands.profile;
 import static java.util.Objects.requireNonNull;
 
 import dukecooks.logic.commands.AddCommand;
-import dukecooks.model.Model;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.model.Model;
 import dukecooks.model.profile.person.Person;
 
 /**

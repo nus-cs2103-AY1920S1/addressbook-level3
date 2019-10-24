@@ -1,10 +1,9 @@
 package dukecooks.model.workout.exercise.detail;
 
-import static dukecooks.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class RepetitionsTest {
 

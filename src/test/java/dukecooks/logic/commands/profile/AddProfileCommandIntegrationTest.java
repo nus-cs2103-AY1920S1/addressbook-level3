@@ -2,10 +2,11 @@ package dukecooks.logic.commands.profile;
 
 import static dukecooks.testutil.profile.TypicalProfiles.getTypicalProfiles;
 
+import org.junit.jupiter.api.BeforeEach;
+
 import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
-import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Contains integration tests (interaction with the RecipeModel) for {@code AddProfileCommand}.

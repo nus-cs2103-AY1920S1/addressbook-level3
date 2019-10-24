@@ -1,13 +1,13 @@
 package dukecooks.model.profile.person;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
 import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dukecooks.logic.commands.CommandTestUtil;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.testutil.diary.DiaryBuilder;
 

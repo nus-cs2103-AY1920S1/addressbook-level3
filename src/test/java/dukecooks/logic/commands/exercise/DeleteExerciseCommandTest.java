@@ -1,9 +1,10 @@
 package dukecooks.logic.commands.exercise;
 
+import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
@@ -13,7 +14,6 @@ import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,10 +25,12 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE.getZeroBased());
+        Exercise exerciseToDelete = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE
+                .getZeroBased());
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE);
 
-        String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
+        String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
+                exerciseToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
@@ -41,17 +43,20 @@ public class DeleteExerciseCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExerciseList().size() + 1);
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
 
-        CommandTestUtil.assertExerciseCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        CommandTestUtil.assertExerciseCommandFailure(deleteExerciseCommand, model,
+                Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() {
         CommandTestUtil.showExerciseAtIndex(model, TypicalIndexes.INDEX_FIRST_EXERCISE);
 
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE.getZeroBased());
+        Exercise exerciseToDelete = model.getFilteredExerciseList().get(TypicalIndexes.INDEX_FIRST_EXERCISE
+                .getZeroBased());
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE);
 
-        String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
+        String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
+                exerciseToDelete);
 
         Model expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
@@ -70,7 +75,8 @@ public class DeleteExerciseCommandTest {
 
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
 
-        CommandTestUtil.assertExerciseCommandFailure(deleteExerciseCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        CommandTestUtil.assertExerciseCommandFailure(deleteExerciseCommand, model,
+                Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test

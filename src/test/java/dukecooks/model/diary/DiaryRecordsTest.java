@@ -1,11 +1,11 @@
 package dukecooks.model.diary;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
 import static dukecooks.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,12 +14,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.exceptions.DuplicateDiaryException;
 import dukecooks.testutil.diary.DiaryBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DiaryRecordsTest {
 

@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
@@ -16,8 +17,6 @@ import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.diary.DiaryBuilder;
 
 public class AddDiaryCommandTest {

@@ -1,10 +1,11 @@
 package dukecooks.logic.parser.recipe;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.recipe.DeleteRecipeCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -19,7 +20,8 @@ public class DeleteRecipeCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        CommandParserTestUtil.assertParseSuccess(parser, "1", new DeleteRecipeCommand(TypicalIndexes.INDEX_FIRST_RECIPE));
+        CommandParserTestUtil.assertParseSuccess(parser, "1",
+                new DeleteRecipeCommand(TypicalIndexes.INDEX_FIRST_RECIPE));
     }
 
     @Test

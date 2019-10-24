@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.model.workout.exercise.details.ExerciseWeight;
 import dukecooks.model.workout.exercise.details.unit.WeightUnit;
-import dukecooks.commons.exceptions.IllegalValueException;
 
 
 /**

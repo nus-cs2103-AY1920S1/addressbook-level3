@@ -2,7 +2,8 @@ package dukecooks.logic.parser.diary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.HelpCommand;
@@ -14,8 +15,6 @@ import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.diary.DiaryBuilder;
 import dukecooks.testutil.diary.DiaryUtil;
 import dukecooks.testutil.diary.EditDiaryDescriptorBuilder;
@@ -46,7 +45,8 @@ public class DiaryRecordsParserTest {
         EditDiaryCommand.EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(diary).build();
         EditDiaryCommand command = (EditDiaryCommand) parser.parseCommand(EditDiaryCommand.COMMAND_WORD
                 + " " + EditDiaryCommand.VARIANT_WORD
-                + " " + TypicalIndexes.INDEX_FIRST_DIARY.getOneBased() + " " + DiaryUtil.getEditDiaryDescriptorDetails(descriptor));
+                + " " + TypicalIndexes.INDEX_FIRST_DIARY.getOneBased() + " " + DiaryUtil
+                .getEditDiaryDescriptorDetails(descriptor));
         assertEquals(new EditDiaryCommand(TypicalIndexes.INDEX_FIRST_DIARY, descriptor), command);
     }
 
@@ -58,12 +58,14 @@ public class DiaryRecordsParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        Assert.assertThrows(ParseException.class, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        Assert.assertThrows(ParseException.class, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                HelpCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        Assert.assertThrows(ParseException.class, Messages.MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        Assert.assertThrows(ParseException.class, Messages.MESSAGE_UNKNOWN_COMMAND, ()
+            -> parser.parseCommand("unknownCommand"));
     }
 }

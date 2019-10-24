@@ -31,7 +31,8 @@ public class DiaryUtil {
      */
     public static String getEditDiaryDescriptorDetails(EditDiaryCommand.EditDiaryDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getDiaryName().ifPresent(name -> sb.append(CliSyntax.PREFIX_DIARY_NAME).append(name.fullName).append(" "));
+        descriptor.getDiaryName().ifPresent(name -> sb.append(CliSyntax.PREFIX_DIARY_NAME).append(name.fullName)
+                .append(" "));
         return sb.toString();
     }
 }

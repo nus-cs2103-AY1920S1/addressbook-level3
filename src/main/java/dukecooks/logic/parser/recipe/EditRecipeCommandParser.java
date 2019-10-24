@@ -1,8 +1,14 @@
 package dukecooks.logic.parser.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static dukecooks.logic.parser.CliSyntax.*;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_CARBS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_FATS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEINGREDIENT;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.Collections;

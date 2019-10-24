@@ -1,15 +1,16 @@
 package dukecooks.model.workout.exercise;
 
+import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
+import static dukecooks.testutil.exercise.TypicalExercises.SITUP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
-import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
-import static dukecooks.testutil.exercise.TypicalExercises.SITUP;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.workout.exercise.components.Exercise;
@@ -17,8 +18,6 @@ import dukecooks.model.workout.exercise.components.UniqueExerciseList;
 import dukecooks.model.workout.exercise.exceptions.DuplicateExerciseException;
 import dukecooks.model.workout.exercise.exceptions.ExerciseNotFoundException;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.exercise.ExerciseBuilder;
 
 public class UniqueExerciseListTest {
@@ -73,7 +72,8 @@ public class UniqueExerciseListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        Assert.assertThrows(ExerciseNotFoundException.class, () -> uniqueExerciseList.setPerson(ABS_ROLLOUT, ABS_ROLLOUT));
+        Assert.assertThrows(ExerciseNotFoundException.class, () -> uniqueExerciseList
+                .setPerson(ABS_ROLLOUT, ABS_ROLLOUT));
     }
 
     @Test
@@ -133,7 +133,8 @@ public class UniqueExerciseListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercises((UniqueExerciseList) null));
+        Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList
+                .setExercises((UniqueExerciseList) null));
     }
 
     @Test

@@ -1,9 +1,8 @@
 package dukecooks.model.recipe.components;
 
-import dukecooks.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
-import static dukecooks.commons.util.AppUtil.checkArgument;
+
+import dukecooks.commons.util.AppUtil;
 
 /**
  * Represents a recipe's amount of fats.

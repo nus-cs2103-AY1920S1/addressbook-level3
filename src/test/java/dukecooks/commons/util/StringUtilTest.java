@@ -2,12 +2,12 @@ package dukecooks.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import java.io.FileNotFoundException;
 
-import dukecooks.testutil.Assert;
 import org.junit.jupiter.api.Test;
+
+import dukecooks.testutil.Assert;
 
 public class StringUtilTest {
 
@@ -57,7 +57,8 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase("typical sentence", null));
+        Assert.assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase("typical sentence",
+                null));
     }
 
     @Test

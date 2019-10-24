@@ -1,12 +1,12 @@
 package dukecooks.model.profile;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static dukecooks.logic.commands.CommandTestUtil.VALID_HISTORY_DENGUE;
 import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.profile.TypicalProfiles.ALICE;
 import static dukecooks.testutil.profile.TypicalProfiles.BOB;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

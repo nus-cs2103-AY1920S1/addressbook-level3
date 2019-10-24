@@ -1,10 +1,9 @@
 package dukecooks.model.health.components;
 
+import static java.util.Objects.requireNonNull;
+
 import dukecooks.commons.util.AppUtil;
 import dukecooks.model.health.components.util.TypeUtil;
-
-import static java.util.Objects.requireNonNull;
-import static dukecooks.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the type of health record.

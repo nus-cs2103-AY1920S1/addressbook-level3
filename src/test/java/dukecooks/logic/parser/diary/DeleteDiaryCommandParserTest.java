@@ -1,10 +1,11 @@
 package dukecooks.logic.parser.diary;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.diary.DeleteDiaryCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

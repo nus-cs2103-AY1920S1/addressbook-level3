@@ -7,6 +7,7 @@ import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.logic.parser.exceptions.ParseException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,7 +17,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing

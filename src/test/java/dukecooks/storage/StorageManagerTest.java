@@ -1,13 +1,17 @@
 package dukecooks.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static dukecooks.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 import static dukecooks.testutil.profile.TypicalProfiles.getTypicalProfiles;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.model.UserPrefs;
@@ -19,16 +23,12 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
 import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
+import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
 import dukecooks.storage.recipe.JsonRecipeBookStorage;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import dukecooks.storage.dashboard.JsonDashboardStorage;
-import dukecooks.storage.health.JsonHealthRecordsStorage;
 
 public class StorageManagerTest {
 

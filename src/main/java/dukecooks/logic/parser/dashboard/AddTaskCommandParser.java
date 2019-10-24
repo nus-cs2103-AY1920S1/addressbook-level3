@@ -6,9 +6,6 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_TASKNAME;
 
 import java.util.stream.Stream;
 
-import dukecooks.model.dashboard.components.Dashboard;
-import dukecooks.model.dashboard.components.DashboardName;
-import dukecooks.model.dashboard.components.TaskDate;
 import dukecooks.logic.commands.dashboard.AddTaskCommand;
 import dukecooks.logic.parser.ArgumentMultimap;
 import dukecooks.logic.parser.ArgumentTokenizer;
@@ -16,6 +13,9 @@ import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.ParserUtil;
 import dukecooks.logic.parser.Prefix;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.dashboard.components.Dashboard;
+import dukecooks.model.dashboard.components.DashboardName;
+import dukecooks.model.dashboard.components.TaskDate;
 
 /**
  * Parses input arguments and creates a new AddTaskCommand object

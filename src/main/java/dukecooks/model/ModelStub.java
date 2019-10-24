@@ -3,8 +3,6 @@ package dukecooks.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
-
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
 import dukecooks.model.dashboard.components.Dashboard;
@@ -18,6 +16,7 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
+import javafx.collections.ObservableList;
 
 /**
  * A default model stub that have all of the methods failing.

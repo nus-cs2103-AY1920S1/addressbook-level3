@@ -25,9 +25,12 @@ public class PersonUtil {
      */
     public static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CliSyntax.PREFIX_NAME + person.getName().fullName + " " + CliSyntax.PREFIX_DOB + person.getDateOfBirth().dateOfBirth + " "
-                + CliSyntax.PREFIX_GENDER + person.getGender().gender + CliSyntax.PREFIX_BLOODTYPE + person.getBloodType().bloodGroup + " "
-                + CliSyntax.PREFIX_WEIGHT + person.getWeight().weight + CliSyntax.PREFIX_HEIGHT + person.getHeight().height);
+        sb.append(CliSyntax.PREFIX_NAME + person.getName().fullName + " " + CliSyntax.PREFIX_DOB
+                + person.getDateOfBirth().dateOfBirth + " "
+                + CliSyntax.PREFIX_GENDER + person.getGender().gender + CliSyntax.PREFIX_BLOODTYPE
+                + person.getBloodType().bloodGroup + " "
+                + CliSyntax.PREFIX_WEIGHT + person.getWeight().weight + CliSyntax.PREFIX_HEIGHT
+                + person.getHeight().height);
         person.getMedicalHistories().stream().forEach(
             s -> sb.append(CliSyntax.PREFIX_MEDICALHISTORY + s.medicalHistoryName + " ")
         );

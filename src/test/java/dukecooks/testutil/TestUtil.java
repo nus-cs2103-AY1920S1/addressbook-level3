@@ -7,9 +7,9 @@ import java.nio.file.Paths;
 
 import dukecooks.commons.core.index.Index;
 import dukecooks.model.Model;
+import dukecooks.model.diary.components.Diary;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.exercise.components.Exercise;
-import dukecooks.model.diary.components.Diary;
 
 /**
  * A utility class for test cases.

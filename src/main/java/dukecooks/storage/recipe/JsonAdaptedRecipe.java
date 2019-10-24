@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import dukecooks.model.common.Name;
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;

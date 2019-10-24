@@ -1,26 +1,24 @@
 package dukecooks.model.workout.exercise;
 
+import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
+import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
-import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
-import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.exceptions.DuplicateExerciseException;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
+import dukecooks.testutil.exercise.ExerciseBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import dukecooks.testutil.exercise.ExerciseBuilder;
 
 public class WorkoutPlannerTest {
 

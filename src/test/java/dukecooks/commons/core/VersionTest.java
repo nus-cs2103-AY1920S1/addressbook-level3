@@ -2,10 +2,10 @@ package dukecooks.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class VersionTest {
 

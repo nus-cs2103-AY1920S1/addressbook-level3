@@ -1,15 +1,15 @@
 package dukecooks.model.workout.exercise.components;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import dukecooks.model.workout.exercise.exceptions.DuplicateExerciseException;
+import dukecooks.model.workout.exercise.exceptions.ExerciseNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import dukecooks.model.workout.exercise.exceptions.ExerciseNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

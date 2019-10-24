@@ -5,10 +5,6 @@ import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dukecooks.logic.parser.exercise.FindExerciseByIntensityCommandParser;
-import dukecooks.logic.parser.exercise.FindExerciseByMuscleCommandParser;
-import dukecooks.logic.parser.exercise.FindExerciseCommandParser;
-import dukecooks.logic.parser.recipe.FindRecipeCommandParser;
 import dukecooks.logic.commands.FindCommand;
 import dukecooks.logic.commands.dashboard.FindTaskCommand;
 import dukecooks.logic.commands.exercise.FindExerciseByIntensityCommand;
@@ -17,6 +13,10 @@ import dukecooks.logic.commands.exercise.FindExerciseCommand;
 import dukecooks.logic.commands.recipe.FindRecipeCommand;
 import dukecooks.logic.parser.dashboard.FindTaskCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.logic.parser.exercise.FindExerciseByIntensityCommandParser;
+import dukecooks.logic.parser.exercise.FindExerciseByMuscleCommandParser;
+import dukecooks.logic.parser.exercise.FindExerciseCommandParser;
+import dukecooks.logic.parser.recipe.FindRecipeCommandParser;
 
 /**
  * Parses input arguments and creates a new FindRecipeCommand object

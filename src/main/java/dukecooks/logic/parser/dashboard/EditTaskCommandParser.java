@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
-import dukecooks.logic.parser.*;
-import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.commands.dashboard.EditTaskCommand;
 import dukecooks.logic.commands.dashboard.EditTaskCommand.EditTaskDescriptor;
 import dukecooks.logic.parser.ArgumentMultimap;
 import dukecooks.logic.parser.ArgumentTokenizer;
+import dukecooks.logic.parser.CliSyntax;
 import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.ParserUtil;
+import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new EditRecipeCommand object
@@ -43,7 +43,8 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
                     (argMultimap.getValue(CliSyntax.PREFIX_TASKNAME).get()));
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_TASKDATE).isPresent()) {
-            editTaskDescriptor.setTaskDate(ParserUtil.parseTaskDate(argMultimap.getValue(CliSyntax.PREFIX_TASKDATE).get()));
+            editTaskDescriptor.setTaskDate(ParserUtil.parseTaskDate(argMultimap.getValue(CliSyntax
+                    .PREFIX_TASKDATE).get()));
         }
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {

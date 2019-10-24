@@ -1,10 +1,10 @@
 package dukecooks.logic.commands.diary;
 
+import static dukecooks.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static dukecooks.testutil.diary.TypicalDiaries.getTypicalDiaryRecords;
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
@@ -14,7 +14,6 @@ import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

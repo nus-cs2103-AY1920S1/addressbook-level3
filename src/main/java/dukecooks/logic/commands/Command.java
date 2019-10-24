@@ -1,7 +1,7 @@
 package dukecooks.logic.commands;
 
-import dukecooks.model.Model;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

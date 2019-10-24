@@ -2,6 +2,8 @@ package dukecooks.logic.parser.recipe;
 
 import static dukecooks.testutil.recipe.TypicalRecipes.FISH;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandTestUtil;
@@ -11,8 +13,6 @@ import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.recipe.EditRecipeDescriptorBuilder;
 
 public class EditRecipeCommandParserTest {
@@ -39,10 +39,12 @@ public class EditRecipeCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        CommandParserTestUtil.assertParseFailure(parser, "-5" + CommandTestUtil.NAME_DESC_FISH, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "-5" + CommandTestUtil.NAME_DESC_FISH,
+                MESSAGE_INVALID_FORMAT);
 
         // zero index
-        CommandParserTestUtil.assertParseFailure(parser, "0" + CommandTestUtil.NAME_DESC_FISH, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "0" + CommandTestUtil.NAME_DESC_FISH,
+                MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         CommandParserTestUtil.assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -53,16 +55,21 @@ public class EditRecipeCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_FOOD_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_INGREDIENT_DESC, Ingredient.MESSAGE_CONSTRAINTS); // invalid ingredient
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_FOOD_NAME_DESC,
+                Name.MESSAGE_CONSTRAINTS); // invalid name
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_INGREDIENT_DESC,
+                Ingredient.MESSAGE_CONSTRAINTS); // invalid ingredient
 
         // while parsing {@code PREFIX_INGREDIENT} alone will reset the ingredients of the {@code Recipe} being edited,
         // parsing it together with a valid ingredient results in error
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INGREDIENT_DESC_FISH + CommandTestUtil.INGREDIENT_DESC_BURGER + INGREDIENT_EMPTY,
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INGREDIENT_DESC_FISH
+                + CommandTestUtil.INGREDIENT_DESC_BURGER + INGREDIENT_EMPTY,
                 Ingredient.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INGREDIENT_DESC_FISH + INGREDIENT_EMPTY + CommandTestUtil.INGREDIENT_DESC_BURGER,
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INGREDIENT_DESC_FISH
+                + INGREDIENT_EMPTY + CommandTestUtil.INGREDIENT_DESC_BURGER,
                 Ingredient.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INGREDIENT_EMPTY + CommandTestUtil.INGREDIENT_DESC_FISH + CommandTestUtil.INGREDIENT_DESC_BURGER,
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INGREDIENT_EMPTY
+                + CommandTestUtil.INGREDIENT_DESC_FISH + CommandTestUtil.INGREDIENT_DESC_BURGER,
                 Ingredient.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
@@ -77,7 +84,8 @@ public class EditRecipeCommandParserTest {
                  + CommandTestUtil.NAME_DESC_FISH + CommandTestUtil.INGREDIENT_DESC_FISH;
 
         EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(FISH)
-                .withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER, CommandTestUtil.VALID_INGREDIENT_FISH).build();
+                .withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER, CommandTestUtil.VALID_INGREDIENT_FISH)
+                .build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
@@ -89,7 +97,8 @@ public class EditRecipeCommandParserTest {
         // name
         Index targetIndex = TypicalIndexes.INDEX_THIRD_RECIPE;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_FISH;
-        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_FISH).build();
+        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_FISH).build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -144,7 +153,8 @@ public class EditRecipeCommandParserTest {
         Index targetIndex = TypicalIndexes.INDEX_THIRD_RECIPE;
         String userInput = targetIndex.getOneBased() + INGREDIENT_EMPTY;
 
-        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withIngredients().build();
+        EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withIngredients()
+                .build();
         EditRecipeCommand expectedCommand = new EditRecipeCommand(targetIndex, descriptor);
 
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);

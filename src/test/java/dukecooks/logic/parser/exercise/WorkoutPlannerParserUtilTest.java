@@ -1,7 +1,7 @@
 package dukecooks.logic.parser.exercise;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static dukecooks.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.workout.exercise.components.ExerciseName;
@@ -10,8 +10,6 @@ import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class WorkoutPlannerParserUtilTest {
     private static final String INVALID_NAME = "Revers* Lunge";

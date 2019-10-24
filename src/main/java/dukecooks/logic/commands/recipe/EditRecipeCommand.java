@@ -1,12 +1,12 @@
 package dukecooks.logic.commands.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CARBS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_FATS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import dukecooks.logic.commands.EditCommand;
-import dukecooks.model.Model;
-import dukecooks.model.common.Name;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.logic.commands.CommandResult;
+import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.model.Model;
+import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;

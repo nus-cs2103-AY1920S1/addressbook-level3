@@ -1,7 +1,5 @@
 package dukecooks.model.profile.person;
 
-import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;

@@ -1,7 +1,5 @@
 package dukecooks.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CARBS;
@@ -20,6 +18,8 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static dukecooks.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

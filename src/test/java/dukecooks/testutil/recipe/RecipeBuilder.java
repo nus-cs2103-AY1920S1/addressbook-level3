@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import dukecooks.model.common.Name;
-import dukecooks.model.util.SampleRecipeDataUtil;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.util.SampleRecipeDataUtil;
 
 /**
  * A utility class to help with building Recipe objects.

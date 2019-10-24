@@ -1,6 +1,5 @@
 package dukecooks.logic.commands.exercise;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DISTANCE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
@@ -8,6 +7,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,19 +15,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import dukecooks.logic.commands.EditCommand;
-import dukecooks.model.Model;
-import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.logic.commands.CommandResult;
+import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.model.Model;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.model.workout.exercise.components.MusclesTrained;
+import dukecooks.model.workout.exercise.details.ExerciseDetail;
 
 /**
  * Edits the details of an existing exercise in Duke Cooks.

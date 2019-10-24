@@ -1,7 +1,7 @@
 package dukecooks.model.dashboard.components;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a dashboard's name in Duke Cooks.

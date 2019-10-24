@@ -1,14 +1,13 @@
 package dukecooks.model.profile.person;
 
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.profile.TypicalProfiles.ALICE;
 import static dukecooks.testutil.profile.TypicalProfiles.BOB;
 
-import dukecooks.logic.commands.CommandTestUtil;
-import dukecooks.testutil.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.logic.commands.CommandTestUtil;
+import dukecooks.testutil.Assert;
 import dukecooks.testutil.profile.PersonBuilder;
 
 public class PersonTest {

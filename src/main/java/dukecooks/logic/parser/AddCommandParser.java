@@ -5,22 +5,22 @@ import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dukecooks.logic.commands.diary.AddPageCommand;
-import dukecooks.logic.commands.exercise.AddExerciseCommand;
-import dukecooks.logic.parser.diary.AddDiaryCommandParser;
-import dukecooks.logic.parser.diary.AddPageCommandParser;
-import dukecooks.logic.parser.exercise.AddExerciseCommandParser;
-import dukecooks.logic.parser.health.AddHealthCommandParser;
-import dukecooks.logic.parser.profile.AddProfileCommandParser;
-import dukecooks.logic.parser.recipe.AddRecipeCommandParser;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.dashboard.AddTaskCommand;
 import dukecooks.logic.commands.diary.AddDiaryCommand;
+import dukecooks.logic.commands.diary.AddPageCommand;
+import dukecooks.logic.commands.exercise.AddExerciseCommand;
 import dukecooks.logic.commands.health.AddHealthCommand;
 import dukecooks.logic.commands.profile.AddProfileCommand;
 import dukecooks.logic.commands.recipe.AddRecipeCommand;
 import dukecooks.logic.parser.dashboard.AddTaskCommandParser;
+import dukecooks.logic.parser.diary.AddDiaryCommandParser;
+import dukecooks.logic.parser.diary.AddPageCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.logic.parser.exercise.AddExerciseCommandParser;
+import dukecooks.logic.parser.health.AddHealthCommandParser;
+import dukecooks.logic.parser.profile.AddProfileCommandParser;
+import dukecooks.logic.parser.recipe.AddRecipeCommandParser;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object

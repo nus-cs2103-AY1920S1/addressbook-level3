@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import dukecooks.commons.util.JsonUtil;
-import dukecooks.model.diary.DiaryRecords;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.commons.util.JsonUtil;
+import dukecooks.model.diary.DiaryRecords;
 import dukecooks.testutil.diary.TypicalDiaries;
 
 public class JsonSerializableDiaryCatalogueTest {

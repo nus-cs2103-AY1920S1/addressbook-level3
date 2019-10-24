@@ -1,23 +1,23 @@
 package dukecooks.storage.recipe;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.recipe.TypicalRecipes.KAPPA;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static dukecooks.testutil.recipe.TypicalRecipes.TAMAGO;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 public class JsonRecipeBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonRecipeBookStorageTest");
@@ -52,12 +52,14 @@ public class JsonRecipeBookStorageTest {
 
     @Test
     public void readRecipeBook_invalidRecipeRecipeBook_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readRecipeBook("invalidRecipeRecipeBook.json"));
+        Assert.assertThrows(DataConversionException.class, ()
+            -> readRecipeBook("invalidRecipeRecipeBook.json"));
     }
 
     @Test
     public void readRecipeBook_invalidAndValidRecipeRecipeBook_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readRecipeBook("invalidAndValidRecipeRecipeBook.json"));
+        Assert.assertThrows(DataConversionException.class, ()
+            -> readRecipeBook("invalidAndValidRecipeRecipeBook.json"));
     }
 
     @Test

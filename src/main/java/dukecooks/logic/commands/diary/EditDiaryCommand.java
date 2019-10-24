@@ -1,8 +1,8 @@
 package dukecooks.logic.commands.diary;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static dukecooks.model.Model.PREDICATE_SHOW_ALL_DIARIES;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;

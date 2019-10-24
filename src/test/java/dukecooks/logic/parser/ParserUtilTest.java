@@ -1,12 +1,12 @@
 package dukecooks.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static dukecooks.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

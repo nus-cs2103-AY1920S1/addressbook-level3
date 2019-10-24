@@ -1,12 +1,9 @@
 package dukecooks.logic.commands.recipe;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import dukecooks.logic.commands.CommandTestUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.testutil.recipe.EditRecipeDescriptorBuilder;
 
 public class EditRecipeDescriptorTest {
@@ -31,11 +28,13 @@ public class EditRecipeDescriptorTest {
         Assertions.assertFalse(CommandTestUtil.DESC_FISH.equals(CommandTestUtil.DESC_BURGER));
 
         // different name -> returns false
-        EditRecipeCommand.EditRecipeDescriptor editedAmy = new EditRecipeDescriptorBuilder(CommandTestUtil.DESC_FISH).withName(CommandTestUtil.VALID_NAME_BURGER).build();
+        EditRecipeCommand.EditRecipeDescriptor editedAmy = new EditRecipeDescriptorBuilder(CommandTestUtil.DESC_FISH)
+                .withName(CommandTestUtil.VALID_NAME_BURGER).build();
         Assertions.assertFalse(CommandTestUtil.DESC_FISH.equals(editedAmy));
 
         // different ingredients -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(CommandTestUtil.DESC_FISH).withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        editedAmy = new EditRecipeDescriptorBuilder(CommandTestUtil.DESC_FISH).withIngredients(CommandTestUtil
+                .VALID_INGREDIENT_BURGER).build();
         Assertions.assertFalse(CommandTestUtil.DESC_FISH.equals(editedAmy));
     }
 }

@@ -3,10 +3,10 @@ package dukecooks.logic.parser.dashboard;
 import java.util.Arrays;
 
 import dukecooks.commons.core.Messages;
+import dukecooks.logic.commands.dashboard.FindTaskCommand;
 import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.dashboard.components.DashboardNameContainsKeywordsPredicate;
-import dukecooks.logic.commands.dashboard.FindTaskCommand;
 
 /**
  * Parses input arguments and creates a new FindRecipeCommand object

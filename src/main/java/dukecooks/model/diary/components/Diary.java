@@ -1,7 +1,7 @@
 package dukecooks.model.diary.components;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Objects;

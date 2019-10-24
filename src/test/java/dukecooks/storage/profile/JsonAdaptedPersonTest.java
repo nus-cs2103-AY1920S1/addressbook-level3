@@ -1,16 +1,16 @@
 package dukecooks.storage.profile;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.profile.TypicalProfiles.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.common.Name;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
@@ -50,7 +50,8 @@ public class JsonAdaptedPersonTest {
                 new JsonAdaptedPerson(null, VALID_DOB, VALID_GENDER, VALID_BLOODTYPE,
                         VALID_WEIGHT, VALID_WEIGHT_TIMESTAMP, VALID_HEIGHT, VALID_HEIGHT_TIMESTAMP,
                         VALID_MEDICALHISTORIES);
-        String expectedMessage = String.format(JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT,
+                Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

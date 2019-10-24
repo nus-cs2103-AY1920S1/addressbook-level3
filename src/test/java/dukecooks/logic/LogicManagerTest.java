@@ -1,45 +1,44 @@
 package dukecooks.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.profile.TypicalProfiles.AMY;
 import static dukecooks.testutil.recipe.TypicalRecipes.FISH;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import dukecooks.commons.core.Messages;
+import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
 import dukecooks.logic.commands.profile.AddProfileCommand;
 import dukecooks.logic.commands.recipe.AddRecipeCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
+import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.Model;
+import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
+import dukecooks.model.diary.ReadOnlyDiary;
+import dukecooks.model.profile.ReadOnlyUserProfile;
+import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import dukecooks.storage.JsonUserPrefsStorage;
 import dukecooks.storage.StorageManager;
+import dukecooks.storage.dashboard.JsonDashboardStorage;
+import dukecooks.storage.diary.JsonDiaryStorage;
 import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
+import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
 import dukecooks.storage.recipe.JsonRecipeBookStorage;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import dukecooks.logic.commands.CommandResult;
-import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.ModelManager;
-import dukecooks.model.diary.ReadOnlyDiary;
-import dukecooks.model.profile.ReadOnlyUserProfile;
-import dukecooks.model.profile.person.Person;
-import dukecooks.storage.dashboard.JsonDashboardStorage;
-import dukecooks.storage.diary.JsonDiaryStorage;
-import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.testutil.profile.PersonBuilder;
 import dukecooks.testutil.recipe.RecipeBuilder;
 
@@ -136,15 +135,20 @@ public class LogicManagerTest {
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
 
         // Execute add command
-        String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD + " " + CommandTestUtil.NAME_DESC_FISH
-                + CommandTestUtil.INGREDIENT_DESC_FISH + CommandTestUtil.CALORIES_DESC_FISH + CommandTestUtil.CARBS_DESC_FISH + CommandTestUtil.FATS_DESC_FISH + CommandTestUtil.PROTEIN_DESC_FISH;
+        String addCommand = AddRecipeCommand.COMMAND_WORD + " " + AddRecipeCommand.VARIANT_WORD
+                + " " + CommandTestUtil.NAME_DESC_FISH
+                + CommandTestUtil.INGREDIENT_DESC_FISH + CommandTestUtil.CALORIES_DESC_FISH
+                + CommandTestUtil.CARBS_DESC_FISH + CommandTestUtil.FATS_DESC_FISH
+                + CommandTestUtil.PROTEIN_DESC_FISH;
         Recipe expectedRecipe = new RecipeBuilder(FISH).build();
 
         expectedModel.addRecipe(expectedRecipe);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
 
         addCommand = AddProfileCommand.COMMAND_WORD + " " + AddProfileCommand.VARIANT_WORD
-                + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.DOB_DESC + CommandTestUtil.GENDER_DESC + CommandTestUtil.BLOODTYPE_DESC + CommandTestUtil.HEIGHT_DESC + CommandTestUtil.WEIGHT_DESC;
+                + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.DOB_DESC
+                + CommandTestUtil.GENDER_DESC + CommandTestUtil.BLOODTYPE_DESC
+                + CommandTestUtil.HEIGHT_DESC + CommandTestUtil.WEIGHT_DESC;
         Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
         //Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
         //       .withDetails(null, null, null, null, null, null)

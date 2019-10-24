@@ -1,10 +1,8 @@
 package dukecooks.model.diary.components;
 
-import dukecooks.commons.util.CollectionUtil;
-
-import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
+
+import dukecooks.commons.util.CollectionUtil;
 
 /**
  * Represents a Page in Duke Cooks.

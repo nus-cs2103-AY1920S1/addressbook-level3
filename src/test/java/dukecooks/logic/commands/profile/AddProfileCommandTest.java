@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.model.ModelStub;
@@ -15,8 +16,6 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.profile.PersonBuilder;
 
 

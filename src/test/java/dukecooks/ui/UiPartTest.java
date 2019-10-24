@@ -2,17 +2,16 @@ package dukecooks.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import java.net.URL;
 import java.nio.file.Path;
 
-import dukecooks.testutil.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import javafx.fxml.FXML;
 import dukecooks.MainApp;
+import dukecooks.testutil.Assert;
+import javafx.fxml.FXML;
 
 public class UiPartTest {
 

@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
 import org.junit.jupiter.api.Test;
 
+import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
 import dukecooks.testutil.exercise.ExerciseBuilder;
 
 public class ExerciseNameContainsKeywordsPredicateTest {

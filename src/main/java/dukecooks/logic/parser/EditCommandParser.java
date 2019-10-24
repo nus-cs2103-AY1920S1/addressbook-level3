@@ -6,17 +6,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dukecooks.logic.commands.EditCommand;
-import dukecooks.logic.commands.diary.EditDiaryCommand;
-import dukecooks.logic.parser.diary.EditDiaryCommandParser;
-import dukecooks.logic.parser.exercise.EditExerciseCommandParser;
-import dukecooks.logic.parser.profile.EditProfileCommandParser;
-import dukecooks.logic.parser.recipe.EditRecipeCommandParser;
 import dukecooks.logic.commands.dashboard.EditTaskCommand;
+import dukecooks.logic.commands.diary.EditDiaryCommand;
 import dukecooks.logic.commands.exercise.EditExerciseCommand;
 import dukecooks.logic.commands.profile.EditProfileCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
 import dukecooks.logic.parser.dashboard.EditTaskCommandParser;
+import dukecooks.logic.parser.diary.EditDiaryCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.logic.parser.exercise.EditExerciseCommandParser;
+import dukecooks.logic.parser.profile.EditProfileCommandParser;
+import dukecooks.logic.parser.recipe.EditRecipeCommandParser;
 
 /**
  * Parses input arguments and creates a new EditRecipeCommand object

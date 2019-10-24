@@ -1,7 +1,7 @@
 package dukecooks.model.workout.exercise.components;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents an Exercise's name in Duke Cooks.

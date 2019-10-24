@@ -1,5 +1,7 @@
 package dukecooks.logic.parser.exercise;
 
+import org.junit.jupiter.api.Test;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandTestUtil;
@@ -9,8 +11,6 @@ import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
 
 public class EditExerciseCommandParserTest {
@@ -37,10 +37,12 @@ public class EditExerciseCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        CommandParserTestUtil.assertParseFailure(parser, "-5" + CommandTestUtil.NAME_DESC_PUSHUP, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "-5" + CommandTestUtil.NAME_DESC_PUSHUP,
+                MESSAGE_INVALID_FORMAT);
 
         // zero index
-        CommandParserTestUtil.assertParseFailure(parser, "0" + CommandTestUtil.NAME_DESC_PUSHUP, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "0" + CommandTestUtil.NAME_DESC_PUSHUP,
+                MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         CommandParserTestUtil.assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -51,8 +53,10 @@ public class EditExerciseCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_FOOD_NAME_DESC, ExerciseName.MESSAGE_CONSTRAINTS); // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_SETS_DESC, ExerciseDetail.MESSAGE_CONSTRAINTS); // invalid detail
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_FOOD_NAME_DESC,
+                ExerciseName.MESSAGE_CONSTRAINTS); // invalid name
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_SETS_DESC,
+                ExerciseDetail.MESSAGE_CONSTRAINTS); // invalid detail
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
@@ -61,7 +65,8 @@ public class EditExerciseCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.SETS_DESC_FIVE
                 + TAG_EMPTY + CommandTestUtil.REPS_DESC_SIXTY, ExerciseDetail.MESSAGE_CONSTRAINTS);
         CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_EMPTY
-                + CommandTestUtil.SETS_DESC_FIVE + CommandTestUtil.REPS_DESC_SIXTY, ExerciseDetail.MESSAGE_CONSTRAINTS);
+                + CommandTestUtil.SETS_DESC_FIVE + CommandTestUtil.REPS_DESC_SIXTY,
+                ExerciseDetail.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_FOOD_NAME_DESC,
@@ -74,7 +79,8 @@ public class EditExerciseCommandParserTest {
         String userInput = targetIndex.getOneBased() + CommandTestUtil.REPS_DESC_SIXTY
                  + CommandTestUtil.NAME_DESC_PUSHUP + CommandTestUtil.SETS_DESC_FIVE;
 
-        EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_PUSHUP)
+        EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_PUSHUP)
                 .withDetails(null, null, null, null, CommandTestUtil.VALID_REPS_SIXTY, CommandTestUtil.VALID_SETS_FIVE)
                 .build();
         EditExerciseCommand expectedCommand = new EditExerciseCommand(targetIndex, descriptor);
@@ -88,7 +94,8 @@ public class EditExerciseCommandParserTest {
         // name
         Index targetIndex = TypicalIndexes.INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_PUSHUP;
-        EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_PUSHUP).build();
+        EditExerciseCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_PUSHUP).build();
         EditExerciseCommand expectedCommand = new EditExerciseCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 

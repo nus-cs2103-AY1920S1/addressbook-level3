@@ -1,11 +1,11 @@
 package dukecooks.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;

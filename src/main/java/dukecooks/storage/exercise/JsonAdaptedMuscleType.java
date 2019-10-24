@@ -3,8 +3,8 @@ package dukecooks.storage.exercise;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.workout.exercise.components.MuscleType;
 
 /**
  * Jackson-friendly version of {@link MuscleType}.

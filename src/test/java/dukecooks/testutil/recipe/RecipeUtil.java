@@ -50,10 +50,12 @@ public class RecipeUtil {
                 ingredients.forEach(s -> sb.append(CliSyntax.PREFIX_INGREDIENT).append(s.ingredientName).append(" "));
             }
         }
-        descriptor.getCalories().ifPresent(calories -> sb.append(CliSyntax.PREFIX_CALORIES).append(calories.value).append(" "));
+        descriptor.getCalories().ifPresent(calories -> sb.append(CliSyntax.PREFIX_CALORIES).append(calories.value)
+                .append(" "));
         descriptor.getCarbs().ifPresent(carbs -> sb.append(CliSyntax.PREFIX_CARBS).append(carbs.value).append(" "));
         descriptor.getFats().ifPresent(fats -> sb.append(CliSyntax.PREFIX_FATS).append(fats.value).append(" "));
-        descriptor.getProtein().ifPresent(protein -> sb.append(CliSyntax.PREFIX_PROTEIN).append(protein.value).append(" "));
+        descriptor.getProtein().ifPresent(protein -> sb.append(CliSyntax.PREFIX_PROTEIN).append(protein.value)
+                .append(" "));
         return sb.toString();
     }
 }

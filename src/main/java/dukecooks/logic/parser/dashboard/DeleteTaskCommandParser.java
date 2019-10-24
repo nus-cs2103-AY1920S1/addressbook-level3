@@ -2,10 +2,10 @@ package dukecooks.logic.parser.dashboard;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
+import dukecooks.logic.commands.dashboard.DeleteTaskCommand;
 import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.ParserUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.logic.commands.dashboard.DeleteTaskCommand;
 
 /**
  * Parses input arguments and creates a new DeleteTaskCommand object

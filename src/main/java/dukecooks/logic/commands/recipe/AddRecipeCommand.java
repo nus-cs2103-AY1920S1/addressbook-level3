@@ -1,17 +1,17 @@
 package dukecooks.logic.commands.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CARBS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_FATS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
+import static java.util.Objects.requireNonNull;
 
 import dukecooks.logic.commands.AddCommand;
-import dukecooks.model.Model;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.model.Model;
 import dukecooks.model.recipe.components.Recipe;
 
 /**

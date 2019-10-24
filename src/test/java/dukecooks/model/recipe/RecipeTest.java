@@ -1,16 +1,15 @@
 package dukecooks.model.recipe;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.recipe.TypicalRecipes.BURGER;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.testutil.Assert;
-import org.junit.jupiter.api.Test;
-
 import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class RecipeTest {

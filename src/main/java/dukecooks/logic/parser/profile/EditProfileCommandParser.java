@@ -1,6 +1,5 @@
 package dukecooks.logic.parser.profile;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DOB;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_GENDER;
@@ -8,6 +7,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.Collections;

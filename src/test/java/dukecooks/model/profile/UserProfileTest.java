@@ -1,24 +1,23 @@
 package dukecooks.model.profile;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.profile.TypicalProfiles.ALICE;
 import static dukecooks.testutil.profile.TypicalProfiles.getTypicalProfiles;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import dukecooks.logic.commands.CommandTestUtil;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
+import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.profile.person.exceptions.DuplicatePersonException;
 import dukecooks.testutil.profile.PersonBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class UserProfileTest {
 

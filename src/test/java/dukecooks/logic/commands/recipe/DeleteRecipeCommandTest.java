@@ -1,9 +1,10 @@
 package dukecooks.logic.commands.recipe;
 
+import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
+
+import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
@@ -13,7 +14,6 @@ import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -41,7 +41,8 @@ public class DeleteRecipeCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(outOfBoundIndex);
 
-        CommandTestUtil.assertRecipeCommandFailure(deleteRecipeCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        CommandTestUtil.assertRecipeCommandFailure(deleteRecipeCommand, model,
+                Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -70,7 +71,8 @@ public class DeleteRecipeCommandTest {
 
         DeleteRecipeCommand deleteRecipeCommand = new DeleteRecipeCommand(outOfBoundIndex);
 
-        CommandTestUtil.assertRecipeCommandFailure(deleteRecipeCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        CommandTestUtil.assertRecipeCommandFailure(deleteRecipeCommand, model,
+                Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
     @Test

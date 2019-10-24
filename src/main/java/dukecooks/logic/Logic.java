@@ -2,7 +2,6 @@ package dukecooks.logic;
 
 import java.nio.file.Path;
 
-import javafx.collections.ObservableList;
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
@@ -19,6 +18,7 @@ import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

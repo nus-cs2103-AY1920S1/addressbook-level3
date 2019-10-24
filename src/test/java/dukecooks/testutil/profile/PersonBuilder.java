@@ -5,13 +5,13 @@ import java.util.Set;
 
 import dukecooks.model.common.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
-import dukecooks.model.util.SampleDataUtil;
 import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
 import dukecooks.model.profile.person.Gender;
 import dukecooks.model.profile.person.Height;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.profile.person.Weight;
+import dukecooks.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
