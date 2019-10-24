@@ -132,9 +132,10 @@ public interface Model {
 
     void setGame(Game game);
 
+    boolean gameIsOver();
+
     Game getGame();
 
-    boolean gameIsOver();
 
     DifficultyEnum getCurrentGameDifficulty();
 

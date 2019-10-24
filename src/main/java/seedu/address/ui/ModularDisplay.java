@@ -66,8 +66,6 @@ public class ModularDisplay {
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
-        // twoSplitRowLayout.addToTopPane(titleScreenPanel.getRoot());
-        // twoSplitRowLayout.addToBottomPane(globalStatsPlaceholder.getRoot());
         WordBankStatisticsList wbStatsList = appManager.getActiveWordBankStatisticsList();
         GlobalStatistics globalStats = appManager.getGlobalStatistics();
         twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
@@ -86,13 +84,9 @@ public class ModularDisplay {
      */
     public void swapToBankDisplay(StackPane paneToDisplay) {
         bankLabelPanel = new BankLabelPanel(appManager.getSelectedWbName());
-        //  TitleScreenPanel localStatsPlaceholder = new TitleScreenPanel();
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
-        //  twoSplitRowLayout.addToTopPane(bankLabelPanel.getRoot ());
-        //  twoSplitRowLayout.addToBottomPane(localStatsPlaceholder.getRoot());
-        //  twoSplitColumnLayout.addToLeftPane(twoSplitRowLayout.getRoot());
         twoSplitColumnLayout.addToLeftPane(
                 new WordBankStatisticsPanel(appManager.getActiveWordBankStatistics(),
                         appManager.getActiveWordBank()).getRoot());

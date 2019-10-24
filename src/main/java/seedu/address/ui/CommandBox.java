@@ -114,15 +114,17 @@ public class CommandBox extends UiPart<Region> {
      *  Fills in combo in ui
      */
     private void fillCombo() {
+        commandComboField.getItems().clear();
         List<ModeEnum> temp = uiLogicHelper.getModes();
         EventHandler<ActionEvent> event =
             new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent e) {
-                    try {
-                        commandExecutor.execute(commandComboField.getValue());
-                    } catch (CommandException | ParseException ex) {
-                        setStyleToIndicateCommandFailure();
-                    }
+                    commandComboField.setValue(uiLogicHelper.getMode().toString());
+                    //try {
+                    //commandExecutor.execute(commandComboField.getValue());
+                    //} catch (CommandException | ParseException ex) {
+                    //  setStyleToIndicateCommandFailure();
+                    //}
 
                 }
             };
@@ -143,6 +145,7 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
+        fillCombo();
         commandComboField.setValue(uiLogicHelper.getMode().toString());
     }
 

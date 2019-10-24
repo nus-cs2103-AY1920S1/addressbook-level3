@@ -13,6 +13,11 @@ public class HintTimingQueue {
         this.hintTimesQueue = new LinkedList<>();
         int numberOfTimings = hintFormatSize;
 
+        if (hintFormatSize == 1) {
+            hintTimesQueue.add(50L);
+            return;
+        }
+
         // Rate of Hint Characters being shown is linear (time between each hint character is constant).
         // Hints are only showed after 1/4 * 8000ms have passed.
         long delta = (long) (8000 * 0.75) / (numberOfTimings - 1);

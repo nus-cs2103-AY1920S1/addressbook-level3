@@ -73,7 +73,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'Dukemon.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

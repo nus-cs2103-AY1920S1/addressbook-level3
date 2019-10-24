@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <content>
         <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
             <children>
@@ -20,7 +20,8 @@
             <HBox>
                <children>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label id="slogan" fx:id="slogan" styleClass="cell_big_label" text="Learn with Dukemon haha this is supposed to be the *catch* phrase." translateY="-40.0" />
+                  <Label id="slogan" fx:id="slogan" styleClass="cell_big_label"
+                         text="The FlashCard App Of The Future" style="-fx-font-style: italic" translateY="-40.0" />
                   <Region HBox.hgrow="ALWAYS" />
                </children>
             </HBox>

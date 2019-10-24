@@ -9,8 +9,4 @@ import seedu.address.model.Model;
 public abstract class LoadCommand extends Command {
     public abstract CommandResult execute(Model model) throws CommandException;
 
-    @Override
-    public boolean check(Model model) throws CommandException {
-        return true;
-    }
 }
