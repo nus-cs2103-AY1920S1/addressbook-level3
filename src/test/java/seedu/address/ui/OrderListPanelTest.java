@@ -8,11 +8,13 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.junit.jupiter.api.Test;
+
 import guitests.guihandles.panels.OrderListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.model.customer.ContactNumber;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.CustomerName;
@@ -25,6 +27,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.TypicalPhones;
 import seedu.address.testutil.TypicalSchedules;
 import seedu.address.ui.panels.OrderListPanel;
+
 
 
 public class OrderListPanelTest extends GuiUnitTest {
@@ -86,8 +89,8 @@ public class OrderListPanelTest extends GuiUnitTest {
             Optional<Schedule> orderSchedule = Optional.of(TypicalSchedules.SCHEDULEONE);
             Price orderPrice = new Price("$1.00");
             Status orderStatus = Status.UNSCHEDULED;
-            UUID orderUUID = UUID.randomUUID();
-            Order order = new Order(orderUUID, customer, orderPhone, orderPrice,
+            UUID orderUuId = UUID.randomUUID();
+            Order order = new Order(orderUuId, customer, orderPhone, orderPrice,
                     orderStatus, orderSchedule, Collections.emptySet());
             backingList.add(order);
         }

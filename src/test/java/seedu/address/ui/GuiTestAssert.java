@@ -64,7 +64,7 @@ public class GuiTestAssert {
         assertEquals(expectedOrder.getStatus().toString(), actualCard.getOrderStatus());
         assertEquals(expectedOrder.getTags().stream().map(tag -> tag.tagName).sorted().collect(Collectors.toList()),
                 actualCard.getTags());
-    //havent added phone equals here
+        //havent added phone equals here
     }
 
 
