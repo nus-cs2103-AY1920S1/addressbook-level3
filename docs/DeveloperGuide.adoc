@@ -202,12 +202,19 @@ Upon initial startup of the program `Model` is initialized with `PageStatus` wit
 
 Step 1. When the user launches the application. `PageStatus` is initialized along with other `Model` components with empty references.
 
-Step 2. The user enters the `DaysPage/EventsPage` using the goto command. This instantiates a new `PageStatus` object from the the existing `PageStatus` with a modified `Day/Page`, providing the context for subsequent actions. Below is an example execution of the command:
+image::ItineraryDelete0.png[]
+
+Step 2. The user enters the `DaysPage/EventsPage` using the goto command. This instantiates a new `PageStatus` object from the the existing `PageStatus` with a modified `Day/Trip`, providing the context for subsequent actions. Below is an example execution of the command:
+
+image::ItineraryDelete1.png[]
 
 Step 3. The user is now on the `TripManager/DaysPage/EventsPage`, the user can execute the `delete` command in accordance to the display ordered index on any of the aforementioned pages.
 
-When the command `delete <index>` is executed, the
+When the command `delete <index>` is executed, `DeleteTripCommand/DeleteDayCommand/DeleteEventCommand` is executed. This command accesses `Trip/Day` reference in `PageStatus` assigned by the previous step. (Note: deleting `Trips` do not require `PageStatus`, it being directly accessible to `Model` using `TripList` accessors).
 
+The `Day/Trip` reference contains the list of `Events/Days` in memory respectively (`DayList/EventList`). `DayList#remove/EventList#remove` are methods in the respective list classes used to delete the day/event. These are executed, modifying the in memory `TravelPal` and `Trip/Event/Day` is removed.
+
+image::ItineraryDelete2.png[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
