@@ -16,7 +16,6 @@ import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.InfoCommand;
-import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
