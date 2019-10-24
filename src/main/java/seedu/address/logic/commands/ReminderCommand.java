@@ -15,7 +15,7 @@ public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates a new reminder to show up when the program is launched. "
+            + ": Creates a new reminder for the user to keep track. "
             + "Parameters: "
             + "[" + PREFIX_DAYS + "EXPIRY IN DAYS]...\n"
             + "Example: " + COMMAND_WORD + " "
