@@ -16,6 +16,7 @@ import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.InfoCommand;
+import seedu.savenus.logic.commands.LikeCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
@@ -276,12 +277,14 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.CUSTOM_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DEFAULT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.DISLIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.FILTER_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.LIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.MAKE_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)

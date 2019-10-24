@@ -11,8 +11,8 @@ public class RemoveDislikeInfo {
     public static final String COMMAND_WORD = RemoveDislikeCommand.COMMAND_WORD;
 
     public static final String INFORMATION = "removedislike command allows you to \n"
-            + "remove your previously added dislikes, \n"
-            + "a list of foods that you want to see.\n\n";
+            + "remove your previously added dislikes. \n"
+            + "The disliked categories, tags and locations must exist before they can be removed.\n\n";
 
     public static final String USAGE = "removedislike c/Chinese t/Cheap t/Healthy\n";
 
