@@ -2,13 +2,11 @@
 package dream.fcard.gui;
 
 import dream.fcard.gui.components.CommandTextField;
+import dream.fcard.gui.components.CommandTextFieldPlaceholder;
+import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.gui.components.TitleBar;
 import dream.fcard.model.State;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -24,11 +22,8 @@ public class MainWindow {
     // containers
     private VBox window;
     private TitleBar titleBar;
-    private GridPane windowContents;
-    private VBox commandBoxPlaceholder;
-
-    // ui components
-    private Text title;
+    private ScrollablePane scrollablePane;
+    private CommandTextFieldPlaceholder commandTextFieldPlaceholder;
 
     public MainWindow() {
         // temporary no-arg constructor
@@ -48,9 +43,6 @@ public class MainWindow {
 
         // set up containers for UI components
         initializeContainers();
-        setupContainerSizes();
-        setupContainerPadding();
-        setupContainerColours();
 
         // set up initial UI components
         setupCommandTextField();
@@ -78,35 +70,18 @@ public class MainWindow {
     private void initializeContainers() {
         window = new VBox();
         titleBar = new TitleBar();
-        windowContents = new GridPane();
-        commandBoxPlaceholder = new VBox();
-    }
-
-    private void setupContainerSizes() {
-        commandBoxPlaceholder.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        VBox.setVgrow(windowContents, Priority.ALWAYS);
-    }
-
-    private void setupContainerPadding() {
-        windowContents.setPadding(new Insets(GuiSettings.getPadding()));
-        commandBoxPlaceholder.setPadding(new Insets(GuiSettings.getPadding()));
-    }
-
-    private void setupContainerColours() {
-        // todo: abstract into UI component setBackgroundColour(String colour) method
-//        commandBoxPlaceholder.setStyle("-fx-background-color:#FFFFFF;");
-        commandBoxPlaceholder.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUiColour() + ";"); // temporary
-        windowContents.setStyle("-fx-background-color:" + GuiSettings.getBackgroundColour() + ";");
+        scrollablePane = new ScrollablePane();
+        commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
     }
 
     private void setupCommandTextField() {
         CommandTextField commandTextField = new CommandTextField(state);
-        commandBoxPlaceholder.getChildren().add(commandTextField);
+        commandTextFieldPlaceholder.add(commandTextField);
     }
 
     private void setupScene() {
         // add children to window
-        window.getChildren().addAll(titleBar, windowContents, commandBoxPlaceholder);
+        window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder);
 
         // display window
         scene = new Scene(window, 400, 400);
@@ -117,8 +92,8 @@ public class MainWindow {
         return primaryStage;
     }
 
-    GridPane getWindowContents() {
-        return this.windowContents;
+    ScrollablePane getScrollablePane() {
+        return this.scrollablePane;
     }
 
     // private void setAccelerators()

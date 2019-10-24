@@ -2,10 +2,10 @@
 package dream.fcard.gui;
 
 import dream.fcard.gui.components.FlashCardDisplay;
+import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
 
 public class Gui {
 
@@ -48,7 +48,7 @@ public class Gui {
         FlashCardDisplay node = new FlashCardDisplay(cardText);
 
         // display the Node in the Gui
-        display(node);
+        displayInScrollablePane(node);
     }
 
     public static void renderBack(FlashCard flashCard) {
@@ -60,25 +60,25 @@ public class Gui {
         FlashCardDisplay node = new FlashCardDisplay(cardText);
 
         // display the Node in the Gui
-        display(node);
+        displayInScrollablePane(node);
     }
 
     // temporary method to render FlashCardDisplay without using FlashCard class
     static void renderCard(String cardText) {
         FlashCardDisplay node = new FlashCardDisplay(cardText);
-        display(node);
+        displayInScrollablePane(node);
     }
 
-    static void display(Node node) {
+    static void displayInScrollablePane(Node node) {
         // get primary display area of MainWindow
-        GridPane windowContents = getMainWindow().getWindowContents(); // todo: check coding standards?
-        GridPane.setConstraints(node, 0,0);
+        ScrollablePane scrollablePane = getMainWindow().getScrollablePane(); // todo: check coding standards?
+//        GridPane.setConstraints(node, 0,0);
 
         // remove anything currently in the display area
         //windowContents.getChildren().clear();
 
         // show the Node in the display area
-        windowContents.getChildren().add(node);
+        scrollablePane.add(node);
     }
 
     static void setTitle(String title) {

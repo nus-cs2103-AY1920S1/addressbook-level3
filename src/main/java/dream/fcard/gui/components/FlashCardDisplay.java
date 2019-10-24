@@ -15,8 +15,8 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
         super();
 
         // set up dimensions
-        this.setPrefSize(GuiSettings.getMinWidth() - 2*GuiSettings.getPadding(),
-            200);
+        this.setPrefHeight(200);
+        this.setMaxWidth(GuiSettings.getMinWidth() - 2*GuiSettings.getPadding());
         this.setPadding(new Insets(GuiSettings.getPadding()));
 
         // set up background colour and radius
@@ -31,6 +31,7 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
         flashCardText.setWrappingWidth(this.getWidth());
 
         TextFlow textFlow = new TextFlow(flashCardText);
+        textFlow.setMaxWidth(GuiSettings.getMinWidth() - 4*GuiSettings.getPadding());
 
         // add flashCardText to card
         this.getChildren().add(textFlow);
