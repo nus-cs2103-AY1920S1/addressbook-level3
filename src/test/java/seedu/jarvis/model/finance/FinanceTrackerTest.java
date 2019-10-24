@@ -3,7 +3,7 @@ package seedu.jarvis.model.finance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.util.OptionalDouble;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -136,7 +136,7 @@ public class FinanceTrackerTest {
     @Test
     public void setMonthlyLimit_normalInput_updatedCorrectly() {
         financeTracker.setMonthlyLimit(new MonthlyLimit("500.0"));
-        assertEquals(OptionalDouble.of(500.0), financeTracker.getMonthlyLimit());
+        assertEquals((double) Optional.of(500.0).get(), financeTracker.getMonthlyLimit().get().getMonthlyLimit());
     }
 
     @Test

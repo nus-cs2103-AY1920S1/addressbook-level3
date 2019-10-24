@@ -1,6 +1,6 @@
 package seedu.jarvis.model.financetracker;
 
-import java.util.OptionalDouble;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -160,7 +160,7 @@ public interface FinanceTrackerModel {
      *
      * @return Optional containing the monthly limit
      */
-    OptionalDouble getMonthlyLimit();
+    Optional<MonthlyLimit> getMonthlyLimit();
 
     /**
      * Lists all purchases and payments from this month.

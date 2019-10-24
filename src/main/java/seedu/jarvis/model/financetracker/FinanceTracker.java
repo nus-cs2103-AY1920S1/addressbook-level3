@@ -3,7 +3,7 @@ package seedu.jarvis.model.financetracker;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.OptionalDouble;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -307,10 +307,10 @@ public class FinanceTracker {
 
     /**
      * Retrieves monthly limit if it has been set by the user.
-     * @return Optional containing the monthly limit
+     * @return Optional that contains the monthly limit if it exists
      */
-    public OptionalDouble getMonthlyLimit() {
-        return OptionalDouble.of(monthlyLimit.getMonthlyLimit());
+    public Optional<MonthlyLimit> getMonthlyLimit() {
+        return Optional.of(monthlyLimit);
     }
 
     /**

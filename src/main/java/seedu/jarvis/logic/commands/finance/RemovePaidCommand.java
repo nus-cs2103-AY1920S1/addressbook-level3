@@ -91,7 +91,7 @@ public class RemovePaidCommand extends Command {
      * @param model {@code Model} which the command should inversely operate on.
      * @return {@code CommandResult} of a successful restore of the deleted {@code Purchase}
      * if the {@code Purchase} is not already in the finance tracker
-     * @throws CommandException If the purchase to be added will be in conflict with an existing task
+     * @throws CommandException If the purchase to be added will be in conflict with an existing purchase
      * in the finance tracker
      */
     @Override

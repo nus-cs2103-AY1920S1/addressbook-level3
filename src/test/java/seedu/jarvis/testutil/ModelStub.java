@@ -1,7 +1,7 @@
 package seedu.jarvis.testutil;
 
 import java.nio.file.Path;
-import java.util.OptionalDouble;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -259,7 +259,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public OptionalDouble getMonthlyLimit() {
+    public Optional<MonthlyLimit> getMonthlyLimit() {
         throw new AssertionError("This method should not be called.");
     }
 

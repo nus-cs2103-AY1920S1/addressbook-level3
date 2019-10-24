@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.OptionalDouble;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -405,7 +405,7 @@ public class ModelManager implements Model {
      * @return Optional containing the monthly limit
      */
     @Override
-    public OptionalDouble getMonthlyLimit() {
+    public Optional<MonthlyLimit> getMonthlyLimit() {
         return financeTracker.getMonthlyLimit();
     }
 

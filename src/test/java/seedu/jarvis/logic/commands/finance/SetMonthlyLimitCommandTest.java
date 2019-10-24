@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
-import java.util.OptionalDouble;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,13 +20,13 @@ import seedu.jarvis.testutil.finance.MonthlyLimitBuilder;
 public class SetMonthlyLimitCommandTest {
 
     /**
-     * Verifies that checking {@code SetMonthlyLimitCommand} for the unavailability of inverse execution returns false.
+     * Verifies that checking {@code SetMonthlyLimitCommand} for the availability of inverse execution returns true.
      */
     @BeforeEach
     public void hasInverseExecution() {
         MonthlyLimit validLimit = new MonthlyLimitBuilder().build();
         SetMonthlyLimitCommand setMonthlyLimitCommand = new SetMonthlyLimitCommand(validLimit);
-        assertFalse(setMonthlyLimitCommand.hasInverseExecution());
+        assertTrue(setMonthlyLimitCommand.hasInverseExecution());
     }
 
     @Test
@@ -84,8 +84,11 @@ public class SetMonthlyLimitCommandTest {
         }
 
         @Override
-        public OptionalDouble getMonthlyLimit() {
-            return OptionalDouble.of(spendingLimit.getMonthlyLimit());
+        public Optional<MonthlyLimit> getMonthlyLimit() {
+            if (spendingLimit == null) {
+                return Optional.empty();
+            }
+            return Optional.of(spendingLimit);
         }
     }
 }
