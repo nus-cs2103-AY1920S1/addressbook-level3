@@ -189,8 +189,29 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Savings feature
+=== Sorting feature
+The Sorting feature allows users to sort their food items based on certain criteria. You are allowed to sort based on certain fields and directions. +
+First and foremost, they will be able to sort the food items based on their default ordering, where it is based on ascending price, name and then category. +
+Not only that, they will be able to implement their own custom comparator using `makesort`. From this, they should be able to use `customsort` and autosort`.  +
+`customsort` sorts the food items based on the custom comparator, where `autosort` sorts the food items every time there is an edit to the food list.
 
+****
+1. The `FIELD` are as follows: `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
+2. The `DIRECTION` are as follows: `ASCENDING` or `DESCENDING`.
+****
+
+==== Classes for sorting feature in Model
+
+The Sorting feature was implemented with a new set of classes introduced to the Model. The `CustomSorter` stores the comparator for `autosort` and `makesort`. +
+From which, you will need to call `makesort FIELD DIRECTION` to create the custom comparator. The `CustomSorter` contains a `FoodComparator`. +
+The `FoodComparator` stores fields which will be needed for various `FOOD` to be compared. +
+The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
+Finally, the `FieldComparator` helps to compare between various `FIELD`.
+
+.Sorting class diagram in Sort component.
+image::SortingClassDiagram.png[width=500]
+
+=== Savings feature
 The Savings feature allows users to save a specified amount of money from their wallet into their Savings Account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's Savings Account.
 The Savings feature also allows the user to withdraw from his savings account either into his wallet or withdraw the money completely from the $aveNUS app.
 Using the `withdraw AMOUNT`, users will be able to transfer their money into their $aveNUS wallets, and using "withdraw out AMOUNT", the user can withdraw the
