@@ -14,6 +14,7 @@ import javafx.stage.Stage;
  * Main window of the application's GUI. Houses all other UI components.
  */
 public class MainWindow {
+
     private Gui gui;
     private Stage primaryStage;
     private Scene scene;
@@ -25,14 +26,17 @@ public class MainWindow {
     private ScrollablePane scrollablePane = new ScrollablePane();
     private CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
 
-    /** Temporary no-argument constructor, called in Gui. To be refactored. */
+    /**
+     * Temporary no-argument constructor, called in Gui. To be refactored.
+     */
     public MainWindow() {
         // empty constructor body
     }
 
     /**
-     * Creates and displays a main window for the application.
-     * Called by UiManager when application is started. (To be refactored)
+     * Creates and displays a main window for the application. Called by UiManager when application
+     * is started. (To be refactored)
+     *
      * @param primaryStage
      * @param state
      */
@@ -45,7 +49,9 @@ public class MainWindow {
         //testUiComponents();
     }
 
-    /** Initialises components of the main window and shows the main window upon startup. */
+    /**
+     * Initialises components of the main window and shows the main window upon startup.
+     */
     private void onStartup() {
         initializeStage();
 
@@ -60,26 +66,34 @@ public class MainWindow {
         primaryStage.show();
     }
 
-    /** Temporary method for testing display of various UI components. */
+    /**
+     * Temporary method for testing display of various UI components.
+     */
     private void testUiComponents() {
         Gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 //        Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
     }
 
-    /** Initialises the stage by setting its size and title. */
+    /**
+     * Initialises the stage by setting its size and title.
+     */
     private void initializeStage() {
         primaryStage.setTitle("FlashCard Pro"); // set title of application window
         primaryStage.setMinHeight(GuiSettings.getMinHeight());
         primaryStage.setMinWidth(GuiSettings.getMinWidth());
     }
 
-    /** Set up the command text field with the given state and add to its placeholder. */
+    /**
+     * Set up the command text field with the given state and add to its placeholder.
+     */
     private void setupCommandTextField() {
         CommandTextField commandTextField = new CommandTextField(state);
         commandTextFieldPlaceholder.add(commandTextField);
     }
 
-    /** Add the UI components to main window, and display the scene. */
+    /**
+     * Add the UI components to main window, and display the scene.
+     */
     private void setupScene() {
         // add children to window
         window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder);
@@ -93,7 +107,9 @@ public class MainWindow {
         return primaryStage;
     }
 
-    /** Temporary method (to be refactored) returning the ScrollablePane in this MainWindow. */
+    /**
+     * Temporary method (to be refactored) returning the ScrollablePane in this MainWindow.
+     */
     ScrollablePane getScrollablePane() {
         return this.scrollablePane;
     }
@@ -101,8 +117,4 @@ public class MainWindow {
     // private void setAccelerators()
     // private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination)
     // private void setWindowDefaultSize(GuiSettings guiSettings)
-
-    // FXML methods
-    // public void handleHelp()
-    // private void handleExit()
 }
