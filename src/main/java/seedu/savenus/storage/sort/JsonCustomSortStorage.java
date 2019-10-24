@@ -61,8 +61,8 @@ public class JsonCustomSortStorage implements CustomSortStorage {
     }
 
     @Override
-    public void saveFields(CustomSorter recs) throws IOException {
-        saveFields(recs, filePath);
+    public void saveFields(CustomSorter sorter) throws IOException {
+        saveFields(sorter, filePath);
     }
 
     /**

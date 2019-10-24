@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([fields are given])
+    :Override with new CustomSorter;
+    else([else])
+    :Override with empty CustomSorter;
+endif
+stop
+@enduml
