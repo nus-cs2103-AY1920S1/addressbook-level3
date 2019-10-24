@@ -1,4 +1,4 @@
-= Liberry - User Guide
+= LiBerry - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,13 +18,13 @@ By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Liberry is a desktop app for librarians to *quickly manage their community libraries!* Liberry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). You can type quickly and serve your long line of borrowers in a short amount of time. Liberry can manage all your books and borrowers efficiently and meticulously. Jump to <<Quick Start>> to get started now! Enjoy!
+LiBerry is a desktop app for librarians to *quickly manage their community libraries!* LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). You can type quickly and serve your long line of borrowers in a short amount of time. LiBerry can manage all your books and borrowers efficiently and meticulously. Jump to <<Quick Start>> to get started now! Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `Liberry.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Liberry.
+.  Download the latest `LiBerry.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your LiBerry.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Using Normal Mode
 
-The Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. The Normal Mode also provides some utility commands to help the librarian use Liberry. Commands that are specific to Serve Mode cannot be used while in Normal Mode.
+The Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. The Normal Mode also provides some utility commands to help the librarian use LiBerry. Commands that are specific to Serve Mode cannot be used while in Normal Mode.
 
 ==== Viewing help : `help`
 
@@ -102,14 +102,14 @@ Format: `clear`
 ==== Adding a book: `add`
 
 Adds a new book to library records. +
-Format: `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]`
+Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
 
 [TIP]
 A book can have any number of genres (including 0)
 
 [TIP]
 You do not need to specify the serial number if you wish so. +
-Liberry will then auto-generate a valid serial number for the new book.
+LiBerry will then auto-generate a valid serial number for the new book.
 
 Examples:
 
@@ -223,13 +223,14 @@ Edits the name of the borrower to be `Betsy Crower`
 ==== Loaning book(s): `loan`
 
 Loan book(s) by their serial number +
-Format: `loan sn/BOOK_SN...`
+Format: `loan sn/BOOK_SN` +
+Format: `loan sn/BOOK_SN...` - Coming in v2.0
 
 Examples:
 
 * `loan sn/B00041` +
 Loans the book with serial number B00041
-* `loan sn/B00201 sn/B02929 sn/B00203` +
+* `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
 Loans the books with serial numbers B00201, B02929 and B00203
 
 ==== Renewing book(s): `renew`
@@ -275,12 +276,12 @@ Reserves the book with serial number `sn/B02422` for the currently served user
 
 === Saving the Data
 
-Liberry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+LiBerry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Liberry folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LiBerry folder.
 
 == Command Summary
 
@@ -309,8 +310,8 @@ e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
 * *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
-* *Loan book(s)* : `loan sn/BOOK_SN...` +
-e.g. `loan sn/B00201 sn/B02929 sn/B00203`
+* *Loan book(s)* : `loan sn/BOOK_SN` +
+e.g. `loan sn/B00201`
 * *Renew book(s)* : `renew INDEX… [-all]`
 * *Return book(s)* : `return INDEX… [-all]`
 * *Pay fines* : `pay AMOUNT`
