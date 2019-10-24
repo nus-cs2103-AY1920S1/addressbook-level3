@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.legacy.AddressBook;
@@ -34,6 +35,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Driver> filteredDrivers;
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
@@ -54,7 +57,9 @@ public class ModelManager implements Model {
 
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
+        filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         this.driverManager = new DriverManager();
+        filteredDrivers = new FilteredList<>(driverManager.getDriverList());
 
         // temp
         // to test the task commands
@@ -178,6 +183,10 @@ public class ModelManager implements Model {
         return customerManager.hasCustomer(customerId);
     }
 
+    public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
+        customerManager.setCustomer(customerToEdit, editedCustomer);
+    }
+
     public Customer getCustomer(int customerId) {
         return customerManager.getCustomer(customerId);
     }
@@ -192,12 +201,16 @@ public class ModelManager implements Model {
 
     // =========== Driver Manager ===========================================================================
     public boolean hasDriver(Driver driver) {
-        return driverManager.hasPerson(driver);
+        return driverManager.hasDriver(driver);
     }
 
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);
     };
+
+    public void setDriver(Driver driverToEdit, Driver editedDriver) {
+        driverManager.setDriver(driverToEdit, editedDriver);
+    }
 
     public Driver getDriver(int driverId) {
         return driverManager.getDriver(driverId);
@@ -223,9 +236,31 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
+    }
+
+    @Override
+    public ObservableList<Driver> getFilteredDriverList() {
+        return filteredDrivers;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredDriverList(Predicate<Driver> predicate) {
+        requireNonNull(predicate);
+        filteredDrivers.setPredicate(predicate);
     }
 
     @Override

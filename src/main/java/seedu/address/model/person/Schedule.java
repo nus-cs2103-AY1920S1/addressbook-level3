@@ -141,12 +141,11 @@ public class Schedule {
         if ((previous != null) && (eventTime.overlaps(previous))) {
             return false;
         }
-
         if ((next != null) && (eventTime.overlaps(next))) {
             return false;
         }
-
         return true;
+
     }
 
     @Override

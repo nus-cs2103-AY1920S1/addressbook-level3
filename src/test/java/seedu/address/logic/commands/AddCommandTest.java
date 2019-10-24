@@ -27,6 +27,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 import seedu.address.testutil.PersonBuilder;
 
+
 public class AddCommandTest {
 
     @Test
@@ -203,11 +204,24 @@ public class AddCommandTest {
         };
 
         @Override
+        public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
+
+        }
+
+        @Override
         public void addCustomer(Customer customer) {
             throw new AssertionError("This method should not be called.");
         };
 
+        public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
+        public ObservableList<Customer> getFilteredCustomerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void deleteCustomer(Customer customer) {
             throw new AssertionError("This method should not be called.");
         };
@@ -223,6 +237,11 @@ public class AddCommandTest {
         };
 
         @Override
+        public void setDriver(Driver driverToEdit, Driver editedDriver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public Driver getDriver(int driverId) {
             throw new AssertionError("This method should not be called.");
         }
@@ -231,7 +250,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         };
 
+        public void updateFilteredDriverList(Predicate<Driver> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
+        public ObservableList<Driver> getFilteredDriverList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void deleteDriver(Driver driver) {
             throw new AssertionError("This method should not be called.");
         };

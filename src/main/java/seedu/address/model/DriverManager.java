@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
+
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -13,6 +15,10 @@ public class DriverManager extends EntityManager<Driver> {
 
     public DriverManager() {
         super();
+    }
+
+    public boolean hasDriver(Driver driver) {
+        return super.hasPerson(driver);
     }
 
     /**
@@ -50,10 +56,21 @@ public class DriverManager extends EntityManager<Driver> {
                 .filter(driver -> driver.getId() == driverId)
                 .findFirst();
     }
-    public Driver getDriver(int customerId) {
+
+    /**
+     * Returns an unmodifiable view of the driver list.
+     * This list will not contain any duplicate drivers.
+     *
+     * @return Driver list without duplicate drivers.
+     */
+    public ObservableList<Driver> getDriverList() {
+        return super.getPersonList();
+    }
+
+    public Driver getDriver(int driverId) {
         return getPersonList()
                 .stream()
-                .filter(customer -> customer.getId() == customerId)
+                .filter(driver -> driver.getId() == driverId)
                 .findFirst()
                 .orElseThrow(PersonNotFoundException::new);
     }

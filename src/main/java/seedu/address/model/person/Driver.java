@@ -25,7 +25,7 @@ public class Driver extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Driver(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Driver (Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         schedule = new Schedule();
         id = idCount;
@@ -74,6 +74,38 @@ public class Driver extends Person {
     }
 
     /**
+     * Returns true if both drivers of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two drivers.
+     */
+    public boolean isSameDriver(Driver otherDriver) {
+        if (otherDriver == this) {
+            return true;
+        }
+
+        return otherDriver != null
+                && otherDriver.getName().equals(getName())
+                && (otherDriver.getPhone().equals(getPhone()) || otherDriver.getEmail().equals(getEmail()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Driver)) {
+            return false;
+        }
+
+        Driver otherDriver = (Driver) other;
+        return otherDriver.getName().equals(getName())
+                && otherDriver.getPhone().equals(getPhone())
+                && otherDriver.getEmail().equals(getEmail())
+                && otherDriver.getAddress().equals(getAddress())
+                && otherDriver.getTags().equals(getTags());
+    }
+
+    /**
      * Returns a string representation of the driver, with identity fields visible to the user.
      *
      * @return string representation of driver
@@ -82,9 +114,9 @@ public class Driver extends Person {
     public String toString() {
         StringBuilder driverBuilder = new StringBuilder();
         driverBuilder.append(" Driver stats: \n")
-                .append(" id: ")
-                .append(getId())
-                .append(super.toString());
+                    .append(" id: ")
+                    .append(getId())
+                    .append(super.toString());
         return driverBuilder.toString();
     }
 
