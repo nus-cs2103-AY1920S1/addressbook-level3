@@ -3,19 +3,22 @@ package seedu.address.model.activity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.testutil.ActivityBuilder;
 import seedu.address.testutil.TypicalActivities;
 import seedu.address.testutil.TypicalPersons;
 
 public class ActivityTest {
+
     @Test
-    public void debtAlgo_twoPersons_success() {
+    public void debtAlgo_checkTwoPersons() {
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
         Amount treefiddy = new Amount(30);
@@ -41,7 +44,7 @@ public class ActivityTest {
     }
 
     @Test
-    public void debtAlgo_threePersons_success() {
+    public void debtAlgo_checkThreePersons() {
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
         int gid = TypicalPersons.GEORGE.getPrimaryKey();
@@ -95,7 +98,7 @@ public class ActivityTest {
     }
 
     @Test
-    public void debtAlgo_threePersonsButOnlyTwoAreInvolved_success() {
+    public void debtAlgo_checkThreePersonsButOnlyTwoAreInvolved() {
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
         Amount bout = new Amount(30);
@@ -143,7 +146,7 @@ public class ActivityTest {
     }
 
     @Test
-    public void debtAlgo_fourPersons_success() {
+    public void debtAlgo_checkFourPersons() {
         // Hey I swear I drew the graph manually and calculated it
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int bid = TypicalPersons.BOB.getPrimaryKey();
@@ -209,7 +212,6 @@ public class ActivityTest {
         a.addExpense(one);
         a.addExpense(two);
         a.addExpense(three);
-
         a.invite(TypicalPersons.GEORGE);
         a.addExpense(four);
 
@@ -227,52 +229,44 @@ public class ActivityTest {
     }
 
     @Test
-    public void debtAlgo_deleteExpense_success() {
+    public void deleteExpenseMissingPerson_fail() {
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int bid = TypicalPersons.BOB.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
-        int gid = TypicalPersons.GEORGE.getPrimaryKey();
-        Amount its = new Amount(420);
-        Amount bout = new Amount(808);
-        Amount tree = new Amount(3);
-        Amount fiddy = new Amount(1337);
+        Amount its = new Amount(3);
+        Amount bout = new Amount(6);
+        Amount tree = new Amount(9);
         Expense one = new Expense(aid, its, "testing");
         Expense two = new Expense(bid, bout, "testing");
         Expense three = new Expense(eid, tree, "testing");
-        Expense four = new Expense(gid, fiddy, "testing");
 
         Activity a = new ActivityBuilder()
             .withTitle("test")
             .addPerson(TypicalPersons.ALICE)
             .addPerson(TypicalPersons.BOB)
-            .addPerson(TypicalPersons.ELLE)
             .build();
 
         a.addExpense(one);
         a.addExpense(two);
-        a.addExpense(three);
-        a.invite(TypicalPersons.GEORGE);
-        a.addExpense(four);
-        // We can test both ways
-        a.deleteExpense(a.getExpenses().get(0));
-        a.deleteExpense(two);
-        a.deleteExpense(three);
-        a.deleteExpense(four);
-
-        // In the end, A owes G $30. G owes A -$30 just for bookkeeping.
-        ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
-                List.of(
-                    // (Same for rows)       A    B    E    G
-                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
-                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
-                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
-                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0))
-                    ));
-
-        assertEquals(matrix, a.getTransferMatrix());
+        assertThrows(PersonNotInActivityException.class, () -> a.deleteExpense(three));
     }
 
+    @Test
+    public void addExpenseMissingPerson_fail() {
+        int eid = TypicalPersons.ELLE.getPrimaryKey();
+        Amount tree = new Amount(9);
+        Expense three = new Expense(eid, tree, "testing");
 
+        Activity a = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .build();
+
+        assertThrows(PersonNotInActivityException.class, () -> a.addExpense(three));
+    }
+
+    @Test
     public void getParticipantIds() {
         Activity lunch = TypicalActivities.LUNCH;
         ArrayList<Integer> expectedIds = new ArrayList<Integer>();
