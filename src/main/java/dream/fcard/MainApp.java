@@ -1,7 +1,5 @@
 package dream.fcard;
 
-import dream.fcard.logic.storage.StorageManager;
-import dream.fcard.model.State;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -14,6 +12,7 @@ import dream.fcard.core.commons.exceptions.DataConversionException;
 import dream.fcard.core.commons.util.ConfigUtil;
 import dream.fcard.core.commons.util.StringUtil;
 import dream.fcard.gui.UiManager;
+import dream.fcard.model.State;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -41,7 +40,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         // initialise the State of the application
-//        State state = new State(StorageManager.loadDecks());
+        //State state = new State(StorageManager.loadDecks());
         State state = new State(); // using no argument constructor for now
 
         // initialise UI of application

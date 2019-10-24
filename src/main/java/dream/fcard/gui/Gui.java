@@ -91,7 +91,6 @@ public class Gui {
     private static void displayInScrollablePane(Node node) {
         // get primary display area of MainWindow
         ScrollablePane scrollablePane = getMainWindow().getScrollablePane(); // todo: check coding standards?
-//        GridPane.setConstraints(node, 0,0);
 
         // remove anything currently in the display area
         //windowContents.getChildren().clear();

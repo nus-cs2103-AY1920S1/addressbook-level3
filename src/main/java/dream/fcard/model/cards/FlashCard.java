@@ -4,7 +4,6 @@ import dream.fcard.gui.Gui;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Interface all flash card types must implement.

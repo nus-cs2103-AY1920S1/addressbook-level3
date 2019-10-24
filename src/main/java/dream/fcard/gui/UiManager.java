@@ -1,11 +1,11 @@
 package dream.fcard.gui;
 
-import dream.fcard.model.State;
 import java.util.logging.Logger;
 
 import dream.fcard.MainApp;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.core.commons.util.StringUtil;
+import dream.fcard.model.State;
 
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

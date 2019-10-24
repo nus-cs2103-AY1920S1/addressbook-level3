@@ -14,16 +14,16 @@ import javafx.stage.Stage;
  * Main window of the application's GUI. Houses all other UI components.
  */
 public class MainWindow {
-    Gui gui;
+    private Gui gui;
     private Stage primaryStage;
     private Scene scene;
     private State state;
 
     // containers
-    private VBox window;
-    private TitleBar titleBar;
-    private ScrollablePane scrollablePane;
-    private CommandTextFieldPlaceholder commandTextFieldPlaceholder;
+    private VBox window = new VBox();
+    private TitleBar titleBar = new TitleBar();
+    private ScrollablePane scrollablePane = new ScrollablePane();
+    private CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
 
     /** Temporary no-argument constructor, called in Gui. To be refactored. */
     public MainWindow() {
@@ -45,11 +45,9 @@ public class MainWindow {
         //testUiComponents();
     }
 
+    /** Initialises components of the main window and shows the main window upon startup. */
     private void onStartup() {
         initializeStage();
-
-        // set up containers for UI components
-        initializeContainers();
 
         // set up initial UI components
         setupCommandTextField();
@@ -62,30 +60,26 @@ public class MainWindow {
         primaryStage.show();
     }
 
-    // temporary method for testing display of various UI components
+    /** Temporary method for testing display of various UI components. */
     private void testUiComponents() {
         Gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 //        Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
     }
 
+    /** Initialises the stage by setting its size and title. */
     private void initializeStage() {
         primaryStage.setTitle("FlashCard Pro"); // set title of application window
         primaryStage.setMinHeight(GuiSettings.getMinHeight());
         primaryStage.setMinWidth(GuiSettings.getMinWidth());
     }
 
-    private void initializeContainers() {
-        window = new VBox();
-        titleBar = new TitleBar();
-        scrollablePane = new ScrollablePane();
-        commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
-    }
-
+    /** Set up the command text field with the given state and add to its placeholder. */
     private void setupCommandTextField() {
         CommandTextField commandTextField = new CommandTextField(state);
         commandTextFieldPlaceholder.add(commandTextField);
     }
 
+    /** Add the UI components to main window, and display the scene. */
     private void setupScene() {
         // add children to window
         window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder);

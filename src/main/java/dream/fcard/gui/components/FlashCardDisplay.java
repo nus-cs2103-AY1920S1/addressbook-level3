@@ -13,6 +13,8 @@ import javafx.scene.text.TextFlow;
  */
 public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
     private Text flashCardText;
+    private static double maxWidth = GuiSettings.getMinWidth() - 2 * GuiSettings.getPadding();
+    private static double textMaxWidth = GuiSettings.getMinWidth() - 4 * GuiSettings.getPadding();
 
     /**
      * Creates a new instance of FlashCardDisplay with the given text.
@@ -23,11 +25,11 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
 
         // set up dimensions
         this.setPrefHeight(200);
-        this.setMaxWidth(GuiSettings.getMinWidth() - 2*GuiSettings.getPadding());
+        this.setMaxWidth(maxWidth);
         this.setPadding(new Insets(GuiSettings.getPadding()));
 
         // set up background colour and radius
-        this.setStyle("-fx-background-color:" + GuiSettings.getPrimaryUiColour() +";");
+        this.setStyle("-fx-background-color:" + GuiSettings.getPrimaryUiColour() + ";");
 //        this.setStyle("-fx-background-radius:" + GuiSettings.getRadius() +";");
 
         flashCardText = new Text(text);
@@ -38,7 +40,7 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
         flashCardText.setWrappingWidth(this.getWidth());
 
         TextFlow textFlow = new TextFlow(flashCardText);
-        textFlow.setMaxWidth(GuiSettings.getMinWidth() - 4*GuiSettings.getPadding());
+        textFlow.setMaxWidth(textMaxWidth);
 
         // add flashCardText to card
         this.getChildren().add(textFlow);

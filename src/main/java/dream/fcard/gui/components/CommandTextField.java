@@ -6,8 +6,16 @@ import dream.fcard.logic.respond.Responder;
 import dream.fcard.model.State;
 import javafx.scene.control.TextField;
 
+/**
+ * UI component representing the text field for user to enter commands.
+ */
 public class CommandTextField extends TextField implements UiComponent<TextField> {
-    State state;
+    private State state;
+
+    /**
+     * Creates a new instance of CommandTextField with the given State.
+     * @param state The State of the application.
+     */
     public CommandTextField(State state) {
         // create text field
         super();
@@ -19,9 +27,10 @@ public class CommandTextField extends TextField implements UiComponent<TextField
 
         // setup styles of commandTextField
         // todo: fix text field background colour :(
-//        commandTextField.setStyle("-fx-border-color:" + GuiSettings.getTertiaryUIColour() + ";");
-//        commandTextField.setStyle("-fx-control-inner-background:" + GuiSettings.getTertiaryUIColour() + ";");
-//        commandTextField.setStyle("-fx-text-fill:#FFFFFF;");
+        //this.setStyle("-fx-border-color:" + GuiSettings.getTertiaryUiColour() + ";");
+        //this.setStyle("-fx-control-inner-background:" + GuiSettings.getTertiaryUiColour() + ";");
+        //this.setStyle("-fx-text-fill:#FFFFFF;");
+
         this.setStyle("-fx-text-fill:" + GuiSettings.getPrimaryTextColour() +";");
         this.setFont(GuiSettings.getCommandTextStyle());
 
