@@ -28,6 +28,6 @@ public class Messages {
     public static final String VIEW = "view";
     public static final String LIST = "list";
     public static final String FILTER = "filter";
-    public static final String GLOBAL_TAG_FILTER = "globaltagfilter";
+    public static final String FILTER_ALL = "filterall";
 
 }

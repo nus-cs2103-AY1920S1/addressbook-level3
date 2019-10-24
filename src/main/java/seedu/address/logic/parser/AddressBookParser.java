@@ -12,7 +12,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.GlobalTagFilterCommand;
+import seedu.address.logic.commands.FilterAllByTagCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListTagCommand;
@@ -90,8 +90,8 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case GlobalTagFilterCommand.COMMAND_WORD:
-            return new GlobalTagFilterCommandParser().parse(arguments);
+        case FilterAllByTagCommand.COMMAND_WORD:
+            return new ListAllByTagCommandParser().parse(arguments);
 
         default:
 
