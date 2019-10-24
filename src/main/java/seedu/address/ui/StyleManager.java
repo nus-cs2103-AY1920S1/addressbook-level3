@@ -187,9 +187,9 @@ public class StyleManager {
                 && tempOutputCss != null && tempOutputCss.exists()
                 && myStyleSheet.getPath() != tempOutputCss.getPath()) {
             bufferedReader = new BufferedReader(new FileReader(tempOutputCss));
-            fileWriter = new FileWriter(myStyleSheet);
             myStyleSheet.delete();
             myStyleSheet = getMyStyleSheet();
+            fileWriter = new FileWriter(myStyleSheet);
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
                 fileWriter.write(line + "\n");
@@ -199,6 +199,17 @@ public class StyleManager {
             tempOutputCss.delete();
             tempOutputCss = null;
         }
+    }
+
+    /**
+     * Writes the styling content to be written and sets the file with the content as the CSS stylesheet to be used.
+     * @throws IOException If writing to the files are unsuccessful.
+     */
+    public void writeAndSave() throws IOException {
+        writeToOutput();
+        closeStreams();
+        copyTempOutputToMyStyleSheet();
+        setStyleSheet(myStyleSheet);
     }
 
     /**
@@ -215,10 +226,7 @@ public class StyleManager {
                             fontFamily) + "\n";
                 }
             }
-            writeToOutput();
-            closeStreams();
-            copyTempOutputToMyStyleSheet();
-            setStyleSheet(myStyleSheet);
+            writeAndSave();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -242,10 +250,7 @@ public class StyleManager {
                     linesToWriteViaWriter += changedFill + "\n";
                 }
             }
-            writeToOutput();
-            closeStreams();
-            copyTempOutputToMyStyleSheet();
-            setStyleSheet(myStyleSheet);
+            writeAndSave();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -289,10 +294,7 @@ public class StyleManager {
             if (!background.isBackgroundColour()) {
                 setBackgroundImage(background);
             }
-            writeToOutput();
-            closeStreams();
-            copyTempOutputToMyStyleSheet();
-            setStyleSheet(myStyleSheet);
+            writeAndSave();
         } catch (Exception e) {
             e.printStackTrace();
         }
