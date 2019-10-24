@@ -67,7 +67,7 @@ class ArgumentTest {
     private static class ArgumentBuilderStub extends ArgumentBuilder<Object> {
 
         ArgumentBuilderStub() {
-            super("");
+            super("", o -> {});
         }
 
         @Override

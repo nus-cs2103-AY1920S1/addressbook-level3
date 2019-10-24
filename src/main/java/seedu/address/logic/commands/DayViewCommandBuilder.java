@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import java.util.Map;
 
 import seedu.address.logic.commands.arguments.DateTimeArgument;
-import seedu.address.logic.commands.arguments.DateTimeArgumentBuilder;
-import seedu.address.logic.commands.options.Option;
-import seedu.address.logic.commands.options.OptionBuilder;
+import seedu.address.logic.commands.arguments.list.ArgumentList;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.DateTime;
 
@@ -18,23 +18,21 @@ class DayViewCommandBuilder extends CommandBuilder {
 
     private final ModelManager model;
 
-    private final DateTimeArgumentBuilder start;
+    private DateTime start;
 
     DayViewCommandBuilder(ModelManager model) {
         this.model = model;
-
-        this.start = DateTimeArgument.newBuilder(ARGUMENT_START_DATE_TIME);
     }
 
     @Override
-    OptionBuilder getCommandArguments() {
-        return Option.newBuilder()
-                .addArgument(this.start);
+    RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .addArgument(DateTimeArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
     }
 
     @Override
-    Map<String, OptionBuilder> getCommandOptions() {
-        return Map.of();
+    Map<String, OptionalArgumentList> defineCommandOptions() {
+        return null;
     }
 
     ModelManager getModel() {
@@ -42,7 +40,7 @@ class DayViewCommandBuilder extends CommandBuilder {
     }
 
     DateTime getStart() {
-        return this.start.getValue();
+        return this.start;
     }
 
     @Override
