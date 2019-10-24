@@ -205,8 +205,8 @@ prefixes like `q>`, `a>`, `r>` and `c>`
 
 The `FlashCard` exporting mechanism is primarily facilitated by the following classes:
 
-* `ExportUtil` -- Handles the actual exporting of `FlashCard` s
-* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCard` s are to be exported, and to where
+* `ExportUtil` -- Handles the actual exporting of `FlashCards`
+* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
 
 The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
@@ -217,7 +217,7 @@ The mechanism is also supported by the package `seedu.address.model.export`, con
 
 Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work.
 Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
-It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCard` s to a `.docx`
+It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCards` to a `.docx`
 document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
 `org.apache.poi.xwpf.usermodel`).
 
@@ -231,12 +231,12 @@ image::ExportActivityDiagram.png[width=320,height=480]
 
 ==== Design Considerations
 
-===== Aspect: Method of obtaining desired `FlashCard` s for exporting
+===== Aspect: Method of obtaining desired `FlashCards` for exporting
 
-* **Alternative 1:** Update the `Model` to show all desired `FlashCard` s, then export all of said `FlashCard` s
-** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCard` s were exported
-** Cons: May cause confusion - `export` command does not imply that the selected `FlashCard` s will also be shown to the user
-* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCard` s, without updating the on-screen list
+* **Alternative 1:** Update the `Model` to show all desired `FlashCards`, then export all of said >`FlashCards`
+** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific >`FlashCards` were exported
+** Cons: May cause confusion - `export` command does not imply that the selected >`FlashCards` will also be shown to the user
+* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected >`FlashCards`, without updating the on-screen list
 ** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
 ** Cons: Is harder to implement and might result in duplication of logic
 
