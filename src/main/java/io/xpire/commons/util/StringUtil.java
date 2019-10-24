@@ -194,7 +194,7 @@ public class StringUtil {
             }
         }
         for (Map.Entry<Integer, TreeSet<String>> entry : allMatches.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
+            //System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
             matches.append(entry.getValue());
         }
         return matches.toString();
