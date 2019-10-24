@@ -1,26 +1,22 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.joining;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.tag.DefaultTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.ui.ResultViewType;
 
 /**
  * Shows all default tags.
  */
 public class ViewDefaultTagsCommand extends Command {
-
-    // not in parser yet
 
     public static final String COMMAND_WORD = "viewdefaulttags";
 
@@ -28,7 +24,7 @@ public class ViewDefaultTagsCommand extends Command {
             + "Example: "
             + "viewdefaulttags";
 
-    public static final String MESSAGE_SUCCESS = "All default tags shown \n%1$s.";
+    public static final String MESSAGE_SUCCESS = "All default tags shown";
 
     /**
      * Creates an {@code ViewDefaultTagsCommand} to show all default tags in the active study plan.
@@ -42,25 +38,11 @@ public class ViewDefaultTagsCommand extends Command {
 
         UniqueTagList uniqueTagList = model.getTagsFromActiveSp();
 
-        Set<DefaultTag> defaultTags = getDefaultTags(uniqueTagList);
+        Predicate<Tag> isTagDefault = tag -> (tag.isDefault());
 
-        final String stringOfDefaultTags = defaultTags.stream()
-            .map(item -> item.toString())
-            .collect(joining("\n"));
+        ObservableList<Tag> defaultTags = uniqueTagList.asUnmodifiableObservableList().filtered(isTagDefault);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfDefaultTags));
-    }
-
-    private Set<DefaultTag> getDefaultTags(UniqueTagList uniqueTagList) {
-        Iterator<Tag> tagIterator = uniqueTagList.iterator();
-        Set<DefaultTag> defaultTags = new HashSet<DefaultTag>();
-        while (tagIterator.hasNext()) {
-            Tag currentTag = tagIterator.next();
-            if (currentTag.isDefault()) {
-                defaultTags.add((DefaultTag) currentTag);
-            }
-        }
-        return defaultTags;
+        return new CommandResult(MESSAGE_SUCCESS, ResultViewType.TAG, defaultTags);
     }
 
 }

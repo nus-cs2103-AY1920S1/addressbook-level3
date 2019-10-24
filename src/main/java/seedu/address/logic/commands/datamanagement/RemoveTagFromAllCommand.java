@@ -20,7 +20,7 @@ public class RemoveTagFromAllCommand extends Command {
             + "Parameters: "
             + "TAG_NAME \n"
             + "Example: "
-            + "removeall t/exchange";
+            + "removeall exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s hass been removed from all modules";
     public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "There is no [%1$s] tag in this study plan";

@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 /**
  * Node of a prerequisite tree. Represents an operator (AND/OR) with children, which are themselves prerequisite trees.
  */
-public class PrereqNode extends PrereqTree {
+public class PrereqNode implements PrereqTree {
     public static final int AND = 0;
     public static final int OR = 1;
 

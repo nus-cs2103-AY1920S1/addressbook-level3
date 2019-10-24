@@ -46,7 +46,15 @@ public class ModuleCard extends UiPart<Region> {
         prereqs.setVisible(!module.getPrereqsSatisfied());
         module.getTags().asUnmodifiableObservableList().stream()
                 .sorted(Comparator.comparing(tag -> tag.getTagName()))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.getTagName());
+                    if (tag.isDefault()) {
+                        tagLabel.setId("defaultTag");
+                    } else {
+                        tagLabel.setId("userTag");
+                    }
+                    tags.getChildren().add(tagLabel);
+                });
     }
 
     @Override

@@ -355,6 +355,17 @@
     -fx-background-radius: 10 10 10 10;
 }
 
+#defaultTag {
+    -fx-text-fill: #1f1f1f;
+    -fx-background-color: white;
+}
+
+#userTag {
+    -fx-text-fill: white;
+    -fx-background-color: #1f1f1f;
+}
+
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -374,12 +385,33 @@
     -fx-text-fill: black;
 }
 
-/*
+#commandTextField .label{
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: black;
+}
+
+#commandTextField .context-menu {
+    -fx-background-color: #fff;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+#commandTextField .menu-item {
+    -fx-background-color: #fff;
+    -fx-background-insets: 0;
+}
+
+#commandTextField .menu-item:focused{
+    -fx-background-color: #c4c4c4;
+    -fx-background-insets: 0;
+}
+
 #resultDisplay {
     -fx-background-color: #ffffff;
     -fx-background-radius: 15;
 }
-*/
+
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
@@ -407,9 +439,12 @@
 }
 
 #tags .label {
+    /*
     -fx-text-fill: white;
     -fx-background-color: #1f1f1f;
+    */
     -fx-padding: 1 5 1 5;
+    -fx-border-color: black;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-font-size: 11;

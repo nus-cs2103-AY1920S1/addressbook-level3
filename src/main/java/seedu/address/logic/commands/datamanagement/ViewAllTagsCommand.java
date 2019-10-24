@@ -1,20 +1,18 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.joining;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.ui.ResultViewType;
 
 /**
  * Shows all tags in the active study plan.
  */
 public class ViewAllTagsCommand extends Command {
-
-    // not in parser yet
 
     public static final String COMMAND_WORD = "viewalltags";
 
@@ -22,7 +20,7 @@ public class ViewAllTagsCommand extends Command {
             + "Example: "
             + "viewalltags";
 
-    public static final String MESSAGE_SUCCESS = "All tags shown \n%1$s.";
+    public static final String MESSAGE_SUCCESS = "All tags shown";
 
     /**
      * Creates an {@code ViewAllTagsCommand} to show all tags in the active study plan.
@@ -36,11 +34,7 @@ public class ViewAllTagsCommand extends Command {
 
         UniqueTagList uniqueTagList = model.getTagsFromActiveSp();
 
-        final String stringOfTags = uniqueTagList.asUnmodifiableObservableList().stream()
-                .map(item -> item.toString())
-                .collect(joining("\n"));
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfTags));
+        return new CommandResult(MESSAGE_SUCCESS, ResultViewType.TAG, uniqueTagList.asUnmodifiableObservableList());
     }
 
 }

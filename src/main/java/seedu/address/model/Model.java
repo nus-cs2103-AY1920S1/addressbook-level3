@@ -186,9 +186,9 @@ public interface Model {
     boolean semesterHasModule(String moduleCode, SemesterName semesterName);
 
     /**
-     * Updates the prerequisites.
+     * Refreshes the model by updating the prerequisites, MC count, etc.
      */
-    void updatePrereqs();
+    void refresh();
 
     /**
      * Adds specified module to specified semester

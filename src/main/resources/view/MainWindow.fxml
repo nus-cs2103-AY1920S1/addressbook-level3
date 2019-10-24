@@ -48,11 +48,14 @@
                             <Insets bottom="5" left="5" right="5" top="5" />
                         </padding>
                         <VBox fx:id="studyPlan" VBox.vgrow="ALWAYS">
-                            <Label fx:id="title" styleClass="cell_big_label" text="\$first">
-                                <padding>
-                                    <Insets left="5" />
-                                </padding>
-                            </Label>
+                            <HBox spacing="5" alignment="CENTER_LEFT">
+                                <Label fx:id="title" styleClass="cell_big_label" text="\$first">
+                                    <padding>
+                                        <Insets left="5" />
+                                    </padding>
+                                </Label>
+                                <Label fx:id="mcCount" styleClass="cell_small_label" text="\$mcCount" />
+                            </HBox>
                             <VBox fx:id="semesterList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets bottom="5" left="5" right="5" top="5" />

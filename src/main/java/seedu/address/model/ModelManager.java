@@ -198,7 +198,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updatePrereqs() {
+    public void refresh() {
         this.modulePlanner.updatePrereqs();
     }
 

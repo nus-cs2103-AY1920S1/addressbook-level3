@@ -296,8 +296,13 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         return this.activeStudyPlan.getValidMods(semName);
     }
 
+    /**
+     * Changes the title of the active study plan.
+     */
     public void changeActiveStudyPlanTitle(String title) {
-        activeStudyPlan.setTitle(new Title(title));
+        if (this.activeStudyPlan != null) {
+            activeStudyPlan.setTitle(new Title(title));
+        }
     }
 
     //=========== Version Tracking ============================================================================

@@ -5,21 +5,21 @@ import java.util.List;
 /**
  * Leaf of a prerequisite tree. Represents a single module prerequisite.
  */
-public class PrereqLeaf extends PrereqTree {
-    private String code;
+public class PrereqLeaf implements PrereqTree {
+    private String moduleCode;
 
     public PrereqLeaf(String code) {
-        this.code = code;
+        this.moduleCode = code;
     }
 
     @Override
     public boolean verify(List<String> prevSemCodes) {
-        return prevSemCodes.contains(this.code);
+        return prevSemCodes.contains(this.moduleCode);
     }
 
     @Override
     public String toString() {
-        return this.code;
+        return this.moduleCode;
     }
 
     @Override
@@ -32,6 +32,6 @@ public class PrereqLeaf extends PrereqTree {
         }
 
         PrereqLeaf o = (PrereqLeaf) other;
-        return this.code.equals(o.code);
+        return this.moduleCode.equals(o.moduleCode);
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,15 @@ public class ModulesInfo {
 
     public HashMap<String, ModuleInfo> getModuleInfoHashMap() {
         return this.mapModulesInfo;
+    }
+
+    public List<String> getModuleCodeStrings() {
+        ArrayList<String> result = new ArrayList<>();
+        for (String moduleCode: mapModulesInfo.keySet()) {
+            result.add(moduleCode);
+        }
+        Collections.sort(result);
+        return result;
     }
 
     /**

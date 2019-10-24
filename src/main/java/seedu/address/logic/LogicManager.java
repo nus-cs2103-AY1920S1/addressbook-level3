@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = modulePlannerParser.parseCommand(commandText);
         commandResult = command.execute(model);
-        model.updatePrereqs();
+        model.refresh();
 
         try {
             storage.saveModulePlanner(model.getModulePlanner());
