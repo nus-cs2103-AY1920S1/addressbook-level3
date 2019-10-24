@@ -507,7 +507,7 @@ image::StatsSequenceDiagram.png[]
 
 1. User executes `stats d/01/01/2019 d/07/01/2019` to generate statistics for spending within `01/01/2019` and `07/01/2019`.
 
-2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/ 01/01/2019 d/07/01/2019` to StatsCommandParser.
+2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
 
 3. StatsCommandParser will check whether the date range parameters provided are valid.
 
@@ -525,7 +525,7 @@ image::StatsDataSequenceDiagram.png[]
 
 1. Upon checking that the boolean `isShowStats` = true, the MainWindow calls `LogicManager#getStatsData()`.
 
-2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/ 01/01/2019 d/07/01/2019` to StatsCommandParser.
+2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
 
 3. StatsCommandParser will check whether the date range parameters provided are valid.
 
