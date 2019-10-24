@@ -50,12 +50,12 @@ public class ItemCard extends UiPart<Region> {
         this.item = item;
         this.id.setText(displayedIndex + ". ");
         this.name.setText(item.getName().toString());
-        this.expiryDate.setText(item.getExpiryDate().toString());
+        this.expiryDate.setText("Expiry date: " + item.getExpiryDate().toStringWithCountdown());
         this.quantity.setText("Quantity: " + item.getQuantity().toString());
         Optional<ReminderDate> reminderDate = DateUtil.getReminderDate(
                 item.getExpiryDate().getDate(), item.getReminderThreshold().getValue());
         if (reminderDate.isPresent()) {
-            this.reminder.setText(reminderDate.get().toString());
+            this.reminder.setText("Remind me from: " + reminderDate.get().toString());
         } else {
             this.reminder.setVisible(false);
         }
