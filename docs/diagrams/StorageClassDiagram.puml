@@ -7,18 +7,30 @@ skinparam classBackgroundColor STORAGE_COLOR
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface AddressBookStorage <<Interface>>
+Interface ProjectListStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonAddressBookStorage
+Class JsonSerializableProjectList
+Class JsonProjectListStorage
+
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
 StorageManager o--> AddressBookStorage
+StorageManager o--> ProjectListStorage
+
+JsonProjectListStorage .left.|> ProjectListStorage
+JsonProjectListStorage .down.> JsonSerializableProjectList
+
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonAddressBookStorage .left.|> AddressBookStorage
 JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonSerializableAddressBookStorage .right.> JsonAdaptedPerson
+JsonAdaptedPerson .right.> JsonAdaptedTag
+JsonSerializableProjectList .right.> JsonAdaptedMeeting
+JsonSerializableProjectList .down.> JsonAdaptedTask
+JsonSerializableProjectList .left.> JsonAdaptedFinance
 @enduml
