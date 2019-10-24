@@ -27,7 +27,7 @@
       </stylesheets>
 
       <VBox fx:id="appBox" maxWidth="1250.0" prefHeight="650.0" prefWidth="1250.0" styleClass="appBox" stylesheets="@DarkTheme.css">
-            <AnchorPane prefWidth="1250.0" VBox.vgrow="NEVER">
+            <AnchorPane maxHeight="30.0" prefWidth="1250.0" VBox.vgrow="NEVER">
                <children>
               <MenuBar fx:id="menuBar" layoutX="16.0" layoutY="-5.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <Menu mnemonicParsing="false" text="File">
@@ -58,14 +58,11 @@
                   <DropShadow blurType="GAUSSIAN" height="28.91" offsetY="2.0" radius="11.9775" spread="0.23" />
                </effect>
             </AnchorPane>
-            <HBox prefHeight="450.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
+            <HBox maxHeight="575.0" prefHeight="575.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox minWidth="1000.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
+                  <VBox maxHeight="575.0" minWidth="1000.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <StackPane fx:id="bodyMasterListPlaceholder" maxHeight="414.0" prefHeight="414.0" styleClass="stack-pane">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
+                        <StackPane fx:id="bodyMasterListPlaceholder" maxHeight="475.0" prefHeight="475.0" styleClass="stack-pane">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -74,23 +71,23 @@
                            </effect>
                         </StackPane>
                       <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="100.0" prefHeight="100.0" styleClass="stack-pane">
-                          <padding>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                          </padding>
                            <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
                           <effect>
                               <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
                           </effect>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                       </StackPane>
                      </children>
                      <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        <Insets right="15.0" />
                      </padding>
                   </VBox>
-              <VBox fx:id="personList" maxWidth="250.0" prefHeight="450.0" prefWidth="250.0">
-                <StackPane fx:id="personListPanelPlaceholder" prefHeight="514.0" styleClass="stack-pane">
+              <VBox fx:id="personList" maxHeight="575.0" maxWidth="250.0" prefHeight="575.0" prefWidth="250.0">
+                <StackPane fx:id="personListPanelPlaceholder" maxHeight="575.0" prefHeight="575.0" styleClass="stack-pane">
                         <VBox.margin>
                            <Insets />
                         </VBox.margin>
@@ -98,14 +95,14 @@
                             <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
                         </effect>
                      </StackPane>
-                     <padding>
-                        <Insets bottom="15.0" right="15.0" top="15.0" />
-                     </padding>
               </VBox>
                </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
             </HBox>
 
-              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="120.0" prefHeight="30.0" prefWidth="1220.0" styleClass="stack-pane" VBox.vgrow="ALWAYS">
+              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="30.0" prefHeight="30.0" prefWidth="1220.0" styleClass="stack-pane" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" />
                </VBox.margin>
