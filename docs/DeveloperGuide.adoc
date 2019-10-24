@@ -383,6 +383,10 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 The calendar feature works along with a scheduler. Calendar stores internally a `calendarEntries` list and a `pastReminders` list.
 Calendar entries consists of reminders and events. Past reminders list is dynamically determined by time and all reminders in this
 list is shown to the user. The scheduler acts as a wrapper for the Java ScheduledExecutorService, which updates past reminder list at specific time.
+
+The following activity diagram shows how event command and scheduler works:
+image:CalendarActivityDiagram.png[]
+
 It implements the following operations:
 
 * 'Calendar#addCalendarEntry' -- Adds a new calendar entry to the calendar.
@@ -414,7 +418,8 @@ Step 4. At 14:00, a scheduled task is executed to call `Model#addPastReminder()`
 
 Step 5. At 17:30, a scheduled task is executed to call `Model#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following sequence diagram shows how a single `reminder` command works:
+image:CalendarSequenceDiagram.png[]
 
 ==== Design Considerations
 

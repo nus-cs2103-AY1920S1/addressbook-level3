@@ -4,7 +4,6 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.TemporalUnit;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.model.Calendar;
 import seedu.address.model.DateTime;
-import seedu.address.model.Model;
 
 /**
  * A class representing a scheduler.
