@@ -7,6 +7,8 @@ import static seedu.jarvis.model.financetracker.FinanceTrackerModel.PREDICATE_SH
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PURCHASE;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -102,7 +104,8 @@ public class RemovePaidCommandTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"));
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"),
+                    LocalDate.parse("10/04/2019", Purchase.getDateFormat()));
         }
     }
 }

@@ -9,6 +9,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -61,7 +62,7 @@ public class SetPaidCommandTest {
     }
 
     @Test
-    public void execute_purchaseAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_purchaseAcceptedByModel_addSuccessful() {
         ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
         Purchase validPurchase = new PurchaseBuilder().build();
 
@@ -152,7 +153,8 @@ public class SetPaidCommandTest {
 
     private static class PurchaseStub extends Purchase {
         public PurchaseStub() {
-            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"));
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"),
+                    LocalDate.parse("10/04/2019", Purchase.getDateFormat()));
         }
     }
 }

@@ -27,6 +27,7 @@ import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.financetracker.MonthlyLimit;
 import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
 import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
 import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 import seedu.jarvis.model.planner.Frequency;
@@ -189,7 +190,23 @@ public class ParserUtil {
         if (Double.parseDouble(limit) < 0) {
             throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
         }
-        return new MonthlyLimit(limit);
+        return new MonthlyLimit(trimmedLimit);
+    }
+
+    /**
+     * Parses a {@code String date} into a date to record when purchase was made
+     * @param date the date to be parsed
+     * @return the formatted date
+     */
+    public static LocalDate parseDateOfPurchase(String date) throws ParseException {
+        requireNonNull(date);
+        try {
+            String trimmedDate = date.trim();
+            LocalDate formattedDate = LocalDate.parse(trimmedDate, Purchase.getDateFormat());
+            return formattedDate;
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE);
+        }
     }
 
     /**

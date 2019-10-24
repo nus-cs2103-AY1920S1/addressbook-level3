@@ -4,6 +4,7 @@ import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import seedu.jarvis.logic.commands.finance.SetPaidCommand;
@@ -45,8 +46,9 @@ public class SetPaidCommandParser implements Parser<SetPaidCommand> {
                 .parsePurchaseAmount(argMultimap
                         .getValue(PREFIX_MONEY)
                         .get());
+        LocalDate dateOfPurchase = LocalDate.now();
 
-        Purchase purchase = new Purchase(description, moneySpent);
+        Purchase purchase = new Purchase(description, moneySpent, dateOfPurchase);
 
         return new SetPaidCommand(purchase);
     }
