@@ -271,7 +271,7 @@ public class SuggestingCommandBox extends CommandBox {
     @Override
     protected void handleCommandEntered() {
         final String userInput = commandTextField.getText();
-        commandHistory.add(0, userInput);
+        commandHistory.add(userInput);
         suggestionMode = SuggestionMode.COMMAND_SUGGESTION;
         commandHistory.resetHistoryPointer();
 
