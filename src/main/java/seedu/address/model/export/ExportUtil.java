@@ -1,6 +1,6 @@
 //@@author LeowWB
 
-package seedu.address.commons.util;
+package seedu.address.model.export;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,7 +10,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import seedu.address.model.export.DocumentPath;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
