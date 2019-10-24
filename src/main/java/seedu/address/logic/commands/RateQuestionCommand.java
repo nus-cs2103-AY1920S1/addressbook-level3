@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 
 //@@author keiteo
@@ -15,10 +15,10 @@ public class RateQuestionCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:\n%s";
     public static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
 
-    private final AddressBookParser addressBookParser;
+    private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
-    public RateQuestionCommand(AddressBookParser addressBookParser) {
-        this.addressBookParser = addressBookParser;
+    public RateQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
@@ -28,12 +28,12 @@ public class RateQuestionCommand extends Command {
         // TODO: implement stats here
 
         if (!model.hasTestFlashCard()) {
-            addressBookParser.endTest();
+            keyboardFlashCardsParser.endTest();
             return new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
         }
 
         String nextQuestion = model.getTestQuestion(model);
-        addressBookParser.setAwaitingAnswer(true);
+        keyboardFlashCardsParser.setAwaitingAnswer(true);
         return new CommandResult(String.format(MESSAGE_SUCCESS, nextQuestion));
     }
 }

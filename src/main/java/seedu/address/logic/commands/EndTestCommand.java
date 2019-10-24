@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 
 //@@author keiteo
@@ -11,16 +11,16 @@ public class EndTestCommand extends Command {
 
     public static final String COMMAND_WORD = "end";
 
-    private AddressBookParser addressBookParser;
+    private KeyboardFlashCardsParser keyboardFlashCardsParser;
 
-    public EndTestCommand(AddressBookParser addressBookParser) {
-        this.addressBookParser = addressBookParser;
+    public EndTestCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
     public CommandResult execute(Model model) {
         // TODO: integrate statistics
-        addressBookParser.endTest();
+        keyboardFlashCardsParser.endTest();
         return new CommandResult("Test ended");
     }
 }

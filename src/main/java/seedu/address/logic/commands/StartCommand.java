@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
@@ -29,18 +29,18 @@ public class StartCommand extends Command {
 
     public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...\n%s";
 
-    private final AddressBookParser addressBookParser;
+    private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     private final String tagName;
 
-    public StartCommand(AddressBookParser addressBookParser) {
-        this.addressBookParser = addressBookParser;
+    public StartCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        this.keyboardFlashCardsParser = keyboardFlashCardsParser;
         tagName = "";
     }
 
-    public StartCommand(AddressBookParser addressBookParser, String tagName) {
+    public StartCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, String tagName) {
         this.tagName = tagName;
-        this.addressBookParser = addressBookParser;
+        this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
@@ -51,9 +51,9 @@ public class StartCommand extends Command {
         if (!model.hasTestFlashCard()) {
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
-        addressBookParser.startTest();
+        keyboardFlashCardsParser.startTest();
         String question = model.getTestQuestion(model);
-        addressBookParser.setAwaitingAnswer(true);
+        keyboardFlashCardsParser.setAwaitingAnswer(true);
         return new CommandResult(String.format(MESSAGE_START_TEST_SUCCESS, question));
     }
 
@@ -62,7 +62,7 @@ public class StartCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof StartCommand // instanceof handles nulls
                 && tagName.equals(((StartCommand) other).tagName)
-                && addressBookParser.equals(((StartCommand) other).addressBookParser)); // state check
+                && keyboardFlashCardsParser.equals(((StartCommand) other).keyboardFlashCardsParser)); // state check
     }
 
     /** Searches the list of flashcard to fetch the relevant tags. */
