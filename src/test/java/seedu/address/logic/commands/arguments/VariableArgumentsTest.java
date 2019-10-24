@@ -44,7 +44,7 @@ class VariableArgumentsTest {
     private static class VariableArgumentsBuilderStub extends VariableArgumentsBuilder<Object> {
 
         VariableArgumentsBuilderStub() {
-            super("");
+            super("", o -> {});
         }
 
         @Override

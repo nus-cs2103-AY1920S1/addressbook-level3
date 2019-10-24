@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.arguments;
 
+import java.util.function.Consumer;
+
 import seedu.address.model.events.DateTime;
 
 /**
@@ -7,8 +9,8 @@ import seedu.address.model.events.DateTime;
  */
 public class DateTimeArgumentBuilder extends ArgumentBuilder<DateTime> {
 
-    DateTimeArgumentBuilder(String description) {
-        super(description);
+    DateTimeArgumentBuilder(String description, Consumer<DateTime> promise) {
+        super(description, promise);
     }
 
     @Override
