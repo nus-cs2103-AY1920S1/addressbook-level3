@@ -329,7 +329,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 `execute("import p/validSpending.csv")`
 
 .Interactions Inside the Logic Component for the `import` Command
-image::import/importSequenceDiagram.png[]
+image::importSequenceDiagram.png[]
 
 //When a user gives an `import` command, the application will start processing the request by calling the `LogicManager`.
 //It will then call the `SpendingBookParser`, which parses the command string.
@@ -346,7 +346,7 @@ Following that, the application will then prints an output, showing the result o
 The following activity diagram summarizes what happens when a user executes an import command:
 
 .Import Feature Activity Diagram
-image::import/importActivityDiagram.png[]
+image::importActivityDiagram.png[]
 
 When a user calls the `import` command and inputs a valid `.csv` file, the application will read and parses all the data inside the file and save them to the `SpendingBookList` and `moneygowhere.json`.
 
