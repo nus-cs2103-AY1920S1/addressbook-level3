@@ -1,0 +1,22 @@
+@startuml
+
+interface CompilerEnvironment {
+    + JavaFile : createJavaFile(UserProgram program)
+    + JavaFile : getJavaFile(String name)
+    + void : clearEnvironment()
+    + void : close()
+}
+
+class JavaFile {
+    - String canonicalName
+    - String classPath
+    + String : getCanonicalName()
+    + String : getClassPath()
+    + String : getAbsolutePath()
+    + File : toFile()
+    + boolean : equals()
+}
+
+CompilerEnvironment -> JavaFile
+
+@enduml

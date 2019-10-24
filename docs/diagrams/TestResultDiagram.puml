@@ -1,0 +1,33 @@
+@startuml
+class TestResult {
+    + isSuccessful()
+    + getNumPassed()
+    + getResults()
+    + getCompileError()
+    + equals()
+}
+
+class TestCaseResult {
+    + isSuccessful()
+    + getInput()
+    + getExpectedOutput()
+    + getActualOutput()
+    + getRuntimeError()
+    + equals()
+}
+
+together {
+    class CompileError {
+        + getMessage()
+    }
+
+
+    class RuntimeError {
+        + getMessage()
+    }
+}
+
+TestResult *-- "*" TestCaseResult
+TestResult *-- "1" CompileError
+TestCaseResult *-- "1" RuntimeError
+@enduml
