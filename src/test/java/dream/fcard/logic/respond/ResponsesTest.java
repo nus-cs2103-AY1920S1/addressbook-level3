@@ -3,6 +3,7 @@ package dream.fcard.logic.respond;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
@@ -17,9 +18,16 @@ import dream.fcard.util.FileReadWrite;
 public class ResponsesTest {
     @Test
     void rootTest() {
-        String path = FileReadWrite.normalizePath("~");
+        String path = FileReadWrite.resolve("./", "./testDir");
+        new File(path).mkdirs();
+        // make directory for testing
+
         Responses.ROOT.call("root " + path, new State());
         assertEquals(path, StorageManager.getRoot());
+        // test
+
+        FileReadWrite.delete(path);
+        // cleanup
     }
 
     @Test
