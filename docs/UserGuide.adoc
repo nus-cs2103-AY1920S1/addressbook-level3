@@ -205,7 +205,7 @@ Format: `done`
 ==== Editing a borrower: `edit`
 
 Edit borrower’s particulars. +
-Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
+Format: `edit {  [n/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 ****
 * Edits the currently serving borrower's particulars.
@@ -315,10 +315,12 @@ Commands only applicable in *serve mode*:
 * *Serve mode* : `serve id/BORROWER_ID` +
 e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
+
 * *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
-* *Loan book(s)* : `loan sn/BOOK_SN` +
-e.g. `loan sn/B00201`
+* *Loan book(s)* : `loan sn/BOOK_SN...` +
+e.g. `loan sn/B00201 sn/B02929 sn/B00203`
+
 * *Renew book(s)* : `renew INDEX… [-all]`
 * *Return book(s)* : `return INDEX… [-all]`
 * *Pay fines* : `pay AMOUNT`

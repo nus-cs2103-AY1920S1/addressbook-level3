@@ -365,4 +365,20 @@ public class ModelManager implements Model {
                 .map(sn -> catalog.getBook(sn))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Borrower getBorrowerFromId(BorrowerId borrowerId) {
+        return borrowerRecords.getBorrowerFromId(borrowerId);
+    }
+
+    @Override
+    public void setBorrower(Borrower borrowerToEdit, Borrower editedBorrower) {
+
+    }
+
+    @Override
+    public boolean hasDuplicatedBorrower(Borrower editedBorrower) {
+        return borrowerRecords.hasDuplicateBorrower(editedBorrower);
+    }
+
 }
