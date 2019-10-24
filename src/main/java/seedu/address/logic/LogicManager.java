@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.SugarMummyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -41,14 +41,14 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final SugarMummyParser sugarMummyParser;
     private DisplayPaneType displayPaneType;
     private boolean newPaneIsToBeCreated;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        sugarMummyParser = new SugarMummyParser();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = sugarMummyParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
         newPaneIsToBeCreated = command.getnewPaneIsToBeCreated();
         commandResult = command.execute(model);

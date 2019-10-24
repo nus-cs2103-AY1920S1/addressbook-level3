@@ -37,7 +37,7 @@ import seedu.sgm.model.food.exception.FoodNotSuitableException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class SugarMummyParser {
 
     /**
      * Used for initial separation of command word and args.

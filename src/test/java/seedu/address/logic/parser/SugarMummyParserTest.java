@@ -31,9 +31,9 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Concentration;
 
-public class AddressBookParserTest {
+public class SugarMummyParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final SugarMummyParser parser = new SugarMummyParser();
 
     @Test
     public void parseCommand_add() throws Exception {
