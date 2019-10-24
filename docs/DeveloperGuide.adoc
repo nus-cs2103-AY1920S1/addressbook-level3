@@ -12,9 +12,34 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main/tree/master
 
 By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
+
+== Introduction
+=== Purpose
+This Developer Guide specifies the software architecture, design, and major implementation features of our Desktop Application, AddMin+.
+
+=== Intended Audience
+The intended audience of this Developer Guide is for fellow developers looking to contribute to this open-source project and the graders of the CS2103T module.
+
+=== Software Description
+AddMin+ is an all in one administration desktop application, specifically for use by small companies with limited administrative staff and would benefit from automating their menial administrative tasks.
+
+The application primarily uses a Command Line Interface (CLI) and displays the results through a Graphical User Interface (GUI).
+
+=== Using this Developer Guide
+
+[TIP]
+*LightBulbs* indicate a _Tip_, somthing that is helpful to the reader
+
+[NOTE]
+*'I' Icon* indicate a _Note_ that supplements useful information
+
+Text in a link:[`blue font and grey`] background indicates a _hyperlink_
+
+Text with a `grey background` indicates _Code Logic_ such as class objects, OOP definitions or user-input.
+
 
 == Setting up
 
