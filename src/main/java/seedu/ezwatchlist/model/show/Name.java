@@ -2,8 +2,6 @@ package seedu.ezwatchlist.model.show;
 
 import seedu.ezwatchlist.commons.util.AppUtil;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Represents a Show's name in the watchlist.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

@@ -2,15 +2,17 @@ package seedu.ezwatchlist.model.show;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.model.show.exceptions.DuplicateShowException;
 import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
-import seedu.ezwatchlist.commons.util.CollectionUtil;
 
 /**
  * A list of shows that enforces uniqueness between its elements and does not allow nulls.
@@ -111,9 +113,10 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public void setShows(List<Show> shows) {
         CollectionUtil.requireAllNonNull(shows);
-        if (!showsAreUnique(shows)) {
-            throw new DuplicateShowException();
-        }
+        //currently remove the check if shows are unique
+        //if (!showsAreUnique(shows)) {
+        //throw new DuplicateShowException();
+        //}
 
         internalList.setAll(shows);
     }

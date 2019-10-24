@@ -17,10 +17,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.WatchList;
+import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
@@ -54,16 +55,16 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Show Avenger = new ShowBuilder().withName("Avenger").build();
+        Show avenger = new ShowBuilder().withName("Avenger").build();
         Show bobthebuilder = new ShowBuilder().withName("Bob The Builder").build();
-        AddCommand addAvengerCommand = new AddCommand(Avenger);
+        AddCommand addAvengerCommand = new AddCommand(avenger);
         AddCommand addBobCommand = new AddCommand(bobthebuilder);
 
         // same object -> returns true
         assertTrue(addAvengerCommand.equals(addAvengerCommand));
 
         // same values -> returns true
-        AddCommand addShowCommandCopy = new AddCommand(Avenger);
+        AddCommand addShowCommandCopy = new AddCommand(avenger);
         assertTrue(addAvengerCommand.equals(addAvengerCommand));
 
         // different types -> returns false
@@ -179,6 +180,11 @@ public class AddCommandTest {
         @Override
         public void updateSearchResultList(List<Show> searchResult) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void syncMovie(List<Movie> syncMovie) {
+
         }
     }
 
