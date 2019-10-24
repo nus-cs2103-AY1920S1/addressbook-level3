@@ -246,14 +246,14 @@ will be tracked under this budget. If the user wants to track an expense under a
 switches to the target budget first, before adding the expense.
 
 Each budget has 8 fields:
-- description: `Description`, budget name
-- amount: `Price`, amount of budget limit
-- startDate: `Timestamp`, the start date of the budget (for the current period)
-- endDate: `Timestamp`, the end date of the budget (for the current period)
-- period: `Period`, the recurring period of the budget
-- expenses: `ObservableList<Expense>`, the list of all expenses under this budget
-- isPrimary: `boolean`, a flag indicating the primary status of this budget
-- proportionUsed: `Percentage`, the proportion of the total amount that has been used up
+* description: `Description`, budget name
+* amount: `Price`, amount of budget limit
+* startDate: `Timestamp`, the start date of the budget (for the current period)
+* endDate: `Timestamp`, the end date of the budget (for the current period)
+* period: `Period`, the recurring period of the budget
+* expenses: `ObservableList<Expense>`, the list of all expenses under this budget
+* isPrimary: `boolean`, a flag indicating the primary status of this budget
+* proportionUsed: `Percentage`, the proportion of the total amount that has been used up
 
 image::BudgetClassDiagram.png[]
 
@@ -270,13 +270,13 @@ it has a method `getCurrentPeriodExpenses()` that generates a filtered list of e
 period, which interacts with GUI to be shown in the current screen.
 
 The fundamental classes of the budget feature are:
-- `Budget` : main functional backend class
-- `JsonAdaptedBudget` : for storage of a `Budget` object in Json format
-- `UniqueBudgetList` : a list of non-duplicate budgets in MooLah
-- `AddBudgetCommand` and `SwitchBudgetCommand` : budget-related commands
+* `Budget` : main functional backend class
+* `JsonAdaptedBudget` : for storage of a `Budget` object in Json format
+* `UniqueBudgetList` : a list of non-duplicate budgets in MooLah
+* `AddBudgetCommand` and `SwitchBudgetCommand` : budget-related commands
         `AddBudgetCommand` creates a new `Budget` and adds it to `UniqueBudgetList`
         `SwitchBudgetCommand` switches the primary budget to the specified budget
-- `AddBudgetCommandParser` and `SwitchBudgetCommandParser` : for parsing CLI input into commands
+* `AddBudgetCommandParser` and `SwitchBudgetCommandParser` : for parsing CLI input into commands
 
 image::AddBudgetCommandClassDiagram.png[]
 
