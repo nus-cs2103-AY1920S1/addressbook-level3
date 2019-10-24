@@ -39,6 +39,7 @@ public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final int NOTIF_PERIOD = 10;
+    public static final TimeUnit NOTIF_TIME_UNIT = TimeUnit.SECONDS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entity to Mortago.\n"
             + "Adding a worker:\n"
@@ -105,7 +106,7 @@ public class AddCommand extends UndoableCommand {
 
         if (toAdd instanceof Body) {
             Body body = (Body) toAdd;
-            NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, TimeUnit.SECONDS);
+            NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
             notifCommand.execute(model);
             Optional<IdentificationNumber> fridgeId = body.getFridgeId();
             if (!fridgeId.equals(Optional.empty())) {
