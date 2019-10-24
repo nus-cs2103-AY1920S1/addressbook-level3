@@ -56,18 +56,16 @@ e.g. typing *`go /home`* and pressing kbd:[Enter] will take you to the Home tab.
 
 These are commands available within the command box for all tabs.
 
-=== Navigation: `go /TAB`
+* Navigation between tabs:
+Command: `go /TAB`
 
 Allows you to navigate between tabs
-* `go /home`
-* `go /inventory`
-* `go /reimbursement`
-* `go /cashier`
-* `go /overview`
 
-=== Search: `search /KEYWORD`
-
-Allows you to search for any item in the inventory, reimbursement, home tab with a keyword
+* `go home`
+* `go inventory`
+* `go reimbursement`
+* `go cashier`
+* `go overview`
 
 == Feature Specific Commands
 
@@ -78,36 +76,71 @@ These are commands that are specific to each feature which would be categorised 
 ====
 * Home tab shows the transaction history of each expenditure.
 * The columns will show the date/time of the transaction, description of the expenditure, category it is under, amount spent and the person who bought it.
-* At the side, our mascot lion will help to give replies to indicate successful addition, deletion, edits of the command line input.
+* At the side, our mascot lion 'Leo' will help to give replies to indicate successful addition, deletion, edits of the command line input.
 * He will also give you replies when there is a wrong input.
-* There is a function to filter the transactions by date so from latest to oldest, person so by alphabetical order of the person and amount so from most to least.
-* There will be autocomplete for the person according to who is in our address book database.
+* There is a function to sort the transactions by date so from latest to oldest, person so by alphabetical order of the person and amount so from most to least.
+* The amount should be inputted as positive if the transaction is considered revenue and adds to the club or society's reserves
+and the amount should be inputted as negative if the transaction is a spending.
 ====
 
-* To add an expense:
+* To add a transaction:
 `add dt/DATE_AND_TIME d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
 
 Examples:
 `add dt/January 1st 2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
 
+
+If the added transaction is negative which indicates a spending, it will be shown in the Reimbursement Tab as a pending reimbursement
+record for the member that spent it. If there is an existing reimbursement record for that member still pending, the amount
+of the newly added transaction will be added to the existing pending reimbursement amount.
+
 * To delete an expense:
-`delete INDEX` or `delete DESCRIPTION`
+`delete INDEX` or `delete p/PERSON`
 
 Examples:
 ** `delete 1`
-** `delete Printer ink`
+** `delete p/Alex Yeoh`
 
-* To edit:
-`edit INDEX` or `edit DESCRIPTION`
+* To edit a transaction:
+`edit INDEX dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+
+[NOTE]
+The fields above can vary and be in different order. It is not compulsory to include all of them.
 
 Examples:
-** `edit 1`
-** `edit Printer ink`
+** `edit 1 p/Bernice Yu dt/23-Aug-2019`
+** `edit 3 a/12`
+
+If the transaction intended to be deleted still has a pending reimbursement record, there will be an error response shown
+and the deletion will not be allowed until the reimbursement record is marked as done.
 
 * To sort:
-** By date: `sort d`
-** By person: `sort p`
-** By amount: `sort a`
+** By date: `sort date`
+** By person: `sort person`
+** By amount: `sort amount`
+
+The sort by date command will allow the user to view the table of transactions from the oldest to most recent.
+The sort by person command will allow the user to view the table of transactions in alphabetical order.
+The sort by amount command will allow the user to view the table of transactions from the one with the largest amount to the smallest amount.
+
+* To un-sort:
+`sort reset`
+
+This command will allow the user to view the table of transactions in the order of when the current session of this application was just opened.
+
+
+* To find:
+`find KEYWORDS`
+
+[NOTE]
+The keyword can be one or more words. An entire keyword must match a word in the transaction intended to be found to be shown in the table
+after the command. If the keyword is just a part of the word in the transaction, the transaction will not be shown in the table after the
+command is inputted.
+
+Examples:
+
+** `find Alex Yeoh`
+** `find Alex`
 
 === Inventory
 
