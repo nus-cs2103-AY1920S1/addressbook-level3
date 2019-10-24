@@ -21,15 +21,18 @@ public class ReimbursementList {
     private ArrayList<Reimbursement> list;
 
     public ReimbursementList() {
-        list = new ArrayList<Reimbursement>();
+        list = new ArrayList<>();
     }
 
     public ReimbursementList(TransactionList transList) {
         list = new ArrayList<>();
         ArrayList<Transaction> pendingList = checkStatus(transList);
         for (Transaction trans : pendingList) {
-            Reimbursement newRecord = new Reimbursement(trans);
-            merge(newRecord);
+            if(trans.getAmount() < 0) {
+                Reimbursement newRecord = new Reimbursement(trans);
+                merge(newRecord);
+            }
+
         }
     }
 
