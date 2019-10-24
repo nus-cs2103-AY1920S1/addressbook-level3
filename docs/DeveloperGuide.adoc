@@ -188,21 +188,21 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Sorting feature
 The Sorting feature allows users to sort their food items based on certain criteria. You are allowed to sort based on certain fields and directions. +
-First and foremost, they will be able to sorts the food items based on their default ordering, where it is based on ascending price, name and then category. +
+First and foremost, they will be able to sort the food items based on their default ordering, where it is based on ascending price, name and then category. +
 Not only that, they will be able to implement their own custom comparator using `makesort`. From this, they should be able to use `customsort` and autosort`.  +
 `customsort` sorts the food items based on the custom comparator, where `autosort` sorts the food items every time there is an edit to the food list.
 
 ****
-1. The `FIELD` are as followed: `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-2. The `DIRECTION` are as followed: `ASCENDING` or `DESCENDING`.
+1. The `FIELD` are as follows: `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
+2. The `DIRECTION` are as follows: `ASCENDING` or `DESCENDING`.
 ****
 
 ==== Classes for sorting feature in Model
 
 The Sorting feature was implemented with a new set of classes introduced to the Model. The `CustomSorter` stores the comparator for `autosort` and `makesort`. +
 From which, you will need to call `makesort FIELD DIRECTION` to create the custom comparator. The `CustomSorter` contains a `FoodComparator`. +
-The `FoodComparator` stores fields which will be needed for various `FIELD` to be compared. +
-The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` method.
+The `FoodComparator` stores fields which will be needed for various `FOOD` to be compared. +
+The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
 Finally, the `FieldComparator` helps to compare between various `FIELD`.
 
 .Sorting class diagram in Sort component.
