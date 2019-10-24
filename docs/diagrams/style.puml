@@ -42,7 +42,6 @@ skinparam Class {
     BorderThickness 1
     BorderColor #FFFFFF
     StereotypeFontColor #FFFFFF
-    FontSize 11
     FontName Arial
 }
 
