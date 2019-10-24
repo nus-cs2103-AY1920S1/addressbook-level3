@@ -1,0 +1,32 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Class AddressBook
+Class ModelManager
+Class UniqueNoteList
+
+Package Note {
+Class Note
+Class Title
+Class Content
+}
+
+Package Tag {
+Class Tag
+}
+}
+
+ModelManager o-left-> "1" AddressBook
+
+AddressBook *--> "1" UniqueNoteList
+UniqueNoteList o-left-> "*" Note
+Note *--> "1" Title
+Note *--> "1" Content
+Note *--> "*" Tag
+
+ModelManager -->"1" Note : filtered list
+@enduml

@@ -14,18 +14,24 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.FunctionMode;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.NoteBuilder;
+
 public class AddNoteCommandTest {
 
     @Test
@@ -220,9 +226,23 @@ public class AddNoteCommandTest {
         public void deleteFlashcard(Flashcard flashcard) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String formatOutputListString(FunctionMode mode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public <T> String formatList(FilteredList<T> object) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -258,6 +278,26 @@ public class AddNoteCommandTest {
 
         @Override
         public ObservableList<Flashcard> getFilteredFlashcardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<CheatSheet> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<Flashcard> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<Note> collectTaggedNotes(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

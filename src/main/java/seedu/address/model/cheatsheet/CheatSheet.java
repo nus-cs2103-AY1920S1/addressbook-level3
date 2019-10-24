@@ -2,33 +2,36 @@ package seedu.address.model.cheatsheet;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Cheatsheet object in the StudyBuddy application.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class CheatSheet {
+public class CheatSheet extends StudyBuddyItem {
     // Identity fields
     private final Title title;
 
     // Data fields
     private final Set<Content> contents = new HashSet<>();
-    private final Set<Tag> tags = new HashSet<>();
+
+    private int contentIndex = 0;
 
     /**
      * Every field must be present and not null.
      */
     public CheatSheet(Title title, Set<Content> contents, Set<Tag> tags) {
+        super(tags);
         requireAllNonNull(title, contents, tags);
         this.title = title;
         this.contents.addAll(contents);
-        this.tags.addAll(tags);
     }
 
     /**
@@ -37,29 +40,36 @@ public class CheatSheet {
      * @param tags
      */
     public CheatSheet(Title title, Set<Tag> tags) {
+        super(tags);
         requireAllNonNull(title, tags);
         this.title = title;
-        this.tags.addAll(tags);
     }
 
     public Title getTitle() {
         return title;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    public boolean containsTag(Tag tag) {
-        return this.tags.contains(tag);
-    }
-
     public Set<Content> getContents() {
         return Collections.unmodifiableSet(contents);
+    }
+
+    public Content getContent(int index) {
+        for (Content current : contents) {
+            if (current.getIndex() == index) {
+                return current;
+            }
+        }
+
+        return null;
+    }
+
+    public ArrayList<Content> getSortedContents() {
+        ArrayList<Content> contentList = new ArrayList<>(contents);
+
+        ContentSortByIndex comp = new ContentSortByIndex();
+        contentList.sort(comp);
+
+        return contentList;
     }
 
     public String getContentsInStringForm() {
@@ -82,6 +92,15 @@ public class CheatSheet {
 
         return otherCheatSheet != null
                 && otherCheatSheet.getTitle().equals(getTitle());
+    }
+
+    private void resetContentIndex() {
+        this.contentIndex = 0;
+    }
+
+    private String formatContent(Content c) {
+        this.contentIndex++;
+        return "[ " + contentIndex + ". " + c + " ]";
     }
 
     /**
@@ -107,11 +126,12 @@ public class CheatSheet {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, contents, tags);
+        return Objects.hash(title, contents, getTags());
     }
 
     @Override
     public String toString() {
+        this.resetContentIndex();
         final StringBuilder builder = new StringBuilder();
         builder.append(" Title: ")
                 .append(getTitle())
@@ -119,7 +139,7 @@ public class CheatSheet {
         getTags().forEach(builder::append);
 
         builder.append(" Contents: ");
-        getContents().forEach(builder::append);
+        getContents().forEach(c -> builder.append(formatContent(c)));
 
         return builder.toString();
     }

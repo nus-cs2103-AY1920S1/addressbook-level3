@@ -3,20 +3,16 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="800.0" minWidth="800.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -45,8 +41,8 @@
                 <ColumnConstraints hgrow="SOMETIMES" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="236.59998168945313" minHeight="10.0" prefHeight="83.20000610351562" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="433.4000076293945" minHeight="10.0" prefHeight="415.9999938964844" vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <VBox GridPane.columnIndex="1">
@@ -83,33 +79,12 @@
                         <Insets left="20.0" top="20.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <StackPane HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label fx:id="qnLabel" text="Label" textFill="WHITE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></Label>
-                           </children></StackPane>
-                        <Separator blendMode="HARD_LIGHT" orientation="VERTICAL" prefHeight="200.0" style=": ;" />
-                        <StackPane HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label fx:id="ansLabel" text="Label" textFill="WHITE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></Label>
-                           </children></StackPane>
-                     </children>
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </padding>
-                  </HBox>
-                  <VBox alignment="CENTER" GridPane.rowIndex="1">
+
+                  <VBox fx:id="functionIconsPlaceholder" alignment="CENTER" GridPane.rowIndex="1">
                      <children>
                         <StackPane>
                            <children>
-                              <ImageView fx:id="fcHighlightCircle" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="fcHighlightCircle" fitHeight="120.0" fitWidth="120.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/selectCircle.png" />
                                  </image>
@@ -154,6 +129,10 @@
                         <Insets bottom="5.0" left="25.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
+                  <StackPane fx:id="activityWindowPlaceholder" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                      <GridPane.margin>
+                        <Insets bottom="10.0" left="50.0" right="25.0" top="10.0" />
+                     </GridPane.margin></StackPane>
                </children>
                <VBox.margin>
                   <Insets />
