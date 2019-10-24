@@ -22,7 +22,7 @@ class VersionedBillboardTest {
 
     @BeforeEach
     void setUp() {
-        VersionedBillboard.clearList();
+        VersionedBillboard.clearStateList();
         modelList.clear();
         cmdList.clear();
         model = new ModelManager(getTypicalBillboard(), new UserPrefs());
@@ -36,7 +36,7 @@ class VersionedBillboardTest {
         modelList.push(model);
         assertTrue(vb.compareBillboardModels(modelList));
         //currentState != 0
-        VersionedBillboard.setCurrentState(1);
+        VersionedBillboard.setCurrentStatePointer(1);
         Model delModel = new ModelManager(getDeleteTypicalBillboard(), new UserPrefs());
         VersionedBillboard.commit(delModel);
         modelList.clear();
@@ -55,7 +55,7 @@ class VersionedBillboardTest {
         modelList.push(model);
         assertTrue(vb.compareBillboardModels(modelList));
         //vb empty, other not empty -> False
-        VersionedBillboard.clearList();
+        VersionedBillboard.clearStateList();
         assertFalse(vb.compareBillboardModels(modelList));
     }
 }

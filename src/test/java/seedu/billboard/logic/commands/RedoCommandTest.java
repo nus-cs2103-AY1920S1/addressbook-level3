@@ -21,7 +21,7 @@ class RedoCommandTest {
     @BeforeEach
     void setUp() {
         model = new ModelManager(getTypicalBillboard(), new UserPrefs());
-        VersionedBillboard.clearList();
+        VersionedBillboard.clearStateList();
         VersionedBillboard.commit(model);
         redo = new RedoCommand();
     }
@@ -33,7 +33,7 @@ class RedoCommandTest {
         VersionedBillboard.commit(deleteModel);
         String deleteCmd = "delete 1";
         VersionedBillboard.addCmd(deleteCmd);
-        VersionedBillboard.undo();
+        VersionedBillboard.getUndoModel();
 
         String expectedMessage = String.format(RedoCommand.MESSAGE_REDO_SUCCESS, deleteCmd);
         assertCommandSuccess(redo, model, expectedMessage, deleteModel);

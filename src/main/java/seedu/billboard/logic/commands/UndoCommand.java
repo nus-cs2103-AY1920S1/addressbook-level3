@@ -9,7 +9,7 @@ import seedu.billboard.model.versionedbillboard.VersionedBillboard;
  */
 public class UndoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "getUndoModel";
     public static final String EMPTY_UNDO_LIST = "There is no command to be undone.";
     public static final String MESSAGE_UNDO_SUCCESS = COMMAND_WORD + ": %s";
 
@@ -26,7 +26,7 @@ public class UndoCommand extends Command {
             throw new CommandException(EMPTY_UNDO_LIST);
         }
 
-        Model undoModel = VersionedBillboard.undo();
+        Model undoModel = VersionedBillboard.getUndoModel();
         String undoCmd = VersionedBillboard.getUndoCmd();
         model.setModel(undoModel);
         CommandResult cmdResult = new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, undoCmd));
