@@ -41,8 +41,6 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         Background background = parseBackground(backgroundArg);
 
         if (background.isBackgroundColour() && !argMultimap.isEmpty()) {
-            System.out.println(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
-                    BackgroundCommand.MESSAGE_USAGE));
             throw new ParseException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
                     BackgroundCommand.MESSAGE_USAGE));
         }
