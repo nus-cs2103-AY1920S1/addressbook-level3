@@ -16,6 +16,7 @@ public class ExamRunner implements Exam {
     private final Scanner scanner;
     private Deck deck;
     private int score;
+    private boolean examOngoing;
 
     public ExamRunner(Deck deck) {
         this.deck = deck;
@@ -28,17 +29,30 @@ public class ExamRunner implements Exam {
      * Exam driver method.
      */
     @Override
-    public void runExam() throws IndexNotFoundException {
+    public void initExam() throws IndexNotFoundException {
         System.out.println("Beginning test:");
-        iterateThroughDeck();
-        System.out.println("Score:" + score + "/" + deckSize);
+        this.examOngoing = true;
     }
 
     /**
-     * Method that cycles through the deck and asks each question.
+     * Method that pulls up the next card.
      */
-    private void iterateThroughDeck() throws IndexNotFoundException {
-        for (FlashCard card : deck.getCards()) {
+    public void nextCard() {
+        if (examOngoing) {
+            try {
+                FlashCard nextCard = deck.getCards().get(0);
+                System.out.println(nextCard.getFront());
+                String answer = promptUserInput();
+                if (nextCard.evaluate(answer)) {
+                    this.score++;
+                }
+                System.out.println(nextCard.getBack());
+            } catch (IndexOutOfBoundsException | IndexNotFoundException e) {
+                this.examOngoing = false;
+
+            }
+        }
+        /* for (FlashCard card : deck.getCards()) {
             //Load front of card
             System.out.println(card.getFront());
             // Ask user for input
@@ -61,7 +75,7 @@ public class ExamRunner implements Exam {
             }
             //Display the correct answer
             System.out.println("Correct Answer:" + card.getBack());
-        }
+        } */
     }
 
     private String promptUserInput() {
