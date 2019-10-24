@@ -99,4 +99,13 @@ class DeadlineTest {
 
         assertEquals(expected, d.toString());
     }
+
+    @Test
+    void getTaskDes_success() {
+        String expected = "homework";
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        assertEquals(expected, d.getTaskDes());
+    }
 }

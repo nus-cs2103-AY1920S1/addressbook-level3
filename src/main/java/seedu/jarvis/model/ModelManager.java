@@ -673,6 +673,28 @@ public class ModelManager implements Model {
     public int size() {
         return planner.size();
     }
+
+    /**
+     * Updates the {@code filteredTaskList} in the {@code Planner} according to the
+     * given {@code Predicate}
+     *
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredTaskList}
+     */
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        planner.updateFilteredTaskList(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
+     * of {@code Planner}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return planner.getFilteredTaskList();
+    }
+
+
     //=========== Course Planner ========================================================
 
     @Override

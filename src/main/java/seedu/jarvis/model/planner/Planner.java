@@ -2,14 +2,20 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
+
 
 /**
  * Represents the planner feature in JARVIS
  */
 public class Planner {
-    protected TaskList taskList;
+    private TaskList taskList;
+    private FilteredList<Task> filteredTaskList;
 
     /**
      * Constructs an empty planner
@@ -93,7 +99,7 @@ public class Planner {
             return false;
         }
 
-        other = (Planner) other;
+        //state check
         return taskList.equals(((Planner) other).getTasks());
     }
 
@@ -131,5 +137,25 @@ public class Planner {
      */
     public int size() {
         return taskList.size();
+    }
+
+    /**
+     * Updates the {@code filteredTaskList} according to the given {@code Predicate}
+     *
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredTaskList}
+     */
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTaskList.addAll(taskList.getTasks());
+        filteredTaskList.setPredicate(predicate);
+
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
+     * of {@code Planner}
+     */
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTaskList;
     }
 }
