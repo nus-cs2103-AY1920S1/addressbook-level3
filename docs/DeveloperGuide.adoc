@@ -122,7 +122,7 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Ezwatchlist data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -303,6 +303,73 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Online Data
+
+We are using https://www.themoviedb.org/documentation/api[The Movie Database (TMDB)] to retrieve information on movies and tv shows.
+
+==== Implementation
+
+All interactions with the third party library are facilitated by the interface `ApiInterface`. Methods in `ApiInterface` are the main
+way the application retrieves any online information from the database.
+
+*Methods in ApiInterface*
+
+* `getMovieByName` : The method will return a list of movies in the database based on the name of the movie given
+* `getTvShowByName` : The method will return a list of tv shows in the database based on the name of the tv show given
+* `isConnected` : Checks if the application is connected online to the database
+
+`ApiMain` is an implementation of `ApiInterface` and is done by using a https://github.com/holgerbrandl/themoviedbapi[java wrapper] for the TMDB api implemented by Holger Brandl.
+Allowing us to retrieve information in the java code.
+
+Given below is an example of how the application might want to retrieve movie information through `ApiInterface`.
+
+Step 1. First an instance of a class implementing `ApiInterface` has to be created for the methods to be called. When `ApiMain` is instantiated the class api
+key's is used to create a call to the TMDB API. All information retrieved must go through the class's api call.
+
+Step 2. The method getMovieByName("Name Of Movie") is called and the api call searches the for the movie in the database with the name given.
+A list of wrapped movies is given back, which is then read and used to create new instances of our application's `Show` model with information wrapped in classes such as
+`Name`, `Description`, and `Actor`.
+
+Step 3. To retrieve an image from the database, a image url is downloaded to the computer. The class `ImageRetrieval` does this. An
+`ImageRetrieval` instance is created by the method for each image, and is downloaded to a root folder determined by `ImageRetrieval#defaultDirectory()`.
+
+Step 4. A poster class is then created with the image path, to be used to load images in the application.
+
+Step 5. With the list of movies returned, the application is given access to online information in a readable format.
+
+[NOTE]
+At any point the application might fail due to the application not being connected to the internet. If that occurs a
+`OnlineConnectionException` is thrown for the application to handle.
+
+The relationship between all the classes are shown in the following class diagram:
+image:ApiClassDiagram.png[]
+
+==== Design Considerations
+
+===== Why this implementation was chosen
+
+* **All API interactions would be in the API package and go through ApiInterface. **
+** Pros:
+- The application wouldn't have to seek access to the database on their own. The interface should provide all the functionality needed.
+- Follows the Single Responsibility Principle (SRP) that a module in the program should be encapsulated and have one repsponsibility.
+
+===== Aspect: Image retrieval implementation
+
+* ** Alternative 1 (current choice):** Download the image into the computer then access it locally on the computer.
+** Pros:
+*** Easier to keep track of images.
+*** All images are retrieved the same way making it easier to implement showing the images.
+** Cons:
+*** All images shown are currently downloaded without being deleted, hence the amount of images downloaded can get unwieldy quickly, increasing
+amount of memory used.
+* **Alternative 2:** Parse the online url to the application for them to access the image online when needed.
+** Pros:
+*** No need for the images to be downloaded allows less memory to be used by the application.
+** Cons:
+*** Everytime the image is viewed, the application has to retrieve it from online making it more intensive on the network.
+*** If the internet connection fails, the image can no longer be viewed.
+//end::ImageRetrieval[]
 
 [[Implementation-Configuration]]
 === Configuration

@@ -60,7 +60,7 @@ public class ApiMain implements ApiInterface {
      *
      * @return true if connected to the API.
      */
-    public boolean isApiConnected() {
+    public boolean isConnected() {
         try {
             apiCall = new TmdbApi(API_KEY);
             isConnected = true;
