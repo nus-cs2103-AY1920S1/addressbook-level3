@@ -176,10 +176,6 @@ and used to run the code in each card.
 To be implemented: An in-app Flashcard Pro compiler and debugger for JS and Java as a playground for the user
 
 
-
-
-
-
 [[Design-Commons]]
 === Common classes
 
@@ -327,11 +323,6 @@ Use case ends.
 
 Use case resumes from step 4.
 
-<<<<<<< HEAD
->>>>>>> 674a344edd9e48d12c8ed6c898603cdb2b07b62f
-
-=======
->>>>>>> 950ffcf99fbeaee3f86e0e6fe4516a9329c2ee4f
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
