@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -21,9 +22,12 @@ public class Activity {
     private final Title title;
     private final ArrayList<Expense> expenses;
 
-    // Id, Balance, Transfers arrays are supposed to be one-to-one.
+    // Id, Balance, Active arrays are all supposed to be one-to-one.
     private final ArrayList<Integer> participantIds;
+    private final ArrayList<Boolean> participantActive;
     private final ArrayList<Double> participantBalances;
+    // A dictionary mapping id to position in participantIds.
+    private final HashMap<Integer, Integer> idDict;
     // Each [i][j] entry with value E means i owes j -E amount.
     // The actual personid has to be obtained from the id array, and i, j just
     // represent the indices in that array where you can find them.
@@ -38,19 +42,16 @@ public class Activity {
      */
     public Activity(int primaryKey, Title title, Integer ... ids) {
         requireAllNonNull(title);
-        participantIds = new ArrayList<>();
-        expenses = new ArrayList<>();
-        participantBalances = new ArrayList<>();
-        transferMatrix = new ArrayList<>();
-        debtMatrix = new ArrayList<>();
+        participantIds = new ArrayList<>(ids.length);
+        participantActive = new ArrayList<>(ids.length);
+        idDict = new HashMap<>(ids.length);
+        expenses = new ArrayList<>(ids.length);
+        participantBalances = new ArrayList<>(ids.length);
+        transferMatrix = new ArrayList<>(ids.length);
+        debtMatrix = new ArrayList<>(ids.length);
         this.primaryKey = primaryKey;
         this.title = title;
-        for (Integer id : ids) {
-            participantIds.add(id);
-            participantBalances.add(0.0);
-            transferMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
-            debtMatrix.add(new ArrayList<>(Collections.nCopies(ids.length, 0.0)));
-        }
+        invite(ids);
     }
     /**
       Constructor for Activity. Sets primary key automatically.
@@ -114,8 +115,8 @@ public class Activity {
      */
     public void invite(Person ... people) {
         invite(Stream.of(people)
-                .mapToInt(x -> x.getPrimaryKey())
-                .toArray());
+                .map(x -> x.getPrimaryKey())
+                .toArray(Integer[]::new));
     }
 
     /**
@@ -123,21 +124,25 @@ public class Activity {
      * @param primaryKeys The primary keys of the people that will be added
      * into the activity.
      */
-    public void invite(int ... primaryKeys) {
+    public void invite(Integer ... primaryKeys) {
         int len = participantIds.size();
         int newlen = len + primaryKeys.length;
         for (int i = 0; i < primaryKeys.length; i++) {
             int p = primaryKeys[i];
-            if (!participantIds.contains(p)) {
-                participantIds.add(p);
-                participantBalances.add(0.0); // newcomers don't owe.
-                for (int j = 0; j < len; j++) {
-                    debtMatrix.get(j).add(0.0); // extend columns
-                    transferMatrix.get(j).add(0.0); // extend columns
-                }
-                debtMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
-                transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
+            if (hasPerson(p)) {
+                continue;
             }
+
+            participantIds.add(p);
+            idDict.put(p, participantIds.size() - 1);
+            participantBalances.add(0.0); // newcomers don't owe.
+            participantActive.add(false);
+            for (int j = 0; j < len; j++) {
+                debtMatrix.get(j).add(0.0); // extend columns
+                transferMatrix.get(j).add(0.0); // extend columns
+            }
+            debtMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
+            transferMatrix.add(new ArrayList<>(Collections.nCopies(newlen, 0.0)));
         }
     }
 
@@ -147,7 +152,7 @@ public class Activity {
      * @return True if person exists, false otherwise.
      */
     public boolean hasPerson(Integer personId) {
-        return participantIds.contains(personId);
+        return idDict.containsKey(personId);
     }
 
     /**
@@ -155,9 +160,51 @@ public class Activity {
      * @param people The people that will be removed from the activity.
      */
     public void disinvite(Person ... people) {
-        // haven't implemented what if list does not contain that specific person
-        // TODO: also care about transfermatrix and debtmatrix
-        // perhaps this? public void disinvite(Integer personId)
+        disinvite(Stream.of(people)
+                .map(x -> x.getPrimaryKey())
+                .toArray(Integer[]::new));
+    }
+
+    /**
+     * Remove people from the activity. Does nothing if he is involved in any expenses.
+     * @param primaryKeys The primary keys of the people you want to remove.
+     */
+    public void disinvite(Integer ... primaryKeys) {
+        ArrayList<Integer> gc = new ArrayList<>(primaryKeys.length);
+        for (int i = 0; i < primaryKeys.length; i++) {
+            int p = primaryKeys[i];
+
+            if (idDict.get(p) == null) {
+                continue;
+            }
+
+            int pos = idDict.get(p);
+            if (participantActive.get(pos)
+                    || !hasPerson(p)) {
+                continue;
+            }
+
+            gc.add(pos);
+        }
+
+        Collections.sort(gc);
+        for (int i = 0; i < gc.size(); i++) {
+            int pos = gc.get(i) - i;
+            participantIds.remove(pos);
+            participantBalances.remove(pos);
+            participantActive.remove(pos);
+            debtMatrix.remove(pos);
+            transferMatrix.remove(pos);
+            for (int j = 0; j < participantIds.size(); j++) {
+                debtMatrix.get(j).remove(pos); // extend columns
+                transferMatrix.get(j).remove(pos); // extend columns
+            }
+        }
+
+        idDict.clear();
+        for (int i = 0; i < participantIds.size(); i++) {
+            idDict.put(participantIds.get(i), i);
+        }
     }
 
     /**
@@ -175,11 +222,10 @@ public class Activity {
      * @throws PersonNotInActivityException if any person is not found
      */
     public void addExpense(Expense expense) throws PersonNotInActivityException {
-
         int payer = expense.getPersonId();
-        int payerPos = participantIds.indexOf(payer);
-        int[] involved = expense.getInvolved();
-        int[] positionMask;
+        int payerPos = idDict.get(payer);
+        int[] involved = expense.getInvolved(); // id of everyone involved
+        int[] positionMask; // position of everyone involved
         double amount = expense.getAmount().value;
 
         if (!hasPerson(expense.getPersonId())) {
@@ -187,23 +233,22 @@ public class Activity {
         }
 
         if (involved != null) {
-            positionMask = IntStream.of(involved)
-                .map(x -> participantIds.indexOf(x))
-                .toArray();
-            if (!IntStream.of(positionMask).allMatch(x -> x >= 0)) {
-                throw new PersonNotInActivityException();
+            for (int i : involved) {
+                if (!hasPerson(i)) {
+                    throw new PersonNotInActivityException();
+                }
             }
-
         } else {
             involved = participantIds.stream()
                     .mapToInt(x -> x)
                     .filter(x -> x != payer)
                     .toArray();
-            positionMask = IntStream.of(involved)
-                .map(x -> participantIds.indexOf(x))
-                .toArray();
             expense.setInvolved(involved);
         }
+
+        positionMask = IntStream.of(involved)
+            .map(x -> idDict.get(x))
+            .toArray();
 
         expenses.add(expense);
 
@@ -216,6 +261,9 @@ public class Activity {
                 .forEach(x -> debtMatrix
                         .get(x).set(payerPos,
                                 debtMatrix.get(x).get(payerPos) + splitAmount));
+        IntStream.of(involved)
+            .forEach(x -> participantActive.set(idDict.get(x), true));
+        participantActive.set(payerPos, true);
     }
 
     /**
