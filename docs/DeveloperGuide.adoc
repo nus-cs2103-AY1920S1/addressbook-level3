@@ -239,7 +239,7 @@ For the current `statistics` feature, there are 2 main commands that the user ca
 The `StatsCommandParser` differentiates these 2 commands based on whether a valid date range is provided as illustrated in the diagram below.
 
 .Activity Diagram showing behaviour of StatsCommandParser
-image::statsactivitydiagram.png[width="600"]
+image::StatsActivityDiagram.png[width="600"]
 
 The implementation of the Statistics feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Statistics mechanism behaves at each phase.
 
@@ -267,7 +267,7 @@ There are 2 types of data that the program require, `statsMessage` for displayin
 Below is the UML sequence diagram and a step-by-step explanation for the retrieval of `statsData`. `statsMessage` is retrieved in the same manner.
 
 .Sequence Diagram of Execution Phase showing retrieving of `statsData`
-image::StatsMessageSequenceDiagram.png[]
+image::StatsDataSequenceDiagram.png[]
 
 1. Upon checking that the boolean `isShowStats` = true, the MainWindow calls `LogicManager#getStatsData()`.
 

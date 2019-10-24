@@ -70,10 +70,5 @@ deactivate LogicManager
 MainWindow -> StatsWindow: loadData()
 activate StatsWindow
 
-StatsWindow --> MainWindow
-deactivate StatsWindow
-
-[<--MainWindow
-deactivate MainWindow
 
 @enduml
