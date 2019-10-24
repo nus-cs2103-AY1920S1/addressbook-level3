@@ -6,18 +6,12 @@ import java.util.function.Predicate;
  * Tests that a {@code Expense}'s {@code Name} matches any of the keywords given.
  */
 public class AmountWithinRangePredicate implements Predicate<Expense> {
-    public static final String FINDTYPE = "amt";
     private Amount lowerLimit;
     private Amount upperLimit;
 
     public AmountWithinRangePredicate(Amount lowerLimit, Amount upperLimit) {
-        this.lowerLimit = lowerLimit;
-        this.upperLimit = upperLimit;
-    }
-
-    public AmountWithinRangePredicate(Amount lowerLimit) {
-        this.lowerLimit = lowerLimit;
-        this.upperLimit = new Amount("9999999.99");
+        this.lowerLimit = lowerLimit != null ? lowerLimit : new Amount("0");
+        this.upperLimit = upperLimit != null ? upperLimit : new Amount("9999999999.99");
     }
 
     @Override
