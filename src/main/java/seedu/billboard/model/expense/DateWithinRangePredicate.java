@@ -1,31 +1,31 @@
 package seedu.billboard.model.expense;
 
-import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Expense}'s {@code Name} matches any of the keywords given.
  */
 public class DateWithinRangePredicate implements Predicate<Expense> {
-    public static final String FINDTYPE = "date";
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private boolean isWithoutEndDate = false;
+    private CreatedDateTime startDate;
+    private CreatedDateTime endDate;
 
-    public DateWithinRangePredicate(LocalDateTime startDate, LocalDateTime endDate) {
+    public DateWithinRangePredicate(CreatedDateTime startDate, CreatedDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public DateWithinRangePredicate(LocalDateTime startDate) {
-        this.startDate = startDate;
-        this.endDate = LocalDateTime.now();
-        this.isWithoutEndDate = true;
-    }
-
     @Override
     public boolean test(Expense expense) {
-        return expense.getCreated().dateTime.isAfter(startDate) && expense.getCreated().dateTime.isBefore(endDate);
+        boolean isBefore = true;
+        boolean isAfter = true;
+
+        if (startDate != null) {
+            isAfter = expense.getCreated().dateTime.isAfter(startDate.dateTime);
+        }
+        if (endDate != null) {
+            isBefore = expense.getCreated().dateTime.isBefore(endDate.dateTime);
+        }
+        return isBefore && isAfter;
     }
 
     @Override
@@ -33,8 +33,7 @@ public class DateWithinRangePredicate implements Predicate<Expense> {
         return other == this // short circuit if same object
                 || (other instanceof DateWithinRangePredicate // instanceof handles nulls
                 && startDate == ((DateWithinRangePredicate) other).startDate
-                && (endDate == ((DateWithinRangePredicate) other).endDate
-                || (isWithoutEndDate && ((DateWithinRangePredicate) other).isWithoutEndDate))); // state check
+                && (endDate == ((DateWithinRangePredicate) other).endDate)); // state check
     }
 
 }
