@@ -68,10 +68,7 @@ public class UniqueMemberList implements Iterable<Member> {
     public void setMember(Member target, Member editedMember) {
         requireAllNonNull(target, editedMember);
 
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new MemberNotFoundException();
-        }
+        int index = getIndexOf(target);
 
         if (!target.isSameMember(editedMember) && contains(editedMember)) {
             throw new DuplicateMemberException();
@@ -107,6 +104,14 @@ public class UniqueMemberList implements Iterable<Member> {
         }
 
         internalList.setAll(members);
+    }
+
+    public int getIndexOf(Member target) {
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new MemberNotFoundException();
+        }
+        return index;
     }
 
     /**

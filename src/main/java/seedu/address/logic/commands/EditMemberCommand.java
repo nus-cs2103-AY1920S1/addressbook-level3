@@ -83,7 +83,6 @@ public class EditMemberCommand extends Command {
 
         model.setMember(memberToEdit, editedMember);
         model.updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
-        model.replaceExistingMappingsWithNewMember(memberToEdit, editedMember);
         return new CommandResult(String.format(MESSAGE_EDIT_MEMBER_SUCCESS, editedMember));
     }
 

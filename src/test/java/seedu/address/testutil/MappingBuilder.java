@@ -1,46 +1,49 @@
 package seedu.address.testutil;
 
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
 
 public class MappingBuilder {
     public static final String DEFAULT_NAME = "Sample Mapping";
 
-    private Member member;
-    private Task task;
+    private int memberIndex;
+    private int taskIndex;
 
     public MappingBuilder() {
-        task = new TaskBuilder().build();
-        member = new MemberBuilder().build();
+        //Dummy constructor until Mapping Testing is decided
+        taskIndex = 1;
+        memberIndex = 1;
     }
 
     /**
      * Initializes the TaskBuilder with the data of {@code taskToCopy}.
      */
-    public MappingBuilder(Mapping mappingToCopy) {
-        member = mappingToCopy.getMember();
-        task = mappingToCopy.getTask();
+    public MappingBuilder(TasMemMapping mappingToCopy) {
+        memberIndex = mappingToCopy.getMemberIndex();
+        taskIndex = mappingToCopy.getTaskIndex();
     }
 
     /**
      * Sets the {@code Name} of the {@code Inventory} that we are building.
      */
-    public MappingBuilder withMember(Member member) {
-        this.member = member;
+    public MappingBuilder withMember(int memberIndex) {
+        this.memberIndex = memberIndex;
         return this;
     }
 
     /**
      * Sets the {@code Price} of the {@code Inventory} that we are building.
      */
-    public MappingBuilder withTask(Task task) {
-        this.task = task;
+    public MappingBuilder withTask(int taskIndex) {
+        this.taskIndex = taskIndex;
         return this;
     }
 
 
-    public Mapping build() {
-        return new Mapping(member, task);
+    public TasMemMapping build() {
+        return new TasMemMapping(taskIndex, memberIndex);
     }
 }

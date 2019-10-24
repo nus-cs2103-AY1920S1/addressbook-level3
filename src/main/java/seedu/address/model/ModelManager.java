@@ -15,6 +15,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
@@ -297,45 +300,55 @@ public class ModelManager implements Model {
     //=========== ProjectDashboard (mapping) ===============================================
 
     @Override
-    public void addMapping(Mapping mapping) {
+    public void addMapping(InvMemMapping mapping) {
         projectDashboard.addMapping(mapping);
+        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
-    public void deleteMapping(Mapping mapping) {
+    public void addMapping(InvTasMapping mapping) {
+        projectDashboard.addMapping(mapping);
+        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
+    }
+
+    @Override
+    public void addMapping(TasMemMapping mapping) {
+        projectDashboard.addMapping(mapping);
+        updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
+    }
+
+    @Override
+    public void deleteMapping(InvMemMapping mapping) {
         projectDashboard.removeMapping(mapping);
     }
 
     @Override
-    public boolean hasMapping(Mapping mapping) {
+    public void deleteMapping(InvTasMapping mapping) {
+        projectDashboard.removeMapping(mapping);
+    }
+
+    @Override
+    public void deleteMapping(TasMemMapping mapping) {
+        projectDashboard.removeMapping(mapping);
+    }
+
+
+    @Override
+    public boolean hasMapping(InvTasMapping mapping) {
         requireNonNull(mapping);
         return projectDashboard.hasMapping(mapping);
     }
 
-    /**
-     * replace existing mapping with new Member
-     */
-    public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
-        for (int i = 0; i < filteredMappings.size(); i++) {
-            if (filteredMappings.get(i).getMember().equals(oldMember)) {
-                Task taskInvolved = filteredMappings.get(i).getTask();
-                filteredMappings.remove(filteredMappings.get(i));
-                filteredMappings.add(new Mapping(newMember, taskInvolved));
-            }
-        }
+    @Override
+    public boolean hasMapping(InvMemMapping mapping) {
+        requireNonNull(mapping);
+        return projectDashboard.hasMapping(mapping);
     }
 
-    /**
-     * replaces existing mappings with new tasks
-     */
-    public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
-        for (int i = 0; i < filteredMappings.size(); i++) {
-            if (filteredMappings.get(i).getTask().equals(oldTask)) {
-                Member memberInvolved = filteredMappings.get(i).getMember();
-                filteredMappings.remove(filteredMappings.get(i));
-                filteredMappings.add(new Mapping(memberInvolved, newTask));
-            }
-        }
+    @Override
+    public boolean hasMapping(TasMemMapping mapping) {
+        requireNonNull(mapping);
+        return projectDashboard.hasMapping(mapping);
     }
 
     //=========== Filtered Mapping List Accessors =============================================================
