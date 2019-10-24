@@ -360,7 +360,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addToSavings(Savings savings) {
-        //requireNonNull(savings);
+        requireNonNull(savings);
         savingsAccount.addSavings(savings);
     }
 

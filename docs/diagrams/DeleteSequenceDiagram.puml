@@ -55,6 +55,7 @@ Model --> DeleteCommand
 deactivate Model
 
 create CommandResult
+
 DeleteCommand -> CommandResult
 activate CommandResult
 
