@@ -104,7 +104,9 @@ Each FlashCard has an associated priority level, which the user can indicate his
 The priority levels are described below:
 
 | Priority| Value| Intended Action|
+
 | HIGH_PRIORITY| 10| Valued as important by user, should be tested more often|
+
 | LOW_PRIORITY| 1| Valued, but less important by user, should be tested less often|
 
 The sequence diagram below shows how the `ExamRunner` component can use the `createSubsetForTest()` method in the `Deck` and make use of the priorities associated with the `FlashCards` to create a test that emphasises the `FlashCards` that the user deems as important.
