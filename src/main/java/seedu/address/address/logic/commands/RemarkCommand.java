@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.address.model.person.Person;
 import seedu.address.address.model.person.Remark;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -40,7 +41,7 @@ public class RemarkCommand extends Command {
      * @param remark of the person to be updated to
      */
     public RemarkCommand(Index index, Remark remark) {
-        requireAllNonNull(index, remark);
+        CollectionUtil.requireAllNonNull(index, remark);
 
         this.index = index;
         this.remark = remark;

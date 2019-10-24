@@ -1,5 +1,7 @@
 package seedu.address.address.model.person;
 
+import seedu.address.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -36,7 +38,7 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 

@@ -1,5 +1,7 @@
 package seedu.address.address.model.country;
 
+import seedu.address.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -270,7 +272,7 @@ public class Country {
      */
     public Country(String country) {
         requireNonNull(country);
-        checkArgument(isValidCountry(country));
+        AppUtil.checkArgument(isValidCountry(country));
         value = country;
     }
 

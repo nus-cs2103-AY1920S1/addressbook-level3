@@ -1,10 +1,5 @@
 package seedu.address.calendar.model.date;
 
-import seedu.address.calendar.model.date.Year;
-
-import java.util.Optional;
-import java.util.stream.Stream;
-
 public enum MonthOfYear {
     JANUARY(1, 31),
     FEBRUARY(2, 28),

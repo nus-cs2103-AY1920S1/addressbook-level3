@@ -1,0 +1,64 @@
+@startuml
+!include <office/Concepts/globe_internet>
+!include <office/Concepts/documents>
+!include <office/Users/user>
+!include <office/Users/administrator>
+!include style.puml
+
+Package " "<<Rectangle>>{
+    Class GUI UI_COLOR
+    Class TextUI UI_COLOR
+    Class "Main Window" as MainWin UI_COLOR_T2
+    Class Calendar UI_COLOR_T2
+    Class Itinerary UI_COLOR_T2
+    Class "Financial Tracker" as Tracker UI_COLOR_T2
+    Class "Travel Diary" as Diary UI_COLOR_T2
+    Class Achievements UI_COLOR_T2
+    Class Logic LOGIC_COLOR
+    Class Storage STORAGE_COLOR
+    Class Model MODEL_COLOR
+    Class Main MODEL_COLOR_T1
+    Class Commons LOGIC_COLOR_T2
+    Class "Log Center" as Logs UI_COLOR_T1
+    Class "Test Driver\nJunit Test" as Test MODEL_COLOR_T4
+}
+
+Class "<$user>\nUser" as User MODEL_COLOR_T2
+Class "<$administrator>\nDeveloper" as Developer MODEL_COLOR_T2
+Class "<$documents>\nJson Files" as File UI_COLOR_T1
+
+GUI -> Logic
+GUI -right-> Model
+GUI -up-> Calendar
+GUI -up-> Itinerary
+GUI -up-> Diary
+GUI -up-> Tracker
+GUI -up-> Achievements
+GUI -up-> MainWin
+
+Calendar -up-> Main
+Itinerary -up-> Main
+Diary -up-> Main
+Tracker -up-> Main
+Achievements -up-> Main
+MainWin -up-> Main
+
+Itinerary -right-> Calendar
+
+Logic -right-> Storage
+Logic -down-> Model
+
+TextUI -up-> GUI
+TextUI .up.> Commons
+Logic .up.> Commons
+Storage .up.> Commons
+
+Logs -right- Commons
+Storage .right.>File
+User -right-> GUI
+User <--> TextUI
+Test -up-> TextUI
+Developer -up[hidden]-> User
+Developer <-right-> Test
+
+@enduml
