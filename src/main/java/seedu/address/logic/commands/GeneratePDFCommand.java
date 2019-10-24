@@ -59,7 +59,12 @@ public class GeneratePDFCommand extends Command {
 
             //Opening Doc
             File myFile = new File("C:\\Users\\ArunKumarr\\Documents\\main\\Result1.pdf");
-            Desktop.getDesktop().open(myFile);
+            File jarFile = new File("C:\\Users\\ArunKumarr\\Documents\\main\\build\\jar\\Result1.pdf");
+            if(myFile.exists()) {
+                Desktop.getDesktop().open(myFile);
+            } else {
+                Desktop.getDesktop().open(jarFile);
+            }
 
         } catch (Exception e) {
             Logger logger = LogsCenter.getLogger(GeneratePDFCommand.class);
