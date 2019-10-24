@@ -53,17 +53,16 @@ public class EditItemDescriptorBuilder {
     /**
      * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditItemDescriptorBuilder withTask(String priority, boolean complete) {
-        Priority validPriority = getPriority(priority);
-        descriptor.setTask(new Task(validPriority, complete));
+    public EditItemDescriptorBuilder withTask(boolean complete) {
+        descriptor.setTask(new Task(complete));
         return this;
     }
 
     /**
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditItemDescriptorBuilder withEvent(String start, String duration, String priority) {
-        Event processedEvent = getEvent(start, duration, priority);
+    public EditItemDescriptorBuilder withEvent(String start, String duration) {
+        Event processedEvent = getEvent(start, duration);
         descriptor.setEvent(processedEvent);
         return this;
     }
@@ -74,6 +73,16 @@ public class EditItemDescriptorBuilder {
     public EditItemDescriptorBuilder withReminder(String dateTime) {
         Reminder processedReminder = getReminder(dateTime);
         descriptor.setReminder(processedReminder);
+        return this;
+    }
+
+    /**
+     * Parses the {@code priority} into a {@code priority} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditItemDescriptorBuilder withPriority(String priority) {
+        Priority newPriority = Priority.valueOf(priority);
+        descriptor.setPriority(newPriority);
         return this;
     }
 
@@ -102,8 +111,7 @@ public class EditItemDescriptorBuilder {
         return priority;
     }
 
-    private Event getEvent(String start, String duration, String priority) {
-        Priority processedPriority = getPriority(priority);
+    private Event getEvent(String start, String duration) {
         Event event = null;
         try {
             event = ParserUtil.parseDateTime(start).get();

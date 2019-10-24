@@ -33,6 +33,7 @@ public class ItemModelManager implements ItemModel {
     private final UserPrefs userPrefs;
     private ItemStorage itemStorage;
     private final ElisaCommandHistory elisaCommandHistory;
+    private final JokeList jokeList;
     private boolean priorityMode = false;
     private PriorityQueue<Item> sortedTask = null;
 
@@ -58,6 +59,8 @@ public class ItemModelManager implements ItemModel {
         pastReminders = new ReminderList();
 
         activeReminders = new ActiveRemindersList(new ReminderList());
+
+        this.jokeList = new JokeList();
         /*
         activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
             @Override
@@ -289,6 +292,14 @@ public class ItemModelManager implements ItemModel {
         return elisaCommandHistory;
     }
 
+    @Override
+    public JokeList getJokeList() {
+        return jokeList;
+    }
+
+    public String getJoke() {
+        return jokeList.getJoke();
+    }
 
     /**
      * Remove an item from the current list.
@@ -492,7 +503,7 @@ public class ItemModelManager implements ItemModel {
                 } else if (!task1.isComplete() && task2.isComplete()) {
                     return -1;
                 } else {
-                    return task1.getPriority().compareTo(task2.getPriority());
+                    return item1.getPriority().compareTo(item2.getPriority());
                 }
             });
             for (int i = 0; i < taskList.size(); i++) {
