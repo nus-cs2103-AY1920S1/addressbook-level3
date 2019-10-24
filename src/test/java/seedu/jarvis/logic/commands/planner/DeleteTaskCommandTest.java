@@ -22,7 +22,7 @@ class DeleteTaskCommandTest {
         DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("2"));
         String actualCommand = command.getCommandWord();
 
-        assertEquals("deleteTask", actualCommand);
+        assertEquals("delete-task", actualCommand);
     }
 
     @Test
