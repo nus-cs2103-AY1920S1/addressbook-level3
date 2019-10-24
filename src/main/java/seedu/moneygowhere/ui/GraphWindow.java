@@ -55,7 +55,7 @@ public class GraphWindow extends UiPart<Stage> {
         LineChart<String, Number> spendingChart = new LineChart<>(xAxis, yAxis);
         spendingChart.setTitle("Current month's spending");
 
-        XYChart.Series series = new XYChart.Series();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("spending");
         for (Map.Entry<Date, Double> i : graphData.entrySet()) {
             XYChart.Data<String, Number> dataToAdd = new XYChart.Data<>(i.getKey().toString(),
