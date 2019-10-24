@@ -232,10 +232,10 @@ public class ActivityTest {
         int bid = TypicalPersons.BOB.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
         int gid = TypicalPersons.GEORGE.getPrimaryKey();
-        Amount its = new Amount(3);
-        Amount bout = new Amount(6);
-        Amount tree = new Amount(9);
-        Amount fiddy = new Amount(10);
+        Amount its = new Amount(420);
+        Amount bout = new Amount(808);
+        Amount tree = new Amount(3);
+        Amount fiddy = new Amount(1337);
         Expense one = new Expense(aid, its, "testing");
         Expense two = new Expense(bid, bout, "testing");
         Expense three = new Expense(eid, tree, "testing");
@@ -253,7 +253,8 @@ public class ActivityTest {
         a.addExpense(three);
         a.invite(TypicalPersons.GEORGE);
         a.addExpense(four);
-        a.deleteExpense(one);
+        // We can test both ways
+        a.deleteExpense(a.getExpenses().get(0));
         a.deleteExpense(two);
         a.deleteExpense(three);
         a.deleteExpense(four);
