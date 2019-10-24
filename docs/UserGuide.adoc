@@ -218,11 +218,11 @@ Examples:
 Adds a person specified by 'NAME' into a group specified by 'GROUP_NAME' in TimeBook.
 Format:
 
-* `addtogroup' -n NAME -g GROUP_NAME
+* `addtogroup -n NAME -g GROUP_NAME`
 
 Examples:
 
-* `addtogroup -n John -g CS2103
+* `addtogroup -n John -g CS2103`
 
 === Group: 'group'
 Creates a group and adds all members into the group +
