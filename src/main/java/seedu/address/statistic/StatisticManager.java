@@ -16,7 +16,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
-import seedu.address.model.util.SampleDataUtil;
 
 
 /**
@@ -63,6 +62,7 @@ public class StatisticManager implements Statistic {
 
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
+
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         // loops through the list of months, for each month, calculate the revenue for all orders in that month
@@ -81,12 +81,13 @@ public class StatisticManager implements Statistic {
                                                                                StatsPayload statsPayload) {
         //filter the list of orders to be only the orders within the starting and ending date.
         //dummy data here to test, should be passing orderBook straight in
-        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(SampleDataUtil.getSampleOrderBook(),
+        List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
                 statsPayload)
                 .collect(Collectors.toList());
 
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
+        listOfMonth.forEach(x -> System.out.println(x));
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         // loops through the list of months, for each month, calculate the cost for all orders in that month

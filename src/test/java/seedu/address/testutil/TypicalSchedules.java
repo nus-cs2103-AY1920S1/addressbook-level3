@@ -37,6 +37,44 @@ public class TypicalSchedules {
     public static final Schedule CBD_SCHEDULE = new ScheduleBuilder()
             .withCalendar(CBD_CALENDAR).withVenue(CBD_VENUE).withTags(DEFAULT_TAG_1).build();
 
+    private static final Calendar CBD_CALENDAR_1 = new Calendar.Builder()
+            .setDate(2019, 01, 11).setTimeOfDay(11, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_2 = new Calendar.Builder()
+            .setDate(2019, 02, 11).setTimeOfDay(11, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_3 = new Calendar.Builder()
+            .setDate(2019, 04, 11).setTimeOfDay(11, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_4 = new Calendar.Builder()
+            .setDate(2019, 05, 11).setTimeOfDay(11, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_5 = new Calendar.Builder()
+            .setDate(2019, 05, 11).setTimeOfDay(11, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_6 = new Calendar.Builder()
+            .setDate(2019, 05, 11).setTimeOfDay(11, 11, 0).build();
+    private static final Calendar CBD_CALENDAR_7 = new Calendar.Builder()
+            .setDate(2019, 10, 11).setTimeOfDay(11, 11, 0).build();
+
+    public static final Schedule SCHEDULESTATONE = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_1).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULESTATTWO = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_2).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULESTATTHREE = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_3).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULESTATFOUR = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_4).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULESTATFIVE = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_5).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULESTATSIX = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_6).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+    public static final Schedule SCHEDULESTATSEVEN = new ScheduleBuilder().withId(UUID.randomUUID())
+            .withCalendar(CBD_CALENDAR_7).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
+
+
+
     /**
      * Returns a {@code DataBook} with all the typical schedules.
      */

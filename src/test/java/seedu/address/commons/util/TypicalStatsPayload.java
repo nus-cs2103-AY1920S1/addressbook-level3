@@ -1,6 +1,7 @@
 package seedu.address.commons.util;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 import seedu.address.statistic.StatsPayload;
@@ -43,11 +44,31 @@ public class TypicalStatsPayload {
             .setDate(2019, 11, 29)
             .build();
 
+    public static final Calendar MIN_DATE_TEST = new Calendar
+            .Builder()
+            .setInstant(new Date(Long.MIN_VALUE))
+            .build();
+
+    public static final Calendar MAX_DATE_TEST = new Calendar
+            .Builder()
+            .setInstant(new Date(Long.MAX_VALUE))
+            .build();
+
+
+    public static final Calendar STARTING_DATE_2019 = new Calendar.Builder()
+            .setDate(2019, 00, 01)
+            .build();
+    public static final Calendar ENDING_DATE_2019 = new Calendar.Builder()
+            .setDate(2019, 11, 29)
+            .build();
+
+
+
 
     public static final StatsPayload DEFAULT_STATS_PAYLOAD_REVENUE_1 =
             new StatsPayloadBuilder().withStatsType(StatisticType.REVENUE)
-                    .withStartingDate(STARTING_DATE_1)
-                    .withEndingDate(ENDING_DATE_1).build();
+                    .withStartingDate(MIN_DATE_TEST)
+                    .withEndingDate(MAX_DATE_TEST).build();
 
     public static final StatsPayload DEFAULT_STATS_PAYLOAD_REVENUE_2 =
             new StatsPayloadBuilder().withStatsType(StatisticType.REVENUE)
@@ -56,8 +77,8 @@ public class TypicalStatsPayload {
 
     public static final StatsPayload DEFAULT_STATS_PAYLOAD_PROFIT_1 =
             new StatsPayloadBuilder().withStatsType(StatisticType.PROFIT)
-                    .withStartingDate(STARTING_DATE_1)
-                    .withEndingDate(ENDING_DATE_1).build();
+                    .withStartingDate(MIN_DATE_TEST)
+                    .withEndingDate(MAX_DATE_TEST).build();
 
     public static final StatsPayload DEFAULT_STATS_PAYLOAD_PROFIT_2 =
             new StatsPayloadBuilder().withStatsType(StatisticType.PROFIT)
@@ -66,12 +87,32 @@ public class TypicalStatsPayload {
 
     public static final StatsPayload DEFAULT_STATS_PAYLOAD_COST_1 =
             new StatsPayloadBuilder().withStatsType(StatisticType.COST)
-                    .withStartingDate(STARTING_DATE_1)
-                    .withEndingDate(ENDING_DATE_1).build();
+                    .withStartingDate(MIN_DATE_TEST)
+                    .withEndingDate(MAX_DATE_TEST).build();
 
     public static final StatsPayload DEFAULT_STATS_PAYLOAD_COST_2 =
             new StatsPayloadBuilder().withStatsType(StatisticType.COST)
                     .withStartingDate(STARTING_DATE_2)
                     .withEndingDate(ENDING_DATE_2).build();
+
+    public static final StatsPayload DEFAULT_STATS_PAYLOAD_GRAPH =
+            new StatsPayloadBuilder().withStatsType(StatisticType.COST)
+                    .withStartingDate(STARTING_DATE_2019)
+                    .withEndingDate(ENDING_DATE_2019).build();
+
+    public static final StatsPayload DEFAULT_STATS_PAYLOAD_GRAPH2 =
+            new StatsPayloadBuilder().withStatsType(StatisticType.COST)
+                    .withStartingDate(STARTING_DATE_1)
+                    .withEndingDate(ENDING_DATE_2).build();
+    public static final StatsPayload DEFAULT_STATS_PAYLOAD_GRAPH3 =
+            new StatsPayloadBuilder().withStatsType(StatisticType.COST)
+                    .withStartingDate(STARTING_DATE_4)
+                    .withEndingDate(ENDING_DATE_5).build();
+    public static final StatsPayload DEFAULT_STATS_PAYLOAD_GRAPH4 =
+            new StatsPayloadBuilder().withStatsType(StatisticType.COST)
+                    .withStartingDate(STARTING_DATE_4)
+                    .withEndingDate(ENDING_DATE_4).build();
+
+
 
 }

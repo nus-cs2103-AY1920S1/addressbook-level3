@@ -1,8 +1,11 @@
 package seedu.address.statistic;
 
+import static seedu.address.commons.util.StringUtil.convertCalendarDateToString;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import seedu.address.model.order.Order;
 
@@ -20,13 +23,19 @@ public class DateUtil {
     }
 
     public static List<Calendar> getListOfYearMonth(StatsPayload statsPayload) {
+
         List<Calendar> listOfYearMonth = new ArrayList<>();
         Calendar startDate = statsPayload.getStartingDate();
         Calendar endDate = statsPayload.getEndingDate();
+        System.out.println(startDate.getTime());
+        System.out.println(startDate.get(Calendar.MONTH));
+
+        System.out.println(endDate.getTime());
+        System.out.println(endDate.get(Calendar.MONTH));
 
 
-        while (startDate.before(endDate)) {
-            //System.out.println(convertCalendarDateToString(startDate));
+        while (startDate.before(endDate) && !(startDate.get(Calendar.MONTH) == endDate.get(Calendar.MONTH))) {
+            System.out.println(convertCalendarDateToString(startDate));
             Calendar temp = (Calendar) startDate.clone();
             listOfYearMonth.add(temp);
             startDate.add(Calendar.MONTH, 1);

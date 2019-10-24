@@ -9,6 +9,13 @@ import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 import static seedu.address.testutil.TypicalPhones.IPHONETWO;
 import static seedu.address.testutil.TypicalPhones.IPHONEXR;
 import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATFIVE;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATFOUR;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATONE;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATSEVEN;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATSIX;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATTHREE;
+import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATTWO;
 import static seedu.address.testutil.TypicalSchedules.SCHEDULETWO;
 
 import java.util.ArrayList;
@@ -49,6 +56,42 @@ public class TypicalOrders {
     public static final Order VIPORDER = new OrderBuilder().withCustomer(ALICE).withPhone(IPHONEXR)
             .withPrice(VALID_PRICE_HIGH).withTags(DEFAULT_TAG_2).build();
 
+    //1231.12 - 300
+    public static final Order ORDERONESTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_1).withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULESTATONE)).withTags(DEFAULT_TAG_1).build();
+    //909 - 300
+    public static final Order ORDERTWOSTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTWO)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_2).withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULESTATTWO)).withTags(DEFAULT_TAG_2).build();
+    //500-300
+    public static final Order ORDERTHREESTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTHREE)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULESTATTHREE)).withTags(DEFAULT_TAG_3).build();
+
+    public static final Order ORDERFOURSTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTHREE)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULESTATFOUR)).withTags(DEFAULT_TAG_3).build();
+
+    public static final Order ORDERFIVESTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTHREE)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULESTATFIVE)).withTags(DEFAULT_TAG_3).build();
+
+    public static final Order ORDERSIXSTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTHREE)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULESTATSIX)).withTags(DEFAULT_TAG_3).build();
+
+    public static final Order ORDERSEVENSTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTHREE)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULESTATSEVEN)).withTags(DEFAULT_TAG_3).build();
+
+
+    public static final Order VIPORDERSTATS = new OrderBuilder().withCustomer(ALICE).withPhone(IPHONEXR)
+            .withPrice(VALID_PRICE_HIGH)
+            .withStatus(Status.COMPLETED)
+            .withSchedule(Optional.of(SCHEDULETWO))
+            .withTags(DEFAULT_TAG_2).build();
+
     /**
      * Returns a {@code DataBook} with all the typical orders.
      */
@@ -61,7 +104,8 @@ public class TypicalOrders {
     }
 
     public static List<Order> getTypicalOrders() {
-        return new ArrayList<>(Arrays.asList(ORDERONE, ORDERTWO, ORDERTHREE));
+        return new ArrayList<>(Arrays.asList(ORDERONE, ORDERTWO, ORDERTHREE, VIPORDER));
     }
+
 
 }
