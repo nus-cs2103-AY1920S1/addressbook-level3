@@ -298,7 +298,9 @@ Use case ends.
 +
 Use case ends.
 
-[none]
+
+*Extensions*
+
 * 2a. FlashCard Pro detects filepath is invalid.
 ** 2a1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
 +
