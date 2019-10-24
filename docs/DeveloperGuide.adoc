@@ -170,10 +170,12 @@ The Reminder mechanism is facilitated by the Reminder class. Each Reminder objec
 
 image::ReminderClassDiagram.png[]
 
-Different types of conditions are represented by subclassess which extend the Condition class. 
-To create a reminder, the user calls the method createReminder(int... indexes) where indexes are the indexes of conditions in the condition list. 
+Different types of conditions are represented by subclassess which extend the Condition class.
+To create a reminder, the user calls the method createReminder(int... indexes)
+where indexes are the indexes of conditions in the condition list. 
 
-When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed, the ConditionList object is updated to see if any conditions have been met. 
+When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed,
+the ConditionList object is updated to see if any conditions have been met. 
 
 image::ReminderSequenceDiagram.png[]
 
