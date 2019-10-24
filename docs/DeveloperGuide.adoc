@@ -116,7 +116,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::design/model/ModelClassDiagram.png[]
+image::design/model/ModelClassDiagram.png[width="55%"]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/model/Model.java[`Model.java`]
 
@@ -130,16 +130,16 @@ The `Model`,
 We organize different data classes into packages (e.g. `Problem`), inside which we provide a collection class of that data object (e.g. `UniqueProblemList`) so that `AlgoBase` can manage these data objects without knowing the details of each data class.
 
 .Structure of the Problem Package
-image::design/model/ProblemPackageDiagram.png[]
+image::design/model/ProblemPackageDiagram.png[width="75%"]
 
 .Structure of the Plan Package
-image::design/model/PlanPackageDiagram.png[]
+image::design/model/PlanPackageDiagram.png[width="50%"]
 
 .Structure of the Tag Package
-image::design/model/TagPackageDiagram.png[]
+image::design/model/TagPackageDiagram.png[width="30%"]
 
 .Structure of the Task Package
-image::design/model/TaskPackageDiagram.png[]
+image::design/model/TaskPackageDiagram.png[width="30%"]
 
 //@@author
 
@@ -323,7 +323,7 @@ Additionally, it implements the following operation(s):
 ** `FindCommand#equals(...)` - Two instances of `FindCommand` are equal if and only if their `predicate` are equal.
 
 .Class Diagram of the Find Feature
-image::find/FindCommandClassDiagram.png[]
+image::find/FindCommandClassDiagram.png[width="75%"]
 
 * Predicates that implements interface `Predicate<Problem>`
 +
@@ -346,7 +346,7 @@ These are classes that describes whether an instance of `Problem` is considered 
 *** It returns true when the provided tags are a subset of the tags of the provided problem.
 
 .Class Diagram for Predicates in the Find Feature
-image::find/PredicateClassDiagram.png[]
+image::find/PredicateClassDiagram.png[width="40%"]
 
 Given below is an example usage scenario and how the find problem mechanism behaves at each step.
 
