@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalBinItems.getTypicalBinItems;
+import static seedu.address.testutil.TypicalPersons.getSinglePerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.testutil.TypicalPolicy.getTypicalPolicy;
 
@@ -29,6 +30,18 @@ public class TypicalAddressBook {
 
         for (BinItem binItem : getTypicalBinItems()) {
             ab.addBinItem(binItem);
+        }
+
+        return ab;
+    }
+
+    public static AddressBook getSinglePersonAddressBook() {
+        AddressBook ab = new AddressBook();
+
+        ab.addPerson(getSinglePerson());
+
+        for (Policy policy : getTypicalPolicy()) {
+            ab.addPolicy(policy);
         }
 
         return ab;

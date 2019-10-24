@@ -6,23 +6,33 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.PersonBuilder;
 import seedu.address.commons.util.PolicyBuilder;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
+import seedu.address.logic.commands.merge.MergePolicyConfirmedCommand;
 import seedu.address.logic.commands.merge.MergePolicyRejectedCommand;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
 import seedu.address.testutil.TestUtil.ModelStub;
 
 public class MergePolicyRejectedCommandTest {
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullCommand_throwsNullPointerException() {
@@ -31,39 +41,40 @@ public class MergePolicyRejectedCommandTest {
 
     @Test
     public void execute_mergeRejectedWithOneMergeLeft_mergeSuccessful() throws Exception {
-        Policy validPolicy = new PolicyBuilder().build();
-        Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
-        MergePolicyCommandStub mergeCommandStub = new MergePolicyCommandStub(inputPolicy);
-        ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
-        CommandResult commandResult = new MergePolicyRejectedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergePolicyRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
-            Description.DATA_TYPE)
-            + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-            mergeCommandStub.getOriginalPolicy()), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPolicy(), new PolicyBuilder().build());
+        Policy originalPolicy = new PolicyBuilder(model.getFilteredPolicyList().get(0)).build();
+        Policy inputPolicy = new PolicyBuilder(originalPolicy).withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
+                .build();
+        MergePolicyCommandStub mergeCommandStub = new MergePolicyCommandStub(inputPolicy, originalPolicy);
+        MergePolicyRejectedCommand mergePolicyRejectedCommand = new MergePolicyRejectedCommand(mergeCommandStub);
+        String expectedMessage = String.format(MergePolicyRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
+                Description.DATA_TYPE) + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
+                mergeCommandStub.getOriginalPolicy());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        assertCommandSuccess(mergePolicyRejectedCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_mergeConfirmedWithMoreThanOneMergeLeft_mergeSuccessful() throws Exception {
-        Policy validPolicy = new PolicyBuilder().build();
-        Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
-            .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
+        Policy originalPolicy = new PolicyBuilder(model.getFilteredPolicyList().get(0)).build();
+        Policy inputPolicy = new PolicyBuilder(originalPolicy).withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
+                .build();
         MergePolicyCommandStubWithMultipleMerges mergeCommandStub =
-            new MergePolicyCommandStubWithMultipleMerges(inputPolicy);
-        ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
-        CommandResult commandResult = new MergePolicyRejectedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergePolicyRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
-            Description.DATA_TYPE)
-            + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPolicy(), new PolicyBuilder().build());
+                new MergePolicyCommandStubWithMultipleMerges(inputPolicy, originalPolicy);
+        MergePolicyRejectedCommand mergePolicyRejectedCommand = new MergePolicyRejectedCommand(mergeCommandStub);
+        String expectedMessage = String.format(MergePolicyRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
+                Description.DATA_TYPE)
+                + "\n" + mergeCommandStub.getNextMergePrompt();
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        assertCommandSuccess(mergePolicyRejectedCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
+        Policy policy = new PolicyBuilder().build();
         Policy alice = new PolicyBuilder().withName("Alice").build();
         Policy bob = new PolicyBuilder().withName("Bob").build();
-        MergePolicyCommandStub commandWithAlice = new MergePolicyCommandStub(alice);
-        MergePolicyCommandStub commandWithBob = new MergePolicyCommandStub(bob);
+        MergePolicyCommandStub commandWithAlice = new MergePolicyCommandStub(alice, policy);
+        MergePolicyCommandStub commandWithBob = new MergePolicyCommandStub(bob, policy);
         MergePolicyRejectedCommand mergeAliceCommand = new MergePolicyRejectedCommand(commandWithAlice);
         MergePolicyRejectedCommand mergeBobCommand = new MergePolicyRejectedCommand(commandWithBob);
 
@@ -90,10 +101,11 @@ public class MergePolicyRejectedCommandTest {
          *
          * @param inputPolicy
          */
-        private Policy originalPolicy = new PolicyBuilder().build();
+        private Policy originalPolicy;
 
-        public MergePolicyCommandStub(Policy inputPolicy) {
+        public MergePolicyCommandStub(Policy inputPolicy, Policy originalPolicy) {
             super(inputPolicy);
+            this.originalPolicy = originalPolicy;
         }
 
         public void updateOriginalPolicy(Policy editedPolicy) {
@@ -135,13 +147,14 @@ public class MergePolicyRejectedCommandTest {
          *
          * @param inputPolicy
          */
-        private Policy originalPolicy = new PolicyBuilder().build();
+        private Policy originalPolicy;
         private ArrayList<String> dataTypes = new ArrayList<>();
 
-        public MergePolicyCommandStubWithMultipleMerges(Policy inputPolicy) {
+        public MergePolicyCommandStubWithMultipleMerges(Policy inputPolicy, Policy originalPolicy) {
             super(inputPolicy);
             dataTypes.add(Description.DATA_TYPE);
             dataTypes.add(Coverage.DATA_TYPE);
+            this.originalPolicy = originalPolicy;
         }
 
         public void updateOriginalPolicy(Policy editedPolicy) {
@@ -181,54 +194,4 @@ public class MergePolicyRejectedCommandTest {
         }
     }
 
-    /**
-     * A Model stub that contains a single Policy.
-     */
-    private class ModelStubWithPolicy extends ModelStub {
-        private Policy policy;
-
-        ModelStubWithPolicy(Policy policy) {
-            requireNonNull(policy);
-            this.policy = policy;
-        }
-
-        @Override
-        public boolean hasPolicy(Policy policy) {
-            requireNonNull(policy);
-            return this.policy.isSamePolicy(policy);
-        }
-
-        public Policy getPolicy() {
-            return this.policy;
-        }
-
-        @Override
-        public void setPolicy(Policy target, Policy editedPolicy) {
-            this.policy = editedPolicy;
-        }
-    }
-
-    /**
-     * A Model stub that always accept the Policy being added.
-     */
-    private class ModelStubAcceptingPolicyAdded extends ModelStub {
-        final ArrayList<Policy> policiesAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPolicy(Policy policy) {
-            requireNonNull(policy);
-            return policiesAdded.stream().anyMatch(policy::isSamePolicy);
-        }
-
-        @Override
-        public void addPolicy(Policy policy) {
-            requireNonNull(policy);
-            policiesAdded.add(policy);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
 }
