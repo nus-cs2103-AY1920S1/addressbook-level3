@@ -354,6 +354,71 @@ same name.
 ** Cons: Increases memory usage and duplication checking might be more difficult (have to check the `UniqueTagList` of
 every `Module` instead of just the one in the `StudyPlan`.
 
+=== Module Information and Verification
+
+==== Implementation
+
+The reading of modules information is facilitated by `ModulesInfo`, which contains a list of `ModuleInfo` objects.
+
+All information regarding our modules are initially stored in json format, within the file `data/modules_cs.json`.
+Information in a `ModuleInfo` object includes:
+
+- `code`: Module code
+- `name`: Module name
+- `mc`: MC count
+- `su`: Whether the module can be S/U-ed
+- `isCore`: Whether the module is a core module
+- `focusPrimaries`: List of focus area primaries
+- `focusElectives`: List of focus area electives
+- `description`: Module description
+- `prereqTree`: Module's prerequisite tree
+
+Upon starting the main app, the data is read once into a `ModulesInfo` object, which contains a list
+of `ModuleInfo` objects -- it is then passed into our model, whereby our `ModelManager` holds it as a reference.
+
+Upon creating a study plan, the module planner will create the relevant `Module` objects, whose information
+matches their corresponding `ModulesInfo` objects. Each `Module` object should correspond to exactly one
+`ModuleInfo` object (with the same module code).
+
+==== Prerequisite checking
+
+To facilitate prerequisite checking, we have an interface `PrereqTree`, implemented by two classes
+`PrereqLeaf` and `PrereqNode`.
+
+image::VerificationPrereqTreeClassDiagram.png[]
+
+Each `PrereqLeaf` represents a module prerequisite. Each `PrereqNode` has an AND or OR operator -- for instance,
+(CS2030 AND CS2040) would be represented by a `PrereqNode` with the operator AND, with two `PrereqLeaf` leaves:
+one for CS2030, and one for CS2040.
+
+Importantly, `PrereqTree` contains the method `verify(List<String> prevSemCodes)`. Given a list of strings of module
+codes taken in previous semesters, the prerequisite tree will return a boolean value, signalling if the module already
+has its prerequisites satisfied.
+
+Upon executing any command, the method `refresh()` will be called in the module manager, which verifies the prerequisites
+of every `Module` and updates them in the GUI. Modules that do not have their prerequisites fulfilled will be shown
+with a red tag beside it.
+
+image::VerificationRefreshSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Relationship between a module and its module information
+
+* **Alternative 1 (current choice)**: All `ModuleInfo` objects are only created once
+upon initialising the application, one for each CS module.
+When creating a `Module` object, it then finds the corresponding `ModuleInfo` object (with the same module code),
+then derives its attributes (e.g. name, MC count, tags) from it.
+
+** Pros: The json file is only read once to create all `ModuleInfo` objects at once, which is more efficient.
+** Cons: It could lead to greater code complexity,
+as the model manager needs to keep track of not only `Module` objects, but also `ModuleInfo` objects.
+
+* **Alternative 2**: Whenever a new `Module` object is created, it re-reads the json file to read in
+the necessary information.
+** Pros: The module manager does not need to persistently hold on to the same list of `ModuleInfo` objects.
+** Cons: It performs the same reading action multiple times, which could lead to slowdowns.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
