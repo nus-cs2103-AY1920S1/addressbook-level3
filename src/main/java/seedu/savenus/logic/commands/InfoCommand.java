@@ -46,6 +46,8 @@ public class InfoCommand extends Command {
 
     public static final String REMOVEDISLIKE_INFO = COMMAND_INDICATOR + RemoveDislikeCommand.COMMAND_WORD;
 
+    public static final String REMOVELIKE_INFO = COMMAND_INDICATOR + RemoveLikeCommand.COMMAND_WORD;
+
     public static final String SAVE_INFO = COMMAND_INDICATOR + SaveCommand.COMMAND_WORD;
 
     public static final String SORT_INFO = COMMAND_INDICATOR + SortCommand.COMMAND_WORD;
@@ -99,6 +101,8 @@ public class InfoCommand extends Command {
             return new CommandResult(RECOMMEND_INFO);
         case RemoveDislikeCommand.COMMAND_WORD :
             return new CommandResult(REMOVEDISLIKE_INFO);
+        case RemoveLikeCommand.COMMAND_WORD :
+            return new CommandResult(REMOVELIKE_INFO);
         case SaveCommand.COMMAND_WORD :
             return new CommandResult(SAVE_INFO);
         case SortCommand.COMMAND_WORD :
