@@ -3,7 +3,7 @@ package seedu.module.testutil;
 import seedu.module.model.module.ArchivedModule;
 
 /**
- * A utility class to help with building Module objects.
+ * A utility class to help with building ArchivedModule objects.
  */
 public class ArchivedModuleBuilder {
 

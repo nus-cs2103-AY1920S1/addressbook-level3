@@ -1,31 +1,32 @@
 package seedu.module.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertFalse;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static seedu.module.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.module.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.module.testutil.Assert.assertThrows;
-//import static seedu.module.testutil.TypicalPersons.ALICE;
-//import static seedu.module.testutil.TypicalPersons.getTypicalAddressBook;
-
-//import java.util.Arrays;
-//import java.util.Collection;
 
 import java.util.Collections;
-//import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import seedu.module.model.module.Module;
-//import seedu.module.model.module.exceptions.DuplicateModuleException;
-//import seedu.module.testutil.PersonBuilder;
+import seedu.module.model.module.ArchivedModuleList;
+import seedu.module.model.module.TrackedModule;
+import seedu.module.testutil.ArchivedModuleBuilder;
+import seedu.module.testutil.TrackedModuleBuilder;
 
 public class ModuleBookTest {
 
-    private final ModuleBook moduleBook = new ModuleBook();
+    private ModuleBook moduleBook;
+
+    @BeforeEach
+    public void beforeEach() {
+        ModuleBook newModuleBook = new ModuleBook();
+        ArchivedModuleList archivedModules = new ArchivedModuleList();
+        archivedModules.add(new ArchivedModuleBuilder().build());
+        newModuleBook.setArchivedModules(archivedModules);
+        moduleBook = newModuleBook;
+    }
 
     @Test
     public void constructor() {
@@ -37,68 +38,34 @@ public class ModuleBookTest {
         assertThrows(NullPointerException.class, () -> moduleBook.resetData(null));
     }
 
-    //     @Test
-    //     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-    //         ModuleBook newData = getTypicalAddressBook();
-    //         addressBook.resetData(newData);
-    //         assertEquals(newData, addressBook);
-    //     }
-
-    //     @Test
-    //     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-    //         // Two persons with the same identity fields
-    //         Module editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-    //                 .build();
-    //         List<Module> newModules = Arrays.asList(ALICE, editedAlice);
-    //         ModuleBookStub newData = new ModuleBookStub(newModules);
-
-    //         assertThrows(DuplicateModuleException.class, () -> addressBook.resetData(newData));
-    //      }
+    @Test
+    public void resetData_withValidReadOnlyModuleBook_replacesData() {
+        ModuleBook newData = new ModuleBook();
+        moduleBook.resetData(newData);
+        assertEquals(newData, moduleBook);
+    }
 
     @Test
     public void hasModule_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> moduleBook.hasModule(null));
     }
+
+    @Test
+    public void hasTrackedModule_trackedModuleNotInModuleBook_returnsFalse() {
+        assertFalse(moduleBook.hasModule(new TrackedModuleBuilder().build()));
+    }
+
+    @Test
+    public void hasTrackedModule_trackedModuleInModuleBook_returnsTrue() {
+        TrackedModule trackedModule = new TrackedModuleBuilder()
+            .withModule(new ArchivedModuleBuilder().build())
+            .build();
+        moduleBook.addModule(trackedModule);
+        assertTrue(moduleBook.hasModule(trackedModule));
+    }
+
+    @Test
+    public void getTrackedModuleList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> moduleBook.getModuleList().remove(0));
+    }
 }
-
-//     @Test
-//     public void hasPerson_personNotInAddressBook_returnsFalse() {
-//         assertFalse(addressBook.hasModule(ALICE));
-//     }
-
-//     @Test
-//     public void hasPerson_personInAddressBook_returnsTrue() {
-//         addressBook.addModule(ALICE);
-//         assertTrue(addressBook.hasModule(ALICE));
-//     }
-
-//     @Test
-//     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-//         addressBook.addModule(ALICE);
-//         Module editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-//                 .build();
-//         assertTrue(addressBook.hasModule(editedAlice));
-//     }
-
-//     @Test
-//     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-//         assertThrows(UnsupportedOperationException.class, () -> addressBook.getModuleList().remove(0));
-//     }
-
-//     /**
-//      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
-//      */
-//     private static class ModuleBookStub implements ReadOnlyModuleBook {
-//         private final ObservableList<Module> modules = FXCollections.observableArrayList();
-
-//         ModuleBookStub(Collection<Module> modules) {
-//             this.modules.setAll(modules);
-//         }
-
-//         @Override
-//         public ObservableList<Module> getModuleList() {
-//             return modules;
-//         }
-//     }
-
-// }
