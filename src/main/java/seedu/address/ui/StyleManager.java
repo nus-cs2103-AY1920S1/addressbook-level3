@@ -3,16 +3,19 @@ package seedu.address.ui;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.aesthetics.Background;
 
@@ -22,24 +25,63 @@ import seedu.address.model.aesthetics.Background;
 public class StyleManager {
 
     private static final String SEPARATOR = System.getProperty("os.name").startsWith("Windows") ? "\\" : "/";
+    private static final String MY_STYLE_SHEET_NAME = "MyStyleSheet.css";
+    private static final String STYLESHEET_DIRECTORY_NAME = "temp";
+    private static final String STYLESHEET_DIRECTORY_PATH_NAME = System.getProperty("user.dir") + SEPARATOR
+            + STYLESHEET_DIRECTORY_NAME;
 
     private Scene scene;
     private VBox mainWindowPlaceholder;
-    private StackPane mainDisplayPanePlaceholder;
     private File myStyleSheet;
     private Background background;
 
-    public StyleManager(Scene scene, VBox mainWindowPlaceholder) {
+    private List<String> styleSheetURIPaths;
+
+    // Variables used for reading and writing css files
+    private InputStream inputStream;
+    private InputStreamReader inputStreamReader;
+    private BufferedReader bufferedReader;
+    private FileWriter fileWriter;
+    private File tempOutputCss;
+    private String lineReadFromReader;
+    private String lineToWriteViaWriter;
+    private List<String> fieldsToIgnore = new ArrayList<>(List.of("#lineChart"));
+
+    StyleManager(Scene scene, VBox mainWindowPlaceholder) {
         this.scene = scene;
         this.mainWindowPlaceholder = mainWindowPlaceholder;
+        this.styleSheetURIPaths = new ArrayList<>();
+        addToStyleSheetURIPaths(getSceneStylesheets().get(0));
+    }
+
+    /**
+     * Resets the current styleSheets used and deletes the styleSheet folder
+     */
+    void resetStyleSheets() {
+        getSceneStylesheets().set(0, styleSheetURIPaths.get(0));
+        File styleSheetDirectory = new File(STYLESHEET_DIRECTORY_PATH_NAME);
+        if (styleSheetDirectory.exists()) {
+            Arrays.asList(Objects.requireNonNull(styleSheetDirectory.listFiles())).forEach(File::delete);
+            styleSheetDirectory.delete();
+        }
     }
 
     /**
      * Returns the list of stylesheets stored in the scene attribute of this object.
      * @return List of stylesheets stored in the scene attribute of this object.
      */
-    public ObservableList<String> getSceneStylesheets() {
+    private ObservableList<String> getSceneStylesheets() {
         return scene.getStylesheets();
+    }
+
+    /**
+     * Create a directory structure for stylesheets, if it does not already exist.
+     */
+    private void createFolders() {
+        File directory = new File(STYLESHEET_DIRECTORY_PATH_NAME);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
     }
 
     /**
@@ -47,15 +89,9 @@ public class StyleManager {
      * @param name Name of stylesheet to be created, including extensions.
      * @return File to contain data of new stylesheet.
      */
-    public File createNewStyleSheet(String name) {
-        String directoryName = System.getProperty("user.dir") + SEPARATOR
-                + "stylesheets";
-        File directory = new File(directoryName);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
-        File styleSheet = new File(directoryName + SEPARATOR + name);
+    private File createNewStyleSheet(String name) {
+        createFolders();
+        File styleSheet = new File(STYLESHEET_DIRECTORY_PATH_NAME + SEPARATOR + name);
 
         if (!styleSheet.exists()) {
             try {
@@ -72,9 +108,9 @@ public class StyleManager {
      * style manager's scene.
      * @return New styleSheet to be used by the program for rendering.
      */
-    public File getMyStyleSheet() {
+    private File getMyStyleSheet() {
         if (myStyleSheet == null) {
-            myStyleSheet = createNewStyleSheet("MyStyleSheet.css");
+            myStyleSheet = createNewStyleSheet(MY_STYLE_SHEET_NAME);
         }
         return myStyleSheet;
     }
@@ -83,9 +119,212 @@ public class StyleManager {
      * Sets the given styleSheet to be the active styleSheet used by the program for rendering.
      * @param styleSheet Css file to bew used as the active styleSheet.
      */
-    public void setStyleSheet(File styleSheet) {
+    private void setStyleSheet(File styleSheet) {
         String themePath = styleSheet.toURI().toString();
         getSceneStylesheets().set(0, themePath);
+    }
+
+    /**
+     * Adds a stylesheet URI path to the List of paths representing CSS stylesheet locations.
+     * This function may be used by future developers, alongside storage implementations,
+     * to allow users to save themes.
+     * @param string String representation of a URI path referencing a CSS stylesheet.
+     */
+    private void addToStyleSheetURIPaths(String string) {
+        styleSheetURIPaths.add(string);
+    }
+
+    /**
+     * Initialises a new variable to store the output file and generates streams responsible for handling the process
+     * to modify this scene's CSS stylesheets.
+     * @throws FileNotFoundException If creation of the streams is unsuccessful.
+     */
+    private void initialiseOutputCssAndStreams() throws FileNotFoundException {
+        if (myStyleSheet != null && myStyleSheet.exists()) {
+            String nameWithoutCssExtension = getFileNameWithoutExtension(myStyleSheet);
+            File copy = createNewStyleSheet(nameWithoutCssExtension + " copy.css");
+            inputStream = new FileInputStream(getMyStyleSheet());
+            tempOutputCss = copy;
+        } else {
+            inputStream = this.getClass().getResourceAsStream("/view/DarkTheme.css");
+            tempOutputCss = getMyStyleSheet();
+        }
+
+        inputStreamReader = new InputStreamReader(inputStream);
+        bufferedReader = new BufferedReader(inputStreamReader);
+
+        lineReadFromReader = "";
+        lineToWriteViaWriter = "";
+    }
+
+    /**
+     * Writes the line to be written via this StyleManager's writer stream to the output file.
+     * @throws IOException If the writing process is unsuccessful.
+     */
+    private void writeToOutput() throws IOException {
+        fileWriter = new FileWriter(tempOutputCss);
+        fileWriter.write(lineToWriteViaWriter);
+    }
+
+    /**
+     * Closes the streams of this StyleManager that have previously been opened to modify the CSS required CSS files
+     * to be modified.
+     * @throws IOException If closing of any of the streams is unsuccessful.
+     */
+    private void closeStreams() throws IOException {
+        fileWriter.close();
+        bufferedReader.close();
+        inputStream.close();
+        inputStreamReader.close();
+    }
+
+    /**
+     * Copies the temporary output file to this active stylesheet belonging to the scene of this StyleManager.
+     * @throws IOException If the copying process is unsuccessful.
+     */
+    private void copyTempOutputToMyStyleSheet() throws IOException {
+        if ((myStyleSheet != null && myStyleSheet.exists())
+                && tempOutputCss != null && tempOutputCss.exists()
+                && myStyleSheet.getPath() != tempOutputCss.getPath()) {
+            bufferedReader = new BufferedReader(new FileReader(tempOutputCss));
+            fileWriter = new FileWriter(myStyleSheet);
+            myStyleSheet.delete();
+            myStyleSheet = getMyStyleSheet();
+            String line = "";
+            while ((line= bufferedReader.readLine()) != null) {
+                fileWriter.write(line + "\n");
+            }
+            bufferedReader.close();
+            fileWriter.close();
+            tempOutputCss.delete();
+            tempOutputCss = null;
+        }
+    }
+
+    /**
+     * Sets the font family of this style manager's scene.
+     * @param fontFamily String representation of a CSS font family.
+     */
+    public void setFontFamily(String fontFamily) {
+        try {
+            initialiseOutputCssAndStreams();
+            while ((lineReadFromReader = bufferedReader.readLine()) != null) {
+                ignoreTextToBeIgnored();
+                if (lineReadFromReader != null) {
+                    lineToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-font-family",
+                            fontFamily) + "\n";
+                }
+            }
+            writeToOutput();
+            closeStreams();
+            copyTempOutputToMyStyleSheet();
+            setStyleSheet(myStyleSheet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sets the font colour of this style manager's scene.
+     * @param fontColour String representation of a CSS font colour.
+     */
+    public void setFontColour(String fontColour) {
+        try {
+            initialiseOutputCssAndStreams();
+            while ((lineReadFromReader = bufferedReader.readLine()) != null) {
+                ignoreTextToBeIgnored();
+                if (lineReadFromReader != null) {
+                    String changedTextFill = getLineAfterReplacement(lineReadFromReader, "fx-text-fill",
+                            fontColour);
+                    String changedFill = getLineAfterReplacement(changedTextFill,
+                            "fx-fill",
+                            fontColour);
+                    lineToWriteViaWriter += changedFill + "\n";
+                }
+            }
+            writeToOutput();
+            closeStreams();
+            copyTempOutputToMyStyleSheet();
+            setStyleSheet(myStyleSheet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Ignores text to be ignored in each line read by this style manager's reader.
+     * @throws IOException If consumption of lines to be ignored is unsuccessful.
+     */
+    private void ignoreTextToBeIgnored() throws IOException {
+        for (String fieldToIgnore : fieldsToIgnore) {
+            if (lineReadFromReader.startsWith(fieldToIgnore)) {
+                ignoreUntilNextField();
+            }
+        }
+    }
+
+    /**
+     * Sets the background of this style manager's scene.
+     * @param background String representation of a CSS background.
+     */
+    public void setBackground(Background background) {
+        try {
+           initialiseOutputCssAndStreams();
+            String backgroundColourForImages = "transparent";
+            String backgroundColour = background.isBackgroundColour()
+                    ? background.toString()
+                    : backgroundColourForImages;
+            while ((lineReadFromReader = bufferedReader.readLine()) != null) {
+                ignoreTextToBeIgnored();
+                if (lineReadFromReader != null) {
+                    String changedBackgroundFields = getLineAfterReplacement(lineReadFromReader, "fx-background",
+                            backgroundColour);
+                    String changedBackgroundColourFields = getLineAfterReplacement(changedBackgroundFields,
+                            "fx-background-color",
+                            backgroundColour);
+                    lineToWriteViaWriter += changedBackgroundColourFields + "\n";
+                }
+            }
+
+            if (!background.isBackgroundColour()) {
+                setBackgroundImage(background);
+            }
+            writeToOutput();
+            closeStreams();
+            copyTempOutputToMyStyleSheet();
+            setStyleSheet(myStyleSheet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Sets the background image of main window placeholder of this instance of style manager.
+     * @param background Background object representing background information of this application.
+     */
+    public void setBackgroundImage(Background background) {
+        String filePath = background.getBackgroundPicPath();
+        String bgSize = background.getBgSize();
+        String bgRepeat = background.getBgRepeat();
+
+        File file = new File(filePath);
+
+        if (this.background == null || !this.background.equals(background)) {
+            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + file.toURI().toString() + "'); "
+                    + "-fx-background-position: center center; "
+                    + "-fx-background-repeat: " + bgRepeat + ";"
+                    + "-fx-background-size: " + bgSize + ";");
+            this.background = background;
+        }
+    }
+
+    /**
+     * Returns a String representation of the given file's name without extensions.
+     * @param file File with name to be extracted without extensions.
+     * @return Given file's name without extension as a String.
+     */
+    private String getFileNameWithoutExtension(File file) {
+        return file.getName().replaceFirst("[.][^.]+$", "");
     }
 
     /**
@@ -119,184 +358,27 @@ public class StyleManager {
     }
 
     /**
-     * Sets the font colour of this style manager's scene.
-     * @param fontColour String representation of a CSS font colour.
-     */
-    public void setFontColour(String fontColour) {
-        try {
-            InputStream is;
-            File outputCss;
-            if (myStyleSheet != null && myStyleSheet.exists()) {
-                String fileName = myStyleSheet.getName();
-                String nameWithoutCssExtension = fileName.substring(0, fileName.length() - 4);
-                File copy = createNewStyleSheet(nameWithoutCssExtension + " copy.css");
-                is = new FileInputStream(getMyStyleSheet());
-                outputCss = copy;
-            } else {
-                is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
-                outputCss = getMyStyleSheet();
-            }
-
-            String lineReadFromReader;
-            String lineToWriteViaWriter = "";
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            while ((lineReadFromReader = br.readLine()) != null) {
-                String changedTextFill = getLineAfterReplacement(lineReadFromReader, "fx-text-fill",
-                        fontColour);
-                String changedFill = getLineAfterReplacement(changedTextFill,
-                        "fx-fill",
-                        fontColour);
-                lineToWriteViaWriter += changedFill + "\n";
-            }
-            FileWriter fw = new FileWriter(outputCss);
-            fw.write(lineToWriteViaWriter);
-            fw.close();
-            outputCss.renameTo(getMyStyleSheet());
-            setStyleSheet(getMyStyleSheet());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Sets the font family of this style manager's scene.
-     * @param fontFamily String representation of a CSS font family.
-     */
-    public void setFontFamily(String fontFamily) {
-        try {
-            InputStream is;
-            File outputCss;
-            if (myStyleSheet != null && myStyleSheet.exists()) {
-                String fileName = myStyleSheet.getName();
-                String nameWithoutCssExtension = fileName.substring(0, fileName.length() - 4);
-                File copy = createNewStyleSheet(nameWithoutCssExtension + " copy.css");
-                is = new FileInputStream(getMyStyleSheet());
-                outputCss = copy;
-            } else {
-                is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
-                outputCss = getMyStyleSheet();
-            }
-
-            String lineReadFromReader;
-            String lineToWriteViaWriter = "";
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            while ((lineReadFromReader = br.readLine()) != null) {
-                lineToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-font-family",
-                        fontFamily) + "\n";
-            }
-            FileWriter fw = new FileWriter(outputCss);
-            fw.write(lineToWriteViaWriter);
-            fw.close();
-            outputCss.renameTo(getMyStyleSheet());
-            setStyleSheet(getMyStyleSheet());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Consumes the next whole field from this current onwards.
-     * @param br Bufferedreader that reads lines.
-     * @param initialLine Initial line of text to determine whether or not to initiate reading.
      * @throws IOException If reading of lines of text is unsuccessful.
      */
-    private void ignoreUntilNextField(BufferedReader br, String initialLine) throws IOException {
-        boolean foundOpeningCurlyBraces = initialLine.contains("{");
-        boolean foundClosingCurlyBraces = initialLine.contains("}");
+    private void ignoreUntilNextField() throws IOException {
+        boolean foundOpeningCurlyBraces = lineReadFromReader.contains("{");
+        boolean foundClosingCurlyBraces = lineReadFromReader.contains("}");
 
-        String lineConsumed;
-
-        while (!foundOpeningCurlyBraces && (lineConsumed = br.readLine()) != null) {
-            if (lineConsumed.contains("{")) {
+        while (!foundOpeningCurlyBraces && lineReadFromReader != null) {
+            lineToWriteViaWriter += lineReadFromReader + "\n";
+            if (lineReadFromReader.contains("{")) {
                 foundOpeningCurlyBraces = true;
             }
+            lineReadFromReader = bufferedReader.readLine();
         }
 
-        while (!foundClosingCurlyBraces && (lineConsumed = br.readLine()) != null) {
-            if (lineConsumed.contains("}")) {
+        while (!foundClosingCurlyBraces && lineReadFromReader != null) {
+            lineToWriteViaWriter += lineReadFromReader + "\n";
+            if (lineReadFromReader.contains("}")) {
                 foundClosingCurlyBraces = true;
             }
-        }
-    }
-
-    /**
-     * Sets the background image of main window placeholder of this instance of style manager.
-     * @param background Background object representing background information of this application.
-     */
-    public void setBackgroundImage(Background background) {
-        String filePath = background.getBackgroundPicPath();
-        String bgSize = background.getBgSize();
-        String bgRepeat = background.getBgRepeat();
-
-        File file = new File(filePath);
-
-        if (this.background == null || !this.background.equals(background)) {
-            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + file.toURI().toString() + "'); "
-                    + "-fx-background-position: center center; "
-                    + "-fx-background-repeat: " + bgRepeat + ";"
-                    + "-fx-background-size: " + bgSize + ";");
-            this.background = background;
-        }
-    }
-
-    /**
-     * Sets the background of this style manager's scene.
-     * @param background String representation of a CSS background.
-     */
-    public void setBackground(Background background) {
-
-        List<String> fieldsToIgnore = new ArrayList<>();
-        //        fieldsToIgnore.add(".profile-scroll");
-        //        fieldsToIgnore.add(".scroll-bar");
-
-        try {
-            InputStream is;
-            File outputCss;
-            if (myStyleSheet != null && myStyleSheet.exists()) {
-                String fileName = myStyleSheet.getName();
-                String nameWithoutCssExtension = fileName.substring(0, fileName.length() - 4);
-                File copy = createNewStyleSheet(nameWithoutCssExtension + " copy.css");
-                is = new FileInputStream(getMyStyleSheet());
-                outputCss = copy;
-            } else {
-                is = this.getClass().getResourceAsStream("/view/DarkTheme.css");
-                outputCss = getMyStyleSheet();
-            }
-
-            String lineReadFromReader;
-            String lineToWriteViaWriter = "";
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-            //            String backgroundColourForImages = "rgba(255, 255, 255, .2);"
-            String backgroundColourForImages = "transparent";
-            String backgroundColour = background.isBackgroundColour()
-                    ? background.toString()
-                    : backgroundColourForImages;
-            while ((lineReadFromReader = br.readLine()) != null) {
-                for (String fieldToIgnore : fieldsToIgnore) {
-                    if (lineReadFromReader.startsWith(fieldToIgnore)) {
-                        ignoreUntilNextField(br, lineReadFromReader);
-                    }
-                }
-                String changedBackgroundFields = getLineAfterReplacement(lineReadFromReader, "fx-background",
-                        backgroundColour);
-                String changedBackgroundColourFields = getLineAfterReplacement(changedBackgroundFields,
-                        "fx-background-color",
-                        backgroundColour);
-                lineToWriteViaWriter += changedBackgroundColourFields + "\n";
-            }
-
-            if (!background.isBackgroundColour()) {
-                setBackgroundImage(background);
-            }
-
-            FileWriter fw = new FileWriter(outputCss);
-            fw.write(lineToWriteViaWriter);
-            fw.close();
-            outputCss.renameTo(getMyStyleSheet());
-            setStyleSheet(getMyStyleSheet());
-        } catch (Exception e) {
-            e.printStackTrace();
+            lineReadFromReader = bufferedReader.readLine();
         }
     }
 
