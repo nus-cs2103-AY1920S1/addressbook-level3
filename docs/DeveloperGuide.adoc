@@ -1,4 +1,4 @@
-= MooLah - Developer Guide
+= AddressBook Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -90,7 +90,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SinglePanelView`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,6 +98,22 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+
+The content being shown in the `MainWindow` is managed by the ``SinglePanelView`` which supports the following operations:
+``SinglePanelView#viewPanel(panelName)``
+``SinglePanelView#hasPanel(panelName)``
+``SinglePanelView#getPanel(panelName)``
+``SinglePanelView#setPanel(panelName, panel)``
+
+image::SinglePanelViewClassDiagram.png[]
+
+Users may change between the visible panels through the CLI by using the `view` command.
+The following sequence diagram shows the events which occur in order to change the the UI component displayed in the main window.
+
+image::ViewPanelSequenceDiagram.png[]
+
+
 
 [[Design-Logic]]
 === Logic component
@@ -507,7 +523,196 @@ and users may have different preferences for formats. Various options such as ch
 // end::stats[]
 
 
->>>>>>> b0c4666f38acaeadcb6dd43f2515a6f6dfae140f
+// category::Alias[]
+=== Alias feature
+==== Implementation
+The Aliases feature allows users to assign inputs they may use very often to a shortcut, and execute the input by entering
+the shortcut, (a.k.a ``Alias``), in place of the full or partial command.
+
+image::AliasMappingsClassDiagram.png[AliasMappingsClassDiagram]
+
+These user defined ``Alias``es are saved in an ``AliasMappings`` object within ``UserPref`` as seen in the above diagram.
+Internally, the ``AliasMappings`` object stores an ``Alias`` in a Map<Strings, Alias> object. With the addition of `AliasMappings` object to ``UserPref``,
+``UserPref`` supports these additional operations:
+
+- ``UserPref#addUserAlias(Alias)`` -- Saves a specified `Alias` to the user preferences for future use.
+- ``UserPref#hasAlias(String)`` -- Query if the there is an `Alias` with this name already defined.
+- ``UserPref#getAlias(String)`` -- To get an `Alias` with this name if it exists.
+- ``UserPref#aliasNameIsReservedCommandWord(Alias)`` -- To query if this `Alias` is uses a name which clashes with existing built-in
+commands.
+- ``UserPref#aliasCommandWordIsAlias(Alias)`` -- To query if this `Alias` `input` begins with another `Alias`, this is used
+to validate that an `Alias` will not cause an infinite loop by chaining multiple aliases in a loop.
+- ``UserPref#getAliasMappings()`` -- To access the ``Alias`` saved by the user.
+- ``UserPref#setAliasMappings(AliasMappings mappings)`` -- To overwrite all the `Alias` saved by the user.
+
+
+image::AliasCommandClassDiagram.png[]
+
+In order for the user to save an ``Alias``, they first define it using the ``AliasCommand``. The ``AliasCommand`` command extends
+`UndoableCommand` to allow users to undo defining an `Alias`. The following sequence diagram describe in more detail how an ``Alias``
+is added.
+
+image::HighLevelAddAliasSequenceDiagram.png[]
+[None]
+. 1. The user enters a command with the following syntax `` alias a/ <name> i/ <input>``.
+. 2. The `UI` passes this command string to the `LogicManager` which passes it onto the `AddressBookParser`.
+. 3. The parser extracts the argument string and passes it to an ``AliasCommandParser``.
+
+image::ParseAliasCommandSequenceDiagram.png[]
+[None]
+. 4. The ``AliasCommandParser`` uses the ``ArgumentTokenizer`` to tokenize the argument string and extract the
+``alias name`` and ``input`` fields into an ``ArgumentMultimap``.
+. 5. The arguments are obtained and to create a new `Alias` using the the `Alias` parser in `ParserUtil`.
+. 6. An `AliasCommand` is created containing this new `Alias` to add to the `UserPref`.
+. 7. This is passed back to the `LogicManager` to call `AliasCommand#run()`.
+
+image::verifyAlias.png[]
+[None]
+. 8. The `AliasCommand` is validated using `AliasCommand#validate()`. The `Alias` is checked to ensure it does not
+[None]
+    ** a. Have a clashing name used by an existing `Command` as a CommandWord.
+    ** b. Have an input beginning with a supported `Alias`.
+. If is not valid, handled exception is thrown.
+
+image::addAlias.png[]
+[None]
+. 9. If it was validated that the `Alias` can be added.
+. 10. The `Alias` is then added to the `AliasMappings` object within `UserPref`.
+. 11. The `Alias` is now usable  by the user.
+
+
+When a user enters an ``input`` to be executed, the ``AddressBookParser`` will first try to parse first token in
+the ``input`` as a ``CommandWord``, failing which, it will try to parse it as an ``Alias``. If it successfully does so,
+it replaces the first token in the original command string with the ``input`` stored in the ``Alias``.
+Finally, the ``AddressBookParser`` re-parses the modified ``input``.
+
+==== Design Considerations
+
+===== Aspect: Why can an `Alias` only be used at the beginning of an input versus anywhere within an input.
+* ** Alternative 1(Chosen):** Beginning only
+** Pros: Easier to determine which word is the shortcut.
+** Pros: Easier to detect recursion due to alias chaining.
+** Cons: Less flexible in term how the shortcut can be used i.e. it can only replace or prefix an input.
+
+* ** Alternative 2:** Anywhere in input
+** Pros: A wider variety of shortcuts can be defined by the user +
+e.g. `add deckChicken 2.50`, where `deckChicken` maps to `d/ chicken rice c/ food p/`.
+** Cons: Harder to detect recursion due to alias chaining.
+** Cons: Parsing becomes more complicated and alias words become unusable in other contexts.
+e.g. defining an `Alias` mapping `bus` to `sbs bus` prevents an input such as `smrt bus` from being parsed properly
+as it would be replaced with `smrt sbs bus` by the parser.
+
+* **Solution (Current Implementation): **
+The biggest factor in choosing `Alternative 1` is to make it easier to prevent possible recusion due to alias chaining,
+which would potentially be a fatal bug in the application.
+Additionally, while it may be possible to determine which one the user means judging by the context in which it was used.
+However, that is far out of the scope of the module and would require much more processing of user input.
+
+Another alternative would have been to have an alias name follow the following convention `'aliasName'` (i.e. some character before and after)
+clear what is an `Alias` within an input.
+
+===== Future Implementation (Coming in v2.0)
+The purpose behind this feature was to make CLI input less troublesome, so users do not need to type in the full input string
+to carry out commands they may use frequently. In v2.0 we want to look into using data analysis track users' input habits in
+order to make suggestions on possible shortcuts or Aliases they may find convenient to have.
+
+===== Aspect: Data structure to store Aliases.
+
+* ** Alternative 1:** List
+** Pros: Less space needed to store same amount of data
+** Cons: Takes time to loop through the list to get the right output.
+
+* ** Alternative 2(Chosen):** Map
+** Pros: Simple to access
+** Cons: More space needed.
+
+* **Solution (Current Implementation): **
+As the user can define multiple aliases, it was important for the internal structure of `AliasMappings`
+to allow accessing the aliases by name.
+
+If an ArrayList was used, the numbering each alias would change if new ones were added and old one removed or replaced.
+Map was used to prevent this problem as the name is used as the index. This avoids the need to loop through
+all the 'Alias' defined.
+
+It also makes it easier to prevent sharing of alias names between aliases and a Map's key
+set cannot contain duplicates, and makes it easier to handle overwriting of existing aliases with same name.
+
+
+// end::Alias[]
+
+
+// category::SyntaxAutofill[]
+=== Syntax Highlighting and Autofill feature
+==== Implementation
+The Autofill feature was implemented to make it less important for users to remember the appropriate syntax for each command which
+can be a common issue in CLI based applications. This feature utilises regular expressions and JavaFX's TextFormatter to extend the
+functionality of the existing TextField used in the original AB3 application.
+
+The Autofill feature also inserts `placeholders` into the text area to make it clearer which arguments each prefix delimit in the input.
+e.g. `add d/ <description> p/ <price> c/ <category>`. These `placeholder` are removed when the user types over them and
+are filtered from the input and not parsed by the `Parser` if the user forgets to type over them. The following diagram briefly describe
+the logic used to insert auto fill a command's syntax.
+
+::image:AutoFillActivityDiagram.png[]
+
+The Syntax highlighting feature was implemented to make it easier to differentiate the different arguments after typing
+as well as to implement some basic realtime input validation. This feature utilises RichTextFX's StyleClassTextArea to
+apply different styles to different regions of the text, and regular expressions to determine which to highlight.
+
+::image:SyntaxHighlightingActivityDiagram.png[]
+
+Because RichTextFX's TextAreas do not support JavaFX's TextFormatter, the `SyntaxHighlightingTextArea` actually has two different
+TextAreas. One as the visible TestArea (RichTextFX) and one as the functional one (JavaFX).
+
+::image:SyntaxHighlightingTextAreaClassDiagram.png[]
+
+The two TextArea are layered on top of each other. The invisible functional TextArea overlays the visible one, and mirrors the TextProperty of the
+visible one mirrors the functional TextArea. The KeyEvents which occur in the functional text area are also mirrored by the visible text area.
+
+==== Design Considerations
+===== Aspect: Which configuration of Input fields to use? - RichTextFX TextArea alone, JavaFX alone, both together?
+* ** Alternative 1:**  JavaFX alone (JavaFX `TextField`) and manually place coloured elements to handle highlighting.
+** Pros: Already supports single line input.
+** Pros: Easy to implement autofill.
+** Cons: Does not inherently support styling of text with multiple styles.
+** Cons: Manually inserting worked, but not all the time.
+
+* ** Alternative 2:** `RichTextFX StyleClassTextArea` and ``Listener``s to handle formatting of text.
+** Pros: Supports styling of text.
+** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
+preventing users from pasting text with newlines and the enter key event from making a new line.
+** Cons: Does not support javafx `TextFormatter`, intermediate results (unwanted text) can possibly be evaluated.
+
+* ** Alternative 3(Chosen):** Both
+** Pros: Utilise best of both worlds, with `TextFormatter` and `RichTextFX StyleClassTextArea`
+** Cons: Need to properly align the two text areas so visible text and caret position is accurate.
+** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
+preventing users from pasting text with newlines and the enter key event from making a new line.
+
+* **Solution (Current Implementation): **
+With alternative 1, using a `TextFlow` was a problem when the text needed to remain in
+a single line. Manually layering coloured elements over the text was also an issue as the the position and size of elements
+eeded to be recalculated every time the text change, the UI moved, or was resized.
+
+While it was possible to use RichTextFX text areas alone, the text that the user inputs before it is formatted
+still enters the text area. Which interferes with realtime parsing as the text is not properly sanitized, which was
+why the uses `TextFormatter` was necessary.
+
+This meant only alternative 3 was viable, but because of layer of the two text areas, the events causing a change in text
+or what text was visible needed to be properly mirrored from the invisible to the visible text area. As a result, certain behaviours
+supported by a normal textfield needed to be blocked to ensure proper alignment e.g. copy and paste.
+
+At the moment, mass deletion and selection of text (e.g. Ctrl/Cmd+A > Backspace) has been prevented in order to properly align the
+two textarea.
+
+===== Future Implementation (Coming in v2.0)
+Moolah v2.0 should support better real time parsing of input and support validation of input without requiring the user
+to enter the command as well as a more functional input field.
+
+
+// end::SyntaxAutofill[]
+
+
 // category::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -714,7 +919,7 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User requests to see reminders.
-2.  MooLah shows a list of reminders.
+2.  AddressBook shows a list of reminders.
 +
 Use case ends.
 
