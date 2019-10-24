@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
 import seedu.billboard.logic.parser.Prefix;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
@@ -21,8 +22,8 @@ public class DisplayStatsCommand extends Command {
             + "Parameters: FORMAT [interval/DATE-INTERVAL]\n"
             + "Supported formats:\n"
             + Arrays.stream(StatisticsFormat.values())
-            .map(format -> format.getName() +
-                    ": (optional prefixes: " + getPrefixesString(format.getOptionsPrefixes()) + ")")
+            .map(format -> format.getName()
+                    + ": (optional prefixes: " + getPrefixesString(format.getOptionsPrefixes()) + ")")
             .collect(Collectors.joining("\n", "", "\n"))
             + "Example: " + COMMAND_WORD + " timeline interval/month";
 

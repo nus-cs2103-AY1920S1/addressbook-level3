@@ -31,10 +31,10 @@ public class ModelManager implements Model {
     private final Billboard billboard;
     private final ArchiveWrapper archives;
     private final UserPrefs userPrefs;
-    private final ObservableData<StatisticsFormat> statsFormat;
-    private final ObservableData<StatisticsFormatOptions> statsOptions;
     private final FilteredList<Expense> filteredExpense;
     private final HashMap<String, FilteredList<Expense>> filteredArchives;
+    private ObservableData<StatisticsFormat> statsFormat;
+    private ObservableData<StatisticsFormatOptions> statsOptions;
 
     /**
      * Initializes a ModelManager with the given billboard and userPrefs.
@@ -306,10 +306,10 @@ public class ModelManager implements Model {
     public void setModel(Model model) {
         this.billboard.setBillboard((Billboard) model.getBillboard());
         this.archives.setArchives(model.getArchives());
-        this.statsFormat.setObservers(model.getStatisticsFormat().getObservers());
-        this.statsFormat.setValue(model.getStatisticsFormat().getValue());
         this.filteredArchives.clear();
         this.filteredArchives.putAll(model.getFilteredArchives());
+        this.statsFormat = model.getStatisticsFormat();
+        this.statsOptions = model.getStatisticsFormatOptions();
     }
 
     /**
