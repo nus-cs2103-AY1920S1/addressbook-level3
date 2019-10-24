@@ -5,9 +5,9 @@ import static seedu.address.commons.core.Messages.FILTER;
 
 import java.util.ArrayList;
 
-import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;

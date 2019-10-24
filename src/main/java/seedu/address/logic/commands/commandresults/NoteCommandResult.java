@@ -16,14 +16,14 @@ public class NoteCommandResult implements CommandResult {
     private final String feedbackToUser;
 
     /** Note to display (if any) */
-    private final Optional<Note> Note;
+    private final Optional<Note> note;
 
     /**
      * Constructs a {@code NoteCommandResult} with the specified fields.
      */
-    public NoteCommandResult(String feedbackToUser, Optional<Note> Note) {
+    public NoteCommandResult(String feedbackToUser, Optional<Note> note) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.Note = Note;
+        this.note = note;
     }
 
     /**
@@ -39,7 +39,7 @@ public class NoteCommandResult implements CommandResult {
     }
 
     public Optional<Note> getNote() {
-        return Note;
+        return note;
     }
 
     @Override
@@ -75,11 +75,11 @@ public class NoteCommandResult implements CommandResult {
 
         NoteCommandResult otherNoteCommandResult = (NoteCommandResult) other;
         return feedbackToUser.equals(otherNoteCommandResult.feedbackToUser)
-                && Note == otherNoteCommandResult.Note;
+                && note == otherNoteCommandResult.note;
     }
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, Note);
+        return Objects.hash(feedbackToUser, note);
     }
 
 }

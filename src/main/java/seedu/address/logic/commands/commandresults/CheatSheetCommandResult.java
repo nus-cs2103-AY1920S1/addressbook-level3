@@ -16,14 +16,14 @@ public class CheatSheetCommandResult implements CommandResult {
     private final String feedbackToUser;
 
     /** CheatSheet to display (if any) */
-    private final Optional<CheatSheet> CheatSheet;
+    private final Optional<CheatSheet> cheatsheet;
 
     /**
      * Constructs a {@code CheatSheetCommandResult} with the specified fields.
      */
-    public CheatSheetCommandResult(String feedbackToUser, Optional<CheatSheet> CheatSheet) {
+    public CheatSheetCommandResult(String feedbackToUser, Optional<CheatSheet> cheatsheet) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.CheatSheet = CheatSheet;
+        this.cheatsheet = cheatsheet;
     }
 
     /**
@@ -39,7 +39,7 @@ public class CheatSheetCommandResult implements CommandResult {
     }
 
     public Optional<CheatSheet> getCheatSheet() {
-        return CheatSheet;
+        return cheatsheet;
     }
 
     @Override
@@ -75,11 +75,11 @@ public class CheatSheetCommandResult implements CommandResult {
 
         CheatSheetCommandResult otherCheatSheetCommandResult = (CheatSheetCommandResult) other;
         return feedbackToUser.equals(otherCheatSheetCommandResult.feedbackToUser)
-                && CheatSheet == otherCheatSheetCommandResult.CheatSheet;
+                && cheatsheet == otherCheatSheetCommandResult.cheatsheet;
     }
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, CheatSheet);
+        return Objects.hash(feedbackToUser, cheatsheet);
     }
 
 }
