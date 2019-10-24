@@ -106,8 +106,8 @@ Add Employee Examples:
 * `add n/Betsy Crowe t/Enthusiastic p/CFO e/betsycrowe@example.com a/Newgate Prison no/1234567 t/criminal`
 
 Add Event Examples:
-* `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
-* `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+* `add_ev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
+* `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 
 ==== Editing details : `edit_em | edit_ev`
 
@@ -259,11 +259,29 @@ Examples:
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
 
+==== Setting a Date&Time to an Event
+
+Sets a Date-Time mapping to an specific Event.
+
+Format: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME`
+
+****
+* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
+* The `EVENT_INDEX` *must be a positive integer* 1, 2, 3, ...
+* The `EVENT_DATE` *must be of the format* DD/MM/YYYY
+* THE `EVENT_DATE` *must be within the Event's Start and End Date*
+* The `EVENT_DAYTIME` *must be of the format* HHMM-HHMM
+****
+Examples:
+
+* `set_ev_dt 2 on/18/10/2019 time/1000-2000` +
+Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 18th October 2019.
+
 ==== Fetch Full Details of an Event: `fetch_ev` (also a GUI feature)
 
 Fetches an event by displaying a pop-up window with full details of the event.
 
-Event Format: `fetch_ev EVENT_INDEX`
+Format: `fetch_ev EVENT_INDEX`
 
 ****
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
@@ -369,8 +387,8 @@ There is no need to save manually.
 * *List Events* : `list_ev`
 * *Add Employee*: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
-* *Add Event*: `addev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music` +
-e.g. `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+* *Add Event*: `add_ev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music` +
+e.g. `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 * *Edit Employee*: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `edit_em 1 no/91234567 e/johndoe@example.com`
 * *Edit Event*: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...` +
@@ -395,6 +413,8 @@ e.g. `done 2`
 e.g. `allocate 002 t/female`
 * *Allocate Employees (Manual)*: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...` +
 e.g. `allocateM 002 n/2 n/5 n/3`
+* *Set DateTime to Event*: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME` +
+e.g. `set_ev_dt 2 on/18/10/2019 time/1000-2000`
 * *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
 e.g. `pay 2 f/20082019 t/20102019`
 * *Generate Event Contract*: `contract n/EVENT_ID` +
