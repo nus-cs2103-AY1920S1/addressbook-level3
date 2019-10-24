@@ -138,8 +138,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'ClerkPro',
-        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T09-3/main',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T09-3/main'
     ]
 
     options['template_dirs'].each {
