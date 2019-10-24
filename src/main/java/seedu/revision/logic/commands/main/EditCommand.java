@@ -2,8 +2,8 @@ package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.ArrayList;
@@ -89,7 +89,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Answerable} with the details of {@code answerableToEdit}
      * edited with {@code editAnswerableDescriptor}.
      */
-    private static Answerable createEditedAnswerable(Answerable answerableToEdit, EditAnswerableDescriptor editAnswerableDescriptor) {
+    private static Answerable createEditedAnswerable(Answerable answerableToEdit,
+                                                     EditAnswerableDescriptor editAnswerableDescriptor) {
         assert answerableToEdit != null;
 
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());

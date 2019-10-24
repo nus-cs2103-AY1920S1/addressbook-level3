@@ -15,8 +15,8 @@ import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.QuizLogic;
-import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 
@@ -27,7 +27,7 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class StartQuizWindow extends Window {
 
-    public MainWindow mainWindow;
+    private MainWindow mainWindow;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Independent Ui parts residing in this Ui container
@@ -41,18 +41,17 @@ public class StartQuizWindow extends Window {
     private Iterator<Answerable> answerableIterator;
     private int score = 0;
 
-    ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(this, "currentProgressIndex",
+    private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(this, "currentProgressIndex",
             0);
 
+    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
+        super(primaryStage, mainLogic, quizLogic);
+    }
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
     public final ReadOnlyDoubleProperty currentProgressIndexProperty() {
         return currentProgressIndex.getReadOnlyProperty();
-    }
-
-    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
-        super(primaryStage, mainLogic, quizLogic);
     }
 
     /**
@@ -86,6 +85,9 @@ public class StartQuizWindow extends Window {
         primaryStage.show();
     }
 
+    /**
+     * Handles ending of quiz session.
+     */
     @FXML
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
@@ -93,10 +95,10 @@ public class StartQuizWindow extends Window {
         alert.setTitle(null);
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Quiz has ended! Your score is " + score + "\n" +
-                "Try again?\n" +
-                "Press [ENTER] to try again.\n" +
-                "Press [ESC] to return to main screen.");
+        alert.setContentText("Quiz has ended! Your score is " + score + "\n"
+                + "Try again?\n"
+                + "Press [ENTER] to try again.\n"
+                + "Press [ESC] to return to main screen.");
 
         ButtonType tryAgainButton = new ButtonType(
                 "Yes",
@@ -118,6 +120,9 @@ public class StartQuizWindow extends Window {
         }
     }
 
+    /**
+     * Restarts the quiz session by resetting progress.
+     */
     private void restartQuiz() {
         fillInnerParts();
         score = 0;
@@ -146,7 +151,7 @@ public class StartQuizWindow extends Window {
      * @see QuizLogic#execute(String, Answerable)
      */
     @Override
-    protected CommandResult executeCommand ( String commandText) throws CommandException, ParseException {
+    protected CommandResult executeCommand (String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());

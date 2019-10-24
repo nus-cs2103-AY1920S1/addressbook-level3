@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
@@ -52,16 +52,20 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         //TODO: Implement Answerable
         if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
-            editAnswerableDescriptor.setCorrectAnswerList(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
+            editAnswerableDescriptor.setCorrectAnswerList(ParserUtil
+                    .parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
         }
         if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
-            editAnswerableDescriptor.setWrongAnswerList(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
+            editAnswerableDescriptor.setWrongAnswerList(ParserUtil
+                    .parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
         }
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
-            editAnswerableDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
+            editAnswerableDescriptor.setDifficulty(ParserUtil
+                    .parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
 
-        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY)).ifPresent(editAnswerableDescriptor::setCategories);
+        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
+                .ifPresent(editAnswerableDescriptor::setCategories);
 
         if (!editAnswerableDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

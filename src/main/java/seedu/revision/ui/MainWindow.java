@@ -8,8 +8,8 @@ import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.QuizLogic;
-import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
 /**
@@ -41,16 +41,20 @@ public class MainWindow extends Window {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Initialises the session for quiz. Loads the window components for quiz.
+     * @throws CommandException
+     */
     @FXML
     public void handleStart() throws CommandException {
         logger.info(String.valueOf(this.mainLogic.getFilteredAnswerableList().size()));
-        if (this.mainLogic.getFilteredAnswerableList().size() > 0 ) {
+        if (this.mainLogic.getFilteredAnswerableList().size() > 0) {
             StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), getQuizLogic());
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
-            resultDisplay.setFeedbackToUser("Cannot initialise quiz with empty test bank.");
-            throw new CommandException("Cannot initialise quiz with empty test bank.");
+            resultDisplay.setFeedbackToUser("Cannot initialise quiz with empty question bank.");
+            throw new CommandException("Cannot initialise quiz with empty question bank.");
         }
     }
     /**

@@ -1,11 +1,9 @@
 package seedu.revision.model.answerable;
 
-import seedu.revision.model.category.Category;
-
 import java.util.ArrayList;
 import java.util.Set;
 
-import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.revision.model.category.Category;
 
 /**
  * Represents a Answerable in the Test Bank.
@@ -23,6 +21,11 @@ public class Mcq extends Answerable {
         super(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
+    /**
+     * Returns an entire text string of the answerable (question with all possible answers,
+     * difficulty level and categories)
+     * @return answerable string
+     */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: MCQ ")

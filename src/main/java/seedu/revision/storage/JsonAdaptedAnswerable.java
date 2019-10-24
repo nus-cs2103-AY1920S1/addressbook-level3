@@ -37,7 +37,7 @@ class JsonAdaptedAnswerable {
      * Constructs a {@code JsonAdaptedAnswerable} with the given answerable details.
      */
     @JsonCreator
-    public JsonAdaptedAnswerable( @JsonProperty("questionType") String questionType,
+    public JsonAdaptedAnswerable(@JsonProperty("questionType") String questionType,
              @JsonProperty("question") String question,
              @JsonProperty("correctAnswerSet") List<JsonAdaptedAnswer> correctAnswerSet,
              @JsonProperty("wrongAnswerSet") List<JsonAdaptedAnswer> wrongAnswerSet,

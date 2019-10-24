@@ -3,9 +3,9 @@ package seedu.revision.logic.parser.main;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.ArrayList;
@@ -56,8 +56,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-//        assert validifyQuestionType(questionType, argMultimap) : "question not valid according to type";
-        validifyQuestionType(questionType, argMultimap);
+        //assert validateQuestionType(questionType, argMultimap) : "question not valid according to type";
+        validateQuestionType(questionType, argMultimap);
 
         this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
         this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
@@ -78,8 +78,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
     }
 
-    private boolean validifyQuestionType(QuestionType questionType, ArgumentMultimap argMultimap) throws
-            ParseException{
+    /**
+     * Validates that the question to be added is either an MCQ or SAQ.
+     * @param questionType type of question to be added.
+     * @param argMultimap
+     * @return true or false
+     * @throws ParseException if question is in the wrong format.
+     */
+    private boolean validateQuestionType(QuestionType questionType, ArgumentMultimap argMultimap)
+            throws ParseException {
 
         switch (questionType.getType()) {
         case "mcq":

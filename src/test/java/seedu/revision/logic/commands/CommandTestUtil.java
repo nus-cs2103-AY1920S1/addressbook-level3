@@ -20,6 +20,7 @@ import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
@@ -83,7 +84,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+            Model expectedModel) throws ParseException {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -98,7 +99,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+            Model expectedModel) throws ParseException {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }

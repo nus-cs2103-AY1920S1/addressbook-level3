@@ -77,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given answerable {@code target} in the list with {@code editedAnswerable}.
      * {@code target} must exist in the revision tool.
-     * The answerable identity of {@code editedAnswerable} must not be the same as another existing answerable in the revision tool.
+     * The answerable identity of {@code editedAnswerable} must not be the same as
+     * another existing answerable in the revision tool.
      */
     public void setAnswerable(Answerable target, Answerable editedAnswerable) {
         requireNonNull(editedAnswerable);

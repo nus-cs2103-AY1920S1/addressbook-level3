@@ -8,14 +8,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
 import seedu.revision.model.answerable.exceptions.AnswerableNotFoundException;
+import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
 
 /**
  * A list of answerables that enforces uniqueness between its elements and does not allow nulls.
- * A answerable is considered unique by comparing using {@code Answerable#isSameAnswerable(Answerable)}. As such, adding and updating of
- * answerables uses Answerable#isSameAnswerable(Answerable) for equality so as to ensure that the answerable being added or updated is
- * unique in terms of identity in the UniqueAnswerableList. However, the removal of a answerable uses Answerable#equals(Object) so
+ * A answerable is considered unique by comparing using {@code Answerable#isSameAnswerable(Answerable)}.
+ * As such, adding and updating of answerables uses Answerable#isSameAnswerable(Answerable) for equality
+ * so as to ensure that the answerable being added or updated is unique in terms of identity in the
+ * UniqueAnswerableList. However, the removal of a answerable uses Answerable#equals(Object) so
  * as to ensure that the answerable with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -51,7 +52,8 @@ public class UniqueAnswerableList implements Iterable<Answerable> {
     /**
      * Replaces the answerable {@code target} in the list with {@code editedAnswerable}.
      * {@code target} must exist in the list.
-     * The answerable identity of {@code editedAnswerable} must not be the same as another existing answerable in the list.
+     * The answerable identity of {@code editedAnswerable} must not be the same as
+     * another existing answerable in the list.
      */
     public void setAnswerable(Answerable target, Answerable editedAnswerable) {
         requireAllNonNull(target, editedAnswerable);

@@ -17,7 +17,9 @@ import seedu.revision.model.answerable.Mcq;
  */
 public class AnswerableCardWithAnswers extends UiPart<Region> {
 
+    private static Set<Answer> combinedAnswerSet;
     private static final String FXML = "AnswerableListCard.fxml";
+    public final Answerable answerable;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -26,18 +28,6 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    public final Answerable answerable;
-    public static Set<Answer> combinedAnswerSet ;
-
-    public static Set<Answer> getCombinedAnswerSet() {
-        return combinedAnswerSet;
-    }
-
-    public static void setCombinedAnswerSet(Set<Answer> combinedAnswerSet) {
-        AnswerableCardWithAnswers.combinedAnswerSet = combinedAnswerSet;
-    }
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -46,10 +36,10 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
     private Label question;
     @FXML
     private FlowPane answer;
-//    @FXML
-//    private FlowPane correctAnswers;
-//    @FXML
-//    private FlowPane wrongAnswers;
+    //    @FXML
+    //    private FlowPane correctAnswers;
+    //    @FXML
+    //    private FlowPane wrongAnswers;
     @FXML
     private Label id;
     @FXML
@@ -70,19 +60,19 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         question.setText(answerable.getQuestion().fullQuestion);
         difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
-//        answerable.getCorrectAnswerSet().stream()
-//                .sorted(Comparator.comparing(correctAnswer -> correctAnswer.answer))
-//                .forEach(correctAnswer -> correctAnswers.getChildren().add(new Label(correctAnswer.answer)));
-//        answerable.getWrongAnswerSet().stream()
-//                .sorted(Comparator.comparing(wrongAnswer -> wrongAnswer.answer))
-//                .forEach(wrongAnswer -> wrongAnswers.getChildren().add(new Label(wrongAnswer.answer)));
+        //        answerable.getCorrectAnswerSet().stream()
+        //                .sorted(Comparator.comparing(correctAnswer -> correctAnswer.answer))
+        //                .forEach(correctAnswer -> correctAnswers.getChildren().add(new Label(correctAnswer.answer)));
+        //        answerable.getWrongAnswerSet().stream()
+        //                .sorted(Comparator.comparing(wrongAnswer -> wrongAnswer.answer))
+        //                .forEach(wrongAnswer -> wrongAnswers.getChildren().add(new Label(wrongAnswer.answer)));
 
         //To set the individual answers to the answer flowPane
         answerable.getCombinedAnswerList().stream()
-                .sorted(Comparator.comparing(answer -> answer.answer))
-                .forEach(answer -> this.answer.getChildren().add(new Label(answer.answer)));
+                .sorted(Comparator.comparing(answer -> answer.toString()))
+                .forEach(answer -> this.answer.getChildren().add(new Label(answer.toString())));
 
-//        answer.getChildren().add(new Label (answerable.getCombinedAnswerSet().toString()));
+        //        answer.getChildren().add(new Label (answerable.getCombinedAnswerSet().toString()));
 
         answerable.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
@@ -90,6 +80,13 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
 
     }
 
+    public static Set<Answer> getCombinedAnswerSet() {
+        return combinedAnswerSet;
+    }
+
+    public static void setCombinedAnswerSet(Set<Answer> combinedAnswerSet) {
+        AnswerableCardWithAnswers.combinedAnswerSet = combinedAnswerSet;
+    }
 
     @Override
     public boolean equals(Object other) {

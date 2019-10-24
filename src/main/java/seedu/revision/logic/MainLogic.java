@@ -4,6 +4,9 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
+/**
+ * Inherits Logic interface. Added functionality to original Logic interface.
+ */
 public interface MainLogic extends Logic {
     /**
      * Executes the command and returns the result.

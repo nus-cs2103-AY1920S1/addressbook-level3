@@ -7,15 +7,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Answer;
-
+import seedu.revision.model.answerable.Answerable;
 
 /**
  * An UI component that displays information of a {@code Answerable}.
  */
 public class AnswerableCard extends UiPart<Region> {
 
+    private static int questionNumbering;
     private static final String FXML = "AnswerableListCard.fxml";
 
     /**
@@ -27,7 +27,6 @@ public class AnswerableCard extends UiPart<Region> {
      */
 
     public final Answerable answerable;
-    public static int questionNumbering;
 
     @FXML
     private HBox cardPane;

@@ -6,9 +6,9 @@ import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.ClearCommand;
-import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.DeleteCommand;
 import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.ExitCommand;

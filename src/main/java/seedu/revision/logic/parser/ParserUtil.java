@@ -131,11 +131,11 @@ public class ParserUtil {
      */
     public static Set<Category> parseCategories(Collection<String> categories) throws ParseException {
         requireNonNull(categories);
-        final Set<Category> CategorySet = new HashSet<>();
-        for (String CategoryName : categories) {
-            CategorySet.add(parseCategory(CategoryName));
+        final Set<Category> categorySet = new HashSet<>();
+        for (String categoryName : categories) {
+            categorySet.add(parseCategory(categoryName));
         }
-        return CategorySet;
+        return categorySet;
     }
 
     /**

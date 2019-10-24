@@ -8,10 +8,10 @@ import javafx.collections.ObservableList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
-import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
-import seedu.revision.logic.parser.main.AddressBookParser;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.logic.parser.main.AddressBookParser;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
@@ -24,7 +24,7 @@ public class MainLogicManager implements MainLogic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
 
-    protected final Model model;
+    private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
 

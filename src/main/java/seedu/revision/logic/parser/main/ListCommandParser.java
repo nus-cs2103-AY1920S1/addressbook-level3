@@ -10,17 +10,21 @@ import seedu.revision.logic.parser.ArgumentTokenizer;
 import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.predicates.CategoryPredicate;
 import seedu.revision.model.answerable.predicates.DifficultyPredicate;
+import seedu.revision.model.category.Category;
 
+/**
+ * Adds a filter to the list command.
+ * Can filter by category or difficulty of questions available.
+ * Checks whether category or difficulty parsed in is available before executing list command to filter.
+ */
 public class ListCommandParser implements Parser {
     @Override
     public Command parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DIFFICULTY);
-
 
         CategoryPredicate categoryPredicate = null;
         DifficultyPredicate difficultyPredicate = null;

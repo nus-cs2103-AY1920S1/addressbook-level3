@@ -2,6 +2,7 @@ package seedu.revision.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import seedu.revision.commons.exceptions.IllegalValueException;
 import seedu.revision.model.answerable.Answer;
 
@@ -24,7 +25,7 @@ class JsonAdaptedAnswer {
      * Converts a given {@code answer} into this class for Jackson use.
      */
     public JsonAdaptedAnswer(Answer source) {
-        answer = source.answer;
+        answer = source.toString();
     }
 
     @JsonValue

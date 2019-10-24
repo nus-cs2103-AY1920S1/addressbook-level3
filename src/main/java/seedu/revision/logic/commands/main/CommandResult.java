@@ -60,7 +60,9 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isStart() { return start; }
+    public boolean isStart() {
+        return start;
+    }
 
     @Override
     public boolean equals(Object other) {
