@@ -233,6 +233,9 @@ public class AutoCompletePanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * @return string representation of all the matched words
+     */
     public String getCombinedMatchedWords() {
         StringBuilder combinedMatchedWords = new StringBuilder();
         for (AutoCompleteWord autoCompleteWord : matchedAutoCompleteWords) {
