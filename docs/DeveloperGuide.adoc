@@ -526,36 +526,32 @@ e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
 
 Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
 
+.Activity diagram for adding a reminder
 image::AddReminderActivityDiagram.png[]
-
-Figure 11. Activity diagram for adding a reminder
 
 [NOTE]
 In the above diagram, it can be seen that respective error messages will be shown for invalid inputs.
 
 Shown below is the sequence diagram containing the interactions between respective components in MoneyGoWHere when user inputs `AddReminderCommand`.
 
+.Sequence diagram while user attempts to add a new reminder
 image::AddReminderSequenceDiagram.png[]
-
-Figure 12. Sequence diagram while user attempts to add a new reminder
 
 [NOTE]
 The above sequence diagram demonstrates how a new reminder is constructed from valid user input.
 
 Following is the activity diagram including the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`
 
+.Activity diagram for removing a reminder
 image::DeleteReminderActivityDiagram.png[]
-
-Figure 13. Activity diagram for removing a reminder
 
 [NOTE]
 The negative index from user input will leads to invalid command format error.
 
 The below sequence diagram summarize the interactions between different components when user enter `DeleteReminderCommand`.
 
+.Sequence diagram while user attempt to remove a reminder
 image::DeleteReminderSequenceDiagram.png[]
-
-Figure 14. Sequence diagram while user attempt to remove a reminder
 
 [NOTE]
 The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
