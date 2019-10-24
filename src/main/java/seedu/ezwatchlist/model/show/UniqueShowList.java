@@ -52,9 +52,22 @@ public class UniqueShowList implements Iterable<Show> {
      */
     public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
-        Show currentShow = new Show(showName, new Description(), new IsWatched(false), new Date(),
+        Show currentShow = new Show(showName, new Description(), new IsWatched(), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
         return internalList.stream().filter(show -> show.hasNameWithWord(currentShow)).collect(Collectors.toList());
+    }
+
+    public boolean hasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        Show show = new Show(new Name(), new Description(), new IsWatched(), new Date(), new RunningTime(), actorSet);
+        return internalList.stream().anyMatch(show::hasActorWithName);
+    }
+
+    public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        Show currentShow = new Show(new Name(), new Description(), new IsWatched(), new Date(),
+                new RunningTime(), actorSet);
+        return internalList.stream().filter(show -> show.hasActorWithName(currentShow)).collect(Collectors.toList());
     }
 
     /**

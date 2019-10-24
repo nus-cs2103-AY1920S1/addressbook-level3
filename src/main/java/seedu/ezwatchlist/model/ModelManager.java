@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.commons.core.LogsCenter;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
@@ -111,6 +113,18 @@ public class ModelManager implements Model {
     public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
         return watchList.getShowIfHasName(showName);
+    }
+
+    @Override
+    public boolean hasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return watchList.hasActor(actorSet);
+    }
+
+    @Override
+    public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return watchList.getShowIfHasActor(actorSet);
     }
 
     @Override

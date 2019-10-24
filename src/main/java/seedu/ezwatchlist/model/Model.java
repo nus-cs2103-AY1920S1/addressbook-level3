@@ -2,10 +2,12 @@ package seedu.ezwatchlist.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -70,6 +72,10 @@ public interface Model {
      * Returns the list of shows that has the same name as the given argument as the current watch list.
      */
     List<Show> getShowIfHasName(Name showName);
+
+    boolean hasActor(Set<Actor> actorSet);
+
+    List<Show> getShowIfHasActor(Set<Actor> actorSet);
 
     /**
      * Deletes the given show.

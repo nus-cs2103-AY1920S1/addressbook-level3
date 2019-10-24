@@ -1,9 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import javafx.scene.image.Image;
 import seedu.ezwatchlist.model.actor.Actor;
@@ -108,6 +105,19 @@ public class Show {
             return true;
         }
         return otherShow != null && otherShow.getName().equals(getName());
+    }
+
+    public boolean hasActorWithName(Show showToBeSearched) {
+        Set<Actor> actorSearchedSet = showToBeSearched.getActors();
+        for (Actor actorSearched : actorSearchedSet) {
+            Set<Actor> actorDataSet = this.getActors();
+            for (Actor actorData : actorDataSet) {
+                if (actorData.getActorName().toLowerCase().contains(actorSearched.getActorName().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

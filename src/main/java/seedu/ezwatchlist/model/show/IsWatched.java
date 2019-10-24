@@ -20,6 +20,10 @@ public class IsWatched {
 
     public final boolean value;
 
+    public IsWatched() {
+        value = false;
+    }
+
     /**
      * Constructs a {@code Name}.
      *

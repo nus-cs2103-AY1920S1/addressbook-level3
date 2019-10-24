@@ -5,9 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.*;
 
 /**
@@ -82,6 +84,16 @@ public class WatchList implements ReadOnlyWatchList {
     public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
         return shows.getShowIfHasName(showName);
+    }
+
+    public boolean hasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return shows.hasActor(actorSet);
+    }
+
+    public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return shows.getShowIfHasActor(actorSet);
     }
 
     /**

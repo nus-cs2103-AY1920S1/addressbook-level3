@@ -16,11 +16,11 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
     HashMap<String, List<String>> searchShowsHashMap = new HashMap<>();
-    public static final String KEY_NAME = "name";
-    public static final String KEY_TYPE = "type";
-    public static final String KEY_ACTOR = "actor";
-    public static final String KEY_IS_WATCHED = "is_watched";
-    public static final String KEY_IS_INTERNAL = "is_internal";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_TYPE = "type";
+    private static final String KEY_ACTOR = "actor";
+    private static final String KEY_IS_WATCHED = "is_watched";
+    private static final String KEY_IS_INTERNAL = "is_internal";
 
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand
@@ -53,7 +53,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     private void parseTypeToBeSearched(Optional<String> typeOptional) {
         ArrayList<String> listOfType = new ArrayList<String>(); // Empty if can be of any type
         if (typeOptional.isPresent()) {
-            String type = typeOptional.get().trim();
+            String type = typeOptional.get().trim().toLowerCase();
             listOfType.add(type);
         }
         searchShowsHashMap.put(KEY_TYPE, listOfType);
