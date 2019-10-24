@@ -55,6 +55,7 @@ public class MarkParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        System.out.println(commandWord +" vs "+DeleteAnnotationCommand.COMMAND_WORD+" :: "+commandWord.equals(DeleteAnnotationCommand.COMMAND_WORD));
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:

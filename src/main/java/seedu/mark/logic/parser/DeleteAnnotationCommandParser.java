@@ -33,11 +33,11 @@ public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCom
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAnnotationCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAnnotationCommand.MESSAGE_USAGE), pe);
         }
 
         if (!argMultimap.getValue(PREFIX_PARAGRAPH).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAnnotationCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAnnotationCommand.MESSAGE_USAGE));
         }
         ParagraphIdentifier pid = ParserUtil.parseParagraphIdentifier(argMultimap.getValue(PREFIX_PARAGRAPH).get());
 
