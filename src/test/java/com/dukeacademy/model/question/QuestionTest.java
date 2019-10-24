@@ -74,6 +74,7 @@ public class QuestionTest {
         Question question = new Question(validTitle, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram);
         Question newQuestion = question.withNewStatus(Status.PASSED);
         assertEquals(newQuestion.getStatus(), Status.PASSED);
+        assertEquals(question, newQuestion);
         assertThrows(NullPointerException.class, () -> question.withNewStatus(null));
     }
 
@@ -83,6 +84,7 @@ public class QuestionTest {
         UserProgram program = new UserProgram("Test", "Test test test test test");
         Question newQuestion = question.withNewUserProgram(program);
         assertEquals(newQuestion.getUserProgram(), program);
+        assertEquals(question, newQuestion);
         assertThrows(NullPointerException.class, () -> question.withNewUserProgram(null));
     }
 }

@@ -42,9 +42,9 @@ public interface ProgramSubmissionLogic {
     /**
      * Submits a user program to be tested against the current question being handled by the logic instance.
      * @param userProgram The user program to be submitted.
-     * @return True if the program was successfully tested.
+     * @return a test result if the program was successfully tested.
      */
-    public boolean submitUserProgram(UserProgram userProgram);
+    public Optional<TestResult> submitUserProgram(UserProgram userProgram);
 
     /**
      * Sets a channel which allows the logic instance to retrieve user programs for submission.
@@ -55,9 +55,9 @@ public interface ProgramSubmissionLogic {
     /**
      * Retrieves the user program from the submission channel and tests it against the current question being handled
      * by the logic instance.
-     * @return True if the program was successfully tested.
+     * @return a test result if the program was successfully tested.
      */
-    public boolean submitUserProgramFromSubmissionChannel();
+    public Optional<TestResult> submitUserProgramFromSubmissionChannel();
 
     /**
      * Returns the user program retrieved from the submission channel.

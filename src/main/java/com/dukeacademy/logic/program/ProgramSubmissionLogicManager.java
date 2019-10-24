@@ -109,7 +109,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public boolean submitUserProgram(UserProgram userProgram) {
+    public Optional<TestResult> submitUserProgram(UserProgram userProgram) {
         this.verifyNotClosed();
 
         try {
@@ -118,11 +118,11 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
                     .orElseThrow(NoQuestionSetException::new);
             TestResult results = this.testExecutor.runTestCases(testCases, userProgram);
             this.resultObservable.setValue(results);
+            return Optional.of(results);
         } catch (TestExecutorException e) {
-            return false;
+            return Optional.empty();
         }
 
-        return true;
     }
 
     @Override
@@ -131,7 +131,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public boolean submitUserProgramFromSubmissionChannel() {
+    public Optional<TestResult> submitUserProgramFromSubmissionChannel() {
         if (this.submissionChannel == null) {
             throw new SubmissionChannelNotSetException();
         }

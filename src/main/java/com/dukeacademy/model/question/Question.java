@@ -48,6 +48,21 @@ public class Question {
         this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
     }
 
+    public Question(UUID uuid, String title, Status status, Difficulty difficulty, Set<Topic> topics,
+                    List<TestCase> testCases, UserProgram userProgram) {
+        requireAllNonNull(uuid, title, status, difficulty, topics, testCases, userProgram);
+        if (!Question.checkValidTitle(title)) {
+            throw new IllegalArgumentException();
+        }
+
+        this.uuid = uuid;
+        this.title = title;
+        this.status = status;
+        this.difficulty = difficulty;
+        this.topics.addAll(topics);
+        this.testCases.addAll(testCases);
+        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
+    }
     public String getTitle() {
         return this.title;
     }
@@ -72,12 +87,26 @@ public class Question {
         return new ArrayList<>(this.testCases);
     }
 
+    /**
+     * Creates a new instance of the same question with a new status. This new instance has the same uuid as the
+     * previous instance.
+     * @param status the status to be updated to.
+     * @return a new instance of the question.
+     */
     public Question withNewStatus(Status status) {
-        return new Question(this.title, status, this.difficulty, this.topics, this.testCases, this.userProgram);
+        return new Question(this.uuid, this.title, status, this.difficulty, this.topics,
+                this.testCases, this.userProgram);
     }
 
+    /**
+     * Creates a new instance of the same question with a new user program. This new instance has the same uuid as the
+     * previous instance.
+     * @param userProgram the user program to be updated to.
+     * @return a new instance of the question.
+     */
     public Question withNewUserProgram(UserProgram userProgram) {
-        return new Question(this.title, this.status, this.difficulty, this.topics, this.testCases, userProgram);
+        return new Question(this.uuid, this.title, this.status, this.difficulty, this.topics,
+                this.testCases, userProgram);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.dukeacademy.model.program;
 
 import java.util.Optional;
 
+import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.testexecutor.models.RuntimeError;
 
 /**
@@ -63,5 +64,18 @@ public class TestCaseResult {
                 + "Expected: " + this.expectedOutput
                 + "Actual: " + this.actualOutput
                 + "Error: " + this.getRuntimeError().isPresent() + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof TestCaseResult) {
+            return ((TestCaseResult) o).isSuccessful == this.isSuccessful
+                    && ((TestCaseResult) o).input.equals(this.input)
+                    && ((TestCaseResult) o).expectedOutput.equals(this.expectedOutput)
+                    && ((TestCaseResult) o).actualOutput.equals(this.actualOutput)
+                    && ((TestCaseResult) o).runtimeError.equals(this.runtimeError);
+        } else {
+            return false;
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.dukeacademy.testexecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -102,7 +101,7 @@ public class TestExecutor {
     }
 
     private TestResult getTestExecutorResultWithCompileError(CompileError error) {
-        return new TestResult(new ArrayList<>(), error);
+        return new TestResult(error);
     }
 
     private TestCaseResult getTestCaseResultFromProgramOutput(TestCase testcase, ProgramOutput output) {

@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -83,13 +84,19 @@ class ProgramSubmissionLogicManagerTest {
 
         Question question = this.createMockQuestion("Fib", testCases);
         this.programSubmissionLogicManager.setCurrentQuestion(question);
-        this.programSubmissionLogicManager.submitUserProgram(userProgram);
 
-        TestResult result = resultListener.getLatestValue();
-        assertNotNull(result);
-        assertFalse(result.getCompileError().isPresent());
-        assertEquals(5, result.getNumPassed());
-        assertTrue(this.matchTestCaseAndResults(testCases, result.getResults()));
+        Optional<TestResult> fibResultOptional = this.programSubmissionLogicManager.submitUserProgram(userProgram);
+        assertTrue(fibResultOptional.isPresent());
+
+        // Check that the same result is propagated to the observable
+        TestResult fibResult = resultListener.getLatestValue();
+        assertNotNull(fibResult);
+        assertEquals(fibResultOptional.get(), fibResult);
+
+        // Check value of result
+        assertFalse(fibResult.getCompileError().isPresent());
+        assertEquals(5, fibResult.getNumPassed());
+        assertTrue(this.matchTestCaseAndResults(testCases, fibResult.getResults()));
 
         // Test for nested class
         Path rootFolder1 = Paths.get("src", "test", "data", "TestPrograms", "nested");
@@ -101,13 +108,18 @@ class ProgramSubmissionLogicManagerTest {
 
         Question question1 = this.createMockQuestion("Nested", testCases1);
         this.programSubmissionLogicManager.setCurrentQuestion(question1);
-        this.programSubmissionLogicManager.submitUserProgram(userProgram1);
+        Optional<TestResult> nestedResultOptional = this.programSubmissionLogicManager.submitUserProgram(userProgram1);
+        assertTrue(nestedResultOptional.isPresent());
 
-        TestResult result1 = resultListener.getLatestValue();
-        assertNotNull(result1);
-        assertFalse(result1.getCompileError().isPresent());
-        assertEquals(5, result1.getNumPassed());
-        assertTrue(this.matchTestCaseAndResults(testCases1, result1.getResults()));
+        //Check that the same result is propagated to the observable
+        TestResult nestedResult = resultListener.getLatestValue();
+        assertNotNull(nestedResult);
+        assertEquals(nestedResultOptional.get(), nestedResult);
+
+        // Check contents of result
+        assertFalse(nestedResult.getCompileError().isPresent());
+        assertEquals(5, nestedResult.getNumPassed());
+        assertTrue(this.matchTestCaseAndResults(testCases1, nestedResult.getResults()));
 
         // Tests for errors
         TestCase mockTestCase = new TestCase("", "");
@@ -263,12 +275,23 @@ class ProgramSubmissionLogicManagerTest {
         Question question = this.createMockQuestion("Fib", testCases);
         this.programSubmissionLogicManager.setCurrentQuestion(question);
 
-        this.programSubmissionLogicManager.submitUserProgramFromSubmissionChannel();
+        Optional<TestResult> testResultOptional = this.programSubmissionLogicManager
+                .submitUserProgramFromSubmissionChannel();
+        assertTrue(testResultOptional.isPresent());
 
-        TestResult result = resultListener.getLatestValue();
-        assertNotNull(result);
-        assertFalse(result.getCompileError().isPresent());
-        assertEquals(5, result.getNumPassed());
-        assertTrue(this.matchTestCaseAndResults(testCases, result.getResults()));
+        // Check that result is propagated to observable
+        TestResult testResult = resultListener.getLatestValue();
+        assertNotNull(testResult);
+        assertEquals(testResultOptional.get(), testResult);
+
+        // Check values
+        assertFalse(testResult.getCompileError().isPresent());
+        assertEquals(5, testResult.getNumPassed());
+        assertTrue(this.matchTestCaseAndResults(testCases, testResult.getResults()));
+    }
+
+    @Test
+    void testProgramSubmissionFailure() {
+        // TODO
     }
 }

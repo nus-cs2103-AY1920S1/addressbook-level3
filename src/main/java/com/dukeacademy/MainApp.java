@@ -17,7 +17,9 @@ import com.dukeacademy.commons.util.ConfigUtil;
 import com.dukeacademy.commons.util.StringUtil;
 import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandLogicManager;
+import com.dukeacademy.logic.commands.attempt.AttemptCommandFactory;
 import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
+import com.dukeacademy.logic.commands.submit.SubmitCommandFactory;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
@@ -235,8 +237,18 @@ public class MainApp extends Application {
         }
 
         CommandLogicManager commandLogicManager = new CommandLogicManager();
-        ExitCommandFactory exitCommandFactory = new ExitCommandFactory(this.questionsLogic, this.programSubmissionLogic);
+        // Registering exit command
+        ExitCommandFactory exitCommandFactory = new ExitCommandFactory(this.questionsLogic,
+                this.programSubmissionLogic);
         commandLogicManager.registerCommand(exitCommandFactory);
+        // Registering attempt command
+        AttemptCommandFactory attemptCommandFactory = new AttemptCommandFactory(this.questionsLogic,
+                this.programSubmissionLogic);
+        commandLogicManager.registerCommand(attemptCommandFactory);
+        // Registering submit command
+        SubmitCommandFactory submitCommandFactory = new SubmitCommandFactory(this.questionsLogic,
+                this.programSubmissionLogic);
+        commandLogicManager.registerCommand(submitCommandFactory);
 
         return commandLogicManager;
     }
