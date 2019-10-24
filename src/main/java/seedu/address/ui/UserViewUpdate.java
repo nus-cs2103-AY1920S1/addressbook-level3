@@ -35,6 +35,8 @@ public class UserViewUpdate {
 
         switch(preamble) {
 
+        case "add-task":
+
         case "list-tasks":
 
         case "delete-task":

@@ -11,10 +11,10 @@
    <center>
       <HBox stylesheets="@DarkTheme.css" BorderPane.alignment="CENTER">
         <children>
-            <VBox minHeight="600.0" HBox.hgrow="ALWAYS">
+            <VBox minHeight="600.0" minWidth="-Infinity" HBox.hgrow="ALWAYS">
                <children>
                   <Label id="notStartedLabel" contentDisplay="CENTER" text="Not Started" />
-                <ListView fx:id="taskListViewNotStarted" maxHeight="800.0" prefHeight="600.0" styleClass="pane-with-border">
+                <ListView fx:id="taskListViewNotStarted" maxHeight="800.0" minWidth="300.0" prefHeight="600.0" prefWidth="350.0" styleClass="pane-with-border">
                      <padding>
                         <Insets top="20.0" />
                      </padding></ListView>
@@ -29,7 +29,7 @@
             <VBox minHeight="600.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label id="doingLabel" alignment="CENTER" text="Doing" />
-                <ListView fx:id="taskListViewDoing" maxHeight="800.0" prefHeight="600.0" styleClass="pane-with-border">
+                <ListView fx:id="taskListViewDoing" maxHeight="800.0" minWidth="300.0" prefHeight="600.0" prefWidth="350.0" styleClass="pane-with-border">
                      <padding>
                         <Insets top="20.0" />
                      </padding></ListView>
@@ -41,7 +41,7 @@
             <VBox minHeight="600.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label id="doneLabel" alignment="CENTER" text="Done" />
-                <ListView fx:id="taskListViewDone" maxHeight="800.0" prefHeight="600.0" styleClass="pane-with-border">
+                <ListView fx:id="taskListViewDone" maxHeight="800.0" minWidth="300.0" prefHeight="600.0" prefWidth="350.0" styleClass="pane-with-border">
                      <padding>
                         <Insets top="20.0" />
                      </padding></ListView>
@@ -63,7 +63,7 @@
          </padding>
          <children>
             <Label text="Upcoming deadlines" />
-            <ListView fx:id="taskListViewUpcomingDeadlines" prefHeight="400.0">
+            <ListView fx:id="taskListViewUpcomingDeadlines" minWidth="300.0" prefHeight="400.0" prefWidth="350.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin></ListView>
