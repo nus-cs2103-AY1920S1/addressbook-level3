@@ -9,6 +9,7 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -17,8 +18,8 @@ import seedu.address.model.person.Name;
  * Guarantees: dateofAdmission and bodyIdNum is guaranteed to be present.
  */
 public class Body implements Entity {
-    private final IdentificationNumber bodyIdNum;
     private final Date dateOfAdmission;
+    private IdentificationNumber bodyIdNum;
 
     // Identity fields.
     private Name name;
@@ -27,11 +28,11 @@ public class Body implements Entity {
     private Optional<Religion> religion;
 
     private Optional<String> causeOfDeath;
-    private Optional<List<String>> organsForDonation;
+    private List<String> organsForDonation;
     private Optional<BodyStatus> bodyStatus;
     private Optional<IdentificationNumber> fridgeId;
     private Optional<Date> dateOfBirth;
-    private Date dateOfDeath;
+    private Optional<Date> dateOfDeath;
 
     // Next of kin details
     private Optional<Name> nextOfKin;
@@ -39,34 +40,48 @@ public class Body implements Entity {
     private Optional<PhoneNumber> kinPhoneNumber;
 
     public Body(Date dateOfAdmission) {
-        this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
         this.dateOfAdmission = dateOfAdmission;
     }
 
-    public Body(boolean isTestUnit, int identificationNumber, Date dateOfAdmission, Name name, Sex sex, Nric nric,
+    public Body(Date dateOfAdmission, Name name, Sex sex, Nric nric,
                 Religion religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
                 String relationship, PhoneNumber kinPhoneNumber) {
-        if (isTestUnit) {
-            this.bodyIdNum = IdentificationNumber.customGenerateTestId("B",
-                    identificationNumber);
-        } else {
-            this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
-        }
+        this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
         this.dateOfAdmission = dateOfAdmission;
         this.name = name;
         this.sex = sex;
         this.nric = Optional.ofNullable(nric);
         this.religion = Optional.ofNullable(religion);
         this.causeOfDeath = Optional.ofNullable(causeOfDeath);
-        this.organsForDonation = Optional.ofNullable(organsForDonation);
+        this.organsForDonation = organsForDonation;
         this.bodyStatus = Optional.ofNullable(bodyStatus);
         this.fridgeId = Optional.ofNullable(fridgeId);
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
-        this.dateOfDeath = dateOfDeath;
+        this.dateOfDeath = Optional.ofNullable(dateOfDeath);
         this.nextOfKin = Optional.ofNullable(nextOfKin);
         this.relationship = Optional.ofNullable(relationship);
         this.kinPhoneNumber = Optional.ofNullable(kinPhoneNumber);
+
+        if (fridgeId != null) {
+            Fridge fridge = (Fridge) fridgeId.getMapping();
+            fridge.setBody(this);
+        }
+    }
+
+    /**
+     * Generates a new Body with bare-minimum attributes and a custom ID. Only used for creating a Body from storage.
+     * @param id ID of the stored body.
+     * @param dateOfAdmission of the stored body.
+     * @return Body
+     */
+    public static Body generateNewStoredBody(int id, Date dateOfAdmission) {
+        if (id <= 0 || dateOfAdmission == null) {
+            throw new IllegalArgumentException();
+        }
+        Body body = new Body(dateOfAdmission);
+        body.bodyIdNum = IdentificationNumber.generateNewBodyId(body, id);
+        return body;
     }
 
     // Getters and Setters
@@ -102,12 +117,12 @@ public class Body implements Entity {
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
     }
 
-    public Date getDateOfDeath() {
+    public Optional<Date> getDateOfDeath() {
         return dateOfDeath;
     }
 
     public void setDateOfDeath(Date dateOfDeath) {
-        this.dateOfDeath = dateOfDeath;
+        this.dateOfDeath = Optional.ofNullable(dateOfDeath);
     }
 
     public Optional<Nric> getNric() {
@@ -158,12 +173,12 @@ public class Body implements Entity {
         this.causeOfDeath = Optional.ofNullable(causeOfDeath);
     }
 
-    public Optional<List<String>> getOrgansForDonation() {
+    public List<String> getOrgansForDonation() {
         return organsForDonation;
     }
 
     public void setOrgansForDonation(List<String> organsForDonation) {
-        this.organsForDonation = Optional.ofNullable(organsForDonation);
+        this.organsForDonation = organsForDonation;
     }
 
     public Optional<BodyStatus> getBodyStatus() {
@@ -215,7 +230,7 @@ public class Body implements Entity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdNum(), getDateOfAdmission(), getName(), getSex(), getNric(),
+        return Objects.hash(getDateOfAdmission(), getName(), getSex(), getNric(),
                 getReligion(), getCauseOfDeath(), getOrgansForDonation(), getBodyStatus(), getFridgeId(),
                 getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
     }
@@ -257,13 +272,15 @@ public class Body implements Entity {
             return false;
         }
         Body body = (Body) o;
-        return this.getIdNum().equals(((Body) o).getIdNum());
+        return this.getIdNum().equals(body.getIdNum());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+            .append(" Body ID: ")
+            .append(getIdNum())
             .append(" Sex: ")
             .append(getSex())
             .append(" NRIC: ")
@@ -279,7 +296,7 @@ public class Body implements Entity {
             .append(" Date of Birth: ")
             .append(dateOfBirth.isPresent() ? dateOfBirth.get() : OPTIONAL_FIELD_EMPTY)
             .append(" Organs for Donation: ")
-            .append(organsForDonation.isPresent() ? organsForDonation.get() : OPTIONAL_FIELD_EMPTY)
+            .append(organsForDonation)
             .append(" Fridge ID: ")
             .append(fridgeId.isPresent() ? fridgeId.get() : OPTIONAL_FIELD_EMPTY)
             .append(" Body Status: ")

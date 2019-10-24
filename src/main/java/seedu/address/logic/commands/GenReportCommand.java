@@ -10,8 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
-import seedu.address.storage.ReportGenerator;
+import seedu.address.report.ReportGenerator;
 
+//@@author bernicechio
 /**
  * Generates a PDF report for the specific body ID.
  */
@@ -25,6 +26,8 @@ public class GenReportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a PDF report for the specific body ID.\n"
             + "Parameters: BODY_ID\n"
             + "Example: " + COMMAND_WORD + " B1";
+
+    private static final String MESSAGE_REPORT_NOT_GENERATED = "Report not generated";
 
     private final Index targetIndexNum;
 
@@ -48,7 +51,11 @@ public class GenReportCommand extends Command {
         if (bodyToGenReport == null) {
             throw new CommandException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
-        ReportGenerator.generate(bodyToGenReport);
+
+        boolean generated = ReportGenerator.generate(bodyToGenReport);
+        if (!generated) {
+            throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
+        }
         return new CommandResult(String.format(MESSAGE_GENREPORT_SUCCESS, targetIdNum));
     }
 

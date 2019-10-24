@@ -13,6 +13,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GenReportCommand;
+import seedu.address.logic.commands.GenReportsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -72,10 +73,14 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-        case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_WORD: // Fallthrough
+
+        case UndoCommand.SHORTCUT_WORD:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+
+        case RedoCommand.SHORTCUT_WORD: // Fallthrough
             return new RedoCommand();
 
         case HelpCommand.COMMAND_WORD:
@@ -84,6 +89,8 @@ public class AddressBookParser {
         case GenReportCommand.COMMAND_WORD:
             return new GenReportCommandParser().parse(arguments);
 
+        case GenReportsCommand.COMMAND_WORD:
+            return new GenReportsCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
