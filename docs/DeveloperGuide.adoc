@@ -80,7 +80,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/savenus/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `PurchaseListPanel`, `SavingsHistoryPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/savenus/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -101,7 +101,7 @@ link:{repoURL}/src/main/java/seedu/savenus/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `SaveNusParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a food item).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -128,12 +128,12 @@ The `Model`,
 * stores the SavingsAccount data.
 * stores the PurchaseHistory data.
 * exposes the `RemainingBudget` and `DaysToExpire` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `Wallet` change.
-* exposes the `CurrentSavings` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `SavingsAccount` changes.
+* exposes the `Savings` that can be 'observed' e.g. the UI can be bound to these values so that the UI automatically updates when the data in the `SavingsAccount` changes.
 * exposes an unmodifiable `ObservableList<Food>`, `ObservableList<Savings>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -151,6 +151,7 @@ The `Storage` component,
 * can save the `Menu` data in json format and read it back.
 * can save the `Wallet` data in json format and read it back.
 * can save the `PurchaseHistory` data in json format and read it back.
+* can save the `SavingsHistory` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -162,8 +163,6 @@ Classes used by multiple components are in the `seedu.savenus.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 === [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
@@ -186,6 +185,52 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Savings feature
+
+The Savings feature allows users to save a specified amount of money from their wallet into their Savings Account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's Savings Account.
+The Savings feature also allows the user to withdraw from his savings account either into his wallet or withdraw the money completely from the $aveNUS app.
+Using the `withdraw AMOUNT`, users will be able to transfer their money into their $aveNUS wallets, and using "withdraw out AMOUNT", the user can withdraw the
+money completely from the Savings Account and the application.
+
+==== Classes for savings feature in Model
+
+The Savings feature was implemented with a new set of classes introduced to the Model. The `SavingsAccount` is a singleton class
+which contains the methods and  classes related to this feature.
+The `SavingsAccount` object is stored in $aveNUS. It exposes a read-only interface `ReadOnlySavings` to allow the other components to retrieve
+the savings history of the user while maintaining data integrity.
+
+The `SavingsAccount` contains a unique `SavingsHistory` which contains a list of the past savings and withdrawals made by the user.
+which are represented by `Saving` and `Withdrawal` respectively. Both `Saving` and `Withdrawal`
+implement AccountMoney object, which consists of 2 objects:
+
+****
+1. `Amount` indicated the value added/withdrew and it is displayed in the UI.
+2. `TimeStamp` indicated the date and time the amount of money was added/withdrawn.
+****
+
+Each `AccountMoney` object is unique because the `TimeStamp` will never be the same. Since it is not possible for the user to do a saving
+and a withdrawal at a single time.
+
+.Savings class diagram in Model component.
+image::SavingsAccountClassDiagram.png[width=500]
+
+==== *Adding to the Savings Account*
+
+The user may want to add a new saving to his savings account. This can be done with the `save` command.
+
+The savings/withdrawals are stored in the SavingsAccount in the SavingsHistory object, which stores the savings/withdrawal
+as a list.
+
+The current implementation for adding a new saving/withdrawal is done by overwriting the existing SavingsHistory, with a new
+SavingsHistory that includes past and new savings/withdrawals.
+
+The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
+which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
+
+The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `save` command is shown below.
+
+
 
 === Recommendation feature
 

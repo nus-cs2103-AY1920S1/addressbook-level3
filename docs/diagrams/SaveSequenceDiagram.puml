@@ -1,0 +1,13 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":SaveCommandParser" as SaveCommandParser LOGIC_COLOR
+participant "d:SaveCommand" as SaveCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+
+@enduml
