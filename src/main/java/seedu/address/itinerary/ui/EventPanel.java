@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.Model.Event.Event;
 import seedu.address.ui.UiPart;
 
 /**

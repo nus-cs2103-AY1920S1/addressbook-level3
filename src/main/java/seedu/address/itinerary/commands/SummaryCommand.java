@@ -1,7 +1,7 @@
 package seedu.address.itinerary.commands;
 
 import javafx.fxml.FXML;
-import seedu.address.itinerary.model.Model;
+import seedu.address.itinerary.Model.Model;
 import seedu.address.itinerary.ui.SummaryCommandWindow;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

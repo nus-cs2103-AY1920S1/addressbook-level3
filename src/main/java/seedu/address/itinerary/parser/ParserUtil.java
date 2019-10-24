@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.itinerary.model.event.Date;
-import seedu.address.itinerary.model.event.Description;
-import seedu.address.itinerary.model.event.Location;
-import seedu.address.itinerary.model.event.Time;
-import seedu.address.itinerary.model.event.Title;
+import seedu.address.itinerary.Model.Event.Date;
+import seedu.address.itinerary.Model.Event.Description;
+import seedu.address.itinerary.Model.Event.Location;
+import seedu.address.itinerary.Model.Event.Time;
+import seedu.address.itinerary.Model.Event.Title;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
 

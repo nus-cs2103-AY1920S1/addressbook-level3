@@ -1,6 +1,6 @@
 package seedu.address.itinerary.commands;
 
-import seedu.address.itinerary.model.Model;
+import seedu.address.itinerary.Model.Model;
 import seedu.address.logic.commands.CommandResult;
 
 /**

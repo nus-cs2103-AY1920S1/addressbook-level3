@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.itinerary.model.Itinerary;
+import seedu.address.itinerary.Model.Itinerary;
 import seedu.address.ui.UiPart;
 
 /**

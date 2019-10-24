@@ -1,55 +1,68 @@
-package seedu.address.diaryfeature.diaryUI;
+package seedu.address.diaryfeature.ui;
 
 
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.diaryfeature.diaryCommands.DiaryCommand;
-import seedu.address.diaryfeature.diaryModel.DiaryList;
-import seedu.address.diaryfeature.diaryParser.DiaryParser;
-import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
+import seedu.address.diaryfeature.model.DiaryModel;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
-import seedu.address.ui.UiPart;
 
-public class DiaryPage extends UiPart<VBox> implements Page {
 
-    private final static PageType pageType = PageType.DIARY;
+/**
+ * The Main Window. Provides the basic application layout containing
+ * a menu bar and space where other JavaFX elements can be placed.
+ */
+public class DiaryPage extends UiPart<Region> implements Page {
+    private static final PageType pageType = PageType.DIARY;
+
+
     private static final String FXML = "DiaryPage.fxml";
-    private DiaryList holder;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
 
     // Independent Ui parts residing in this Ui container
+    private DiaryListPanel diaryListPanel;
     private ResultDisplay resultDisplay;
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    private DiaryBookParser parser;
+    private DiaryModel model;
 
-   @FXML
-   private Scene diaryScene;
 
-   @FXML
-   private VBox diaryPane;
+    @FXML
+    private Scene diaryScene;
 
+    @FXML
+    private BorderPane diaryPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
+    @FXML
+    private StackPane diaryListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
 
+
     public DiaryPage() {
-        super(FXML, new VBox());
+        super(FXML);
+        this.parser = new DiaryBookParser();
+        this.model = new DiaryModel();
         diaryScene = new Scene(diaryPane);
-        holder = new DiaryList();
         fillInnerParts();
     }
 
@@ -57,9 +70,14 @@ public class DiaryPage extends UiPart<VBox> implements Page {
      * Fills up all the placeholders of this window.
      */
     private void fillInnerParts() {
+
+        diaryListPanel = new DiaryListPanel(model.getFilteredDiaryEntryList());
+        diaryListPanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
+
+
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -68,37 +86,27 @@ public class DiaryPage extends UiPart<VBox> implements Page {
     /**
      * Executes the command and returns the result.
      *
-     * @see AddressBookLogic#execute(String)
      */
-    private CommandResult executeCommand(String input)  {
-            DiaryParser myParser = new DiaryParser();
-            DiaryCommand result = myParser.parse(input);
-            result.setReference(holder);
-            CommandResult commandResult = result.executeCommand();
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            Command command = parser.parseCommand(commandText);
+            CommandResult commandResult = command.execute(model);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                //handleHelp();
-            }
 
             if (commandResult.isExit()) {
                 handleExit();
             }
 
-            if (commandResult.isShowPage()) {
-                handlePageChange(commandResult);
-            }
-
             return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText + e);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
     }
 
-    /**
-     * Changes application page.
-     */
-    @FXML
-    private void handlePageChange(CommandResult commandResult) {
-    }
 
     /**
      * Closes the application.
@@ -107,7 +115,6 @@ public class DiaryPage extends UiPart<VBox> implements Page {
     private void handleExit() {
         this.diaryScene.getWindow().hide();
     }
-
 
     @Override
     public Scene getScene() {
@@ -118,6 +125,4 @@ public class DiaryPage extends UiPart<VBox> implements Page {
     public PageType getPageType() {
         return pageType;
     }
-
-
 }

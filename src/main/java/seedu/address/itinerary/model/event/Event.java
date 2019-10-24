@@ -1,4 +1,4 @@
-package seedu.address.itinerary.model.event;
+package seedu.address.itinerary.Model.Event;
 
 /**
  * The events which makes up the itinerary list.

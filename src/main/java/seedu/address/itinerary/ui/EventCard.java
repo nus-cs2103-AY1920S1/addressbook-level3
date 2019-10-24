@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.Model.Event.Event;
 import seedu.address.ui.UiPart;
 
 /**

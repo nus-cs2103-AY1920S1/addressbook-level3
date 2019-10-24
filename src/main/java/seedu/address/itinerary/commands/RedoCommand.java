@@ -3,7 +3,7 @@ package seedu.address.itinerary.commands;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import seedu.address.itinerary.model.Model;
+import seedu.address.itinerary.Model.Model;
 import seedu.address.logic.commands.CommandResult;
 
 /**
