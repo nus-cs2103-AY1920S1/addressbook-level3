@@ -16,9 +16,7 @@ import seedu.jarvis.model.planner.tasks.Task;
         property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = JsonAdaptedToDo.class, name = "JsonAdaptedToDo"),
-        @JsonSubTypes.Type(value = JsonAdaptedDeadline.class, name = "JsonAdaptedDeadline"),
-        @JsonSubTypes.Type(value = JsonAdaptedEvent.class, name = "JsonAdaptedEvent")
+        @JsonSubTypes.Type(value = JsonAdaptedTodo.class, name = "JsonAdaptedTodo"),
 })
 public abstract class JsonAdaptedTask {
 
