@@ -22,7 +22,7 @@ public class LegendBox extends UiPart<Region> {
     private static final Color COLOR_UNDER_WEIGHT = Color.BLUE.deriveColor(1, 1, 1, 0.2);
     private static final Color COLOR_NORMAL_WEIGHT = Color.GREEN.deriveColor(1, 1, 1, 0.2);
     private static final Color COLOR_OVER_WEIGHT = Color.ORANGE.deriveColor(1, 1, 1, 0.2);
-    private static final Color COLOR_OBESE = Color.ORANGE.deriveColor(1, 1, 1, 0.2);
+    private static final Color COLOR_OBESE = Color.RED.deriveColor(1, 1, 1, 0.2);
 
     // Blood sugar categorization
     private static final Color COLOR_BEFORE_MEALS = Color.GREEN.deriveColor(1, 1, 1, 0.2);
