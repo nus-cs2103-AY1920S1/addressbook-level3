@@ -28,10 +28,12 @@ import seedu.ezwatchlist.testutil.ShowBuilder;
 
 public class AddCommandTest {
 
+    /*
     @Test
     public void constructor_nullShow_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
+    */
 
     @Test
     public void execute_showAcceptedByModel_addSuccessful() throws Exception {

@@ -196,26 +196,38 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * populate the contentPanel with watchlist content
+     */
     @FXML
-    private void goToWatchlist() {
+    public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
     }
 
+    /**
+     * populate the contentPanel with watched list content
+     */
     @FXML
-    private void goToWatched() {
+    public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
     }
 
+    /**
+     * populate the contentPanel with search content
+     */
     @FXML
-    private void goToSearch() {
+    public void goToSearch() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
     }
 
+    /**
+     * populate the contentPanel with statistics content
+     */
     @FXML
-    private void goToStatistics() {
+    public void goToStatistics() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
     }

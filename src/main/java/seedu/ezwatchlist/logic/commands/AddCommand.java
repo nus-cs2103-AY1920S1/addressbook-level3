@@ -9,13 +9,14 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.List;
+
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
 
-import java.util.List;
 
 /**
  * Adds a show to the watchlist.
@@ -82,7 +83,7 @@ public class AddCommand extends Command {
             }
             Show fromImdb = searchResultList.get(index.getZeroBased());
 
-            if(model.hasShow(fromImdb)) {
+            if (model.hasShow(fromImdb)) {
                 throw new CommandException(MESSAGE_DUPLICATE_SHOW);
             }
 

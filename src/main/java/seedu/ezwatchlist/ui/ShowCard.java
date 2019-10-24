@@ -59,9 +59,9 @@ public class ShowCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(show.getName().showName);
         type.setText(show.getType());
-        dateOfRelease.setText(show.getDateOfRelease().value);
-        description.setText(show.getDescription().fullDescription);
-        runningTime.setText(Integer.toString(show.getRunningTime().value));
+        dateOfRelease.setText("Date of Release: " + show.getDateOfRelease().value);
+        description.setText("Description: " + show.getDescription().fullDescription);
+        runningTime.setText("Running Time: " + Integer.toString(show.getRunningTime().value) + " minutes");
         Poster poster = show.getPoster();
         Image image = poster.getImage();
         this.poster.setImage(image);
