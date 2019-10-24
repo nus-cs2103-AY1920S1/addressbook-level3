@@ -5,35 +5,51 @@ import java.util.ArrayList;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
 /**
- * Running state of the program
+ * Running state of the program.
  */
 public class State {
 
     private ArrayList<Deck> decks;
 
+    /**
+     * Constructor to create a State object with no Deck objects.
+     */
     public State() {
         decks = new ArrayList<>();
     }
 
+    /**
+     * Constructor to create a State object with existing Deck objects.
+     *
+     * @param initialDecks ArrayList of Deck objects to include in State object.
+     */
     public State(ArrayList<Deck> initialDecks) {
         decks = initialDecks;
     }
 
     /**
-     * Adds new empty deck object to decks list.
+     * Adds new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
         decks.add(new Deck(deckName));
     }
 
     /**
+     * Adds a deck object to decks list.
+     * @param deck  deck object
+     */
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
+
+    /**
      * Removes the deck from the decks list, if there is a deck with a matching name.
      * Else, throw exception when no deck with matching name is found.
      */
-    public void removeDeck(String deckname) throws DeckNotFoundException {
-        int deckIndex = getDeckIndex(deckname);
+    public void removeDeck(String name) throws DeckNotFoundException {
+        int deckIndex = getDeckIndex(name);
         if (deckIndex == -1) {
-            throw new DeckNotFoundException(new Exception());
+            throw new DeckNotFoundException("Deck not found - " + name);
         }
         decks.remove(deckIndex);
     }
@@ -47,9 +63,17 @@ public class State {
     public Deck getDeck(String name) throws DeckNotFoundException {
         int indexOfDeck = getDeckIndex(name);
         if (indexOfDeck == -1) {
-            throw new DeckNotFoundException(new Exception());
+            throw new DeckNotFoundException("Deck not found - " + name);
         }
         return decks.get(indexOfDeck);
+    }
+
+    /**
+     * Replace all decks with a new set of decks. Used by `root` command.
+     * @param newDecks  new decks
+     */
+    public void reloadAllDecks(ArrayList<Deck> newDecks) {
+        decks = newDecks;
     }
 
     /**
@@ -58,10 +82,10 @@ public class State {
      *
      * @return index
      */
-    private int getDeckIndex(String deckName) {
+    private int getDeckIndex(String name) {
         for (int i = 0; i < decks.size(); i++) {
             Deck currentDeck = decks.get(i);
-            boolean isUserInputMatchDeckName = currentDeck.getDeckName().equals(deckName);
+            boolean isUserInputMatchDeckName = currentDeck.getName().equals(name);
 
             if (isUserInputMatchDeckName) {
                 return i;

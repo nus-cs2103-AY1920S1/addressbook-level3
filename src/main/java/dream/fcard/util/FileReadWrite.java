@@ -110,4 +110,23 @@ public class FileReadWrite {
         File file = new File(normalizePath(path));
         return file.exists();
     }
+
+    /**
+     * Determine if path is a valid directory.
+     * @param path  path to directory
+     * @return      true if valid directory
+     */
+    public static Boolean pathValidDirectory(String path) {
+        File file = new File(normalizePath(path));
+        return file.exists() && file.isDirectory();
+    }
+
+    /**
+     * Given a path to a file, extract the file name.
+     * @param path  path to file
+     * @return      name of file
+     */
+    public static String getFileName(String path) {
+        return new File(normalizePath(path)).getName();
+    }
 }
