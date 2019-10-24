@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.flashcard.Title;
 import seedu.address.model.tag.Tag;
 
@@ -26,6 +27,9 @@ class JsonAdaptedFlashcard {
     private final String question;
     private final String answer;
     private final String title;
+    private final String statisticsLastViewed;
+    private final String statisticsToViewNext;
+    private final String statisticsCurrentIncrement;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,10 +38,16 @@ class JsonAdaptedFlashcard {
     @JsonCreator
     public JsonAdaptedFlashcard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
                                 @JsonProperty("title") String title,
+                                @JsonProperty("statisticsLastViewed") String statisticsLastViewed,
+                                @JsonProperty("statisticsToViewNext") String statisticsToViewNext,
+                                @JsonProperty("statisticsCurrentIncrement") String statisticsCurrentIncrement,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.question = question;
         this.answer = answer;
         this.title = title;
+        this.statisticsLastViewed = statisticsLastViewed;
+        this.statisticsToViewNext = statisticsToViewNext;
+        this.statisticsCurrentIncrement = statisticsCurrentIncrement;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,6 +60,9 @@ class JsonAdaptedFlashcard {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().fullAnswer;
         title = source.getTitle().fullTitle;
+        statisticsLastViewed = source.getStatistics().getLastViewed().toString();
+        statisticsToViewNext = source.getStatistics().getToViewNext().toString();
+        statisticsCurrentIncrement = source.getStatistics().getCurrentIncrement().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -92,8 +105,14 @@ class JsonAdaptedFlashcard {
         }
         final Title modelTitle = new Title(title);
 
+        if (statistics == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Statistics.class.getSimpleName()));
+        }
+        final Statistics modelStatistics = new Statistics(statistics);
+
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
-        return new Flashcard(modelQuestion, modelAnswer, modelTitle, modelTags);
+        return new Flashcard(modelQuestion, modelAnswer, modelTitle, modelStatistics, modelTags);
     }
 
 }

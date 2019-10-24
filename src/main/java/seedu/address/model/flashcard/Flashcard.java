@@ -17,6 +17,7 @@ public class Flashcard extends StudyBuddyItem {
     private final Question question;
     private final Answer answer;
     private final Title title;
+    private final Statistics statistics;
 
     /**
      * Every field must be present and not null.
@@ -27,6 +28,19 @@ public class Flashcard extends StudyBuddyItem {
         this.question = question;
         this.answer = answer;
         this.title = title;
+        this.statistics = new Statistics();
+    }
+
+    /**
+     * Every field must be present and not null. For use when converting from JSON.
+     */
+    public Flashcard(Question question, Answer answer, Title title, Statistics statistics, Set<Tag> tags) {
+        super(tags);
+        requireAllNonNull(question, answer, statistics, tags);
+        this.question = question;
+        this.answer = answer;
+        this.title = title;
+        this.statistics = statistics;
     }
 
     public Question getQuestion() {
@@ -41,15 +55,12 @@ public class Flashcard extends StudyBuddyItem {
         return title;
     }
 
-    /**
-     * Returns whether the flashcard contains a question in the form of a image file.
-     */
-    public boolean isImageFlashcard() {
-        return false;
+    public Statistics getStatistics() {
+        return statistics;
     }
 
     /**
-     * Returns true if both flashcards have all the same fields.
+     * Returns true if both flashcards have all the same fields except the statistics field.
      */
     @Override
     public boolean equals(Object other) {
@@ -83,6 +94,8 @@ public class Flashcard extends StudyBuddyItem {
                 .append(getAnswer())
                 .append(" Title: ")
                 .append(getTitle())
+                .append(" Statistics: ")
+                .append(getStatistics())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

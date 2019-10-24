@@ -48,4 +48,9 @@ public enum ScheduleIncrement {
     public ScheduleIncrement getNextIncrement() {
         return nextIncrement;
     }
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

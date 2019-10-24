@@ -25,6 +25,16 @@ public class Statistics {
     }
 
     /**
+     *
+     * @param lastViewed
+     * @param toViewNext
+     * @param currentIncrement
+     */
+    public Statistics(String lastViewed, String toViewNext, String currentIncrement) {
+
+    }
+
+    /**
      * Updates lastViewed variable to current system time.
      */
     private void updateLastViewed() {
