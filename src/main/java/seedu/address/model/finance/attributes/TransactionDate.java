@@ -1,4 +1,4 @@
-package seedu.address.model.finance.logentry;
+package seedu.address.model.finance.attributes;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -15,7 +15,7 @@ public class TransactionDate {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Dates should be in the form DD-MM-YYYY and should not be in future";
+            "Dates should be in the form DD-MM-YYYY and should not be in the future";
 
     public final String value;
 
@@ -35,6 +35,7 @@ public class TransactionDate {
      */
     public static boolean isValidTransactionDate(String test) {
         SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
+        validFormat.setLenient(false); // date has to exist in calendar (i.e. not 31 Feb)
         Date currentDate = new Date();
         try {
             Date testDate = validFormat.parse(test);

@@ -9,12 +9,14 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
+import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Deadline;
+import seedu.address.model.finance.attributes.Description;
+import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
-import seedu.address.model.finance.logentry.Amount;
-import seedu.address.model.finance.logentry.Description;
-import seedu.address.model.finance.logentry.TransactionDate;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -137,4 +139,35 @@ public class ParserUtil {
         }
         return new Place(trimmedPlace);
     }
+
+    /**
+     * Parses a {@code String name} into an {@code Person}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Person parsePerson(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Person.isValidName(trimmedName)) {
+            throw new ParseException(Person.MESSAGE_CONSTRAINTS);
+        }
+        return new Person(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String deadline} into a {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Deadline} is invalid.
+     */
+    public static Deadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        if (!Deadline.isValidDeadline(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDeadline);
+    }
+
 }

@@ -12,47 +12,47 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
 import seedu.address.model.finance.attributes.Description;
-import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
+import seedu.address.model.finance.logentry.IncomeLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;
-import seedu.address.model.finance.logentry.SpendLogEntry;
 
 /**
- * Jackson-friendly version of {@link SpendLogEntry}.
+ * Jackson-friendly version of {@link IncomeLogEntry}.
  */
-class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
+class JsonAdaptedIncomeLogEntry extends JsonAdaptedLogEntry {
 
     private final String logEntryType;
-    private final String place;
+    private final String from;
 
     /**
-     * Constructs a {@code JsonAdaptedSpendLogEntry} with the given log entry details.
+     * Constructs a {@code JsonAdaptedIncomeLogEntry} with the given log entry details.
      */
     @JsonCreator
-    public JsonAdaptedSpendLogEntry(@JsonProperty("amount") String amount,
-                                    @JsonProperty("transactionDate") String tDate,
-                                    @JsonProperty("description") String desc,
-                                    @JsonProperty("transactionMethod") String tMethod,
-                                    @JsonProperty("categories") List<JsonAdaptedCategory> categories,
-                                    @JsonProperty("logEntryType") String logEntryType,
-                                    @JsonProperty("place") String place) {
+    public JsonAdaptedIncomeLogEntry(@JsonProperty("amount") String amount,
+                                     @JsonProperty("transactionDate") String tDate,
+                                     @JsonProperty("description") String desc,
+                                     @JsonProperty("transactionMethod") String tMethod,
+                                     @JsonProperty("categories") List<JsonAdaptedCategory> categories,
+                                     @JsonProperty("logEntryType") String logEntryType,
+                                     @JsonProperty("from") String from) {
         super(amount, tDate, desc, tMethod, categories);
         this.logEntryType = logEntryType;
-        this.place = place;
+        this.from = from;
     }
 
     /**
-     * Converts a given {@code SpendLogEntry} into this class for Jackson use.
+     * Converts a given {@code IncomeLogEntry} into this class for Jackson use.
      */
-    public JsonAdaptedSpendLogEntry(SpendLogEntry source) {
+    public JsonAdaptedIncomeLogEntry(IncomeLogEntry source) {
         super(source);
         logEntryType = source.getLogEntryType();
-        place = source.getPlace().value;
+        from = source.getFrom().name;
     }
 
     /**
-     * Converts this Jackson-friendly adapted log entry object into the model's {@code SpendLogEntry} object.
+     * Converts this Jackson-friendly adapted log entry object into the model's {@code IncomeLogEntry} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted log entry.
      */
@@ -101,17 +101,17 @@ class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
 
         assert logEntryType != null;
 
-        if (place == null) {
+        if (from == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Place.class.getSimpleName()));
+                    Person.class.getSimpleName()));
         }
-        if (!Place.isValidPlace(place)) {
-            throw new IllegalValueException(Place.MESSAGE_CONSTRAINTS);
+        if (!Person.isValidName(from)) {
+            throw new IllegalValueException(Person.MESSAGE_CONSTRAINTS);
         }
-        final Place modelPlace = new Place(place);
+        final Person modelPerson = new Person(from);
 
-        return new SpendLogEntry(modelAmount, modelTransactionDate, modelDescription,
-                modelTransactionMethod, modelLogEntryCategories, modelPlace);
+        return new IncomeLogEntry(modelAmount, modelTransactionDate, modelDescription,
+                modelTransactionMethod, modelLogEntryCategories, modelPerson);
     }
 
 }

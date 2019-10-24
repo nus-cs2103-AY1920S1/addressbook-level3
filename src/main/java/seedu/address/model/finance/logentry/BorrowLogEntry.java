@@ -4,40 +4,57 @@ import java.util.Set;
 
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
-import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
 
 /**
- * Represents an entry of spending (outflow) in the finance log.
+ * Represents an entry of borrowing from someone in the finance log.
  * Guarantees: details are present and not null, field values are validated, mutable.
  */
-public class SpendLogEntry extends LogEntry {
+public class BorrowLogEntry extends LogEntry {
 
     // Meta data
-    public static final String LOG_ENTRY_TYPE = "expenditure";
+    public static final String LOG_ENTRY_TYPE = "borrow";
+    private static boolean isRepaid; // whether borrowed money has been returned to lender
 
     // Fields
-    private final Place place;
+    private final Person from; // person borrowed from
+    private Deadline deadline;
 
     /**
      * Every field must be present and not null.
      */
-    public SpendLogEntry(Amount amount, TransactionDate transactionDate, Description description,
-                         TransactionMethod transactionMethod, Set<Category> categories,
-                         Place place) {
+    public BorrowLogEntry(Amount amount, TransactionDate transactionDate, Description description,
+                          TransactionMethod transactionMethod, Set<Category> categories,
+                          Person from, Deadline deadline) {
         super(amount, transactionDate, description,
                 transactionMethod, categories);
-        this.place = place;
+        this.from = from;
+        this.deadline = deadline;
+        this.isRepaid = false;
     }
 
     public String getLogEntryType() {
         return LOG_ENTRY_TYPE;
     }
 
-    public Place getPlace() {
-        return place;
+    public Person getFrom() {
+        return from;
+    }
+
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    public boolean isRepaid() {
+        return isRepaid;
+    }
+
+    public void setAsRepaid() {
+        isRepaid = true;
     }
 
     @Override
@@ -46,17 +63,19 @@ public class SpendLogEntry extends LogEntry {
             return true;
         }
 
-        if (!(other instanceof SpendLogEntry)) {
+        if (!(other instanceof BorrowLogEntry)) {
             return false;
         }
 
-        SpendLogEntry otherLogEntry = (SpendLogEntry) other;
+        BorrowLogEntry otherLogEntry = (BorrowLogEntry) other;
         return otherLogEntry.getAmount().equals(getAmount())
                 && otherLogEntry.getTransactionDate().equals(getTransactionDate())
                 && otherLogEntry.getDescription().equals(getDescription())
                 && otherLogEntry.getTransactionMethod().equals(getTransactionMethod())
                 && otherLogEntry.getCategories().equals(getCategories())
-                && otherLogEntry.getPlace().equals(getPlace());
+                && otherLogEntry.getFrom().equals(getFrom())
+                && otherLogEntry.getDeadline().equals(getDeadline())
+                && (otherLogEntry.isRepaid() == isRepaid());
     }
 
     @Override
@@ -70,8 +89,10 @@ public class SpendLogEntry extends LogEntry {
                 .append(getDescription())
                 .append(" Transaction Method: ")
                 .append(getTransactionMethod())
-                .append(" Place: ")
-                .append(getPlace())
+                .append(" From: ")
+                .append(getFrom())
+                .append(" Deadline: ")
+                .append(getDeadline())
                 .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();

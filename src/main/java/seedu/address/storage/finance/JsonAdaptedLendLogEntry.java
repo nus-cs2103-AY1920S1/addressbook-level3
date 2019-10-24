@@ -11,48 +11,57 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
+import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
-import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
+import seedu.address.model.finance.logentry.LendLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;
-import seedu.address.model.finance.logentry.SpendLogEntry;
 
 /**
- * Jackson-friendly version of {@link SpendLogEntry}.
+ * Jackson-friendly version of {@link LendLogEntry}.
  */
-class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
+class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
 
     private final String logEntryType;
-    private final String place;
+    private final String to;
+    private final String deadline;
+    private final String isRepaid;
 
     /**
-     * Constructs a {@code JsonAdaptedSpendLogEntry} with the given log entry details.
+     * Constructs a {@code JsonAdaptedLendLogEntry} with the given log entry details.
      */
     @JsonCreator
-    public JsonAdaptedSpendLogEntry(@JsonProperty("amount") String amount,
-                                    @JsonProperty("transactionDate") String tDate,
-                                    @JsonProperty("description") String desc,
-                                    @JsonProperty("transactionMethod") String tMethod,
-                                    @JsonProperty("categories") List<JsonAdaptedCategory> categories,
-                                    @JsonProperty("logEntryType") String logEntryType,
-                                    @JsonProperty("place") String place) {
+    public JsonAdaptedLendLogEntry(@JsonProperty("amount") String amount,
+                                   @JsonProperty("transactionDate") String tDate,
+                                   @JsonProperty("description") String desc,
+                                   @JsonProperty("transactionMethod") String tMethod,
+                                   @JsonProperty("categories") List<JsonAdaptedCategory> categories,
+                                   @JsonProperty("logEntryType") String logEntryType,
+                                   @JsonProperty("to") String to,
+                                   @JsonProperty("deadline") String deadline,
+                                   @JsonProperty("isRepaid") String isRepaid) {
         super(amount, tDate, desc, tMethod, categories);
         this.logEntryType = logEntryType;
-        this.place = place;
+        this.to = to;
+        this.deadline = deadline;
+        this.isRepaid = isRepaid;
     }
 
     /**
-     * Converts a given {@code SpendLogEntry} into this class for Jackson use.
+     * Converts a given {@code LendLogEntry} into this class for Jackson use.
      */
-    public JsonAdaptedSpendLogEntry(SpendLogEntry source) {
+    public JsonAdaptedLendLogEntry(LendLogEntry source) {
         super(source);
         logEntryType = source.getLogEntryType();
-        place = source.getPlace().value;
+        to = source.getTo().name;
+        deadline = source.getDeadline().value;
+        isRepaid = Boolean.toString(source.isRepaid());
     }
 
     /**
-     * Converts this Jackson-friendly adapted log entry object into the model's {@code SpendLogEntry} object.
+     * Converts this Jackson-friendly adapted log entry object into the model's {@code LendLogEntry} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted log entry.
      */
@@ -101,17 +110,36 @@ class JsonAdaptedSpendLogEntry extends JsonAdaptedLogEntry {
 
         assert logEntryType != null;
 
-        if (place == null) {
+        if (to == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Place.class.getSimpleName()));
+                    Person.class.getSimpleName()));
         }
-        if (!Place.isValidPlace(place)) {
-            throw new IllegalValueException(Place.MESSAGE_CONSTRAINTS);
+        if (!Person.isValidName(to)) {
+            throw new IllegalValueException(Person.MESSAGE_CONSTRAINTS);
         }
-        final Place modelPlace = new Place(place);
+        final Person modelPerson = new Person(to);
 
-        return new SpendLogEntry(modelAmount, modelTransactionDate, modelDescription,
-                modelTransactionMethod, modelLogEntryCategories, modelPlace);
+        if (deadline == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deadline.class.getSimpleName()));
+        }
+        if (!Deadline.isValidDeadline(deadline)) {
+            throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        final Deadline modelDeadline = new Deadline(deadline);
+
+        LendLogEntry newLogEntry = new LendLogEntry(modelAmount, modelTransactionDate,
+                modelDescription, modelTransactionMethod, modelLogEntryCategories, modelPerson,
+                modelDeadline);
+
+        if (!isRepaid.equals("true") && !isRepaid.equals("false")) {
+            throw new IllegalValueException("Field 'isValid' is in wrong format, should either be true or false!");
+        }
+        if (isRepaid.equals("true")) {
+            newLogEntry.setAsRepaid();
+        }
+
+        return newLogEntry;
     }
 
 }
