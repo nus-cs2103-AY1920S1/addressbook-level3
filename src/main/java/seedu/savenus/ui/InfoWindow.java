@@ -10,9 +10,11 @@ import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.model.info.AddInfo;
+import seedu.savenus.model.info.AutoSortInfo;
 import seedu.savenus.model.info.BudgetInfo;
 import seedu.savenus.model.info.BuyInfo;
 import seedu.savenus.model.info.ClearInfo;
+import seedu.savenus.model.info.CustomSortInfo;
 import seedu.savenus.model.info.DefaultInfo;
 import seedu.savenus.model.info.DeleteInfo;
 import seedu.savenus.model.info.EditInfo;
@@ -22,6 +24,7 @@ import seedu.savenus.model.info.FindInfo;
 import seedu.savenus.model.info.HelpInfo;
 import seedu.savenus.model.info.InfoInfo;
 import seedu.savenus.model.info.ListInfo;
+import seedu.savenus.model.info.MakeSortInfo;
 import seedu.savenus.model.info.RecommendInfo;
 import seedu.savenus.model.info.SaveInfo;
 import seedu.savenus.model.info.SortInfo;
@@ -120,6 +123,12 @@ public class InfoWindow extends UiPart<Stage> {
             usageExample.setText(AddInfo.USAGE);
             output.setText(AddInfo.OUTPUT);
             break;
+        case InfoCommand.AUTO_SORT_INFO :
+            commandWord.setText(AutoSortInfo.COMMAND_WORD);
+            infoMessage.setText(AutoSortInfo.INFORMATION);
+            usageExample.setText(AutoSortInfo.USAGE);
+            output.setText(AutoSortInfo.OUTPUT);
+            break;
         case InfoCommand.BUDGET_INFO :
             commandWord.setText(BudgetInfo.COMMAND_WORD);
             infoMessage.setText(BudgetInfo.INFORMATION);
@@ -137,6 +146,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(ClearInfo.INFORMATION);
             usageExample.setText(ClearInfo.USAGE);
             output.setText(ClearInfo.OUTPUT);
+            break;
+        case InfoCommand.CUSTOM_SORT_INFO :
+            commandWord.setText(CustomSortInfo.COMMAND_WORD);
+            infoMessage.setText(CustomSortInfo.INFORMATION);
+            usageExample.setText(CustomSortInfo.USAGE);
+            output.setText(CustomSortInfo.OUTPUT);
             break;
         case InfoCommand.DEFAULT_INFO :
             commandWord.setText(DefaultInfo.COMMAND_WORD);
@@ -191,6 +206,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(ListInfo.INFORMATION);
             usageExample.setText(ListInfo.USAGE);
             output.setText(ListInfo.OUTPUT);
+            break;
+        case InfoCommand.MAKE_SORT_INFO :
+            commandWord.setText(MakeSortInfo.COMMAND_WORD);
+            infoMessage.setText(MakeSortInfo.INFORMATION);
+            usageExample.setText(MakeSortInfo.USAGE);
+            output.setText(MakeSortInfo.OUTPUT);
             break;
         case InfoCommand.RECOMMEND_INFO :
             commandWord.setText(RecommendInfo.COMMAND_WORD);
