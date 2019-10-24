@@ -811,6 +811,12 @@ Windows, Linux, Unix, OS-X
 [[body]] Body::
 A corpse
 
+[[worker]] Worker::
+An employee in the mortuary
+
+[[fridge]] Fridge::
+A fridge used to store a body in the mortuary
+
 [[command-line-interface]] Command-Line-Interface (CLI)::
 A text-based user interface (UI) used to view and manage computer files
 
