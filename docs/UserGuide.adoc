@@ -51,63 +51,39 @@ image::Ui.png[width="790"]
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-===  Accessing password directory : `goto password`
+=== Password
+Accessing password directory : `goto password`
 
 ==== Adding a password : `add`
 
 Adds a password to the app.
-Format: `add <desc> <username> <password>`
+Format: `add d/<desc> u/<username> p/<password> t/<tag>`
 
-Example: `add Gmail user1 password1`
+Example: `add d/Gmail u/user1 p/password1 t/work`
 
-==== Accessing a password : `open`
+==== Accessing a password : `read`
 
 Shows the username and password for the specified password description provided by the user.
 
-Format: `open <desc>`
+Format: `read <index>`
 
-Example: `open Gmail`
+Example: `open 1`
 
-==== Updating a password : `update`
+==== Updating a password : `edit`
 
 Updates a password as specified by the user.
 
-Format: `update <desc>`
+Format: `edit <index> d/<desc> u/<username> p/<password> t/<tag>`
 
-Example: `update Gmail`
-
-===== Updating description: `-d`
-
-Updates specified password’s description.
-
-Format: `-d <desc>`
-
-Example: `-d Hotmail`
-
-===== Updating username: `-u`
-
-Updates specified password’s username.
-
-Format: `-u <username>`
-
-Example: `-u user2`
-
-===== Updating password: `-p`
-
-Updates specified password’s password.
-
-Format: `-p <password>`
-
-Example: `-p password2`
-
+Example: `edit 1 u/NewUsername`
 
 ==== Deleting a password: `delete`
 
 Deletes a password as specified by the user.
 
-Format: `delete <desc>`
+Format: `delete <index>`
 
-Example: `delete Gmail`
+Example: `delete 2`
 
 ==== Finding a password: `find`
 
@@ -142,15 +118,16 @@ Analyses in detail a specified password based on the user specified index.
 
 Format: `analyse strong/<index>`
 
-===  Accessing card directory : `goto card`
+=== Card
+Accessing card directory : `goto card`
 
 ==== Creating a card : `add`
 
 Adds a credit/debit card to the app.
 
-Format: `add <description> <cardNumber> <expiry> <cvc>`
+Format: `add d/<description> c/<cardNumber> e/<expiry> v/<cvc>`
 
-Example: `add VisaPOSB`
+Example: `add d/VisaPOSB `
 
 ==== Deleting a card: `delete`
 
@@ -160,13 +137,14 @@ Format: `delete <description>`
 
 Example: `delete VisaPOSB`
 
-===  Accessing file directory : `goto file`
+=== File
+Accessing file directory : `goto file`
 
 ==== Encrypting a file : `encrypt`
 
 Encrypts a local file as specified by the user.
 
-Format: `encrypt FILEPATH`
+Format: `encrypt <FILEPATH>`
 
 Example: `encrypt ~/Desktop/Secret File.png`
 
@@ -174,7 +152,7 @@ Example: `encrypt ~/Desktop/Secret File.png`
 
 Decrypts a local file as specified by the user.
 
-Format: `decrypt INDEX`
+Format: `decrypt <INDEX>`
 
 Example: `decrypt 1` (This command decrypts the first file in the file list.)
 
@@ -182,7 +160,7 @@ Example: `decrypt 1` (This command decrypts the first file in the file list.)
 
 Finds an encrypted file as specified by the user.
 
-Format: `find FILENAME`
+Format: `find <FILENAME>`
 
 Example: `find Secret File`
 ****
@@ -190,7 +168,8 @@ Example: `find Secret File`
 * Only the file name is searched.
 ****
 
-===  Accessing note directory : `goto note`
+===  Note
+Accessing note directory : `goto note`
 
 ==== Creating a note : `add`
 
@@ -225,7 +204,7 @@ Example: `delete 1`
 
 Edits a note specified by the user.
 
-Format: `edit <index> <Title> <Description> <Tag> <Content>
+Format: `edit <index> ti/<Title> d/<Description> t/<Tag> c/<Content>`
 
 Example: `edit 1 ti/NewTitle d/NewDescription t/NewTag c/NewContent`
 Example: `edit 1 ti/NewTitle`
@@ -285,6 +264,55 @@ Format: `exit`
 
 SecureIT data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+== CheatSheet of commands
+Password
+
+Accessing Password directory: `goto password`
+
+- `add d/<desc> u/<username> p/<password> t/<tag>` : Adds a password to the app.
+- `read <index>`:  Shows the username and password for the specified password index provided by you.
+- `edit <index> d/<desc> u/<username> p/<password> t/<tag>`: Edits a password as specified by you.
+- `delete <index>`: Deletes a password as specified by the user.
+- `find <desc>`: Finds a password description as specified by the user.
+- `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`: Generates a new random password based on user preference input and copies generated password into user clipboard.
+- `analyse`: Analyses all passwords currently stored and produces a security summary report.
+- `analyse strong/<index>`: Analyses in detail a specified password based on the user specified index.
+
+Card +
+Accessing Card directory: `goto card`
+
+- `add d/<description> c/<cardNumber> e/<expiry> v/<cvc>`: Adds a credit/debit card to the app.
+- `delete <description>`: Deletes a card as specified by the user.
+
+File +
+Accessing File directory: `goto file`
+
+- `encrypt FILEPATH`: Encrypts a local file as specified by the user.
+- `decrypt INDEX`: Decrypts a local file as specified by the user.
+- `find <FILENAME>`: Finds an encrypted file as specified by the user.
+
+Note +
+Accessing Note directory: `goto note`
+
+- `read <index>`: Reads a note in the app.
+- `delete <index>`: Deletes a note as specified by the user.
+- `edit <index> ti/<Title> d/<Description> t/<Tag> c/<Content>`: Edits a note specified by the user.
+- `find <index>` or `find <Title>`: Finds a note as specified by the user.
+- `sortBy <sortMethod>`: Sorts notes in ways specified by the user.
+- `undo`: Undo last action on notes.
+- `redo`: Redo last undone action on notes.
+
+Others +
+Other commands
+
+- `clear`: Clears all entries from the current book user is on.
+- 'exit': Exits the program
+
+
+
+Accessing Note directory: `goto note`
+
 
 == FAQ
 
