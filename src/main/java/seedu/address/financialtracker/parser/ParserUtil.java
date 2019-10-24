@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.financialtracker.model.expense.Amount;
-import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Description;
+import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
 
@@ -61,6 +61,21 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String type} into a {@code Type}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedPhone = description.trim();
+        if (!Type.isValidType(trimmedPhone)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }
+        return new Type(trimmedPhone);
     }
 
     public static PageType parsePageType(String pageType) throws ParseException {

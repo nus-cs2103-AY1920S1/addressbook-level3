@@ -5,11 +5,12 @@ import java.util.regex.Pattern;
 
 import seedu.address.financialtracker.commands.AddFinCommand;
 import seedu.address.financialtracker.commands.DeleteFinCommand;
+import seedu.address.financialtracker.commands.EditFinCommand;
+import seedu.address.financialtracker.commands.HelpCommand;
 import seedu.address.financialtracker.commands.SummaryCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
-import seedu.address.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.commons.core.Messages;
@@ -48,6 +49,12 @@ public class FinancialTrackerParser {
 
         case SummaryCommand.COMMAND_WORD:
             return new SummaryCommand();
+
+        case EditFinCommand.COMMAND_WORD:
+            return new EditFinCommandParser().parse(arguments);
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);

@@ -2,7 +2,9 @@ package seedu.address.financialtracker.model;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 import java.util.function.Predicate;
 
@@ -10,6 +12,7 @@ import static java.util.Objects.requireNonNull;
 
 public class Model {
 
+    public static final Predicate<Expense> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
     private FinancialTracker financialTracker;
     private final FilteredList<Expense> filteredExpenses;
 
@@ -36,5 +39,10 @@ public class Model {
     public void updateFilteredExpenseList(Predicate<Expense> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
+    }
+
+    public void setExpense(Expense expenseToEdit, Expense editedExpense) throws CommandException {
+        CollectionUtil.requireAllNonNull(expenseToEdit, editedExpense);
+        financialTracker.setExpense(expenseToEdit, editedExpense);
     }
 }

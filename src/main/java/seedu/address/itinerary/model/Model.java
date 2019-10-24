@@ -54,7 +54,7 @@ public class Model {
      * Filter out the events in the event list base on the predicate.
      * @param predicate the condition use to filter out the events.
      */
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public void  updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }

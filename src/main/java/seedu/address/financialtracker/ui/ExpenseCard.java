@@ -34,14 +34,17 @@ public class ExpenseCard extends UiPart<Region> {
     private Label desc;
     @FXML
     private Label country;
+    @FXML
+    private Label type;
 
     public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
         this.expense = expense;
         id.setText(displayedIndex + ". ");
-        amount.setText("Amount: " + expense.getAmount().value);
-        desc.setText("Details: " + expense.getDesc().value);
         country.setText(expense.getCountry().value);
+        amount.setText("Amount: " + expense.getAmount().value);
+        desc.setText("Details: " + expense.getDescription().value);
+        type.setText("Type of expenditure: " + expense.getType().value);
     }
 
     @Override

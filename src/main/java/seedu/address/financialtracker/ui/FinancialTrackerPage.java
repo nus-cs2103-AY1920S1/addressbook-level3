@@ -32,6 +32,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private static final String FXML = "FinancialTrackerWindow.fxml";
 
     // Independent Ui parts residing in this Ui container
+    private FinancialTrackerHelpWindow helpWindow;
     private ResultDisplay resultDisplay;
     private ExpensePanel expensePanel;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -64,6 +65,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
         super(FXML);
         this.financialTrackerParser = new FinancialTrackerParser();
         this.model = new Model();
+        this.helpWindow = new FinancialTrackerHelpWindow();
         financialTrackerScene = new Scene(financialTrackerPane);
         fillInnerParts();
     }
@@ -92,17 +94,15 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            //update dropDown menu
+            countriesDropdown.updateDropdownText();
             Command command = financialTrackerParser.parseCommand(commandText);
-            if (command instanceof AddFinCommand) {
-                AddFinCommand addFinCommand = (AddFinCommand) command;
-                addFinCommand.insertCountry(countriesDropdown.getDropdownText());
-            }
             CommandResult commandResult = command.execute(model);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
-                // handleHelp();
+                handleHelp();
             }
 
             if (commandResult.isExit()) {
@@ -114,6 +114,18 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
         }
     }
 

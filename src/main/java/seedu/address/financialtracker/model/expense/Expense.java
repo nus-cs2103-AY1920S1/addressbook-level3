@@ -1,14 +1,19 @@
 package seedu.address.financialtracker.model.expense;
 
+import seedu.address.financialtracker.ui.CountriesDropdown;
+
 public class Expense {
 
     private Amount amount;
     private Description desc;
     private Country country;
+    private Type type;
 
-    public Expense(Amount amount, Description desc) {
+    public Expense(Amount amount, Description desc, Type type) {
         this.amount = amount;
         this.desc = desc;
+        this.type = type;
+        this.country = new Country(CountriesDropdown.getDropdownText());
     }
 
     public Amount getAmount() {
@@ -19,8 +24,12 @@ public class Expense {
         return country;
     }
 
-    public Description getDesc() {
+    public Description getDescription() {
         return desc;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public void setCountry(Country country) {
@@ -42,8 +51,9 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.amount.equals(this.amount)
-                && otherExpense.desc.equals(this.desc)
-                && otherExpense.country.equals(this.country);
+        return otherExpense.amount.value.equals(this.amount.value)
+                && otherExpense.desc.value.equals(this.desc.value)
+                && otherExpense.type.value.equals(this.type.value)
+                && otherExpense.country.value.equals(this.country.value);
     }
 }
