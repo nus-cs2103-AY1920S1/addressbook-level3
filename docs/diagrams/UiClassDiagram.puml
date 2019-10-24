@@ -57,6 +57,7 @@ HelpWindow -down-|> UiPart
 ExpenseCard --|> UiPart
 BudgetCard --|> UiPart
 Panel --|> UiPart
+SinglePanelView --|> UiPart
 
 CommandBox *-left-> SyntaxHighlightingTextArea
 
