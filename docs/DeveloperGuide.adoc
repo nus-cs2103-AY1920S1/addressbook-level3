@@ -246,15 +246,15 @@ image::LoanSlipGeneration.png[]
 {nbsp} +
 
 The following describes the sequence of events displayed in the figure above.
-
-* The `LoanCommand` is executed
-* The `LoanCommand` retrieves the `Book` and the `Borrower`
-* The `LoanCommand` creates a new `Loan`
-* The `LoanCommand` mounts the new loan in `LoanSlipUtil`
-* The `Storage` component creates and save a new `LoanSlipDocument` in a saved folder
-* The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately
-* The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
-
+****
+1) The `LoanCommand` is executed +
+2) The `LoanCommand` retrieves the `Book` and the `Borrower` +
+3) The `LoanCommand` creates a new `Loan` +
+4) The `LoanCommand` mounts the new loan in `LoanSlipUtil` +
+5) The `Storage` component creates and save a new `LoanSlipDocument` in a saved folder +
+6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
+7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process +
+****
 ==== Design Considerations
 
 ===== Aspect: How to create and use an instance of a `LoanSlipDocument`.
