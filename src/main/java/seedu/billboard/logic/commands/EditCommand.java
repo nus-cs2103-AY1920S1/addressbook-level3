@@ -27,7 +27,7 @@ import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 /**
- * Edits the details of an existing expense in the address book.
+ * Edits the details of an existing expense in the billboard.
  */
 public class EditCommand extends Command {
 

@@ -1,4 +1,4 @@
-package seedu.billboard.model.statistics;
+package seedu.billboard.model.statistics.formats;
 
 import java.time.LocalDate;
 import java.time.Period;

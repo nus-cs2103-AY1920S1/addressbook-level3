@@ -152,6 +152,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ArchiveWrapper getClone() {
         return new ArchiveWrapper((HashMap<String, Archive>) archiveList.clone());
     }

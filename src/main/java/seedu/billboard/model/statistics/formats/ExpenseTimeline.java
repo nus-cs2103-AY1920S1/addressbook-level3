@@ -1,4 +1,4 @@
-package seedu.billboard.model.statistics;
+package seedu.billboard.model.statistics.formats;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.model.expense.Amount;
 
 /**
- * Interface representing the timeline view of a set of expenses.
+ * Interface representing the timeline view of a collection of expenses.
  */
 public interface ExpenseTimeline {
 
