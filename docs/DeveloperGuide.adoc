@@ -179,11 +179,9 @@ image::ReminderSequenceDiagram.png[]
 
 ==== Design Considerations
 
-*Current method:* Toggle the panels from within MainWindow class.
+*Current method:* Instance specific reminders are made known to the instance object, and the object is made known to the reminder. (i.e Such reminders trigger conditions are entirely based on a single Entry class object)
 
-Pros: Easy to implement.
-
-
+Pros: Allows fast method of keeping track of instance specific reminders when object is edited/deleted and loaded form storage.
 Cons: Might not be as OOP as other designs.
 == Documentation
 
