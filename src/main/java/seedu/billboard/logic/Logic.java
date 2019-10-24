@@ -12,6 +12,7 @@ import seedu.billboard.model.ReadOnlyArchiveWrapper;
 import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 
 /**
  * API of the Logic component
@@ -40,6 +41,11 @@ public interface Logic {
      * Returns an observable view of the selected statistic type.
      */
     ObservableData<StatisticsFormat> getStatisticsFormat();
+
+    /**
+     * Returns the statistics format options wrapped in an observable wrapper.
+     */
+    ObservableData<StatisticsFormatOptions> getStatisticsFormatOptions();
 
     /**
      * Returns the user prefs' billboard file path.

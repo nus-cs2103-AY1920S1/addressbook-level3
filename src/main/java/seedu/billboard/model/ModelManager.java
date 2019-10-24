@@ -19,6 +19,7 @@ import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -30,7 +31,8 @@ public class ModelManager implements Model {
     private final Billboard billboard;
     private final ArchiveWrapper archives;
     private final UserPrefs userPrefs;
-    private final ObservableData<StatisticsFormat> statsType;
+    private final ObservableData<StatisticsFormat> statsFormat;
+    private final ObservableData<StatisticsFormatOptions> statsOptions;
     private final FilteredList<Expense> filteredExpense;
     private final HashMap<String, FilteredList<Expense>> filteredArchives;
 
@@ -46,13 +48,15 @@ public class ModelManager implements Model {
         this.archives = new ArchiveWrapper(archiveExpenses);
         this.billboard = new Billboard(noArchiveExpensesBillboard);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.statsType = new ObservableData<>();
-        this.statsType.setValue(StatisticsFormat.TIMELINE); // default stats type
+        this.statsFormat = new ObservableData<>();
+        this.statsFormat.setValue(StatisticsFormat.TIMELINE); // default stats type
+        this.statsOptions = new ObservableData<>();
+        this.statsOptions.setValue(StatisticsFormatOptions.emptyOption());
 
         logger.fine("Initializing with billboard: " + billboard
                 + " and archives: " + archives
                 + "and user prefs: " + userPrefs
-                + "and default stats type: " + statsType.getValue());
+                + "and default stats type: " + statsFormat.getValue());
 
         filteredExpense = new FilteredList<>(this.billboard.getExpenses());
 
@@ -260,12 +264,25 @@ public class ModelManager implements Model {
     }
 
     //=========== Statistics Chart Methods =============================================================
+
+    @Override
     public ObservableData<StatisticsFormat> getStatisticsFormat() {
-        return statsType;
+        return statsFormat;
     }
 
-    public void setStatisticsFormat(StatisticsFormat type) {
-        statsType.setValue(type);
+    @Override
+    public void setStatisticsFormat(StatisticsFormat format) {
+        statsFormat.setValue(format);
+    }
+
+    @Override
+    public ObservableData<StatisticsFormatOptions> getStatisticsFormatOptions() {
+        return statsOptions;
+    }
+
+    @Override
+    public void setStatisticsFormatOptions(StatisticsFormatOptions options) {
+        statsOptions.setValue(options);
     }
 
     //=========== Clone Methods =============================================================
@@ -289,8 +306,8 @@ public class ModelManager implements Model {
     public void setModel(Model model) {
         this.billboard.setBillboard((Billboard) model.getBillboard());
         this.archives.setArchives(model.getArchives());
-        this.statsType.setObservers(model.getStatisticsFormat().getObservers());
-        this.statsType.setValue(model.getStatisticsFormat().getValue());
+        this.statsFormat.setObservers(model.getStatisticsFormat().getObservers());
+        this.statsFormat.setValue(model.getStatisticsFormat().getValue());
         this.filteredArchives.clear();
         this.filteredArchives.putAll(model.getFilteredArchives());
     }

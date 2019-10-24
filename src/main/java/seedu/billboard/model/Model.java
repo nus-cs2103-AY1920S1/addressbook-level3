@@ -13,6 +13,7 @@ import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -131,9 +132,19 @@ public interface Model {
     ObservableData<StatisticsFormat> getStatisticsFormat();
 
     /**
-     * Sets the observable wrapper to the new statistics type, updating all observers in the process.
+     * Sets the observable wrapper to the new statistics format.
      */
-    void setStatisticsFormat(StatisticsFormat type);
+    void setStatisticsFormat(StatisticsFormat format);
+
+    /**
+     * Returns the statistics format options wrapped in an observable wrapper.
+     */
+    ObservableData<StatisticsFormatOptions> getStatisticsFormatOptions();
+
+    /**
+     * Sets the observable wrapper to the new statistics format options.
+     */
+    void setStatisticsFormatOptions(StatisticsFormatOptions options);
 
     // ================ Archive methods ===============================
 

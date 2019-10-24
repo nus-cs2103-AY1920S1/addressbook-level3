@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.statistics.generators.BreakdownGenerator;
 import seedu.billboard.model.statistics.generators.TimelineGenerator;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
@@ -27,7 +28,8 @@ public class ChartBox extends UiPart<Region> {
     private ObservableData<DateInterval> dateInterval;
     private ExpenseChart currentChart;
 
-    public ChartBox(ObservableData<StatisticsFormat> statsType, ObservableList<Expense> expenses) {
+    public ChartBox(ObservableList<Expense> expenses, ObservableData<StatisticsFormat> statsType,
+                    ObservableData<StatisticsFormatOptions> statsOptions) {
         super(FXML);
 
         this.expenses = expenses;
@@ -35,6 +37,7 @@ public class ChartBox extends UiPart<Region> {
         dateInterval.setValue(DateInterval.MONTH);
 
         statsType.observe(this::onStatsTypeChanged);
+        statsOptions.observe(this::onStatsFormatOptionsChanged);
     }
 
     /**
@@ -58,5 +61,9 @@ public class ChartBox extends UiPart<Region> {
         }
 
         chartContainer.getChildren().add(currentChart.getRoot());
+    }
+
+    private void onStatsFormatOptionsChanged(StatisticsFormatOptions options) {
+
     }
 }
