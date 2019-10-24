@@ -161,6 +161,9 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
+The following class diagram shows the structure of the Logic component.
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -183,6 +186,8 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+The following class diagram shows the structure of the Model component.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
@@ -202,6 +207,8 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+
+The following class diagram below displays the structure of the Storage Component.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
