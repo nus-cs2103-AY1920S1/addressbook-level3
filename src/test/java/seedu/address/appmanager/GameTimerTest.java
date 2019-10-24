@@ -38,12 +38,15 @@ public class GameTimerTest {
                 10, dummyMainCallBack, dummyTimerCallBack);
         dummyTimer.run();
         // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
-        // Thread.sleep().
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        Platform.runLater(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
         Platform.runLater(() -> {
             assertTrue(mainWindowStub.isExecutedFromGameTimer);
             assertTrue(timerDisplayStub.isUpdatedFromGameTimer);

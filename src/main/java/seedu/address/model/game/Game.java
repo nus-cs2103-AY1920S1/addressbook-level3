@@ -35,7 +35,7 @@ public class Game {
      * @param wordBank WordBank that current Game session will run on.
      */
     public Game(ReadOnlyWordBank wordBank, CardShuffler cardShuffler, DifficultyEnum difficulty) {
-        requireAllNonNull(wordBank, cardShuffler);
+        requireAllNonNull(wordBank, cardShuffler, difficulty);
         this.cardIndex = Index.fromZeroBased(0);
         this.shuffledDeckOfCards = setShuffledDeckOfCards(wordBank, cardShuffler);
         this.currentGameDifficulty = difficulty;
