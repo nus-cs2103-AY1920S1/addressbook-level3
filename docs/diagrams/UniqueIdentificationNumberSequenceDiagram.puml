@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-participant "AddCommandParser" as AddCommandParser #black
+participant ":AddCommandParser" as AddCommandParser #black
 
 box Model MODEL_COLOR_T1
 participant ":Worker" as Worker MODEL_COLOR
