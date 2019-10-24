@@ -1,0 +1,60 @@
+@startuml
+
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":AddressBookParser" as ab_parser MODEL_COLOR_T4
+Participant ":HistoryCommand" as history_command LOGIC_COLOR_T4
+Participant ":Model" as model MODEL_COLOR
+Participant ":CommandHistory" as command_history STORAGE_COLOR
+Participant ":HistoryListPanel" as history_panel LOGIC_COLOR_T2
+
+user -[USER_COLOR]> ui : "history"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("history")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> ab_parser : parseCommand("history")
+activate ab_parser MODEL_COLOR_T4
+ab_parser -[MODEL_COLOR_T4]-> logic : command
+deactivate ab_parser
+
+logic -[LOGIC_COLOR]> ab_parser : getCommandWord("history")
+activate ab_parser MODEL_COLOR_T4
+ab_parser -[MODEL_COLOR_T4]-> logic : commandWord
+deactivate ab_parser
+
+logic -[LOGIC_COLOR]> model : addCommandToHistory(commandWord, "history")
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> command_history : addCommand(commandWord, "history")
+activate command_history STORAGE_COLOR
+command_history -[STORAGE_COLOR]-> model
+deactivate command_history
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> history_command : execute(model)
+activate history_command LOGIC_COLOR_T4
+history_command -[LOGIC_COLOR_T4]-> logic : commandResult
+deactivate history_command
+
+logic --[LOGIC_COLOR]> ui : commandResult
+deactivate logic
+
+create history_panel
+ui -[UI_COLOR]> history_panel : new HistoryListPanel(p)
+activate history_panel
+history_panel -[LOGIC_COLOR_T2]-> ui : historyListPanel
+deactivate history_panel
+
+ui -[UI_COLOR]> ui : puts history data in secondary panel
+
+ui--[UI_COLOR]> user
+deactivate ui
+
+@enduml

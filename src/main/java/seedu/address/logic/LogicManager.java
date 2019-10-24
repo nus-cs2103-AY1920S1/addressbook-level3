@@ -45,7 +45,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.binitem.BinItem;
@@ -62,13 +61,11 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final CommandHistory commandHistory;
     private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.commandHistory = new CommandHistory();
         addressBookParser = new AddressBookParser(model.getUserSettings().isSuggestionsOn());
         initialiseCommandsInParserUtil();
     }
