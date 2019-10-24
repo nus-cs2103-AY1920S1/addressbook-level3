@@ -436,7 +436,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 ** Pros: More flexible scheduling without concerning date and less scheduled tasks.
 ** Cons: May cause overhead due to frequently updating.
 
-=== Personalised User Experience
+=== Personalised User Experience Feature
 
 To personalise the diabetic user’s the experience in using the SugarMummy app, several sub-features are used,
 including:
