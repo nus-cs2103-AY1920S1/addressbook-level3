@@ -49,7 +49,15 @@ public class StorageManager {
 
         switch (thisClassUrl.getProtocol()) {
         case "file":
-            root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
+            try {
+                String platformIndependentPath = Paths.get(StorageManager.class
+                        .getResource("StorageManager.class").toURI()).toString();
+                root = FileReadWrite.resolve(platformIndependentPath, "../../../../../../../../../");
+            } catch (URISyntaxException i) {
+                System.out.println("error");
+                System.exit(-1);
+            }
+            //root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
             break;
         case "jar":
             try {
