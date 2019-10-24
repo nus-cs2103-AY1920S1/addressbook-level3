@@ -1,5 +1,6 @@
 package seedu.revision.testutil;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,9 +9,9 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.category.Category;
-import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.Difficulty;
+import seedu.revision.model.answerable.Question;
+import seedu.revision.model.category.Category;
 
 
 /**
@@ -50,16 +51,16 @@ public class EditAnswerableDescriptorBuilder {
     /**
      * Sets the Correct Answer Set of the {@code EditAnswerableDescriptor} that we are building.
      */
-    public EditAnswerableDescriptorBuilder withCorrectAnswerSet(Set<Answer> correctAnswerSet) {
-        descriptor.setCorrectAnswerList(correctAnswerSet);
+    public EditAnswerableDescriptorBuilder withCorrectAnswerList(ArrayList<Answer> correctAnswerList) {
+        descriptor.setCorrectAnswerList(correctAnswerList);
         return this;
     }
 
     /**
      * Sets the Wrong Answer Set of the {@code EditAnswerableDescriptor} that we are building.
      */
-    public EditAnswerableDescriptorBuilder withWrongAnswerSet(Set<Answer> wrongAnswerSet) {
-        descriptor.setWrongAnswerList(wrongAnswerSet);
+    public EditAnswerableDescriptorBuilder withWrongAnswerList(ArrayList<Answer> wrongAnswerList) {
+        descriptor.setWrongAnswerList(wrongAnswerList);
         return this;
     }
 

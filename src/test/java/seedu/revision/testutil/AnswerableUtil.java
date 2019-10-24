@@ -2,11 +2,12 @@ package seedu.revision.testutil;
 
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import seedu.revision.logic.commands.main.AddCommand;
@@ -36,7 +37,7 @@ public class AnswerableUtil {
         if (answerable instanceof Mcq) {
             sb.append(PREFIX_QUESTION_TYPE + "mcq" + " ");
             answerable.getWrongAnswerList().stream().forEach(
-                    s -> sb.append(PREFIX_WRONG + s.answer + " ")
+                s -> sb.append(PREFIX_WRONG + s.toString() + " ")
             );
         } else {
             sb.append(PREFIX_QUESTION_TYPE + "saq" + " ");
@@ -44,10 +45,10 @@ public class AnswerableUtil {
         sb.append(PREFIX_QUESTION + answerable.getQuestion().fullQuestion + " ");
         sb.append(PREFIX_DIFFICULTY + answerable.getDifficulty().value + " ");
         answerable.getCorrectAnswerList().stream().forEach(
-            s -> sb.append(PREFIX_CORRECT + s.answer + " ")
+            s -> sb.append(PREFIX_CORRECT + s.toString() + " ")
         );
         answerable.getCategories().stream().forEach(
-            s -> sb.append(PREFIX_CATEGORY + s.categoryName+ " ")
+            s -> sb.append(PREFIX_CATEGORY + s.categoryName + " ")
         );
         return sb.toString();
     }
@@ -57,8 +58,10 @@ public class AnswerableUtil {
      */
     public static String getEditAnswerableDescriptorDetails(EditCommand.EditAnswerableDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION).append(question.fullQuestion).append(" "));
-        descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY).append(difficulty.value).append(" "));
+        descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION)
+                .append(question.fullQuestion).append(" "));
+        descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY)
+                .append(difficulty.value).append(" "));
         if (descriptor.getCategories().isPresent()) {
             Set<Category> tags = descriptor.getCategories().get();
             if (tags.isEmpty()) {
@@ -68,19 +71,19 @@ public class AnswerableUtil {
             }
         }
         if (descriptor.getCorrectAnswerList().isPresent()) {
-            Set<Answer> correctAnswerSet = descriptor.getCorrectAnswerList().get();
-            if (correctAnswerSet.isEmpty()) {
+            ArrayList<Answer> correctAnswerList = descriptor.getCorrectAnswerList().get();
+            if (correctAnswerList.isEmpty()) {
                 sb.append(PREFIX_CORRECT + " ");
             } else {
-                correctAnswerSet.forEach( s -> sb.append(PREFIX_CORRECT + s.answer + " "));
+                correctAnswerList.forEach(s -> sb.append(PREFIX_CORRECT + s.toString() + " "));
             }
         }
         if (descriptor.getWrongAnswerList().isPresent()) {
-            Set<Answer> wrongAnswerSet = descriptor.getWrongAnswerList().get();
-            if (wrongAnswerSet.isEmpty()) {
+            ArrayList<Answer> wrongAnswerList = descriptor.getWrongAnswerList().get();
+            if (wrongAnswerList.isEmpty()) {
                 sb.append(PREFIX_WRONG + " ");
             } else {
-                wrongAnswerSet.forEach( s -> sb.append(PREFIX_WRONG + s.answer + " "));
+                wrongAnswerList.forEach(s -> sb.append(PREFIX_WRONG + s.toString() + " "));
             }
         }
         return sb.toString();

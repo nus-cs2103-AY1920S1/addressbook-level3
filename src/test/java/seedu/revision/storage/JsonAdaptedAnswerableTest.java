@@ -42,8 +42,8 @@ public class JsonAdaptedAnswerableTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedAnswerable person =
-                new JsonAdaptedAnswerable(VALID_QUESTION_TYPE, INVALID_QUESTION, VALID_CORRECT_ANSWER, VALID_WRONG_ANSWER,
-                        VALID_DIFFICULTY, VALID_CATEGORIES);
+                new JsonAdaptedAnswerable(VALID_QUESTION_TYPE, INVALID_QUESTION, VALID_CORRECT_ANSWER,
+                        VALID_WRONG_ANSWER, VALID_DIFFICULTY, VALID_CATEGORIES);
         String expectedMessage = Question.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -60,14 +60,15 @@ public class JsonAdaptedAnswerableTest {
     public void toModelType_invalidDifficulty_throwsIllegalValueException() {
         JsonAdaptedAnswerable person =
                 new JsonAdaptedAnswerable(VALID_QUESTION_TYPE, VALID_QUESTION, VALID_CORRECT_ANSWER, VALID_WRONG_ANSWER,
-                        INVALID_DIFFICULTY, VALID_CATEGORIES); String expectedMessage = Difficulty.MESSAGE_CONSTRAINTS;
+                        INVALID_DIFFICULTY, VALID_CATEGORIES);
+        String expectedMessage = Difficulty.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullDifficulty_throwsIllegalValueException() {
-        JsonAdaptedAnswerable person = new JsonAdaptedAnswerable(VALID_QUESTION_TYPE, VALID_QUESTION, VALID_CORRECT_ANSWER,
-                VALID_WRONG_ANSWER, null, VALID_CATEGORIES);
+        JsonAdaptedAnswerable person = new JsonAdaptedAnswerable(VALID_QUESTION_TYPE, VALID_QUESTION,
+                VALID_CORRECT_ANSWER, VALID_WRONG_ANSWER, null, VALID_CATEGORIES);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Difficulty.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }

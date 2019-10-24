@@ -27,9 +27,9 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.AddressBookParser;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.AnswerableUtil;
+import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
 public class AddressBookParserTest {
 
@@ -51,7 +51,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-        DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ANSWERABLE.getOneBased());
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ANSWERABLE.getOneBased());
         ArrayList<Index> indexToDelete = new ArrayList<>();
         indexToDelete.add(INDEX_FIRST_ANSWERABLE);
         assertEquals(new DeleteCommand(indexToDelete), command);
@@ -62,7 +62,8 @@ public class AddressBookParserTest {
         Answerable answerable = new AnswerableBuilder().build();
         EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder(answerable).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_ANSWERABLE.getOneBased() + " " + AnswerableUtil.getEditAnswerableDescriptorDetails(descriptor));
+                + INDEX_FIRST_ANSWERABLE.getOneBased() + " " + AnswerableUtil
+                .getEditAnswerableDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ANSWERABLE, descriptor), command);
     }
 
