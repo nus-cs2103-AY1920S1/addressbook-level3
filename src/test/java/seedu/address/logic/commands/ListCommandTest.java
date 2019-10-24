@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
+import static seedu.address.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.address.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -21,10 +22,10 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-                getTypicalWasteArchive(), getTypicalShoppingList());
+        model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
+                getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
         expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), getTypicalTemplateList(),
-                model.getWasteArchive(), getTypicalShoppingList());
+                model.getWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
     }
 
     /*@Test

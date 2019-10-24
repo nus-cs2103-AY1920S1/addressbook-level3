@@ -56,6 +56,7 @@ public class LogicManager implements Logic {
             storage.saveTemplateList(model.getTemplateList());
             storage.saveShoppingList(model.getShoppingList());
             storage.saveWasteList(model.getWasteArchive());
+            storage.saveBoughtList(model.getBoughtList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -64,7 +65,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyGroceryList getAddressBook() {
+    public ReadOnlyGroceryList getGroceryList() {
         return model.getGroceryList();
     }
 
@@ -136,6 +137,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getShoppingListFilePath() {
         return model.getShoppingListFilePath();
+    }
+
+    @Override
+    public ReadOnlyGroceryList getBoughtList() {
+        return model.getBoughtList();
+    }
+
+    @Override
+    public ObservableList<GroceryItem> getFilteredBoughtList() {
+        return model.getFilteredBoughtItemList();
+    }
+
+    @Override
+    public Path getBoughtListFilePath() {
+        return model.getBoughtListFilePath();
     }
 
     @Override

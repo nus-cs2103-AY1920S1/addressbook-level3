@@ -73,7 +73,7 @@ public interface Model {
      */
     void setGroceryList(ReadOnlyGroceryList groceryList);
 
-    /** Returns the AddressBook */
+    /** Returns the GroceryList */
     ReadOnlyGroceryList getGroceryList();
 
     /**
@@ -271,5 +271,57 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredShoppingList(Predicate<ShoppingItem> predicate);
+
+    //=========== BoughtList ==================================================================================
+    /**
+     * Returns the user prefs' bought list file path.
+     */
+    Path getBoughtListFilePath();
+
+    /**
+     * Sets the user prefs' bought list file path.
+     */
+    void setBoughtListFilePath(Path addressBookFilePath);
+
+    /**
+     * Replaces bought list data with the data in {@code addressBook}.
+     */
+    void setBoughtList(ReadOnlyGroceryList boughtList);
+
+    /** Returns the BoughtList */
+    ReadOnlyGroceryList getBoughtList();
+
+    /**
+     * Returns true if a bought item with the same identity as {@code boughtItem} exists in the bought List.
+     */
+    boolean hasBoughtItem(GroceryItem food);
+
+    /**
+     * Deletes the given Bought grocery item.
+     * The bought item must exist in the bought item.
+     */
+    void deleteBoughtItem(GroceryItem target);
+
+    /**
+     * Adds the given Bought grocery item.
+     * {@code person} must not already exist in the bought list.
+     */
+    void addBoughtItem(GroceryItem food);
+
+    /**
+     * Replaces the given person {@code target} with {@code editedFood}.
+     * {@code target} must exist in the bought list.
+     * The person identity of {@code editedFood} must not be the same as another existing bought item in the boughtList.
+     */
+    void setBoughtItem(GroceryItem target, GroceryItem editedFood);
+
+    /** Returns an unmodifiable view of the filtered bought list */
+    ObservableList<GroceryItem> getFilteredBoughtItemList();
+
+    /**
+     * Updates the filter of the filtered bought list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredBoughtItemList(Predicate<GroceryItem> predicate);
 
 }

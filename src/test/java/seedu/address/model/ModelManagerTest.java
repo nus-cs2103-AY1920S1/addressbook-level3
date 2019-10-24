@@ -87,7 +87,7 @@ public class ModelManagerTest {
 
     /*@Test
     public void equals() {
-        GroceryList groceryList = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        GroceryList groceryList = new GroceryListBuilder().withPerson(ALICE).withPerson(BENSON).build();
         GroceryList differentGroceryList = new GroceryList();
         TemplateList templateList = new TemplateListBuilder().withTemplateItem(DIET_PLAN)
                 .withTemplateItem(BIRTHDAY_PARTY).build();
@@ -98,13 +98,15 @@ public class ModelManagerTest {
         TreeMap<WasteMonth, WasteList> differentWasteArchive = new TreeMap<>();
         ShoppingList shoppingList = new ShoppingListBuilder().withShoppingItem(CAKE).withShoppingItem(DATES).build();
         ShoppingList differentShoppingList = new ShoppingList();
+        GroceryList boughtList = new GroceryListBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        GroceryList differentBoughtList = new GroceryList();
 
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(groceryList, userPrefs, templateList, wasteArchive, shoppingList);
+        modelManager = new ModelManager(groceryList, userPrefs, templateList, wasteArchive, shoppingList, boughtList);
         ModelManager modelManagerCopy = new ModelManager(groceryList, userPrefs, templateList,
-                wasteArchive, shoppingList);
+                wasteArchive, shoppingList, boughtList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -116,19 +118,23 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different groceryList -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentGroceryList, userPrefs, templateList, wasteArchive,
-                differentShoppingList)));
+                shoppingList, boughtList)));
 
         // different templateList -> returns false
         assertFalse(modelManager.equals(new ModelManager(groceryList, userPrefs, differentTemplateList,
-                differentWasteArchive, differentShoppingList)));
+                differentWasteArchive, shoppingList, boughtList)));
+
+        // different shoppingList -> returns false
+        assertFalse(modelManager.equals(new ModelManager(groceryList, userPrefs, templateList,
+                wasteArchive, differentShoppingList, boughtList)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredGroceryItemList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(groceryList, userPrefs, templateList, wasteArchive,
-                shoppingList)));
+                shoppingList, boughtList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
@@ -137,6 +143,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setGroceryListFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(groceryList, differentUserPrefs, templateList, wasteArchive,
-                shoppingList)));
+                shoppingList, boughtList)));
     }*/
 }

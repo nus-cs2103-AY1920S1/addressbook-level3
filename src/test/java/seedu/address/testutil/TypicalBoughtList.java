@@ -13,9 +13,9 @@ import seedu.address.model.GroceryList;
 import seedu.address.model.food.GroceryItem;
 
 /**
- * A utility class containing a list of {@code Food} objects to be used in tests.
+ * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalGroceryItems {
+public class TypicalBoughtList {
 
     public static final GroceryItem ALICE = new GroceryItemBuilder().withName("Alice Pauline")
             .withTags("friends").build();
@@ -46,12 +46,12 @@ public class TypicalGroceryItems {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalGroceryItems() {} // prevents instantiation
+    private TypicalBoughtList() {} // prevents instantiation
 
     /**
      * Returns an {@code GroceryList} with all the typical persons.
      */
-    public static GroceryList getTypicalGroceryList() {
+    public static GroceryList getTypicalBoughtList() {
         GroceryList ab = new GroceryList();
         for (GroceryItem food : getTypicalPersons()) {
             ab.addGroceryItem(food);
