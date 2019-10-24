@@ -94,6 +94,9 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * To change tab to notepad tab/
+     */
     public static void startNotes() {
         logger.info("Changing to Notes...");
 

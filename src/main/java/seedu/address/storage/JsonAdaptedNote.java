@@ -2,12 +2,15 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.earnings.Module;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.ModuleCode;
 import seedu.address.model.note.Notes;
 
+/**
+ * Jackson-friendly version of {@link Notes}.
+ */
 public class JsonAdaptedNote {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note's %s field is missing!";
 
@@ -37,7 +40,8 @@ public class JsonAdaptedNote {
      */
     public Notes toModelType() throws IllegalValueException {
         if (classId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleCode.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModuleCode.class.getSimpleName()));
         }
         if (!ModuleCode.isValidModuleCode(classId)) {
             throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
