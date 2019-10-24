@@ -93,7 +93,8 @@ public class AutoCompletePanel extends UiPart<Region> {
 
         updateMatchedWords(segments, firstSegmentParts);
         resetList();
-        autoCompleteListUpdater.updateSuggestedWordsInList(matchedAutoCompleteWords.size(), segments, firstSegmentParts);
+        autoCompleteListUpdater.updateSuggestedWordsInList(matchedAutoCompleteWords.size(),
+                segments, firstSegmentParts);
     }
 
     /**

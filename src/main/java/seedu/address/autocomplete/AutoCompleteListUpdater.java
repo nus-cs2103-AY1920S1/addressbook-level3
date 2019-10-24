@@ -25,7 +25,8 @@ public class AutoCompleteListUpdater {
      * @param segments Array of segments of the full command in textfield
      * @param firstSegmentParts Linkedlist of parts in first segment of segments array
      */
-    public void updateSuggestedWordsInList(int numberOfMatchedWords, String[] segments, LinkedList<String> firstSegmentParts) {
+    public void updateSuggestedWordsInList(int numberOfMatchedWords,
+                                           String[] segments, LinkedList<String> firstSegmentParts) {
         oListSuggestedWords.clear();
 
         LinkedList<String> combinedList = new LinkedList<>(firstSegmentParts);
