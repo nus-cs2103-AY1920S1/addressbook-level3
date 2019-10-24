@@ -3,15 +3,22 @@ package seedu.address.cashier.logic.parser;
 import static seedu.address.cashier.ui.CashierMessages.AMOUNT_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOUNT;
 
+import java.util.logging.Logger;
+
 import seedu.address.cashier.logic.commands.CheckoutCommand;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.commons.core.LogsCenter;
 
 /**
  * Parses input arguments and creates a new CheckoutCommand object.
  */
 public class CheckoutCommandParser {
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the CheckoutCommand
@@ -19,13 +26,20 @@ public class CheckoutCommandParser {
      * @throws InsufficientAmountException if the input is less than the total amount
      * @throws NotANumberException if the input is not a number
      */
-    public static CheckoutCommand parse(String userInput, Model modelManager,
-                                        seedu.address.person.model.Model personModel) throws InsufficientAmountException,
-            NotANumberException {
+    public CheckoutCommand parse(String userInput, Model modelManager,
+                                 seedu.address.person.model.Model personModel) throws InsufficientAmountException,
+            NotANumberException, NoCashierFoundException {
 
         double totalAmount = modelManager.getTotalAmount();
         double amount;
         double change = 0;
+
+        try {
+            modelManager.getCashier();
+        } catch (NoCashierFoundException e) {
+            logger.info("Cashier is not found");
+            throw new NoCashierFoundException(CashierMessages.NO_CASHIER);
+        }
 
         try {
             amount = Double.parseDouble(userInput.substring(1));

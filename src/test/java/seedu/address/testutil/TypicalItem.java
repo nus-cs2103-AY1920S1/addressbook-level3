@@ -49,11 +49,6 @@ public class TypicalItem {
      * Returns an {@code InventoryList} with all the typical items.
      */
     public static InventoryList getTypicalInventoryList() {
-        /*TransactionList tl = new TransactionList();
-        for (Transaction transaction : getTypicalTransactions()) {
-            tl.add(transaction);
-        }
-        return tl;*/
         return new InventoryList(getTypicalItems());
     }
 

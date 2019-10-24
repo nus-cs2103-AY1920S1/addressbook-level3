@@ -5,10 +5,13 @@ import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOC
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 
+import java.util.logging.Logger;
+
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.inventory.model.Item;
+import seedu.address.person.commons.core.LogsCenter;
 
 /**
  * Adds an item to the sales list.
@@ -16,8 +19,9 @@ import seedu.address.inventory.model.Item;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    private String description;
+    private final String description;
     private final int quantity;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Creates an AddCommand to add an item
@@ -28,8 +32,8 @@ public class AddCommand extends Command {
         assert description != null : "Description cannot be null.";
         assert quantity >= 0 : "Quantity must be a positive integer.";
 
-        //logger.info("description of item added: " + description);
-        //logger.info("quantity of item added: " + quantity);
+        logger.info("description of item added: " + description);
+        logger.info("quantity of item added: " + quantity);
 
         this.description = description;
         this.quantity = quantity;
@@ -54,9 +58,18 @@ public class AddCommand extends Command {
         } catch (NoSuchItemException e) {
             throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
         }
-        //logger.info("Item added: " + i.toString());
+        logger.info("Item added: " + i.toString());
         return new CommandResult(String.format(MESSAGE_ADDED_ITEM, i.getDescription()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddCommand // instanceof handles nulls
+                && description.equals(((AddCommand) other).description)
+                && quantity == ((AddCommand) other).quantity);
+    }
+
 }
 
 

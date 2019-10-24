@@ -11,6 +11,7 @@ import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.cashier.logic.commands.AddCommand;
@@ -21,6 +22,7 @@ import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 import seedu.address.util.Prefix;
@@ -31,6 +33,7 @@ import seedu.address.util.Prefix;
 public class AddCommandParser implements Parser {
 
     private static ArgumentMultimap argMultimap;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -69,17 +72,20 @@ public class AddCommandParser implements Parser {
         try {
             quantity = Integer.parseInt(quantityString);
         } catch (Exception e) {
+            logger.info("Quantity inputted is not an integer.");
             throw new NotANumberException(QUANTITY_NOT_A_NUMBER);
         }
 
         // if the item with the specified description is not present
         if (!modelManager.hasItemInInventory(description)) {
             ArrayList<String> recommendedItems = modelManager.getRecommendedItems(description);
+            logger.info("The inventory do not have the item with the specified description.");
             throw new NoSuchItemException(noSuchItemRecommendation(recommendedItems));
         }
 
         // if the item with the specified description is not available for sale
         if (!modelManager.isSellable(description)) {
+            logger.info("The specified item is not available for sale.");
             throw new NoSuchItemException(NO_SUCH_ITEM_FOR_SALE_CASHIER);
         }
 

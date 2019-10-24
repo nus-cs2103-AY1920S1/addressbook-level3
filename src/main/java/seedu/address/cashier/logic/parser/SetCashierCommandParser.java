@@ -1,9 +1,12 @@
 package seedu.address.cashier.logic.parser;
 
+import java.util.logging.Logger;
+
 import seedu.address.cashier.logic.commands.SetCashierCommand;
 import seedu.address.cashier.logic.commands.exception.NoSuchPersonException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
@@ -12,6 +15,8 @@ import seedu.address.person.model.person.exceptions.PersonNotFoundException;
  * Parses input arguments and creates a new SetCashierCommand object.
  */
 public class SetCashierCommandParser {
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetCashierCommand
@@ -22,13 +27,14 @@ public class SetCashierCommandParser {
      * @throws NoSuchPersonException if the user input is an invalid person
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static SetCashierCommand parse(String name,
+    public SetCashierCommand parse(String name,
                                           seedu.address.cashier.model.Model modelManager, Model personModel)
             throws NoSuchPersonException, ParseException {
         try {
             Person cashier = personModel.getPersonByName(name.trim());
             return new SetCashierCommand(cashier);
         } catch (PersonNotFoundException e) {
+            logger.info("There is no such person in the person model.");
             throw new NoSuchPersonException(CashierMessages.NO_SUCH_PERSON);
         } catch (Exception e) {
             throw new ParseException(CashierMessages.MESSAGE_INVALID_CASHIERCOMMAND_FORMAT);

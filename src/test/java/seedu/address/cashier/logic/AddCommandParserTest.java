@@ -25,6 +25,7 @@ public class AddCommandParserTest {
     private seedu.address.person.model.Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+
     @Test
     public void parse_allFieldsPresent_success() {
 

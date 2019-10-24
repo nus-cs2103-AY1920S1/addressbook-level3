@@ -25,7 +25,7 @@ public class EditCommandTest {
     private static final int INVALID_INDEX_1 = 0;
     private static final int INVALID_INDEX_2 = 100;
     private static final int INVALID_QUANTITY = -5;
-    private static final int INVALID_QUANTITY_STORYBOOK = 40;
+    private static final int INVALID_QUANTITY_STORYBOOK = 5000;
 
     private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());

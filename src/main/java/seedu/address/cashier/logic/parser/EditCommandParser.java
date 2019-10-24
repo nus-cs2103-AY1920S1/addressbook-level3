@@ -7,6 +7,8 @@ import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_INDEX;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
+import java.util.logging.Logger;
+
 import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
 import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
@@ -16,12 +18,15 @@ import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser {
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -53,6 +58,7 @@ public class EditCommandParser implements Parser {
 
             try {
                 modelManager.findItemByIndex(index);
+                logger.info("The item do not exist.");
             } catch (IndexOutOfBoundsException e) {
                 throw new NoSuchIndexException(NO_SUCH_INDEX_CASHIER);
             }
