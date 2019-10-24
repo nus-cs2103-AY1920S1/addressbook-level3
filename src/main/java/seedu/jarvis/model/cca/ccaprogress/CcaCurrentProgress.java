@@ -14,16 +14,10 @@ public class CcaCurrentProgress {
     private int maxProgress = 0;
     private int currentProgress = 0;
 
-    /**
-     * Gets the integer value maximum progress.
-     */
     public int getMaxProgress() {
         return maxProgress;
     }
 
-    /**
-     * Gets the integer value of current progress.
-     */
     public int getCurrentProgress() {
         return currentProgress;
     }

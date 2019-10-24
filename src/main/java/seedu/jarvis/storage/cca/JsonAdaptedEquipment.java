@@ -28,7 +28,7 @@ public class JsonAdaptedEquipment {
      * Converts this Jackson-friendly adapted {@code Equipment} object into the model's {@code Equipment} object.
      *
      * @return {@code Equipment} of the Jackson-friendly adapted {@code Equipment}.
-     * @throws IllegalValueException if there were any data constraints violated in the adapted {@code Equipment}.
+     * @throws IllegalValueException If there were any data constraints violated in the adapted {@code Equipment}.
      */
     public Equipment toModelType() throws IllegalValueException {
         if (!Equipment.isValidEquipmentName(equipmentName)) {

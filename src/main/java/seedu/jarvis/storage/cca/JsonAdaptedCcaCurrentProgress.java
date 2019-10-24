@@ -33,7 +33,7 @@ public class JsonAdaptedCcaCurrentProgress {
      * {@code CcaCurrentProgress} object.
      *
      * @return {@code CcaCurrentProgress} of the Jackson-friendly adapted {@code CcaCurrentProgress}.
-     * @throws IllegalValueException if there were any data constraints violated in the adapted
+     * @throws IllegalValueException If there were any data constraints violated in the adapted
      * {@code CcaCurrentProgress}.
      */
     public CcaCurrentProgress toModelType() throws IllegalValueException {
