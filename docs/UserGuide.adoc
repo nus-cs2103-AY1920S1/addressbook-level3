@@ -64,7 +64,7 @@ Edit the flashcard with index corresponding to the display list with 1 or multip
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing categories, the existing categories of the person will be removed i.e adding of categories is not cumulative.
-* You can remove all the person's categories by typing `t/` without specifying any categories after it.
+* You can remove all the person's categories by typing `t>` without specifying any categories after it.
 ****
 
 
@@ -87,12 +87,12 @@ Starts the flashcard test from any specific category
 `remind Math 04/11 1030`
 
 
-=== Add general deadlines reminders: `deadline t/[TASK] d[DUE DATE]`
+=== Add general deadlines reminders: `deadline t>[TASK] d[DUE DATE]`
 
 Adds a general deadline into the deadline list. The list will be display on the right-side pane.
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
-`deadline t/CS2103 Exam d/10/11/2019`
+`deadline t>CS2103 Exam d>10/11/2019`
 
 === Remove deadline from list: `remove [index]`
 
