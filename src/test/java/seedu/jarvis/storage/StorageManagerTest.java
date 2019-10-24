@@ -3,6 +3,7 @@ package seedu.jarvis.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.cca.TypicalCcas.getTypicalCcaTracker;
 import static seedu.jarvis.testutil.history.TypicalCommands.getTypicalHistoryManager;
 
 import java.nio.file.Path;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
@@ -85,5 +87,18 @@ public class StorageManagerTest {
     @Test
     public void getHistoryManagerFilePath() {
         assertNotNull(storageManager.getHistoryManagerFilePath());
+    }
+
+    @Test
+    public void ccaTrackerReadSave() throws Exception {
+        CcaTracker original = getTypicalCcaTracker();
+        storageManager.saveCcaTracker(original);
+        CcaTracker retrieved = storageManager.readCcaTracker().get();
+        assertEquals(original, new CcaTracker(retrieved));
+    }
+
+    @Test
+    public void getCcaTrackerFilePath() {
+        assertNotNull(storageManager.getCcaTrackerFilePath());
     }
 }
