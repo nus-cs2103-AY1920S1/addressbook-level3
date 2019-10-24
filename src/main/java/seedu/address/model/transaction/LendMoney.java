@@ -8,12 +8,12 @@ import seedu.address.model.util.Date;
  * Payment concrete class from bankAccount to a Person
  */
 public class LendMoney extends Payment {
-    public LendMoney(Person person, Amount amount, Date date) {
-        super(person, amount, date);
+    public LendMoney(Person person, Amount amount, Date date, Description description) {
+        super(person, amount, date, description);
     }
 
-    public LendMoney(Person person, Amount amount) {
-        super(person, amount);
+    public LendMoney(Person person, Amount amount, Description description) {
+        super(person, amount, description);
     }
 
     @Override

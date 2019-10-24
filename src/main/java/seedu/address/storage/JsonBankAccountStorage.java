@@ -47,7 +47,7 @@ public class JsonBankAccountStorage implements BankAccountStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableBankAccount> jsonBankAccount = JsonUtil.readJsonFile(
-                filePath, JsonSerializableBankAccount.class);
+            filePath, JsonSerializableBankAccount.class);
         if (!jsonBankAccount.isPresent()) {
             return Optional.empty();
         }

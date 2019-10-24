@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
+import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
  * A list of transactions that enforces uniqueness between its elements and does not allow nulls.
@@ -18,7 +18,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * to ensure that the transaction being added or updated is unique in terms of identity in the UniqueTransactionList.
  * However, the removal of a Transaction uses Transaction#equals(Object) so
  * as to ensure that the transaction with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Transaction#isSameTransaction(BankAccountOperation)
@@ -27,7 +27,7 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
 
     private final ObservableList<BankAccountOperation> internalList = FXCollections.observableArrayList();
     private final ObservableList<BankAccountOperation> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent transaction as the given argument.
@@ -40,10 +40,14 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
     /**
      * Adds a transaction to the list.
      * The transaction must not already exist in the list.
+     *
      * @param toAdd
      */
     public void add(BankAccountOperation toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateTransactionException();
+        }
         internalList.add(toAdd);
     }
 
@@ -58,12 +62,11 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
 
         int index = internalList.indexOf(transactionTarget);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new TransactionNotFoundException();
         }
 
         if (!transactionTarget.equals(transactionEdit) && contains(transactionEdit)) {
-            // TODO: throw correct exception
-            throw new DuplicatePersonException();
+            throw new DuplicateTransactionException();
         }
 
         internalList.set(index, transactionEdit);
@@ -76,7 +79,7 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
     public void remove(BankAccountOperation toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new TransactionNotFoundException();
         }
     }
 
@@ -87,7 +90,7 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
     public void setTransactions(List<BankAccountOperation> transactions) {
         requireAllNonNull(transactions);
         if (!transactionsAreUnique(transactions)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateTransactionException();
         }
 
         internalList.setAll(transactions);
@@ -95,6 +98,7 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
+     *
      * @return
      */
     public ObservableList<BankAccountOperation> asUnmodifiableObservableList() {
@@ -109,8 +113,8 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTransactionList // instanceof handles nulls
-                        && internalList.equals(((UniqueTransactionList) other).internalList));
+            || (other instanceof UniqueTransactionList // instanceof handles nulls
+            && internalList.equals(((UniqueTransactionList) other).internalList));
     }
 
     @Override

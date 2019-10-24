@@ -21,6 +21,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.util.Date;
@@ -105,16 +106,19 @@ public class UpdateCommand extends Command {
         BankAccountOperation transactionToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
         assert transactionToEdit != null;
 
+        Description updatedDescription = updateTransactionDescriptor
+                .getDescription()
+                .orElse(transactionToEdit.getDescription());
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         Set<Category> updatedCategories = updateTransactionDescriptor
             .getCategories().orElse(transactionToEdit.getCategories());
 
         if (transactionToEdit instanceof InTransaction) {
-            return new InTransaction(updatedAmount, updatedDate, updatedCategories);
+            return new InTransaction(updatedAmount, updatedDate, updatedDescription, updatedCategories);
         } else {
             /* transactionToEdit instanceof OutTransaction. Add in more conditionals. */
-            return new OutTransaction(updatedAmount, updatedDate, updatedCategories);
+            return new OutTransaction(updatedAmount, updatedDate, updatedDescription, updatedCategories);
         }
     }
 
@@ -158,6 +162,7 @@ public class UpdateCommand extends Command {
      */
     public static class UpdateTransactionDescriptor {
         // TODO: Add name object
+        private Description description;
         private Amount amount;
         private Date date;
         private Set<Category> categories;
@@ -170,6 +175,7 @@ public class UpdateCommand extends Command {
          * A defensive copy of {@code categories} is used internally.
          */
         public UpdateTransactionDescriptor(UpdateTransactionDescriptor toCopy) {
+            setDescription(description);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setCategories(toCopy.categories);
@@ -180,6 +186,14 @@ public class UpdateCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(amount, date, categories);
+        }
+
+        public void setDescription(Description description) {
+            this.description = description;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         public void setAmount(Amount amount) {
