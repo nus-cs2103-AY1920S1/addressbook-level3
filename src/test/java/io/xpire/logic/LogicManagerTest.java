@@ -2,13 +2,11 @@ package io.xpire.logic;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_BANANA;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_BANANA;
-import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_BANANA;
-
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;

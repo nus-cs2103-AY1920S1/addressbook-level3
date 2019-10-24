@@ -90,14 +90,6 @@ public class ItemBuilder {
     }
 
     /**
-     * Sets the {@code ReminderThreshold} of the {@code Item} that we are building.
-     */
-    public ItemBuilder withThreshold(String reminderThreshold) {
-        this.reminderThreshold = new ReminderThreshold(reminderThreshold);
-        return this;
-    }
-
-    /**
      * Constructs a new {@code Item} with the modified fields.
      */
     public Item build() {

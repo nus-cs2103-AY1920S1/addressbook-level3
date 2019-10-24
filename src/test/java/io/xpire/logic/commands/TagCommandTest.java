@@ -1,14 +1,5 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_APPLE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_JELLY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_APPLE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_JELLY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_JELLY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_REMINDER_THRESHOLD_JELLY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRIDGE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_PROTEIN;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showItemAtIndex;
@@ -16,6 +7,15 @@ import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_PROTEIN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

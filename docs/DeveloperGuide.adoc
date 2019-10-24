@@ -274,8 +274,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 ==== Implementation
 
 The undo/redo mechanism is facilitated by `CloneModel` and `StackManager`.
-It is a separate class that stores a state of the model at any command in time. +
-Internally, it runs three private functions that copy the data over.
+It is a separate class that stores a state of the model at any command in time. Internally, it runs three private functions that copy the data over.
 
 The mechanism is supported by a StackManager which stores internally all the states and +
 decides when to pop or clear, depending on the command.
@@ -318,7 +317,7 @@ image::UndoRedo/UndoRedoStep4.png[]
 [NOTE]
 If there are no commands to undo (e.g. at the start of a new Xpire session), undo will return an Error to the user instead. This is done by checking whether the UndoStack is empty.
 
-The following sequence diagram shows how the undo operation works (TO BE UPDATED):
+The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
 
@@ -345,7 +344,7 @@ The current state, s1, will then be pushed into the Redo Stack.
 
 image::UndoRedo/UndoRedoStep5b.png[]
 
-Step 5c. The user may also decide to execute some other command (which is the most likely scenario) other than Undo/Redo. For instance, the user inputs `tag|2|#Fruit`
+Step 5c. The user may also decide to execute some other command (which is the most likely scenario) other than Undo/Redo. For instance, the user inputs `tag|2|#Fruit`.
 
 When this happens, the existing states in the Redo Stack will be cleared. The state s1, will then be pushed into the Undo Stack whilst the current state will be the new state s3 that includes the new Tag command.
 

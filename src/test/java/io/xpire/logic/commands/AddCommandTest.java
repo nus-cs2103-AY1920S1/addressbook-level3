@@ -1,8 +1,8 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_KIWI;
 import static io.xpire.testutil.Assert.assertThrows;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

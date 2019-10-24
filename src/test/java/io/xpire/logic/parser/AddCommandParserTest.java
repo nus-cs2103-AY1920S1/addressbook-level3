@@ -1,22 +1,19 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import static io.xpire.logic.CommandParserItemUtil.INVALID_EXPIRY_DATE;
-import static io.xpire.logic.CommandParserItemUtil.INVALID_NAME;
-import static io.xpire.logic.CommandParserItemUtil.INVALID_QUANTITY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_APPLE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_BANANA;
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_APPLE;
-
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_BANANA;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_KIWI;
-import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_BANANA;
 import static io.xpire.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItems.KIWI;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_NAME;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
 
 import org.junit.jupiter.api.Test;
 

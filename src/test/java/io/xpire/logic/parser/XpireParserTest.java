@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import io.xpire.logic.CommandParserItemUtil;
 import io.xpire.logic.commands.AddCommand;
 import io.xpire.logic.commands.CheckCommand;
 import io.xpire.logic.commands.ClearCommand;
@@ -29,6 +28,7 @@ import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.Item;
 import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.ItemUtil;
+import io.xpire.testutil.TypicalItemsFields;
 
 
 public class XpireParserTest {
@@ -100,7 +100,7 @@ public class XpireParserTest {
     public void parseCommand_tag() throws Exception {
         assertTrue(parser.parseCommand(TagCommand.COMMAND_WORD) instanceof TagCommand);
         assertTrue(parser.parseCommand(TagCommand.COMMAND_WORD + "|1|#"
-                + CommandParserItemUtil.VALID_TAG_DRINK) instanceof TagCommand);
+                + TypicalItemsFields.VALID_TAG_DRINK) instanceof TagCommand);
     }
 
     @Test
