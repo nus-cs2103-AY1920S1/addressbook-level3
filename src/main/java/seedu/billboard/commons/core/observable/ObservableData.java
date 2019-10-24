@@ -3,7 +3,6 @@ package seedu.billboard.commons.core.observable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
 
 /**
  * Lightweight observable wrapper around a value T which allows for observers to be registered and notified to any
