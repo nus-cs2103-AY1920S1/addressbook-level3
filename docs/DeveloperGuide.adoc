@@ -79,7 +79,8 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`
+, `StartWindow`, `GameWindow`, `PlayerInformation`, `GameBody`, `MovingWords` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -262,6 +263,17 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Game Window
+
+.Structure of the Game Window
+image::GameWindowClassDiagram.png[]
+
+The game window provides a simple typing game where there are moving words that users can type in order to score points.
+Once users correctly type the specified word, the word disappears and the increase in points is reflected in the player
+information panel in the game window. When the user fails to type the word before the moving word reaches the bottom of
+screen, the decrease in health points is reflected in the player information panel in the game window. After the health
+points reaches zero, `GAME OVER` is displayed.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -286,7 +298,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 * requires submitting large amount of structured reports or documents
 
-*Value proposition*: manage appointments and contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage appointments and contacts faster than a typical mouse/ GUI driven app
 
 [appendix]
 == User Stories
@@ -635,7 +647,7 @@ A person employed by an individual or in an office to assist with correspondence
 and carry out administrative tasks.
 
 [[manager]] Manager::
-The person a secretary is assigned to work for particularly.
+The person that the secretary is assigned to work for.
 
 [[appointment]] Appointment::
 An arrangement, managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
