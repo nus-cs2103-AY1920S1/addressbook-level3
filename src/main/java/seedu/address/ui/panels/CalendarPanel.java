@@ -100,7 +100,9 @@ public class CalendarPanel extends UiPart<Region> {
         // offset to 1-based
         int month = calendar.get(Calendar.MONTH) + 1;
         int date = calendar.get(Calendar.DAY_OF_MONTH);
-        LocalDateTime localDateTime = LocalDateTime.of(year, month, date, 0, 0);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        LocalDateTime localDateTime = LocalDateTime.of(year, month, date, hour, minute);
         agenda.setDisplayedLocalDateTime(localDateTime);
     }
 
