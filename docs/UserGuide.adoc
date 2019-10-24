@@ -65,7 +65,7 @@ image::Ui.png[width="790"]
 * `analyse strong/1` : analyses your first password and produces a detailed security report
 * `generate` : generates a random strong password for you
 * `encrypt <filepath>` : encrypts the file in the specified filepath
-.  Refer to <<Features>> for more details of each command.
+.  You may refer to <<Features>> for more details of all our available commands.
 
 [[Features]]
 == Features
@@ -187,19 +187,30 @@ Analyses in detail a specified password based on the user specified index.
 Format: `analyse strong/<index>`
 
 === Card
-Accessing card directory : `goto card`
+
+Too many credit cards to carry around? With SecureIT, you can easily manage your card information.
+
+To access your cards, simply enter `goto card` in the command box.
 
 ==== Creating a card : `add`
 
-Adds a credit/debit card to the app.
+You can easily adds cards to the application.
 
-Format: `add d/<description> c/<cardNumber> e/<expiry> v/<cvc>`
+Format: `add d/<description> c/<cardNumber> e/<expiry> v/<cvc> [t/<tag>]`
 
-Example: `add d/VisaPOSB `
+Example: `add d/VisaPOSB c/5203123458392748 e/12/25 v/456 t/groceries`
+
+==== Reading a card : `read`
+
+You can also obtain the details of a card easily, just by its description.
+
+Format: `read <description>`
+
+Example: `read VisaPOSB`
 
 ==== Deleting a card: `delete`
 
-Deletes a card as specified by the user.
+If your card has expired, you can easily remove it from the application, by its description.
 
 Format: `delete <description>`
 
