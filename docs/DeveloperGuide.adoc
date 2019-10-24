@@ -1,4 +1,4 @@
-= Liberry- Developer Guide
+= LiBerry- Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -27,6 +27,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
+
+{nbsp} +
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -60,6 +62,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
+{nbsp} +
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -68,6 +71,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `add t/Animal Farm a/George` command
 image::AddBook.png[]
+{nbsp} +
 
 The sections below give more details of each component.
 
@@ -76,10 +80,11 @@ The sections below give more details of each component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
+{nbsp} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -88,12 +93,28 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+Given below is the Sequence Diagram for interactions within
+the UI component when the user enter an add command.
+The exact command entered is `add t/Animal Farm a/George`.
+
+.Interactions Inside the UI Component for the `add t/Animal Farm a/George` Command
+image::UiAddBookSequenceDiagram.png[]
+{nbsp} +
+
+The following activity diagram summarizes what happens to the `UI`
+when a user executes a new command:
+
+.Flow of Events within `UI`
+image::UiUpdateBookListActivityDiagram.png[width=270]
+{nbsp} +
+
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
+{nbsp} +
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -104,38 +125,39 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add t/Animal Farm a/George")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `add t/Animal Farm a/George` Command
+image::AddBookLogicSequenceDiagram.png[]
+{nbsp} +
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
+{nbsp} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+* stores the Catalog data.
+* stores the Loan Records.
+* stores the Borrower Records.
+* references a borrower that is being served if the model is in serve mode.
+* references a list of filtered books which depends on the state of the model.
+* exposes an unmodifiable `ObservableList<Book>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+{nbsp} +
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -153,94 +175,108 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+//tag::addBook[]
+=== Add book feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The add book function is facilitated by `Catalog`.
+The `Catalog` stores a list of books, representing the books in the library.
+Additionally, it implements the following operation:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `Catalog#addBook(book)` -- Add a new book to the list of books in the catalog.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Given below is an activity diagram of a book being added to the catalog.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+.Activity Diagram for adding a book
+image::AddBookActivityDiagram.png[width=270]
+{nbsp} +
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Given below is a class diagram of a book after being added to the catalog.
 
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th book in the catalog. The `delete` command calls `Model#commitCatalog()`, causing the modified state of the catalog after the `delete 5` command executes to be saved in the `catalogStateList`, and the `currentStatePointer` is shifted to the newly inserted catalog state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new book. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+.Class Diagram for `Book`
+image::BookClassDiagram.png[width=400]
+{nbsp} +
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Data structure to store books.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the book being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 :** Store them only in a ObservableList as per the original AddressBook implementation.
+** Pros: Will be easy to implement.
+** Cons: May have performance issues in terms of efficiency in retrieving books.
+* **Alternative 2 (current choice):** Store them in a HashMap.
+** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
+** Cons: Will incur additional memory to maintain the HashMap.
 
-===== Aspect: Data structure to support the undo/redo commands
+===== Aspect: Generating a unique serial number.
+Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
+number using the number of books or the largest serial number.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+Eg: The system now has "B00009" and "B00010".
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+If we generate based on number of books, we get the serial number "B00003", wasting the serial numbers "B00001" and "B00002".
 
-_{Explain here how the data encryption feature will be implemented}_
+If we generate based on the largest serial number, we get the serial number "B00011", wasting all the unused serial numbers before it.
 
-// end::dataencryption[]
+We need to come up with a solution to give us "B00001" in the given example.
+
+* **Alternative 1 (current choice):** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
+** Pros: Will be efficient in generating the next valid serial number.
+** Cons: Will incur additional memory to maintain the TreeMap.
+* **Alternative 2:** Use brute force to start iterating from "B00001" to obtain the first unused serial number.
+** Pros: Will be easy to implement.
+** Cons: Will be inefficient once the number of books grow.
+//end::addBook[]
+
+// tag::printLoanSlip[]
+=== Generate Loan Slip feature
+==== Proposed Implementation
+
+The printing of loan slip feature is facilitated by `LoanSlipUtil`.
+Essentially, it implements the following operations:
+
+* `LoanSlipUtil#mountLoan()` -- Mounts a loan slip in preparation for generation of loan slip in pdf form.
+* `LoanSlipUtil#unmountLoan()` -- Unmounts a loan slip ,usually after generating a pdf version of it.
+* `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loan slip in the loan_slips folder.
+
+Given below is the sequence diagram of the generation of loan slip during the loan of a book.
+
+.Sequence Diagram for the generation of a loan slip
+image::LoanSlipGeneration.png[]
+{nbsp} +
+
+The following describes the sequence of events displayed in the figure above.
+****
+1) The `LoanCommand` is executed +
+2) The `LoanCommand` retrieves the `Book` and the `Borrower` +
+3) The `LoanCommand` creates a new `Loan` +
+4) The `LoanCommand` mounts the new loan in `LoanSlipUtil` +
+5) The `Storage` component creates and save a new `LoanSlipDocument` in a saved folder +
+6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
+7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
+****
+==== Design Considerations
+
+===== Aspect: How to create and use an instance of a `LoanSlipDocument`.
+
+* **Alternative 1 :** Use the `LoanSlipDocument` constructor directly.
+** Pros: Will be straightforward to implement.
+** Cons: The `Logic` component and the `LoanCommand` object needs to have knowledge on all individual methods of `LoanSlipDocument` to be able to create a loan slip.
+* **Alternative 2 (current choice):** Create a Facade class `LoanSlipUtil` to facilitate creation of `LoanSlipDocument`.
+** Pros: The `Logic` component and the `LoanCommand` object can now use the full functionality of `LoanSlipDocument` via the static class `LoanSlipUtil` without knowing the internal implementation of `LoanSlipDocument`.
+** Cons: There is more code to be written and we must consider how to save state within a static class such that it can be continually reused.
+
+We have decided to go with Alternative 2. The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*. It also *decouples* the code, making it easier to modify in the future.
+
+===== Aspect: Implementation to allow extension (loan multiple books at one go).
+
+* **Alternative 1 (current choice):** Mount a loan in `LoanSlipUtil` for each book.
+** Pros: Will be easy to extend in the future as we can just mount multiple loans using `LoanSlipUtil` before generating all loans in a single loan slip.
+** Cons: Will require more code when mounting loans in the Facade class.
+* **Alternative 2:** Re-create `LoanSlipDocument` whenever a new loan comes in.
+** Pros: Will only need to make adjustments to `Logic` component to contain an `Optional<LoanSlipDocument>` field and update accordingly whenever a new `Loan` comes in.
+** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of `LoanSlipDocument`.
+// end::printLoanSlip[]
 
 === Logging
 
@@ -261,6 +297,167 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Book loaning feature
+
+==== Functionalities
+The functionalities and commands associated with the book loaning feature are:
+
+* `loan sn/BOOK_SN`
+
+** Loans out a book based on its serial number.
+
+* `return INDEX [-all]`
+
+** Returns a book based on the index of that book shown on the GUI.
+
+* `renew INDEX [-all]`
+
+** Renews a book based on the index of that book shown on the GUI.
+
+* `reserve sn/BOOK_SN` or `reserve INDEX`
+
+** Reserves a book based on its serial number or index of that book shown on the GUI.
+
+* `pay AMOUNT`
+
+** Pay a fine amount for overdue books.
+
+The rationale for the different types of arguments for the loan, return, renew and reserve may not be apparent at first,
+but it is actually very simple.
+
+* When borrowers come to the librarian (our user) to borrow a book, the book itself would have
+a serial number. Thus, the user just types in the serial number of the book to be loaned out, instead of using the find
+command to locate that book in LiBerry to use its index.
+
+* Whereas, when a borrower comes to return a book, the librarian only sees a limited list of book that was loaned out by
+the borrower on the GUI. Hence, the librarian need not type the longer serial number to return that book, and instead, types
+its index shown in the GUI list. Likewise, the same idea is applied to renewing books
+
+* When reserving books for borrowers, it is possible that the book is found through the GUI, and thus, index is used. Or,
+the borrower brings the physical book forward to reserve it as he/she does not want to borrow it now.
+
+==== Implementation
+
+This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
+just after a book is loaned out can be seen below.
+
+.Loan object diagram after a new Loan is created
+image::LoanObjectDiagram.png[width="880"]
+{nbsp} +
+
+In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
+The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
+
+Both the `Book` and `Borrower` objects also have access to this `Loan` object.
+
+In each `Loan` object, only the `BorrowerId` of the `Borrower` and `SerialNumber` of the `Book` is stored to reduce
+circular dependency.
+
+The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
+
+Immutability of each object is supported to ensure correctness of undo and redo functionality.
+
+===== Loaning
+
+The following activity diagram summarizes what happens when a user enters a loan command:
+
+.Activity diagram when a loan command is entered
+image::LoaningActivityDiagram.png[width="650"]
+{nbsp} +
+
+NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
+they are not shown.
+
+When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
+to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
+The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
+`LoanRecords` through the call to `Model#addLoan(loan)`.
+
+The new `Borrower` instance is created by copying the details of the borrower from the original object, and also with this `Loan`
+object being added into its `currentLoanList`. The new borrower object then replaces the old borrower object in the
+`BorrowerRecords` object in the model. These two steps are done through the method call to `Model#servingBorrowerNewLoan(loan)`.
+The new `Book` instance is also created by copying the details of the original book object, and likewise, with this `Loan` object added into it.
+Similarly, the new book object also replaces the old book object in the `Catalog` object in the model through the call to
+`Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support immutability of the objects.
+
+===== Returning
+
+The following activity diagram summarizes what happens when a user enters a return command:
+
+.Activity diagram when a book is being returned.
+image::ReturningActivityDiagram.png[width="820"]
+{nbsp} +
+
+NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
+they are not shown.
+
+When a loaned out book is successfully returned by a borrower, the associated `Loan` object is moved from the borrower's
+`currentLoanList` to `returnedLoanList`. Inside the book object, this `Loan` object is also removed. Inside this loan
+object, the `returnDate` is added according to today's date. The `remainingFineAmount` of this loan object is also
+calculated based on the fine amount set in the user settings.
+
+Similarly, the creation of new objects for replacement are also done to support immutability. They are supported by the
+methods `Model#setBook(bookToBeReturned, returnedBook)` and `Model#servingBorrowerReturnLoan(returningLoan)`.
+
+===== Renewing
+
+When a book is successfully renewed by a borrower, the `renewCount` of the `Loan` object is incremented by 1
+and its `dueDate` is also increased by the renew period set in the user settings.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
+===== Reserving
+
+When a book is successfully reserved by a borrower, the `Book` object is marked as reserved and is added to the borrower's
+`reservedBookList`.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
+===== Paying fines
+
+When a fine amount is successfully paid by a borrower, the `remainingFineAmount` and `paidFineAmount` of the loans in
+the borrower's `returnedLoanList` is updated accordingly.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
+==== Design Considerations
+
+===== Aspect: File storage of loans
+
+Inside the model, for each current loan (loans that are not returned yet), the `Book`, the `Borrower` and the `LoanRecords`
+point to the same the same `Loan` object. LiBerry's storage system is such that `Catalog` stores the books,
+`BorrowerRecords` stores the borrowers and `LoanRecords` stores the loans. Thus, a decision was made to decide how these
+loans are serialized and stored in the user's file system.
+
+* **Alternative 1:** Save the whole `Loan` object in each book in the `catalog.json` and save the the whole of every `Loan`
+object in each borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
+** Pros: Easy to implement. No need to read storage files in a specific order.
+** Cons: Storage memory size issues. Same information is duplicated and stored in all 3 storage files.
+
+* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in the `catalog.json`
+and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whole `Loan` object is only saved in
+`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` need to be read
+in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
+on their `LoanId` s.
+** Pros: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
+Also, LoanRecords thus serve as a single source of truth.
+** Cons: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
+after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
+also be fast enough as there can be hundreds of thousands of loans.
+
+===== Aspect: Data structure to support recording of loans in LoanRecords
+
+* **Alternative 1:** Use a list data structure, such as an `ArrayList` to store the loans in the model component.
+** Pros: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
+** Cons: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
+correct associated `Loan` object. These additional time taken adds up when reading the storage files during the starting
+up of the application and can make the application feel laggy and unresponsive at the start.
+
+* **Alternative 2 (selected choice):** Use a `HashMap` to store the loans, where the key is its `LoanId`.
+** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
+** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
+`startDate` in order to obtain their insertion order.
 
 == Documentation
 
@@ -287,7 +484,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: Many people visit the neighborhood library to borrow books and also donate their books. There is
-always a long queue in this small library and the librarian would have to type quickly to handle the long queue. Liberry
+always a long queue in this small library and the librarian would have to type quickly to handle the long queue. LiBerry
 can manage a library system faster than a typical mouse/GUI driven app.
 
 [appendix]
@@ -372,17 +569,23 @@ I submit a book title query
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `Liberry` and the *Actor* is the `user`, unless specified otherwise)
+The use case diagram below illustrates the main use cases of LiBerry.
+
+.General Use Cases for LiBerry
+image::UseCases.png[width="330"]
+{nbsp} +
+
+(For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
 [discrete]
 === Use case: Delete book
 
 *MSS*
 
-1.  User requests to list books
-2.  Liberry shows a list of books
+1.  User searches for books by name, genre or author
+2.  LiBerry shows a list of books
 3.  User requests to delete a specific book in the list
-4.  Liberry deletes the book
+4.  LiBerry deletes the book
 +
 Use case ends.
 
@@ -391,14 +594,83 @@ Use case ends.
 [none]
 * 2a. The list is empty.
 +
-Use case ends.
-
+[none]
+Use case ends
++
+{empty} +
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. Liberry shows an error message.
+** 3a1. LiBerry shows an error message.
 +
 Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Add book
+
+*MSS*
+
+1.  User adds a book by specifying its details
+2.  LiBerry shows a success message
+
+Use case ends.
+
+* 1a. The arguments provided are invalid.
++
+[none]
+** 1a1. LiBerry shows an error message.
++
+Use case ends.
+
+* 1b. Serial Number is not provided.
++
+[none]
+** 1b1. Serial Number is auto-generated.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Loan book
+
+*MSS*
+
+1.  Borrower comes to user to borrow a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User loans out the book to the borrower.
+5.  LiBerry shows the book as being successfully loaned out.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. LiBerry cannot find the ID in its system.
+[none]
+** 2a1. LiBerry requests for a valid and registered ID.
+[none]
+** 2a2. User enters new ID.
+** Steps 2a1-2a2 are repeated until the ID entered is valid.
++
+Use case resumes at step 3.
++
+{empty} +
+* 3a. The book cannot be loaned out.
++
+[none]
+** 3a1. LiBerry shows an error message.
++
+Use case ends.
++
+{empty} +
+[none]
+* *a. At any time, the user makes a typo in the input.
+[none]
+** *a1. User undoes the last command entered.
+[none]
+** *a2. User re-types the input.
++
+Use case resumes at the step preceding this.
 
 _{More to be added}_
 
@@ -406,8 +678,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to manage up to 20000 books and 5000 borrower records without a noticeable sluggishness in performance
-for typical usage.
+.  Should be able to manage up to 20000 books, 5000 borrower records and 500000 loan records without a noticeable
+sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
 able to accomplish most of the tasks faster using commands than using the mouse.
 
@@ -419,6 +691,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[ui]] UI::
+User Interface
 
 [appendix]
 == Product Survey

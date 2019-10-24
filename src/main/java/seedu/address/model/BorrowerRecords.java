@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashMap;
 
@@ -9,6 +10,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.BorrowerIdGenerator;
+import seedu.address.model.borrower.exceptions.BorrowerNotFoundException;
+import seedu.address.model.borrower.exceptions.DuplicateBorrowerException;
 
 /**
  * Wraps all data at the catalog level
@@ -20,9 +23,6 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     private ObservableList<Borrower> listOfBorrowers = FXCollections.observableArrayList();
     private HashMap<BorrowerId, Borrower> borrowersMap = new HashMap<>();
 
-    /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
-     */
     public BorrowerRecords() {
     }
 
@@ -89,6 +89,34 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
             throw new NullPointerException("Borrower does not exists");
         }
         return borrowersMap.get(id);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent borrower as the given argument.
+     */
+    public boolean listContains(Borrower toCheck) {
+        requireNonNull(toCheck);
+        return listOfBorrowers.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Replaces the borrower {@code target} in the list with {@code editedBorrower}.
+     * {@code target} must exist in the list.
+     * The borrower identity of {@code editedBorrower} must not be the same as another existing borrower in the list.
+     */
+    public void setBorrower(Borrower target, Borrower editedBorrower) {
+        requireAllNonNull(target, editedBorrower);
+        int index = listOfBorrowers.indexOf(target);
+        if (index == -1) {
+            throw new BorrowerNotFoundException();
+        }
+        if (!target.equals(editedBorrower) && listContains(editedBorrower)) {
+            throw new DuplicateBorrowerException();
+        }
+        listOfBorrowers.set(index, editedBorrower);
+
+        borrowersMap.remove(target.getBorrowerId());
+        borrowersMap.put(editedBorrower.getBorrowerId(), editedBorrower);
     }
 
     @Override

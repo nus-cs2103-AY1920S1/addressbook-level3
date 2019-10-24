@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.model.ReadOnlyBorrowerRecords;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.ReadOnlyLoanRecords;
@@ -38,6 +39,8 @@ public interface Storage extends UserPrefsStorage,
 
     @Override
     void saveLoanRecords(ReadOnlyLoanRecords loanRecords) throws IOException;
+
+    void storeNewLoanSlip() throws LoanSlipException;
 
     // CatalogStorage methods
 

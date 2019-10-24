@@ -6,14 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BORROWER;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalBorrowers.ID_FIRST_BORROWER;
-import static seedu.address.testutil.TypicalBorrowers.ID_SECOND_BORROWER;
+import static seedu.address.testutil.TypicalBorrowers.BOB;
+import static seedu.address.testutil.TypicalBorrowers.FIONA;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 
 import org.junit.jupiter.api.Test;
@@ -35,32 +34,36 @@ public class EditBorrowerCommandTest {
 
     @Test
     public void execute_allFieldsSpecified_success() throws CommandException {
-        Borrower editedBorrower = new BorrowerBuilder().build();
+        //serves BOB
+        new ServeCommand(new BorrowerId(VALID_ID_BOB)).execute(model);
+        Borrower editedBorrower = new BorrowerBuilder(BOB).build();
         EditBorrowerCommand.EditBorrowerDescriptor descriptor =
                 new EditBorrowerDescriptorBuilder(editedBorrower).build();
-        EditBorrowerCommand editBorrowerCommand = new EditBorrowerCommand(ID_FIRST_BORROWER, descriptor);
+        EditBorrowerCommand editBorrowerCommand = new EditBorrowerCommand(descriptor);
 
         String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower);
 
         Model expectedModel = new ModelManager(
                 new Catalog(new Catalog()), new LoanRecords(), model.getBorrowerRecords(), new UserPrefs());
 
-        expectedModel.setBorrower(model.getBorrowerFromId(ID_FIRST_BORROWER), editedBorrower);
+        expectedModel.setBorrower(model.getServingBorrower(), editedBorrower);
 
         assertCommandSuccess(editBorrowerCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecified_success() throws CommandException {
-        BorrowerId id = ID_FIRST_BORROWER;
-        Borrower borrower = model.getBorrowerFromId(id);
+        //serves BOB
+        new ServeCommand(new BorrowerId(VALID_ID_BOB)).execute(model);
+
+        Borrower borrower = model.getServingBorrower();
 
         BorrowerBuilder borrowerInList = new BorrowerBuilder(borrower);
         Borrower editedBorrower = borrowerInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
 
         EditBorrowerCommand.EditBorrowerDescriptor descriptor =
                 new EditBorrowerDescriptorBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
-        EditBorrowerCommand editCommand = new EditBorrowerCommand(id, descriptor);
+        EditBorrowerCommand editCommand = new EditBorrowerCommand(descriptor);
 
         String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower);
 
@@ -73,9 +76,12 @@ public class EditBorrowerCommandTest {
 
     @Test
     public void execute_noFieldSpecified_success() throws CommandException {
-        EditBorrowerCommand editCommand = new EditBorrowerCommand(ID_FIRST_BORROWER,
+        //serves BOB
+        new ServeCommand(new BorrowerId(VALID_ID_BOB)).execute(model);
+
+        EditBorrowerCommand editCommand = new EditBorrowerCommand(
                 new EditBorrowerCommand.EditBorrowerDescriptor());
-        Borrower editedBorrower = model.getBorrowerFromId(ID_FIRST_BORROWER);
+        Borrower editedBorrower = model.getServingBorrower();
 
         String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower);
 
@@ -87,23 +93,25 @@ public class EditBorrowerCommandTest {
 
     @Test
     public void execute_duplicateBorrower_failure() throws CommandException {
-        Borrower borrower = model.getBorrowerFromId(ID_FIRST_BORROWER);
-        EditBorrowerCommand.EditBorrowerDescriptor descriptor = new EditBorrowerDescriptorBuilder(borrower).build();
-        EditBorrowerCommand editCommand = new EditBorrowerCommand(ID_SECOND_BORROWER, descriptor);
+        //serves BOB
+        new ServeCommand(new BorrowerId(VALID_ID_BOB)).execute(model);
+
+        EditBorrowerCommand.EditBorrowerDescriptor descriptor = new EditBorrowerDescriptorBuilder(FIONA).build();
+        EditBorrowerCommand editCommand = new EditBorrowerCommand(descriptor);
 
         assertCommandFailure(editCommand, model, MESSAGE_DUPLICATE_BORROWER);
     }
 
     @Test
     public void equals() throws CommandException {
-        final EditBorrowerCommand standardCommand = new EditBorrowerCommand(new BorrowerId(VALID_ID_AMY),
+        final EditBorrowerCommand standardCommand = new EditBorrowerCommand(
                 DESC_AMY);
 
         // same values -> returns true
         EditBorrowerCommand.EditBorrowerDescriptor copyDescriptor =
                 new EditBorrowerCommand.EditBorrowerDescriptor(DESC_AMY);
         EditBorrowerCommand commandWithSameValues =
-                new EditBorrowerCommand(new BorrowerId(VALID_ID_AMY), copyDescriptor);
+                new EditBorrowerCommand(copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -116,9 +124,9 @@ public class EditBorrowerCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different borrowerId -> returns false
-        assertFalse(standardCommand.equals(new EditBorrowerCommand(new BorrowerId(VALID_ID_BOB), DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditBorrowerCommand(DESC_BOB)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditBorrowerCommand(new BorrowerId(VALID_ID_BOB), DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditBorrowerCommand(DESC_BOB)));
     }
 }

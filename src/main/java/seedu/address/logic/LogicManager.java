@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.LoanSlipException;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,8 +48,15 @@ public class LogicManager implements Logic {
             storage.saveLoanRecords(model.getLoanRecords());
             storage.saveCatalog(model.getCatalog());
             storage.saveBorrowerRecords(model.getBorrowerRecords());
+            if (LoanSlipUtil.isMounted()) {
+                storage.storeNewLoanSlip();
+                LoanSlipUtil.openGeneratedLoanSlip();
+                LoanSlipUtil.unmountLoan();
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        } catch (LoanSlipException lse) {
+            logger.info("Error in generating loan slip");
         }
 
         return commandResult;
@@ -59,7 +68,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Book> getFilteredPersonList() {
+    public ObservableList<Book> getFilteredBookList() {
         return model.getFilteredBookList();
     }
 

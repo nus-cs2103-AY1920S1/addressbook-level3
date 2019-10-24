@@ -14,4 +14,5 @@ public interface ReadOnlyLoanRecords {
     Collection<Loan> getLoanCollection();
 
     HashMap<LoanId, Loan> getLoansMap();
+
 }

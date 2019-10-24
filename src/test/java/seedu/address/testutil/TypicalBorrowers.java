@@ -72,7 +72,7 @@ public class TypicalBorrowers {
     }
 
     public static List<Borrower> getTypicalBorrowers() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, BOB));
     }
 
 }

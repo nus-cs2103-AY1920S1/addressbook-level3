@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+
+participant ":User" as User USER_COLOR
+box UI #Lightgreen
+    participant ":CommandBox" as CommandBox UI_COLOR
+    participant ":MainWindow" as MainWindow UI_COLOR
+    participant ":ResultDisplay" as ResultDisplay UI_COLOR
+end box
+participant ":Logic" as Logic LOGIC_COLOR
+
+User -> CommandBox: handleCommandEntered()
+activate CommandBox
+
+CommandBox -> MainWindow: executeCommand("add t/Animal Farm a/George")
+activate MainWindow
+
+MainWindow -> Logic: execute("add t/Animal Farm a/George")
+activate Logic
+
+Logic --> MainWindow: commandResult
+deactivate Logic
+
+MainWindow -> ResultDisplay: setFeedbackToUser(commandResult)
+activate ResultDisplay
+
+ResultDisplay --> MainWindow
+deactivate ResultDisplay
+
+MainWindow --> CommandBox
+deactivate MainWindow
+
+CommandBox -> CommandBox: setText("")
+activate CommandBox
+
+return
+
+CommandBox --> User
+deactivate CommandBox
+
+@enduml

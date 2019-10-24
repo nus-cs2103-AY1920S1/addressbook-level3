@@ -50,7 +50,7 @@ public class JsonCatalogStorage implements CatalogStorage {
 
         Optional<JsonSerializableCatalog> jsonCatalog = JsonUtil.readJsonFile(
                 filePath, JsonSerializableCatalog.class);
-        if (!jsonCatalog.isPresent()) {
+        if (jsonCatalog.isEmpty()) {
             return Optional.empty();
         }
 

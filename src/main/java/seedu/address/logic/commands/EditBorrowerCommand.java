@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BORROWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -28,12 +27,11 @@ public class EditBorrowerCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the borrower identified "
             + "by borrower ID. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL]\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_BORROWER_ID + "K0001 "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
@@ -41,18 +39,14 @@ public class EditBorrowerCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
 
-    private final BorrowerId id;
     private final EditBorrowerDescriptor editBorrowerDescriptor;
 
     /**
-     * @param id of the borrower
      * @param editBorrowerDescriptor details to edit the borrower with
      */
-    public EditBorrowerCommand(BorrowerId id, EditBorrowerDescriptor editBorrowerDescriptor) throws CommandException {
-        requireNonNull(id);
+    public EditBorrowerCommand(EditBorrowerDescriptor editBorrowerDescriptor) throws CommandException {
         requireNonNull(editBorrowerDescriptor);
 
-        this.id = id;
         this.editBorrowerDescriptor = new EditBorrowerDescriptor(editBorrowerDescriptor);
     }
 
@@ -67,7 +61,7 @@ public class EditBorrowerCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Borrower borrowerToEdit = model.getBorrowerFromId(id);
+        Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
 
         if (model.hasDuplicatedBorrower(editedBorrower)) {
@@ -84,7 +78,7 @@ public class EditBorrowerCommand extends Command {
      */
     private static Borrower createEditedBorrower(Borrower borrowerToEdit,
                                                  EditBorrowerDescriptor editBorrowerDescriptor) {
-        assert borrowerToEdit != null;
+        requireNonNull(borrowerToEdit);
 
         Name updatedName = editBorrowerDescriptor.getName().orElse(borrowerToEdit.getName());
         Phone updatedPhone = editBorrowerDescriptor.getPhone().orElse(borrowerToEdit.getPhone());
@@ -108,8 +102,7 @@ public class EditBorrowerCommand extends Command {
 
         // state check
         EditBorrowerCommand e = (EditBorrowerCommand) other;
-        return id.equals(e.id)
-                && editBorrowerDescriptor.equals(e.editBorrowerDescriptor);
+        return editBorrowerDescriptor.equals(e.editBorrowerDescriptor);
     }
 
     /**

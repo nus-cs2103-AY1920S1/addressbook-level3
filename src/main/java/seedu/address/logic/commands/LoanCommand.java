@@ -7,7 +7,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
 import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 
+import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -72,8 +74,14 @@ public class LoanCommand extends Command {
 
         // replace the previous Book object with a new Book object that has a Loan
         model.setBook(bookToBeLoaned, loanedOutBook);
-        servingBorrower.addNewLoan(loan); // add Loan object to Borrower
         model.addLoan(loan); // add Loan object to LoanRecords in model
+        model.servingBorrowerNewLoan(loan); // add Loan object to Borrower's currentLoanList
+
+        try {
+            LoanSlipUtil.mountLoan(loan, loanedOutBook, servingBorrower);
+        } catch (LoanSlipException e) {
+            e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, loanedOutBook, servingBorrower));
     }

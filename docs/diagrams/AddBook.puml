@@ -10,7 +10,7 @@ participant ":Storage" as Storage LOGIC_COLOR
 User -> UI : add t/Animal Farm a/George
 activate UI
 
-UI -> Logic : execute("add Animal Farm")
+UI -> Logic : execute("add t/Animal Farm a/George")
 activate Logic
 
 Logic -> Model : addBook(animalFarm)
