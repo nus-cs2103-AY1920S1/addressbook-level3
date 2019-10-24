@@ -393,9 +393,9 @@ e.g. `log 2 30092019 8`
 * *Fetch Event*: `fetch_em INDEX` +
 e.g. `fetch_ev 3`
 * *Allocate Employees (Auto)*: `allocate EVENT_INDEX [n/NUMBER] [t/TAGS]...` +
-e.g. `allocate 002 t/female`
+e.g. `allocate 1 n/2 t/female`
 * *Allocate Employees (Manual)*: `allocatem EVENT_INDEX [n/EMPLOYEE_INDEX]...` +
-e.g. `allocatem 002 n/2 n/5 n/3`
+e.g. `allocatem 1 n/2 `
 * *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
 e.g. `pay 2 f/20082019 t/20102019`
 * *Generate Event Contract*: `contract n/EVENT_ID` +
