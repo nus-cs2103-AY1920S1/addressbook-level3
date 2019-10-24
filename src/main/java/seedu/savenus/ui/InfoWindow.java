@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.InfoCommand;
-import seedu.savenus.logic.commands.MakeSortCommand;
 import seedu.savenus.model.info.AddInfo;
 import seedu.savenus.model.info.AutoSortInfo;
 import seedu.savenus.model.info.BudgetInfo;

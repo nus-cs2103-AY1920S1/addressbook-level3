@@ -2,6 +2,9 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.MakeSortCommand;
 
+/**
+ * Contains information on MakeSort command.
+ */
 public class MakeSortInfo {
     public static final String COMMAND_WORD = MakeSortCommand.COMMAND_WORD;
 
