@@ -14,11 +14,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.card.EventCard;
-import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
-
+import seedu.address.ui.card.CardHolder;
+import seedu.address.ui.card.EventCard;
 
 /**
  * Represents an abstract class for the different timelines placed in the CalendarPanel.

@@ -5,9 +5,9 @@ import java.util.List;
 import javafx.scene.layout.RowConstraints;
 
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.card.EventCard;
-import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.UiParser;
+import seedu.address.ui.card.CardHolder;
+import seedu.address.ui.card.EventCard;
 /**
  * An UI component that displays the feedback to the user.
  */

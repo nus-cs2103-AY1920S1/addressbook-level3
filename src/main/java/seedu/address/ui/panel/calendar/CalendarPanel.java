@@ -126,6 +126,10 @@ public class CalendarPanel extends UiPart<Region> {
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
+    /**
+     * Changes the sub-components of the CalendarPanel with the updated events.
+     * @param events The given list of events.
+     */
     public void onEventListChange(List<EventSource> events) {
         this.timelineView.eventChange(events);
         this.calendarScreen.eventChange(events);
