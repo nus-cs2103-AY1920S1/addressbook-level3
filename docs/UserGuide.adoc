@@ -338,10 +338,10 @@ Format: `display_schedule`
 
 === Miscellaneous
 
-==== Generate Statistics: `generate_stats`
+==== Generate Statistics: `stats_g`
 Displays a set of statistics, Number of events, Number of employee etc
 
-Format: `generate_stats`
+Format: `stats_g`
 
 ==== Clearing all entries : `clear`
 
