@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModulePlannerParser" as ModulePlannerParser LOGIC_COLOR
+participant "r:RevertCommitCommand" as RevertCommitCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModulePlanner" as ModulePlanner MODEL_COLOR
+end box
+[-> LogicManager : execute(undo)
+activate LogicManager
+
+LogicManager -> ModulePlannerParser : parseCommand(undo)
+activate ModulePlannerParser
+
+create RevertCommitCommand
+ModulePlannerParser -> RevertCommitCommand
+activate RevertCommitCommand
+
+RevertCommitCommand --> ModulePlannerParser
+deactivate RevertCommitCommand
+
+ModulePlannerParser --> LogicManager : r
+deactivate ModulePlannerParser
+
+LogicManager -> RevertCommitCommand : execute()
+activate RevertCommitCommand
+
+RevertCommitCommand -> Model : revertToCommit(int studyPlanIndex, int commitNumber)
+activate Model
+
+Model -> ModulePlanner : revertToCommit(int studyPlanIndex, int commitNumber)
+activate ModulePlanner
+
+'ModulePlanner -> ModulePlanner :resetData(ReadOnlyAddressBook)
+ModulePlanner --> Model :
+deactivate ModulePlanner
+
+Model --> RevertCommitCommand
+deactivate Model
+
+RevertCommitCommand --> LogicManager : result
+deactivate RevertCommitCommand
+RevertCommitCommand -[hidden]-> LogicManager : result
+destroy RevertCommitCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
