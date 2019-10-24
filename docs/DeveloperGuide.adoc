@@ -285,10 +285,9 @@ The sequence diagram below shows how an undo command works to undo a `ClearComma
 
 image::UndoSequenceDiagram.png[]
 
+If a `redo` command was executed afterwards, the `ClearCommand` would simply be executed again.
 
-After this is done, if a `redo` command was executed, the `ClearCommand` would simply be executed again.
-
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram shows what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
 
