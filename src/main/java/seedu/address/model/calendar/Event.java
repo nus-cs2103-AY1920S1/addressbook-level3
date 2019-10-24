@@ -62,6 +62,11 @@ public class Event extends CalendarEntry {
                 && isSameEvent((Event) calendarEntry);
     }
 
+    @Override
+    public boolean isBetween(DateTime start, DateTime end) {
+        return getDateTime().isBetweenDateTime(start, end);
+    }
+
     /**
      * Returns true if both events have the same description, dateTime, endingDateTime and autoReminder.
      */

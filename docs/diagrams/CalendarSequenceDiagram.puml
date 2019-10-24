@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":Parser" as AddressBookParser LOGIC_COLOR
+participant "r:Reminder" as ReminderCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Calendar" as Calendar MODEL_COLOR
+participant ":Scheduler" as Scheduler MODEL_COLOR
+end box
+
+[-> LogicManager : execute(reminder)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(reminder)
+activate AddressBookParser
+
+create ReminderCommand
+AddressBookParser -> ReminderCommand
+activate ReminderCommand
+
+ReminderCommand --> AddressBookParser
+deactivate ReminderCommand
+
+AddressBookParser --> LogicManager : r
+deactivate AddressBookParser
+
+LogicManager -> ReminderCommand : execute()
+activate ReminderCommand
+
+ReminderCommand-> Model : addCalendarEntry()
+activate Model
+
+Model -> Calendar : addCalendarEntry()
+activate Calendar
+
+Calendar --> Model :
+deactivate Calendar
+
+Model --> ReminderCommand
+deactivate Model
+
+ReminderCommand -> Model : schedule()
+activate Model
+
+
+Model -> Calendar : schedule()
+activate Calendar
+
+Calendar -> Scheduler : schedule()
+activate Scheduler
+
+Scheduler --> Calendar
+deactivate Scheduler
+
+Calendar --> Model
+deactivate Calendar
+
+Model --> ReminderCommand
+deactivate Model
+
+ReminderCommand --> LogicManager : result
+deactivate ReminderCommand
+
+ReminderCommand -[hidden]-> LogicManager : result
+destroy ReminderCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
