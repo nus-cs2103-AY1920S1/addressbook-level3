@@ -1,22 +1,22 @@
 package seedu.address.model.note;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Content of the note
  */
 public class Content {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Content should not be blank";
 
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-    private String content;
+
+    public final String content;
 
     public Content(String content) {
-        this.content = content;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
+        requireNonNull(content);
+        checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         this.content = content;
     }
 

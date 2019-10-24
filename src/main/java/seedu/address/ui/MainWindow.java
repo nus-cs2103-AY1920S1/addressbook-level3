@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private ReminderWindow reminderWindow;
     private ReminderBox reminderBox;
+    private NotesListPanel notesListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -59,6 +60,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -182,6 +184,26 @@ public class MainWindow extends UiPart<Stage> {
     void fillTasks() {
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillNotes() {
+        notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
+        personListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

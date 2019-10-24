@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -109,6 +110,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Reminder> getFilteredReminderList() {
         return model.getFilteredReminderList();
+    }
+
+    @Override
+    public ObservableList<Notes> getFilteredNotesList() {
+        return model.getFilteredNotesList();
     }
 
     @Override

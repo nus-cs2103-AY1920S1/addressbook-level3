@@ -248,6 +248,10 @@ public class ModelManager implements Model {
         return filteredReminder;
     }
 
+    public ObservableList<Notes> getFilteredNotesList() {
+        return filteredNotes;
+    }
+
     @Override
     public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
         requireNonNull(predicate);
@@ -314,5 +318,6 @@ public class ModelManager implements Model {
     public void updateFilteredNotesList(Predicate<Notes> predicate) {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
+        UiManager.startNotes();
     }
 }
