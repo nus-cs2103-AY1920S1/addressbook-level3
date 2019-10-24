@@ -299,13 +299,169 @@ Use case ends.
 5. FlashCard Pro stores the deck of cards in the library.
 +
 Use case ends.
+
+[none]
 * 2a. FlashCard Pro detects filepath is invalid.
 ** 2a1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
++
+Use case ends.
+
+[none]
 * 2b. FlashCard Pro detects that filepath does not lead to a JSON file.
 ** 2b1. FlashCard Pro informs the learner that import of deck of cards is unsuccessful.
++
+Use case ends.
+
+[discrete]
+=== Use case: Running a test using Front Back Cards
+*MSS*
+1. User enters command to start test with a deck of card and supplies deck name.
+2. System obtains the deck of cards. 
+3. System starts test session.
+4. System shows front of card to user, waits for answer.
+5. User enters the answer.
+6. System evaluates the answer.
+7. System reports the correctness of the answer.
+8. System moves to next card.
++
+Step 4-8 repeated until there are no cards in the deck remaining. 
++
+Use case ends.
+
+*Extensions*
+* 1a. System does not find a deck with the deck name specified by the user
+** 1a1. System tells user that there is no deck with specified name.
+** 1a2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 1b. System has no decks in library.
+** 1b1. System tells user that there are no decks in the library.
+** 1b2. System exits test creation.
++
+Use case ends.
+
+[discrete]
+=== Use case: Creating a deck of cards
+*MSS*
+1. User enters command to create a deck.
+2. System creates a new deck.
+3. User enters command to create a new card in the deck.
+4. System creates a card.
+5. System stores the card in the deck.
++
+Steps 2-5 repeats as long as the user wants to add a card.
++
+Use case ends.
 
 
-_{More to be added}_
+[discrete]
+=== Use case: Untimed Test with a deck of Multiple Choice Cards 
+*MSS*
+1. User enters command to start test on a deck.
+(System creates a test subset)
+2. System gets the deck the user wants to test on.
+3. System starts test session.
+4. System randomises the choice ordering.
+5. System displays the front of card and choices.
+6. User enters the choice of correct answer.
+7. System evaluates the answer.
+8  System shows the correctness of the answer.
+9. System moves to next card.
++
+Steps 4-9 are repeated until there are no more cards in the test set.
++
+Use case ends.
+
+*Extensions*
+* 1a. System does not find a deck with the deck name specified by the user
+** 1a1. System tells user that there is no deck with specified name.
+** 1a2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 1b. System has no decks in library.
+** 1b1. System tells user that there are no decks in the library.
+** 1b2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 6a. User enters an invalid choice.
+** 6a1. System checks if choice is valid.
+** 6a2. System tells User that choice entered is invalid.
+** 6a3. System requests User to enter another choice.
++
+Steps 6a1-6a3 repeats until the User enters a valid choice.
+
+[discrete]
+=== Use case: Timed Test with a deck of Multiple Choice Cards 
+*MSS*
+1. User enters command to start test on a deck.
++
+(System creates a test subset)
++
+2. System gets the deck the user wants to test on.
+3. System starts test session.
+4. System randomises the choice ordering.
+5. System displays the front of card and choices.
+6. User enters the choice of correct answer.
+7. System evaluates the answer.
+8  System shows the correctness of the answer.
+9. System moves to next card.
++
+Steps 4-9 are repeated until there are no more cards in the test set.
++
+Use case ends.
+
+*Extensions*
+* 1a. System does not find a deck with the deck name specified by the user
+** 1a1. System tells user that there is no deck with specified name.
+** 1a2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 1b. System has no decks in library.
+** 1b1. System tells user that there are no decks in the library.
+** 1b2. System exits test creation.
++
+Use case ends.
+
+[none]
+* 6a. User enters an invalid choice.
+** 6a1. System checks if choice is valid.
+** 6a2. System tells User that choice entered is invalid.
++
+Steps 6a1-6a3 repeats 3 times.
++
+** 6a4. User enters invalid choice for 4th time.
+** 6a5. System receives invalid choice for 4th time.
+** 6a6. System terminates test.
+** 6a7. System tells User that test has terminated due to incorrect inputs.
++
+Use case ends.
+
+[discrete]
+=== Use case: Creating a Multiple Choice Card 
+*MSS*
+1. User enters command to create a MCQ Card to a deck.
+2. System starts MCQ Card creation.
+3. System stores MCQ card in deck.
++
+Use case ends.
+
+*Extension*
+* 1a. User enters duplicated choices.
+** 1a1. System detects duplicated choices in choices provided by user.
+** 1a2. System tells User that there are duplicates in chocies provided.
+** 1a3. System ends card creation.
++
+Use case ends.
+
+
 
 
 
@@ -328,22 +484,6 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -355,38 +495,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-. Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
