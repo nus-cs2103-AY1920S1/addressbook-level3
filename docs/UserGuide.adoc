@@ -18,7 +18,14 @@ By: `CS2103T-T12-4`      Since: `Aug 2019`      Licence: `-`
 
 == Introduction
 
-KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards. More importantly, KFC is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KFC can get your flash card management tasks faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards. 
+More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KFC
+can help you manage your flashcards much more efficiently than traditional GUI apps. 
+
+Interested? You should be! KFC is perfect for NUS Computing students. We even have additional
+features not available with most flashcard managers that we're sure you'll love. 
+Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
