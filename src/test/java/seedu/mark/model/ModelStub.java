@@ -77,6 +77,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void favoriteBookmark(Bookmark target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setBookmark(Bookmark target, Bookmark editedBookmark) {
         throw new AssertionError("This method should not be called.");
     }
