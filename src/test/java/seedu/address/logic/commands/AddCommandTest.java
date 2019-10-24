@@ -218,6 +218,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public HistoryRecord redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<HistoryRecord> getHistory() {
             throw new AssertionError("This method should not be called.");
         }
