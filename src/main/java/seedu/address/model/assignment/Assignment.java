@@ -56,7 +56,9 @@ public class Assignment {
      */
     public Assignment addOneStudentGrade (String studentName) {
         assignmentGrades.addOneStudentGrade(studentName);
-        return this;
+        Assignment outputAssignment = new Assignment (this.assignmentName);
+        outputAssignment.setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
+        return outputAssignment;
     }
 
     /**
@@ -65,7 +67,9 @@ public class Assignment {
      */
     public Assignment deleteOneStudentGrade (String studentName) {
         assignmentGrades.deleteOneStudentGrade(studentName);
-        return this;
+        Assignment outputAssignment = new Assignment (this.assignmentName);
+        outputAssignment.setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
+        return outputAssignment;
     }
 
     public List<String> marksStringListFromGrades() {

@@ -69,7 +69,10 @@ public class AddCommand extends Command {
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         List<Assignment> assignmentList = model.getFilteredAssignmentList();
         for (Assignment assignment: assignmentList) {
-            model.setAssignment(assignment, assignment.addOneStudentGrade(toAdd.getName().fullName));
+            Assignment editedAssignment = new Assignment(assignment.getAssignmentName());
+            editedAssignment.setGrades(assignment.namesStringListFromGrades(), assignment.marksStringListFromGrades());
+            editedAssignment.addOneStudentGrade(toAdd.getName().fullName);
+            model.setAssignment(assignment, editedAssignment);
         }
         model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

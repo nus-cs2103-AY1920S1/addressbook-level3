@@ -6,9 +6,9 @@ skinparam ClassBorderColor #000000
 title After command "list"
 
 package States <<rectangle>> {
-    class State1 as "__ab0:Classroom__"
-    class State2 as "__ab1:Classroom__"
-    class State3 as "__ab2:Classroom__"
+    class State1 as "__c0:Classroom__"
+    class State2 as "__c1:Classroom__"
+    class State3 as "__c2:Classroom__"
 }
 
 State1 -[hidden]right-> State2
