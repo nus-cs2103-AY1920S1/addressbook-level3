@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -46,7 +48,6 @@ import seedu.address.logic.parser.settings.HintsCommandParser;
 import seedu.address.logic.parser.settings.ThemeCommandParser;
 import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
-
 
 /**
  * Parses user input.
@@ -162,7 +163,7 @@ public class ParserManager {
         if (temp != null) {
             return temp;
         }
-        throw new ParseException("Don't know COMMAND!!");
+        throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
     }
 
     public List<ModeEnum> getModes() {

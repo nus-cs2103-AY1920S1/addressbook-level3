@@ -72,9 +72,14 @@ public class GameTimer implements Runnable {
     public void abortTimer() {
         cancelled = true;
         this.timer.cancel();
-        Platform.runLater(() -> {
-            timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven);
-        });
+        if (!Thread.currentThread().getName().equals("JavaFX Application Thread")) {
+            // Ensuring any changes to UI are always called from JavaFX Application Thread.
+            Platform.runLater(() ->
+                    timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven));
+            return;
+        }
+        timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven);
+
     }
 
     /**

@@ -55,11 +55,6 @@ public class LogicManager implements Logic, UiLogicHelper {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        /*
-        Step 9.
-        this.game = game //get from constructor
-         */
-
         parserManager = new ParserManager();
     }
 
