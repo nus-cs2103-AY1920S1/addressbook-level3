@@ -417,7 +417,7 @@ The following steps explain the activity diagram:
 
 1. The user executes the `sort` command.
 2. If there are valid fields from the input, each field is saved into a list and determines sort order for `Model`.
-4. Else, there are two cases.
+3. Else, there are two cases.
 .. If there is an invalid field, display an error message for the invalid field.
 .. If there is a missing field, display an error message for the missing field.
 
