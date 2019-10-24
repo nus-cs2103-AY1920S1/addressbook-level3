@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.CopyError;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
@@ -130,6 +133,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    public Person getPersonByIndex(Index index) {
+        requireNonNull(index);
+        int integerIndex = index.getZeroBased();
+        assert integerIndex <= persons.size();
+
+        return persons.getByIndex(integerIndex).get();
+    }
+
     //// util methods
     @Override
     public AddressBook deepCopy() {
@@ -149,6 +160,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    /** Returns an unmodifiable view of persons at the provided indexes */
+    public ObservableList<Person> getPersonListByIndexes(Set<Index> indexes) {
+        ObservableList<Person> personList = FXCollections.observableArrayList();
+        for (Index index : indexes) {
+            int integerIndex = index.getZeroBased();
+            assert integerIndex <= persons.size();
+            personList.add(getPersonByIndex(index));
+        }
+        return FXCollections.unmodifiableObservableList(personList);
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
@@ -219,6 +221,21 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         stagedAddressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Person getPersonByIndex(Index index) {
+        requireNonNull(index);
+        assert index.getZeroBased() <= stagedPersons.size();
+
+        return stagedAddressBook.getPersonByIndex(index);
+    }
+
+    @Override
+    public ObservableList<Person> getPersonsByIndexes(Set<Index> indexes) {
+        requireNonNull(indexes);
+
+        return stagedAddressBook.getPersonListByIndexes(indexes);
     }
 
     /**
