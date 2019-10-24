@@ -66,10 +66,13 @@ public class SetInstallmentCommand extends Command {
     }
 
     /**
-     * Adds {@code Installment} to the finance tracker.
+     * Adds {@code Installment} to the finance tracker, if the installment does not already exist in the
+     * finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that purchase was added successfully.
+     * @exception CommandException if there is already an {@code Installment} matching the installment to be
+     * added to the finance tracker.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {

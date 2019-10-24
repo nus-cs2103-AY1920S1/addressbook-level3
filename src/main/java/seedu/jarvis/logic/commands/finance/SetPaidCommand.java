@@ -66,10 +66,12 @@ public class SetPaidCommand extends Command {
     }
 
     /**
-     * Adds {@code Purchase} to the finance tracker.
+     * Adds {@code Purchase} to the finance tracker, if the purchase does not already exist in finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that purchase was added successfully.
+     * @throws CommandException if there is already a {@code Purchase} matching the purchase to be added to the
+     * finance tracker.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
