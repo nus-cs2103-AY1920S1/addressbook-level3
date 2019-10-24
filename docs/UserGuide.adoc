@@ -18,7 +18,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3). TimeBook is a scheduler application that aims to help busy NUS undergraduates keep track of the schedules of the user and his or her friends. It also can find the common free time and venues among the user and his or her friends. TimeBook will have the following features: 
+TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3). TimeBook is a scheduler application that aims to help busy NUS undergraduates keep track of the schedules of the user and his or her friends. It also can find the common free time and venues among the user and his or her friends. TimeBook will have the following features:
 
 .  A graphical user interface (GUI) but most of the interactions with the application would happen using command line interface (CLI).
 .  Allows users to add the schedules of his or her friends and organise them into groups.
