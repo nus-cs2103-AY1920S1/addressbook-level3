@@ -49,6 +49,10 @@ public class UrlTest {
         assertFalse(Url.isValidUrl("https://example.com#")); // empty fragment
         assertFalse(Url.isValidUrl("https://example.com##example")); // double '#' symbol
         assertFalse(Url.isValidUrl("https://example.com#example1#example")); // double fragment
+
+        // invalid characters
+        assertFalse(Url.isValidUrl("https://example.com/%")); // '%' without hexadecimal characters
+        assertFalse(Url.isValidUrl("https://example.com/%Gz")); // invalid hexadecimal characters
     }
 
     @Test
@@ -84,6 +88,6 @@ public class UrlTest {
         assertTrue(Url.isValidUrl("https://example.com/!$&'*+,;=:()@-_~.")); // special characters in path
         assertTrue(Url.isValidUrl("https://example.com?!$&'*+,;=:()@-_~./?")); // special characters in query
         assertTrue(Url.isValidUrl("https://example.com#!$&'*+,;=:()@-_~./?")); // special characters in response
-        // TODO: check that encoded characters (%FF) are marked as valid
+        assertTrue(Url.isValidUrl("https://example.com/%FF-%12-%1a")); // hexadecimal encoded characters
     }
 }
