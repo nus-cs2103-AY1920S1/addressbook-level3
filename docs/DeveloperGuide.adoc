@@ -153,6 +153,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+[[aliasImplementation]]
+// tag::alias[]
 === Alias feature
 ==== Implementation
 The alias mechanism is facilitated by `AliasTable`.
@@ -188,6 +190,10 @@ image::ApplyAliasActivityDiagram.png[]
 [NOTE]
 An unfortunate side effect to matching the longest matching macro increases the time complexity of this operation to O(n) from O(1) if we used wholesale matching instead.
 
+// end::alias[]
+
+[[followupImplementation]]
+// tag::followup[]
 === Follow-up and Reminders feature
 ==== Implementation
 Both mechanisms are facilitated by the `Reminder` class.
@@ -202,9 +208,49 @@ These operations are exposed in the `Model` interface as `Model#addReminder(remi
 The following sequence diagram shows how adding a follow-up or reminder works:
 
 image::AddReminderSequenceDiagram.png[]
+// end::followup[]
 
-// EXAMPLE TO BE REMOVED AFTER DG is finished for v1.3
+[[profileImplementation]]
+// tag::profile[]
+=== Profile feature
+==== Implementation
 
+The profile feature allows the user to be able to see the full details of the patient as well as all relevant visit information (See <<visitImplementation, Visit Implementation>>) from a single panel. Attributes of the patient is extracted from the `Person` instance, including the `Name`, `Address`, `Phone`, `Email`, `Tags` and `VisitList`, which can be easily extended following the implementation detailed below. The patient profile feature is facilitated by `ProfileWindow`, which is instanced and instantly hidden (`hide()`) upon the instancing of `MainWindow` on VISIT's start up. +
+ +
+Given below is a simple example usage scenario demonstrate how Profile feature behaves and interacts with the other components.
+
+Step 1. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. It extracts the `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute. `MainWindow#executeCommand()` is called and the check for `CommandResult#isShowProfile()` passes, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window.
+
+image::Profile0.png[]
+_{Show activity diagram of opening profile window}_
+
+Step 2. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
+
+image::Profile1.png[]
+_{Show activity diagram of closing profile window}_
+
+[NOTE]
+The user is able to close the `ProfileWindow` form by clicking the 'x' on the top right of the form as well.
+
+This sequence diagram summarizes what happens when a user executes the Profile Command:
+
+image::ProfileSequenceDiagram.png[]
+_{Show extended sequence diagram of opening and closing profile window}_
+
+==== Design Considerations
+
+===== Aspect: How Profile shows the information from the patient
+
+* **Alternative 1 (current choice):** Does not create an explicit `Profile` instance.
+** Pros: Easy to implement, more straight forward (Just show data without the need to store what is essentially a clone of a `Person` instance).
+** Cons: May cause dependency issues as this increases coupling, with relation to the Profile and Patient class. Foreseeably, this may cause issues especially when patient attributes are to be added or removed.
+* **Alternative 2:** Create an explicit `Profile` instance every call.
+** Pros: Decreases coupling by cutting down on the direct calls to the `Person` instance.
+** Cons: We must ensure that the `Profile` instance generated is correct every time.
+
+// end::profile[]
+
+////
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -293,7 +339,9 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+////
 
+[[visitImplementation]]
 // tag::visitationreport[]
 === Visitation Report feature
 ==== Implementation
@@ -350,7 +398,8 @@ If the user executes `deletevisit 1` instead, the index value will be set to `-1
 ** Cons: Need to handle index out of bound errors.
 // end::visitationreport[]
 
-//tag::GUI redesign
+[[uiImplementation]]
+//tag::guiredesign[]
 === [Proposed] GUI Redesign
 The GUI Redesign is done to include the new features made for the VISIT application, as well as improve the overall
 user experience with a easily readable interface that displays every important information in a glance.
@@ -376,7 +425,9 @@ image::UiRedesignClassDiagram.png[]
 
 <to be added>
 
-//end::GUI redesign
+//end::guiredesign[]
+
+[[logImplementation]]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
