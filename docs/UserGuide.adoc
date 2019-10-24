@@ -45,8 +45,8 @@ The following list of icons below will assist you to understand our material:
 [cols="3,40"]
 |========
 |Icon | Meaning
-a|image::tip.png[width = "25"] | Some tips to familiarise with the commands
-a|image::warning.png[width = "25"] | Warning! Danger zone. Make sure you know what you are doing
+a|image::tip.png[width = "20"] | Some tips for you to familiarise with the commands
+a|image::warning.png[width = "20"] | Warning! Danger zone. Make sure you know what you are doing
 |========
 == Quick Start
 
@@ -71,6 +71,10 @@ image::Ui.png[width="790"]
 == Features
 
 ====
+--
+image::tip.png[width = "20", float = "left"]
+--
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -80,18 +84,19 @@ image::Ui.png[width="790"]
 ====
 
 === Password
-Accessing password directory : `goto password`
+You can access the password directory using this command : `goto password`
 
 ==== Adding a password : `add`
 
-Adds a password to the app.
+Too many passwords to remember? You can add a password to the application.
+
 Format: `add d/<desc> u/<username> p/<password> t/<tag>`
 
 Example: `add d/Gmail u/user1 p/password1 t/work`
 
 ==== Accessing a password : `read`
 
-Shows the username and password for the specified password description provided by the user.
+You can copy the password for the specified index directly to clipboard.
 
 Format: `read <index>`
 
@@ -99,33 +104,62 @@ Example: `open 1`
 
 ==== Updating a password : `edit`
 
-Updates a password as specified by the user.
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* You do not need not type the description, username, password again.
+
+* You can just type the fields that you want to change in the order specified.
+====
+
+Added a wrong password? No worries, you can update the password.
 
 Format: `edit <index> d/<desc> u/<username> p/<password> t/<tag>`
 
 Example: `edit 1 u/NewUsername`
 
+Example: `edit 1 p/password123`
+
+Example: `edit 1 u/NewUsername p/password123`
+
 ==== Deleting a password: `delete`
 
-Deletes a password as specified by the user.
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* Deleted passwords are not recoverable
+====
+
+No longer use the user account? You can delete the password as specified by the user.
 
 Format: `delete <index>`
 
 Example: `delete 2`
 
 ==== Finding a password: `find`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-Finds a password description as specified by the user.
-
-Format: `find <desc>`
-
-Example: `find Gmail`
-****
 * The search is case insensitive. e.g `gmail` will match `Gmail`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the description is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-****
+====
+
+Too many passwords? You can find the password description as specified by the user.
+
+Format: `find <desc>`
+
+Example: `find Gmail`
 
 ==== Generating a new password: `generate`
 
