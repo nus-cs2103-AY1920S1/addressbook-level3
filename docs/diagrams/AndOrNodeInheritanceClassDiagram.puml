@@ -1,5 +1,4 @@
 @startuml
-
 Package AndOrNode <<Rectangle>> {
     abstract class AndOrNode<T> {
         # List<AndOrNode> children
@@ -31,5 +30,4 @@ AndOrNode <|-- DataNode
 AndOrNode <|-- NoDataNode
 NoDataNode <|-- AndNode
 NoDataNode <|-- OrNode
-
 @enduml

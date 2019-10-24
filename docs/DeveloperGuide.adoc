@@ -66,7 +66,7 @@ the character limit.
 
 do this:
 
-Long line Long line Long line Long line Long line Long line Long 
+Long line Long line Long line Long line Long line Long line Long
 `Backticked word`
 
 instead of:
@@ -580,7 +580,7 @@ type of data stored by each node in the tree.
 +
 Checks if the given `Collection` of type `R` fulfills the condition
 specified by this tree. `AndOrNode` has its own corresponding `fulfill` that
-checks its children or data against `Collection`. 
+checks its children or data against `Collection`.
 
 Due to the arbitrary ordering of the tree, `insert()` and `delete()`
 operations commonly found in implementations of ordered trees are
