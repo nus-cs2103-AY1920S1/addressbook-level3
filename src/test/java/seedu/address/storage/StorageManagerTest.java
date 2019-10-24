@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalContacts.getTypicalPlanner;
 
 import java.nio.file.Path;
 
@@ -11,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Planner;
-import seedu.address.model.ReadOnlyPlanner;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.accommodation.JsonAccommodationStorage;
+import seedu.address.storage.activity.JsonActivityStorage;
+import seedu.address.storage.contact.JsonContactStorage;
+import seedu.address.storage.day.JsonItineraryStorage;
 
 public class StorageManagerTest {
 
@@ -24,9 +25,13 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonPlannerStorage plannerStorage = new JsonPlannerStorage(getTempFilePath("ab"));
+        JsonAccommodationStorage accommodationStorage = new JsonAccommodationStorage(getTempFilePath("acc"));
+        JsonActivityStorage activityStorage = new JsonActivityStorage(getTempFilePath("act"));
+        JsonContactStorage contactStorage = new JsonContactStorage(getTempFilePath("con"));
+        JsonItineraryStorage itineraryStorage = new JsonItineraryStorage(getTempFilePath("iti"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(plannerStorage, userPrefsStorage);
+        storageManager = new StorageManager(accommodationStorage, activityStorage, contactStorage, itineraryStorage,
+                userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -46,23 +51,23 @@ public class StorageManagerTest {
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
-
+    /*
     @Test
-    public void plannerReadSave() throws Exception {
+    public void contactReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonPlannerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonPlannerStorageTest} class.
-         */
-        Planner original = getTypicalPlanner();
-        storageManager.savePlanner(original);
-        ReadOnlyPlanner retrieved = storageManager.readPlanner().get();
-        assertEquals(original, new Planner(retrieved));
+         *
+        ContactManager original = getTypicalPlanner();
+        storageManager.saveContact(original);
+        ReadOnlyContact retrieved = storageManager.readContact().get();
+        assertEquals(original, new ContactManager(retrieved));
     }
-
+    */
     @Test
-    public void getPlannerFilePath() {
-        assertNotNull(storageManager.getPlannerFilePath());
+    public void getAccommodationFilePath() {
+        assertNotNull(storageManager.getAccommodationFilePath());
     }
 
 }

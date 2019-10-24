@@ -15,19 +15,32 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+
+import seedu.address.model.AccommodationManager;
+import seedu.address.model.ActivityManager;
+import seedu.address.model.ContactManager;
+import seedu.address.model.Itinerary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.Planner;
-import seedu.address.model.ReadOnlyPlanner;
+import seedu.address.model.ReadOnlyAccommodation;
+import seedu.address.model.ReadOnlyActivity;
+import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.ReadOnlyItinerary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.JsonPlannerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.PlannerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.accommodation.AccommodationStorage;
+import seedu.address.storage.accommodation.JsonAccommodationStorage;
+import seedu.address.storage.activity.ActivityStorage;
+import seedu.address.storage.activity.JsonActivityStorage;
+import seedu.address.storage.contact.ContactStorage;
+import seedu.address.storage.contact.JsonContactStorage;
+import seedu.address.storage.day.ItineraryStorage;
+import seedu.address.storage.day.JsonItineraryStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -56,8 +69,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        PlannerStorage plannerStorage = new JsonPlannerStorage(userPrefs.getPlannerFilePath());
-        storage = new StorageManager(plannerStorage, userPrefsStorage);
+        AccommodationStorage accommodationStorage = new JsonAccommodationStorage(userPrefs.getAccommodationFilePath());
+        ActivityStorage activityStorage = new JsonActivityStorage(userPrefs.getActivityFilePath());
+        ContactStorage contactStorage = new JsonContactStorage(userPrefs.getContactFilePath());
+        ItineraryStorage itineraryStorage = new JsonItineraryStorage(userPrefs.getItineraryFilePath());
+        storage = new StorageManager(accommodationStorage, activityStorage, contactStorage, itineraryStorage,
+                userPrefsStorage);
 
         initLogging(config);
 
@@ -69,28 +86,120 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s accommodation, activity, contact,
+     * itinerary and {@code userPrefs}.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyPlanner> plannerOptional;
-        ReadOnlyPlanner initialData;
-        try {
-            plannerOptional = storage.readPlanner();
-            if (!plannerOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Planner");
-            }
-            initialData = plannerOptional.orElseGet(SampleDataUtil::getSamplePlanner);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Planner");
-            initialData = new Planner();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Planner");
-            initialData = new Planner();
-        }
+        ReadOnlyAccommodation accommodation = initAccommodationManager(storage);
+        ReadOnlyActivity activity = initActivityManager(storage);
+        ReadOnlyContact contact = initContactManager(storage);
+        ReadOnlyItinerary itinerary = initItinerary(storage);
+        return new ModelManager(accommodation, activity, contact, itinerary, userPrefs);
+    }
 
-        return new ModelManager(initialData, userPrefs);
+    /**
+     * Returns a {@code AccommodationManager} with the data from {@code storage}'s accommodation and {@code userPrefs}.
+     * <br> The data from the sample accommodationManager will be used instead if {@code storage}'s
+     * accommodation is not found, or an empty accommodationManager will be used instead if errors occur
+     * when reading {@code storage}'s accommodation.
+     */
+    private ReadOnlyAccommodation initAccommodationManager(Storage storage) {
+        Optional<ReadOnlyAccommodation> accommodationManagerOptional;
+        ReadOnlyAccommodation initialData;
+        try {
+            accommodationManagerOptional = storage.readAccommodation();
+            if (!accommodationManagerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AccommodationManager");
+            }
+            initialData = accommodationManagerOptional.orElseGet(SampleDataUtil::getSampleAccommodationManager);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty "
+                    + "AccommodationManager");
+            initialData = new AccommodationManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty "
+                    + "AccommodationManager");
+            initialData = new AccommodationManager();
+        }
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ActivityManager} with the data from {@code storage}'s activity and {@code userPrefs}.
+     * <br> The data from the sample activityManager will be used instead if {@code storage}'s activity is not found,
+     * or an empty activityManager will be used instead if errors occur when reading {@code storage}'s activity.
+     */
+    private ReadOnlyActivity initActivityManager(Storage storage) {
+        Optional<ReadOnlyActivity> activityManagerOptional;
+        ReadOnlyActivity initialData;
+        try {
+            activityManagerOptional = storage.readActivity();
+            if (!activityManagerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ActivityManager");
+            }
+            initialData = activityManagerOptional.orElseGet(SampleDataUtil::getSampleActivityManager);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty "
+                    + "ActivityManager");
+            initialData = new ActivityManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty "
+                    + "ActivityManager");
+            initialData = new ActivityManager();
+        }
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ContactManager} with the data from {@code storage}'s contact and {@code userPrefs}. <br>
+     * The data from the sample contactManager will be used instead if {@code storage}'s contact is not found,
+     * or an empty contactManager will be used instead if errors occur when reading {@code storage}'s contact.
+     */
+    private ReadOnlyContact initContactManager(Storage storage) {
+        Optional<ReadOnlyContact> contactManagerOptional;
+        ReadOnlyContact initialData;
+        try {
+            contactManagerOptional = storage.readContact();
+            if (!contactManagerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ContactManager");
+            }
+            initialData = contactManagerOptional.orElseGet(SampleDataUtil::getSampleContactManager);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty "
+                    + "ContactManager");
+            initialData = new ContactManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty "
+                    + "ContactManager");
+            initialData = new ContactManager();
+        }
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code Itinerary} with the data from {@code storage}'s itinerary and {@code userPrefs}. <br>
+     * The data from the sample itinerary will be used instead if {@code storage}'s itinerary is not found,
+     * or an empty itinerary will be used instead if errors occur when reading {@code storage}'s itinerary.
+     */
+    private ReadOnlyItinerary initItinerary(Storage storage) {
+        Optional<ReadOnlyItinerary> itineraryOptional;
+        ReadOnlyItinerary initialData;
+        try {
+            itineraryOptional = storage.readItinerary();
+            if (!itineraryOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Itinerary");
+            }
+            initialData = itineraryOptional.orElseGet(SampleDataUtil::getSampleItinerary);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty "
+                    + "Itinerary");
+            initialData = new Itinerary();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty "
+                    + "Itinerary");
+            initialData = new Itinerary();
+        }
+        return initialData;
     }
 
     private void initLogging(Config config) {

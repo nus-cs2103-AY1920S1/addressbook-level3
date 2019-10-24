@@ -14,8 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path plannerFilePath = Paths.get("data" , "planner.json");
-
+    private Path accommodationFilePath = Paths.get("data" , "accommodation.json");
+    private Path activityFilePath = Paths.get("data" , "activity.json");
+    private Path contactFilePath = Paths.get("data" , "contact.json");
+    private Path itineraryFilePath = Paths.get("data" , "itinerary.json");
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -35,7 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setPlannerFilePath(newUserPrefs.getPlannerFilePath());
+        setAccommodationFilePath(newUserPrefs.getAccommodationFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +49,40 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getPlannerFilePath() {
-        return plannerFilePath;
+    public Path getAccommodationFilePath() {
+        return accommodationFilePath;
     }
 
-    public void setPlannerFilePath(Path plannerFilePath) {
-        requireNonNull(plannerFilePath);
-        this.plannerFilePath = plannerFilePath;
+    public void setAccommodationFilePath(Path accommodationFilePath) {
+        requireNonNull(accommodationFilePath);
+        this.accommodationFilePath = accommodationFilePath;
+    }
+
+    public Path getActivityFilePath() {
+        return activityFilePath;
+    }
+
+    public void setActivityFilePath(Path activityFilePath) {
+        requireNonNull(activityFilePath);
+        this.activityFilePath = activityFilePath;
+    }
+
+    public Path getContactFilePath() {
+        return contactFilePath;
+    }
+
+    public void setContactFilePath(Path contactFilePath) {
+        requireNonNull(contactFilePath);
+        this.contactFilePath = contactFilePath;
+    }
+
+    public Path getItineraryFilePath() {
+        return itineraryFilePath;
+    }
+
+    public void setItineraryFilePath(Path itineraryFilePath) {
+        requireNonNull(itineraryFilePath);
+        this.itineraryFilePath = itineraryFilePath;
     }
 
     @Override
@@ -68,19 +97,25 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && plannerFilePath.equals(o.plannerFilePath);
+                && accommodationFilePath.equals(o.accommodationFilePath)
+                && activityFilePath.equals(o.activityFilePath)
+                && contactFilePath.equals(o.contactFilePath)
+                && itineraryFilePath.equals(o.itineraryFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, plannerFilePath);
+        return Objects.hash(guiSettings, accommodationFilePath, activityFilePath, contactFilePath, itineraryFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + plannerFilePath);
+        sb.append("\nLocal Accommodation data file location : " + accommodationFilePath);
+        sb.append("\nLocal Activity data file location : " + activityFilePath);
+        sb.append("\nLocal Contact data file location : " + contactFilePath);
+        sb.append("\nLocal Itinerary data file location : " + itineraryFilePath);
         return sb.toString();
     }
 

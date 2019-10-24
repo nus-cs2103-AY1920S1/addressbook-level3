@@ -19,14 +19,16 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ContactManager;
 import seedu.address.model.Model;
-import seedu.address.model.Planner;
-import seedu.address.model.ReadOnlyPlanner;
+import seedu.address.model.ReadOnlyAccommodation;
+import seedu.address.model.ReadOnlyActivity;
+import seedu.address.model.ReadOnlyContact;
+import seedu.address.model.ReadOnlyItinerary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
-import seedu.address.model.day.Itinerary;
 import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.activity.Activity;
@@ -108,38 +110,17 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        // PLANNER METHODS
-        @Override
-        public Path getPlannerFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPlannerFilePath(Path plannerFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPlanner(ReadOnlyPlanner newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setItineraryName(Name name) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setItineraryStartDate(LocalDate startDate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyPlanner getPlanner() {
-            throw new AssertionError("This method should not be called.");
-        }
-
         // ACCOMMODATION METHODS
+        @Override
+        public Path getAccommodationFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAccommodationFilePath(Path accommodationFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addAccommodation(Accommodation accommodation) {
             throw new AssertionError("This method should not be called.");
@@ -160,7 +141,36 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void setAccommodations(ReadOnlyAccommodation accommodations) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAccommodation getAccommodations() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // ACTIVITY METHODS
+        @Override
+        public Path getActivityFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActivityFilePath(Path activityFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActivities(ReadOnlyActivity activities) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyActivity getActivities() {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public void addActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
@@ -178,6 +188,27 @@ public class AddContactCommandTest {
 
         @Override
         public void setActivity(Activity target, Activity editedActivity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // CONTACT METHODS
+        @Override
+        public Path getContactFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setContactFilePath(Path contactFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setContacts(ReadOnlyContact contacts) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyContact getContacts() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -212,6 +243,40 @@ public class AddContactCommandTest {
         }
 
         // DAY METHODS
+        @Override
+        public Path getItineraryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setItineraryFilePath(Path itineraryFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setItinerary(ReadOnlyItinerary itinerary) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public ReadOnlyItinerary getItinerary() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public Name getName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void setItineraryName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public LocalDate getStartDate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void setItineraryStartDate(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         public void addDays(int n) {
             throw new AssertionError("This method should not be called.");
@@ -221,7 +286,7 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void setDays(Itinerary itinerary) {
+        public void setDays(ReadOnlyItinerary itinerary) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -310,8 +375,8 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public ReadOnlyPlanner getPlanner() {
-            return new Planner();
+        public ReadOnlyContact getContacts() {
+            return new ContactManager();
         }
     }
 
