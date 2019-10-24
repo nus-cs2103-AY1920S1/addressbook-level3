@@ -2,7 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -10,75 +11,91 @@ import java.util.Objects;
  */
 public class Reminder {
 
-    public static final String MESSAGE_CONSTRAINTS = "Remaining days should be in integer format";
-    public static final String VALIDATION_REGEX = "^[0-9]*$";
+    private HashMap<String, Integer> reminders;
+    private HashMap<String, Integer> followup;
 
-    // Temporary
-    private static ArrayList<Reminder> reminderTable = new ArrayList<>();
+    /**
+     * Initializes new Reminder object
+     */
+    public Reminder() {
+        reminders = new HashMap<>();
+        followup = new HashMap<>();
+    }
 
-    private String description;
-    private int days;
+    public static Reminder getDefaultReminders() {
+        Reminder def = new Reminder();
+        return def;
+    }
 
-    public Reminder(String description, int days) {
+    /**
+     * Adds a new Reminder to VISIT
+     */
+    public Reminder addReminder(int type, String description, int days) {
+        requireNonNull(type);
         requireNonNull(description);
         requireNonNull(days);
-        this.description = description;
-        this.days = days;
-    }
-
-    // Temporary
-    public static String getReminders() {
-        String tmp = "";
-        for (Reminder r : reminderTable) {
-            tmp += r.description + " | " + r.days + " days left\n";
+        if (type == 0) {
+            reminders.put(description, days);
+        } else {
+            reminders.put(description, days);
         }
-        return tmp;
+        return this;
     }
 
-    // Temporary
-    public static void addReminder(Reminder reminder) {
-        reminderTable.add(reminder);
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public int getDays() {
-        return this.days;
+    public String getReminders() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Reminders:\n");
+        if (reminders.size() < 1) {
+            sb.append("No reminders found.\n");
+        } else {
+            for (int i = 0; i < reminders.size(); i++) {
+                Iterator it = reminders.entrySet().iterator();
+                while (it.hasNext()) {
+                    HashMap.Entry pair = (HashMap.Entry) it.next();
+                    sb.append(pair.getKey() + ": for " + pair.getValue() + " days\n");
+                    it.remove();
+                }
+            }
+        }
+        sb.append("\nFollow-ups:\n");
+        if (followup.size() < 1) {
+            sb.append("No reminders found.\n");
+        } else {
+            for (int i = 0; i < followup.size(); i++) {
+                Iterator it = followup.entrySet().iterator();
+                while (it.hasNext()) {
+                    HashMap.Entry pair = (HashMap.Entry) it.next();
+                    sb.append(pair.getKey() + ": in " + pair.getValue() + " days\n");
+                    it.remove();
+                }
+            }
+        }
+        return sb.toString();
     }
 
     @Override
     public String toString() {
-        return description;
-    }
-
-    /**
-     * Returns true if a given string is a valid integer for days remaining.
-     */
-    public static boolean isValidDaysRemaining(String test) {
-        return test.matches(VALIDATION_REGEX);
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nReminders : --hidden--");
+        return sb.toString();
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Reminder // instanceof handles nulls
-                && description.equals(((Reminder) other).description))
-                && days == (((Reminder) other).days); // state check
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Reminder)) {
+            return false;
+        }
+        Reminder other = (Reminder) o;
+        return other.reminders.equals(this.reminders)
+                && other.followup.equals(this.followup);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, days);
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDays(int days) {
-        this.days = days;
+        return Objects.hash(reminders, followup);
     }
 
 }

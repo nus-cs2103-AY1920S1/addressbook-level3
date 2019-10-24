@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.Reminder;
 
 /**
  * Adds a reminder to VISIT.
@@ -15,37 +14,41 @@ public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates a new reminder to show up when the program is launched. "
+            + ": Creates a new reminder for the user to keep track. "
             + "Parameters: "
             + "[" + PREFIX_DAYS + "EXPIRY IN DAYS]...\n"
             + "Example: " + COMMAND_WORD + " "
             + "Two Point Hospital closed "
             + PREFIX_DAYS + "7";
 
-    public static final String MESSAGE_SUCCESS = "New reminder added: %s";
+    public static final String MESSAGE_SUCCESS = "New reminder added: %s - %d day(s)";
 
-    private final Reminder toAdd;
+    private final String description;
+    private final int days;
 
     /**
      * Creates an ReminderCommand to add the specified {@code Reminder}
      */
-    public ReminderCommand(Reminder reminder) {
-        requireNonNull(reminder);
-        toAdd = reminder;
+    public ReminderCommand(String description, int days) {
+        requireNonNull(description);
+
+        this.description = description;
+        this.days = days;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addReminder(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getDescription()));
+        model.addReminder(0, description, days);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, description));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReminderCommand // instanceof handles nulls
-                && toAdd.equals(((ReminderCommand) other).toAdd));
+                && description.equals(((ReminderCommand) other).description)
+                && days == ((ReminderCommand) other).days);
     }
 }

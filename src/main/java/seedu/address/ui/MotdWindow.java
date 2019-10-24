@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.Reminder;
 
 /**
  * Controller for a motd page
@@ -26,7 +25,7 @@ public class MotdWindow extends UiPart<Stage> {
      */
     public MotdWindow(Stage root) {
         super(FXML, root);
-        String reminders = Reminder.getReminders();
+        String reminders = ""; // stub
         motdMessage.setText(reminders);
     }
 

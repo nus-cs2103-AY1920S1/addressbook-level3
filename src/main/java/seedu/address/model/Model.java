@@ -88,12 +88,7 @@ public interface Model {
     /**
      * Adds the given reminder.
      */
-    void addReminder(Reminder reminder);
-
-    /**
-     * Shows the list of reminders.
-     */
-    String getReminders();
+    void addReminder(int type, String description, int days);
 
     /**
      * Adds a given alias into the alias table.
