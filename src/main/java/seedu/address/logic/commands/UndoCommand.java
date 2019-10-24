@@ -13,12 +13,10 @@ import seedu.address.model.Model;
  */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
+    public static final String SHORTCUT_WORD = "u";
+
     public static final String MESSAGE_UNDO_FAILURE = "There was an error undoing the previous command!";
     public static final String MESSAGE_EMPTY_UNDO_HISTORY = "There are no more commands to undo!";
-
-    public UndoCommand() {
-
-    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

@@ -57,6 +57,20 @@ public class NotifCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    //@@author ambervoong
+    /**
+     * Removes a notification from the model. Used to undo changes made in an AddCommand
+     * @param model model of Mortago.
+     */
+    public void removeNotif(Model model) {
+        requireNonNull(model);
+
+        if (model.hasNotif(toAdd)) {
+            model.deleteNotif(toAdd);
+        }
+    }
+    //@@author
+
     /**
      * Updates the BodyStatus after a specified time.
      */

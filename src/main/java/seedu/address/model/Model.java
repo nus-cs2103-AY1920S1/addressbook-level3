@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.logic.history.CommandHistory;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
@@ -48,6 +49,17 @@ public interface Model {
      * @returnthe last undone command.
      */
     UndoableCommand getUndoneCommand();
+
+    /**
+     * Returns the current UndoHistory in the Model.
+     * @return CommandHistory
+     */
+    CommandHistory getUndoHistory();
+
+    /**
+     * Clears the current UndoHistory in the Model.
+     */
+    void clearUndoHistory();
 
     /**
      * * Replaces user prefs data with the data in {@code userPrefs}.
@@ -206,5 +218,6 @@ public interface Model {
      * Sets the selected body in the filtered body list.
      */
     void setSelectedBody(Body body);
+
     //@@ shaoyi1997-reused
 }

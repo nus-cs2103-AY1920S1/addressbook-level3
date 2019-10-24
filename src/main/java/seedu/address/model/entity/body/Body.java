@@ -272,7 +272,7 @@ public class Body implements Entity {
             return false;
         }
         Body body = (Body) o;
-        return this.getIdNum().equals(((Body) o).getIdNum());
+        return this.getIdNum().equals(body.getIdNum());
     }
 
     @Override

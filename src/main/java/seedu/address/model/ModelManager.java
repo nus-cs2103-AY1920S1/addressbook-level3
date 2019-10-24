@@ -65,6 +65,7 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
+    //@@author ambervoong
     //=========== CommandHistory ==================================================================================
     /**
      * Adds a command that was executed to the top of a list of executed commands. Note that only
@@ -102,6 +103,15 @@ public class ModelManager implements Model {
     public UndoableCommand getUndoneCommand() {
         return undoHistory.getExecutedCommand();
     }
+
+    public CommandHistory getUndoHistory() {
+        return undoHistory;
+    }
+
+    public void clearUndoHistory() {
+        undoHistory.clear();
+    }
+    //@@author
 
     //=========== UserPrefs ==================================================================================
 

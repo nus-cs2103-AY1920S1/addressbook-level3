@@ -114,7 +114,9 @@ class WorkerTest {
 
     @Test
     void gettersAndSetters_correct() throws ParseException {
-        assertEquals(IdentificationNumber.customGenerateId("W", 1), ALICE.getIdNum());
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        assertEquals(IdentificationNumber.customGenerateId("W", 1),
+                new WorkerBuilder().build().getIdNum());
         Worker testWorker = new WorkerBuilder().build();
 
         // Name

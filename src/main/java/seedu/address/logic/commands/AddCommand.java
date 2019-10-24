@@ -39,6 +39,7 @@ public class AddCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final int NOTIF_PERIOD = 10;
+    public static final TimeUnit NOTIF_TIME_UNIT = TimeUnit.SECONDS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entity to Mortago.\n"
             + "Adding a worker:\n"
@@ -84,6 +85,8 @@ public class AddCommand extends UndoableCommand {
 
     private final Entity toAdd;
 
+    private NotifCommand notifCommand;
+
     /**
      * Creates an AddCommand to add the specified {@code Body}, {@code Worker} or {@code Fridge}.
      */
@@ -107,7 +110,8 @@ public class AddCommand extends UndoableCommand {
             SelectCommand selectCommand = new SelectCommand(toAdd.getIdNum().getIdNum());
             selectCommand.execute(model);
             Body body = (Body) toAdd;
-            NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, TimeUnit.SECONDS);
+            NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
+            this.notifCommand = notifCommand;
             notifCommand.execute(model);
             Optional<IdentificationNumber> fridgeId = body.getFridgeId();
             if (!fridgeId.equals(Optional.empty())) {
@@ -136,6 +140,7 @@ public class AddCommand extends UndoableCommand {
         }
         try {
             model.deleteEntity(toAdd);
+            notifCommand.removeNotif(model);
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }

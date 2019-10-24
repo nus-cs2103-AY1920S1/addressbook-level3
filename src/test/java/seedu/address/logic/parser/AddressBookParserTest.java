@@ -102,13 +102,18 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_undo() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.SHORTCUT_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 1") instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.SHORTCUT_WORD + " 1") instanceof UndoCommand);
     }
 
     @Test
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.SHORTCUT_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 1") instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.SHORTCUT_WORD + " 1") instanceof RedoCommand);
+
     }
     //@@author
 
