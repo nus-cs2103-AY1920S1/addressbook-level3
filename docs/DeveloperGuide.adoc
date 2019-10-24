@@ -359,6 +359,21 @@ an `FileNotFoundException` is thrown during instantiation.
 ====
 *Sequence diagram:*
 
+1. `TestExecutor` calls `clearEnvironment()` of `CompilerEnvironment` to remove any redundant files from previous program
+evaluations.
+
+2. `TestExecutor` calls `createJavaFile()` of `CompilerEnvironment` to create the Java file with the class name and source code specified
+in the `UserProgram` argument.
+
+3. `TestExecutor` calls `compileJavaFile()` of `Compiler` to compile the newly created Java file.
+
+4. For each test case passed in the argument, `TestExecutor` calls `executeProgram` of `StandardProgramExecutor` with the input from the
+test case.
+
+5. `TestExecutor` maps each `ProgramOutput` received into a `TestCaseResult` model instance.
+
+6. `TestExecutor` packs all the data collected from the execution of the test cases into a single `TestResult` instance.
+
 image::TestExecutorSequenceDiagram.png[align:center]
 ====
 

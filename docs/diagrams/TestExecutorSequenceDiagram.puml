@@ -2,14 +2,14 @@
 [-> TestExecutor:runTestCases
 activate TestExecutor
 
-TestExecutor -> CompileEnvironment:createJavaFile
-activate CompileEnvironment
-CompileEnvironment -> TestExecutor:JavaFile
-deactivate CompileEnvironment
+TestExecutor -> CompilerEnvironment:clearEnvironment
+activate CompilerEnvironment
+deactivate CompilerEnvironment
 
-TestExecutor -> CompileEnvironment:clearEnvironment
-activate CompileEnvironment
-deactivate CompileEnvironment
+TestExecutor -> CompilerEnvironment:createJavaFile
+activate CompilerEnvironment
+CompilerEnvironment -> TestExecutor:JavaFile
+deactivate CompilerEnvironment
 
 TestExecutor -> Compiler:compileJavaFile
 activate Compiler
