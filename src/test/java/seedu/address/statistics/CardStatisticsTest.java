@@ -11,12 +11,12 @@ public class CardStatisticsTest {
     @Test
     public void constructor() {
         assertThrows(NullPointerException.class, () -> new CardStatistics(null, 1, 1));
-        assertThrows(IllegalArgumentException.class,
-                () -> new CardStatistics("a", 1, 2)); // numShown < numCorrect
-        assertThrows(IllegalArgumentException.class,
-                () -> new CardStatistics("a", -1, 1));
-        assertThrows(IllegalArgumentException.class,
-                () -> new CardStatistics("a", 1, -1));
+        assertThrows(IllegalArgumentException.class, ()
+            -> new CardStatistics("a", 1, 2)); // numShown < numCorrect
+        assertThrows(IllegalArgumentException.class, ()
+            -> new CardStatistics("a", -1, 1));
+        assertThrows(IllegalArgumentException.class, ()
+            -> new CardStatistics("a", 1, -1));
     }
 
     @Test

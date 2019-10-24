@@ -6,11 +6,11 @@ import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.game.Guess;
-
-import java.util.List;
 
 public class GameStatisticsBuilderTest {
 
