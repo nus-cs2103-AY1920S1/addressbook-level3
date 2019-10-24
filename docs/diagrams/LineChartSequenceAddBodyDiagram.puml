@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "d:AddCommand" as AddCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -20,62 +20,62 @@ participant "lineChartPanel:LineChartPanel" as LineChartPanel UI_COLOR
 
 end box
 
-[-> LogicManager : execute("delete -b 1")
+[-> LogicManager : execute("add -b ...")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete -b 1")
+LogicManager -> AddressBookParser : parseCommand("add -b ...")
 activate AddressBookParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create AddCommandParser
+AddressBookParser -> AddCommandParser
+activate AddCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+AddCommandParser --> AddressBookParser
+deactivate AddCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("-b 1")
-activate DeleteCommandParser
+AddressBookParser -> AddCommandParser : parse("-b ...")
+activate AddCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+AddCommand --> AddCommandParser : a
+deactivate AddCommand
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+AddCommandParser --> AddressBookParser : a
+deactivate AddCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+AddCommandParser -[hidden]-> AddressBookParser
+destroy AddCommandParser
 
-AddressBookParser --> LogicManager : d
+AddressBookParser --> LogicManager : a
 deactivate AddressBookParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> AddCommand : execute()
+activate AddCommand
 
-DeleteCommand -> Model : deleteEntity(1)
+AddCommand -> Model : addEntity(Body b)
 activate Model
 
-Model --> DeleteCommand
+Model --> AddCommand
 deactivate Model
 
-Model -> AddressBook : removeEntity(1)
+Model -> AddressBook : addEntity(Body b)
 activate AddressBook
 
 AddressBook --> Model
 deactivate AddressBook
 
 create CommandResult
-DeleteCommand -> CommandResult
+AddCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> AddCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+AddCommand --> LogicManager : result
+deactivate AddCommand
 
 [<--LogicManager
 deactivate LogicManager
