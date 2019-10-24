@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.common.Module;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Module> {
+public class NameContainsKeywordsPredicate implements Predicate<Semester> {
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
@@ -17,9 +16,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Module> {
     }
 
     @Override
-    public boolean test(Module module) {
+    public boolean test(Semester semester) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode().moduleCode, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(semester.getAcademicYear().getAcademicYear(),
+                        keyword));
     }
 
     @Override

@@ -6,32 +6,32 @@ import static java.util.Objects.requireNonNull;
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable.
  */
-public class Credit {
+public class Grade {
 
-    private final int credit;
+    private final String grade;
     /**
      * Constructs a {@code Phone}.
      *
-     * @param credit A valid phone number.
+     * @param grade A valid grade.
      */
-    public Credit(int credit) {
-        requireNonNull(credit);
-        this.credit = credit;
+    public Grade(String grade) {
+        requireNonNull(grade);
+        this.grade = grade;
     }
 
-    public int getCredit() {
-        return credit;
+    public String getGrade() {
+        return grade;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Credit // instanceof handles nulls
-                && this.credit == credit); // state check
+                || (other instanceof Grade // instanceof handles nulls
+                && this.grade == grade); // state check
     }
 
     @Override
     public String toString() {
-        return String.valueOf(credit);
+        return grade;
     }
 }

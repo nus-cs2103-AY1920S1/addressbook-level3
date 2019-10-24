@@ -5,11 +5,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.Model;
+import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 
 /**
@@ -20,18 +23,21 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a person to the address book. "
+            + ": Adds a module to the study tracker. "
             + "Parameters: "
             + PREFIX_MODULE_CODE + "MODULE CODE "
             + PREFIX_TITLE + "TITLE "
+            + PREFIX_SEMESTER + "SEMESTER"
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_FACULTY + "FACULTY "
             + PREFIX_CREDIT + "CREDIT "
-            + PREFIX_DESCRIPTION + "ADDRESS ";
+            + PREFIX_GRADE + "GRADE ";
 
     public static final String MESSAGE_SUCCESS = "New module added to modulo tracker: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in this semester";
 
     private final Module toAdd;
+    private final Semester toBelong;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -39,6 +45,7 @@ public class AddCommand extends Command {
     public AddCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
+        toBelong = module.getSemester();
     }
 
     @Override
@@ -50,6 +57,7 @@ public class AddCommand extends Command {
         }
 
         model.addModule(toAdd);
+        model.addSemester(toBelong);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

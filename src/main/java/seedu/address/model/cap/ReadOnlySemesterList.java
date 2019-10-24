@@ -1,13 +1,13 @@
 package seedu.address.model.cap;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.model.common.Module;
+
 
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyModulo {
+public interface ReadOnlySemesterList {
 
     /**
      * Returns an unmodifiable view of the persons list.

@@ -6,32 +6,32 @@ import static java.util.Objects.requireNonNull;
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable.
  */
-public class Credit {
+public class Cap {
 
-    private final int credit;
+    private final double cap;
     /**
      * Constructs a {@code Phone}.
      *
      * @param credit A valid phone number.
      */
-    public Credit(int credit) {
+    public Cap(double credit) {
         requireNonNull(credit);
-        this.credit = credit;
+        this.cap = credit;
     }
 
-    public int getCredit() {
-        return credit;
+    public double getCap() {
+        return cap;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Credit // instanceof handles nulls
-                && this.credit == credit); // state check
+                || (other instanceof Cap // instanceof handles nulls
+                && this.cap == cap); // state check
     }
 
     @Override
     public String toString() {
-        return String.valueOf(credit);
+        return String.valueOf(cap);
     }
 }

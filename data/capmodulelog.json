@@ -1,3 +1,15 @@
 {
-  "persons" : [ ]
+  "semesters" : [ {
+    "semesterPeriod" : 1,
+    "academicYear" : "1920"
+  } ],
+  "modules" : [ {
+    "title" : "Programming",
+    "semester" : "Y1920S1",
+    "description" : "description",
+    "credit" : 4,
+    "faculty" : "Computing",
+    "grade" : "A",
+    "moduleCode" : "cs2103"
+  } ]
 }

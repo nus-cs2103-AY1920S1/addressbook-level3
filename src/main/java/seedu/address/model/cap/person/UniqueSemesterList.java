@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.cap.person.exceptions.DuplicateModuleException;
 import seedu.address.model.cap.person.exceptions.ModuleNotFoundException;
-import seedu.address.model.common.Module;
 
 
 /**
@@ -22,27 +21,27 @@ import seedu.address.model.common.Module;
  *
  * Supports a minimal set of list operations.
  *
- * @see Module#isSameModule(Module)
+ * @see UniqueSemesterList#isSameSemester(Semester)
  */
-public class UniqueModuleList implements Iterable<Module> {
+public class UniqueSemesterList implements Iterable<Semester> {
 
-    private final ObservableList<Module> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Module> internalUnmodifiableList =
+    private final ObservableList<Semester> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Semester> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Module toCheck) {
+    public boolean contains(Semester toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameModule);
+        return internalList.stream().anyMatch(toCheck::isSameSemester);
     }
 
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Module toAdd) {
+    public void add(Semester toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateModuleException();
@@ -51,74 +50,58 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
-     */
-    public ObservableList<Module> getInternalList() {
-        return internalList;
-    }
-
-    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setModule(Module targetModule, Module editedModule) {
-        requireAllNonNull(targetModule, editedModule);
+    public void setSemester(Semester targetSemester, Semester editedSemester) {
+        requireAllNonNull(targetSemester, editedSemester);
 
-        int index = internalList.indexOf(targetModule);
+        int index = internalList.indexOf(targetSemester);
         if (index == -1) {
             throw new ModuleNotFoundException();
         }
 
-        if (!targetModule.isSameModule(editedModule) && contains(editedModule)) {
+        if (!targetSemester.isSameSemester(editedSemester) && contains(editedSemester)) {
             throw new DuplicateModuleException();
         }
 
-        internalList.set(index, editedModule);
+        internalList.set(index, editedSemester);
     }
 
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Module toRemove) {
+    public void remove(Semester toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
         }
     }
 
-    /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setModules(List<Module> modules) {
-        requireAllNonNull(modules);
-        if (!modulesAreUnique(modules)) {
-            throw new DuplicateModuleException();
-        }
-
-        internalList.setAll(modules);
+    public void setSemesters(List<Semester> replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Module> asUnmodifiableObservableList() {
+    public ObservableList<Semester> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Module> iterator() {
+    public Iterator<Semester> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueModuleList // instanceof handles nulls
-                        && internalList.equals(((UniqueModuleList) other).internalList));
+                || (other instanceof UniqueSemesterList // instanceof handles nulls
+                        && internalList.equals(((UniqueSemesterList) other).internalList));
     }
 
     @Override
@@ -126,21 +109,13 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.hashCode();
     }
 
-    public int size() {
-        return internalList.size();
-    }
-
-    public Module get(int position) {
-        return internalList.get(position);
-    }
-
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean modulesAreUnique(List<Module> modules) {
-        for (int i = 0; i < modules.size() - 1; i++) {
-            for (int j = i + 1; j < modules.size(); j++) {
-                if (modules.get(i).isSameModule(modules.get(j))) {
+    private boolean semestersAreUnique(List<Semester> semesters) {
+        for (int i = 0; i < semesters.size() - 1; i++) {
+            for (int j = i + 1; j < semesters.size(); j++) {
+                if (semesters.get(i).isSameSemester(semesters.get(j))) {
                     return false;
                 }
             }
