@@ -269,9 +269,11 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFeedbackToUser().equals(InfoCommand.ADD_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.AUTO_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUY_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.CLEAR_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.CUSTOM_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DEFAULT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)

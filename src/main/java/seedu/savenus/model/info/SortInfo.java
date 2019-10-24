@@ -16,5 +16,5 @@ public class SortInfo {
 
     public static final String USAGE = "sort name ASC";
 
-    public static final String OUTPUT = "The Food item list will be sorted in ascending order based on the Food name.";
+    public static final String OUTPUT = "You have successfully sorted the food items!!";
 }

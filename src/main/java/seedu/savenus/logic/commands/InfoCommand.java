@@ -18,11 +18,15 @@ public class InfoCommand extends Command {
 
     public static final String ADD_INFO = COMMAND_INDICATOR + AddCommand.COMMAND_WORD;
 
+    public static final String AUTO_SORT_INFO = COMMAND_INDICATOR + AutoSortCommand.COMMAND_WORD;
+
     public static final String BUDGET_INFO = COMMAND_INDICATOR + BudgetCommand.COMMAND_WORD;
 
     public static final String BUY_INFO = COMMAND_INDICATOR + BuyCommand.COMMAND_WORD;
 
     public static final String CLEAR_INFO = COMMAND_INDICATOR + ClearCommand.COMMAND_WORD;
+
+    public static final String CUSTOM_SORT_INFO = COMMAND_INDICATOR + CustomSortCommand.COMMAND_WORD;
 
     public static final String DEFAULT_INFO = COMMAND_INDICATOR + DefaultCommand.COMMAND_WORD;
 
@@ -69,12 +73,16 @@ public class InfoCommand extends Command {
         switch(input) {
         case AddCommand.COMMAND_WORD :
             return new CommandResult(ADD_INFO);
+        case AutoSortCommand.COMMAND_WORD :
+            return new CommandResult(AUTO_SORT_INFO);
         case BudgetCommand.COMMAND_WORD :
             return new CommandResult(BUDGET_INFO);
         case BuyCommand.COMMAND_WORD :
             return new CommandResult(BUY_INFO);
         case ClearCommand.COMMAND_WORD :
             return new CommandResult(CLEAR_INFO);
+        case CustomSortCommand.COMMAND_WORD :
+            return new CommandResult(CUSTOM_SORT_INFO);
         case DefaultCommand.COMMAND_WORD :
             return new CommandResult(DEFAULT_INFO);
         case DeleteCommand.COMMAND_WORD :
