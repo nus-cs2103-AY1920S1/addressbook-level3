@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes sort command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([valid fields present])
+    :Determine sort order in parser based on given fields;
+    :Update Model based on the sort order;
+else ([else])
+ if () then([invalid field present])
+    :Display error message for invalid field;
+ else ([missing field present])
+    :Display error message for missing field;
+ endif
+endif
+stop
+@enduml
