@@ -30,7 +30,7 @@ public class IcsUtil {
      */
     public static String generateUid() {
         Instant currentInstant = Instant.now();
-        return currentInstant + "@Rori";
+        return currentInstant + "@Horo";
     }
 
     /**
@@ -47,16 +47,4 @@ public class IcsUtil {
             throw new IcsException("The timestamp provided is invalid!");
         }
     }
-
-    /**
-     * Converts the DateTime object to a time stamp in the default ICS file specification format.
-     * @param dateTime A DateTime object.
-     * @return The timestamp in the default ICS file specification format representing the DateTime object.
-     */
-    public static String toIcsTimeStamp(DateTime dateTime) {
-        Instant instant = dateTime.toInstant();
-        SimpleDateFormat simpleDateFormat = getIcsSimpleDateFormat();
-        return simpleDateFormat.format(instant);
-    }
-
 }
