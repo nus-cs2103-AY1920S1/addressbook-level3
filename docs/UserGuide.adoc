@@ -43,7 +43,7 @@ Context-specific commands are commands which are only applicable for a specific 
 
 **Command Format**
 
-* Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`, `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be replaced. 
+* Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`, `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be replaced.
 
 > `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
@@ -99,27 +99,38 @@ Format: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 > `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
 Requirements:
+
 * A valid customer `c/CUSTOMER`, restaurant `r/RESTAURANT` and restaurant menu item `f/FOOD` must be provided and exists currently in the database.
+
 * The quantity of food to be delivered also be provided and be greater than 0.
 
 ==== Editing of orders `-edit_order`
 This enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
 
 You can change:
-*The customer who made the order
-*The restaurant and/or food ordered
-*The quantity of the food ordered
-*The deliveryman to deliver the order
-*The delivery status of the order
+
+* The customer who made the order
+
+* The restaurant and/or food ordered
+
+* The quantity of the food ordered
+
+* The deliveryman to deliver the order
+
+* The delivery status of the order
 
 Format: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
 
 > `-edit_order i/1337 d/John Doe completed/true`
 
 Requirements:
+
 * The index `i/INDEX` provided must be within the order list size and be greater than or equals to 0.
+
 * A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
+
 * Optional items with '[]' tags may be ommitted e.g. `[r/RESTAURANT]`. However at least 1 tag has to be present for the order to be edited.
+
 * Delivery status `completed/DELIVERY_STATUS` must be true or false, if present.
 
 ==== Deleting of orders `-delete_order`
