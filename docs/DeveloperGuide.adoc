@@ -88,12 +88,45 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+==== Schedule View
+The display schedule feature extends Scheduler to display multiple tables of schedule per day. It is a component in the "MainWindow" class
+stored in a "ScheduleViewPanel" class. Within the "ScheduleViewPanel" class, objects of "ScheduleView" class are stored into the panel.
+
+ScheduleViewPanel implements the following function:
+*`fillPanel()` -- Fill the ScheduleView component with the schedule tables for each day.
+
+Given below is an example scenario of what will be displayed to the user.
+
+Step 1. The user launches the application. The Ui will start and the MainWindow will be displayed first.
+
+Step 2. MainWindow will call all the children such as the HelpWindow, CommandBox, Result Display, StatusBarFooter and ScheduleViewPanel.
+
+Step 3. Once ScheduleViewPanel is called, it will take in a list of titles and ObservableList data from the Logic class. The list of titles
+consist of the title column for each schedule table and the ObservableList data consists of the time slots allocated to each interviewee.
+
+Step 4. ScheduleViewPanel will call the ScheduleView class to fill each table and populate each table with the data given by the Logic class.
+
+Step 5. ScheduleView will have a .fxml file of a table and it will first be filled with the column titles, followed by the time slots and the
+interviewee allocated to each time slots. The slot that has no interviewee will be displayed as "0".
+
+Step 6. Once the data is populated, the MainWindow will display the schedules of each day arranged in a table format.
+
+Step 7. Once User imports a new .csv file, it will call the RefreshListener Interface. RefreshListenerManager will then take in the new titles and
+list of ObservableList of interviewee.
+
+Step 8. The RefreshListenerManager will call the MainWindow to refresh the ScheduleViewPanel.
+
+Step 9. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
+
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram1_2.png[]
+
+Users should be able to manually key in input (i.e add interviewers and interviewees). We therefore changed the Logic
+package accordingly to suit our needs.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -152,18 +185,9 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
-
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Logic
-Users should be able to manually key in input (i.e add interviewers and interviewees). We therefore changed the Logic
-package accordingly to suit our needs.
-
-Below is the *Class diagram* `(as of v1.2)`:
-
-image::LogicClassDiagram1_2.png[]
-
-==== Add Interviewee/Interviewer feature
+=== Add Interviewee/Interviewer feature
 The add command is facilitated by the `AddCommandParser` class. It extends `AddCommandParser` by allowing it to parse
 prefixes specific to our Scheduler app, namely:
 
@@ -188,7 +212,7 @@ The following activity diagram shows the steps needed to add a new interviewee:
 
 image::AddActivityDiagram_1_2.png[]
 
-=== [coming soon in v1.3] scheduling algorithm
+=== [Coming soon in v1.3] Scheduling Algorithm
 The scheduling of interviews is essentially a https://www.geeksforgeeks.org/maximum-bipartite-matching/[maximum bipartite matching problem].
 The application is trying to find the **maximum number of matching** between available interview slots
 and interviewees.
@@ -217,38 +241,6 @@ command keyword (refer user guide).
 When the scheduling algorithm has finished running, it will update the data in the `Schedule` objects to reflect the
 allocated time slots to the interviewees, which the changes will then be reflected automatically in the UI.
 
-
-=== Display Schedule Feature
-==== Proposed Implementation
-
-The display schedule feature extends Scheduler to display multiple tables of schedule per day. It is a component in the "MainWindow" class
-stored in a "ScheduleViewPanel" class. Within the "ScheduleViewPanel" class, objects of "ScheduleView" class are stored into the panel.
-
-ScheduleViewPanel implements the following function:
-*`fillPanel()` -- Fill the ScheduleView component with the schedule tables for each day.
-
-Given below is an example scenario of what will be displayed to the user.
-
-Step 1. The user launches the application. The Ui will start and the MainWindow will be displayed first.
-
-Step 2. MainWindow will call all the children such as the HelpWindow, CommandBox, Result Display, StatusBarFooter and ScheduleViewPanel.
-
-Step 3. Once ScheduleViewPanel is called, it will take in a list of titles and ObservableList data from the Logic class. The list of titles
-consist of the title column for each schedule table and the ObservableList data consists of the time slots allocated to each interviewee.
-
-Step 4. ScheduleViewPanel will call the ScheduleView class to fill each table and populate each table with the data given by the Logic class.
-
-Step 5. ScheduleView will have a .fxml file of a table and it will first be filled with the column titles, followed by the time slots and the
-interviewee allocated to each time slots. The slot that has no interviewee will be displayed as "0".
-
-Step 6. Once the data is populated, the MainWindow will display the schedules of each day arranged in a table format.
-
-Step 7. Once User imports a new .csv file, it will call the RefreshListener Interface. RefreshListenerManager will then take in the new titles and
-list of ObservableList of interviewee.
-
-Step 8. The RefreshListenerManager will call the MainWindow to refresh the ScheduleViewPanel.
-
-Step 9. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
 
 === Import
 ==== Implementation
@@ -293,9 +285,6 @@ The Activity Diagram below summarises the execution of the export command.
 
 image::ExportActivityDiagram.png[]
 
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
 === [Coming soon in v1.3] Email
 ==== Implementation
