@@ -34,7 +34,7 @@ public class ReminderThreshold {
      * Returns true if a given integer is a valid reminder threshold.
      */
     public static boolean isValidReminderThreshold(String test) {
-        return StringUtil.isNonNegativeInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
+        return StringUtil.isNonNegativeInteger(test) && (!StringUtil.isExceedingMaxValue(test, MAX_VALUE));
     }
 
     public int getValue() {

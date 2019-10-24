@@ -31,7 +31,9 @@ public class ReminderThresholdTest {
         assertFalse(ReminderThreshold.isValidReminderThreshold("3*")); // contains non-numeric characters
         assertFalse(ReminderThreshold.isValidReminderThreshold("1.5")); // contains non-integer numbers
         assertFalse(ReminderThreshold.isValidReminderThreshold("-1")); // contains non-positive numbers
-        assertFalse(ReminderThreshold.isValidReminderThreshold("10000000000")); // contains very large numbers
+
+        // exceeding maximum threshold
+        assertFalse(ReminderThreshold.isValidReminderThreshold("" + (ReminderThreshold.MAX_VALUE + 1)));
 
         // valid reminder threshold
         assertTrue(ReminderThreshold.isValidReminderThreshold("0")); // zero
