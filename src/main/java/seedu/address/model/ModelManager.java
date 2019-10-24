@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -33,6 +34,7 @@ public class ModelManager implements Model {
     private Stack<String> savedCommand;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Reminder> filteredReminder;
+    private final FilteredList<Notes> filteredNotes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,7 +53,7 @@ public class ModelManager implements Model {
         savedCommand = new Stack<String>();
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         filteredReminder = new FilteredList<>(this.addressBook.getReminderList());
-
+        filteredNotes = new FilteredList<>(this.addressBook.getNotesList());
     }
 
     public ModelManager() {
@@ -296,4 +298,21 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons));
     }
 
+    @Override
+    public boolean hasNotes(Notes note) {
+        requireNonNull(note);
+        return addressBook.hasNotes(note);
+    }
+
+    @Override
+    public void addNotes(Notes notes) {
+        addressBook.addNotes(notes);
+        updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
+    }
+
+    @Override
+    public void updateFilteredNotesList(Predicate<Notes> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
+    }
 }

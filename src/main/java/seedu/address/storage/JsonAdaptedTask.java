@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.task.Marking;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDescription;
 import seedu.address.model.task.TaskTime;
 
 /**
@@ -22,7 +22,7 @@ class JsonAdaptedTask {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
-    private final String description;
+    private final String classId;
     private final String marking;
     private final List<JsonAdaptedTaskTime> taskTimes = new ArrayList<>();
 
@@ -30,9 +30,9 @@ class JsonAdaptedTask {
      * Constructs a {@code JsonAdaptedTask} with the given task details.
      */
     @JsonCreator
-    public JsonAdaptedTask(@JsonProperty("description") String description, @JsonProperty("marking") String marking,
+    public JsonAdaptedTask(@JsonProperty("classId") String classId, @JsonProperty("marking") String marking,
                              @JsonProperty("taskTimes") List<JsonAdaptedTaskTime> taskTimes) {
-        this.description = description;
+        this.classId = classId;
         this.marking = marking;
         if (taskTimes != null) {
             this.taskTimes.addAll(taskTimes);
@@ -43,7 +43,7 @@ class JsonAdaptedTask {
      * Converts a given {@code Task} into this class for Jackson use.
      */
     public JsonAdaptedTask(Task source) {
-        description = source.getDescription().fullTaskDescription;
+        classId = source.getClassId().value;
         marking = source.getMarking().getStatus();
         taskTimes.addAll(source.getTime().stream().map(JsonAdaptedTaskTime::new).collect(Collectors.toList()));
     }
@@ -58,12 +58,12 @@ class JsonAdaptedTask {
             times.add(time.toModelType());
         }
 
-        if (description == null) {
+        if (classId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    TaskDescription.class.getSimpleName()));
+                    ClassId.class.getSimpleName()));
         }
 
-        final TaskDescription modelDescription = new TaskDescription(description);
+        final ClassId id = new ClassId(classId);
 
         if (marking == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -77,7 +77,7 @@ class JsonAdaptedTask {
 
         final Set<TaskTime> modelTimes = new HashSet<>(times);
 
-        return new Task(modelDescription, modelTimes, modelMarking);
+        return new Task(id, modelTimes, modelMarking);
     }
 
 }
