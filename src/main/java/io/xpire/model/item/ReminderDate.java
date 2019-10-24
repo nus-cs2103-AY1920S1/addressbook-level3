@@ -40,7 +40,7 @@ public class ReminderDate {
 
     @Override
     public String toString() {
-        return "Reminder on: " + this.date.format(DATE_FORMATTER);
+        return this.date.format(DATE_FORMATTER);
     }
 
     @Override

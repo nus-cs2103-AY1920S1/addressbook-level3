@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ItemListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CardListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/io/xpire/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -263,79 +263,108 @@ The following activity diagram summarizes what happens when a user executes a ne
 === Undo/Redo feature
 ==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedXpire`.
-It extends `Xpire` with an undo/redo history, stored internally as an `XpireStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by `CloneModel` and `StackManager`.
+It is a separate class that stores a state of the model at any command in time. +
+Internally, it runs three private functions that copy the data over.
 
-* `VersionedXpire#commit()` -- Saves the current Xpire state in its history.
-* `VersionedXpire#undo()` -- Restores the previous Xpire state from its history.
-* `VersionedXpire#redo()` -- Restores a previously undone Xpire state from its history.
+The mechanism is supported by a StackManager which stores internally all the states and +
+decides when to pop or clear, depending on the command.
+There are two stacks that are stored in StackManager internally, the Undo and the Redo stack.
+These stacks are initialised and cleared upon beginning/ending every session.
 
-These operations are exposed in the `Model` interface as `Model#commitXpire()`, `Model#undoXpire()` and `Model#redoXpire()` respectively.
+At every command (Other than undo/redo/help/exit), the state is stored internally. +
+When an undo command is executed, it will pop the previous state and update the model via `updateModel`. +
+The state that was undid will then be pushed into the Redo stack, should the user types in a redo command.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedXpire` will be initialized with the initial Xpire state, and the `currentStatePointer` pointing to that single Xpire state.
+Step 1. The user launches the application for the first time. The two internal stacks in `StackManager` will be initialised.
 
-image::UndoRedoState0.png[]
+Both stacks should be empty as there are no previous commands by the user. The current state is s0, the initial state of Xpire.
 
-Step 2. The user executes `delete|5` command to delete the 5th item in the Xpire. The `delete` command calls `Model#commitXpire()`, causing the modified state of the Xpire after the `delete|5` command executes to be saved in the `XpireStateList`, and the `currentStatePointer` is shifted to the newly inserted Xpire state.
+image::UndoRedo/UndoRedoStep1.png[]
 
-image::UndoRedoState1.png[]
+Step 2. The user executes `delete|5` command to delete the 5th item in Xpire. The `delete` will then save the previous state, s0 by pushing it into the Undo Stack.
 
-Step 3. The user executes `add|Strawberry|3/2/2020|1` to add a new item. The `add` command also calls `Model#commitXpire()`, causing another modified Xpire state to be saved into the `XpireStateList`.
+The current state will be the new state `s1` that has the 5th item in Xpire deleted.
 
-image::UndoRedoState2.png[]
+image::UndoRedo/UndoRedoStep2.png[]
+
+Step 3. The user executes `add|Apple|30/10/2019|3` to add a new item. Similar to Step 2, The `add` command will then save the previous state, s1 by pushing it into the Undo Stack.
+
+The current state will be the new state `s2` with the item Apple added.
+
+image::UndoRedo/UndoRedoStep3.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitXpire()`, so the Xpire state will not be saved into the `XpireStateList`.
+If a command fails its execution, it will not save the previous state, thus the Xpire state will not be pushed into the UndoStack.
 
-Step 4. The user now decides that adding the item was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoXpire()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous Xpire state, and restores the Xpire to that state.
+Step 4. The user now decides that adding the item was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will then update the current model with the model in the previous state.
 
-image::UndoRedoState3.png[]
+Internally within StackManager, the most recent state, s1, will be popped from the Undo Stack to become the current state. At the same time, s2, the new state with the added item, will be pushed into the Redo Stack.
+
+image::UndoRedo/UndoRedoStep4.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial Xpire state, then there are no previous Xpire states to restore. The `undo` command uses `Model#canUndoXpire()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If there are no commands to undo (e.g. at the start of a new Xpire session), undo will return an Error to the user instead. This is done by checking whether the UndoStack is empty.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the undo operation works (TO BE UPDATED):
 
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoXpire()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the Xpire to that state.
+The `redo` command does the opposite -- It will pop the latest state from the Redo Stack and set it as the current state whilst pushing the current state into the Undo Stack.
 
 [NOTE]
-If the `currentStatePointer` is at index `XpireStateList.size() - 1`, pointing to the latest Xpire state, then there are no undone Xpire states to restore. The `redo` command uses `Model#canRedoXpire()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Similarly, if there are no commands to redo, redo will return an Error to the user. This is done by checking if the Redo Stack is empty.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the Xpire, such as `list`, will usually not call `Model#commitXpire()`, `Model#undoXpire()` or `Model#redoXpire()`. Thus, the `XpireStateList` remains unchanged.
+From Step 4, there are 3 scenarios which showcases the behaviour of StackManager after an Undo Command has been executed.
 
-image::UndoRedoState4.png[]
+Step 5a. The user suddenly decides that he should not have undid the previous AddCommand, thus he wants to redo the action. This is done by inputting 'redo' in Xpire.
 
-Step 6. The user executes `clear`, which calls `Model#commitXpire()`. Since the `currentStatePointer` is not pointing at the end of the `XpireStateList`, all Xpire states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Internally within Stack Manager, the current state will be the popped state, s2, from the Redo Stack. The current state, s1, will then be psuehd back into the Undo Stack.
 
-image::UndoRedoState5.png[]
+The current states and their locations should be the same as after the execution of the Add command in Step 3.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+image::UndoRedo/UndoRedoStep5a.png[]
 
-image::CommitActivityDiagram.png[]
+Step 5b. The user decides to further undo his actions, which now includes the first Delete command. The initial state, s0, will then be popped from the Undo Stack and set as the current state.
+
+The current state, s1, will then be pushed into the Redo Stack.
+
+image::UndoRedo/UndoRedoStep5b.png[]
+
+Step 5c. The user may also decide to execute some other command (which is the most likely scenario) other than Undo/Redo. For instance, the user inputs `tag|2|#Fruit`
+
+When this happens, the existing states in the Redo Stack will be cleared. The state s1, will then be pushed into the Undo Stack whilst the current state will be the new state s3 that includes the new Tag command.
+
+image::UndoRedo/UndoRedoStep5c.png[]
+
+[NOTE]
+Not all commands will save states to StackManager. Exit and Help commands will not save states. Undo and Redo commands should only act on commands that update the items or change the view of the items to the user.
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+image::UndoRedo/UndoRedoActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire Xpire.
+* **Alternative 1 (current choice):** Saves the entire model.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the item being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command are correct. +
+Hard to do when we are applying stackable search/sort commands.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of Xpire states.
+* **Alternative 1 (current choice):** Use a list to store the history of model states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedXpire`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update the filtered list shown to the user and the backend Xpire data.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -765,7 +794,7 @@ _{More to be added}_
 
 |ItemCard |UI component that displays information on an item
 
-|ItemListPanel |UI component that displays list of items
+|CardListPanel |UI component that displays list of items
 
 |Logic |Handles user input for the application and returns the application's output
 

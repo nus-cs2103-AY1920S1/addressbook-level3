@@ -7,6 +7,7 @@ import io.xpire.model.item.Item;
 import io.xpire.model.item.ReminderDate;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -29,6 +30,8 @@ public class ItemCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+    @FXML
+    private AnchorPane box;
     @FXML
     private Label name;
     @FXML
@@ -58,6 +61,8 @@ public class ItemCard extends UiPart<Region> {
         }
         this.item.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
+
+        box.setOnMouseClicked(e -> box.requestFocus());
     }
 
     @Override
