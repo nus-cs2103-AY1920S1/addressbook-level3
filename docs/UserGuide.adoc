@@ -215,7 +215,7 @@ Examples:
 
 === Event-Specific Management
 
-==== Automated allocation of Employees to Events: `allocate`
+==== Automated allocation of Employees to Events: `allocate` (also a GUI feature)
 
 Automatically chooses and allocates employees to events that meet the requirements.
 
@@ -277,11 +277,15 @@ Returns the 2rd event from the event list
 
 Alternatively, simply double-click the event card in the list.
 
-image::BeforeFetch.png[width="790"]
+image::beforefetch.png[width="790"]
 
 After double-clicking, a pop-up window should show:
 
-image::AfterFetch.png[width="790"]
+image::afterfetch.png[width="790"]
+
+After clicking the allocate button, the employee list should be updated.
+
+image::afterallocate.png[width="790"]
 
 
 === Finance Management
@@ -376,10 +380,6 @@ e.g. `addev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
 e.g. `edit_em 1 no/91234567 e/johndoe@example.com`
 * *Edit Event*: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...` +
 e.g. `edit_ev 2 n/Concert t/`
-* *Fetch Event*: `fetch_em INDEX` +
-e.g. `fetch_em 2`
-* *Fetch Event*: `fetch_ev INDEX` +
-e.g. `fetch_ev 3`
 * *Find Employee*: `find_em KEYWORD [MORE_KEYWORDS]` +
 e.g. `find_em John`
 * *Find Event*: `find_ev KEYWORD [MORE_KEYWORDS]` +
@@ -390,12 +390,12 @@ e.g. `delete_em 2`
 e.g. `delete_ev 1`
 * *Log Working Hours*: `log INDEX DDMMYYYY HOURSWORKED` +
 e.g. `log 2 30092019 8`
-* *Done Event*: `done INDEX` +
-e.g. `done 2`
-* *Allocate Employees (Auto)*: `allocate EVENT_ID [f/TAGS]...` +
-e.g. `allocate 002 t/female`
-* *Allocate Employees (Manual)*: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...` +
-e.g. `allocateM 002 n/2 n/5 n/3`
+* *Fetch Event*: `fetch_em INDEX` +
+e.g. `fetch_ev 3`
+* *Allocate Employees (Auto)*: `allocate EVENT_INDEX [n/NUMBER] [t/TAGS]...` +
+e.g. `allocate 1 n/2 t/female`
+* *Allocate Employees (Manual)*: `allocatem EVENT_INDEX [n/EMPLOYEE_INDEX]...` +
+e.g. `allocatem 1 n/2 `
 * *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +
 e.g. `pay 2 f/20082019 t/20102019`
 * *Generate Event Contract*: `contract n/EVENT_ID` +

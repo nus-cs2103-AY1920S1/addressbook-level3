@@ -48,7 +48,6 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
-    protected Model eventModel;
     protected Config config;
 
     @Override
@@ -68,7 +67,6 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-        eventModel = initModelManager(storage, userPrefs);
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);

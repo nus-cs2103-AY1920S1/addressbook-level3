@@ -17,6 +17,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventManpowerNeeded;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -96,9 +100,14 @@ public class AutoAllocateCommand extends Command {
 
         if (manpowerCountToAdd == null) { //if manpower count is not specified
             this.manpowerCountToAdd = getManpowerNeededByEvent(eventToAllocate);
+        }
 
-        } else if (manpowerCountToAdd > manpowerNeededByEvent) {
+        if (manpowerCountToAdd > manpowerNeededByEvent) {
             throw new CommandException(Messages.MESSAGE_MANPOWER_COUNT_EXCEEDED);
+        }
+
+        if (manpowerCountToAdd == 0) {
+            throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);
         }
 
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
@@ -112,14 +121,34 @@ public class AutoAllocateCommand extends Command {
 
         Collections.shuffle(availableEmployeeList);
 
+        Event newEventForAllocation = createEditedEvent(eventToAllocate);
+
         for (int i = 0; i < manpowerCountToAdd; i++) {
             Employee employeeToAdd = availableEmployeeList.get(i);
-            eventToAllocate.getManpowerAllocatedList().allocateEmployee(employeeToAdd);
+            newEventForAllocation.getManpowerAllocatedList().allocateEmployee(employeeToAdd);
         }
-        //model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.setEvent(eventToAllocate, newEventForAllocation);
 
         return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, eventToAllocate.getName().eventName,
                 manpowerCountToAdd));
+    }
+
+    /**
+     * Creates and returns a {@code Event} with the details of {@code eventToEdit}
+     */
+    private static Event createEditedEvent(Event eventToEdit) {
+        assert eventToEdit != null;
+
+        EventName updatedEventName = eventToEdit.getName();
+        EventVenue updatedEventVenue = eventToEdit.getVenue();
+        EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
+        EventDate updatedStartDate = eventToEdit.getStartDate();
+        EventDate updatedEndDate = eventToEdit.getEndDate();
+        Set<Tag> updatedTags = eventToEdit.getTags();
+
+        return new Event(updatedEventName, updatedEventVenue,
+                updatedManpowerNeeded, updatedStartDate,
+                updatedEndDate, updatedTags);
     }
 
 

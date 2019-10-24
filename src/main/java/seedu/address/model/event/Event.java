@@ -80,6 +80,10 @@ public class Event {
         return listOfDate;
     }
 
+    public boolean freeEmployees() {
+        return manpowerAllocatedList.freeEmployees();
+    }
+
     /**
      * Checks if an employee is available for this event.
      *
