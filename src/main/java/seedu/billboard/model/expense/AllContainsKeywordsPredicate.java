@@ -1,6 +1,7 @@
 package seedu.billboard.model.expense;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.billboard.commons.util.StringUtil;
@@ -9,11 +10,11 @@ import seedu.billboard.commons.util.StringUtil;
  * Tests that a {@code Expense}'s {@code Name} matches any of the keywords given.
  */
 public class AllContainsKeywordsPredicate implements Predicate<Expense> {
-    public static final String FINDTYPE = "all";
     private final List<String> keywords;
 
     public AllContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+
     }
 
     @Override
@@ -32,4 +33,8 @@ public class AllContainsKeywordsPredicate implements Predicate<Expense> {
                 && keywords.equals(((AllContainsKeywordsPredicate) other).keywords)); // state check
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(keywords);
+    }
 }

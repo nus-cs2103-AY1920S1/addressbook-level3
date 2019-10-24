@@ -9,6 +9,7 @@ import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,7 @@ import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.commands.ListCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.MultiArgPredicate;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 import seedu.billboard.testutil.ExpenseBuilder;
@@ -70,9 +72,12 @@ public class BillboardParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " name " + String.join(" ", keywords));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " "
+                + CliSyntax.PREFIX_DESCRIPTION + String.join(" ", keywords));
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(keywords);
+        assertEquals(new FindCommand(predicate), command);
     }
 
     @Test

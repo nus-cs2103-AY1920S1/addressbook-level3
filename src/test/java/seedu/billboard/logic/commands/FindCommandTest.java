@@ -11,6 +11,7 @@ import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
+import seedu.billboard.model.expense.MultiArgPredicate;
 import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 
 /**
@@ -35,10 +37,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        MultiArgPredicate firstPredicate = new MultiArgPredicate();
+        firstPredicate.setKeywords(Collections.singletonList("first"));
+        MultiArgPredicate secondPredicate = new MultiArgPredicate();
+        secondPredicate.setKeywords(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -63,7 +65,8 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noExpenseFound() {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(Arrays.asList("  ".split("\\s+")));
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenses(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -73,7 +76,8 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleExpensesFound() {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("food movie groceries");
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(Arrays.asList("food movie groceries".split("\\s+")));
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenses(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
