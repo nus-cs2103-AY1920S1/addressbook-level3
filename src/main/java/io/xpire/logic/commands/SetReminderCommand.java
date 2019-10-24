@@ -26,7 +26,9 @@ public class SetReminderCommand extends Command {
             + "Format: set reminder|<index>|<threshold> (both index and threshold must be positive numbers)\n"
             + "Example: " + COMMAND_WORD + "|1|7";
 
-    public static final String MESSAGE_SUCCESS = "Set reminder for item %d in %s day(s)";
+    public static final String MESSAGE_SUCCESS_SET = "Reminder for item %d has been set to %s day(s)"
+            + " before expiry date";
+    public static final String MESSAGE_SUCCESS_RESET = "Disabled reminder for item %d";
 
     private final Index index;
     private final ReminderThreshold threshold;
@@ -57,7 +59,9 @@ public class SetReminderCommand extends Command {
 
         model.setItem(itemToSetReminder, editedItem);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, this.index.getOneBased(), this.threshold));
+        return new CommandResult(this.threshold.getValue() > 0
+                ? String.format(MESSAGE_SUCCESS_SET, this.index.getOneBased(), this.threshold)
+                : String.format(MESSAGE_SUCCESS_RESET, this.index.getOneBased()));
     }
 
     @Override
