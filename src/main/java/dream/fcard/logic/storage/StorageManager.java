@@ -115,7 +115,7 @@ public class StorageManager {
      * @param filePath  Must be valid existing filepath to a deck json file.
      * @return          deck object
      */
-    private static Deck loadDeck(String filePath) {
+    public static Deck loadDeck(String filePath) {
         try {
             return parseDeckJsonFile(FileReadWrite.read(filePath));
         } catch (FileNotFoundException e) {
