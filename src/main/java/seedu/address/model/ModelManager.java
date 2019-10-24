@@ -137,9 +137,8 @@ public class ModelManager implements Model {
     @Override
     public void setNewOngoingVisit(Visit visit) {
         requireNonNull(visit);
-        ongoingVisitList.clear();
         stagedAddressBook.setOngoingVisit(visit);
-        ongoingVisitList.add(visit);
+        updateOngoingVisitList();
     }
 
     @Override
@@ -154,8 +153,8 @@ public class ModelManager implements Model {
 
     @Override
     public void unsetOngoingVisit() {
-        ongoingVisitList.clear();
         stagedAddressBook.unsetOngoingVisit();
+        updateOngoingVisitList();
     }
 
     @Override
@@ -168,6 +167,17 @@ public class ModelManager implements Model {
             setNewOngoingVisit(updatedVisit);
         } else {
             throw new IllegalStateException();
+        }
+    }
+
+    /**
+     * Helper method to update ongoing visit list which is linked to the UI
+     */
+    private void updateOngoingVisitList() {
+        ongoingVisitList.clear();
+        Optional<Visit> potentialOngoingVisit = this.stagedAddressBook.getOngoingVisit();
+        if (potentialOngoingVisit.isPresent()) {
+            ongoingVisitList.add(potentialOngoingVisit.get());
         }
     }
 
