@@ -8,7 +8,7 @@ start
 if () then ([command commits Classroom])
     :Purge redunant states;
     :Save Classroom to
-    classroomStateList;
+    mementos;
 else ([else])
 endif
 stop

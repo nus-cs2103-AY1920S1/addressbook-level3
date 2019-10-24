@@ -9,7 +9,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedClassroom" as VersionedClassroom MODEL_COLOR
+participant ":Caretaker" as Caretaker MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
@@ -33,12 +33,12 @@ activate UndoCommand
 UndoCommand -> Model : undoClassroom()
 activate Model
 
-Model -> VersionedClassroom : undo()
-activate VersionedClassroom
+Model -> Caretaker : undo()
+activate Caretaker
 
-VersionedClassroom -> VersionedClassroom :resetData(ReadOnlyClassroom)
-VersionedClassroom --> Model :
-deactivate VersionedClassroom
+Caretaker -> Caretaker :resetData(ReadOnlyClassroom)
+Caretaker --> Model :
+deactivate Caretaker
 
 Model --> UndoCommand
 deactivate Model

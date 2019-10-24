@@ -19,6 +19,9 @@ StorageManager o--> ClassroomStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonClassroomStorage .left.|> ClassroomStorage
 JsonClassroomStorage .down.> JsonSerializableClassroomStorage
-JsonSerializableClassroomStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonSerializableClassroomStorage .right.> JsonSerializableClassroom
+JsonSerializableClassroom .right.> JsonAdaptedStudent
+JsonSerializableClassroom .right.> JsonAdaptedAssignment
+JsonSerializableStudent .right.> JsonAdaptedTag
+
 @enduml

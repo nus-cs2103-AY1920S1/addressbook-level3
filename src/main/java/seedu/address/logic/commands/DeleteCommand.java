@@ -47,7 +47,10 @@ public class DeleteCommand extends Command {
         model.deleteStudent(studentToDelete);
 
         for (Assignment assignment: assignmentList) {
-            model.setAssignment(assignment, assignment.deleteOneStudentGrade(studentToDelete.getName().fullName));
+            Assignment editedAssignment = new Assignment(assignment.getAssignmentName());
+            editedAssignment.setGrades(assignment.namesStringListFromGrades(), assignment.marksStringListFromGrades());
+            editedAssignment.deleteOneStudentGrade(studentToDelete.getName().fullName);
+            model.setAssignment(assignment, editedAssignment);
         }
         model.saveState();
         return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
