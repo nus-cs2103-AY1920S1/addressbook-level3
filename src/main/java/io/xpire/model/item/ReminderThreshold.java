@@ -41,6 +41,10 @@ public class ReminderThreshold {
         return this.reminderThreshold;
     }
 
+    public boolean isDefault() {
+        return this.reminderThreshold == 0;
+    }
+
     @Override
     public String toString() {
         return "" + this.reminderThreshold;
