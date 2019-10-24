@@ -8,8 +8,10 @@ Package Model <<Rectangle>>{
 Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
+Class StatefulAddressBook
 Class AddressBook
 Class ReadOnlyAddressBook
+Class CommandHistory
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -21,7 +23,21 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class DateOfBirth
+Class Gender
+Class Nric
 Class UniquePersonList
+}
+
+Package Policy {
+Class Policy
+Class PolicyName
+Class Coverage
+Class Description
+Class EndAge
+Class Price
+Class StartAge
+Class UniquePolicyList
 }
 
 Package Tag {
@@ -32,11 +48,15 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
+StatefulAddressBook -up-|> AddressBook
 AddressBook .up.|> ReadOnlyAddressBook
+
+CommandHistory -[hidden]right-> StatefulAddressBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o-up-> "1" StatefulAddressBook
+ModelManager o-up-> "1" CommandHistory
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
@@ -46,11 +66,22 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> DateOfBirth
+Person *--> Gender
+Person *--> Nric
 Person *--> "*" Tag
+Person *--> "*" Policy
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+AddressBook *--> "1" UniquePolicyList
+UniquePolicyList o--> "*" Policy
+Policy *--> PolicyName
+Policy *--> Coverage
+Policy *--> Description
+Policy *--> EndAge
+Policy *--> Price
+Policy *--> StartAge
+Policy *--> "*" Tag
 
 ModelManager -->"1" Person : filtered list
+ModelManager -->"1" Policy : filtered list
 @enduml
