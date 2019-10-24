@@ -5,7 +5,6 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -49,6 +48,10 @@ public class ModelManager implements Model {
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
+    private final FilteredList<Deliveryman> statusSortedDeliverymen;
+    private final FilteredList<Deliveryman> availableDeliverymen;
+    private final FilteredList<Deliveryman> unavailableDeliverymen;
+    private final FilteredList<Deliveryman> deliveringDeliverymen;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Restaurant> editingRestaurant;
     private final UndoHistory<Data> undoHistory;
@@ -79,6 +82,10 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
+        statusSortedDeliverymen = new FilteredList<>(this.deliverymenDatabase.getStatusSortedDeliverymenList());
+        availableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getAvailableDeliverymenList());
+        unavailableDeliverymen = new FilteredList<>(this.deliverymenDatabase.getUnavailableDeliverymenList());
+        deliveringDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliveringDeliverymenList());
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
@@ -302,19 +309,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Deliveryman> listAvailableDeliverymen() {
-        return deliverymenDatabase.listAvailableMen();
-    }
-
-    @Override
-    public void listUnavailableDeliverymen() {
-        deliverymenDatabase.listUnavailableMen();
-    }
-
-    @Override
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireAllNonNull(target, editedDeliveryman);
         deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
+    }
+
+    @Override
+    public void showAvailableDeliverymen() {
+        deliverymenDatabase.setAsAvailable();
     }
 
     //=========== Order Methods =============================================================
@@ -427,6 +429,26 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Deliveryman> getStatusSortedList() {
+        return statusSortedDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getAvailableMenList() {
+        return availableDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getUnavailableMenList() {
+        return unavailableDeliverymen;
+    }
+
+    @Override
+    public ObservableList<Deliveryman> getDeliveringMenList() {
+        return deliveringDeliverymen;
+    }
+
+    @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
         return filteredRestaurants;
     }
@@ -457,6 +479,12 @@ public class ModelManager implements Model {
     public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate) {
+        requireNonNull(predicate);
+        statusSortedDeliverymen.setPredicate(predicate);
     }
 
     @Override
