@@ -129,13 +129,14 @@ public class ImportCommand extends Command {
         while (it.hasNext()) {
             count++;
             Map<String, String> rowAsMap = it.next();
-            try {
-                Spending spending = createSpending(rowAsMap);
-                spendings.add(spending);
-            } catch (ParseException p) {
-                errors.add("Line " + count + ": " + p.getMessage() + "\n");
+            if (rowAsMap.size() == 5) {
+                try {
+                    Spending spending = createSpending(rowAsMap);
+                    spendings.add(spending);
+                } catch (ParseException p) {
+                    errors.add("Row " + count + ": " + p.getMessage() + "\n");
+                }
             }
-
         }
 
         return new Pair<>(spendings, errors);

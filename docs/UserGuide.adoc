@@ -174,8 +174,8 @@ Deletes a spending in the specified index from the list. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the spending at the specified `INDEX`.
+* The index refers to the index number shown in the displayed spending list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -350,6 +350,31 @@ Generates a graph for spending that fall between and including 01/01/2019 and 07
 * `graph` +
 Generates a graph for all spending.
 
+=== Adding a reminder: `reminder`
+Adds a reminder to the reminder list
+Format: `reminder d/DATE m/MESSAGE`
+
+Examples:
+
+* `reminder d/30/08/2020 m/Pay school fees` +
+* `reminder d/3 days from now m/Pay phone bill` +
+
+=== Deleting a reminder: `dreminder`
+Deletes a reminder at the specified `INDEX`.
+Format: `dreminder INDEX`
+
+****
+* Deletes the reminder at the specified `INDEX`.
+* The index refers to the index number shown in the displayed reminder list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `dreminder 2` +
+Deletes the second reminder in the list based on the current results shown.
+
+
 === Importing data : `import`
 Imports data from a CSV file specified by file path. +
 
@@ -437,8 +462,12 @@ Format: `exit`
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Feature | Command
+<<<<<<< HEAD
 | *Help* | `help` +
 | *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
+=======
+| *Add spending* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
+>>>>>>> ec23259fa33571539c6ae95c513a900ecfaee287
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 | *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
 e.g. `update i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
@@ -461,6 +490,10 @@ e.g. `graph d/01/01/2019 d/07/01/2019` +
 e.g. `import p/C:\Users\User\Documents\importfile.csv` +
 | *Export data*| `export p/FILE_PATH` +
 e.g. `export p/C:\Users\User\Documents\importfile.csv` +
+| *Add reminder*| `reminder d/DATE m/MESSAGE` +
+e.g. `reminder n/30/08/2020 m/Pay school fee`
+| *Delete reminder* | `dreminder INDEX` +
+e.g. `dreminder 2`
 | *Undo*| `undo` +
 | *Redo*| `redo` +
 | *Clear*| `clear` +
