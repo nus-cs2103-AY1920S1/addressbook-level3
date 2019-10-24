@@ -14,11 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
 
-By: `CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
+By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
 
 == Introduction
 
-DeliveryMANs is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, DeliveryMANs is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
+*DeliveryMANs* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANs* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
 
 Get started with <<Quick Start>> and begin managing your deliveries today!
 
@@ -26,9 +26,7 @@ Get started with <<Quick Start>> and begin managing your deliveries today!
 
 Ensure you have Java 11 or above installed on your computer.
 
-Install the JAR file found on this website:
-
-[https://ay1920s1-cs2103t-t12-2.github.io/main](https://ay1920s1-cs2103t-t12-2.github.io/main)
+Click https://github.com/AY1920S1-CS2103T-T12-2/main/releases[here] to download the JAR file for *DeliveryMANs*.
 
 Open the application to begin. Refer to <<Features>> for details of each command.
 
@@ -36,16 +34,17 @@ Open the application to begin. Refer to <<Features>> for details of each command
 
 [[Features]]
 == Features
-In DeliveryMANs, there are 2 types of commands: universal commands and context-specific commands.
+
+In *DeliveryMANs*, there are 2 types of commands: universal commands and context-specific commands.
 
 Universal commands can be used anywhere throughout the application. You can identify universal commands by its "-" convention followed by a keyword e.g. `-help`.
 
-Context-specific commands are commands which are only applicable for a specific context e.g. viewing customer ordering trends can only be accessed in the customer context.
-
+Context-specific commands are commands which are only applicable for a specific context. Commands such as viewing a customer ordering history can only be accessed in the customer context.
 
 **Command Format**
 
 * Words in curly brackets are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`, `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be replaced. `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
+* Items with square brackets are optional such as `[t/TAG]` e.g. `n/John Doe t/Japanese` or `n/John Doe`.
 * Items with `…` after them can be used multiple times e.g. `[f/FOOD]...` can be used 1 or more: `f/3 Piece Chicken Meal`, `f/Pepperoni Pizza f/Char Kway Teow` etc.
 // end::features[]
 
@@ -90,69 +89,45 @@ Format: -exit
 
 === Customer commands
 
-==== Listing all customers
+These are commands pertaining to customer context of *DeliveryMANs*. The screenshot below shows how the customer context will look like in *DeliveryMANs*.
 
-Lists all current customers
+ screenshot of finalised DeliveryMANs showing customer list goes here
 
-Format: -list
+This is a customer and its information.
 
-==== Listing specific customer
+ screenshot of finalised CustomerCard
 
-Lists the information of a specific customer
+==== Adding a customer: `add`
 
-Format: -list {customer name}
+This command allows you to add a new customer to the customer list. Name and phone number are necessary to a customer. Tags in customers are optional to include. They are used to specify the customer's favourite cuisine. Multiple tags can be added to one customer.
 
-Example: -list John Doe
+Format: `add n/NAME p/PHONE [t/TAG]...`
 
-==== Editing customer info
+Example: `add n/John Doe p/91234567 t/Japanese t/Noodles`
 
-Edits all of customer&#39;s info
+==== Editing a customer: `edit`
 
-Format: -edit {customer name} -n {name} -a {address} -rt {reward} -o {number of orders}
+This command allows you to edit an existing customer in the customer list. The index of a customer needs to be provided while the information to edit are optional. For example, you can edit the customer's name without editing the phone number.
 
-Example: -edit John Doe -n Bob Doe -a Kent ridge -rt Gold -o 1
+Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
 
- List of info types: Syntax:
+Example: `edit 1 n/John Hoe p/97654321 t/Indian`
 
- Name   -n
+==== Deleting a customer: `delete`
 
- Address   -a
+This command allows you to delete an existing customer in the customer list. The index of a customer needs to be provided.
 
- Reward Tier  -rt
+Format: `delete INDEX`
 
- Number of orders -o
+Example: `delete 1`
 
-==== Editing specified customer info
+==== Viewing a customer's order history: `history`
 
-Edits a specified info type of a customer. See 3.2.3. Editing customer info for the list of info types
+This command allows you to view a customer's order history. The index of a customer needs to be provided.
 
-Format: -edit -c {customer name} {info type} -d    {description}
+Format: `history INDEX`
 
-Example: -edit -c John Doe -a -d Kent Ridge
-
-==== Sorting customer
-
-Sorts customers based on info type. If none is present, sort based on their names.  See 3.2.3. Editing customer info for the list of info types
-
-Format: -sort {info type}
-
-Example: -sort -rt
-
-==== Viewing history
-
-Views order history of a customer
-
-Format: -history {customer name}
-
-Example: -history Mary
-
-==== Removing customer
-
-Removes a customer from the database
-
-Format: -delete {customer name}
-
-Example: -delete Donald Trump
+Example: `history 1`
 
 // end::customerCommand[]
 // tag::restaurantCommand[]
@@ -250,7 +225,7 @@ Format: status {name}
 Example: -status Stanley Tay
 
 
-== Command Summary
+== Command summary
 
 **Command:** format
 
@@ -263,14 +238,10 @@ Example: -status Stanley Tay
 - Exit application: -exit
 
 * Customer commands
-- List customers: -list
-- List specified customer info: -list {name}
-- Edit customer info: -edit {customer name} -n      {customer name} -a {address} -r {reward tier} -o {number of order}
-- Edit specific customer info: -edit -n {customer name} {info type} -d {description}
-- Sort customer to info type: -sort {info type}
-- Show order history of customer: -history {customer name}
-- Add order: -order {customer name} -r {restaurant name} -m {menu item}
-- Delete customer: -delete {customer name}
+- Adding a customer: `add n/NAME p/PHONE [t/TAG]...`
+- Editing a customer: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+- Deleting a customer: `delete INDEX`
+- Viewing a customer's order history: `history INDEX`
 
 * Restaurant commands
 - List restaurants: -list
