@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all expenses
-* **`add`**`d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food` : adds an expense named `Chicken Rice` to the expense tracker.
+* **`add`**`d/Chicken Rice p/2.50 c/Food t/25-10` : adds an expense named `Chicken Rice` to the expense tracker.
 * **`delete`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
 
@@ -59,24 +59,29 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Basic Expense-Related Commands
-==== Adding an expense: `add`
+=== Basic Expense/Event-Related Commands
+==== Adding an expense/event: `add`
 
-Add an expense to the expense tracker
-Format: `add d/DESCRIPTION p/PRICE [t/time] [c/CATEGORY]...`
+Add an expense/event to the expense tracker. If the timestamp denotes a future date, an event is added.
+If not, an expense is added instead.
+
+Upon launch, Moolah will remind the user of upcoming events (7 days or below), and also ask users whether they wish
+to automatically add expenses corresponding to transpired events.
+
+Format: `add d/DESCRIPTION p/PRICE c/CATEGORY t/TIMESTAMP ...`
 
 [TIP]
-* An expense can have any number of categories (including 0).
-* If a time is not specified, the time property of the expense will be that of the system’s current time.
+* The timestamp field is optional.
+* If a time is not specified, an expense will be added with its date being the current system date.
 
 Examples:
 
-* `add d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
-* `add d/Buffet p/250 c/Food c/Anniversary Expense`
+* `add d/Brian birthday p/40 c/Gifts t/31-12`
+* `add d/Buffet p/250 c/Food`
 
-===== Using relative time/date input: `yesterday`
+===== (Coming in v1.4)Using relative time/date input: `yesterday`
 
-The user can specify an expense’s time using relative dates and times.
+The user can specify an expense/event’s time using relative dates and times.
 
 Example:
 If the current date is 12 Sep 2013
@@ -88,9 +93,26 @@ Result: adds an expense of 2.50 at 11 Sep 2013, 12pm
 Shows a list of all expenses in the expense tracker.
 Format: `list`
 
-==== Updating an expense : `edit`
+==== (Coming in v1.4)Listing all events : `events`
+Lists all events that you have inputted.
 
-Edits an existing expense in the expense tracker.
+Format: `events`
+
+Example:
+```
+events
+```
+Result:
+```
+You have these important dates coming up!
+Brian’s birthday: 04/06/2020
+Mum’s birthday: 06/06/2020
+```
+
+==== Updating an expense/event : `edit`
+
+Edits an existing expense/event in the expense tracker.
+
 Format: `edit INDEX [p/PRICE] [d/DESCRIPTION] [t/time] [c/CATEGORY]...`
 
 Example:
@@ -99,18 +121,17 @@ Updates the price of the 2nd expense in the current list to 3.50.
 
 
 ****
-* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
+* Edits the expense/event at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
 * The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing categories, the existing categories of the expense will be removed, i.e adding of categories is not cumulative.
-* You can remove an expense from all the categories by typing `c/` without specifying any categories after it. i.e. `edit 1 c/`
 * You can set the time of the expense to the system’s current time by typing `t/` without specifying a time.
 ****
 
-==== Locating expenses by name: `find`
+==== Locating expenses/events by name: `find`
 
-Finds expenses whose description contain any of the given keywords.
+Finds expenses/events whose description contain any of the given keywords.
+
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -128,13 +149,14 @@ Returns `chicken rice` and `duck rice`
 * `find chicken taxi schoolfee`
   Returns any expense having description containing `chicken`, `taxi`, or `schoolfee`
 
-==== Deleting an expense : `delete`
+==== Deleting an expense/event : `delete`
 
-Deletes the specified expense from the current list shown in the expense tracker.
+Deletes the specified expense/event from the current list shown in the expense tracker.
+
 Format: `delete INDEX`
 
 ****
-* Deletes the expense at the specified INDEX.
+* Deletes the expense/event at the specified INDEX.
 * The index refers to the index number shown in the currently displayed list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -148,6 +170,12 @@ delete 2
 Deletes the 2nd expense in the list of expenses, shown by `list`.
 
 ```
+events
+delete 2
+```
+Deletes the 2nd event in the list of events, shown by `events`.
+
+```
 list
 find chicken
 delete 1
@@ -157,6 +185,7 @@ Deletes the 1st expense in the results of the `find` command.
 ==== Clearing all entries : `clear`
 
 Clears all entries from the expense tracker.
+
 Format: `clear`
 
 ==== Undo the previous command : `undo`
@@ -187,7 +216,7 @@ redo
 Result:
 Expense no. 5 will now be deleted.
 
-==== Converting any currency to preferred currency : `convert`
+==== (Coming in v2.0) Converting any currency to preferred currency : `convert`
 
 === Budgeting-Related Commands
 ==== Creating new budgets : `budget`
@@ -207,7 +236,7 @@ Format: `switchbudget n/BUDGET_NAME`
 E.g.
 `switchbudget General Expense`
 
-=== Prediction : `predict`
+=== (Coming in v2.0)Prediction : `predict`
 User can get a rough estimation of next month's total expense based on extrapolation from this month's expenditure. The prediction will take into account important dates that require extra spending in next month.
 
 Format: `predict`
@@ -227,34 +256,6 @@ Result creates an alias “chicken rice” for the command which adds an expense
 - Note: all white spaces characters will be removed from alias names
 - Note: aliases with names of official commands cannot be made
 - Note: using the same name for an alias will overwrite the existing alias if it exists
-
-=== Reminders
-==== Recording important dates : `remind`
-Records an important date, which the expense tracker will remind you of as the date approaches.
-
-Format: `remind EVENT DATE [n DAYS]`
-Records the EVENT with the timestamp DATE.
-
-By default, the expense tracker will remind you of this event when its scheduled time approaches 7 days and below. If the optional parameter `[n DAYS]` is inputted, the tracker will begin reminding you `n` days before the scheduled time.
-
-Example: `remind Brian’s birthday 04/06/2020 14 DAYS`
-14 days before 04/06/2020, the expense tracker will begin reminding you of Brian’s birthday.
-
-==== Listing all reminders : `reminders`
-Lists all reminders for important dates that you have inputted.
-
-Format: `reminders`
-
-Example:
-```
-reminders
-```
-Result:
-```
-You have these important dates coming up!
-Brian’s birthday: 04/06/2020
-Mum’s birthday: 06/06/2020
-```
 
 === Saving the data
 Expense tracker data are saved in the hard disk automatically after any command that changes the data.

@@ -234,8 +234,6 @@ by the `add` command.
 
 // end::undoredo[]
 
-
-
 // category::budget[]
 === Budget feature
 ==== Implementation
@@ -341,7 +339,70 @@ This ensures that the main screen has a budget and shows a budget status bar at 
 statistics.
 // end::budget[]
 
+// category::events[]
+=== Events feature
+==== Implementation
 
+The Events feature allows users to add events that are supposed to occur on a future date. On launch, MooLah will
+remind users of upcoming events. MooLah will also notify the user about any events that are supposed to have
+transpired, and allow them to automatically add these events as expenses.
+
+The Events feature supports the `add`, `delete` and `events` command words.
+
+Events are added the same way expenses are added on the command line. When the user inputs an add command,
+MooLah determines whether an event or an expense should be added based on the date the user inputted in his command.
+This is illustrated below:
+
+image::AddExpenseOrEventActivityDiagram.png[]
+
+The following sequence diagram shows how MooLah handles transpired events on launch:
+
+image::TranspiredEventsSequenceDiagram.png[]
+
+1. When MooLah launches, the `start` method of `UiManager` is called. `UiManager` then calls the `handleTranspiredEvents`
+of `MainWindow`, which fetches all transpired events and notifies the user about them. It does so by first obtaining the
+transpired events from the `Timekeeper` class by calling a series of getter methods.
+
+2. Once the transpired events have been obtained, for each transpired event, a new `TranspiredEventWindow` will be
+constructed. The transpired event will then be passed via `show`, a method of the newly constructed `TranspiredEventWindow`.
+`show` will create a popup window that details the transpired event, and asks the user whether it should be added as an
+expense. This popup window will have a 'Yes' and 'No' button.
+
+3. If the user presses the 'Yes' button, the original command that the user inputted to add this particular event is fetched
+and passed to the `execute` method of `LogicManager`, which executes command line inputs. Since the timestamp within this
+original command now denotes a past or present date, an expense will be added.
+
+4. If the user presses the 'No' button, the expense is not added.
+
+5. After pressing either button, the popup window closes.
+
+NOTE: As of Week 10, adding expenses to the same budget the event was added to is still a work in progress.
+
+==== Design Considerations
+
+===== Aspect: What command words should the Events feature use?
+
+* ** Alternative 1:** `addevent`, `deleteevent`, etc.
+** Pros: Makes it clear to the user that events are separate from expenses
+** Cons: Somewhat clunky and redundant, especially since expenses and events share the same fields
+
+* ** Alternative 2:** `add`, `delete`, etc. (i.e. same command words as adding expenses)
+** Pros: More streamlined, makes use of the fact that expenses and events share the same fields
+** Cons: The distinction between events and expenses is more blurry to the user
+
+* **Solution (Current Implementation): **
+Adopt Alternative 2. Since an event is ultimately an optional future expense that triggers on its
+due date, it is significantly more intuitive and natural to allow users to add events the same way they add expenses.
+MooLah can then easily tell whether the user intends to add an expense or an event by looking at the timestamp
+the user inputs in the command.
+
+
+===== Future Implementation (Coming in v2.0)
+
+Users can set their expenses to recur. Recurring expenses will generate events daily/weekly/monthly (based on
+the user's decision) that can then be added as expenses when their due dates are reached.
+
+//end::events[]
 
 // category::stats[]
 === Statistics Feature
