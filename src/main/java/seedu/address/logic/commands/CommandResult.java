@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.core.Mode;
 
 /**
  * Represents the result of a command execution.
@@ -20,13 +20,13 @@ public class CommandResult {
     private final boolean exit;
 
     private final boolean isGoTo;
-    private final String modeToGoTo;
+    private final Mode modeToGoTo;
     private final boolean showWindow;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean goTo,
-                         String modeToGoTo, boolean showWindow) {
+                         Mode modeToGoTo, boolean showWindow) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -60,7 +60,7 @@ public class CommandResult {
         return isGoTo;
     }
 
-    public String getModeToGoTo() {
+    public Mode getModeToGoTo() {
         return modeToGoTo;
     }
 
@@ -83,7 +83,7 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && isGoTo == otherCommandResult.isGoTo
-                && StringUtil.equalOrBothNull(modeToGoTo, otherCommandResult.modeToGoTo);
+                && modeToGoTo == otherCommandResult.modeToGoTo;
     }
 
     @Override

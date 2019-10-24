@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Mode;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -45,12 +46,12 @@ public class LogicManager implements Logic {
     private final NoteBookParser noteBookParser;
     private final PasswordBookParser passwordBookParser;
 
-    private String mode;
+    private Mode mode;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        mode = "home";
+        mode = Mode.HOME;
         addressBookParser = new AddressBookParser();
         fileBookParser = new FileBookParser(storage.getStoragePassword());
         cardBookParser = new CardBookParser();
@@ -61,39 +62,46 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException, DictionaryException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        CommandResult commandResult;
-        Command command;
-        switch (mode) {
-        case "file":
-            command = fileBookParser.parseCommand(commandText);
-            break;
-        case "card":
-            command = cardBookParser.parseCommand(commandText);
-            break;
-        case "note":
-            command = noteBookParser.parseCommand(commandText);
-            break;
-        case "password":
-            command = passwordBookParser.parseCommand(commandText);
-            break;
-        default:
-            command = addressBookParser.parseCommand(commandText);
-            break;
-        }
-        commandResult = command.execute(model);
+        Command command = parseCommand(commandText);
+        CommandResult commandResult = command.execute(model);
+        saveToBook();
+        return commandResult;
+    }
 
+    /**
+     * Parses the command text using the appropriate parser.
+     */
+    private Command parseCommand(String commandText) throws ParseException {
+        switch (mode) {
+        case FILE:
+            return fileBookParser.parseCommand(commandText);
+        case CARD:
+            return cardBookParser.parseCommand(commandText);
+        case NOTE:
+            return noteBookParser.parseCommand(commandText);
+        case PASSWORD:
+            return passwordBookParser.parseCommand(commandText);
+        default:
+            return addressBookParser.parseCommand(commandText);
+        }
+    }
+
+    /**
+     * Saves the appropriate book to storage.
+     */
+    private void saveToBook() throws CommandException {
         try {
             switch (mode) {
-            case "file":
+            case FILE:
                 storage.saveFileBook(model.getFileBook());
                 break;
-            case "card":
+            case CARD:
                 storage.saveCardBook(model.getCardBook());
                 break;
-            case "note":
+            case NOTE:
                 storage.saveNoteBook(model.getNoteBook());
                 break;
-            case "password":
+            case PASSWORD:
                 storage.savePasswordBook(model.getPasswordBook());
                 break;
             default:
@@ -103,8 +111,6 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
-        return commandResult;
     }
 
     @Override
@@ -143,6 +149,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Path getFileBookFilePath() {
+        return model.getFileBookFilePath();
+    }
+
+    @Override
     public ReadOnlyCardBook getCardBook() {
         return model.getCardBook();
     }
@@ -157,6 +168,7 @@ public class LogicManager implements Logic {
         return model.getCardBookFilePath();
     }
 
+    @Override
     public Path getNoteBookFilePath() {
         return model.getNoteBookFilePath();
     }
@@ -171,12 +183,12 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    public void setMode(String newMode) {
+    public void setMode(Mode newMode) {
         mode = newMode;
     }
 
     @Override
-    public String getMode() {
+    public Mode getMode() {
         return mode;
     }
 

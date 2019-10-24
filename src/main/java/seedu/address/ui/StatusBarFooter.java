@@ -20,6 +20,14 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public StatusBarFooter(Path saveLocation) {
         super(FXML);
+        setStatusBarPath(saveLocation);
+    }
+
+    /**
+     * Sets the path to be displayed on the status bar.
+     * @param saveLocation the path to be displayed.
+     */
+    public void setStatusBarPath(Path saveLocation) {
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 

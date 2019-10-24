@@ -201,6 +201,11 @@ public class ModelManager implements Model {
         fileBook.setFile(target, editedFile);
     }
 
+    @Override
+    public Path getFileBookFilePath() {
+        return userPrefs.getFileBookFilePath();
+    }
+
     //=========== Card =====================================================================================
 
     @Override

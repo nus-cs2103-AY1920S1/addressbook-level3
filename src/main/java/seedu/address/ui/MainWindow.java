@@ -127,15 +127,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        fillInnerPartsWithMode();
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        fillInnerPartsWithMode();
     }
 
     /**
@@ -143,25 +141,35 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerPartsWithMode() {
         switch (logic.getMode()) {
-        case "file":
+        case FILE:
             fileListPanel = new FileListPanel(logic.getFilteredFileList());
             objectListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(
+                    new StatusBarFooter(logic.getFileBookFilePath()).getRoot());
             break;
-        case "card":
+        case CARD:
             cardListPanel = new CardListPanel(logic.getFilteredCardList());
             objectListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(
+                    new StatusBarFooter(logic.getCardBookFilePath()).getRoot());
             break;
-        case "note":
+        case NOTE:
             noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
             objectListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(
+                    new StatusBarFooter(logic.getNoteBookFilePath()).getRoot());
             break;
-        case "password":
+        case PASSWORD:
             passwordListPanel = new PasswordListPanel(logic.getFilteredPasswordList());
             objectListPanelPlaceholder.getChildren().add(passwordListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(
+                    new StatusBarFooter(logic.getPasswordBookFilePath()).getRoot());
             break;
         default:
             personListPanel = new PersonListPanel(logic.getFilteredPersonList());
             objectListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(
+                    new StatusBarFooter(logic.getAddressBookFilePath()).getRoot());
             break;
         }
     }
@@ -170,8 +178,6 @@ public class MainWindow extends UiPart<Stage> {
      * Handle UI changes on mode change.
      */
     void handleModeChange() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPasswordBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         objectListPanelPlaceholder.getChildren().clear();
         fillInnerPartsWithMode();
     }
@@ -255,23 +261,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.isGoTo()) {
-                switch (commandResult.getModeToGoTo()) {
-                case "password":
-                    logic.setMode("password");
-                    break;
-                case "file":
-                    logic.setMode("file");
-                    break;
-                case "note":
-                    logic.setMode("note");
-                    break;
-                case "card":
-                    logic.setMode("card");
-                    break;
-                default:
-                    logic.setMode("home");
-                    break;
-                }
+                logic.setMode(commandResult.getModeToGoTo());
                 handleModeChange();
             }
             if (commandResult.isShowWindow()) {
