@@ -133,15 +133,20 @@ In order to edit Roy Balakrishnan's name to Shawn, type in the following.
 
 Example: `edit 6 n/Shawn`
 
-IMPORTANT: The index refers to the index number shown in the displayed person list.
+[IMPORTANT]
+The index refers to the index number shown in the displayed person list.
 
-IMPORTANT: ️The index must be a positive integer 1, 2, 3, …​
+[IMPORTANT]
+The index must be a positive integer 1, 2, 3, …​
 
-IMPORTANT: At least one of the optional field must be provided.
+[IMPORTANT]
+At least one of the optional field must be provided.
 
-IMPORTANT: When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+[IMPORTANT]
+When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 
-IMPORTANT: You can remove all the person’s tags by typing t/ without specifying any tags after it.
+[IMPORTANT]
+You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
 *What you should see*
 
