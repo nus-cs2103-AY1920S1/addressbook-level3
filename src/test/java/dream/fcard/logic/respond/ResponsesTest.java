@@ -3,6 +3,7 @@ package dream.fcard.logic.respond;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.FileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import dream.fcard.logic.storage.StorageManager;
@@ -51,6 +52,42 @@ public class ResponsesTest {
     @Test
     void importNoPathTest() {
         assertEquals(true, Responses.IMPORT_NO_PATH.call("import", new State()));
+    }
+
+    @Test
+    void exportTest() {
+        String deckName = "test123";
+        String path = FileReadWrite.normalizePath("~");
+        String exportPath = FileReadWrite.resolve(path, "./" + deckName + ".json");
+        String root = FileReadWrite.normalizePath("~/testDir");
+        // test parameters
+
+        StorageManager.provideRoot(root);
+
+        State s = new State();
+        Deck d = new Deck(deckName);
+        d.addNewCard(new FrontBackCard("front", "back"));
+        s.addDeck(d);
+        // create stubs
+
+        StorageManager.writeDeck(d);
+        // store in root
+
+        Responses.EXPORT.call("export deck/ " + deckName + " path/ " + path, s);
+        // test export
+
+        try {
+            assertEquals(d.toJson().toString(), FileReadWrite.read(exportPath));
+        } catch (FileNotFoundException e) {
+            fail();
+        }
+        // check export valid
+
+        FileReadWrite.delete(exportPath);
+        FileReadWrite.delete(FileReadWrite.resolve(root, "./decks/" + deckName + ".json"));
+        FileReadWrite.delete(FileReadWrite.resolve(root, "./decks"));
+        FileReadWrite.delete(root);
+        // cleanup
     }
 
     @Test
