@@ -19,10 +19,8 @@ public class AddTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the dashboard. "
             + "Parameters: "
             + PREFIX_TASK_NAME + "NAME "
-            + PREFIX_MEMBER_NAME + "MEMBER_NAME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_NAME + "finish user guide "
-            + PREFIX_MEMBER_NAME + "elsa koh";
+            + PREFIX_TASK_NAME + "Complete Assignment ";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";

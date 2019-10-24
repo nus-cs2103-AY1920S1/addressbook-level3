@@ -3,16 +3,13 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.List;
-import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
-import seedu.address.model.member.Member;
-import seedu.address.model.task.Task;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -25,53 +22,16 @@ import seedu.address.model.task.Task;
  *
  * @see Task#isSameTask(Task)
  */
-public class UniqueMappingList implements Iterable<Mapping> {
+public class UniqueInvMemMappingList implements Iterable<InvMemMapping> {
 
-    private final ObservableList<Mapping> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Mapping> internalUnmodifiableList =
+    private final ObservableList<InvMemMapping> internalList = FXCollections.observableArrayList();
+    private final ObservableList<InvMemMapping> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-
-    public ObservableList<Member> getMappedMembers(Task task) {
-        requireNonNull(task);
-        ObservableList<Member> result = FXCollections.observableArrayList();
-        for (Mapping mapping : internalList) {
-            if (mapping.hasTask(task)) {
-                result.add(mapping.getMember());
-            }
-        }
-        return result;
-    }
-
-    public ObservableList<Task> getMappedTasks(Member member) {
-        requireNonNull(member);
-        ObservableList<Task> result = FXCollections.observableArrayList();
-        for (Mapping mapping : internalList) {
-            if (mapping.hasMember(member)) {
-                result.add(mapping.getTask());
-            }
-        }
-        return result;
-    }
-
-    /**
-     *returns a hashMap of members by tasks
-     */
-    public HashMap<Task, ObservableList<Member>> listMemberByTask() {
-        HashMap<Task, ObservableList<Member>> result = new HashMap<>();
-        for (Mapping mapping : internalList) {
-            Task currentTask = mapping.getTask();
-            if (result.get(currentTask) == null) {
-                result.put(currentTask, FXCollections.observableArrayList());
-            }
-            result.get(currentTask).add(mapping.getMember());
-        }
-        return result;
-    }
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(Mapping toCheck) {
+    public boolean contains(InvMemMapping toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameMapping);
     }
@@ -80,7 +40,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * Adds a task to the list.
      * The task must not already exist in the list.
      */
-    public void add(Mapping toAdd) {
+    public void add(InvMemMapping toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateMappingException();
@@ -93,7 +53,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * {@code target} must exist in the list.
      * The task identity of {@code editedTask} must not be the same as another existing task in the list.
      */
-    public void setMapping(Mapping target, Mapping editedMapping) {
+    public void setMapping(InvMemMapping target, InvMemMapping editedMapping) {
         requireAllNonNull(target, editedMapping);
 
         int index = internalList.indexOf(target);
@@ -112,14 +72,14 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * Removes the equivalent task from the list.
      * The task must exist in the list.
      */
-    public void remove(Mapping toRemove) {
+    public void remove(InvMemMapping toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new MappingNotFoundException();
         }
     }
 
-    public void setMappings(UniqueMappingList replacement) {
+    public void setMappings(UniqueInvMemMappingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -128,7 +88,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
      * Replaces the contents of this list with {@code tasks}.
      * {@code tasks} must not contain duplicate tasks.
      */
-    public void setMappings(List<Mapping> mappings) {
+    public void setMappings(List<InvMemMapping> mappings) {
         requireAllNonNull(mappings);
         if (!mappingsAreUnique(mappings)) {
             throw new DuplicateMappingException();
@@ -137,23 +97,53 @@ public class UniqueMappingList implements Iterable<Mapping> {
         internalList.setAll(mappings);
     }
 
+    public void updateMemberRemoved(int index) {
+        ListIterator<InvMemMapping> iterator = iterator();
+        while (iterator.hasNext()) {
+            InvMemMapping mapping = iterator.next();
+            int mappingIndex = mapping.getMemberIndex();
+            if (mappingIndex == index) {
+                iterator.remove();
+            } else if (mappingIndex > index) {
+                InvMemMapping updatedMapping = new InvMemMapping(mapping.getInventoryIndex(), mappingIndex - 1);
+                iterator.remove();
+                iterator.add(updatedMapping);
+            }
+        }
+    }
+
+    public void updateInventoryRemoved(int index) {
+        ListIterator<InvMemMapping> iterator = iterator();
+        while (iterator.hasNext()) {
+            InvMemMapping mapping = iterator.next();
+            int mappingIndex = mapping.getInventoryIndex();
+            if (mappingIndex == index) {
+                iterator.remove();
+            } else if (mappingIndex > index) {
+                InvMemMapping updatedMapping = new InvMemMapping(mappingIndex - 1, mapping.getMemberIndex());
+                iterator.remove();
+                iterator.add(updatedMapping);
+            }
+        }
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Mapping> asUnmodifiableObservableList() {
+    public ObservableList<InvMemMapping> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Mapping> iterator() {
-        return internalList.iterator();
+    public ListIterator<InvMemMapping> iterator() {
+        return internalList.listIterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueMappingList // instanceof handles nulls
-                        && internalList.equals(((UniqueMappingList) other).internalList));
+                || (other instanceof UniqueInvMemMappingList // instanceof handles nulls
+                        && internalList.equals(((UniqueInvMemMappingList) other).internalList));
     }
 
     @Override
@@ -164,7 +154,7 @@ public class UniqueMappingList implements Iterable<Mapping> {
     /**
      * Returns true if {@code tasks} contains only unique tasks.
      */
-    private boolean mappingsAreUnique(List<Mapping> mappings) {
+    private boolean mappingsAreUnique(List<InvMemMapping> mappings) {
         for (int i = 0; i < mappings.size() - 1; i++) {
             for (int j = i + 1; j < mappings.size(); j++) {
                 if (mappings.get(i).isSameMapping(mappings.get(j))) {
@@ -174,5 +164,4 @@ public class UniqueMappingList implements Iterable<Mapping> {
         }
         return true;
     }
-
 }

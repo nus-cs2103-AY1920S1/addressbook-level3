@@ -14,7 +14,9 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.TasMemMapping;
 
 /**
  * An Immutable ProjectDashboard that is serializable to JSON format.
@@ -31,7 +33,9 @@ class JsonSerializableProjectDashboard {
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedMember> members = new ArrayList<>();
     private final List<JsonAdaptedInventory> inventory = new ArrayList<>();
-    private final List<JsonAdaptedMapping> mappings = new ArrayList<>();
+    private final List<JsonAdaptedInvMemMapping> invMemMappings = new ArrayList<>();
+    private final List<JsonAdaptedInvTasMapping> invTasMappings = new ArrayList<>();
+    private final List<JsonAdaptedTasMemMapping> tasMemMappings = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableProjectDashboard} with the given task.
@@ -39,12 +43,19 @@ class JsonSerializableProjectDashboard {
     @JsonCreator
     public JsonSerializableProjectDashboard(@JsonProperty("tasks") List<JsonAdaptedTask> tasks,
                                             @JsonProperty("members") List<JsonAdaptedMember> members,
-                                            @JsonProperty("mappings") List<JsonAdaptedMapping> mappings,
+                                            @JsonProperty("invMemMappings")
+                                                        List<JsonAdaptedInvMemMapping> invMemMappings,
+                                            @JsonProperty("invTasMappings")
+                                                        List<JsonAdaptedInvTasMapping> invTasMappings,
+                                            @JsonProperty("tasMemMappings")
+                                                        List<JsonAdaptedTasMemMapping> tasMemMappings,
                                             @JsonProperty("inventory") List<JsonAdaptedInventory> inventory) {
         this.tasks.addAll(tasks);
         this.inventory.addAll(inventory);
         this.members.addAll(members);
-        this.mappings.addAll(mappings);
+        this.invMemMappings.addAll(invMemMappings);
+        this.invTasMappings.addAll(invTasMappings);
+        this.tasMemMappings.addAll(tasMemMappings);
     }
 
     /**
@@ -59,7 +70,11 @@ class JsonSerializableProjectDashboard {
                 .collect(Collectors.toList()));
         inventory.addAll(source.getInventoryList().stream().map(JsonAdaptedInventory::new)
                 .collect(Collectors.toList()));
-        mappings.addAll(source.getMappingList().stream().map(JsonAdaptedMapping::new)
+        invMemMappings.addAll(source.getInvMemMappingList().stream().map(JsonAdaptedInvMemMapping::new)
+                .collect(Collectors.toList()));
+        invTasMappings.addAll(source.getInvTasMappingList().stream().map(JsonAdaptedInvTasMapping::new)
+                .collect(Collectors.toList()));
+        tasMemMappings.addAll(source.getTasMemMappingList().stream().map(JsonAdaptedTasMemMapping::new)
                 .collect(Collectors.toList()));
     }
 
@@ -93,12 +108,26 @@ class JsonSerializableProjectDashboard {
             }
             projectDashboard.addMember(member);
         }
-        for (JsonAdaptedMapping jsonAdaptedMapping : mappings) {
-            Mapping mapping = jsonAdaptedMapping.toModelType();
-            if (projectDashboard.hasMapping(mapping)) {
+        for (JsonAdaptedInvMemMapping jsonAdaptedInvMemMapping : invMemMappings) {
+            InvMemMapping invMemMapping = jsonAdaptedInvMemMapping.toModelType();
+            if (projectDashboard.hasMapping(invMemMapping)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MAPPINGS);
             }
-            projectDashboard.addMapping(mapping);
+            projectDashboard.addMapping(invMemMapping);
+        }
+        for (JsonAdaptedInvTasMapping jsonAdaptedInvTasMapping : invTasMappings) {
+            InvTasMapping invTasMapping = jsonAdaptedInvTasMapping.toModelType();
+            if (projectDashboard.hasMapping(invTasMapping)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MAPPINGS);
+            }
+            projectDashboard.addMapping(invTasMapping);
+        }
+        for (JsonAdaptedTasMemMapping jsonAdaptedTasMemMapping : tasMemMappings) {
+            TasMemMapping tasMemMapping = jsonAdaptedTasMemMapping.toModelType();
+            if (projectDashboard.hasMapping(tasMemMapping)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MAPPINGS);
+            }
+            projectDashboard.addMapping(tasMemMapping);
         }
         return projectDashboard;
     }

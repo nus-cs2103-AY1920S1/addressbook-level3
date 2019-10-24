@@ -56,11 +56,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new TaskNotFoundException();
-        }
-
+        int index = getIndexOf(target);
         if (!target.isSameTask(editedTask) && contains(editedTask)) {
             throw new DuplicateTaskException();
         }
@@ -102,6 +98,14 @@ public class UniqueTaskList implements Iterable<Task> {
         }
 
         internalList.setAll(tasks);
+    }
+
+    public int getIndexOf(Task target) {
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new TaskNotFoundException();
+        }
+        return index;
     }
 
     /**

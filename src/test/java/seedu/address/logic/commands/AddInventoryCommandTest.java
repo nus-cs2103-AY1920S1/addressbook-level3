@@ -26,6 +26,9 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
@@ -283,20 +286,49 @@ public class AddInventoryCommandTest {
         }
 
         @Override
-        public void addMapping(Mapping mapping) {
+        public void addMapping(InvMemMapping mapping) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteMapping(Mapping mapping) {
+        public void addMapping(InvTasMapping mapping) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasMapping(Mapping mapping) {
+        public void addMapping(TasMemMapping mapping) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void deleteMapping(InvMemMapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMapping(InvTasMapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMapping(TasMemMapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMapping(InvMemMapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMapping(InvTasMapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMapping(TasMemMapping mapping) {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public ObservableList<Mapping> getFilteredMappingsList() {
             throw new AssertionError("This method should not be called.");
@@ -304,16 +336,6 @@ public class AddInventoryCommandTest {
 
         @Override
         public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask) {
             throw new AssertionError("This method should not be called.");
         }
 
