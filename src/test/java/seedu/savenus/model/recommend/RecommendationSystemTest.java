@@ -25,7 +25,6 @@ import static seedu.savenus.model.recommend.RecommendationSystem.IDENTICAL_FOOD_
 import static seedu.savenus.model.recommend.RecommendationSystem.IDENTICAL_FOOD_BONUS_LOW_NUM;
 import static seedu.savenus.model.recommend.RecommendationSystem.IDENTICAL_FOOD_BONUS_MED;
 import static seedu.savenus.model.recommend.RecommendationSystem.IDENTICAL_FOOD_BONUS_MED_NUM;
-import static seedu.savenus.model.recommend.RecommendationSystem.JUST_BOUGHT_FOOD_VALIDITY;
 import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_CATEGORY_WEIGHT;
 import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_LOCATION_WEIGHT;
 import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_TAG_BONUS_HIGH;
@@ -35,11 +34,14 @@ import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_TAG_BONUS
 import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_TAG_BONUS_MED;
 import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_TAG_BONUS_MED_NUM;
 import static seedu.savenus.model.recommend.RecommendationSystem.LIKED_TAG_WEIGHT;
+import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalMenu.CARBONARA;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -64,15 +66,22 @@ import seedu.savenus.model.purchase.TimeOfPurchase;
  */
 public class RecommendationSystemTest {
 
-    private static final String NO_RECENT_FOOD_PENALTY = String.valueOf(JUST_BOUGHT_FOOD_VALIDITY + 1000);
+    public static final String NO_RECENT_FOOD_PENALTY = String.valueOf(0);
+    public static final String JUST_PURCHASED = "JUST_PURCHASED";
+
     private static final double EPSILON = 1E-6;
 
     @BeforeEach
     public void setUp() {
         RecommendationSystem.getInstance().setUserRecommendations(new UserRecommendations());
         RecommendationSystem.getInstance().updatePurchaseHistory(FXCollections.observableArrayList());
-        RecommendationSystem.getInstance().clearLikes();
-        RecommendationSystem.getInstance().clearDislikes();
+    }
+
+    private double initializeAndGetValue(RecommendationBuilder rec) {
+        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
+        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
+
+        return RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
     }
 
     @Test
@@ -83,200 +92,127 @@ public class RecommendationSystemTest {
 
     @Test
     public void likedCategoryMatch() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(true).numOfLikedTags(0)
-                .matchLikedLocation(false).matchDislikedCategory(false).numOfDislikedTags(0)
-                .matchDislikedLocation(false).purchaseHistoryNum(0).mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY)
-                .isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(true).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(LIKED_CATEGORY_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void likedTagsMatch_low() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(LIKED_TAG_BONUS_LOW_NUM).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(0).matchDislikedLocation(false).purchaseHistoryNum(0)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder().numOfLikedTags(LIKED_TAG_BONUS_LOW_NUM).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(LIKED_TAG_BONUS_LOW + LIKED_TAG_BONUS_LOW_NUM * LIKED_TAG_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void likedTagsMatch_med() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(LIKED_TAG_BONUS_MED_NUM).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(0).matchDislikedLocation(false).purchaseHistoryNum(0)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder().numOfLikedTags(LIKED_TAG_BONUS_MED_NUM).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(LIKED_TAG_BONUS_MED + LIKED_TAG_BONUS_MED_NUM * LIKED_TAG_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void likedTagsMatch_high() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(LIKED_TAG_BONUS_HIGH_NUM).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(0).matchDislikedLocation(false).purchaseHistoryNum(0)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .numOfLikedTags(LIKED_TAG_BONUS_HIGH_NUM).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(LIKED_TAG_BONUS_HIGH + LIKED_TAG_BONUS_HIGH_NUM * LIKED_TAG_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void likedLocationMatch() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false).numOfLikedTags(0)
-                .matchLikedLocation(true).matchDislikedCategory(false).numOfDislikedTags(0)
-                .matchDislikedLocation(false).purchaseHistoryNum(0).mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY)
-                .isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedLocation(true).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(LIKED_LOCATION_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void dislikedCategoryMatch() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false).numOfLikedTags(0)
-                .matchLikedLocation(false).matchDislikedCategory(true).numOfDislikedTags(0)
-                .matchDislikedLocation(false).purchaseHistoryNum(0).mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY)
+        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchDislikedCategory(true)
                 .isLike(false).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(DISLIKED_CATEGORY_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void dislikedTagsMatch_low() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(0).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(DISLIKED_TAG_PENALTY_LOW_NUM).matchDislikedLocation(false).purchaseHistoryNum(0)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(false).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .numOfDislikedTags(DISLIKED_TAG_PENALTY_LOW_NUM).isLike(false).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(DISLIKED_TAG_PENALTY_LOW + DISLIKED_TAG_PENALTY_LOW_NUM * DISLIKED_TAG_WEIGHT, value);
     }
 
     @Test
     public void dislikedTagsMatch_med() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(0).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(DISLIKED_TAG_PENALTY_MED_NUM).matchDislikedLocation(false).purchaseHistoryNum(0)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(false).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .numOfDislikedTags(DISLIKED_TAG_PENALTY_MED_NUM).isLike(false).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(DISLIKED_TAG_PENALTY_MED + DISLIKED_TAG_PENALTY_MED_NUM * DISLIKED_TAG_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void dislikedTagsMatch_high() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(0).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(DISLIKED_TAG_PENALTY_HIGH_NUM).matchDislikedLocation(false).purchaseHistoryNum(0)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(false).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .numOfDislikedTags(DISLIKED_TAG_PENALTY_HIGH_NUM).isLike(false).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(DISLIKED_TAG_PENALTY_HIGH + DISLIKED_TAG_PENALTY_HIGH_NUM * DISLIKED_TAG_WEIGHT, value, EPSILON);
     }
 
     @Test
     public void dislikedLocationMatch() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false).numOfLikedTags(0)
-                .matchLikedLocation(false).matchDislikedCategory(false).numOfDislikedTags(0)
-                .matchDislikedLocation(true).purchaseHistoryNum(0).mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY)
+        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchDislikedLocation(true)
                 .isLike(false).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(DISLIKED_LOCATION_WEIGHT, value);
     }
 
     @Test
     public void numOfSimilarPurchase_low() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(0).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(0).matchDislikedLocation(false).purchaseHistoryNum(IDENTICAL_FOOD_BONUS_LOW_NUM)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .purchaseHistoryNum(IDENTICAL_FOOD_BONUS_LOW_NUM).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(IDENTICAL_FOOD_BONUS_LOW + HISTORY_LOCATION_WEIGHT * IDENTICAL_FOOD_BONUS_LOW_NUM
                 + HISTORY_CATEGORY_WEIGHT * IDENTICAL_FOOD_BONUS_LOW_NUM , value, EPSILON);
     }
 
     @Test
     public void numOfSimilarPurchase_med() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(0).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(0).matchDislikedLocation(false).purchaseHistoryNum(IDENTICAL_FOOD_BONUS_MED_NUM)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .purchaseHistoryNum(IDENTICAL_FOOD_BONUS_MED_NUM).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(IDENTICAL_FOOD_BONUS_MED + HISTORY_LOCATION_WEIGHT * IDENTICAL_FOOD_BONUS_MED_NUM
                 + HISTORY_CATEGORY_WEIGHT * IDENTICAL_FOOD_BONUS_MED_NUM , value, EPSILON);
     }
 
     @Test
     public void numOfSimilarPurchase_high() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(0).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(0).matchDislikedLocation(false).purchaseHistoryNum(IDENTICAL_FOOD_BONUS_HIGH_NUM)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .purchaseHistoryNum(IDENTICAL_FOOD_BONUS_HIGH_NUM).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(IDENTICAL_FOOD_BONUS_HIGH + HISTORY_LOCATION_WEIGHT * IDENTICAL_FOOD_BONUS_HIGH_NUM
                 + HISTORY_CATEGORY_WEIGHT * IDENTICAL_FOOD_BONUS_HIGH_NUM , value, EPSILON);
     }
 
     @Test
     public void numOfSimilarPurchase_highWithMatchingTags() {
-        RecommendationBuilder rec = new RecommendationBuilder.Builder().matchLikedCategory(false)
-                .numOfLikedTags(LIKED_TAG_BONUS_HIGH_NUM).matchLikedLocation(false).matchDislikedCategory(false)
-                .numOfDislikedTags(0).matchDislikedLocation(false).purchaseHistoryNum(IDENTICAL_FOOD_BONUS_HIGH_NUM)
-                .mostRecentPurchaseTime(NO_RECENT_FOOD_PENALTY).isLike(true).build();
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .numOfLikedTags(LIKED_TAG_BONUS_HIGH_NUM)
+                .purchaseHistoryNum(IDENTICAL_FOOD_BONUS_HIGH_NUM).build();
 
-        RecommendationSystem.getInstance().setUserRecommendations(rec.getUserRecommendations());
-        RecommendationSystem.getInstance().updatePurchaseHistory(rec.getPurchaseHistory().getPurchaseHistoryList());
-
-        double value = RecommendationSystem.getInstance().calculateRecommendation(rec.getFood());
+        double value = initializeAndGetValue(rec);
         assertEquals(IDENTICAL_FOOD_BONUS_HIGH + LIKED_TAG_BONUS_HIGH
                 + LIKED_TAG_WEIGHT * LIKED_TAG_BONUS_HIGH_NUM
                 + HISTORY_TAG_WEIGHT * IDENTICAL_FOOD_BONUS_HIGH_NUM * LIKED_TAG_BONUS_HIGH_NUM
@@ -284,10 +220,26 @@ public class RecommendationSystemTest {
                 + HISTORY_CATEGORY_WEIGHT * IDENTICAL_FOOD_BONUS_HIGH_NUM , value, EPSILON);
     }
 
+    @Test
+    public void justPurchased() {
+        RecommendationBuilder rec = new RecommendationBuilder.Builder()
+                .purchaseHistoryNum(IDENTICAL_FOOD_BONUS_LOW_NUM)
+                .mostRecentPurchaseTime(JUST_PURCHASED).build();
+
+        double value = initializeAndGetValue(rec);
+        Assertions.assertTrue(value <= -9);
+    }
+
+    @Test
+    public void food_nullFood_throws() {
+        assertThrows(NullPointerException.class, () ->
+                RecommendationSystem.getInstance().calculateRecommendation(null));
+    }
+
 }
 
 /**
- * RecommendationBuilder helper class.
+ * RecommendationBuilder helper class. Uses the builder pattern.
  */
 class RecommendationBuilder {
     private static final String MATCH_LIKE = "matchlike";
@@ -312,14 +264,14 @@ class RecommendationBuilder {
         private Set<Tag> dislikedTags = new HashSet<>();
         private Set<Location> dislikedLocations = new HashSet<>();
 
-        private boolean isLike;
-        private int purchaseHistoryNum;
-        private String mostRecentPurchaseTime;
+        private boolean isLike = true;
+        private int purchaseHistoryNum = 0;
+        private String mostRecentPurchaseTime = RecommendationSystemTest.NO_RECENT_FOOD_PENALTY;
 
         public Builder() {}
 
         /**
-         * Match liked category.
+         * Match the liked category.
          */
         public Builder matchLikedCategory(boolean isMatch) {
             if (!isMatch) {
@@ -330,7 +282,7 @@ class RecommendationBuilder {
         }
 
         /**
-         * Num of liked tags.
+         * Number of liked tags.
          */
         public Builder numOfLikedTags(int numOfLikedTags) {
             StringBuilder str = new StringBuilder();
@@ -343,7 +295,7 @@ class RecommendationBuilder {
         }
 
         /**
-         * Match liked location.
+         * Match the liked location.
          */
         public Builder matchLikedLocation(boolean isMatch) {
             if (!isMatch) {
@@ -354,7 +306,7 @@ class RecommendationBuilder {
         }
 
         /**
-         * Match disliked category.
+         * Match the disliked category.
          */
         public Builder matchDislikedCategory(boolean isMatch) {
             if (!isMatch) {
@@ -365,7 +317,7 @@ class RecommendationBuilder {
         }
 
         /**
-         * Num of disliked tags.
+         * Number of disliked tags.
          */
         public Builder numOfDislikedTags(int numOfLikedTags) {
             StringBuilder str = new StringBuilder();
@@ -378,7 +330,7 @@ class RecommendationBuilder {
         }
 
         /**
-         * Match disliked location.
+         * Match the disliked location.
          */
         public Builder matchDislikedLocation(boolean isMatch) {
             if (!isMatch) {
@@ -430,7 +382,11 @@ class RecommendationBuilder {
 
         purchaseHistory = new PurchaseHistory();
         for (int i = 0; i < builder.purchaseHistoryNum; i++) {
-            purchaseHistory.addPurchase(new Purchase(food, new TimeOfPurchase(builder.mostRecentPurchaseTime)));
+            if (builder.mostRecentPurchaseTime.equals(RecommendationSystemTest.JUST_PURCHASED)) {
+                purchaseHistory.addPurchase(new Purchase(food, new TimeOfPurchase(String.valueOf(System.currentTimeMillis()))));
+            } else {
+                purchaseHistory.addPurchase(new Purchase(food, new TimeOfPurchase(builder.mostRecentPurchaseTime)));
+            }
         }
     }
 
