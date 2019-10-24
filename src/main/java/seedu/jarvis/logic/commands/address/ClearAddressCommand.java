@@ -110,8 +110,6 @@ public class ClearAddressCommand extends Command {
     public boolean equals(Object obj) {
         return obj == this // short circuit if it is the same object.
                 || (obj instanceof ClearAddressCommand // instanceof handles nulls.
-                && clearedPersons.size() == ((ClearAddressCommand) obj).clearedPersons.size()
-                && IntStream.range(0, clearedPersons.size()).allMatch(index ->
-                clearedPersons.get(index).equals(((ClearAddressCommand) obj).clearedPersons.get(index))));
+                && clearedPersons.equals(((ClearAddressCommand) obj).clearedPersons));
     }
 }

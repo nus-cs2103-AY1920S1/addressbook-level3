@@ -3,16 +3,20 @@ package seedu.jarvis.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
+import static seedu.jarvis.testutil.history.TypicalCommands.getTypicalHistoryManager;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
@@ -72,4 +76,16 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
 
+    @Test
+    public void historyManagerReadSave() throws Exception {
+        HistoryManager original = getTypicalHistoryManager();
+        storageManager.saveHistoryManager(original);
+        HistoryManager retrieved = storageManager.readHistoryManager().get();
+        assertEquals(original, new HistoryManager(retrieved));
+    }
+
+    @Test
+    public void getHistoryManagerFilePath() {
+        assertNotNull(storageManager.getHistoryManagerFilePath());
+    }
 }
