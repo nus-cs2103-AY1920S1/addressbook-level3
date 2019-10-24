@@ -28,9 +28,9 @@ Class "{abstract}\nUiPart" as UiPart
 
 
 MainWindow *-right-> ChartBox
-ChartBox *-right-> StatisticsFormat
+ChartBox -right-> StatisticsFormat
 ChartBox *-down-> ExpenseChart
-ChartBox *-down-> StatisticsFormatOptions
+ChartBox -down-> StatisticsFormatOptions
 ExpenseTimelineChart -up-|> ExpenseChart
 ExpenseBreakdownChart -up-|> ExpenseChart
 ExpenseTimelineChart *-> StatisticsGenerator

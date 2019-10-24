@@ -455,11 +455,19 @@ There is a special `Chart` component that deals with the generation and renderin
 Every concrete chart type, eg. `ExpenseTimelineChart`, `ExpenseBreakdownChart`, extends from `ExpenseChart`.
 The `ChartBox` is the main orchestrating class. It is updated on the selected `StatisticsFormat` and `StatisticsFormatOptions` by the `MainWindow`
 These are classes that represent user decisions on what to be displayed. Upon being updated, it creates the appropriate
-`ExpenseChart` to display the selected statistic with the currently displayed expenses. The concrete `ExpenseCharts` get the formatted statistics from the
+`ExpenseChart` with the selection options, to display the selected statistic with the currently displayed expenses. The concrete `ExpenseCharts` get the formatted statistics from the
 `StatisticsGenerator` component.
 
 ==== Statistics Generation Component
 .Structure of the Statistics Generation Component
+image::StatisticsGeneratorClassDiagram.png[]
+
+The `Chart` component gets the data to be displayed from the StatisticsGenerator component. A number of classes,
+such as `BreakdownGenerator` and `TimelineGenerator` extend `StatisticsGenerator`, and each is in charge of creating a specific
+statistic type with data processed to fit the chart that displays them.
+
+==== Proposed Implementation
+The displaying of charts
 
 === Logging
 
