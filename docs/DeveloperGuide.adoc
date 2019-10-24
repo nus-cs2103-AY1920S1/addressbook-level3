@@ -84,14 +84,14 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EntityListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Looks at the prefix type given in the CommandResult(returned after every Command is executed), as displays the specific EntityListPanel respectively.
 
 [[Design-Logic]]
 === Logic component
@@ -458,10 +458,28 @@ Steps 1a1-1a2 are repeated until the index is found in the list of Entities.
 +
 Use case resumes from step 4.
 
-=== Use case: Find the top scoring Teams for each category
+=== Use case: Find the top scoring K Teams
+*MSS*
+1. User requests the top scoring K Teams, with K being the user input.
+2. HackathonManager displays the top K teams with their respective scores.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user input K is more than total number of Teams or a negative or invalid integer.
++
+[none]
+** 1a1. HackathonManager shows an error message.
+** 1a2. User re-enters command with new user input of value K.
+Steps 1a1-1a2 are repeated until K is within the total number of Teams.
++
+Use case resumes from step 2.
 
 
-=== Use case: Find the top scoring Teams for each category
+
+
+=== Use case: Find the ranking of all Teams
 
 *MSS*
 
@@ -567,7 +585,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Participant
 
 . Deleting a Participant while all participants are listed
 
