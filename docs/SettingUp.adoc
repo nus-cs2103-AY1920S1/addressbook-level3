@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Setting Up
+= LiBerry - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-1/main
 
 == Prerequisites
 
@@ -81,4 +81,4 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 === Getting started with coding
 
-When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, LiBerry's architecture>>.
