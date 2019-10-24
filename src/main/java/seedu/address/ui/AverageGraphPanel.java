@@ -26,6 +26,28 @@ public class AverageGraphPanel extends UiPart<Region> {
     private static final String FXML = "AverageGraph.fxml";
     private static final String TITLE = "%1$s average of %2$s";
 
+    // average type
+    private static final String AVERAGE_TYPE_DAILY = "daily";
+    private static final String AVERAGE_TYPE_WEEKLY = "weekly";
+    private static final String AVERAGE_TYPE_MONTHLY = "monthly";
+
+    // record type
+    private static final String RECORD_TYPE_BMI = "bmi";
+    private static final String RECORD_TYPE_BLOODSUGAR = "bloodsugar";
+
+    private static final String WEIGHT = "weight";
+    private static final String BLOODSUGAR = "blood sugar";
+
+    // units
+    private static final String BLOODSUGAR_UNIT = " (mmol/L)";
+    private static final String WEIGHT_UNIT = " (kg)";
+
+    private static final String DAY = "day";
+    private static final String WEEK = "week";
+    private static final String MONTH = "month";
+
+    private static final String UNKNOWN = "unknown";
+
     private final Logger logger = LogsCenter.getLogger(AverageGraphPanel.class);
 
     private final CategoryAxis xAxis = new CategoryAxis();
@@ -68,14 +90,10 @@ public class AverageGraphPanel extends UiPart<Region> {
         });
 
         customLineChart.setAnimated(false);
-
         customLineChart.setLegendVisible(false);
-
-
 
         createChart(averageMap, averageType, recordType);
         scrollPane.setContent(customLineChart);
-
     }
 
     /**
@@ -94,7 +112,7 @@ public class AverageGraphPanel extends UiPart<Region> {
      * Sets chart title.
      */
     private void setTitle(SimpleStringProperty averageType, SimpleStringProperty recordType) {
-        String recordLabel = getRecordLabel(recordType);
+        String recordLabel = getTitleInRecord(recordType);
         customLineChart.setTitle(String.format(TITLE, averageType.get(), recordLabel));
     }
 
@@ -125,14 +143,14 @@ public class AverageGraphPanel extends UiPart<Region> {
     /**
      * Gets the record type to be used in chart title.
      */
-    private String getRecordLabel(SimpleStringProperty recordType) {
-        switch (recordType.get().toUpperCase()) {
-        case "BMI":
-            return "weight";
-        case "BLOODSUGAR":
-            return "blood sugar";
+    private String getTitleInRecord(SimpleStringProperty recordType) {
+        switch (recordType.get().toLowerCase()) {
+        case RECORD_TYPE_BMI:
+            return WEIGHT;
+        case RECORD_TYPE_BLOODSUGAR:
+            return BLOODSUGAR;
         default:
-            return "";
+            return UNKNOWN;
         }
     }
 
@@ -141,15 +159,15 @@ public class AverageGraphPanel extends UiPart<Region> {
      * Adds horizontal range marker if record type is blood sugar.
      */
     private String getYAxisLabel(SimpleStringProperty recordType) {
-        switch (recordType.get().toUpperCase()) {
-        case "BMI":
-            return "Weight (kg)";
-        case "BLOODSUGAR":
+        switch (recordType.get().toLowerCase()) {
+        case RECORD_TYPE_BMI:
+            return WEIGHT + WEIGHT_UNIT;
+        case RECORD_TYPE_BLOODSUGAR:
             XYChart.Data<Number, Number> horizontalRangeMarker = new XYChart.Data<>(4.0, 5.4);
             customLineChart.addHorizontalRangeMarker(horizontalRangeMarker, Color.GREEN);
-            return "Bloodsugar (mmol/L)";
+            return BLOODSUGAR + BLOODSUGAR_UNIT;
         default:
-            return "";
+            return UNKNOWN;
         }
     }
 
@@ -157,15 +175,15 @@ public class AverageGraphPanel extends UiPart<Region> {
      * Gets the average type to be used for x axis label.
      */
     private String getXAxisLabel(SimpleStringProperty averageType) {
-        switch (averageType.get().toUpperCase()) {
-        case "DAILY":
-            return "Day";
-        case "MONTHLY":
-            return "Month";
-        case "WEEKLY":
-            return "Week";
+        switch (averageType.get().toLowerCase()) {
+        case AVERAGE_TYPE_DAILY:
+            return DAY;
+        case AVERAGE_TYPE_WEEKLY:
+            return WEEK;
+        case AVERAGE_TYPE_MONTHLY:
+            return MONTH;
         default:
-            return "";
+            return UNKNOWN;
         }
     }
 }
