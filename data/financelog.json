@@ -2,7 +2,7 @@
   "logEntries" : [ {
     "@type" : "AdaptedSpendLogEntry",
     "amount" : "2.80",
-    "categories" : ["food"],
+    "categories" : [ "food" ],
     "logEntryType" : "expenditure",
     "place" : "Frontier",
     "tDate" : "15-10-2019",
