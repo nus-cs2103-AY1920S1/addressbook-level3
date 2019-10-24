@@ -87,8 +87,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Initializes the various lists used. If storage contains no data, it defaults to loading
-     * the sample lists provided.
+     * Initializes the various lists used. If storage contains no data, empty lists are initialized.
      */
     public void initialize() {
         // Try loading the 3 lists into memory.
@@ -101,7 +100,7 @@ public class ModelManager implements Model {
                 this.participantList = storageParticipantList.get();
                 int largestIdUsed = participantList.list().stream()
                         .map(participant -> ((Entity) participant).getId().getNumber())
-                        .max(Integer::compare).get();
+                        .max(Integer::compare).orElse(0);
                 participantList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
@@ -118,7 +117,7 @@ public class ModelManager implements Model {
                 this.mentorList = storageMentorList.get();
                 int largestIdUsed = mentorList.list().stream()
                         .map(mentor -> ((Entity) mentor).getId().getNumber())
-                        .max(Integer::compare).get();
+                        .max(Integer::compare).orElse(0);
                 mentorList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
@@ -135,7 +134,7 @@ public class ModelManager implements Model {
                 this.teamList = storageTeamList.get();
                 int largestIdUsed = teamList.list().stream()
                         .map(team -> ((Entity) team).getId().getNumber())
-                        .max(Integer::compare).get();
+                        .max(Integer::compare).orElse(0);
                 teamList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
