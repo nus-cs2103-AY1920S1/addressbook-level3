@@ -72,6 +72,7 @@ public class LogicManager implements Logic {
     private void saveModel() throws CommandException {
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveCcaTracker(model.getCcaTracker());
             storage.saveHistoryManager(model.getHistoryManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
