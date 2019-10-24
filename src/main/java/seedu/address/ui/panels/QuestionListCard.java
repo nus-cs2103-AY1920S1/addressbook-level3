@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panels;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,7 +9,7 @@ import seedu.address.model.question.Question;
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class QuestionListCard extends UiPart<Region> {
+public class QuestionListCard extends PanelComponent<Region> {
     private static final String FXML = "QuestionListCard.fxml";
 
     public final Question question;

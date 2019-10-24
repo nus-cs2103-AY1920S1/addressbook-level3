@@ -11,10 +11,20 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class NoteListPanel
-Class NoteCard
 Class StatusBarFooter
 Class CommandBox
+
+package Panels <<Rectangle>> {
+Class "{abstract}\nPanelComponent" as PanelComponent
+'Class NoteListPanel
+'Class NoteCard
+'Class QuestionListPanel
+'Class QuestionListCard
+'Class QuizQuestionListPanel
+'Class QuizQuestionListCard
+'Class TaskListPanel
+'Class TaskListCard
+}
 }
 
 package Model <<Rectangle>> {
@@ -30,31 +40,51 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+MainWindow *-down-> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> NoteListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down--> Panels
 
-NoteListPanel -down-> NoteCard
+'MainWindow *-down-> NoteListPanel
+'MainWindow *-down-> QuestionListPanel
+'MainWindow *-down-> QuizQuestionListPanel
+'MainWindow *-down-> TaskListPanel
 
-MainWindow -left-|> UiPart
+
+'NoteListPanel -down-> NoteCard
+'QuestionListPanel -down-> QuestionListCard
+'QuizQuestionListPanel -down-> QuizQuestionListCard
+'TaskListPanel -down-> TaskListCard
+
+MainWindow --|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-NoteListPanel --|> UiPart
-NoteCard --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+HelpWindow --|> UiPart
 
-NoteCard ..> Model
+PanelComponent --|> UiPart
+'NoteListPanel ---|> PanelComponent
+'NoteCard ---|> PanelComponent
+'QuestionListPanel ---|> PanelComponent
+'QuestionListCard ---|> PanelComponent
+'QuizQuestionListPanel ---|> PanelComponent
+'QuizQuestionListCard ---|> PanelComponent
+'TaskListPanel ---|> PanelComponent
+'TaskListCard ---|> PanelComponent
+
+'NoteCard ...> Model
+'QuestionListCard ...> Model
+'QuizQuestionListCard ...> Model
+'TaskListCard ...> Model
+Panels ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-NoteListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+StatusBarFooter -[hidden]left- Panels
 
-MainWindow -[hidden]-|> UiPart
 @enduml

@@ -19,6 +19,7 @@ public class JsonSerializableAppDataTest {
     private static final Path TYPICAL_APPDATA_FILE = TEST_DATA_FOLDER.resolve("typicalAppData.json");
     private static final Path INVALID_APPDATA_FILE = TEST_DATA_FOLDER.resolve("invalidAppData.json");
     private static final Path DUPLICATE_APPDATA_FILE = TEST_DATA_FOLDER.resolve("duplicateAppData.json");
+    private static final Path DUPLICATE_TASKDATA_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskData.json");
 
     @Test
     public void toModelType_typicalAppDataFile_success() throws Exception {
@@ -41,6 +42,14 @@ public class JsonSerializableAppDataTest {
         JsonSerializableAppData dataFromFile = JsonUtil.readJsonFile(DUPLICATE_APPDATA_FILE,
                 JsonSerializableAppData.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAppData.MESSAGE_DUPLICATE_TITLE,
+                dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_duplicateTaskData_throwsIllegalValueException() throws Exception {
+        JsonSerializableAppData dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TASKDATA_FILE,
+                JsonSerializableAppData.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableAppData.MESSAGE_DUPLICATE_TASK,
                 dataFromFile::toModelType);
     }
 
