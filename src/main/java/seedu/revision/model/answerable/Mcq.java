@@ -1,16 +1,11 @@
 package seedu.revision.model.answerable;
 
-import seedu.revision.logic.commands.AddCommand;
-import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Set;
 
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 /**
  * Represents a Answerable in the Test Bank.
@@ -23,15 +18,9 @@ public class Mcq extends Answerable {
     /**
      * Every field must be present and not null.
      */
-    public Mcq(Question question, Set<Answer> correctAnswerSet, Set<Answer> wrongAnswerSet,
+    public Mcq(Question question, ArrayList<Answer> correctAnswerList, ArrayList<Answer> wrongAnswerList,
                Difficulty difficulty, Set<Category> categories) {
-        super(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
-    }
-
-
-    //TODO: Update functionality
-    public boolean isCorrect() {
-        return true;
+        super(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
     public String toString() {
@@ -40,8 +29,8 @@ public class Mcq extends Answerable {
                 .append("Question: ")
                 .append(getQuestion())
                 .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerSet())
-                .append(" Wrong Answers: " + getWrongAnswerSet())
+                .append(" Correct Answers: " + getCorrectAnswerList())
+                .append(" Wrong Answers: " + getWrongAnswerList())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Categories: ");

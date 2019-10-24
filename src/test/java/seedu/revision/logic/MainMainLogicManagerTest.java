@@ -19,9 +19,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.revision.logic.commands.AddCommand;
-import seedu.revision.logic.commands.CommandResult;
-import seedu.revision.logic.commands.ListCommand;
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
@@ -34,14 +34,14 @@ import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
 import seedu.revision.testutil.AnswerableBuilder;
 
-public class LogicManagerTest {
+public class MainMainLogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
-    private Logic logic;
+    private MainLogic mainLogic;
 
     @BeforeEach
     public void setUp() {
@@ -49,7 +49,7 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        mainLogic = new MainLogicManager(model, storage);
     }
 
     @Test
@@ -72,13 +72,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
+        // Setup MainLogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        mainLogic = new MainLogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + CORRECT_ANSWER_DESC
@@ -86,13 +86,13 @@ public class LogicManagerTest {
         Answerable expectedAnswerable = new AnswerableBuilder(ALPHA).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = MainLogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
     public void getFilteredAnswerableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredAnswerableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> mainLogic.getFilteredAnswerableList().remove(0));
     }
 
     /**
@@ -104,7 +104,7 @@ public class LogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
             Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = logic.execute(inputCommand);
+        CommandResult result = mainLogic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
@@ -144,7 +144,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        assertThrows(expectedException, expectedMessage, () -> mainLogic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
 

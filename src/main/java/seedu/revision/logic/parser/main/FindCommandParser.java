@@ -1,10 +1,11 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import seedu.revision.logic.commands.FindCommand;
+import seedu.revision.logic.commands.main.FindCommand;
+import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 

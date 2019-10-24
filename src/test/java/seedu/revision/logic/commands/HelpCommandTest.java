@@ -1,10 +1,12 @@
 package seedu.revision.logic.commands;
 
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.revision.logic.commands.main.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 

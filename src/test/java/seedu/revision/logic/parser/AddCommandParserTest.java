@@ -24,7 +24,8 @@ import static seedu.revision.testutil.TypicalAnswerables.BETA;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.revision.logic.commands.AddCommand;
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.parser.main.AddCommandParser;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;

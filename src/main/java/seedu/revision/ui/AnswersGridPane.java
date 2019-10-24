@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answer;
@@ -32,8 +31,16 @@ public class AnswersGridPane extends UiPart<Region> {
     public AnswersGridPane(Answerable answerable) {
         super(FXML);
         this.answerable = answerable;
-        Set<Answer> answerSet = answerable.getCombinedAnswerSet();
-        List<Answer> answerList = new ArrayList<>(answerSet);
+        ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
+        option1.setText(answerList.get(0).answer);
+        option2.setText(answerList.get(1).answer);
+        option3.setText(answerList.get(2).answer);
+        option4.setText(answerList.get(3).answer);
+        this.getRoot().getStyleClass().add("option-label");
+    }
+
+    public void updateAnswers(Answerable answerable) {
+        ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
         option1.setText(answerList.get(0).answer);
         option2.setText(answerList.get(1).answer);
         option3.setText(answerList.get(2).answer);
@@ -52,7 +59,6 @@ public class AnswersGridPane extends UiPart<Region> {
         if (!(other instanceof AnswersGridPane)) {
             return false;
         }
-
         // state check
         AnswersGridPane answersGrid = (AnswersGridPane) other;
         return answerable.equals(answersGrid.answerable);

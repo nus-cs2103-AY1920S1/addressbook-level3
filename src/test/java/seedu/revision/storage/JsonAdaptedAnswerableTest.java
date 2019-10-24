@@ -22,10 +22,10 @@ public class JsonAdaptedAnswerableTest {
 
     private static final String VALID_QUESTION_TYPE = "MCQ";
     private static final String VALID_QUESTION = B_ANSWERABLE.getQuestion().toString();
-    private static final List<JsonAdaptedAnswer> VALID_CORRECT_ANSWER = B_ANSWERABLE.getCorrectAnswerSet().stream()
+    private static final List<JsonAdaptedAnswer> VALID_CORRECT_ANSWER = B_ANSWERABLE.getCorrectAnswerList().stream()
             .map(JsonAdaptedAnswer::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedAnswer> VALID_WRONG_ANSWER = B_ANSWERABLE.getWrongAnswerSet().stream()
+    private static final List<JsonAdaptedAnswer> VALID_WRONG_ANSWER = B_ANSWERABLE.getWrongAnswerList().stream()
             .map(JsonAdaptedAnswer::new)
             .collect(Collectors.toList());
     private static final String VALID_DIFFICULTY = B_ANSWERABLE.getDifficulty().toString();

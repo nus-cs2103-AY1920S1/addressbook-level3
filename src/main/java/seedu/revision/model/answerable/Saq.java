@@ -1,9 +1,8 @@
 package seedu.revision.model.answerable;
 
-import seedu.revision.logic.parser.QuestionType;
 import seedu.revision.model.category.Category;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +15,10 @@ public class Saq extends Answerable {
     /**
      * Every field must be present and not null.
      */
-    public Saq(Question question, Set<Answer> correctAnswerSet, Difficulty difficulty,
+    public Saq(Question question, ArrayList<Answer> correctAnswerList, Difficulty difficulty,
                Set<Category> categories) {
         //TODO: Find a better way to initialise this
-        super(question, correctAnswerSet, new HashSet<>(), difficulty, categories);
+        super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
     }
 
     public String toString() {
@@ -27,7 +26,7 @@ public class Saq extends Answerable {
         builder.append("Type: SAQ ")
                 .append("Question: ")
                 .append(" Correct Answers: ")
-                .append(getCorrectAnswerSet())
+                .append(getCorrectAnswerList())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
                 .append(" Categories: ");

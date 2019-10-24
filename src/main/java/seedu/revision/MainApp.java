@@ -13,8 +13,10 @@ import seedu.revision.commons.core.Version;
 import seedu.revision.commons.exceptions.DataConversionException;
 import seedu.revision.commons.util.ConfigUtil;
 import seedu.revision.commons.util.StringUtil;
-import seedu.revision.logic.Logic;
-import seedu.revision.logic.LogicManager;
+import seedu.revision.logic.MainLogic;
+import seedu.revision.logic.MainLogicManager;
+import seedu.revision.logic.QuizLogic;
+import seedu.revision.logic.QuizLogicManager;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
@@ -41,7 +43,8 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
-    protected Logic logic;
+    protected MainLogic mainLogic;
+    protected QuizLogic quizLogic;
     protected Storage storage;
     protected Model model;
     protected Config config;
@@ -63,9 +66,11 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        mainLogic = new MainLogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        quizLogic = new QuizLogicManager(model, storage);
+
+        ui = new UiManager(mainLogic, quizLogic);
     }
 
     /**

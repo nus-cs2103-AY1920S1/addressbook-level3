@@ -2,6 +2,7 @@ package seedu.revision.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +14,7 @@ import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.category.Category;
+import seedu.revision.model.quiz.Mode;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -39,17 +41,17 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> answers} into a {@code Set<Answer>}.
      */
-    public static Set<Answer> parseAnswers(Collection<String> answers) throws ParseException {
+    public static ArrayList<Answer> parseAnswers(Collection<String> answers) throws ParseException {
         requireNonNull(answers);
-        final Set<Answer> answerSet = new HashSet<>();
+        final ArrayList<Answer> answerList = new ArrayList<>();
         for (String answer : answers) {
             Answer newAnswer = parseAnswer(answer);
-            if (answerSet.contains(newAnswer)) {
+            if (answerList.contains(newAnswer)) {
                 throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
             }
-            answerSet.add(newAnswer);
+            answerList.add(newAnswer);
         }
-        return answerSet;
+        return answerList;
     }
 
     /**
@@ -135,4 +137,20 @@ public class ParserUtil {
         }
         return CategorySet;
     }
+
+    /**
+     * Parses a {@code String mode} into a {@code Mode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code mode} is invalid.
+     */
+    public static Mode parseMode(String mode) throws ParseException {
+        requireNonNull(mode);
+        String trimmedMode = mode.trim();
+        if (!Mode.isValidMode(trimmedMode)) {
+            throw new ParseException(Mode.MESSAGE_CONSTRAINTS);
+        }
+        return new Mode(trimmedMode);
+    }
+
 }

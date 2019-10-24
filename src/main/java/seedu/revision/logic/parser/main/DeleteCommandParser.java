@@ -1,9 +1,11 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.DeleteCommand;
+import seedu.revision.logic.commands.main.DeleteCommand;
+import seedu.revision.logic.parser.Parser;
+import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.revision.commons.core.Messages;
+import seedu.revision.logic.commands.Command;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.CategoryPredicate;
@@ -42,14 +43,6 @@ public class ListCommand extends Command {
         this.difficultyPredicate = difficultyPredicate;
     }
 
-    public ListCommand(CategoryPredicate categoryPredicate) {
-        this.categoryPredicate = categoryPredicate;
-    }
-
-    public ListCommand(DifficultyPredicate difficultyPredicate) {
-        this.difficultyPredicate = difficultyPredicate;
-    }
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
@@ -62,9 +55,9 @@ public class ListCommand extends Command {
         }
 
         // if predicate list is empty, it will just return a predicate which shows all answerable
-        Predicate<Answerable> combinedPredicate = predicates.stream()
-                                                            .reduce(PREDICATE_SHOW_ALL_ANSWERABLE, Predicate::and);
 
+        Predicate<Answerable> combinedPredicate = predicates.stream()
+                .reduce(PREDICATE_SHOW_ALL_ANSWERABLE, Predicate::and);
         model.updateFilteredAnswerableList(combinedPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW, model.getFilteredAnswerableList().size()));

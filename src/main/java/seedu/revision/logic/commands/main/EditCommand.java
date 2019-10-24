@@ -1,4 +1,4 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -6,6 +6,7 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Set;
 import seedu.revision.commons.core.Messages;
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.commons.util.CollectionUtil;
+import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
@@ -91,20 +93,20 @@ public class EditCommand extends Command {
         assert answerableToEdit != null;
 
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
-        Set<Answer> updatedCorrectAnswerSet = editAnswerableDescriptor.getCorrectAnswerSet()
-                .orElse(answerableToEdit.getCorrectAnswerSet());
+        ArrayList<Answer> updatedCorrectAnswerList = editAnswerableDescriptor.getCorrectAnswerList()
+                .orElse(answerableToEdit.getCorrectAnswerList());
         Difficulty updatedDifficulty = editAnswerableDescriptor.getDifficulty().orElse(answerableToEdit
                 .getDifficulty());
         Set<Category> updatedCategories = editAnswerableDescriptor.getCategories().orElse(answerableToEdit
                 .getCategories());
 
         if (answerableToEdit instanceof Mcq) {
-            Set<Answer> updatedWrongAnswerSet = editAnswerableDescriptor.getWrongAnswerSet()
-                    .orElse(answerableToEdit.getWrongAnswerSet());
-            return new Mcq(updatedQuestion, updatedCorrectAnswerSet, updatedWrongAnswerSet, updatedDifficulty,
+            ArrayList<Answer> updatedWrongAnswerList = editAnswerableDescriptor.getWrongAnswerList()
+                    .orElse(answerableToEdit.getWrongAnswerList());
+            return new Mcq(updatedQuestion, updatedCorrectAnswerList, updatedWrongAnswerList, updatedDifficulty,
                     updatedCategories);
         } else {
-            return new Saq(updatedQuestion, updatedCorrectAnswerSet, updatedDifficulty, updatedCategories);
+            return new Saq(updatedQuestion, updatedCorrectAnswerList, updatedDifficulty, updatedCategories);
         }
     }
 
@@ -132,8 +134,8 @@ public class EditCommand extends Command {
      */
     public static class EditAnswerableDescriptor {
         private Question question;
-        private Set<Answer> correctAnswerSet;
-        private Set<Answer> wrongAnswerSet;
+        private ArrayList<Answer> correctAnswerList;
+        private ArrayList<Answer> wrongAnswerList;
         private Difficulty difficulty;
         private Set<Category> categories;
 
@@ -146,8 +148,8 @@ public class EditCommand extends Command {
          */
         public EditAnswerableDescriptor(EditAnswerableDescriptor toCopy) {
             setQuestion(toCopy.question);
-            setCorrectAnswerSet(toCopy.correctAnswerSet);
-            setWrongAnswerSet(toCopy.wrongAnswerSet);
+            setCorrectAnswerList(toCopy.correctAnswerList);
+            setWrongAnswerList(toCopy.wrongAnswerList);
             setDifficulty(toCopy.difficulty);
             setCategories(toCopy.categories);
         }
@@ -156,7 +158,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, correctAnswerSet, wrongAnswerSet, difficulty, categories);
+            return CollectionUtil.isAnyNonNull(question, correctAnswerList, wrongAnswerList, difficulty, categories);
         }
 
         public void setQuestion(Question question) {
@@ -167,20 +169,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(question);
         }
 
-        public void setCorrectAnswerSet(Set<Answer> correctAnswerSet) {
-            this.correctAnswerSet = correctAnswerSet;
+        public void setCorrectAnswerList(ArrayList<Answer> correctAnswerList) {
+            this.correctAnswerList = correctAnswerList;
         }
 
-        public Optional<Set<Answer>> getCorrectAnswerSet() {
-            return Optional.ofNullable(correctAnswerSet);
+        public Optional<ArrayList<Answer>> getCorrectAnswerList() {
+            return Optional.ofNullable(correctAnswerList);
         }
 
-        public void setWrongAnswerSet(Set<Answer> wrongAnswerSet) {
-            this.wrongAnswerSet = wrongAnswerSet;
+        public void setWrongAnswerList(ArrayList<Answer> wrongAnswerList) {
+            this.wrongAnswerList = wrongAnswerList;
         }
 
-        public Optional<Set<Answer>> getWrongAnswerSet() {
-            return Optional.ofNullable(wrongAnswerSet);
+        public Optional<ArrayList<Answer>> getWrongAnswerList() {
+            return Optional.ofNullable(wrongAnswerList);
         }
 
         public void setDifficulty(Difficulty difficulty) {
@@ -221,8 +223,8 @@ public class EditCommand extends Command {
             EditAnswerableDescriptor e = (EditAnswerableDescriptor) other;
 
             return getQuestion().equals(e.getQuestion())
-                    && getCorrectAnswerSet().equals(e.getCorrectAnswerSet())
-                    && getWrongAnswerSet().equals(e.getWrongAnswerSet())
+                    && getCorrectAnswerList().equals(e.getCorrectAnswerList())
+                    && getWrongAnswerList().equals(e.getWrongAnswerList())
                     && getDifficulty().equals(e.getDifficulty())
                     && getCategories().equals(e.getCategories());
         }

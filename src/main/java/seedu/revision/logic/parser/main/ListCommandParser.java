@@ -1,10 +1,14 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 
 import seedu.revision.logic.commands.Command;
-import seedu.revision.logic.commands.ListCommand;
+import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.logic.parser.ArgumentMultimap;
+import seedu.revision.logic.parser.ArgumentTokenizer;
+import seedu.revision.logic.parser.Parser;
+import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
