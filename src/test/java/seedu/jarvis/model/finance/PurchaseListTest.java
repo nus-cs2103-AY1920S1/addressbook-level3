@@ -1,6 +1,8 @@
 package seedu.jarvis.model.finance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +15,7 @@ import seedu.jarvis.model.financetracker.PurchaseList;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
 import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
+import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 /**
  * Tests logic of purchase list class.
@@ -32,7 +35,6 @@ public class PurchaseListTest {
 
     @Test
     public void getPurchase_normalInput_retrievedCorrectly() {
-
         assertEquals(new PurchaseStub().getDescription(), purchaseList.getPurchase(1).getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), purchaseList.getPurchase(1).getMoneySpent());
     }
@@ -43,6 +45,23 @@ public class PurchaseListTest {
         assertEquals(new PurchaseStub().getDescription(), purchaseList.getPurchase(1).getDescription());
         assertEquals(new PurchaseStub().getMoneySpent(), purchaseList.getPurchase(1).getMoneySpent());
         assertEquals(4, purchaseList.getNumPurchases());
+    }
+
+    @Test
+    public void addPurchase_middleIndex_addedCorrectly() {
+        purchaseList.addSinglePurchase(1, new PurchaseBuilder().build());
+        assertEquals(4, purchaseList.getNumPurchases());
+        assertEquals(purchaseList.getPurchase(2), new PurchaseBuilder().build());
+    }
+
+    @Test
+    public void hasPurchase_normalInput_correctResult() {
+        assertTrue(purchaseList.hasPurchase(new PurchaseStub()));
+    }
+
+    @Test
+    public void hasPurchase_nonexistentPurchase_correcResult() {
+        assertFalse(purchaseList.hasPurchase(new PurchaseBuilder().build()));
     }
 
     @Test
@@ -62,6 +81,43 @@ public class PurchaseListTest {
     public void deletePurchase_indexNonexistent_throwsError() {
         assertThrows(RuntimeException.class, () -> purchaseList.deletePurchase(4));
         assertEquals(3, purchaseList.getNumPurchases());
+    }
+
+    @Test
+    public void deletePurchase_deleteCorrectInstance_deletedCorrectly() {
+        purchaseList.addSinglePurchase(new PurchaseBuilder().build());
+        Purchase deletedPurchase = purchaseList.deletePurchase(new PurchaseBuilder().build());
+        assertEquals(deletedPurchase, new PurchaseBuilder().build());
+        assertEquals(3, purchaseList.getNumPurchases());
+    }
+
+    @Test
+    public void deletePurchase_deleteFirstInstance_deletedCorrectly() {
+        Purchase deletedPurchase = purchaseList.deletePurchase(new PurchaseStub());
+        assertEquals(2, purchaseList.getNumPurchases());
+        assertEquals(deletedPurchase, new PurchaseStub());
+    }
+
+    @Test
+    public void setInstallment_normalInputs_editedCorrectly() {
+        Purchase purchase = purchaseList.getPurchase(1);
+        Purchase editedPurchase = new PurchaseBuilder()
+                .withDescription("Spotify")
+                .withMoneySpent("9.50")
+                .build();
+        purchaseList.setPurchase(purchase, editedPurchase);
+        assertEquals(purchaseList.getPurchase(1), editedPurchase);
+    }
+
+    @Test
+    public void setInstallment_nonExistentInstallment_throwsError() {
+        Purchase purchase = new PurchaseBuilder()
+                .withDescription("something")
+                .build();
+
+        assertThrows(RuntimeException.class, (
+
+        ) -> purchaseList.setPurchase(purchase, new PurchaseStub()));
     }
 
     @Test

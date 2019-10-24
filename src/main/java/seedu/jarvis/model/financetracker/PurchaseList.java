@@ -134,8 +134,9 @@ public class PurchaseList {
     /**
      * Removes purchase from the list of purchases.
      */
-    public void deletePurchase(Purchase purchase) {
+    public Purchase deletePurchase(Purchase purchase) {
         internalPurchaseList.remove(purchase);
+        return purchase;
     }
 
     /**

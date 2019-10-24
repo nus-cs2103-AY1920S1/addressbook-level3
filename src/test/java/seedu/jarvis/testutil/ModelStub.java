@@ -214,7 +214,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deletePurchase(Purchase purchase) {
+    public Purchase deletePurchase(Purchase purchase) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -239,7 +239,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteInstallment(Installment installment) {
+    public Installment deleteInstallment(Installment installment) {
         throw new AssertionError("This method should not be called.");
     }
 

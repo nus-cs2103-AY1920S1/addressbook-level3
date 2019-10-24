@@ -142,8 +142,9 @@ public class InstallmentList {
     /**
      * Removes installment from the list of installments.
      */
-    public void deleteInstallment(Installment installment) {
+    public Installment deleteInstallment(Installment installment) {
         internalInstallmentList.remove(installment);
+        return installment;
     }
 
     /**

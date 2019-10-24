@@ -160,10 +160,10 @@ public class FinanceTracker {
      *
      * @param purchase  deleted
      */
-    public void deleteSinglePurchase(Purchase purchase) throws PurchaseNotFoundException {
+    public Purchase deleteSinglePurchase(Purchase purchase) throws PurchaseNotFoundException {
         requireNonNull(purchase);
 
-        purchaseList.deletePurchase(purchase);
+        return purchaseList.deletePurchase(purchase);
     }
 
     /**
@@ -220,7 +220,7 @@ public class FinanceTracker {
      *
      * @return number of total installments
      */
-    public int getTotalInstallments() {
+    public int getNumInstallments() {
         return installmentList.getNumInstallments();
     }
 
@@ -286,10 +286,10 @@ public class FinanceTracker {
      *
      * @param installment to be removed
      */
-    public void deleteInstallment(Installment installment) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(Installment installment) throws InstallmentNotFoundException {
         requireNonNull(installment);
 
-        installmentList.deleteInstallment(installment);
+        return installmentList.deleteInstallment(installment);
     }
 
     /**

@@ -1,6 +1,8 @@
 package seedu.jarvis.model.finance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.util.Optional;
@@ -20,6 +22,7 @@ import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
 import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
+import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 
 /**
@@ -54,6 +57,15 @@ public class FinanceTrackerTest {
     }
 
     @Test
+    public void addPurchaseWithIndex_normalInput_addedCorrectly() {
+        Purchase newPurchase = new PurchaseBuilder().withDescription("Gong Cha").build();
+        financeTracker.addSinglePurchase(2, newPurchase);
+        assertEquals(4, financeTracker.getNumPurchases());
+        assertEquals(newPurchase, financeTracker.getPurchase(3));
+        assertEquals(new PurchaseStub(), financeTracker.getPurchase(4));
+    }
+
+    @Test
     public void deletePurchase_normalInput_deletedCorrectly() {
         Purchase deletedPurchase = financeTracker.deleteSinglePurchase(2);
         assertEquals(new PurchaseStub().getDescription(), deletedPurchase.getDescription());
@@ -68,6 +80,21 @@ public class FinanceTrackerTest {
     }
 
     @Test
+    public void deletePurchase_deleteCorrectInstance_deletedCorrectly() {
+        financeTracker.addSinglePurchase(new PurchaseBuilder().build());
+        Purchase deletedPurchase = financeTracker.deleteSinglePurchase(new PurchaseBuilder().build());
+        assertEquals(deletedPurchase, new PurchaseBuilder().build());
+        assertEquals(3, financeTracker.getNumPurchases());
+    }
+
+    @Test
+    public void deletePurchase_deleteFirstInstance_deletedCorrectly() {
+        Purchase deletedPurchase = financeTracker.deleteSinglePurchase(new PurchaseStub());
+        assertEquals(2, financeTracker.getNumPurchases());
+        assertEquals(deletedPurchase, new PurchaseStub());
+    }
+
+    @Test
     public void getPurchase_normalInput_retrievedCorrectly() {
         assertEquals(financeTracker.getPurchase(2), new PurchaseStub());
     }
@@ -78,12 +105,27 @@ public class FinanceTrackerTest {
     }
 
     @Test
+    public void getNumPurchases_correctResult() {
+        assertEquals(3, financeTracker.getNumPurchases());
+    }
+
+    @Test
+    public void hasPurchase_existingPurchase_correctResult() {
+        assertTrue(financeTracker.hasPurchase(new PurchaseStub()));
+    }
+
+    @Test
+    public void hasPurchase_nonexistentPurchase_correctResult() {
+        assertFalse(financeTracker.hasPurchase(new PurchaseBuilder().build()));
+    }
+
+    @Test
     public void addInstallment_normalInput_addedCorrectly() {
         financeTracker.addInstallment(new InstallmentStub());
         Installment addedInstalment = financeTracker.getInstallment(4);
         assertEquals(new InstallmentStub().getDescription(), addedInstalment.getDescription());
         assertEquals(new InstallmentStub().getMoneySpentOnInstallment(), addedInstalment.getMoneySpentOnInstallment());
-        assertEquals(4, financeTracker.getTotalInstallments());
+        assertEquals(4, financeTracker.getNumInstallments());
     }
 
     @Test
@@ -92,13 +134,28 @@ public class FinanceTrackerTest {
         assertEquals(new InstallmentStub().getDescription(), deletedInstallment.getDescription());
         assertEquals(new InstallmentStub().getMoneySpentOnInstallment(),
                 deletedInstallment.getMoneySpentOnInstallment());
-        assertEquals(2, financeTracker.getTotalInstallments());
+        assertEquals(2, financeTracker.getNumInstallments());
     }
 
     @Test
     public void deleteInstallment_indexNonexistent_throwsError() {
         assertThrows(RuntimeException.class, () -> financeTracker.deleteInstallment(4));
-        assertEquals(3, financeTracker.getTotalInstallments());
+        assertEquals(3, financeTracker.getNumInstallments());
+    }
+
+    @Test
+    public void deleteInstallment_deleteCorrectInstance_deletedCorrectly() {
+        financeTracker.addInstallment(new InstallmentBuilder().build());
+        Installment deletedInstallment = financeTracker.deleteInstallment(new InstallmentBuilder().build());
+        assertEquals(deletedInstallment, new InstallmentBuilder().build());
+        assertEquals(3, financeTracker.getNumInstallments());
+    }
+
+    @Test
+    public void deleteInstallment_deleteFirstInstance_deletedCorrectly() {
+        Installment deletedInstallment = financeTracker.deleteInstallment(new InstallmentStub());
+        assertEquals(2, financeTracker.getNumInstallments());
+        assertEquals(deletedInstallment, new InstallmentStub());
     }
 
     @Test
