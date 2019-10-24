@@ -98,6 +98,10 @@ public interface ItemModel {
 
     public Item markIncomplete(int index) throws IllegalListException;
 
+    public JokeList getJokeList();
+
+    public String getJoke();
+
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();
 
