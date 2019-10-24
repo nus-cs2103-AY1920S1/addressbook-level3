@@ -25,6 +25,7 @@ public class SetPaidCommandParser implements Parser<SetPaidCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SetPaidCommand
      * and returns an PaidCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override

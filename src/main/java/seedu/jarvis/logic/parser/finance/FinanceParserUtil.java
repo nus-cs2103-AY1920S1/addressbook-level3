@@ -18,7 +18,6 @@ import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
  */
 public class FinanceParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MONEY_MESSAGE_CONSTRAINTS = "Money spent cannot be equal to or less than 0.";
     public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: dd/mm/yyyy.";
 
@@ -95,7 +94,8 @@ public class FinanceParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into a date to record when purchase was made
+     * Parses a {@code String date} into a date to record when purchase was made.
+     *
      * @param date the date to be parsed
      * @return the formatted date
      */
@@ -109,5 +109,4 @@ public class FinanceParserUtil {
             throw new ParseException(MESSAGE_INVALID_DATE);
         }
     }
-
 }
