@@ -8,6 +8,6 @@ import dream.fcard.model.exceptions.IndexNotFoundException;
  */
 public interface Exam {
 
-    public void runExam() throws IndexNotFoundException;
+    public void initExam() throws IndexNotFoundException;
 
 }
