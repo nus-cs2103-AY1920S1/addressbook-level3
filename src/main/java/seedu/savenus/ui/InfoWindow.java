@@ -23,6 +23,7 @@ import seedu.savenus.model.info.HelpInfo;
 import seedu.savenus.model.info.InfoInfo;
 import seedu.savenus.model.info.ListInfo;
 import seedu.savenus.model.info.RecommendInfo;
+import seedu.savenus.model.info.RemoveDislikeInfo;
 import seedu.savenus.model.info.SaveInfo;
 import seedu.savenus.model.info.SortInfo;
 
@@ -197,6 +198,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(RecommendInfo.INFORMATION);
             usageExample.setText(RecommendInfo.USAGE);
             output.setText(RecommendInfo.OUTPUT);
+            break;
+        case InfoCommand.REMOVEDISLIKE_INFO :
+            commandWord.setText(RemoveDislikeInfo.COMMAND_WORD);
+            infoMessage.setText(RemoveDislikeInfo.INFORMATION);
+            usageExample.setText(RemoveDislikeInfo.USAGE);
+            output.setText(RemoveDislikeInfo.OUTPUT);
             break;
         case InfoCommand.SAVE_INFO:
             commandWord.setText(SaveInfo.COMMAND_WORD);
