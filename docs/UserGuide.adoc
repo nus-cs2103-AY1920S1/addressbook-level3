@@ -172,6 +172,11 @@ Format: +
 Shows an answer for the displayed quiz question. +
 Format: `show`
 
+==== Skip a question : `skip`
+
+Skips current question and displays the next one. +
+Format: `skip`
+
 ==== Exit test mode : `quit`
 
 Exits from the quiz mode. +
