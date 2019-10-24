@@ -53,7 +53,7 @@ public class MarkParserTest {
     public void parseCommand_add() throws Exception {
         Bookmark bookmark = new BookmarkBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(BookmarkUtil.getAddCommand(bookmark));
-        assertEquals(new AddCommand(bookmark, false), command);
+        assertEquals(new AddCommand(bookmark), command);
     }
 
     @Test

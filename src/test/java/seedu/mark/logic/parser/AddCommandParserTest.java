@@ -46,25 +46,25 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + URL_DESC_BOB
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + URL_DESC_BOB
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
 
         // multiple urls - last url accepted
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_AMY + URL_DESC_BOB
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
 
         // multiple remarks - last remark accepted
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_BOB + REMARK_DESC_AMY
-                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark, false));
+                + REMARK_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedBookmark));
 
         // multiple tags - all accepted
         Bookmark expectedBookmarkMultipleTags = new BookmarkBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_BOB + REMARK_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBookmarkMultipleTags, false));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedBookmarkMultipleTags));
     }
 
     @Test
@@ -72,17 +72,17 @@ public class AddCommandParserTest {
         // no remark
         Bookmark expectedBookmark = new BookmarkBuilder(AMY).withRemark(Remark.DEFAULT_VALUE).build();
         assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + TAG_DESC_FRIEND,
-                new AddCommand(expectedBookmark, false));
+                new AddCommand(expectedBookmark));
 
         // zero tags
         expectedBookmark = new BookmarkBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY + REMARK_DESC_AMY,
-                new AddCommand(expectedBookmark, false));
+                new AddCommand(expectedBookmark));
 
         //no remark or tags
         expectedBookmark = new BookmarkBuilder(AMY).withRemark(Remark.DEFAULT_VALUE).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + URL_DESC_AMY,
-                new AddCommand(expectedBookmark, false));
+                new AddCommand(expectedBookmark));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class AddCommandParserTest {
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + URL_DESC_THIS
                         + REMARK_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedBookmark, true));
+                new AddCommand(expectedBookmark));
     }
 
     @Test

@@ -38,24 +38,33 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "This bookmark already exists in Mark";
 
     private Bookmark toAdd;
-    private boolean isMissingUrl;
+    private boolean hasNoUrl;
+
+    /**
+     * Creates an AddCommand to add the specified {@code Bookmark}, the Url
+     * of the bookmark must be present.
+     */
+    public AddCommand(Bookmark bookmark) {
+        this(bookmark, false);
+    }
 
     /**
      * Creates an AddCommand to add the specified {@code Bookmark}
      */
-    public AddCommand(Bookmark bookmark, boolean isMissingUrl) {
+    public AddCommand(Bookmark bookmark, boolean hasNoUrl) {
         requireNonNull(bookmark);
         this.toAdd = bookmark;
-        this.isMissingUrl = isMissingUrl;
+        this.hasNoUrl = hasNoUrl;
+
     }
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireAllNonNull(model, storage);
 
-        if (isMissingUrl) {
-            Url toAddUrl = model.getCurrentUrl();
-            toAdd = new Bookmark(toAdd.getName(), toAddUrl, toAdd.getRemark(), toAdd.getFolder(),
+        if (hasNoUrl) {
+            Url urlToAdd = model.getCurrentUrl();
+            toAdd = new Bookmark(toAdd.getName(), urlToAdd, toAdd.getRemark(), toAdd.getFolder(),
                     toAdd.getTags(), toAdd.getCachedCopies());
         }
 
@@ -74,6 +83,6 @@ public class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd))
-                && isMissingUrl == ((AddCommand) other).isMissingUrl;
+                && hasNoUrl == ((AddCommand) other).hasNoUrl;
     }
 }

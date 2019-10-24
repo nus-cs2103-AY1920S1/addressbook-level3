@@ -40,7 +40,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        boolean isMissingUrl = false;
+        boolean hasNoUrl = false;
         // compulsory fields
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         String urlString = argMultimap.getValue(PREFIX_URL).get();
@@ -48,7 +48,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!"this".equals(urlString)) {
             url = ParserUtil.parseUrl(urlString);
         } else {
-            isMissingUrl = true;
+            hasNoUrl = true;
             url = new Url(BookmarkBuilder.DEFAULT_URL);
         }
 
@@ -58,7 +58,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Folder folder = ParserUtil.parseFolder(argMultimap.getValue(PREFIX_FOLDER).orElse(Folder.DEFAULT_FOLDER_NAME));
 
         Bookmark bookmark = new Bookmark(name, url, remark, folder, tagList, new ArrayList<>());
-        return new AddCommand(bookmark, isMissingUrl);
+        return new AddCommand(bookmark, hasNoUrl);
     }
 
     /**

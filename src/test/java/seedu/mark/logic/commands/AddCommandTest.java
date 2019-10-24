@@ -24,7 +24,7 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullBookmark_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null, false));
+        assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class AddCommandTest {
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded();
         Bookmark validBookmark = new BookmarkBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validBookmark, false)
+        CommandResult commandResult = new AddCommand(validBookmark)
                 .execute(modelStub, new StorageStub());
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validBookmark),
@@ -43,7 +43,7 @@ public class AddCommandTest {
     @Test
     public void execute_duplicateBookmark_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().build();
-        AddCommand addCommand = new AddCommand(validBookmark, false);
+        AddCommand addCommand = new AddCommand(validBookmark);
         ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () ->
@@ -54,14 +54,14 @@ public class AddCommandTest {
     public void equals() {
         Bookmark alice = new BookmarkBuilder().withName("Alice").build();
         Bookmark bob = new BookmarkBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice, false);
-        AddCommand addBobCommand = new AddCommand(bob, false);
+        AddCommand addAliceCommand = new AddCommand(alice);
+        AddCommand addBobCommand = new AddCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice, false);
+        AddCommand addAliceCommandCopy = new AddCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

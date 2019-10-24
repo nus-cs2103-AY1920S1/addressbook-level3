@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newBookmark_success() {
         Bookmark validBookmark = new BookmarkBuilder().build();
-        AddCommand addCommand = new AddCommand(validBookmark, false);
+        AddCommand addCommand = new AddCommand(validBookmark);
 
         Model expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, validBookmark);
@@ -42,7 +42,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateBookmark_throwsCommandException() {
         Bookmark bookmarkInList = model.getMark().getBookmarkList().get(0);
-        assertCommandFailure(new AddCommand(bookmarkInList, false), model, new StorageStub(),
+        assertCommandFailure(new AddCommand(bookmarkInList), model, new StorageStub(),
                 AddCommand.MESSAGE_DUPLICATE_BOOKMARK);
     }
 
