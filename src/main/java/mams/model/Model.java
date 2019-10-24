@@ -162,4 +162,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppealList(Predicate<Appeal> predicate);
+
+    /**
+     * Replace mams with target mams
+     *
+     */
+    void replaceMams(ReadOnlyMams mams);
 }

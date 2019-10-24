@@ -216,6 +216,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void replaceMams(ReadOnlyMams mams) {
+        this.mams.setAppeals(mams.getAppealList());
+        this.mams.setModules(mams.getModuleList());
+        this.mams.setStudents(mams.getStudentList());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

@@ -1,0 +1,12 @@
+@startuml
+
+abstract class ClashCommand
+class ClashModCommand
+class ClashStudentCommand
+class ClashAppealCommand
+
+ClashCommand <|-- ClashModCommand
+ClashCommand <|-- ClashStudentCommand
+ClashCommand <|-- ClashAppealCommand
+
+@enduml
