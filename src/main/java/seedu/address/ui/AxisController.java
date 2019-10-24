@@ -21,6 +21,12 @@ public abstract class AxisController extends DisplayController {
     private static final String AGE_GROUP_XAXIS = "Age Group";
     private static final String AGE_GROUP_YAXIS = "Population Size";
 
+    private static final String ASSERTION_MESSAGE =
+        "Variable needs to be of type XYChart.Series<String, Integer>.";
+    private static final String EXCEPTION_MESSAGE =
+        "Generic needs to be of type XYChart.Series<String, Integer>. "
+            + "Check type inference in the usage of this generic method";
+
     protected String xAxisLabel;
     protected String yAxisLabel;
     protected XYChart.Series<String, Integer> series;
@@ -44,6 +50,8 @@ public abstract class AxisController extends DisplayController {
 
     @Override
     protected void initAgeGroupBreakdown(Logic logic) {
+        assert series instanceof XYChart.Series : ASSERTION_MESSAGE;
+
         xAxisLabel = AGE_GROUP_XAXIS;
         yAxisLabel = AGE_GROUP_YAXIS;
         series = castData(logic.getAgeGroupBreakdown());
@@ -58,11 +66,20 @@ public abstract class AxisController extends DisplayController {
 
     @Override
     protected <T> T castData(ObservableMap<String, Integer> map) {
-        XYChart.Series<String, Integer> series = new XYChart.Series<>();
+
+        XYChart.Series<String, Integer> data = new XYChart.Series<>();
         map.forEach((key, value) ->
-            series.getData().add(new XYChart.Data<>(key, value))
+            data.getData().add(new XYChart.Data<>(key, value))
         );
-        return (T) series;
+
+        T result;
+        try {
+            result = (T) data;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(EXCEPTION_MESSAGE);
+        }
+
+        return result;
     }
 
     @Override

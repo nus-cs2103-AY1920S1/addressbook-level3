@@ -153,3 +153,11 @@ task copyStylesheets(type: Copy) {
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}

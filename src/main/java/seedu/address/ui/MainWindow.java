@@ -246,6 +246,9 @@ public class MainWindow extends UiPart<Stage> {
                 case DisplayFormat.BARCHART:
                     displayController = new BarChartController(logic, displayIndicator);
                     break;
+                case DisplayFormat.LINECHART:
+                    displayController = new LineChartController(logic, displayIndicator);
+                    break;
                 default:
                     throw new ParseException(DisplayFormat.getMessageConstraints());
                 }

@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.visual.DisplayIndicator;
@@ -15,6 +14,12 @@ import seedu.address.model.visual.DisplayIndicator;
  */
 public class PieChartController extends DisplayController {
     private static final String FXML = "PieChartView.fxml";
+
+    private static final String ASSERTION_MESSAGE =
+        "Variable needs to be of type ObservableList<PieChart.Data>.";
+    private static final String EXCEPTION_MESSAGE =
+        "Generic needs to be of type ObservableList<PieChart.Data>. "
+            + "Check type inference in the usage of this generic method";
 
     private ObservableList<PieChart.Data> pieChartData;
     @FXML
@@ -28,6 +33,7 @@ public class PieChartController extends DisplayController {
 
     @Override
     protected void initPolicyPopularityBreakdown(Logic logic) {
+        assert pieChartData instanceof ObservableList : ASSERTION_MESSAGE;
         pieChartData = castData(logic.getPolicyPopularityBreakdown());
     }
 
@@ -47,7 +53,15 @@ public class PieChartController extends DisplayController {
         map.forEach((key, value) ->
             data.add(new PieChart.Data(key, value))
         );
-        return (T) data;
+
+        T result;
+        try {
+            result = (T) data;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(EXCEPTION_MESSAGE);
+        }
+
+        return result;
     }
 
     @Override
