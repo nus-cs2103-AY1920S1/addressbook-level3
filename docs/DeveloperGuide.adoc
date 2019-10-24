@@ -112,18 +112,14 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-. `Logic` uses the `AddressBookParser` class to parse the user command.
+. `Logic` uses the tab's `Parser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
-. The command execution can affect the `Model` (e.g. adding a person).
+. The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 . In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+More detailed Sequence Diagram's for commands in each Tab can be found in <<Implementation>>
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -165,6 +161,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+[[Implementation]]
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 There are a total of 6 tabs in our application for each feature: Home Tab, Members Tab, Reimbursement Tab,
@@ -287,6 +284,23 @@ Back Command that calls `resetPredicate()`.
 
 
 === Members Tab
+This tab will help to keep track of the contact details of members in the club or society for the treasurer.
+
+==== Delete Feature
+The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for deletion by
+the index shown in the `Members Tab`. This tab integrates the existing `AddressBook`.
+
+The following sequence diagram shows how the delete command works:
+
+.Sequence Diagram of Delete Command in Member Tab (transaction package)
+
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Before, the deletion is done, there will be a check to the `TransactionModel` to ensure that the member is not linked
+to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).
+
 
 === Reimbursement Tab
 This tab will help to show records of reimbursements

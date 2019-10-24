@@ -33,8 +33,8 @@ class SortAmountCommandTest {
         assertEquals(sortAmountCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getAmountSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getAmountSortedTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getAmountSortedTransactionList().getTarrList());
     }
 
     @Test
@@ -55,7 +55,7 @@ class SortAmountCommandTest {
         assertEquals(sortAmountCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getAmountSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getAmountSortedTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getAmountSortedTransactionList().getTarrList());
     }
 }

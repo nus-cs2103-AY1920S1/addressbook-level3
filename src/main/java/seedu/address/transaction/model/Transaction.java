@@ -99,7 +99,7 @@ public class Transaction {
         this.isReimbursed = true;
     }
 
-    private String isOne(boolean isReimbursed) {
+    public String isOne(boolean isReimbursed) {
         return isReimbursed ? "1" : "0";
     }
 

@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -90,6 +91,28 @@ class DeleteIndexCommandTest {
             }
         };
         model.updatePredicate(predicate);
-        assertTrue(model.getFilteredList().gettArrList().isEmpty());
+        assertTrue(model.getFilteredList().getTarrList().isEmpty());
+    }
+
+    @Test
+    public void equals() {
+
+        DeleteIndexCommand delete1Command = new DeleteIndexCommand(1);
+        DeleteIndexCommand anotherDelete1Command = new DeleteIndexCommand(1);
+        DeleteIndexCommand delete2Command = new DeleteIndexCommand(2);
+
+        // same object -> returns true
+        assertTrue(delete1Command.equals(delete1Command));
+
+        assertTrue(delete1Command.equals(anotherDelete1Command));
+
+        // different types -> returns false
+        assertFalse(delete1Command.equals(1));
+
+        // null -> returns false
+        assertFalse(delete1Command.equals(null));
+
+        // different delete index command -> returns false
+        assertFalse(delete1Command.equals(delete2Command));
     }
 }
