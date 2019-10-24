@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.ArrayDeque;
 import java.util.NoSuchElementException;
 
 import javafx.collections.ObservableList;
@@ -25,8 +24,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private ArrayDeque<String> pastCommands = new ArrayDeque<>();
-    private ArrayDeque<String> nextCommands = new ArrayDeque<>();
+    private History history = new History();
 
     @FXML
     private TextField commandTextField;
@@ -45,10 +43,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     private void handleCommandEntered() {
         try {
             String command = commandTextField.getText();
-            while (!nextCommands.isEmpty()) {
-                pastCommands.push(nextCommands.pop());
-            }
-            pastCommands.push(command);
+            history.sendToHistory(command);
             commandExecutor.execute(command);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
@@ -77,8 +72,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
 
         if (keyCode == KeyCode.UP) {
             try {
-                String previousCommand = pastCommands.pop();
-                nextCommands.push(previousCommand);
+                String previousCommand = history.getPastCommand();
                 commandTextField.setText((previousCommand));
             } catch (NoSuchElementException ex) {
                 commandTextField.setText((""));
@@ -86,8 +80,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         }
         if (keyCode == KeyCode.DOWN) {
             try {
-                String nextCommand = nextCommands.pop();
-                pastCommands.push(nextCommand);
+                String nextCommand = history.getNextCommand();
                 commandTextField.setText((nextCommand));
             } catch (NoSuchElementException ex) {
                 commandTextField.setText((""));
