@@ -8,7 +8,7 @@ import java.util.Stack;
 public class CommandHistory {
     public static final String HAVE_HISTORY = "The following is the command history:%s";
     private static Stack<String> cmdList = new Stack<>();
-    private static int count = 0;
+    private static int statePointer = 0;
 
     /**
      * Add executed command into command history.
@@ -17,7 +17,7 @@ public class CommandHistory {
      */
     public static void addCmdHistory(String cmd) {
         cmdList.push(cmd);
-        count = 0;
+        statePointer = 0;
     }
 
     /**
@@ -29,11 +29,11 @@ public class CommandHistory {
         if (cmdList.empty()) {
             return "";
         }
-        if (count == cmdList.size()) {
+        if (statePointer == cmdList.size()) {
             return cmdList.get(0);
         } else {
-            count++;
-            return cmdList.get(cmdList.size() - count);
+            statePointer++;
+            return cmdList.get(cmdList.size() - statePointer);
         }
     }
 
@@ -46,14 +46,14 @@ public class CommandHistory {
         if (cmdList.empty()) {
             return "";
         }
-        if (count == 0) {
+        if (statePointer == 0) {
             return "";
-        } else if (count == 1) {
-            count--;
+        } else if (statePointer == 1) {
+            statePointer--;
             return "";
         } else {
-            count--;
-            return cmdList.get(cmdList.size() - count);
+            statePointer--;
+            return cmdList.get(cmdList.size() - statePointer);
         }
     }
 
@@ -85,6 +85,6 @@ public class CommandHistory {
      */
     public static void clearHistory() {
         cmdList.clear();
-        count = 0;
+        statePointer = 0;
     }
 }

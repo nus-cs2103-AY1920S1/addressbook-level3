@@ -27,7 +27,7 @@ public class RedoCommand extends Command {
         }
 
         String redoCmd = VersionedBillboard.getRedoCmd();
-        Model undoModel = VersionedBillboard.redo();
+        Model undoModel = VersionedBillboard.getRedoModel();
         model.setModel(undoModel);
         CommandResult cmdResult = new CommandResult(String.format(MESSAGE_REDO_SUCCESS, redoCmd));
         return cmdResult;
