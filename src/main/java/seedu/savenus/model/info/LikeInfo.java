@@ -9,7 +9,7 @@ public class LikeInfo {
 
     public static final String COMMAND_WORD = LikeCommand.COMMAND_WORD;
 
-    public static final String INFORMATION = "like command allows you to \n"
+    public static final String INFORMATION = "The like command allows you to \n"
             + "like a particular tag, category or location.\n"
             + "The liked tags, categories and locations must not exist \n"
             + "in the user's dislikes.\n\n";

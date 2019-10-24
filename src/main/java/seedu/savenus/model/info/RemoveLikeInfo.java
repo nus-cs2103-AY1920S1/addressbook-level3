@@ -10,7 +10,7 @@ public class RemoveLikeInfo {
 
     public static final String COMMAND_WORD = RemoveLikeCommand.COMMAND_WORD;
 
-    public static final String INFORMATION = "removelike command allows you to \n"
+    public static final String INFORMATION = "The removelike command allows you to \n"
             + "remove your previously added likes, \n"
             + "The liked categories, tags and locations must exist before they can be removed.\n\n";
 
