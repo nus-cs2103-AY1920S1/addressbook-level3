@@ -20,6 +20,7 @@ import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
+import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 
@@ -36,8 +37,9 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonHistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(getTempFilePath("hm"));
         JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(getTempFilePath("ct"));
+        JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(getTempFilePath("cp"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage);
+                ccaTrackerStorage, coursePlannerStorage);
     }
 
     private Path getTempFilePath(String fileName) {
