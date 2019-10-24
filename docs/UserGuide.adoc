@@ -93,7 +93,7 @@ is provided in the command descriptions.
 
 === General Commands
 
-==== Help
+==== Viewing Help: `help`
 
 Display the help screen that contains helpful information on how to use the application. +
 
@@ -101,7 +101,7 @@ Display the help screen that contains helpful information on how to use the appl
 *Format*: `help`
 ****
 
-==== History
+==== Viewing History: `history`
 
 Display within the grey box right below the command line box, a list of
 commands that were recently typed in order of which was most recent.
@@ -119,7 +119,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a list of commands that y
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a list of commands that you have previously typed in the grey box right below the Command Line.]
 |===
 
-==== Info
+==== Viewing information about a Command: `info`
 
 Displays the information of the command specified.
 
@@ -134,7 +134,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a window pop-up specifyin
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a window pop-up specifying the details of the command you wanted more information about.]
 |===
 
-==== Collapse
+==== Collapse the food card: `collapse`
 
 Makes the Food Card more compacted, depending on the user's preference.
 
@@ -148,7 +148,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a compacted box for the f
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a compacted box for the food items displayed in the food menu.]
 |===
 
-==== Exit
+==== Exiting the application: `exit`
 Exits the app. +
 
 ****
@@ -161,7 +161,7 @@ ifdef::env-github[| :white_check_mark: a| Application closes.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.]
 |===
 
-==== Expand
+==== Expanding the food card: `expand`
 Makes the Food Display Card expend, such that each line only has one attribute of the food item.
 
 ****
@@ -175,7 +175,8 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see an exp
 
 === Food Items
 
-==== Add
+[[add]]
+==== Add a food item: `add`
 Adds a food item to the food list. Note: Price must be in integer or double value with at most 2 decimal places.
 Note: Opening Hours must be in HHMM format.
 Note: NAME, PRICE and CATEGORY are mandatory fields.
@@ -189,7 +190,7 @@ by using the `recommend` command again (see <<Recommend>>).
 *Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
 ****
 
-==== List
+==== List all food items: `list`
 List all the food items in the list.
 
 [NOTE]
@@ -200,7 +201,7 @@ by using the `recommend` command again (see <<Recommend>>).
 *Format*: `list`
 ****
 
-==== Edit
+==== Edit a food item: `edit`
 Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be a positive integer. At least one FIELD must be given.
 
 ****
@@ -208,7 +209,7 @@ Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be 
 *Example*: `edit 2 n/Fried Rice`
 ****
 
-==== Find
+==== Finds food items based on keywords: `find`
 Finds a food items based on a specific FIELD or fields. At least one FIELD must be given.
 
 ****
@@ -216,7 +217,7 @@ Finds a food items based on a specific FIELD or fields. At least one FIELD must 
 *Example*: `find n/Chicken d/Rice`
 ****
 
-==== Filter
+==== Filters food items based on criteria: `filter`
 Filters the food items based on the criteria specified. Note: You can need to
 have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 
@@ -225,7 +226,7 @@ have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 *Example*: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 ****
 
-==== Delete
+==== Deletes a food item: `delete`
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
 Note: You are allowed to have more than one `INDEX`.
 
@@ -234,8 +235,8 @@ Note: You are allowed to have more than one `INDEX`.
 *Example*: `delete 2`
 ****
 
-==== Clear
-Clears all the food items in the list.
+==== Clears wallet, purchase history and food items: `clear`
+Clears wallet, purchase history and food items in the application.
 
 ****
 *Format*: `clear`
@@ -255,7 +256,7 @@ THe directions are as followed: `ASCENDING` or `DESCENDING`.
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
 price in ascending order. Following which, sorts the food items based on names in descending order.
 
-==== Sort
+==== Sorts food items based on fields: `sort`
 Sorts all the food items by some specific FIELD.
 
 Note: You can have more than one pair of FIELD and DIRECTION.
@@ -265,7 +266,7 @@ Note: You can have more than one pair of FIELD and DIRECTION.
 *Example*: `sort PRICE ASCENDING`
 ****
 
-==== MakeSort
+==== Make your own custom comparator: `makesort`
 Create your own custom comparator, which will be stored within the storage of the application, using specific
 FIELD and DIRECTION.
 
@@ -274,14 +275,14 @@ FIELD and DIRECTION.
 *Example*: `makesort PRICE ASCENDING`
 ****
 
-==== CustomSort
+==== Sort based on your custom comparator: `customsort`
 Sort Using your own custom comparator, which you have creating from MakeSort.
 
 ****
 *Format*: `customsort`
 ****
 
-==== AutoSort
+==== Auto sorts list based on custom comparator: `autosort`
 Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
 There are only two states, ON or OFF.
 
@@ -290,7 +291,7 @@ There are only two states, ON or OFF.
 *Example*: `autosort ON`
 ****
 
-==== Default
+==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending price, name and then category.
 
 ****
@@ -299,7 +300,7 @@ Sorts the food items based on their default ordering, where it is based on ascen
 
 === Budgeting
 
-==== Budget
+==== Sets budget for a number of days: `budget`
 Allows the user to set a budget AMOUNT for food expenses for a certain number
 of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or double with 2 decimal places.
 
@@ -308,7 +309,7 @@ of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or d
 *Example*: `budget 100.00 10`
 ****
 
-==== Buy
+==== Buy a food item: `buy`
 Allows users to log a food expense into the application.
 ****
 *Format*: `buy FOOD_INDEX` +
@@ -321,7 +322,7 @@ Make sure you have enough money in your wallet for the purchase.
 [NOTE]
 If the purchase was successful, you should be able to see the update in your purchase history immediately.
 
-==== Topup
+==== Top up money into wallet: `topup`
 Allows users to topup the money into their wallet.
 ****
 *Format*: `topup AMOUNT` +
@@ -332,7 +333,7 @@ Allows users to topup the money into their wallet.
 If the topup was successful, you should be able to see the update in your wallet immediately.
 
 
-==== Save
+==== Saves money into savings account: `save`
 Allows users to log an amount of money to save in his savings account from user's wallet.
 
 ****
@@ -355,7 +356,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 If you click the "Savings" tab on the right panel, you will be able to view your savings history.
 Also the amount saved is deducted from your wallet.
 
-==== Withdraw
+==== Withdraws money from savings account: `withdraw`
 Allows users to log an amount of money to withdraw from his savings account into his wallet.
 
 ****
