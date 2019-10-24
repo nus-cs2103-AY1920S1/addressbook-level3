@@ -316,12 +316,14 @@ public class Item {
         }
 
         public ItemBuilder setItemDescription(ItemDescription descriptor) {
+            requireNonNull(descriptor);
             this.itemDescription = descriptor;
             return this;
         }
 
         //Consider using a defensive copy of tags, similar to EditCommand in AB3
         public ItemBuilder setTags(Set<Tag> tags) {
+            requireNonNull(tags);
             this.tags = tags;
             return this;
         }
