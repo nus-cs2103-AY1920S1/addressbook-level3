@@ -589,7 +589,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Mortago` and the *Actor* is the `mortuary manager`, unless specified otherwise)
 
 [discrete]
 === Use case: View dashboard
@@ -676,7 +676,7 @@ Use case ends.
 === Use case: Filter entries
 *MSS*
 
-1.  Mortuary manage switches to the desired view (bodies or workers).
+1.  Mortuary manager switches to the desired view (bodies or workers).
 2.  Mortuary manager specifies criteria for filter.
 3.  Mortago shows a list of entries that matches the criteria.
 +
@@ -693,7 +693,7 @@ Use case ends.
 === Use case: Sort entries
 *MSS*
 
-1.  Mortuary manage switches to the desired view (bodies or workers).
+1.  Mortuary manager switches to the desired view (bodies or workers).
 2.  Mortuary manager specifies criteria for sorting.
 3.  Mortago shows a list of entries sorted according to the specified criteria.
 +
@@ -797,8 +797,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to hold up to 1000 bodies without a noticeable sluggishness in performance for typical usage.
+.  A mortuary manager with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
