@@ -2,7 +2,8 @@ package io.xpire.logic.commands;
 
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static io.xpire.logic.commands.SetReminderCommand.MESSAGE_SUCCESS;
+import static io.xpire.logic.commands.SetReminderCommand.MESSAGE_SUCCESS_RESET;
+import static io.xpire.logic.commands.SetReminderCommand.MESSAGE_SUCCESS_SET;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -69,8 +70,16 @@ public class SetReminderCommandTest {
         Index firstIndex = INDEX_FIRST_ITEM;
         ReminderThreshold threshold = new ReminderThreshold("1");
         SetReminderCommand command = new SetReminderCommand(firstIndex, threshold);
-        String expectedMessage = String.format(MESSAGE_SUCCESS, firstIndex.getOneBased(), threshold);
+        String expectedMessage = String.format(MESSAGE_SUCCESS_SET, firstIndex.getOneBased(), threshold);
         assertCommandSuccess(command, model, expectedMessage, model);
     }
 
+    @Test
+    public void execute_disableReminder_success() {
+        Index firstIndex = INDEX_FIRST_ITEM;
+        ReminderThreshold threshold = new ReminderThreshold("0");
+        SetReminderCommand command = new SetReminderCommand(firstIndex, threshold);
+        String expectedMessage = String.format(MESSAGE_SUCCESS_RESET, firstIndex.getOneBased());
+        assertCommandSuccess(command, model, expectedMessage, model);
+    }
 }
