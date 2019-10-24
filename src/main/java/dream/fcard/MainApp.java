@@ -11,7 +11,6 @@ import dream.fcard.core.commons.core.Version;
 import dream.fcard.core.commons.exceptions.DataConversionException;
 import dream.fcard.core.commons.util.ConfigUtil;
 import dream.fcard.core.commons.util.StringUtil;
-import dream.fcard.gui.Ui;
 import dream.fcard.gui.UiManager;
 import dream.fcard.model.State;
 import javafx.application.Application;
@@ -26,7 +25,7 @@ public class MainApp extends Application {
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected Ui ui;
+    protected UiManager ui;
     protected Config config;
 
     @Override

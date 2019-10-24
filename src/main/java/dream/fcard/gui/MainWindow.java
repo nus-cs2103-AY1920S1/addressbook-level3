@@ -113,8 +113,4 @@ public class MainWindow {
     ScrollablePane getScrollablePane() {
         return this.scrollablePane;
     }
-
-    // private void setAccelerators()
-    // private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination)
-    // private void setWindowDefaultSize(GuiSettings guiSettings)
 }

@@ -13,16 +13,12 @@ import javafx.stage.Stage;
 /**
  * The manager of the UI component.
  */
-public class UiManager implements Ui {
+public class UiManager {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     private MainWindow mainWindow;
     private State state;
-
-    public UiManager() {
-        super();
-    }
 
     /**
      * Creates a new instance of UiManager with a given State.
@@ -37,7 +33,6 @@ public class UiManager implements Ui {
      *
      * @param primaryStage The window of the application.
      */
-    @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 

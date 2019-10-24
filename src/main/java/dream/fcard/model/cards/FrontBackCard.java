@@ -58,7 +58,6 @@ public class FrontBackCard extends FlashCard {
     /**
      * @param in String input by user.
      * @return Boolean value, if correct return true, else return false.
->>>>>>> 674a344edd9e48d12c8ed6c898603cdb2b07b62f
      * @throws IndexNotFoundException
      */
     public Boolean evaluate(String in) throws IndexNotFoundException {
