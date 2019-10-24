@@ -2,6 +2,7 @@ package dream.fcard.model;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -18,6 +19,7 @@ import javafx.scene.Node;
 public class Deck implements JsonInterface {
     private String deckName;
     private ArrayList<FlashCard> cards;
+    private Statistics stats;
 
     /**
      * Constructor to create a Deck with no name and cards.
@@ -25,6 +27,7 @@ public class Deck implements JsonInterface {
     public Deck() {
         cards = new ArrayList<>();
         deckName = "untitled";
+        stats = new Statistics();
     }
 
     /**
@@ -149,5 +152,9 @@ public class Deck implements JsonInterface {
 
     public String getName() {
         return deckName;
+    }
+
+    public int getNumCards() {
+        return cards.size();
     }
 }

@@ -10,6 +10,8 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
 public class State {
 
     private ArrayList<Deck> decks;
+    private boolean isEditMode;
+    private boolean isCreateMode;
 
     /**
      * Constructor to create a State object with no Deck objects.
@@ -28,10 +30,44 @@ public class State {
     }
 
     /**
-     * Adds new empty Deck object to decks list.
+     * Adds a new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
         decks.add(new Deck(deckName));
+    }
+
+    /**
+     * Adds a given Deck object to the decks list.
+     *
+     * @param deck Deck object to be added.
+     */
+    public void addDeck(Deck deck) {
+        decks.add(deck);
+    }
+
+    public boolean isEditMode() {
+        return this.isEditMode;
+    }
+
+    public boolean isCreateMode() {
+        return this.isCreateMode;
+    }
+
+    public void toggleEditMode() {
+        isEditMode = !isEditMode;
+    }
+
+    public void toggleCreateMode() {
+        isCreateMode = !isCreateMode;
+    }
+
+    /**
+     * Getter for the ArrayList of all decks.
+     *
+     * @return The ArrayList of all the decks.
+     */
+    public ArrayList<Deck> getAllDecks() {
+        return this.decks;
     }
 
     /**

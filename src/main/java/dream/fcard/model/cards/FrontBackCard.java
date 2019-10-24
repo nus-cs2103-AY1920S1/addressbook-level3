@@ -1,5 +1,6 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonObject;
@@ -13,10 +14,12 @@ public class FrontBackCard implements FlashCard {
 
     protected String back;
     protected String front;
+    protected Statistics stats;
 
     public FrontBackCard(String frontString, String backString) {
         back = backString;
         front = frontString;
+        stats = new Statistics();
     }
 
     @Override

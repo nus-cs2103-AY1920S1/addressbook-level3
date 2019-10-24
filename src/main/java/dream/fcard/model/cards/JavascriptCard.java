@@ -1,5 +1,6 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -12,10 +13,13 @@ public class JavascriptCard implements FlashCard {
 
     protected String front;
     protected String back;
+    protected Statistics stats;
+
 
     public JavascriptCard(String frontString, String outputString) {
         front = frontString;
         back = outputString;
+        stats = new Statistics();
     }
 
     @Override
