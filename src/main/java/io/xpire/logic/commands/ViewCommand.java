@@ -19,4 +19,9 @@ public class ViewCommand extends Command {
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        return "View Command";
+    }
 }

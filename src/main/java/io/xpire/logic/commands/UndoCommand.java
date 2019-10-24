@@ -13,4 +13,9 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Undo Command";
+    }
 }

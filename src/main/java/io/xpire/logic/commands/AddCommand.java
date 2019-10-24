@@ -65,4 +65,9 @@ public class AddCommand extends Command {
     public int hashCode() {
         return this.toAdd.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Add Command: " + this.toAdd;
+    }
 }

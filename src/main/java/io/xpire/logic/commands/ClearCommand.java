@@ -19,4 +19,9 @@ public class ClearCommand extends Command {
         model.setXpire(new Xpire());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        return "Clear Command";
+    }
 }

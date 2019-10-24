@@ -52,6 +52,7 @@ public class DeleteCommand extends Command {
     private final Set<Tag> tagSet;
     private final Quantity quantity;
     private final DeleteMode mode;
+    private Item item = null;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -84,6 +85,7 @@ public class DeleteCommand extends Command {
         }
 
         Item targetItem = lastShownList.get(this.targetIndex.getZeroBased());
+        this.item = targetItem;
         switch(this.mode) {
         case ITEM:
             model.deleteItem(targetItem);
@@ -165,5 +167,20 @@ public class DeleteCommand extends Command {
     @Override
     public int hashCode() {
         return this.targetIndex.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        String result = "Delete Command: ";
+        switch(this.mode) {
+        case TAGS:
+            return result + "Delete Tags from " + this.item.getName() + ": " + this.tagSet;
+        case ITEM:
+            return result + "Deleted Item: " + this.item;
+        case QUANTITY:
+            return result + "Deleted Quantity from " + this.item.getName() + ": " + this.quantity;
+        default:
+            return result + "Unknown Mode";
+        }
     }
 }

@@ -13,4 +13,9 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model) {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Redo Command";
+    }
 }

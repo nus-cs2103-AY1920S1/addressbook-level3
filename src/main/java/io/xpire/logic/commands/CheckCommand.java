@@ -57,4 +57,9 @@ public class CheckCommand extends Command {
     public int hashCode() {
         return this.predicate.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Check Command";
+    }
 }

@@ -49,4 +49,9 @@ public class SortCommand extends Command {
     public int hashCode() {
         return this.method.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Sort Command";
+    }
 }

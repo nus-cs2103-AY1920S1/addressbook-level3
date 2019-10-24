@@ -43,6 +43,7 @@ public class TagCommand extends Command {
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
     private final TagMode mode;
+    private Item item = null;
 
 
 
@@ -80,6 +81,7 @@ public class TagCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
             Item itemToTag = lastShownList.get(this.index.getZeroBased());
+            this.item = itemToTag;
             Item taggedItem = createTaggedItem(itemToTag, this.tagItemDescriptor);
             model.setItem(itemToTag, taggedItem);
             return new CommandResult(String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem));
@@ -165,6 +167,19 @@ public class TagCommand extends Command {
                 && mode.equals(e.mode);
     }
 
+    @Override
+    public String toString() {
+        String result = "Tag Command: ";
+        switch(this.mode) {
+        case TAG:
+            return result + "Tagged " + item.getName() + "with " + this.tagItemDescriptor.getTags();
+        case SHOW:
+            return result + "Show all tags";
+        default:
+            return result + "Unknown mode";
+        }
+    }
+
     /**
      * Stores the tags to edit the item with.
      */
@@ -213,7 +228,6 @@ public class TagCommand extends Command {
             return getTags().equals(e.getTags());
         }
     }
-
 
 
 }

@@ -32,6 +32,7 @@ public class SetReminderCommand extends Command {
 
     private final Index index;
     private final ReminderThreshold threshold;
+    private Item item = null;
 
     /**
      * @param index Index of the item in the list.
@@ -55,6 +56,7 @@ public class SetReminderCommand extends Command {
 
         Item itemToSetReminder = lastShownList.get(this.index.getZeroBased());
         Item editedItem = itemToSetReminder;
+        this.item = editedItem;
         editedItem.setReminderThreshold(this.threshold);
 
         model.setItem(itemToSetReminder, editedItem);
@@ -74,5 +76,10 @@ public class SetReminderCommand extends Command {
             SetReminderCommand other = (SetReminderCommand) obj;
             return this.index.equals(other.index) && this.threshold.equals(other.threshold);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SetReminder Command: " + this.item.getName() + " Set for " + this.threshold + " days";
     }
 }

@@ -61,4 +61,9 @@ public class SearchCommand extends Command {
     public int hashCode() {
         return this.predicate.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Search Command";
+    }
 }
