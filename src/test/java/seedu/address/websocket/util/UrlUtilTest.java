@@ -26,15 +26,15 @@ class UrlUtilTest {
 
     @Test
     void generateGmapsPlacesUrl() {
-        String expectedUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg" +
-                "&inputtype=textquery&fields=name,place_id&input=qwerty&key=&";
+        String expectedUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg"
+                + "&inputtype=textquery&fields=name,place_id&input=qwerty&key=&";
         assertEquals(UrlUtil.generateGmapsPlacesUrl("qwerty"), expectedUrl);
     }
 
     @Test
     void generateDistanceMatrixUrl() {
         ArrayList<String> tooLongStringList = new ArrayList<>();
-        for (int i = 0 ; i < 20 ; i++) {
+        for (int i = 0; i < 20; i++) {
             tooLongStringList.add("qwert");
         }
         assertThrows(InvalidParameterException.class, () ->
