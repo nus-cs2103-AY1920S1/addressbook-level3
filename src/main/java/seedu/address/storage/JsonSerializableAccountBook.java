@@ -16,7 +16,7 @@ import seedu.address.model.account.Account;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "accountbook")
-public class JsonSerializableAccount {
+public class JsonSerializableAccountBook {
 
     public static final String MESSAGE_DUPLICATE_ACCOUNT = "Account list contains duplicate account(s).";
 
@@ -26,7 +26,7 @@ public class JsonSerializableAccount {
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAccount(@JsonProperty("accounts") List<JsonAdaptedAccount> acct) {
+    public JsonSerializableAccountBook(@JsonProperty("accounts") List<JsonAdaptedAccount> acct) {
         this.accounts.addAll(acct);
     }
 
@@ -35,7 +35,7 @@ public class JsonSerializableAccount {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAccount(AccountBook source) {
+    public JsonSerializableAccountBook(AccountBook source) {
         accounts.addAll(source.getList().stream().map(JsonAdaptedAccount::new).collect(Collectors.toList()));
     }
 

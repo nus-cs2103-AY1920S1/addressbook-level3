@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.account.Account;
+import seedu.address.model.account.Username;
 
 /**
  * Wraps all data at the account-book level
@@ -33,6 +34,17 @@ public class AccountBook {
 
     public List<Account> getList() {
         return listOfAccounts;
+    }
+
+    public boolean hasUsername(Username userName) {
+        requireNonNull(userName);
+        // need to put in lowercase?????
+        for (Account acc : listOfAccounts) {
+            if (acc.getUsername().equals(userName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
