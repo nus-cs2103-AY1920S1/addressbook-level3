@@ -154,70 +154,17 @@ Usage:
 
 === Finding expenses by attributes: `find`
 
-. _Find in everything: find all_ +
-Find expenses that contain the keyword/s in any of its attributes. +
+. _Find : find_ +
+Find expenses that satisfies conditions specified in the arguments. +
 {nbsp} +
 Usage:
 
- find all [KEYWORD] [KEYWORD…]
+ find [d/KEYWORD[ KEYWORD…]] [a/LOWER AMOUNT LIMIT] [al/UPPER AMOUNT LIMIT] [sd/START DATE] [ed/END DATE]
 +
 Example: +
-`find all lunch` +
-Finds all expenses that contain the keyword ‘lunch’ in any of its attributes. +
-{nbsp} +
-
-. _Find by name: find name_ +
-Find expenses that contains the keyword/s in its name. +
-{nbsp} +
-Usage:
-
- find name [KEYWORD] [KEYWORD…]
-+
-Example: +
-`find name lunch bread` +
-Finds the expenses that contain the keyword ‘lunch’ or ‘bread’ in its name. +
-{nbsp} +
-
-. _Find tag: find tag_ +
-Find expenses that are tagged with the specified tags +
-{nbsp} +
-Usage:
-
- find tag [TAG] [TAG…]
-+
-Example: +
-`find tag school lunch` +
-Finds the expenses that contain the tags ‘school’ or ‘lunch’. +
-{nbsp} +
-
-. _Find date: find date_ +
-Find expenses that occurred within a range of date, with various date formats. +
-{nbsp} +
-Usage:
-
- find date [START DATE] [END DATE]
- find date [START DATE]
-+
-Example: +
-`find date 10/9/19 20/9/19` +
-Finds the expenses that occurred between 10 September and 20 September, 2019. +
-`find date 10/9/19` +
-Finds the expenses that occurred between 10 September, 19 and the current date. +
-{nbsp} +
-
-. _Find by amount: find amt_ +
-Find expenses that cost between a specified amount. +
-{nbsp} +
-Usage:
-
- find amt [LOWER] [UPPER]
- find amt [LOWER]
-+
-Example: +
-`find amt 50` +
-Finds the expenses that cost more than $50. +
-`find amt 30 50` +
-Finds the expenses that cost between $30 and $50 +
+`find d/lunch book a/2 al/20 sd/1/1/2019 ed/1/10/2019` +
+Finds all expenses that contain the keyword ‘lunch’ or 'book' and amount between 2 and 20 dollars
+and date between 1 Jan 2019 to 1 Oct 2019 in any of its attributes. +
 {nbsp} +
 
 === Sorting expenses by attributes: `[Coming in v1.3]`
