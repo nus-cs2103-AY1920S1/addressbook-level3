@@ -24,7 +24,7 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "WindowCap.fxml";
+    private static final String FXML = "CapWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -35,6 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private SemesterListPanel semesterListPanel;
+    //  private SemesterListPanel semesterListPanel1;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,7 +45,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane semesterListPanelPlaceholder;
+
+    @FXML
     private StackPane gradeListPanelPlaceholder;
+
+    //    @FXML
+    //    private StackPane semesterListPanelPlaceholder1;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -108,13 +116,19 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        semesterListPanel = new SemesterListPanel(logic.getFilteredSemesterList());
+        semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         gradeListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+
+        //        semesterListPanel1 = new SemesterListPanel(logic.getFilteredSemesterList());
+        //        semesterListPanelPlaceholder1.getChildren().add(semesterListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCapLogFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

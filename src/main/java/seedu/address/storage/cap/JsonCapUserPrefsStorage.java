@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.cap.ReadOnlyUserPrefs;
-import seedu.address.model.cap.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
@@ -26,7 +26,7 @@ public class JsonCapUserPrefsStorage implements UserPrefsStorage {
     }
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException {
+    public Optional<CapUserPrefs> readUserPrefs() throws DataConversionException {
         return readUserPrefs(filePath);
     }
 
@@ -35,8 +35,8 @@ public class JsonCapUserPrefsStorage implements UserPrefsStorage {
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
+    public Optional<CapUserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
+        return JsonUtil.readJsonFile(prefsFilePath, CapUserPrefs.class);
     }
 
     @Override
