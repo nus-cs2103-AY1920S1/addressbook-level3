@@ -88,9 +88,12 @@ public class AutoCompletePanel extends UiPart<Region> {
      * @param currentPhraseInCommandBox current String in command
      */
     public void updateListView(String currentPhraseInCommandBox) {
-        updateMatchedWords(currentPhraseInCommandBox);
+        String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
+        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
+
+        updateMatchedWords(segments, firstSegmentParts);
         resetList();
-        autoCompleteListUpdater.updateSuggestedWordsInList(matchedAutoCompleteWords.size(), currentPhraseInCommandBox);
+        autoCompleteListUpdater.updateSuggestedWordsInList(matchedAutoCompleteWords.size(), segments, firstSegmentParts);
     }
 
     /**
@@ -133,16 +136,16 @@ public class AutoCompletePanel extends UiPart<Region> {
     /**
      * Update matchedAutoCompleteWords list given userinput
      *
-     * @param currentPhraseInCommandBox string in command box text field
+     * @param segments segments of the userinputs
+     * @param firstSegmentParts parts of the first segment of userinput
      */
-    public void updateMatchedWords(String currentPhraseInCommandBox) {
-        // segments[0] -> object-command
+    public void updateMatchedWords(String[] segments, LinkedList<String> firstSegmentParts) {
+        // segments[0] -> object-command format
         // segments[1] -> either prefix or index
         // segments[2] onwards -> prefix
-        String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
         matchedAutoCompleteWords.clear();
 
-        boolean isCorrectFirstSegment = matchFirstSegment(segments[0]);
+        boolean isCorrectFirstSegment = matchFirstSegment(firstSegmentParts);
 
         if (segments.length >= 2) {
             boolean isCorrectSecondSegment = false;
@@ -158,14 +161,13 @@ public class AutoCompletePanel extends UiPart<Region> {
     /**
      * Check if first segment of userinput matches with current matched words
      *
-     * @param firstSegment first segment of userinput
-     * @return true if first segment matches with current matched words
+     * @param firstSegmentParts parts of the first segment of userinput
+     * @return true if first segment parts matches with current matched words
      */
-    public boolean matchFirstSegment(String firstSegment) {
+    public boolean matchFirstSegment(LinkedList<String> firstSegmentParts) {
         boolean isCorrectObjectWord = false;
         boolean isCorrectCommandWord = false;
 
-        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(firstSegment);
         if (firstSegmentParts.size() >= 1) {
             // First object word
             for (AutoCompleteWord autoCompleteWord : autoCompleteWordStorage.getOListAllObjectWord()) {

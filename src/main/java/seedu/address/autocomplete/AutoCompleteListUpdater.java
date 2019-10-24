@@ -21,12 +21,12 @@ public class AutoCompleteListUpdater {
     /**
      * Update list of autocomplete words to be suggested according to current phrase in command box textfield
      *
-     * @param currentPhraseInCommandBox string in command box textfield
+     * @param numberOfMatchedWords number of matched words in command textfield
+     * @param segments Array of segments of the full command in textfield
+     * @param firstSegmentParts Linkedlist of parts in first segment of segments array
      */
-    public void updateSuggestedWordsInList(int numberOfMatchedWords, String currentPhraseInCommandBox) {
+    public void updateSuggestedWordsInList(int numberOfMatchedWords, String[] segments, LinkedList<String> firstSegmentParts) {
         oListSuggestedWords.clear();
-        String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
-        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
 
         LinkedList<String> combinedList = new LinkedList<>(firstSegmentParts);
         combinedList.addAll(Arrays.asList(segments).subList(1, segments.length));
