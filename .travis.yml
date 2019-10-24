@@ -5,7 +5,7 @@ matrix:
 
 script: >-
     ./config/travis/run-checks.sh &&
-    ./gradlew clean checkstyleMain checkstyleTest  coverage coveralls asciidoctor
+    ./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor
 
 deploy:
   skip_cleanup: true
@@ -23,3 +23,5 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+after_failure:
+  -cat file:///home/travis/build/AY1920S1-CS2103T-T09-1/main/build/reports/tests/test/index.html
