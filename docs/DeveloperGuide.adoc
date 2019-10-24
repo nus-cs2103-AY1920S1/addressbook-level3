@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-3/main
 
 By: `AY1920S1-CS2103T-T10-3`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -42,6 +42,10 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
+* `Item` : Used by classes to represent a task, event, reminder or any combination of the three.
+* `Task` : Used by classes to store, access and modify details regarding tasks.
+* `Events` : Used by classes to store, access and modify details regarding events.
+* `Reminders` : Used by classes to store, access and modify details regarding reminders.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
@@ -59,7 +63,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentUML.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -79,7 +83,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -93,16 +97,17 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponentUML.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ElisaParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `ItemModel` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  More instructions for the `Ui` can be given through implementing `ScrollCommand`
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -152,6 +157,33 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::undobyreverse[]
+=== [Implemented] Undo Feature
+==== Current Implementation Logic
+
+The undo function uses the revert command method without using states and history, unlike the proposed method.
+This is because an issue was encountered with referencing lists and firing reminders multiple times when the state history method was used.
+
+In this implementation, the commands that can be undone; that is, all the commands except `UndoCommand`, `ExitCommand`,
+`UpCommand` and `DownCommand` now extend from an abstract class `UndoableCommand`, which is a subclass of Command.
+Subclasses of `UndoableCommand` must implement a method `reverse(ItemModel model)`, which should do the exact opposite
+of the `execute(ItemModel model)` in that Command.
+
+The command execution history is stored in a stack, which is maintained in `ElisaCommandHistory`.
+
+Below is a possible usage scenario and the app behaviour.
+
+Step 1. The user executes `task eat`. A task with description "eat" is added and then the command is pushed into the commands stack.
+
+image::UndoStackStep1.png[]
+
+Step 2. The user realises that adding the task was a mistake, and decides to undo by entering `undo` into ELISA. The `undo` command
+will pop the `AddTaskCommand` from the stack and reverse the effects of that command, in this case by deleting the task "eat" from the `TaskList`.
+
+image::UndoStackStep2.png[]
+
+Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -235,7 +267,108 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag:: priority[]
+=== Priority Mode
+
+==== Implementation
+
+The priority mode is used to aid the user in focusing on the most pressing task that they have especially when they have many tasks in their list. As priority mode is only for clearing of tasks, the priority mode can only be activated at the task pane of the application.
+
+The priority mode is mainly controlled in the ```ItemModelManager``` and the following are the methods it implements within the ```ItemModelManager```:
+
+* ```ItemModelManager#togglePriorityMode()``` - Toggle the priority mode depending on whether it is on or off.
+* ```ItemModelManager#toggleOnPriorityMode()``` - Helper function to toggle on the priority mode.
+* ```ItemModelManager#toggleOffPriorityMode()``` - Helper function to toggle off the priority mode.
+
+There are two variants to the priority mode, a normal priority mode that is controlled fully by the user and a scheduled priority mode that is triggered by the user but is scheduled to turn off after a specific amount of time. In addition to using the above three methods, the ```ScheduledPriorityMode``` also uses the following method:
+
+* ```ItemModelManager#startTimer(LocalDateTime)``` - Starts a timer to turn off the priority mode.
+
+==== Example run of code
+
+In the following section, we will be showing a run of the priority mode and the behaviour of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityMode``` works as it requires more step through the sequence diagram as compared to the ```PriorityMode```.
+
+Step 1. The user opens his ELISA software. The first screen that he observes will be the task screen which contains all the task of the user based on the time they were added into the list.
+
+Step 2. The user types ```priority 30.min.later``` into the command box of ELISA and hits enter. The list is instantly shrink to show only the most pressing task (i.e. the task with the highest priority). If two tasks have the same priority, either of the task will be shown as there is no other way for ELISA to compare between the two task.
+
+Step 3. ELISA will automatically disable the priority mode after 30 minutes and show *all* the task that the user have in his task list currently.
+
+The figure below shows the sequence diagram on what happens from a simple execution of the ```priority 30.min.later``` command.
+
+image::PriorityMode.png[]
+_Fig 3.2.2.a Sequence diagram for priority mode_
+
+==== Internal working of the command
+Referring to _Fig 3.2.2.a_, we will be going through step by step the internal mechanism of the execution of the ```ScheduledPriorityCommand```.
+
+Step 1. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```AddressBookParser```
+
+Step 2. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case, the command is that of a ```ScheduledPriorityCommand``` and so a new ```ScheduledPriorityCommand``` is created. This ```ScheduledPriorityCommand``` is passed back to the ```LogicManager```. (Despite the fact that this is a ```ScheduledPriorityCommand```, the following steps marked with a * are also applicable to a normal ```PriorityCommand```).
+
+Step 3*. Within the ```LogicManager```, the ```ScheduledPriorityCommand#execute()``` method is called and the command is executed.
+
+Step 4. The ```ScheduledPriorityCommand``` calls the ```ItemModel#scheduleOffPriorityMethod()``` which creates a new ```Timer``` object and a new ```TimerTask``` object. The ```TimerTask``` object will be scheduled to fire off at a specific time, which in this case is 30 minutes later (as defined by the user).
+
+Step 5*. The ```SchedulePriorityCommand``` then calls ```ItemModel#togglePriorityMode()``` which calls the private method ```ItemModel#toggleOnPriorityMode()``` (since the current state of the priority mode is false).
+
+Step 6*. This creates a new ```TaskList``` which will be the visualization list for the Task Panel throughout the entire priority mode period.
+
+Step 7*. A ```CommandResult``` is passed to the ```ScheduledPriorityCommand``` and then back to the ```LogicManager``` to be passed into the ```Ui```, informing the user that the priority mode is activate.
+
+(At this point, a normal ```PriorityCommand``` will end the sequence diagram here and will only be deactivated by the user's input of ```priority``` again.)
+
+Step 8. As the ```Timer``` within the ```ItemModelManager``` is still running on a separate thread, it will trigger the ```TimerTask#run()``` when the user defined time is reached.
+
+Step 9. The ```TimerTask``` will call ```ItemModelManager#toggleOffPriorityMode()``` which will cancel the ```Timer``` and destroy the ```Timer```. This is to ensure that the program can be closed properly.
+
+Step 10. The items are all added back into the ```TaskList``` and the priority mode is considered deactivated.
+
+==== Design Consideration
+Aspect: How to turn off the priority mode after a fixed time
+
+* **Alternative 1:** Having two different classes for activating the priority mode, a normal ```PriorityCommand``` and a ```ScheduledPriorityCommand``` that extends from the ```PriorityCommand```. The timer will be activated in the ```ScheduledPriorityCommand```.
+
+** Pros: Adhere to the SLAP principle with each class having it's own implementation of the ```Command#execute(ItemModel)```. This makes it easier to maintain the code and prevents from overloading the ItemModel by keeping the timer there.
+
+** Cons: There is no way to end the ```ScheduledPriorityCommand``` as the timer is kept within the command and so cannot be cancelled prematurely as there is no way to access the command after that.
+
+* **Alternative 2 (Current choice)**: Having a timer within the ```ItemModelManager``` and having a specific method within the ```ItemModelManager``` to handle this creation of the timer.
+
+** Pros: The scheduled priority mode can be controlled within the ```ItemModelManager``` and can then be controlled within the class such that it can be cancelled when it is done.
+
+** Cons: This implementation will clutter the ```ItemModelManager``` further and make it harder for maintaining the code.
+
+Alternative 2 was chosen as we believe that the functionality of the ```ScheduledPriorityMode``` takes priority over the maintainability of the code and should be used first until a better method can be created.
+
+==== Possible extension
+
+As of this moment, there is no way to display the status of the priority mode within the ```Ui``` other than through the list. One possible extension is turning have a label to signify that the user is in the priority mode.
+
+At the moment, there is also no way to inform the user that the priority mode is disabled when it is scheduled to be off. However, this can be solved if the above extension is implemented as it will trigger the message when the mode switches.
+
+// end:: priority[]
 // tag::dataencryption[]
+
+=== Add Task/Event feature
+Task, Events and Reminders are all Items and can be added using the same command. Adding of Items is facilitated by ItemModel#add(Item). +
+
+A Task with a deadline will also be considered an Event. As such, adding of a task and event will be demonstrated with the use of a single command. +
+
+Given below is an example usage scenario of how add behaves at each step: +
+
+Step 1. The user enters the command `"task shower -d 1.hour.later"`. +
+Step 2. The LogicManager creates an AddressBookParser to parse the user input. +
+Step 3. AddressBookParser creates a AddTaskCommandParser which parses the input and returns an AddCommand. +
+Step 4. LogicManager will execute the AddCommand. AddCommand will then invoke `ItemModel#add(Item)`, which adds Task to its TaskList and Event to its EventList. +
+Step 5. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)`
+Step 6. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view.
+
+The figure below shows the sequence diagram on what happens from a simple execution of `task shower -d 1.min.later` user command: +
+
+image::AddTaskEventSequenceDiagram.png[]
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -261,6 +394,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
 
 == Documentation
 
@@ -297,17 +431,42 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |add a new task |
+|`* * *` |user |add a new task | record tasks that need to be done 'some day'
 
 |`* * *` |user |mark a task as done | keep track of my remaining tasks
 
 |`* * *` |user |delete a task |remove tasks that I no longer need
 
+|`* * *` |student |add deadline to a task |remember my task deadlines
+
+|`* * *` |user |find upcoming tasks |decide what needs to be done
+
 |`* * *` |user |find a task by description |find only the tasks that are relevant to me at that point in time
+
+|`* * *` |new user |view more information about a command |learn how to use various commands
+
+|`* * *` |forgetful student |be reminded of deadlines |remember to complete them before they are due
+
+|`* * *` |user |type my commands in the text |use the app without needing the mouse
+
+|`* * *` |user |use the undo function |reverse any changes I made by mistake
 
 |`* *` |busy student |see my reminders as notifications|be reminded of them even in other applications
 
 |`* *` |user with many tasks |sort tasks by priority |identify which tasks require my immediate attention
+
+|`* *` |student |turn on priority mode |focus on only one pressing issue at a time
+
+|`* *` |user |have a software that saves after every action |will not lose information even if I close the program by accident
+
+|`* *` |user |look at a summary of all deadlines in the calendar |see when I am free
+
+|`* *` |user |edit the date of a deadline |fix my mistakes if I type the wrong command
+
+|`*` |stressed student |ask ELISA to tell a joke |feel less stressed when my assistant has a sense of humour
+
+|`*` |user |colour code my calendar events |easily categorise and differentiate between them
+
 |=======================================================================
 
 _{More to be added}_
@@ -412,6 +571,59 @@ Use case resumes at step 2.
 2. ELISA shows the reminder list.
 3. User enters command to sort reminders by date and time.
 4. ELISA shows the updated list of reminders sorted by date and time.
+
+[discrete]
+=== Use Case 005: Search for a task by its description
+
+*MSS*
+
+1. User enters the command to show the task list.
+2. ELISA shows the reminder list.
+3. User enters command to find all matching tasks with the given search term(s)
+4. ELISA shows a list of tasks with descriptions matching the search term(s)
+
+*Extensions*
+
+* 4a. There are no matching tasks
++
+** 4a1. ELISA shows that there are 0 items listed
++
+Use case ends.
+
+[discrete]
+=== Use Case 006: Undo the last command
+
+*MSS*
+
+1. User enters the undo command.
+2. ELISA reverts the last executed command.
+3. ELISA displays a confirmation message.
+
+*Extensions*
+
+* 2a. There are no commands to be undone
++
+** 2a1. ELISA displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 007: Using Priority Mode
+
+*MSS*
+
+1. User enters the command to enter priority mode.
+2. ELISA hides all tasks except the one with the highest priority.
+3. User enters command to set that task as done once they finish it.
+4. ELISA shows the next highest priority task.
+
+*Extensions*
+
+* 1a. User is not viewing the task list
++
+** 1a1. ELISA displays an error message
++
+Use case ends.
 
 _{More to be added}_
 
