@@ -31,6 +31,8 @@ import seedu.jarvis.storage.Storage;
 import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.address.AddressBookStorage;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.cca.CcaTrackerStorage;
+import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.history.HistoryManagerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
@@ -66,7 +68,8 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         HistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(
                 userPrefs.getHistoryManagerFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage);
+        CcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(userPrefs.getCcaTrackerFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage, ccaTrackerStorage);
 
         initLogging(config);
 

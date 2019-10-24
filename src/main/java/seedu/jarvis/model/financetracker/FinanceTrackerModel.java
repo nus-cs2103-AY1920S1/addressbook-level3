@@ -1,6 +1,6 @@
 package seedu.jarvis.model.financetracker;
 
-import java.util.OptionalDouble;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -71,7 +71,7 @@ public interface FinanceTrackerModel {
      *
      * @param purchase to be deleted
      */
-    void deletePurchase(Purchase purchase);
+    Purchase deletePurchase(Purchase purchase);
 
     /**
      * Checks for the existence of the purchase.
@@ -128,7 +128,7 @@ public interface FinanceTrackerModel {
      *
      * @param installment to be deleted
      */
-    void deleteInstallment(Installment installment);
+    Installment deleteInstallment(Installment installment);
 
     /**
      * Checks for the existence of the same installment in the finance tracker.
@@ -160,7 +160,7 @@ public interface FinanceTrackerModel {
      *
      * @return Optional containing the monthly limit
      */
-    OptionalDouble getMonthlyLimit();
+    Optional<MonthlyLimit> getMonthlyLimit();
 
     /**
      * Lists all purchases and payments from this month.

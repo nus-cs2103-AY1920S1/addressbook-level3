@@ -16,6 +16,14 @@ public class CcaProgress {
 
     }
 
+    public CcaProgressList getCcaProgressList() {
+        return ccaProgressList;
+    }
+
+    public CcaCurrentProgress getCcaCurrentProgress() {
+        return ccaCurrentProgress;
+    }
+
     /**
      * Replaces the contents of the progress list with {@code milestones}.
      * {@code milestones} must not contain duplicate milestones.
@@ -36,6 +44,14 @@ public class CcaProgress {
 
         this.ccaProgressList.setMilestones(ccaProgressList);
         ccaCurrentProgress.setMaxProgress(ccaProgressList.size());
+    }
+
+    /**
+     * Replaces the values of the current progress with the values from {@code ccaCurrentProgress}.
+     */
+    public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
+        this.ccaCurrentProgress.setMaxProgress(ccaCurrentProgress.getMaxProgress());
+        this.ccaCurrentProgress.setCurrentProgress(ccaCurrentProgress.getCurrentProgress());
     }
 
     /**

@@ -4,29 +4,49 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
-import java.util.OptionalDouble;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.CoursePlanner;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.MonthlyLimit;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.MonthlyLimitBuilder;
 
 public class SetMonthlyLimitCommandTest {
 
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner(), new CoursePlanner());
+        model.setMonthlyLimit(new MonthlyLimitBuilder().withLimit("1000.0").build());
+    }
+
     /**
-     * Verifies that checking {@code SetMonthlyLimitCommand} for the unavailability of inverse execution returns false.
+     * Verifies that checking {@code SetMonthlyLimitCommand} for the availability of inverse execution returns true.
      */
     @BeforeEach
     public void hasInverseExecution() {
         MonthlyLimit validLimit = new MonthlyLimitBuilder().build();
         SetMonthlyLimitCommand setMonthlyLimitCommand = new SetMonthlyLimitCommand(validLimit);
-        assertFalse(setMonthlyLimitCommand.hasInverseExecution());
+        assertTrue(setMonthlyLimitCommand.hasInverseExecution());
     }
 
     @Test
@@ -44,6 +64,32 @@ public class SetMonthlyLimitCommandTest {
         assertEquals(String.format(SetMonthlyLimitCommand.MESSAGE_SUCCESS, validLimit),
                 commandResult.getFeedbackToUser());
         assertEquals(validLimit, modelStub.spendingLimit);
+    }
+
+    /**
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that the monthly limit that was set was reverted to the original limit (if it existed).
+     * */
+    @Test
+    public void executeInverse_success() {
+        MonthlyLimit originalLimit = model.getMonthlyLimit().get();
+        MonthlyLimit limitToAdd = new MonthlyLimitBuilder().build();
+
+        SetMonthlyLimitCommand setMonthlyLimitCommand = new SetMonthlyLimitCommand(limitToAdd);
+
+        String expectedMessage = String.format(SetMonthlyLimitCommand.MESSAGE_SUCCESS, limitToAdd);
+
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getPlanner(), model.getCoursePlanner());
+
+        assertCommandSuccess(setMonthlyLimitCommand, model, expectedMessage, expectedModel);
+
+        String inverseExpectedMessage = String.format(
+                SetMonthlyLimitCommand.MESSAGE_INVERSE_SUCCESS_RESET, limitToAdd);
+        expectedModel.setMonthlyLimit(originalLimit);
+
+        assertCommandInverseSuccess(setMonthlyLimitCommand, model, inverseExpectedMessage, expectedModel);
     }
 
     @Test
@@ -84,8 +130,11 @@ public class SetMonthlyLimitCommandTest {
         }
 
         @Override
-        public OptionalDouble getMonthlyLimit() {
-            return OptionalDouble.of(spendingLimit.getMonthlyLimit());
+        public Optional<MonthlyLimit> getMonthlyLimit() {
+            if (spendingLimit == null) {
+                return Optional.empty();
+            }
+            return Optional.of(spendingLimit);
         }
     }
 }

@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -55,7 +54,6 @@ public class CommandDequeTest {
         int numberOfCommands = CommandDeque.getSizeLimit();
         IntStream.range(0, numberOfCommands).mapToObj(index -> new CommandStub()).forEach(commands::add);
         commands.forEach(commandDeque::addLatestCommand);
-        Collections.reverse(commands);
 
         List<Command> getCommands = commandDeque.getCommands();
         IntStream.range(0, numberOfCommands)
