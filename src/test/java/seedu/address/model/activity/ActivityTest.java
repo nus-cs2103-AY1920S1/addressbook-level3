@@ -169,10 +169,7 @@ public class ActivityTest {
             .addPerson(TypicalPersons.GEORGE)
             .build();
 
-        a.addExpense(one);
-        a.addExpense(two);
-        a.addExpense(three);
-        a.addExpense(four);
+        a.addExpense(one, two, three, four);
 
         // In the end, A owes G $30. G owes A -$30 just for bookkeeping.
         ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
@@ -223,6 +220,51 @@ public class ActivityTest {
                     new ArrayList<>(List.of(0.0, 0.0, 0.0, -2.5)),
                     new ArrayList<>(List.of(0.5, 0.0, 0.0, 0.0)),
                     new ArrayList<>(List.of(5.0, 2.5, 0.0, 0.0))
+                    ));
+
+        assertEquals(matrix, a.getTransferMatrix());
+    }
+
+    @Test
+    public void debtAlgo_deleteExpense_success() {
+        int aid = TypicalPersons.ALICE.getPrimaryKey();
+        int bid = TypicalPersons.BOB.getPrimaryKey();
+        int eid = TypicalPersons.ELLE.getPrimaryKey();
+        int gid = TypicalPersons.GEORGE.getPrimaryKey();
+        Amount its = new Amount(3);
+        Amount bout = new Amount(6);
+        Amount tree = new Amount(9);
+        Amount fiddy = new Amount(10);
+        Expense one = new Expense(aid, its, "testing");
+        Expense two = new Expense(bid, bout, "testing");
+        Expense three = new Expense(eid, tree, "testing");
+        Expense four = new Expense(gid, fiddy, "testing");
+
+        Activity a = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .addPerson(TypicalPersons.ELLE)
+            .build();
+
+        a.addExpense(one);
+        a.addExpense(two);
+        a.addExpense(three);
+        a.invite(TypicalPersons.GEORGE);
+        a.addExpense(four);
+        a.deleteExpense(one);
+        a.deleteExpense(two);
+        a.deleteExpense(three);
+        a.deleteExpense(four);
+
+        // In the end, A owes G $30. G owes A -$30 just for bookkeeping.
+        ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
+                List.of(
+                    // (Same for rows)       A    B    E    G
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0))
                     ));
 
         assertEquals(matrix, a.getTransferMatrix());
