@@ -135,6 +135,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addAlias(String alias, String aliasTo) {
+        userPrefs.addAlias(alias, aliasTo);
+    }
+
+    @Override
+    public boolean removeAlias(String alias) {
+        return userPrefs.removeAlias(alias);
+    }
+
+    @Override
+    public String applyAlias(String commandText) {
+        return userPrefs.applyAlias(commandText);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

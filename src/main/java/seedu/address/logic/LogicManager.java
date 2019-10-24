@@ -38,7 +38,7 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        String aliasedCommandText = model.getUserPrefs().getAliasTable().applyAlias(commandText);
+        String aliasedCommandText = model.applyAlias(commandText);
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(aliasedCommandText);

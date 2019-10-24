@@ -57,7 +57,7 @@ public class AliasTable {
     /**
      * Removes an alias from the alias table.
      * @param alias Alias name
-     * @return This object.
+     * @return Returns true if alias exists in alias table and removed successfully, returns false otherwise.
      */
     public boolean removeAlias(String alias) {
         return aliasTable.remove(alias) != null;
