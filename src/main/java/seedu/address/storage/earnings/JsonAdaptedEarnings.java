@@ -13,7 +13,7 @@ import seedu.address.model.earnings.Earnings;
 /**
  * Jackson-friendly version of {@link Earnings}.
  */
-public class JsonAdaptedEarnings {
+public class  JsonAdaptedEarnings {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 

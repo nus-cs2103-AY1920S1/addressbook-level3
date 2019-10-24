@@ -1,8 +1,11 @@
 package seedu.address.ui;
 
+import java.time.YearMonth;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -88,6 +91,30 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillTasks();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * To change tab to tasks tab.
+     */
+    public static void startCalendar() {
+        logger.info("Changing to Calendar...");
+
+        try {
+            //mainWindow("Full Calendar Example");
+            //mainWindow(new Scene(new FullCalendarView(YearMonth.now()).getView()));
+            //mainWindow.show();
+            //mainWindow.show(); //This should be called before creating other UI parts
+            //mainWindow.fillTasks();
+            FXMLLoader loader = new FXMLLoader(UiManager.class.getResource("fullCalendar.fxml"));
+            // Get the controller and add the calendar view to it
+            ModuleLayer.Controller controller = loader.getController();
+            controller.calendarPane.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
+            mainWindow.show();
+            mainWindow.fillCalendar();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

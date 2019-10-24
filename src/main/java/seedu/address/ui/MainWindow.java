@@ -1,13 +1,16 @@
 package seedu.address.ui;
 
+import java.time.YearMonth;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -59,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    Pane calendarPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -180,6 +186,33 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillTasks() {
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillCalendar() {
+
+        mainWindow.setTitle("Full Calendar FXML Example");
+        mainWindow.setScene(new Scene(loader.load()));
+
+        ModuleLayer.Controller controller = loader.getController();
+        controller.calendarPane.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
+
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
