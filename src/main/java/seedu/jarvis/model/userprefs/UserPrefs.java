@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path historyManagerFilePath = Paths.get("data", "historymanager.json");
+    private Path ccaTrackerFilePath = Paths.get("data", "ccatracker.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -55,6 +56,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     @Override
     public Path getHistoryManagerFilePath() {
         return historyManagerFilePath;
+    }
+
+    @Override
+    public Path getCcaTrackerFilePath() {
+        return ccaTrackerFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
