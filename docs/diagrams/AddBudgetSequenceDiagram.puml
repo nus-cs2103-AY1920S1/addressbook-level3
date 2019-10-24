@@ -35,6 +35,9 @@ deactivate AddBudgetCommand
 AddBudgetCommandParser --> AddressBookParser : b
 deactivate AddBudgetCommandParser
 
+AddBudgetCommandParser -[hidden]-> AddressBookParser : result
+destroy AddBudgetCommandParser
+
 AddressBookParser --> LogicManager : b
 deactivate AddressBookParser
 
