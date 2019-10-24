@@ -1,6 +1,7 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_ITEMS_LISTED_OVERVIEW;
+import static io.xpire.commons.core.Messages.MESSAGE_SUGGESTIONS;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItems.DUCK;
@@ -55,9 +56,42 @@ public class SearchCommandTest {
     }
 
     @Test
-    public void execute_noMatchingKeywords_noItemsFound() {
+    public void execute_noMatchingKeywords_noItemsFoundNoRecommendations() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0);
         ContainsKeywordsPredicate predicate = preparePredicate("Pineapple|Pear|#Cold");
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredItemList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredItemList());
+    }
+
+    @Test
+    public void execute_noMatchingKeywords_noItemsFoundWithRecommendations() {
+        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0)
+                + String.format(MESSAGE_SUGGESTIONS, "[Banana]");
+        ContainsKeywordsPredicate predicate = preparePredicate("Banaan");
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredItemList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredItemList());
+    }
+
+    @Test
+    public void execute_allMatchingKeywords_someItemsFoundNoRecommendations() {
+        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 2);
+        ContainsKeywordsPredicate predicate = preparePredicate("Banaan|#Fridge");
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredItemList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(DUCK, JELLY), model.getFilteredItemList());
+    }
+
+    @Test
+    public void execute_allMatchingKeywords_someItemsFoundWithRecommendations() {
+        String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0)
+                + String.format(MESSAGE_SUGGESTIONS, "[[Fridge]]")
+                + String.format(MESSAGE_SUGGESTIONS, "[Banana]");
+        ContainsKeywordsPredicate predicate = preparePredicate("Banaan|#Fridg");
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
