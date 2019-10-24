@@ -1,0 +1,98 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":IncidentManagerParser" as IncidentManagerParser LOGIC_COLOR
+participant "n:NewCommand" as NewCommand LOGIC_COLOR
+end box
+
+box Incident MODEL_COLOR_T1
+participant "draft:Incident" as Incident MODEL_COLOR
+end box
+
+box FindVehiclesCommand LOGIC_COLOR_T1
+participant "f:FindVehiclesCommand" as FindVehiclesCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Session" as Session MODEL_COLOR
+participant "filteredVehicles:FilteredList<Vehicle>" as FilteredList MODEL_COLOR
+end box
+[-> LogicManager : execute("new l/1 auto/n")
+activate LogicManager
+
+'# parsing'
+LogicManager -> IncidentManagerParser : parseCommand("new l/1 auto/y")
+activate IncidentManagerParser
+
+create NewCommand
+IncidentManagerParser -> NewCommand
+activate NewCommand
+
+NewCommand --> IncidentManagerParser
+deactivate NewCommand
+
+IncidentManagerParser --> LogicManager : n
+deactivate IncidentManagerParser
+
+'# get operator'
+LogicManager -> NewCommand : execute()
+activate NewCommand
+
+NewCommand -> Model : getLoggedInPerson()
+activate Model
+
+Model -> Session : getLoggedInPerson()
+activate Session
+
+Session --> Model : loggedInPerson
+deactivate Session
+
+Model --> NewCommand
+deactivate Model
+
+'# creating draft'
+create Incident
+NewCommand -> Incident : createIncident
+activate Incident
+
+Incident --> NewCommand : draft
+deactivate Incident
+
+'# dispatch vehicle'
+create FindVehiclesCommand
+NewCommand -> FindVehiclesCommand : dispatchVehicle(draft, true, model)
+activate FindVehiclesCommand
+
+FindVehiclesCommand --> NewCommand : f
+deactivate FindVehiclesCommand
+
+NewCommand -> FindVehiclesCommand : execute()
+activate FindVehiclesCommand
+
+'# filtering'
+FindVehiclesCommand -> Model : updatedFilteredIncidentList(PREDICATE_DISTRICT)
+activate Model
+
+Model -> FilteredList : setPredicate(PREDICATE_DISTRICT)
+activate FilteredList
+
+FilteredList --> Model :
+deactivate FilteredList
+
+Model --> FindVehiclesCommand
+deactivate Model
+
+FindVehiclesCommand --> NewCommand
+deactivate FindVehiclesCommand
+
+NewCommand --> LogicManager : result
+deactivate NewCommand
+NewCommand -[hidden]-> LogicManager : commandResult
+destroy NewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

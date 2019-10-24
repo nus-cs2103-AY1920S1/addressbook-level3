@@ -305,15 +305,19 @@ In the code base, Persons represent user accounts. See person model for more inf
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
 
+Automatic vehicle dispatchment:
+
 image::NewDraftSequenceDiagram.png[]
+
+Manual vehicle dispatchment:
 
 ==== Design Considerations
 
 ===== Aspect: How incident draft creation executes
 
-* **Alternative 1 (current choice):** Auto assignment of vehicles
+* **Alternative 1:** Auto assignment of vehicles
 ** Pros: Reduces number of steps of execution.
-** Cons: User does not get to choose.
+** Cons: User does not get to choose vehicle to dispatch.
 * **Alternative 2:** Manual assignment of vehicles
 ** Pros: User is able to choose vehicle to dispatch.
 ** Cons: More number of steps.

@@ -57,7 +57,7 @@ create Incident
 NewCommand -> Incident : createIncident
 activate Incident
 
-Incident -> NewCommand : draft
+Incident --> NewCommand : draft
 deactivate Incident
 
 '# dispatch vehicle'
@@ -65,19 +65,19 @@ create FindVehiclesCommand
 NewCommand -> FindVehiclesCommand : dispatchVehicle(draft, true, model)
 activate FindVehiclesCommand
 
-FindVehiclesCommand -> NewCommand : f
+FindVehiclesCommand --> NewCommand : f
 deactivate FindVehiclesCommand
 
 NewCommand -> FindVehiclesCommand : execute()
 activate FindVehiclesCommand
 
 FindVehiclesCommand -> FindVehiclesCommand : autoAssignVehicle
-FindVehiclesCommand -> NewCommand : dispatchedVehicle
+FindVehiclesCommand --> NewCommand : dispatchedVehicle
 deactivate FindVehiclesCommand
 
 NewCommand --> LogicManager : result
 deactivate NewCommand
-NewCommand -[hidden]-> LogicManager : result
+NewCommand -[hidden]-> LogicManager : commandResult
 destroy NewCommand
 
 [<--LogicManager
