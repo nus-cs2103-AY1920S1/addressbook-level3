@@ -1,7 +1,7 @@
 package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.Commitment;
+import seedu.address.calendar.model.event.Commitment;
 import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 

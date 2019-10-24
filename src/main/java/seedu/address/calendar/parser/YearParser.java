@@ -1,6 +1,6 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.date.Year;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.Optional;

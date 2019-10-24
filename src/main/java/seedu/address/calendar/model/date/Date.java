@@ -1,8 +1,6 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.util.DayOfWeek;
-import seedu.address.calendar.model.util.MonthOfYear;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.Optional;
@@ -107,7 +105,7 @@ public class Date {
         return new Date(givenDay, monthVal, yearVal);
     }
 
-    String asString() {
+    public String asString() {
         return toString();
     }
 

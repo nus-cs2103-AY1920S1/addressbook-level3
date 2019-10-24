@@ -2,8 +2,8 @@ package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
-import seedu.address.calendar.model.util.MonthOfYear;
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
 import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 

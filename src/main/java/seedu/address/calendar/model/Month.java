@@ -1,7 +1,9 @@
 package seedu.address.calendar.model;
 
+import seedu.address.calendar.model.date.Day;
+import seedu.address.calendar.model.date.Year;
 import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.util.MonthOfYear;
+import seedu.address.calendar.model.date.MonthOfYear;
 
 import java.util.List;
 import java.util.stream.Stream;

@@ -3,7 +3,7 @@ package seedu.address.calendar.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.date.Year;
 import seedu.address.ui.UiPart;
 
 public class YearHeader extends UiPart<Region> {

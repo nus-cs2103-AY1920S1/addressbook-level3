@@ -1,7 +1,9 @@
 package seedu.address.calendar.model.util;
 
-import seedu.address.calendar.model.Day;
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.date.Day;
+import seedu.address.calendar.model.date.DayOfWeek;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,11 @@ public class DateUtil {
 
     /* The following is used for month-related purposes. */
     public static MonthOfYear convertJavaMonth(int javaMonth) {
-        return MonthOfYear.convertJavaMonth(javaMonth);
+        return MonthOfYearUtil.convertJavaMonth(javaMonth);
     }
 
     public static boolean isValidMonthStr(String month) {
-        return MonthOfYear.isValidMonthStr(month);
+        return MonthOfYearUtil.isValidMonthStr(month);
     }
 
     public static int getNumDaysInMonth(MonthOfYear monthOfYear, Year year) {
@@ -29,15 +31,15 @@ public class DateUtil {
     }
 
     public static boolean isValidMonthNum(int montNum) {
-        return MonthOfYear.isValidMonthNum(montNum);
+        return MonthOfYearUtil.isValidMonthNum(montNum);
     }
 
     public static MonthOfYear convertStrToMonth(String monthStr) {
-        return MonthOfYear.convertStrToMonth(monthStr);
+        return MonthOfYearUtil.convertStrToMonth(monthStr);
     }
 
     public static MonthOfYear convertNumToMonth(int zeroBasedMonth) {
-        return  MonthOfYear.convertNumToMonth(zeroBasedMonth);
+        return  MonthOfYearUtil.convertNumToMonth(zeroBasedMonth);
     }
 
     /* The following is used for more specific month-and-day-related purposes. */
@@ -65,7 +67,7 @@ public class DateUtil {
 
     private static Day getDayGivenFirstDayOfWeek(int firstDayOfWeekAsNum, int dayOfMonth) {
         int dayOfWeekAsNum = (firstDayOfWeekAsNum + dayOfMonth) % 7;
-        DayOfWeek dayOfWeek = DayOfWeek.of(dayOfWeekAsNum);
+        DayOfWeek dayOfWeek = DayOfWeekUtil.of(dayOfWeekAsNum);
         return Day.getOneBased(dayOfWeek, dayOfMonth);
     }
 
@@ -95,7 +97,8 @@ public class DateUtil {
      * @return numerical value of {@code this} month such that it can be easily used with Zeller's rule
      */
     private static int findZellerMonth(int monthNumerical) {
-        int shiftedMonth = ((monthNumerical - 2) + MonthOfYear.getNumMonthsInYear()) % MonthOfYear.getNumMonthsInYear();
+        int shiftedMonth = ((monthNumerical - 2) + MonthOfYearUtil.getNumMonthsInYear())
+                % MonthOfYearUtil.getNumMonthsInYear();
         return shiftedMonth;
     }
 

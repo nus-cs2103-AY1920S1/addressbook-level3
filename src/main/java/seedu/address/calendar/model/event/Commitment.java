@@ -1,4 +1,10 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.event;
+
+import seedu.address.calendar.model.date.Date;
+import seedu.address.calendar.model.event.Event;
+import seedu.address.calendar.model.event.EventType;
+import seedu.address.calendar.model.event.Info;
+import seedu.address.calendar.model.event.Name;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.date;
 
 public class Year {
     private int year;

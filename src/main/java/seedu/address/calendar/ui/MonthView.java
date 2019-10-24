@@ -2,12 +2,11 @@ package seedu.address.calendar.ui;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import seedu.address.calendar.model.Day;
+import seedu.address.calendar.model.date.Day;
 import seedu.address.calendar.model.Month;
 
 import java.util.stream.IntStream;

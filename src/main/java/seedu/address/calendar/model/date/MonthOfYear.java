@@ -1,6 +1,6 @@
-package seedu.address.calendar.model.util;
+package seedu.address.calendar.model.date;
 
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.date.Year;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -29,11 +29,25 @@ public enum MonthOfYear {
         this.numDaysInMonth = numDaysInMonth;
     }
 
-    int getNumericalVal() {
+    public int getNumericalVal() {
         return numericalVal;
     }
 
-    int getNumDaysInMonth(Year year) {
+    private int getNumDaysInMonth() {
+        return numDaysInMonth;
+    }
+
+    public int getNumDaysInMonth(Year year) {
+        if (numericalVal == 2) {
+            // if it is February
+            return isLeapYear(year.getNumericalValue()) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
+        }
+        return numDaysInMonth;
+    }
+
+    public int getNumDaysInMonth(MonthOfYear monthOfYear, Year year) {
+        int numericalVal = monthOfYear.getNumericalVal();
+        int numDaysInMonth = monthOfYear.getNumDaysInMonth(year);
         if (numericalVal == 2) {
             // if it is February
             return isLeapYear(year.getNumericalValue()) ? DAYS_IN_FEB_LEAP : numDaysInMonth;
@@ -50,47 +64,6 @@ public enum MonthOfYear {
         } else {
             return false;
         }
-    }
-
-    static int getNumMonthsInYear() {
-        return NUM_MONTHS_IN_YEAR;
-    }
-
-    static MonthOfYear convertJavaMonth(int javaMonth) {
-        return MonthOfYear.values()[javaMonth];
-    }
-
-    static boolean isValidMonthNum(int monthNum) {
-        return monthNum < MonthOfYear.values().length;
-    }
-
-    static MonthOfYear convertNumToMonth(int monthNum) {
-        return convertJavaMonth(monthNum);
-    }
-
-    static boolean isValidMonthStr(String monthStr) {
-        return Stream.of(MonthOfYear.values())
-                .anyMatch(month -> {
-                    String monthLowerCase = month.toString().toLowerCase();
-                    String monthStrLowerCase = monthStr.toLowerCase();
-                    return monthLowerCase.contains(monthStrLowerCase);
-                });
-    }
-
-    static MonthOfYear convertStrToMonth(String monthStr) {
-        Optional<MonthOfYear> monthOfYear = Stream.of(MonthOfYear.values())
-                .filter(month -> {
-                    String monthLowerCase = month.toString().toLowerCase();
-                    String monthStrLowerCase = monthStr.toLowerCase();
-                    return monthLowerCase.contains(monthStrLowerCase);
-                })
-                .findFirst();
-
-        if (monthOfYear.isEmpty()) {
-            assert false : "monthStr should be a valid representation of a month";
-        }
-
-        return monthOfYear.get();
     }
 
     @Override

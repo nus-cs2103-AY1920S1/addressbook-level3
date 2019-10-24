@@ -1,6 +1,6 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.model.Info;
+import seedu.address.calendar.model.event.Info;
 
 import java.util.Optional;
 

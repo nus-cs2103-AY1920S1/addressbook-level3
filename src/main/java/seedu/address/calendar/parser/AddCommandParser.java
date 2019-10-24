@@ -1,8 +1,13 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.AddCommitmentCommand;
-import seedu.address.calendar.model.*;
-import seedu.address.calendar.model.util.MonthOfYear;
+import seedu.address.calendar.model.date.Date;
+import seedu.address.calendar.model.date.Day;
+import seedu.address.calendar.model.date.Year;
+import seedu.address.calendar.model.event.Commitment;
+import seedu.address.calendar.model.event.Info;
+import seedu.address.calendar.model.event.Name;
+import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;

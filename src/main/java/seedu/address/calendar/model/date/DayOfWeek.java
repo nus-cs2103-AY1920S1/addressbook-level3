@@ -1,4 +1,4 @@
-package seedu.address.calendar.model.util;
+package seedu.address.calendar.model.date;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -18,7 +18,7 @@ public enum DayOfWeek {
         this.numericalVal = numericalVal;
     }
 
-    int getNumericalVal() {
+    public int getNumericalVal() {
         return numericalVal;
     }
 

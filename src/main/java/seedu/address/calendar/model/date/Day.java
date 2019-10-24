@@ -1,7 +1,6 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.util.DayOfWeek;
 
 /**
  * Creates a day object which contains information about the day of month and day of week.
