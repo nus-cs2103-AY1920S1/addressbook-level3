@@ -17,6 +17,7 @@ import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundException;
 import com.dukeacademy.testutil.TypicalQuestions;
 
 import javafx.collections.ObservableList;
@@ -103,6 +104,26 @@ public class StandardQuestionBankTest {
         originalBankList.remove(1);
         originalBankList.add(1, newQuestion);
         assertTrue(this.matchListData(questionObservableList, originalBankList));
+    }
+
+
+    @Test
+    void replaceQuestionWithOldQuestion() {
+        ObservableList<Question> questionObservableList = standardQuestionBank.getReadOnlyQuestionListObservable();
+        List<Question> mockQuestions = this.getMockQuestionData();
+        this.standardQuestionBank.setQuestions(mockQuestions);
+        Question oldQuestion = questionObservableList.get(1);
+
+        Question newQuestion = this.getMockQuestion("123");
+        this.standardQuestionBank.replaceQuestion(oldQuestion, newQuestion);
+
+        mockQuestions.remove(1);
+        mockQuestions.add(1, newQuestion);
+        assertTrue(this.matchListData(questionObservableList, mockQuestions));
+
+        Question testQuestion = this.getMockQuestion("abc");
+        assertThrows(QuestionNotFoundException.class, () -> this.standardQuestionBank
+                .replaceQuestion(testQuestion, testQuestion));
     }
 
     @Test

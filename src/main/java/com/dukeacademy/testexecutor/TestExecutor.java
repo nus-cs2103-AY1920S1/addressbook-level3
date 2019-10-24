@@ -1,7 +1,7 @@
 package com.dukeacademy.testexecutor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 import com.dukeacademy.model.program.TestCaseResult;
@@ -13,6 +13,8 @@ import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.CompilerException;
 import com.dukeacademy.testexecutor.exceptions.CompilerFileContentException;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.exceptions.ProgramExecutorException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
@@ -42,12 +44,22 @@ public class TestExecutor {
 
     /**
      * Runs the user's program against a list of test cases.
+     *
      * @param testCases the test cases to be run.
-     * @param program the user's program.
+     * @param program   the user's program.
      * @return a result instance.
      * @throws TestExecutorException if the test executor fails unexpectedly.
      */
-    public TestResult runTestCases(List<TestCase> testCases, UserProgram program) throws TestExecutorException {
+    public TestResult runTestCases(List<TestCase> testCases, UserProgram program) throws TestExecutorException,
+            IncorrectClassNameException, EmptyUserProgramException {
+
+        if (program.getSourceCode().equals("")) {
+            throw new EmptyUserProgramException();
+        }
+
+        if (!this.checkClassNameMatch(program)) {
+            throw new IncorrectClassNameException();
+        }
         try {
             ClassFile classFile = this.compileProgram(program);
 
@@ -68,9 +80,10 @@ public class TestExecutor {
 
     /**
      * Compiles the user program into a Java class file that can be executed.
+     *
      * @param program the user's program
      * @return a Java class file.
-     * @throws TestExecutorException if the test executor fails unexpectedly.
+     * @throws TestExecutorException        if the test executor fails unexpectedly.
      * @throws CompilerFileContentException if the contents of the program is not compilable.
      */
     private ClassFile compileProgram(UserProgram program) throws TestExecutorException, CompilerFileContentException {
@@ -85,10 +98,11 @@ public class TestExecutor {
 
     /**
      * Runs the user's program against an individual test case.
-     * @param program the user's compiled program.
+     *
+     * @param program  the user's compiled program.
      * @param testCase the test case to run the program against.
      * @return the results of the test case.
-     * @throws TestExecutorExceptionWrapper
+     * @throws TestExecutorExceptionWrapper when the test executor fails unexpectedly
      */
     private TestCaseResult runIndividualTestCase(ClassFile program, TestCase testCase)
             throws TestExecutorExceptionWrapper {
@@ -102,7 +116,7 @@ public class TestExecutor {
     }
 
     private TestResult getTestExecutorResultWithCompileError(CompileError error) {
-        return new TestResult(new ArrayList<>(), error);
+        return new TestResult(error);
     }
 
     private TestCaseResult getTestCaseResultFromProgramOutput(TestCase testcase, ProgramOutput output) {
@@ -120,5 +134,47 @@ public class TestExecutor {
         } else {
             return TestCaseResult.getFailedTestCaseResult(input, expected, actual);
         }
+    }
+
+    /**
+     * Helper function to check if the program's source code has an outer class that matches the specified class name,
+     * @param program the program to be checked.
+     * @return true if the program has a matching outer class.
+     */
+    public boolean checkClassNameMatch(UserProgram program) {
+        String sourceCode = program.getSourceCode();
+        String targetClassName = program.getClassName();
+
+        // Check if there is an outer class matching the target class name
+        String[] split = sourceCode.split("class " + targetClassName);
+
+        if (split.length == 1) {
+            return false;
+        }
+
+        for (int i = 1; i < split.length; i++) {
+            Stack<Character> braceStack = new Stack<>();
+
+            boolean valid = true;
+            for (char c : split[i].toCharArray()) {
+                if (c == '{') {
+                    braceStack.push('{');
+                }
+
+                if (c == '}') {
+                    if (braceStack.size() == 0) {
+                        valid = false;
+                        break;
+                    }
+                    braceStack.pop();
+                }
+            }
+
+            if (valid && braceStack.size() == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

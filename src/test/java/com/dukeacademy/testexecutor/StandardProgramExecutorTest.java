@@ -38,7 +38,7 @@ class StandardProgramExecutorTest {
 
     @Test
     public void executeProgramNoInput() throws FileNotFoundException, ProgramExecutorException {
-        ClassFile programClassFile = new ClassFile("NoInputTest", testProgramRootFolder.toUri().getPath());
+        ClassFile programClassFile = new ClassFile("NoInputTest", testProgramRootFolder.toString());
         ProgramOutput output = executor.executeProgram(programClassFile);
 
         assertFalse(output.getRuntimeError().isPresent());
@@ -47,7 +47,7 @@ class StandardProgramExecutorTest {
 
     @Test
     public void executeProgramWithInput() throws FileNotFoundException, ProgramExecutorException {
-        ClassFile programClassFile = new ClassFile("WithInputTest", testProgramRootFolder.toUri().getPath());
+        ClassFile programClassFile = new ClassFile("WithInputTest", testProgramRootFolder.toString());
 
         ProgramInput programInput = new ProgramInput(input);
         ProgramOutput output = executor.executeProgram(programClassFile, programInput);
@@ -58,7 +58,7 @@ class StandardProgramExecutorTest {
 
     @Test
     public void testForRuntimeError() throws ProgramExecutorException, FileNotFoundException {
-        ClassFile programClassFile = new ClassFile("OutOfBounds", testProgramRootFolder.toUri().getPath());
+        ClassFile programClassFile = new ClassFile("OutOfBounds", testProgramRootFolder.toString());
 
         ProgramOutput output = executor.executeProgram(programClassFile);
         assertTrue(output.getRuntimeError().isPresent());

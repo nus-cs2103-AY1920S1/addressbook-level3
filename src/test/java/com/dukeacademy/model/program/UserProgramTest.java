@@ -25,6 +25,6 @@ class UserProgramTest {
         assertThrows(NullPointerException.class, () -> new UserProgram(null, null));
         UserProgram userProgram = new UserProgram(className, content);
         assertEquals(className, userProgram.getClassName());
-        assertEquals(content, userProgram.getSourceCodeAsString());
+        assertEquals(content, userProgram.getSourceCode());
     }
 }

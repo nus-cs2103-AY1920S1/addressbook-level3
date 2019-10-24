@@ -148,7 +148,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        editorPanel = new Editor();
+        editorPanel = new Editor(programSubmissionLogic.getCurrentQuestionObservable());
         editorPlaceholder.getChildren().add(editorPanel.getRoot());
         programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
 
@@ -160,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
         sampleTestCaseResults.add(
                 TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz", "FizzBuzz"));
 
-        codeResultPanel = new CodeResultPanel(sampleTestCaseResults);
+        codeResultPanel = new CodeResultPanel(programSubmissionLogic.getTestResultObservable());
         codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
 
         profilePage = new ProfilePage();

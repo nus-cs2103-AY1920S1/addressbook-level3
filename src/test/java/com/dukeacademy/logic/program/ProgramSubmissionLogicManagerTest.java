@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -37,6 +38,8 @@ import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.TestListener;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProgramSubmissionLogicManagerTest {
@@ -48,7 +51,7 @@ class ProgramSubmissionLogicManagerTest {
 
     @BeforeEach
     void initializeTest() throws LogicCreationException {
-        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
+        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toString());
     }
 
     @AfterEach
@@ -69,7 +72,7 @@ class ProgramSubmissionLogicManagerTest {
     }
 
     @Test
-    void submitUserProgram() throws IOException {
+    void submitUserProgram() throws IOException, IncorrectClassNameException, EmptyUserProgramException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
 
@@ -83,13 +86,19 @@ class ProgramSubmissionLogicManagerTest {
 
         Question question = this.createMockQuestion("Fib", testCases);
         this.programSubmissionLogicManager.setCurrentQuestion(question);
-        this.programSubmissionLogicManager.submitUserProgram(userProgram);
 
-        TestResult result = resultListener.getLatestValue();
-        assertNotNull(result);
-        assertFalse(result.getCompileError().isPresent());
-        assertEquals(5, result.getNumPassed());
-        assertTrue(this.matchTestCaseAndResults(testCases, result.getResults()));
+        Optional<TestResult> fibResultOptional = this.programSubmissionLogicManager.submitUserProgram(userProgram);
+        assertTrue(fibResultOptional.isPresent());
+
+        // Check that the same result is propagated to the observable
+        TestResult fibResult = resultListener.getLatestValue();
+        assertNotNull(fibResult);
+        assertEquals(fibResultOptional.get(), fibResult);
+
+        // Check value of result
+        assertFalse(fibResult.getCompileError().isPresent());
+        assertEquals(5, fibResult.getNumPassed());
+        assertTrue(this.matchTestCaseAndResults(testCases, fibResult.getResults()));
 
         // Test for nested class
         Path rootFolder1 = Paths.get("src", "test", "data", "TestPrograms", "nested");
@@ -101,13 +110,18 @@ class ProgramSubmissionLogicManagerTest {
 
         Question question1 = this.createMockQuestion("Nested", testCases1);
         this.programSubmissionLogicManager.setCurrentQuestion(question1);
-        this.programSubmissionLogicManager.submitUserProgram(userProgram1);
+        Optional<TestResult> nestedResultOptional = this.programSubmissionLogicManager.submitUserProgram(userProgram1);
+        assertTrue(nestedResultOptional.isPresent());
 
-        TestResult result1 = resultListener.getLatestValue();
-        assertNotNull(result1);
-        assertFalse(result1.getCompileError().isPresent());
-        assertEquals(5, result1.getNumPassed());
-        assertTrue(this.matchTestCaseAndResults(testCases1, result1.getResults()));
+        //Check that the same result is propagated to the observable
+        TestResult nestedResult = resultListener.getLatestValue();
+        assertNotNull(nestedResult);
+        assertEquals(nestedResultOptional.get(), nestedResult);
+
+        // Check contents of result
+        assertFalse(nestedResult.getCompileError().isPresent());
+        assertEquals(5, nestedResult.getNumPassed());
+        assertTrue(this.matchTestCaseAndResults(testCases1, nestedResult.getResults()));
 
         // Tests for errors
         TestCase mockTestCase = new TestCase("", "");
@@ -117,7 +131,9 @@ class ProgramSubmissionLogicManagerTest {
         mockTestCases.add(mockTestCase);
 
         // Test for compile error
-        UserProgram program2 = new UserProgram("CompileError", "foobar");
+        UserProgram program2 = new UserProgram("CompileError", "public class CompileError {\n"
+                + "int a = \"Not an int\";\n"
+                + "}");
         Question question2 = this.createMockQuestion("CompileError", mockTestCases);
         this.programSubmissionLogicManager.setCurrentQuestion(question2);
         this.programSubmissionLogicManager.submitUserProgram(program2);
@@ -151,12 +167,12 @@ class ProgramSubmissionLogicManagerTest {
                 .setCurrentQuestion(null));
         assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
                 .getCurrentQuestionObservable());
-        assertThrows(SubmissionLogicManagerClosedException.class, ()-> this.programSubmissionLogicManager
+        assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
                 .getTestResultObservable());
         assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
                 .submitUserProgram(null));
 
-        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toUri().getPath());
+        this.programSubmissionLogicManager = new ProgramSubmissionLogicManager(tempPath.toString());
     }
 
     @Test
@@ -167,10 +183,13 @@ class ProgramSubmissionLogicManagerTest {
         currentQuestionObservable.addListener(testListener);
 
         assertNull(testListener.getLatestValue());
+        assertFalse(this.programSubmissionLogicManager.getCurrentQuestion().isPresent());
 
         this.programSubmissionLogicManager.setCurrentQuestion(this.createMockQuestion("abc123",
                 new ArrayList<>()));
         assertEquals("abc123", testListener.getLatestValue().getTitle());
+        assertTrue(this.programSubmissionLogicManager.getCurrentQuestion().isPresent());
+        assertEquals("abc123", this.programSubmissionLogicManager.getCurrentQuestion().get().getTitle());
     }
 
 
@@ -230,7 +249,8 @@ class ProgramSubmissionLogicManagerTest {
 
     /**
      * Creates a mock question for testing.
-     * @param title the name of the question.
+     *
+     * @param title     the name of the question.
      * @param testCases the test cases of the question.
      * @return the created question.
      */
@@ -239,28 +259,53 @@ class ProgramSubmissionLogicManagerTest {
         Difficulty difficulty = Difficulty.HARD;
         Set<Topic> topics = new HashSet<>();
 
-        return new Question(title, status, difficulty, topics, testCases, new UserProgram("Main", ""));
+        return new Question(title, status, difficulty, topics, testCases,
+                new UserProgram("Main", ""));
     }
 
     @Test
-    void setAndSubmitUserProgramSubmissionChannel() throws IOException {
+    void setAndSubmitUserProgramSubmissionChannelAndGetProgram() throws IOException, IncorrectClassNameException,
+            EmptyUserProgramException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
-        FibMockProgramSubmissionChannel channel = new FibMockProgramSubmissionChannel();
+        FibMockUserProgramChannel channel = new FibMockUserProgramChannel();
         this.programSubmissionLogicManager.setUserProgramSubmissionChannel(channel);
 
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
-        List<TestCase> testCases = this.loadTestCases(rootFolder);
 
+        Path program = rootFolder.resolve("fib.txt");
+        String sourceCode = Files.readString(program);
+        assertEquals(new UserProgram("Fib", sourceCode),
+                this.programSubmissionLogicManager.getUserProgramFromSubmissionChannel());
+
+        List<TestCase> testCases = this.loadTestCases(rootFolder);
         Question question = this.createMockQuestion("Fib", testCases);
         this.programSubmissionLogicManager.setCurrentQuestion(question);
 
-        this.programSubmissionLogicManager.submitUserProgramFromSubmissionChannel();
+        Optional<TestResult> testResultOptional = this.programSubmissionLogicManager
+                .submitUserProgramFromSubmissionChannel();
+        assertTrue(testResultOptional.isPresent());
 
-        TestResult result = resultListener.getLatestValue();
-        assertNotNull(result);
-        assertFalse(result.getCompileError().isPresent());
-        assertEquals(5, result.getNumPassed());
-        assertTrue(this.matchTestCaseAndResults(testCases, result.getResults()));
+        // Check that result is propagated to observable
+        TestResult testResult = resultListener.getLatestValue();
+        assertNotNull(testResult);
+        assertEquals(testResultOptional.get(), testResult);
+
+        // Check values
+        assertFalse(testResult.getCompileError().isPresent());
+        assertEquals(5, testResult.getNumPassed());
+        assertTrue(this.matchTestCaseAndResults(testCases, testResult.getResults()));
+    }
+
+    @Test
+    void testSubmitEmptyProgram() {
+        UserProgram emptyProgram = new UserProgram("Main", "");
+        assertThrows(EmptyUserProgramException.class, () -> this.programSubmissionLogicManager
+                .submitUserProgram(emptyProgram));
+    }
+
+    @Test
+    void testProgramSubmissionFailure() {
+        // TODO
     }
 }

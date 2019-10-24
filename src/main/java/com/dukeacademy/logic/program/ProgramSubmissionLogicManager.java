@@ -3,6 +3,7 @@ package com.dukeacademy.logic.program;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
@@ -21,6 +22,8 @@ import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
 import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 
@@ -39,7 +42,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     private CompilerEnvironment compilerEnvironment;
     private TestExecutor testExecutor;
     private boolean isClosed;
-    private ProgramSubmissionChannel submissionChannel;
+    private UserProgramChannel submissionChannel;
 
     /**
      * Constructor.
@@ -96,6 +99,11 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
+    public Optional<Question> getCurrentQuestion() {
+        return this.currentQuestionObservable.getValue();
+    }
+
+    @Override
     public void setCurrentQuestion(Question question) {
         this.verifyNotClosed();
         this.currentQuestionObservable.setValue(question);
@@ -103,8 +111,13 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public boolean submitUserProgram(UserProgram userProgram) {
+    public Optional<TestResult> submitUserProgram(UserProgram userProgram) throws IncorrectClassNameException,
+            EmptyUserProgramException {
         this.verifyNotClosed();
+
+        if (userProgram.getSourceCode().equals("")) {
+            throw new EmptyUserProgramException();
+        }
 
         try {
             List<TestCase> testCases = this.currentQuestionObservable.getValue()
@@ -112,26 +125,36 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
                     .orElseThrow(NoQuestionSetException::new);
             TestResult results = this.testExecutor.runTestCases(testCases, userProgram);
             this.resultObservable.setValue(results);
+            return Optional.of(results);
         } catch (TestExecutorException e) {
-            return false;
+            return Optional.empty();
         }
 
-        return true;
     }
 
     @Override
-    public void setUserProgramSubmissionChannel(ProgramSubmissionChannel channel) {
+    public void setUserProgramSubmissionChannel(UserProgramChannel channel) {
         this.submissionChannel = channel;
     }
 
     @Override
-    public boolean submitUserProgramFromSubmissionChannel() {
+    public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectClassNameException,
+            EmptyUserProgramException {
         if (this.submissionChannel == null) {
             throw new SubmissionChannelNotSetException();
         }
 
         UserProgram program = this.submissionChannel.getProgram();
         return this.submitUserProgram(program);
+    }
+
+    @Override
+    public UserProgram getUserProgramFromSubmissionChannel() {
+        if (this.submissionChannel == null) {
+            throw new SubmissionChannelNotSetException();
+        }
+
+        return this.submissionChannel.getProgram();
     }
 
     private void verifyNotClosed() {

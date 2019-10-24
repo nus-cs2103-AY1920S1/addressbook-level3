@@ -1,7 +1,6 @@
 package com.dukeacademy.logic.commands;
 
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
-import com.dukeacademy.logic.commands.factory.CommandFactory;
 
 /**
  * Mock class for testing purposes.
