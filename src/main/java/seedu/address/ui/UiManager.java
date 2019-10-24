@@ -94,6 +94,19 @@ public class UiManager implements Ui {
         }
     }
 
+    public static void startNotes() {
+        logger.info("Changing to Notes...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillNotes();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
