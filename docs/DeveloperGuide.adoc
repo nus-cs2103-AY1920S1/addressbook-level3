@@ -170,6 +170,34 @@ The `FileReadWrite` component,
 * interface for user to provide their custom root directory
 * writes file and creates path directories if none
 
+[[Design-Util]]
+=== Code Component
+.Structure of the Code component within Utilities
+image::CodeClassDiagram.png[]
+
+The `Code` component supports code-running flashcards in Java and Javascript. Cards will take in user input
+via the JavaScript card (Java card to be implemented soon) and
+
+the `JavascriptRunner` class
+
+* can evaluate JS code from a file using the `FileImporter` class
+* can evaluate JS code as an input string
+
+the `JavaRunner` class
+
+* Read/write to the `Solution.java` file during runtime after user has typed
+Java code into the file
+* Compile and run `Solution.java`
+* the Java code written in each card is stored in the card itself, but this `Solution.java` will be overwritten
+and used to run the code in each card.
+
+To be implemented: An in-app Flashcard Pro compiler and debugger for JS and Java as a playground for the user
+
+
+
+
+
+
 [[Design-Commons]]
 === Common classes
 
@@ -314,6 +342,36 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Running a code flashcard
+.Activity diagram for creating a code flashcard
+image::JSCardActivityDiagram.png[]
+==== Proposed Implementation
+The code flashcard is a card that allows users to answer coding questions by running code directly.
+The  following use case illustrates how the card works.
+
+* System: FlashCard Pro
+* Actor: User
+* Use case: Create a code flashcard
+
+MSS:
+
+. The user initialises the card for the appropriate language (i.e. Java or JS)
+
+. The user enters starter code if necessary (e.g boilerplate code, helper methods)
+
+. The user enters test cases (specifying inputs and corresponding expected outputs).
+. FlashCard Pro saves the newly created card.
+
+Use case ends.
+
+*Extensions:
+[start=3]
+. a) The user enters 0 test cases.
+    .. 1) FlashCard Pro prompts for at least 1 test case.
+    .. 2) The user enters a test case.
+
+Use case resumes from step 4.
 
 == Documentation
 
