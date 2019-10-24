@@ -14,6 +14,7 @@ import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
+import seedu.mark.logic.commands.DeleteAnnotationCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
@@ -115,6 +116,9 @@ public class MarkParser {
 
         case OfflineCommand.COMMAND_WORD:
             return new OfflineCommandParser().parse(arguments);
+
+        case DeleteAnnotationCommand.COMMAND_WORD:
+            return new DeleteAnnotationCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

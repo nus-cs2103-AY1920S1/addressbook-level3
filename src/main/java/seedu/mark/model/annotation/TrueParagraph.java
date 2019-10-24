@@ -37,6 +37,26 @@ public class TrueParagraph extends Paragraph {
         this.annotation = an;
     }
 
+    /**
+     * Removes the annotation note and returns it.
+     */
+    @Override
+    public AnnotationNote removeNote() {
+        AnnotationNote note = annotation.getNote();
+        annotation.removeNote();
+        return note;
+    }
+
+    /**
+     * Removes the entire annotation and returns it.
+     */
+    @Override
+    public Annotation removeAnnotation() {
+        Annotation an = annotation;
+        annotation = null;
+        return an;
+    }
+
     @Override
     public ParagraphIdentifier getId() {
         return this.id;
@@ -59,6 +79,7 @@ public class TrueParagraph extends Paragraph {
 
     @Override
     public Highlight getHighlight() {
+        assert annotation != null : "This paragraph does not have annotations!";
         return annotation.getHighlight();
     }
 
@@ -69,6 +90,7 @@ public class TrueParagraph extends Paragraph {
 
     @Override
     public AnnotationNote getNote() {
+        assert hasNote() : "This paragraph does not have notes!";
         return annotation.getNote();
     }
 
@@ -76,6 +98,11 @@ public class TrueParagraph extends Paragraph {
     public void updateId(ParagraphIdentifier newId) {
         assert false : "TrueParagraph id should never be updated";
         this.id = newId;
+    }
+
+    @Override
+    public boolean isTrueParagraph() {
+        return true;
     }
 
     @Override

@@ -2,6 +2,9 @@ package seedu.mark.model.annotation;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.commons.core.index.Index;
 
 /**
@@ -10,6 +13,8 @@ import seedu.mark.commons.core.index.Index;
  */
 public class PhantomParagraph extends Paragraph {
 
+    private final Logger logger = LogsCenter.getLogger(PhantomParagraph.class);
+
     /** Paragraph identifier.*/
     private ParagraphIdentifier id;
     /** Paragraph notes, if any.*/
@@ -17,14 +22,28 @@ public class PhantomParagraph extends Paragraph {
 
     public PhantomParagraph(Index id, Annotation note) {
         requireNonNull(id);
+        assert note.hasNote() : "You can't create PhantomParagraph without a note.";
 
         ParagraphIdentifier pi = new ParagraphIdentifier(id, ParagraphIdentifier.ParagraphType.STRAY);
         this.id = pi;
         this.note = note;
     }
 
+    @Override
     public void addAnnotation(Annotation an) {
         assert false : "This method should not be called for phantom paragraphs.";
+    }
+
+    @Override
+    public AnnotationNote removeNote() {
+        logger.info("This phantom paragraph shall be deleted soon.");
+        return note.getNote();
+    }
+
+    @Override
+    public Annotation removeAnnotation() {
+        logger.info("This phantom paragraph shall be deleted soon.");
+        return note;
     }
 
     @Override
@@ -70,6 +89,11 @@ public class PhantomParagraph extends Paragraph {
     public void updateId(ParagraphIdentifier newId) {
         assert newId.isStray() : "PhantomParagraph should never have EXIST id.";
         this.id = newId;
+    }
+
+    @Override
+    public boolean isTrueParagraph() {
+        return false;
     }
 
     @Override

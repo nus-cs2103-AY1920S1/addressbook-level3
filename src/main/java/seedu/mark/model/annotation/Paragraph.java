@@ -18,7 +18,10 @@ public abstract class Paragraph {
     public abstract AnnotationNote getNote();
 
     public abstract void addAnnotation(Annotation annotation);
+    public abstract AnnotationNote removeNote();
+    public abstract Annotation removeAnnotation();
 
     public abstract void updateId(ParagraphIdentifier newId);
+    public abstract boolean isTrueParagraph();
 
 }

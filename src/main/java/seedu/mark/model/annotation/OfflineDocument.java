@@ -215,11 +215,34 @@ public class OfflineDocument {
     }
 
     /**
+     * Returns the paragraph identified by {@code pid}.
+     */
+    public Paragraph getParagraph(ParagraphIdentifier pid) {
+        assert paragraphs.get(pid) != null : "getParagraph(pid) must be given a valid pid.";
+        return paragraphs.get(pid);
+    }
+
+    /**
      * Returns number of stray notes this paragraph has since Mark started up.
      * Removing/relocating stray annotations will not modify the count.
      */
     public int getNumStrayNotes() {
         return numStray;
+    }
+
+    /**
+     * Removes the phantom paragraph identified by {@code pid}.
+     */
+    public void removePhantom(ParagraphIdentifier pid) {
+        assert pid.isStray() : "Cannot delete a non phantom paragraph";
+        this.paragraphs.remove(pid);
+    }
+
+    public void addPhantom(Annotation an) {
+        assert an.hasNote() : "Annotation given does not have a note; no phantom paragraph can have no note";
+        numStray++;
+        Paragraph p = new PhantomParagraph(Index.fromOneBased(numStray), an);
+        this.paragraphs.put(p.getId(), p);
     }
 
     /**
