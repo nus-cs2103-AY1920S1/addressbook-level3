@@ -28,6 +28,8 @@ import seedu.address.logic.commands.UnknownCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.commands.calendar.DeleteTaskCommand;
+import seedu.address.logic.commands.calendar.EditTaskCommand;
+import seedu.address.logic.commands.calendar.FindTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
@@ -166,6 +168,12 @@ public class AddressBookParser {
 
             case DeleteEarningsCommand.COMMAND_WORD:
                 return new DeleteEarningsCommandParser().parse(arguments);
+
+            case FindTaskCommand.COMMAND_WORD:
+                return new FindTaskCommandParser().parse(arguments);
+
+            case EditTaskCommand.COMMAND_WORD:
+                return new EditTaskCommandParser().parse(arguments);
 
             case FindEarningsCommand.COMMAND_WORD:
                 return new FindEarningsCommandParser().parse(arguments);

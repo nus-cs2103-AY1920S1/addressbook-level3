@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDescription;
 import seedu.address.model.task.TaskTime;
 
 /**
@@ -17,7 +17,7 @@ import seedu.address.model.task.TaskTime;
 public class Reminder {
     // Identity fields
     private final Task task;
-    private final TaskDescription taskDescription;
+    private final ClassId classId;
     private final Set<TaskTime> taskTimeSet = new HashSet<>();
 
     /**
@@ -26,13 +26,13 @@ public class Reminder {
     public Reminder(Task task) {
         requireAllNonNull(task);
         this.task = task;
-        this.taskDescription = task.getDescription();
+        this.classId = task.getClassId();
     }
 
 
 
-    public TaskDescription getDescription() {
-        return taskDescription;
+    public ClassId getClassId() {
+        return classId;
     }
 
     public Set<TaskTime> getTime() {
@@ -50,7 +50,7 @@ public class Reminder {
         }
 
         return otherReminder != null
-                && otherReminder.getDescription().equals(getDescription());
+                && otherReminder.getClassId().equals(getClassId());
     }
 
     /**
@@ -68,7 +68,7 @@ public class Reminder {
         }
 
         Task otherPerson = (Task) other;
-        return otherPerson.getDescription().equals(getDescription())
+        return otherPerson.getClassId().equals(getClassId())
                 && otherPerson.getTime().equals(getTime());
     }
 
@@ -81,8 +81,8 @@ public class Reminder {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Description: ")
-                .append(getDescription())
+        builder.append(" Module: ")
+                .append(getClassId())
                 .append(" Time: ")
                 .append(getTime())
                 .append(" Status: ");
