@@ -129,7 +129,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Category` list in `Address Book`, which `FlashCard` can reference. This would allow `Address Book` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[width = "600"]
 
 [[Design-Storage]]
 === Storage component
@@ -178,7 +178,7 @@ image::AddSequenceDiagram.png[]
 
 
 The add feature does not allow adding of duplicate flashcards.
-If the flashcard exits in the storage, an error will be shown.
+If the flashcard exists in the storage, an error will be shown.
 
 The following activity diagram summarizes what happens when a user executes an add command:
 
@@ -191,7 +191,7 @@ image::AddActivityDiagram.png[]
 prefixes like `q>`, `a>`, `r>` and `c>`
 ** pros: Easier to implement.
 ** cons: User might miss the prefixes hence adding wrong flashcards
-* **Alternative 2:** Make use of the GUI. after user execute `add` command,
+* **Alternative 2:** Make use of the GUI. After user execute `add` command,
  an **add flash card window** would pop up and there is segment for individual fields.
 ** pros: More user friendly.
 ** cons: Harder to implement.

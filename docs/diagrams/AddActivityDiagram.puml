@@ -11,7 +11,7 @@ if () then ([question and answer
     to respective fields;
     :Create FlashCard;
     if () then([flashCard does
-    not exists
+    not existed
     in the storage]
     )
       :Add FlashCard to the storage;
