@@ -72,11 +72,11 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.nric = body.getNric().orElse(null);
         this.religion = body.getReligion().orElse(null);
         this.causeOfDeath = body.getCauseOfDeath().orElse(null);
-        this.organsForDonation = body.getOrgansForDonation().orElse(null);
+        this.organsForDonation = body.getOrgansForDonation();
         this.bodyStatus = body.getBodyStatus().orElse(null);
         this.fridgeId = body.getFridgeId().orElse(null);
         this.dateOfBirth = body.getDateOfBirth().orElse(null);
-        this.dateOfDeath = body.getDateOfDeath();
+        this.dateOfDeath = body.getDateOfDeath().orElse(null);
         this.nextOfKin = body.getNextOfKin().orElse(null);
         this.relationship = body.getRelationship().orElse(null);
         this.kinPhoneNumber = body.getKinPhoneNumber().orElse(null);
@@ -104,15 +104,14 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setNric(this.getNric().orElse(body.getNric().orElse(null)));
         body.setReligion(this.getReligion().orElse(body.getReligion().orElse(null)));
         body.setCauseOfDeath(this.getCauseOfDeath().orElse(body.getCauseOfDeath().orElse(null)));
-        body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation().orElse(null)));
+        body.setOrgansForDonation(this.getOrgansForDonation().orElse(body.getOrgansForDonation()));
         body.setBodyStatus(this.getBodyStatus().orElse(body.getBodyStatus().orElse(null)));
         body.setFridgeId(this.getFridgeId().orElse(body.getFridgeId().orElse(null)));
         body.setDateOfBirth(this.getDateOfBirth().orElse(body.getDateOfBirth().orElse(null)));
-        body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath()));
+        body.setDateOfDeath(this.getDateOfDeath().orElse(body.getDateOfDeath().orElse(null)));
         body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin().orElse(null)));
         body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
         body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));
-
         return entity;
     }
 

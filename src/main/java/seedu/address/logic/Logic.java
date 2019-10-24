@@ -67,14 +67,14 @@ public interface Logic {
      * Selected body in the filtered body list.
      * null if no body is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedBodyProperty()
      */
     ReadOnlyProperty<Body> selectedBodyProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected person in the filtered body list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @see seedu.address.model.Model#setSelectedBody(Body)
      */
     void setSelectedBody(Body body);
     //@@ shaoyi1997-reused

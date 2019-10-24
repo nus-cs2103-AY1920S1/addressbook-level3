@@ -25,6 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
@@ -210,6 +211,7 @@ public class UpdateCommandTest {
 
     @Test
     public void getEntityFromId_validBodyId_success() throws CommandException {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Body body = new BodyBuilder().build();
         model.addEntity(body);
         IdentificationNumber id = IdentificationNumber.customGenerateId("B", 1);
@@ -222,6 +224,7 @@ public class UpdateCommandTest {
 
     @Test
     public void getBodyFromId_validBodyId_failure() throws CommandException {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Body body = new BodyBuilder().build();
         model.addEntity(body);
         IdentificationNumber id = IdentificationNumber.customGenerateId("B", 1);
@@ -267,13 +270,14 @@ public class UpdateCommandTest {
 
     @Test
     public void equals() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
 
         // same values -> returns true
         UpdateBodyDescriptor copyDescriptor = new UpdateBodyDescriptor(body);
-        UpdateCommand commandWithSameValues = new UpdateCommand(new BodyBuilder().build().getIdNum(),
+        UpdateCommand commandWithSameValues = new UpdateCommand(body.getIdNum(),
                 copyDescriptor);
         assertTrue(updateCommand.equals(commandWithSameValues));
 

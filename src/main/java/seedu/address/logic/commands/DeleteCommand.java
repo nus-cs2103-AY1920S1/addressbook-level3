@@ -99,6 +99,8 @@ public class DeleteCommand extends UndoableCommand {
             targetIdNum.removeMapping();
             setUndoable();
             model.addExecutedCommand(this);
+            SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
+            selectCommand.execute(model);
             return new CommandResult(String.format(MESSAGE_DELETE_ENTITY_SUCCESS, entityToDelete));
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
