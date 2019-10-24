@@ -171,7 +171,7 @@ events)
 
 *What you should see*
 
-// insert picture
+image::addevent.png[width="790"]
 
 If successfully added, the event name will be displayed in the result box.
 
@@ -185,15 +185,15 @@ You will need the event name, athlete’s index, date of performance and timing 
 
 Type in the command in the following format.
 
-Format : `performance e/EVENT_NAME i/ATHLETE_INDEX d/DDMMYYYY t/TIMING`
+Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 
-Example : `event e/50m freestyle i/5 d/22102019 t/24s`
+Example : `event 5 e/50m freestyle d/22102019 t/24s`
 
 IMPORTANT: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
 
 *What you should see*
 
-// insert picture
+image::addperformance.png[width="790"]
 
 The performance details will be displayed in the result box.
 
@@ -247,7 +247,7 @@ Example : `select 1`
 
 *What you should see*
 
-// insert picture
+image::select.png[width="790"]
 
 The message “person selected!” will be displayed in the result box to indicate that you have selected the
 person.
@@ -266,7 +266,7 @@ Format : `view calendar`
 
 *What you should see*
 
-// insert picture
+image::calendar.png[width="790"]
 
 The result box will inform you that you are currently viewing your calendar.
 
@@ -292,7 +292,11 @@ IMPORTANT: This command will change your athletes’ index numbers.
 
 *What you should see*
 
-// insert picture
+.Before sorting, notice that John Doe is last in the list.
+image::beforesort.png[width="790"]
+
+.After sorting, notice than John is now between Irfan and Roy (ie. names are in alphabetical order).
+image::aftersort.png[width="790"]
 
 The athlete list in the left sidebar should be alphabetically listed now.
 
@@ -314,7 +318,7 @@ IMPORTANT: This command is case-insensitive, so filtering by `captain` and `Capt
 
 *What you should see*
 
-// insert picture
+image::filter.png[width="790"]
 
 The athlete list in the left sidebar should only display athletes that contain the specified tag.
 
@@ -336,7 +340,7 @@ IMPORTANT: This command is case-insensitive, so finding by `Irfan` and `irfan` w
 
 *What you should see*
 
-// insert picture
+image::find.png[width="790"]
 
 The athlete list in the left sidebar should only display athletes whose names contain the given keywords.
 
@@ -372,7 +376,7 @@ Format: `help`
 
 *What you should see*
 
-// insert picture
+image::help.png[width="395"]
 
 A pop up box will appear, with a link to the user guide on Athletick.
 
