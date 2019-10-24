@@ -18,38 +18,38 @@ import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 
-public class LookUpCommandTest {
+public class CheckCommandTest {
 
     private Model model;
     private Model expectedModel;
-    private LookUpCommand luc;
+    private CheckCommand luc;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+            new UserPrefs(), new Planner(), new CoursePlanner());
         expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(), model.getFinanceTracker(),
-                model.getAddressBook(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
-        luc = new LookUpCommand(MA1521);
+            model.getAddressBook(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
+        luc = new CheckCommand(MA1521);
     }
 
     /**
-     * Verifies that checking {@code LookUpCommand} for the availability of inverse execution returns false.
+     * Verifies that checking {@code CheckCommand} for the availability of inverse execution returns false.
      */
     @Test
     public void hasInverseExecution() {
-        LookUpCommand luc = new LookUpCommand(MA1521);
+        CheckCommand luc = new CheckCommand(MA1521);
         assertFalse(luc.hasInverseExecution());
     }
 
     /**
-     * Verifies that calling inverse execution of {@code LookUpCommand} will always throw a
+     * Verifies that calling inverse execution of {@code CheckCommand} will always throw a
      * {@code CommandException} with the correct message.
      */
     @Test
     public void inverseExecute_throwsCommandException() {
-        LookUpCommand luc = new LookUpCommand(MA1521);
+        CheckCommand luc = new CheckCommand(MA1521);
         assertThrows(CommandException.class,
-            LookUpCommand.MESSAGE_NO_INVERSE, () -> luc.executeInverse(model));
+            CheckCommand.MESSAGE_NO_INVERSE, () -> luc.executeInverse(model));
     }
 }
