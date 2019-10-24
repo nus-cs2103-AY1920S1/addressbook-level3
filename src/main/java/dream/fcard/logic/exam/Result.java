@@ -1,5 +1,8 @@
 package dream.fcard.logic.exam;
 
+/**
+ * Result object that helps to keep track of score.
+ */
 public class Result {
 
     private final int maxScore;
@@ -14,6 +17,10 @@ public class Result {
         return "Final Score:" + finalScore + "/" + maxScore;
     }
 
+    /**
+     * Simulates marking a question and updates score if correct.
+     * @param correct boolean on whether answer is correct or not.
+     */
     public void mark(boolean correct) {
         if (correct) {
             this.finalScore++;
