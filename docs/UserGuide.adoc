@@ -36,8 +36,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. +
 Here are some example commands you can try in the transaction tab:
 
-* **`add`**`de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`addtx`**`de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
+* **`filtertx`**`m/10 y/2019 c/!all ty/exp` : finds all expenditure items from October 2019.
 * *`exit`* : exits the app
 
 .  Refer to <<Navigation>> for details on how to navigate through the application.
@@ -58,7 +58,7 @@ is the "Transactions" tab.
 
 === Switching tabs
 
-We offer three modes for you to switch tab:
+We offer three modes for you to switch tabs:
 
 . Clicking on the tab
 . Using a shortcut key
@@ -86,10 +86,10 @@ These commands are recognised regardless of which tab you are currently using.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addtx de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `addtx de/AirPods a/299.00`.
+* Items in square brackets are optional e.g `badd de/DESCRIPTION a/AMOUNT [c/CATEGORY] ` can be used as `badd de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets` or as `badd de/Saving for iPhone 11 Pro Max a/271.80`.
+* Items with `…​` after them can be used multiple times including zero times e.g. `[s/KEYWORD]…​` can be used as ` ` (i.e. 0 times), `s/Macbook`, `s/Macbook s/iPad` etc.
+* Parameters can be in any order e.g. if the command specifies `addtx de/DESCRIPTION a/AMOUNT`, `addtx a/AMOUNT de/DESCRIPTION` is also acceptable.
 ====
 
 === IchiFund Basics
@@ -119,89 +119,89 @@ There is no need to save manually.
 
 === Transactions
 
-==== Creating transaction: `txadd`
+==== Creating transaction: `addtx`
 Creates a transaction. +
-Format: `txadd t/TYPE m/DESCRIPTION a/AMOUNT [d/DATE] [c/CATEGORY]`
+Format: `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 Examples:
 
-* `txadd t/in m/Salary a/2101.00 c/Work` +
+* `addtx de/Salary a/2101.00 c/Work ty/in` +
 Creates an income transaction of $2101.00 titled "Salary" occurring today under the category "Work".
 
-* `txadd t/out m/Lunch a/12.31 c/Food d/10092019` +
-Creates an expenditure transaction of $12.32 titled "Food" occuring on the 10th September 2019 under the category "Food".
+* `addtx de/Lunch a/12.31 c/Food d/10 m/09 y/2019 ty/exp` +
+Creates an expenditure transaction of $12.32 titled "Food" occurring on the 10th September 2019 under the category "Food".
 
-==== Editing transaction: `txedit`
+==== Editing transaction: `edittx`
 Edits a transaction. +
-Format: `txedit i/TRANSACTION_ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
+Format: `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 Examples:
 
-* `txedit i/1 m/Dinner a/32.30` +
+* `edittx 1 de/Dinner a/32.30` +
 Edits the description of the 1st transaction in the current list to "Dinner", and its amount to $32.30.
 
-==== Deleting transaction: `txdelete`
+==== Deleting transaction: `deletetx`
 Deletes a transaction. +
-Format: `txdelete i/TRANSACTION_ID`
+Format: `deletetx INDEX`
 
 Examples:
 
-* `txdelete i/5` +
+* `deletetx 5` +
 Deletes the 5th transaction in the current list.
 
-==== Finding transaction: `txfind`
-Filters transactions in current list by type, keywords, category, month, and/or year. +
-Format: `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
+==== Finding transaction: `findtx`
+Filters transactions in current list by keywords, category, month, year and/or type. +
+Format: `findtx [s/KEYWORD]... [c/CATEGORY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 Examples:
 
-* `txfind m/5 y/2019 c/Education` +
+* `findtx m/5 y/2019 c/Education` +
 Finds all transactions in the current list from May 2019 from the category "Education".
 
 ==== List all transactions: `txlist`
 Lists all transactions. +
-Format `txlist`
+Format `listtx`
 
 === Transaction Repeaters
 
-==== Creating transaction repeater: `repadd`
+==== Creating transaction repeater: `addrep`
 
 Creates monthly transaction repeater. +
-Format: `repadd [t/TYPE] m/DESCRIPTION a/AMOUNT [c/CATEGORY] [p/DAY]...`
+Format: `addrep de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
 
 Examples:
 
-* `repadd t/in m/Phone Bills a/32.70 p/7 p/14 p/21 p/28` +
+* `addrep de/Phone Bills a/32.70 p/7 p/14 p/21 p/28 ty/exp` +
 Creates a transaction repeater titled "PhoneBills" for a $32.70 deduction every 7th, 14th, 21st, and 28th of the month.
 
-==== Editing transaction repaeter `repedit`
+==== Editing transaction repeater `editrep`
 
 Edits transaction repeater. +
-Format: `repedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [p/DAY]...`
+Format: `editrep INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
 
 Examples:
 
-* `repedit i/12 a/62.45 c/Food p/11 p/12` +
+* `editrep 12 a/62.45 c/Food p/11 p/12` +
 Edits the 12th transaction repeater for a $62.45 deduction every 11th and 12th of the month.
 
-==== Deleting transaction repeater: `repdelete`
+==== Deleting transaction repeater: `deleterep`
 
 Deletes transaction repeater. Optionally deletes transactions previously produced from the transaction repeater. +
-Format: `repdelete i/ID [d/DELETEALL]`
+Format: `deleterep INDEX [d/DELETEALL]`
 
 Examples:
 
-* `repdelete i/12 p/TRUE` +
+* `deleterep 12` +
 Deletes the 12th transaction repeater.
 
-==== Finding transaction repeater: `repfind`
+==== Finding transaction repeater: `findrep`
 
 Filters transaction repeaters by keyword, category, and repeating days. +
-Format: `repfind [t/TYPE] [s/KEYWORD]... [c/CATEGORY] [p/DAY]...`
+Format: `findrep [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`
 
 Examples:
 
-* `repfind s/Income p/7 p/13` +
+* `findrep s/Income p/7 p/13` +
 Finds all transaction repeater with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
 
 === Loans
@@ -271,11 +271,11 @@ Loans shown sorted by any given constrain, date or value owed.
 ==== Add a monthly budget: `badd`
 
 Sets monthly expenditure budget. +
-Format: `badd de/DESCRIPTION a/AMOUNT`
+Format: `badd de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
 
 Examples:
 
-* `badd de/Saving for future a/1000` +
+* `badd de/Saving for future a/1000.00` +
 Sets monthly expenditure budget to $1000.
 
 ==== Delete a monthly budget: `bdelete`
@@ -291,7 +291,7 @@ Deletes the first entry on the displayed budget list.
 ==== Excluding expenditure from budget: `bexclude`
 
 Excludes expenditure from computation of budget. +
-Format: `bexclude i/TRANSACTION_ID`
+Format: `bexclude INDEX`
 
 ****
 * All expenditures are included by default.
@@ -301,14 +301,14 @@ Format: `bexclude i/TRANSACTION_ID`
 
 Examples:
 
-* `txlist` +
-`bexclude i/2` +
+* `listtx` +
+`bexclude 2` +
 Excludes the 2nd expenditure in the list from computation of budget.
 
 ==== Including expenditure in budget: `binclude`
 
 Includes expenditure in computation of budget. +
-Format: `binclude i/TRANSACTION_ID`
+Format: `binclude INDEX`
 
 ****
 * All expenditures are included by default.
@@ -318,8 +318,8 @@ Format: `binclude i/TRANSACTION_ID`
 
 Examples:
 
-* `txlist` +
-`binclude i/2` +
+* `listtx` +
+`binclude 2` +
 Includes the 2nd expenditure in the list from computation of budget.
 
 ==== Viewing budget information: `binfo`
@@ -339,88 +339,88 @@ Displays expenditure budget left and a list of all excluded expenditures for Jul
 
 === Analytics
 
-==== Viewing expenditure trend: `aexpend`
+==== Viewing expenditure trend: `expenditure`
 
 Displays monthly expenditure trend for current year.
-Format: `aexpend [y/YEAR]`
+Format: `expenditure [y/YEAR]`
 
 Examples:
 
-* `aexpend` +
+* `expenditure` +
 Displays monthly expenditure trend for current year.
-* `aexpend 2019` +
+* `expenditure y/2019` +
 Displays monthly expenditure trend for 2019.
 
-==== Viewing income trend: `aincome`
+==== Viewing income trend: `income`
 
 Displays monthly income trend for current year. +
-Format: `aincome [y/YEAR]`
+Format: `income [y/YEAR]`
 
 Examples:
 
-* `aincome` +
+* `income` +
 Displays monthly income trend for current year.
-* `aincome 2019` +
+* `income y/2019` +
 Displays monthly income trend for 2019.
 
-==== Viewing balance trend: `abalance`
+==== Viewing balance trend: `balance`
 
 Displays monthly balance (income - expenditure) trend for current year. +
-Format: `abalance [y/YEAR]`
+Format: `balance [y/YEAR]`
 
 Examples:
 
-* `abalance` +
+* `balance` +
 Displays monthly balance trend for current year.
-* `abalance 2019` +
+* `balance y/2019` +
 Displays monthly balance trend for 2019.
 
-==== Viewing expenditure breakdown by category: `abreakdown`
+==== Viewing expenditure breakdown by category: `breakdown`
 
 Displays breakdown of expenditure by category. +
-Format: `abreakdown [m/MONTH] [y/YEAR]`
+Format: `catbreakdown [m/MONTH] [y/YEAR]`
 
 Examples:
 
-* `abreakdown` +
+* `catbreakdown` +
 Displays expenditure breakdown by category for current month.
-* `abreakdown m/7 y/2019` +
+* `catbreakdown m/7 y/2019` +
 Displays expenditure breakdown by category for July 2019.
 
-==== Viewing expenditure category ranking chart: `acatrank`
+==== Viewing expenditure category ranking chart: `catrank`
 
 Displays expenditure category ranking chart. +
-Format: `acatrank [m/MONTH] [y/YEAR]`
+Format: `catrank [m/MONTH] [y/YEAR]`
 
 Examples:
 
-* `acatrank` +
+* `catrank` +
 Displays expenditure category ranking chart for current month.
-* `acatrank m/7 y/2019` +
+* `catrank m/7 y/2019` +
 Displays expenditure category ranking chart for July 2019.
 
-==== Viewing expenditure ranking chart by month: `amthrank`
+==== Viewing expenditure ranking chart by month: `mthrank`
 
 Displays expenditure ranking chart by month. +
-Format: `amthrank [y/YEAR]`
+Format: `mthrank [y/YEAR]`
 
 Examples:
 
-* `amthrank` +
+* `mthrank` +
 Displays all-time expenditure ranking chart by month.
-* `amthrank y/2019` +
+* `mthrank y/2019` +
 Displays expenditure ranking chart by month for 2019.
 
-==== Viewing expenditure ranking chart: `aexprank`
+==== Viewing expenditure ranking chart: `exprank`
 
 Displays expenditure ranking chart. +
-Format: `aexprank [m/MONTH] [y/YEAR]`
+Format: `exprank [m/MONTH] [y/YEAR]`
 
 Examples:
 
-* `aexprank` +
+* `exprank` +
 Displays all-time expenditure ranking chart.
-* `aexprank m/7 y/2019` +
+* `exprank m/7 y/2019` +
 Displays expenditure ranking chart for July 2019.
 
 == FAQ
@@ -432,30 +432,30 @@ Displays expenditure ranking chart for July 2019.
 
 * *Help* : `help`
 * *Exit* : `exit`
-* *Wealth Set* : `wealthset a/AMOUNT`
-* *Transaction Add* : `txadd t/TYPE m/DESCRIPTION a/AMOUNT [d/DATE] [c/CATEGORY]`
-* *Transaction Edit* : `txedit i/ID [t/TYPE] [m/DESCRIPTION] [a/AMOUNT] [d/DATE] [c/CATEGORY]`
-* *Transaction Delete* : `txdelete i/TRANSACTION_ID`
-* *Transaction Find* : `txfind [t/TYPE] [s/KEYWORD]... [m/MONTH] [y/YEAR] [c/CATEGORY]`
-* *Transaction List* : `txlist`
-* *Transaction Repeater Add* : `repadd m/DESCRIPTION a/AMOUNT [c/CATEGORY] [p/DAY]...`
-* *Transaction Repeater Edit* : `repedit i/ID [m/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [p/DAY]...`
-* *Transaction Repeater Delete* : `repdelete i/ID [d/DELETEALL]`
-* *Transaction Repeater Find* : `repfind [s/KEYWORD]... [c/CATEGORY] [p/DAY]...`
-* *Budget Set* : `bset a/AMOUNT`
-* *Budget Exclude* : `bexclude i/TRANSACTION_ID`
-* *Budget Include* : `binclude i/TRANSACTION_ID`
-* *Budget Info* : `binfo [m/MONTH y/YEAR]`
-* *Expenditure Trend* : `aexpend [y/YEAR]`
-* *Income Trend* : `aincome [y/YEAR]`
-* *Balance Trend* : `abalance [y/YEAR]`
-* *Categorical Breakdown* : `abreakdown [m/MONTH] [y/YEAR]`
-* *Categorical Ranking Chart* : `acatrank [m/MONTH] [y/YEAR]`
-* *Month-Based Ranking Chart* : `amthrank [y/YEAR]`
-* *Ranking Chart* : `aexprank [m/MONTH] [y/YEAR]`
+* *Transaction Add* : `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
+* *Transaction Edit* : `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
+* *Transaction Delete* : `deletetx INDEX`
+* *Transaction Find* : `findtx [s/KEYWORD]... [c/CATEGORY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
+* *Transaction List* : `listtx`
+* *Transaction Repeater Add* : `addrep de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
+* *Transaction Repeater Edit* : `editrep INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
+* *Transaction Repeater Delete* : `deleterep INDEX [d/DELETEALL]`
+* *Transaction Repeater Find* : `findrep [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`
 * *Loan Add new* : `loannew a/Amount [d/DATE] [n/NAME]`
 * *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]`
 * *Loan Categorical Search* : `loanshow [s/KEYWORD]`
 * *Loan Net Amount* : `loantotal [s/KEYWORD]`
 * *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`
 * *Loan Sort By Value* : `loansort s/BY`
+* *Budget Add* : `badd de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
+* *Budget Delete* : `bdelete INDEX`
+* *Budget Exclude* : `bexclude INDEX`
+* *Budget Include* : `binclude INDEX`
+* *Budget Info* : `binfo [m/MONTH y/YEAR]`
+* *Expenditure Trend* : `expenditure [y/YEAR]`
+* *Income Trend* : `income [y/YEAR]`
+* *Balance Trend* : `balance [y/YEAR]`
+* *Categorical Breakdown* : `catbreakdown [m/MONTH] [y/YEAR]`
+* *Categorical Ranking Chart* : `catrank [m/MONTH] [y/YEAR]`
+* *Month-Based Ranking Chart* : `mthrank [y/YEAR]`
+* *Ranking Chart* : `exprank [m/MONTH] [y/YEAR]`
