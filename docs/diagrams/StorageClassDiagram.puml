@@ -19,6 +19,22 @@ StorageManager o--> AddressBookStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonAddressBookStorage .left.|> AddressBookStorage
 JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonSerializableAddressBookStorage .down.> JsonSerializableExpense
+JsonSerializableAddressBookStorage .down.> JsonSerializableIncome
+JsonSerializableAddressBookStorage .down.> JsonSerializableWish
+JsonSerializableAddressBookStorage .down.> JsonSerializableAutoExpenditure
+JsonSerializableAddressBookStorage .down.> JsonSerializableBudget
+JsonSerializableAddressBookStorage .down.> JsonSerializableTrackerReminder
+JsonSerializableExpense .down.> JsonAdaptedTag
+JsonSerializableIncome .down.> JsonAdaptedTag
+JsonSerializableWish .down.> JsonAdaptedTag
+JsonSerializableAutoExpenditure .down.> JsonAdaptedTag
+JsonSerializableTrackerReminder .down.> JsonAdaptedTag
+JsonSerializableAddressBudget .down.> JsonAdaptedTag
+JsonSerializableExpense .down.> JsonAdaptedDateReminder
+JsonSerializableIncome .down.> JsonAdaptedDateReminder
+JsonSerializableWish .down.> JsonAdaptedDateReminder
+JsonSerializableAutoExpenditure .down.> JsonAdaptedDateReminder
+JsonSerializableTrackerReminder .down.> JsonAdaptedDateReminder
+JsonSerializableAddressBudget .down.> JsonAdaptedDateReminder
 @enduml

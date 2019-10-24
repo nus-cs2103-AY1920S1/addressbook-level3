@@ -7,6 +7,12 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -37,8 +43,23 @@ image::UiClassDiagram.png[]
 [[Design-Logic]]
 === Logic component
 
-.LogicDiagram
+.Structure of the Logic Component
 image::LogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+
+image::DeleteSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -61,8 +82,103 @@ The `Model`
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-== Implementation
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
+The `Storage`
+
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in json format and read it back.
+* This includes instances of Entry subclasses(Expense, Income, Wish, AutoExpenditure, Budget, TrackerReminder, etc.)
+* DateReminder data are stored in Entry data.
+
+[[Design-Statistics]]
+=== Statistics component
+
+.Structure of the Statistics Component
+image::StatisticsClass.png[]
+
+.  `Statistics` contains an ObservableMap of `MonthlyList` class.
+.  `MonthlyList` contains an ObservableMap of `DailyList` class.
+.  `DailyList` contains an ObservableMap of `CategoryList` class.
+.  These lists are populated when the guiltTrip() is started up and the content is retrieved from Storage.
+.  Any added entries are updated in the `CategoryList` and `DailyList` classes.
+
+== Implementation
+This section describes some details on how certain features are implemented.
+
+=== Data Presentation: Sort Command
+
+==== Implementation
+
+The sort command extends the Command class. It works on the SortedList by adding a Comparator to the List. By default, the EntryList is sorted by date.
+
+. The user executes the command `sort typ/Expense s/ascending`
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `SortCommand` object which is executed by the `LogicManager`.
+.  The `SortCommand` calls the `Model` 's sortFilteredEntryList to sort the list of entries.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sort typ/Expense s/ascending")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::SortSequence.png[]
+
+=== ViewHistory Command
+
+==== Implementation
+
+The viewHistory command extends the Command class. It calls methods from the Statistics Manager which handles the calculation of the statistics and returns it to the user.
+
+. The user executes the command `viewHistory typ/Expense`
+.  `Logic` uses the `guiltTripParser` class to parse the user command.
+.  This results in a `viewHistoryCommand` object which is executed by the `LogicManager`.
+.  The `viewHistoryCommand` calls the `Model` 's generateHistory method which calls on the `StatisticsManager` generateHistory method to calculate the statistics for that type.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  `Logic` returns the `CommandResult` object.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewHistory typ/Expense")` API call.
+
+.Interactions Inside the Logic Component for the `viewHistory typ/Expense` Command
+image::ViewHistorySequenceDiagram.png[]
+
+=== Toggle Panel Command
+
+==== Implementation
+
+The following sequence diagram shows how the toggle panel command works:
+
+image::ToggleSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::ToggleActivityDiagram.png[]
+
+==== Design Considerations
+
+*Current method:* Toggle the panels from within MainWindow class.
+
+Pros: Easy to implement.
+
+Cons: Might not be as OOP as other designs.
+
+=== Reminders
+
+==== Implementation
+
+The Reminder mechanism is facilitated by the Reminder class. Each Reminder object consists of a Condition class object which represents a set of conditions to be met. When all conditions are met, the reminder is activated and its message is displayed under the Reminder Pannel. The following class diagram helps to show how the classes are related.
+
+When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed, the ConditionList object is updated to see if any conditions have been met. 
+
+
+==== Design Considerations
+
+*Current method:* Toggle the panels from within MainWindow class.
+
+Pros: Easy to implement.
+
+
+Cons: Might not be as OOP as other designs.
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -96,14 +212,13 @@ A convenient financial tracker targeted at users who prefer typing over other in
 |High|As a thrifty user|I would like to be able to add items to my wishlist and see the progress made for each of the wishlisted items|So that I can see how much I've saved to each goal.
 |High|As a student with limited income|I need a convenient way to keep track of my spending and my daily expenditure|So that I can better review my finances.
 |High|As a student with almost regular spending habits|I want to record basic, recurring expenses (lunch, shopping, transport etc) easily|So that it is convenient for me to review and reflect on my expenditure.
-|High|As a user|I would like a search function to quickly refer to certain records.|So that it is convenient for me to
-|High|As a user|I would like a manual to refer to when I need help using the app.|So that I can still use the app when I forget its syntax.
-|High|As a new user|I want to be informed when I submit invalid commands.|So that I can learn from my mistakes.
-|High|As a long-time user|I want to be able to search for a past expense. (How long ago should the record be?)|So that I can don’t go crazy when doing taxes.
-|High|As a careless user|I might want to undo/modify/delete the amount/category/description entered by the specific expense in particular|so that I can easily amend any mistakes I made on CL.
-|High|As a detailed and careful user|I need to be able to add the details of the ideas into specific categories.|So that I can stay organised.
-|Medium|As a user with limited allowance|I want to be able to set budgets for how much I want to spend in a week/month, according to different categories.|So that I do not overspend.
-|Medium|As someone who may wish to restart on a clean slate|I wish to have a function to clear or my keyed in data (schedule, current expenditure etc.)|
+|High|As a user|I would like a search function|So that it is convenient for me to find a previous record.
+|High|As a user|I would like a manual to refer to when I need help using the app|So that I can still use the app when I forget the commands.
+|High|As a new user|I want to be informed when I submit invalid commands|So that I can input the correct command.
+|High|As a careless user|I might want to undo/modify/delete the fields of a specific expense|so that I can easily amend any mistakes I made.
+|High|As a detailed and careful user|I need to be able to add the details of the records into specific categories|So that I can stay organised.
+|Medium|As a user with limited allowance|I want to be able to set budgets for how much I want to spend in a week/month, according to different categories|So that I can closely keep track of my spending.
+|Medium|As someone who may wish to restart on a clean slate|I wish to be able to clear all of my data|So I can start afresh.
 |Medium|As a user  |I would like to see my expenses and transactions separated according to different time periods (e.g. week, month, year)|so that I can have a clearer overview of my expenditure.
 |Medium|As a user|I want to be able to customise how the UI looks (color, font, font size, set background feature etc.)|so that it looks more customised towards the user.
 |Medium|As an expert user|I want to be able to set the time(s) that I would receive reminders to record my spending|so that I can do so at convenient times.
@@ -176,58 +291,57 @@ Use Case: user adds an expense
 . GuiltTrip deletes the specified expense from the list.
 . GuiltTrip informs user that the expense has been deleted.
 
-=== Use Case 05: Add a recurring expenditure
+=== Use Case 05: Adds a Wish
+
+. User adds a Wish.
+. GuiltTrip creates a Wish.
+. GuiltTrip informs user that the wish have been created.
+
+=== Use Case 06: Converts Wish to Expenditure
+
+. User keys in command purchaseWish, followed by the index of the expens wish in the list
+. GuiltTrip deletes the specified wish from the list.
+. GuiltTrip adds the corresponding expenditure to the expense list.
+. GuiltTrip informs user that the wish has been converted.
+
+=== Use Case 07: Add a recurring expenditure
 
 . User keys in command setAutoExpenditure, followed by the frequency he would want the expenditure to be, the description and amount of the expenditure.
 . GuiltTrip creates an auto-expense entry.
 . GuiltTrip informs user that the auto-expense have been created.
 
-=== Use Case 06: List recurring expenditures
+=== Use Case 08: List recurring expenditures
 
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
-=== Use Case 07: Edit a recurring expenditure item
+=== Use Case 09: Set TrackerReminder
 
-Format: editAutoExpenditure: <index> [--freq <frequency>] [--desc <description>] [--amt <expenditure>] +
-Examples:
+==== MSS
 
-* editAutoExpenditure 1 --freq month
-* editAutoExpenditure 1 --desc spotify family --amt 14.99
+. User adds a TrackerReminder, indicates the quota which if exceeded will activate the reminder, and the tags nad keywords that entries should have to be tracked;
+. guiltTrip() notifies user that Reminder has been added.
 
-deleteAutoExpenditure: deletes a current automatically recurring expenditure at the given index. +
-Format: deleteAutoExpenditure <index>
+Use case ends.
 
-=== Use Case 08: Add a new budget for expenditure
+==== Extensions
 
-. User adds a budget
-. GuiltTrip creates a
-addBudget: adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month +
-Format: addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>] +
-Examples:
+. 1a. user does not indicate if he wants to track entries with keywords or tags.
+Reminder tracks all entries.
 
-* addBudget --desc food budget --period day --amt 200 --tag food
-* addBudget --desc entertainment budget --amt 300
+=== Use Case 10: Set DateReminder
 
-=== Use Case 09: List existing budgets
+==== MSS
 
+. User adds a DateReminder, indicate the index of the entry to track and the period before the event date to activate reminder.
+. guiltTrip() notifies user that Reminder has been added.
 
-listBudget: lists all the current budgets the user has. +
-Format: listBudget
+Use case ends.
 
-editBudget: edits a current budget's description, amount or tag (if applicable) at the given index. +
-Format: editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]  +
-Examples:
+==== Extensions
 
-* editBudget 1 --desc fooooood budget
-* editBudget 2 --desc lunch budget --amt 150
-* editBudget 2 --tag fun
-
-deleteBudget: deletes a current budget at the given index. +
-Format: deleteBudget <index> +
-Example:
-
-* deleteBudget 2
+. 1a. index out of bounds.
+Use case ends
 
 [appendix]
 == Non Functional Requirements
@@ -262,4 +376,3 @@ Example:
 * Category - Income, Expense, Wishlist, Budget +
 * Entry - any item in a category +
 * Tag - label(s) attached to an entry
-

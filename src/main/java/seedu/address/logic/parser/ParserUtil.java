@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.PanelName;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.tag.Tag;
@@ -73,11 +76,30 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a time in String to ArrayList.
+     * @param period the time as a String.
+     * @return the specified time as Date.
+     */
+    public static ArrayList<Date> parsePeriod(String period) {
+        requireNonNull(period);
+        String[] splitStartAndEnd = period.split(",");
+        ArrayList<Date> listOfPeriods = new ArrayList<Date>();
+        if (splitStartAndEnd.length == 1) {
+            listOfPeriods.add(new Date(period));
+        } else if (splitStartAndEnd.length == 2) {
+            listOfPeriods.add(new Date(splitStartAndEnd[0]));
+            listOfPeriods.add(new Date(splitStartAndEnd[1]));
+        } else {
+            //TODO
+        }
+        return listOfPeriods;
+    }
+    /**
      * Parses a type of sorting in String to SortType.
      * @param type the time as a String.
      * @return the specified time as SortType.
      */
-    public static SortType parseSortType(String type) {
+    public static SortType parseSortType(String type) throws IllegalArgumentException {
         requireNonNull(type);
         return new SortType(type);
     }
@@ -118,6 +140,35 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String panelNamee} into a {@code PanelName}.
+     */
+    public static PanelName parsePanelName(String panelName) throws ParseException {
+        requireNonNull(panelName);
+        String trimmedPanelName = panelName.trim();
+        if (!PanelName.isValidPanelName(trimmedPanelName)) {
+            throw new ParseException(PanelName.MESSAGE_CONSTRAINTS);
+        }
+
+        // standardise panel names
+        ArrayList<String> aliasesForWishlist = new ArrayList<>(Arrays.asList("wishlist", "wish", "wishes", "w"));
+        if (aliasesForWishlist.contains(trimmedPanelName)) {
+            trimmedPanelName = "wishlist";
+        }
+
+        ArrayList<String> aliasesForBudget = new ArrayList<>(Arrays.asList("budget", "budgets", "b"));
+        if (aliasesForBudget.contains(trimmedPanelName)) {
+            trimmedPanelName = "budget";
+        }
+
+        ArrayList<String> aliasesForReminder = new ArrayList<>(Arrays.asList("reminder", "reminders", "r"));
+        if (aliasesForReminder.contains(trimmedPanelName)) {
+            trimmedPanelName = "reminder";
+        }
+
+        return new PanelName(trimmedPanelName);
     }
 
 }

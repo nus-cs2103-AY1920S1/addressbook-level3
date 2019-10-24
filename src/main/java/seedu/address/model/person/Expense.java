@@ -43,9 +43,13 @@ public class Expense extends Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(ENTRYTYPE + ": ").append(getDesc()).append(" Amount: ").append(getAmount()).append(" Tags: ");
+        builder.append(ENTRYTYPE + ": ")
+                .append(getDesc())
+                .append(" | Amount: ")
+                .append(getAmount())
+                .append(" | Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + this.getDate() + ")");
+        builder.append(" (Date: " + this.getDate() + ") ");
         return builder.toString();
     }
 
