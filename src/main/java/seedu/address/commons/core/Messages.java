@@ -24,4 +24,8 @@ public class Messages {
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Events edited: %s";
     public static final String MESSAGE_UNDO_SUCCESS = "Previous command has been undone!";
     public static final String MESSAGE_REDO_SUCCESS = "Previous undone command has been redone!";
+
+    public static final String MESSAGE_NOTIFICATION_OFF = "Notifications have been turned off.";
+    public static final String MESSAGE_NOTIFICATION_ON = "Notifications have been turned on.";
+
 }
