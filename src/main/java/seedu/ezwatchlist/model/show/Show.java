@@ -1,6 +1,9 @@
 package seedu.ezwatchlist.model.show;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.model.actor.Actor;

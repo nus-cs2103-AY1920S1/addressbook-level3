@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import seedu.ezwatchlist.api.ApiMain;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
@@ -15,8 +17,6 @@ import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
-
-import java.util.*;
 import seedu.ezwatchlist.model.show.TvShow;
 
 /**
@@ -29,6 +29,10 @@ public class SearchCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " Joker";
+    private static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
+            "Invalid input. i/[OPTION] where OPTION is either true/yes or false/no";
+    private static final String MESSAGE_INVALID_TYPE_COMMAND =
+            "Invalid input. t/[TYPE] where TYPE is either movie or tv";
 
     private static final String EMPTY_STRING = "";
     private static final String INPUT_TRUE = "true";
@@ -49,12 +53,7 @@ public class SearchCommand extends Command {
     private List<String> isWatchedList;
     private List<String> isInternalList;
 
-    private static final String MESSAGE_INVALID_IS_INTERNAL_COMMAND =
-            "Invalid input. i/[OPTION] where OPTION is either true/yes or false/no";
-    private static final String MESSAGE_INVALID_TYPE_COMMAND =
-            "Invalid input. t/[TYPE] where TYPE is either movie or tv";
-
-    List<Show> searchResult = new ArrayList<>();
+    private List<Show> searchResult = new ArrayList<>();
 
     public SearchCommand(HashMap<String, List<String>> searchShowsHashMap) {
         nameList = searchShowsHashMap.get(KEY_NAME);
@@ -84,12 +83,19 @@ public class SearchCommand extends Command {
                 //searchByIsInternal();
             }
             model.updateSearchResultList(searchResult);
-            return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW, model.getSearchResultList().size()));
+            return new CommandResult(String.format(Messages.MESSAGE_SHOWS_LISTED_OVERVIEW,
+                    model.getSearchResultList().size()));
         } catch (OnlineConnectionException e) {
             return null;
         }
     }
 
+    /**
+     * Search for shows by name.
+     * @param model Model used.
+     * @throws CommandException If command exception occurred.
+     * @throws OnlineConnectionException If online exception occurred.
+     */
     private void searchByName(Model model) throws CommandException, OnlineConnectionException {
         if (requestedSearchFromInternal()) {
             for (String showName : nameList) {
@@ -109,6 +115,12 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Search for shows by actor.
+     * @param model Model used.
+     * @throws CommandException If command exception occurred.
+     * @throws OnlineConnectionException If online exception occurred.
+     */
     private void searchByActor(Model model) throws CommandException, OnlineConnectionException {
         Set<Actor> actorSet = new HashSet<Actor>();
         for (String actorName : actorList) {
@@ -140,6 +152,11 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Adds show from list if it has any actor in actorSet.
+     * @param actorSet Set of actors to be searched for.
+     * @param model Model used.
+     */
     private void addShowFromWatchListIfHasActor(Set<Actor> actorSet, Model model) {
         if (!actorSet.isEmpty()) {
             List<Show> filteredShowList = model.getShowIfHasActor(actorSet);
@@ -147,6 +164,10 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Add show to search result.
+     * @param showList List of shows to be added.
+     */
     private void addShowToSearchResult(List<Show> showList) {
         for (Show show : showList) {
             if (requestedSearchFromWatched() && !show.isWatched().getIsWatchedBoolean()) {
@@ -155,18 +176,24 @@ public class SearchCommand extends Command {
                 continue; // skip if requested to be in watchlist but show is watched
             } else if (requestedSearchForMovie() && !show.getType().equals("Movie")) {
                 continue; // skip if requested search for movie but show is tv
-            } else if (requestedSearchForTV() && !show.getType().equals("Tv Show")) {
+            } else if (requestedSearchForTv() && !show.getType().equals("Tv Show")) {
                 continue; // skip if requested search for tv but show is movie
             }
             searchResult.add(show);
         }
     }
 
+    /**
+     * Add shows, both movies and tv series, searched by name from online to the search result list.
+     * @param showName Name of the show to be searched.
+     * @throws OnlineConnectionException If online exception occurred.
+     * @throws CommandException If command exception occurred.
+     */
     private void addShowFromOnlineIfSameNameAs(String showName) throws OnlineConnectionException, CommandException {
-        if (!requestedIsWatched() && !showName.equals(EMPTY_STRING)) { // would not check online if requested to be is watched
+        if (!requestedIsWatched() && !showName.equals(EMPTY_STRING)) {
             if (requestedSearchForMovie()) {
                 addOnlineMovieSearchedByNameToResult(showName);
-            } else if (requestedSearchForTV()) {
+            } else if (requestedSearchForTv()) {
                 addOnlineTvSearchedByNameToResult(showName);
             } else if (requestedType()) {
                 throw new CommandException(MESSAGE_INVALID_TYPE_COMMAND);
@@ -177,6 +204,11 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Add movies, searched by name from online to the search result list.
+     * @param showName Name of the show to be searched.
+     * @throws OnlineConnectionException If online exception occurred.
+     */
     private void addOnlineMovieSearchedByNameToResult(String showName) throws OnlineConnectionException {
         List<Movie> movies = new ApiMain().getMovieByName(showName);
         for (Movie movie : movies) {
@@ -184,6 +216,11 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Add tv series, searched by name from online to the search result list.
+     * @param showName Name of the show to be searched.
+     * @throws OnlineConnectionException If online exception occurred.
+     */
     private void addOnlineTvSearchedByNameToResult(String showName) throws OnlineConnectionException {
         List<TvShow> tvShows = new ApiMain().getTvShowByName(showName);
         for (TvShow tvShow : tvShows) {
@@ -192,11 +229,17 @@ public class SearchCommand extends Command {
     }
 
     // TO EDIT
+    /**
+     * Add show from online if has actors, taking into account if user makes any other requests.
+     * @param actorSet The set of actors to be searched.
+     * @throws OnlineConnectionException If online exception occurred.
+     * @throws CommandException If command exception occurred.
+     */
     private void addShowFromOnlineIfHasActor(Set<Actor> actorSet) throws OnlineConnectionException, CommandException {
         if (!actorSet.isEmpty() && !requestedIsWatched()) { // would not check online if requested to be is watched
             if (requestedSearchForMovie()) {
                 //addOnlineMovieSearchedByNameToResult(showName);
-            } else if (requestedSearchForTV()) {
+            } else if (requestedSearchForTv()) {
                 //addOnlineTvSearchedByNameToResult(showName);
             } else if (requestedType()) {
                 throw new CommandException(MESSAGE_INVALID_TYPE_COMMAND);
@@ -207,44 +250,88 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Return true if user requests to search for tv series or movies only.
+     * @return True if user requests to search for tv series or movies only.
+     */
     private boolean requestedType() {
         return !typeList.isEmpty();
     }
 
+    /**
+     * Return true if user requests to search for movies only.
+     * @return True if user requests to search for movies only.
+     */
     private boolean requestedSearchForMovie() {
         return requestedType() && (typeList.get(0).equals(INPUT_MOVIE));
     }
 
-    private boolean requestedSearchForTV() {
+    /**
+     * Return true if user requests to search for tv series only.
+     * @return True if user requests to search for tv series only.
+     */
+    private boolean requestedSearchForTv() {
         return requestedType() && (typeList.get(0).equals(INPUT_TV));
     }
 
+    /**
+     * Return true if user requests to search from watch or watched list.
+     * @return True if user requests to search from watch or watched list.
+     */
     private boolean requestedIsWatched() {
         return !isWatchedList.isEmpty();
     }
 
+    /**
+     * Return true if user requests to search from watched list.
+     * @return True if user requests to search from watched list.
+     */
     private boolean requestedSearchFromWatched() {
-        return requestedIsWatched() &&
-                (isWatchedList.get(0).equals(INPUT_TRUE) || isWatchedList.get(0).equals(INPUT_YES));
+        return requestedIsWatched()
+                && (isWatchedList.get(0).equals(INPUT_TRUE) || isWatchedList.get(0).equals(INPUT_YES));
     }
 
+    /**
+     * Return true if user requests to search from watch list.
+     * @return True if user requests to search from watch list.
+     */
     private boolean requestedSearchFromWatchList() {
-        return requestedIsWatched() &&
-                (isWatchedList.get(0).equals(INPUT_FALSE) || isWatchedList.get(0).equals(INPUT_NO));
+        return requestedIsWatched()
+                && (isWatchedList.get(0).equals(INPUT_FALSE) || isWatchedList.get(0).equals(INPUT_NO));
     }
 
+    /**
+     * Return true if user requests to search from internal or online.
+     * @return True if user requests to search from internal or online.
+     */
     private boolean requestedIsInternal() {
         return !isInternalList.isEmpty();
     }
 
+    /**
+     * Return true if user requests to search from internal.
+     * @return True if user requests to search from internal.
+     */
     private boolean requestedSearchFromInternal() {
-        return requestedIsInternal() &&
-                (isInternalList.get(0).equals(INPUT_TRUE) || isInternalList.get(0).equals(INPUT_YES));
+        return requestedIsInternal()
+                && (isInternalList.get(0).equals(INPUT_TRUE) || isInternalList.get(0).equals(INPUT_YES));
     }
 
+    /**
+     * Return true if user requests to search from online.
+     * @return True if user requests to search from online.
+     */
     private boolean requestedSearchFromOnline() {
-        return requestedIsInternal() &&
-                (isInternalList.get(0).equals(INPUT_FALSE) || isInternalList.get(0).equals(INPUT_NO));
+        return requestedIsInternal()
+                && (isInternalList.get(0).equals(INPUT_FALSE) || isInternalList.get(0).equals(INPUT_NO));
+    }
+
+    /**
+     * Return the list of search results.
+     * @return List of search results.
+     */
+    public List<Show> getSearchResult() {
+        return searchResult;
     }
 
     @Override
