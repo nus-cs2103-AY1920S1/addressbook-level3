@@ -20,7 +20,7 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
         this.setPadding(new Insets(GuiSettings.getPadding()));
 
         // set up background colour and radius
-        this.setStyle("-fx-background-color:" + GuiSettings.getPrimaryUIColour() +";");
+        this.setStyle("-fx-background-color:" + GuiSettings.getPrimaryUiColour() +";");
 //        this.setStyle("-fx-background-radius:" + GuiSettings.getRadius() +";");
 
         flashCardText = new Text(text);

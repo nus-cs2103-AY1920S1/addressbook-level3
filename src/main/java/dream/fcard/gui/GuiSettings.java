@@ -28,9 +28,10 @@ public class GuiSettings {
 
     // default colours
     private static String primaryTextColour = "#333333";
-    private static String primaryUIColour = "#ABDFF6";
-    private static String secondaryUIColour = "#F0ECEB";
-    private static String tertiaryUIColour = "#6C7476";
+    private static String primaryUiColour = "#ABDFF6"; // blue accent colour used for flashcards
+    private static String secondaryUiColour = "#F0ECEB"; // light grey used for title bar
+    private static String tertiaryUiColour = "#6C7476"; // dark grey used for command box bg
+    private static String backgroundColour = "#FFFFFF"; // white used for app background
 
     // default font styles
     private static Font titleTextStyle = Font.font("Montserrat", FontWeight.BOLD,
@@ -123,33 +124,43 @@ public class GuiSettings {
     }
 
     /** Get the primary UI colour of the application. */
-    public static String getPrimaryUIColour() {
-        return primaryUIColour;
+    public static String getPrimaryUiColour() {
+        return primaryUiColour;
     }
 
     /** Set the primary UI colour of the application. */
-    public static void setPrimaryUIColour(String primaryUIColour) {
-        GuiSettings.primaryUIColour = primaryUIColour;
+    public static void setPrimaryUiColour(String primaryUiColour) {
+        GuiSettings.primaryUiColour = primaryUiColour;
     }
 
     /** Get the secondary UI colour of the application. */
-    public static String getSecondaryUIColour() {
-        return secondaryUIColour;
+    public static String getSecondaryUiColour() {
+        return secondaryUiColour;
     }
 
     /** Set the secondary UI colour of the application. */
-    public static void setSecondaryUIColour(String secondaryUIColour) {
-        GuiSettings.secondaryUIColour = secondaryUIColour;
+    public static void setSecondaryUiColour(String secondaryUiColour) {
+        GuiSettings.secondaryUiColour = secondaryUiColour;
     }
 
     /** Get the tertiary UI colour of the application. */
-    public static String getTertiaryUIColour() {
-        return tertiaryUIColour;
+    public static String getTertiaryUiColour() {
+        return tertiaryUiColour;
     }
 
     /** Set the tertiary UI colour of the application. */
-    public static void setTertiaryUIColour(String tertiaryUIColour) {
-        GuiSettings.tertiaryUIColour = tertiaryUIColour;
+    public static void setTertiaryUiColour(String tertiaryUiColour) {
+        GuiSettings.tertiaryUiColour = tertiaryUiColour;
+    }
+
+    /** Get the background colour of the application. */
+    public static String getBackgroundColour() {
+        return backgroundColour;
+    }
+
+    /** Set the background colour of the application. */
+    public static void setBackgroundColour(String backgroundColour) {
+        GuiSettings.backgroundColour = backgroundColour;
     }
 
     /** Get the title text style of the application. */

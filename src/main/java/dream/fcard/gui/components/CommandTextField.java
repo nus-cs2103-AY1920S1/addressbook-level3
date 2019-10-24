@@ -1,3 +1,4 @@
+//@@author nattanyz
 package dream.fcard.gui.components;
 
 import dream.fcard.gui.GuiSettings;
@@ -15,7 +16,7 @@ public class CommandTextField extends TextField implements UiComponent<TextField
 
         // add prompt text
         this.setPromptText("Enter command here...");
-        // todo: find out why prompt text does not work
+        // todo: verify that prompt text works when text field is not in focus
 
         // setup styles of commandTextField
         // todo: fix text field background colour :(
@@ -34,7 +35,6 @@ public class CommandTextField extends TextField implements UiComponent<TextField
                 // todo: temporary haxx, don't know what exceptions yet
             }
         });
-
-        // todo: add some way to modify commandBox's appearance when command fails
     }
+    // todo: add some way to modify commandBox's appearance when command fails
 }

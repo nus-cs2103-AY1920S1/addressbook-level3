@@ -41,12 +41,11 @@ public class MainApp extends Application {
         initLogging(config);
 
         // initialise the State of the application
-        // State state = new State(StorageManager.loadDecks());
+//        State state = new State(StorageManager.loadDecks());
         State state = new State(); // using no argument constructor for now
 
         // initialise UI of application
         ui = new UiManager(state);
-        // todo: check -- return UI instance somewhere?
     }
 
 

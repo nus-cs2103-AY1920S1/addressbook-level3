@@ -2,13 +2,11 @@
 package dream.fcard.gui;
 
 import dream.fcard.gui.components.CommandTextField;
-import dream.fcard.logic.respond.Responder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -99,10 +97,10 @@ public class MainWindow {
 
     private void setupContainerColours() {
         // todo: abstract into UI component setBackgroundColour(String colour) method
-        titleBar.setStyle("-fx-background-color:" + GuiSettings.getSecondaryUIColour() + ";");
+        titleBar.setStyle("-fx-background-color:" + GuiSettings.getSecondaryUiColour() + ";");
 //        commandBoxPlaceholder.setStyle("-fx-background-color:#FFFFFF;");
-        commandBoxPlaceholder.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUIColour() + ";"); // temporary
-        windowContents.setStyle("-fx-background-color:#FFFFFF;"); // todo: define another colour
+        commandBoxPlaceholder.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUiColour() + ";"); // temporary
+        windowContents.setStyle("-fx-background-color:" + GuiSettings.getBackgroundColour() + ";");
     }
 
     private void setupCommandBox() {
