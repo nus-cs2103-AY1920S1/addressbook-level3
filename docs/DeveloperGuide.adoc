@@ -253,7 +253,7 @@ The following describes the sequence of events displayed in the figure above.
 4) The `LoanCommand` mounts the new loan in `LoanSlipUtil` +
 5) The `Storage` component creates and save a new `LoanSlipDocument` in a saved folder +
 6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
-7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process +
+7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
 ****
 ==== Design Considerations
 
