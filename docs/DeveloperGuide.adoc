@@ -312,15 +312,17 @@ This feature allows user to input income or expense statements into the PalPay.
 
 ==== Current Implementation
 
-`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extends the `Transaction` class.
-`Transaction` stores an *amount*, *date* and a set of *categories* which describes the variables a `Transaction` with the `BankAccount` will typically hold.
+`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
+`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
 `Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
-`inTransaction` and `outTransaction` implements `BankAccountOperation`.
+`inTransaction` and `outTransaction` implement `BankAccountOperation`.
 
 ==== Design Considerations
 
 Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
-`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`, this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands. This allows multiple transaction calls within the same method.
+`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
+this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
+This allows multiple transaction calls within the same method.
 
 // end::transaction[]
 

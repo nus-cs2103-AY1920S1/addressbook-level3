@@ -77,7 +77,7 @@ Examples:
 
 === Settling up with a friend: `pay`
 
-Send money to 1 friend +
+To send money to 1 friend +
 Format: `pay $/AMOUNT n/NAME1`
 
 Examples:
@@ -86,7 +86,7 @@ Examples:
 
 === Logging expense: `out`
 
-Adds an expenditure of personal finance +
+To add an expenditure of personal finance to your Bank Account, enter the command: +
 Format: `out $/AMOUNT n/ITEM [c/CATEGORY]`
 
 Examples:
@@ -96,17 +96,18 @@ Examples:
 
 === Logging finance input: `in`
 
-Adds an income of personal finance +
+To add an income of personal finance to your Bank Account, enter the command: +
 Format: `in $/AMOUNT n/ITEM [c/CATEGORY]`
 
 Examples:
+
 * `in $/100 n/errand c/work`
 * `in $/200 n/mom c/family`
 * `in $/120 n/work`
 
 === Setting a budget: `set`
 
-Sets a budget for a particular category till the given deadline +
+To set a budget for a particular category till a certain date, enter the command: +
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
 ****
@@ -116,12 +117,13 @@ Format: `set $/AMOUNT d/DATE c/CATEGORY`
 ****
 
 Examples:
+
 * `set $/100 c/shopping`
 * `set $/50 c/food`
 
 === Displaying view: `view`
 
-Shows all possible views (spending, projection and loan). +
+To show all possible views (spending, projection and loan), enter the command: +
 Format: `view KEYWORD [TIMEFRAME]`
 
 ****
@@ -141,7 +143,7 @@ Examples:
 // tag::delete[]
 === Deleting Finance: `delete`
 
-Deletes the specified income or expenditure from the finance manager. +
+To delete the specified income or expenditure from your Bank Account, enter the command: +
 Format: `delete INDEX`
 
 ****
@@ -158,7 +160,7 @@ Examples:
 
 === Updating Finance: `update`
 
-Updates the specified income or expenditure from the finance manager. +
+To update any specific income or expenditure from the Bank Account, enter the command: +
 Format: `update --TYPE $/AMOUNT1 $/AMOUNT2 n/ITEM [c/CATEGORY]`
 
 ****
@@ -177,7 +179,7 @@ Examples:
 
 === Filtering based on categories: `filter`
 
-Shows all relevant transactions with given `CATEGORY` +
+To show all relevant transactions with given `CATEGORY` on the screen, enter the command: +
 Format: `filter CATEGORY`
 
 ****
@@ -191,7 +193,7 @@ Examples:
 
 === Projecting balance based on transactions: `project`
 
-Projects future balace based on past In or Out transactions +
+To project your future balance based on past `InTransaction` or `OutTransactions`, enter the command: +
 Format: `project d/DATE`
 
 ****
@@ -202,6 +204,7 @@ Examples:
 
 * `project d/10012019`
 
+//TODO: command explanation talk to the user "to do....., do ...."
 === Redoing the past entry : `redo`
 
 Redoes the latest entry +
