@@ -23,6 +23,34 @@ Class Image
 Class UniqueNoteList
 }
 
+Package Question {
+Class Question
+Class QuestionBody
+Class Answer
+Class Difficulty
+Class Subject
+Class UniqueQuestionList
+}
+
+Package Quiz {
+Class QuizQuestionList
+Class QuizResult
+Class QuizResultList
+QuizQuestionList -[hidden]left- QuizResultList
+}
+
+Package Task {
+Class Task
+Class Heading
+Class TaskList
+}
+
+Note -[hidden]left- Question
+Question -[hidden]left- Quiz
+'Quiz -[hidden]left- Question
+Quiz -[hidden]left- Task
+'Question -[hidden]left- Task
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
@@ -34,11 +62,29 @@ ModelManager o--> "1" AppData
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AppData *--> "1" UniqueNoteList
+AppData *---> "1" UniqueNoteList
 UniqueNoteList o--> "*" Note
 Note *--> Title
 Note *--> Content
 Note *-->"0..1" Image
 
-ModelManager -->"1" Note : filtered list
+AppData *---> "1" UniqueQuestionList
+UniqueQuestionList o--> "*" Question
+Question *--> QuestionBody
+Question *--> Answer
+Question *--> Difficulty
+Question *--> Subject
+
+AppData *---> "1" QuizQuestionList
+AppData *---> "1" QuizResultList
+QuizQuestionList o--> "*" Question
+QuizResultList o--> "*" QuizResult
+
+
+AppData *---> "1" TaskList
+TaskList o-->  "*" Task
+Task *-down-> Heading
+
+}
+
 @enduml

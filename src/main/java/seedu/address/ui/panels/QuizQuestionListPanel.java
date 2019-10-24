@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.panels;
 
 import java.util.logging.Logger;
 
@@ -13,7 +13,7 @@ import seedu.address.model.question.Question;
 /**
  * Panel containing the list of quiz questions.
  */
-public class QuizQuestionListPanel extends UiPart<Region> {
+public class QuizQuestionListPanel extends PanelComponent<Region> {
     private static final String FXML = "QuizQuestionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(QuizQuestionListPanel.class);
 
