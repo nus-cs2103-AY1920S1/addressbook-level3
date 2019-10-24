@@ -77,7 +77,7 @@ public class AutoCompleteTextField extends TextField {
                         .filter(e -> e.toLowerCase().contains(finalStringToCompare.toLowerCase()))
                         .sorted((e1, e2) -> compareEntries(e1, e2, finalStringToCompare))
                         .collect(Collectors.toList());
-                if (!filteredEntries.isEmpty()) {
+                if (!filteredEntries.isEmpty() && !filteredEntries.contains(finalStringToCompare)) {
                     populatePopup(filteredEntries, stringToCompare);
                     refreshDropdown();
                 } else {
