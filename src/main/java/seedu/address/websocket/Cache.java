@@ -136,17 +136,6 @@ public class Cache {
         return response;
     }
 
-    /**
-     * Save json to file in resources
-     * @param path file name to load from
-     */
-    private static void saveFullPathJsonArray(String path, JSONArray jsonObject) {
-        try (FileWriter file = new FileWriter(path)) {
-            file.write(jsonObject.toJSONString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Load json from file in cache folder
@@ -290,14 +279,14 @@ public class Cache {
      * @return an Optional containing a Module object or empty.
      */
     public static JSONArray loadVenues() {
-        JSONArray venues = (JSONArray) loadFullPath(CacheFileNames.VENUES_FULL_PATH);
+        JSONArray venues = (JSONArray) load(CacheFileNames.VENUES_FULL_PATH).get();
 
         if (venues != null) {
             return venues;
         } else {
             logger.info("Module not found in cache, getting from API...");
             venues = api.getVenues("/1").orElse(new JSONArray());
-            saveFullPathJsonArray(CacheFileNames.VENUES_FULL_PATH, venues);
+            save(venues, CacheFileNames.VENUES_FULL_PATH);
         }
 
         return venues;
