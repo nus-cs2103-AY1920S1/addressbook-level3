@@ -301,6 +301,7 @@ The following sequence diagram shows how the deadline command works:
 
 image::ReimbursementTabDeadlineCommandSequenceDiagram.png[]
 
+
 As shown, when a user wants to add a deadline to a reimbursement by specifying
 the person's name. The `DeadlineCommandParser` gets the person from `PersonModel` based on
 person's name and creates a `DeadlineCommand` with person and deadline information.
