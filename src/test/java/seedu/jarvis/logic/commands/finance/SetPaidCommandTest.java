@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
@@ -62,7 +63,7 @@ public class SetPaidCommandTest {
     }
 
     @Test
-    public void execute_purchaseAcceptedByModel_addSuccessful() {
+    public void execute_purchaseAcceptedByModel_addSuccessful() throws CommandException {
         ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
         Purchase validPurchase = new PurchaseBuilder().build();
 
@@ -70,6 +71,16 @@ public class SetPaidCommandTest {
 
         assertEquals(String.format(SetPaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
+    }
+
+    @Test
+    public void execute_purchaseAlreadyExists_throwsCommandException() {
+        ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
+        modelStub.addPurchase(new PurchaseStub());
+
+        SetPaidCommand setPaidCommand = new SetPaidCommand(new PurchaseStub());
+
+        assertThrows(CommandException.class, () -> setPaidCommand.execute(modelStub));
     }
 
     /**
@@ -143,6 +154,12 @@ public class SetPaidCommandTest {
         public void addPurchase(Purchase purchase) {
             requireNonNull(purchase);
             purchasesAdded.add(purchase);
+        }
+
+        @Override
+        public boolean hasPurchase(Purchase purchase) {
+            requireNonNull(purchase);
+            return purchasesAdded.contains(purchase);
         }
 
         @Override

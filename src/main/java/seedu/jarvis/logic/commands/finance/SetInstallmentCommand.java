@@ -26,6 +26,7 @@ public class SetInstallmentCommand extends Command {
             + PREFIX_MONEY + "13.50 ";
 
     public static final String MESSAGE_SUCCESS = "New installment added: %1$s";
+    public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This purchase already exists in the finance tracker";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Installment: %1$s";
     public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment already deleted: %1$s";
@@ -71,8 +72,13 @@ public class SetInstallmentCommand extends Command {
      * @return {@code CommandResult} that purchase was added successfully.
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasInstallment(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_INSTALLMENT);
+        }
+
         model.addInstallment(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
