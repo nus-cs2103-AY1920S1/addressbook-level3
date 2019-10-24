@@ -123,7 +123,7 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Planner data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -309,6 +309,27 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Timetable
+
+==== Current Implementation
+
+Internally, Timetable is a TreeSet of ActivityWithTime. This allows fast access of ActivityWithTime stored in Timetable as well as giving Timetable the flexibility to accept Activities that start and end at any time instead of fixed intervals (e.g. 30 minute intervals).
+
+To be precise, comparison between ActivityWithTime in the TreeSet is done by comparing their start times. To prevent overlapping activities, checks will be conducted before the adding. The start time of an ActivityWithTime that is added will not be before the end time of its floor neighbour and it's end time will not be after the start time of its ceiling neighbour.
+
+==== Design considerations
+* Alternative 1: an Array of time slots that stores Activity
+
+** Pros: Simple and intuitive to implement. UI for itinerary is easier to implement too. Very fast access to each Activity in the Timetable.
+
+** Cons: Constrained to fixed intervals. Hence, Activity start times and end times have to be in multiples of the fixed interval.
+
+* Alternative 2(current choice): a TreeSet of ActivityWithTime
+
+** Pros: Allows flexible start times and end times. Fast access to Activity in Timetable. Does not allow ActivityWithTime objects to have the same start times.
+
+** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same.
 
 == Documentation
 
