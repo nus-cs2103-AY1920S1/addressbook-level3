@@ -430,6 +430,18 @@ up of the application and can make the application feel laggy and unresponsive a
 ** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
 
+=== Book Finding
+The command for finding a book in the catalog is as follows: +
+`find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] } [NUMBER]`
+
+ModelManager contains a `FilteredList` of `Books` (`filteredBooks`), which is used to display books on the LiBerry GUI. Book finding works by
+starting converting the command string in to a `BookPredicate` object, then updating `filteredBooks` with that predicate.
+
+The parsing of the `BookPredicate` object is done with the help of the `ArgumentTokenizer` object to generate an
+`ArgumentMultimap`, which is internally a HashMap of predicate values paired to prefix keys. The `FindCommandParser`
+then extracts all the values from the `ArgumentMultimap` prefix by prefix and building the predicate through functions
+such as `setTitle()`, `setGenres()` etc.
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
