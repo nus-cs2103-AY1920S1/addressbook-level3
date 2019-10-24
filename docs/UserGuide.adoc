@@ -147,16 +147,14 @@ Deletes the specified person from TimeBook. +
 Format: `delete-person -n NAME`
 
 ****
+* Removes the person from all the groups they are in
 * Deletes the person specified by 'NAME'
-* Deletes all mappings of this person in groups.
 ****
 
 Examples:
 
-* `delete-person -n Benedict` +
-Deletes the 2nd person in TimeBook.
 * `deleteperson -n Benedict` +
-Deletes the 'Benedict' in the timebook.
+Deletes the person named `Benedict` from TimeBook.
 
 === Deleting a group : `deletegroup`
 
