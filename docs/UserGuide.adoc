@@ -60,15 +60,15 @@ To add:
 
 . Type `add` followed by the question and answer and press **Enter** to execute it.
 +
-image::AddStep1.png[width="474"]
+image::AddStep1.png[width="600"]
 
 . The result box will display the message: _"New flashCard added: What is the use of checksum ? Answer: To detect "error" Categories: "_
 +
-image::AddStep2.png[width="474"]
+image::AddStep2.png[width="600"]
 
 . And you can check whether the new flashcard has been added to the flashcard list.
 +
-image::AddStep3.png[width="474"]
+image::AddStep3.png[width="600"]
 
 === Edit an existing flashcard: `edit [INDEX] {fields wanted to edit}...`
 
@@ -84,15 +84,15 @@ To edit:
 
 . Type `edit` followed by the index and the content to edit, then press *Enter* to execute it.
 +
-image::EditStep1.png[width="474"]
+image::EditStep1.png[width="600"]
 
 . The result box will display the message: _"Edited FlashCard: What is the use of checksum ? Answer: To detect "error" Categories: [CS2105]"_.
 +
-image::EditStep2.png[width="474"]
+image::EditStep2.png[width="600"]
 
 . And you can check whether the flashcard has been edited on the flashcard list.
 +
-image::EditStep3.png[width="474"]
+image::EditStep3.png[width="600"]
 
 === Delete flashcard: `delete [INDEX]`
 
@@ -106,15 +106,15 @@ To delete:
 . Type `delete` with the corresponding index displayed on the
 flashcard list and press *Enter* to execute it.
 +
-image::DeleteStep1.png[width="474"]
+image::DeleteStep1.png[width="600"]
 
 . The result box will show the message: _"Deleted FlashCard: What is the use of checksum ? Answer: To detect "error" Categories: [CS2105]"_
 +
-image::DeleteStep2.png[width="474"]
+image::DeleteStep2.png[width="600"]
 
 . And you can check the flashcard list that the flashcard has been deleted.
 +
-image::DeleteStep3.png[width="474"]
+image::DeleteStep3.png[width="600"]
 
 === Clear all the flashcard: `clear`
 
@@ -124,12 +124,12 @@ To clear:
 
 . Type `clear' and press *Enter* to execute it.
 +
-image::ClearStep1.png[width="474"]
+image::ClearStep1.png[width="600"]
 
 . The result box will show the message: -"Flash card has been cleared!"_
 And you will see that all lists turn empty.
 +
-image::ClearStep2.png[width="474"]
+image::ClearStep2.png[width="600"]
 
 
 === Search of flashcards: `find`
@@ -145,11 +145,11 @@ To find:
 
 . Type `find` followed by the keywords and press *Enter* to execute it.
 +
-image::FindStep1.png[width="474"]
+image::FindStep1.png[width="600"]
 
 . The result box will show message: _"4  flash cards listed!"_ and the flashcard list will show the matched flashcards
 +
-image::FindStep2.png[width="474"]
+image::FindStep2.png[width="600"]
 
 ==== Search for flashcard with question matching the keyword(s) only: `findq [keyword(s)]`
 
@@ -160,11 +160,11 @@ to find question:
 
 . Type `findq` follow by the keywords and press *Enter* to execute it.
 +
-image::FindqStep1.png[width="474"]
+image::FindqStep1.png[width="600"]
 
 . The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matched flashcards
 +
-image::FindqStep2.png[width="474"]
+image::FindqStep2.png[width="600"]
 
 ==== Search for flashcard with answer matching the keyword(s) only: `finda [keyword(s)]`
 
@@ -175,11 +175,11 @@ to find answer:
 
 . Type `finda` follow by the keywords and press *Enter* to execute it.
 +
-image::FindaStep1.png[width="474"]
+image::FindaStep1.png[width="600"]
 
 . The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matched flashcards
 +
-image::FindaStep2.png[width="474"].
+image::FindaStep2.png[width="600"].
 
 ==== Search for category/categories : `findcat [keyword(s)]`
 
@@ -190,11 +190,11 @@ to find category:
 
 . Type `findcat` follow by the keywords and press *Enter* to execute it.
 +
-image::FindcatStep1.png[width="474"]
+image::FindcatStep1.png[width="600"]
 
 . The result box will show message: _""_ and the flashcard list will show the matched flashcards
 +
-image::FindcatStep2.png[width="474"].
+image::FindcatStep2.png[width="600"].
 
 
 === List all flashcards: `list`
@@ -205,11 +205,11 @@ To list:
 
 . Type `list` and press *Enter* to execute it.
 +
-image::ListStep1.png[width="474"]
+image::ListStep1.png[width="600"]
 
 . The result box will show message: _"Listed all Flash Cards"_  and the flashcard list will show all the flashcards.
 +
-image::ListStep2.png[width="474"]
+image::ListStep2.png[width="600"]
 
 === Start flashcard test: `start`
 
@@ -331,28 +331,28 @@ There is no need to save manually.
 
 == Command Summary
 
+* Add new flashcard: add [q>QUESTION] [q>ANSWER] [c>CATEGORY]…​ +
+e.g. `add q>1+1 a>2`
+* Edit an existing flashcard - ` edit [INDEX] {fields wanted to edit}…​` +
+e.g.  `edit 2 c>CS2103`
+* Delete an existing flashcard - `delete [INDEX]` +
+e.g.  `delete 10`
+* Clear all the flashcard - `clear` +
+e.g. `clear`
 * Start a certain topic of flashcards - `start [keyword]` +
 e.g.  `start Mathematics`
-* Add a new (empty) category - `cat [name]` +
-e.g.  `cat Math`
-* Add a new flashcard - `add [category]` +
-e.g.  `add Math`
-* Edit an existing flashcard - `edit [category] [ID]` +
-e.g.  `edit Math 10`
-* Delete an existing flashcard - `delete [category] [ID]` +
-e.g.  `delete Math 10`
-* Delete an entire category - `delete [category]` +
-e.g.  `delete Math *`
 * Set user preference for reminders - `remind [category] DD/MM HHmm` +
 e.g.  `remind Math 04/10 1230`
-* List all flashcards under a specific category - `list [category]` +
-e.g.  `list Math`
+* Search of flashcards - `find`
+** find [keyword(s)]
+** findq [keyword(s)]
+** finda [keyword(s)]
+** findcat [keyword(s)]
+* List all flashcards - list
 * Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
 e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
-* Search specific flashcards - `search [keywords]` +
-e.g.  `search UML diagrams`
 * Stop flashcard test - `stop`
 * Exit - `exit`
 * View overall statistics - `stats`
