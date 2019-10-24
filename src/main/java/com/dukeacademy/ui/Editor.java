@@ -8,6 +8,7 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 
 import com.dukeacademy.observable.Observable;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,8 +25,6 @@ import javafx.stage.Stage;
 public class Editor extends UiPart<Region> {
     private static final String FXML = "Editor.fxml";
 
-    private final Observable<Question> currentQuestion;
-
     @FXML
     private Button btnSave;
 
@@ -37,9 +36,8 @@ public class Editor extends UiPart<Region> {
 
     public Editor(Observable<Question> questionObservable) {
         super(FXML);
-        this.currentQuestion = questionObservable;
 
-        this.currentQuestion.addListener(question -> {
+        questionObservable.addListener(question -> {
             if (question != null) {
                 UserProgram savedProgram = question.getUserProgram();
                 this.textOutput.setText(savedProgram.getSourceCode());

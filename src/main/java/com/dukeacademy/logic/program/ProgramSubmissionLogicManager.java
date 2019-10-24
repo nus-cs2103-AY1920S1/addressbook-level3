@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.logic.program.exceptions.EmptyProgramException;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.program.exceptions.NoQuestionSetException;
 import com.dukeacademy.logic.program.exceptions.SubmissionChannelNotSetException;
@@ -23,6 +22,8 @@ import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
 import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 
@@ -110,11 +111,12 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public Optional<TestResult> submitUserProgram(UserProgram userProgram) {
+    public Optional<TestResult> submitUserProgram(UserProgram userProgram) throws IncorrectClassNameException,
+            EmptyUserProgramException {
         this.verifyNotClosed();
 
         if (userProgram.getSourceCode().equals("")) {
-            throw new EmptyProgramException();
+            throw new EmptyUserProgramException();
         }
 
         try {
@@ -136,7 +138,8 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public Optional<TestResult> submitUserProgramFromSubmissionChannel() {
+    public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectClassNameException,
+            EmptyUserProgramException {
         if (this.submissionChannel == null) {
             throw new SubmissionChannelNotSetException();
         }

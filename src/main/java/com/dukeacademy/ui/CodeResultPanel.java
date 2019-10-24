@@ -6,8 +6,8 @@ import com.dukeacademy.model.program.TestCaseResult;
 
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.observable.Observable;
-import javafx.fxml.FXML;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
@@ -19,7 +19,6 @@ import javafx.scene.text.Text;
  */
 public class CodeResultPanel extends UiPart<Region> {
     private static final String FXML = "CodeResultPanel.fxml";
-    private final Observable<TestResult> latestTestResult;
 
     @FXML
     private TitledPane testCasePane1;
@@ -52,8 +51,7 @@ public class CodeResultPanel extends UiPart<Region> {
     public CodeResultPanel(Observable<TestResult> testResultObservable) {
         super(FXML);
 
-        this.latestTestResult = testResultObservable;
-        latestTestResult.addListener(result -> {
+        testResultObservable.addListener(result -> {
             if (result != null) {
                 List<TestCaseResult> testCaseResults = result.getResults();
                 for (int i = 0; i < testCaseResults.size(); i++) {

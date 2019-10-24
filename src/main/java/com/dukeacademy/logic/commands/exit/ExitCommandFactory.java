@@ -6,6 +6,9 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
+/**
+ * Factory class encapsulating the necessary components for the creation of a Exit command instance.
+ */
 public class ExitCommandFactory implements CommandFactory {
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;
@@ -22,7 +25,7 @@ public class ExitCommandFactory implements CommandFactory {
 
     @Override
     public Command getCommand(String commandArguments) throws InvalidCommandArgumentsException {
-        if (!commandArguments.equals("")) {
+        if (!"".equals(commandArguments)) {
             throw new InvalidCommandArgumentsException("Exit command does not take any arguments");
         }
 

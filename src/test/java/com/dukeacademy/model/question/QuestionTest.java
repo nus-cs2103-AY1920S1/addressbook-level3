@@ -71,7 +71,8 @@ public class QuestionTest {
 
     @Test
     void withNewStatus() {
-        Question question = new Question(validTitle, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram);
+        Question question = new Question(validTitle, validStatus, validDifficulty,
+                validTopics, validTestCases, validUserProgram);
         Question newQuestion = question.withNewStatus(Status.PASSED);
         assertEquals(newQuestion.getStatus(), Status.PASSED);
         assertEquals(question, newQuestion);
@@ -80,7 +81,8 @@ public class QuestionTest {
 
     @Test
     void withNewUserProgram() {
-        Question question = new Question(validTitle, validStatus, validDifficulty, validTopics, validTestCases, validUserProgram);
+        Question question = new Question(validTitle, validStatus, validDifficulty,
+                validTopics, validTestCases, validUserProgram);
         UserProgram program = new UserProgram("Test", "Test test test test test");
         Question newQuestion = question.withNewUserProgram(program);
         assertEquals(newQuestion.getUserProgram(), program);

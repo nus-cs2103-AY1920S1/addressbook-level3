@@ -18,7 +18,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import com.dukeacademy.logic.program.exceptions.EmptyProgramException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
@@ -39,6 +38,8 @@ import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.TestListener;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProgramSubmissionLogicManagerTest {
@@ -71,7 +72,7 @@ class ProgramSubmissionLogicManagerTest {
     }
 
     @Test
-    void submitUserProgram() throws IOException {
+    void submitUserProgram() throws IOException, IncorrectClassNameException, EmptyUserProgramException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
 
@@ -130,7 +131,9 @@ class ProgramSubmissionLogicManagerTest {
         mockTestCases.add(mockTestCase);
 
         // Test for compile error
-        UserProgram program2 = new UserProgram("CompileError", "foobar");
+        UserProgram program2 = new UserProgram("CompileError", "public class CompileError {\n"
+                + "int a = \"Not an int\";\n"
+                + "}");
         Question question2 = this.createMockQuestion("CompileError", mockTestCases);
         this.programSubmissionLogicManager.setCurrentQuestion(question2);
         this.programSubmissionLogicManager.submitUserProgram(program2);
@@ -164,7 +167,7 @@ class ProgramSubmissionLogicManagerTest {
                 .setCurrentQuestion(null));
         assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
                 .getCurrentQuestionObservable());
-        assertThrows(SubmissionLogicManagerClosedException.class, ()-> this.programSubmissionLogicManager
+        assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
                 .getTestResultObservable());
         assertThrows(SubmissionLogicManagerClosedException.class, () -> this.programSubmissionLogicManager
                 .submitUserProgram(null));
@@ -246,7 +249,8 @@ class ProgramSubmissionLogicManagerTest {
 
     /**
      * Creates a mock question for testing.
-     * @param title the name of the question.
+     *
+     * @param title     the name of the question.
      * @param testCases the test cases of the question.
      * @return the created question.
      */
@@ -255,11 +259,13 @@ class ProgramSubmissionLogicManagerTest {
         Difficulty difficulty = Difficulty.HARD;
         Set<Topic> topics = new HashSet<>();
 
-        return new Question(title, status, difficulty, topics, testCases, new UserProgram("Main", ""));
+        return new Question(title, status, difficulty, topics, testCases,
+                new UserProgram("Main", ""));
     }
 
     @Test
-    void setAndSubmitUserProgramSubmissionChannelAndGetProgram() throws IOException {
+    void setAndSubmitUserProgramSubmissionChannelAndGetProgram() throws IOException, IncorrectClassNameException,
+            EmptyUserProgramException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
         FibMockUserProgramChannel channel = new FibMockUserProgramChannel();
@@ -294,7 +300,8 @@ class ProgramSubmissionLogicManagerTest {
     @Test
     void testSubmitEmptyProgram() {
         UserProgram emptyProgram = new UserProgram("Main", "");
-        assertThrows(EmptyProgramException.class, () -> this.programSubmissionLogicManager.submitUserProgram(emptyProgram));
+        assertThrows(EmptyUserProgramException.class, () -> this.programSubmissionLogicManager
+                .submitUserProgram(emptyProgram));
     }
 
     @Test

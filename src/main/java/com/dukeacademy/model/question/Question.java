@@ -63,6 +63,7 @@ public class Question {
         this.testCases.addAll(testCases);
         this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
     }
+
     public String getTitle() {
         return this.title;
     }
@@ -90,6 +91,7 @@ public class Question {
     /**
      * Creates a new instance of the same question with a new status. This new instance has the same uuid as the
      * previous instance.
+     *
      * @param status the status to be updated to.
      * @return a new instance of the question.
      */
@@ -101,6 +103,7 @@ public class Question {
     /**
      * Creates a new instance of the same question with a new user program. This new instance has the same uuid as the
      * previous instance.
+     *
      * @param userProgram the user program to be updated to.
      * @return a new instance of the question.
      */
@@ -124,6 +127,7 @@ public class Question {
 
     /**
      * Checks if the given string is a valid title for a question. Titles must be alphanumeric.
+     *
      * @param title the string to be checked.
      * @return true if the string is a valid title.
      */
@@ -131,13 +135,18 @@ public class Question {
         return title.matches(TITLE_VALIDATION_REGEX);
     }
 
+    /**
+     * Checks if the contents of the questions are equal. The UUID of each question is disregarded.
+     * @param other the other question to be checked against.
+     * @return true if the contents are equal.
+     */
     public boolean checkContentsEqual(Question other) {
-            return other.getTitle().equals(this.title)
-                    && other.getStatus().equals(this.status)
-                    && other.getDifficulty().equals(this.difficulty)
-                    && other.getTopics().equals(this.topics)
-                    && other.getTestCases().equals(this.testCases)
-                    && other.getUserProgram().equals(this.userProgram);
+        return other.getTitle().equals(this.title)
+                && other.getStatus().equals(this.status)
+                && other.getDifficulty().equals(this.difficulty)
+                && other.getTopics().equals(this.topics)
+                && other.getTestCases().equals(this.testCases)
+                && other.getUserProgram().equals(this.userProgram);
     }
 
     @Override

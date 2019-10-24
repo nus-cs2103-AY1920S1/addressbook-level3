@@ -1,5 +1,7 @@
 package com.dukeacademy.logic.commands.submit;
 
+import java.util.Optional;
+
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
@@ -9,9 +11,13 @@ import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 
-import java.util.Optional;
-
+/**
+ * Submit command that submits the user's current work from the registered UserProgram channel of the
+ * ProgramSubmissionLogic.
+ */
 public class SubmitCommand implements Command {
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;
@@ -30,17 +36,20 @@ public class SubmitCommand implements Command {
             throw new CommandException("You have not attempted a question yet.");
         }
 
-        if (userProgram.getSourceCode().equals("")) {
-            throw new CommandException("You cannot submit an empty program.");
-        }
-
         // Save the user's program first
         Question question = currentlyAttemptingQuestion.get();
         Question questionWithNewProgram = question.withNewUserProgram(userProgram);
         this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
 
         // Submit the user's program
-        Optional<TestResult> resultsOptional = this.programSubmissionLogic.submitUserProgram(userProgram);
+        Optional<TestResult> resultsOptional;
+        try {
+            resultsOptional = this.programSubmissionLogic.submitUserProgram(userProgram);
+        } catch (IncorrectClassNameException e) {
+            return new CommandResult("Main class needed as entry point.", false, false);
+        } catch (EmptyUserProgramException e) {
+            return new CommandResult("Program must not be empty.", false, false);
+        }
 
         if (resultsOptional.isEmpty()) {
             throw new CommandException("Tests failed unexpectedly. Please report this bug at "

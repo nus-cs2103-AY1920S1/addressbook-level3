@@ -2,7 +2,6 @@ package com.dukeacademy.model.program;
 
 import java.util.Optional;
 
-import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.testexecutor.models.RuntimeError;
 
 /**

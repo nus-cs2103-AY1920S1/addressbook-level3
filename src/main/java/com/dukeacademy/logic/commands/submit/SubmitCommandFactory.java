@@ -6,6 +6,9 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
+/**
+ * Class to represent the necessary components for the creation of a Submit command.
+ */
 public class SubmitCommandFactory implements CommandFactory {
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;
@@ -23,6 +26,10 @@ public class SubmitCommandFactory implements CommandFactory {
 
     @Override
     public Command getCommand(String commandArguments) throws InvalidCommandArgumentsException {
+        if (!"".equals(commandArguments)) {
+            throw new InvalidCommandArgumentsException("Exit command does not take any arguments");
+        }
+
         return new SubmitCommand(this.questionsLogic, this.programSubmissionLogic);
     }
 }

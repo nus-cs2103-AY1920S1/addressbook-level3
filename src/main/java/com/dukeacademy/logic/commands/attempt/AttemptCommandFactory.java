@@ -6,6 +6,9 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
+/**
+ * Factory class to represent all the necessary components for creating an AttemptCommand instance.
+ */
 public class AttemptCommandFactory implements CommandFactory {
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;

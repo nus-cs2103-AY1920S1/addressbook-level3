@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 
 /**
  * Represents a Java file in the application. The canonical name refers to the name of the class you would
- * use in an import statement. This is needed to execute packaged classes from the root classpath.
+ * use in an import statement e.g. DukeAcademy.model.program.JavaFile. This is needed to execute packaged classes
+ * from the root classpath.
  */
 public class JavaFile {
     private String canonicalName;

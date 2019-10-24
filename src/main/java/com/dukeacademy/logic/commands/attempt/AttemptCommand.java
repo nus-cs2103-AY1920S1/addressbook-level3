@@ -8,6 +8,10 @@ import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
 
+/**
+ * Command for attempting a question. This command loads the selected question into the registered
+ * ProgramSubmissionLogic instance.
+ */
 public class AttemptCommand implements Command {
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;

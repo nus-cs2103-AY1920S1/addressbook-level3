@@ -1,11 +1,13 @@
 package com.dukeacademy.logic.program;
 
+import java.util.Optional;
+
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.observable.Observable;
-
-import java.util.Optional;
+import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 
 /**
  * Logic interface to handle the submission and evaluation of user program submissions.
@@ -44,7 +46,8 @@ public interface ProgramSubmissionLogic {
      * @param userProgram The user program to be submitted.
      * @return a test result if the program was successfully tested.
      */
-    public Optional<TestResult> submitUserProgram(UserProgram userProgram);
+    public Optional<TestResult> submitUserProgram(UserProgram userProgram) throws IncorrectClassNameException,
+            EmptyUserProgramException;
 
     /**
      * Sets a channel which allows the logic instance to retrieve user programs for submission.
@@ -57,7 +60,8 @@ public interface ProgramSubmissionLogic {
      * by the logic instance.
      * @return a test result if the program was successfully tested.
      */
-    public Optional<TestResult> submitUserProgramFromSubmissionChannel();
+    public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectClassNameException,
+            EmptyUserProgramException;
 
     /**
      * Returns the user program retrieved from the submission channel.

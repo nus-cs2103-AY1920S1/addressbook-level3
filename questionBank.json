@@ -14,7 +14,7 @@
       }],
     "userProgram" : {
       "className": "Adder",
-      "sourceCode": "public class Adder { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Valid Sudoku",
@@ -31,7 +31,7 @@
       }],
     "userProgram" : {
       "className": "Sudoku",
-      "sourceCode": "public class Sudoku { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Palindrome Number",
@@ -48,7 +48,7 @@
       }],
     "userProgram" : {
       "className": "Palindrome",
-      "sourceCode": "public class Palindrome { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Swap nodes in pairs",
@@ -65,7 +65,7 @@
       }],
     "userProgram" : {
       "className": "NodePairs",
-      "sourceCode": ""
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
     "title" : "Merge k Sorted Lists",
@@ -82,7 +82,7 @@
       }],
     "userProgram" : {
       "className": "Merge",
-      "sourceCode": "public class Merge { public static void main(String[] args) { } }"
+      "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }]
 }

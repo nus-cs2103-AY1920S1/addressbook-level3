@@ -1,5 +1,8 @@
 package com.dukeacademy.logic.commands.exit;
 
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
@@ -8,9 +11,9 @@ import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 
-import java.util.Optional;
-import java.util.logging.Logger;
-
+/**
+ * Exit command used to exit the application. Any unsaved work is automatically saved before the application is exited.
+ */
 public class ExitCommand implements Command {
     private final Logger logger;
     private final ProgramSubmissionLogic programSubmissionLogic;
