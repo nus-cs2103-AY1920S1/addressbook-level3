@@ -379,6 +379,18 @@ Hard to do when we are applying stackable search/sort commands.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Search
+
+This feature allows users to filter out specific items either by name or by tag(s) through providing the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel. For search by name, partial words can be matched. For search by tag, only exact words will be matched.
+
+This implementation is under `Logic` and `Model` components.
+
+==== Implementation
+
+Below is the UML sequence diagram of an example usage scenario.
+
+image::SearchCommandSequenceDiagram.png[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -480,7 +492,33 @@ Refer to the guide <<Testing#, here>>.
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+=== Build Automation
+
+We use Gradle for build automation. See <<UsingGradle#, here>> for more details.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our project. See <<UsingTravis#, here>> for more details.
+
+=== Documentation Previews
+
+We use https://www.netlify.com/[Netlify] to preview the HTML pages of any modified asciidocs files when reviewing pull requests. See <<UsingNetlify#, here>> for more details.
+
+=== Making a Release
+
+Follow the steps below to make a new release:
+
+.  Update the version number in link:{repoURL}/src/main/java/io/xpire/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v1.4`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you have created.
+
+=== Managing Dependencies
+
+Xpire often depends on third-party libraries. For instance, the https://github.com/FasterXML/jackson[Jackson library] is being used for JSON parsing in Xpire. Below are 2 ways to manage these _dependencies_:
+
+* Use Gradle to manage and automatically download dependencies (Recommended).
+* Manually download and include those libraries in the repo (this requires extra work and bloats the repo size).
 
 [appendix]
 == Product Scope
