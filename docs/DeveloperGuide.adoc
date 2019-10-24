@@ -320,6 +320,54 @@ Figure 14. Sequence diagram while user attempt to remove a reminder
 [NOTE]
 The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
 
+=== Import Feature
+==== Implementation
+The Import feature allows our users to import data from a comma-separated values (`.csv`) files.
+It allows users who would like to add their spending in bulk.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the
+`execute("import p/validSpending.csv")`
+
+.Interactions Inside the Logic Component for the `import` Command
+image::import/importSequenceDiagram.png[]
+
+//When a user gives an `import` command, the application will start processing the request by calling the `LogicManager`.
+//It will then call the `SpendingBookParser`, which parses the command string.
+//It then creates and calls the respective command parser, which in this case is `ImportCommandParser`.
+//This parser will then strip the attributes given in the command string into a key-value map with the prefix, `p/` as the key and `validSpending.csv` as the value.
+
+The Import Feature has one main component, which is the `ImportCommand.java` file. This file contains the main logic behind the feature.
+The `ImportCommand#readSpendingFromCsv()` method utilises the `FasterXML/jackson` library to read in `.csv` files and convert it into maps of objects.
+The maps will then be processed and parsed into `Spending` objects which will be added into a `Spending` list.
+Those maps that do not pass the parse conditions will then be thrown as an exception and its message will be saved inside an error list.
+After all the maps are processed, the application will then go through the valid spending list and save them by calling the `Model#addSpending()` method.
+Following that, the application will then prints an output, showing the result of the command execution.
+
+The following activity diagram summarizes what happens when a user executes an import command:
+
+.Import Feature Activity Diagram
+image::import/importActivityDiagram.png[]
+
+When a user calls the `import` command and inputs a valid `.csv` file, the application will read and parses all the data inside the file and save them to the `SpendingBookList` and `moneygowhere.json`.
+
+==== CSV File Format and Constraints
+In order for data to be imported into MoneyGoWhere, it must be in a properly formatted CSV file.
+There should be 5 columns specified for `Name`, `Cost`, `Date`, `Tag` and `Remark`
+
+Header Constraints
+
+* The first row is considered a column header and is required.
+
+Cell Formatting
+
+* There should not be any leading and trailing spaces in a cell.
+* To specify a comma within a cell, the value of the cell should be inside double quotes. Eg:
+** "yummy, juicy"
+** "fresh, clean"
+* To specify double quotes within a cell, in addition to start and end double quotes, escape the double quote with another double quote. Eg:
+** """yummy"", ""juicy"""
+** """fresh"", ""clean"""
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
