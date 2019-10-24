@@ -2,12 +2,12 @@
 package dream.fcard.gui;
 
 import dream.fcard.gui.components.CommandTextField;
-import dream.fcard.model.Deck;
+import dream.fcard.gui.components.TitleBar;
 import dream.fcard.model.State;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -23,14 +23,12 @@ public class MainWindow {
 
     // containers
     private VBox window;
-    private VBox titleBar;
+    private TitleBar titleBar;
     private GridPane windowContents;
     private VBox commandBoxPlaceholder;
 
     // ui components
     private Text title;
-    private CommandTextField commandTextField;
-    ListView<Deck> deckDisplay;
 
     public MainWindow() {
         // temporary no-arg constructor
@@ -39,6 +37,7 @@ public class MainWindow {
     public MainWindow(Stage primaryStage, State state) {
         // todo: refactor linkages between MainWindow, Gui and UiManager
         this.primaryStage = primaryStage;
+        this.state = state;
         this.gui = new Gui(this, state);
         onStartup();
         testUiComponents();
@@ -54,8 +53,8 @@ public class MainWindow {
         setupContainerColours();
 
         // set up initial UI components
-        setupCommandBox();
-        setTitle("Welcome!");
+        setupCommandTextField();
+        titleBar.setTitle("Welcome!");
 
         // add UI components to scene
         setupScene();
@@ -66,45 +65,42 @@ public class MainWindow {
 
     // temporary method for testing display of various UI components
     private void testUiComponents() {
-        this.gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-//            + "Pellentesque eu placerat urna, eu tincidunt magna.");
+        Gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+//        Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
     }
 
     private void initializeStage() {
-        primaryStage.setTitle("FlashCard Pro");
+        primaryStage.setTitle("FlashCard Pro"); // set title of application window
         primaryStage.setMinHeight(GuiSettings.getMinHeight());
         primaryStage.setMinWidth(GuiSettings.getMinWidth());
     }
 
     private void initializeContainers() {
         window = new VBox();
-        titleBar = new VBox(GuiSettings.getSpacing());
+        titleBar = new TitleBar();
         windowContents = new GridPane();
-        commandBoxPlaceholder = new VBox (GuiSettings.getSpacing());
+        commandBoxPlaceholder = new VBox();
     }
 
     private void setupContainerSizes() {
-        titleBar.setPrefHeight(Region.USE_COMPUTED_SIZE);
         commandBoxPlaceholder.setPrefHeight(Region.USE_COMPUTED_SIZE);
         VBox.setVgrow(windowContents, Priority.ALWAYS);
     }
 
     private void setupContainerPadding() {
-        titleBar.setPadding(new Insets(GuiSettings.getPadding()));
-        windowContents.setPadding(new Insets(GuiSettings.getPadding())); // vertical spacing between elements
+        windowContents.setPadding(new Insets(GuiSettings.getPadding()));
         commandBoxPlaceholder.setPadding(new Insets(GuiSettings.getPadding()));
     }
 
     private void setupContainerColours() {
         // todo: abstract into UI component setBackgroundColour(String colour) method
-        titleBar.setStyle("-fx-background-color:" + GuiSettings.getSecondaryUiColour() + ";");
 //        commandBoxPlaceholder.setStyle("-fx-background-color:#FFFFFF;");
         commandBoxPlaceholder.setStyle("-fx-background-color:" + GuiSettings.getTertiaryUiColour() + ";"); // temporary
         windowContents.setStyle("-fx-background-color:" + GuiSettings.getBackgroundColour() + ";");
     }
 
-    private void setupCommandBox() {
-        commandTextField = new CommandTextField(state);
+    private void setupCommandTextField() {
+        CommandTextField commandTextField = new CommandTextField(state);
         commandBoxPlaceholder.getChildren().add(commandTextField);
     }
 
@@ -119,21 +115,6 @@ public class MainWindow {
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    void setTitle(String titleText) {
-        // create label with appropriate text
-        title = new Text(titleText);
-
-        // style label
-        title.setFont(GuiSettings.getTitleTextStyle());
-        title.setFill(Color.web(GuiSettings.getPrimaryTextColour()));
-
-        // remove any existing title in titleBar
-        titleBar.getChildren().clear();
-
-        // add label to titleBar
-        titleBar.getChildren().add(title);
     }
 
     GridPane getWindowContents() {

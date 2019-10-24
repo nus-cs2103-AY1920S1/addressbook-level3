@@ -75,13 +75,14 @@ public class Gui {
         GridPane.setConstraints(node, 0,0);
 
         // remove anything currently in the display area
-        windowContents.getChildren().clear();
+        //windowContents.getChildren().clear();
 
         // show the Node in the display area
         windowContents.getChildren().add(node);
     }
 
     static void setTitle(String title) {
-        getMainWindow().setTitle(title);
+        // todo: refactor
+        //getMainWindow().setTitle(title);
     }
 }

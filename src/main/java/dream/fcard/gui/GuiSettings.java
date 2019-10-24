@@ -34,6 +34,7 @@ public class GuiSettings {
     private static String backgroundColour = "#FFFFFF"; // white used for app background
 
     // default font styles
+    // todo: embed fonts in JAR file
     private static Font titleTextStyle = Font.font("Montserrat", FontWeight.BOLD,
         FontPosture.ITALIC, 36);
     private static Font flashCardTextStyle = Font.font("Montserrat", FontWeight.NORMAL,
