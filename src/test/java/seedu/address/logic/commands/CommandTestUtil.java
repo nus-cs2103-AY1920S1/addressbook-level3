@@ -225,7 +225,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
+        final String[] splitName = person.getName().toString().split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
@@ -239,7 +239,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredBodyList().size());
         IdentificationNumber id = IdentificationNumber.customGenerateId("B", targetIndex.getOneBased());
         Body body = (Body) id.getMapping();
-        final String[] splitName = body.getName().fullName.split("\\s+");
+        final String[] splitName = body.getName().toString().split("\\s+");
         model.updateFilteredBodyList(new BodyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredBodyList().size());
