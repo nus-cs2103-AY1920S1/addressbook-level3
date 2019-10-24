@@ -25,9 +25,11 @@ import seedu.address.inventory.model.Item;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    public static final String VALID_DESCRIPTION_FISH_BURGER = "burger";
-    public static final String VALID_DESCRIPTION_STORYBOOK = "the tale";
+    public static final String VALID_DESCRIPTION_FISH_BURGER = "Burger";
+    public static final String VALID_DESCRIPTION_STORYBOOK = "The tale";
+    public static final String VALID_DESCRIPTION_BLACK_SHIRT = "CCA shirt";
     public static final String VALID_CATEGORY = "food";
     public static final String VALID_QUANTITY = "20";
     public static final String VALID_COST = "3.25";
@@ -35,7 +37,7 @@ public class CommandTestUtil {
 
     public static final String DESC_DESCRIPTION_FISH_BURGER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FISH_BURGER;
     public static final String DESC_DESCRIPTION_STORYBOOK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_STORYBOOK;
-    //public static final String DESC_NAME_AMY = " " + PREFIX_PERSON + VALID_NAME_AMY;
+    public static final String DESC_DESCRIPTION_BLACK_SHIRT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BLACK_SHIRT;
     public static final String DESC_CATEGORY = " " + PREFIX_CATEGORY + VALID_CATEGORY;
     public static final String DESC_QUANTITY = " " + PREFIX_QUANTITY + VALID_QUANTITY;
     public static final String DESC_COST = " " + PREFIX_COST + VALID_COST;

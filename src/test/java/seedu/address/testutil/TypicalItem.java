@@ -11,10 +11,11 @@ import seedu.address.inventory.model.Item;
  */
 public class TypicalItem {
     public static final Item FISH_BURGER = new ItemBuilder()
+            .withDescription("Burger")
             .withId("1")
             .withPrice(3.25)
             .withCost(5.23)
-            .withQuantity(3)
+            .withQuantity(85)
             .build();
 
     public static final Item STORYBOOK = new ItemBuilder()
@@ -23,7 +24,7 @@ public class TypicalItem {
             .withId("2")
             .withPrice(2.25)
             .withCost(4.23)
-            .withQuantity(6)
+            .withQuantity(73)
             .build();
 
     // not meant to be added to list
