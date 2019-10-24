@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.ui;
 
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -9,6 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.model.show.Show;
 
+/**
+ * A ui for the search panel that is displayed at the side of the application.
+ */
 public class SearchPanel extends UiPart<Region> {
     private static final String FXML = "SearchPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(SearchPanel.class);

@@ -2,9 +2,8 @@ package seedu.ezwatchlist.model.show;
 
 import java.util.*;
 
-import javafx.scene.image.Image;
-import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
+import seedu.ezwatchlist.model.actor.Actor;
 
 /**
  * Represents a Show in the watchlist.
@@ -12,7 +11,7 @@ import seedu.ezwatchlist.commons.util.CollectionUtil;
  */
 public class Show {
 
-    public String type;
+    private String type;
 
     //identity fields
     private final Name name;
@@ -47,6 +46,10 @@ public class Show {
 
     public Name getName() {
         return name;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getType() {
@@ -100,6 +103,11 @@ public class Show {
         }
     }
 
+    /**
+     * Checks if two shows have the same name.
+     * @param otherShow other show to be checked.
+     * @return boolean whether the 2 shows are the same.
+     */
     public boolean isSameName(Show otherShow) {
         if (otherShow == this) {
             return true;

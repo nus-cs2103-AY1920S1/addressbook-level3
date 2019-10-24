@@ -2,15 +2,14 @@ package seedu.ezwatchlist.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.UniqueShowList;
 
 /**
  * Wraps all data at the address-book level

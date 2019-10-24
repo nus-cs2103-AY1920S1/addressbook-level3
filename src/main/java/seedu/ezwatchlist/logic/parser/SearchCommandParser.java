@@ -1,15 +1,18 @@
 package seedu.ezwatchlist.logic.parser;
 
-import java.util.*;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_INTERNAL;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.commons.core.Messages;
-
-import seedu.ezwatchlist.model.show.*;
-import seedu.ezwatchlist.model.actor.Actor;
-
-import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
@@ -29,7 +32,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      */
     public SearchCommand parse(String args) {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TYPE, PREFIX_IS_WATCHED, PREFIX_ACTOR, PREFIX_IS_INTERNAL);
+                ArgumentTokenizer.tokenize(
+                        args, PREFIX_NAME, PREFIX_TYPE, PREFIX_IS_WATCHED, PREFIX_ACTOR, PREFIX_IS_INTERNAL);
 
         List<String> nameList = argMultimap.getAllValues(PREFIX_NAME); // allow multiple values // allow 1 for now
         Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE); // at most one value
@@ -55,6 +59,9 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         if (typeOptional.isPresent()) {
             String type = typeOptional.get().trim().toLowerCase();
             listOfType.add(type);
+        } else {
+            listOfType.add("movie");
+            listOfType.add("tv");
         }
         searchShowsHashMap.put(KEY_TYPE, listOfType);
     }
@@ -80,5 +87,4 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
         searchShowsHashMap.put(KEY_IS_INTERNAL, listOfIsInternal);
     }
-
 }

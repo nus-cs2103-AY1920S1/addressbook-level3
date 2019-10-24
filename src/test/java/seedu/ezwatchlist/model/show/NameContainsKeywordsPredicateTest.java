@@ -1,15 +1,15 @@
 package seedu.ezwatchlist.model.show;
 
-import org.junit.jupiter.api.Test;
-import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
-import seedu.ezwatchlist.testutil.ShowBuilder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 

@@ -18,14 +18,15 @@ public class TypicalShows {
                     + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
                     + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
                     + "criminal mastermind known as the Joker."
-    ).withIsWatched(false).withDateOfRelease("3 october 2019").withRunningTime(122).withActors("Joaquin Phoenix").build();
+    ).withIsWatched(false).withDateOfRelease("3 october 2019")
+            .withRunningTime(122).withActors("Joaquin Phoenix").build();
 
     public static final Show AVENGERSENDGAME = new ShowBuilder().withName("Avenger Endgame").withDescription(""
             + "Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply "
             + "starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce "
             + "Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos"
-            + " -- the evil demigod who decimated the planet and the universe.").
-            withIsWatched(false).withDateOfRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
+            + " -- the evil demigod who decimated the planet and the universe.")
+            .withIsWatched(false).withDateOfRelease("24 April 2019").withRunningTime(182).withActors("Chris Hemsworth")
             .build();
 
     /*public static final Show BLACKPANTHER = new ShowBuilder().withName("Black Panther").withDescription("After the"
@@ -48,7 +49,8 @@ public class TypicalShows {
     /*
         // Manually added - Show's details found in {@code CommandTestUtil}
         public static final Show SAVINGPRIVATERYAN = new ShowBuilder().withName("Saving Private Ryan")
-                .withDescription("Captain John Miller (Tom Hanks) takes his men behind enemy lines to find Private James"
+                .withDescription(
+                "Captain John Miller (Tom Hanks) takes his men behind enemy lines to find Private James"
                 + " Ryan, whose three brothers have been killed in combat. Surrounded by the brutal realties of"
                 + " war, while searching for Ryan, each man embarks upon a personal journey and discovers their"
                 + " own strength to triumph over an uncertain future with honor, decency and courage.")
@@ -79,5 +81,6 @@ public class TypicalShows {
 
     public static List<Show> getTypicalShow() {
         return new ArrayList<>(Arrays.asList(JOKER, AVENGERSENDGAME, FIGHTCLUB,
-                GODFATHER2 )); }
+                GODFATHER2));
+    }
 }

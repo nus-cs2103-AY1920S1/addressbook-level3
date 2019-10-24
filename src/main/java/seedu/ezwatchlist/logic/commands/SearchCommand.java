@@ -2,17 +2,22 @@ package seedu.ezwatchlist.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import seedu.ezwatchlist.api.ApiMain;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.Messages;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
 import java.util.*;
+import seedu.ezwatchlist.model.show.TvShow;
 
 /**
  * Finds and lists all shows in watchlist whose name contains any of the argument keywords.
@@ -20,7 +25,6 @@ import java.util.*;
  */
 public class SearchCommand extends Command {
     public static final String COMMAND_WORD = "search";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for shows online whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
@@ -124,6 +128,11 @@ public class SearchCommand extends Command {
         }
     }
 
+    /**
+     * Adds show from list if it has the same name as the given show.
+     * @param showName name of the given show.
+     * @param model current model of the program.
+     */
     private void addShowFromWatchListIfSameNameAs(String showName, Model model) {
         if (!showName.equals(EMPTY_STRING)) {
             List<Show> filteredShowList = model.getShowIfHasName(new Name(showName));

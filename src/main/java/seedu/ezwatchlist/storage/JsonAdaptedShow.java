@@ -10,13 +10,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
-import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.IsWatched;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+
 
 /**
  * Jackson-friendly version of {@link Show}.
@@ -32,10 +34,8 @@ class JsonAdaptedShow {
     private final String description;
     private final int runningTime;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
+    private final String poster;
 
-    public String type() {
-        return type;
-    }
     /**
      * Constructs a {@code JsonAdaptedShow} with the given show details.
      */
@@ -46,7 +46,8 @@ class JsonAdaptedShow {
                            @JsonProperty("watched") boolean isWatched,
                            @JsonProperty("description") String description,
                            @JsonProperty("runningTime") int runningTime,
-                           @JsonProperty("actors") List<JsonAdaptedActor> actors) {
+                           @JsonProperty("actors") List<JsonAdaptedActor> actors,
+                           @JsonProperty("poster") String poster) {
         this.name = name;
         this.type = type;
         this.dateOfRelease = dateOfRelease;
@@ -56,6 +57,7 @@ class JsonAdaptedShow {
         if (actors != null) {
             this.actors.addAll(actors);
         }
+        this.poster = poster;
     }
 
     /**
@@ -71,6 +73,7 @@ class JsonAdaptedShow {
         actors.addAll(source.getActors().stream()
                 .map(JsonAdaptedActor::new)
                 .collect(Collectors.toList()));
+        poster = source.getPoster().getImagePath();
     }
 
     /**
@@ -84,7 +87,7 @@ class JsonAdaptedShow {
             showActors.add(actor.toModelType());
         }
 
-        if (runningTime <0) {
+        if (runningTime < 0) {
             throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
         }
 
@@ -110,7 +113,8 @@ class JsonAdaptedShow {
         final IsWatched modelIsWatched = new IsWatched(isWatched);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -118,7 +122,8 @@ class JsonAdaptedShow {
         final Description modelDescription = new Description(description);
 
         if (runningTime == 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
         }
         if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -126,9 +131,10 @@ class JsonAdaptedShow {
         final RunningTime modelRunningTime = new RunningTime(runningTime);
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
-        Show show = new Show(modelName, modelDescription, modelIsWatched, modelDateOfRelease, modelRunningTime, modelActors);
-        show.type = type;
+        Show show = new Show(modelName, modelDescription, modelIsWatched,
+                modelDateOfRelease, modelRunningTime, modelActors);
+        show.setType(type);
+        show.setPoster(new Poster(poster));
         return show;
     }
-
 }
