@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
-import seedu.address.logic.commands.global.HelpCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 

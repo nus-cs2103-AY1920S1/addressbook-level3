@@ -5,13 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
-import seedu.address.model.flashcard.Flashcard;
-import seedu.address.testutil.FlashcardBuilder;
-
 import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.testutil.FlashcardBuilder;
 
 public class FlashcardCommandResultTest {
 
