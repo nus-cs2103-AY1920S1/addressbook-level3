@@ -1,6 +1,5 @@
 package seedu.address.model.borrower;
 
-import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 import seedu.address.model.BorrowerRecords;
@@ -18,6 +17,7 @@ public class BorrowerIdGenerator {
 
     public static void setBorrowers(BorrowerRecords borrowers) {
         BorrowerIdGenerator.borrowers = borrowers;
+        currentBorrowerIdIndex = borrowers.getSize();
     }
 
     /**
