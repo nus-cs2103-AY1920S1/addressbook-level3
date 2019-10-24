@@ -281,3 +281,14 @@ Format: `next`
 Example:
 
 * `next`
+
+==== End the current session: `end`
+Ends the ongoing session, and resets all data stored in the old session. 
+
+(This command will also be triggered when the user keys in `next` when there are no more attempts to be made by any participants.)
+
+Format: `end`
+
+Example:
+
+* `end`
