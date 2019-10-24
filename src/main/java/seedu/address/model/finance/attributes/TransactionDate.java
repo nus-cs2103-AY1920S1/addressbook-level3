@@ -35,6 +35,7 @@ public class TransactionDate {
      */
     public static boolean isValidTransactionDate(String test) {
         SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
+        validFormat.setLenient(false); // date has to exist in calendar (i.e. not 31 Feb)
         Date currentDate = new Date();
         try {
             Date testDate = validFormat.parse(test);

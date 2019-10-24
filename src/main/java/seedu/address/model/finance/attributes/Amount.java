@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amounts should be numerical (up to 2 decimals allowed) and should not be blank";
+            "Amounts should be numerical (up to 2 decimals allowed), should be more than 0 and should not be blank";
 
     /*
      * The first character of the amount must not be a whitespace,
@@ -34,7 +34,9 @@ public class Amount {
      * Returns true if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
-        return test.matches(VALIDATION_REGEX);
+        boolean matchesRegex = test.matches(VALIDATION_REGEX);
+        boolean isMoreThanZero = !test.matches("0|0.0|0.00");
+        return matchesRegex && isMoreThanZero;
     }
 
 
