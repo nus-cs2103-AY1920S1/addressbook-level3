@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":BudgetCommandParser" as BudgetCommandParser LOGIC_COLOR
+participant ":ParseUtil" as ParseUtil LOGIC_COLOR
+participant ":Budget" as Budget LOGIC_COLOR
+participant "f:BudgetCommand" as BudgetCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("budget 100000")
+activate LogicManager
+
+LogicManager -> SpendingBookParser : parseCommand("budget 100000")
+activate SpendingBookParser
+
+create BudgetCommandParser
+SpendingBookParser -> BudgetCommandParser
+activate BudgetCommandParser
+
+BudgetCommandParser --> SpendingBookParser
+deactivate BudgetCommandParser
+
+SpendingBookParser -> BudgetCommandParser : parse(" 1000")
+activate BudgetCommandParser
+
+BudgetCommandParser -> ParseUtil
+activate ParseUtil
+
+create Budget
+ParseUtil -> Budget
+activate Budget
+
+Budget --> ParseUtil
+
+deactivate Budget
+
+
+ParseUtil --> BudgetCommandParser
+deactivate ParseUtil
+
+create BudgetCommand
+BudgetCommandParser -> BudgetCommand
+activate BudgetCommand
+
+BudgetCommand --> BudgetCommandParser
+deactivate BudgetCommand
+
+BudgetCommandParser --> SpendingBookParser : f
+deactivate BudgetCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BudgetCommandParser -[hidden]-> SpendingBookParser
+destroy BudgetCommandParser
+
+SpendingBookParser --> LogicManager : f
+deactivate SpendingBookParser
+
+
+LogicManager -> BudgetCommand : execute()
+activate BudgetCommand
+
+BudgetCommand -> Model : setSpending(predicate)
+activate Model
+
+Model --> BudgetCommand
+deactivate Model
+
+create CommandResult
+BudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BudgetCommand
+deactivate CommandResult
+
+BudgetCommand --> LogicManager : result
+deactivate BudgetCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BudgetCommand -[hidden]-> SpendingBookParser
+destroy BudgetCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

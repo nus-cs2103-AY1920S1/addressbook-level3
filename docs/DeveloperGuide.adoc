@@ -560,6 +560,62 @@ Alternative 1 was chosen due to the ease of implementation.
 As the current statistics feature does not require a large amount of data, the number of method calls is not too large.
 Alternative 2 requires a change in the architecture which may result in higher complexity.
 
+=== Budget Feature
+The `Budget` component has two core feature:
+
+1. Allowing the user to set the monthly budget
+2. Calculating the remanding budget after all the spending in the same month.
+
+The budget component allows the users to modify the current monthly budget `budget AMOUNT` command.
+
+For example `budget 10000` sets the current monthly budget to 10000.
+
+The second functionality is done automatically by the program, which finds the total spending in the month and reduces
+the sum from the budget.
+
+==== Current Implementation
+The current `Budget` component keeps track of three variables:
+
+1. the monthly budget
+2. the current month
+3. the sum of all spending in the same month.
+
+All of which are saved with the `SpendingBook`.
+
+Upon initialization, if a save file is found it will automatically set the monthly budget based on the
+save file's options.
+
+Upon initialization MoneyGoWhere will check the current date. If the current month is different from the current month
+the total spending will reset to 0, but the monthly budget will remain the same.
+
+The sum of spending will only be modified when `add` and `delete` commands are called.
+
+The sequence diagram below demonstrates how the budget command is executed:
+
+.Sequence Diagram when setting Budget
+image::SetBudgetSequenceDiagram.png[]
+The figure above shows the sequence of events that occur to set the monthly budget.
+The `LogicManager` receives the user input and passes it to the `SpendingBookParser` to parse the user input,
+resulting in a `BudgetCommand`.
+If the user input is valid, the command is then executed to access the Budget in Model and modify the value.
+
+==== Design Consideration
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 |Alternative 2
+
+|Method to calculate total spending
+|Calculate from `SpendingList` each time +
+Pros: seems intuitive +
+Cons: not efficient, requires Budget to access Model, resulting in circular dependency
+|Keep track of the sum and modifies the sum when `add` and `delete` commands are added +
+Pros: does not waste time to calculate sum, easy to implement +
+Cons: none
+
+|===
+The second option is chosen to prevent circular dependency.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
