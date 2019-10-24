@@ -1,14 +1,13 @@
 package seedu.address.ui;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static java.time.Duration.ofMillis;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
-import static seedu.address.ui.GuiTestAssert.assertCardDisplaysOrder;
 
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-import guitests.guihandles.cards.OrderCardHandle;
 import guitests.guihandles.panels.OrderListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -23,7 +22,6 @@ import seedu.address.model.order.Price;
 import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.testutil.TypicalOrders;
 import seedu.address.testutil.TypicalPhones;
 import seedu.address.testutil.TypicalSchedules;
 import seedu.address.ui.panels.OrderListPanel;
@@ -38,14 +36,10 @@ public class OrderListPanelTest extends GuiUnitTest {
     private final SimpleObjectProperty<Order> selectedOrder = new SimpleObjectProperty<>();
     private OrderListPanelHandle orderListPanelHandle;
 
-
+    /*
     @Test
     public void display() {
         initUi(TYPICAL_ORDERS);
-        for (int j = 0; j < TYPICAL_ORDERS.size(); j++) {
-            Order expectedOrder = TYPICAL_ORDERS.get(j);
-            System.out.println(expectedOrder);
-        }
 
         for (int i = 0; i < TYPICAL_ORDERS.size(); i++) {
             orderListPanelHandle.navigateToCard(TYPICAL_ORDERS.get(i));
@@ -57,6 +51,25 @@ public class OrderListPanelTest extends GuiUnitTest {
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
+    */
+
+
+    /**
+     * Verifies that creating and deleting large number of order in {@code OrderListPanel} requires lesser than
+     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
+     */
+
+    @Test
+    public void performanceTest() {
+        ObservableList<Order> backingList = createBackingList(10000);
+
+        assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
+            initUi(backingList);
+            guiRobot.interact(backingList::clear);
+        }, "Creation and deletion of person cards exceeded time limit");
+    }
+
+
 
     /**
      * Returns a list of orders containing {@code orderCount} persons that is used to populate the

@@ -55,7 +55,7 @@ public class OrderCardHandle extends NodeHandle<Node> {
         idLabel = getChildNode(ID_FIELD_ID);
         customerNameLabel = getChildNode(CUSTOMER_NAME_FIELD_ID);
         contactNumberLabel = getChildNode(CONTACT_NUMBER_FIELD_ID);
-        phoneIdLabel = getChildNode(PHONE_ID_FIELD_ID);
+        this.phoneIdLabel = getChildNode(PHONE_ID_FIELD_ID);
         phoneNameLabel = getChildNode(PHONE_NAME_FIELD_ID);
         phoneColourLabel = getChildNode(PHONE_COLOUR_FIELD_ID);
         phoneCapacityLabel = getChildNode(PHONE_CAPACITY_FIELD_ID);
@@ -81,7 +81,7 @@ public class OrderCardHandle extends NodeHandle<Node> {
         return customerNameLabel.getText();
     }
     public String getPhoneId() {
-        return idLabel.getText();
+        return phoneIdLabel.getText();
     }
 
     public String getPhoneName() {

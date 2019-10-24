@@ -104,6 +104,7 @@ public class OrderListPanelHandle extends NodeHandle<ListView<Order>> {
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public OrderCardHandle getOrderCardHandle(int index) {
+        System.out.println("$$" + getOrder(0));
         return getAllCardNodes().stream()
                 .map(OrderCardHandle::new)
                 .filter(handle -> handle.equals(getOrder(index)))
