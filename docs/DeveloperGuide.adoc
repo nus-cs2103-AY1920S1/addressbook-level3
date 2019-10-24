@@ -162,6 +162,23 @@ Pros: Easy to implement.
 
 Cons: Might not be as OOP as other designs.
 
+=== Reminders
+
+==== Implementation
+
+The Reminder mechanism is facilitated by the Reminder class. Each Reminder object consists of a Condition class object which represents a set of conditions to be met. When all conditions are met, the reminder is activated and its message is displayed under the Reminder Pannel. The following class diagram helps to show how the classes are related.
+
+When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed, the ConditionList object is updated to see if any conditions have been met. 
+
+
+==== Design Considerations
+
+*Current method:* Toggle the panels from within MainWindow class.
+
+Pros: Easy to implement.
+
+
+Cons: Might not be as OOP as other designs.
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -298,6 +315,34 @@ Use Case: user adds an expense
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
+=== Use Case 09: Set TrackerReminder
+
+==== MSS
+
+. User adds a TrackerReminder, indicates the quota which if exceeded will activate the reminder, and the tags nad keywords that entries should have to be tracked;
+. guiltTrip() notifies user that Reminder has been added.
+
+Use case ends.
+
+==== Extensions
+
+. 1a. user does not indicate if he wants to track entries with keywords or tags.
+Reminder tracks all entries.
+
+=== Use Case 10: Set DateReminder
+
+==== MSS
+
+. User adds a DateReminder, indicate the index of the entry to track and the period before the event date to activate reminder.
+. guiltTrip() notifies user that Reminder has been added.
+
+Use case ends.
+
+==== Extensions
+
+. 1a. index out of bounds.
+Use case ends
+
 [appendix]
 == Non Functional Requirements
 
@@ -331,4 +376,3 @@ Use Case: user adds an expense
 * Category - Income, Expense, Wishlist, Budget +
 * Entry - any item in a category +
 * Tag - label(s) attached to an entry
-
