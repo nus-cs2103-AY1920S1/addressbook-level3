@@ -7,21 +7,38 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 public class Gui {
+
+    // the one and only instance of Gui allowed
+    private static Gui gui = new Gui();
+
     // the instance of the main window of the application, containing all UI components
-    final MainWindow mainWindow;
+    private static MainWindow applicationMainWindow = new MainWindow();
     // todo: store windowContents here instead of mainWindow?
-    private State state; // todo: check if can be static
+    private static State applicationState;
 
+    private Gui() {
+        // todo
+    }
+
+    // todo: refactor Gui's constructors
     public Gui(MainWindow mainWindow, State state) {
-        this.mainWindow = mainWindow;
-        this.state = state;
+        applicationMainWindow = mainWindow;
+        applicationState = state;
     }
 
-    MainWindow getMainWindow() {
-        return this.mainWindow;
+    static MainWindow getMainWindow() {
+        return applicationMainWindow;
     }
 
-    void renderFront(FlashCard flashCard) {
+    /** Accessor for the Gui instance */
+    public static Gui getInstance() {
+        if (gui == null) {
+            gui = new Gui();
+        }
+        return gui;
+    }
+
+    public static void renderFront(FlashCard flashCard) {
         // todo: use functional interfaces, from renderCard?
         // get text to be rendered
         String cardText = flashCard.getFront();
@@ -30,10 +47,10 @@ public class Gui {
         FlashCardDisplay node = new FlashCardDisplay(cardText);
 
         // display the Node in the Gui
-        this.display(node);
+        display(node);
     }
 
-    void renderBack(FlashCard flashCard) {
+    public static void renderBack(FlashCard flashCard) {
         // todo: use functional interfaces, from renderCard?
         // get text to be rendered
         String cardText = flashCard.getBack();
@@ -42,16 +59,16 @@ public class Gui {
         FlashCardDisplay node = new FlashCardDisplay(cardText);
 
         // display the Node in the Gui
-        this.display(node);
+        display(node);
     }
 
     // temporary method to render FlashCardDisplay without using FlashCard class
-    void renderCard(String cardText) {
+    static void renderCard(String cardText) {
         FlashCardDisplay node = new FlashCardDisplay(cardText);
-        this.display(node);
+        display(node);
     }
 
-    void display(Node node) {
+    static void display(Node node) {
         // get primary display area of MainWindow
         GridPane windowContents = getMainWindow().getWindowContents(); // todo: check coding standards?
         GridPane.setConstraints(node, 0,0);
@@ -63,7 +80,7 @@ public class Gui {
         windowContents.getChildren().add(node);
     }
 
-    void setTitle(String title) {
-        this.getMainWindow().setTitle(title);
+    static void setTitle(String title) {
+        getMainWindow().setTitle(title);
     }
 }

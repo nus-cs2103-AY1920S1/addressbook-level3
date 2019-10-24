@@ -112,11 +112,11 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     //@@author huiminlim
     @Override
-    public Node renderFront() {
+    public void renderFront() {
         // Shuffle choices first
         shuffleChoices();
 
-        return super.renderFront();
+        super.renderFront();
     }
     //@author
 

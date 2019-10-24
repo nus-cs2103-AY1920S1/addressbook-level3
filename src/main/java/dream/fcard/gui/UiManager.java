@@ -7,9 +7,6 @@ import dream.fcard.MainApp;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.core.commons.util.StringUtil;
 
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 

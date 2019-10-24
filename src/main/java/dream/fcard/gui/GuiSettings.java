@@ -17,7 +17,7 @@ public class GuiSettings {
     private static GuiSettings guiSettings = new GuiSettings();
 
     // application icon
-    private static final String applicationIcon = "/images/address_book_32.png";
+    private static final String APPLICATION_ICON = "/images/address_book_32.png";
 
     // default sizing
     private static double padding = 10;
@@ -59,7 +59,7 @@ public class GuiSettings {
 
     /** Return the path to the application icon. */
     public static String getApplicationIcon() {
-        return applicationIcon;
+        return APPLICATION_ICON;
     }
 
     /** Get the default global padding of the application. */

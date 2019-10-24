@@ -2,6 +2,7 @@ package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
+import dream.fcard.gui.Gui;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -49,26 +50,6 @@ public class JavascriptCard extends FlashCard {
         obj.put(Schema.FRONT_FIELD, front);
         obj.put(Schema.BACK_FIELD, back);
         return new JsonValue(obj);
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Node renderFront() {
-        // temporary
-        return null;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Node renderBack() {
-        // temporary
-        return null;
     }
 
     /**

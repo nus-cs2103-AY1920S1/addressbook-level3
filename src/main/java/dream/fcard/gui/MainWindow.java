@@ -32,6 +32,10 @@ public class MainWindow {
     private TextField commandTextField;
     ListView<Deck> deckDisplay;
 
+    public MainWindow() {
+        // temporary no-arg constructor
+    }
+
     public MainWindow(Stage primaryStage, State state) {
         // todo: refactor linkages between MainWindow, Gui and UiManager
         this.primaryStage = primaryStage;
