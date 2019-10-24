@@ -58,10 +58,10 @@ activate StatsCommand
 
 StatsCommand -> Model : getFilteredSpendingList(predicate)
 
-Model -> StatsCommand
+Model --> StatsCommand
 deactivate Model
 
-StatsCommand -> LogicManager
+StatsCommand --> LogicManager
 deactivate StatsCommand
 
 LogicManager --> MainWindow
