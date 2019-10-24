@@ -96,8 +96,12 @@ public class LogicManager implements Logic {
         return model.getActiveReminderListProperty();
     }
 
+    /**
+     * Method to be called when shutting down the program to tie up all loose ends.
+     */
     public final void shutdown() {
         checker.shutdown();
+        model.offPriorityMode();
     }
 
     @Override

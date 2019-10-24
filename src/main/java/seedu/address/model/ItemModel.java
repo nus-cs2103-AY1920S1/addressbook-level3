@@ -97,6 +97,8 @@ public interface ItemModel {
 
     public void scheduleOffPriorityMode(LocalDateTime localDateTime);
 
+    public void offPriorityMode();
+
     public void forceOffPriorityMode();
 
     public Item markComplete(int index) throws IllegalListException;

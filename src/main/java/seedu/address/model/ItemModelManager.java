@@ -427,9 +427,7 @@ public class ItemModelManager implements ItemModel {
      */
     public void clear() {
         setItemStorage(new ItemStorage());
-        this.taskList = new TaskList();
-        this.eventList = new EventList();
-        this.reminderList = new ReminderList();
+        emptyLists();
         this.visualList = taskList;
     }
 
@@ -515,13 +513,20 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
-     * Turns off the priority mode.
+     * Method to close the priority mode thread.
      */
-    private void toggleOffPriorityMode() {
+    public void offPriorityMode() {
         if (timer != null) {
             timer.cancel();
             timer = null;
         }
+    }
+
+    /**
+     * Turns off the priority mode.
+     */
+    private void toggleOffPriorityMode() {
+        offPriorityMode();
 
         this.sortedTask = null;
         if (visualList instanceof TaskList) {
