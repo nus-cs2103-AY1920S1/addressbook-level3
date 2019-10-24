@@ -1,10 +1,11 @@
 package seedu.jarvis.model.planner;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
-import java.util.function.Predicate;
 
 /**
  * The API of the PlannerModel component

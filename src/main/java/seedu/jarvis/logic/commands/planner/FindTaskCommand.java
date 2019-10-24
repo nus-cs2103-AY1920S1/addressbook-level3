@@ -1,12 +1,12 @@
 package seedu.jarvis.logic.commands.planner;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all tasks in the planner whose description contains any of the argument

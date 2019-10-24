@@ -1,10 +1,10 @@
 package seedu.jarvis.model.planner;
 
-import seedu.jarvis.commons.util.StringUtil;
-import seedu.jarvis.model.planner.tasks.Task;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.jarvis.commons.util.StringUtil;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * Tests that the task description of a {@code Task} matches any of

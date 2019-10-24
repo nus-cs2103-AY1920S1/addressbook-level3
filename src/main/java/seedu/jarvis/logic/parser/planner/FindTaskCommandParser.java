@@ -1,13 +1,13 @@
 package seedu.jarvis.logic.parser.planner;
 
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.Arrays;
+
 import seedu.jarvis.logic.commands.planner.FindTaskCommand;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
-
-import java.util.Arrays;
-
-import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new FindTaskCommand object

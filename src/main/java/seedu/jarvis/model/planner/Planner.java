@@ -2,12 +2,13 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
 
-import java.util.function.Predicate;
 
 /**
  * Represents the planner feature in JARVIS

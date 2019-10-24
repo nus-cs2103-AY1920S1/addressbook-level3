@@ -31,7 +31,6 @@ import seedu.jarvis.model.financetracker.installment.Installment;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
-import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
