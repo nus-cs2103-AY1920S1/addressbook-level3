@@ -42,8 +42,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     }
 
     private boolean containsQuantity(String[] args) {
-        return (args.length == 2)
-                ? isIntegerType(args[1]) : false;
+        return (args.length == 2) && isIntegerType(args[1]);
     }
 
     /**
