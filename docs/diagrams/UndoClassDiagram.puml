@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package Parser {
+class Hidden #FFFFFF
+}
+
+
+package Command {
+Class XYZCommand
+Class XYZUndoableCommand
+Class CommandResult
+Class "{abstract}\nUndoableCommand" as UndoableCommand
+Class "{abstract}\nCommand" as Command
+}
+
+package History {
+Class CommandHistory
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+}
+
+package Model {
+Interface Model <<Interface>>
+Class AddressBook
+Class ReadOnlyAddressBook
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+}
+
+package Entity {
+}
+
+package Notif {
+}
+
+package GuiSettings {
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+LogicManager .up.|> Logic
+LogicManager --> Parser
+
+Parser ..> XYZCommand : creates >
+Parser ..> XYZUndoableCommand : creates >
+
+UndoableCommand -up-|> Command
+XYZCommand -up-|> Command
+XYZUndoableCommand -up-|> UndoableCommand
+LogicManager .left.> Command : executes >
+
+LogicManager --> Model
+Model ..> UndoableCommand
+Model .right.> Entity
+Model ..> GuiSettings
+Model .right.> Notif
+Model ..> ReadOnlyAddressBook
+Model ..> ReadOnlyUserPrefs
+
+AddressBook -up-|> ReadOnlyAddressBook
+UserPrefs -up-|> ReadOnlyUserPrefs
+
+Command .right.> Model
+
+note bottom of XYZUndoableCommand: XYZUndoableCommand = AddCommand, DeleteCommand, etc. \nWhereas XYZCommand = ListCommand, FindCommand, etc.
+
+Logic ..> CommandResult
+LogicManager .down.> CommandResult
+Command .up.> CommandResult
+CommandResult -[hidden]-> Parser
+
+ModelManager .up.|> Model
+ModelManager -->"2" CommandHistory: contains >
+
+
+@enduml

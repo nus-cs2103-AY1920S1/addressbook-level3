@@ -64,22 +64,22 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete -b 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete -b 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BodyListPanel`, `WorkerListPanel`, `FridgeListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -89,7 +89,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -100,19 +100,19 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a body).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete -b 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete -b 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -123,16 +123,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Body>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
-
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -142,10 +137,10 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save Mortago data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -238,10 +233,16 @@ before each test to reset the `HashMaps`.
 
 // tag::undoredo[]
 === Undo/Redo feature
+The undo/redo feature allows the user to undo a previous command that they have made, or redo a command they have undone.
+
 ==== Implementation
 
 The core of undo/redo is placed in the undo/redo history of `ModelManager`. Its mechanism uses the Command design pattern,
 allowing each individual command to be undone/redone without knowing the specific command type.
+Classes related to undo/redo and their relationships are shown below.
+
+.Class Diagram Showing Classes Used by Undo/Redo
+image::UndoClassDiagram.png[]
 
 Firstly, there are two instances of `CommandHistory`, stored internally as `commandHistory` and `undoHistory` in `ModelManager`.
 The former instance stores previously executed commands while the latter stores previously undone commands.
@@ -259,17 +260,40 @@ In the `Model` interface implemented by `ModelManager`, these four operations ar
 
 
 Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
-The `UndoableCommand` class is an abstract class that extends the abstract `Command` class. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
+The `UndoableCommand` class is an abstract class that extends the abstract `Command` class, as shown in Figure 11. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
 
 A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
 ``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
 When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of ModelManager` respectively.
 Therefore, an `UndoableCommand` should not be undone before it was executed or redone before it was undone.
 
-To defend against improper undoing or redoing, `UndoableCommand` contains an inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to `UNDOABLE`, `REDOABLE`, and `PRE_EXECUTION`.
-Before a command is undone or redone, the command's state is checked for validity.
+To defend against improper undoing or redoing, an `UndoableCommand` will not be added to a CommandHistory list unless it has been executed or undone before.
+Additionally, `UndoableCommand` contains a small inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to any value in the enumeration.
+The values are as shown below.
+----
+    /**
+    * Enumerates through the possible states of an UndoableCommand.
+    */
+    public enum UndoableCommandState {
+        UNDOABLE, REDOABLE, PRE_EXECUTION
+    }
+----
+
+Before a command is undone or redone, the command's state is checked for validity. An example is shown below in the `redo()` method.
+----
+    /**
+     * Re-executes an UndoableCommand if it had been previously undone.
+     */
+    public CommandResult redo(Model model) throws CommandException {
+        if (getCommandState() != UndoableCommandState.REDOABLE) {
+            return new CommandResult(MESSAGE_NOT_UNDONE_BEFORE);
+        }
+        return execute(model);
+    }
+----
+As shown in the code snippet, when an `UndoableCommand` is redone, the method first checks that its state was set to `UNDOABLE`.
 These states are only changed when a `Command#execute(Model model)` or `UndoableCommand#undo(Model model)` has successfully executed.
-Thus, this lowers the likelihood of bugs in undo/redo.
+Therefore, it is unlikely that an `UndoableCommand` will be unwittingly undone or redone in error.
 
 Lastly, undo/redo is initiated when user input creates an `UndoCommand` or `RedoCommand`. When either of them are executed, they respectively get the last
 executed or undone command from the `CommandHistory` in `ModelManager`. As the retrieved command is an instance of `UndoableCommand`, an attempt will be made to execute `UndoableCommand#undo(Model model)` or `UndoableComman#redo(Model model)`.
@@ -277,42 +301,57 @@ If it is successful, undo/redo is succesful. Otherwise, an error message is show
 
 This is the mechanism of undo/redo, from start to end. Below is an example of a usage scenario that illustrates how undo/redo works.
 
-[NOTE]
-If a command fails to execute correctly, it will not call `Model#addExecutedCommand()` or `Model#addUndoneCommand()`, thus preventing the command from being undone or redone.
-
-
 The sequence diagram below shows how an undo command works to undo a `ClearCommand`:
 
-image::UndoSequenceDiagram.png[]
+.Sequence Diagram Showing a ClearCommand Being Undone
+image::UndoClearSequenceDiagram.png[]
 
+If a `redo` command was executed afterwards, the `ClearCommand` would simply be executed again.
 
-After this is done, if a `redo` command was executed, the `ClearCommand` would simply be executed again.
+The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the execution of `undo()`.
 
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+.Activity Diagram Showing the Execution Control Flow of a Command
+image::CommandProcessActivityDiagram.png[]
 
 ==== Design Considerations
+
+When designing the undo/redo feature, scalability and speed were the key considerations. After analysing the pros and cons of
+each option, it was decided that using the Command design pattern was the best option.
 
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros:
+    *** Better scalability. Will use less memory (e.g. for `add`, only the added entity needs to be saved).
+    *** Faster for big programs.
+    *** Elegant.
+** Cons:
+    *** Must implement custom undo functions for each command.
+    *** More difficult to implement and maintain.
 
-* **Alternative 2:** Saves the entire program state.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Saves the whole program state.
+** Pros:
+    *** Easy to implement and maintain.
+** Cons:
+    *** Likely to use a lot of memory.
+    *** Slower for big programs.
 
+===== Aspect: Storing executed/undone commands
 
-===== Aspect: Data structure to support the undo/redo commands
+* **Alternative 1 (current choice):** Store `UndoableCommand`(s) only.
+** Pros:
+    *** Logic can be reused for both executed and undone commands.
+    *** Easy to implement.
+    *** Uses less space.
+** Cons:
+    *** Loses some information about `Commands` that were previously executed.
+* **Alternative 2:** Store all `Commands`.
+** Pros:
+    *** No loss of information.
+** Cons:
+    *** Harder to implement. Requires differentiating between commands that have been undone and executed commands.
+    *** Needs extra space to store non-`UndoableCommand`(s) even though they are useless for undo/redo.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 === Notification Feature
@@ -358,7 +397,7 @@ image::ChangeUiFnSequenceDiagram.png[]
 ** Cons: Cause a lot of repetition of code.
 
 // tag::genpdf[]
-=== Generate PDF feature
+=== Generate PDF Feature
 ==== Implementation
 
 The generate PDF feature is facilitated by `ReportGenerator`.
@@ -522,10 +561,49 @@ Finally, the last functionality to rebuilt is the resizability of the Window. Th
 
 
 // tag::statistics[]
-=== [Proposed] Statistics feature
-==== Proposed Implementation
+=== Statistics feature
+==== Current Implementation
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
+
+In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order:
+
+* `LineChartPanel#initialiseTreeMap()` -- Initialises a tree map that contains the dates as the keys and the number of bodies admitted as the frequency.
+* `LineChartPanel#initialiseLineChart()` -- Creates a Line Chart with Xaxis and Yaxis.
+* `LineChartPanel#updateSeries()` -- Adds data to the series of the line chart based on what is in the tree map.
+* `LineChartPanel#updateUponChanged()` -- If a body is added or removed, the tree map is changed accordingly depending on the date of admission of the body, and the series is updated again.
+
+The following sequence diagram shows how a user adding a new body enables the line chart to update dynamically:
+
+image::LineChartAddBodySequenceDiagram.png[]
+
+Similarly, the sequence diagram below shoes how a user deleting a body enables the line chart to update dynamically:
+
+image::LineChartDeleteBodySequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How data is stored and updated
+
+* **Alternative 1 (current choice):** Use a tree map to keep track of bodies and initialise the last 10 days.
+** Pros: Implementation is easy and ensures only the last 10 days is visible.
+** Cons: Series is regenerated for the whole 10 days whenever there is a change. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
+
+image::LineChartActivityDiagram.png[]
+
+* **Alternative 2:** Store all data in a separate storage class.
+** Pros: Implementation allows user to see beyond 10 days.
+** Cons: Implementation requires a lot of storage which may not be tapped on most of the time.
+
+===== Aspect: How line chart appears to end user
+
+* **Alternative 1 (current choice):** Only the last 10 days is visible.
+** Pros: Implementation is easy and simple.
+** Cons: The statistics is limited in meaning if only the last 10 days is known.
+
+* **Alternative 2:** Users have the option to toggle between the last week, month, or year.
+** Pros: The statistics will have more meaning.
+** Cons: Implementation is difficult.
 
 //end::statistics[]
 
@@ -630,7 +708,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Mortago` and the *Actor* is the `mortuary manager`, unless specified otherwise)
 
 [discrete]
 === Use case: View dashboard
@@ -717,7 +795,7 @@ Use case ends.
 === Use case: Filter entries
 *MSS*
 
-1.  Mortuary manage switches to the desired view (bodies or workers).
+1.  Mortuary manager switches to the desired view (bodies or workers).
 2.  Mortuary manager specifies criteria for filter.
 3.  Mortago shows a list of entries that matches the criteria.
 +
@@ -734,7 +812,7 @@ Use case ends.
 === Use case: Sort entries
 *MSS*
 
-1.  Mortuary manage switches to the desired view (bodies or workers).
+1.  Mortuary manager switches to the desired view (bodies or workers).
 2.  Mortuary manager specifies criteria for sorting.
 3.  Mortago shows a list of entries sorted according to the specified criteria.
 +
@@ -838,8 +916,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to hold up to 1000 bodies without a noticeable sluggishness in performance for typical usage.
+.  A mortuary manager with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -851,6 +929,12 @@ Windows, Linux, Unix, OS-X
 
 [[body]] Body::
 A corpse
+
+[[worker]] Worker::
+An employee in the mortuary
+
+[[fridge]] Fridge::
+A fridge used to store a body in the mortuary
 
 [[command-line-interface]] Command-Line-Interface (CLI)::
 A text-based user interface (UI) used to view and manage computer files
@@ -899,21 +983,21 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Body
 
-. Deleting a person while all persons are listed
+. Deleting a body while all bodies are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all bodies using the `list -b` command. Multiple bodies in the list.
+.. Test case: `delete -b 1` +
+   Expected: Body with body ID number 1 is deleted from the list. Details of the deleted body shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete -b 0` +
+   Expected: No body is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete -b`, `delete -b x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
