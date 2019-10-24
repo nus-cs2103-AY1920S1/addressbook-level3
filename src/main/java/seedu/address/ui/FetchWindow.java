@@ -5,13 +5,19 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
@@ -41,52 +47,90 @@ public class FetchWindow extends UiPart<Stage> {
     @FXML
     private Text availableListHeader;
 
+    @FXML
+    private Button allocateButton;
+
+    @FXML
+    private Button freeButton;
+
+
+
     /**
      * Creates a new FetchWindow.
      *
      * @param root Stage to use as the root of the FetchWindow.
      */
-    public FetchWindow(Stage root, ObservableList<Employee> employeeList,
-                       ObservableList<Event> filteredEventList, Event event) {
+    public FetchWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
-        ObservableList<Employee> list = event.getManpowerAllocatedList().getManpowerList().stream()
-                .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().id.equals(x) ? y : new Employee()))
-                .filter(employee -> employee.getEmployeeName() != null)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        ObservableList<Employee> employeeList = logic.getFilteredEmployeeList();
+        ObservableList<Event> filteredEventList = logic.getFilteredEventList();
+        Event event = logic.getFilteredEventList().get(index);
+        ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
+
+        eventDescription.setText(event.toStringWithNewLine());
         personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        eventListView.setItems(list);
+        eventListView.setItems(employeeListForEvent);
         eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
-        eventDescription.setText(event.toStringWithNewLine());
-        //currentListHeader.setText("Current employee list for event:");
-        //availableListHeader.setText("List of employees who are available:");
+        EventHandler<MouseEvent> handleAllocate = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                int oneBasedIndex = index + 1;
+                try {
+                    logic.execute("allocate " + oneBasedIndex);
+                    Event event = logic.getFilteredEventList().get(index);
+                    ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
+                    eventListView.setItems(employeeListForEvent);
+                    eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
+                } catch (CommandException ex) {
+                    logger.fine("This should not appear!");
+                } catch (ParseException ex) {
+                    logger.fine("This should not appear!");
+                }
+            }
+        };
+
+        EventHandler<MouseEvent> handleFree = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                int oneBasedIndex = index + 1;
+                try {
+                    logic.execute("free " + oneBasedIndex);
+                    Event event = logic.getFilteredEventList().get(index);
+                    ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
+                    eventListView.setItems(employeeListForEvent);
+                    eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
+                } catch (CommandException ex) {
+                    logger.fine("This should not appear!");
+                } catch (ParseException ex) {
+                    logger.fine("This should not appear!");
+                }
+            }
+        };
+        allocateButton.addEventFilter(MouseEvent.MOUSE_CLICKED, handleAllocate);
+        freeButton.addEventFilter(MouseEvent.MOUSE_CLICKED, handleFree);
     }
 
     /**
      * Creates a new FetchWindow.
      */
-    public FetchWindow(ObservableList<Employee> employeeList,
-                       ObservableList<Event> filteredEventList, Event event) {
-        this(new Stage(), employeeList, filteredEventList, event);
+    public FetchWindow(Logic logic, Integer index) {
+        this(new Stage(), logic, index);
     }
 
     /**
-     * Shows the help window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
+     * Gets the current list of employees for the event.
+     */
+    public ObservableList<Employee> getEmployeeListForEvent(Event event, ObservableList<Employee> employeeList) {
+        ObservableList<Employee> list = event.getManpowerAllocatedList().getManpowerList().stream()
+                .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().id.equals(x) ? y : new Employee()))
+                .filter(employee -> employee.getEmployeeName() != null)
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        return list;
+    }
+
+    /**
+     * Shows the fetch window.
      */
     public void show() {
         logger.fine("Showing fetched event.");
@@ -96,14 +140,14 @@ public class FetchWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the fetch window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the fetch window.
      */
     public void hide() {
         getRoot().hide();

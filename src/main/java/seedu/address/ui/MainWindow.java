@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,6 +30,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Model model;
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
@@ -159,8 +161,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleFetch(Integer index) {
-        fetchWindow = new FetchWindow(logic.getFilteredEmployeeList(),
-                logic.getFilteredEventList(), logic.getFilteredEventList().get(index));
+        fetchWindow = new FetchWindow(logic, index);
         //fetchWindow.getRoot().setScene();
         fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!fetchWindow.isShowing()) {
@@ -184,6 +185,7 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+        fetchWindow.hide();
         helpWindow.hide();
         primaryStage.hide();
     }
