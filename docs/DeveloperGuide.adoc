@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T11-3/main
 
 By: `Team DESCC`      Since: `Sep 2019`      Licence: `NUS`
 
@@ -25,7 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+._Architecture Diagram_
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
@@ -58,7 +58,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+._Class Diagram of the Logic Component_
 image::LogicClassDiagram.png[]
 
 [discrete]
@@ -66,7 +66,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+._Component interactions for `delete 1` command_
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -74,7 +74,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+._Structure of the UI Component_
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -93,13 +93,13 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+._Structure of the Logic Component_
 image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `AddMinParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding an employee or event).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -107,7 +107,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+._Interactions Inside the Logic Component for the `delete 1` Command_
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+._Structure of the Model Component_
 image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -123,19 +123,19 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Employee Book and Event Book data.
+* exposes an unmodifiable `ObservableList<Employee>` and an unmodifiable `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in both `Employee Book` and `Event Book`, which `Employee` can reference. This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+._Structure of the Storage Component_
 image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
@@ -143,12 +143,12 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the App data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.addmin.commons` package.
 
 == Implementation
 
@@ -197,8 +197,8 @@ by the event.
 
 Given below is an example usage scenario and how the auto allocation mechanism behaves at each step.
 
+._Program flow of the Auto Allocate Feature_
 image::AutoAllocateFlowChart.png[]
-Figure 1.1
 
 **Step 1**. The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
 to the 1st event displayed in the event list.
@@ -232,16 +232,16 @@ For storage purposes, only the `Employee#EmployeeId` is allocated to the event.
 
 The following sequence diagram shows how the auto allocation works:
 
+._Sequence Diagram of the AutoAllocate Command_
 image::AutoAllocateSequenceDiagram.png[]
-Figure 1.2
 
 NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of
 PlantUML, the lifeline reaches the end of diagram.
 
 The following activity diagram summarizes what happens when a user successfully executes a `AutoAllocateCommand`:
 
+._Activity Diagram of the AutoAllocate Command_
 image::AutoAllocateActivityDiagram.png[]
-Figure 1.3
 
 ==== Design Considerations
 
@@ -291,9 +291,8 @@ If the command execution fails, a `ParseException` (from Step 2) or a `CommandEx
 
 The following activity diagram shows how the Setting of Date&Time to Event work:
 
+._Activity Diagram of the SettingEventDate Command_
 image::SettingEventDateActivityDiagram.png[SettingEvent,295,607]
-
-Figure 1.4
 
 ==== Design Considerations
 ===== Aspect: Storage of DateTimeMap
@@ -347,7 +346,7 @@ Step 3. The user executes `display_schedule` to see all dates and the respective
 image::DisplayScheduleState2.png[]
 
 
-Step 4. The user now decides to close the app, the current state of the eventBook and AddressBook will be stored, however the DistinctDateList would not.
+Step 4. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however the DistinctDateList would not.
 
 image::DisplayScheduleState3.png[]
 
@@ -356,10 +355,10 @@ Note that the Display Schedule Feature does not load and store the DistinctDate 
 
 The following sequence diagram shows how the undo operation works:
 
+._Sequence Diagram for DisplaySchedule Command_
 image::DisplayScheduleSequenceDiagram.png[]
 
 NOTE: The lifeline for `DisplayScheduleCommand` ends at the destroy marker (X).
-
 
 ==== Design Considerations
 
@@ -378,6 +377,13 @@ the program is required to process through all DistinctDate Object to make the n
 ** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
 Processing is only done when it is needed.
 // end::displayschedule[]
+
+=== Finance
+==== Implementation
+_WIP_
+
+==== Design Considerations
+_WIP_
 
 === Logging
 
