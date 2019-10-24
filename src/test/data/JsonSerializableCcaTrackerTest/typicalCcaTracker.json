@@ -1,0 +1,26 @@
+{
+  "_comment": "CcaTracker save file which contains the same Cca values as in TypicalCcas#getTypicalCcaTracker()",
+  "ccas": [ {
+    "name" : "Canoeing",
+    "ccaType" : "sport",
+    "equipmentList" : [ "paddle" ],
+    "ccaProgress" : {
+      "ccaProgressList" : [ ],
+      "ccaCurrentProgress" : {
+        "maxProgress" : "0",
+        "currentProgress" : "0"
+      }
+    }
+  }, {
+    "name" : "Guitar Ensemble",
+    "ccaType" : "performingArt",
+    "equipmentList" : [ "guitar" ],
+    "ccaProgress" : {
+      "ccaProgressList" : [ ],
+      "ccaCurrentProgress" : {
+        "maxProgress" : "0",
+        "currentProgress" : "0"
+      }
+    }
+  } ]
+}

@@ -31,16 +31,17 @@ public class JsonAdaptedCca {
                           @JsonProperty("ccaProgress") JsonAdaptedCcaProgress ccaProgress) {
         this.name = name;
         this.ccaType = ccaType;
-        if (equipmentList != null) {
-            this.equipmentList.addAll(equipmentList);
-        }
+        this.equipmentList.addAll(equipmentList);
         this.ccaProgress = ccaProgress;
     }
 
     public JsonAdaptedCca(Cca cca) {
         name = cca.getName().fullName;
         ccaType = cca.getCcaType().ccaType;
-        equipmentList.addAll(cca.getEquipmentList().getInternalEquipmentList().stream().map(JsonAdaptedEquipment::new)
+        equipmentList.addAll(cca.getEquipmentList()
+                .getInternalEquipmentList()
+                .stream()
+                .map(JsonAdaptedEquipment::new)
                 .collect(Collectors.toList()));
         ccaProgress = new JsonAdaptedCcaProgress(cca.getCcaProgress());
     }

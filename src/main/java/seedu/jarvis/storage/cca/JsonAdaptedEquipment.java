@@ -2,6 +2,7 @@ package seedu.jarvis.storage.cca;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.Equipment;
 
@@ -22,6 +23,11 @@ public class JsonAdaptedEquipment {
 
     public JsonAdaptedEquipment(Equipment equipment) {
         equipmentName = equipment.equipmentName;
+    }
+
+    @JsonValue
+    public String getEquipmentName() {
+        return equipmentName;
     }
 
     /**
