@@ -282,6 +282,7 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.REMOVEDISLIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SAVE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
                 if (infoWindow.isShowing()) {
