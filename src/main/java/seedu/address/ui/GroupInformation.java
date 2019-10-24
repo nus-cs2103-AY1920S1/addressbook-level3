@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
+import seedu.address.model.display.detailwindow.MonthSchedule;
+import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.ui.util.GroupDetailCard;
 import seedu.address.ui.util.MemberList;
 
@@ -27,13 +29,14 @@ public class GroupInformation extends UiPart<Region> {
 
     public GroupInformation(DetailWindowDisplay detailWindowDisplay, ArrayList<String> colors) {
         super(FXML);
-        ArrayList<String> names = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<WeekSchedule> wkschds = MonthSchedule.getWeekSchedulesForWeek(detailWindowDisplay.getMonthSchedules(), 0);
+        ArrayList<String> names = wkschds.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> emails = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<String> emails = wkschds.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getEmail().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> roles = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<String> roles = wkschds.stream()
                 .map(wkSch -> wkSch.getRole().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
 

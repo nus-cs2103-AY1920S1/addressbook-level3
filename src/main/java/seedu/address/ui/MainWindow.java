@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -295,24 +294,26 @@ public class MainWindow extends UiPart<Stage> {
             DetailWindowDisplay detailWindowDisplay = logic.getMainWindowDisplay();
             DetailWindowDisplayType displayType = detailWindowDisplay.getDetailWindowDisplayType();
             ArrayList<String> colors = ColorGenerator
-                    .generateColorList(detailWindowDisplay.getWeekSchedules().size());
+                    .generateColorList(detailWindowDisplay.getMonthSchedules().size());
             switch(displayType) {
             case PERSON:
                 //There is only 1 schedule in the detailWindowDisplay
-                ScheduleView personScheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules().get(0));
+                ScheduleView personScheduleView = new IndividualScheduleViewManager(detailWindowDisplay.getMonthSchedules().get(0),
+                        "white").getScheduleView(0);
                 handleChangeOnDetailsView(personScheduleView.getRoot());
                 handleSidePanelChange(
                         new PersonDetailCard(detailWindowDisplay
-                                .getWeekSchedules()
+                                .getMonthSchedules()
                                 .get(0)
                                 .getPersonDisplay())
                                 .getRoot());
                 scheduleView = personScheduleView;
                 break;
             case GROUP:
-                ScheduleView groupScheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules(),
+                ScheduleView groupScheduleView = new GroupScheduleViewManager(detailWindowDisplay.getMonthSchedules(),
                         colors,
-                        detailWindowDisplay.getGroupDisplay().getGroupName(), detailWindowDisplay.getFreeSchedule());
+                        detailWindowDisplay.getGroupDisplay().getGroupName(),
+                        detailWindowDisplay.getFreeSchedules()).getScheduleView(0);
                 handleChangeOnDetailsView(groupScheduleView.getRoot());
                 handleSidePanelChange(new GroupInformation(detailWindowDisplay, colors).getRoot());
                 scheduleView = groupScheduleView;

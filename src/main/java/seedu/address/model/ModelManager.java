@@ -19,6 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.detailwindow.MonthSchedule;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
@@ -428,10 +429,10 @@ public class ModelManager implements Model {
 
     @Override
     public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
-        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
-        weekSchedules.add(weekSchedule);
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
+        ArrayList<MonthSchedule> monthSchedules = new ArrayList<>();
+        MonthSchedule monthSchedule = new MonthSchedule(findPerson(name), time);
+        monthSchedules.add(monthSchedule);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(monthSchedules, type);
         updateDetailWindowDisplay(detailWindowDisplay);
     }
 
@@ -441,17 +442,17 @@ public class ModelManager implements Model {
         GroupId groupId = group.getGroupId();
         GroupDisplay groupDisplay = new GroupDisplay(group);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
-        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+        ArrayList<MonthSchedule> monthSchedules = new ArrayList<>();
         for (int i = 0; i < personIds.size(); i++) {
             Person person = findPerson(personIds.get(i));
             Role role = findRole(personIds.get(i), groupId);
             if (role == null) {
                 role = Role.emptyRole();
             }
-            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
-            weekSchedules.add(weekSchedule);
+            MonthSchedule monthSchedule = new MonthSchedule(person, time, role);
+            monthSchedules.add(monthSchedule);
         }
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
+        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(monthSchedules, type, groupDisplay);
         updateDetailWindowDisplay(detailWindowDisplay);
     }
 
