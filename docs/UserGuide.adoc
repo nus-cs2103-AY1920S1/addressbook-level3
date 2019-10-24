@@ -171,10 +171,6 @@ Examples:
 Deletes the 'CS2103' group from the TimeBook.
 
 // end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the TimeBook. +
-Format: `clear`
 
 === Exiting the program : `exit`
 
