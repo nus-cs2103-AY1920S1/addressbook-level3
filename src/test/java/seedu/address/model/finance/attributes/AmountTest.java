@@ -40,6 +40,7 @@ public class AmountTest {
         assertTrue(Amount.isValidAmount("8")); // no decimals
         assertTrue(Amount.isValidAmount("8.3")); // 1 decimal place
         assertTrue(Amount.isValidAmount("9.03")); // 2 decimal places
+        assertTrue(Amount.isValidAmount("20.00")); // 2 decimal places, with "0.00" in string
         assertTrue(Amount.isValidAmount("1234567890")); // large number
     }
 }

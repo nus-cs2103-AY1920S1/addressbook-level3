@@ -13,6 +13,7 @@ public class Amount {
 
     /*
      * The first character of the amount must not be a whitespace,
+     * at with most 2 decimals places,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\d]+|[\\d]+\\.[\\d]{1,2}";
@@ -35,7 +36,7 @@ public class Amount {
      */
     public static boolean isValidAmount(String test) {
         boolean matchesRegex = test.matches(VALIDATION_REGEX);
-        boolean isMoreThanZero = !test.matches("0|0.0|0.00");
+        boolean isMoreThanZero = !test.matches("^0|0.0|0.00$");
         return matchesRegex && isMoreThanZero;
     }
 
