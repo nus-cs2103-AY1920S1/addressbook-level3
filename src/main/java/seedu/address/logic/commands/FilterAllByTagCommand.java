@@ -60,19 +60,10 @@ public class FilterAllByTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ArrayList<StudyBuddyItem> tagListResult = model.collectTaggedItems(tagPredicate);
+        ArrayList<String> tagListResult = model.collectTaggedItems(tagPredicate);
         StringBuilder sb = new StringBuilder("");
-        for (StudyBuddyItem sbi : tagListResult) {
-            if (sbi instanceof Flashcard) {
-                sb.append("Flashcard : ");
-            }
-            if (sbi instanceof Note) {
-                sb.append("Note : ");
-            }
-            if (sbi instanceof CheatSheet) {
-                sb.append("CheatSheet : ");
-            }
-            sb.append(sbi.toString());
+        for (String s : tagListResult) {
+            sb.append(s);
             sb.append("\n");
         }
         return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS

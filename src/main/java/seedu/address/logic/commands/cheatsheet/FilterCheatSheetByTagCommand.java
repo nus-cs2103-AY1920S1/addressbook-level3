@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
 
 /**
@@ -59,11 +58,11 @@ public class FilterCheatSheetByTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ArrayList<CheatSheet> taggedCheatSheetResult = model.collectTaggedCheatSheets(tagPredicate);
-        model.updateFilteredCheatSheetList(tagPredicate);
+        ArrayList<String> taggedCheatSheetResult = model.collectTaggedCheatSheets(tagPredicate);
+        //model.updateFilteredCheatSheetList(tagPredicate);
         StringBuilder sb = new StringBuilder("");
-        for (CheatSheet cs : taggedCheatSheetResult) {
-            sb.append(cs);
+        for (String s : taggedCheatSheetResult) {
+            sb.append(s);
             sb.append("\n");
         }
         return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
