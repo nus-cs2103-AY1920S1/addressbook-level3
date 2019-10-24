@@ -23,4 +23,4 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-    ./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor
+    #./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor
