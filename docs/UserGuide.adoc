@@ -24,13 +24,20 @@ SecureIT is for those who *prefer a secure password manager that stores your pas
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `SecureIT.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your SecureIT.
+.  Copy the file to the folder you want to use as the home folder for your *SecureIT*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Enter password for SecureIT or set up a new password if it is your first time accessing the application.
+.  Since this is the first time that you are using *SecureIT*, you will be asked to create a new master password. Type your preferred master password in the command box and hit the `Enter` key.
+.  With that, you have created your very own *SecureIT* account. You can now enter commands in the command box and press `Enter` to execute it.
 +
 image::Ui.png[width="790"]
 +
-.  Refer to <<Features>> for details of each command.
+.  Here are some example commands that you can try out:
+* `add d/Gmail u/randomGuy p/qwerty123` : adds a password with username 'randomGuy' and password 'qwerty123'
+* `analyse` : briefly analyses all your passwords and produces a security report
+* `analyse strong/1` : analyses your first password and produces a detailed security report
+* `generate` : generates a random strong password for you
+* `encrypt <filepath>` : encrypts the file in the specified filepath
+.  Refer to <<Features>> for more details of each command.
 
 [[Features]]
 == Features
