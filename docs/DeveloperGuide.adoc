@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g. CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter`, `ChartBox` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +87,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Has a specialized `Chart` component that deals specifically with the generation and rendering of charts onto the `MainWindow`.
+
 
 [[Design-Logic]]
 === Logic component
@@ -220,7 +222,6 @@ image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-.Activity Diagram of state commit
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
@@ -515,6 +516,50 @@ Set of predicates can but do not need to include `AllContainsKeywordsPredicate`,
 *** Use of different types of find commands.
 
 // end::finding[]
+
+=== Statistics
+The statistics module is in charge of generating statistics from the currently displayed expenses and rendering it onto the main window.
+There are 2 components that help to do this - the chart component and the statistics generator component.
+[[Design-Ui-Chart]]
+==== Chart component
+
+[[fig-ChartClassDiagram]]
+.Structure of the Chart Component
+image::ChartClassDiagram.png[]
+
+There is a special `Chart` component that deals with the generation and rendering of specific charts based on user input and the expenses being displayed.
+Every concrete chart type, eg. `ExpenseTimelineChart`, `ExpenseBreakdownChart`, extends from `ExpenseChart`.
+The `ChartBox` is the main orchestrating class. It is updated on the selected `StatisticsFormat` and `StatisticsFormatOptions` by the `MainWindow`
+These are classes that represent user decisions on what to be displayed. Upon being updated, it creates the appropriate
+`ExpenseChart` with the selection options, to display the selected statistic with the currently displayed expenses. The concrete `ExpenseCharts` get the formatted statistics from the
+`StatisticsGenerator` component.
+
+==== Statistics Generation Component
+.Structure of the Statistics Generation Component
+image::StatisticsGeneratorClassDiagram.png[]
+
+The `Chart` component gets the data to be displayed from the StatisticsGenerator component. A number of classes,
+such as `BreakdownGenerator` and `TimelineGenerator` extend `StatisticsGenerator`, and each is in charge of creating a specific
+statistic type with data processed to fit the chart that displays them.
+
+==== Proposed Implementation
+The chart feature can be roughly described as two separate parts: the displaying of the chart itself and the functionality to
+switch between arbitrary charts. They will be discussed separately.
+
+===== Displaying of charts
+The charts display statistics pertaining to whatever expenses are currently being listed in the `MainWindow`, and are updated live
+as the expenses being displayed change. This functionality is largely done by making use of the Observer pattern. An observable view of
+a list is provided by the `Logic`. The `MainWindow` has a reference to `Logic`, and passes a reference to the `ObservableList`
+of `Expense` to the `ChartBox` when instantiating it. Changes made to the list of expenses are thus propagated to `ChartBox`.
+
+The `ChartBox` itself instantiates and displays an `ExpenseChart`, and passes the list of expenses to it. The `ExpenseChart`
+takes that list of expenses and generates the statistics to be displayed using its own `StatisticsGenerator`. In this manner,
+changes to the list of expenses are propagated to the display. An example of how this works can be seen in the sequence diagram
+below, in the example where the user changes the displayed expenses by using the `ListCommand`.
+
+.Structure of the Statistics Generation Component
+image::DisplayStatisticsSequenceDiagram.png[]
+
 
 // tag::history[]
 === History feature

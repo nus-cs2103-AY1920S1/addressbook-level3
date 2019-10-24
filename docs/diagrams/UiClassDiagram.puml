@@ -25,6 +25,10 @@ package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
+package Chart <<Rectangle>> {
+Class HiddenChart #FFFFFF
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
@@ -50,6 +54,7 @@ HelpWindow -down-|> UiPart
 ExpenseCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
+MainWindow -down-> Chart
 
 ExpenseListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox

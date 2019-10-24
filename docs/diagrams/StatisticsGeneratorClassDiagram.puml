@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package StatisticsGenerator <<Rectangle>> {
+
+Interface StatisticsGenerator <<interface>>
+Class TimelineGenerator
+Class BreakdownGenerator
+
+Class ExpenseTimeline
+Class ExpenseBreakdown
+}
+
+TimelineGenerator -up|> StatisticsGenerator
+BreakdownGenerator -down|> StatisticsGenerator
+
+TimelineGenerator -down-> ExpenseTimeline
+BreakdownGenerator -down-> ExpenseBreakdown
+
+
+
+@enduml
