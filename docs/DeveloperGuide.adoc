@@ -257,6 +257,32 @@ image::ExportActivityDiagram.png[]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
+=== [Coming soon in v1.3] Email
+==== Implementation
+
+The Email feature makes use of the `java.awt.Desktop` package to activate the default Mail client of the user.
+
+* The `To:` field is automatically populated with all the emails that are tagged to a particular Interviewee.
+* The `Cc:` field is configurable by the user via an optional configuration file.
+* The subject and message body are also automatically populated with details that are relevant to the Interviewee, depending on the context of the command used.
+
+image::EmailSequenceDiagram.png[]
+
+===== Example: Interview timeslot
+
+This is for sending the email to the Interviewee of his/her allocated interview timeslot. Details that vary according to the Interviewee include:
+
+* Date and time of allocated timeslot
+* Interviewer allocated
+
+Additional details that can be configured by the user include:
+
+* Location to report
+* Dress code
+* Any other additional information
+
+The message content can also be configured by the user. However, a default template will be used when no such configuration file exists or is provided.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
