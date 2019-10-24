@@ -1,5 +1,7 @@
 package dream.fcard.logic.respond;
 
+import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 
 /**
@@ -22,11 +24,20 @@ enum Responses {
          */
         return true; // capture is valid, end checking other commands
     }),
-    IMPORT("(?i)^(import)?(\\s)+(filepath/[\\w\\p{Punct}]+){1}(\\s)*", (commandInput, programState) -> {
+    IMPORT("(?i)^i(mport)?(\\s)+.+", (commandInput, programState) -> {
         System.out.println("Current command is IMPORT");
-        //Deck newDeck = *get deck from filepath*;
-        //programState.getDecks().add(newDeck);
-        return true; // capture is valid, end checking other commands
+
+        String path = commandInput.split(" ")[1].trim();
+
+        Deck deck = StorageManager.loadDeck(path);
+        if (deck != null) {
+            StorageManager.writeDeck(deck);
+            programState.addDeck(deck);
+            System.out.println("Successfully added " + path);
+        } else {
+            System.out.println("File does not exist, or file does not match schema for a deck");
+        }
+        return true;
     }),
     EXPORT("(?i)^(export)?(\\s)+(filepath/[\\w\\p{Punct}]+){1}(\\s)*", (commandInput, programState) -> {
         System.out.println("Current command is EXPORT");
