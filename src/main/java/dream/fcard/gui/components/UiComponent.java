@@ -7,4 +7,8 @@ package dream.fcard.gui.components;
  */
 public interface UiComponent<T> {
     // todo
+
+    default void setBackgroundColour(String colour) {
+        // todo: want to use setStyle, but method cannot be resolved
+    }
 }

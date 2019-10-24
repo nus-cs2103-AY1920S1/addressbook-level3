@@ -7,9 +7,15 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class TitleBar extends HBox {
+/**
+ * UI component representing title bar in the application window.
+ */
+public class TitleBar extends HBox implements UiComponent<HBox> {
     private Text title;
 
+    /**
+     * Creates a new instance of TitleBar. Called when MainWindow initialises its components.
+     */
     public TitleBar() {
         super();
 
@@ -23,6 +29,10 @@ public class TitleBar extends HBox {
         this.setStyle("-fx-background-color:" + GuiSettings.getSecondaryUiColour() + ";");
     }
 
+    /**
+     * Sets the title text to be displayed in the TitleBar.
+     * @param titleText The title text to be displayed.
+     */
     public void setTitle(String titleText) {
         // create label with appropriate text
         title = new Text(titleText);

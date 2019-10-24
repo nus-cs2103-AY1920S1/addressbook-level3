@@ -8,9 +8,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+/**
+ * UI component representing an individual FlashCard to be displayed in the application.
+ */
 public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
     private Text flashCardText;
 
+    /**
+     * Creates a new instance of FlashCardDisplay with the given text.
+     * @param text Text to be displayed in the FlashCardDisplay.
+     */
     public FlashCardDisplay(String text) {
         super();
 

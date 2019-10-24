@@ -20,10 +20,19 @@ public class UiManager {
     private MainWindow mainWindow;
     private State state;
 
+    /**
+     * Creates a new instance of UiManager with a given State.
+     * @param state The state of the application.
+     */
     public UiManager(State state) {
         this.state = state;
     }
 
+    /**
+     * Starts the application's GUI.
+     *
+     * @param primaryStage The window of the application.
+     */
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 

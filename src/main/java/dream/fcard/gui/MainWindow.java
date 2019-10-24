@@ -7,12 +7,12 @@ import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.gui.components.TitleBar;
 import dream.fcard.model.State;
 import javafx.scene.Scene;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Main window of the application's GUI. Houses all other UI components.
+ */
 public class MainWindow {
     Gui gui;
     private Stage primaryStage;
@@ -25,17 +25,24 @@ public class MainWindow {
     private ScrollablePane scrollablePane;
     private CommandTextFieldPlaceholder commandTextFieldPlaceholder;
 
+    /** Temporary no-argument constructor, called in Gui. To be refactored. */
     public MainWindow() {
-        // temporary no-arg constructor
+        // empty constructor body
     }
 
+    /**
+     * Creates and displays a main window for the application.
+     * Called by UiManager when application is started. (To be refactored)
+     * @param primaryStage
+     * @param state
+     */
     public MainWindow(Stage primaryStage, State state) {
         // todo: refactor linkages between MainWindow, Gui and UiManager
         this.primaryStage = primaryStage;
         this.state = state;
         this.gui = new Gui(this, state);
         onStartup();
-        testUiComponents();
+        //testUiComponents();
     }
 
     private void onStartup() {
@@ -88,10 +95,11 @@ public class MainWindow {
         primaryStage.setScene(scene);
     }
 
-    public Stage getPrimaryStage() {
+    private Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /** Temporary method (to be refactored) returning the ScrollablePane in this MainWindow. */
     ScrollablePane getScrollablePane() {
         return this.scrollablePane;
     }
