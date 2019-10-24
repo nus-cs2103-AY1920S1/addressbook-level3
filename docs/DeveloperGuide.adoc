@@ -347,7 +347,9 @@ This `DeadlineCommand` is returned back to `LogicManager` and is executed by cal
 === Inventory Tab
 
 This tab will help to keep records of all items currently in the club’s possession.
-Each item will require an input of its description, category, quantity, and cost per unit. Optionally, if the item is meant for sale, the price can be inputted as well.
+Each item will require an input of its description, category, quantity, and cost per unit. Optionally, if the item is meant for 
+sale, the price can be inputted as well.
+
 This is the overall Class Diagram of this tab:
 
 .Class Diagram of Inventory Tab (inventory package)
