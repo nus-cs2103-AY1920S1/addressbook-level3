@@ -1,4 +1,4 @@
-= $aveNUS - User Guide
+= *$aveNUS - User Guide*
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -20,14 +20,16 @@ By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-* $aveNUS is a desktop financial planning app that allows *NUS students* to *plan their meals according
+$aveNUS is a desktop financial planning app that allows *NUS students* to *plan their meals according
 to the amount of budget they set aside per meal* in NUS. With $aveNUS, you can more effectively manage your expenses,
 save your favourite meal options within NUS, edit meal options, and even receive recommendations
 for meals that suit your budget.
-* More importantly, $aveNUS is optimized for those who prefer to
+
+More importantly, $aveNUS is optimized for those who prefer to
 work on a Command Line Interface (CLI) while still having the benefits of a
 Graphical User Interface (GUI).
-* Interested in our app? <<Quick Start>> to get started. Enjoy!
+
+Interested in our app? <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -53,18 +55,20 @@ endif::[]
 You can download Java 11 from
 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
 .  Copy the file to the folder you want to use as the home folder for $aveNUS.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
+
+.The GUI of $aveNUS
 image::Ui.png[width="790"]
-+
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* First, *add* a food item into the menu by typing **`add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
-click kbd:[Enter]
+* First, *add* a food item into the menu by typing `add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
+press kbd:[Enter]
 * You should see that a food item panel appear on the right of the window as shown below in Figure 1.2:
 
+.The food pane of $aveNUS
 image::Figure_1.2_mockup_add.png[width="790"]
 
 * Now, try typing `delete 1` and then click kbd:[Enter]. Now the card labelled "1. Halal chicken rice"
@@ -91,11 +95,17 @@ is provided in the command descriptions.
 [[Features]]
 == Features
 
+This section highlights the commands that $aveNUS supports. These include information about the command's
+function, format as well as example usages of the command.
+
 === General Commands
+
+$aveNUS provides the user with a set of commands that are not feature-specific to
+enhance the user's experience as a whole.
 
 ==== Viewing Help: `help`
 
-Display the help screen that contains helpful information on how to use the application. +
+Display the help screen that contains helpful information on how to use the application.
 
 ****
 *Format*: `help`
@@ -183,7 +193,7 @@ Note: NAME, PRICE and CATEGORY are mandatory fields.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
-by using the `recommend` command again (see <<Recommend>>).
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `add n/NAME d/DESCRIPTION p/PRICE c/CATEGORY l/LOCATION o/OPENING HOURS r/RESTRICTIONS` +
@@ -195,7 +205,7 @@ List all the food items in the list.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
-by using the `recommend` command again (see <<Recommend>>).
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `list`
