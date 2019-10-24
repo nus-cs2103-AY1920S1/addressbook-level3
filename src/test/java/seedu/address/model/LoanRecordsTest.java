@@ -2,11 +2,13 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalLoans.LOAN_1;
 import static seedu.address.testutil.TypicalLoans.LOAN_2;
 import static seedu.address.testutil.TypicalLoans.LOAN_3;
 import static seedu.address.testutil.TypicalLoans.LOAN_7;
+import static seedu.address.testutil.TypicalLoans.LOAN_7_RETURNED;
 import static seedu.address.testutil.TypicalLoans.getTypicalLoanRecords;
 import static seedu.address.testutil.TypicalLoans.getTypicalLoans;
 
@@ -57,5 +59,13 @@ class LoanRecordsTest {
         LoanRecords loanRecords = new LoanRecords(getTypicalLoanRecords());
         loanRecords.addLoan(LOAN_7);
         assertTrue(loanRecords.hasLoan(LOAN_7));
+    }
+
+    @Test
+    public void updateLoan() {
+        LoanRecords loanRecords = new LoanRecords(getTypicalLoanRecords());
+        loanRecords.addLoan(LOAN_7);
+        loanRecords.updateLoan(LOAN_7, LOAN_7_RETURNED);
+        assertNotEquals(loanRecords.getLoansMap().get(LOAN_7.getLoanId()).getReturnDate(), null);
     }
 }

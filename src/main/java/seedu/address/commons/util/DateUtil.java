@@ -1,6 +1,7 @@
 package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -65,8 +66,7 @@ public class DateUtil {
      * @return Number of days between the two dates.
      */
     public static int getNumOfDaysBetween(LocalDate startDate, LocalDate endDate) {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
+        requireAllNonNull(startDate, endDate);
         assert endDate.isAfter(startDate) : "endDate should be later than startDate";
 
         return (int) startDate.until(endDate, ChronoUnit.DAYS);
@@ -80,6 +80,7 @@ public class DateUtil {
      * @return 0 if book is not overdue, else the number of days overdue.
      */
     public static int getNumOfDaysOverdue(LocalDate dueDate, LocalDate returnDate) {
+        requireAllNonNull(dueDate, returnDate);
         if (!returnDate.isAfter(dueDate)) {
             return 0;
         } else {

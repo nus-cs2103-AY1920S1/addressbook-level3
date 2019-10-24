@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -80,5 +81,23 @@ class DateUtilTest {
         LocalDate today = DateUtil.getTodayDate();
 
         assertThrows(NullPointerException.class, () -> DateUtil.getNumOfDaysBetween(null, today));
+    }
+
+    @Test
+    public void getNumOfDaysOverdue_validDates_success() {
+        assertEquals(DateUtil.getNumOfDaysOverdue(LocalDate.of(2019, 10, 25),
+                LocalDate.of(2019, 10, 30)), 5);
+        assertEquals(DateUtil.getNumOfDaysOverdue(LocalDate.of(2019, 10, 25),
+                LocalDate.of(2019, 10, 12)), 0);
+    }
+
+    @Test
+    public void getNumOfDaysOverdue_invalidDate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> DateUtil.getNumOfDaysOverdue(null, LocalDate.now()));
+    }
+
+    @Test
+    public void formatDate() {
+        assertEquals(DateUtil.formatDate(LocalDate.of(2019, 10, 25)), "25/10/2019");
     }
 }
