@@ -25,7 +25,7 @@ class ModelManagerTest {
     @Test
     public void constructor() {
 
-        assertEquals(new TransactionList(), new TransactionList(modelManager.getTransactionList().gettArrList()));
+        assertEquals(new TransactionList(), new TransactionList(modelManager.getTransactionList().getTarrList()));
     }
 
     @Test

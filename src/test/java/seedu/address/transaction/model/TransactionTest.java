@@ -52,13 +52,22 @@ class TransactionTest {
     }
 
     @Test
-    public void toString_test() {
+    public void toStringFormat_test() {
         Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).build();
         String msg = "Date: " + transaction.getDate() + "\nDescription: " + transaction.getDescription()
                 + "\nCategory: "
                 + transaction.getCategory() + "\nAmount: $" + transaction.getAmount() + "\nPaid by: "
                 + transaction.getPerson().getName().toString();
         assertEquals(msg, transaction.toString());
+    }
+
+    @Test
+    public void writeIntoFileFormat_test() {
+        Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).build();
+        String msg = transaction.getDate() + " | " + transaction.getDescription() + " | " + transaction.getCategory()
+                + " | " + transaction.getAmount() + " | " + transaction.getPerson().getName() + " | "
+                + transaction.isOne(transaction.getIsReimbursed());
+        assertEquals(msg, transaction.toWriteIntoFile());
     }
 
 }

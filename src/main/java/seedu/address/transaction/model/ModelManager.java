@@ -30,7 +30,7 @@ public class ModelManager implements Model {
         }
         this.filteredList = new TransactionList(actualList);
         this.filteredList.setAsUnmodifiable();
-        //this.filteredList = new TransactionList(transactionList.gettArrList());
+        //this.filteredList = new TransactionList(transactionList.getTarrList());
         this.predicate = transaction -> true;
     }
 
