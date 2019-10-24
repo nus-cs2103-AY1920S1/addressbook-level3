@@ -6,6 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
 participant "f:FindCommand" as FindCommand LOGIC_COLOR
+participant ":SpendingPredicateList" as SpendingPredicateList LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -33,7 +34,16 @@ create FindCommand
 FindCommandParser -> FindCommand : predicates
 activate FindCommand
 
+create SpendingPredicateList
+FindCommand -> SpendingPredicateList :
+activate SpendingPredicateList
+
+SpendingPredicateList --> FindCommand
+
+deactivate SpendingPredicateList
+
 FindCommand --> FindCommandParser : f
+
 deactivate FindCommand
 
 FindCommandParser --> SpendingBookParser : f
@@ -47,6 +57,13 @@ deactivate SpendingBookParser
 
 LogicManager -> FindCommand : execute()
 activate FindCommand
+
+FindCommand -> FindCommand : reduce()
+activate FindCommand
+
+FindCommand --> FindCommand : predicate
+
+deactivate FindCommand
 
 FindCommand -> Model : updateFilteredSpendingList(predicate)
 activate Model

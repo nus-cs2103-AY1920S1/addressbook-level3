@@ -4,18 +4,18 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+SpendingBook *-right-> "1" UniqueSpendingList
+SpendingBook *-right-> "1" UniqueTagList
+UniqueTagList -[hidden]down- UniqueSpendingList
+UniqueTagList -[hidden]down- UniqueSpendingList
 
 UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+UniqueSpendingList o-right-> Spending
 
-Person o-up-> "*" Tag
+Spending o-up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Spending *--> Name
+Spending *--> Cost
+Spending *--> Date
+Spending *--> Remark
 @enduml

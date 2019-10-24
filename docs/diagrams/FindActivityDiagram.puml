@@ -9,8 +9,12 @@ if () then ([valid fields present])
     :Use field data in predicates and save to Predicate List;
     :Combine Predicate List to form a single predicate;
     :Update Model based on predicate;
-else ([missing or invalid fields])
-    :Display error message;
+else ([else])
+ if () then([invalid field present])
+    :Display error message for invalid field;
+ else ([missing field present])
+    :Display error message for missing field;
+ endif
 endif
 stop
 @enduml

@@ -6,7 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
 participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
 participant "s:SortCommand" as SortCommand LOGIC_COLOR
-participant "comparator:SpendingComparator" as SpendingComparator LOGIC_COLOR
+participant ":SpendingComparator" as SpendingComparator LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -49,18 +49,18 @@ deactivate SpendingBookParser
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
+create SpendingComparator
 SortCommand -> SpendingComparator
 activate SpendingComparator
 
-SpendingComparator --> SortCommand
+SpendingComparator --> SortCommand : comparator
 deactivate SpendingComparator
 
-SortCommand -> Model : updatedSortedSpendingList(comparator)
+SortCommand -> Model : updateSortedSpendingList(comparator)
+activate Model
 
 Model --> SortCommand
 deactivate Model
-
-activate SpendingComparator
 
 create CommandResult
 SortCommand -> CommandResult
