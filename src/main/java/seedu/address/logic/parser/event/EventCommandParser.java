@@ -14,8 +14,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.event.EventCommand;
 import seedu.address.logic.commands.event.EventAddCommand;
+import seedu.address.logic.commands.event.EventCommand;
 import seedu.address.logic.commands.event.EventDeleteCommand;
 import seedu.address.logic.commands.event.EventEditCommand;
 import seedu.address.logic.commands.event.EventIndexCommand;
