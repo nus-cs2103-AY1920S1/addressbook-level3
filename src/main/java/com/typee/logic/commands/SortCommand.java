@@ -38,7 +38,7 @@ public class SortCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
+                || (other instanceof SortCommand // instanceof handles nulls
                 && comparator.equals(((SortCommand) other).comparator)); // state check
     }
 }
