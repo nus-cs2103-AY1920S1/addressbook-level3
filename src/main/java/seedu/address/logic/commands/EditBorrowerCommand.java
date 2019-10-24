@@ -109,6 +109,7 @@ public class EditBorrowerCommand extends Command {
      * corresponding field value of the borrower.
      */
     public static class EditBorrowerDescriptor {
+        public static final String COMMAND_WORD = "edit";
         private Name name;
         private Phone phone;
         private Email email;

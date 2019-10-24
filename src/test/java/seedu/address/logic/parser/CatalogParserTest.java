@@ -25,7 +25,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteByIndexCommand;
 import seedu.address.logic.commands.DeleteBySerialNumberCommand;
 import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -44,7 +43,6 @@ import seedu.address.model.book.SerialNumberGenerator;
 import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
-import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 import seedu.address.testutil.UserSettingsBuilder;
 import seedu.address.testutil.UserSettingsUtil;
@@ -83,14 +81,16 @@ public class CatalogParserTest {
         assertEquals(new DeleteBySerialNumberCommand(new SerialNumber(VALID_SERIAL_NUMBER_BOOK_1)), command);
     }
 
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Book book = new BookBuilder().build();
-        EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder(book).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_BOOK.getOneBased() + " " + BookUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_BOOK, descriptor), command);
-    }
+    //    @Test
+    //    public void parseCommand_edit() throws Exception {
+    //        Borrower borrower = new BorrowerBuilder().build();
+    //        EditBorrowerCommand.EditBorrowerDescriptor descriptor = new EditBorrowerDescriptorBuilder(borrower)
+    //        .build();
+    //        EditBorrowerCommand.EditBorrowerDescriptor command =
+    //                (EditBorrowerCommand.EditBorrowerDescriptor) parser.parseCommand(EditBorrowerCommand
+    //                        .EditBorrowerDescriptor.COMMAND_WORD + " "
+    //        assertEquals(new EditBorrowerCommand.EditBorrowerDescriptor(descriptor), command);
+    //    }
 
     @Test
     public void parseCommand_exit() throws Exception {

@@ -51,6 +51,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String BORROWER_ID_DESC_BOB = " " + PREFIX_BORROWER_ID + VALID_ID_BOB;
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "$123";
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "yo";
 
     public static final String VALID_TITLE_BOOK_1 = "Harry Botter";
     public static final String VALID_TITLE_BOOK_2 = "Legend of the Condor Heroes";
