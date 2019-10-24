@@ -144,14 +144,15 @@ Examples:
 `redo`
 Redos the previous undo command, i.e. the appointment with the description `Meeting on Monday` will reappear in the appointment manager.
 
-=== Changing to calendar view : `calendar`
+=== Changing to calendar view : `tab calendar`
 Changes the current view to the calendar view, which displays appointments inside a calendar.
 
-=== Typing efficiency game : `game`
-Opens a simple typing game which helps you to improve your typing speed.
-
-=== Spell checker : `spellcheck`
-Scans through all appointment descriptions for spelling errors. A probabilistic approach is used to determine if minor spelling errors are present.
+=== Typing game : `tab typinggame`
+Opens a simple typing game which helps you to improve your typing speed. There are moving words that users can type in
+order to score points. Once users correctly type the specified word, the word disappears and the increase in points is
+reflected in the player information panel in the game window. When the user fails to type the word before the moving
+word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
+window. After the health points reaches zero, `GAME OVER` is displayed.
 
 === Generating a PDF file of appointments : `pdf`
 Generates a PDF file based on the data saved in the hard disk.
@@ -181,7 +182,7 @@ Relevant data will be loaded from the external file when the application starts.
 
 * *Add* `add d/DESCRIPTION` +
 e.g. `add d/Team lunch outing on Friday`
-* *Calendar* : `calendar`
+* *Calendar* : `tab calendar`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -189,11 +190,10 @@ e.g. `delete 3`
 e.g. `edit 2 d/Team lunch outing on Thursday`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find team outing`
-* *Game* : `game`
+* *Game* : `tab typinggame`
 * *List* : `list`
 * *Help* : `help`
 * *PDF* : `pdf`
-* *Spellcheck* : `spellcheck`
 * *Redo* : `redo`
 * *Undo* : `undo`
 
