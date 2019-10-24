@@ -1,0 +1,88 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModuleBookParser" as ModuleBookParser LOGIC_COLOR
+participant ":LinkCommandParser" as LinkCommandParser LOGIC_COLOR
+participant ":AddLinkCommandParser" as AddLinkCommandParser LOGIC_COLOR
+participant "a:AddLinkCommand" as AddLinkCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "link:Link" as Link MODEL_COLOR
+end box
+
+[-> LogicManager : execute(USER_INPUT)
+activate LogicManager
+
+LogicManager -> ModuleBookParser : parseCommand("link ...")
+activate ModuleBookParser
+
+create LinkCommandParser
+ModuleBookParser -> LinkCommandParser
+activate LinkCommandParser
+
+LinkCommandParser --> ModuleBookParser
+deactivate LinkCommandParser
+
+ModuleBookParser -> LinkCommandParser : parse("MODULE_INDEX ... ")
+activate LinkCommandParser
+
+create AddLinkCommandParser
+LinkCommandParser -> AddLinkCommandParser
+activate AddLinkCommandParser
+
+AddLinkCommand --> LinkCommandParser
+deactivate AddLinkCommand
+
+LinkCommandParser -> AddLinkCommandParser : parse("MODULE_INDEX n/LINK_NAME ...")
+
+create Link
+AddLinkCommandParser -> Link : Link(LINK_NAME, LINK_URL)
+activate Link
+
+Link --> AddLinkCommandParser : link
+deactivate Link
+
+create AddLinkCommand
+AddLinkCommandParser -> AddLinkCommand : AddLinkCommand(INDEX, link)
+activate AddLinkCommand
+
+AddLinkCommand --> AddLinkCommandParser : a
+deactivate AddLinkCommand
+
+AddLinkCommandParser --> LinkCommandParser: a
+deactivate AddLinkCommandParser
+AddLinkCommandParser -[hidden]-> LinkCommandParser
+destroy AddLinkCommandParser
+
+LinkCommandParser --> ModuleBookParser : a
+deactivate LinkCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+LinkCommandParser -[hidden]-> ModuleBookParser
+destroy LinkCommandParser
+
+ModuleBookParser --> LogicManager : a
+deactivate ModuleBookParser
+
+LogicManager -> AddLinkCommand : execute()
+activate AddLinkCommand
+
+ref over AddLinkCommand, Model : add link to module
+
+create CommandResult
+AddLinkCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddLinkCommand
+deactivate CommandResult
+
+AddLinkCommand --> LogicManager : result
+deactivate AddLinkCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
