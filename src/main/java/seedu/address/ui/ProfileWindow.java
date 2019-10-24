@@ -21,8 +21,8 @@ import seedu.address.model.tag.Tag;
  * Panel containing detailed information of the specified Person including
  * the usual details on PersonCard, and also associated Visit information.
  */
-public class ProfilePanel extends UiPart<Stage> {
-    private static final String FXML = "ProfilePanel.fxml";
+public class ProfileWindow extends UiPart<Stage> {
+    private static final String FXML = "ProfileWindow.fxml";
 
     private int target;
 
@@ -45,14 +45,14 @@ public class ProfilePanel extends UiPart<Stage> {
     private TextArea visitField;
 
 
-    public ProfilePanel(Stage root) {
+    public ProfileWindow(Stage root) {
         super(FXML, root);
     }
 
     /**
      * Creates a new ProfilePanel.
      */
-    public ProfilePanel() {
+    public ProfileWindow() {
         this(new Stage());
         this.getRoot().initStyle(StageStyle.UTILITY);
     }
