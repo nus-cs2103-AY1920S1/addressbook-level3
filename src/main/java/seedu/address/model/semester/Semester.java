@@ -88,6 +88,13 @@ public class Semester {
         return this.modules.contains(module);
     }
 
+    /**
+     * Clears/deletes all modules this semester.
+     */
+    public void clearAllModules() {
+        modules = new UniqueModuleList();
+    }
+
     // NOTE: this is for the GUI to use for Milestone 2
     @Override
     public String toString() {
@@ -95,8 +102,21 @@ public class Semester {
         result.append(semesterName).append(":").append("\n");
         for (Module module : modules) {
             result.append(module.toString()).append("\n");
+            //result.append(module.getModuleCode().value).append("\n");
         }
 
+        return result.toString();
+    }
+
+    // Added this method to display a simplified list of semesters for commands like viewplan/viewcommit.
+    /**
+     * Converts this semester to a String suitable for display in a simplified study plan.
+     */
+    public String toStringForSimplifiedStudyPlan() {
+        StringBuilder result = new StringBuilder();
+        for (Module module : modules) {
+            result.append("-").append(module.getModuleCode()).append("\n");
+        }
         return result.toString();
     }
 
