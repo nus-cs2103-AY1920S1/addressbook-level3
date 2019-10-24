@@ -22,8 +22,6 @@ import seedu.address.model.genre.Genre;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
-    private static final String PREAMBLE_PLACEHOLDER = " 0 ";
-
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -32,14 +30,13 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
 
-        String trimmedArgs = PREAMBLE_PLACEHOLDER + args.trim();
-        if (trimmedArgs.isEmpty()) {
+        if (args.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_TITLE, PREFIX_SERIAL_NUMBER, PREFIX_AUTHOR,
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_SERIAL_NUMBER, PREFIX_AUTHOR,
                         PREFIX_GENRE);
 
         BookPredicate predicate = new BookPredicate();
