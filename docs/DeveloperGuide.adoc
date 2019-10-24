@@ -129,9 +129,12 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores a `CalendarDate` object that stores date shown on the calendar panel.
-* stores the Seller Manager data.
+* stores `Customer`, `Phone`, `Order` and `Schedule` data in a `DataBook` each.
+* a `DataBook` is backed by an underlying `UniqueList` which stores subclasses of `Identifiable`
+* the `Identifiable` interfaces exposes an `isSameAs` method which is used to determine if two objects have the same identity
 * exposes 4 unmodifiable `ObservableList<Identifiable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other four components.
+
 
 [NOTE]
 As a more OOP model, we can store a `UniqueList<Tag>` in `Seller Manager`, which `Customer` / `Phone` / `Order` / `Schedule`  can reference.
@@ -151,7 +154,8 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in json format and read them
+ back.
 
 [[Design-Commons]]
 === Common classes
@@ -162,7 +166,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
 === Statistics Calculation and Chart generation feature
 ==== Implementation
 
@@ -299,7 +302,35 @@ form or string form. With this the feature has finished executing! Attached belo
 
 image::StatisticsCalculationUI.png[]
 
-=======
+=== Autocomplete feature
+==== Current Implementation
+
+This feature is visible in the UI as a dropdown menu when the user enters input into the command box.
+
+===== How the UI works
+
+The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's `TextField`, which adds an additional listener for changes in the input text.
+This listener reads the entire input text on each character change and performs comparisons with a predefined set of strings.
+For all predefined strings that matches the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
+
+===== The underlying data structures
+
+This feature was designed to display values that are currently in the `Model`.
+
+For example, the input text `add-c n/` would display a list of `CustomerName` that already exists in the `Customer` `DataBook`.
+
+In order to achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
+and a `Map<String, Node>` to represent outgoing edges. The keys of this map represent the possible prefixes for the next argument of the input text, such as `c/` or `e/`.
+
+===== Design Considerations
+
+* Dynamically updated: By storing references to a set of values that can be backed by `ObservableList` in the `Model`, whenever the user alters any data, it will be reflected in the displayed values.
+
+* Supports optional arguments: By storing the possible prefixes as "edge weights", it is possible to represent an optional argument by having an edge to the `Node` containing its values, as well as an edge to the next `Node`.
+
+* Infinite structure: By having a `TagNode` store a reference to itself, it is possible to endlessly display `t/` as a possible argument at the end of the input text,
+which is consistent with the unlimited number of `Tag` a `Customer` can hold.
+
 === Calendar / Schedule feature
 ==== Implementation
 
@@ -362,8 +393,6 @@ Hence, we decided to use a listener instead.
 `CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
 
-=======
-
 === Find Customer/Phone/Order feature
 The find feature allows the user to find the customer/phone/order according to its data field(e.g. CustomerName, ContactNumber)
 or without any data field. We wanted to implement an OR search and so long as the customer/phone/order contained the keyword
@@ -418,9 +447,6 @@ as one would need to understand the parsing.
 * **Alternative 2:** Single predicate.
 ** Pros: Less code written in total.
 ** Cons: Harder to maintain.
-
-
-
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
