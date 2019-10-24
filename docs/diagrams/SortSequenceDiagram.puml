@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":MatchCommandParser" as MatchCommandParser LOGIC_COLOR
+participant "s:MatchCommand" as MatchCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("sort/rate")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("sort/rate")
+activate AddressBookParser
+
+create MatchCommandParser
+AddressBookParser -> MatchCommandParser
+activate MatchCommandParser
+
+MatchCommandParser --> AddressBookParser
+deactivate MatchCommandParser
+
+AddressBookParser -> MatchCommandParser : parse("rate")
+activate MatchCommandParser
+
+create MatchCommand
+MatchCommandParser -> MatchCommand
+activate MatchCommand
+
+MatchCommand --> MatchCommandParser : s
+deactivate MatchCommand
+
+MatchCommandParser --> AddressBookParser : s
+deactivate MatchCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+MatchCommandParser -[hidden]-> AddressBookParser
+destroy MatchCommandParser
+
+AddressBookParser --> LogicManager : s
+deactivate AddressBookParser
+
+LogicManager -> MatchCommand : execute()
+activate MatchCommand
+
+MatchCommand -> ModelManager : sortBySuccessRate()
+activate ModelManager
+
+ModelManager --> MatchCommand
+deactivate ModelManager
+
+create CommandResult
+MatchCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> MatchCommand
+deactivate CommandResult
+
+MatchCommand --> LogicManager : result
+deactivate MatchCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

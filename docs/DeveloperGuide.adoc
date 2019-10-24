@@ -342,6 +342,52 @@ Use case ends.
 +
 Use case ends.
 
+=== Use case: List all patients/donors/doctors
+
+*MSS*
+
+1.  User requests to list patients/donors/doctors.
+2.  ORGANice shows the list of patients/donors/doctors.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ORGANice detects an invalid parameter.
++
+[none]
+** 1a1. ORGANice requests for correct parameter.
++
+** 1a2. User enters correct parameter.
++
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes at step 2.
+
+=== Use case: Sort
+
+*MSS*
+
+1.  User requests to sort the list of donors of a particular patient.
+2.  ORGANice sorts the list of donors according to the parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ORGANice detects invalid parameter(s).
++
+[none]
+** 1a1. ORGANice prompts for valid parameter(s).
++
+** 1a2. User enters correct parameter(s).
++
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes at step 2.
+
 _{More to be added}_
 
 [appendix]
