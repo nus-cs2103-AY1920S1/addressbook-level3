@@ -1,6 +1,10 @@
 package dream.fcard.model;
 
+import static dream.fcard.model.cards.Priority.HIGH_PRIORITY;
+import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
@@ -19,6 +23,8 @@ import javafx.scene.Node;
 public class Deck implements JsonInterface {
     private String deckName;
     private ArrayList<FlashCard> cards;
+    private ArrayList<FlashCard> highPriorityQueue;
+    private ArrayList<FlashCard> lowPriorityQueue;
     private Statistics stats;
 
     /**
@@ -27,6 +33,9 @@ public class Deck implements JsonInterface {
     public Deck() {
         cards = new ArrayList<>();
         deckName = "untitled";
+
+        highPriorityQueue = new ArrayList<>();
+        lowPriorityQueue = new ArrayList<>();
         stats = new Statistics();
     }
 
@@ -38,6 +47,9 @@ public class Deck implements JsonInterface {
     public Deck(String name) {
         cards = new ArrayList<>();
         deckName = name;
+
+        highPriorityQueue = new ArrayList<>();
+        lowPriorityQueue = new ArrayList<>();
     }
 
     /**
@@ -48,6 +60,31 @@ public class Deck implements JsonInterface {
     public Deck(ArrayList<FlashCard> initialCards, String name) {
         cards = initialCards;
         deckName = name;
+
+        highPriorityQueue = new ArrayList<>();
+        lowPriorityQueue = new ArrayList<>();
+
+        addCardsToQueues(initialCards);
+    }
+
+    /**
+     * @param list
+     */
+    private void addCardsToQueues(ArrayList<FlashCard> list) {
+        for (int i = 0; i < list.size(); i++) {
+            FlashCard card = list.get(i);
+
+            boolean isHighPriorityCard = card.getPriority() == HIGH_PRIORITY;
+            boolean isLowPriorityCard = card.getPriority() == LOW_PRIORITY;
+
+            if (isHighPriorityCard) {
+                highPriorityQueue.add(card);
+            }
+
+            if (isLowPriorityCard) {
+                lowPriorityQueue.add(card);
+            }
+        }
     }
 
     /**
@@ -150,10 +187,65 @@ public class Deck implements JsonInterface {
         return this.cards;
     }
 
+    /**
+     * @return
+     */
     public String getName() {
         return deckName;
     }
 
+    /**
+     * @return
+     */
+    public ArrayList<FlashCard> getHighPriorityQueue() {
+        return highPriorityQueue;
+    }
+
+    /**
+     * @return
+     */
+    public ArrayList<FlashCard> getLowPriorityQueue() {
+        return lowPriorityQueue;
+    }
+
+    /**
+     * @return
+     */
+    public ArrayList<FlashCard> getSubsetForTest() {
+        ArrayList<FlashCard> testSet = new ArrayList<>();
+        int totalDeckSize = cards.size();
+
+        if (totalDeckSize <= 10) {
+            return cards;
+        }
+
+        int sizeOfLowPrioritySet = (int) Math.floor(totalDeckSize * 0.4);
+        int sizeOfHighPrioritySet = totalDeckSize - sizeOfLowPrioritySet;
+        int sizeOfTestSet = sizeOfHighPrioritySet + sizeOfLowPrioritySet;
+
+        for (int i = 0; i < sizeOfHighPrioritySet; i++) {
+            FlashCard chosenCard = getRandomCard(highPriorityQueue);
+            testSet.add(chosenCard);
+        }
+
+        for (int i = 0; i < sizeOfLowPrioritySet; i++) {
+            FlashCard chosenCard = getRandomCard(lowPriorityQueue);
+            testSet.add(chosenCard);
+        }
+
+        return testSet;
+    }
+
+    /**
+     * @param list
+     * @return
+     */
+    private FlashCard getRandomCard(ArrayList<FlashCard> list) {
+        Random rand = new Random(System.currentTimeMillis());
+        int chosenCardIndex = rand.nextInt(list.size());
+        return list.get(chosenCardIndex);
+    }
+  
     public int getNumCards() {
         return cards.size();
     }

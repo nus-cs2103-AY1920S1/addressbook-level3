@@ -36,7 +36,6 @@ public class State {
         decks.add(new Deck(deckName));
     }
 
-    /**
      * Adds a given Deck object to the decks list.
      *
      * @param deck Deck object to be added.
@@ -44,6 +43,7 @@ public class State {
     public void addDeck(Deck deck) {
         decks.add(deck);
     }
+
 
     public boolean isEditMode() {
         return this.isEditMode;
@@ -94,6 +94,14 @@ public class State {
             throw new DeckNotFoundException("Deck not found - " + name);
         }
         return decks.get(indexOfDeck);
+    }
+
+    /**
+     * Replace all decks with a new set of decks. Used by `root` command.
+     * @param newDecks  new decks
+     */
+    public void reloadAllDecks(ArrayList<Deck> newDecks) {
+        decks = newDecks;
     }
 
     /**
