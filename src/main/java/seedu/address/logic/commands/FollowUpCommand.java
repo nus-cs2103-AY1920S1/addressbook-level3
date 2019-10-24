@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import java.util.List;
@@ -9,7 +9,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.Reminder;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,7 +36,7 @@ public class FollowUpCommand extends Command {
      * @param days before appointment
      */
     public FollowUpCommand(Index index, int days) {
-        requireAllNonNull(index, days);
+        requireNonNull(index);
 
         this.index = index;
         this.days = days;
@@ -52,8 +51,7 @@ public class FollowUpCommand extends Command {
         }
 
         Person person = lastShownList.get(index.getZeroBased());
-        Reminder toAdd = new Reminder(person.getName().toString(), days);
-        model.addReminder(toAdd);
+        model.addReminder(1, person.getName().toString(), days);
 
         return new CommandResult(String.format(MESSAGE_ADD_FOLLOWUP_SUCCESS, person.getName().toString()), days);
     }

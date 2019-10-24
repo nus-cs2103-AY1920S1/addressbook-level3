@@ -16,7 +16,6 @@ import seedu.address.model.AliasTable;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Reminder;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
@@ -110,7 +109,7 @@ public class UnaliasCommandTest {
         }
 
         @Override
-        public void addReminder(Reminder reminder) {
+        public void addReminder(int type, String description, int days) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private AliasTable aliasTable;
+    private Reminder reminders;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     /**
@@ -22,6 +23,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public UserPrefs() {
         aliasTable = AliasTable.getDefaultAliasTable();
+        reminders = Reminder.getDefaultReminders();
     }
 
     /**
@@ -40,6 +42,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setAliasTable(newUserPrefs.getAliasTable());
+        setReminders(newUserPrefs.getReminders());
     }
 
     public AliasTable getAliasTable() {
@@ -49,6 +52,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAliasTable(AliasTable aliasTable) {
         requireNonNull(aliasTable);
         this.aliasTable = aliasTable;
+    }
+
+    public Reminder getReminders() {
+        return reminders;
+    }
+
+    public void setReminders(Reminder reminders) {
+        requireNonNull(reminders);
+        this.reminders = reminders;
     }
 
     public GuiSettings getGuiSettings() {
@@ -82,12 +94,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-                && aliasTable.equals(o.aliasTable);
+                && aliasTable.equals(o.aliasTable)
+                && reminders.equals(o.reminders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, aliasTable);
+        return Objects.hash(guiSettings, addressBookFilePath, aliasTable, reminders);
     }
 
     @Override
@@ -96,6 +109,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAlias table : " + aliasTable);
+        sb.append("\nAlias table : " + reminders);
         return sb.toString();
     }
 
@@ -109,5 +123,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public String applyAlias(String commandText) {
         return aliasTable.applyAlias(commandText);
+    }
+
+    public void addReminder(int type, String description, int days) {
+        reminders.addReminder(type, description, days);
     }
 }
