@@ -24,8 +24,8 @@ public class TrainingDate {
     }
 
     /**
-     * Parses {@code date} and extracts the day, month and year.
-     * @param date Date input by user.
+     * Parses {@code date} and extracts the day, month and year
+     * @param date Date input by user
      * @throws ParseException if {@code date} specified by user is invalid.
      */
     private void processDate(String date) throws ParseException {
