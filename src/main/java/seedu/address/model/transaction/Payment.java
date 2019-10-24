@@ -14,15 +14,15 @@ import seedu.address.model.util.Date;
 public abstract class Payment extends Transaction implements LedgerOperation {
     protected final Person person;
 
-    public Payment(Person person, Amount amount, Date date) {
-        super(amount, date);
+    public Payment(Person person, Amount amount, Date date, Description description) {
+        super(amount, date, description);
         requireNonNull(person);
         this.person = person;
 
     }
 
-    public Payment(Person person, Amount amount) {
-        this(person, amount, Date.now());
+    public Payment(Person person, Amount amount, Description description) {
+        this(person, amount, Date.now(), description);
     }
 
 

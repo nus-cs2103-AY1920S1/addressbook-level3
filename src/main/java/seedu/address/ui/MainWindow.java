@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.ui.tab.Tab;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private MainTabPanel mainTabPanel;
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
     private ResultDisplay resultDisplay;
@@ -46,6 +48,15 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane mainTabPanelPlaceholder;
+
+    @FXML
+    private MenuItem transactionMenuItem;
+
+    @FXML
+    private MenuItem budgetMenuItem;
+
+    @FXML
     private StackPane transactionListPanelPlaceholder;
 
     @FXML
@@ -55,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane statusBarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -81,10 +92,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        // setAccelerator(transactionMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -119,18 +132,18 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         ObservableList<BankAccountOperation> list = logic.getTransactionList();
         transactionListPanel = new TransactionListPanel(list);
-        transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         ObservableList<Budget> budgetList = logic.getBudgetList();
         budgetListPanel = new BudgetListPanel(budgetList);
-        budgetListPanelPlaceholder.setPrefSize(180, 180);
-        budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
+
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel);
+        mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getBankAccountFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -147,6 +160,7 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
+
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -170,10 +184,30 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Handles the switching of tab depending on {@code tab}.
+     */
+    @FXML
+    private void handleSwitchTab(Tab tab) {
+        System.out.println(tab);
+        switch (tab) {
+
+        case TRANSACTION:
+            showTransactionTab();
+            break;
+        case BUDGET:
+            showBudgetTab();
+            break;
+        default:
+            break;
+
+        }
     }
 
     public TransactionListPanel getTransactionListPanel() {
@@ -199,6 +233,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isSwitchTab() != null) {
+                handleSwitchTab(commandResult.isSwitchTab());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -206,4 +244,19 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Switch to transaction tab.
+     */
+    private void showTransactionTab() {
+        mainTabPanel.switchToTransactionTab();
+    }
+
+    /**
+     * Switch to budget tab.
+     */
+    private void showBudgetTab() {
+        mainTabPanel.switchToBudgetTab();
+    }
+
 }

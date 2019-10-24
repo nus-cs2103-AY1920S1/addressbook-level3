@@ -28,6 +28,8 @@ public class Projection {
 
     /**
      * Computes projection for specified date based on transactionHistory
+     * TODO: Consider using Gradient Descent / Linear Regression to project income
+     * TODO: Explore matrix operations using json, considering switching Tx history to csv
      */
     public void project() {
         Amount totalPrev = new Amount(0);

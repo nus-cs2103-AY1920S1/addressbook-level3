@@ -65,6 +65,18 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Replaces the given budget {@code target} in the list with {@code editedBudget}.
+     * {@code target} must exist in the bank account.
+     * The budget identity of {@code editedBudget} must not be the same as
+     * another existing budget in the bank account.
+     */
+    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+        requireNonNull(budgetEdit);
+
+        budgets.setBudget(budgetTarget, budgetEdit);
+    }
+
+    /**
      * Adds a transaction to the bank account.
      * Updates {@code balance} and {@code budgets} respectively.
      *
@@ -96,6 +108,14 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Removes {@code key} from this {@code BankAccount}.
+     * {@code key} must exist in the bank account.
+     */
+    public void removeBudget(Budget key) {
+        budgets.remove(key);
+    }
+
+    /**
      * Checks if transaction exists in bank account.
      *
      * @param transaction Transaction to be checked.
@@ -107,12 +127,21 @@ public class BankAccount implements ReadOnlyBankAccount {
     }
 
     /**
+     * Checks if budget exists in bank account.
+     */
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return budgets.contains(budget);
+    }
+
+    /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
-     * @param txn Transaction can be either InTransaction or OutTransaction.
+     *
+     * @payram txn Transaction can be either InTransaction or OutTransaction.
      */
     private void updateBudgets(BankAccountOperation txn) {
         if (txn instanceof OutTransaction) {
-            for (Budget bd: budgets) {
+            for (Budget bd : budgets) {
                 bd.updateBudget(txn.getAmount());
             }
         }
@@ -150,7 +179,7 @@ public class BankAccount implements ReadOnlyBankAccount {
 
         BankAccount otherBankAccount = (BankAccount) other;
         return this.balance.equals(otherBankAccount.balance)
-                && this.transactions.equals(otherBankAccount.transactions);
+            && this.transactions.equals(otherBankAccount.transactions);
     }
 
     // TODO: implement stub

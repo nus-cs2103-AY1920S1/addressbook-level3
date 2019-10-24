@@ -2,29 +2,31 @@ package seedu.address.model.transaction;
 
 import java.util.Set;
 
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Date;
 
 /**
  * Handles out transactions.
  */
 public class OutTransaction extends Transaction implements BankAccountOperation {
-    public OutTransaction(Amount amount, Date date) {
-        super(amount, date);
+    public OutTransaction(Amount amount, Date date, Description description) {
+        super(amount.makeNegative(), date, description);
     }
 
-    public OutTransaction(Amount amount, Date date, Set<Tag> tags) {
-        super(amount, date, tags);
+    public OutTransaction(Amount amount, Date date, Description description, Set<Category> categories) {
+        super(amount.makeNegative(), date, description, categories);
     }
 
-    public OutTransaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
-        super(amount, date, tags, personInvolved);
+    public OutTransaction(Amount amount, Date date, Description description,
+                  Set<Category> categories, Person personInvolved) {
+        super(amount.makeNegative(), date, description, categories, personInvolved);
+
     }
 
     @Override
     public Amount handleBalance(Amount balance) {
-        Amount newBalance = balance.subtractAmount(super.amount);
+        Amount newBalance = balance.addAmount(super.amount);
         return newBalance;
     }
 

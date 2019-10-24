@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.Split;
 import seedu.address.model.util.Date;
 
@@ -38,11 +39,12 @@ public class SplitCommandParser implements Parser<SplitCommand> {
         for (Name name : names) {
             people.add(new Person(name));
         }
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElse(Date.now().toString()));
         List<Integer> shares = ParserUtil.parseShares(argMultimap.getAllValues(PREFIX_SHARE));
 
-        Split transaction = new Split(amount, date, shares, people);
+        Split transaction = new Split(amount, date, description, shares, people);
         return new SplitCommand(transaction);
 
     }

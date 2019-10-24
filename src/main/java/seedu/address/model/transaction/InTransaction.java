@@ -2,24 +2,25 @@ package seedu.address.model.transaction;
 
 import java.util.Set;
 
+import seedu.address.model.category.Category;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Date;
 
 /**
  * Handles in transactions.
  */
 public class InTransaction extends Transaction implements BankAccountOperation {
-    public InTransaction(Amount amount, Date date) {
-        super(amount, date);
+    public InTransaction(Amount amount, Date date, Description description) {
+        super(amount, date, description);
     }
 
-    public InTransaction(Amount amount, Date date, Set<Tag> tags) {
-        super(amount, date, tags);
+    public InTransaction(Amount amount, Date date, Description description, Set<Category> categories) {
+        super(amount, date, description, categories);
     }
 
-    public InTransaction(Amount amount, Date date, Set<Tag> tags, Person personInvolved) {
-        super(amount, date, tags, personInvolved);
+    public InTransaction(Amount amount, Date date, Description description,
+                 Set<Category> categories, Person personInvolved) {
+        super(amount, date, description, categories, personInvolved);
     }
 
     @Override

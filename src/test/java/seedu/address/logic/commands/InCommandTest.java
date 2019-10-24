@@ -60,12 +60,12 @@ public class InCommandTest {
     @Test
     public void equals() {
         BankAccountOperation firstTransaction = new TransactionBuilder()
-                .withTags("Food")
+                .withCategories("Food")
                 .withAmount("100")
                 .withDate("10102019")
                 .build();
         BankAccountOperation secondTransaction = new TransactionBuilder()
-                .withTags("Drinks")
+                .withCategories("Drinks")
                 .withAmount("80")
                 .withDate("10102019")
                 .build();
@@ -200,6 +200,11 @@ public class InCommandTest {
         }
 
         @Override
+        public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public FilteredList<BankAccountOperation> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -212,6 +217,11 @@ public class InCommandTest {
         @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             return null;
+        }
+
+        @Override
+        public void deleteBudget(Budget budgetToDelete) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

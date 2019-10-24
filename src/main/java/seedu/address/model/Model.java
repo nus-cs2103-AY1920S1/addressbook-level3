@@ -113,6 +113,8 @@ public interface Model {
      */
     void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
 
+    void setBudget(Budget budgetTarget, Budget budgetEdit);
+
     /**
      * Adds the given transaction.
      * {@code transaction} must not already exist in the bank account.
@@ -152,4 +154,10 @@ public interface Model {
      */
     ObservableList<Budget> getFilteredBudgetList();
 
+    /**
+     * Deletes the given budget.
+     * The budget must exist in the bank account.
+     * @param Budget
+     */
+    void deleteBudget(Budget budgetToDelete);
 }

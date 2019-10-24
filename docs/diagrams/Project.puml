@@ -12,8 +12,8 @@ end box
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant ":ReadOnlyBankAccount" as ReadOnlyBankAccount MODEL_COLOR
-participant ":DateComparator" as DateComparator MODEL_COLOR
-participant ":Projection" as Projection MODEL_COLOR
+participant "dc:DateComparator" as DateComparator MODEL_COLOR
+participant "pr:Projection" as Projection MODEL_COLOR
 
 end box
 
@@ -62,7 +62,7 @@ create DateComparator
 ProjectCommand --> DateComparator
 activate DateComparator
 
-DateComparator --> ProjectCommand : dc
+DateComparator --> ProjectCommand
 deactivate DateComparator
 
 ProjectCommand --> ReadOnlyBankAccount : getSortedTransactionHistory(dc)
@@ -75,7 +75,7 @@ create Projection
 ProjectCommand --> Projection : th, 22112019
 activate Projection
 
-Projection --> ProjectCommand : pr
+Projection --> ProjectCommand
 deactivate Projection
 
 create CommandResult
