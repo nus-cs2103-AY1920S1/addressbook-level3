@@ -103,11 +103,15 @@ Each FlashCard has an associated priority level, which the user can indicate his
 
 The priority levels are described below:
 
-| Priority| Value| Intended Action|
+[width="59%",cols="22%,<23%,<25%",options="header",]
+|=======================================================================
+| Priority| Value| Intended Action
 
-| HIGH_PRIORITY| 10| Valued as important by user, should be tested more often|
+| HIGH_PRIORITY| 10| Valued as important by user, should be tested more often
 
-| LOW_PRIORITY| 1| Valued, but less important by user, should be tested less often|
+| LOW_PRIORITY| 1| Valued, but less important by user, should be tested less often
+
+|=======================================================================
 
 The sequence diagram below shows how the `ExamRunner` component can use the `createSubsetForTest()` method in the `Deck` and make use of the priorities associated with the `FlashCards` to create a test that emphasises the `FlashCards` that the user deems as important.
 
@@ -221,7 +225,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | user| load my deck of flash cards into the app| I can reuse the deck of cards created
 
-|`* * *` | | |
+|`* * *` | | 
 
 |`* * *` |user that takes flash card tests |select an option out of four that best matches the front of a flash card |I can check that I have understood the concept the flash card aims to impart
 
@@ -234,6 +238,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |student with subjects of different language mediums |add flashcards of differing languages  |I can customise my flashcards to the subject I am interested to do
 
 |`* *` |user creating flash cards |save collections of thematically similar flash cards | I can share my cards easily to other users
+
+| `* * *`| user| view the list of flashcards in a deck| remember the material at the back of the flashcard
+
+| `* * *`| user| edit the front and/or back of the flashcard in a deck| 
+
+| `* * *`| user| delete a flashcard from a deck| 
+
+| `* * *`| user| view the decks of flashcards in my library| I know what are the decks available for my usage
+
+| `* * *`| intermediate learner| vary the amount of difficult questions in a test| expose myself to a test with varying difficult each time I test myself
+
+| `* * *`| expert learner with MCQ flashcard test| remove the choices given by the MCQ choices and enter the answers via CLI| test my understanding of the concept without a MCQ choice prompt
+
+| `* * *`| learner attempting MCQ questions| have randomised choices each time I try the test| I will not copy the choice from the previous test
+
+| `* * *`| user| restore my library state of my previous session| continue using FlashCard Pro without much time wasted
+
+| `* * *`| user attempting a test| view my score after the test| 
+
+| `* * *`| user who attempted a test| track my progress across mutliple test| monitor my attempts and correctness
+
 
 
 |=======================================================================
