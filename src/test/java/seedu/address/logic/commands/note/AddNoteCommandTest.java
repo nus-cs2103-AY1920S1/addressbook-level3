@@ -282,22 +282,22 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+        public ArrayList<String> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ArrayList<CheatSheet> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
+        public ArrayList<String> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ArrayList<Flashcard> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
+        public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ArrayList<Note> collectTaggedNotes(Predicate<Note> predicate) {
+        public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

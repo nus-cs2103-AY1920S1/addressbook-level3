@@ -9,7 +9,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
 
 /**
@@ -61,11 +60,11 @@ public class FilterNoteByTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ArrayList<Note> taggedNoteResult = model.collectTaggedNotes(tagPredicate);
-        model.updateFilteredNoteList(tagPredicate);
+        ArrayList<String> taggedNoteResult = model.collectTaggedNotes(tagPredicate);
+        //model.updateFilteredNoteList(tagPredicate);
         StringBuilder sb = new StringBuilder("");
-        for (Note n : taggedNoteResult) {
-            sb.append(n);
+        for (String s : taggedNoteResult) {
+            sb.append(s);
             sb.append("\n");
         }
 

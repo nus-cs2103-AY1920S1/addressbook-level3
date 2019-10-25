@@ -94,7 +94,7 @@ public class AddressBookParser {
             return new ListCommand();
 
         case FilterAllByTagCommand.COMMAND_WORD:
-            return new ListAllByTagCommandParser().parse(arguments);
+            return new FilterAllByTagCommandParser().parse(arguments);
 
         default:
 

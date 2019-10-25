@@ -15,7 +15,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new ListAllByTagCommand object
  */
-public class ListAllByTagCommandParser implements Parser<FilterAllByTagCommand> {
+public class FilterAllByTagCommandParser implements Parser<FilterAllByTagCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListAllByTagCommand

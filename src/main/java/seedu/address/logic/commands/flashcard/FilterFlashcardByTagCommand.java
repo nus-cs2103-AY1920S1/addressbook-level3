@@ -9,7 +9,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 
 /**
@@ -61,11 +60,11 @@ public class FilterFlashcardByTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ArrayList<Flashcard> taggedFlashcardResult = model.collectTaggedFlashcards(tagPredicate);
-        model.updateFilteredFlashcardList(tagPredicate);
+        ArrayList<String> taggedFlashcardResult = model.collectTaggedFlashcards(tagPredicate);
+        //model.updateFilteredFlashcardList(tagPredicate);
         StringBuilder sb = new StringBuilder("");
-        for (Flashcard fc : taggedFlashcardResult) {
-            sb.append(fc);
+        for (String s : taggedFlashcardResult) {
+            sb.append(s);
             sb.append("\n");
         }
 
