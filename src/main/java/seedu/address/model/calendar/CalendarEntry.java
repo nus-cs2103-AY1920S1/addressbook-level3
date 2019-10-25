@@ -56,11 +56,9 @@ public abstract class CalendarEntry {
     }
 
     /**
-     * Returns true if the calendar entry has a date time before the given time.
+     * Returns true if the calendar entry has a date time between the starting time and ending time.
      */
-    public boolean isBetween(DateTime start, DateTime end) {
-        return dateTime.isBetweenDateTime(start, end);
-    }
+    public abstract boolean isBetween(DateTime start, DateTime end);
 
     /**
      * Returns a String representation of the day of week of the date.

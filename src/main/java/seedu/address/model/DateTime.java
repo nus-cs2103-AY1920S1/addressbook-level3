@@ -110,7 +110,7 @@ public class DateTime {
         LocalDateTime thisDateTime = toLocalDateTime();
         LocalDateTime starting = startingDateTime.toLocalDateTime();
         LocalDateTime ending = endingDateTime.toLocalDateTime();
-        return (thisDateTime.isAfter(starting) || time.equals(starting))
+        return (thisDateTime.isAfter(starting) || thisDateTime.equals(starting))
                 && (thisDateTime.isBefore(ending) || thisDateTime.equals(ending));
     }
 

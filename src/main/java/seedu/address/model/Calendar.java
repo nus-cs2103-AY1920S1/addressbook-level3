@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
+import seedu.address.model.calendar.Scheduler;
 import seedu.address.model.calendar.UniqueCalendarEntryList;
 
 /**
@@ -15,10 +16,12 @@ import seedu.address.model.calendar.UniqueCalendarEntryList;
 public class Calendar implements ReadOnlyCalendar {
     private final UniqueCalendarEntryList calendarEntries;
     private final UniqueCalendarEntryList pastReminders;
+    private final Scheduler scheduler;
 
     {
         calendarEntries = new UniqueCalendarEntryList();
         pastReminders = new UniqueCalendarEntryList();
+        scheduler = new Scheduler();
     }
 
     public Calendar() {
@@ -73,6 +76,20 @@ public class Calendar implements ReadOnlyCalendar {
      */
     public void addPastReminder(Reminder reminder) {
         pastReminders.add(reminder);
+    }
+
+    /**
+     * Schedules upcoming reminders.
+     */
+    public void schedule() {
+        scheduler.schedule(this);
+    }
+
+    /**
+     * Stops all upcoming reminders.
+     */
+    public void stopAllReminders() {
+        scheduler.stopAll();
     }
 
     /**
