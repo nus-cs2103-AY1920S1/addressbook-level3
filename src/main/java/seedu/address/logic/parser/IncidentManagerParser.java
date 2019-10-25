@@ -25,6 +25,7 @@ import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.SubmitCommand;
 import seedu.address.logic.commands.SwapCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -76,7 +77,11 @@ public class IncidentManagerParser {
             return new FindVehiclesCommandParser().parse(arguments);
 
         case ListPersonsCommand.COMMAND_WORD:
-            return new ListPersonsCommand();
+            if (arguments.isEmpty()) {
+                return new ListPersonsCommand();
+            } else {
+                return new ListPersonsCommandParser().parse(arguments);
+            }
 
         case ListIncidentsCommand.COMMAND_WORD:
             return new ListIncidentsCommand();
@@ -98,6 +103,9 @@ public class IncidentManagerParser {
 
         case SwapCommand.COMMAND_WORD:
             return new SwapCommand();
+
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommandParser().parse(arguments);
 
         case SubmitCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {
