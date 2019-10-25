@@ -1,6 +1,8 @@
 package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
@@ -23,7 +25,15 @@ public class LoanSplitCommand extends Command {
 
     public static final String COMMAND_WORD = "loan split";
 
-    public static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Splits a group payment into a list of who owes who how much.\n"
+                    + "Parameters: "
+                    + PREFIX_PERSON + "PERSON "
+                    + PREFIX_AMOUNT + "AMOUNT "
+                    + "...\n"
+                    + "Example: " + COMMAND_WORD + " "
+                    + PREFIX_PERSON + "Mary Jesus Judas "
+                    + PREFIX_AMOUNT + "10 90 0";
 
     public static final String MESSAGE_SUCCESS = "Loans split.";
     public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
