@@ -2,9 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,19 +24,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
-        return new FilterCommand(new TagMatchesPredicate(toList(trimmedArgs)));
-    }
 
-    /**
-     * Splits the combination of tag queries into list entries.
-     */
-    private List<String> toList(String trimmedArgs) {
-        String[] splitTags = trimmedArgs.split(" ");
-        List<String> tagQueries = new ArrayList<>();
-        for (String tag : splitTags) {
-            tagQueries.add(tag.trim().toLowerCase());
-        }
-        return tagQueries;
+        String[] tagQueries = trimmedArgs.split("\\s+");
+
+        return new FilterCommand(new TagMatchesPredicate(Arrays.asList(tagQueries)));
     }
 
 }
