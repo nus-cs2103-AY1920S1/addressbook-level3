@@ -346,7 +346,7 @@ Step 1: The user launches the application. The current user input command box wi
 
 Step 2: The user wants to switch to the customer context for customer-focused commands with the command ‘customer’, however is unsure how to spell the command and types in ‘cus’. The ‘KeyListener’ will pass the characters that have been typed to the trie. The trie will then search for relevant commands and pass them as a list to the ‘Ui’, which will display the relevant results in a dropdown box below the user input command box.
 
-*insert picture of cus being typed in/ class diagram???*
+*insert picture of 'cus' being typed in/ class diagram*
 
 Step 3: The user can now complete the command he/she wants by entering the relevant command shown in the dropdown box.
 
@@ -381,16 +381,58 @@ Below are a few design considerations of the autocomplete commands feature.
 // end::autocomplete commands[]
 // tag::orders[]
 === Order Manager
-Order Manager is an address book of Orders, with some basic functions similar to that of a normal address book such as add, edit, delete and list. Additionally, Order Manager has some useful functions specifically catered towards the ease of management of orders.
+Order Manager is an address book of Orders and has some useful functions specifically catered towards the ease of management of orders.
 
 Firstly, the automated allocation of deliveryman once new orders are added. When a new order is created on the database, a deliveryman will be assigned to deliver the order based on whether he/she is present as well as whether he/she is currently preoccupied with delivering another order. This helps to ease the burden on the user as they would not need to manually allocate deliverymen to the orders. However, the feature to manually allocate is still present if the user wishes to do so.
 
-Secondly, the order manager allows for sorting of orders, based on date, customer, restaurant, menu or even deliveryman, depending on what information the user wishes to see. This allows for better management
+Secondly, the Order Manager allows for sorting of orders, based on date, customer, restaurant, menu or even deliveryman, depending on what information the user wishes to see to allow for better management.
+
+Additionally it implements the following operations:
+
+* `-add_order` - adds an order to the database.
+* `-edit_order` - edits an existing order in the database.
+* `-delete_order` - removes an existing order in the database.
+
+These operations are exposed in the `ModelManager` class as `ModelManager#addOrder(Order order)`, `ModelManager#setOrder(Order target, Order editedOrder)` and `ModelManager#deleteOrder(Order order)` respectively.
+
+Order manager follows the AB3 style and implements its own 'Model', 'Command' and 'Parser' for the 'Logic Component', `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase` and `JsonAdaptedOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
+
+*insert object diagrams here + brief explanation of object diagrams*
 
 ==== Implementation
-*insert class diagram here*
 
-*explains commands here, add ,del, edit, list, sort*
+**Add command:** `-add_order`
+
+*add words here*
+
+**Delete command:** `-delete_order`
+
+The delete command deletes an `Order` from the `ModelManager` and `UniqueOrderList` by a specified index. The `UniversalParser` invokes `DeleteOrderCommandParser#parse()` and user input is used to get the index of the `Order` to be deleted.
+
+**Edit command:** `-edit_order`
+
+*add words here*
+
+**List command:** `-list_orders` & `-summary_orders`
+
+*add words here*
+
+**Sort command:** `-sort_orders`
+
+*add words here*
+
+==== Design Considerations
+
+Below are a few design considerations of the Order manager class.
+
+===== Aspect: Data structure for modelling, storage and utilization of `Order`.
+
+* **Alternative 1 (current choice):** Make use of existing data structures present in AB3 as reference to create new data structures needed for the implementation of a Order Manager.
+** Pros: Straightforward to implement as existing references are present in 'Person' of AB3.
+** Cons: Tedious to implement as several regions of the codebase needs to be edited for `Order` to run, display and save successfully.
+* **Alternative 2:** Implement data structures from scratch.
+** Pros: Pride and accomplishment of implementing something from scratch.
+** Cons: Takes too much time to code the necessary classes.
 
 // end::orders[]
 
