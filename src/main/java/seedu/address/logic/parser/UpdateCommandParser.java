@@ -50,7 +50,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             updateTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
+        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
             .ifPresent(updateTransactionDescriptor::setCategories);
 
         if (!updateTransactionDescriptor.isAnyFieldEdited()) {
@@ -65,7 +65,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
      * If {@code categories} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Category>} containing zero categories.
      */
-    private Optional<Set<Category>> parseTagsForEdit(Collection<String> categories) throws ParseException {
+    private Optional<Set<Category>> parseCategoriesForEdit(Collection<String> categories) throws ParseException {
         assert categories != null;
 
         if (categories.isEmpty()) {
