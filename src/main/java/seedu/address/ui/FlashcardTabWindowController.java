@@ -16,6 +16,9 @@ import seedu.address.model.flashcard.Flashcard;
  * Controller class that handles what happens within the Flashcard Tab within the Activity Window.
  */
 public class FlashcardTabWindowController {
+
+    private static final Integer TIMER_DURATION = 5;
+
     @FXML
     private Label timerLabel;
 
@@ -27,8 +30,6 @@ public class FlashcardTabWindowController {
 
     @FXML
     private TextArea ansTextArea;
-
-    private final static Integer TIMER_DURATION = 5;
 
     private IntegerProperty currentSeconds;
 
