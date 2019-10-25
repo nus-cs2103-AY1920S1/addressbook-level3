@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -86,23 +85,29 @@ public class FlashcardTabWindowController {
         timeline.play();
     }
 
+    /**
+     * Starts the time trial based with the deck passed.
+     * @param deck deck of flashcards to be tested
+     */
     public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
         Timeline timeline = new Timeline();
         int cardCount = 0;
         for (Flashcard fc: deck.get()){
-                    timeline.getKeyFrames().addAll(
-                            new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION),
-                            e -> loadFlashcard(fc),
-                            new KeyValue(currentSeconds, 0)),
-                    new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION + TIMER_DURATION),
-                            e -> showFlashcardAns()));
-                    cardCount++;
+            timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION), e -> loadFlashcard(fc),
+                new KeyValue(currentSeconds, 0)),
+                new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION + TIMER_DURATION),
+                        e -> showFlashcardAns()));
+            cardCount++;
         }
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION
                 + SHOW_ANSWER_DURATION), e -> resetTexts()));
         timeline.play();
     }
 
+    /**
+     * Empties the qnsTextArea and ansTextArea.
+     */
     private void resetTexts() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
