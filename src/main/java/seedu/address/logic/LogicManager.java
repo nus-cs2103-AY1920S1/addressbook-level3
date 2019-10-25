@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.MooLahParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -31,13 +31,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final Timekeeper timekeeper;
-    private final AddressBookParser addressBookParser;
+    private final MooLahParser mooLahParser;
 
     public LogicManager(Model model, Storage storage, Timekeeper timekeeper) {
         this.model = model;
         this.storage = storage;
         this.timekeeper = timekeeper;
-        addressBookParser = new AddressBookParser();
+        mooLahParser = new MooLahParser();
     }
 
     @Override
@@ -45,11 +45,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText, model.getUserPrefs());
+        Command command = mooLahParser.parseCommand(commandText, model.getUserPrefs());
         commandResult = command.run(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveAddressBook(model.getMooLah());
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -75,7 +75,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+        return model.getMooLah();
     }
 
     @Override

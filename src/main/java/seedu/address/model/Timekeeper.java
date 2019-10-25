@@ -29,7 +29,7 @@ public class Timekeeper {
     public Timekeeper(Model model) {
         this.model = model;
         events = model.getFilteredEventList();
-        budgets = model.getAddressBook().getBudgetList();
+        budgets = model.getMooLah().getBudgetList();
         getReminders();
     }
 

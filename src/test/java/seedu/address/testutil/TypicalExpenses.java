@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MooLah;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -102,10 +102,10 @@ public class TypicalExpenses {
     private TypicalExpenses() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical expenses.
+     * Returns an {@code MooLah} with all the typical expenses.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static MooLah getTypicalAddressBook() {
+        MooLah ab = new MooLah();
         for (Expense expense : getTypicalExpenses()) {
             ab.addExpense(expense);
         }

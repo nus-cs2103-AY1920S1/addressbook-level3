@@ -1,4 +1,4 @@
-= NUSpend - User Guide
+= MooLah - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,13 +18,13 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-NUSpend is for those who *prefer to use a desktop app for tracking expenses*. More importantly, NUSpend is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, NUSpend can get your expense management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+MooLah is for those who *prefer to use a desktop app for tracking expenses*. More importantly, MooLah is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MooLah can get your expense management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `NUSpend.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your NUSpend.
+.  Download the latest `MooLah.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your MooLah.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -318,7 +318,7 @@ Format: `exit`
 
 === Saving the data
 
-NUSpend data are saved in the hard disk automatically after any command that changes the data. +
+MooLah data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 === Encrypting data files `[coming in v2.0]`
@@ -331,7 +331,7 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous NUSpend folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MooLah folder.
 
 == Command Summary
 

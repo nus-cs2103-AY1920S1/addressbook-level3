@@ -29,7 +29,7 @@ public class AddExpenseCommandIntegrationTest {
 
     @Test
     public void run_duplicateExpense_throwsCommandException() {
-        Expense expenseInList = model.getAddressBook().getExpenseList().get(0);
+        Expense expenseInList = model.getMooLah().getExpenseList().get(0);
         assertCommandFailure(new AddExpenseCommand(expenseInList), model, AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE);
     }
 

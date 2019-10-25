@@ -25,8 +25,8 @@ import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.MooLah;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModelHistory;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -203,12 +203,12 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setMooLah(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAddressBook getMooLah() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -374,8 +374,8 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAddressBook getMooLah() {
+            return new MooLah();
         }
 
         @Override

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MooLah - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -19,11 +19,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 == Introduction
 
 === Purpose & Scope
-This document specifies architecture and software design decisions for the app NUSpend.
-The intended audience of this document is the developers, designers, and software testers of NUSpend.
+This document specifies architecture and software design decisions for the app MooLah.
+The intended audience of this document is the developers, designers, and software testers of MooLah.
 
 === Software Overview
-NUSpend is a desktop CLI application that help users track their expenses.
+MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
 In particular, it is tailored to students in National University of Singapore who dines frequently in school canteens.
 
@@ -109,7 +109,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MooLahParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -133,12 +133,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the MooLah data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `MooLah`, which `Person` can reference. This would allow `MooLah` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -153,7 +153,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the MooLah data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -366,7 +366,7 @@ NOTE: To be included later once I figure out
 
 1. The user enters the command `stats sd/01-10-2019 ed/01-11-2019` to visualise the total percentage of each category
 as a percentage of total expenditure across all categories, in the primary budget.
-The command is received by `AddressBookParser`, which then creates a `StatsCommandParser` object,
+The command is received by `MooLahParser`, which then creates a `StatsCommandParser` object,
 to subsequently help to parse the input by the user.
 
 2. The newly created `StatsCommandParser` calls `parse("stats sd/01-10-2019 ed/01-11-2019")`,
@@ -573,7 +573,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `NUSpend` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `MooLah` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add a budget and switch to it
@@ -581,7 +581,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to add a budget and specifies budget name, amount, period and start date
-2.  NUSpend shows success in creating new budget
+2.  MooLah shows success in creating new budget
 3.  User requests to switch to this budget by specifying the budget name
 4.  GUI switches to the budget and sets it as current primary budget for displaying and calculating expenses
 +
@@ -592,7 +592,7 @@ Use case ends.
 * 1a. User misses any of the necessary parameters: budget name, amount, period or start date
 +
 [none]
-** 1a1. NUSpend shows an error message and reminds the user to complete the parameters.
+** 1a1. MooLah shows an error message and reminds the user to complete the parameters.
 +
 ** 1a2. User re-enters the command with new data.
 +
@@ -603,7 +603,7 @@ Use case resumes at step 2.
 * 3a. User forgets to input the name of the budget he wants to switch to.
 +
 [none]
-** 3a1. NUSpend shows an error message and requests for the budget name.
+** 3a1. MooLah shows an error message and requests for the budget name.
 +
 ** 3a2. User re-enters the command, specifying the budget name.
 +
@@ -612,7 +612,7 @@ Use case resumes at step 4.
 * 3b. User enters a budget name that does not correspond to any of the currently existing budgets.
 +
 [none]
-** 3b1. NUSpend shows an error message and requests for a correct budget name that exists.
+** 3b1. MooLah shows an error message and requests for a correct budget name that exists.
 +
 ** 3b2. User re-enters the command with a new budget name.
 +
@@ -626,7 +626,7 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User requests to see reminders.
-2.  AddressBook shows a list of reminders.
+2.  MooLah shows a list of reminders.
 +
 Use case ends.
 
@@ -644,7 +644,7 @@ Use case ends.
 *MSS*
 
 1.  User adds an event.
-2.  AddressBook tells the user that the event has been successfully added.
+2.  MooLah tells the user that the event has been successfully added.
 +
 Use case ends.
 
@@ -654,14 +654,14 @@ Use case ends.
 * 2a. The event is formatted incorrectly (e.g. the date is invalid).
 +
 [none]
-** 2a1. AddressBook shows an error message.
+** 2a1. MooLah shows an error message.
 +
 Use case ends.
 
 * 3a. The same event has been previously stored.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. MooLah shows an error message.
 +
 Use case ends.
 
@@ -673,20 +673,20 @@ Use case ends.
 *MSS*
 
 1. User requests to view statistics
-2. NUSpend prompts user for start date
+2. MooLah prompts user for start date
 3. User enters start date
-4. NUSpend prompts user for end date
+4. MooLah prompts user for end date
 5. User enters end date
-6. NUSpend displays the statistics requested
+6. MooLah displays the statistics requested
 Use case ends
 
 
 *Extensions*
 [none]
-* *a. NUSpend detects incorrect date format
+* *a. MooLah detects incorrect date format
 +
 [none]
-** *a1.NUSpend throws Exception
+** *a1.MooLah throws Exception
 +
 Use case ends.
 
@@ -695,7 +695,7 @@ Use case ends.
 * 5a. The user enters a start date, but does not enter an end date
 +
 [none]
-** 5a1. NUSpend displays the statistics 1 month after start date
+** 5a1. MooLah displays the statistics 1 month after start date
 +
 Use case ends.
 
@@ -704,7 +704,7 @@ Use case ends.
 * 5b. The user does not enter a start date, but enters an end date
 +
 [none]
-** 5b1. NUSpend displays the statistics 1 month before end date
+** 5b1. MooLah displays the statistics 1 month before end date
 +
 Use case ends.
 
@@ -715,22 +715,22 @@ Use case ends.
 *MSS*
 
 1. User requests to view statistics
-2. NUSpend prompts user for date 1
+2. MooLah prompts user for date 1
 3. User enters date 1
-4. NUSpend prompts user for date 2
+4. MooLah prompts user for date 2
 5. User enters date 2
-6. NUSpend prompts user for period
+6. MooLah prompts user for period
 7. User enters period
-8. NUSpend displays the statistics requested
+8. MooLah displays the statistics requested
 Use case ends
 
 
 *Extensions*
 [none]
-* *a. NUSpend detects incorrect date format or missing parameters
+* *a. MooLah detects incorrect date format or missing parameters
 +
 [none]
-** *a1.NUSpend throws Exception
+** *a1.MooLah throws Exception
 +
 Use case ends
 
@@ -741,9 +741,9 @@ Use case ends
 *MSS*
 
 1. User assigns an Alias name for some input.
-2. NUSpend confirms that the input is alias name is valid.
-3. NUSpend saves the alias to the user's preferences.
-4. NUSpend informs the user that the alias was successfully created.
+2. MooLah confirms that the input is alias name is valid.
+3. MooLah saves the alias to the user's preferences.
+4. MooLah informs the user that the alias was successfully created.
 +
 Use case Ends.
 
@@ -751,12 +751,12 @@ Use case Ends.
 [none]
 * 1a. Alias name is invalid.
 [none]
-** 1a1. NUSpend informs the User that the alias name is invalid.
+** 1a1. MooLah informs the User that the alias name is invalid.
 +
 Use case Ends
 * 2a. An Alias with the same name exists.
 [None]
-** 2a1. NUSpend overwrites the existing Alias with the same name in the User's preferences.
+** 2a1. MooLah overwrites the existing Alias with the same name in the User's preferences.
 +
 Use case resumes from step 4.
 
@@ -767,7 +767,7 @@ Use case resumes from step 4.
 
 1. User types alias into CLI.
 2. User enters the command
-3. NUSpend attempts to execute the input mapped to the alias.
+3. MooLah attempts to execute the input mapped to the alias.
 +
 Use case ends.
 
@@ -776,7 +776,7 @@ Use case ends.
 * 1a. Users enters additional details after alias name
 [none]
 ** 1a1. User enters the command
-** 1a2. NUSpend attempts to execute the input mapped to the alias with the additional details appended.
+** 1a2. MooLah attempts to execute the input mapped to the alias with the additional details appended.
 +
 Use case ends.
 
@@ -786,9 +786,9 @@ Use case ends.
 *MSS*
 
 1. User adds an expense to a budget.
-2. NUSpend displays the updated expense list.
-3. NUSpend finds that the total amount spent in the budget exceeds the allocated budget amount.
-4. NUSpend warns the User that they have overspent.
+2. MooLah displays the updated expense list.
+3. MooLah finds that the total amount spent in the budget exceeds the allocated budget amount.
+4. MooLah warns the User that they have overspent.
 +
 Use case ends
 

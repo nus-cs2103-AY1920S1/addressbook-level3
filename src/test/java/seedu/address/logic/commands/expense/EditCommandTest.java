@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.expense.EditCommand.EditExpenseDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
+import seedu.address.model.MooLah;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
@@ -43,7 +43,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
         expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
@@ -70,7 +70,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(lastExpense, editedExpense);
         expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
@@ -85,7 +85,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.addToHistory();
 
@@ -107,7 +107,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
                 new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
         expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
@@ -136,7 +136,7 @@ public class EditCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getExpenseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getMooLah().getExpenseList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_TRANSPORT).build());

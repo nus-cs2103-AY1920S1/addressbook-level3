@@ -30,7 +30,7 @@ import seedu.address.model.statistics.Statistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final MooLah mooLah;
     private final UserPrefs userPrefs;
     private final ModelHistory modelHistory;
     private final FilteredList<Expense> filteredExpenses;
@@ -39,7 +39,7 @@ public class ModelManager implements Model {
     private StringBuilder statsBuilder;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given mooLah and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
             ReadOnlyModelHistory modelHistory) {
@@ -47,16 +47,16 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.mooLah = new MooLah(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.modelHistory = new ModelHistory(modelHistory);
-        filteredEvents = new FilteredList<>(this.addressBook.getEventList());
-        filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
-        filteredBudgets = new FilteredList<>(this.addressBook.getBudgetList());
+        filteredEvents = new FilteredList<>(this.mooLah.getEventList());
+        filteredExpenses = new FilteredList<>(this.mooLah.getExpenseList());
+        filteredBudgets = new FilteredList<>(this.mooLah.getBudgetList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new ModelHistory());
+        this(new MooLah(), new UserPrefs(), new ModelHistory());
     }
 
     /**
@@ -70,7 +70,7 @@ public class ModelManager implements Model {
     @Override
     public void resetData(Model model) {
         requireNonNull(model);
-        setAddressBook(model.getAddressBook());
+        setMooLah(model.getMooLah());
         setUserPrefs(model.getUserPrefs());
         setModelHistory(model.getModelHistory());
 
@@ -215,30 +215,30 @@ public class ModelManager implements Model {
     //=========== Expense ================================================================================
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getMooLah() {
+        return mooLah;
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        requireNonNull(addressBook);
-        this.addressBook.resetData(addressBook);
+    public void setMooLah(ReadOnlyAddressBook mooLah) {
+        requireNonNull(mooLah);
+        this.mooLah.resetData(mooLah);
     }
 
     @Override
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
-        return addressBook.hasExpense(expense);
+        return mooLah.hasExpense(expense);
     }
 
     @Override
     public void deleteExpense(Expense target) {
-        addressBook.removeExpense(target);
+        mooLah.removeExpense(target);
     }
 
     @Override
     public void addExpense(Expense expense) {
-        addressBook.addExpense(expense);
+        mooLah.addExpense(expense);
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
     }
 
@@ -246,7 +246,7 @@ public class ModelManager implements Model {
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
 
-        addressBook.setExpense(target, editedExpense);
+        mooLah.setExpense(target, editedExpense);
     }
 
     //=========== Budget ================================================================================
@@ -254,27 +254,27 @@ public class ModelManager implements Model {
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
-        return addressBook.hasBudget(budget);
+        return mooLah.hasBudget(budget);
     }
 
     @Override
     public void addBudget(Budget budget) {
-        addressBook.addBudget(budget);
+        mooLah.addBudget(budget);
     }
 
     @Override
     public boolean hasBudgetWithName(Description targetDescription) {
-        return addressBook.hasBudgetWithName(targetDescription);
+        return mooLah.hasBudgetWithName(targetDescription);
     }
 
     @Override
     public Budget getPrimaryBudget() {
-        return addressBook.getPrimaryBudget();
+        return mooLah.getPrimaryBudget();
     }
 
     @Override
     public void switchBudgetTo(Description targetDescription) {
-        addressBook.switchBudgetTo(targetDescription);
+        mooLah.switchBudgetTo(targetDescription);
     }
 
     //=========== Event ================================================================================
@@ -286,17 +286,17 @@ public class ModelManager implements Model {
     @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
-        return addressBook.hasEvent(event);
+        return mooLah.hasEvent(event);
     }
 
     @Override
     public void deleteEvent(Event target) {
-        addressBook.removeEvent(target);
+        mooLah.removeEvent(target);
     }
 
     @Override
     public void addEvent(Event event) {
-        addressBook.addEvent(event);
+        mooLah.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
@@ -394,7 +394,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return mooLah.equals(other.mooLah)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpenses.equals(other.filteredExpenses)
                 && filteredEvents.equals(other.filteredEvents)

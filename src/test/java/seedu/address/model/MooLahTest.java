@@ -23,25 +23,25 @@ import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 import seedu.address.testutil.ExpenseBuilder;
 
-public class AddressBookTest {
+public class MooLahTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final MooLah mooLah = new MooLah();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getExpenseList());
+        assertEquals(Collections.emptyList(), mooLah.getExpenseList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> mooLah.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        MooLah newData = getTypicalAddressBook();
+        mooLah.resetData(newData);
+        assertEquals(newData, mooLah);
     }
 
     @Test
@@ -51,28 +51,28 @@ public class AddressBookTest {
         List<Expense> newExpenses = Arrays.asList(ANNIVERSARY, editedAlice);
         AddressBookStub newData = new AddressBookStub(newExpenses);
 
-        assertThrows(DuplicateExpenseException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateExpenseException.class, () -> mooLah.resetData(newData));
     }
 
     @Test
     public void hasExpense_nullExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasExpense(null));
+        assertThrows(NullPointerException.class, () -> mooLah.hasExpense(null));
     }
 
     @Test
     public void hasExpense_expenseNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasExpense(ANNIVERSARY));
+        assertFalse(mooLah.hasExpense(ANNIVERSARY));
     }
 
     @Test
     public void hasExpense_expenseInAddressBook_returnsTrue() {
-        addressBook.addExpense(ANNIVERSARY);
-        assertTrue(addressBook.hasExpense(ANNIVERSARY));
+        mooLah.addExpense(ANNIVERSARY);
+        assertTrue(mooLah.hasExpense(ANNIVERSARY));
     }
 
     @Test
     public void getExpenseList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getExpenseList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> mooLah.getExpenseList().remove(0));
     }
 
     /**

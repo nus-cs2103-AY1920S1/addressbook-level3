@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MooLah;
 import seedu.address.model.expense.Expense;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withExpense("John", "Doe").build();}
+ *     {@code MooLah ab = new AddressBookBuilder().withExpense("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private MooLah mooLah;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        mooLah = new MooLah();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public AddressBookBuilder(MooLah mooLah) {
+        this.mooLah = mooLah;
     }
 
     /**
-     * Adds a new {@code Expense} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Expense} to the {@code MooLah} that we are building.
      */
     public AddressBookBuilder withExpense(Expense expense) {
-        addressBook.addExpense(expense);
+        mooLah.addExpense(expense);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public MooLah build() {
+        return mooLah;
     }
 }

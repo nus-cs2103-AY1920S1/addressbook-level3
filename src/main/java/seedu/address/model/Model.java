@@ -130,13 +130,13 @@ public interface Model {
      */
     void setAddressBookFilePath(Path addressBookFilePath);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the MooLah */
+    ReadOnlyAddressBook getMooLah();
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code mooLah}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setMooLah(ReadOnlyAddressBook mooLah);
 
     // ======== ADDRESS BOOK ACTIONS ===============
     /**

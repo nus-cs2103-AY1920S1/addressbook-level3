@@ -18,8 +18,8 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expense.EditCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.MooLah;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -117,11 +117,11 @@ public class CommandTestUtil {
      * - the address book, filtered expense list and selected expense in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        MooLah expectedMooLah = new MooLah(actualModel.getMooLah());
         List<Expense> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.run(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedMooLah, actualModel.getMooLah());
         assertEquals(expectedFilteredList, actualModel.getFilteredExpenseList());
     }
     /**

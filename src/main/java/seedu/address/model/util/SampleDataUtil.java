@@ -1,6 +1,6 @@
 package seedu.address.model.util;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MooLah;
 import seedu.address.model.ReadOnlyAddressBook;
 
 import seedu.address.model.category.Category;
@@ -11,7 +11,7 @@ import seedu.address.model.expense.util.UniqueIdentifierGenerator;
 
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code MooLah} with sample data.
  */
 public class SampleDataUtil {
 
@@ -29,7 +29,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        MooLah sampleAb = new MooLah();
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);
         }

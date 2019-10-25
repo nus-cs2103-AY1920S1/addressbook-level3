@@ -26,7 +26,7 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
     }
 
     @Test
