@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
@@ -49,9 +50,6 @@ public class ModelManager implements Model {
     private final FilteredList<CalendarEntry> pastReminderList;
     private final AverageMap averageMap;
 
-    private AverageType averageType;
-    private RecordType recordType;
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -77,8 +75,6 @@ public class ModelManager implements Model {
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
         this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
         this.averageMap = new AverageMap();
-        this.averageType = null;
-        this.recordType = null;
     }
 
     public ModelManager() {
@@ -421,29 +417,17 @@ public class ModelManager implements Model {
     //=========== Statistics List =============================================================
 
     @Override
-    public AverageType getAverageType() {
-        return averageType;
+    public SimpleStringProperty getAverageType() {
+        return averageMap.getInternalAverageType();
     }
 
     @Override
-    public RecordType getRecordType() {
-        return recordType;
-    }
-
-    @Override
-    public void setAverageType(AverageType averageType) {
-        this.averageType = averageType;
-    }
-
-    @Override
-    public void setRecordType(RecordType recordType) {
-        this.recordType = recordType;
+    public SimpleStringProperty getRecordType() {
+        return averageMap.getInternalRecordType();
     }
 
     @Override
     public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
-        setAverageType(averageType);
-        setRecordType(recordType);
         averageMap.calculateAverage(getRecordList(), averageType, recordType, count);
     }
 
