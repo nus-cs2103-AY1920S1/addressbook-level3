@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import sugarmummy.recmfood.model.Calorie;
-import sugarmummy.recmfood.model.Fat;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.FoodName;
-import sugarmummy.recmfood.model.FoodType;
-import sugarmummy.recmfood.model.Gi;
-import sugarmummy.recmfood.model.Sugar;
+import seedu.address.model.food.Calorie;
+import seedu.address.model.food.Fat;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.FoodName;
+import seedu.address.model.food.FoodType;
+import seedu.address.model.food.Gi;
+import seedu.address.model.food.Sugar;
 
 /**
  * Represents Jackson-friendly version of {@link Food}.

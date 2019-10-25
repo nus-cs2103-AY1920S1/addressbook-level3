@@ -18,12 +18,12 @@ import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
+import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.ui.DisplayPaneType;
-import sugarmummy.bio.model.User;
-import sugarmummy.recmfood.model.Food;
 
 /**
  * API of the Logic component
@@ -74,9 +74,9 @@ public interface Logic {
      */
     ObservableList<Food> getFilterFoodList();
 
-    public ObservableList<Record> getRecordList();
+    ObservableList<Record> getRecordList();
 
-    public ObservableList<Record> getFilterRecordList();
+    ObservableList<Record> getFilterRecordList();
 
     /**
      * Returns the user prefs' address book file path.

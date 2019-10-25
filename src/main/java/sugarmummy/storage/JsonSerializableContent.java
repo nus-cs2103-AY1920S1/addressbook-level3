@@ -12,5 +12,5 @@ public interface JsonSerializableContent<T> {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public T toModelType() throws IllegalValueException;
+    T toModelType() throws IllegalValueException;
 }

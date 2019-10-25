@@ -1,6 +1,6 @@
 package seedu.address;
 
-import static sugarmummy.recmfood.model.TypicalFoods.FOODS;
+import static seedu.address.model.food.TypicalFoods.FOODS;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,15 +28,16 @@ import seedu.address.model.ReadOnlyData;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.bio.UserList;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.util.SampleCalendarDataUtil;
 import seedu.address.model.util.SampleFoodDataUtil;
 import seedu.address.model.util.SampleRecordDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
+import seedu.address.storage.bio.JsonUserListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import sugarmummy.bio.model.UserList;
-import sugarmummy.recmfood.model.UniqueFoodList;
 import sugarmummy.storage.AddressBookStorage;
 import sugarmummy.storage.JsonAddressBookStorage;
 import sugarmummy.storage.JsonCalendarStorage;
@@ -47,7 +48,6 @@ import sugarmummy.storage.Storage;
 import sugarmummy.storage.StorageManager;
 import sugarmummy.storage.UserListStorage;
 import sugarmummy.storage.UserPrefsStorage;
-import sugarmummy.storage.bio.JsonUserListStorage;
 
 /**
  * Runs the application.

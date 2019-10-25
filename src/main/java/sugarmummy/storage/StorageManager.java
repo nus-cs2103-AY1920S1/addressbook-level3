@@ -14,8 +14,8 @@ import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
-import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Manages storage of AddressBook data in local storage.

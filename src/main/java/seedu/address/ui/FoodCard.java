@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import sugarmummy.recmfood.model.Food;
+import seedu.address.model.food.Food;
 
 /**
  * Displays information of a {@code Food}

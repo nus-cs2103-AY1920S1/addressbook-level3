@@ -29,20 +29,20 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.bio.Address;
+import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
+import seedu.address.model.bio.Gender;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.ListableField;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Name;
+import seedu.address.model.bio.Nric;
+import seedu.address.model.bio.OtherBioInfo;
+import seedu.address.model.bio.Phone;
+import seedu.address.model.bio.ProfileDesc;
+import seedu.address.model.bio.User;
 import seedu.address.ui.DisplayPaneType;
-import sugarmummy.bio.model.Address;
-import sugarmummy.bio.model.DateOfBirth;
-import sugarmummy.bio.model.DisplayPicPath;
-import sugarmummy.bio.model.Gender;
-import sugarmummy.bio.model.Goal;
-import sugarmummy.bio.model.ListableField;
-import sugarmummy.bio.model.MedicalCondition;
-import sugarmummy.bio.model.Name;
-import sugarmummy.bio.model.Nric;
-import sugarmummy.bio.model.OtherBioInfo;
-import sugarmummy.bio.model.Phone;
-import sugarmummy.bio.model.ProfileDesc;
-import sugarmummy.bio.model.User;
 
 /**
  * Edits the details of an existing user in the address book.

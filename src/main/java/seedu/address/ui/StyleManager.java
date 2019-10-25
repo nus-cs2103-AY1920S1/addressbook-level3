@@ -355,7 +355,7 @@ public class StyleManager {
         String outputLine = lineReadFromReader;
         int textFillIndex = outputLine.indexOf("-" + field + ": ");
         if (textFillIndex != -1) {
-            String subText = lineReadFromReader.substring(textFillIndex, lineReadFromReader.length());
+            String subText = lineReadFromReader.substring(textFillIndex);
             int semiColonIndex = subText.indexOf(":");
             int exclamationIndex = subText.indexOf("!");
             String toReplace;

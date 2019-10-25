@@ -13,5 +13,5 @@ public enum DisplayPaneType {
     LIST,
     DELETE,
     COLOUR,
-    BACKGROUND;
+    BACKGROUND
 }

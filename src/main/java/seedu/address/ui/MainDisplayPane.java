@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
-import sugarmummy.bio.model.User;
+import seedu.address.model.bio.User;
 
 /**
  * A class containing enumerations, storing the possible Main Display Panes to be displayed to the user.

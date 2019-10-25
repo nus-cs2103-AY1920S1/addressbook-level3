@@ -88,7 +88,7 @@ public class JsonAdaptedEvent extends JsonAdaptedCalendarEntry {
         }
 
         if (autoReminder.isPresent()) {
-            Reminder modelReminder = (Reminder) autoReminder.get().toModelType();
+            Reminder modelReminder = autoReminder.get().toModelType();
             modelEvent.setAutoReminder(modelReminder);
         }
 

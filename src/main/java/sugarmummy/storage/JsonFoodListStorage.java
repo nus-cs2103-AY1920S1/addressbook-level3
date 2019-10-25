@@ -2,7 +2,7 @@ package sugarmummy.storage;
 
 import java.nio.file.Path;
 
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.address.model.food.UniqueFoodList;
 
 /**
  * Represents the specific version {@code JsonGeneralStorage} about food list.

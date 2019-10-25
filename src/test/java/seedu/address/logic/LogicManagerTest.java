@@ -21,15 +21,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.address.storage.bio.JsonUserListStorage;
 import sugarmummy.storage.JsonAddressBookStorage;
 import sugarmummy.storage.JsonCalendarStorage;
 import sugarmummy.storage.JsonFoodListStorage;
 import sugarmummy.storage.JsonRecordListStorage;
 import sugarmummy.storage.JsonUserPrefsStorage;
 import sugarmummy.storage.StorageManager;
-import sugarmummy.storage.bio.JsonUserListStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

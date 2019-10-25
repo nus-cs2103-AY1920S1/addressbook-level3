@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,18 +17,18 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
+import seedu.address.model.bio.User;
+import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageMap;
 import seedu.address.model.statistics.AverageType;
-import sugarmummy.bio.model.User;
-import sugarmummy.bio.model.UserList;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Represents the in-memory sugarmummy.recmfood.model of the address book data.
@@ -267,8 +268,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPastReminder(Reminder reminder) {
-        calendar.addPastReminder(reminder);
+    public void addPastReminders(List<Reminder> reminders) {
+        calendar.addPastReminders(reminders);
     }
 
     @Override

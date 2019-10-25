@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.MainApp;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
-import sugarmummy.bio.model.User;
+import seedu.address.model.bio.User;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
@@ -54,7 +54,6 @@ public class BioPane extends UiPart<Region> {
             String dob = user.getDateOfBirth().toString();
             String hp = listToString(user.getContactNumbers());
             String emergencyHp = listToString(user.getEmergencyContacts());
-            ;
             String medicalCondition = listToString(user.getMedicalConditions());
             String address = user.getAddress().toString();
             String fontColourToString = background.showDefaultBackground()
@@ -77,7 +76,6 @@ public class BioPane extends UiPart<Region> {
                     if (img == null) {
                         img = new Image(MainApp.class.getResourceAsStream(DEFAULT_DP_PATH));
                     }
-                    ;
                 } else {
                     img = new Image(file.toURI().toString());
                 }

@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import sugarmummy.bio.model.User;
+import seedu.address.model.bio.User;
 
 /**
  * Unmodifiable view of an address book

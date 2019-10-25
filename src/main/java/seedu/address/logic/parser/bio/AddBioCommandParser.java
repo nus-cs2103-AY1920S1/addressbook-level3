@@ -24,18 +24,18 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import sugarmummy.bio.model.Address;
-import sugarmummy.bio.model.DateOfBirth;
-import sugarmummy.bio.model.DisplayPicPath;
-import sugarmummy.bio.model.Gender;
-import sugarmummy.bio.model.Goal;
-import sugarmummy.bio.model.MedicalCondition;
-import sugarmummy.bio.model.Name;
-import sugarmummy.bio.model.Nric;
-import sugarmummy.bio.model.OtherBioInfo;
-import sugarmummy.bio.model.Phone;
-import sugarmummy.bio.model.ProfileDesc;
-import sugarmummy.bio.model.User;
+import seedu.address.model.bio.Address;
+import seedu.address.model.bio.DateOfBirth;
+import seedu.address.model.bio.DisplayPicPath;
+import seedu.address.model.bio.Gender;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Name;
+import seedu.address.model.bio.Nric;
+import seedu.address.model.bio.OtherBioInfo;
+import seedu.address.model.bio.Phone;
+import seedu.address.model.bio.ProfileDesc;
+import seedu.address.model.bio.User;
 
 /**
  * Parses input arguments and creates a new AddBioCommand object

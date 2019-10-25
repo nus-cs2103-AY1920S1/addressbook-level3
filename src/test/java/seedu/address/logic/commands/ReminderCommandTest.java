@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,17 +26,17 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
+import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageType;
 import seedu.address.testutil.ReminderBuilder;
-import sugarmummy.bio.model.User;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.UniqueFoodList;
 
 class ReminderCommandTest {
     @Test
@@ -309,7 +310,7 @@ class ReminderCommandTest {
         }
 
         @Override
-        public void addPastReminder(Reminder reminder) {
+        public void addPastReminders(List<Reminder> reminders) {
             throw new AssertionError("This method should not be called.");
         }
 

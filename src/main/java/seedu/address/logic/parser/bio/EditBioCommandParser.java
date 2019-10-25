@@ -33,9 +33,9 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import sugarmummy.bio.model.Goal;
-import sugarmummy.bio.model.MedicalCondition;
-import sugarmummy.bio.model.Phone;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Phone;
 
 /**
  * Parses input arguments and creates a new EditBioCommand object

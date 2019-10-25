@@ -74,8 +74,8 @@ public class Calendar implements ReadOnlyCalendar {
     /**
      * Adds a reminder to the past reminder list. The reminder must not already exist in the past reminder list.
      */
-    public void addPastReminder(Reminder reminder) {
-        pastReminders.add(reminder);
+    public void addPastReminders(List<Reminder> reminders) {
+        pastReminders.addAll(reminders);
     }
 
     /**

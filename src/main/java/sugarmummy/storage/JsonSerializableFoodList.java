@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.UniqueFoodList;
 
 /**
  * Represents an Immutable FoodList that is serializable to JSON format.
