@@ -241,6 +241,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         stagedAddressBook.setPerson(target, editedPerson);
+        refreshStagedData();
     }
 
     @Override
@@ -284,10 +285,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<HistoryRecord> revertTo(HistoryRecord record) throws NoSuchElementException {
-        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record);
+    public List<HistoryRecord> undoTo(HistoryRecord record) throws NoSuchElementException {
+        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record, stagedAddressBook);
         changeBaseTo(record.getCopyOfAddressBook());
         return poppedRecords;
+    }
+
+    @Override
+    public HistoryRecord redo() throws IllegalStateException {
+        Optional<HistoryRecord> redoneRecord = historyManager.popRedo(stagedAddressBook);
+        if (redoneRecord.isEmpty()) {
+            throw new IllegalStateException("Cannot redo: previous MutatorCommand was not an undo");
+        }
+        changeBaseTo(redoneRecord.get().getCopyOfAddressBook());
+        return redoneRecord.get();
     }
 
     @Override
