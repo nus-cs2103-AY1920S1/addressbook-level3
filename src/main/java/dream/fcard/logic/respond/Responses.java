@@ -1,5 +1,8 @@
 package dream.fcard.logic.respond;
 
+import java.util.logging.Logger;
+
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -139,9 +142,14 @@ enum Responses {
             + "(back/[\\w\\p{Punct}]+))?(\\s)*", (
             commandInput, programState) -> {
                 System.out.println("Current command is EDIT");
-                // Will plan an implement soon (a bit busy now lol)
                 return true; // capture is valid, end checking other commands
-            });
+            }),
+    UNKNOWN(".*", (commandInput, programState) -> {
+        System.out.println("Sorry, I don't know what is this command.");
+        return false;
+    });
+
+    private static final Logger logger = LogsCenter.getLogger(Responses.class);
 
     private String regex;
     private ResponseFunc func;
@@ -163,6 +171,7 @@ enum Responses {
         if (i.matches(regex)) {
             return func.funcCall(i, s);
         }
+        logger.warning("Unknown command entered.");
         return false;
     }
 }
