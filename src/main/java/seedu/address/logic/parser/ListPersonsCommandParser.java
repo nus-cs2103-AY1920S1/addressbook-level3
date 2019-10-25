@@ -14,8 +14,8 @@ import seedu.address.model.person.TagContainsKeywordsPredicate;
 public class ListPersonsCommandParser implements Parser<ListPersonsCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindPersonsCommand
-     * and returns a FindPersonsCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ListPersonsCommand
+     * and returns a ListPersonsCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ListPersonsCommand parse(String args) throws ParseException {
