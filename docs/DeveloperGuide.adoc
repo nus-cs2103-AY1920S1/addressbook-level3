@@ -250,6 +250,10 @@ include::./devguide/VisitsManagement.adoc[]
 
 include::./devguide/AppointmentManagement.adoc[]
 
+=== Import and Export
+
+include::./devguide/ImportExport.adoc[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
