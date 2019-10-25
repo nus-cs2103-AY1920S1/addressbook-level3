@@ -74,25 +74,25 @@ Format: `-help`
 
 ==== Switching context
 
-This switches to a specific context for you to enter targeted commands. The list of contexts include: customer, deliveryman and restaurant. By default, the application will be in the universal context upon startup.
+This command switches to a specific context for you to enter targeted commands. The list of contexts include: customer, deliveryman and restaurant. By default, the application will be in the universal context upon startup.
 
 ===== Switching to customer context `-customer`
-This switches to the customer context for you to enter customer-specific commands.
+This command switches to the customer context for you to enter customer-specific commands.
 
 Format: `-customer`
 
 ===== Switching to restaurant context `-restaurant`
-This switches to the restaurant context for you to enter restaurant-specific commands.
+This command switches to the restaurant context for you to enter restaurant-specific commands.
 
 Format: `-restaurant`
 
 ===== Switching to deliveryman context `-deliveryman`
-This switches to the deliveryman context for you to enter deliveryman-specific commands.
+This command switches to the deliveryman context for you to enter deliveryman-specific commands.
 
 Format: `-deliveryman`
 
 ==== Adding of orders `-add_order`
-This adds a new order to the database to be processed. The deliveryman to deliver the order will be allocated automatically based on the internal algorithms.
+This command adds a new order to the database to be processed. The deliveryman to deliver the order will be allocated automatically based on the internal algorithms.
 
 Format: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 
@@ -134,14 +134,14 @@ Requirements:
 * Delivery status `completed/DELIVERY_STATUS` must be true or false, if present.
 
 ==== Deleting of orders `-delete_order`
-This enables you to delete an unwanted/cancelled order in the database by its index.
+This command enables you to delete an unwanted/cancelled order in the database by its index.
 
 Format: `-delete_order INDEX`
 
 > `-delete_order 3`
 
 ==== Viewing order summary `-order_summary`
-This brings up the current order summary for your viewing.
+This command brings up the current order summary for your viewing.
 
 Format: `-order_summary`
 
@@ -170,7 +170,7 @@ After performing `redo`, the result pane will show:
 Successfully redid: (your previous command here)
 
 ==== Exiting program `-exit`
-This exits the program.
+This comamnd exits the program.
 
 Format: `-exit`
 
@@ -278,41 +278,58 @@ Example: -chefhat nasi lemak
 
 Commands in the delivery men context
 
-==== Listing all deliverymen
+==== Adding a deliveryman: `add`
 
-Lists all deliverymen
+This command adds a new deliveryman to the deliverymen database. Name and phone number are necessary to a deliveryman.
 
-Format: -list
+Format: `add n/NAME p/PHONE [t/TAG]...`
+
+> `add n/John Doe p/91234567  `
+
+==== Editing a deliveryman: `edit`
+
+This command edits an existing deliveryman in the deliverymen database.
+Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+
+> `edit 1 n/John Hoe p/97654321 t/Indian`
+
+==== Deleting a deliveryman: `delete`
+
+This command deletes an existing deliveryman in the deliverymen database. The index of a deliveryman needs to be provided.
+
+Format: `delete INDEX`
+
+> `delete 1`
 
 ==== Listing available deliverymen
 
-Lists all available deliverymen
+This command lists all available deliverymen
 
-Format: -lista
+Format: `lista`
 
 ==== Entering a specific deliveryman
 
-Shows a deliveryman&#39;s basic info
+This command shows a deliveryman's basic info
 
-Format: -list {name}
+Format: `list NAME`
 
-Example: -list Stanley Tay
+Example: `list Stanley Tay`
 
 ==== Assigning order to a deliveryman
 
-Assigns an order to an available deliveryman
+This command assigns an order to an available deliveryman
 
-Format: -assn {name}{#orderIndex}
+Format: `assn NAME #ORDERINDEX`
 
-Example: -assn Stanley Tay #12
+Example: `assn Stanley Tay #12`
 
-==== Viewing delivery status of a deliveryman
+====  Obtains a list of deliverymen eligible for pay rise
 
-Shows delivery status of an assigned deliveryman
+This command displays a list of deliverymen who met the pre-determined requirements for a pay rise.
 
-Format: status {name}
+Format: `payrise`
 
-Example: -status Stanley Tay
+Example: `payrise`
 
 
 == Command summary
@@ -331,10 +348,10 @@ Example: -status Stanley Tay
 - Exit application: `-exit`
 
 * Customer commands
-- Adding a customer: `add n/NAME p/PHONE [t/TAG]...`
-- Editing a customer: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
-- Deleting a customer: `delete INDEX`
-- Viewing a customer's order history: `history INDEX`
+- Add a customer: `add n/NAME p/PHONE [t/TAG]...`
+- Edit a customer: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+- Delete a customer: `delete INDEX`
+- View a customer's order history: `history INDEX`
 
 * Restaurant commands
 - List restaurants: -list
@@ -345,8 +362,10 @@ Example: -status Stanley Tay
 - ChefHat Food Item: -chefhat {item}
 
 * Deliverymen commands
-- List deliverymen: -list
-- List available deliverymen: -lista
-- List specific deliveryman info: -list {name}
-- Assign order to deliveryman: -assn {name} {order}
-- Show delivery status of deliveryman: -status {name}
+- Add a deliveryman: `add n/NAME p/PHONE`
+- Delete a deliveryman: `delete INDEX`
+- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE]
+- List available deliverymen: `lista`
+- List specific deliveryman info: `list NAME`
+- Assign order to deliveryman: `assn NAME #orderINDEX`
+- List deliverymen eligible for pay rise: `payrise`
