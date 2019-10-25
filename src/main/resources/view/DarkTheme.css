@@ -1,6 +1,5 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #121924; /* Used in the default.html file */
+    -fx-background-color: derive(#121924, 20%);
 }
 
 .label {
@@ -113,13 +112,14 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#121924, 20%);
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+    -fx-background-color: derive(#121924, 20%);
 }
 
 .list-cell:filled:even {
@@ -135,6 +135,11 @@
 }
 
 .list-cell:filled:selected #cardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled:selected #visitCardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
@@ -156,7 +161,7 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#121924, 20%);
 }
 
 .pane-with-border {
@@ -198,13 +203,15 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#121924, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
+    -fx-background-color: derive(#121924, 20%);
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#121924, 20%);
+}
+
+.anchor-pane {
+    -fx-background-color: #121924
 }
 
 .context-menu {
