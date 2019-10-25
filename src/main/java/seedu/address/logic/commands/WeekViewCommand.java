@@ -11,23 +11,23 @@ import seedu.address.ui.UserOutput;
 /**
  * Represents a Command which adds an EventSource to the Model.
  */
-public class DayViewCommand extends Command {
+public class WeekViewCommand extends Command {
 
     private final CalendarDate calendarDate;
     private final UiManager uiManager;
 
-    DayViewCommand(DayViewCommandBuilder builder) {
+    WeekViewCommand(WeekViewCommandBuilder builder) {
         calendarDate = Objects.requireNonNull(builder.getStart());
         uiManager = Objects.requireNonNull(builder.getUiManager());
     }
 
     public static CommandBuilder newBuilder(UiManager uiManager) {
-        return new DayViewCommandBuilder(uiManager).init();
+        return new WeekViewCommandBuilder(uiManager).init();
     }
 
     @Override
     public UserOutput execute() {
-        uiManager.viewDay(calendarDate.getDay(), calendarDate.getMonth(), calendarDate.getYear());
+        uiManager.viewWeek(calendarDate.getDay(), calendarDate.getMonth(), calendarDate.getYear());
         return new UserOutput(String.format(MESSAGE_DAY_VIEW_SUCCESS, calendarDate.toString()));
     }
 }

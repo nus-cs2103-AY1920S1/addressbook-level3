@@ -1,6 +1,8 @@
-package seedu.address.model.events;
+package seedu.address.model;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -17,14 +19,32 @@ public class DateTime implements Comparable<DateTime> {
 
     public static final String USER_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm";
 
-    private static final ZoneId TIMEZONE = ZoneId.systemDefault();
+    private static final ZoneId TIME_ZONE = ZoneId.systemDefault();
 
-    private static final DateTimeParser USER_PARSER =
+    // Parsers
+    private static final DateTimeParser DATE_TIME_PARSER =
         new DateTimeParser(DateTimeFormatter.ofPattern(USER_DATE_TIME_PATTERN)
-            .withZone(TIMEZONE));
-    private static final InstantComposer USER_COMPOSER =
+            .withZone(TIME_ZONE));
+
+    // Composers
+    private static final InstantComposer DATE_TIME_COMPOSER =
         new InstantComposer(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-            .withZone(TIMEZONE));
+            .withZone(TIME_ZONE));
+    private static final InstantComposer DAY_COMPOSER =
+            new InstantComposer(DateTimeFormatter.ofPattern("dd")
+                    .withZone(TIME_ZONE));
+    private static final InstantComposer MONTH_COMPOSER =
+            new InstantComposer(DateTimeFormatter.ofPattern("MM")
+                    .withZone(TIME_ZONE));
+    private static final InstantComposer YEAR_COMPOSER =
+            new InstantComposer(DateTimeFormatter.ofPattern("yyyy")
+                    .withZone(TIME_ZONE));
+    private static final InstantComposer HOUR_COMPOSER =
+            new InstantComposer(DateTimeFormatter.ofPattern("HH")
+                    .withZone(TIME_ZONE));
+    private static final InstantComposer MINUTE_COMPOSER =
+            new InstantComposer(DateTimeFormatter.ofPattern("mm")
+                    .withZone(TIME_ZONE));
 
     private static final DateTimeFormatter ICS_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
         .withZone(ZoneId.of("UTC"));
@@ -37,12 +57,47 @@ public class DateTime implements Comparable<DateTime> {
         this.instant = instant;
     }
 
+    public DateTime(LocalDate localDate) {
+        // No need to care about time
+        this.instant =  localDate.atStartOfDay(TIME_ZONE).toInstant();
+    }
+
+    public DateTime(YearMonth yearMonth) {
+        // No need to care about day or time. Only month and year.
+        this.instant = yearMonth.atEndOfMonth().atStartOfDay(TIME_ZONE).toInstant();
+    }
+
     public static DateTime fromIcsString(String string) throws ParseException {
         return ICS_PARSER.parse(string);
     }
 
-    public static DateTime fromUserInput(String string) throws ParseException {
-        return USER_PARSER.parse(string);
+    public static DateTime fromDateTimeString(String string) throws ParseException {
+        return DATE_TIME_PARSER.parse(string);
+    }
+
+    public Integer getDay() {
+        return Integer.valueOf(DAY_COMPOSER.compose(this.instant));
+    }
+
+    public Integer getWeek() {
+        LocalDate localDate = LocalDate.ofInstant(instant, TIME_ZONE);
+        return localDate.getDayOfWeek().getValue();
+    }
+
+    public Integer getMonth() {
+        return Integer.valueOf(MONTH_COMPOSER.compose(this.instant));
+    }
+
+    public Integer getYear() {
+        return Integer.valueOf(YEAR_COMPOSER.compose(this.instant));
+    }
+
+    public Integer getHour() {
+        return Integer.valueOf(HOUR_COMPOSER.compose(this.instant));
+    }
+
+    public Integer getMinute() {
+        return Integer.valueOf(MINUTE_COMPOSER.compose(this.instant));
     }
 
     /**
@@ -77,7 +132,7 @@ public class DateTime implements Comparable<DateTime> {
 
     @Override
     public String toString() {
-        return USER_COMPOSER.compose(this.instant);
+        return DATE_TIME_COMPOSER.compose(this.instant);
     }
 
     @Override

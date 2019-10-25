@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 
 /**

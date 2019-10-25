@@ -69,24 +69,22 @@ public class CalendarScreen extends UiPart<Region> {
      * Fills the index of the calendar and resets when needed to.
      */
     private void resetCalendar() {
-        resetPreviousMonth();
-        resetCurrentNextMonth();
+        Integer startingDay = resetPreviousMonth();
+        resetCurrentNextMonth(startingDay);
     }
 
     /**
      * Resets the calendar to add in the current and next month values.
      */
-    private void resetCurrentNextMonth() {
+    private void resetCurrentNextMonth(Integer startingDay) {
         // Adds Current Month Calendar.
         boolean nextMonth = false;
         int index = 1;
-        int startingDay = this.localDate.withDayOfMonth(1).getDayOfWeek().getValue();
         int totalDays = this.yearMonth.lengthOfMonth();
         for (int weeks = 0; weeks < 6; weeks++) {
             for (int days = 0; days < 7; days++) {
                 if (weeks == 0 && days == 0) {
-                    days = startingDay - 2;
-                    continue;
+                    days = startingDay;
                 }
                 if (index > totalDays) {
                     // Resets to next month.
@@ -117,7 +115,7 @@ public class CalendarScreen extends UiPart<Region> {
     /**
      * Resets the calendar to add in the previous month values.
      */
-    private void resetPreviousMonth() {
+    private Integer resetPreviousMonth() {
         // Adds Previous Month Calendar;
         int days = this.localDate.withDayOfMonth(1).getDayOfWeek().getValue() - 2;
         Integer previousMonthDay = uiParser.getPreviousMonthDays(this.month, this.year) - days;
@@ -132,6 +130,7 @@ public class CalendarScreen extends UiPart<Region> {
             startingDay++;
             previousMonthDay++;
         }
+        return startingDay;
     }
 
     /**
