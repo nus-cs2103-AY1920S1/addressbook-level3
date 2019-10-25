@@ -190,7 +190,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void showQuiz() {
         questionListPanelPlaceholder.getChildren().clear();
-        quizQuestionListPanel = new QuizQuestionListPanel(logic.getFilteredQuizQuestionList());
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getOneQuizQuestionAsList());
         questionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
     }
 
@@ -202,6 +202,7 @@ public class MainWindow extends UiPart<Stage> {
         questionListPanelPlaceholder.getChildren().clear();
         questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
     }
 
     /**
