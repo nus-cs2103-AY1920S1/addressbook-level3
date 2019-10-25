@@ -26,7 +26,7 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
     private List<Event> lastShownList;
 
     public SettleAppCommandParser(Model model) {
-        this.lastShownList = model.getFilteredEventList();
+        this.lastShownList = model.getFilteredAppointmentList();
         this.model = model;
     }
     /**

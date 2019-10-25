@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.
@@ -41,15 +43,15 @@ public class AppointmentsCommand extends NonActionableCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        autoMissEvent(model.getFilteredEventList(), model);
+        autoMissEvent(model.getFilteredAppointmentList(), model);
         if (referenceId == null) {
-            model.updateFilteredEventList();
+            model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
         } else {
-            model.updateFilteredEventList(referenceId);
+            model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(referenceId));
         }
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
+                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
     }
 
     /**
@@ -65,7 +67,7 @@ public class AppointmentsCommand extends NonActionableCommand {
                     && evTiming.getEndTime().getTime().before(current)) {
                 Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(),
                         new Status(Status.AppointmentStatuses.MISSED));
-                model.setEvent(ev, newAppt);
+                model.setAppointment(ev, newAppt);
             }
         }
     }

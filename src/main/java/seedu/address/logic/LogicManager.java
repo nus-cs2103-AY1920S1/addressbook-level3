@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.logic;
 
 import java.io.IOException;
@@ -21,8 +22,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.events.Event;
@@ -56,7 +55,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText, Consumer<OmniPanelTab> omniPanelTabConsumer)
+    public CommandResult execute(String commandText)
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
@@ -89,7 +88,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Person> getFilteredPatientList() {
         return model.getFilteredPersonList();
     }
 
@@ -99,8 +98,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return model.getFilteredEventList();
+    public ObservableList<Event> getFilteredAppointmentList() {
+        return model.getFilteredAppointmentList();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredStaffList() {
+        return model.getFilteredStaffList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredDutyShiftList() {
+        return model.getFilteredDutyShiftList();
     }
 
     @Override
@@ -109,18 +118,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getPatientAddressBook();
-    }
-
-    @Override
     public Path getAddressBookFilePath() {
         return model.getUserPrefs().getPatientAddressBookFilePath();
-    }
-
-    @Override
-    public ReadOnlyAppointmentBook getAppointmentBook() {
-        return model.getAppointmentBook();
     }
 
     @Override
@@ -136,5 +135,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer) {
+        model.bindTabListingCommand(omniPanelTabConsumer);
     }
 }

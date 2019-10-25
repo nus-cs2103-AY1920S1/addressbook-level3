@@ -180,7 +180,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setSchedule(ReadOnlyAppointmentBook schedule) {
+    public void setAppointmentSchedule(ReadOnlyAppointmentBook schedule) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -190,37 +190,37 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event) {
+    public boolean hasAppointment(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasExactEvent(Event event) {
+    public boolean hasExactAppointment(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteEvent(Event event) {
+    public void deleteAppointment(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void addEvent(Event event) {
+    public void addAppointment(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setEvent(Event target, Event editedEvent) {
+    public void setAppointment(Event target, Event editedEvent) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
+    public ObservableList<Event> getFilteredAppointmentList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public void updateFilteredAppointmentList(Predicate<Event> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -1,12 +1,8 @@
 package seedu.address.ui;
 
-import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
-
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -43,9 +39,11 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
     private CommandBox commandBox;
-    private PersonListPanel personListPanel;
+    private PersonListPanel patientListPanel;
+    private PersonListPanel staffListPanel;
     private QueueListPanel queueListPanel;
-    private EventListPanel eventListPanel;
+    private EventListPanel appointmentListPanel;
+    private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabBar tabBar;
@@ -91,18 +89,18 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
         helpWindow = new HelpWindow();
 
-        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                case TAB:
-                    event.consume();
-                    commandBox.getRoot().requestFocus();
-                    break;
-                default:
-                }
+        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            switch (event.getCode()) {
+            case TAB:
+                event.consume();
+                commandBox.getRoot().requestFocus();
+                break;
+            default:
+                break;
             }
         });
+
+        logic.bindOmniPanelTabConsumer(this::setOmniPanelTab);
     }
 
     public Stage getPrimaryStage() {
@@ -148,9 +146,11 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        patientListPanel = new PersonListPanel(logic.getFilteredPatientList());
+        staffListPanel = new PersonListPanel(logic.getFilteredStaffList());
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList());
+        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList());
 
         tabBar = new TabBar(this::setOmniPanelTab);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
@@ -213,22 +213,14 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    public EventListPanel getEventListPanel() {
-        return eventListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String, Consumer)
+     * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText, this::setOmniPanelTab);
+            CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -295,14 +287,19 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @Override
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
+
         switch (omniPanelTab) {
         case PATIENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
+            omniPanelPlaceholder.getChildren().setAll(patientListPanel.getRoot());
             break;
         case APPOINTMENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
+            omniPanelPlaceholder.getChildren().setAll(appointmentListPanel.getRoot());
             break;
         case DOCTORS_TAB:
+            omniPanelPlaceholder.getChildren().setAll(staffListPanel.getRoot());
+            break;
+        case DUTYSHIFT_TAB:
+            omniPanelPlaceholder.getChildren().setAll(dutyShiftListPanel.getRoot());
             break;
         default:
         }

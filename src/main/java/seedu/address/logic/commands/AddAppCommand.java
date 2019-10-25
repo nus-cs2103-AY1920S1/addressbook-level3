@@ -11,6 +11,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
  * Adds a person to the address book.
@@ -49,12 +50,12 @@ public class AddAppCommand extends ReversibleCommand {
         if (!model.hasPatient(toAdd.getPersonId())) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, toAdd.getPersonId()));
         }
-        if (model.hasEvent(toAdd)) {
+        if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        model.addEvent(toAdd);
-        model.updateFilteredEventList(toAdd.getPersonId());
+        model.addAppointment(toAdd);
+        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toAdd.getPersonId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

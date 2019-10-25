@@ -7,6 +7,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.predicates.MissedEventPredicate;
 
 
 /**
@@ -42,14 +43,14 @@ public class SettleAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasExactEvent(editedEvent)) {
+        if (model.hasExactAppointment(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_SETTLE);
         }
 
-        model.deleteEvent(eventToEdit);
+        model.deleteAppointment(eventToEdit);
 
-        model.addEvent(editedEvent);
-        model.updateToMissedEventList();
+        model.addAppointment(editedEvent);
+        model.updateFilteredAppointmentList(new MissedEventPredicate());
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 

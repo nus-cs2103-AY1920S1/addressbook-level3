@@ -8,6 +8,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 
 /**
@@ -33,13 +34,13 @@ public class CancelAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasExactEvent(toDelete)) {
+        if (!model.hasExactAppointment(toDelete)) {
             throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, toDelete));
         }
 
 
-        model.deleteEvent(toDelete);
-        model.updateFilteredEventList(toDelete.getPersonId());
+        model.deleteAppointment(toDelete);
+        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toDelete.getPersonId()));
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
     }
 

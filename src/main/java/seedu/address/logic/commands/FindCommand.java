@@ -3,8 +3,10 @@ package seedu.address.logic.commands;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
@@ -33,6 +35,7 @@ public class FindCommand extends NonActionableCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setTabListing(PATIENTS_TAB);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));

@@ -15,13 +15,13 @@ public class ModelAcceptingEventAddedStub extends ModelStub {
     public final ArrayList<Event> eventsAdded = new ArrayList<>();
 
     @Override
-    public boolean hasEvent(Event event) {
+    public boolean hasAppointment(Event event) {
         requireNonNull(event);
         return eventsAdded.stream().anyMatch(event::isSameAs);
     }
 
     @Override
-    public void addEvent(Event event) {
+    public void addAppointment(Event event) {
         requireNonNull(event);
         eventsAdded.add(event);
     }

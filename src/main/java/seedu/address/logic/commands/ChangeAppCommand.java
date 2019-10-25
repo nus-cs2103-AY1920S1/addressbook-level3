@@ -9,6 +9,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
  * Acknowledge a person to the address book.
@@ -46,11 +47,11 @@ public class ChangeAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasExactEvent(editedEvent)) {
+        if (model.hasExactAppointment(editedEvent)) {
             throw new CommandException(MESSAGE_TIMING_NOTNEW);
         }
-        model.setEvent(eventToEdit, editedEvent);
-        model.updateFilteredEventList(editedEvent.getPersonId());
+        model.setAppointment(eventToEdit, editedEvent);
+        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 

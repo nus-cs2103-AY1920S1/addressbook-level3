@@ -10,7 +10,8 @@ public enum OmniPanelTab {
 
     PATIENTS_TAB("patientsTab"),
     APPOINTMENTS_TAB("appointmentsTab"),
-    DOCTORS_TAB("doctorsTab");
+    DOCTORS_TAB("doctorsTab"),
+    DUTYSHIFT_TAB("dutyShiftTab");
 
     private static final Map<String, OmniPanelTab> BY_ID = new HashMap<>();
 

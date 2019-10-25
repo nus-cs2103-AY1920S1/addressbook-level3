@@ -28,7 +28,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
     private List<Event> lastShownList;
 
     public ChangeAppCommandTimingParser(Model model) {
-        this.lastShownList = model.getFilteredEventList();
+        this.lastShownList = model.getFilteredAppointmentList();
         this.model = model;
     }
 

@@ -1,11 +1,13 @@
 //@@author SakuraBlossom
 package seedu.address.model;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -21,7 +23,6 @@ public interface Model extends ReferenceIdResolver {
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
-    Predicate<Room> PREDICATE_SHOW_ALL_ROOMS = unused -> true;
 
 
     //=========== UserPrefs ==================================================================================
@@ -207,12 +208,12 @@ public interface Model extends ReferenceIdResolver {
 
     ObservableList<Room> getConsultationRoomList();
 
-    //=========== Scheduler ==================================================================================
+    //=========== Appointment Scheduler ======================================================================
 
     /**
      * Replaces schedule data with the data in {@code schedule}.
      */
-    void setSchedule(ReadOnlyAppointmentBook schedule);
+    void setAppointmentSchedule(ReadOnlyAppointmentBook schedule);
 
     /**
      * Returns the schedule of appointments.
@@ -220,58 +221,118 @@ public interface Model extends ReferenceIdResolver {
     ReadOnlyAppointmentBook getAppointmentBook();
 
     /**
-     * Returns true if an event with the same identity as {@code event} exists in the schedule.
+     * Returns true if an appointment with the same identity as {@code event} exists in the schedule.
      */
-    boolean hasEvent(Event event);
+    boolean hasAppointment(Event event);
 
     /**
      * Returns true if an exact {@code event} exists in the schedule.
      */
-    boolean hasExactEvent(Event event);
+    boolean hasExactAppointment(Event event);
 
     /**
      * Deletes the given event.
      * The event must exist in the schedule.
      */
-    void deleteEvent(Event event);
+    void deleteAppointment(Event event);
 
     /**
      * Adds the given event.
      * {@code person} must not already exist in the schedule.
      */
-    void addEvent(Event event);
+    void addAppointment(Event event);
 
     /**
      * Replaces the given event {@code target} with {@code editedEvent}.
      * {@code target} must exist in the schedule.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
-    void setEvent(Event target, Event editedEvent);
+    void setAppointment(Event target, Event editedEvent);
 
 
-    //=========== Filtered Event List Accessors ==============================================================
+    //=========== Filtered Appointment List Accessors ==============================================================
 
     /**
-     * Returns an unmodifiable view of the filtered event list
+     * Returns an unmodifiable view of the filtered appointment list
      */
-    ObservableList<Event> getFilteredEventList();
+    ObservableList<Event> getFilteredAppointmentList();
 
     /**
-     * Updates the filter of the filtered event list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredEventList(Predicate<Event> predicate);
-
-    void updateFilteredEventList(ReferenceId referenceId);
-
-    void updateFilteredEventList();
-
-    void updateToMissedEventList();
-
-    void displayApprovedAndAckedPatientEvent(ReferenceId referenceId);
+    void updateFilteredAppointmentList(Predicate<Event> predicate);
 
     Boolean isPatientList();
 
     Boolean isMissedList();
+
+    //=========== Duty Roster Scheduler ======================================================================
+
+    /**
+     * Replaces schedule data with the data in {@code schedule}.
+     */
+    void setDutyShiftSchedule(ReadOnlyAppointmentBook schedule);
+
+    /**
+     * Returns the schedule of appointments.
+     */
+    ReadOnlyAppointmentBook getDutyShiftBook();
+
+    /**
+     * Returns true if an appointment with the same identity as {@code event} exists in the schedule.
+     */
+    boolean hasDutyShift(Event event);
+
+    /**
+     * Returns true if an exact {@code event} exists in the schedule.
+     */
+    boolean hasExactDutyShift(Event event);
+
+    /**
+     * Deletes the given event.
+     * The event must exist in the schedule.
+     */
+    void deleteDutyShift(Event event);
+
+    /**
+     * Adds the given event.
+     * {@code person} must not already exist in the schedule.
+     */
+    void addDutyShift(Event event);
+
+    /**
+     * Replaces the given event {@code target} with {@code editedEvent}.
+     * {@code target} must exist in the schedule.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    void setDutyShift(Event target, Event editedEvent);
+
+
+    //=========== Filtered DutyShift List Accessors ==============================================================
+
+    /**
+     * Returns an unmodifiable view of the filtered appointment list
+     */
+    ObservableList<Event> getFilteredDutyShiftList();
+
+    /**
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDutyShiftList(Predicate<Event> predicate);
+
+    //=========== User Interface =============================================================================
+
+    /**
+     * Sets the desired tab listing.
+     */
+    void setTabListing(OmniPanelTab tab);
+
+    /**
+     * Binds the OmniPanel tab selector.
+     */
+    void bindTabListingCommand(Consumer<OmniPanelTab> tabConsumer);
 }

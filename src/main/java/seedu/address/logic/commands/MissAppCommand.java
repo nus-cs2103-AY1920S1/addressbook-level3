@@ -6,6 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
+import seedu.address.model.events.predicates.MissedEventPredicate;
 
 /**
  * mark a appointment's status as MISSED for a patient.
@@ -25,9 +26,9 @@ public class MissAppCommand extends NonActionableCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateToMissedEventList();
+        model.updateFilteredAppointmentList(new MissedEventPredicate());
         return new CommandResult(
-                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
+                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
     }
 
 }

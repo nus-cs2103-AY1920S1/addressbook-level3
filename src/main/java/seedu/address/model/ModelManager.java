@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Date;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.AddressBook;
@@ -29,44 +31,79 @@ import seedu.address.model.userprefs.UserPrefs;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final UserPrefs userPrefs;
+
     private final AppointmentBook appointmentBook;
+    private final AppointmentBook dutyRosterBook;
     private final AddressBook staffAddressBook;
     private final AddressBook patientAddressBook;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Event> filteredEvents;
+
+    private final FilteredList<Person> filteredPatients;
+    private final FilteredList<Person> filteredStaff;
+    private final FilteredList<Event> filteredAppointments;
+    private final FilteredList<Event> filteredDutyShifts;
+
     private final QueueManager queueManager;
-    private final FilteredList<Room> filteredRooms;
-    private final FilteredList<ReferenceId> filteredReferenceIds;
+    private final ObservableList<Room> consultationRooms;
+    private final ObservableList<ReferenceId> patientQueueList;
+
+    private Consumer<OmniPanelTab> omniPanelTabConsumer;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook patientAddressBook, ReadOnlyAddressBook staffAddressBook,
-                        ReadOnlyUserPrefs userPrefs, QueueManager queueManager,
-                        ReadOnlyAppointmentBook patientSchedule) {
+                        ReadOnlyAppointmentBook patientSchedule, ReadOnlyAppointmentBook dutyRoster,
+                        ReadOnlyUserPrefs userPrefs, QueueManager queueManager) {
         super();
         requireAllNonNull(patientAddressBook, userPrefs);
         logger.fine("Initializing with"
             + "\nLocal patient address book data file location : " + patientAddressBook
             + "\nLocal staff details data file location : " + staffAddressBook
             + "\nLocal appointment data file location : " + patientSchedule
-            + "\nLocal duty roster data file location : " + staffAddressBook
+            + "\nLocal duty roster data file location : " + dutyRoster
             + "\nUser prefs: " + userPrefs);
 
-        this.queueManager = new QueueManager(queueManager);
-        this.appointmentBook = new AppointmentBook(patientSchedule);
         this.staffAddressBook = new AddressBook(staffAddressBook);
         this.patientAddressBook = new AddressBook(patientAddressBook);
+
+        this.appointmentBook = new AppointmentBook(patientSchedule);
+        this.dutyRosterBook = new AppointmentBook(dutyRoster);
+
         this.userPrefs = new UserPrefs(userPrefs);
-        this.filteredPersons = new FilteredList<>(this.patientAddressBook.getPersonList());
-        this.filteredRooms = new FilteredList<>(this.queueManager.getRoomList());
-        this.filteredEvents = new FilteredList<>(this.appointmentBook.getEventList());
-        this.filteredReferenceIds = new FilteredList<>(this.queueManager.getReferenceIdList());
+        this.queueManager = new QueueManager(queueManager);
+
+        this.filteredPatients = new FilteredList<>(this.patientAddressBook.getPersonList());
+        this.filteredStaff = new FilteredList<>(this.staffAddressBook.getPersonList());
+
+        this.filteredAppointments = new FilteredList<>(this.appointmentBook.getEventList());
+        this.filteredDutyShifts = new FilteredList<>(this.dutyRosterBook.getEventList());
+
+        this.consultationRooms = new FilteredList<>(this.queueManager.getRoomList());
+        this.patientQueueList = new FilteredList<>(this.queueManager.getReferenceIdList());
+
+        this.omniPanelTabConsumer = null;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new AddressBook(), new UserPrefs(), new QueueManager(), new AppointmentBook());
+        this(new AddressBook(), new AddressBook(),
+            new AppointmentBook(), new AppointmentBook(),
+            new UserPrefs(), new QueueManager());
+    }
+
+    //=========== User Interface =============================================================================
+
+    @Override
+    public void setTabListing(OmniPanelTab tab) {
+        requireNonNull(tab);
+        if (omniPanelTabConsumer != null) {
+            omniPanelTabConsumer.accept(tab);
+        }
+    }
+
+    @Override
+    public void bindTabListingCommand(Consumer<OmniPanelTab> tabConsumer) {
+        this.omniPanelTabConsumer = tabConsumer;
     }
 
     //=========== QueueManager ==================================================================================
@@ -198,13 +235,13 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return filteredPatients;
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredPatients.setPredicate(predicate);
     }
 
     //=========== Patient AddressBook ================================================================================
@@ -269,20 +306,20 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredStaffList() {
-        return filteredPersons;
+        return filteredPatients;
     }
 
     @Override
     public void updateFilteredStaffList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredPatients.setPredicate(predicate);
     }
 
 
     //=========== Queue List Accessors ========================================================
     @Override
     public ObservableList<ReferenceId> getQueueList() {
-        return filteredReferenceIds;
+        return patientQueueList;
     }
 
 
@@ -290,11 +327,11 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Room> getConsultationRoomList() {
-        return filteredRooms;
+        return consultationRooms;
     }
 
     @Override
-    public void setSchedule(ReadOnlyAppointmentBook schedule) {
+    public void setAppointmentSchedule(ReadOnlyAppointmentBook schedule) {
         this.patientAddressBook.resetData(patientAddressBook);
     }
 
@@ -304,31 +341,31 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event) {
+    public boolean hasAppointment(Event event) {
         requireNonNull(event);
         return appointmentBook.hasEvent(event);
     }
 
     @Override
-    public boolean hasExactEvent(Event event) {
+    public boolean hasExactAppointment(Event event) {
         requireNonNull(event);
         return appointmentBook.hasExactEvent(event);
     }
 
     @Override
-    public void deleteEvent(Event event) {
+    public void deleteAppointment(Event event) {
         appointmentBook.removeEvent(event);
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void addEvent(Event event) {
+    public void addAppointment(Event event) {
         appointmentBook.addEvent(event);
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void setEvent(Event target, Event editedEvent) {
+    public void setAppointment(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
 
         appointmentBook.setEvent(target, editedEvent);
@@ -342,38 +379,21 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return filteredEvents;
+    public ObservableList<Event> getFilteredAppointmentList() {
+        return filteredAppointments;
     }
 
     @Override
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public void updateFilteredAppointmentList(Predicate<Event> predicate) {
         requireNonNull(predicate);
-        filteredEvents.setPredicate(predicate);
+        filteredAppointments.setPredicate(predicate);
     }
 
-
-    @Override
-    public void updateFilteredEventList(ReferenceId referenceId) {
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        Predicate<Event> byApproved = Event -> (Event.getStatus().isApproved()
-                && Event.getPersonId().equals(referenceId));
-        filteredEvents.setPredicate(byApproved);
-    }
-
-    @Override
-    public void updateFilteredEventList() {
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        Predicate<Event> byApproved = Event -> Event.getStatus().isApproved();
-        filteredEvents.setPredicate(byApproved);
-    }
-
-    @Override
     public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
         Predicate<Event> byApproved = Event -> ((Event.getStatus().isApproved() || Event.getStatus().isAcked())
                 && Event.getPersonId().equals(referenceId));
-        filteredEvents.setPredicate(byApproved);
+        filteredAppointments.setPredicate(byApproved);
     }
 
     /**
@@ -381,10 +401,10 @@ public class ModelManager implements Model {
      */
     @Override
     public Boolean isPatientList() {
-        requireNonNull(filteredEvents);
+        requireNonNull(filteredAppointments);
         boolean res = true;
-        ReferenceId id = filteredEvents.get(0).getPersonId();
-        for (Event e : filteredEvents) {
+        ReferenceId id = filteredAppointments.get(0).getPersonId();
+        for (Event e : filteredAppointments) {
             if (!id.equals(e.getPersonId())) {
                 res = false;
                 break;
@@ -393,26 +413,71 @@ public class ModelManager implements Model {
         return res;
     }
 
-    @Override
+    //@Override
     public void updateToMissedEventList() {
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
         Date current = new Date();
         Predicate<Event> byMissed = Event -> (Event.getStatus().isMissed())
                 || (!Event.getStatus().isSettled() && (Event.getEventTiming().getEndTime().getTime().before(current)));
-        filteredEvents.setPredicate(byMissed);
+        filteredAppointments.setPredicate(byMissed);
     }
 
     @Override
     public Boolean isMissedList() {
-        requireNonNull(filteredEvents);
+        requireNonNull(filteredAppointments);
         boolean res = true;
-        for (Event e : filteredEvents) {
+        for (Event e : filteredAppointments) {
             if (!e.getStatus().isMissed()) {
                 res = false;
                 break;
             }
         }
         return res;
+    }
+
+    @Override
+    public void setDutyShiftSchedule(ReadOnlyAppointmentBook schedule) {
+
+    }
+
+    @Override
+    public ReadOnlyAppointmentBook getDutyShiftBook() {
+        return null;
+    }
+
+    @Override
+    public boolean hasDutyShift(Event event) {
+        return false;
+    }
+
+    @Override
+    public boolean hasExactDutyShift(Event event) {
+        return false;
+    }
+
+    @Override
+    public void deleteDutyShift(Event event) {
+
+    }
+
+    @Override
+    public void addDutyShift(Event event) {
+
+    }
+
+    @Override
+    public void setDutyShift(Event target, Event editedEvent) {
+
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredDutyShiftList() {
+        return null;
+    }
+
+    @Override
+    public void updateFilteredDutyShiftList(Predicate<Event> predicate) {
+
     }
 
 
@@ -434,9 +499,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return patientAddressBook.equals(other.patientAddressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && filteredReferenceIds.equals(other.filteredReferenceIds)
-                && filteredRooms.equals(other.filteredRooms)
+                && filteredPatients.equals(other.filteredPatients)
+                && patientQueueList.equals(other.patientQueueList)
+                && consultationRooms.equals(other.consultationRooms)
                 && queueManager.equals(other.queueManager)
                 && appointmentBook.equals(other.appointmentBook);
     }
