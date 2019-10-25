@@ -49,7 +49,7 @@ public class DoneTaskCommand extends Command {
         Dashboard createDoneTask = createDoneTask(taskToMark);
         model.doneDashboard(createDoneTask);
 
-        if(model.checkForPrize(lastShownList)) {
+        if (model.checkForPrize(lastShownList)) {
             return new CommandResult(String.format(MESSAGE_DONE_FIVE_SUCCESS, createDoneTask));
 
         } else {
