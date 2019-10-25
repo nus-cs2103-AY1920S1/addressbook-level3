@@ -1,6 +1,7 @@
 package seedu.address.reimbursement.logic.commands;
 
-import seedu.address.reimbursement.ui.ReimbursementMessages;
+import static seedu.address.reimbursement.ui.ReimbursementMessages.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+
 
 /**
  * Terminates the program.
@@ -11,6 +12,6 @@ public class ExitCommand extends Command {
     @Override
     public CommandResult execute(seedu.address.reimbursement.model.Model model,
                                  seedu.address.person.model.Model personModel) {
-        return new CommandResult(ReimbursementMessages.MESSAGE_EXIT_ACKNOWLEDGEMENT, true);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, true);
     }
 }

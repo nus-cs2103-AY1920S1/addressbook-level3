@@ -6,6 +6,6 @@ import seedu.address.reimbursement.logic.commands.Command;
 /**
  * Parser for all other commands.
  */
-public interface GeneralParser<T extends Command> {
+public interface CommandParserWithPersonModel<T extends Command> {
     T parse(String userInput, Model personModel) throws Exception;
 }
