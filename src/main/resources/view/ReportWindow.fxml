@@ -4,7 +4,6 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -35,7 +34,7 @@
                         </SplitPane>
                         <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL">
                            <items>
-                              <Label fx:id="foodStatistics" prefHeight="35.0" prefWidth="255.0" text="Food Statistics" textAlignment="CENTER" underline="true" wrapText="true">
+                              <Label fx:id="foodStatistics" minHeight="36.0" prefHeight="35.0" prefWidth="255.0" text="Food Statistics" textAlignment="CENTER" underline="true" wrapText="true">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -44,10 +43,11 @@
                               <TextFlow fx:id="mostConsumedMeal" textAlignment="CENTER" />
                            </items>
                         </SplitPane>
-                    <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
-                           <content>
+                        <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                          <items>
                               <PieChart fx:id="foodChart" title="Food Chart" />
-                           </content></ScrollPane>
+                          </items>
+                        </SplitPane>
                   </items>
                 </SplitPane>
                 <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
