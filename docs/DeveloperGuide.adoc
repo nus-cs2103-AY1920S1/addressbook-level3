@@ -967,25 +967,32 @@ Use case resumes at step 2.
 
 
 [Discrete]
-=== UC06: Finding a record with a specified keyword
+=== UC06: Finding a expense record by keywords, date created and amount spent
 
 *MSS*
 
-1. User enters a keyword to search for records containing it
-2. Billboard displays a list of records that contains the specified keyword
+1. User enters parameters that is used to filter expenses.
+2. Billboard displays a list of expenses that satisfies all the parameters.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. There are no records containing the specified keyword
+* 2a. There are no expenses that satisfies all the parameters in user input.
 +
 [none]
 ** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
+[none]
+* 2a. Parameters are not in the correct format.
++
+[none]
+** 2a1. Billboard displays an error message and informs user of correct usage.
++
+Use case ends.
 
 _{More to be added}_
 
