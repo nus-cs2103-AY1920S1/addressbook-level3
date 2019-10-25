@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.model.tag.Tag;
@@ -9,18 +10,20 @@ import seedu.address.model.tag.Tag;
  */
 public class TagMatchesPredicate implements Predicate<Person> {
 
-    private final String tagQuery;
+    private final List<String> tagQueries;
 
-    public TagMatchesPredicate(String tagQuery) {
-        this.tagQuery = tagQuery;
+    public TagMatchesPredicate(List<String> tagQueries) {
+        this.tagQueries = tagQueries;
     }
 
     @Override
     public boolean test(Person person) {
         boolean contains = false;
         for (Tag tag : person.getTags()) {
-            if ((tag.tagName).equalsIgnoreCase(tagQuery)) {
-                contains = true;
+            for (String tagQuery : tagQueries) {
+                if ((tag.tagName).equalsIgnoreCase(tagQuery)) {
+                    contains = true;
+                }
             }
         }
         return contains;
@@ -30,6 +33,6 @@ public class TagMatchesPredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TagMatchesPredicate // instanceof handles nulls
-                && tagQuery.equals(((TagMatchesPredicate) other).tagQuery)); // state check
+                && tagQueries.equals(((TagMatchesPredicate) other).tagQueries)); // state check
     }
 }
