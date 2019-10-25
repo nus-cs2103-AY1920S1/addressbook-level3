@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Date;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -39,7 +38,7 @@ public interface Model {
     /**
      * Gets the {@code Person} that is logged into the {@code Session}.
      */
-    Date getLoginTime();
+    String getLoginTime();
 
     /**
      * Returns true if a user is logged in.
