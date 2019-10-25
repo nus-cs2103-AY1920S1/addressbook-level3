@@ -17,37 +17,40 @@ import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the classroom data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Classroom classroom;
     private final Caretaker caretaker;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private FilteredList<Reminder> filteredReminders;
     private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Lesson> filteredLessons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given classroom and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyClassroom classroom, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(classroom, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with classroom: " + classroom + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        this.caretaker = new Caretaker(new Memento(addressBook), this.addressBook);
+        this.classroom = new Classroom(classroom);
+        this.caretaker = new Caretaker(new Memento(classroom), this.classroom);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
-        filteredReminders = new FilteredList<>(this.addressBook.getReminderList());
-        filteredAssignments = new FilteredList<>(this.addressBook.getAssignmentList());
+
+        filteredStudents = new FilteredList<>(this.classroom.getStudentList());
+        filteredReminders = new FilteredList<>(this.classroom.getReminderList());
+        filteredAssignments = new FilteredList<>(this.classroom.getAssignmentList());
+        filteredLessons = new FilteredList<>(this.classroom.getLessonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Classroom(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -75,59 +78,59 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getClassroomFilePath() {
+        return userPrefs.getClassroomFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setClassroomFilePath(Path classroomFilePath) {
+        requireNonNull(classroomFilePath);
+        userPrefs.setClassroomFilePath(classroomFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Classroom ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setClassroom(ReadOnlyClassroom classroom) {
+        this.classroom.resetData(classroom);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyClassroom getClassroom() {
+        return classroom;
     }
 
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
-        return addressBook.hasStudent(student);
+        return classroom.hasStudent(student);
     }
 
     @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
-        return addressBook.hasAssignment(assignment);
+        return classroom.hasAssignment(assignment);
     }
 
     @Override
     public void deleteStudent(Student target) {
-        addressBook.removeStudent(target);
+        classroom.removeStudent(target);
     }
 
     @Override
     public void deleteAssignment(Assignment target) {
-        addressBook.removeAssignment(target);
+        classroom.removeAssignment(target);
     }
 
     @Override
     public void addStudent(Student student) {
-        addressBook.addStudent(student);
+        classroom.addStudent(student);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
     public void addAssignment(Assignment assignment) {
-        addressBook.addAssignment(assignment);
+        classroom.addAssignment(assignment);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
@@ -135,35 +138,60 @@ public class ModelManager implements Model {
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
 
-        addressBook.setStudent(target, editedStudent);
+        classroom.setStudent(target, editedStudent);
     }
 
     @Override
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
 
-        addressBook.setAssignment(target, editedAssignment);
+        classroom.setAssignment(target, editedAssignment);
     }
 
+    public boolean isDisplayStudents() {
+        return classroom.isDisplayStudents();
+    }
+
+    public void displayStudents() {
+        classroom.displayStudents();
+    }
+
+    public void displayAssignments() {
+        classroom.displayAssignments();
+    }
+
+    @Override
     public void addLesson(Lesson lesson) {
-        addressBook.addLesson(lesson);
+        classroom.addLesson(lesson);
     }
 
     @Override
     public boolean hasLesson(Lesson lesson) {
         requireNonNull(lesson);
-        return addressBook.hasLesson(lesson);
+        return classroom.hasLesson(lesson);
     }
 
     @Override
+    public void deleteLesson(Lesson target) {
+        classroom.removeLesson(target);
+    }
+
+    @Override
+    public void setLesson(Lesson target, Lesson editedLesson) {
+        requireAllNonNull(target, editedLesson);
+
+        classroom.setLesson(target, editedLesson);
+    }
+
     public ObservableList<Reminder> getFilteredReminderList() {
         return filteredReminders;
     }
+
     //=========== Filtered Student List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code Caretaker}
      */
     @Override
     public ObservableList<Student> getFilteredStudentList() {
@@ -173,6 +201,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return filteredAssignments;
+    }
+
+    @Override
+    public ObservableList<Lesson> getFilteredLessonList() {
+        return filteredLessons;
     }
 
     @Override
@@ -186,10 +219,16 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredAssignments.setPredicate(predicate);
     }
+
+    @Override
+    public void updateFilteredLessonList(Predicate<Lesson> predicate) {
+        requireNonNull(predicate);
+        filteredLessons.setPredicate(predicate);
+    }
     //=========== Undo and Redo Operations =============================================================
 
     @Override
-    public ReadOnlyAddressBook undo() {
+    public ReadOnlyClassroom undo() {
         return caretaker.undo();
     }
 
@@ -199,7 +238,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyAddressBook redo() {
+    public ReadOnlyClassroom redo() {
         return caretaker.redo();
     }
 
@@ -213,18 +252,8 @@ public class ModelManager implements Model {
         caretaker.saveState();
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
     }
-
-    //=========== Event Listeners =============================================================
-    /*
-    @Override
-    public void checkListeners(Observable observable) {
-        ArrayList<InvalidationListener> listeners = new ArrayList<>(observable);
-        for (InvalidationListener listener : listeners) {
-            listener.invalidated()
-        }
-    }
-    */
 
     @Override
     public boolean equals(Object obj) {
@@ -240,7 +269,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return classroom.equals(other.classroom)
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudents.equals(other.filteredStudents);
     }

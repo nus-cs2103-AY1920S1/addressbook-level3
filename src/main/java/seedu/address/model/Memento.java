@@ -1,17 +1,17 @@
 package seedu.address.model;
 
 /**
- * Represents a state of the Address book.
+ * Represents a state of the Classroom.
  */
 public class Memento {
 
-    private ReadOnlyAddressBook state;
+    private ReadOnlyClassroom state;
 
-    public Memento(ReadOnlyAddressBook state) {
+    public Memento(ReadOnlyClassroom state) {
         this.state = state;
     }
 
-    public ReadOnlyAddressBook getState() {
+    public ReadOnlyClassroom getState() {
         return state;
     }
 }

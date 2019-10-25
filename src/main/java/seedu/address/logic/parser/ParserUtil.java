@@ -12,8 +12,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
-import seedu.address.model.assignment.Grade;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Time;
 import seedu.address.model.student.Address;
@@ -67,8 +67,8 @@ public class ParserUtil {
     public static AssignmentName parseAssignmentName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!AssignmentName.isValidAssignmentName(trimmedName)) {
+            throw new ParseException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         return new AssignmentName(trimmedName);
     }
@@ -78,16 +78,21 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      * String grades will be split by whitespace, converted to Integer and stored in List.
      *
+     * @return output The grades string to be used in updating assignment.
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static List<Grade> parseAssignmentGrades(String grades) throws ParseException {
+    public static List<String> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);
-        List<Grade> output = new ArrayList<>();
+
+        List<String> output = new ArrayList<>();
+
         String trimmedGrades = grades.trim();
         String[] individualGrades = trimmedGrades.split(" ");
+        if (!AssignmentGrades.isValidGrade(individualGrades)) {
+            throw new ParseException(AssignmentGrades.MESSAGE_CONSTRAINTS);
+        }
         for (String grade: individualGrades) {
-            Integer integerGrade = Integer.parseInt(grade);
-            output.add(new Grade(integerGrade.toString()));
+            output.add(grade);
         }
         return output;
     }
