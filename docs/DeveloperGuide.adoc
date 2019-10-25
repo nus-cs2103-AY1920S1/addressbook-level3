@@ -456,9 +456,16 @@ Step 5.
 
 The following sequence diagram shows how the search operation works:
 
-//image::SearchSequenceDiagram.png[]
+image::SearchSequenceDiagram.png[]
+_Figure 1: Sequence Diagram for Search command_
 
+The following activity diagram summarises the workflow of Search:
 
+image::SearchActivityDiagram.png[]
+
+_Figure 2: Activity Diagram of Search command_
+
+In Figure 2, the user first launches the app. After the user input a search command, the program runs and shows the list of shows found in the search page.
 
 
 == Documentation
