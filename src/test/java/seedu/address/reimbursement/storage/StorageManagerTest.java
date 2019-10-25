@@ -35,6 +35,14 @@ public class StorageManagerTest {
         ReimbursementList original = TypicalReimbursements.getTypicalReimbursements();
         storageManager.writeFile(original);
         ReimbursementList retrieved = storageManager.getReimbursementFromFile(TypicalReimbursements.getTypicalTransactions());
+
+        ReimbursementList newlist = new ReimbursementList(TypicalReimbursements.getTypicalTransactions());
+
+        System.out.println(newlist.toString());
+        System.out.println(TypicalReimbursements.getTypicalTransactions().get(0).toString());
+        System.out.println();
+        System.out.println(TypicalReimbursements.getTypicalReimbursements().toString());
+
         assertEquals(original.toString(), retrieved.toString());
     }
 }

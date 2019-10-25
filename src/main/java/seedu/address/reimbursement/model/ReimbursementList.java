@@ -168,7 +168,11 @@ public class ReimbursementList {
         String output = "";
         for (int i = 0; i < list.size(); i++) {
             Reimbursement reimbursement = list.get(i);
+            if(i != 0) {
+                output = output + System.lineSeparator();
+            }
             output = output + reimbursement.toString();
+
         }
         return output;
     }

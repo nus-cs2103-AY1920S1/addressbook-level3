@@ -73,6 +73,11 @@ public class TypicalTransactions {
             .withAmount(-30.0)
             .withDate("14-Oct-2019")
             .build();
+    public static final Transaction BOB_TRANSACTION_13 = new TransactionBuilder(TypicalPersons.BOB)
+            .withId(13)
+            .withAmount(-50.0)
+            .withDate("26-Oct-2019")
+            .build();
 
     /**
      * Returns an {@code TransactionList} with all the typical transactions.
