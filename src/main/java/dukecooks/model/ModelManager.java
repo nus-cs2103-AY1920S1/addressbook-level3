@@ -445,6 +445,10 @@ public class ModelManager implements Model {
         dashboard.setDashboard(target, editedDashboard);
     }
 
+    @Override
+    public void doneDashboard(Dashboard target) {
+        dashboard.doneDashboard(target);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**

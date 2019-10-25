@@ -87,6 +87,21 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     }
 
     /**
+     *
+     */
+    public void done(Dashboard key) {
+        requireAllNonNull(key);
+
+        int index = internalList.indexOf(key);
+        if(index == -1) {
+            throw new DashboardNotFoundException();
+        }
+
+        internalList.set(index, key);
+        sortDashboard(internalList);
+    }
+
+    /**
      * Removes the equivalent dashboard from the list.
      * The dashboard must exist in the list.
      */

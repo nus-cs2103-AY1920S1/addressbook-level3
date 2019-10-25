@@ -330,6 +330,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void doneDashboard(Dashboard target) {
+        throw new AssertionError("This method should not be called");
+    }
+
+    @Override
     public ObservableList<Dashboard> getFilteredDashboardList() {
         throw new AssertionError("This method should not be called.");
     }

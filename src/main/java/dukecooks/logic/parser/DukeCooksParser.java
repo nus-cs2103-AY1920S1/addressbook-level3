@@ -13,7 +13,9 @@ import dukecooks.logic.commands.ExitCommand;
 import dukecooks.logic.commands.FindCommand;
 import dukecooks.logic.commands.HelpCommand;
 import dukecooks.logic.commands.ListCommand;
+import dukecooks.logic.commands.dashboard.DoneTaskCommand;
 import dukecooks.logic.commands.stats.StatisticsCommand;
+import dukecooks.logic.parser.dashboard.DoneTaskCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
@@ -69,6 +71,9 @@ public class DukeCooksParser {
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommand();
+
+        case DoneTaskCommand.COMMAND_WORD:
+            return new DoneTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

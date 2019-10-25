@@ -310,6 +310,11 @@ public interface Model {
      */
     void setDashboard(Dashboard target, Dashboard editedDashboard);
 
+    /**
+     * Replaces the given dashboard and updates the task as done.
+     */
+    void doneDashboard(Dashboard key);
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -350,9 +355,9 @@ public interface Model {
     ObservableList<Exercise> getFilteredExerciseList();
 
     /**
-    * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
-    * @throws NullPointerException if {@code predicate} is null.
-    */
+     * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredExerciseList(Predicate<Exercise> predicate);
 
     //=========== Filtered Diary Records List Accessors =============================================================
