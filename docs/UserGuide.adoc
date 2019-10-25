@@ -18,7 +18,9 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-+Work is a project management tool that allows the project leader of a small group (less than 20 people) to manage this group to achieve their objectives for their project. To increase efficiency of the group we help the group manage their meeting times, task allocation as well as personal claims for inventory purchased. Enjoy!
++Work is a project management tool that allows NUS project leaders in charge of a small group (less than 20 people) to successfully achieve their objectives for their project.
++Work is a one-stop application to help the leader manage their members, meeting times, task allocation as well as personal claims for any equipment purchased.
++Work is perfect for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Happy working!
 
 == Quick Start
 
