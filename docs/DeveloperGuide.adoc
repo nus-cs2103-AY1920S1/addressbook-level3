@@ -364,9 +364,16 @@ Step 4. LogicManager will execute the AddCommand. AddCommand will then invoke `I
 Step 5. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)`
 Step 6. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view.
 
-The figure below shows the sequence diagram on what happens from a simple execution of `task shower -d 1.min.later` user command: +
+The figures below shows the sequence diagram on what happens from a simple execution of `task shower -d 1.min.later` user command: +
 
-image::AddTaskEventSequenceDiagram.png[]
+image::AddCommandPart_1.png[]
+_Fig 3.4.1a Calling execute in LogicManager_
+
+image::AddCommandPart_2.png[]
+_Fig 3.4.1b LogicManager executing the command and returns CommandResult_
+
+Figure 3.4.1b is a continuation of Figure 3.4.1a of the same AddCommand sequence.
+
 
 
 === [Proposed] Data Encryption
