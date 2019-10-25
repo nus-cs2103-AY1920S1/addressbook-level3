@@ -480,10 +480,16 @@ convenient add, delete and check operations on the user's course list.
 
 The Course Planner feature closely follows the extendable OOP solution
 implemented within Jarvis. Within `model`, the `CoursePlanner` class
-manages all aspects related to this feature. The course list of the user is
-stored internally using a `UniqueCourseList` object, providing an abstraction
-with `add`, `delete` and `getCourseList` operations that are called by
-`CoursePlanner`.
+manages all aspects related to this feature.
+
+The list of courses of the user is stored internally using a `UniqueCourseList`
+object, providing an abstraction with `add`, `delete` and `getCourseList`
+operations that are called by `CoursePlanner`.
+
+The `String` that is displayed to the user within a the UI text box is
+abstracted within a class called `CourseText`. This is a simple class that 
+abstracts some operations of operations on a `String`, such as setting,
+getting, printing to a displayable form, etc.
 
 * `Model#getCoursePlanner()` - Gets the `CoursePlanner` instance
 * `Model#lookUpCourse(Course)` - Looks up a course's information
@@ -495,6 +501,8 @@ with `add`, `delete` and `getCourseList` operations that are called by
 * `Model#getUnfilteredCourseList()` - Returns an `ObservableList` containing
   the user's list of courses
 * `Model#getCourseText()` - Returns a `CourseText` object
+* `Model#setCourseText(String)` - Sets the `String` displayed by the
+  `CourseText` object.
 
 .Course Model Class Diagram
 image::ModelCoursePlannerClassDiagram.png[]
@@ -502,14 +510,21 @@ image::ModelCoursePlannerClassDiagram.png[]
 ===== Course Datasets
 
 Course data-sets are taken directly from the {nus-mods-api}[NUSMods API]. These
-data-sets are stored using the `.json` file format on NUSMod's API. Therefore,
-all course data within Jarvis is read directly from `.json` files using the
-Jackson JSON API.
+data-sets are stored using the `.json` file format on NUSMod's API. Since
+Jarvis already heavily uses the Jackson JSON API, we have opted to store
+all course data within Jarvis in their original form. Therefore, all data
+is read directly from `.json` files.
+
+[NOTE]
+NUSMods is a popular website officially affiliated with NUS, where
+students are able to look up information about courses and plan their
+school timetable. This makes its data-set a reliable source of course
+information.
 
 Each course, and their data, are given its own file. These files are laid out
 in `/modinfo` within `/resources` to be easily accessible by the program.
 
-A sample `.json` is given below for a fictional course `AB1234`.
+A sample, valid `AB1234.json` is given below for a fictional course `AB1234`.
 
 [JSON]
 ----
@@ -551,12 +566,6 @@ datafiles downloaded from NUSMods, all at least have these attributes. The
 other three: `fulfillRequirements`, `preclusion` and `prereqTree` are
 optional, nullable attributes.
 
-[NOTE]
-NUSMods is a popular website officially affiliated with NUS, where
-students are able to look up information about courses and plan their
-school timetable. This makes its data-set a reliable source of course
-information.
-
 ==== And-Or Tree
 
 ===== Overview
@@ -564,7 +573,8 @@ information.
 The `AndOrTree<R>` is a tree data structure served by the `util/andor`
 package that provides an abstraction for processing the prerequisite tree.
 The prerequisite tree (henceforth referred to as `prereqTree`) is an attribute
-of a `Course` that is available in the NUSMod's course data-set.
+of a `Course` that is available in the NUSMod's course data-set, the data
+comes in the form of a `String` and will be covered shortly.
 
 ===== The `AndOrTree` Class
 
@@ -572,7 +582,7 @@ The following are `public` methods in `AndOrTree`.
 
 * `buildTree(String, Function<String, ? extends R>)`
 +
-Builds a tree from the given jsonString. `Function` is a mapper function
+Builds a tree from the given jsonString. `Function` is a mapper
 that processes a `String` and returns a value of type `R`, where `R` is the
 type of data stored by each node in the tree.
 
@@ -591,7 +601,7 @@ reflected in the class' lack of mutator methods.
 ===== The `AndOrNode` Class
 
 Each node in the tree of type `R` is represented by an `AndOrNode<R>`. Every
-node can either  of these types:
+node can exist as either of these types:
 
 1. `AND`
 +
@@ -608,13 +618,13 @@ children of this node
 Any element in a  `Collection<R>` must match the data stored in
 this node
 
-The following class diagram demonstrates the structure of the `AndOrNode`
-`abstract class` and its sub-classes.
+The following class diagram demonstrates the structure of the `abstract class`
+`AndOrNode` class and its sub-classes.
 
 .AndOrNode Inheritance Diagram
 image::AndOrNodeInheritanceClassDiagram.png[800, 600]
 
-Using this format, `AndOrNode#createNode(T,String)` is able to instantiate
+Using this format, `AndOrNode#createNode(T,String)` is able to construct
 all instances of its sub-class, thus the caller will not need to know the
 different types of nodes there are.
 
@@ -651,9 +661,10 @@ To take AB1234, you require...
 This means that to take the fictional course `AB1234`, a user would have to
 complete `EF3333`, **and** either `CD1111` or `XY2222`.
 
-The `buildTree()` method takes in the `json` string as an input. A root
-`JsonNode` object is created, and the tree is built recursively from
-the root. The sequence diagram of the tree building process is shown below:
+The `buildTree()` method takes in the `json` string as an input. The
+Jackson API uses this string to create a root `JsonNode` object, and the tree
+is built recursively from the root. The sequence diagram of the tree building
+process is shown below:
 
 .buildTree() Sequence Diagram
 image::AndOrSequenceDiagramSimplified.png[]
@@ -669,7 +680,7 @@ of the tree.
 
 ===== Aspect: Storing of Course data-sets
 
-* **Alternative 1**: Storing each course in one, large JSON file
+* **Alternative 1**: Storing every course in a single, large JSON file
 ** **Pros:**
 +
 Easier to manage. Every course can be found in a single file. The code need
@@ -735,22 +746,22 @@ non-extendable.
 This makes the tree reusable in the future. The tree will also be able to
 store any data-type which allows for easier unit testing, since it won't be
 dependent on the correctness of the fixed data-type (`Course` in this
-instance), and instead well-tested libraries such as Java's `String` API can
+instance). Instead well-tested libraries such as Java's `String` API can
 be used to test the class instead.
 
 ** **Cons:**
 +
-Due to how the tree is built (i.e from a json string), a
-**mapper function** must be passed into the `buildTree()` method to process the
-string in each node to the generic type of the tree. The function should be of
-a type `Function<String, ? extends R>`, for a tree of type `R`.
+Due to how the tree is built (i.e from a json string), a **mapper function**
+must be passed into the `buildTree()` method to process the string in each
+node to the generic type of the tree. The function should be of a type
+`Function<String, ? extends R>`, for a tree of type `R`.
 
 Due to its benefits far outweighing its disadvantages, we picked out
 current choice. While extendability and resusability of the class is a nice
 bonus, the decrease in coupling and increase in testability was the deciding
-factor in choosing between these two approaches. Furthermore, behaviour of the
-class can be easily extended by either inheritance, or overloading of the
-`buildTree()` method.
+factor in choosing between these two approaches. Furthermore, behavior of
+the building of the tree can be easily extended by either inheritance, or
+overloading of the `buildTree()` method.
 
 === Finance Tracker feature
 
