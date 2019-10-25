@@ -3,18 +3,15 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "add n/buy..."
+title Initial state
 
-package States <<rectangle>> {
-    class State1 as "__bb0:Billboard__"
-    class State2 as "__bb1:Billboard__"
-    class State3 as "__bb2:Billboard__"
+package cmdList {
+    class cmd0 as "__cmd0:String__"
+    class cmdInit as "__empty:String__"
 }
 
-State1 -[hidden]right-> State2
-State2 -[hidden]right-> State3
+cmdInit -[hidden]right-> cmd0
 
 class Pointer as "Current State" #FFFFF
-
-Pointer -up-> State3
+Pointer -up-> cmd0
 @end

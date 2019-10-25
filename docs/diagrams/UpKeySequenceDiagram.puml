@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+box CommandBox LOGIC_COLOR_T1
+participant ":TextField" as TextField LOGIC_COLOR
+end box
+
+box CommandHistory MODEL_COLOR_T2
+participant ":CommandHistory" as CommandHistory MODEL_COLOR_T4
+end box
+
+[-> TextField : onKeyPressed(e)
+activate TextField
+
+alt e is Up key
+
+TextField -> CommandHistory : peekNextCmd()
+activate CommandHistory
+
+CommandHistory --> TextField : cmd
+deactivate CommandHistory
+
+TextField -> TextField : setText(cmd)
+activate TextField
+
+TextField --> TextField
+deactivate TextField
+
+end
+
+[<--TextField
+deactivate TextField
+@enduml
