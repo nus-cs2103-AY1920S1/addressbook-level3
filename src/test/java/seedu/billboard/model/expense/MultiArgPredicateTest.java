@@ -144,7 +144,7 @@ public class MultiArgPredicateTest {
 
         // 2 conditions, none met
         predicate = new MultiArgPredicate();
-        predicate.setKeywords(Arrays.asList("lunch school"));
+        predicate.setKeywords(Arrays.asList("lunch", "school"));
         predicate.setDateRange(new CreatedDateTime("1/8/2018"), new CreatedDateTime("20/8/2018"));
 
         assertFalse(predicate.test(new ExpenseBuilder().build()));
