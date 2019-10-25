@@ -4,7 +4,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Adds a expense to the address book.
+ * Adds a expense to the MooLah.
  */
 public abstract class AddCommand extends UndoableCommand {
 

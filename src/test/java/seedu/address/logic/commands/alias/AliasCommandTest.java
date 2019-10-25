@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_B_TO_C;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +22,8 @@ import seedu.address.testutil.AliasTestUtil;
  */
 public class AliasCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    private Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
 
     @Test
     public void equals() {

@@ -13,12 +13,12 @@ import seedu.address.model.Model;
 import seedu.address.model.expense.Event;
 
 /**
- * Adds an event to the address book.
+ * Adds an event to the MooLah.
  */
 public class AddEventCommand extends AddCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an event to the address book. \n"
+            + ": Adds an event to MooLah. \n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "

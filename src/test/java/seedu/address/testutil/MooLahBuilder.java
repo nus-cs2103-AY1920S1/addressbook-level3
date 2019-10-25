@@ -4,26 +4,26 @@ import seedu.address.model.MooLah;
 import seedu.address.model.expense.Expense;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building MooLah objects.
  * Example usage: <br>
- *     {@code MooLah ab = new AddressBookBuilder().withExpense("John", "Doe").build();}
+ *     {@code MooLah ab = new MooLahBuilder().withExpense("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class MooLahBuilder {
 
     private MooLah mooLah;
 
-    public AddressBookBuilder() {
+    public MooLahBuilder() {
         mooLah = new MooLah();
     }
 
-    public AddressBookBuilder(MooLah mooLah) {
+    public MooLahBuilder(MooLah mooLah) {
         this.mooLah = mooLah;
     }
 
     /**
      * Adds a new {@code Expense} to the {@code MooLah} that we are building.
      */
-    public AddressBookBuilder withExpense(Expense expense) {
+    public MooLahBuilder withExpense(Expense expense) {
         mooLah.addExpense(expense);
         return this;
     }

@@ -19,14 +19,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
 import seedu.address.model.MooLah;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonMooLahStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.MooLahStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -59,8 +59,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        MooLahStorage mooLahStorage = new JsonMooLahStorage(userPrefs.getMooLahFilePath());
+        storage = new StorageManager(mooLahStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -76,19 +76,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s MooLah and {@code userPrefs}. <br>
+     * The data from the sample MooLah will be used instead if {@code storage}'s MooLah is not found,
+     * or an empty MooLah will be used instead if errors occur when reading {@code storage}'s MooLah.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyMooLah> mooLahOptional;
+        ReadOnlyMooLah initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            mooLahOptional = storage.readMooLah();
+            if (!mooLahOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample MooLah");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = mooLahOptional.orElseGet(SampleDataUtil::getSampleMooLah);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MooLah");
             initialData = new MooLah();
@@ -180,7 +180,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping MooLah ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

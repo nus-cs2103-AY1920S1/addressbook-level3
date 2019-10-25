@@ -17,7 +17,7 @@ import seedu.address.model.expense.Timestamp;
 
 
 /**
- * Represents Statistics in Moolah.
+ * Represents Statistics in MooLah.
  */
 public class Statistics {
 

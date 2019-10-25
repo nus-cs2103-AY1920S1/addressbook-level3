@@ -28,6 +28,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
     private final ObservableList<Budget> internalList = FXCollections.observableArrayList();
     private final ObservableList<Budget> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    //private Budget primaryBudget = null;
 
     /**
      * Returns true if the list contains an equivalent budget as the given argument.
@@ -73,6 +74,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
             }
         }
         budget.setPrimary();
+        // primaryBudget = budget;
     }
 
     public Budget getPrimaryBudget() {

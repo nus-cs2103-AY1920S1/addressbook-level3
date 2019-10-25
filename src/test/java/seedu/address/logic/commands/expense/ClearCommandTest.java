@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.expense;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,8 +24,8 @@ public class ClearCommandTest {
 
     @Test
     public void run_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+        Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel.addToHistory();
         expectedModel.setMooLah(new MooLah());
 

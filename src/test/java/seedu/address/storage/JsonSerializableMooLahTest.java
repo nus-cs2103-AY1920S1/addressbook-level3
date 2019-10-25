@@ -23,25 +23,25 @@ public class JsonSerializableMooLahTest {
 
     @Test
     public void toModelType_typicalExpensesFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
+                JsonSerializableMooLah.class).get();
         MooLah mooLahFromFile = dataFromFile.toModelType();
-        MooLah typicalExpensesMooLah = TypicalExpenses.getTypicalAddressBook();
+        MooLah typicalExpensesMooLah = TypicalExpenses.getTypicalMooLah();
         assertEquals(mooLahFromFile, typicalExpensesMooLah);
     }
 
     @Test
     public void toModelType_invalidExpenseFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_EXPENSE_FILE,
-                JsonSerializableAddressBook.class).get();
+        JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(INVALID_EXPENSE_FILE,
+                JsonSerializableMooLah.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateExpenses_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXPENSE_FILE,
-                JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_EXPENSE,
+        JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXPENSE_FILE,
+                JsonSerializableMooLah.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableMooLah.MESSAGE_DUPLICATE_EXPENSE,
                 dataFromFile::toModelType);
     }
 }

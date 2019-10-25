@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.ui.expense.ExpenseListPanel;
 
 /**
- * Lists all expenses in the address book to the user.
+ * Lists all expenses in the MooLah to the user.
  */
 public class ListCommand extends UndoableCommand {
 

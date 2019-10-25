@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.budget;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,12 +23,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.MooLah;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModelHistory;
+import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
@@ -188,12 +188,12 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getMooLahFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setMooLahFilePath(Path mooLahFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -203,12 +203,12 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public void setMooLah(ReadOnlyAddressBook newData) {
+        public void setMooLah(ReadOnlyMooLah newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getMooLah() {
+        public ReadOnlyMooLah getMooLah() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -237,10 +237,10 @@ public class AddBudgetCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public ObservableList<Budget> getFilteredBudgetList() {
-            throw new AssertionError("This method should not be called.");
-        }
+        //@Override
+        //public ObservableList<Budget> getFilteredBudgetList() {
+        //  throw new AssertionError("This method should not be called.");
+        //}
 
         @Override
         public boolean hasBudgetWithName(Description targetDescription) {
@@ -374,7 +374,7 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getMooLah() {
+        public ReadOnlyMooLah getMooLah() {
             return new MooLah();
         }
 

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Category in the MooLah.
  * Guarantees: immutable; name is valid as declared in {@link #isValidCategoryName(String)}
  */
 public class Category {

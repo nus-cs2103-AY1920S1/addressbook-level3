@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
 import static seedu.address.testutil.TypicalExpenses.HALLOWEEN;
 import static seedu.address.testutil.TypicalExpenses.INVESTMENT;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.MooLah;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMooLah;
 
 public class JsonMooLahStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMooLahStorageTest");
@@ -26,12 +26,12 @@ public class JsonMooLahStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readMooLah_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readMooLah(null));
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyMooLah> readMooLah(String filePath) throws Exception {
+        return new JsonMooLahStorage(Paths.get(filePath)).readMooLah(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,71 +42,71 @@ public class JsonMooLahStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readMooLah("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatMooLah.json"));
+        assertThrows(DataConversionException.class, () -> readMooLah("notJsonFormatMooLah.json"));
     }
 
     @Test
-    public void readAddressBook_invalidExpenseAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidExpenseMooLah.json"));
+    public void readMooLah_invalidExpenseMooLah_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMooLah("invalidExpenseMooLah.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidExpenseAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidExpenseMooLah.json"));
+    public void readMooLah_invalidAndValidExpenseMooLah_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readMooLah("invalidAndValidExpenseMooLah.json"));
     }
 
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        MooLah original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+    public void readAndSaveMooLah_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempMooLah.json");
+        MooLah original = getTypicalMooLah();
+        JsonMooLahStorage jsonMooLahStorage = new JsonMooLahStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonMooLahStorage.saveMooLah(original, filePath);
+        ReadOnlyMooLah readBack = jsonMooLahStorage.readMooLah(filePath).get();
         assertEquals(original, new MooLah(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addExpense(HALLOWEEN);
         original.removeExpense(ANNIVERSARY);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonMooLahStorage.saveMooLah(original, filePath);
+        readBack = jsonMooLahStorage.readMooLah(filePath).get();
         assertEquals(original, new MooLah(readBack));
 
         // Save and read without specifying file path
         original.addExpense(INVESTMENT);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonMooLahStorage.saveMooLah(original); // file path not specified
+        readBack = jsonMooLahStorage.readMooLah().get(); // file path not specified
         assertEquals(original, new MooLah(readBack));
 
     }
 
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveBookMooLah_nullMooLah_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveMooLah(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code mooLah} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveMooLah(ReadOnlyMooLah mooLah, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonMooLahStorage(Paths.get(filePath))
+                    .saveMooLah(mooLah, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new MooLah(), null));
+    public void saveMooLah_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveMooLah(new MooLah(), null));
     }
 }

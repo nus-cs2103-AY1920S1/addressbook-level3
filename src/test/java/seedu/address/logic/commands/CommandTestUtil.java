@@ -114,7 +114,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered expense list and selected expense in {@code actualModel} remain unchanged
+     * - the MooLah, filtered expense list and selected expense in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         MooLah expectedMooLah = new MooLah(actualModel.getMooLah());
@@ -126,7 +126,7 @@ public class CommandTestUtil {
     }
     /**
      * Updates {@code model}'s filtered list to show only the expense at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s MooLah.
      */
     public static void showExpenseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenseList().size());
