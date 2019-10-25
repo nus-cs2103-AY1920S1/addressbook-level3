@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -31,7 +32,7 @@ public class SwitchOrderPanelCommandTest {
     @Test
     public void execute_switchPanel() {
         assertCommandSuccess(new SwitchOrderPanelCommand(), model,
-                SwitchOrderPanelCommand.MESSAGE_SUCCESS, expectedModel );
+                SwitchOrderPanelCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }
