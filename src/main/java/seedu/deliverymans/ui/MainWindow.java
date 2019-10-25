@@ -213,7 +213,6 @@ public class MainWindow extends UiPart<Stage> {
             unavailableDeliverymenListPanel = new UnavailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
             statisticsPlaceholder.getChildren().add(unavailableDeliverymenListPanel.getRoot());
             break;
-
         case EDITING:
             Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(125.0);

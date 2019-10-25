@@ -3,6 +3,7 @@ package seedu.deliverymans.ui;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -16,13 +17,13 @@ public class UnavailableDeliverymenListPanel extends UiPart<Region> {
     private static final String FXML = "UnavailableDeliverymenListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(DeliverymanListPanel.class);
 
-    @javafx.fxml.FXML
-    private ListView<Deliveryman> deliverymanListView;
+    @FXML
+    private ListView<Deliveryman> unavailableMenListView;
 
     public UnavailableDeliverymenListPanel(ObservableList<Deliveryman> deliverymanList) {
         super(FXML);
-        deliverymanListView.setItems(deliverymanList);
-        deliverymanListView.setCellFactory(listView -> new DeliverymanListViewCell());
+        unavailableMenListView.setItems(deliverymanList);
+        unavailableMenListView.setCellFactory(listView -> new DeliverymanListViewCell());
     }
 
     /**

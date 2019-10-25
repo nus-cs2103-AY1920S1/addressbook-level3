@@ -1,231 +1,213 @@
 # DeliveryMANS – User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
-By: `CS2103-T12-2`   Since: `Aug 2019`  Licence: 'NUS'
 
-1. Introduction
+By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
 
-2. Quick Start
+== Introduction
 
-3. Features
+*DeliveryMANs* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANs* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
 
-3.1. Universal commands
+Get started with <<Quick Start>> and begin managing your deliveries today!
 
-3.1.1. Viewing help:
-
-3.1.2. Switching context:
-
-3.1.3. Viewing order summary:
-
-3.1.4. Exiting program:
-
-3.2. Customer commands
-
-3.2.1. Listing all customers:
-
-3.2.2. Listing specific customer:
-
-3.2.3. Editing customer info:
-
-3.2.4. Editing specified customer info:
-
-3.2.5. Sorting customer:
-
-3.2.6. Viewing history:
-
-3.2.7. Adding order:
-
-3.2.8. Removing customer:
-
-3.3. Restaurant commands
-
-3.3.1. Listing all restaurants:
-
-3.3.2. Entering specific restaurant:
-
-3.3.3. Adding food item:
-
-3.3.4. Removing food item:
-
-3.3.5. Adding rating:
-
-3.3.6. Viewing orders:
-
-3.3.7. ChefHat food item:
-
-3.4. Deliverymen commands
-
-3.4.1. Listing all deliverymen:
-
-3.4.2. Listing available deliverymen:
-
-3.4.3. Entering a specific deliveryman:
-
-3.4.4. Assigning order to a deliveryman:
-
-3.4.5. Viewing delivery status of a deliveryman:
-
-4. Command Summary
-
-4.1. Universal Commands
-
-4.2. Customer Commands
-
-4.3. Restaurant Commands
-
-4.4. Deliverymen Commands
-
-# **1.**** Introduction**
-
-DeliveryMANs is a command-line application designed specifically for restaurant administrators who are in charge of food delivery service. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu.
-
-It encompasses a well-structured system for users to keep track and manage the entire delivery process.
-
-Coalescing
-
-Noun: coalition
-
-Verb: coalesce
-
-#
-# 2. Quick Start
+== Quick start
 
 Ensure you have Java 11 or above installed on your computer.
 
-Install the JAR file found on this website:
+Click https://github.com/AY1920S1-CS2103T-T12-2/main/releases[here] to download the JAR file for *DeliveryMANs*.
 
-[https://ay1920s1-cs2103t-t12-2.github.io/main](https://ay1920s1-cs2103t-t12-2.github.io/main)
+Open the application to begin. Refer to <<Features>> for details of each command.
 
-Open the application to begin.
+// tag::features[]
 
-#
-# 3
-**.**
-# Features
+[[Features]]
+== Features
+
+In *DeliveryMANs*, there are 2 types of commands: universal commands and context-specific commands.
+
+Universal commands can be used anywhere throughout the application. You can identify universal commands by its "-" convention followed by a keyword e.g. `-help`.
+
+Context-specific commands are commands which are only applicable for a specific context. Commands such as viewing a customer ordering history can only be accessed in the customer context.
 
 **Command Format**
 
-Words in curly brackets are parameters to be supplied by the user
+* Words in `UPPER_CASE` are parameters to be supplied by the user e.g. in `add_order c/CUSTOMER r/RESTAURANT f/FOOD q/QUANTITY`, `CUSTOMER`, `RESTAURANT`, `FOOD` and `QUANTITY` are parameters to be replaced.
 
-**3.1.**** Universal commands**
+> `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
-These are general commands for controlling the app which are notdirectly related to the customer, restaurant and delivery men.
+* Items with `…` after them can be used multiple times e.g. `f/FOOD...` can be used 1 or more: `f/3 Piece Chicken Meal`, `f/Pepperoni Pizza f/Char Kway Teow` etc.
 
-**3.1.1.**** Viewing help:**
+* Items with `[]` are optional and can be ommitted e.g. `[t/TAG]...`
 
-Generates a list of commands and tips for the user
+// end::features[]
 
-Format: -help
+// tag::universalCommand[]
+=== Universal commands
 
-- Context specific: -help {context}
-  - Example: -help customer
-- Context specific commands: -help -cxt {context} -cmd {command}
-  - Example: -help -cxt customer -cmd sort
+These are general commands to assist you in controlling the app, which are not directly related to the customer, restaurant and delivery men.
 
-**3.1.2.**** Switching context:**
+==== Viewing help `-help`
 
-Switches to a specific context for targeted commands
+This generates a list of commands and tips for you.
 
-Format: -switch {context}
+Format: `-help`
 
-Example: -switch restaurant
+- Help with a specific context: `-help CONTEXT`
 
-**3.1.3.**** Viewing order summary:**
+> `-help customer`
 
-Views the current order summary
+- Help with a specific context command: `-help cxt/CONTEXT cmd/COMMAND`
 
-Format: -summary
+> `-help -cxt customer -cmd sort`
 
-**3.1.4.**** Exiting program:**
+==== Switching context
 
-Exits the program
+This switches to a specific context for you to enter targeted commands. The list of contexts include: customer, deliveryman and restaurant. By default, the application will be in the universal context upon startup.
 
-Format: -exit
+===== Switching to customer context `-customer`
+This switches to the customer context for you to enter customer-specific commands.
 
-3.2. Customer commands
+Format: `-customer`
 
-**3.2.1.**** Listing all customers:**
+===== Switching to restaurant context `-restaurant`
+This switches to the restaurant context for you to enter restaurant-specific commands.
 
-Lists all current customers
+Format: `-restaurant`
 
-Format: -list
+===== Switching to deliveryman context `-deliveryman`
+This switches to the deliveryman context for you to enter deliveryman-specific commands.
 
-**3.2.2.**** Listing specific customer:**
+Format: `-deliveryman`
 
-Lists the information of a specific customer
+==== Adding of orders `-add_order`
+This adds a new order to the database to be processed. The deliveryman to deliver the order will be allocated automatically based on the internal algorithms.
 
-Format: -list {customer name}
+Format: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 
-Example: -list John Doe
+> `add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
 
-**3.2.3.**** Editing customer info:**
+Requirements:
 
-Edits all of customer&#39;s info
+* A valid customer `c/CUSTOMER`, restaurant `r/RESTAURANT` and restaurant menu item `f/FOOD` must be provided and exists currently in the database.
 
-Format: -edit {customer name} -n {name} -a {address} -rt {reward} -o {number of orders}
+* The quantity of food to be delivered also be provided and be greater than 0.
 
-Example: -edit John Doe -n Bob Doe -a Kent ridge -rt Gold -o 1
+==== Editing of orders `-edit_order`
+This enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
 
- List of info types: Syntax:
+You can change:
 
- Name   -n
+* The customer who made the order
 
- Address   -a
+* The restaurant and/or food ordered
 
- Reward Tier  -rt
+* The quantity of the food ordered
 
- Number of orders -o
+* The deliveryman to deliver the order
 
-3.2.4. Editing specified customer info:
+* The delivery status of the order
 
-Edits a specified info type of a customer. See 3.2.3. Editing customer info for the list of info types
+Format: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
 
-Format: -edit -c {customer name} {info type} -d    {description}
+> `-edit_order i/1337 d/John Doe completed/true`
 
-Example: -edit -c John Doe -a -d Kent Ridge
+Requirements:
 
-3.2.5. Sorting customer:
+* The index `i/INDEX` provided must be within the order list size and be greater than or equals to 0.
 
-Sorts customers based on info type. If none is present, sort based on their names.  See 3.2.3. Editing customer info for the list of info types
+* A customer `c/CUSTOMER`, restaurant `r/RESTAURANT` or restaurant menu item `f/FOOD` provided must be valid and exists currently in the database.
 
-Format: -sort {info type}
+* Optional items with '[]' tags may be ommitted e.g. `[r/RESTAURANT]`. However at least 1 tag has to be present for the order to be edited.
 
-Example: -sort -rt
+* Delivery status `completed/DELIVERY_STATUS` must be true or false, if present.
 
-3.2.6. Viewing history:
+==== Deleting of orders `-delete_order`
+This enables you to delete an unwanted/cancelled order in the database by its index.
 
-Views order history of a customer
+Format: `-delete_order INDEX`
 
-Format: -history {customer name}
+> `-delete_order 3`
 
-Example: -history Mary
+==== Viewing order summary `-order_summary`
+This brings up the current order summary for your viewing.
 
-3.2.7. Adding order:
+Format: `-order_summary`
 
-Adds an order for a customer
+==== Exiting program `-exit`
+This exits the program.
 
-Format: -order {customer name} -r {restaurant   name} -m {menu}
+Format: `-exit`
 
-Example: -order -c John Doe -r McDonald -m McSpicy
+// end::universalCommand[]
+// tag::customerCommand[]
 
-3.2.8. Removing customer:
+=== Customer commands
 
-Removes a customer from the database
+These are commands pertaining to customer context of *DeliveryMANs*. The screenshot below shows how the customer context will look like in *DeliveryMANs*.
 
-Format: -delete {customer name}
+ screenshot of finalised DeliveryMANs showing customer list goes here
 
-Example: -delete Donald Trump
+This is a customer and its information.
 
-3.3. Restaurant commands
+ screenshot of finalised CustomerCard
+
+==== Adding a customer: `add`
+
+This command allows you to add a new customer to the customer list. Name and phone number are necessary to a customer. Tags in customers are optional to include. They are used to specify the customer's favourite cuisine. Multiple tags can be added to one customer.
+
+Format: `add n/NAME p/PHONE [t/TAG]...`
+
+> `add n/John Doe p/91234567 t/Japanese t/Noodles`
+
+==== Editing a customer: `edit`
+
+This command allows you to edit an existing customer in the customer list. The index of a customer needs to be provided while the information to edit are optional. For example, you can edit the customer's name without editing the phone number.
+
+Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+
+> `edit 1 n/John Hoe p/97654321 t/Indian`
+
+==== Deleting a customer: `delete`
+
+This command allows you to delete an existing customer in the customer list. The index of a customer needs to be provided.
+
+Format: `delete INDEX`
+
+> `delete 1`
+
+==== Viewing a customer's order history: `history`
+
+This command allows you to view a customer's order history. The index of a customer needs to be provided.
+
+Format: `history INDEX`
+
+> `history 1`
+
+// end::customerCommand[]
+// tag::restaurantCommand[]
+=== Restaurant commands
 
 Commands in the restaurant context
 
-3.3.1. Listing all restaurants:
+==== Listing all restaurants
 
 Lists all available restaurants
 
 Format: -list
 
-3.3.2. Entering specific restaurant:
+==== Entering specific restaurant
 
 Enters a specific restaurant
 
@@ -233,7 +215,7 @@ Format: -enter {restaurant}
 
 Example: -enter muthu&#39;s curry
 
-3.3.3. Adding food item:
+==== Adding food item
 
 Adds a food item for a specific restaurant
 
@@ -241,7 +223,7 @@ Format: -add {item}
 
 Example: -add chicken rice
 
-3.3.4. Removing food item:
+==== Removing food item
 
 Removes a food item for a specific restaurant
 
@@ -249,7 +231,7 @@ Format: -remove {item}
 
 Example: -remove laksa
 
-3.3.5. Adding rating:
+==== Adding rating
 
 Adds a rating (out of 5) for the restaurant
 
@@ -257,13 +239,7 @@ Format: -rate {rating}
 
 Example: -rate 5
 
-3.3.6. Viewing orders:
-
-Views all the existing orders for the restaurant
-
-Format: -orders
-
-3.3.7. ChefHat food item:
+==== ChefHat food item
 
 Marks a food item as Chef&#39;s recommendation
 
@@ -271,23 +247,26 @@ Format: -chefhat {item}
 
 Example: -chefhat nasi lemak
 
-3.4. Deliverymen commands
+// end::restaurantCommand[]
+// tag::deliverymenCommand[]
+
+=== Deliverymen commands
 
 Commands in the delivery men context
 
-3.4.1. Listing all deliverymen:
+==== Listing all deliverymen
 
 Lists all deliverymen
 
 Format: -list
 
-3.4.2. Listing available deliverymen:
+==== Listing available deliverymen
 
 Lists all available deliverymen
 
 Format: -lista
 
-3.4.3. Entering a specific deliveryman:
+==== Entering a specific deliveryman
 
 Shows a deliveryman&#39;s basic info
 
@@ -295,7 +274,7 @@ Format: -list {name}
 
 Example: -list Stanley Tay
 
-3.4.4. Assigning order to a deliveryman:
+==== Assigning order to a deliveryman
 
 Assigns an order to an available deliveryman
 
@@ -303,7 +282,7 @@ Format: -assn {name}{#orderIndex}
 
 Example: -assn Stanley Tay #12
 
-3.4.5. Viewing delivery status of a deliveryman:
+==== Viewing delivery status of a deliveryman
 
 Shows delivery status of an assigned deliveryman
 
@@ -311,44 +290,37 @@ Format: status {name}
 
 Example: -status Stanley Tay
 
-#
 
-# 4. Command Summary
+== Command summary
 
 **Command:** format
 
-4.1. Universal Commands
+* Universal commands
+- View help: `-help`
+- View order summary: `-order_summary`
+- Add order: `-add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+- Edit order: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
+- Delete order: `-delete_order INDEX`
+- Switch to restaurant context: `-restaurant`
+- Switch to customer context: `-customer`
+- Switch to deliverymen context: `-deliverymen`
+- Exit application: `-exit`
 
-- View help: -help
-- View order summary: -summary
-- Switch to restaurant context: -restaurant
-- Switch to customer context: -customer
-- Switch to deliverymen context: -deliverymen
-- Exit application: -exit
+* Customer commands
+- Adding a customer: `add n/NAME p/PHONE [t/TAG]...`
+- Editing a customer: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+- Deleting a customer: `delete INDEX`
+- Viewing a customer's order history: `history INDEX`
 
-4.2. Customer Commands
-
-- List customers: -list
-- List specified customer info: -list {name}
-- Edit customer info: -edit {customer name} -n      {customer name} -a {address} -r {reward tier} -o {number of order}
-- Edit specific customer info: -edit -n {customer name} {info type} -d {description}
-- Sort customer to info type: -sort {info type}
-- Show order history of customer: -history {customer name}
-- Add order: -order {customer name} -r {restaurant name} -m {menu item}
-- Delete customer: -delete {customer name}
-
-4.3. Restaurant Commands
-
+* Restaurant commands
 - List restaurants: -list
 - Enter specific restaurant: -enter {restaurant}
 - Add food item: -add {item}
 - Remove food item: -remove {item}
-- View order: -orders
 - Add Rating from Customer: -rate {rating}
 - ChefHat Food Item: -chefhat {item}
 
-4.4. Deliverymen Commands
-
+* Deliverymen commands
 - List deliverymen: -list
 - List available deliverymen: -lista
 - List specific deliveryman info: -list {name}

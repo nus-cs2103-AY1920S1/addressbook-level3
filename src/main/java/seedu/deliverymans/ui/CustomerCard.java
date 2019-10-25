@@ -28,6 +28,8 @@ public class CustomerCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label orderSize;
+    @FXML
     private FlowPane tags;
 
     public CustomerCard(Customer customer, int displayedIndex) {
@@ -36,6 +38,7 @@ public class CustomerCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(customer.getName().fullName);
         phone.setText(customer.getPhone().value);
+        orderSize.setText("No. of Orders: " + String.valueOf(customer.getOrderSize()));
         customer.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
