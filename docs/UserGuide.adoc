@@ -1,4 +1,4 @@
-# DeliveryMANS – User Guide
+= DeliveryMANS – User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -144,6 +144,30 @@ Format: `-delete_order INDEX`
 This brings up the current order summary for your viewing.
 
 Format: `-order_summary`
+
+==== Undoing commands
+This command undoes the effects of a command that you have previously executed.
+
+Format: `undo`
+
+Say you have accidentally executed a command and now want to reverse it. Just type `undo` into the
+command line and press Enter like any other command. The result pane will then show the following:
+
+Successfully undid: (your previous command here)
+
+The command which you last performed has now been reversed. Subsequent invocations of `undo` will
+reverse commands which you have performed even earlier.
+
+==== Redoing commands
+This command redoes the effects of a command that you have just undone, in effect undoing an undo.
+Similarly to `undo`, this command can be used multiple times in succession to bring back multiple
+commands which you have undone earlier.
+
+Format: `redo`
+
+After performing `redo`, the result pane will show:
+
+Successfully redid: (your previous command here)
 
 ==== Exiting program `-exit`
 This exits the program.
