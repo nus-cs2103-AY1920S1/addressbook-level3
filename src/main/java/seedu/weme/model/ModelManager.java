@@ -26,7 +26,7 @@ import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 
 /**
- * Represents the in-memory model of weme data.
+ * Represents the in-memory model of Weme data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -40,13 +40,13 @@ public class ModelManager implements Model {
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
 
     /**
-     * Initializes a ModelManager with the given weme and userPrefs.
+     * Initializes a ModelManager with the given Weme and userPrefs.
      */
     public ModelManager(ReadOnlyWeme weme, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(weme, userPrefs);
 
-        logger.fine("Initializing with weme: " + weme + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Weme: " + weme + " and user prefs " + userPrefs);
 
         versionedWeme = new VersionedWeme(weme);
         this.userPrefs = new UserPrefs(userPrefs);

@@ -30,7 +30,7 @@ class JsonAdaptedMeme {
      * Constructs a {@code JsonAdaptedMeme} with the given meme details.
      */
     @JsonCreator
-    public JsonAdaptedMeme(@JsonProperty("filePath") String filePath, @JsonProperty("weme") String description,
+    public JsonAdaptedMeme(@JsonProperty("filePath") String filePath, @JsonProperty("description") String description,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
 
         this.filePath = filePath;

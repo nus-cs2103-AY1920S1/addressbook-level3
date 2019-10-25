@@ -7,7 +7,7 @@ import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
 
 /**
- * Reverts the {@code model}'s weme to its previously undone state.
+ * Reverts the {@code model}'s Weme to its previously undone state.
  */
 public class RedoCommand extends Command {
 

@@ -7,7 +7,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 
 /**
- * Finds and lists all memes in weme whose name contains any of the argument keywords.
+ * Finds and lists all memes in Weme whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class MemeFindCommand extends Command {

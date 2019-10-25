@@ -29,7 +29,7 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns weme.
+     * Returns Weme.
      *
      * @see seedu.weme.model.Model#getWeme()
      */
@@ -54,7 +54,7 @@ public interface Logic {
     void setContext(ModelContext context);
 
     /**
-     * Returns the user prefs' weme file path.
+     * Returns the user prefs' Weme file path.
      */
     Path getWemeFilePath();
 
@@ -73,7 +73,7 @@ public interface Logic {
     ObservableMap<String, Integer> getObservableLikeData();
 
     /**
-     * Handles any logic that needs to be done before exiting weme.
+     * Handles any logic that needs to be done before exiting Weme.
      */
     void cleanUp();
 }

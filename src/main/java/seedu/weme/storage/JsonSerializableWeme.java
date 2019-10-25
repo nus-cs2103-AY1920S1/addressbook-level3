@@ -51,7 +51,7 @@ class JsonSerializableWeme {
     }
 
     /**
-     * Converts this weme into the model's {@code Weme} object.
+     * Converts this Weme into the model's {@code Weme} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

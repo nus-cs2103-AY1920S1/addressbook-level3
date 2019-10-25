@@ -72,9 +72,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s weme and {@code userPrefs}. <br>
-     * The data from the sample weme will be used instead if {@code storage}'s weme is not found,
-     * or an empty weme will be used instead if errors occur when reading {@code storage}'s weme.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s Weme and {@code userPrefs}. <br>
+     * The data from the sample Weme will be used instead if {@code storage}'s Weme is not found,
+     * or an empty Weme will be used instead if errors occur when reading {@code storage}'s Weme.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWeme> wemeOptional;

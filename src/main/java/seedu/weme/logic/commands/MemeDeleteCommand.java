@@ -11,7 +11,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.meme.Meme;
 
 /**
- * Deletes a meme identified using it's displayed index from weme.
+ * Deletes a meme identified using it's displayed index from Weme.
  */
 public class MemeDeleteCommand extends Command {
 

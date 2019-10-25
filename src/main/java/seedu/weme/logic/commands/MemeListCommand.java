@@ -6,7 +6,7 @@ import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
 import seedu.weme.model.Model;
 
 /**
- * Lists all memes in weme to the user.
+ * Lists all memes in Weme to the user.
  */
 public class MemeListCommand extends Command {
 

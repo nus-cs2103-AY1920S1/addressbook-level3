@@ -43,7 +43,7 @@ public class VersionedWeme extends Weme {
     }
 
     /**
-     * Restores weme to its previous state.
+     * Restores Weme to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -54,7 +54,7 @@ public class VersionedWeme extends Weme {
     }
 
     /**
-     * Restores weme to its previously undone state.
+     * Restores Weme to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {

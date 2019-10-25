@@ -72,36 +72,36 @@ public interface Model {
     void setTemplateImagePath(Path templateImagePath);
 
     /**
-     * Replaces weme data with the data in {@code weme}.
+     * Replaces Weme data with the data in {@code weme}.
      */
     void setWeme(ReadOnlyWeme weme);
 
     /**
-     * Returns weme
+     * Returns Weme
      */
     ReadOnlyWeme getWeme();
 
     /**
-     * Returns true if a meme with the same identity as {@code meme} exists in weme.
+     * Returns true if a meme with the same identity as {@code meme} exists in Weme.
      */
     boolean hasMeme(Meme meme);
 
     /**
      * Deletes the given meme.
-     * The meme must exist in weme.
+     * The meme must exist in Weme.
      */
     void deleteMeme(Meme target);
 
     /**
      * Adds the given meme.
-     * {@code meme} must not already exist in weme.
+     * {@code meme} must not already exist in Weme.
      */
     void addMeme(Meme meme);
 
     /**
      * Replaces the given meme {@code target} with {@code editedMeme}.
-     * {@code target} must exist in weme.
-     * The meme identity of {@code editedMeme} must not be the same as another existing meme in weme.
+     * {@code target} must exist in Weme.
+     * The meme identity of {@code editedMeme} must not be the same as another existing meme in Weme.
      */
     void setMeme(Meme target, Meme editedMeme);
 
@@ -146,17 +146,17 @@ public interface Model {
     boolean canRedoWeme();
 
     /**
-     * Restores the model's weme to its previous state.
+     * Restores the model's Weme to its previous state.
      */
     void undoWeme();
 
     /**
-     * Restores the mode's weme to its previously undone state.
+     * Restores the model's Weme to its previously undone state.
      */
     void redoWeme();
 
     /**
-     * Saves the current weme state for undo/redo.
+     * Saves the current Weme state for undo/redo.
      */
     void commitWeme();
 
@@ -184,7 +184,7 @@ public interface Model {
 
 
     /**
-     * Clears the image data folder of any memes that are not referenced in weme.
+     * Clears the image data folder of any memes that are not referenced in Weme.
      */
     void cleanMemeStorage();
 }

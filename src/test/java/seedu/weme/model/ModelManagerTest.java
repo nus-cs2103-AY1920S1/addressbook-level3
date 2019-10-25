@@ -116,7 +116,7 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different weme -> returns false
+        // different Weme -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentWeme, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

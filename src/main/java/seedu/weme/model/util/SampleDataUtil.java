@@ -59,7 +59,7 @@ public class SampleDataUtil {
     /**
      * Copies meme images from Resource folder to the Data folder.
      * @param memeFields the data for the memes in the resource folder
-     * @param userPrefs the user preferences for this instance of weme
+     * @param userPrefs the user preferences for this instance of Weme
      * @return a List of Memes to import
      */
     public static List<Meme> createSampleMemes(List<MemeFieldsContainer> memeFields, ReadOnlyUserPrefs userPrefs) {
@@ -85,7 +85,7 @@ public class SampleDataUtil {
     /**
      * Copies template images from Resource folder to the Data folder.
      * @param templateFields the data for the templates in the resource folder
-     * @param userPrefs the user preferences for this instance of weme
+     * @param userPrefs the user preferences for this instance of Weme
      * @return a List of {@code Templates} to import
      */
     public static List<Template> createSampleTemplates(List<TemplateFieldsContainer> templateFields,

@@ -6,12 +6,12 @@ import seedu.weme.model.Model;
 import seedu.weme.model.Weme;
 
 /**
- * Clears weme.
+ * Clears all the memes in Weme.
  */
 public class MemeClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "weme has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Weme has been cleared!";
 
 
     @Override
