@@ -19,6 +19,7 @@ import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
@@ -48,7 +49,15 @@ public class StorageManager {
 
         switch (thisClassUrl.getProtocol()) {
         case "file":
-            root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
+            try {
+                String platformIndependentPath = Paths.get(StorageManager.class
+                        .getResource("StorageManager.class").toURI()).toString();
+                root = FileReadWrite.resolve(platformIndependentPath, "../../../../../../../../../");
+            } catch (URISyntaxException i) {
+                System.out.println("error");
+                System.exit(-1);
+            }
+            //root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
             break;
         case "jar":
             try {
@@ -77,6 +86,14 @@ public class StorageManager {
     }
 
     /**
+     * Returns value of current root.
+     * @return  root directory
+     */
+    public static String getRoot() {
+        return root;
+    }
+
+    /**
      * Write a deck into decks storage.
      * @param deck  deck object to write
      */
@@ -93,7 +110,7 @@ public class StorageManager {
     public static ArrayList<Deck> loadDecks() {
         resolveRoot();
         String path = FileReadWrite.resolve(root, decksSubDir);
-        System.out.println(path);
+
         if (!FileReadWrite.fileExists(path)) {
             return new ArrayList<>();
         }
@@ -114,7 +131,7 @@ public class StorageManager {
      * @param filePath  Must be valid existing filepath to a deck json file.
      * @return          deck object
      */
-    private static Deck loadDeck(String filePath) {
+    public static Deck loadDeck(String filePath) {
         try {
             return parseDeckJsonFile(FileReadWrite.read(filePath));
         } catch (FileNotFoundException e) {
@@ -156,6 +173,7 @@ public class StorageManager {
                                 cardJson.get(Schema.FRONT_FIELD).getString(),
                                 cardJson.get(Schema.BACK_FIELD).getString(),
                                 choices);
+
                         break;
                     default:
                         System.out.println("Unexpected card type, but silently continues");
@@ -166,6 +184,8 @@ public class StorageManager {
                 return new Deck(cards, deckJson.get(Schema.DECK_NAME).getString());
             } catch (JsonWrongValueException e1) {
                 System.out.println("JSON file wrong schema");
+            } catch (DuplicateInChoicesException d) {
+                System.out.println("Duplicated choices detected in Multiple Choice Card.");
             }
         } catch (JsonFormatException e2) {
             System.out.println("JSON file has errors\n" + e2.getMessage());

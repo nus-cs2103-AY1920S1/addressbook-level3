@@ -1,120 +1,153 @@
 package dream.fcard.gui;
 
-import dream.fcard.model.Deck;
-import dream.fcard.model.cards.FlashCard;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import java.util.logging.Logger;
+
+import dream.fcard.core.commons.core.GuiSettings;
+import dream.fcard.core.commons.core.LogsCenter;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class MainWindow {
-    Stage primaryStage;
-    Scene scene;
+/**
+ * The Main Window. Provides the basic application layout containing
+ * a menu bar and space where other JavaFX elements can be placed.
+ */
+public class MainWindow extends UiPart<Stage> {
 
-    // containers
-    VBox window;
-    VBox titleBar;
-    VBox windowContents;
-    VBox commandBoxPlaceholder;
+    private static final String FXML = "MainWindow.fxml";
 
-    // ui components
-    Text title;
-    TextField commandTextField;
-    ListView<Deck> deckDisplay;
-    ListView<FlashCard> cardDisplay;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
-    // colours
-    String primaryTextColour = "#333333";
-    String primaryUIColour = "#ABDFF6";
-    String secondaryUIColour = "#F0ECEB";
-    String tertiaryUIColour = "#6C7476";
+    private Stage primaryStage;
 
-    // font styles
-    Font titleBarText = Font.font("Montserrat", FontWeight.BOLD, FontPosture.ITALIC, 36);
+    // Independent Ui parts residing in this Ui container
+    private ResultDisplay resultDisplay;
+    private HelpWindow helpWindow;
 
+    @FXML
+    private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage) {
+        super(FXML, primaryStage);
+
+        // Set dependencies
         this.primaryStage = primaryStage;
 
-        // setup
-        primaryStage.setTitle("FlashCard Pro");
-        primaryStage.setMinHeight(400);
-        primaryStage.setMinWidth(400);
 
-        // initialise containers
-        window = new VBox();
-        titleBar = new VBox(10);
-        windowContents = new VBox(10);
-        commandBoxPlaceholder = new VBox (10);
+        setAccelerators();
 
-        // set size of containers
-        titleBar.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        commandBoxPlaceholder.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        VBox.setVgrow(windowContents, Priority.ALWAYS);
+        helpWindow = new HelpWindow();
+    }
 
-        // set padding of containers
-        titleBar.setPadding(new Insets(20));
-        windowContents.setPadding(new Insets(20));
-        commandBoxPlaceholder.setPadding(new Insets(20));
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
-        // set colour of containers
-        titleBar.setStyle("-fx-background-color:" + secondaryUIColour + ";");
-        commandBoxPlaceholder.setStyle("-fx-background-color:" + tertiaryUIColour + ";");
-        windowContents.setStyle("-fx-background-color:#FFFFFF;");
+    private void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
 
-        // add children to window
-        window.getChildren().addAll(titleBar, windowContents, commandBoxPlaceholder);
+    /**
+     * Sets the accelerator of a MenuItem.
+     *
+     * @param keyCombination the KeyCombination value of the accelerator
+     */
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+        menuItem.setAccelerator(keyCombination);
 
-        // display window
-        scene = new Scene(window, 400, 400);
-        primaryStage.setScene(scene);
-//        primaryStage.sizeToScene();
+        /*
+         * TODO: the code below can be removed once the bug reported here
+         * https://bugs.openjdk.java.net/browse/JDK-8131666
+         * is fixed in later version of SDK.
+         *
+         * According to the bug report, TextInputControl (TextField, TextArea) will
+         * consume function-key events. Because CommandBox contains a TextField, and
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
+         * not work when the focus is in them because the key event is consumed by
+         * the TextInputControl(s).
+         *
+         * For now, we add following event filter to capture such key events and open
+         * help window purposely so to support accelerators even when focus is
+         * in CommandBox or ResultDisplay.
+         */
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerParts() {
+
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+
+        CommandBox commandBox = new CommandBox();
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Sets the default size based on {@code guiSettings}.
+     */
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
     }
 
     void show() {
         primaryStage.show();
     }
 
-    // consider renaming fillInnerParts
-    void fillInnerParts() {
-        // create label with appropriate text
-        title = new Text("Welcome!");
-
-        // style label
-        title.setFont(titleBarText);
-        title.setFill(Color.web(primaryTextColour));
-
-        // add label to titleBar
-        titleBar.getChildren().add(title);
-
-        // add text field to commandBoxPlaceholder
-        commandTextField = new TextField("Enter command here...");
-        commandBoxPlaceholder.getChildren().add(commandTextField);
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleExit() {
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        helpWindow.hide();
+        primaryStage.hide();
     }
 
-    // methods I can consider omitting or refactoring
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 
-    // private void setAccelerators()
-    // private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination)
-    // private void setWindowDefaultSize(GuiSettings guisSettings)
-
-    // FXML methods
-    // public void handleHelp()
-    // private void handleExit()
 }
+

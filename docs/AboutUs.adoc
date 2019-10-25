@@ -15,7 +15,7 @@ image::huiminlim.png[width="150", align="left"]
 {empty}[http://github.com/huiminlim[github]] [<<huiminlim#, portfolio>>]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: Team Lead, in charge of Flash Cards
 
 '''
 
