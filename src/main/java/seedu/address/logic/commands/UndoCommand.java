@@ -61,7 +61,7 @@ public class UndoCommand extends Command implements MutatorCommand {
             throw new CommandException(MESSAGE_NO_SUCH_INDEX);
         }
 
-        List<HistoryRecord> poppedRecords = model.revertTo(targetRecord);
+        List<HistoryRecord> poppedRecords = model.undoTo(targetRecord);
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS,
                 CollectionUtil.collectionToStringShowingIndexes(poppedRecords)));
     }
