@@ -8,8 +8,11 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.restaurant.Rating;
 
-public class AddRatingCommandParser implements Parser<AddRatingCommand> {
 
+/**
+ * Parses input arguments and creates a new AddRatingCommand object
+ */
+public class AddRatingCommandParser implements Parser<AddRatingCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddRatingCommand
      * and returns an AddRatingCommand object for execution.

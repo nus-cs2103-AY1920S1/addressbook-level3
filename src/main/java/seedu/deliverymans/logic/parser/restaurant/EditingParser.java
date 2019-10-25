@@ -7,7 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
-import seedu.deliverymans.logic.commands.restaurant.*;
+import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
+import seedu.deliverymans.logic.commands.restaurant.AddRatingCommand;
+import seedu.deliverymans.logic.commands.restaurant.DeleteFoodCommand;
+import seedu.deliverymans.logic.commands.restaurant.EditDetailsCommand;
+import seedu.deliverymans.logic.commands.restaurant.ExitEditCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 

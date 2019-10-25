@@ -1,5 +1,7 @@
 package seedu.deliverymans.logic.commands.restaurant;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
@@ -7,9 +9,6 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.restaurant.Rating;
 import seedu.deliverymans.model.restaurant.Restaurant;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 /**
  * Adds a rating to the restaurant in editing mode.
@@ -26,6 +25,9 @@ public class AddRatingCommand extends Command {
 
     private final Rating rating;
 
+    /**
+     * Creates a AddRatingCommand to add the specified {@code Rating}
+     */
     public AddRatingCommand(Rating rating) {
         this.rating = rating;
     }
@@ -35,8 +37,8 @@ public class AddRatingCommand extends Command {
 
         Restaurant restaurant = model.getEditingRestaurantList().get(0);
         Rating oldRating = restaurant.getRating();
-        double newRatingValue = Rating.getRatingValue(oldRating.rating) +
-                Rating.getRatingValue(rating.rating);
+        double newRatingValue = Rating.getRatingValue(oldRating.rating)
+                + Rating.getRatingValue(rating.rating);
         Rating newRating = new Rating(String.format("%.3f", newRatingValue),
                 oldRating.numberOfRatings + 1);
         Restaurant newRestaurant = new Restaurant(restaurant.getName(), restaurant.getLocation(), newRating,

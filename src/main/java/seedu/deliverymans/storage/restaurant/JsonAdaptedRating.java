@@ -2,6 +2,7 @@ package seedu.deliverymans.storage.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.deliverymans.model.restaurant.Rating;
 
 /**

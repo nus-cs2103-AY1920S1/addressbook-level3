@@ -1,9 +1,8 @@
 package seedu.deliverymans.model.restaurant;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents a Rating
@@ -63,8 +62,7 @@ public class Rating {
     public String toString() {
         if (numberOfRatings == 0) {
             return "0";
-        }
-        else {
+        } else {
             return String.format("%.1f", getRatingValue(rating) / numberOfRatings);
         }
     }
