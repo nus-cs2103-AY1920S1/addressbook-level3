@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -121,5 +122,10 @@ public class Person {
 
     public Password getPassword() {
         return password;
+    }
+
+    public static boolean isAdmin(Person person) {
+        return person.getTags().stream().anyMatch(tag ->
+                StringUtil.containsWordIgnoreCase(tag.tagName, "admin"));
     }
 }

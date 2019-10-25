@@ -71,6 +71,13 @@ public class UpdateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // Access Control check for tag addition
+        if (updatePersonDescriptor.getTags().isPresent() && !Person.isAdmin(model.getLoggedInPerson())) {
+            throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
+        }
+
+        // Different target person depending on presence of index
         Person personToUpdate;
         if (index != null) {
             List<Person> lastShownList = model.getFilteredPersonList();
