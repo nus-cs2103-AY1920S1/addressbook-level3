@@ -38,10 +38,15 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
 
         Index index;
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
+        if (argMultimap.getPreamble().equals("")) {
+            index = null;
+        } else {
+            try {
+                index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            } catch (ParseException pe) {
+                throw new ParseException(String
+                        .format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
+            }
         }
 
         UpdatePersonDescriptor updatePersonDescriptor = new UpdatePersonDescriptor();
