@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 image:https://travis-ci.com/AY1920S1-CS2103T-F12-4/main.svg?branch=master["Build Status", link="https://travis-ci.com/AY1920S1-CS2103T-F12-4/main"]
 https://ci.appveyor.com/api/projects/status/opkxh7lhild648nb[image:https://ci.appveyor.com/api/projects/status/opkxh7lhild648nb?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F12-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F12-4/main/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/manual/xinmingzh/main_2?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-F12-4/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/3b1c07bf944d4ea8b233872bc56a8a33[Codacy Badge]]
+image:https://api.codacy.com/project/badge/Grade/b7f7fb8990974112a36c29c6655c9379["Codacy code quality", link="https://www.codacy.com/manual/weiijiie/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-F12-4/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
