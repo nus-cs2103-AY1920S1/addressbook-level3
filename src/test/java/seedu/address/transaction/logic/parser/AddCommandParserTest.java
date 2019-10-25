@@ -60,23 +60,25 @@ class AddCommandParserTest {
         assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_BENSEN + DESC_BUILDER_DATE + DESC_BUILDER_DESC
                 + DESC_BUILDER_CATEGORY + DESC_BUILDER_AMOUNT, new AddCommand(expectedTransaction2), personModel);
 
-        // multiple phones - last description accepted
+        // multiple description - last description accepted
         assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_DESC + DESC_BUILDER_DESC
                         + DESC_BUILDER_AMOUNT + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE,
                 new AddCommand(expectedTransaction), personModel);
 
-        // multiple emails - last category accepted
-        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_CATEGORY + DESC_BUILDER_CATEGORY
+        // multiple category - last category accepted
+        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_CATEGORY
+                        + DESC_BUILDER_CATEGORY
                         + DESC_BUILDER_DESC + DESC_BUILDER_DATE + DESC_BUILDER_AMOUNT,
                 new AddCommand(expectedTransaction), personModel);
 
-        // multiple addresses - last amount accepted
+        // multiple amount - last amount accepted
         assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_AMOUNT + DESC_BUILDER_AMOUNT
                         + DESC_BUILDER_DESC + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE,
                 new AddCommand(expectedTransaction), personModel);
 
-        // multiple addresses - last date accepted
-        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
+        // multiple date - last date accepted
+        assertCommandParseWithPersonModelSuccess(parser, DESC_NAME_ALICE + DESC_BUILDER_AMOUNT
+                        + DESC_BUILDER_DESC
                         + DESC_BUILDER_CATEGORY + DESC_DATE + DESC_BUILDER_DATE , new AddCommand(expectedTransaction),
                 personModel);
     }
@@ -85,7 +87,8 @@ class AddCommandParserTest {
     public void parse_personNotInAddressBook_failure() {
         //person not found in addressbook
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + DESC_BUILDER_AMOUNT + DESC_BUILDER_DESC
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + DESC_BUILDER_AMOUNT
+                + DESC_BUILDER_DESC
                 + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_NO_SUCH_PERSON, personModel);
     }
 

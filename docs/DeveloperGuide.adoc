@@ -120,9 +120,9 @@ image::LogicClassDiagram.png[]
 The above diagram shows the general design of the Logic component within each package. Further details on the
 implementation of the Parser and Command can be found below in Section 3: Implementation.
 
-. `Logic` uses the `Parser` classes to parse the user command.
+. `Logic` uses the tab's `Parser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
-. The command execution can affect the `Model` (e.g. adding a person).
+. The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 . In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -132,7 +132,7 @@ Given below is a general Sequence Diagram depicting interactions within the `Log
 image::GeneralSequenceDiagram.png[]
 
 Note that the diagram depicts only a general sequence of events within the `Logic` component.
-Specifics to how `Command` executes can be found within 3. Implementation, under the respective package.
+More detailed Sequence Diagram's for commands in each Tab can be found in <<Implementation>>
 Any deviations from this general sequence diagram will also be covered there.
 
 [[Design-Model]]
@@ -175,6 +175,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+[[Implementation]]
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 There are a total of 6 tabs in our application for each feature: Home Tab, Members Tab, Reimbursement Tab,
@@ -297,10 +298,114 @@ Back Command that calls `resetPredicate()`.
 
 
 === Members Tab
+This tab will help to keep track of the contact details of members in the club or society for the treasurer.
+
+==== Delete Feature
+The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for deletion by
+the index shown in the `Members Tab`. This tab integrates the existing `AddressBook`.
+
+The following sequence diagram shows how the delete command works:
+
+.Sequence Diagram of Delete Command in Member Tab (transaction package)
+
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Before, the deletion is done, there will be a check to the `TransactionModel` to ensure that the member is not linked
+to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).
+
 
 === Reimbursement Tab
+This tab will help to show records of reimbursements
+that treasurer needs to pay to a person.
+
+Each reimbursement record is auto extracted from transactions.
+
+The user can add deadline to a reimbursement, mark a reimbursement,
+find a reimbursement and sort reimbursements.
+
+This is the overall Class Diagram of this tab:
+
+.Class Diagram of Reimbursement Tab (reimbursement package)
+
+image::ReimbursementTabClassDiagram.png[]
+
+==== Deadline Command feature
+The deadline command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+person package which the `AddressBook` implementation is contained in.
+Deadline field should be provided in a valid date format. The
+person's name inputted has to match a name already existing in the `Reimbursement` which is shown in our Reimbursement
+Tab.
+
+The following sequence diagram shows how the deadline command works:
+
+.Sequence Diagram of Deadline Command in Reimbursement Tab (deadline package)
+
+image::ReimbursementTabDeadlineCommandSequenceDiagram.png[]
+
+
+As shown, when a user wants to add a deadline to a reimbursement by specifying
+the person's name. The `DeadlineCommandParser` gets the person from `PersonModel` based on
+person's name and creates a `DeadlineCommand` with person and deadline information.
+This `DeadlineCommand` is returned back to `LogicManager` and is executed by calling `addDeadline` method in
+`ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and saves it.
+
+==== Done Command feature
+
+==== Find Command feature
+
+==== Sort Command feature
+
 
 === Inventory Tab
+
+This tab will help to keep records of all items currently in the club’s possession.
+Each item will require an input of its description, category, quantity, and cost per unit. Optionally, if the item is meant for
+sale, the price can be inputted as well.
+
+This is the overall Class Diagram of this tab:
+
+.Class Diagram of Inventory Tab (inventory package)
+
+image::InventoryTabClassDiagram.png[]
+
+==== Add Item Feature
+This features allows the adding of items to the inventory.
+
+When adding a new item, the user is required to input the description, category, quantity and cost per unit of the item.
+The only attribute that is optional is the price.
+
+For an input to be valid, it must contain all four of the previously mentioned attributes, and the input for each attribute
+must be of the correct type. For example, quantity and cost must be numbers. However, the attributes can be inputted in any
+order.
+
+The following sequence diagram shows how an add command works with the description, category, quantity, cost and price fields
+present:
+
+.Sequence Diagram of Add Command in Inventory Tab (inventory package)
+
+_{ to be added }_
+
+The following activity diagram displays the process of adding a new item to the inventory:
+
+.Activity Diagram of Add Command in Inventory Tab (inventory package)
+
+image::InventoryAddCommandActivityDiagram.png[]
+
+As shown above, the input will be evaluated for its validity. If the input is not valid, the user will be informed through Leo
+that the command was in an invalid format and reminded of the correct format.
+
+Otherwise, the user will be informed through Leo that their input was successful, and the item will immediately be displayed in
+the Table of the UI.
+
+==== Delete Item Feature
+
+==== Edit Item Feature
+
+==== Sort Items Feature
+
+==== [Proposed] Auto-Complete Feature
 
 === Cashier Tab
 This tab will act as a shopping cart to record sales item from the inventory that will contribute
@@ -653,7 +758,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
-|`* * *` |new user |add my CCA expenses with (when, where, how much, who) details |better manage expense history
+|`* * *` |new user |add my CCA expenses with (when, where, how much, who`x) details |better manage expense history
 
 |`* * *` |user |add a new transactions |
 

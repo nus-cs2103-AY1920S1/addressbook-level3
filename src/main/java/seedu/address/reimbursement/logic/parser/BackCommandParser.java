@@ -12,7 +12,7 @@ import seedu.address.util.Prefix;
 /**
  * Parses List commands.
  */
-public class BackCommandParser implements SortParser<BackCommand> {
+public class BackCommandParser implements SimpleParser<BackCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }

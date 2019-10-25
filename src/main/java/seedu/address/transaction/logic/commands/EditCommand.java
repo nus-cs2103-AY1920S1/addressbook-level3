@@ -74,12 +74,7 @@ public class EditCommand extends Command {
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Person updatedPerson = personModel
                 .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));;
-        /*try {
-            updatedPerson = personModel
-                    .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
-        } catch (PersonNotFoundException e) {
-            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
-        }*/
+
         boolean updatedIsReimbursed =
                 editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
         return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount,
