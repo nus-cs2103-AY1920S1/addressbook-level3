@@ -38,4 +38,29 @@ public class TabManagerTest {
 
         assertThrows(IndexOutOfBoundsException.class, () -> tabManager.setDisplayTabPaneIndex(ILLEGAL_VALUE));
     }
+
+    @Test
+    public void setDetailsTabPaneIndex_indexWithinRange_success() {
+        TabManager tabManager = new TabManager();
+        Index[] testValues = new Index[] { OLD_VALUE };
+
+        tabManager.getDetailsTabPaneIndex().addListener((observable, oldValue, newValue) -> {
+            testValues[0] = Index.fromZeroBased((newValue.intValue()));
+        });
+        tabManager.setDetailsTabPaneIndex(NEW_VALUE);
+
+        assertEquals(NEW_VALUE, testValues[0], "Listener does not update value correctly");
+    }
+
+    @Test
+    public void setDetailsTabPaneIndex_indexOutsideRange_throwsIndexOutOfBoundsException() {
+        TabManager tabManager = new TabManager();
+        Index[] testValues = new Index[] { OLD_VALUE };
+
+        tabManager.getDetailsTabPaneIndex().addListener((observable, oldValue, newValue) -> {
+            testValues[0] = Index.fromZeroBased((newValue.intValue()));
+        });
+
+        assertThrows(IndexOutOfBoundsException.class, () -> tabManager.setDetailsTabPaneIndex(ILLEGAL_VALUE));
+    }
 }
