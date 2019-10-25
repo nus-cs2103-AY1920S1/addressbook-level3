@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+actor User
+
+box UI UI_COLOR_T1
+participant ":UI" as UI UI_COLOR
+participant ":Tab" as Tab UI_COLOR
+participant ":CalendarWindow" as CalendarWindow UI_COLOR
+participant ":IndividualDatePane" as IndividualDatePane UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+User -> UI: "tab calendar"
+activate UI
+
+UI -> Logic: execute("tab calendar")
+activate Logic
+
+create Tab
+Logic -> Tab
+activate Tab
+
+Tab --> Logic
+deactivate Tab
+
+Logic --> UI
+deactivate Logic
+
+UI -> UI: fetchTabInformation(tabName)
+activate UI
+
+create CalendarWindow
+UI -> CalendarWindow
+activate CalendarWindow
+
+CalendarWindow --> UI
+deactivate CalendarWindow
+
+UI -> CalendarWindow: setLogic(Logic)
+activate CalendarWindow
+
+CalendarWindow --> UI
+deactivate CalendarWindow
+
+UI -> CalendarWindow: populateCalendar()
+activate CalendarWindow
+
+loop 35 times
+    create IndividualDatePane
+    CalendarWindow -> IndividualDatePane
+    activate IndividualDatePane
+
+    IndividualDatePane --> CalendarWindow
+    deactivate IndividualDatePane
+end
+
+loop 35 times
+    CalendarWindow -> IndividualDatePane: add(engagements)
+    activate IndividualDatePane
+
+    IndividualDatePane --> CalendarWindow
+    deactivate IndividualDatePane
+end
+
+CalendarWindow --> UI
+deactivate CalendarWindow
+
+deactivate UI
+
+UI -> Tab: setController(calendarWindow)
+activate Tab
+
+Tab --> UI
+deactivate Tab
+
+UI --> User
+deactivate UI
+
+@enduml
