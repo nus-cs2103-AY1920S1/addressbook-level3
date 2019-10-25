@@ -38,6 +38,7 @@ public class Reimbursement {
      */
     public Reimbursement(Transaction trans) {
         requireNonNull(trans);
+        assert trans.getAmount() < 0 : "Transaction amount should be negative";
         list = new ArrayList<>();
         list.add(trans);
         amount = trans.getAmount();
@@ -51,6 +52,10 @@ public class Reimbursement {
         return person;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public ArrayList<Transaction> getList() {
         return list;
     }
@@ -61,10 +66,6 @@ public class Reimbursement {
 
     public LocalDate getDeadline() {
         return deadline;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     /**

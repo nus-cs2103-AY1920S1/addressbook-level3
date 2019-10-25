@@ -7,12 +7,10 @@ import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.transaction.model.Transaction;
 
 public class ReimbursementBuilder {
+    public static final Transaction DEFAULT_TRANSACTION = TypicalTransactions.ALICE_TRANSACTION_10;
+
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-
-    public static final Transaction DEFAULT_TRANSACTION = new TransactionBuilder().build();
-    public static final String DEFAULT_DATE = "01-Dec-2019";
-
-    public static final LocalDate DEFAULT_DEADLINE = LocalDate.parse(DEFAULT_DATE, DATE_TIME_FORMATTER);
+    public static final LocalDate DEFAULT_DEADLINE = TypicalDeadlines.DEC_DEADLINE;
 
     private Transaction transaction;
     private LocalDate deadline;

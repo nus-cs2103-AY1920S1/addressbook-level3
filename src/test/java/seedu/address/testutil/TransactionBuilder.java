@@ -13,7 +13,6 @@ public class TransactionBuilder {
     public static final String DEFAULT_CATEGORY = "marketing";
     public static final double DEFAULT_AMOUNT = 15.0;
     public static final boolean DEFAULT_IS_REIMBURSED = false;
-    public static final Person DEFAULT_PERSON = new PersonBuilder().build();
 
     private String date;
     private String description;
@@ -32,16 +31,6 @@ public class TransactionBuilder {
         this.category = DEFAULT_CATEGORY;
         this.amount = DEFAULT_AMOUNT;
         this.person = person;
-        this.id = DEFAULT_ID;
-        this.isReimbursed = DEFAULT_IS_REIMBURSED;
-    }
-
-    public TransactionBuilder() {
-        this.date = DEFAULT_DATE;
-        this.description = DEFAULT_DESCRIPTION;
-        this.category = DEFAULT_CATEGORY;
-        this.amount = DEFAULT_AMOUNT;
-        this.person = DEFAULT_PERSON;
         this.id = DEFAULT_ID;
         this.isReimbursed = DEFAULT_IS_REIMBURSED;
     }
