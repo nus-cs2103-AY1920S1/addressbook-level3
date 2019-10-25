@@ -78,7 +78,6 @@ public class AppManager {
      */
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
-        System.out.println(Thread.currentThread().getName() + "<-----EXECUTE RESULT THREAD");
 
         if (commandResult instanceof StartCommandResult) {
             StartCommandResult startCommandResult = (StartCommandResult) commandResult;

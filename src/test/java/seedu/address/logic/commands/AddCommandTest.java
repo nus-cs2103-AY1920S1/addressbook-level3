@@ -103,6 +103,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean bankLoaded() {
+            return false;
+        }
+
+        @Override
         public AppSettings getAppSettings() {
             return null;
         }
@@ -143,11 +148,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean getHintsEnabled() {
-            return false;
-        }
-
-        @Override
         public long getTimeAllowedPerQuestion() {
             return 0;
         }
@@ -163,7 +163,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hintsAreEnabled() {
+        public boolean getHintsEnabled() {
             return false;
         }
 

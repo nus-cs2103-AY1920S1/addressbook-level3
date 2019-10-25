@@ -25,7 +25,7 @@ import seedu.address.testutil.WordBankBuilder;
 public class GameTest {
 
     @Test
-    public void makeGuess() {
+    public void checkGuess() {
         WordBankBuilder wordBankBuilder = new WordBankBuilder();
         wordBankBuilder.withCard(ABRA);
         WordBank wb = wordBankBuilder.build();
@@ -50,6 +50,14 @@ public class GameTest {
         assertThrows(NullPointerException.class, () -> new Game(wb, x -> Collections.shuffle(x), DifficultyEnum.EASY));
     }
 
+    @Test
+    public void nullDifficultyEnumPassedIntoConstructor_throwsNullPointerException() {
+        WordBank wb = new WordBank("empty");
+        DifficultyEnum difficultyEnum = null;
+        assertThrows(NullPointerException.class, () -> {
+            new Game(wb, x -> Collections.shuffle(x), difficultyEnum);
+        });
+    }
     @Test
     public void moveToNextCard() {
         // HashMap that maps each card to the number of times it has been seen by the user.
@@ -190,4 +198,63 @@ public class GameTest {
         });
 
     }
+
+    @Test
+    void getCurrentGameDifficulty() {
+        WordBankBuilder wordBankBuilder = new WordBankBuilder();
+        wordBankBuilder.withCard(ABRA);
+        wordBankBuilder.withCard(BUTTERFREE);
+        wordBankBuilder.withCard(CHARIZARD);
+        wordBankBuilder.withCard(DITTO);
+        wordBankBuilder.withCard(EEVEE);
+        WordBank wb = wordBankBuilder.build();
+        Game testGame = new Game(wb, x -> Collections.shuffle(x),
+                DifficultyEnum.EASY);
+        assertEquals(DifficultyEnum.EASY, testGame.getCurrentGameDifficulty());
+    }
+
+    @Test
+    void getCurrCard() {
+        WordBankBuilder wordBankBuilder = new WordBankBuilder();
+        wordBankBuilder.withCard(EEVEE);
+        WordBank wb = wordBankBuilder.build();
+        Game.CardShuffler dummyShuffler = cardsToShuffle -> {};
+        Game testGame = new Game(wb, dummyShuffler,
+                DifficultyEnum.EASY);
+        assertEquals(EEVEE, testGame.getCurrCard());
+    }
+
+    @Test
+    void getHintFormatForCurrCard() {
+        WordBankBuilder wordBankBuilder = new WordBankBuilder();
+        wordBankBuilder.withCard(EEVEE);
+        WordBank wb = wordBankBuilder.build();
+        Game.CardShuffler dummyShuffler = cardsToShuffle -> {};
+        Game testGame = new Game(wb, dummyShuffler,
+                DifficultyEnum.EASY);
+
+        int underscoreCount = 0;
+        String formattedHintString = testGame.getHintFormatForCurrCard().toString();
+        for (int i = 0; i < 5; i++) {
+            if (formattedHintString.charAt(i) == '_') {
+                underscoreCount++;
+            }
+        }
+        assertEquals(4, underscoreCount);
+    }
+
+    @Test
+    void getHintFormatSizeOfCurrCard() {
+        WordBankBuilder wordBankBuilder = new WordBankBuilder();
+        wordBankBuilder.withCard(EEVEE);
+        wordBankBuilder.withCard(ABRA);
+        WordBank wb = wordBankBuilder.build();
+        Game.CardShuffler dummyShuffler = cardsToShuffle -> {};
+        Game testGame = new Game(wb, dummyShuffler,
+                DifficultyEnum.EASY);
+        assertEquals(5, testGame.getHintFormatSizeOfCurrCard());
+        testGame.moveToNextCard();
+        assertEquals(4, testGame.getHintFormatSizeOfCurrCard());
+    }
+
 }

@@ -11,14 +11,15 @@ import seedu.address.model.Model;
  */
 public class HomeCommand extends SwitchCommand {
     public static final String COMMAND_WORD = "home";
-    public static final String MESSAGE_HOME_ACKNOWLEDGEMENT = "Going home as requested";
+    public static final String MESSAGE_HOME_ACKNOWLEDGEMENT = "Going home page as requested";
+
+    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
+        return ModeEnum.HOME;
+    }
 
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_HOME_ACKNOWLEDGEMENT, false, false);
     }
 
-    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
-        return ModeEnum.APP;
-    }
 }
