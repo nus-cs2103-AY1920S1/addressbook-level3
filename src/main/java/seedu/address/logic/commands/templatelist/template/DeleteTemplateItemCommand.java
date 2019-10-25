@@ -2,6 +2,7 @@ package seedu.address.logic.commands.templatelist.template;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
 import java.util.List;
 
@@ -46,14 +47,17 @@ public class DeleteTemplateItemCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
         UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
+        UniqueTemplateItems editedTemplate = templateToEdit;
+
         if (targetItemIndex.getZeroBased() >= templateToEdit.getSize()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
         }
-
         TemplateItem itemToDelete = templateToEdit.get(targetItemIndex.getZeroBased());
-        templateToEdit.remove(itemToDelete);
+        editedTemplate.remove(itemToDelete);
 
-        model.setShownTemplate(templateToEdit);
+        model.setTemplate(templateToEdit, editedTemplate);
+        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+        model.setShownTemplate(editedTemplate);
         model.updateFilteredTemplateToBeShown();
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToDelete));
         commandResult.setTemplateListItemCommand();

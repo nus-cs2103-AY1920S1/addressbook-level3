@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,8 @@ public class EditTemplateItemCommand extends Command {
         }
 
         UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
+        UniqueTemplateItems editedTemplate = templateToEdit;
+
         if (targetItemIndex.getZeroBased() >= templateToEdit.getSize()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
         }
@@ -76,9 +79,11 @@ public class EditTemplateItemCommand extends Command {
         TemplateItem itemToEdit = templateToEdit.get(targetItemIndex.getZeroBased());
         TemplateItem editedItem = createEditedItem(itemToEdit, editTemplateItemDescriptor);
 
-        templateToEdit.setTemplateItem(itemToEdit, editedItem);
+        editedTemplate.setTemplateItem(itemToEdit, editedItem);
 
-        model.setShownTemplate(templateToEdit);
+        model.setTemplate(templateToEdit, editedTemplate);
+        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+        model.setShownTemplate(editedTemplate);
         model.updateFilteredTemplateToBeShown();
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToEdit, editedItem));
         commandResult.setTemplateListItemCommand();
