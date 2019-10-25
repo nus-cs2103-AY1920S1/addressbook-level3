@@ -12,7 +12,8 @@ import seedu.address.model.ItemModel;
 public class AddReminderCommand extends AddCommand {
 
     public static final String SHOW_REMINDER_VIEW = "R";
-    public static final String MESSAGE_SUCCESS = "Fine, I'll remind you. New Reminder added: %1$s\nIt's like you need a keeper";
+    public static final String MESSAGE_SUCCESS = "Fine, I'll remind you. New Reminder added: %1$s"
+            + "\nIt's like you need a keeper";
 
     public AddReminderCommand(Item item) {
         super(item);
