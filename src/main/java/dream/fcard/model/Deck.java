@@ -116,7 +116,7 @@ public class Deck implements JsonInterface {
      *
      * @param newCard FlashCard object to add to Deck.
      */
-    public void addNewCardToDeck(FlashCard newCard) {
+    public void addNewCard(FlashCard newCard) {
         cards.add(newCard);
     }
 

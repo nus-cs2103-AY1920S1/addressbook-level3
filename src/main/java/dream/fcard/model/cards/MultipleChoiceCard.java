@@ -26,10 +26,10 @@ public class MultipleChoiceCard extends FrontBackCard {
     private ArrayList<String> displayChoices;
 
     /** Integer value of the option user should provide as answer. */
-    private int displayChoicesAnswerIndex;      // Answer index is 1-based
+    private int displayChoicesAnswerIndex; // Answer index is 1-based
 
     /** Integer value of the answer from user in user provided choice. */
-    private int answerIndex;        // Answer index is 1-based
+    private int answerIndex; // Answer index is 1-based
 
     /**
      * Construct a multiple choice card.
@@ -339,7 +339,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     //@author huiminlim
     private boolean isNotValidChoice(int choiceIndex) {
-        return choiceIndex >= 1 && choiceIndex <= choices.size();
+        return choiceIndex < 1 || choiceIndex > choices.size();
     }
     //@author
 }
