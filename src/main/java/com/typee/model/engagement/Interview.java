@@ -18,6 +18,11 @@ public class Interview extends Engagement {
     }
 
     @Override
+    public EngagementType getType() {
+        return EngagementType.INTERVIEW;
+    }
+
+    @Override
     public String toString() {
         return String.format("Interview of %s priority from %s to %s at %s.", priority.toString(),
                 startTime.toString(), endTime.toString(), location.toString());

@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+
+package CalendarWindow <<Rectangle>>{
+Class Tab UI_COLOR
+Class "{abstract}\nUiPart" as UiPart UI_COLOR
+Class CalendarWindow UI_COLOR_T1
+Class CalendarTitleBar UI_COLOR_T2
+Class PreviousMonthButton UI_COLOR_T2
+Class CalendarTitle UI_COLOR_T2
+Class NextMonthButton UI_COLOR_T2
+Class WeekdayDisplayPane UI_COLOR_T3
+Class Weekday UI_COLOR_T3
+Class DateDisplayGrid UI_COLOR_T4
+Class IndividualDatePane UI_COLOR_T4
+Class Engagement #9D0012
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Tab
+Tab *-down-> "0...1" CalendarWindow
+
+CalendarWindow .up.|> UiPart
+CalendarWindow -right-> Logic
+CalendarWindow *-down-> CalendarTitleBar
+CalendarWindow *-down-> WeekdayDisplayPane
+CalendarWindow *-down-> DateDisplayGrid
+
+CalendarTitleBar *-down-> PreviousMonthButton
+CalendarTitleBar *-down-> CalendarTitle
+CalendarTitleBar *-down-> NextMonthButton
+
+WeekdayDisplayPane *-down-> "7" Weekday
+
+DateDisplayGrid *-down-> "35" IndividualDatePane
+
+IndividualDatePane .up.|> UiPart
+IndividualDatePane *-down-> "*" Engagement
+
+Engagement .right.> Model
+
+@enduml

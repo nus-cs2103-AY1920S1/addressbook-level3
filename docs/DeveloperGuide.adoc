@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `SC09-F14-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -79,7 +79,8 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`
+, `StartWindow`, `GameWindow`, `PlayerInformation`, `GameBody`, `MovingWords` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -235,12 +236,89 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Tab Switch Feature
+Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. System UI structure is generally divided into 2 parts;
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Implementation Structure
 
-// end::dataencryption[]
+.TabCommand Implementation Class Diagram
+image::TabCommandClassDiagram.png[]
+
+1. `MainWindow` which contains necessary text input for `Command` inputs and output display for displaying the `CommandResult`
+1. Window component, which is a type of `VBox`, that acts as a container for other different UI windows.
+1. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
+* Upon first startup of the system, by system default, system will display the `EngagementList` window.
+1. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner. Below is the class diagram for `Tab` class
+
+[.text-center]
+.Tab Class Diagram
+image::TabClassDiagram.png[align="center"]
+
+From figure 9, MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property.
+The method will compare the `Tab` in `CommandResult` and once there is a matching result, the method will load the respective fxml file in the MainWindow to display the respective feature window.
+Below is the basic activity diagram of fetchTabInformation method
+
+.fetchTabInformation method Activity Diagram
+image::fetchTabInformationActivityDiagram.png[align="center"]
+
+=== Engagement Report Generation
+This feature allows user to generate a pre-selected engagement in to a report and save it as a document file. The document file will be created in a .pdf format.
+
+==== Implementation Structure
+
+.PdfCommand Implementation Class Diagram
+image::PdfCommandClassDiagram.png[]
+
+The feature will be implemented as an additional type of Command; `PdfCommand`
+
+* Proposed syntax of the PdfCommand is as follow: `pdf i/[engagementList_index] to/[Person] from/[Person]`.
+
+Util class `PdfUtil` will be implemented for handling all pdf document creation related methods.
+
+.PdfUtil Class Diagram
+image::PdfUtilClassDiagram.png[align="center"]
+
+PdfUtil class will be implemented under `util` package and it will be able to deliver few essential features
+that are necessary for document creation.
+
+** Able to generate a full report document based on the `Engagement` as input.
+** Use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`. Document template will follow general email format:
+Receiver, Content contained in a table, Sender and signature with address and company logo (Refer to Figure 12).
+To fulfill the document format, `Report` class needs to be implemented in order to model all necessary properties that has to be in the document. It 3 following properties;
+
+***  `engagement`: specific engagement information to include in the document
+*** `to`: A `Person` who is receiving the document
+*** `from`: A `Person` who is either a receptionist or a secretary who is sending the document.
+
+==== UI Design
+`ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`. UI will consist of 2 main scrollable panes; Engagement list with index numbers,
+and the directory explorer for `reports/` as a item list.
+
+===== UI Components & Features
+Table below explains the components that are included in the `ReportWindow` with its purpose and features.
+
+.Report Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `EngagementList`
+| Scrollable Stack Pane
+| Displays the sorted engagement list
+| To guide user to help recognize the list index number that the user wants to generate document from.
+
+| `File_Explorer`
+| Scrollable Stack Pane
+|
+1. Displays the list of document generated previously and stored under the directory `reports/`.
+
+2. Each list item is clickable with a MouseClick action of opening the document.
+| To allow user to manage documents more time efficiently.
+|===
+
 
 === Logging
 
@@ -261,6 +339,26 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Calendar Window
+
+.Structure of the Calendar Window
+image::CalendarWindowClassDiagram.png[]
+
+The calendar window provides a visual representation of stored engagements over a monthly period.
+Users can choose to change the month being displayed and also open scrolling text windows which
+show more detailed descriptions of the stored engagements for a particular day.
+
+=== Game Window
+
+.Structure of the Game Window
+image::GameWindowClassDiagram.png[]
+
+The game window provides a simple typing game where there are moving words that users can type in order to score points.
+Once users correctly type the specified word, the word disappears and the increase in points is reflected in the player
+information panel in the game window. When the user fails to type the word before the moving word reaches the bottom of
+screen, the decrease in health points is reflected in the player information panel in the game window. After the health
+points reaches zero, `GAME OVER` is displayed.
 
 == Documentation
 
@@ -286,14 +384,14 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 * requires submitting large amount of structured reports or documents
 
-*Value proposition*: manage appointments and contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage appointments and contacts faster than a typical mouse/ GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
@@ -596,19 +694,18 @@ Use case ends.
 
 *MSS*
 
-1. User requests to list appointments
-2. System displays the list of appointments
-3. User request for generate PDF of an appointment, providing the index number
-4. System generates a PDF file in a specific external directory
-5. System shows successful message
+1. System displays the list of appointments
+1. User requests for generating PDF of an engagement for a selected engagement.
+1. System generates a PDF file in a specific external directory
+1. System shows successful message
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 4a. System fails to generate PDF
+* 3a. System fails to generate PDF
 [none]
-** 4a1. System shows error message.
+** 3a1. System shows error message.
 +
 Use case resumes at step 2.
 
@@ -635,7 +732,7 @@ A person employed by an individual or in an office to assist with correspondence
 and carry out administrative tasks.
 
 [[manager]] Manager::
-The person a secretary is assigned to work for particularly.
+The person that the secretary is assigned to work for.
 
 [[appointment]] Appointment::
 An arrangement, managed and maintained by a secretary, for the manager to meet someone at a particular time and place.

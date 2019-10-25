@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import com.typee.commons.util.AppUtil;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's name in an engagement.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

@@ -1,12 +1,30 @@
 package com.typee.logic;
 
-//import com.typee.model.Model;
+import static com.typee.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//import static com.typee.testutil.TypicalPersons.AMY;
+import java.nio.file.Path;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.typee.commons.core.Messages;
+import com.typee.logic.commands.CommandResult;
+import com.typee.logic.commands.ListCommand;
+import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.model.Model;
+import com.typee.model.ModelManager;
+import com.typee.model.UserPrefs;
+import com.typee.storage.JsonEngagementListStorage;
+import com.typee.storage.JsonTypeeStorage;
+import com.typee.storage.JsonUserPrefsStorage;
+import com.typee.storage.StorageManager;
 
 public class LogicManagerTest {
-    /*
-    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
+
+    //private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
     public Path temporaryFolder;
@@ -16,11 +34,11 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonEngagementListStorage engagementListStorage =
+                new JsonEngagementListStorage(temporaryFolder.resolve("engagementList.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonTypeeStorage typeeStorage = new JsonTypeeStorage(temporaryFolder.resolve("tabMenus.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
+        StorageManager storage = new StorageManager(engagementListStorage, userPrefsStorage, typeeStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -33,7 +51,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -42,15 +60,18 @@ public class LogicManagerTest {
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
+    /*
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonEngagementListIoExceptionThrowingStub
+        JsonEngagementListStorage engagementListStorage =
+                new JsonEngagementListIoExceptionThrowingStub(temporaryFolder
+                        .resolve("ioExceptionEngagementList.json")
+                );
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonTypeeStorage typeeStorage = new JsonTypeeStorage(temporaryFolder.resolve("tabMenus.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, typeeStorage);
+        StorageManager storage = new StorageManager(engagementListStorage, userPrefsStorage, typeeStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -61,14 +82,13 @@ public class LogicManagerTest {
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
+     */
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredEngagementList().remove(0));
     }
 
-
-     */
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -77,52 +97,40 @@ public class LogicManagerTest {
      *
      * @see #assertCommandBehavior(String, Class, String, Model)
      */
-    /*
-    private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                      Model expectedModel) throws CommandException, ParseException {
+    private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel) {
         assertCommandBehavior(inputCommand, null, expectedMessage, expectedModel);
     }
 
 
-     */
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
      *
      * @see #assertCommandBehavior(String, Class, String, Model)
      */
-    /*
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
     }
 
-
-     */
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
      *
      * @see #assertCommandBehavior(String, Class, String, Model)
      */
-    /*
     private void assertCommandException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
     }
 
-
-     */
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
      *
      * @see #assertCommandBehavior(String, Class, String, Model)
      */
-    /*
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getHistoryManager(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getEngagementList(), new UserPrefs());
         assertCommandBehavior(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
-
-     */
     /**
      * Executes the command and confirms that
      * - the {@code expectedException} is thrown <br>
@@ -131,10 +139,8 @@ public class LogicManagerTest {
      *
      * @see #assertCommandSuccess(String, String, Model)
      */
-    /*
     private void assertCommandBehavior(String inputCommand, Class<?> expectedException,
                                        String expectedMessage, Model expectedModel) {
-
         try {
             CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
@@ -142,26 +148,23 @@ public class LogicManagerTest {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
-
-        //assertEquals(expectedModel, model);
+        assertEquals(expectedModel, model);
     }
 
-
-     */
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     /*
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonEngagementListIoExceptionThrowingStub extends JsonEngagementListStorage {
+        private JsonEngagementListIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveEngagementList(ReadOnlyEngagementList engagementList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
-
      */
+
 }

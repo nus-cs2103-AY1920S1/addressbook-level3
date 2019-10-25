@@ -30,11 +30,11 @@ public class TypicalPersons {
 
      */
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code EngagementList} with all the typical persons.
      */
     /*
     public static HistoryManager getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+        EngagementList ab = new EngagementList();
         for (Person person : getTypicalPersons()) {
             ab.addEngagement(person);
         }

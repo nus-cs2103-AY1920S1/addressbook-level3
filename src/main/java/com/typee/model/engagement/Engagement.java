@@ -144,6 +144,8 @@ public abstract class Engagement {
         this.priority = priority;
     }
 
+    public abstract EngagementType getType();
+
     /**
      * Checks if this {@code Engagement} clashes with another one.
      *
@@ -162,7 +164,7 @@ public abstract class Engagement {
         } else if (o instanceof Engagement) {
             // type-cast Object and check for field equality.
             Engagement otherEngagement = (Engagement) o;
-            return isEqualEngagement(otherEngagement);
+            return isSameEngagement(otherEngagement);
         } else {
             return false;
         }
@@ -174,13 +176,18 @@ public abstract class Engagement {
      * @param otherEngagement {@code Engagement} to check equality with.
      * @return true if the engagements are equal.
      */
-    private boolean isEqualEngagement(Engagement otherEngagement) {
-        return otherEngagement.location.equals(location)
+    public boolean isSameEngagement(Engagement otherEngagement) {
+        if (otherEngagement == this) {
+            return true;
+        }
+        return otherEngagement != null
+                && otherEngagement.location.equals(location)
                 && otherEngagement.attendees.equals(attendees)
                 && otherEngagement.description.equals(description)
                 && otherEngagement.startTime.equals(startTime)
                 && otherEngagement.endTime.equals(endTime)
-                && otherEngagement.priority.equals(priority);
+                && otherEngagement.priority.equals(priority)
+                && otherEngagement.getType().equals(this.getType());
     }
 
     @Override

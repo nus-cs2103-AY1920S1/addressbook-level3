@@ -3,6 +3,7 @@ package com.typee.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,8 +14,10 @@ import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.engagement.Engagement;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,23 +28,25 @@ public class ModelManager implements Model {
     private final HistoryManager historyManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Engagement> filteredEngagements;
+    private final SortedList<Engagement> sortedEngagements;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given engagement list and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyEngagementList engagementList, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(addressBook, userPrefs);
+        CollectionUtil.requireAllNonNull(engagementList, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + engagementList + " and user prefs " + userPrefs);
 
-        this.historyManager = new HistoryManager(addressBook);
+        this.historyManager = new HistoryManager(engagementList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredEngagements = new FilteredList<>(this.historyManager.getEngagementList());
+        sortedEngagements = new SortedList<>(filteredEngagements);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new EngagementList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -69,25 +74,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getEngagementListFilePath() {
         return userPrefs.getAddressBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setEngagementListFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== EngagementList ================================================================================
 
     @Override
-    public void setHistoryManager(ReadOnlyAddressBook historyManager) {
+    public void setHistoryManager(ReadOnlyEngagementList historyManager) {
         this.historyManager.resetData(historyManager);
     }
 
     @Override
-    public ReadOnlyAddressBook getHistoryManager() {
+    public ReadOnlyEngagementList getEngagementList() {
         return historyManager;
     }
 
@@ -110,14 +115,14 @@ public class ModelManager implements Model {
     @Override
     public void setEngagement(Engagement target, Engagement editedEngagement) {
         CollectionUtil.requireAllNonNull(target, editedEngagement);
-        historyManager.setPerson(target, editedEngagement);
+        historyManager.setEngagement(target, editedEngagement);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Engagement List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Engagement} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code typee}
      */
     @Override
     public ObservableList<Engagement> getFilteredEngagementList() {
@@ -129,6 +134,17 @@ public class ModelManager implements Model {
     public void updateFilteredEngagementList(Predicate<Engagement> predicate) {
         requireNonNull(predicate);
         filteredEngagements.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateSortedEngagementList(Comparator<Engagement> comparator) {
+        requireNonNull(comparator);
+        sortedEngagements.setComparator(comparator);
+    }
+
+    @Override
+    public ObservableList<Engagement> getSortedEngagementList() {
+        return FXCollections.unmodifiableObservableList(sortedEngagements);
     }
 
     //=========== Undo ================================================================================

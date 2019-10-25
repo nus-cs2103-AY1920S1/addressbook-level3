@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
-import com.typee.model.ReadOnlyAddressBook;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.UserPrefs;
 import com.typee.ui.Tab;
@@ -15,26 +15,26 @@ import com.typee.ui.Tab;
 import javafx.collections.ObservableList;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of EngagementList data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private EngagementListStorage engagementListStorage;
     private UserPrefsStorage userPrefsStorage;
     //Adding TypeeStorage unit
     private TypeeStorage typeeStorage;
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(EngagementListStorage engagementListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.engagementListStorage = engagementListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+    public StorageManager(EngagementListStorage engagementListStorage, UserPrefsStorage userPrefsStorage,
                           TypeeStorage typeeStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.engagementListStorage = engagementListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.typeeStorage = typeeStorage;
     }
@@ -57,34 +57,34 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ EngagementList methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getEngagementListFilePath() {
+        return engagementListStorage.getEngagementListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyEngagementList> readEngagementList() throws DataConversionException, IOException {
+        return readEngagementList(engagementListStorage.getEngagementListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyEngagementList> readEngagementList(Path filePath) throws DataConversionException,
             IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return engagementListStorage.readEngagementList(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveEngagementList(ReadOnlyEngagementList engagementList) throws IOException {
+        saveEngagementList(engagementList, engagementListStorage.getEngagementListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveEngagementList(ReadOnlyEngagementList engagementList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        engagementListStorage.saveEngagementList(engagementList, filePath);
     }
 
     // ================ TYPEE methods ==============================
