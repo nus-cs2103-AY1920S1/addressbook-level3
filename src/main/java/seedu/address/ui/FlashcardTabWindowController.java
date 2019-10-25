@@ -97,7 +97,7 @@ public class FlashcardTabWindowController {
                 new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION), e -> loadFlashcard(fc),
                 new KeyValue(currentSeconds, 0)),
                 new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION + TIMER_DURATION),
-                e -> showFlashcardAns()));
+                    e -> showFlashcardAns()));
             cardCount++;
         }
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION
