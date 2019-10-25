@@ -42,6 +42,9 @@ public class TabManagerTest {
     @Test
     public void setDetailsTabPaneIndex_indexWithinRange_success() {
         TabManager tabManager = new TabManager();
+        TabData tabData1 = new TabData(ModelType.PROBLEM, Index.fromOneBased(1));
+        TabData tabData2 = new TabData(ModelType.PROBLEM, Index.fromOneBased(2));
+        tabManager.addTab(tabData1, tabData2);
         Index[] testValues = new Index[] { OLD_VALUE };
 
         tabManager.getDetailsTabPaneIndex().addListener((observable, oldValue, newValue) -> {

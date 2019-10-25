@@ -45,13 +45,17 @@ public class TabManager {
     }
 
     // Details tab
+    public boolean isValidDetailsTabPaneIndex(int index) {
+        return index >= 0 && index < tabs.size();
+    }
+
     public ObservableIntegerValue getDetailsTabPaneIndex() {
         return detailsTabPaneIndex;
     }
 
     public void setDetailsTabPaneIndex(Index index) throws IndexOutOfBoundsException {
         int indexValue = index.getZeroBased();
-        if (!isValidDisplayTabPaneIndex(indexValue)) {
+        if (!isValidDetailsTabPaneIndex(indexValue)) {
             throw new IndexOutOfBoundsException("Tab value is invalid");
         }
         detailsTabPaneIndex.setValue(indexValue);
