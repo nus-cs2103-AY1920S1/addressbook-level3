@@ -24,8 +24,8 @@ import javafx.scene.text.Font;
 public class CalendarPanel extends UiPart<Region> {
 
     private static final String FXML = "CalendarPanel.fxml";
-    private static final String[] DAYS = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
-        "Friday", "Saturday"};
+    private static final String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu",
+        "Fri", "Sat"};
     private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"};
     private static final int[] DAYS_IN_MONTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -40,7 +40,10 @@ public class CalendarPanel extends UiPart<Region> {
 
 
     @FXML
-    private Label currDateMessage;
+    private Label currYear;
+
+    @FXML
+    private Label currDayAndDate;
 
     @FXML
     private Label selectedDateMessage;
@@ -64,8 +67,14 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     private void setButtonImage() {
-        prevButton.setGraphic(new ImageView(leftIcon));
-        nextButton.setGraphic(new ImageView(rightIcon));
+        ImageView leftArrow = new ImageView(leftIcon);
+        leftArrow.setFitHeight(32);
+        leftArrow.setFitWidth(32);
+        ImageView rightArrow = new ImageView(rightIcon);
+        rightArrow.setFitHeight(32);
+        rightArrow.setFitWidth(32);
+        prevButton.setGraphic(leftArrow);
+        nextButton.setGraphic(rightArrow);
         prevButton.setText("");
         nextButton.setText("");
     }
@@ -86,7 +95,8 @@ public class CalendarPanel extends UiPart<Region> {
     private void setCurrentDateTitle() {
         String day = DAYS[dayOfWeek - 1];
         String currMonth = MONTHS[month];
-        currDateMessage.setText(day + ", " + currMonth + " " + dayOfMonth + ", " + year);
+        currYear.setText("" + year);
+        currDayAndDate.setText(day + ", " + currMonth + " " + dayOfMonth);
     }
 
     /**

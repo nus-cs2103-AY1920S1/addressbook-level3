@@ -27,7 +27,8 @@
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-prompt-text-fill: #f5f5f5;
+    -fx-prompt-text-fill: #e0e0e0;
+    -fx-text-fill: #ffffff;
 }
 
 .tab-pane {
@@ -109,12 +110,12 @@
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #dff9fb;
 }
 
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #ffffff;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
 }
 
 .list-cell .label {
@@ -225,7 +226,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #dff9fb;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -233,13 +234,13 @@
     -fx-text-fill: #1d1d1d;
 }
 
-.button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
+/*.button:focused {*/
+/*    -fx-border-color: white, white;*/
+/*    -fx-border-width: 1, 1;*/
+/*    -fx-border-style: solid, segments(1, 1);*/
+/*    -fx-border-radius: 0, 0;*/
+/*    -fx-border-insets: 1 1 1 1, 0;*/
+/*}*/
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
