@@ -124,13 +124,51 @@ public class Quiz {
     }
 
     /**
-     * Returns a String representation of a quiz's questions and answers.
-     * @return The String representation of the quiz's questions and answers.
+     * Returns a String representation of a quiz's questions.
+     * @return The String representation of the quiz's questions.
      */
-    public String getQuestionsAndAnswers() {
-        String questions = getFormattedQuestions();
-        String answers = getFormattedAnswers();
-        return questions + answers;
+    public String getQuestionsForExport() {
+        ArrayList<Question> questions = questionList.getQuestions();
+        String formattedQuestions = "<!DOCTYPE html>\n<html>\n<body>\n" + "<center><h2> ";
+        formattedQuestions += quizId + "</h2></center>\n";
+
+        int listSize = questions.size();
+        for (int i = 0; i < listSize; i++) {
+            int questionNumber = i + 1;
+            Question question = questions.get(i);
+            String questionText = question.getQuestion();
+            formattedQuestions += "<font size=\"5\">" + questionNumber + ". " + questionText + "</font>\n";
+
+            if (isMcqQuestion(question)) {
+                McqQuestion mcqQuestion = (McqQuestion) question;
+                String optionA = mcqQuestion.getOptionA();
+                String optionB = mcqQuestion.getOptionB();
+                String optionC = mcqQuestion.getOptionC();
+                String optionD = mcqQuestion.getOptionD();
+                formattedQuestions += "<br><br>\n";
+                formattedQuestions += "<font size=\"4\">A) " + optionA
+                                        + "</font><input type=\"radio\" name =" + "\"" + questionText
+                                        + "\" value=\"" + optionA + "\"><br>\n";
+                formattedQuestions += "<font size=\"4\">B) " + optionB
+                                        + "</font><input type=\"radio\" name =" + "\"" + questionText
+                                        + "\" value=\"" + optionB + "\"><br>\n";
+                formattedQuestions += "<font size=\"4\">C) " + optionC
+                                        + "</font><input type=\"radio\" name =" + "\"" + questionText
+                                        + "\" value=\"" + optionC + "\"><br>\n";
+                formattedQuestions += "<font size=\"4\">D) " + optionD
+                                        + "</font><input type=\"radio\" name =" + "\"" + questionText
+                                        + "\" value=\"" + optionD + "\"><br><br>\n";
+            } else {
+                formattedQuestions += "<form>\n"
+                        + "  <br><font size=\"4\">Answer:</font>"
+                        + " <input type=\"text\" name=\"answer\" size=\"100\"><br><br>\n"
+                        + "</form>";
+            }
+        }
+
+        formattedQuestions += "</body>\n" + "</html>";
+
+        return formattedQuestions;
     }
 
     /**

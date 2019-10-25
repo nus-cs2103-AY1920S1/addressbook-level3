@@ -3,15 +3,19 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import org.apache.commons.math3.util.Pair;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -34,7 +38,6 @@ import seedu.address.model.statistics.StatisticsRecord;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
-
 
 /**
  * Represents the in-memory model of the address book data.
@@ -411,13 +414,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeQuizQuestion(String quizId, int questionNumber) {
-        savedQuizzes.removeQuizQuestion(quizId, questionNumber);
+    public boolean removeQuizQuestion(String quizId, int questionNumber) {
+        return savedQuizzes.removeQuizQuestion(quizId, questionNumber);
     }
 
     @Override
     public String getQuestionsAndAnswers(String quizId) {
         return savedQuizzes.getQuestionsAndAnswers(quizId);
+    }
+
+    @Override
+    public boolean exportQuiz(String quizId) throws IOException {
+        return savedQuizzes.exportQuiz(quizId);
     }
 
     //endregion
@@ -543,6 +551,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public VEvent getVEvent(Index index) {
+        return eventRecord.getVEvent(index);
+    }
+
+    @Override
     public void deleteVEvent(VEvent vEvent) {
         eventRecord.deleteVEvent(vEvent);
     }
@@ -559,6 +572,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setVEvent(Index index, VEvent editedVEvent) {
+        requireAllNonNull(index, editedVEvent);
+        eventRecord.setVEvent(index, editedVEvent);
+    }
+
+    @Override
     public String getVEventSummary() {
         return eventRecord.getVEventSummary();
     }
@@ -567,6 +586,16 @@ public class ModelManager implements Model {
     public ObservableList<VEvent> getVEventList() {
         return eventRecord.getVEventList();
     }
+
+    @Override
+    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
+        return eventRecord.findVEventsIndex(desiredEventName);
+    }
+
+    @Override
+    public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
+        return eventRecord.findMostSimilarVEvent(desiredEventName);
+    };
     //endregion
 
     @Override

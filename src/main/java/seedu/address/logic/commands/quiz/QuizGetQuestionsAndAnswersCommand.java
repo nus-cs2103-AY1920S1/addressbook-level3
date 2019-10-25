@@ -5,7 +5,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Represents an add question command, specific to a quiz.
+ * Represents a list command, specific to a quiz.
  */
 public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
 

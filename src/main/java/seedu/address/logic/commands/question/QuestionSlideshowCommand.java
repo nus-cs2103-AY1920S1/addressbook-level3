@@ -32,6 +32,6 @@ public class QuestionSlideshowCommand extends QuestionCommand {
     public CommandResult execute(Model model) throws CommandException {
         model.setSlideshowQuestions(questionIndexes);
         return new CommandResult("Starting slideshow.", false,
-                true, false, false, false);
+                true, false, false, false, false);
     }
 }

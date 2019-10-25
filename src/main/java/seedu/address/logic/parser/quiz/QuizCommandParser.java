@@ -2,6 +2,9 @@ package seedu.address.logic.parser.quiz;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE_AUTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE_MANUAL;
@@ -19,6 +22,7 @@ import seedu.address.logic.commands.quiz.QuizAddQuestionCommand;
 import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.quiz.QuizCreateAutomaticallyCommand;
 import seedu.address.logic.commands.quiz.QuizCreateManuallyCommand;
+import seedu.address.logic.commands.quiz.QuizExportCommand;
 import seedu.address.logic.commands.quiz.QuizGetQuestionsAndAnswersCommand;
 import seedu.address.logic.commands.quiz.QuizRemoveQuestionCommand;
 
@@ -43,9 +47,9 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer
-                .tokenize(args, PREFIX_QUIZ, PREFIX_MODE_AUTO, PREFIX_MODE_MANUAL,
+                .tokenize(args, PREFIX_ADD, PREFIX_DELETE, PREFIX_QUIZ, PREFIX_MODE_AUTO, PREFIX_MODE_MANUAL,
                         PREFIX_QUIZ_ID, PREFIX_NUM_QUESTIONS, PREFIX_QUESTION_NUMBER,
-                        PREFIX_QUIZ_QUESTION_NUMBER, PREFIX_TYPE, PREFIX_LIST);
+                        PREFIX_EXPORT, PREFIX_QUIZ_QUESTION_NUMBER, PREFIX_TYPE, PREFIX_LIST);
 
         if (argMultimap.getValue(PREFIX_MODE_AUTO).isPresent()) { // Create auto command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_NUM_QUESTIONS, PREFIX_TYPE)
@@ -73,7 +77,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             fields.put("questionNumbers", argMultimap.getValue(PREFIX_QUESTION_NUMBER).orElse(""));
 
             return new QuizCreateManuallyCommand(fields);
-        } else if (argMultimap.getValue(PREFIX_QUESTION_NUMBER).isPresent()) { // Add command
+        } else if (argMultimap.getValue(PREFIX_ADD).isPresent()) { // Add command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUIZ_QUESTION_NUMBER)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(
@@ -86,7 +90,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
 
             return new QuizAddQuestionCommand(quizId, questionNumber, quizQuestionNumber);
-        } else if (argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).isPresent()) { // Remove command
+        } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Remove command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(
@@ -98,6 +102,16 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
 
             return new QuizRemoveQuestionCommand(quizId, quizQuestionNumber);
+        } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { // Export command
+            if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(
+                        String
+                                .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizExportCommand.MESSAGE_USAGE));
+            }
+
+            String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
+            return new QuizExportCommand(quizId);
         } else { // List command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
