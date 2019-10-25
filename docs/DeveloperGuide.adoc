@@ -403,7 +403,7 @@ Order manager follows the AB3 style and implements its own 'Model', 'Command' an
 
 **Add command:** `-add_order`
 
-The add command adds an order to the `ModelManager` and `UniqueOrderList`. The `UniversalParser` invokes `AddOrderCommandParser#parse()`, which parses the target **customer**, **restaurant**, **food** and **quantity** from a *String* into *Name* and *Integer* objects. 
+The add command adds an order to the `ModelManager` and `UniqueOrderList`. The `UniversalParser` invokes `AddOrderCommandParser#parse()`, which parses the target **customer**, **restaurant**, **food** and **quantity** from a *String* into *Name* and *Integer* objects.
 
 Only valid **customer**, **restaurant**, **food** and **quantity** are allowed. This validation is done through accessing `UniqueCustomerList` and `UniqueRestaurantList` through `ModelManager#getFilteredCustomerList()`, `ModelManager#getFilteredRestaurantList()` and calling their respective `isValidName()` methods. **Food** validity will be checked through retrieving the respective using `Restaurant#getMenu()` and `Menu#isValidName()`.
 
