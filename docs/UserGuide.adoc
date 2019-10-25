@@ -18,7 +18,7 @@ By: `Team AY1920S1-CS2103-T12-2`   Since: `Sept 2019`  Licence: `NUS`
 
 == Introduction
 
-*DeliveryMANs* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANs* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
+*DeliveryMANS* is a command-line application designed specifically for delivery centre administrators who are in charge of food delivery service. It encompasses a well-structured system for users to keep track and manage the entire delivery process. It facilitates food delivery service by coaliasing the delivery men, customers and restaurant menu. From auto-assigning deliverymen for deliveries when orders are made, to viewing statistics of the most popular dish of restaurants as well as customer ordering trends for further promotions, financial and business management decisions, *DeliveryMANS* is everything you need to help improve managing deliveries. With just a few simple commands, this delivery manager can help to kickstart your delivery service.
 
 Get started with <<Quick Start>> and begin managing your deliveries today!
 
@@ -26,7 +26,7 @@ Get started with <<Quick Start>> and begin managing your deliveries today!
 
 Ensure you have Java 11 or above installed on your computer.
 
-Click https://github.com/AY1920S1-CS2103T-T12-2/main/releases[here] to download the JAR file for *DeliveryMANs*.
+Click https://github.com/AY1920S1-CS2103T-T12-2/main/releases[here] to download the JAR file for *DeliveryMANS*.
 
 Open the application to begin. Refer to <<Features>> for details of each command.
 
@@ -35,7 +35,7 @@ Open the application to begin. Refer to <<Features>> for details of each command
 [[Features]]
 == Features
 
-In *DeliveryMANs*, there are 2 types of commands: universal commands and context-specific commands.
+In *DeliveryMANS*, there are 2 types of commands: universal commands and context-specific commands.
 
 Universal commands can be used anywhere throughout the application. You can identify universal commands by its "-" convention followed by a keyword e.g. `-help`.
 
@@ -170,7 +170,7 @@ After performing `redo`, the result pane will show:
 Successfully redid: (your previous command here)
 
 ==== Exiting program `-exit`
-This comamnd exits the program.
+This command exits the program.
 
 Format: `-exit`
 
@@ -179,9 +179,9 @@ Format: `-exit`
 
 === Customer commands
 
-These are commands pertaining to customer context of *DeliveryMANs*. The screenshot below shows how the customer context will look like in *DeliveryMANs*.
+These are commands pertaining to customer context of *DeliveryMANS*. The screenshot below shows how the customer context will look like in *DeliveryMANS*.
 
- screenshot of finalised DeliveryMANs showing customer list goes here
+ screenshot of finalised DeliveryMANS showing customer list goes here
 
 This is a customer and its information.
 
@@ -275,40 +275,43 @@ Example: `remove 1`
 
 === Deliverymen commands
 
-Commands in the delivery men context
+These are the commands you can use after entering the deliverymen context (via the command `deliverymen`).
 
 ==== Adding a deliveryman: `add`
 
-This command adds a new deliveryman to the deliverymen database. Name and phone number are necessary to a deliveryman.
+This command allows you to add a new deliveryman to the deliverymen database. Name and phone number are compulsory fields.
 
-Format: `add n/NAME p/PHONE [t/TAG]...`
+Format: `add n/NAME p/PHONE`
 
-> `add n/John Doe p/91234567  `
+Example: `add n/John Doe p/91234567`
 
 ==== Editing a deliveryman: `edit`
 
-This command edits an existing deliveryman in the deliverymen database.
-Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+This command allows you to edit an existing deliveryman in the deliverymen database. You must edit at least one field (eg. name, phone number).
 
-> `edit 1 n/John Hoe p/97654321 t/Indian`
+Format: `edit INDEX [n/NAME] [p/PHONE]`
+
+Example: `edit 1 n/John Hoe p/97654321`
 
 ==== Deleting a deliveryman: `delete`
 
-This command deletes an existing deliveryman in the deliverymen database. The index of a deliveryman needs to be provided.
+This command allows you to delete an existing deliveryman in the deliverymen database. You only have to provide the index of the deliveryman.
 
 Format: `delete INDEX`
 
-> `delete 1`
+Example: `delete 1`
 
 ==== Listing available deliverymen
 
-This command lists all available deliverymen
+This command allows you to view all the deliverymen who are available for delivery (ie. ready to be assigned food orders).
 
 Format: `lista`
 
+Example: `lista`
+
 ==== Entering a specific deliveryman
 
-This command shows a deliveryman's basic info
+This command allows you to view a deliveryman's basic information.
 
 Format: `list NAME`
 
@@ -316,15 +319,19 @@ Example: `list Stanley Tay`
 
 ==== Assigning order to a deliveryman
 
-This command assigns an order to an available deliveryman
+This command allows you to manually assign an order to an available deliveryman.
+
+NOTE: Auto-assignment of orders is enabled by default. Should you wish to manually assign an order, this command can be used.
 
 Format: `assn NAME #ORDERINDEX`
 
 Example: `assn Stanley Tay #12`
 
-====  Obtains a list of deliverymen eligible for pay rise
+==== Obtaining a list of deliverymen eligible for pay rise
 
-This command displays a list of deliverymen who met the pre-determined requirements for a pay rise.
+This command allows you to view a list of deliverymen who have met the pre-determined requirements for a pay rise.
+
+NOTE:  The pre-determined requirements are based on two factors: *delivery rate* and *time in database* of the deliveryman.
 
 Format: `payrise`
 
