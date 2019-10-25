@@ -89,7 +89,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/mark/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookmarkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
 
 The structure of the `TabView` is depicted here:
 
@@ -258,8 +258,8 @@ The `redo` command does the opposite -- it calls `Model#redoMark()`, which shift
 pointing to the previously undone state record, and restores the Mark to that state.
 
 [NOTE]
-If the `currentPointer` is at index `markStateRecords.size() - 1`, pointing to the latest address book state, then there
-are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is
+If the `currentPointer` is at index `markStateRecords.size() - 1`, pointing to the latest Mark state, then there
+are no undone Mark states to restore. The `redo` command uses `Model#canRedoMark()` to check if this is
 the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the Mark, such as `find`, will
@@ -1114,15 +1114,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a bookmark
 
-. Deleting a person while all persons are listed
+. Deleting a bookmark while all bookmarks are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No bookmark is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
