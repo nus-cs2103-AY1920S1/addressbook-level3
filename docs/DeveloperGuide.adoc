@@ -153,6 +153,78 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Training & Attendance feature
+
+To facilitate management of training sessions, the `Model` stores the `Attendance` of training sessions.
+
+image::attendance_class_diagram.png[]
+
+==== Attendance
+
+The attendance of players is managed using an `Attendance` class.
+`Attendance` contains a list of training sessions as it is used to calculate the attendance rate of an individual by looking at all trainings.
+Whenever a training is added, the model adds this training to the `Attendance` using a `TrainingCommand`.
+
+==== Training
+
+The Training class contains a date, as well as a HashMap.
+The date in the training class represents the date of training session and the HashMap is used to check the attendance of a Person.
+
+We used a `DateTime` class to represent a date of training.
+This class is shared across both the `Ui` and backend, allowing us to port training data into the `view calendar` function.
+
+The HashMap uses `Person` objects as keys and a boolean as it’s value.
+This is used to check whether a `Person` has attended a training session, indicated by the boolean value attached to a `Person` key.
+If a `Person` attended a training session on that day, the value associated with the key will be true, and false if he did not attend.
+There were a few design considerations we had in mind for checking attendance of a `Person` but we ultimately decided that using a HashMap was the best solution due to the following requirements:
+
+* Our application allows us to check for the attendance rate of a `Person`. As such, we needed to track both trainings attended and trainings missed.
+* As a person could be added into the team after some trainings have taken place,
+using trainings attended / total trainings would not give an accurate reflection of a `Person` 's training attendance.
+
+Also, our `select` function shows attendance rate of a `Person` and a HashMap provides the fastest access time to check whether a `Person` attended a training session.
+
+=== Filter feature
+
+The filter command enables filtering of athletes based on their tags.
+Currently, only filtering by one tag is supported.
+Filtering by multiple tags will be available by `v1.2`.
+
+==== Implementation
+
+Filter makes use of a `TagMatchesPredicate` class to determine if the athlete has tags matching the user input.
+Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
+
+image::filter_sequence_diagram.png[]
+
+Once filtering by multiple tags is implemented, the parsing of tag from `AddressBookParser` to `FilterCommandParser` will involve splitting them by spaces and storing the tag queries in a list.
+Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
+
+However, since currently only filtering by one tag is supported,
+the parsing of tag simply involves trimming the tag of white spaces.
+
+Finally, the list shown to the user is updated through `Model#updateFilteredPersonsList()`.
+
+==== Design Considerations
+
+===== Aspect: How a tag match is determined
+
+* **Alternative 1 (current choice):** Case-insensitive.
+** Pros: More user-friendly.
+** Cons: Requires converting tags to lower-case on the back-end.
+* **Alternative 2:** Case-sensitive.
+** Pros: Allows for more accurate filtering.
+** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
+
+===== Aspect: How matches for multiple tags are determined
+
+* **Alternative 1:** Exclusive matching.
+** Pros: Allows for more accurate filtering.
+** Cons: Users get fewer filter results.
+* **Alternative 2:** Optional matching.
+** Pros: Allows for more flexible searching.
+** Cons: Users may get results that they are not interested in.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -319,8 +391,10 @@ _{More to be added}_
 [discrete]
 === System: Athletick
 
-=== Use case: UC1 - Marking attendance of players
-=== Actor: User
+[discrete]
+=== UC1 - Marking attendance of players
+
+Actor: User
 
 *MSS*
 
@@ -346,8 +420,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC2 - Delete person
-=== Actor: User
+=== UC2 - Delete person
+
+Actor: User
 
 *MSS*
 
@@ -373,8 +448,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC3 - Key in Performance of a Player
-=== Actor: User
+=== UC3 - Key in Performance of a Player
+Actor: User
 
 *MSS*
 
@@ -408,8 +483,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC4 - View a player’s profile
-=== Actor: User
+=== UC4 - View a player’s profile
+
+Actor: User
 
 *MSS*
 
@@ -436,8 +512,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC5 - Add a person
-=== Actor: User
+=== UC5 - Add a person
+
+Actor: User
 
 *MSS*
 
@@ -448,7 +525,6 @@ Use case ends.
 
 *Extensions*
 
-[none]
 * 1a. Details are invalid (eg. not all fields are filled up)
 +
 [none]
@@ -466,8 +542,9 @@ Use case ends.
 [discrete]
 
 [discrete]
-=== Use case: UC6 - Undo a command
-=== Actor: User
+=== UC6 - Undo a command
+
+Actor: User
 
 *MSS*
 
@@ -478,8 +555,6 @@ Use case ends.
 
 *Extensions*
 
-
-[none]
 * 1a. There are no tasks to be undone.
 +
 [none]
@@ -491,26 +566,13 @@ Use case ends
 +
 [none]
 ** 1b1. Athletick shows the most recent command that can be undone and undo
-
-[none]
-* 1a. There are no tasks to be undone.
-+
-[none]
-** Athletick shows an error message
-+
-Use case ends.
-
-* 1b. The most recent command cannot be undone
-+
-[none]
-** 1b1. Athletick shows the most recent command that can be undone and undo
 +
 Use case ends.
 
 [discrete]
+=== UC7 - Redo a command
 
-=== Use Case: UC7 - Redo a command
-=== Actor: User
+Actor: User
 
 *MSS*
 
@@ -529,16 +591,12 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
