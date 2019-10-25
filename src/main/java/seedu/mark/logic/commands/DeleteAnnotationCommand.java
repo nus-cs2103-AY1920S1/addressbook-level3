@@ -23,7 +23,7 @@ import seedu.mark.storage.Storage;
  * Deletes a whole or part of an {@code Annotation} from a {@code Paragraph}.
  * By default, the {@code Highlight} and {@code AnnotationNote} of the {@code Annotation} is retained.
  */
-public class DeleteAnnotationCommand extends Command {
+public class DeleteAnnotationCommand extends AnnotationCommand {
 
 
     public static final String COMMAND_WORD = "annotatedelete";
@@ -51,53 +51,14 @@ public class DeleteAnnotationCommand extends Command {
     public static final String MESSAGE_DEFAULT = "Successfully kept your note and highlight.";
 
 
-    private final Index index;
-    private final ParagraphIdentifier pid;
     private final boolean isRemoveNote;
     private final boolean isRemoveHighlight;
 
     public DeleteAnnotationCommand(Index index, ParagraphIdentifier pid,
                                    boolean isRemoveNote, boolean isRemoveHighlight) {
-        requireNonNull(index);
-        requireNonNull(pid);
-
-        this.index = index;
-        this.pid = pid;
+        super(index, pid);
         this.isRemoveHighlight = isRemoveHighlight;
         this.isRemoveNote = isRemoveNote;
-    }
-
-    public OfflineDocument getRequiredDoc(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Bookmark> lastShownList = model.getFilteredBookmarkList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
-        }
-
-        Bookmark bookmarkOwnerOfCache = lastShownList.get(index.getZeroBased());
-        List<CachedCopy> caches = bookmarkOwnerOfCache.getCachedCopies();
-        if (caches.isEmpty()) {
-            //TODO: maybe - create cache if it dne so they can annotate immediately. (then need to change ug and dg too)
-            throw new CommandException(MESSAGE_NO_CACHE_AVAILABLE);
-        }
-
-        //TODO: pick out the appropriate cache. (change ug; default version on newwest cache; but can access others too)
-        CachedCopy c = caches.get(0);
-
-        return c.getAnnotations();
-    }
-
-    public boolean isRemoveNote() {
-        return isRemoveNote;
-    }
-
-    public boolean isRemoveHighlight() {
-        return isRemoveHighlight;
-    }
-
-    public ParagraphIdentifier getPid() {
-        return pid;
     }
 
     @Override
@@ -111,8 +72,8 @@ public class DeleteAnnotationCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteAnnotationCommand // instanceof handles nulls
-                && index.equals(((DeleteAnnotationCommand) other).index)
-                && pid.equals(((DeleteAnnotationCommand) other).pid)
+                && getBookmarkIndex().equals(((DeleteAnnotationCommand) other).getBookmarkIndex())
+                && getPid().equals(((DeleteAnnotationCommand) other).getPid())
                 && this.isRemoveNote == ((DeleteAnnotationCommand) other).isRemoveNote
                 && this.isRemoveHighlight == ((DeleteAnnotationCommand) other).isRemoveHighlight); // state check
     }
