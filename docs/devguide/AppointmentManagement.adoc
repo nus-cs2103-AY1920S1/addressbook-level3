@@ -1,4 +1,3 @@
-=== Proposed Implementation
 The appointment class extends NurseTraverse with the following functionalities:
 
 * Lists all appointments nurses have scheduled, including reference to patient details, appointment time, date, and duration, medication to be carried for each appointment, and additional details associated with the appointment.
