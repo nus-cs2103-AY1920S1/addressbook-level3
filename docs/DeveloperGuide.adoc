@@ -1,4 +1,4 @@
-= Moolah Level 3 - Developer Guide
+= MooLah - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T11-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -706,14 +706,13 @@ At the moment, mass deletion and selection of text (e.g. Ctrl/Cmd+A > Backspace)
 two textarea.
 
 ===== Future Implementation (Coming in v2.0)
-Moolah v2.0 should support better real time parsing of input and support validation of input without requiring the user
+MooLah v2.0 should support better real time parsing of input and support validation of input without requiring the user
 to enter the command as well as a more functional input field.
 
 
 // end::SyntaxAutofill[]
 
 
->>>>>>> b0c4666f38acaeadcb6dd43f2515a6f6dfae140f
 // category::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -920,7 +919,7 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User requests to see reminders.
-2.  Moolah shows a list of reminders.
+2.  MooLah shows a list of reminders.
 +
 Use case ends.
 
