@@ -28,8 +28,7 @@ public class JsonAdaptedRestaurant {
 
     private final String name;
     private final String location;
-    private final String rating;
-
+    private final JsonAdaptedRating rating;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedFood> menu = new ArrayList<>();
     //private final List<JsonAdaptedOrder> order = new ArrayList<>();
@@ -39,7 +38,7 @@ public class JsonAdaptedRestaurant {
      */
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("location") String location,
-                             @JsonProperty("rating") String rating,
+                             @JsonProperty("rating") JsonAdaptedRating rating,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                              @JsonProperty("menu") List<JsonAdaptedFood> menu) {
         this.name = name;
@@ -59,7 +58,7 @@ public class JsonAdaptedRestaurant {
     public JsonAdaptedRestaurant(Restaurant source) {
         name = source.getName().fullName;
         location = source.getLocation().name;
-        rating = source.getRating().rating;
+        rating = new JsonAdaptedRating(source.getRating());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -105,11 +104,8 @@ public class JsonAdaptedRestaurant {
         if (rating == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName()));
         }
-        if (!Rating.isValidRating(rating)) {
-            throw new IllegalValueException(Rating.MESSAGE_CONSTRAINTS);
-        }
-        final Rating modelRating = new Rating(rating);
 
+        final Rating modelRating = rating.toModelType();
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
         final ObservableList<Food> modelMenu = FXCollections.observableArrayList();
         modelMenu.addAll(restaurantMenu);

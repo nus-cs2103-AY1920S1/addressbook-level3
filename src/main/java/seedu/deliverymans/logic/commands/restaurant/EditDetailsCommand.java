@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.util.CollectionUtil;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
@@ -18,6 +19,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
+import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -84,8 +86,9 @@ public class EditDetailsCommand extends Command {
         Name updatedName = editRestaurantDescriptor.getName().orElse(restaurantToEdit.getName());
         Location updatedLocation = editRestaurantDescriptor.getLocation().orElse(restaurantToEdit.getLocation());
         Set<Tag> updatedTags = editRestaurantDescriptor.getTags().orElse(restaurantToEdit.getTags());
+        ObservableList<Food> originalMenu = restaurantToEdit.getMenu();
 
-        return new Restaurant(updatedName, updatedLocation, updatedTags);
+        return new Restaurant(updatedName, updatedLocation, updatedTags, originalMenu);
     }
 
     /**

@@ -38,7 +38,7 @@ public class AddFoodCommand extends Command {
     private final Food toAdd;
 
     /**
-     * Creates a FoodCommand to add the specified {@code Food}
+     * Creates a AddFoodCommand to add the specified {@code Food}
      */
     public AddFoodCommand(Food food) {
         requireNonNull(food);

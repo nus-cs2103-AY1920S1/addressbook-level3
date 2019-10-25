@@ -1,7 +1,8 @@
 package seedu.deliverymans.model.restaurant;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents a Rating
@@ -12,7 +13,7 @@ public class Rating {
             "Rating should be an integer from 0 to 5";
     public static final String VALIDATION_REGEX = "\\d{1}";
 
-    public final String numberOfRatings;
+    public final int numberOfRatings;
     public final String rating;
 
     /**
@@ -22,9 +23,8 @@ public class Rating {
      */
     public Rating(String rating) {
         requireNonNull(rating);
-        checkArgument(isValidRating(rating), MESSAGE_CONSTRAINTS);
         this.rating = rating;
-        this.numberOfRatings = "0";
+        this.numberOfRatings = 1;
     }
 
     /**
@@ -33,9 +33,8 @@ public class Rating {
      * @param rating A valid rating
      * @param numberOfRatings
      */
-    public Rating(String rating, String numberOfRatings) {
-        requireNonNull(rating, numberOfRatings);
-        checkArgument(isValidRating(rating), MESSAGE_CONSTRAINTS);
+    public Rating(String rating, int numberOfRatings) {
+        requireNonNull(rating);
         this.rating = rating;
         this.numberOfRatings = numberOfRatings;
     }
@@ -61,18 +60,23 @@ public class Rating {
 
     @Override
     public String toString() {
-        return rating;
+        if (numberOfRatings == 0) {
+            return "0";
+        } else {
+            return String.format("%.1f", getRatingValue(rating) / numberOfRatings);
+        }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Rating // instanceof handles nulls
-                && rating.equals(((Rating) other).rating)); // state check
+                && rating.equals(((Rating) other).rating)
+                && numberOfRatings == ((Rating) other).numberOfRatings); // state check
     }
 
     @Override
     public int hashCode() {
-        return rating.hashCode();
+        return Objects.hash(rating, numberOfRatings);
     }
 }
