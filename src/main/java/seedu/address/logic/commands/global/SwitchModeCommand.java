@@ -1,9 +1,12 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.global;
 
 import java.util.Optional;
 
 import seedu.address.logic.FunctionMode;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.Model;
 
 /**
@@ -48,8 +51,8 @@ public class SwitchModeCommand extends Command {
             feedBackString = null; // To be re-implemented
             LogicManager.setMode(FunctionMode.UNDEFINED);
         }
-        return new CommandResult(feedBackString, false, false, true,
-                Optional.of(targetMode), Optional.empty(), Optional.empty(), Optional.empty());
+        return new GlobalCommandResult(feedBackString, false, false, true,
+                Optional.of(targetMode));
     }
 
     public FunctionMode getTargetMode() {

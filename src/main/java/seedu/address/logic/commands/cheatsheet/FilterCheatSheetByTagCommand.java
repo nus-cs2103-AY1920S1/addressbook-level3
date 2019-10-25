@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
@@ -66,7 +67,8 @@ public class FilterCheatSheetByTagCommand extends Command {
             sb.append(cs);
             sb.append("\n");
         }
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
+
+        return new CheatSheetCommandResult(FILTER_TAG_MESSAGE_SUCCESS
                 + "\n" + showTagQueries()
                 + "\n" + sb.toString());
     }

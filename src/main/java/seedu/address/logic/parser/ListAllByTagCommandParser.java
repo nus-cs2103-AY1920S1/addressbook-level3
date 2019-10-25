@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.ArrayList;
 import java.util.Set;
 
-import seedu.address.logic.commands.FilterAllByTagCommand;
+import seedu.address.logic.commands.global.FilterAllByTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
 import seedu.address.model.tag.Tag;

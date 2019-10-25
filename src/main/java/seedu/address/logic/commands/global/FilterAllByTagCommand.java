@@ -1,10 +1,13 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.global;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.FILTER_ALL;
 
 import java.util.ArrayList;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
@@ -75,7 +78,8 @@ public class FilterAllByTagCommand extends Command {
             sb.append(sbi.toString());
             sb.append("\n");
         }
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
+
+        return new GlobalCommandResult(FILTER_TAG_MESSAGE_SUCCESS
                 + "\n" + showTagQueries()
                 + "\n" + sb.toString());
     }

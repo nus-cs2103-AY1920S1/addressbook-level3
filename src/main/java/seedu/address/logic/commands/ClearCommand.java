@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
@@ -18,6 +19,6 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new GlobalCommandResult(MESSAGE_SUCCESS);
     }
 }
