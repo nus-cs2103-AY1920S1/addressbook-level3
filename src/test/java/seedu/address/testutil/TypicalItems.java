@@ -25,22 +25,24 @@ import seedu.address.model.ItemStorage;
 public class TypicalItems {
 
     public static final Item HOMEWORK = new TestItemBuilder().withDescription("Do all homework")
-            .withEvent("2018-12-30T19:34:50.63", null, null)
+            .withEvent("2018-12-30T19:34:50.63", null)
             .withReminder("2018-12-29T19:34:50.63")
             .build();
 
     public static final Item EXAM = new TestItemBuilder().withDescription("Final Exam")
-            .withEvent("2019-10-30T12:00", null, null)
+            .withEvent("2019-10-30T12:00", null)
             .withReminder("2019-10-29T12:00")
             .build();
 
     // Manually added - Item's detail found in {@code CommandTestUtil}
     public static final Item ITEM_1 = new TestItemBuilder().withDescription(VALID_DESCRIPTION_1)
-                .withEvent(VALID_EVENT_1, VALID_DURATION_NULL, VALID_PRIORITY_HIGH)
+                .withPriority(VALID_PRIORITY_HIGH)
+                .withEvent(VALID_EVENT_1, VALID_DURATION_NULL)
                 .withReminder(VALID_REMINDER_1)
                 .withTags(VALID_TAG_1).build();
     public static final Item ITEM_2 = new TestItemBuilder().withDescription(VALID_DESCRIPTION_2)
-            .withEvent(VALID_EVENT_2, VALID_DURATION_NULL, VALID_PRIORITY_LOW)
+            .withPriority(VALID_PRIORITY_LOW)
+            .withEvent(VALID_EVENT_2, VALID_DURATION_NULL)
             .withReminder(VALID_REMINDER_2)
             .withTags(VALID_TAG_2).build();
 

@@ -31,18 +31,25 @@ public class Item {
     // Data fields
     private final ItemDescription itemDescription;
     private final Set<Tag> tags = new HashSet<>();
+    private final Priority priority;
 
     /**
-     * Every field must be present and not null.
+     * @param priority A Priority of the event. Defaults to Priority.MEDIUM if null.
      */
     private Item(Task task, Event event, Reminder reminder,
-                 ItemDescription itemDescription, Set<Tag> tags) {
+                 ItemDescription itemDescription, Set<Tag> tags, Priority priority) {
         requireNonNull(itemDescription);
         this.task = task;
         this.event = event;
         this.reminder = reminder;
         this.itemDescription = itemDescription;
         this.tags.addAll(tags);
+
+        if (priority != null) {
+            this.priority = priority;
+        } else {
+            this.priority = Priority.MEDIUM;
+        }
     }
 
     public boolean hasTask() {
@@ -81,6 +88,10 @@ public class Item {
         }
     }
 
+    public Priority getPriority() {
+        return priority;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -102,6 +113,7 @@ public class Item {
                 .setEvent(event)
                 .setReminder(reminder)
                 .setTags(tags)
+                .setItemPriority(priority)
                 .build();
     }
 
@@ -114,6 +126,7 @@ public class Item {
                 .setEvent(event)
                 .setReminder(reminder)
                 .setTags(tags)
+                .setItemPriority(priority)
                 .build();
     }
 
@@ -126,6 +139,7 @@ public class Item {
                 .setEvent(newEvent)
                 .setReminder(reminder)
                 .setTags(tags)
+                .setItemPriority(priority)
                 .build();
     }
 
@@ -138,6 +152,7 @@ public class Item {
                 .setEvent(event)
                 .setReminder(newReminder)
                 .setTags(tags)
+                .setItemPriority(priority)
                 .build();
     }
 
@@ -150,6 +165,22 @@ public class Item {
                 .setEvent(event)
                 .setReminder(reminder)
                 .setTags(newTags)
+                .setItemPriority(priority)
+                .build();
+    }
+
+    /**
+     * Changes the priority of the item.
+     * @param newPriority the new priority for the item.
+     * @return new Item with the new priority.
+     */
+    public Item changePriority(Priority newPriority) {
+        return new ItemBuilder().setItemDescription(itemDescription)
+                .setTask(task)
+                .setEvent(event)
+                .setReminder(reminder)
+                .setTags(tags)
+                .setItemPriority(newPriority)
                 .build();
     }
 
@@ -197,13 +228,14 @@ public class Item {
                 && otherItem.getReminder().equals(getReminder())
                 && otherItem.getEvent().equals(getEvent())
                 && otherItem.getItemDescription().equals(getItemDescription())
-                && otherItem.getTags().equals(getTags());
+                && otherItem.getTags().equals(getTags())
+                && otherItem.getPriority().equals(getPriority());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(task, event, reminder, itemDescription, tags);
+        return Objects.hash(task, event, reminder, itemDescription, tags, priority);
     }
 
     @Override
@@ -243,6 +275,9 @@ public class Item {
                 .append("\nReminder! ")
                 .append(getReminder().get().toString());
 
+        builder.append("Priority: ")
+                .append(priority.toString());
+
         return builder.toString();
     }
 
@@ -259,23 +294,23 @@ public class Item {
         // Data fields
         private ItemDescription itemDescription = null;
         private Set<Tag> tags = new HashSet<>();
+        private Priority priority = Priority.MEDIUM;
 
         public ItemBuilder() {}
 
         public ItemBuilder setTask(Task task) {
-            //requireNonNull(task);
             this.task = task;
             return this;
         }
 
         public ItemBuilder setEvent(Event event) {
-            //requireNonNull(event);
+
             this.event = event;
             return this;
         }
 
         public ItemBuilder setReminder(Reminder reminder) {
-            //requireNonNull(reminder);
+
             this.reminder = reminder;
             return this;
         }
@@ -293,13 +328,18 @@ public class Item {
             return this;
         }
 
+        public ItemBuilder setItemPriority(Priority priority) {
+            this.priority = priority;
+            return this;
+        }
+
         /**Validates arguments of Item before initialising it
          *
          * @return A valid Item.
          * @throws IllegalArgumentException If description not provided or task, event and reminder fields are null.
          */
         public Item build() throws IllegalArgumentException {
-            Item newItem = new Item(this.task, this.event, this.reminder, this.itemDescription, this.tags);
+            Item newItem = new Item(task, event, reminder, itemDescription, tags, priority);
 
             //Validation of parameters of object after object has been created.
             //Validate after object has been created as per StackOverflow link
@@ -321,7 +361,8 @@ public class Item {
             event = null;
             reminder = null;
             itemDescription = null;
-            tags = null;
+            tags = new HashSet<>();
+            priority = Priority.MEDIUM;
 
             return newItem;
         }
@@ -351,6 +392,10 @@ public class Item {
         String itemDescriptionString = node.get("itemDescription").toString();
         ItemDescription id = ItemDescription.fromJson(itemDescriptionString);
         temp.setItemDescription(id);
+
+        String priorityString = node.get("priority").asText();
+        Priority newPriority = Priority.fromJson(priorityString);
+        temp.setItemPriority(newPriority);
 
         if (node.hasNonNull("task")) {
             String taskString = node.get("task").toString();

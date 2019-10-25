@@ -79,7 +79,7 @@ public class ParserUtil {
                     + "or \"-d 10.min.later\"");
         }
 
-        Event newEvent = new Event(formattedDateTime, null, null);
+        Event newEvent = new Event(formattedDateTime, null);
 
         return Optional.of(newEvent);
     }

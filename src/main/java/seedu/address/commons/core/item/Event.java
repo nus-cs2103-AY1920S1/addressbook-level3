@@ -24,27 +24,19 @@ public class Event {
     private final LocalDateTime endDateTime;
     //Duration chosen over Period as Events are unlikely to exceed a day.
     private final Duration duration;
-    private final Priority priority;
 
     /**
      * Constructs an {@code Event}.
      *
      * @param startDateTime A valid LocalDateTime object that denotes the start of the event.
      * @param duration A Duration of the event. Defaults to Duration.ZERO if null.
-     * @param priority A Priority of the event. Defaults to Priority.MEDIUM if null.
      */
-    public Event(LocalDateTime startDateTime, Duration duration, Priority priority) throws IllegalArgumentException {
+    public Event(LocalDateTime startDateTime, Duration duration) throws IllegalArgumentException {
         requireNonNull(startDateTime);
         if (duration != null) {
             this.duration = duration;
         } else {
             this.duration = Duration.ZERO;
-        }
-
-        if (priority != null) {
-            this.priority = priority;
-        } else {
-            this.priority = Priority.MEDIUM;
         }
 
         this.startDateTime = startDateTime;
@@ -63,20 +55,12 @@ public class Event {
         return duration;
     }
 
-    public Priority getPriority() {
-        return priority;
-    }
-
     public Event changeStartDateTime(LocalDateTime newStartDateTime) {
-        return new Event(newStartDateTime, getDuration(), getPriority());
+        return new Event(newStartDateTime, getDuration());
     }
 
     public Event changeDuration(Duration newDuration) {
-        return new Event(getStartDateTime(), newDuration, getPriority());
-    }
-
-    public Event changePriority(Priority newPriority) {
-        return new Event(getStartDateTime(), getDuration(), newPriority);
+        return new Event(getStartDateTime(), newDuration);
     }
 
     @Override
@@ -86,10 +70,9 @@ public class Event {
                 .append(getStartDateTime().toString())
                 .append("\nEnd DateTime: ")
                 .append(getEndDateTime().toString())
-                .append("\nDuration: ")
-                .append(getDuration().toString())
-                .append("\nPriority: ")
-                .append(getPriority().toString());
+                .append(" Duration: ")
+                .append(getDuration().toString());
+
         return builder.toString();
     }
 
@@ -106,13 +89,12 @@ public class Event {
         Event otherEvent = (Event) other;
         return otherEvent.getStartDateTime().equals(getStartDateTime())
                 && otherEvent.getEndDateTime().equals(getEndDateTime())
-                && otherEvent.getDuration().equals(getDuration())
-                && otherEvent.getPriority().equals(getPriority());
+                && otherEvent.getDuration().equals(getDuration());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startDateTime, endDateTime, duration, priority);
+        return Objects.hash(startDateTime, endDateTime, duration);
     }
 
     /**
@@ -131,10 +113,7 @@ public class Event {
         String durationString = node.get("duration").asText();
         Duration duration = Duration.parse(durationString);
 
-        String priorityString = node.get("priority").asText();
-        Priority priority = Priority.valueOf(priorityString);
-
-        return new Event(startDateTime, duration, priority);
+        return new Event(startDateTime, duration);
     }
 
 }
