@@ -18,7 +18,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.MultiArgPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 
 /**
@@ -122,7 +122,9 @@ public class CommandTestUtil {
 
         Expense expense = model.getFilteredExpenses().get(targetIndex.getZeroBased());
         final String[] splitName = expense.getName().name.split("\\s+");
-        model.updateFilteredExpenses(new NameContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(Collections.singletonList(splitName[0]));
+        model.updateFilteredExpenses(predicate);
 
         assertEquals(1, model.getFilteredExpenses().size());
     }

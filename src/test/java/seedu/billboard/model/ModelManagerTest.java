@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.MultiArgPredicate;
 import seedu.billboard.testutil.BillboardBuilder;
 
 public class ModelManagerTest {
@@ -230,7 +230,9 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = BILLS.getName().name.split("\\s+");
-        modelManager.updateFilteredExpenses(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(Arrays.asList(keywords));
+        modelManager.updateFilteredExpenses(predicate);
         assertNotEquals(modelManager, new ModelManager(billboard, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
