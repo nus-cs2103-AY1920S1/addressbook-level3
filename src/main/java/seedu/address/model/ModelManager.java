@@ -20,7 +20,6 @@ import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
-import seedu.address.model.calendar.Scheduler;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -48,7 +47,6 @@ public class ModelManager implements Model {
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
-    private final Scheduler scheduler;
     private final AverageMap averageMap;
 
     /**
@@ -75,7 +73,6 @@ public class ModelManager implements Model {
         this.calendar = new Calendar(calendar);
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
         this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
-        this.scheduler = new Scheduler();
         this.averageMap = new AverageMap();
     }
 
@@ -286,12 +283,12 @@ public class ModelManager implements Model {
 
     @Override
     public void schedule() {
-        scheduler.schedule(this);
+        calendar.schedule();
     }
 
     @Override
     public void stopAllReminders() {
-        scheduler.stopAll();
+        calendar.stopAllReminders();
     }
 
     @Override

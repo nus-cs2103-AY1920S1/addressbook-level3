@@ -94,8 +94,6 @@ public class MainWindow extends UiPart<Stage> {
         styleManager = new StyleManager(scene, mainWindowPlaceholder);
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
-        //        String fontPath = Main.class.getResource("/fonts/Tahu!.ttf").toExternalForm();
-        //        Font font = Font.loadFont(fontPath, 10);
         styleManager.setFontFamily("Futura");
     }
 
@@ -366,6 +364,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        styleManager.resetStyleSheets();
     }
 
     /**

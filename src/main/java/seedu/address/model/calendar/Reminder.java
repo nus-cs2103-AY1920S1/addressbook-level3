@@ -34,15 +34,23 @@ public class Reminder extends CalendarEntry {
                 && otherReminder.getDateTime().equals(getDateTime());
     }
 
+    /**
+     * Returns true if the given time is between the starting time and the ending time.
+     * @throws IllegalArgumentException if the date of start and end are not the same.
+     */
     @Override
-    public boolean isBetween(DateTime start, DateTime end) {
+    public boolean isBetween(DateTime start, DateTime end) throws IllegalArgumentException {
+        if (!start.getDate().equals(end.getDate())) {
+            throw new IllegalArgumentException("The starting date and the ending date should be the same.");
+        }
         switch (repetition) {
         case Once:
-            return super.isBetween(start, end);
+            return getDateTime().isBetweenDateTime(start, end);
         case Daily:
-            return getDateTime().isBetweenTime(start, end);
+            return getDateTime().isBeforeDateTime(end) && getDateTime().isBetweenTime(start, end);
         case Weekly:
-            return getDayOfWeek().equals(end.getDayOfWeek()) && getDateTime().isBetweenTime(start, end);
+            return getDateTime().isBeforeDateTime(end) && getDayOfWeek().equals(end.getDayOfWeek())
+                    && getDateTime().isBetweenTime(start, end);
         default:
             return false;
         }
