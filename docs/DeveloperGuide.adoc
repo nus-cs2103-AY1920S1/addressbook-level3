@@ -318,7 +318,7 @@ take some time.
 // end::dashboard[]
 
 === RecipeBook feature
-The current implementation of Diary consists of the following:
+The current implementation of RecipeBook consists of the following:
 
 * Each `Recipe` consists of a unique `name`
 * Each `Recipe` contains an Set of `Ingredient`
@@ -355,24 +355,25 @@ image::DeleteSequenceDiagram.png[]
 
 After a successful execution, the recipe with the specified index will be deleted from the recipe book.
 
-/ maybe insert a screenshot to show the expected output.
-
 The current implementation makes use of an Sets to store the `Ingredient` objects.
 This is the easiest way to implement the `Ingredient` component of the recipe as it builds on the existing codebase
 of ab3.
 
-==== Alternatives
+*Alternatives*
+
 An alternative would be to use an ArrayList instead of Sets to store `Ingredient` objects. This would make the
 implementation of `Ingredient` specific objects easier as they could be referenced through indexing of the ArrayList,
 which is more straight forward.
 
-==== Our Choice
+*Our Choice*
+
 We will soon implement ArrayLists instead as the current implementation of `Ingredient` objects using Sets do not allow
 for ease of use for the user whenever the user wishes to edit `Ingredient` objects present within a `Recipe`.
 
 === Workout Planner feature
 ==== Implementation
-===== Exercise Management
+{nbsp} +
+*Exercise Management*
 
 Every workout comprises of varying number of exercises. Users can use existing exercises or create their own custom
 exercises. Every exercise contains the following information:
@@ -385,10 +386,10 @@ exercises. Every exercise contains the following information:
 
 The Exercise class is represented by the following class diagram below.
 
-image::ExerciseClassDiagram.png[]
 .Exercise Class Diagram
+image::ExerciseClassDiagram.png[]
 
-===== Implementation of Exercise Commands
+==== Implementation of Exercise Commands
 
 The `Exercise` class is managed by the following commands :
 
@@ -407,7 +408,7 @@ All the commands listed above are parsed in `DukeCooksParser`, invoking the resp
 (i.e AddDiaryCommand, DeleteDiaryCommand etc). These Command Objects will then execute the necessary steps
 to fulfill their functionality.
 
-==== Design Considerations
+*Design Considerations*
 
 When coming up with the Exercise class there were various considerations as to what fields should be added. Initially,
 we had planned for MuscleType to be an enum given the limited number of muscles in the human body. However, we had
@@ -415,7 +416,8 @@ strayed away from this implementation given the complexity of the way the muscle
 that one muscle could be called. We instead allowed the user to define the muscles themselves which is better for their
 own understanding. We instead utilised enums for the Intensity field since it is only limited High, Medium and Low.
 
-===== Alternatives
+*Alternatives*
+
 When coming up with the optional details field, `ExerciseDetail` we had morphed the tag feature which was stored in a
 Set in AddressBook 3. The various details such as weight, distance would then be implementing the `ExerciseDetail`
 interface. After careful consideration, we had come to the conclusion that this method of storage is flawed given that
@@ -431,7 +433,8 @@ The Health Records feature handles the following:
 * Keeping track of the health data recorded by the user
 * Present the data with visual representation of a trend graph that shows the health progress of the user
 
-==== Proposed Implementation
+*Proposed Implementation*
+
 The commands that are callable by the user are as followed:
 
 .  `view health` - view the specific type of health records
@@ -441,6 +444,7 @@ The commands that are callable by the user are as followed:
 
 The class diagram below illustrates the structure of a Health Record class.
 
+.HealthRecords Class Diagram
 image::HealthRecordsClassDiagram.png[]
 
 Each Health Record object consist of a Type, Timestamp and Value. The current implementation stores 6 key areas:
@@ -462,6 +466,7 @@ In future implementations (possibly in v2.0), the `TYPE_UTIL` list will accommod
 
 The sequence diagram below illustrates a sample run of program where `add health` command has been successfully parsed.
 
+.Sequence Diagram for `add health` command
 image::AddHealthSequenceDiagram.png[]
 
 
@@ -473,7 +478,7 @@ image::AddHealthSequenceDiagram.png[]
 
 Maintain a Map to validate type of health record
 
-    A `HashMap` is used to store the different health types and its respective metric unit (eg. Weight, kg). When a health related command is called, the `TYPE_UTIL` will be accessed and checked against to determine if command is valid.
+A `HashMap` is used to store the different health types and its respective metric unit (eg. Weight, kg). When a health related command is called, the `TYPE_UTIL` will be accessed and checked against to determine if command is valid.
 
 * Pros: Greater flexibility in the implementation and usage of `TYPE_UTIL` Map. Allow possible extension of having more user defined health types.
 * Cons: Difficult to keep track of each health type and lack of clarity.
@@ -524,8 +529,6 @@ image::DeletePageSequenceDiagram.png[]
 
 {nbsp} +
 After a successful execution, the specified page will be removed from the specified diary.
-
-/ maybe insert a screenshot to show the expected output.
 
 The current implementation makes use of an ArrayList to store the `Page` objects.
 This is the simplest implementation as most novice programmers would be familiar with ArrayLists.
