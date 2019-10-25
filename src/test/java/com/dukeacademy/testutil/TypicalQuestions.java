@@ -22,7 +22,8 @@ public class TypicalQuestions {
             .withStatus(Status.PASSED)
             .withDifficulty(Difficulty.EASY)
             .withTopics(Topic.OTHERS)
-            .withTestCases(new TestCase("1 2", "3"), new TestCase("100 2", "102"))
+            .withTestCases(new TestCase("1 2", "3"),
+                    new TestCase("100 2", "102"))
             .withUserProgram(new UserProgram("Adder",
                     "public class Adder { public static void main(String[] args) { } }"))
             .build();
@@ -64,8 +65,8 @@ public class TypicalQuestions {
             .withStatus(Status.ATTEMPTED)
             .withDifficulty(Difficulty.HARD)
             .withTopics(Topic.SORTING, Topic.LINKED_LIST)
-            .withTestCases(new TestCase("3 5 3 4 1 99 0 21 34 123 3 21 3 1",
-                    "0 1 3 4 21 34 99 123"), new TestCase("1 4 1 2 3 4", "1 2 3 4"))
+            .withTestCases(new TestCase("3 5 3 4 1 99 0 21 34 123 3 21 3 1", "0 1 3 4 21 34 99 123"),
+                    new TestCase("1 4 1 2 3 4", "1 2 3 4"))
             .withUserProgram(new UserProgram("Merge",
                     "public class Merge { public static void main(String[] args) { } }"))
             .build();

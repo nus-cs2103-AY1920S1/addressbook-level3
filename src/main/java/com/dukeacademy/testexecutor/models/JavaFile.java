@@ -2,6 +2,7 @@ package com.dukeacademy.testexecutor.models;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 
 /**
  * Represents a Java file in the application. The canonical name refers to the name of the class you would
@@ -30,23 +31,22 @@ public class JavaFile {
     }
 
     public String getAbsolutePath() {
-        String trimmedClassPath = classPath;
-        if (classPath.lastIndexOf(File.separator) == classPath.length() - 1) {
-            trimmedClassPath = classPath.substring(0, classPath.length() - 1);
-        }
-
-        return trimmedClassPath + File.separator + canonicalName.replace(".", File.separator) + ".java";
+        return Paths.get(classPath).resolve(canonicalName.replace(".", File.separator) + ".java").toString();
     }
 
     public File getFile() {
         return new File(this.getAbsolutePath());
     }
 
+    /**
+     * Returns true if the object is another instance of JavaFile with the same canonical name and classpath.
+     */
     @Override
     public boolean equals(Object object) {
         if (object instanceof JavaFile) {
-            return ((JavaFile) object).canonicalName.equals(this.canonicalName)
-                    && ((JavaFile) object).classPath.equals(this.classPath);
+            JavaFile other = (JavaFile) object;
+            return other.canonicalName.equals(this.canonicalName)
+                    && other.classPath.equals(this.classPath);
         } else {
             return false;
         }
