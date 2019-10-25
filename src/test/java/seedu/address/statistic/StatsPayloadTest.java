@@ -9,6 +9,7 @@ import static seedu.address.statistic.TypicalStatsPayload.ENDING_DATE_4;
 import static seedu.address.statistic.TypicalStatsPayload.STARTING_DATE_4;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.statisticcommand.StatisticType;
 
 public class StatsPayloadTest {
@@ -41,8 +42,8 @@ public class StatsPayloadTest {
     @Test
     void isDisplayCorrect() {
         //System.out.println(DEFAULT_STATS_PAYLOAD_STATS_PAYLOAD_TEST.displayStartingDate());
-        assertTrue( "2018.6.10".equals(DEFAULT_STATS_PAYLOAD_STATS_PAYLOAD_TEST.displayStartingDate()));
-        assertTrue( "2020.5.17".equals(DEFAULT_STATS_PAYLOAD_STATS_PAYLOAD_TEST.displayEndingDate()));
+        assertTrue("2018.6.10".equals(DEFAULT_STATS_PAYLOAD_STATS_PAYLOAD_TEST.displayStartingDate()));
+        assertTrue("2020.5.17".equals(DEFAULT_STATS_PAYLOAD_STATS_PAYLOAD_TEST.displayEndingDate()));
     }
 
 }

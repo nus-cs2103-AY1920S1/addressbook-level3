@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.statsCommand;
+package seedu.address.logic.commands.statscommand;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.statisticcommand.StatsCommand.MESSAGE_USAGE;
@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPhones.getTypicalPhoneBook;
 import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,8 +29,8 @@ public class StatsCommandTest {
             getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
     @Test
-    public void execute_CommandResult() {
-        StatsCommand testStatCommand = new StatsCommand(STARTING_DATE_2019,  ENDING_DATE_2019, StatisticType.COST);
+    public void execute_commandResult() {
+        StatsCommand testStatCommand = new StatsCommand(STARTING_DATE_2019, ENDING_DATE_2019, StatisticType.COST);
         StatsPayload expectedPayload = new StatsPayload(STARTING_DATE_2019, ENDING_DATE_2019, StatisticType.COST);
         CommandResult expectedResult = new CommandResult(MESSAGE_USAGE, expectedPayload, UiChange.STATS);
         try {

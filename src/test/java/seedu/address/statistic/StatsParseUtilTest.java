@@ -1,14 +1,10 @@
 package seedu.address.statistic;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +17,7 @@ public class StatsParseUtilTest {
                 .Builder()
                 .setInstant(new Date(Long.MIN_VALUE))
                 .build();
-        Calendar maxExpDate =  new Calendar
+        Calendar maxExpDate = new Calendar
                 .Builder()
                 .setInstant(new Date(Long.MAX_VALUE))
                 .build();
