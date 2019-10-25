@@ -4,9 +4,12 @@ import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Timer;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Event;
 import seedu.address.commons.core.item.Item;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.item.EventList;
 
 /**
@@ -14,8 +17,10 @@ import seedu.address.model.item.EventList;
  * Uses a Timer to keep track of when to update the Event's startDateTime.
  */
 public class AutoRescheduleManager {
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private static AutoRescheduleManager manager;
     private static Timer timer;
+
 
     private AutoRescheduleManager() {}
 
@@ -78,10 +83,8 @@ public class AutoRescheduleManager {
         long period = event.getPeriod().getPeriod();
         LocalDateTime startDateTime = event.getStartDateTime();
         long millisDifference = Duration.between(startDateTime, LocalDateTime.now()).toMillis(); // positive difference;
-        BigInteger periodBi = new BigInteger("" + period);
-        BigInteger millisDifferenceBi = new BigInteger("" + millisDifference);
 
-        long millisRemainder = millisDifferenceBi.mod(periodBi).longValue();
+        long millisRemainder = millisDifference % period; //millisDifferenceBi.mod(periodBi).longValue();
         long tillNextStart = period - millisRemainder;
         LocalDateTime updatedDateTime = LocalDateTime.now().plusNanos(Duration.ofMillis(tillNextStart).toNanos());
 
@@ -96,9 +99,8 @@ public class AutoRescheduleManager {
         try {
             Duration delay = Duration.between(LocalDateTime.now(), task.getStartTime());
             timer.scheduleAtFixedRate(task, delay.toMillis(), task.getLongPeriod());
-            System.out.println("Should only add once");
         } catch (Exception e) {
-            System.out.println("Fail to add rescheduleTask: " + e.getMessage());
+            logger.warning("----------------[Failed to schedule Event][" + task.getEvent() + "]");
         }
     }
 

@@ -35,6 +35,10 @@ public class RescheduleTask extends TimerTask {
         return period.getPeriod();
     }
 
+    public Event getEvent() {
+        return this.event;
+    }
+
     /**
      * Executes this task.
      * Update this event's startDateTime with the new startDateTime, given the period of reccurence.
