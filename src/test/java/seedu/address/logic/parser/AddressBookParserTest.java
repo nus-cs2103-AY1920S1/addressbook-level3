@@ -18,9 +18,9 @@
 //import seedu.address.logic.commands.person.DeleteCommand;
 //import seedu.address.logic.commands.person.EditCommand;
 //import seedu.address.logic.commands.person.EditCommand.EditPersonDescriptor;
-//import seedu.address.logic.commands.ExitCommand;
+//import seedu.address.logic.commands.global.ExitCommand;
 //import seedu.address.logic.commands.person.FindCommand;
-//import seedu.address.logic.commands.HelpCommand;
+//import seedu.address.logic.commands.global.HelpCommand;
 //import seedu.address.logic.commands.ListCommand;
 //import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
