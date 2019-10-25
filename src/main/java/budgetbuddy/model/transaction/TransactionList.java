@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
  */
 public class TransactionList implements Iterable<Transaction> {
 
+    public static final String MESSAGE_CONSTRAINTS = "TransactionList can not be null";
     private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
