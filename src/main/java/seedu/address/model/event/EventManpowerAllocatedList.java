@@ -13,24 +13,29 @@ import seedu.address.model.employee.Employee;
 public class EventManpowerAllocatedList {
     private List<String> manpowerList;
 
-    /**
-     * Constructs a {@code Name}.
-     */
-    public EventManpowerAllocatedList() {
-        manpowerList = new ArrayList<>();
-    }
-
-    public List<String> getManpowerList() {
-        return manpowerList;
-    }
-
-    public void setManpowerAllocatedList(String unprocessedList) {
+    public EventManpowerAllocatedList(String unprocessedList) {
         if (unprocessedList.equals("")) {
+            manpowerList = new ArrayList<>();
             return;
         }
         String[] personIds = unprocessedList.split(" ");
         manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
     }
+
+    /**
+     * Constructs a {@code EventManpowerAllocatedList}.
+     */
+    public EventManpowerAllocatedList() {
+        manpowerList = new ArrayList<>();
+    }
+
+
+
+
+    public List<String> getManpowerList() {
+        return manpowerList;
+    }
+
 
     /**
      * Frees all employees for an Event.
@@ -41,7 +46,7 @@ public class EventManpowerAllocatedList {
     }
 
     /**
-     * Allocates employee to the Manpower List for an Event.
+     * Allocates an employee to the Manpower List for an Event.
      * @param employee to be allocated
      * @return boolean to represent if employee is successfully allocated to event
      */

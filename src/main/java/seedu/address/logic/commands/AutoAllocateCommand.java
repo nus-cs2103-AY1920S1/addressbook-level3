@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
@@ -150,18 +151,13 @@ public class AutoAllocateCommand extends Command {
         EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
         EventDate updatedStartDate = eventToEdit.getStartDate();
         EventDate updatedEndDate = eventToEdit.getEndDate();
+        EventManpowerAllocatedList updatedManpowerAllocatedList =
+                new EventManpowerAllocatedList(eventToEdit.getManpowerAllocatedList().toString());
         Set<Tag> updatedTags = eventToEdit.getTags();
 
-        Event newEvent = new Event(updatedEventName, updatedEventVenue,
+        return new Event(updatedEventName, updatedEventVenue,
                 updatedManpowerNeeded, updatedStartDate,
-                updatedEndDate, updatedTags);
-        String oldManpowerList = eventToEdit.getManpowerAllocatedList().toString();
-        if (oldManpowerList.equals("")) {
-            return newEvent;
-        } else {
-            newEvent.getManpowerAllocatedList().setManpowerAllocatedList(oldManpowerList);
-            return newEvent;
-        }
+                updatedEndDate, updatedManpowerAllocatedList, updatedTags);
 
     }
 

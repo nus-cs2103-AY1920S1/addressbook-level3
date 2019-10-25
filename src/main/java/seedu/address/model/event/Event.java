@@ -42,6 +42,22 @@ public class Event {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Constructor with manpower list.
+     */
+    public Event(EventName name, EventVenue venue,
+                 EventManpowerNeeded manpowerNeeded, EventDate startDate,
+                 EventDate endDate, EventManpowerAllocatedList manpowerAllocatedList, Set<Tag> tags) {
+        this.name = name;
+        this.venue = venue;
+        this.manpowerNeeded = manpowerNeeded;
+        this.manpowerAllocatedList = manpowerAllocatedList;
+        this.eventDateTimeMap = new EventDateTimeMap();
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.tags.addAll(tags);
+    }
+
     public EventName getName() {
         return name;
     }
