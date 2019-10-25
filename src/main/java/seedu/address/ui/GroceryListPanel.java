@@ -15,19 +15,22 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.food.GroceryItem;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of grocery items.
  */
 public class GroceryListPanel extends UiPart<Region> {
     private static final String FXML = "GroceryListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(GroceryListPanel.class);
 
+    private int n;
+
     @FXML
     private ListView<GroceryItem> personListView;
 
-    public GroceryListPanel(ObservableList<GroceryItem> foodList) {
+    public GroceryListPanel(ObservableList<GroceryItem> foodList, String n) {
         super(FXML);
         personListView.setItems(foodList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+        this.n = Integer.valueOf(n);
     }
 
     /**
@@ -67,13 +70,13 @@ public class GroceryListPanel extends UiPart<Region> {
         }
 
         /**
-         * Checks if the grocery item is expiring within 3 days.
+         * Checks if the grocery item is expiring within default number of days.
          */
         public boolean isExpiring(Date date) {
             Calendar cal = Calendar.getInstance();
             Date current = cal.getTime();
             int diffDays = (int) ((date.getTime() - current.getTime()) / (24 * 60 * 60 * 1000));
-            return diffDays <= 3;
+            return diffDays <= n;
         }
     }
 

@@ -28,7 +28,8 @@ public class SortDefaultCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         IFridgeSettings prev = model.getIFridgeSettings();
-        model.setIFridgeSettings(new IFridgeSettings(prev.getNumberOfDays(), sortDefault, prev.getListDisplay()));
+        IFridgeSettings curr = new IFridgeSettings(prev.getNumberOfDays(), sortDefault, prev.getListDisplay());
+        model.setIFridgeSettings(curr);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, sortDefault));
     }

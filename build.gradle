@@ -73,7 +73,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'iFridge.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
