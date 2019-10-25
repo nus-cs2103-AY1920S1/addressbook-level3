@@ -1,0 +1,43 @@
+==== Proposed Implementation
+The auto-complete mechanism extends NurseTraverse with 2 functionality, word completion and word suggestions. To support word suggestion of only compatible words, several lists are created and the list in operation will be switch during runtime by `AutoCompletePanel#resetList()`
+
+Given below is an example usage scenario and how the word suggestion and word completion function behaves at each step.
+
+Step 1:
+When the user launches the application, an instance of the object, command and prefix autocomplete word list will be initialised in `AutoCompleteStorage`(created in `AutoCompletePanel`), which implements the following operations:
+
+* `AutoCompleteWordStorage#getOListAllCommandWord()` — returns the observable list of command words stored
+* `AutoCompleteWordStorage#getOListAllPrefixWord()` — returns the observable list of prefix words stored
+* `AutoCompleteWordStorage#getOListAllObjectWord()` — returns the observable list of object words stored
+* `AutoCompleteWordStorage#generateOListAllIndexWord(String objectName)` — generate an observable list of index words corresponding to object when called
+
+The auto-complete panel will be set to object list by default.
+
+Step 2: Whenever user typed a key in the command line, `CommandBox` will call `AutoCompletePanel#updateListView(String currentPhraseInCommandBox)`.
+
+This will update the number of matched words with the current list and runs 3 sets of algorithm, through word list handler classes.
+
+First, `AutoCompletePanel#resetList()` will switch the current list based on what is typed.
+
+Second, `AutoCompleteListFilter#filterList()` will filter the chosen list to only words that are compatible with previous correctly typed full words. Eg: prefix list will be filtered to only be compatible with “pat-add” user command, the words that come before prefix.
+
+Lastly, `AutoCompleteListUpdater#updateSuggestedWordsInList()` will update the chosen list which was filtered to fit the key that is partially typed. Eg: User typed “ad”. “add” and “add-medcon” which are both in the current list will be suggested.
+
+==== Design Considerations
+===== Aspect: Method to suggest auto-complete words
+
+* **Alternative 1:** Have several list. First word list, Second word list, etc
+** Pros: Minimal effort in parsing of command line input.
+** Cons: Auto-complete panel will be unorganised. Eg: both index 1 and prefix may be suggested instead of just all index or all prefix suggested.
+
+* **Alternative 2:** Suggest full commands such as pat-edit 2 n/ t/ .. and omit any list
+** Pros: Easy to implement. No parsing required.
+** Cons: Auto-complete panel will be chunky as all commands are suggested at the same time. User will not be guided in selecting which command to choose.
+
+* **Alternative 3(current choice):** Have several list. Object/Command/Index/Prefix lists.
+** Pros: User will be guided. Very user friendly. Panel will be more organised as words are suggested in sets of the same type.
+** Cons: Parsing of command line input can be tedious.
+
+==== Logic Design Considerations
+
+==== UI Design Considerations
