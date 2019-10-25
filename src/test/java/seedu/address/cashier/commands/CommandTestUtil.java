@@ -10,6 +10,7 @@ import static seedu.address.testutil.ItemBuilder.DEFAULT_QUANTITY;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_COST;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.util.CliSyntax.PREFIX_INDEX;
 import static seedu.address.util.CliSyntax.PREFIX_PRICE;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
@@ -30,16 +31,22 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_FISH_BURGER = "Burger";
     public static final String VALID_DESCRIPTION_STORYBOOK = "The tale";
     public static final String VALID_DESCRIPTION_BLACK_SHIRT = "CCA shirt";
-    public static final String VALID_CATEGORY = "food";
-    public static final String VALID_QUANTITY = "20";
+    public static final String VALID_CATEGORY_1 = "food";
+    public static final String VALID_CATEGORY_2 = "Book";
+    public static final int VALID_QUANTITY_1 = 85;
+    public static final int VALID_QUANTITY_2 = 20;
+    public static final int VALID_INDEX = 1;
     public static final String VALID_COST = "3.25";
     public static final String VALID_PRICE = "5.23";
 
     public static final String DESC_DESCRIPTION_FISH_BURGER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FISH_BURGER;
     public static final String DESC_DESCRIPTION_STORYBOOK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_STORYBOOK;
     public static final String DESC_DESCRIPTION_BLACK_SHIRT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BLACK_SHIRT;
-    public static final String DESC_CATEGORY = " " + PREFIX_CATEGORY + VALID_CATEGORY;
-    public static final String DESC_QUANTITY = " " + PREFIX_QUANTITY + VALID_QUANTITY;
+    public static final String DESC_CATEGORY_1 = " " + PREFIX_CATEGORY + VALID_CATEGORY_1;
+    public static final String DESC_CATEGORY_2 = " " + PREFIX_CATEGORY + VALID_CATEGORY_2;
+    public static final String DESC_QUANTITY_1 = " " + PREFIX_QUANTITY + VALID_QUANTITY_1;
+    public static final String DESC_QUANTITY_2 = " " + PREFIX_QUANTITY + VALID_QUANTITY_2;
+    public static final String DESC_INDEX = " " + PREFIX_INDEX + VALID_INDEX;
     public static final String DESC_COST = " " + PREFIX_COST + VALID_COST;
     public static final String DESC_PRICE = " " + PREFIX_PRICE + VALID_PRICE;
 
@@ -49,10 +56,12 @@ public class CommandTestUtil {
     public static final String DESC_BUILDER_DESC = " " + PREFIX_DESCRIPTION + DEFAULT_DESCRIPTION;
     public static final String DESC_BUILDER_CATEGORY = " " + PREFIX_CATEGORY + DEFAULT_CATEGORY;
 
-    /*public static final String INVALID_DATE_1 = " "  + PREFIX_DATETIME + "03-sep-2019";
-    public static final String INVALID_DATE_2 = " "  + PREFIX_DATETIME + "3-Sep-2019";
-    public static final String INVALID_DATE_3 = " "  + PREFIX_DATETIME + "3/Sep/2019"; */
-    public static final String INVALID_QUANTITY = " " + PREFIX_QUANTITY + "hi";
+    public static final String INVALID_DESCRIPTION_1 = " "  + PREFIX_DESCRIPTION + "black shirt";
+    public static final String INVALID_DESCRIPTION_2 = " "  + PREFIX_DESCRIPTION + "black case";
+    public static final String INVALID_CATEGORY_1 = " "  + PREFIX_CATEGORY + "accessory";
+    public static final String INVALID_CATEGORY_2 = " "  + PREFIX_CATEGORY + "paper";
+    public static final String INVALID_QUANTITY_1 = " " + PREFIX_QUANTITY + "hi";
+    public static final String INVALID_QUANTITY_2 = " " + PREFIX_QUANTITY + "-4";
 
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 

@@ -12,10 +12,10 @@ import seedu.address.inventory.model.Item;
 public class TypicalItem {
     public static final Item FISH_BURGER = new ItemBuilder()
             .withDescription("Burger")
-//            .withId("1")
-//            .withPrice(3.25)
-//            .withCost(5.23)
-            .withQuantity(85)
+            .withId("1")
+            .withPrice(3.25)
+            .withCost(5.23)
+            .withQuantity(99)
             .build();
 
     public static final Item STORYBOOK = new ItemBuilder()
@@ -24,7 +24,7 @@ public class TypicalItem {
             .withId("2")
             .withPrice(2.25)
             .withCost(4.23)
-            .withQuantity(73)
+            .withQuantity(99)
             .build();
 
     // not meant to be added to list
@@ -33,7 +33,7 @@ public class TypicalItem {
             .withDescription("CCA shirt")
             .withCost(31.93)
             .withPrice(6.32)
-            .withQuantity(93)
+            .withQuantity(85)
             .build();
 
     // not available for sale
@@ -42,7 +42,7 @@ public class TypicalItem {
             .withDescription("black case")
             .withCost(4.23)
             .withPrice(0.00)
-            .withQuantity(92)
+            .withQuantity(85)
             .build();
 
     /**
@@ -53,7 +53,7 @@ public class TypicalItem {
     }
 
     public static ArrayList<Item> getTypicalItems() {
-        return new ArrayList<>(Arrays.asList(FISH_BURGER, STORYBOOK));
+        return new ArrayList<>(Arrays.asList(FISH_BURGER, STORYBOOK, PHONE_CASE));
     }
 
 

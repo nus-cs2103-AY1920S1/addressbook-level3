@@ -34,7 +34,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndex_successful() throws NoSuchIndexException {
         DeleteCommand deleteCommand = new DeleteCommand(1);
-        String message = String.format(CashierMessages.MESSAGE_DELETED_ITEM, TypicalItem.FISH_BURGER);
+        String message = String.format(CashierMessages.MESSAGE_DELETED_ITEM, TypicalItem.FISH_BURGER.getDescription());
 
         ModelManager expectedModel = new ModelManager(TypicalItem.getTypicalInventoryList(),
                 TypicalTransactions.getTypicalTransactionList());

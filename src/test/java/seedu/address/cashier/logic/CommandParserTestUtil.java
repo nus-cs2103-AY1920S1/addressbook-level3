@@ -38,8 +38,9 @@ public class CommandParserTestUtil {
                                                   Model personModel) {
         try {
             parser.parse(userInput, model, personModel);
-            throw new AssertionError("The expected ParseException was not thrown.");
+            throw new AssertionError("The expected exception was not thrown.");
         } catch (Exception e) {
+            System.out.println("actuasl: " + e.getMessage());
             assertEquals(expectedMessage, e.getMessage());
         }
     }

@@ -101,7 +101,7 @@ public class ItemBuilder {
     }
 
     public Item build() {
-        return new Item(category, description, quantity, cost, price, Integer.parseInt(id));
+        return new Item(description, category, quantity, cost, price, Integer.parseInt(id));
     }
 
 
