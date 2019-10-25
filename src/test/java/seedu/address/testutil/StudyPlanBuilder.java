@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.module.Module;
-import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
@@ -22,8 +21,6 @@ import seedu.address.model.util.SampleDataUtil;
 public class StudyPlanBuilder {
 
     // default values
-    //TODO: DEFAULT_SEMESTERS is currently not used.
-    public static final UniqueSemesterList DEFAULT_SEMESTERS = getDefaultSemesters();
     public static final String DEFAULT_TITLE = "Test Study Plan";
     public static final int DEFAULT_INDEX = 1;
     public static final String DEFAULT_CURRENT_SEMESTER = "Y1S1";
@@ -35,7 +32,7 @@ public class StudyPlanBuilder {
     private Title title;
     private int index; // unique identifier of this study plan
     private SemesterName currentSemester;
-    private boolean isActivated = false;
+    private boolean isActivated;
 
     // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
     // note: this Mega-List is only constructed when a study plan gets activated.
@@ -51,7 +48,6 @@ public class StudyPlanBuilder {
      * Default constructor.
      */
     public StudyPlanBuilder() {
-        semesters = DEFAULT_SEMESTERS;
         title = new Title(DEFAULT_TITLE);
         index = DEFAULT_INDEX;
         currentSemester = SemesterName.valueOf(DEFAULT_CURRENT_SEMESTER);
@@ -129,7 +125,7 @@ public class StudyPlanBuilder {
      */
     public StudyPlanBuilder withTags(String... tags) {
         List<Tag> tagList = SampleDataUtil.getTagList(tags);
-        for (Tag tag : tagList) {
+        for (Tag tag: tagList) {
             this.tags.addTag(tag);
         }
         return this;
@@ -143,29 +139,11 @@ public class StudyPlanBuilder {
         SemesterName sampleCurrentSemester = currentSemester;
         StudyPlan toReturn = new StudyPlan(title, sampleModulesInfo,
                 sampleCurrentSemester);
-        toReturn.setDefaultSemesters();
         toReturn.setIndex(index);
         toReturn.setActivated(isActivated);
         toReturn.setModules(modules);
         toReturn.setTags(tags);
 
         return toReturn;
-    }
-
-    /**
-     * Populates the unique semester list with the 8 semesters in the normal 4-year candidature. These
-     * semesters will be empty initially.
-     */
-    public static UniqueSemesterList getDefaultSemesters() {
-        UniqueSemesterList semesterList = new UniqueSemesterList();
-        semesterList.add(new Semester(SemesterName.Y1S1));
-        semesterList.add(new Semester(SemesterName.Y1S2));
-        semesterList.add(new Semester(SemesterName.Y2S1));
-        semesterList.add(new Semester(SemesterName.Y2S2));
-        semesterList.add(new Semester(SemesterName.Y3S1));
-        semesterList.add(new Semester(SemesterName.Y3S2));
-        semesterList.add(new Semester(SemesterName.Y4S1));
-        semesterList.add(new Semester(SemesterName.Y4S2));
-        return semesterList;
     }
 }

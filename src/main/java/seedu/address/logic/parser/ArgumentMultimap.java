@@ -30,7 +30,7 @@ public class ArgumentMultimap {
      */
     public void put(Pattern pattern, String argValue) {
         List<String> argValues = getAllValues(pattern);
-        argValues.add(argValue);
+        argValues.add(argValue.trim());
         argMultimap.put(pattern, argValues);
     }
 

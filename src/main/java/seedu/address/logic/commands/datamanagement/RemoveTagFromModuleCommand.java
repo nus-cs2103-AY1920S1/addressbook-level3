@@ -33,9 +33,9 @@ public class RemoveTagFromModuleCommand extends Command {
     private final String moduleCode;
 
     /**
-     * Creates an {@code RemoveTagFromModuleCommand} to move a tag with the given name from the specified module.
-     *
      * @param tagName    The name of the tag.
+     *                   Creates an {@code RemoveTagFromModuleCommand} to move a tag with the given name from
+     *                   the specified module.
      * @param moduleCode The module code of the module from which the tag is to be deleted.
      */
 
@@ -65,7 +65,7 @@ public class RemoveTagFromModuleCommand extends Command {
         if (!removed) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, moduleCode, tagName));
         }
-
+        model.addToHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove, moduleCode));
     }
 

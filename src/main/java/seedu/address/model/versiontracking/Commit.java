@@ -29,7 +29,7 @@ public class Commit {
 
     @Override
     public String toString() {
-        return "Commit no. " + String.valueOf(studyPlan.getIndex()) + ".%1$d"
+        return "Commit no. " + studyPlan.getIndex() + ".%1$d"
                 + " " + commitMessage;
     }
 }

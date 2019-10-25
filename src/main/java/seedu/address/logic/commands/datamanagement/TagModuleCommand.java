@@ -63,6 +63,7 @@ public class TagModuleCommand extends Command {
         if (!added) {
             throw new CommandException(String.format(MESSAGE_EXISTING_TAG, toAdd, moduleCode));
         }
+        model.addToHistory();
 
         if (newTagCreated) {
             return new CommandResult(String.format(MESSAGE_SUCCESS_TAG_ADDED, toAdd, moduleCode));
@@ -73,6 +74,7 @@ public class TagModuleCommand extends Command {
 
     /**
      * Creates a new tag with the given tag name and adds it to the {@code UniqueTaglist}
+     *
      * @param tagName The name of the tag.
      * @return The tag that was created.
      */

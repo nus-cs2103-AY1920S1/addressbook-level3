@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModulePlanner;
 import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
+import seedu.address.model.VersionedModulePlanner;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
@@ -52,9 +52,7 @@ class JsonSerializableModulePlanner {
      */
     public JsonSerializableModulePlanner(ReadOnlyModulePlanner source) {
         ObservableList<StudyPlan> observableList = source.getStudyPlanList();
-        Iterator<StudyPlan> studyPlanIterator = observableList.iterator();
-        while (studyPlanIterator.hasNext()) {
-            StudyPlan studyPlan = studyPlanIterator.next();
+        for (StudyPlan studyPlan : observableList) {
             studyPlans.add(new JsonAdaptedStudyPlan(studyPlan));
         }
 
@@ -73,25 +71,17 @@ class JsonSerializableModulePlanner {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public ModulePlanner toModelType(ModulesInfo modulesInfo) throws IllegalValueException {
-
         List<StudyPlan> modelStudyPlans = new ArrayList<>();
         for (JsonAdaptedStudyPlan adaptedStudyPlan : studyPlans) {
             StudyPlan studyPlan = adaptedStudyPlan.toModelType();
-
-            /*
-            if (modulePlanner.hasStudyPlan(studyPlan)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_STUDYPLAN);
-            }
-             */
-
             modelStudyPlans.add(studyPlan);
         }
         UniqueStudyPlanList modelUniqueStudyPlanList = new UniqueStudyPlanList();
-        modelUniqueStudyPlanList.setStudyPlans(modelStudyPlans);
+        modelUniqueStudyPlanList.shallowSetStudyPlans(modelStudyPlans);
 
         VersionTrackingManager modelManager = manager.toModelType();
 
-        ModulePlanner modulePlanner = new ModulePlanner(modelUniqueStudyPlanList,
+        ModulePlanner modulePlanner = new VersionedModulePlanner(modelUniqueStudyPlanList,
                 modulesInfo, modelManager);
 
         modulePlanner.activateStudyPlan(activeStudyPlanIndex);

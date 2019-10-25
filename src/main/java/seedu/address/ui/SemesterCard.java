@@ -50,11 +50,11 @@ public class SemesterCard extends UiPart<Region> {
         totalMcCount.setText("(" + semester.getMcCount() + ")");
 
         semester.getModules().asUnmodifiableObservableList().stream()
-            .sorted(Comparator.comparing(module -> module.getModuleCode().toString()))
-            .forEach(module -> {
-                ModuleCard moduleCard = new ModuleCard(module);
-                moduleListPanelPlaceholder.getChildren().add(moduleCard.getRoot());
-            });
+                .sorted(Comparator.comparing(module -> module.getModuleCode().toString()))
+                .forEach(module -> {
+                    ModuleCard moduleCard = new ModuleCard(module);
+                    moduleListPanelPlaceholder.getChildren().add(moduleCard.getRoot());
+                });
     }
 
     @Override

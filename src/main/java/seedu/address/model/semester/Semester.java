@@ -9,12 +9,12 @@ import seedu.address.model.module.UniqueModuleList;
  * Represents a semester of university for CS Undergraduate Students.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Semester {
+public class Semester implements Cloneable {
     // Identity fields
     private SemesterName semesterName; // removed final keyword for the clone() method below
 
     // Data fields
-    private UniqueModuleList modules = new UniqueModuleList(); // removed final keyword for the clone() method below
+    private UniqueModuleList modules = new UniqueModuleList();
     private boolean isBlocked;
     private String reasonForBlocked;
     private boolean isExpanded = false;
@@ -38,6 +38,15 @@ public class Semester {
         for (Module module : modules) {
             this.modules.add(module);
         }
+    }
+
+    @Override
+    protected Semester clone() throws CloneNotSupportedException {
+        Semester clone = (Semester) super.clone();
+        clone.isBlocked = this.isBlocked;
+        clone.reasonForBlocked = this.reasonForBlocked;
+        clone.modules = this.modules.clone();
+        return clone;
     }
 
     public SemesterName getSemesterName() {
@@ -100,4 +109,18 @@ public class Semester {
         return result.toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Semester) {
+            Semester other = (Semester) obj;
+            return this.modules.equals(other.getModules())
+                    && this.isBlocked == other.isBlocked
+                    && (this.reasonForBlocked == null ? true : this.reasonForBlocked.equals(other.reasonForBlocked))
+                    && this.isExpanded == other.isExpanded
+                    && this.semesterName == other.getSemesterName();
+        }
+        return false;
+    }
 }

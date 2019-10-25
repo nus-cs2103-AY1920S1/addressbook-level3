@@ -53,8 +53,8 @@ public class RemoveTagFromAllCommand extends Command {
         UserTag toRemove = (UserTag) model.getTagFromActiveSp(tagName);
 
         model.removeTagFromAllModulesInActiveSp(toRemove);
+        model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
-
 }

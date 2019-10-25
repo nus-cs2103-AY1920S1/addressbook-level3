@@ -20,10 +20,19 @@ import seedu.address.model.module.exceptions.ModuleNotFoundException;
  * <p>
  * Supports a minimal set of list operations.
  */
-public class UniqueModuleList implements Iterable<Module> {
+public class UniqueModuleList implements Iterable<Module>, Cloneable {
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
     private final ObservableList<Module> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    @Override
+    public UniqueModuleList clone() {
+        UniqueModuleList clone = new UniqueModuleList();
+        for (Module module: this) {
+            clone.add(module);
+        }
+        return clone;
+    }
 
     /**
      * Returns true if the list contains an equivalent module as the given argument.
@@ -61,7 +70,11 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public void remove(String toRemove) {
         requireNonNull(toRemove);
-        this.internalList.remove(getModule(toRemove));
+        if (contains(toRemove)) {
+            this.internalList.remove(getModule(toRemove));
+        } else {
+            throw new ModuleNotFoundException();
+        }
     }
 
     private Module getModule(String moduleCode) {
@@ -152,6 +165,24 @@ public class UniqueModuleList implements Iterable<Module> {
 
         if (!target.equals(editedModule) && !contains(editedModule)) {
             internalList.set(index, editedModule);
+        } else {
+            throw new DuplicateModuleException();
         }
+    }
+
+    /**
+     * Replaces the module {@code target} in the list with {@code editedModule}.
+     * This method is written to facilitate cloning of StudyPlan modules.
+     * {@code target} must exist in the list.
+     * The module identity of {@code editedModule} CAN be the same as another existing module in the list.
+     */
+    public void replace(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ModuleNotFoundException();
+        }
+        internalList.set(index, editedModule);
     }
 }

@@ -120,6 +120,6 @@ public enum SemesterName {
     }
 
     public static boolean isValidSemesterName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.toUpperCase().matches(VALIDATION_REGEX);
     }
 }

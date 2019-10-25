@@ -259,7 +259,7 @@ public class UniqueTagListTest {
     @Test
     public void initDefaultTags_success() {
         uniqueTagList.initDefaultTags();
-        for (DefaultTagType defaultTagType: DefaultTagType.values()) {
+        for (DefaultTagType defaultTagType : DefaultTagType.values()) {
             assertTrue(uniqueTagList.contains(new TagBuilder().buildDefaultTag(defaultTagType)));
         }
     }

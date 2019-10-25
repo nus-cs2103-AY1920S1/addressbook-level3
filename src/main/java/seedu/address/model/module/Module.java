@@ -17,9 +17,9 @@ import seedu.address.model.tag.UserTag;
  */
 public class Module implements Cloneable {
 
+    private final ModuleCode moduleCode;
     // Identity fields
     private Name name;
-    private final ModuleCode moduleCode;
     private int mcCount;
     private Color color;
     private boolean prereqsSatisfied;
@@ -70,16 +70,16 @@ public class Module implements Cloneable {
         return name;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
     public ModuleCode getModuleCode() {
         return moduleCode;
     }
 
     public int getMcCount() {
         return mcCount;
-    }
-
-    public void setName(Name name) {
-        this.name = name;
     }
 
     public void setMcCount(int mcCount) {
@@ -100,12 +100,12 @@ public class Module implements Cloneable {
         return true;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public Color getColor() {
         return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public boolean getPrereqsSatisfied() {
@@ -134,7 +134,7 @@ public class Module implements Cloneable {
         return true;
     }
 
-    private boolean hasTag(Tag tag) {
+    public boolean hasTag(Tag tag) {
         return tags.contains(tag);
     }
 
@@ -149,6 +149,8 @@ public class Module implements Cloneable {
     /**
      * This method verifies previous semester codes against the prerequisite tree, and updates its
      * {@code prereqsSatisfied} property accordingly.
+     * <p>
+     * <<<<<<< HEAD
      *
      * @param prevSemCodes Codes of modules taken in previous semesters
      */
@@ -159,6 +161,9 @@ public class Module implements Cloneable {
     /**
      * This method verifies previous semester codes against the prerequisite tree, but does not update its
      * {@code prereqsSatisfied} property, instead returning a boolean value.
+     * <p>
+     * =======
+     * >>>>>>> upstream/undoredo-fix
      *
      * @param prevSemCodes Codes of modules taken in previous semesters
      */
@@ -215,7 +220,14 @@ public class Module implements Cloneable {
     @Override
     public Module clone() throws CloneNotSupportedException {
         Module clone = (Module) super.clone();
-        clone.tags = (UniqueTagList) tags.clone();
+        clone.color = this.getColor();
+        clone.name = this.getName();
+        clone.mcCount = this.getMcCount();
+        clone.prereqsSatisfied = this.getPrereqsSatisfied();
+        clone.prereqTree = this.prereqTree;
+        if (tags != null) {
+            clone.tags = (UniqueTagList) tags.clone();
+        }
 
         return clone;
     }

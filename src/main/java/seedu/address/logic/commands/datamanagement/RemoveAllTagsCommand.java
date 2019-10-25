@@ -21,11 +21,11 @@ public class RemoveAllTagsCommand extends Command {
     public static final String COMMAND_WORD = "removealltags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes all user-created tags from all modules "
-        + "Example: "
-        + "removealltags";
+            + "Example: "
+            + "removealltags";
 
     public static final String MESSAGE_SUCCESS = "All the tags that you have created have been removed from "
-        + "all modules";
+            + "all modules";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -38,6 +38,7 @@ public class RemoveAllTagsCommand extends Command {
                     .filter(tag -> tag.isDefault()).collect(Collectors.toList());
             modelTagList.setTags(defaultTags);
         }
+        model.addToHistory();
 
         return new CommandResult(MESSAGE_SUCCESS);
 

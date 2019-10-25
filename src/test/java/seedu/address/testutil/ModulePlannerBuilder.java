@@ -4,9 +4,9 @@ import seedu.address.model.ModulePlanner;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building ModulePlanner objects.
  * Example usage: <br>
- * {@code ModulePlanner ab = new ModulePlannerBuilder().withStudyPlan("John", "Doe").build();}
+ * {@code ModulePlanner mp = new ModulePlannerBuilder().withStudyPlan(studyPlan).build();}
  */
 public class ModulePlannerBuilder {
 

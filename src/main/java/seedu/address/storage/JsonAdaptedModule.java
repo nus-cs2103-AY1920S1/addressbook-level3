@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -45,9 +44,7 @@ class JsonAdaptedModule {
         color = source.getColor().toString();
 
         // add only user-defined tags
-        Iterator<Tag> tagIterator = source.getTags().iterator();
-        while (tagIterator.hasNext()) {
-            Tag tag = tagIterator.next();
+        for (Tag tag : source.getTags()) {
             if (!tag.isDefault()) {
                 userTags.add(new JsonAdaptedTag(tag));
             }

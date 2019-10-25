@@ -13,8 +13,8 @@ public class NoActiveStudyPlanDisplay extends UiPart<Region> {
 
     private static final String FXML = "NoActiveStudyPlanDisplay.fxml";
     private static final String NO_ACTIVE_STUDY_PLAN = "You can create a new study plan with the command:\n"
-        + "- newplan\n"
-        + "- newplan <title>";
+            + "- newplan\n"
+            + "- newplan <title>";
 
     @FXML
     private TextArea noActiveStudyPlanString;

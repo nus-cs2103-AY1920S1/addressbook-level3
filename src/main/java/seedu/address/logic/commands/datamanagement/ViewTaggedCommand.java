@@ -51,8 +51,8 @@ public class ViewTaggedCommand extends Command {
         Set<Module> allMatchingModules = getAllMatchingModules(moduleHashMap);
 
         final String stringOfModules = allMatchingModules.stream()
-            .map(item -> item.toString())
-            .collect(joining("\n"));
+                .map(item -> item.toString())
+                .collect(joining("\n"));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfModules));
     }

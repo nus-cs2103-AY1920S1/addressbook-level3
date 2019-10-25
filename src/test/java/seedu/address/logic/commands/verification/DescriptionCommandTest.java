@@ -28,7 +28,6 @@ import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
 
 public class DescriptionCommandTest {
-
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -267,6 +266,31 @@ public class DescriptionCommandTest {
         //@Override
         public void deleteAllModulesInSemester(SemesterName semesterName) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoModulePlanner() {
+            return false;
+        }
+
+        @Override
+        public boolean canRedoModulePlanner() {
+            return false;
+        }
+
+        @Override
+        public void undoModulePlanner() {
+
+        }
+
+        @Override
+        public void redoModulePlanner() {
+
+        }
+
+        @Override
+        public void addToHistory() {
+
         }
     }
 

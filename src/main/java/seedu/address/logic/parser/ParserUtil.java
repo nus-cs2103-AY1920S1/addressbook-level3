@@ -6,9 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
@@ -87,9 +85,9 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<String> parseTags(Collection<String> tags) throws ParseException {
+    public static List<String> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<String> tagSet = new HashSet<>();
+        final List<String> tagSet = new ArrayList<>();
         for (String tagName : tags) {
             tagSet.add(parseTag(tagName));
         }
@@ -98,6 +96,7 @@ public class ParserUtil {
 
     /**
      * Parses the prerequisite tree from a given string.
+     *
      * @param s Given string representing the prerequisite tree. Either the empty string, a module code, or (OP _ _).
      * @return Prerequisite tree
      */

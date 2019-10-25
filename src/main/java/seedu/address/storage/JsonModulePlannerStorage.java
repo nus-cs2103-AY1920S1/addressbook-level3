@@ -50,7 +50,7 @@ public class JsonModulePlannerStorage implements ModulePlannerStorage {
 
         Optional<JsonSerializableModulePlanner> jsonModulePlanner = JsonUtil.readJsonFile(
                 filePath, JsonSerializableModulePlanner.class);
-        if (!jsonModulePlanner.isPresent()) {
+        if (jsonModulePlanner.isEmpty()) {
             return Optional.empty();
         }
 
@@ -79,5 +79,4 @@ public class JsonModulePlannerStorage implements ModulePlannerStorage {
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableModulePlanner(modulePlanner), filePath);
     }
-
 }

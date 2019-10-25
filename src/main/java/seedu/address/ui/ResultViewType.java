@@ -8,5 +8,5 @@ public enum ResultViewType {
     TAG,
     MODULE,
     STUDY_PLAN,
-    COMMIT_HISTORY;
+    COMMIT_HISTORY
 }

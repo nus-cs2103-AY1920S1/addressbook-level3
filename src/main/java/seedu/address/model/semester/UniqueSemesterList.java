@@ -119,7 +119,11 @@ public class UniqueSemesterList implements Iterable<Semester>, Cloneable {
 
     @Override
     public UniqueSemesterList clone() throws CloneNotSupportedException {
-        return (UniqueSemesterList) super.clone();
+        UniqueSemesterList clone = new UniqueSemesterList();
+        for (Semester semester: this) {
+            clone.add(semester.clone());
+        }
+        return clone;
     }
 
     /**

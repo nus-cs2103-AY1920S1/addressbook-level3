@@ -5,11 +5,6 @@ package seedu.address.logic.commands;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.testutil.StudyPlanBuilder;
-
 //import java.nio.file.Path;
 //import java.util.ArrayList;
 //import java.util.Arrays;
@@ -25,7 +20,7 @@ import seedu.address.testutil.StudyPlanBuilder;
 public class CreateStudyPlanCommandTest {
 
     //TODO implement tests
-
+    /*
     @Test
     public void execute_studyPlanAcceptedByModel_addSuccessful() throws Exception {
         //ModelStubAcceptingStudyPlanAdded modelStub = new ModelStubAcceptingStudyPlanAdded();

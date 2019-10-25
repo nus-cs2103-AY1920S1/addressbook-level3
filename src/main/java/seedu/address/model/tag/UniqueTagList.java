@@ -105,6 +105,7 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     /**
      * Gets a specific tag that has the given tag name.
+     *
      * @param tagName Name of the tag
      * @return Tag
      */
@@ -179,6 +180,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         return internalUnmodifiableList;
     }
 
+    public List<String> asListOfStrings() {
+        return asUnmodifiableObservableList().stream().map(tag -> tag.toString()).collect(Collectors.toList());
+    }
+
     @Override
     public Iterator<Tag> iterator() {
         return internalList.iterator();
@@ -197,8 +202,12 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Object clone() {
+        UniqueTagList clone = new UniqueTagList();
+        for (Tag tag : this) {
+            clone.addTag(tag);
+        }
+        return clone;
     }
 
     private HashMap<String, Tag> getMapTags() {
@@ -232,10 +241,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         for (DefaultTagType defaultTagType : DefaultTagType.values()) {
             addTag(new DefaultTag(defaultTagType));
         }
-    }
-
-    public List<String> asListOfStrings() {
-        return asUnmodifiableObservableList().stream().map(Tag::getTagName).collect(Collectors.toList());
     }
 
 }

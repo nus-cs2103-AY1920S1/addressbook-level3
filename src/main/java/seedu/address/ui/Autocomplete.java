@@ -70,6 +70,7 @@ public class Autocomplete extends TextField {
 
     /**
      * Populate the entry set with the given search results.
+     *
      * @param searchResult The list of matching strings.
      */
     private void populateMenu(List<String> searchResult) {
@@ -122,8 +123,9 @@ public class Autocomplete extends TextField {
 
     /**
      * Completes the input in the textfield.
-     * @param input The user's input to be autocompleted.
-     * @param keywords The sorted set of keywords for autocompletion.
+     *
+     * @param input       The user's input to be autocompleted.
+     * @param keywords    The sorted set of keywords for autocompletion.
      * @param currentText The current text that has been completed.
      */
     private void completeInput(String input, SortedSet<String> keywords, String currentText) {

@@ -4,7 +4,7 @@ package seedu.address.model;
  * Color is an enumeration of color values for tags.
  */
 public enum Color {
-    RED ("RED", "#FF0000"),
+    RED("RED", "#FF0000"),
     ORANGE("ORANGE", "#FFA500"),
     YELLOW("YELLOW", "#FFFF00"),
     GREEN("GREEN", "#008000"),
