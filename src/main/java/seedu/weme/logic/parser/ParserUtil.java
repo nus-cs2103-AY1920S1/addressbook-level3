@@ -100,10 +100,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String weme} into a {@code Description}.
+     * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code weme} is invalid.
+     * @throws ParseException if the given {@code description} is invalid.
      */
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);

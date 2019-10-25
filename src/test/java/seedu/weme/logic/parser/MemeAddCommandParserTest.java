@@ -74,7 +74,7 @@ public class MemeAddCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid weme
+        // invalid description
         assertParseFailure(parser, INVALID_FILEPATH_DESC + DESCRIPTION_DESC_JOKER
                 + TAG_DESC_JOKER + TAG_DESC_CHARMANDER, ImagePath.MESSAGE_CONSTRAINTS);
 

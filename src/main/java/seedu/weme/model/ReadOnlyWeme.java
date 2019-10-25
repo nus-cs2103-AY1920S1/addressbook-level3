@@ -6,7 +6,7 @@ import seedu.weme.model.template.Template;
 import seedu.weme.statistics.Stats;
 
 /**
- * Unmodifiable view of an weme
+ * Unmodifiable view of a Weme
  */
 public interface ReadOnlyWeme {
 

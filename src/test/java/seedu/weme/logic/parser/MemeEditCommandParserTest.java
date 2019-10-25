@@ -103,7 +103,7 @@ public class MemeEditCommandParserTest {
 
     @Test
     public void parse_oneFieldSpecified_success() {
-        // weme
+        // description
         Index targetIndex = INDEX_THIRD_MEME;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_CHARMANDER;
         EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder()

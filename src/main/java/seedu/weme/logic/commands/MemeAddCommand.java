@@ -13,13 +13,13 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.util.ImageUtil;
 
 /**
- * Adds a meme to weme.
+ * Adds a meme to Weme.
  */
 public class MemeAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meme to weme. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meme to Weme. "
             + "Parameters: "
             + PREFIX_FILEPATH + "PATH "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
@@ -30,7 +30,7 @@ public class MemeAddCommand extends Command {
             + PREFIX_TAG + "funny";
 
     public static final String MESSAGE_SUCCESS = "New meme added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in weme";
+    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in Weme";
     public static final String MESSAGE_COPY_FAILURE = "Error encountered while copying the meme to data folder";
 
 

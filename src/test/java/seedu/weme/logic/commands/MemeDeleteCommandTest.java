@@ -70,7 +70,7 @@ public class MemeDeleteCommandTest {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
         Index outOfBoundIndex = INDEX_SECOND_MEME;
-        // ensures that outOfBoundIndex is still in bounds of weme list
+        // ensures that outOfBoundIndex is still in bounds of meme list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getWeme().getMemeList().size());
 
         MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(outOfBoundIndex);

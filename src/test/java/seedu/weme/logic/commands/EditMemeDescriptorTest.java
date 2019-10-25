@@ -38,7 +38,7 @@ public class EditMemeDescriptorTest {
                 .withFilePath(VALID_FILEPATH_JOKER).build();
         assertFalse(DESC_CHARMANDER.equals(editedAmy));
 
-        // different weme -> returns false
+        // different description -> returns false
         editedAmy = new EditMemeDescriptorBuilder(DESC_CHARMANDER).withDescription(VALID_DESCRIPTION_JOKER).build();
         assertFalse(DESC_CHARMANDER.equals(editedAmy));
 

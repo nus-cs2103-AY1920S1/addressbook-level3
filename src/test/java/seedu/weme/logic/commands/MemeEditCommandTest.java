@@ -117,7 +117,7 @@ public class MemeEditCommandTest {
     public void execute_duplicateMemeFilteredList_failure() {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
-        // edit meme in filtered list into a duplicate in weme
+        // edit meme in filtered list into a duplicate in Weme
         Meme memeInList = model.getWeme().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
         MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_FIRST_MEME,
                 new EditMemeDescriptorBuilder(memeInList).build());
@@ -136,7 +136,7 @@ public class MemeEditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of weme
+     * but smaller than size of the meme list
      */
     @Test
     public void execute_invalidMemeIndexFilteredList_failure() {

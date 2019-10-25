@@ -14,7 +14,7 @@ public class DescriptionTest {
 
     @Test
     public void isValidDescription() {
-        // null weme
+        // null description
         assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
 
         // valid description
@@ -23,6 +23,6 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("Surprised Pikachu Meme"));
         assertTrue(Description.isValidDescription("-")); // one character
         assertTrue(Description.isValidDescription(
-                "Roses are red Violets are blue Every man is cool Until the Cockroach flew")); // long weme
+                "Roses are red Violets are blue Every man is cool Until the Cockroach flew")); // long description
     }
 }

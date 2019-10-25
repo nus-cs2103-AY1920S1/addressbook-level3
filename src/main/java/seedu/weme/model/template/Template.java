@@ -7,7 +7,7 @@ import java.util.Objects;
 import seedu.weme.model.imagePath.ImagePath;
 
 /**
- * Represents a meme template in weme.
+ * Represents a meme template in Weme.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Template {
