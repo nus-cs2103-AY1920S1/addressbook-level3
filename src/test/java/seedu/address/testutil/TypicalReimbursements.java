@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.address.reimbursement.model.Reimbursement;
+import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.util.TransactionList;
 
 public class TypicalReimbursements {
     public static final Reimbursement ALICE_REIMBURSEMENT_20
@@ -21,8 +24,17 @@ public class TypicalReimbursements {
     private TypicalReimbursements() {
     } // prevents instantiation
 
-    public static ArrayList<Reimbursement> getTypicalReimbursements() {
-        return new ArrayList<>(Arrays.asList(ALICE_REIMBURSEMENT_20, ALICE_REIMBURSEMENT_30, ELLE_REIMBURSEMENT_100));
+    public static ReimbursementList getTypicalReimbursements() {
+        ArrayList<Reimbursement> arrList
+                = new ArrayList<>(Arrays.asList(ALICE_REIMBURSEMENT_20, ELLE_REIMBURSEMENT_100));
+        return new ReimbursementList(arrList);
+    }
+
+    public static TransactionList getTypicalTransactions() {
+        ArrayList<Transaction> arrayList
+                = new ArrayList<>(Arrays.asList(TypicalTransactions.ALICE_TRANSACTION_10,
+                TypicalTransactions.ELLE_TRANSACTION_11));
+        return new TransactionList(arrayList);
     }
 
 }
