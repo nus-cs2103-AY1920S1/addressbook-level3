@@ -449,9 +449,13 @@ Given below is an example scenario where the user enters a command to filter not
 
 **Step 1:** The user command is passed through the `LogicManager` and a `ListNoteCommand` with the `Filter` containing the keywords and `FilterType.KEYWORD` is returned.
 
-image::FilterKeywordSequenceDiagram.png[]
+.Sequence diagram of parsing note filter user command to obtain a `ListNoteCommand`
+image::FilterKeywordSequenceDiagram1.png[]
 
 **Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `Filter` exists and is of `FilterType.KEYWORD`, `ListNoteCommand#filterAndListByKeyword()` will be called.
+
+.Sequence diagram of executing `ListNoteCommand` to update filtered note list by keyword in `Model`
+image::FilterKeywordSequenceDiagram2.png[]
 
 The method will create a `NoteContainsKeywordsPredicate` and update the list of notes to be displayed via `Model`.
 
@@ -463,15 +467,14 @@ Filter by `Tag` makes use of the `TagManager#findTag()` to obtain the `Tag` by p
 
 Given below is an example scenario where the user enters a command to filter notes by tag.
 
-**Step 1:** The user command is passed through the `LogicManager` and a `ListNoteCommand` with the `Filter` containing the keywords and `FilterType.TAG` is returned.
-
-image::FilterTagSequenceDiagram.png[]
+**Step 1:** Similar to filtering by keyword, the user command is passed through the `LogicManager` and a `ListNoteCommand` with the `Filter` containing the keywords and `FilterType.TAG` is returned.
 
 **Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `Filter` exists and is of `FilterType.TAG`, `ListNoteCommand#filterAndListByTag()` will be called.
 
 The method will create a `TagId` from the user input and obtain the `Tag` through the `TagManager#findTag()`. The `Tag obtained will be passed into the `NoteContainsTagPredicate`. The `Predicate` is then used to filter the list of notes via `Model`.
 
-// sequence diagram
+.Sequence diagram of executing `ListNoteCommand` to update filtered note list by `Tag` in `Model`
+image::FilterTagSequenceDiagram.png[]
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
