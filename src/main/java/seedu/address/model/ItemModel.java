@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -97,6 +98,12 @@ public interface ItemModel {
     public ElisaCommandHistory getElisaCommandHistory();
 
     public boolean togglePriorityMode() throws IllegalListException;
+
+    public void scheduleOffPriorityMode(LocalDateTime localDateTime);
+
+    public void offPriorityMode();
+
+    public void forceOffPriorityMode();
 
     public Item markComplete(int index) throws IllegalListException;
 

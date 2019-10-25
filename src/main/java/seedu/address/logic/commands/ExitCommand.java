@@ -13,6 +13,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(ItemModel model) {
+        model.forceOffPriorityMode();
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 

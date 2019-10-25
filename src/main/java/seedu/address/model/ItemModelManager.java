@@ -3,10 +3,17 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.PriorityQueue;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
@@ -43,6 +50,8 @@ public class ItemModelManager implements ItemModel {
     private ReminderList pastReminders;
     private ActiveRemindersList activeReminders;
     private ArrayList<Item> futureReminders;
+
+    private Timer timer = null;
 
     public ItemModelManager(ItemStorage itemStorage, ReadOnlyUserPrefs userPrefs,
                             ElisaCommandHistory elisaCommandHistory) {
@@ -226,9 +235,8 @@ public class ItemModelManager implements ItemModel {
      */
     public void addItem (Item item) {
         visualList.add(item);
-        //TODO: Shouldnt addToSeparateList be successful before we store the item?
-        itemStorage.add(item);
         addToSeparateList(item);
+        itemStorage.add(item);
     }
 
     /**
@@ -237,17 +245,8 @@ public class ItemModelManager implements ItemModel {
 
     public void addItem(ItemIndexWrapper wrapper) {
         visualList.addToIndex(wrapper.getVisual(), wrapper.getItem());
-        itemStorage.add(wrapper.getStorage(), wrapper.getItem());
         addToSeparateList(wrapper);
-    }
-
-    /**
-     * Adds an item to a specific list
-     * @param item the item to be added to the list
-     * @param il the list the item is to be added to
-     */
-    public void addItem (Item item, VisualizeList il) {
-        il.add(item);
+        itemStorage.add(wrapper.getStorage(), wrapper.getItem());
     }
 
     /**
@@ -309,17 +308,7 @@ public class ItemModelManager implements ItemModel {
      */
     public Item removeItem(int index) {
         Item item = visualList.removeItemFromList(index);
-        if (visualList instanceof TaskList) {
-            taskList.removeItemFromList(item);
-        } else if (visualList instanceof EventList) {
-            eventList.removeItemFromList(item);
-        } else if (visualList instanceof ReminderList) {
-            reminderList.removeItemFromList(item);
-        } else {
-            // never reached here as there are only three variants for the visualList
-        }
-
-        return item;
+        return removeItem(item);
     }
 
     /**
@@ -450,9 +439,7 @@ public class ItemModelManager implements ItemModel {
      */
     public void clear() {
         setItemStorage(new ItemStorage());
-        this.taskList = new TaskList();
-        this.eventList = new EventList();
-        this.reminderList = new ReminderList();
+        emptyLists();
         this.visualList = taskList;
     }
 
@@ -501,36 +488,38 @@ public class ItemModelManager implements ItemModel {
             throw new IllegalListException();
         }
 
-        priorityMode = !priorityMode;
-        if (!priorityMode) {
-            sortedTask = null;
-            this.visualList = taskList;
+        if (priorityMode) {
+            toggleOffPriorityMode();
         } else {
-            sortedTask = new PriorityQueue<>((item1, item2) -> {
-                Task task1 = item1.getTask().get();
-                Task task2 = item2.getTask().get();
-                if (task1.isComplete() && !task2.isComplete()) {
-                    return 1;
-                } else if (!task1.isComplete() && task2.isComplete()) {
-                    return -1;
-                } else {
-                    return item1.getPriority().compareTo(item2.getPriority());
-                }
-            });
-            for (int i = 0; i < taskList.size(); i++) {
-                Item item = taskList.get(i);
-                if (!item.getTask().get().isComplete()) {
-                    sortedTask.add(item);
-                }
-            }
-
-            if (sortedTask.size() == 0) {
-                priorityMode = false;
-                return priorityMode;
-            }
-            this.visualList = getNextTask();
+            toggleOnPriorityMode();
         }
         return priorityMode;
+    }
+
+    /**
+     * Schedule a timer to off the priority mode.
+     * @param localDateTime the time at which the priority mode should be turned off.
+     */
+    public void scheduleOffPriorityMode(LocalDateTime localDateTime) {
+        this.timer = new Timer();
+        ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
+        Date date = Date.from(zdt.toInstant());
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                toggleOffPriorityMode();
+            }
+        }, date);
+    }
+
+    /**
+     * Handles the turning off of priority mode when exiting the application.
+     */
+    public void forceOffPriorityMode() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     private VisualizeList getNextTask() {
@@ -543,6 +532,56 @@ public class ItemModelManager implements ItemModel {
 
         result.add(sortedTask.peek());
         return result;
+    }
+
+    /**
+     * Method to close the priority mode thread.
+     */
+    public void offPriorityMode() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+    /**
+     * Turns off the priority mode.
+     */
+    private void toggleOffPriorityMode() {
+        offPriorityMode();
+
+        this.sortedTask = null;
+        if (visualList instanceof TaskList) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    visualList.clear();
+                    for (Item item : taskList) {
+                        visualList.add(item);
+                    }
+                }
+            });
+        }
+        this.priorityMode = false;
+    }
+
+    /**
+     * Turns on the priority mode.
+     */
+    private void toggleOnPriorityMode() {
+        this.priorityMode = true;
+        sortedTask = new PriorityQueue<>(TaskList.COMPARATOR);
+        for (int i = 0; i < taskList.size(); i++) {
+            Item item = taskList.get(i);
+            if (!item.getTask().get().isComplete()) {
+                sortedTask.add(item);
+            }
+        }
+        if (sortedTask.size() == 0) {
+            priorityMode = false;
+        } else {
+            this.visualList = getNextTask();
+        }
     }
 
     /**
