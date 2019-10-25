@@ -1,6 +1,7 @@
 package dukecooks.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import dukecooks.commons.core.GuiSettings;
@@ -331,6 +332,11 @@ public class ModelStub implements Model {
 
     @Override
     public void doneDashboard(Dashboard target) {
+        throw new AssertionError("This method should not be called");
+    }
+
+    @Override
+    public boolean checkForPrize(List<Dashboard> l) {
         throw new AssertionError("This method should not be called");
     }
 

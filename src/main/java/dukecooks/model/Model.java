@@ -1,6 +1,7 @@
 package dukecooks.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import dukecooks.commons.core.GuiSettings;
@@ -325,6 +326,10 @@ public interface Model {
      */
     void doneDashboard(Dashboard key);
 
+    /**
+     * Returns true if user has 5 new completed task.
+     */
+    boolean checkForPrize(List<Dashboard> l);
 
     //=========== Filtered Person List Accessors =============================================================
 

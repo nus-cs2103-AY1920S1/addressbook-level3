@@ -24,6 +24,7 @@ public class DoneTaskCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Task marked as complete";
+    public static final String MESSAGE_DONE_FIVE_SUCCESS = "Congrats! You've completed 5 new tasks!";
 
     private final Index targetIndex;
 
@@ -47,7 +48,13 @@ public class DoneTaskCommand extends Command {
         }
         Dashboard createDoneTask = createDoneTask(taskToMark);
         model.doneDashboard(createDoneTask);
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, createDoneTask));
+
+        if(model.checkForPrize(lastShownList)) {
+            return new CommandResult(String.format(MESSAGE_DONE_FIVE_SUCCESS, createDoneTask));
+
+        } else {
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, createDoneTask));
+        }
     }
 
     @Override
