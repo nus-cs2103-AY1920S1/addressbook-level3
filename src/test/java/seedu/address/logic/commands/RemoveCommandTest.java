@@ -33,7 +33,7 @@ public class RemoveCommandTest {
 
         String expectedMessage = String.format(RemoveCommand.MESSAGE_DELETE_DEADLINE_SUCCESS, deadlineToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getKeyboardFlashCards(), new UserPrefs());
         expectedModel.deleteDeadline(deadlineToDelete);
 
         assertCommandSuccess(removeCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class RemoveCommandTest {
 
         String expectedMessage = String.format(RemoveCommand.MESSAGE_DELETE_DEADLINE_SUCCESS, deadlineToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getKeyboardFlashCards(), new UserPrefs());
         expectedModel.deleteDeadline(deadlineToDelete);
         showNoPerson(expectedModel);
 
@@ -69,7 +69,7 @@ public class RemoveCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_DEADLINE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getDeadlineList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getKeyboardFlashCards().getDeadlineList().size());
 
         RemoveCommand removeCommand = new RemoveCommand(outOfBoundIndex);
 

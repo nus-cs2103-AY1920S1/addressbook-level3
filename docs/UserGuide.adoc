@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= KeyboardFlashCards - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,14 @@ By: `CS2103T-T12-4`      Since: `Aug 2019`      Licence: `-`
 
 == Introduction
 
-KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards. More importantly, KFC is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KFC can get your flash card management tasks faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study using flashcards.
+More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, KFC
+can help you manage your flashcards much more efficiently than traditional GUI apps.
+
+Interested? You should be! KFC is perfect for NUS Computing students. We even have additional
+features not available with most flashcard managers that we're sure you'll love.
+Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
@@ -27,20 +34,182 @@ KeyboardFlashCards (KFC) is for those who prefer to use a desktop app to study u
 .  Copy the file to the folder you want to use as the home folder for your KFC app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::annotatedUi.png[width="790"]
 
 
 == Features
-
+This section contains the features and their respective commands
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add >QUESTION`, `QUESTION` is a parameter. The command format would thus be as such: `add q>1+1`.
+* Items in square brackets skinparam linetype orthoare optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
+* Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
+* Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 ====
 
+=== Add new flashcard: `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]...`
+
+This command allow to you to add a new flashcard with specific question and answer. +
+`add q>What is CS2103T a>Software engineering`
+
+You may also specified the category of the flashcard. +
+`add q>What is CS2103T a>Software engineering c>CS2103T`
+
+To add:
+
+. Type `add` followed by the question and answer and press **Enter** to execute it.
++
+image::AddStep1.png[width="600"]
+
+. The result box will display the message: _"New flashCard added: What is the use of checksum ? Answer: To detect "error" Categories: "_
++
+image::AddStep2.png[width="600"]
+
+. And you can check whether the new flashcard has been added to the flashcard list.
++
+image::AddStep3.png[width="600"]
+
+=== Edit an existing flashcard: `edit [INDEX] {fields wanted to edit}...`
+
+This command allows you to edit the flashcard with index corresponding to the
+display list with 1 or multiple fields +
+e.g: +
+
+* `edit 7 c>CS2105`
+* `edit 1 a>lambda c>science`
+* `edit 1 q> 11 * 11 a> 121 c> math`
+
+To edit:
+
+. Type `edit` followed by the index and the content to edit, then press *Enter* to execute it.
++
+image::EditStep1.png[width="600"]
+
+. The result box will display the message: _"Edited FlashCard: What is the use of checksum ? Answer: To detect "error" Categories: [CS2105]"_.
++
+image::EditStep2.png[width="600"]
+
+. And you can check whether the flashcard has been edited on the flashcard list.
++
+image::EditStep3.png[width="600"]
+
+=== Delete flashcard: `delete [INDEX]`
+
+This command allows you the delete a
+particular flashcard with the index
+show on the flashcard list. e.g.
+`delete 1`
+
+To delete:
+
+. Type `delete` with the corresponding index displayed on the
+flashcard list and press *Enter* to execute it.
++
+image::DeleteStep1.png[width="600"]
+
+. The result box will show the message: _"Deleted FlashCard: What is the use of checksum ? Answer: To detect "error" Categories: [CS2105]"_
++
+image::DeleteStep2.png[width="600"]
+
+. And you can check the flashcard list that the flashcard has been deleted.
++
+image::DeleteStep3.png[width="600"]
+
+=== Clear all the flashcard: `clear`
+
+This command allows you to delete all the flashcard in the storage.
+
+To clear:
+
+. Type `clear' and press *Enter* to execute it.
++
+image::ClearStep1.png[width="600"]
+
+. The result box will show the message: -"Flash card has been cleared!"_
+And you will see that all lists turn empty.
++
+image::ClearStep2.png[width="600"]
+
+
+=== Search of flashcards: `find`
+
+This section will show you different ways to find flashcards that matches the keyword(s).
+
+==== Search for flashcards that either the question or the answer matches the keyword(s): "find [keyword(s)]
+
+This command allows you to find a list of flashcards with the question or answer matching the keyword(s).
+Multiple keywords are separated by a single space.
+
+To find:
+
+. Type `find` followed by the keywords and press *Enter* to execute it.
++
+image::FindStep1.png[width="600"]
+
+. The result box will show message: _"4  flash cards listed!"_ and the flashcard list will show the matched flashcards
++
+image::FindStep2.png[width="600"]
+
+==== Search for flashcard with question matching the keyword(s) only: `findq [keyword(s)]`
+
+This command allows you to find a list of flashcards with the question matching the keyword(s).
+Multiple keywords are separated by a single space.
+
+to find question:
+
+. Type `findq` follow by the keywords and press *Enter* to execute it.
++
+image::FindqStep1.png[width="600"]
+
+. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matched flashcards
++
+image::FindqStep2.png[width="600"]
+
+==== Search for flashcard with answer matching the keyword(s) only: `finda [keyword(s)]`
+
+This command allows you to find a list of flashcards with the answer matching the keyword(s).
+Multiple keywords are separated by a single space.
+
+to find answer:
+
+. Type `finda` follow by the keywords and press *Enter* to execute it.
++
+image::FindaStep1.png[width="600"]
+
+. The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matched flashcards
++
+image::FindaStep2.png[width="600"].
+
+==== Search for category/categories : `findcat [keyword(s)]`
+
+list all the flashcards under the specific category that matching the keyword(s).
+Multiple keywords are separated by a single space.
+
+to find category:
+
+. Type `findcat` follow by the keywords and press *Enter* to execute it.
++
+image::FindcatStep1.png[width="600"]
+
+. The result box will show message: _""_ and the flashcard list will show the matched flashcards
++
+image::FindcatStep2.png[width="600"].
+
+
+=== List all flashcards: `list`
+
+This command allows you to lists all the flashcards in the storage.
+
+To list:
+
+. Type `list` and press *Enter* to execute it.
++
+image::ListStep1.png[width="600"]
+
+. The result box will show message: _"Listed all Flash Cards"_  and the flashcard list will show all the flashcards.
++
+image::ListStep2.png[width="600"]
 
 === Start flashcard test: `start`
 
@@ -50,53 +219,17 @@ Starts the flashcard test (assuming you are in the category ‘folder’)
 Starts the flashcard test from any specific category
 `start [category]`
 
-=== Add new category: `cat [name]`
-
-[TIP]
-A person can have any number of categories (including 0)
-
-=== Add new flashcard: `add [category]`
-
-Adds a new flashcard into your specific category/topic.
-`add Math`
-Fill in the question and answer on the card when prompted on the GUI.
-
-=== Edit an existing flashcard: `edit [category] [ID]`
-
-Lists all the flashcards under the specific topic folder.
-`edit Math 10`
-
-=== Delete entire topic: `delete [category]`
-
-`delete Math *`
-
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing categories, the existing categories of the person will be removed i.e adding of categories is not cumulative.
-* You can remove all the person's categories by typing `t/` without specifying any categories after it.
-****
-
-
-
-=== List function topics and flashcards: `list [category]`
-
-Lists all the flashcards under the specific topic folder. Each flashcard is color-coded to represent your familiarity with the content.
-`list Math`
-
 === Set a reminder for a specific category of flashcards. [coming in v1.3]
 
 `remind Math 04/11 1030`
 
 
-=== Add general deadlines reminders: `deadline t/[TASK] d[DUE DATE]`
+=== Add general deadlines reminders: `deadline t>[TASK] d[DUE DATE]`
 
 Adds a general deadline into the deadline list. The list will be display on the right-side pane.
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
-`deadline t/CS2103 Exam d/10/11/2019`
+`deadline t>CS2103 Exam d>10/11/2019`
 
 === Remove deadline from list: `remove [index]`
 
@@ -114,14 +247,25 @@ Shows the calendar filled with all dealines in the month. The calendar will be s
 
 `calendar`
 
-=== Get the full list of commands: `help`
+=== Export flashcards to a document file: `export c>CATEGORY p>FILE_PATH`
 
+Exports all flashcards in the supplied category to an external document (`.docx`) file.
+Each flashcard will be represented as a question-and-answer pair.
+The document file will be created at the supplied file path.
+
+TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
+self-learning.
+
+WARNING: The given file path is required to end with `.docx` - this is because we currently only support
+exporting to document files.
+
+`export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
+
+=== Get the full list of commands: `help`
 
 `help`
 
-=== Search flashcards: `search [keywords]`
 
-`search process`
 
 === Stop test: `stop`
 
@@ -129,7 +273,14 @@ Shows the calendar filled with all dealines in the month. The calendar will be s
 
 === Exit: `exit`
 
-`exit`
+This command allows you to exit the application.
+
+To exit:
+
+. Type `exit` and press *Enter* to execute it.
+
+. The application window will close by itself.
+
 
 === View overall stats: `stats`
 
@@ -180,26 +331,28 @@ There is no need to save manually.
 
 == Command Summary
 
+* Add new flashcard: add [q>QUESTION] [q>ANSWER] [c>CATEGORY]…​ +
+e.g. `add q>1+1 a>2`
+* Edit an existing flashcard - ` edit [INDEX] {fields wanted to edit}…​` +
+e.g.  `edit 2 c>CS2103`
+* Delete an existing flashcard - `delete [INDEX]` +
+e.g.  `delete 10`
+* Clear all the flashcard - `clear` +
+e.g. `clear`
 * Start a certain topic of flashcards - `start [keyword]` +
 e.g.  `start Mathematics`
-* Add a new (empty) category - `cat [name]` +
-e.g.  `cat Math`
-* Add a new flashcard - `add [category]` +
-e.g.  `add Math`
-* Edit an existing flashcard - `edit [category] [ID]` +
-e.g.  `edit Math 10`
-* Delete an existing flashcard - `delete [category] [ID]` +
-e.g.  `delete Math 10`
-* Delete an entire category - `delete [category]` +
-e.g.  `delete Math *`
 * Set user preference for reminders - `remind [category] DD/MM HHmm` +
 e.g.  `remind Math 04/10 1230`
-* List all flashcards under a specific category - `list [category]` +
-e.g.  `list Math`
+* Search of flashcards - `find`
+** find [keyword(s)]
+** findq [keyword(s)]
+** finda [keyword(s)]
+** findcat [keyword(s)]
+* List all flashcards - list
+* Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
+e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
-* Search specific flashcards - `search [keywords]` +
-e.g.  `search UML diagrams`
 * Stop flashcard test - `stop`
 * Exit - `exit`
 * View overall statistics - `stats`

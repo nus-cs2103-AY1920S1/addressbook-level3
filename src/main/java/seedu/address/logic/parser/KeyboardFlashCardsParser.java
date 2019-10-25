@@ -35,7 +35,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class KeyboardFlashCardsParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -47,6 +47,7 @@ public class AddressBookParser {
 
     private boolean isAwaitingAnswer = false;
 
+    //@@author
     /**
      * Parses user input into command for execution.
      *
@@ -65,11 +66,12 @@ public class AddressBookParser {
         return parseNormalCommand(matcher);
     }
 
-    public void startTest() {
+    //@@author keiteo
+    public void startTestMode() {
         isRunningFlashcardTest = true;
     }
 
-    public void endTest() {
+    public void endTestMode() {
         isRunningFlashcardTest = false;
     }
 

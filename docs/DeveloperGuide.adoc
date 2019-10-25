@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CategoryListPane`, `CommandBox`, `ResultDisplay`, `FlashCardListPanel`, `StatusBarFooter`, `DeadlineListPane` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -123,13 +123,13 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<FlashCard>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Category` list in `Address Book`, which `FlashCard` can reference. This would allow `Address Book` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[width = "600"]
 
 [[Design-Storage]]
 === Storage component
@@ -153,14 +153,60 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//@@author shutingy
+// tag::addflashcard[]
+=== Add feature
+==== Implementation
+
+The add feature allows the user to add flashcard with compulsory field of `QUESTION` and `ANSWER`.
+ `RATING` and `CATEGORY` are optional fields which the user can add to the flashcard later using the `edit` feature.
+
+[NOTE]
+Following are the prefixes for each field: +
+- q> : `QUESTION` +
+- a> : `ANSWER` +
+- r> : `RATING` +
+- c> : `CATEGORY`
+
+Given below is an example usage scenario of `add` :
+
+The user executes `add q>1+1 a>2 c>math` to add new flashcard.
+
+The following sequence diagram shows how the add operation works:
+
+image::AddSequenceDiagram.png[]
+
+
+The add feature does not allow adding of duplicate flashcards.
+If the flashcard exists in the storage, an error will be shown.
+
+The following activity diagram summarizes what happens when a user executes an add command:
+
+image::AddActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to implement add
+
+* **Alternative 1(current choice):** Use command `add` together with
+prefixes like `q>`, `a>`, `r>` and `c>`
+** pros: Easier to implement.
+** cons: User might miss the prefixes hence adding wrong flashcards
+* **Alternative 2:** Make use of the GUI. After user execute `add` command,
+ an **add flash card window** would pop up and there is segment for individual fields.
+** pros: More user friendly.
+** cons: Harder to implement.
+// end::addflashcard[]
+
+//@@ author LeowWB
 // tag::flashcardexport[]
 === Exporting of FlashCards
 ==== Implementation
 
+
 The `FlashCard` exporting mechanism is primarily facilitated by the following classes:
 
-* `ExportUtil` -- Handles the actual exporting of `FlashCard` s
-* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCard` s are to be exported, and to where
+* `ExportUtil` -- Handles the actual exporting of `FlashCards`
+* `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
 
 The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
@@ -169,9 +215,9 @@ The mechanism is also supported by the package `seedu.address.model.export`, con
 * `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
 * `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
 
-Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work. 
+Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work.
 Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
-It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCard` s to a `.docx`
+It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCards` to a `.docx`
 document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
 `org.apache.poi.xwpf.usermodel`).
 
@@ -185,12 +231,12 @@ image::ExportActivityDiagram.png[width=320,height=480]
 
 ==== Design Considerations
 
-===== Aspect: Method of obtaining desired `FlashCard` s for exporting
+===== Aspect: Method of obtaining desired `FlashCards` for exporting
 
-* **Alternative 1:** Update the `Model` to show all desired `FlashCard` s, then export all of said `FlashCard` s
-** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCard` s were exported
-** Cons: May cause confusion - `export` command does not imply that the selected `FlashCard` s will also be shown to the user
-* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCard` s, without updating the on-screen list
+* **Alternative 1:** Update the `Model` to show all desired `FlashCards`, then export all of said `FlashCards`
+** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCards` were exported
+** Cons: May cause confusion - `export` command does not imply that the selected `FlashCards` will also be shown to the user
+* **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCards`, without updating the on-screen list
 ** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
 ** Cons: Is harder to implement and might result in duplication of logic
 
@@ -204,13 +250,42 @@ image::ExportActivityDiagram.png[width=320,height=480]
 ** Cons: Might give rise to inconvenience in printing, as most text editors (e.g. Notepad, Vim, Gedit) do not have built-in printing functionality
 // end::flashcardexport[]
 
+//@@author keiteo
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Test Yourself Mode
+Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
+flashcards contained in the system will be tested.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Implementation
+This feature is supported by the following classes:
+
+* `AddressBookParser` to control the flow of command in the entire program.
+* `StartCommandParser` to parse arguments for StartCommand.
+* `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode.
+* `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags.
+
+The following sequence diagram shows the intended case for the `start` command:
+
+image::StartSequenceDiagram.png[]
+
+==== Design Considerations
+Aspect: Data structure to support `FlashCardTestModel`:
+
+* **Alternative 1 (Current choice):** `LinkedList` implementation:
+** Pros: Very efficient, with O(1) complexity removing the head of the list every time a question is tested.
+** Cons: Less memory efficient than `ArrayList`.
+* **Alternative 2:** ArrayList implementation:
+** Pros: More memory efficient than `LinkedList`.
+** Cons: To obtain the same performance as `LinkedList`, the last index/size of the `ArrayList` has to be constantly tracked.
+This slightly decreases code readability compared to the `LinkedList` implementation.
+* **Alternative 3:** Queue interface:
+** Pros: Use of `Queue` interface brings simplicity to code structure and readability while having the same performance
+as a `LinkedList` implementation.
+** Cons: There will be potential coupling by using `Queue` instead of `List` interface.
 
 // end::dataencryption[]
 
+//@@author
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

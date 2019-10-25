@@ -1,0 +1,26 @@
+@startuml
+start
+:User executes add command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([question and answer
+ prefixes are present])
+    :Parse the input string
+    to respective fields;
+    :Create FlashCard;
+    if () then([flashCard does
+    not existed
+    in the storage]
+    )
+      :Add FlashCard to the storage;
+      :Update the GUI flashCard list;
+    else ([else])
+      :display error message;
+    endif
+else ([else])
+  :display error message;
+endif
+stop
+@enduml

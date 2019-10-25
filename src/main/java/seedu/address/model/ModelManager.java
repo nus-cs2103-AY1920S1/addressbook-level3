@@ -23,7 +23,7 @@ import seedu.address.model.flashcard.FlashCard;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final KeyboardFlashCards keyboardFlashCards;
     private final UserPrefs userPrefs;
     private final FilteredList<FlashCard> filteredFlashCards;
     private final FilteredList<Deadline> filteredDeadlines;
@@ -32,24 +32,24 @@ public class ModelManager implements Model {
 
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given keyboardFlashCards and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyKeyboardFlashCards addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.keyboardFlashCards = new KeyboardFlashCards(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredFlashCards = new FilteredList<>(this.addressBook.getFlashcardList());
-        filteredDeadlines = new FilteredList<>(this.addressBook.getDeadlineList());
-        categoryList = new FilteredList<>(this.addressBook.getCategoryList());
+        filteredFlashCards = new FilteredList<>(this.keyboardFlashCards.getFlashcardList());
+        filteredDeadlines = new FilteredList<>(this.keyboardFlashCards.getDeadlineList());
+        categoryList = new FilteredList<>(this.keyboardFlashCards.getCategoryList());
         flashCardTestModel = new FlashCardTestModel(new LinkedList<>());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new KeyboardFlashCards(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -77,43 +77,43 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getKeyboardFlashCardsFilePath() {
+        return userPrefs.getKeyboardFlashCardsFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setKeyboardFlashCardsFilePath(Path keyboardFlashCardsFilePath) {
+        requireNonNull(keyboardFlashCardsFilePath);
+        userPrefs.setKeyboardFlashCardsFilePath(keyboardFlashCardsFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== KeyboardFlashCards ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setKeyboardFlashCards(ReadOnlyKeyboardFlashCards keyboardFlashCards) {
+        this.keyboardFlashCards.resetData(keyboardFlashCards);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyKeyboardFlashCards getKeyboardFlashCards() {
+        return keyboardFlashCards;
     }
 
     @Override
     public boolean hasFlashcard(FlashCard flashCard) {
         requireNonNull(flashCard);
-        return addressBook.hasFlashcard(flashCard);
+        return keyboardFlashCards.hasFlashcard(flashCard);
     }
 
     @Override
     public void deleteFlashCard(FlashCard target) {
-        addressBook.removeFlashCard(target);
+        keyboardFlashCards.removeFlashCard(target);
     }
 
     //@@author shutingy
     @Override
     public void addFlashCard(FlashCard flashCard) {
-        addressBook.addFlashcard(flashCard);
+        keyboardFlashCards.addFlashcard(flashCard);
         updateFilteredFlashCardList(PREDICATE_SHOW_ALL_FLASHCARDS);
         updateFilteredCategoryList(PREDICATE_SHOW_ALL_CATEGORIES);
     }
@@ -122,50 +122,50 @@ public class ModelManager implements Model {
     public void setFlashCard(FlashCard target, FlashCard editedFlashCard) {
         requireAllNonNull(target, editedFlashCard);
 
-        addressBook.setFlashcard(target, editedFlashCard);
+        keyboardFlashCards.setFlashcard(target, editedFlashCard);
     }
 
     @Override
     public void addDeadline(Deadline deadline) {
-        addressBook.addDeadline(deadline);
+        keyboardFlashCards.addDeadline(deadline);
         updateFilteredDeadlineList(PREDICATE_SHOW_ALL_DEADLINES);
     }
 
     @Override
     public boolean hasDeadline(Deadline deadline) {
         requireNonNull(deadline);
-        return addressBook.hasDeadline(deadline);
+        return keyboardFlashCards.hasDeadline(deadline);
     }
 
     //@@author LeonardTay748
     @Override
     public void editStats(int type) {
         if (type == 0) {
-            addressBook.addGood();
+            keyboardFlashCards.addGood();
         }
         if (type == 1) {
-            addressBook.addHard();
+            keyboardFlashCards.addHard();
         }
         if (type == 2) {
-            addressBook.addEasy();
+            keyboardFlashCards.addEasy();
         }
     }
 
 
     public int[] getStats() {
-        return addressBook.getStats();
+        return keyboardFlashCards.getStats();
     }
 
 
     @Override
     public void deleteDeadline(Deadline target) {
-        addressBook.removeDeadline(target);
+        keyboardFlashCards.removeDeadline(target);
     }
 
     @Override
     public void setDeadline(Deadline target, Deadline editedDeadline) {
         requireAllNonNull(target, editedDeadline);
-        addressBook.setDeadline(target, editedDeadline);
+        keyboardFlashCards.setDeadline(target, editedDeadline);
     }
 
 
@@ -207,7 +207,7 @@ public class ModelManager implements Model {
     //@@author keiteo
     @Override
     public ObservableList<FlashCard> getFlashCardList() {
-        return addressBook.getFlashcardList();
+        return keyboardFlashCards.getFlashcardList();
     }
 
     //=========== FlashCardTestModel ================================================================================
@@ -222,6 +222,7 @@ public class ModelManager implements Model {
     }
 
     @Override
+    // TODO: refactor parameter here
     public String getTestQuestion(Model model) {
         return flashCardTestModel.getQuestion(model);
     }
@@ -268,7 +269,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return keyboardFlashCards.equals(other.keyboardFlashCards)
                 && userPrefs.equals(other.userPrefs)
                 && filteredFlashCards.equals(other.filteredFlashCards)
                 && categoryList.equals(other.categoryList)

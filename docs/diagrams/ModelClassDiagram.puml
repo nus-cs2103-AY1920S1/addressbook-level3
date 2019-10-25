@@ -1,22 +1,23 @@
 @startuml
 !include style.puml
+
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyKeyboardFlashCards <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class KeyboardFlashCards
+Class ReadOnlyKeyboardFlashCards
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Flashcard {
-Class FLashcard
+Class Flashcard
 Class Question
 Class Answer
 Class Rating
@@ -24,30 +25,58 @@ Class UniqueFlashcardList
 }
 
 Package Category {
+Class UniqueCategoryList
 Class Category
 }
+
+Package Deadline  {
+Class Deadline
+Class DueDate
+Class Task
+Class UniqueDeadlineList
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
+Package Export {
+Class DirectoryPath
+Class DocumentFilePath
+Class DocumentPath
+}
 
-AddressBook .up.|> ReadOnlyAddressBook
+}
+
+Class HiddenOutside1 #FFFFFF
+Class HiddenOutside2 #FFFFFF
+Class HiddenOutside3 #FFFFFF
+HiddenOutside1 ..> Model
+HiddenOutside2 ..> DocumentPath
+HiddenOutside3 ..> Deadline
+
+ReadOnlyKeyboardFlashCards <|..KeyboardFlashCards
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" KeyboardFlashCards
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueFlashcardList
+KeyboardFlashCards *--> "1" UniqueFlashcardList
 UniqueFlashcardList o--> "*" Flashcard
 Flashcard *--> Question
 Flashcard *--> Answer
 Flashcard *--> Rating
-Flashcard *--> "*" Categories
+Flashcard *--> "*" Category
 
 Question -[hidden]right-> Answer
 Answer -[hidden]right-> Rating
 
 ModelManager -->"1" Flashcard : filtered list
+
+UniqueCategoryList o--> "*" Category
+
+DocumentPath *--> DocumentFilePath
+DocumentPath *--> DirectoryPath
+
+Deadline *--> Task
+Deadline*--> DueDate
+UniqueDeadlineList o-up-> "*" Deadline
 @enduml
