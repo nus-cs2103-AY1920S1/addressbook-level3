@@ -112,13 +112,12 @@ public abstract class UndoableCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-
         saveCustomerBookSnapshot(model);
         savePhoneBookSnapshot(model);
         saveOrderBookSnapshot(model);
         saveScheduleBookSnapshot(model);
         saveArchivedOrderBookSnapshot(model);
-        System.out.println("saved");
+
         return executeUndoableCommand(model);
     }
 

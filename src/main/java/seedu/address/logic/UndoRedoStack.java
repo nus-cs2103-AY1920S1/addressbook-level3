@@ -1,11 +1,15 @@
 package seedu.address.logic;
 
 import java.util.LinkedList;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UndoableCommand;
 
+/**
+ * Undo-redo Stack
+ */
 public class UndoRedoStack {
 
     private static UndoRedoStack undoRedoStack = new UndoRedoStack();
