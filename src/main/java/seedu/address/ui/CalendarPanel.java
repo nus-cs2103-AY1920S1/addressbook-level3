@@ -84,7 +84,7 @@ public class CalendarPanel extends UiPart<Region> {
      * Sets the title of the calendar feature to today's date.
      */
     private void setCurrentDateTitle() {
-        String day = DAYS[dayOfWeek];
+        String day = DAYS[dayOfWeek - 1];
         String currMonth = MONTHS[month];
         currDateMessage.setText(day + ", " + currMonth + " " + dayOfMonth + ", " + year);
     }
@@ -161,11 +161,11 @@ public class CalendarPanel extends UiPart<Region> {
 
     /**
      * Calculates excess grid boxes at the end of the calendar.
-     * @param n Number of days of calendar already filled up
+     * @param currFilledGrids Number of days of calendar already filled up
      * @return int Number of excess grid boxes.
      */
-    private int calculateTailGap(int n) {
-        return 42 - n;
+    private int calculateTailGap(int currFilledGrids) {
+        return 42 - currFilledGrids;
     }
 
     /**
@@ -258,17 +258,17 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * Combines 3 string arrays together, with array {@code a}'s elements coming in front, array
      * {@code b}'s elements coming in the middle and array {@code c}'s elements coming at the back.
-     * @param a String array whose elements are to be in front
-     * @param b String array whose elements are to be in the middle
-     * @param c String array whose elements are to be behind
+     * @param prev String array whose elements are to be in front
+     * @param curr String array whose elements are to be in the middle
+     * @param next String array whose elements are to be behind
      * @return String[] Combined String array.
      */
-    private String[] combine(String[] a, String[] b, String[] c) {
-        int length = a.length + b.length + c.length;
+    private String[] combine(String[] prev, String[] curr, String[] next) {
+        int length = prev.length + curr.length + next.length;
         String[] result = new String[length];
-        System.arraycopy(a, 0, result, 0, a.length);
-        System.arraycopy(b, 0, result, a.length, b.length);
-        System.arraycopy(c, 0, result, a.length + b.length, c.length);
+        System.arraycopy(prev, 0, result, 0, prev.length);
+        System.arraycopy(curr, 0, result, prev.length, curr.length);
+        System.arraycopy(next, 0, result, prev.length + curr.length, next.length);
         return result;
     }
 
@@ -287,11 +287,11 @@ public class CalendarPanel extends UiPart<Region> {
             for (int j = 0; j < 7; j++) {
                 int column = j;
                 HBox h = new HBox();
+                h.setAlignment(Pos.TOP_CENTER);
                 Label l = new Label();
                 l.setText(days[counter]);
-                l.setPadding(new Insets(5, 0, 0, 10));
+                l.setPadding(new Insets(5, 0, 0, 0));
                 l.setFont(new Font("System", 11));
-                l.setAlignment(Pos.TOP_LEFT);
                 if (beforeCount > 0) {
                     l.setTextFill(Paint.valueOf("#999999"));
                     beforeCount--;
