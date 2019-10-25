@@ -10,8 +10,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
 
 class EventTest {
 
