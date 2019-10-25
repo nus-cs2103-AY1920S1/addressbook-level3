@@ -4,8 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_DAY_VIEW_SUCCESS;
 
 import java.util.Objects;
 
-import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
+import seedu.address.logic.UiManager;
+import seedu.address.model.CalendarDate;
 import seedu.address.ui.UserOutput;
 
 /**
@@ -13,20 +13,21 @@ import seedu.address.ui.UserOutput;
  */
 public class DayViewCommand extends Command {
 
-    private final ModelManager model;
+    private final CalendarDate calendarDate;
+    private final UiManager uiManager;
 
     DayViewCommand(DayViewCommandBuilder builder) {
-        DateTime start = Objects.requireNonNull(builder.getStart());
-
-        this.model = builder.getModel();
+        calendarDate = Objects.requireNonNull(builder.getStart());
+        uiManager = Objects.requireNonNull(builder.getUiManager());
     }
 
-    public static CommandBuilder newBuilder(ModelManager model) {
-        return new DayViewCommandBuilder(model).init();
+    public static CommandBuilder newBuilder(UiManager uiManager) {
+        return new DayViewCommandBuilder(uiManager).init();
     }
 
     @Override
     public UserOutput execute() {
-        return new UserOutput(String.format(MESSAGE_DAY_VIEW_SUCCESS));
+        uiManager.viewDay(calendarDate);
+        return new UserOutput(String.format(MESSAGE_DAY_VIEW_SUCCESS, calendarDate.toString()));
     }
 }

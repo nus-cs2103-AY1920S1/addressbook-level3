@@ -1,10 +1,11 @@
 package seedu.address.model.events;
 
 import static seedu.address.commons.util.IcsUtil.generateUid;
-import static seedu.address.commons.util.IcsUtil.toIcsTimeStamp;
 
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.DateTime;
 
 /**
  * Represents an EventSource in Horo.
@@ -88,20 +89,19 @@ public class EventSource {
      * @return The String representation of the EventSource in the Ics file format.
      */
     public String toIcsString() {
-        DateTime now = DateTime.now();
         StringBuilder icsStringBuilder = new StringBuilder("BEGIN:VEVENT");
 
         String uid = generateUid();
-        String dtStamp = toIcsTimeStamp(now);
-        String start = toIcsTimeStamp(this.start);
+        String dtStamp = DateTime.now().toIcsString();
+        String start = this.start.toIcsString();
 
         icsStringBuilder
                 .append("\n").append("UID:").append(uid)
                 .append("\n").append("DTSTAMP:").append(dtStamp)
                 .append("\n").append("DTSTART:").append(start)
-                .append("\n").append("DTSUMMARY:").append(this.getDescription());
+                .append("\n").append("SUMMARY:").append(this.getDescription());
         if (this.end != null) {
-            String end = toIcsTimeStamp(this.end);
+            String end = this.end.toIcsString();
             icsStringBuilder
                     .append("\n").append("DTEND:").append(end);
         }
