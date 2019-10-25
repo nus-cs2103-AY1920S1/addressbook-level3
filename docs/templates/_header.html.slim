@@ -27,7 +27,6 @@
       .container
         - if attr? 'site-name'
             a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
-              img src=(site_url 'images/DukeCooks_Logo.png') alt='DukeCooks'
         ul.navbar-nav
           li.nav-item
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
