@@ -26,7 +26,7 @@ public class BookPredicate implements Predicate<Book> {
     private String serialNumber;
     private Set<Genre> genres;
     private Flag loanState;
-    private int displayLimit = -1;
+    private int displayLimit = -1;  // default for show all
 
     public BookPredicate() {
         this.title = null;
@@ -38,7 +38,7 @@ public class BookPredicate implements Predicate<Book> {
 
     public boolean isValid() {
         return title != null || author != null || serialNumber != null || genres != null
-                || loanState != null;
+                || loanState != null || displayLimit != -1;
     }
 
     @Override
@@ -162,6 +162,7 @@ public class BookPredicate implements Predicate<Book> {
                 && (author == null || author.equals(((BookPredicate) other).author)) // state check
                 && (serialNumber == null || serialNumber.equals(((BookPredicate) other).serialNumber)) // state check
                 && (genres == null || genres.equals(((BookPredicate) other).genres)) // state check
-                && (loanState == null || loanState.equals(((BookPredicate) other).loanState)));
+                && (loanState == null || loanState.equals(((BookPredicate) other).loanState))
+                && displayLimit == ((BookPredicate) other).displayLimit);
     }
 }

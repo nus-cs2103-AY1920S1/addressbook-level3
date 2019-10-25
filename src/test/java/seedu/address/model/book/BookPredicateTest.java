@@ -48,6 +48,14 @@ public class BookPredicateTest {
         // has genres condition -> true
         predicate = new BookPredicate().setGenres(VALID_GENRE_FICTION);
         assertTrue(predicate.isValid());
+
+        // has loan state -> true
+        predicate = new BookPredicate().setLoanState(Flag.LOANED);
+        assertTrue(predicate.isValid());
+
+        // has display limit -> true
+        predicate = new BookPredicate().setDisplayLimit(1);
+        assertTrue(predicate.isValid());
     }
 
     @Test
@@ -69,9 +77,9 @@ public class BookPredicateTest {
         // different title condition -> returns false
         assertFalse(predicate1.equals(predicate2));
 
-        predicate1.setAuthor(VALID_AUTHOR_BOOK_1);
-        predicate1Copy.setAuthor(VALID_AUTHOR_BOOK_1);
-        predicate2.setAuthor(VALID_AUTHOR_BOOK_2);
+        predicate1 = new BookPredicate().setAuthor(VALID_AUTHOR_BOOK_1);
+        predicate1Copy = new BookPredicate().setAuthor(VALID_AUTHOR_BOOK_1);
+        predicate2 = new BookPredicate().setAuthor(VALID_AUTHOR_BOOK_2);
 
         // same author condition -> returns true
         assertTrue(predicate1.equals(predicate1Copy));
@@ -79,9 +87,9 @@ public class BookPredicateTest {
         // different author condition -> returns false
         assertFalse(predicate1.equals(predicate2));
 
-        predicate1.setSerialNumber(VALID_SERIAL_NUMBER_BOOK_1);
-        predicate1Copy.setSerialNumber(VALID_SERIAL_NUMBER_BOOK_1);
-        predicate2.setSerialNumber(VALID_SERIAL_NUMBER_BOOK_2);
+        predicate1 = new BookPredicate().setSerialNumber(VALID_SERIAL_NUMBER_BOOK_1);
+        predicate1Copy = new BookPredicate().setSerialNumber(VALID_SERIAL_NUMBER_BOOK_1);
+        predicate2 = new BookPredicate().setSerialNumber(VALID_SERIAL_NUMBER_BOOK_2);
 
         // same serialNumber condition -> returns true
         assertTrue(predicate1.equals(predicate1Copy));
@@ -89,14 +97,34 @@ public class BookPredicateTest {
         // different serialNumber condition -> returns false
         assertFalse(predicate1.equals(predicate2));
 
-        predicate1.setGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION);
-        predicate1Copy.setGenres(VALID_GENRE_ACTION, VALID_GENRE_FICTION);
-        predicate2.setGenres(VALID_GENRE_ACTION, VALID_GENRE_NONFICTION);
+        predicate1 = new BookPredicate().setGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION);
+        predicate1Copy = new BookPredicate().setGenres(VALID_GENRE_ACTION, VALID_GENRE_FICTION);
+        predicate2 = new BookPredicate().setGenres(VALID_GENRE_ACTION, VALID_GENRE_NONFICTION);
 
         // same genres condition, different order -> returns true
         assertTrue(predicate1.equals(predicate1Copy));
 
         // different genres condition -> returns false
+        assertFalse(predicate1.equals(predicate2));
+
+        predicate1 = new BookPredicate().setLoanState(Flag.AVAILABLE);
+        predicate1Copy = new BookPredicate().setLoanState(Flag.AVAILABLE);
+        predicate2 = new BookPredicate().setLoanState(Flag.OVERDUE);
+
+        // same loan state -> true
+        assertTrue(predicate1.equals(predicate1Copy));
+
+        // different loan state -> false
+        assertFalse(predicate1.equals(predicate2));
+
+        predicate1 = new BookPredicate().setDisplayLimit(1);
+        predicate1Copy = new BookPredicate().setDisplayLimit(1);
+        predicate2 = new BookPredicate().setDisplayLimit(2);
+
+        // same display limit -> true
+        assertTrue(predicate1.equals(predicate1Copy));
+
+        // different display limit -> false
         assertFalse(predicate1.equals(predicate2));
     }
 
@@ -304,5 +332,23 @@ public class BookPredicateTest {
         predicate = new BookPredicate().setLoanState(Flag.OVERDUE);
         assertFalse(predicate.test(new BookBuilder().withLoan(new LoanBuilder()
                 .withDueDate(DateUtil.getTodayMinusDays(0)).build()).build()));
+    }
+
+    @Test
+    public void test_displayLimit_returnsTrue() {
+        BookPredicate predicate = new BookPredicate().setDisplayLimit(2);
+        // display limit = 2
+        assertTrue(predicate.test(new BookBuilder().build()));
+        // display limit = 1
+        assertTrue(predicate.test(new BookBuilder().build()));
+    }
+
+    @Test
+    public void test_displayLimit_returnsFalse() {
+        BookPredicate predicate = new BookPredicate().setDisplayLimit(1);
+        // display limit = 1
+        predicate.test(new BookBuilder().build());
+        // display limit = 0
+        assertFalse(predicate.test(new BookBuilder().build()));
     }
 }
