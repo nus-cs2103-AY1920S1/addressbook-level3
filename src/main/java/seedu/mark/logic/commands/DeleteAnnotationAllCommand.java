@@ -6,19 +6,24 @@ import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.OfflineCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.annotation.Annotation;
-import seedu.mark.model.annotation.AnnotationNote;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.storage.Storage;
 
+/**
+ * Deletes an {@code Annotation} from a {@code Paragraph}.
+ * If the {@code Paragraph} is a {@code PhantomParagraph},
+ * then the entire {@code Paragraph} is removed from the document.
+ */
 public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
+
+    public static final String MESSAGE_PHANTOM_REMOVED = "Phantom paragraph removed.";
 
     public static final String MESSAGE_SUCCESS = "Annotation successfully removed from paragraph %1$s:\n%2$s";
     private static final String MESSAGE_ORIG_HIGHLIGHT = "%s highlight";
     private static final String MESSAGE_ORIG_NOTE = "note \"%s\"";
 
-    public static final String MESSAGE_PHANTOM_REMOVED = "Phantom paragraph removed.";
 
     public DeleteAnnotationAllCommand(Index index, ParagraphIdentifier pid) {
         super(index, pid, true, true);
@@ -40,7 +45,6 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
 
         if (!p.isTrueParagraph()) {
             doc.removePhantom(getPid());
-            System.out.println("check phantom removed: hashmap.get(getPid()) is "+ doc.getParagraph(getPid()));
             noteRemoved = noteRemoved + "\n" + MESSAGE_PHANTOM_REMOVED;
         } else {
             noteRemoved = String.format(MESSAGE_ORIG_HIGHLIGHT, note.getHighlight()) + " with " + noteRemoved;

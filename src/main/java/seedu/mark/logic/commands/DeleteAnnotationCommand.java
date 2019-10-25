@@ -19,6 +19,10 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.storage.Storage;
 
+/**
+ * Deletes a whole or part of an {@code Annotation} from a {@code Paragraph}.
+ * By default, the {@code Highlight} and {@code AnnotationNote} of the {@code Annotation} is retained.
+ */
 public class DeleteAnnotationCommand extends Command {
 
 
@@ -52,7 +56,8 @@ public class DeleteAnnotationCommand extends Command {
     private final boolean isRemoveNote;
     private final boolean isRemoveHighlight;
 
-    public DeleteAnnotationCommand(Index index, ParagraphIdentifier pid, boolean isRemoveNote, boolean isRemoveHighlight) {
+    public DeleteAnnotationCommand(Index index, ParagraphIdentifier pid,
+                                   boolean isRemoveNote, boolean isRemoveHighlight) {
         requireNonNull(index);
         requireNonNull(pid);
 

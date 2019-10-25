@@ -177,6 +177,10 @@ public class OfflineDocument {
         }
     }
 
+    /**
+     * Updates the stray indices of present {@code PhantomParagraph}s.
+     * Numbering should start from 1 and no numbering gaps should occur between {@code PhantomParagraph}s.
+     */
     public void updateStrayIndex() {
         int emptyCount = 0;
         for (int i = 0; i < numStray; i++) {
@@ -242,6 +246,10 @@ public class OfflineDocument {
         this.paragraphs.remove(pid);
     }
 
+    /**
+     * Adds a phantom paragraph containing the given annotation.
+     * @param an The annotation to make stray
+     */
     public void addPhantom(Annotation an) {
         assert an.hasNote() : "Annotation given does not have a note; no phantom paragraph can have no note";
         numStray++;

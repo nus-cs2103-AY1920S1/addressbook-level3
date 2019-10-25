@@ -6,10 +6,14 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
 
+/**
+ * Jackson-friendly version of {@link OfflineDocument}.
+ */
 public class JsonAdaptedOfflineDocument {
 
     private final int numStray;

@@ -1,12 +1,14 @@
 package seedu.mark.storage;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.bookmark.CachedCopy;
 
+/**
+ * Jackson-friendly version of {@link CachedCopy}.
+ */
 public class JsonAdaptedCachedCopy {
 
     private final String html;

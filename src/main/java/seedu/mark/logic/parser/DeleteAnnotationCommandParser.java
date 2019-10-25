@@ -6,7 +6,6 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARAGRAPH;
 
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.commands.DeleteAnnotationAllCommand;
 import seedu.mark.logic.commands.DeleteAnnotationCommand;
 import seedu.mark.logic.commands.DeleteAnnotationHighlightCommand;
@@ -14,6 +13,9 @@ import seedu.mark.logic.commands.DeleteAnnotationNoteCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 
+/**
+ * Parses input arguments and creates new DeleteAnnotationCommand object.
+ */
 public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCommand> {
 
     public static final String MESSAGE_INVALID_BOOL = "Boolean options should be spelt either true or false.";
@@ -37,7 +39,8 @@ public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCom
         }
 
         if (!argMultimap.getValue(PREFIX_PARAGRAPH).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAnnotationCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAnnotationCommand.MESSAGE_USAGE));
         }
         ParagraphIdentifier pid = ParserUtil.parseParagraphIdentifier(argMultimap.getValue(PREFIX_PARAGRAPH).get());
 
@@ -69,6 +72,10 @@ public class DeleteAnnotationCommandParser implements Parser<DeleteAnnotationCom
         return cmd;
     }
 
+    /**
+     * Converts a {@code String boolStr}containing only "true" or "false" into true and false respectively.
+     * @throws ParseException if {@code boolStr} is neither "true" nor "false" case-insensitively.
+     */
     private boolean strToBool(String boolStr) throws ParseException {
         switch (boolStr.toLowerCase()) {
         case "true":

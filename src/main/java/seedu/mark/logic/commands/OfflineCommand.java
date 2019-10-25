@@ -12,7 +12,6 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.OfflineCommandResult;
 import seedu.mark.model.Model;
-import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.storage.Storage;
@@ -63,7 +62,7 @@ public class OfflineCommand extends Command {
         if (version >= cachedCopies.size()) {
             throw new CommandException(String.format(MESSAGE_INVALID_VERSION, version));
         }
-        model.updateDocument(bookmarkToOpen.getCachedCopies().get(version).getAnnotations()); //new OfflineDocument(bookmarkToOpen.getCachedCopies().get(version).html));
+        model.updateDocument(bookmarkToOpen.getCachedCopies().get(version).getAnnotations());
 
         return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, bookmarkToOpen));
     }

@@ -6,13 +6,14 @@ import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.OfflineCommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.annotation.Annotation;
-import seedu.mark.model.annotation.AnnotationNote;
-import seedu.mark.model.annotation.Highlight;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.storage.Storage;
 
+/**
+ * Deletes the {@code Highlight} of an {@code Annotation} from a {@code Paragraph}.
+ */
 public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
 
     public static final String MESSAGE_SUCCESS =

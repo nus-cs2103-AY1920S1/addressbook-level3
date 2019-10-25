@@ -1,8 +1,8 @@
 package seedu.mark.storage;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.parser.ParserUtil;
 import seedu.mark.logic.parser.exceptions.ParseException;
@@ -13,6 +13,9 @@ import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.annotation.PhantomParagraph;
 import seedu.mark.model.annotation.TrueParagraph;
 
+/**
+ * Jackson-friendly version of {@link Paragraph}.
+ */
 public class JsonAdaptedParagraph {
 
     private final String pid;

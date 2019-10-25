@@ -11,6 +11,10 @@ import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.storage.Storage;
 
+/**
+ * Deletes the {@code AnnotationNote} of an {@code Annotation} of a {@code Paragraph}.
+ * If the {@code Paragraph} is a {@code PhantomParagraph}, the entire {@Paragraph} is removed.
+ */
 public class DeleteAnnotationNoteCommand extends DeleteAnnotationCommand {
 
     public static final String MESSAGE_SUCCESS =

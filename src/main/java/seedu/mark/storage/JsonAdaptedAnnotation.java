@@ -2,12 +2,16 @@ package seedu.mark.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.annotation.Annotation;
 import seedu.mark.model.annotation.AnnotationNote;
 import seedu.mark.model.annotation.Highlight;
 
+/**
+ * Jackson-friendly version of {@link Annotation}.
+ */
 public class JsonAdaptedAnnotation {
 
     private final String highlight;
