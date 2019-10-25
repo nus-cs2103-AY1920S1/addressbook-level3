@@ -45,7 +45,6 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         // Checks if choices contain duplicate
         boolean hasDuplicateInChoice = hasChoiceContainDuplicate(choicesArg);
-
         if (hasDuplicateInChoice) {
             throw new DuplicateInChoicesException("Duplicates found in choices provided.");
         }
