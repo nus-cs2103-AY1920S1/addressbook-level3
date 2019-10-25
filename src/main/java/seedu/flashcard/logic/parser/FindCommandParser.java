@@ -22,7 +22,7 @@ public class FindCommandParser implements Parser {
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + FindCommand.MESSAGE_USAGE));
         }
         String[] wordKeywords = trimmedArgs.split("\\s+");
         return new FindCommand(new QuestionContainsKeywordsPredicate(Arrays.asList(wordKeywords)));
