@@ -3,32 +3,43 @@ package seedu.address.logic.commands;
 /**
  * Represents the result of a command execution.
  */
-public interface CommandResult {
+public abstract class CommandResult {
 
     /**
      *
      * @return
      */
-    String getFeedbackToUser();
+    public abstract String getFeedbackToUser();
 
-    boolean isGlobalCommandResult();
-    boolean isFlashcardCommandResult();
-    boolean isCheatSheetCommandResult();
-    boolean isNoteCommandResult();
+    public boolean isGlobalCommandResult() {
+        return false;
+    }
 
+    public boolean isFlashcardCommandResult() {
+        return false;
+    }
+
+    public boolean isCheatSheetCommandResult() {
+        return false;
+    }
+
+    public boolean isNoteCommandResult() {
+        return false;
+    }
+    
     /**
      *
      * @param other
      * @return
      */
     @Override
-    boolean equals(Object other);
+    public abstract boolean equals(Object other);
 
     /**
      *
      * @return
      */
     @Override
-    int hashCode();
+    public abstract int hashCode();
 
 }

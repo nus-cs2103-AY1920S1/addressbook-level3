@@ -5,11 +5,16 @@ import static seedu.address.commons.core.Messages.TIMETRIAL;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 
 /**
@@ -42,9 +47,9 @@ public class StartTimeTrialCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.collectTaggedFlashcards(tagPredicate);
+        Optional<ArrayList<Flashcard>> deck = Optional.of(model.collectTaggedFlashcards(tagPredicate));
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new FlashcardCommandResult(String.format(MESSAGE_SUCCESS), true, deck);
     }
 
     @Override
