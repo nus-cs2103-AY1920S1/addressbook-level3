@@ -195,11 +195,10 @@ The access control feature is centered around three core concepts:
 
 ===== Command Restrictions
 
-Prior to login, the user is only granted access to the `Login`, `Add`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
+Prior to login, the user is only granted access to the `Login`, `Add`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `LogicManager` checking whether the user is logged in or the command created is an approved command that doesn't require login.
 
 [NOTE]
-The guard statement throws a command exception if the following conditions are met: +
-`!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand || command instanceof ExitCommand)`
+The guard statement throws a command exception and informs the user of the available commands prior to login.
 
 Activity Diagram for illustration:
 
@@ -266,6 +265,10 @@ image::AccessSequenceDiagram.png[]
 * **Alternative:** Addition of an Admin account attribute.
 ** Pros: Distinct object class, improves cohesiveness.
 ** Cons: Hard to implement.
+
+==== Known Issues
+
+A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption will resolve this issue, but has yet to be implemented.
 // end::accessControl[]
 
 // tag::accountManagement[]
