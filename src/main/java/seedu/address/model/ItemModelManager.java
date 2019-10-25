@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.PriorityQueue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -570,17 +570,7 @@ public class ItemModelManager implements ItemModel {
      */
     private void toggleOnPriorityMode() {
         this.priorityMode = true;
-        sortedTask = new PriorityQueue<>((item1, item2) -> {
-            Task task1 = item1.getTask().get();
-            Task task2 = item2.getTask().get();
-            if (task1.isComplete() && !task2.isComplete()) {
-                return 1;
-            } else if (!task1.isComplete() && task2.isComplete()) {
-                return -1;
-            } else {
-                return task1.getPriority().compareTo(task2.getPriority());
-            }
-        });
+        sortedTask = new PriorityQueue<>(TaskList.COMPARATOR);
         for (int i = 0; i < taskList.size(); i++) {
             Item item = taskList.get(i);
             if (!item.getTask().get().isComplete()) {
@@ -589,8 +579,9 @@ public class ItemModelManager implements ItemModel {
         }
         if (sortedTask.size() == 0) {
             priorityMode = false;
+        } else {
+            this.visualList = getNextTask();
         }
-        this.visualList = getNextTask();
     }
 
     /**
