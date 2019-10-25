@@ -250,6 +250,10 @@ include::./devguide/VisitsManagement.adoc[]
 
 include::./devguide/ImportExport.adoc[]
 
+=== Auto-complete
+
+include::./devguide/Autocomplete.adoc[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
