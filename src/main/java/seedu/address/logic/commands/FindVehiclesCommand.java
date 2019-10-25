@@ -21,7 +21,7 @@ public class FindVehiclesCommand extends Command {
     public static final String COMMAND_WORD = "find-v";
 
     /**
-     * Searches by district now. TODO: search by number and type
+     * Searches by district now. TODO: unfilteres search (vehicles) & search by number (\vnum) and type (\vtype)
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for vehicles by district "
             + "in the same district as entered by user. \n"
