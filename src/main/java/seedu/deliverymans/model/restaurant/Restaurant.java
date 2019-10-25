@@ -39,7 +39,7 @@ public class Restaurant {
         requireAllNonNull(name, location, tags);
         this.name = name;
         this.location = location;
-        this.rating = new Rating("0");
+        this.rating = new Rating("0", 0);
         this.tags.addAll(tags);
     }
 
@@ -47,7 +47,7 @@ public class Restaurant {
         requireAllNonNull(name, location, tags, menu);
         this.name = name;
         this.location = location;
-        this.rating = new Rating("0");
+        this.rating = new Rating("0", 0);
         this.tags.addAll(tags);
         this.menu.addAll(menu);
     }

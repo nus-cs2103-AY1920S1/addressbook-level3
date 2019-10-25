@@ -24,7 +24,6 @@ public class Rating {
      */
     public Rating(String rating) {
         requireNonNull(rating);
-        checkArgument(isValidRating(rating), MESSAGE_CONSTRAINTS);
         this.rating = rating;
         this.numberOfRatings = 1;
     }
@@ -37,7 +36,6 @@ public class Rating {
      */
     public Rating(String rating, int numberOfRatings) {
         requireNonNull(rating);
-        checkArgument(isValidRating(rating), MESSAGE_CONSTRAINTS);
         this.rating = rating;
         this.numberOfRatings = numberOfRatings;
     }
@@ -63,7 +61,12 @@ public class Rating {
 
     @Override
     public String toString() {
-        return String.format("%.1f", getRatingValue(rating) / numberOfRatings);
+        if (numberOfRatings == 0) {
+            return "0";
+        }
+        else {
+            return String.format("%.1f", getRatingValue(rating) / numberOfRatings);
+        }
     }
 
     @Override

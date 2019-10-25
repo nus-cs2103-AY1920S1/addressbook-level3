@@ -52,6 +52,9 @@ public class ParserUtil {
         if (!StringUtil.isNonNegativeUnsignedInteger(trimmedRating)) {
             throw new ParseException(MESSAGE_INVALID_RATING);
         }
+        if (!Rating.isValidRating(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
         return new Rating(trimmedRating);
     }
 
