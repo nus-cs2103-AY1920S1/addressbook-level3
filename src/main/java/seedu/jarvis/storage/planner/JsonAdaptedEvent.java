@@ -58,8 +58,11 @@ public class JsonAdaptedEvent extends JsonAdaptedTask {
     @Override
     public Task toModelType() throws IllegalValueException {
         checkPriorityAndFrequency();
-
-        return new Event(description, Priority.valueOf(priority), Frequency.valueOf(frequency), adaptToTags(tags),
+        return new Event(
+                description,
+                priority != null ? Priority.valueOf(priority) : null,
+                frequency != null ? Frequency.valueOf(frequency) : null,
+                adaptToTags(tags),
                 LocalDate.parse(start, Task.getDateFormat()),
                 LocalDate.parse(end, Task.getDateFormat()));
     }

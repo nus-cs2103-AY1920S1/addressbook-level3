@@ -31,13 +31,13 @@ import static seedu.jarvis.testutil.address.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.testutil.address.PersonBuilder;
 
 public class AddAddressCommandParserTest {

@@ -1,5 +1,11 @@
 package seedu.jarvis.storage.planner;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -11,13 +17,6 @@ import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 
 /**
  * Abstract class that represents a Jackson-Friendly task.
@@ -55,8 +54,8 @@ public abstract class JsonAdaptedTask {
 
     public JsonAdaptedTask(Task task) {
         description = task.getTaskDescription();
-        priority = task.getPriority().name();
-        frequency = task.getFrequency().name();
+        priority = task.getPriority() != null ? task.getPriority().name() : null;
+        frequency = task.getFrequency() != null ? task.getFrequency().name() : null;
         tags.addAll(task.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 

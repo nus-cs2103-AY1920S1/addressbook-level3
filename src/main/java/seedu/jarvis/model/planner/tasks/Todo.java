@@ -1,10 +1,10 @@
 package seedu.jarvis.model.planner.tasks;
 
+import java.util.Set;
+
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
-
-import java.util.Set;
 
 /**
  * Represents a Todo task in JARVIS

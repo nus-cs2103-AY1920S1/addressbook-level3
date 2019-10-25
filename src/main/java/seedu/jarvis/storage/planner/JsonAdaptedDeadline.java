@@ -52,7 +52,11 @@ public class JsonAdaptedDeadline extends JsonAdaptedTask {
     @Override
     public Task toModelType() throws IllegalValueException {
         checkPriorityAndFrequency();
-        return new Deadline(description, Priority.valueOf(priority), Frequency.valueOf(frequency),
-                adaptToTags(tags), LocalDate.parse(date, Task.getDateFormat()));
+        return new Deadline(
+                description,
+                priority != null ? Priority.valueOf(priority) : null,
+                frequency != null ? Frequency.valueOf(frequency) : null,
+                adaptToTags(tags),
+                LocalDate.parse(date, Task.getDateFormat()));
     }
 }

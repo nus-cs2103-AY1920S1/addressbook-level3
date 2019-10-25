@@ -47,7 +47,11 @@ public class JsonAdaptedTodo extends JsonAdaptedTask {
     @Override
     public Task toModelType() throws IllegalValueException {
         checkPriorityAndFrequency();
-        return new Todo(description, Priority.valueOf(priority), Frequency.valueOf(frequency), adaptToTags(tags));
+        return new Todo(
+                description,
+                priority != null ? Priority.valueOf(priority) : null,
+                frequency != null ? Frequency.valueOf(frequency) : null,
+                adaptToTags(tags));
     }
 
 }

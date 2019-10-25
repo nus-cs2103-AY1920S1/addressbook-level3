@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**

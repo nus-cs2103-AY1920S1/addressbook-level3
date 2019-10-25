@@ -1,11 +1,11 @@
 package seedu.jarvis.model.planner.tasks;
 
+import java.time.LocalDate;
+import java.util.Set;
+
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 /**
  * Represents an Event task in JARVIS
@@ -15,7 +15,8 @@ public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
-    public Event(String taskDes, Priority priority, Frequency frequency, Set<Tag> tags, LocalDate start, LocalDate end) {
+    public Event(String taskDes, Priority priority, Frequency frequency, Set<Tag> tags, LocalDate start,
+                 LocalDate end) {
         super(taskDes, priority, frequency, tags);
         this.start = start;
         this.end = end;

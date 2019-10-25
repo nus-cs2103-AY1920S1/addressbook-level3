@@ -113,21 +113,21 @@ public class TaskBuilder {
     /**
      * Builds a {@code Todo}.
      */
-    public Task buildTodo() {
+    public Todo buildTodo() {
         return new Todo(description, priority, frequency, tags);
     }
 
     /**
      * Builds a {@code Deadline}.
      */
-    public Task buildDeadline() {
+    public Deadline buildDeadline() {
         return new Deadline(description, priority, frequency, tags, deadline);
     }
 
     /**
      * Builds a {@code Event}.
      */
-    public Task buildEvent() {
+    public Event buildEvent() {
         return new Event(description, priority, frequency, tags, start, end);
     }
 }

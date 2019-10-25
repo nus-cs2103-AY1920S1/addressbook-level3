@@ -18,6 +18,7 @@ import java.util.Set;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.util.CollectionUtil;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -28,7 +29,6 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.commons.core.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.
