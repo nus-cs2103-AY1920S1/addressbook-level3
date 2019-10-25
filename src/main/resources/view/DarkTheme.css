@@ -16,6 +16,7 @@
     -font-dark: black;
     -font-semibold: "Segoe UI Semibold";
     -progress-bar-overbudget: #ac4e47;
+    -progress-bar-nearbudget: #fda50f;
     -progress-bar-inbudget: -colour-light
 }
 
