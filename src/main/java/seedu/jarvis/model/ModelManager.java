@@ -693,7 +693,7 @@ public class ModelManager implements Model {
     public ObservableList<Task> getFilteredTaskList() {
         return planner.getFilteredTaskList();
     }
-  
+
     //=========== Course Planner ========================================================
 
     @Override
