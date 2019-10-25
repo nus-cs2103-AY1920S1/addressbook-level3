@@ -54,7 +54,7 @@ public class EditRecipeCommandTest {
                 .withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
 
         EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
-                .withName(CommandTestUtil.VALID_NAME_BURGER)
+                .withRecipeName(CommandTestUtil.VALID_NAME_BURGER)
                 .withIngredientsToAdd(CommandTestUtil.VALID_INGREDIENT_BURGER)
                 .withIngredientsToRemove(lastRecipe.getIngredients().stream().map(i
                     -> String.valueOf(i).replace("[", "").replace("]", ""))
@@ -92,7 +92,7 @@ public class EditRecipeCommandTest {
         Recipe editedRecipe = new RecipeBuilder(recipeInFilteredList).withName(CommandTestUtil.VALID_NAME_BURGER)
                 .build();
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(TypicalIndexes.INDEX_FIRST_RECIPE,
-                new EditRecipeDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BURGER).build());
+                new EditRecipeDescriptorBuilder().withRecipeName(CommandTestUtil.VALID_NAME_BURGER).build());
 
         String expectedMessage = String.format(EditRecipeCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
@@ -130,7 +130,7 @@ public class EditRecipeCommandTest {
     public void execute_invalidRecipeIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
         EditRecipeCommand.EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
-                .withName(CommandTestUtil.VALID_NAME_BURGER).build();
+                .withRecipeName(CommandTestUtil.VALID_NAME_BURGER).build();
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex, descriptor);
 
         CommandTestUtil.assertRecipeCommandFailure(editRecipeCommand, model,
@@ -149,7 +149,7 @@ public class EditRecipeCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
         EditRecipeCommand editRecipeCommand = new EditRecipeCommand(outOfBoundIndex,
-                new EditRecipeDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BURGER).build());
+                new EditRecipeDescriptorBuilder().withRecipeName(CommandTestUtil.VALID_NAME_BURGER).build());
 
         CommandTestUtil.assertRecipeCommandFailure(editRecipeCommand, model,
                 Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);

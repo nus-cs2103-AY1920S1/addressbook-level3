@@ -29,7 +29,7 @@ public class EditRecipeDescriptorTest {
 
         // different name -> returns false
         EditRecipeCommand.EditRecipeDescriptor editedAmy = new EditRecipeDescriptorBuilder(CommandTestUtil.DESC_FISH)
-                .withName(CommandTestUtil.VALID_NAME_BURGER).build();
+                .withRecipeName(CommandTestUtil.VALID_NAME_BURGER).build();
         Assertions.assertFalse(CommandTestUtil.DESC_FISH.equals(editedAmy));
 
         // different ingredients -> returns false

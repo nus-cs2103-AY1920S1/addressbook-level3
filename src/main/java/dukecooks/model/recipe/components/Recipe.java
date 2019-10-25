@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import dukecooks.commons.util.CollectionUtil;
-import dukecooks.model.common.Name;
 
 /**
  * Represents a Recipe in Duke Cooks.
@@ -15,7 +14,7 @@ import dukecooks.model.common.Name;
 public class Recipe {
 
     // Identity fields
-    private final Name name;
+    private final RecipeName name;
 
     // Data fields
     private final Set<Ingredient> ingredients = new HashSet<>();
@@ -27,7 +26,7 @@ public class Recipe {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Set<Ingredient> ingredients, Calories calories, Carbs carbs, Fats fats, Protein protein) {
+    public Recipe(RecipeName name, Set<Ingredient> ingredients, Calories calories, Carbs carbs, Fats fats, Protein protein) {
         CollectionUtil.requireAllNonNull(name, ingredients);
         this.name = name;
         this.ingredients.addAll(ingredients);
@@ -37,7 +36,7 @@ public class Recipe {
         this.protein = protein;
     }
 
-    public Name getName() {
+    public RecipeName getName() {
         return name;
     }
 

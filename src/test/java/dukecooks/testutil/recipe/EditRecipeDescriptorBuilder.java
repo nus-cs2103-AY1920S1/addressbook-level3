@@ -5,13 +5,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
-import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 
 /**
  * A utility class to help with building EditRecipeDescriptor objects.
@@ -58,8 +58,8 @@ public class EditRecipeDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+    public EditRecipeDescriptorBuilder withRecipeName(String name) {
+        descriptor.setName(new RecipeName(name));
         return this;
     }
 
