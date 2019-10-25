@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
@@ -114,6 +115,8 @@ public interface Model {
      */
     void addEntry(Entry entry);
 
+    void addCategory(Category category);
+
     void addExpense(Expense expense);
 
     void addIncome(Income income);
@@ -126,6 +129,8 @@ public interface Model {
 
     void addExpenseReminder(ExpenseReminder expenseReminder);
 
+    void setCategory(Category target, Category editedCategory);
+
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the address book. The entry identity of
@@ -135,6 +140,12 @@ public interface Model {
     void setEntry(Entry target, Entry editedEntry);
 
     void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry);
+
+    /** Returns an unmodifiable view of the income category list */
+    ObservableList<Category> getIncomeCategoryList();
+
+    /** Returns an unmodifiable view of the expense category list */
+    ObservableList<Category> getExpenseCategoryList();
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Entry> getFilteredEntryList();

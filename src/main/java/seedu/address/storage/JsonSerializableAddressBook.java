@@ -11,12 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.ExpenseReminder;
-import seedu.address.model.person.Income;
-import seedu.address.model.person.Wish;
-import seedu.address.model.person.WishReminder;
+import seedu.address.model.person.*;
 
 
 /**
@@ -27,6 +22,8 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
+    private final List<Category> listofExpenseCategories = new ArrayList<>();
+    private final List<Category> listofIncomeCategories = new ArrayList<>();
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedWish> wishes = new ArrayList<>();
@@ -49,6 +46,7 @@ class JsonSerializableAddressBook {
      *               {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+        listofCategories.addAll(source.getCategoryList());
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         wishes.addAll(source.getWishList().stream().map(JsonAdaptedWish::new).collect(Collectors.toList()));
@@ -60,6 +58,7 @@ class JsonSerializableAddressBook {
                         JsonAdaptedExpenseReminder::new).collect(Collectors.toList()));
         wishReminders.addAll(
                 source.getWishReminderList().stream().map(JsonAdaptedWishReminder::new).collect(Collectors.toList()));
+
     }
 
     /**
@@ -69,6 +68,7 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+        for (JsonAdaptedCategory jsonAdaptedCategory : listofCategories)
         for (JsonAdaptedExpense jsonAdaptedExpense : expenses) {
             Expense expense = jsonAdaptedExpense.toModelType();
             addressBook.addExpense(expense);

@@ -11,8 +11,8 @@ public class Income extends Entry {
 
     private static final String ENTRY_TYPE = "Income";
 
-    public Income(Description desc, Date time, Amount amt, Set<Tag> tags) {
-        super(desc, time, amt, tags);
+    public Income(Category cat, Description desc, Date time, Amount amt, Set<Tag> tags) {
+        super(cat, desc, time, amt, tags);
     }
 
     public String getType() {
@@ -36,7 +36,8 @@ public class Income extends Entry {
         }
 
         Income otherIncome = (Income) other;
-        return otherIncome.getDesc().equals(getDesc())
+        return otherIncome.getCat().equals(getCat())
+                && otherIncome.getDesc().equals(getDesc())
                 && otherIncome.getAmount().equals(getAmount())
                 && otherIncome.getTags().equals(getTags())
                 && otherIncome.getDate().equals(getDate());
@@ -46,6 +47,8 @@ public class Income extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
+                .append(getCat())
+                .append(" Description: ")
                 .append(getDesc())
                 .append(" Amount: ")
                 .append(getAmount())

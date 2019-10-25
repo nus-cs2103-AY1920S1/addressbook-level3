@@ -1,0 +1,15 @@
+@startuml
+(*)  --> "User executes command"
+if "toggle panel" then
+--> [Yes] "toggle specific panel"
+    if "no panel is visible or managed" then
+        --> [Yes] "toggle entire side panel"
+        --> (*)
+        else
+        --> [No] (*)
+     endif
+else
+--> [No] (*)
+endif
+
+@enduml

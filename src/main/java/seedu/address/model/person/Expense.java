@@ -11,8 +11,8 @@ public class Expense extends Entry {
 
     private static final String ENTRYTYPE = "Expense";
 
-    public Expense(Description desc, Date time, Amount amount, Set<Tag> tags) {
-        super(desc, time, amount, tags);
+    public Expense(Category cat, Description desc, Date time, Amount amount, Set<Tag> tags) {
+        super(cat, desc, time, amount, tags);
     }
 
     public String getType() {
@@ -36,14 +36,17 @@ public class Expense extends Entry {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getDesc().equals(getDesc()) && otherExpense.getAmount().equals(getAmount())
-                && otherExpense.getTags().equals(getTags()) && otherExpense.getDate().equals(getDate());
+        return otherExpense.getCategory().equals(getCategory()) && otherExpense.getDesc().equals(getDesc())
+                && otherExpense.getAmount().equals(getAmount()) && otherExpense.getTags().equals(getTags())
+                && otherExpense.getDate().equals(getDate());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRYTYPE + ": ")
+                .append(getCategory())
+                .append(" | Description: ")
                 .append(getDesc())
                 .append(" | Amount: ")
                 .append(getAmount())

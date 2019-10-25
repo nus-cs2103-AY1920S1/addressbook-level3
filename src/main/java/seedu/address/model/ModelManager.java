@@ -14,6 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
@@ -33,6 +34,8 @@ public class ModelManager implements Model {
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;
+    private final ObservableList<Category> incomeCategoryList;
+    private final ObservableList<Category> expenseCategoryList;
     private final FilteredList<Entry> filteredEntries;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Income> filteredIncomes;
@@ -56,6 +59,8 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
+        expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
         filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());
         filteredWishes = new FilteredList<>(versionedAddressBook.getWishList());
@@ -207,6 +212,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addCategory(Category category) {
+        versionedAddressBook.addCategory(category);
+    }
+
+    @Override
     public void addExpense(Expense expense) {
         versionedAddressBook.addExpense(expense);
         sortFilteredEntry(sortByTime, sortByAsc);
@@ -249,6 +259,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCategory(Category target, Category editedCategory) {
+        requireAllNonNull(target, editedCategory);
+        versionedAddressBook.setCategory(target, editedCategory);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
         versionedAddressBook.setEntry(target, editedEntry);
@@ -281,6 +297,16 @@ public class ModelManager implements Model {
      * internal list of {@code versionedAddressBook}
      */
     @Override
+    public ObservableList<Category> getExpenseCategoryList() {
+        return expenseCategoryList;
+    }
+
+    @Override
+    public ObservableList<Category> getIncomeCategoryList() {
+        return incomeCategoryList;
+    }
+
+    @Override
     public ObservableList<Entry> getFilteredEntryList() {
         return filteredEntries;
     }
@@ -304,6 +330,7 @@ public class ModelManager implements Model {
     public ObservableList<Budget> getFilteredBudgets() {
         return filteredBudgets;
     }
+
     @Override
     public ObservableList<AutoExpense> getFilteredAutoExpenses() {
         return filteredAutoExpenses;

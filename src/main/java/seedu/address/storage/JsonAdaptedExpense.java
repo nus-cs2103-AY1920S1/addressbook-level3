@@ -10,11 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,7 +19,7 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedExpense {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
-
+    private final String category;
     private final String desc;
     private final String date;
     private final double amt;
@@ -33,8 +29,10 @@ class JsonAdaptedExpense {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
-                              @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpense(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
+                              @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.category = category;
         this.desc = desc;
         this.amt = amt;
         this.date = date;
@@ -48,6 +46,7 @@ class JsonAdaptedExpense {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
+        category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
         date = source.getDate().toString();
@@ -74,6 +73,9 @@ class JsonAdaptedExpense {
         if (!Description.isValidDescription(desc)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
+
+        final Category modelCategory = new Category(category);
+
         final Description modelDesc = new Description(desc);
 
         final Date modelTime = new Date(date);
@@ -81,7 +83,7 @@ class JsonAdaptedExpense {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Expense(modelDesc, modelTime, modelAmt, modelTags);
+        return new Expense(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
     }
 
 }

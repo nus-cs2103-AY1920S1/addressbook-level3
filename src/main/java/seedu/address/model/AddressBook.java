@@ -11,6 +11,8 @@ import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.AutoExpenseList;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.BudgetList;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
@@ -31,6 +33,7 @@ import seedu.address.model.person.WishReminderList;
  * .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
+    private final CategoryList categoryList;
     private final UniqueEntryList entries;
     private final ExpenseList expenses;
     private final IncomeList incomes;
@@ -51,6 +54,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * ways to avoid duplication among constructors.
      */
     {
+        categoryList = new CategoryList();
         entries = new UniqueEntryList();
         expenses = new ExpenseList();
         incomes = new IncomeList();
@@ -61,6 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         expenseTrackers = new ExpenseTrackerList();
         wishReminders = new WishReminderList();
     }
+
     public AddressBook() {
     }
     /**
@@ -75,6 +80,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of entries with {@code entry}. {@code entry} must not
      * contain duplicate entries.
      */
+    public void setCategories(List<Category> expenseCategories, List<Category> incomeCategories) {
+        this.categoryList.setEntries(expenseCategories, incomeCategories);
+        indicateModified();
+    }
+
     public void setEntries(List<Entry> entries) {
         this.entries.setEntries(entries);
         indicateModified();
@@ -139,6 +149,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
+        setCategories(newData.getExpenseCategoryList(), newData.getIncomeCategoryList());
         setEntries(newData.getEntryList());
         setExpenses(newData.getExpenseList());
         setIncomes(newData.getIncomeList());
@@ -173,6 +184,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasWishReminder(WishReminder reminder) {
         requireNonNull(reminder);
         return wishReminders.contains(reminder);
+    }
+
+    public void addCategory(Category category) {
+        categoryList.add(category);
+        indicateModified();
     }
 
     /**
@@ -257,6 +273,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addAutoExpense(AutoExpense autoExpense) {
         entries.add(autoExpense);
         autoExpenses.add(autoExpense);
+        indicateModified();
+    }
+
+
+    /**
+     * Replaces the given person {@code target} in the list with
+     * {@code editedPerson}. {@code target} must exist in the address book. The
+     * person identity of {@code editedPerson} must not be the same as another
+     * existing person in the address book.
+     */
+    public void setCategory(Category target, Category editedCategory) {
+        requireNonNull(editedCategory);
+        categoryList.setCategory(target, editedCategory);
         indicateModified();
     }
 
@@ -368,6 +397,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeCategory(Category category) {
+        categoryList.remove(category);
+        indicateModified();
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -473,6 +512,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         return entries.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
+
+    @Override
+    public ObservableList<Category> getIncomeCategoryList() {
+        return categoryList.getInternalListForIncome();
+    }
+
+    @Override
+    public ObservableList<Category> getExpenseCategoryList() {
+        return categoryList.getInternalListForOtherEntries();
+    }
+
 
     @Override
     public ObservableList<Entry> getEntryList() {
