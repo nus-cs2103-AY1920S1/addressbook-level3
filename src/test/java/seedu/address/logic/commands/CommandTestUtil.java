@@ -2,11 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -26,6 +22,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    //valid employee fields
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -36,6 +33,16 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
+    //valid event fields
+    public static final String VALID_NAME_PARTY = "party";
+    public static final String VALID_NAME_MUSICAL = "musical";
+    public static final String VALID_VENUE_NUS = "NUS";
+    public static final String VALID_MANPOWER_COUNT_TO_ADD = "2";
+    public static final String VALID_TAG_FUN = "fun";
+    public static final String NAME_DESC_PARTY = " " + PREFIX_NAME + VALID_NAME_PARTY;
+    public static final String MANPOWER_COUNT_DESC = " " + PREFIX_MANPOWER_TO_ADD + VALID_MANPOWER_COUNT_TO_ADD;
+    public static final String INVALID_MANPOWER_DESC = " " + PREFIX_MANPOWER_TO_ADD + "James&";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

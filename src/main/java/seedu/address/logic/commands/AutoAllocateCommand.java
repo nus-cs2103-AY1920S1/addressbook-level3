@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -35,7 +36,7 @@ public class AutoAllocateCommand extends Command {
             + ": Auto allocates a specified number of people to an event."
             + "\n"
             + "Parameters: EVENT_INDEX (must be a positive integer) "
-            + "[" + PREFIX_EMPLOYEE_NUMBER + "NUMBER] "
+            + "[" + PREFIX_MANPOWER_TO_ADD + "NUMBER] "
             + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "3 "
@@ -127,12 +128,9 @@ public class AutoAllocateCommand extends Command {
         }
 
         Collections.shuffle(availableEmployeeList);
-        Event newEventForAllocation = createEditedEvent(eventToAllocate);
+        Event newEventForAllocation = createEditedEvent(eventToAllocate, availableEmployeeList, manpowerCountToAdd);
 
-        for (int i = 0; i < manpowerCountToAdd; i++) {
-            Employee employeeToAdd = availableEmployeeList.get(i);
-            newEventForAllocation.getManpowerAllocatedList().allocateEmployee(employeeToAdd);
-        }
+
 
         model.setEvent(eventToAllocate, newEventForAllocation);
 
@@ -143,7 +141,8 @@ public class AutoAllocateCommand extends Command {
     /**
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      */
-    private static Event createEditedEvent(Event eventToEdit) {
+    private static Event createEditedEvent(Event eventToEdit, List<Employee> availableEmployeeList,
+                                           Integer manpowerCountToAdd) {
         assert eventToEdit != null;
 
         EventName updatedEventName = eventToEdit.getName();
@@ -151,14 +150,18 @@ public class AutoAllocateCommand extends Command {
         EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
         EventDate updatedStartDate = eventToEdit.getStartDate();
         EventDate updatedEndDate = eventToEdit.getEndDate();
-        EventManpowerAllocatedList updatedManpowerAllocatedList =
-                new EventManpowerAllocatedList(eventToEdit.getManpowerAllocatedList().toString());
+        List<String> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
         Set<Tag> updatedTags = eventToEdit.getTags();
+
+        for (int i = 0; i < manpowerCountToAdd; i++) {
+            Employee employeeToAdd = availableEmployeeList.get(i);
+            updatedManpowerList.add(employeeToAdd.getEmployeeId().id);
+        }
+        EventManpowerAllocatedList updatedManpowerAllocatedList = new EventManpowerAllocatedList(updatedManpowerList);
 
         return new Event(updatedEventName, updatedEventVenue,
                 updatedManpowerNeeded, updatedStartDate,
                 updatedEndDate, updatedManpowerAllocatedList, updatedTags);
-
     }
 
 
@@ -177,7 +180,7 @@ public class AutoAllocateCommand extends Command {
         // state check
         AutoAllocateCommand e = (AutoAllocateCommand) other;
         return eventIndex.equals(e.eventIndex)
-                && manpowerCountToAdd.equals(e.manpowerCountToAdd)
+                && (manpowerCountToAdd == e.manpowerCountToAdd || manpowerCountToAdd.equals(e.manpowerCountToAdd))
                 && tagList.equals(e.tagList);
     }
 

@@ -3,12 +3,19 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventManpowerAllocatedList;
+import seedu.address.model.event.EventManpowerNeeded;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventVenue;
+import seedu.address.model.tag.Tag;
 
 /**
  * Frees all employees associated with an event.
@@ -40,9 +47,30 @@ public class DeallocateCommand extends Command {
         }
 
         Event eventToFree = lastShownList.get(targetIndex.getZeroBased());
-        eventToFree.freeEmployees();
-        model.setEvent(eventToFree, eventToFree);
+        Event newEvent = createEditedEvent(eventToFree);
+        model.setEvent(eventToFree, newEvent);
         return new CommandResult(String.format(MESSAGE_FREE_EVENT_SUCCESS, eventToFree.getName()));
+    }
+
+    /**
+     * Creates and returns a {@code Event} with the details of {@code eventToEdit}
+     * and a new {@code EventManpowerAllocatedList}.
+     */
+    private static Event createEditedEvent(Event eventToEdit) {
+        assert eventToEdit != null;
+
+        EventName updatedEventName = eventToEdit.getName();
+        EventVenue updatedEventVenue = eventToEdit.getVenue();
+        EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
+        EventDate updatedStartDate = eventToEdit.getStartDate();
+        EventDate updatedEndDate = eventToEdit.getEndDate();
+        EventManpowerAllocatedList updatedManpowerAllocatedList = new EventManpowerAllocatedList();
+        Set<Tag> updatedTags = eventToEdit.getTags();
+
+        return new Event(updatedEventName, updatedEventVenue,
+                updatedManpowerNeeded, updatedStartDate,
+                updatedEndDate, updatedManpowerAllocatedList, updatedTags);
+
     }
 
     @Override

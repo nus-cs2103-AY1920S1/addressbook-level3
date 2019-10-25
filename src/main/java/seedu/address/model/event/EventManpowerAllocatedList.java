@@ -22,6 +22,10 @@ public class EventManpowerAllocatedList {
         manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
     }
 
+    public EventManpowerAllocatedList(List<String> manpowerList) {
+        this.manpowerList = manpowerList;
+    }
+
     /**
      * Constructs a {@code EventManpowerAllocatedList}.
      */
@@ -29,20 +33,8 @@ public class EventManpowerAllocatedList {
         manpowerList = new ArrayList<>();
     }
 
-
-
-
     public List<String> getManpowerList() {
         return manpowerList;
-    }
-
-
-    /**
-     * Frees all employees for an Event.
-     */
-    public boolean freeEmployees() {
-        manpowerList = new ArrayList<String>();
-        return true;
     }
 
     /**
