@@ -566,8 +566,8 @@ The `Budget` component has two core features:
 1. Allowing the user to set the monthly budget
 2. Calculating the remanding budget after all the spending in the same month.
 
-The budget component allows the users to modify the current monthly budget `budget AMOUNT` command, where AMOUNT is a double representing 
-the desired monthly budget.
+The budget component allows the users to modify the current monthly budget `budget AMOUNT` command, where AMOUNT is a
+double representing the desired monthly budget.
 
 For example `budget 10000` sets the current monthly budget to 10000.
 
