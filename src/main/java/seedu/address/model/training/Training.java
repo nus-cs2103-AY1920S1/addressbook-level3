@@ -1,5 +1,7 @@
 package seedu.address.model.training;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +17,7 @@ public class Training {
     private Date date;
     private HashMap<Person, Boolean> trainingAttendance;
     public Training(Date date, HashMap<Person, Boolean> trainingAttendance) {
+        requireAllNonNull(date, trainingAttendance);
         this.date = date;
         this.trainingAttendance = trainingAttendance;
     }
