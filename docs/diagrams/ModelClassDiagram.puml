@@ -27,6 +27,31 @@ Class UniquePersonList
 Package Tag {
 Class Tag
 }
+
+Package VisitTodo {
+Class VisitTodo
+}
+
+Package Visit {
+Class Visit {
+patient: Person
+}
+Class Remark
+}
+
+Package VisitTask {
+Class VisitTask {
+    isDone: boolean
+}
+Class Detail
+}
+
+Package DateTime {
+Class DateTime
+Class StartDateTime
+Class EndDateTime
+}
+
 }
 
 Class HiddenOutside #FFFFFF
@@ -46,11 +71,29 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-Person *--> "*" Tag
+Person *-up-> "*" Tag
+Person *--> "*" VisitTodo
+Person *--> "*" Visit
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
+DateTime <|-- StartDateTime
+DateTime <|-- EndDateTime
+
+note "Visit has a reference\nto its patient, but it\nis not used to compare\nVisits or generate the\nhashCode of a Visit" as N1
+Visit .. N1
+Visit *--> "1" Remark
+Visit *-up-> "1" StartDateTime
+Visit *-up-> "0..1" EndDateTime
+Visit *--> "*" VisitTask
+show Visit members
+
+VisitTask *--> "1" Detail
+VisitTask *-left-> "1" VisitTodo
+show VisitTask members
+
 ModelManager -->"1" Person : filtered list
+
 @enduml

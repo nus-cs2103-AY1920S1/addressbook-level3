@@ -19,6 +19,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_VISIT_TASK_FINISH = new Prefix("f/");
     public static final Prefix PREFIX_VISIT_TASK_UNFINISH = new Prefix("uf/");
     public static final Prefix PREFIX_VISIT_REMARKS = new Prefix("r/");
+    //Do not use with PREFIX_NAME
+    public static final Prefix PREFIX_FILENAME = new Prefix("n/");
+    public static final Prefix PREFIX_INDEXES = new Prefix("i/");
     // Appointment prefixes
     public static final Prefix PREFIX_APPOINTMENT_START_DATE_AND_TIME = new Prefix("sdt/");
     public static final Prefix PREFIX_APPOINTMENT_END_DATE_AND_TIME = new Prefix("edt/");

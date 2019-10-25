@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
@@ -72,12 +74,12 @@ public class ModelManager implements Model {
 
         stagedPersons = FXCollections.observableArrayList();
         filteredPersons = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedPersons));
-        refreshStagedPersons();
 
         //Initializing ongoingVisitList here instead of in AddressBook as it is a wrapper of the data
         ongoingVisitList = FXCollections.observableArrayList();
         Optional<Visit> ongoingVisit = this.stagedAddressBook.getOngoingVisit();
         ongoingVisit.ifPresent(ongoingVisitList::add);
+        refreshStagedData();
 
         //Initializing appointment related book and appointments
         this.baseAppointmentBook = new AppointmentBook();
@@ -132,7 +134,7 @@ public class ModelManager implements Model {
     @Override
     public void setStagedAddressBook(ReadOnlyAddressBook addressBook) {
         this.stagedAddressBook.resetData(addressBook);
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
     @Override
@@ -142,7 +144,7 @@ public class ModelManager implements Model {
             newBook.addPerson(person);
         }
         setStagedAddressBook(newBook);
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
     @Override
@@ -157,15 +159,24 @@ public class ModelManager implements Model {
     @Override
     public void setNewOngoingVisit(Visit visit) {
         requireNonNull(visit);
-        ongoingVisitList.clear();
-        ongoingVisitList.add(visit);
         stagedAddressBook.setOngoingVisit(visit);
+        updateOngoingVisitList();
+    }
+
+    @Override
+    public void cancelOngoingVisit() {
+        Optional<Visit> optionalVisit = getOngoingVisit();
+        if (optionalVisit.isPresent()) {
+            unsetOngoingVisit();
+            Visit visit = optionalVisit.get();
+            visit.getPatient().removeVisit(visit, this);
+        }
     }
 
     @Override
     public void unsetOngoingVisit() {
-        ongoingVisitList.clear();
         stagedAddressBook.unsetOngoingVisit();
+        updateOngoingVisitList();
     }
 
     @Override
@@ -181,17 +192,28 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Helper method to update ongoing visit list which is linked to the UI
+     */
+    private void updateOngoingVisitList() {
+        ongoingVisitList.clear();
+        Optional<Visit> potentialOngoingVisit = this.stagedAddressBook.getOngoingVisit();
+        if (potentialOngoingVisit.isPresent()) {
+            ongoingVisitList.add(potentialOngoingVisit.get());
+        }
+    }
+
     @Override
     public Optional<Visit> getOngoingVisit() {
         return stagedAddressBook.getOngoingVisit();
     }
 
     @Override
-    public boolean patientHasOngoingVisit(Person patientToDelete) {
-        requireNonNull(patientToDelete);
+    public boolean patientHasOngoingVisit(Person person) {
+        requireNonNull(person);
         Optional<Visit> optionalVisit = getOngoingVisit();
         return optionalVisit.isPresent()
-                && patientToDelete.equals(optionalVisit.get().getPatient());
+                && person.equals(optionalVisit.get().getPatient());
     }
 
     @Override
@@ -203,14 +225,14 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         stagedAddressBook.removePerson(target);
-        refreshStagedPersons();
+        refreshStagedData();
         refreshFilteredPersonList();
     }
 
     @Override
     public void addPerson(Person person) {
         stagedAddressBook.addPerson(person);
-        refreshStagedPersons();
+        refreshStagedData();
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -219,6 +241,21 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         stagedAddressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Person getPersonByIndex(Index index) {
+        requireNonNull(index);
+        assert index.getZeroBased() <= stagedPersons.size();
+
+        return stagedAddressBook.getPersonByIndex(index);
+    }
+
+    @Override
+    public ObservableList<Person> getPersonsByIndexes(Set<Index> indexes) {
+        requireNonNull(indexes);
+
+        return stagedAddressBook.getPersonListByIndexes(indexes);
     }
 
     /**
@@ -243,13 +280,14 @@ public class ModelManager implements Model {
     @Override
     public void discardStagedChanges() {
         stagedAddressBook = baseAddressBook.deepCopy();
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
     @Override
-    public void revertTo(HistoryRecord record) throws NoSuchElementException {
-        historyManager.popRecordsTo(record);
+    public List<HistoryRecord> revertTo(HistoryRecord record) throws NoSuchElementException {
+        List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record);
         changeBaseTo(record.getCopyOfAddressBook());
+        return poppedRecords;
     }
 
     @Override
@@ -260,11 +298,15 @@ public class ModelManager implements Model {
     private void changeBaseTo(AddressBook addressBook) {
         baseAddressBook = addressBook;
         stagedAddressBook = baseAddressBook.deepCopy();
-        refreshStagedPersons();
+        refreshStagedData();
     }
 
-    private void refreshStagedPersons() {
+    /**
+     * Refresh staged data on changing data or undo/redo. Affects stagedPersons and ongoingVisitList.
+     */
+    private void refreshStagedData() {
         stagedPersons.setAll(stagedAddressBook.getPersonList());
+        updateOngoingVisitList();
     }
 
     //=========== Filtered Person List Accessors =============================================================

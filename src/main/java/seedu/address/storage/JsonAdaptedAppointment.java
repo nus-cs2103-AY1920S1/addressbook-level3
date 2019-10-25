@@ -81,7 +81,7 @@ public class JsonAdaptedAppointment {
         if (!EndDateTime.isValidDateTime(endDateTime)) {
             throw new IllegalValueException(EndDateTime.MESSAGE_CONSTRAINTS);
         }
-        if (!EndDateTime.isValidEndDateTime(endDateTime, startDateTime)) {
+        if (!EndDateTime.isValidEndDateTime(startDateTime, endDateTime)) {
             throw new IllegalValueException(END_DATE_EARLIER_THAN_START_DATE);
         }
         final EndDateTime modelEndDateTime = new EndDateTime(endDateTime);
