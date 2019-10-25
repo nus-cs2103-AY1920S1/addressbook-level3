@@ -80,11 +80,11 @@ public class TypeeParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case PdfCommand.COMMAND_WORD:
-            return new PdfCommandParser().parse(arguments);
-
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case PdfCommand.COMMAND_WORD:
+            return new PdfCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

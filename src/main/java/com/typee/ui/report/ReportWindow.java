@@ -1,5 +1,6 @@
 package com.typee.ui.report;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
@@ -25,7 +26,7 @@ public class ReportWindow extends UiPart<Region> {
     @FXML
     private Button btnTest;
 
-    public ReportWindow() {
+    public ReportWindow() throws IOException {
         super(FXML);
         pdfUtil = new PdfUtil();
     }
