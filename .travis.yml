@@ -25,5 +25,3 @@ cache:
 
     #./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor
 
-after_success:
-- ./gradlew jacocoTestReport coveralls
