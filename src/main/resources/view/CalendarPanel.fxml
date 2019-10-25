@@ -14,20 +14,20 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="45.0" style="-fx-background-color: #C5EFF7;" text="Today's Day and Date">
+      <Label fx:id="currDateMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="45.0" style="-fx-background-color: #C5EFF7;" text="Today's Day and Date">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <HBox maxWidth="1.7976931348623157E308" style="-fx-background-color: #95A5A6;">
          <children>
-            <Button mnemonicParsing="false" text="Prev">
+            <Button fx:id="prevButton" mnemonicParsing="false" onAction="#handlePrevClick" style="-fx-background-color: #FFFFFF;" styleClass="null" text="Prev">
                <HBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </HBox.margin>
             </Button>
             <Region HBox.hgrow="ALWAYS" />
-            <Label maxHeight="1.7976931348623157E308" text="Selected Date and Year">
+            <Label fx:id="selectedDateMessage" maxHeight="1.7976931348623157E308" text="Selected Date and Year">
                <HBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </HBox.margin>
@@ -36,7 +36,7 @@
                </font>
             </Label>
             <Region HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" text="Next">
+            <Button fx:id="nextButton" mnemonicParsing="false" onAction="#handleNextClick" style="-fx-background-color: #FFFFFF;" styleClass="null" text="Next">
                <HBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </HBox.margin>
@@ -47,7 +47,7 @@
          <children>
             <BorderPane style="-fx-background-color: #F1F1F1;" HBox.hgrow="ALWAYS">
                <center>
-                  <GridPane gridLinesVisible="true" style="-fx-background-color: #F1F1F1;" BorderPane.alignment="CENTER">
+                  <GridPane fx:id="calendarGridPane" gridLinesVisible="true" style="-fx-background-color: #F1F1F1;" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -91,13 +91,13 @@
                         <Insets left="16.0" right="16.0" />
                      </BorderPane.margin>
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Mon" />
-                        <Label text="Tue" GridPane.columnIndex="1" />
-                        <Label text="Wed" GridPane.columnIndex="2" />
-                        <Label text="Thu" GridPane.columnIndex="3" />
-                        <Label text="Fri" GridPane.columnIndex="4" />
-                        <Label text="Sat" GridPane.columnIndex="5" />
-                        <Label text="Sun" GridPane.columnIndex="6" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Sun" />
+                        <Label text="Mon" GridPane.columnIndex="1" />
+                        <Label text="Tue" GridPane.columnIndex="2" />
+                        <Label text="Wed" GridPane.columnIndex="3" />
+                        <Label text="Thu" GridPane.columnIndex="4" />
+                        <Label text="Fri" GridPane.columnIndex="5" />
+                        <Label text="Sat" GridPane.columnIndex="6" />
                      </children>
                   </GridPane>
                </top>
