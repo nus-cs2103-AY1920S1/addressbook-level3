@@ -152,7 +152,7 @@ public class ParserUtil {
         requireNonNull(event);
         String trimmedEvent = event.trim();
         if (!Event.doesExist(trimmedEvent)) {
-            throw new ParseException(Event.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(Event.MESSAGE_CONSTRAINTS, trimmedEvent));
         }
         return Event.getEvent(trimmedEvent);
     }

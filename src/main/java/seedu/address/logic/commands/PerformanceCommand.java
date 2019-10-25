@@ -18,11 +18,11 @@ import seedu.address.model.person.Person;
 public class PerformanceCommand extends Command {
 
     public static final String COMMAND_WORD = "performance";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a player performance for an event to Athletick."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a player performance for an event to Athletick.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_EVENT + "EVENT"
-            + PREFIX_DATE + "DATE"
-            + PREFIX_TIMING + "TIME"
+            + PREFIX_EVENT + "EVENT "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_TIMING + "TIME\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT + "50m freestyle "
             + PREFIX_DATE + "02102019 "

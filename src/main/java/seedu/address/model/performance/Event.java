@@ -10,7 +10,8 @@ import seedu.address.model.person.Person;
  */
 public class Event {
 
-    public static final String MESSAGE_CONSTRAINTS = "Event has not been created.";
+    public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
+            + "Please use the event command to create the event first.";
 
     private static ArrayList<Event> events = new ArrayList<>();
 
