@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes stats command;
+repeat
+:Gets an Updated Flashcard List based on predicate;
+:Gets the size of the list;
+:Number of predicate++ ;
+repeat while () is  ([number of predicate < 3])
+:Gets test mode statistics;
+:Combines all statistics;
+:Displays all statistics ;
+
+stop
+@enduml

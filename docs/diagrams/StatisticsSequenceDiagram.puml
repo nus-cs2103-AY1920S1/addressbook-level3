@@ -2,40 +2,36 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":StatsCommand" as ExportCommand LOGIC_COLOR
+participant ":StatsCommand" as StatsCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant ":model" as Model MODEL_COLOR
 end box
 
 
-[-> ExportCommand : execute(model)
-activate ExportCommand
+[-> StatsCommand : execute(model)
+activate StatsCommand
 
-loop for each rating
-    ExportCommand -> Model : RatingContainsKeywordPredicate(rating)
+loop for each predicate
+    StatsCommand -> Model : updateFilteredFlashCardList(predicate)
     activate Model
-    ExportCommand <-- Model : predicate
+    StatsCommand <-- Model : list
     deactivate Model
 
-    ExportCommand -> Model : updateFilteredFlashCardList(predicate)
-    activate Model
-    ExportCommand <-- Model : list
-    deactivate Model
+     StatsCommand -> StatsCommand : size()
+     activate StatsCommand
+     StatsCommand <-- StatsCommand : number
+     deactivate StatsCommand
 
-    ExportCommand -> ExportCommand : size()
-    activate ExportCommand
-    ExportCommand <-- ExportCommand : numRating
-    deactivate ExportCommand
 end
 
-ExportCommand -> Model : getStats()
+StatsCommand -> Model : getStats()
 activate Model
-ExportCommand <-- Model : stats
+StatsCommand <-- Model : stats
 deactivate Model
 
 
-[<--ExportCommand
-deactivate ExportCommand
+[<--StatsCommand
+deactivate StatsCommand
 @enduml

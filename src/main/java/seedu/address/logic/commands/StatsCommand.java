@@ -38,15 +38,15 @@ public class StatsCommand extends Command {
 
         StringBuilder sb = new StringBuilder("STATISTICS" + System.getProperty("line.separator"));
         sb.append(System.getProperty("line.separator"));
-        sb.append("Total:" + System.getProperty("line.separator"));
+        sb.append("Total: ");
         sb.append("Good (" + numGood + ")  ");
         sb.append("Hard (" + numHard + ")  ");
         sb.append("Easy (" + numEasy + ")" + System.getProperty("line.separator"));
         sb.append(System.getProperty("line.separator"));
-        sb.append("Completed in test:" + System.getProperty("line.separator"));
+        sb.append("Completed in test: " );
         sb.append("Good (" + stats[0] + ")  ");
         sb.append("Hard (" + stats[1] + ")  ");
-        sb.append("Easy (" + stats[2] + ")" + System.getProperty("line.separator"));
+        sb.append("Easy (" + stats[2] + ")  ");
 
         return new CommandResult(sb.toString());
     }
