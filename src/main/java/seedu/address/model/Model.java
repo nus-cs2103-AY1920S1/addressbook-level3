@@ -228,4 +228,14 @@ public interface Model {
     Statistics getStatistics();
 
     void setStatistics(Statistics newStats);
+
+    void undo();
+
+    void redo();
+
+    void saveDashboardState();
+
+    boolean canUndo();
+
+    boolean canRedo();
 }

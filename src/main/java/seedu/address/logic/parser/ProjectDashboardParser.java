@@ -34,6 +34,8 @@ import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
 import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -146,6 +148,12 @@ public class ProjectDashboardParser {
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

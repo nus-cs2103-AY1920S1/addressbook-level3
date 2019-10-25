@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.Stack;
+import java.util.EmptyStackException;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -41,7 +43,8 @@ public class ModelManager implements Model {
     private final FilteredList<Mapping> filteredMappings;
     private final FilteredList<Inventory> filteredInventories;
     private Statistics stats;
-
+    private final Stack<ReadOnlyProjectDashboard> previousSaveState = new Stack<>();
+    private final Stack<ReadOnlyProjectDashboard> redoSaveState = new Stack<>();
 
     /**
      * Initializes a ModelManager with the given projectDashboard and userPrefs.
@@ -126,11 +129,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTask(Task target) {
+        saveDashboardState();
         projectDashboard.removeTask(target);
     }
 
     @Override
     public void addTask(Task task) {
+        saveDashboardState();
         projectDashboard.addTask(task);
         updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
     }
@@ -139,6 +144,7 @@ public class ModelManager implements Model {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
+        saveDashboardState();
         projectDashboard.setTask(target, editedTask);
     }
 
@@ -191,6 +197,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addInventory(Inventory inventory) {
+        saveDashboardState();
         projectDashboard.addInventory(inventory);
         updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
     }
@@ -203,6 +210,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteInventory(Inventory target) {
+        saveDashboardState();
         projectDashboard.removeInventory(target);
     }
 
@@ -210,6 +218,7 @@ public class ModelManager implements Model {
     public void setInventory(Inventory target, Inventory editedInventory) {
         requireAllNonNull(target, editedInventory);
 
+        saveDashboardState();
         projectDashboard.setInventory(target, editedInventory);
     }
 
@@ -260,11 +269,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteMember(Member target) {
+        saveDashboardState();
         projectDashboard.removeMember(target);
     }
 
     @Override
     public void addMember(Member member) {
+        saveDashboardState();
         projectDashboard.addMember(member);
         updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
     }
@@ -273,6 +284,7 @@ public class ModelManager implements Model {
     public void setMember(Member target, Member editedMember) {
         requireAllNonNull(target, editedMember);
 
+        saveDashboardState();
         projectDashboard.setMember(target, editedMember);
     }
 
@@ -301,34 +313,40 @@ public class ModelManager implements Model {
 
     @Override
     public void addMapping(InvMemMapping mapping) {
+        saveDashboardState();
         projectDashboard.addMapping(mapping);
         updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
     public void addMapping(InvTasMapping mapping) {
+        saveDashboardState();
         projectDashboard.addMapping(mapping);
         updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
     public void addMapping(TasMemMapping mapping) {
+        saveDashboardState();
         projectDashboard.addMapping(mapping);
         updateFilteredMappingsList(PREDICATE_SHOW_ALL_MAPPINGS);
     }
 
     @Override
     public void deleteMapping(InvMemMapping mapping) {
+        saveDashboardState();
         projectDashboard.removeMapping(mapping);
     }
 
     @Override
     public void deleteMapping(InvTasMapping mapping) {
+        saveDashboardState();
         projectDashboard.removeMapping(mapping);
     }
 
     @Override
     public void deleteMapping(TasMemMapping mapping) {
+        saveDashboardState();
         projectDashboard.removeMapping(mapping);
     }
 
@@ -372,6 +390,43 @@ public class ModelManager implements Model {
 
     @Override
     public void setStatistics(Statistics newStats) {
+        saveDashboardState();
         this.stats = newStats;
     }
+
+    // ========= General Commands ===========================================================================
+
+
+    //Check if ProjectDashboard cloning is deep clone or shallow clone
+    @Override
+    public void undo() {
+        ReadOnlyProjectDashboard previousDashboard = previousSaveState.pop();
+        redoSaveState.push(new ProjectDashboard(projectDashboard));
+        projectDashboard.resetData(previousDashboard);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public boolean canUndo() {
+        return !previousSaveState.empty();
+    }
+
+    @Override
+    public void redo() {
+        saveDashboardState();
+        ReadOnlyProjectDashboard redoableDashboard = redoSaveState.pop();
+        projectDashboard.resetData(redoableDashboard);
+        updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public boolean canRedo() {
+        return !redoSaveState.empty();
+    }
+
+    @Override
+    public void saveDashboardState() {
+        previousSaveState.push(new ProjectDashboard(projectDashboard));
+    }
+
 }
