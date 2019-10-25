@@ -28,7 +28,7 @@ public class FlashcardTabWindowController {
     @FXML
     private TextArea ansTextArea;
 
-    private static final Integer TIMER_DURATION = 5;
+    private final static Integer TIMER_DURATION = 5;
 
     private IntegerProperty currentSeconds;
 
