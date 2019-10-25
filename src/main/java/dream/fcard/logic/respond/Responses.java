@@ -1,10 +1,14 @@
 package dream.fcard.logic.respond;
 
+import java.util.logging.Logger;
+
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.util.FileReadWrite;
+
 
 /**
  * Enum of regex and response function pairs used by Responder to evaluate input.
@@ -138,17 +142,18 @@ enum Responses {
             + "(index/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+(front/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+"
             + "(back/[\\w\\p{Punct}]+))?(\\s)*", (
             commandInput, programState) -> {
-                System.out.println("Current command is EDIT");
-                // Will plan an implement soon (a bit busy now lol)
-                return true; // capture is valid, end checking other commands
-            }),
+        System.out.println("Current command is EDIT");
+        // Will plan an implement soon (a bit busy now lol)
+        return true; // capture is valid, end checking other commands
+    }),
     UNKNOWN(".*", (commandInput, programState) -> {
         System.out.println("Sorry, I don't know what is this command.");
-        return true;
+        return false;
     });
 
     private String regex;
     private ResponseFunc func;
+    private static final Logger logger = LogsCenter.getLogger(Responses.class);
 
     Responses(String r, ResponseFunc f) {
         this.regex = r;
@@ -167,6 +172,7 @@ enum Responses {
         if (i.matches(regex)) {
             return func.funcCall(i, s);
         }
+        logger.warning("Unknown command entered.");
         return false;
     }
 }
