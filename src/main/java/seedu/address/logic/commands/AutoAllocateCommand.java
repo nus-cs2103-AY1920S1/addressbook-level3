@@ -152,9 +152,17 @@ public class AutoAllocateCommand extends Command {
         EventDate updatedEndDate = eventToEdit.getEndDate();
         Set<Tag> updatedTags = eventToEdit.getTags();
 
-        return new Event(updatedEventName, updatedEventVenue,
+        Event newEvent = new Event(updatedEventName, updatedEventVenue,
                 updatedManpowerNeeded, updatedStartDate,
                 updatedEndDate, updatedTags);
+        String oldManpowerList = eventToEdit.getManpowerAllocatedList().toString();
+        if (oldManpowerList.equals("")) {
+            return newEvent;
+        } else {
+            newEvent.getManpowerAllocatedList().setManpowerAllocatedList(oldManpowerList);
+            return newEvent;
+        }
+
     }
 
 

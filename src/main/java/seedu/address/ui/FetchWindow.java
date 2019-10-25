@@ -115,7 +115,7 @@ public class FetchWindow extends UiPart<Stage> {
         personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
         personListView.setCellFactory(listView -> new PersonListViewCell());
         eventListView.setItems(employeeListForEvent);
-        eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
+        eventListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
