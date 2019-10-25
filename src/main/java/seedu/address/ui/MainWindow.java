@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -41,6 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
     private EventSchedulePanel eventSchedulePanel;
+    private Node studentPanelNode;
+    private Node eventPaneNode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -120,7 +123,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        this.studentPanelNode = studentListPanel.getRoot();
+        mainPanelPlaceholder.getChildren().add(studentPanelNode);
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -135,6 +139,8 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
+        this.eventPaneNode = eventSchedulePanel.getRoot();
+        mainPanelPlaceholder.getChildren().add(eventPaneNode);
     }
 
     /**
@@ -178,7 +184,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleSchedule() {
-        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+        studentPanelNode.setVisible(false);
+        studentPanelNode.toBack();
+
+        eventPaneNode.setVisible(true);
+        eventPaneNode.toFront();
     }
 
     /**
@@ -186,7 +196,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStudent() {
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        eventPaneNode.setVisible(false);
+        eventPaneNode.toBack();
+
+        studentPanelNode.setVisible(true);
+        studentPanelNode.toFront();
     }
 
     /**

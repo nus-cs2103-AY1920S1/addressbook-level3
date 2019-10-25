@@ -7,18 +7,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GET_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 
+import java.util.HashMap;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.event.EventAddCommand;
-import seedu.address.logic.commands.event.EventCommand;
-import seedu.address.logic.commands.event.EventDeleteCommand;
-import seedu.address.logic.commands.event.EventEditCommand;
-import seedu.address.logic.commands.event.EventIndexCommand;
+import seedu.address.logic.commands.event.*;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -47,7 +45,9 @@ public class EventCommandParser implements Parser<EventCommand> {
                     PREFIX_END_DATETIME,
                     PREFIX_RECUR,
                     PREFIX_COLOR,
-                    PREFIX_GET_INDEX);
+                    PREFIX_GET_INDEX,
+                    PREFIX_VIEW,
+                    PREFIX_DELETE);
 
         boolean isEdit = false;
         Index index = Index.fromZeroBased(0);
@@ -63,19 +63,49 @@ public class EventCommandParser implements Parser<EventCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventEditCommand.MESSAGE_USAGE),
                 pe);
         }
-        if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
+        if (argMultimap.getValue(PREFIX_VIEW).isPresent()) { // List command
+            return new EventViewCommand();
+        } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
             return indexOfCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
+        } else if (isEdit) { // Delete command
+            return editCommand(index, argMultimap);
         } else {
             return addCommand(argMultimap);
         }
     }
 
     /**
+     * Performs validation and return the EventEdit object.
+     *
+     * @param index       of vEvent in the list.
+     * @param argMultimap for tokenized input.
+     * @return EventEditCommand object.
+     * @throws ParseException
+     */
+    private EventEditCommand editCommand(Index index, ArgumentMultimap argMultimap) {
+        HashMap<String, String> fields = new HashMap<>();
+
+        String eventName = argMultimap.getValue(PREFIX_EVENT_NAME).orElse("");
+        String startDateTime = argMultimap.getValue(PREFIX_START_DATETIME).orElse("");
+        String endDateTime = argMultimap.getValue(PREFIX_END_DATETIME).orElse("");
+        String recurType = argMultimap.getValue(PREFIX_RECUR).orElse("");
+        String colorString = argMultimap.getValue(PREFIX_COLOR).orElse("");
+
+        fields.put("eventName", eventName);
+        fields.put("startDateTime", startDateTime);
+        fields.put("endDateTime", endDateTime);
+        fields.put("recurType", recurType);
+        fields.put("colorString", colorString);
+
+        return new EventEditCommand(index, fields);
+    }
+
+    /**
      * Performs validation and return the EventDeleteCommand object.
      *
-     * @param index       of question in the list.
+     * @param index       of vEvent in the list.
      * @param argMultimap for tokenized input.
      * @return EventDeleteCommand object.
      * @throws ParseException

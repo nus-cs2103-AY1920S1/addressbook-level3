@@ -1,0 +1,17 @@
+{
+  "events" : [ {
+    "startDateTime" : "2019-10-26T01:42:59.866283",
+    "endDateTime" : "2019-10-26T04:42:59.866305",
+    "recurrenceType" : "NONE",
+    "colorCategory" : "njoyassistant",
+    "uniqueIdentifier" : "group01",
+    "eventName" : "Sample Event"
+  }, {
+    "startDateTime" : "2019-10-21T14:00",
+    "endDateTime" : "2019-10-21T15:00",
+    "recurrenceType" : "NONE",
+    "colorCategory" : "group01",
+    "uniqueIdentifier" : "njoyassistant",
+    "eventName" : "cs2100 lecture"
+  } ]
+}
