@@ -422,6 +422,49 @@ image::GroupSequenceDiagram.png[]
 
 // end::groupcontacts[]
 
+=== [Proposed] Tagging feature
+==== Description
+
+The user can tag a note with many tags by using <<UserGuide#note-tag, `note tag`>> command.
+
+==== Proposed Implementation
+
+In order to add tagging feature we will need to take a look at two processes, which are the tag command creation and the
+ execution of the command.
+
+===== Creating Tag Command
+
+We will use a TagParserUtil to create a tag from user input.
+
+Given below is an example scenario when a user tag a note with 2 tags.
+
+**Step 1:** The user command will be passed to `TaglineParser`, all the way to the `TagNoteParser`.
+
+image::CreatingTagNoteCommand.png[]
+
+**Step 2:** `NoteParserUtil` will be used to create a `noteId` object.
+
+**Step 3:** Finally, `TagParserUtil` will be used to create `tag` objects. All of them will be aggregated inside a `tagList`.
+
+This whole process has created a `TagNoteCommand` object from user input.
+
+===== Executing Tag Command
+
+Now, we will take a look on how we are executing the tagging command.
+
+Given below is an example scenario when the tagging command gets executed.
+
+**Step 1:** The `TagNoteCommand` will first exchange each tag with a tagId through model. Internally, model will have to
+interact with TagManager which will find the tag or create it if it does not exist.
+
+image::ExecutingTagNoteCommand.png[]
+
+**Step 2:** The `TagNoteCommand` then interact with `NoteManager` in order to find the corresponding note.
+
+**Step 3:** Finally, each `tagId` will be added to note through `NoteManager`.
+
+This whole process has executed the `TagNoteCommand`.
+
 === [Proposed] Note filtering feature
 ==== Description
 

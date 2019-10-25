@@ -310,6 +310,7 @@ Replaces the content of the note which id is '_00002_' with “_Today I don’t 
 NOTE: Upload of image will be supported in v2.0 +
 Partial editing will be supported in v2.0
 
+[#note-tag]
 ==== Tag a note: `tag`
 
 Tags a note with one or more tags.
