@@ -5,6 +5,7 @@ import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.util.Optional;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -59,7 +60,7 @@ public class NotifCommand extends Command {
 
     //@@author ambervoong
     /**
-     * Removes a notification from the model. Used to undo changes made in an AddCommand
+     * Removes a notification from the model. Used to undo changes made in an AddCommand.
      * @param model model of Mortago.
      */
     public void removeNotif(Model model) {
@@ -67,6 +68,20 @@ public class NotifCommand extends Command {
 
         if (model.hasNotif(toAdd)) {
             model.deleteNotif(toAdd);
+        }
+    }
+
+    /**
+     * Adds a notification back into the model. Used to redo changes made in an AddCommand.
+     * @param model model of Mortago.
+     * @throws CommandException if this notification already exists in the model.
+     */
+    public void addNotif(Model model) throws CommandException {
+        requireNonNull(model);
+        if (model.hasNotif(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
+        } else {
+            model.addNotif(toAdd);
         }
     }
     //@@author

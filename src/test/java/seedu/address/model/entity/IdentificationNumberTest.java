@@ -100,6 +100,17 @@ class IdentificationNumberTest {
         assertTrue(IdentificationNumber.isExistingIdentificationNumber("F01"));
     }
 
+    //@@author ambervoong
+    @Test
+    void addMapping_correctEntityReturned() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Body body = new BodyBuilder().build();
+        IdentificationNumber id = body.getIdNum();
+        id.addMapping(body);
+        assertEquals(body, body.getIdNum().getMapping());
+    }
+    //@@author
+
     @Test
     void getMapping_correctEntityReturned() {
         UniqueIdentificationNumberMaps.clearAllEntries();
