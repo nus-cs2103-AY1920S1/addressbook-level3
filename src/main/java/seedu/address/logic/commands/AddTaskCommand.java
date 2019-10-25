@@ -12,7 +12,7 @@ import seedu.address.model.ItemModel;
 public class AddTaskCommand extends AddCommand {
 
     public static final String SHOW_TASK_VIEW = "T";
-    public static final String MESSAGE_SUCCESS = "New Task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New Task added: %1$s\nDon't just watch it pile up!";
 
     public AddTaskCommand(Item item) {
         super(item);

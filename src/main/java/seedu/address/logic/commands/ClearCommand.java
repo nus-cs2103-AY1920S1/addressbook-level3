@@ -12,7 +12,7 @@ import seedu.address.model.ItemStorage;
 public class ClearCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Item list has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Item list has been cleared! (About time, isn't it?)";
     private ItemStorage beforeClear;
 
 
