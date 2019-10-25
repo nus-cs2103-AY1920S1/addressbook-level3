@@ -82,7 +82,12 @@ public interface Model {
     ReadOnlyWeme getWeme();
 
     /**
-     * Returns true if a meme with the same identity as {@code meme} exists in Weme.
+     * Replaces meme data with the data in {@code memes}.
+     */
+    void clearMemes();
+
+    /**
+     * Returns true if a meme with the same identity as {@code meme} exists in weme.
      */
     boolean hasMeme(Meme meme);
 
