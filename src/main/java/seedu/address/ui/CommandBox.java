@@ -17,13 +17,16 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final GraphGenerator graphGenerator;
 
     @FXML
     private AutoCompleteTextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, GraphGenerator graphGenerator) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.graphGenerator = graphGenerator;
+        this.commandTextField = new AutoCompleteTextField(graphGenerator);
     }
 
     /**

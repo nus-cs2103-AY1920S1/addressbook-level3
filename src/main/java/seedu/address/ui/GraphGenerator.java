@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import seedu.address.logic.Logic;
 import seedu.address.ui.graphs.AddCustomerGraph;
 
 import java.util.Arrays;
@@ -10,9 +11,9 @@ public class GraphGenerator {
 
     private List<Graph> graphs;
 
-    public GraphGenerator() {
+    public GraphGenerator(Logic logic) {
         graphs = Arrays.asList(
-                new AddCustomerGraph()
+                new AddCustomerGraph(logic.getFilteredCustomerList())
         );
     }
 

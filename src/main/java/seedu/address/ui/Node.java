@@ -4,35 +4,35 @@ import seedu.address.logic.parser.Prefix;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * Represents a node in {@link Graph}.
  */
-public abstract class Node {
+public abstract class Node<T> {
 
-    private final Map<Prefix, Node> edges;
-    private final SortedSet<String> values;
+    private final Map<Prefix, Node<T>> edges;
+    private final ValueSet<T> values;
 
-    public Node() {
+    public Node(List<T> values) {
         this.edges = new HashMap<>();
-        this.values = new TreeSet<>();
+        this.values = new ValueSet<>(values);
     }
 
-    public Node(Map<Prefix, Node> edges, SortedSet<String> values) {
+    public Node(Map<Prefix, Node<T>> edges, ValueSet<T> values) {
         this.edges = edges;
         this.values = values;
     }
 
     public SortedSet<String> getValues() {
-        return values;
+        return values.getValues();
     }
 
-    public Map<Prefix, Node> getEdges() {
+    public Map<Prefix, Node<T>> getEdges() {
         return edges;
     }
 
@@ -40,11 +40,11 @@ public abstract class Node {
         return edges.keySet();
     }
 
-    public Collection<Node> getNeighbours() {
+    public Collection<Node<T>> getNeighbours() {
         return edges.values();
     }
 
-    public Optional<Node> traverse(Prefix prefix) {
+    public Optional<Node<T>> traverse(Prefix prefix) {
         return Optional.ofNullable(edges.get(prefix));
     }
 

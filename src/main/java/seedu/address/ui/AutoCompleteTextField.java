@@ -31,11 +31,13 @@ import seedu.address.logic.parser.Prefix;
 public class AutoCompleteTextField extends TextField {
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
+    private final GraphGenerator graphGenerator;
 
-    public AutoCompleteTextField() {
+    public AutoCompleteTextField(GraphGenerator graphGenerator) {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
+        this.graphGenerator = graphGenerator;
 
         setListener();
     }
@@ -53,13 +55,13 @@ public class AutoCompleteTextField extends TextField {
                 int firstSpace = enteredText.indexOf(" ");
                 if (firstSpace != -1) {
                     String commandWord = enteredText.substring(0, firstSpace);
-                    Optional<Graph> graph = new GraphGenerator().getGraph(commandWord);
+                    Optional<Graph> graph = graphGenerator.getGraph(commandWord);
                     if (graph.isPresent()) {
                         String remaining = enteredText.substring(firstSpace);
                         Node graphNode = graph.get().process(remaining);
                         if (remaining.endsWith(" ")) {
                             entries.clear();
-                            entries.addAll(graphNode.getPrefixes().stream().map(Prefix::toString).collect(Collectors.toList()));
+                            entries.addAll(graphNode.getPrefixes().stream().map(prefix -> prefix.toString()).collect(Collectors.toList()));
                             stringToCompare = "";
                         } else {
                             entries.clear();
