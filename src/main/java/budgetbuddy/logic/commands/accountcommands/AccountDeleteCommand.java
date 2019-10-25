@@ -42,7 +42,7 @@ public class AccountDeleteCommand extends Command {
 
         AccountsManager accountsManager = model.getAccountsManager();
 
-        List<Account> lastShownList = model.getAccountsManager().getAccountsList();
+        List<Account> lastShownList = model.getAccountsManager().getAccounts();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }

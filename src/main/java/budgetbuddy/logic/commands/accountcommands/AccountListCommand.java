@@ -25,9 +25,9 @@ public class AccountListCommand extends Command {
 
         StringBuilder builder = new StringBuilder();
         builder.append("Current Accounts:");
-        for (int i = 0; i < model.getAccountsManager().getAccountsList().size(); i++) {
+        for (int i = 0; i < model.getAccountsManager().getAccounts().size(); i++) {
             builder.append("\n");
-            Account account = model.getAccountsManager().getAccountsList().get(i);
+            Account account = model.getAccountsManager().getAccounts().get(i);
             builder.append(i + 1).append(". ").append(account.getName().toString()).append("\n");
         }
 

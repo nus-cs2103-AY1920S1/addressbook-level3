@@ -38,7 +38,7 @@ public class ModelManager implements Model {
 
         this.loansManager = new LoansManager(loansManager.getLoans());
         this.ruleManager = new RuleManager(ruleManager.getRules());
-        this.accountsManager = new AccountsManager(accountsManager.getAccountsList());
+        this.accountsManager = new AccountsManager(accountsManager.getAccounts());
         this.userPrefs = new UserPrefs(userPrefs);
         this.scriptLibrary = scriptLibrary;
         filteredTransactions = new FilteredList<>(this.accountsManager.getDefaultAccount().getTransactionList());
