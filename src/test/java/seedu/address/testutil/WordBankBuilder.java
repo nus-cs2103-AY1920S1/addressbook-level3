@@ -22,6 +22,10 @@ public class WordBankBuilder {
         this.wordBank = wordBank;
     }
 
+    public WordBankBuilder(String id) {
+        wordBank = new WordBank(id);
+    }
+
     /**
      * Adds a new {@code Card} to the {@code WordBank} that we are building.
      */
@@ -33,4 +37,5 @@ public class WordBankBuilder {
     public WordBank build() {
         return wordBank;
     }
+
 }

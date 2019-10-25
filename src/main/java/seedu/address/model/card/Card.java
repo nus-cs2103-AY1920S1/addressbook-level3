@@ -96,7 +96,7 @@ public class Card {
     }
 
     public int getHintFormatSize() {
-        return hintSupplier.getRemainingHints();
+        return word.toString().length();
     }
 
     /**

@@ -125,7 +125,12 @@ public class ModularDisplay {
     public void swapToGameResult(StackPane paneToDisplay, GameStatistics gameStatistics,
                                  WordBankStatistics wbStatistics) {
         paneToDisplay.getChildren().clear();
-        paneToDisplay.getChildren().add(new GameResultPanel(gameStatistics, wbStatistics).getRoot());
+        if (gameStatistics == null || wbStatistics == null) {
+            System.out.println("YOOOOO somthings null here");
+        } else {
+            paneToDisplay.getChildren().add(new GameResultPanel(gameStatistics, wbStatistics).getRoot());
+        }
+
     }
 
     /**

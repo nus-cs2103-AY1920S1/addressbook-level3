@@ -134,6 +134,8 @@ public interface Model {
 
     boolean gameIsOver();
 
+    boolean bankLoaded();
+
     Game getGame();
 
 
@@ -178,16 +180,14 @@ public interface Model {
      */
     void setHintsEnabled(boolean enabled);
 
-    /**
-     * Returns if hints are enabled or not.
-     */
-    boolean getHintsEnabled();
-
     long getTimeAllowedPerQuestion();
 
     FormattedHint getHintFormatFromCurrentGame();
 
     int getHintFormatSizeFromCurrentGame();
 
-    boolean hintsAreEnabled();
+    /**
+     * Returns if hints are enabled or not.
+     */
+    boolean getHintsEnabled();
 }

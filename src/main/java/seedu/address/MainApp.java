@@ -51,7 +51,7 @@ import seedu.address.Game.*;
  * Runs the application.
  */
 public class MainApp extends Application {
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -60,11 +60,6 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected AppManager appManager;
-
-    /*
-    Step 1.
-    protected Game game;
-     */
 
     @Override
     public void init() throws Exception {
@@ -86,25 +81,13 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        /*
-        Step 2. Create game here.
-
-        game = initGameManager(storage, userPrefs);
-         */
-
         model = initModelManager(storage, userPrefs);
 
-        /*
-        Step 8.
-        Pass game to LogicManager
-
-        logic = new LogicManager(game, model, storage);
-         */
         logic = new LogicManager(model, storage);
 
         /*
         Step 9.
-        Create GameManager using logic and pass to UIManager.
+        Create AppManager using logic and pass to UIManager.
          */
         appManager = new AppManager(logic);
 
@@ -145,14 +128,6 @@ public class MainApp extends Application {
     Extends to Step 7 : constructor for new GameManger;
 
 
-    private Game initGameManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyGame initialData;
-        Optional<ReadOnlyGame> gameOptional;
-
-        gameOptional = storage.readGame();
-        initialData = new Game();
-        return new GameManager(initialData, userPrefs);
-    }
     */
 
     private void initLogging(Config config) {
@@ -229,7 +204,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Dukemon " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

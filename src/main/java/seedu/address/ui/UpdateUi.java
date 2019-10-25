@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.appsettings.ThemeEnum;
-
 
 /**
  * Class to handle updating of Ui.
@@ -13,6 +15,7 @@ public class UpdateUi {
 
     private ModularDisplay modularDisplay;
     private CurrentModeFooter currentModeFooter;
+    private final Logger logger = LogsCenter.getLogger(UpdateUi.class);
 
     public UpdateUi(ModularDisplay modularDisplay, CurrentModeFooter currentModeFooter) {
         this.modularDisplay = modularDisplay;
@@ -22,42 +25,38 @@ public class UpdateUi {
     /**
      * Updates the {@code ModularDisplay} in {@code MainWindow}.
      *
-     * @param command The command that triggers the update.
+     * @param modeEnum The mode that the app is currently in.
      * @param modularDisplayPlaceholder {@code modularDisplayPlaceholder} in {@code MainWindow} that gets updated.
      */
-    public void updateModularDisplay(String command, ModeEnum modeEnum, StackPane modularDisplayPlaceholder) {
-        String firstArg = command.split(" ")[0];
-        if (firstArg.equals("load")) {
-            modularDisplay.swapToBanks(modularDisplayPlaceholder);
-        } else if (firstArg.equals("bank")) {
+    public void updateModularDisplay(ModeEnum modeEnum, StackPane modularDisplayPlaceholder) {
+        switch (modeEnum) {
+        case OPEN:
             modularDisplay.swapToBankDisplay(modularDisplayPlaceholder);
-        } else if (firstArg.equals("list")) {
-            modularDisplay.swapToList(modularDisplayPlaceholder);
-        } else if (firstArg.equals("skip")) {
-
-        } else if (modeEnum.equals(ModeEnum.SETTINGS)) {
-            modularDisplay.swapToSettings(modularDisplayPlaceholder);
-        } else {
-            if (modeEnum.equals(ModeEnum.GAME)) {
-                // Swapping to load display by default disabled when in game mode (by Yida).
-                return;
-            }
+            break;
+        case HOME:
             modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
+            break;
+        case SETTINGS:
+            modularDisplay.swapToSettings(modularDisplayPlaceholder);
+            break;
+        default:
+            break;
         }
     }
 
     public void setTheme(ThemeEnum theme, Scene scene) {
         if (theme.equals(ThemeEnum.DARK)) {
-            scene.getStylesheets().remove(ThemeEnum.LIGHT.getThemeUrl());
-            scene.getStylesheets().remove(ThemeEnum.LIGHT.getExtensionUrl());
+            scene.getStylesheets().clear();
             scene.getStylesheets().add(theme.getThemeUrl());
             scene.getStylesheets().add(theme.getExtensionUrl());
         } else {
-            scene.getStylesheets().remove(ThemeEnum.DARK.getThemeUrl());
-            scene.getStylesheets().remove(ThemeEnum.DARK.getExtensionUrl());
+            scene.getStylesheets().clear();
             scene.getStylesheets().add(theme.getThemeUrl());
             scene.getStylesheets().add(theme.getExtensionUrl());
         }
+
+        logger.info("----------------[UpdateUI][Setting Stylesheets]"
+                + "\n" + "Current Stylesheet is: " + theme.toString());
     }
 
 }
