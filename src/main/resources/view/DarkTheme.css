@@ -444,3 +444,54 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#lineChartScrollPane {
+    -fx-background-color: white !important;
+    -fx-background: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .chart {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .chart-content {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .chart-title {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .axis-label {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .chart-plot-background {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .chart-vertical-grid-lines {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .chart-horizontal-grid-lines {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
+
+#lineChart .chart-alternative-row-fill {
+    -fx-background-color: white !important;
+    -fx-text-fill: black !important;
+}
