@@ -247,8 +247,7 @@ public class MainWindow extends UiPart<Stage> {
     private void executeFlashcardCommandHelper(FlashcardCommandResult flashcardCommandResult) {
         if (flashcardCommandResult.isTimeTrial()) {
             activityWindow.startTimeTrial(flashcardCommandResult.getDeck());
-        }
-        else if (flashcardCommandResult.getFlashcard().isPresent()) {
+        } else if (flashcardCommandResult.getFlashcard().isPresent()) {
             activityWindow.displayFlashcard(flashcardCommandResult.getFlashcard().get());
         }
     }
