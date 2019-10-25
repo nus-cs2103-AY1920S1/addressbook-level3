@@ -39,7 +39,7 @@ public interface Model {
     /**
      * Gets the {@code Person} that is logged into the {@code Session}.
      */
-    Date getLoginTime();
+    String getLoginTime();
 
     /**
      * Returns true if a user is logged in.

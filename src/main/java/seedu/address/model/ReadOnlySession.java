@@ -10,5 +10,5 @@ import seedu.address.model.person.Person;
 public interface ReadOnlySession {
     Person getLoggedInPerson();
 
-    Date getLoginTime();
+    String getLoginTime();
 }

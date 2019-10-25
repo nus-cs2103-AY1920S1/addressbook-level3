@@ -97,7 +97,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Date getLoginTime() {
+        public String getLoginTime() {
             throw new AssertionError("This method should not be called.");
         }
 

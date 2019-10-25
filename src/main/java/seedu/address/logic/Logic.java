@@ -37,7 +37,7 @@ public interface Logic {
     Person getLoggedInPerson();
 
     /** Returns the login time */
-    Date getLoginTime();
+    String getLoginTime();
 
     /** Returns true if currently in person view mode */
     boolean isPersonView();

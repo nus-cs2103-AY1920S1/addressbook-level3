@@ -61,7 +61,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Date getLoginTime() {
+    public String getLoginTime() {
         return session.getLoginTime();
     }
 

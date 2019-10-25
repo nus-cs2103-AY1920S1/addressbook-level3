@@ -102,7 +102,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Date getLoginTime() {
+    public String getLoginTime() {
         return model.getLoginTime();
     }
 

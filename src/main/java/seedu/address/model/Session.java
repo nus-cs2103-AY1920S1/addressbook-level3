@@ -25,12 +25,16 @@ public class Session implements ReadOnlySession {
 
     @Override
     public Person getLoggedInPerson() {
-        return person;
+        if (person == null) {
+            return null;
+        }
+        return new Person(person.getName(), person.getPhone(), person.getEmail(), person.getTags(),
+                person.getUsername(), person.getPassword());
     }
 
     @Override
-    public Date getLoginTime() {
-        return loginTime;
+    public String getLoginTime() {
+        return loginTime.toString();
     }
 
     @Override

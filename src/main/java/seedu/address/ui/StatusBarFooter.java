@@ -29,7 +29,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     //@@author madanalogy
-    public void setLoginDetails(Person person, Date time) {
+    public void setLoginDetails(Person person, String time) {
         if (person != null) {
             sessionDetails.setText("Logged in as " + person.getUsername()
                     + " on " + time);
