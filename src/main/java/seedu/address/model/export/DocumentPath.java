@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -105,8 +106,14 @@ public class DocumentPath extends ExportPath {
     }
 
     @Override
-    public void export(List<FlashCard> list) {
-        //TODO
+    public void export(List<FlashCard> list) throws IOException {
+        try {
+            DocumentExportUtil.exportFlashCardsToDocument(
+                    list, this
+            );
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     /**
