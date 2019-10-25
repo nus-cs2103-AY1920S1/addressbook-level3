@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import javafx.collections.ObservableList;
@@ -472,6 +473,16 @@ public class ItemModelManager implements ItemModel {
     }
 
     /**
+     * Sorts the current visual list based on a comparator.
+     * @param comparator the comparator to sort the current list by.
+     */
+    public void sort(Comparator<Item> comparator) {
+        VisualizeList tempList = visualList.deepCopy();
+        tempList.sort(comparator);
+        this.visualList = tempList;
+    }
+
+    /**
      * Checks if the item storage already contains this item.
      * @param item to check
      * @return true if the item storage contains this item, false otherwise
@@ -578,5 +589,9 @@ public class ItemModelManager implements ItemModel {
         }
 
         return item;
+    }
+
+    public EventList getEventList() {
+        return this.eventList;
     }
 }

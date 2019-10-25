@@ -17,6 +17,7 @@ import seedu.address.commons.core.item.Priority;
 import seedu.address.commons.core.item.Reminder;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AutoReschedulePeriod;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -166,6 +167,52 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses string {@code period} into an {@code Optional<AutoReschedulePeriod>} representation of the period.
+     * @param period of the auto-reschedule. Expects "hour"/"day"/"week" or format "10.min.later"
+     * @return Optional.of(AutoRechedulePeriod) if this period is valid. Optional.of(empty) otherwise.
+     * @throws ParseException if the format of period given is incorrect.
+     */
+    public static Optional<AutoReschedulePeriod> parseReschedule(String period) throws ParseException {
+        if (period == null) {
+            return Optional.empty();
+        }
+
+        String processedPeriod = period.trim().toUpperCase();
+        boolean isFixedPeriod = false;
+        AutoReschedulePeriod reschedulePeriod = new AutoReschedulePeriod(0); // just to initialise
+
+        switch(processedPeriod) {
+        case(AutoReschedulePeriod.BY_HOUR):
+            reschedulePeriod = AutoReschedulePeriod.byHour();
+            isFixedPeriod = true;
+            break;
+        case (AutoReschedulePeriod.BY_DAY):
+            reschedulePeriod = AutoReschedulePeriod.byDay();
+            isFixedPeriod = true;
+            break;
+        case (AutoReschedulePeriod.BY_WEEK):
+            reschedulePeriod = AutoReschedulePeriod.byWeek();
+            isFixedPeriod = true;
+            break;
+        default :
+            // nothing
+        }
+
+        if (!isFixedPeriod) {
+            try {
+                DateTimeParser parser = new FastReminderDateTimeParser();
+                LocalDateTime temp = parser.parseDateTime(processedPeriod);
+                reschedulePeriod = AutoReschedulePeriod.from(temp);
+            } catch (Exception e) {
+                throw new ParseException("Auto Reschedule format given is incorrect. "
+                        + "Use either hour/day/week or 10.min.later format");
+            }
+        }
+
+        return Optional.of(reschedulePeriod);
     }
 
     /**

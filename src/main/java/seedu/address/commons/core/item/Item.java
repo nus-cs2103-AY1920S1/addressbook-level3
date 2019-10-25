@@ -282,6 +282,15 @@ public class Item {
     }
 
     /**
+     * Checks the event in the item to see if it is auto reschedulable.
+     * Requirements: item definitely has an event.
+     * @return true if it is auto reschedule, false otherwise.
+     */
+    public boolean hasAutoReschedule() {
+        return getEvent().get().hasAutoReschedule();
+    }
+
+    /**
      * Builder class for Item.
      */
     public static class ItemBuilder {

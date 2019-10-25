@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.AutoReschedulePeriod;
 
 /**
  * Represents an Item's Event in ELISA.
@@ -24,6 +25,8 @@ public class Event {
     private final LocalDateTime endDateTime;
     //Duration chosen over Period as Events are unlikely to exceed a day.
     private final Duration duration;
+    private final boolean isAutoReschedule;
+    private final AutoReschedulePeriod period;
 
     /**
      * Constructs an {@code Event}.
@@ -32,6 +35,16 @@ public class Event {
      * @param duration A Duration of the event. Defaults to Duration.ZERO if null.
      */
     public Event(LocalDateTime startDateTime, Duration duration) throws IllegalArgumentException {
+        this(startDateTime, duration, false, null);
+    }
+
+    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule)
+            throws IllegalArgumentException {
+        this(startDateTime, duration, isAutoReschedule, null);
+    }
+
+    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule,
+                 AutoReschedulePeriod period) throws IllegalArgumentException {
         requireNonNull(startDateTime);
         if (duration != null) {
             this.duration = duration;
@@ -41,6 +54,8 @@ public class Event {
 
         this.startDateTime = startDateTime;
         this.endDateTime = startDateTime.plus(this.duration);
+        this.isAutoReschedule = isAutoReschedule;
+        this.period = period;
     }
 
     public LocalDateTime getStartDateTime() {
@@ -61,6 +76,44 @@ public class Event {
 
     public Event changeDuration(Duration newDuration) {
         return new Event(getStartDateTime(), newDuration);
+    }
+  
+    public boolean hasAutoReschedule() {
+        return isAutoReschedule;
+    }
+
+    /**
+     * Set auto reschedule to true if the event should recur/auto-reschedule, false otherwise
+     * @param bool true if event can be auto-rescheduled
+     * @return a new Event object with the updated parameters
+     */
+    public Event setAutoReschedule(boolean bool) {
+        return new Event(getStartDateTime(), getDuration(), bool);
+    }
+
+    /**
+     * Get the reschedule period of this event
+     * @return AutoReschedule period of this event
+     */
+    public AutoReschedulePeriod getPeriod() {
+        return this.period;
+    }
+
+    /**
+     * Set the reschedule period of this event. This would also set isAutoReschedule of this event to true.
+     * @param period to set to this event
+     * @return a new Event object with the updated parameters
+     */
+    public Event setReschedulePeriod(AutoReschedulePeriod period) {
+        return new Event(getStartDateTime(), getDuration(), true, period);
+    }
+
+    public Event changeStartDateTime(LocalDateTime newStartDateTime) {
+        return new Event(newStartDateTime, getDuration(), this.isAutoReschedule, this.period);
+    }
+
+    public Event changeDuration(Duration newDuration) {
+        return new Event(getStartDateTime(), newDuration, this.isAutoReschedule, this.period);
     }
 
     @Override
