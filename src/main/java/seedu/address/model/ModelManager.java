@@ -253,6 +253,11 @@ public class ModelManager implements Model {
         UiManager.startEarnings();
     }
 
+    @Override
+    public void updateFilteredCalendarList() {
+        UiManager.startCalendar();
+    }
+
     //=========== Filtered Task List Accessors =============================================================
 
     /**

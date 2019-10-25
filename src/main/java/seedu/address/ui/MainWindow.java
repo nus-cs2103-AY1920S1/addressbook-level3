@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.time.YearMonth;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -12,6 +16,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -43,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private ReminderWindow reminderWindow;
     private ReminderBox reminderBox;
+    private FullCalendarView fullCalendarView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -64,7 +70,8 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    Pane calendarPane;
+    private Pane calendarPane;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -205,16 +212,11 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillCalendar() {
+    void fillCalendar() throws IOException {
 
-        mainWindow.setTitle("Full Calendar FXML Example");
-        mainWindow.setScene(new Scene(loader.load()));
-
-        ModuleLayer.Controller controller = loader.getController();
-        controller.calendarPane.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
-
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        personListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        fullCalendarView = new FullCalendarView(YearMonth.now());
+        personListPanelPlaceholder.getChildren().add(fullCalendarView.getRoot());
+        personListPanelPlaceholder.getChildren().add(fullCalendarView.getView());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

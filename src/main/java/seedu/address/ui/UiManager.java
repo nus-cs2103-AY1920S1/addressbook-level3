@@ -104,15 +104,6 @@ public class UiManager implements Ui {
         logger.info("Changing to Calendar...");
 
         try {
-            //mainWindow("Full Calendar Example");
-            //mainWindow(new Scene(new FullCalendarView(YearMonth.now()).getView()));
-            //mainWindow.show();
-            //mainWindow.show(); //This should be called before creating other UI parts
-            //mainWindow.fillTasks();
-            FXMLLoader loader = new FXMLLoader(UiManager.class.getResource("fullCalendar.fxml"));
-            // Get the controller and add the calendar view to it
-            ModuleLayer.Controller controller = loader.getController();
-            controller.calendarPane.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
             mainWindow.show();
             mainWindow.fillCalendar();
         } catch (Throwable e) {

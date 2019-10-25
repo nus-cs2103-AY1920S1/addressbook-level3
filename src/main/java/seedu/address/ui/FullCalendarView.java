@@ -5,27 +5,33 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.AnchorPaneNode;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
-public class FullCalendarView {
+public class FullCalendarView extends UiPart<Region> {
 
     private ArrayList<AnchorPaneNode> allCalendarDays = new ArrayList<>(35);
     private VBox view;
     private Text calendarTitle;
     private YearMonth currentYearMonth;
+    private static final String FXML = "fullCalendar.fxml";
+    private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     /**
      * Create a calendar view
      * @param yearMonth year month to create the calendar of
      */
     public FullCalendarView(YearMonth yearMonth) {
+        super(FXML);
         currentYearMonth = yearMonth;
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
@@ -62,10 +68,12 @@ public class FullCalendarView {
         nextMonth.setOnAction(e -> nextMonth());
         HBox titleBar = new HBox(previousMonth, calendarTitle, nextMonth);
         titleBar.setAlignment(Pos.BASELINE_CENTER);
+        //titleBar.setStyle("-fx-background-color: #F0591E;");
         // Populate calendar with the appropriate day numbers
         populateCalendar(yearMonth);
         // Create the calendar view
         view = new VBox(titleBar, dayLabels, calendar);
+        view.setStyle("-fx-background-color: #2F4F4F;");
     }
 
     /**
