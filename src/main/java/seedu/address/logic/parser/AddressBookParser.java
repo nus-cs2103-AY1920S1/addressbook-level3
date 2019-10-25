@@ -11,12 +11,7 @@ import seedu.address.logic.LogicManager;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.GlobalTagFilterCommand;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ListTagCommand;
-import seedu.address.logic.commands.SwitchModeCommand;
 import seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.DeleteCheatSheetCommand;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
@@ -27,6 +22,12 @@ import seedu.address.logic.commands.flashcard.DeleteFlashcardCommand;
 import seedu.address.logic.commands.flashcard.FilterFlashcardByTagCommand;
 import seedu.address.logic.commands.flashcard.StartTimeTrialCommand;
 import seedu.address.logic.commands.flashcard.ViewFlashcardCommand;
+import seedu.address.logic.commands.global.ExitCommand;
+//import seedu.address.logic.commands.global.GlobalTagFilterCommand;
+import seedu.address.logic.commands.global.FilterAllByTagCommand;
+import seedu.address.logic.commands.global.HelpCommand;
+import seedu.address.logic.commands.global.ListTagCommand;
+import seedu.address.logic.commands.global.SwitchModeCommand;
 import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.commands.note.DeleteNoteCommand;
 import seedu.address.logic.commands.note.FilterNoteByTagCommand;
@@ -92,8 +93,8 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case GlobalTagFilterCommand.COMMAND_WORD:
-            return new GlobalTagFilterCommandParser().parse(arguments);
+        case FilterAllByTagCommand.COMMAND_WORD:
+            return new ListAllByTagCommandParser().parse(arguments);
 
         default:
 

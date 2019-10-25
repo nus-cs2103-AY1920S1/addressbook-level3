@@ -7,25 +7,26 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.FilterByTagCommand;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
 
 /**
- * Command to filter person(s) with the related tag(s).
+ * Command to filter note(s) with the related tag(s).
  */
 
-public class FilterNoteByTagCommand extends Command implements FilterByTagCommand {
+public class FilterNoteByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER;
 
-    public static final String MESSAGE_USAGE = "filter by tags. Find all related notes with the specified \n"
-            + "tags. Example : filter [cheatsheet] [cs2103t]";
+    public static final String MESSAGE_USAGE = "filter by tags. "
+            + "Find all related notes with the specified \n"
+            + "tags. Example : filter tag/important tag/cs2100";
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter notes by tag(s) : ";
 
-    private String[] tagKeywords;
+    private ArrayList<String> tagKeywords;
 
     private final NoteContainsTagPredicate tagPredicate;
 
@@ -34,9 +35,27 @@ public class FilterNoteByTagCommand extends Command implements FilterByTagComman
      * @param predicate to test on an note object to see if it has the tag.
      * @param tagKeywords the tags provided by user input to test on the note.
      */
-    public FilterNoteByTagCommand(NoteContainsTagPredicate predicate, String[] tagKeywords) {
+    public FilterNoteByTagCommand(NoteContainsTagPredicate predicate, ArrayList<String> tagKeywords) {
         this.tagPredicate = predicate;
         this.tagKeywords = tagKeywords;
+    }
+
+    /**
+     * To display to the user which tags he/she indicated
+     * @return a string of the tags indicated
+     */
+
+    public String showTagQueries() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tagKeywords.size(); i++) {
+            if (i != tagKeywords.size() - 1) {
+                sb.append(tagKeywords.get(i))
+                        .append(", ");
+            } else {
+                sb.append(tagKeywords.get(i));
+            }
+        }
+        return sb.toString();
     }
 
     @Override
@@ -49,8 +68,9 @@ public class FilterNoteByTagCommand extends Command implements FilterByTagComman
             sb.append(n);
             sb.append("\n");
         }
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + FilterByTagCommand.displayTagKeywords(tagKeywords)
+
+        return new NoteCommandResult(FILTER_TAG_MESSAGE_SUCCESS
+                + "\n" + showTagQueries()
                 + "\n" + sb.toString());
     }
 }

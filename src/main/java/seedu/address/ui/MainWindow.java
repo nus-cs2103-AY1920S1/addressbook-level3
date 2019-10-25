@@ -18,7 +18,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.FunctionMode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
+import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.UnknownCommandResultTypeException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -190,41 +195,78 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
+            UnknownCommandResultTypeException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            if (commandResult.isToggle()) {
-                toggleModeTo(commandResult.getTargetMode().get());
-            }
-
-            if (commandResult.getFlashcard().isPresent()) {
-                activityWindow.displayFlashcard(commandResult.getFlashcard().get());
-            }
-
-            if (commandResult.getCheatSheet().isPresent()) {
-                activityWindow.displayCheatSheet(commandResult.getCheatSheet().get());
-            }
-
-            if (commandResult.getNote().isPresent()) {
-                activityWindow.displayNote(commandResult.getNote().get());
+            if (commandResult.isGlobalCommandResult()) {
+                executeGlobalCommandHelper((GlobalCommandResult) commandResult);
+            } else if (commandResult.isFlashcardCommandResult()) {
+                executeFlashcardCommandHelper((FlashcardCommandResult) commandResult);
+            } else if (commandResult.isCheatSheetCommandResult()) {
+                executeCheatSheetCommandHelper((CheatSheetCommandResult) commandResult);
+            } else if (commandResult.isNoteCommandResult()) {
+                executeNoteCommandHelper((NoteCommandResult) commandResult);
+            } else {
+                throw new UnknownCommandResultTypeException("Invalid CommandResult type!");
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | UnknownCommandResultTypeException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     *
+     * @param globalCommandResult
+     */
+    private void executeGlobalCommandHelper(GlobalCommandResult globalCommandResult) {
+        if (globalCommandResult.isShowHelp()) {
+            handleHelp();
+        }
+
+        if (globalCommandResult.isExit()) {
+            handleExit();
+        }
+
+        if (globalCommandResult.isToggle()) {
+            toggleModeTo(globalCommandResult.getTargetMode().get());
+        }
+    }
+
+    /**
+     *
+     * @param flashcardCommandResult
+     */
+    private void executeFlashcardCommandHelper(FlashcardCommandResult flashcardCommandResult) {
+        if (flashcardCommandResult.getFlashcard().isPresent()) {
+            activityWindow.displayFlashcard(flashcardCommandResult.getFlashcard().get());
+        }
+    }
+
+    /**
+     *
+     * @param cheatSheetCommandResult
+     */
+    private void executeCheatSheetCommandHelper(CheatSheetCommandResult cheatSheetCommandResult) {
+        if (cheatSheetCommandResult.getCheatSheet().isPresent()) {
+            activityWindow.displayCheatSheet(cheatSheetCommandResult.getCheatSheet().get());
+        }
+    }
+
+    /**
+     *
+     * @param noteCommandResult
+     */
+    private void executeNoteCommandHelper(NoteCommandResult noteCommandResult) {
+        if (noteCommandResult.getNote().isPresent()) {
+            activityWindow.displayNote(noteCommandResult.getNote().get());
         }
     }
 
