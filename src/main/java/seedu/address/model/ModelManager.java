@@ -265,7 +265,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<HistoryRecord> revertTo(HistoryRecord record) throws NoSuchElementException {
+    public List<HistoryRecord> undoTo(HistoryRecord record) throws NoSuchElementException {
         List<HistoryRecord> poppedRecords = historyManager.popRecordsTo(record, stagedAddressBook);
         changeBaseTo(record.getCopyOfAddressBook());
         return poppedRecords;
@@ -275,7 +275,7 @@ public class ModelManager implements Model {
     public HistoryRecord redo() throws IllegalStateException {
         Optional<HistoryRecord> redoneRecord = historyManager.popRedo(stagedAddressBook);
         if (redoneRecord.isEmpty()) {
-            throw new IllegalStateException("Cannot redo: previous command was not an undo");
+            throw new IllegalStateException("Cannot redo: previous MutatorCommand was not an undo");
         }
         changeBaseTo(redoneRecord.get().getCopyOfAddressBook());
         return redoneRecord.get();

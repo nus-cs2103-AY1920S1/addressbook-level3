@@ -12,7 +12,7 @@ public class RedoCommand extends Command implements MutatorCommand {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Redoes the previous command if it was an undo.\n"
+            + ": Redoes the previous data-modifying command if it was an undo.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_REDO_SUCCESS = "Redid command:\n%s";

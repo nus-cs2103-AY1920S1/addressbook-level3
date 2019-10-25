@@ -173,10 +173,10 @@ public interface Model {
      * @param record record to revert to
      * @return list of reverted records with the first reversion at index 0
      */
-    List<HistoryRecord> revertTo(HistoryRecord record);
+    List<HistoryRecord> undoTo(HistoryRecord record);
 
     /**
-     * Redoes the previous command if it was an undo.
+     * Redoes the previous {@link MutatorCommand} if it was an undo.
      *
      * @return record describing the redone command and the state after its execution
      * @throws IllegalStateException if the previous command was not an undo
