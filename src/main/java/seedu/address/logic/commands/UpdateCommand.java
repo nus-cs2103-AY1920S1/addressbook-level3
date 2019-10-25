@@ -35,10 +35,11 @@ public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates your account with new values.\n"
+            + "Admins can update the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX (if Admin) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -74,8 +75,9 @@ public class UpdateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // Access Control check for tag addition
-        if (updatePersonDescriptor.getTags().isPresent() && Person.isNotAdmin(model.getLoggedInPerson())) {
+        // Access Control check for tag addition and index update
+        if (Person.isNotAdmin(model.getLoggedInPerson())
+                && (index != null || updatePersonDescriptor.getTags().isPresent())) {
             throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
         }
 
@@ -98,20 +100,20 @@ public class UpdateCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        // Admins cannot remove themselves as admins, updates session
-        boolean changeSession = false;
+        // Admins cannot remove themselves as admins, updates status bar if username changed
+        boolean changeStatus = false;
         if (personToUpdate.equals(model.getLoggedInPerson())) {
             if (!Person.isNotAdmin(model.getLoggedInPerson()) && Person.isNotAdmin(updatedPerson)) {
                 throw new CommandException(MESSAGE_ADMIN_REVOKE);
             }
+            changeStatus = updatePersonDescriptor.getUsername().isPresent();
             model.setSession(updatedPerson);
-            changeSession = true;
         }
 
         model.setPerson(personToUpdate, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson),
-                changeSession, false, false);
+                changeStatus, false, changeStatus);
     }
 
     /**
