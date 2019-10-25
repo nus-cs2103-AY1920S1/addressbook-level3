@@ -14,7 +14,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FillCommand;
 import seedu.address.logic.commands.FindIncidentsCommand;
-import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.FindVehiclesCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListIncidentsCommand;
@@ -66,8 +66,8 @@ public class IncidentManagerParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindPersonCommand.COMMAND_WORD:
-            return new FindPersonCommandParser().parse(arguments);
+        case FindPersonsCommand.COMMAND_WORD:
+            return new FindPersonsCommandParser().parse(arguments);
 
         case FindIncidentsCommand.COMMAND_WORD:
             return new FindIncidentsCommandParser().parse(arguments);

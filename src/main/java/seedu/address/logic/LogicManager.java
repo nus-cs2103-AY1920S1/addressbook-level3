@@ -13,7 +13,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPersonsCommand;
 import seedu.address.logic.commands.LoginCommand;
@@ -69,11 +69,11 @@ public class LogicManager implements Logic {
         // Guard Statement for command suite corresponding to interface swaps.
         if (!isPersonView && (command instanceof AddCommand || command instanceof UpdateCommand
                 || command instanceof DeleteCommand || command instanceof ListPersonsCommand
-                || command instanceof FindPersonCommand)) {
+                || command instanceof FindPersonsCommand)) {
             throw new CommandException(GUI_SWAP_MESSAGE);
         } else if (isPersonView && !(command instanceof AddCommand || command instanceof UpdateCommand
                 || command instanceof DeleteCommand || command instanceof ListPersonsCommand
-                || command instanceof FindPersonCommand || command instanceof LoginCommand
+                || command instanceof FindPersonsCommand || command instanceof LoginCommand
                 || command instanceof ExitCommand || command instanceof SwapCommand
                 || command instanceof LogoutCommand || command instanceof HelpCommand)) {
             throw new CommandException(GUI_SWAP_MESSAGE);

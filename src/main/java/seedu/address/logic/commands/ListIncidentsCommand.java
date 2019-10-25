@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class ListIncidentsCommand extends Command {
 
-    public static final String COMMAND_WORD = "incidents";
+    public static final String COMMAND_WORD = "list-i";
 
     public static final String MESSAGE_SUCCESS = "Listed all incidents";
 

@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class ListVehiclesCommand extends Command {
 
-    public static final String COMMAND_WORD = "vehicles";
+    public static final String COMMAND_WORD = "list-v";
 
     public static final String MESSAGE_SUCCESS = "Listed all vehicles";
 
