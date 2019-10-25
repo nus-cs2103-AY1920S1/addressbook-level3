@@ -188,7 +188,8 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getApplicationFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeInputChanged);
+        commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeInputChanged,
+                this::getPastInput);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -421,8 +422,19 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Autocomplete helper method. Sets a flag indicating that autocomplete search data needs to be updated.
      */
-    private CommandResult executeInputChanged(String dummy) throws ParseException {
+    private CommandResult executeInputChanged(String direction) throws ParseException {
         logic.markInputChanged();
+        return new CommandResult("");
+    }
+
+    /**
+     * Handles getting past commands.
+     */
+    private CommandResult getPastInput(String arrowDirection) {
+        String pastInput = logic.getPastInput(arrowDirection);
+        if (pastInput != null) {
+            commandBox.setInput(pastInput);
+        }
         return new CommandResult("");
     }
 

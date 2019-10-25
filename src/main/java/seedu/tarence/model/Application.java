@@ -28,16 +28,26 @@ import seedu.tarence.model.tutorial.UniqueTutorialList;
  */
 public class Application implements ReadOnlyApplication {
 
+    // application data
     private final UniquePersonList persons;
     private final UniquePersonList students;
     private final UniqueModuleList modules;
     private final UniqueTutorialList tutorials;
 
+    // for command execution
     private Stack<Command> pendingCommands;
+
+    // for autocorrect
     private List<Command> suggestedCommands;
     private String suggestedCorrections;
+
+    // for autocomplete
     private PartialInput suggestedCompletions;
     private boolean isInputChanged;
+
+    // for command history
+    private List<String> inputHistory;
+    private int inputHistoryIndex;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -55,6 +65,8 @@ public class Application implements ReadOnlyApplication {
         suggestedCommands = new ArrayList<>();
         suggestedCompletions = null;
         isInputChanged = true;
+        inputHistory = new ArrayList<>();
+        inputHistoryIndex = 0;
     }
 
     public Application() {}
@@ -514,6 +526,30 @@ public class Application implements ReadOnlyApplication {
 
     boolean hasInputChanged() {
         return isInputChanged;
+    }
+
+    void saveInput(String input) {
+        inputHistory.add(0, input);
+    }
+
+    List<String> getInputHistory() {
+        return inputHistory;
+    }
+
+    int getInputHistoryIndex() {
+        return inputHistoryIndex;
+    }
+
+    void incrementInputHistoryIndex() {
+        inputHistoryIndex += 1;
+    }
+
+    void decrementInputHistoryIndex() {
+        inputHistoryIndex -= 1;
+    }
+
+    void resetInputHistoryIndex() {
+        inputHistoryIndex = 0;
     }
 
     @Override

@@ -23,7 +23,7 @@ import seedu.tarence.model.tutorial.Tutorial;
 /**
  * A default model stub that has all of the methods failing.
  */
-class ModelStub implements Model {
+public class ModelStub implements Model {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -273,6 +273,28 @@ class ModelStub implements Model {
 
     @Override
     public void setInputChangedToFalse() {}
+
+    @Override
+    public void saveInput(String input) {};
+
+    @Override
+    public List<String> getInputHistory() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public int getInputHistoryIndex() {
+        return 0;
+    }
+
+    @Override
+    public void incrementInputHistoryIndex() {}
+
+    @Override
+    public void decrementInputHistoryIndex() {}
+
+    @Override
+    public void resetInputHistoryIndex() {}
 
     @Override
     public boolean hasInputChanged() {

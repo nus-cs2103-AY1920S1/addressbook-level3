@@ -277,6 +277,36 @@ public interface Model {
     void setInputChangedToFalse();
 
     /**
+     * Saves a command entered by the user into the command history.
+     */
+    void saveInput(String input);
+
+    /**
+     * Gets the command history list.
+     */
+    List<String> getInputHistory();
+
+    /**
+     * Gets the current iteration index of the input history list.
+     */
+    int getInputHistoryIndex();
+
+    /**
+     * Increments the current iteration index of the input history list.
+     */
+    void incrementInputHistoryIndex();
+
+    /**
+     * Decrements the current iteration index of the input history list.
+     */
+    void decrementInputHistoryIndex();
+
+    /**
+     * Resets the current iteration index of the input history list.
+     */
+    void resetInputHistoryIndex();
+
+    /**
      * Checks whether the user's input has changed.
      */
     boolean hasInputChanged();

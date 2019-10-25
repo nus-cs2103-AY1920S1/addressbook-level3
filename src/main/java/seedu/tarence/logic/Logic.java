@@ -34,6 +34,8 @@ public interface Logic {
      */
     String autocomplete(String partialInput) throws ParseException;
 
+    String getPastInput(String arrowDirection);
+
     void markInputChanged();
 
     /**

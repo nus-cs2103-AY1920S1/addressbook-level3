@@ -515,6 +515,28 @@ public class MarkAttendanceCommandTest {
         public boolean hasInputChanged() {
             return false;
         }
+
+        @Override
+        public void saveInput(String input) {};
+
+        @Override
+        public List<String> getInputHistory() {
+            return new ArrayList<>();
+        }
+
+        @Override
+        public int getInputHistoryIndex() {
+            return 0;
+        }
+
+        @Override
+        public void incrementInputHistoryIndex() {}
+
+        @Override
+        public void decrementInputHistoryIndex() {}
+
+        @Override
+        public void resetInputHistoryIndex() {}
     }
 
     /**

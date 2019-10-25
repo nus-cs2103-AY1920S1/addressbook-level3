@@ -435,6 +435,28 @@ public class AddStudentCommandTest {
         public boolean hasInputChanged() {
             return false;
         }
+
+        @Override
+        public void saveInput(String input) {};
+
+        @Override
+        public List<String> getInputHistory() {
+            return new ArrayList<>();
+        }
+
+        @Override
+        public int getInputHistoryIndex() {
+            return 0;
+        }
+
+        @Override
+        public void incrementInputHistoryIndex() {}
+
+        @Override
+        public void decrementInputHistoryIndex() {}
+
+        @Override
+        public void resetInputHistoryIndex() {}
     }
 
     /**
@@ -633,10 +655,12 @@ public class AddStudentCommandTest {
         public void storeSuggestedCommands(List<Command> suggestedCommands, String suggestedCorrections) {
             this.suggestedCommands = suggestedCommands;
         }
+
         @Override
         public List<Command> getSuggestedCommands() {
             return suggestedCommands;
         }
+
     }
 
 }

@@ -12,7 +12,7 @@ import seedu.tarence.model.Model;
  */
 public class AutocompleteHandler {
 
-    public static final String ERROR_AUTOCOMPLETE_DATA_NOT_FOUND = "No autofill data found.";
+    private static final String ERROR_AUTOCOMPLETE_DATA_NOT_FOUND = "No autofill data found.";
 
     private Model model;
 
