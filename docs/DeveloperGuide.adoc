@@ -273,7 +273,7 @@ Given below is a class diagram of a book.
 image::BookClassDiagram.png[width=400]
 {nbsp} +
 
-Notice how the book can hold either 1 or 0 loans, depending on whether it is currently loaned out or not. +
+Notice how the book can hold either *1 or 0 loans*, depending on whether it is currently loaned out or not. +
 {nbsp} +
 
 Given below is the object diagram of a newly added book.
@@ -282,7 +282,7 @@ Given below is the object diagram of a newly added book.
 image::BookObjectDiagram.png[width=300]
 {nbsp} +
 
-We can see that the book holds a `Optional<Loan>` in order to have either 1 or 0 `Loan` objects. This makes it consistent with the class diagram of `Book` above.
+We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*. This makes it consistent with the class diagram of `Book` above.
 
 ==== Design Considerations
 
