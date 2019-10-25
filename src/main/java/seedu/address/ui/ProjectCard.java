@@ -46,20 +46,19 @@ public class ProjectCard extends UiPart<Region> {
     private FlowPane tasks;
     @FXML
     private FlowPane meetings;
+    int count = 0;
 
     public ProjectCard(Project project, int displayedIndex) {
         super(FXML);
         this.project = project;
-        int count = 0;
         id.setText(displayedIndex + ". ");
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
         memberTitle.setText("Members:");
         project.getMembers().forEach(member -> members.getChildren().add(new Label(member)));
-
-        for (Task task : project.getTasks()) {
-            tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString()));
-        }
+        project.getTasks().stream()
+                .sorted(Comparator.comparing(task -> task.getTime().getDate()))
+                .forEach(task -> tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString())));
         taskTitle.setText("Tasks: ");
         tasks.setOrientation(Orientation.VERTICAL);
         tasks.setPrefWrapLength(100);

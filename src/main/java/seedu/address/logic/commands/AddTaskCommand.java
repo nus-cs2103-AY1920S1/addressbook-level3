@@ -5,9 +5,7 @@ import seedu.address.model.Model;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
@@ -42,10 +40,12 @@ public class AddTaskCommand extends Command {
 
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMembers();
+        ArrayList<Task> taskArrayList = new ArrayList<>();
         Set<Task> taskToEdit = projectToEdit.getTasks();
+        taskArrayList.addAll(taskToEdit);
         Set<Task> newTaskList = new HashSet<>();
-        newTaskList.addAll(taskToEdit);
-        newTaskList.add(task);
+        taskArrayList.add(task);
+        newTaskList.addAll(taskArrayList);
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, projectToEdit.getFinance());
         editedProject.getMembers().addAll(members);
 
