@@ -1,6 +1,7 @@
 package dream.fcard.logic.respond;
 
 import dream.fcard.model.State;
+import dream.fcard.model.exceptions.DeckNotFoundException;
 
 
 /**
@@ -14,11 +15,13 @@ public class Responder {
      * @param input A String representing the user input.
      * @param state The current State of the program.
      */
-    public static void takeInput(String input, State state) {
+    public static void takeInput(String input, State state) throws DeckNotFoundException {
         for (Responses r : Responses.values()) {
             if (r.call(input, state)) {
                 break;
             }
         }
+
+        //todo: handle exception
     }
 }
