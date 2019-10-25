@@ -11,7 +11,6 @@ import java.util.Set;
 
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.EditCommand;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.category.Category;

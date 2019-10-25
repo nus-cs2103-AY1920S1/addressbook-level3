@@ -5,13 +5,13 @@ import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 /**
  * Represents a Answerable in the Test Bank.

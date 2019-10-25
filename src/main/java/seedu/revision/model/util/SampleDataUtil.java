@@ -2,18 +2,18 @@ package seedu.revision.model.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.ReadOnlyAddressBook;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.category.Category;
 
 
@@ -22,9 +22,9 @@ import seedu.revision.model.category.Category;
  */
 public class SampleDataUtil {
     public static Answerable[] getSampleAnswerables() {
-        Answer defaultCorrectAnswer = new Answer("CORRECT");
+        Answer defaultCorrectAnswer = new McqAnswer("CORRECT");
         ArrayList<Answer> defaultCorrectAnswerSet = new ArrayList<>(Arrays.asList(defaultCorrectAnswer));
-        Answer defaultWrongAnswer = new Answer("WRONG");
+        Answer defaultWrongAnswer = new McqAnswer("WRONG");
         ArrayList<Answer> defaultWrongAnswerSet = new ArrayList<>(Arrays.asList(defaultWrongAnswer));
 
         //TODO: Implement actual answerable

@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Question;

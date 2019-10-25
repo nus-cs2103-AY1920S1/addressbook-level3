@@ -1,16 +1,14 @@
 package seedu.revision.ui;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import javafx.fxml.FXML;
+import seedu.revision.model.answerable.answer.Answer;
 
 public class AnswersGridPane extends UiPart<Region> {
     private static final String FXML = "AnswersGridPane.fxml";
@@ -32,19 +30,19 @@ public class AnswersGridPane extends UiPart<Region> {
         super(FXML);
         this.answerable = answerable;
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
-        option1.setText(answerList.get(0).answer);
-        option2.setText(answerList.get(1).answer);
-        option3.setText(answerList.get(2).answer);
-        option4.setText(answerList.get(3).answer);
+        option1.setText(answerList.get(0).toString());
+        option2.setText(answerList.get(1).toString());
+        option3.setText(answerList.get(2).toString());
+        option4.setText(answerList.get(3).toString());
         this.getRoot().getStyleClass().add("option-label");
     }
 
     public void updateAnswers(Answerable answerable) {
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
-        option1.setText(answerList.get(0).answer);
-        option2.setText(answerList.get(1).answer);
-        option3.setText(answerList.get(2).answer);
-        option4.setText(answerList.get(3).answer);
+        option1.setText(answerList.get(0).toString());
+        option2.setText(answerList.get(1).toString());
+        option3.setText(answerList.get(2).toString());
+        option4.setText(answerList.get(3).toString());
     }
 
 

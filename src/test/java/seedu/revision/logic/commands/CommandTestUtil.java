@@ -20,9 +20,10 @@ import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
-import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
@@ -63,9 +64,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditAnswerableDescriptor DESC_ALPHA;
     public static final EditCommand.EditAnswerableDescriptor DESC_BETA;
 
-    private static final Answer correctAnswer = new Answer("CORRECT");
+    private static final Answer correctAnswer = new McqAnswer("CORRECT");
     private static final Set<Answer> defaultCorrectAnswerSet = new HashSet<>(Arrays.asList(correctAnswer));
-    private static final Answer wrongAnswer = new Answer("WRONG");
+    private static final Answer wrongAnswer = new McqAnswer("WRONG");
     private static final Set<Answer> defaultWrongAnswerSet = new HashSet<>(Arrays.asList(wrongAnswer));
 
     static {
@@ -90,6 +91,8 @@ public class CommandTestUtil {
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
+        } catch (ParseException parseException) {
+
         }
     }
 

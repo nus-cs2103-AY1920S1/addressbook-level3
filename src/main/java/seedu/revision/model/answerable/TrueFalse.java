@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 public class TrueFalse extends Answerable {

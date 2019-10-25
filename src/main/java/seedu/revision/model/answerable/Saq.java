@@ -1,9 +1,9 @@
 package seedu.revision.model.answerable;
 
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

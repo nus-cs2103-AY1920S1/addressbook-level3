@@ -8,9 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.answer.Answer;
 
 /**
  * An UI component that displays information of a {@code Answerable}.
@@ -79,8 +79,8 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
 
         //To set the individual answers to the answer flowPane
         answerable.getCombinedAnswerList().stream()
-                .sorted(Comparator.comparing(answer -> answer.answer))
-                .forEach(answer -> this.answer.getChildren().add(new Label(answer.answer)));
+                .sorted(Comparator.comparing(answer -> answer.toString()))
+                .forEach(answer -> this.answer.getChildren().add(new Label(answer.toString())));
 
 //        answer.getChildren().add(new Label (answerable.getCombinedAnswerSet().toString()));
 
