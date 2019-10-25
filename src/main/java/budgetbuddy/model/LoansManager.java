@@ -57,7 +57,7 @@ public class LoansManager {
      * Returns the list of loans sorted by each loan's person's name.
      */
     public SortedList<Loan> getSortedLoans() {
-        return internalList.sorted(new SortByPerson());
+        return internalList.sorted(personAlphabeticalSorter());
     }
 
     /**
@@ -102,7 +102,7 @@ public class LoansManager {
      */
     public void addLoan(Loan toAdd) {
         internalList.add(0, toAdd);
-        internalList.sort(new SortByPerson());
+        internalList.sort(personAlphabeticalSorter());
     }
 
     /**
@@ -145,6 +145,13 @@ public class LoansManager {
         }
     }
 
+    /**
+     * Returns a {@code Comparator} that sorts loans by their person's name in alphabetical order.
+     */
+    public Comparator<Loan> personAlphabeticalSorter() {
+        return Comparator.comparing(loan -> loan.getPerson().getName().toString());
+    }
+
     //========================================= Split Methods ===========================================
 
     /**
@@ -174,16 +181,5 @@ public class LoansManager {
 
         LoansManager otherLoansManager = (LoansManager) other;
         return getLoans().equals(otherLoansManager.getLoans());
-    }
-
-    /**
-     * A comparator to sort loans by each of their person's names in alphabetical order.
-     */
-    public static class SortByPerson implements Comparator<Loan> {
-        @Override
-        public int compare(Loan first, Loan second) {
-            return first.getPerson().getName().toString().compareTo(
-                    second.getPerson().getName().toString());
-        }
     }
 }

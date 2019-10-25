@@ -2,6 +2,7 @@ package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -56,7 +57,8 @@ public class LoanDeleteCommand extends MultiLoanCommand {
     @Override
     public void actOnTargetLoans(List<Index> targetLoanIndices, Consumer<Index> operation) {
         int indicesProcessed = 0;
-        targetLoanIndices.sort(new Index.SortDescending()); // indices MUST be sorted before iteration
+        // indices MUST be sorted before iteration
+        targetLoanIndices.sort(Comparator.comparingInt(Index::getZeroBased));
         for (Index index : targetLoanIndices) {
             try {
                 operation.accept(Index.fromZeroBased(index.getZeroBased() - indicesProcessed));

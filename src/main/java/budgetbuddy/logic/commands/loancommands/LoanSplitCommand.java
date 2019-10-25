@@ -94,8 +94,8 @@ public class LoanSplitCommand extends Command {
             throw new CommandException(MESSAGE_ALREADY_SPLIT);
         }
 
-        SortBalanceIncreasing balanceIncreasing = new SortBalanceIncreasing();
-        List<LoanSplit> splitList = calculateSplitList(participants, balanceIncreasing);
+        Comparator<Participant> sortBalanceIncreasing = Comparator.comparingLong(Participant::getBalance);
+        List<LoanSplit> splitList = calculateSplitList(participants, sortBalanceIncreasing);
 
         LoansManager loansManager = model.getLoansManager();
         loansManager.setSplitList(splitList);
@@ -109,7 +109,7 @@ public class LoanSplitCommand extends Command {
      * @return The list of {@code LoanSplit} objects.
      */
     private List<LoanSplit> calculateSplitList(
-            List<Participant> participants, SortBalanceIncreasing balanceIncreasing) {
+            List<Participant> participants, Comparator<Participant> balanceIncreasing) {
         requireAllNonNull(participants, balanceIncreasing);
 
         List<LoanSplit> splitList = new ArrayList<LoanSplit>();
@@ -205,16 +205,6 @@ public class LoanSplitCommand extends Command {
             Participant otherParticipant = (Participant) other;
             return person.equals(otherParticipant.person)
                     && balance == otherParticipant.balance;
-        }
-    }
-
-    /**
-     * A {@code Comparator} to sort participants in order of increasing balance.
-     */
-    public static class SortBalanceIncreasing implements Comparator<Participant> {
-        @Override
-        public int compare(Participant p1, Participant p2) {
-            return (int) (p1.getBalance() - p2.getBalance());
         }
     }
 }
