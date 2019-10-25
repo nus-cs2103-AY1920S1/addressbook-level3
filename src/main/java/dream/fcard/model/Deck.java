@@ -15,8 +15,6 @@ import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
-import javafx.scene.Node;
-
 /**
  * Collection of cards.
  */

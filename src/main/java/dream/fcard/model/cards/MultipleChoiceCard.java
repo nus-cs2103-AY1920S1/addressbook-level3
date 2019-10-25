@@ -60,7 +60,7 @@ public class MultipleChoiceCard extends FrontBackCard {
         }
 
         boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
-        if(isNotValidAnswerIndex){
+        if (isNotValidAnswerIndex) {
             throw new IndexNotFoundException("Choice provided is invalid - " + answerIndex);
         }
         priority = LOW_PRIORITY;

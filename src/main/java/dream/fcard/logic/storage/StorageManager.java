@@ -187,7 +187,7 @@ public class StorageManager {
                 System.out.println("JSON file wrong schema");
             } catch (DuplicateInChoicesException d) {
                 System.out.println("Duplicated choices detected in Multiple Choice Card.");
-            } catch (IndexNotFoundException i){
+            } catch (IndexNotFoundException i) {
                 System.out.println(i.getMessage());
             }
         } catch (JsonFormatException e2) {
