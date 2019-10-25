@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_CHEESE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_TOMATO_JUICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CHEESE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TOMATO_JUICE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +13,6 @@ import seedu.address.model.food.Name;
 import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code TemplateItem} objects to be used in tests.
@@ -30,7 +34,7 @@ public class TypicalTemplateItems {
             .withAmount("1L").build();
 
     // Manually added
-    public static final TemplateItem Eggplant = (TemplateItem) new TemplateItemBuilder().withName("Eggplant")
+    public static final TemplateItem EGGPLANT = (TemplateItem) new TemplateItemBuilder().withName("Eggplant")
             .withAmount("3units").build();
     public static final TemplateItem JUICE = (TemplateItem) new TemplateItemBuilder().withName("Apple Juice")
             .withAmount("300ml").build();

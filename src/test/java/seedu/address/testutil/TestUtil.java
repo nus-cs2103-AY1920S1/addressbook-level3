@@ -89,7 +89,7 @@ public class TestUtil {
      * Returns the template item in the {@code model}'s template at {@code index}.
      */
     public static TemplateItem getTemplateItem(Model model, Index templateIndex, Index itemIndex) {
-        UniqueTemplateItems template =  model.getFilteredTemplateList().get(templateIndex.getZeroBased());
+        UniqueTemplateItems template = model.getFilteredTemplateList().get(templateIndex.getZeroBased());
         return template.get(itemIndex.getZeroBased());
     }
 }
