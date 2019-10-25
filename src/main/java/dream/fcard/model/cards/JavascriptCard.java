@@ -91,4 +91,15 @@ public class JavascriptCard extends FlashCard {
     public String getBack() {
         return back;
     }
+
+    /**
+     * Returns boolean value false.
+     * Since no choices exist in this class.
+     *
+     * @return Boolean value false.
+     */
+    @Override
+    public boolean hasChoices() {
+        return false;
+    }
 }

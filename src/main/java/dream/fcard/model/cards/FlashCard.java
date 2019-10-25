@@ -1,6 +1,5 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.gui.Gui;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -9,27 +8,15 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * Interface all flash card types must implement.
  */
 public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> {
+
+    /** Text to display in front of FlashCard */
     protected String front;
+
+    /** Text to display in back of FlashCard */
     protected String back;
+
+    /** Number indicating priority level of FlashCard. */
     protected Integer priority;
-
-    //@@author nattanyz
-    /**
-     * Renders front of this flash card.
-     *
-     */
-    public void renderFront() {
-        Gui.renderFront(this);
-    }
-
-    /**
-     * Renders back of this flash card
-     *
-     */
-    public void renderBack() {
-        Gui.renderBack(this);
-    }
-    //@@author nattanyz
 
     /**
      * Evaluate if the input matches the card
@@ -78,7 +65,7 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     }
 
     /**
-     * Checks if this card has higher priority than other card.
+     * Returns an integer value after checking if this card has higher priority than other card.
      * If this card has higher priority, return a positive number.
      * If this card has lower priority, return a negative number.
      *
@@ -99,4 +86,12 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
         return priority;
     }
 
+    /**
+     * Returns boolean value after checking if FlashCard has choice parameters.
+     * If FlashCard has choice parameters (in ArrayList), return true.
+     * Else return false.
+     *
+     * @return Boolean value, true if FlashCard has choices, else return false.
+     */
+    public abstract boolean hasChoices();
 }
