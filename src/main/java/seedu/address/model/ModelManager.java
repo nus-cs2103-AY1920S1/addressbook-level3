@@ -18,6 +18,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.MutatorCommand;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
 
@@ -42,7 +43,18 @@ public class ModelManager implements Model {
     private final ObservableList<Visit> ongoingVisitList;
 
     //Previous predicate variable to keep track of the predicate used by FindCommands
-    private Predicate<Person> previousPredicate = PREDICATE_SHOW_ALL_PERSONS;
+    private Predicate<Person> previousPredicatePersons = PREDICATE_SHOW_ALL_PERSONS;
+
+    //Appointment list
+
+    private final AppointmentBook baseAppointmentBook;
+    private final AppointmentBook stagedAppointmentBook;
+    // Modifiable list containing current stagedAppointmentBook persons
+    private final ObservableList<Appointment> stagedAppointments;
+    // Unmodifiable view for the UI linked to stagedAppointments
+    private final FilteredList<Appointment> filteredAppointments;
+    //Previous predicate variable to keep track of the predicate used by FindCommands
+    private Predicate<Appointment> previousPredicateAppointments = PREDICATE_SHOW_ALL_APPOINTMENTS;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -66,6 +78,14 @@ public class ModelManager implements Model {
         ongoingVisitList = FXCollections.observableArrayList();
         Optional<Visit> ongoingVisit = this.stagedAddressBook.getOngoingVisit();
         ongoingVisit.ifPresent(ongoingVisitList::add);
+
+        //Initializing appointment related book and appointments
+        this.baseAppointmentBook = new AppointmentBook();
+        this.stagedAppointmentBook = this.baseAppointmentBook.deepCopy();
+
+        stagedAppointments = FXCollections.observableArrayList();
+        filteredAppointments = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedAppointments));
+        refreshStagedAppointments();
     }
 
     public ModelManager() {
@@ -265,13 +285,13 @@ public class ModelManager implements Model {
         //In order to refresh predicate, need to reset it to show all persons first.
         //Otherwise it will not change anything
         filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
-        filteredPersons.setPredicate(previousPredicate);
+        filteredPersons.setPredicate(previousPredicatePersons);
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        previousPredicate = predicate;
+        previousPredicatePersons = predicate;
         filteredPersons.setPredicate(predicate);
     }
 
@@ -282,6 +302,96 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Visit> getObservableOngoingVisitList() {
         return FXCollections.unmodifiableObservableList(ongoingVisitList);
+    }
+
+    // Appointment related method implementations
+
+    //=========== AppointmentBook ================================================================================
+
+    @Override
+    public void setStagedAppointmentBook(ReadOnlyAppointmentBook appointmentBook) {
+        this.stagedAppointmentBook.resetData(appointmentBook);
+        refreshStagedAppointments();
+    }
+
+    @Override
+    public void replaceStagedAppointmentBook(List<Appointment> appointments) {
+        AppointmentBook newBook = new AppointmentBook();
+        for (Appointment appointment : appointments) {
+            newBook.addAppointment(appointment);
+        }
+        setStagedAppointmentBook(newBook);
+        refreshStagedAppointments();
+    }
+
+    @Override
+    public ReadOnlyAppointmentBook getStagedAppointmentBook() {
+        return stagedAppointmentBook;
+    }
+
+    @Override
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return stagedAppointmentBook.hasAppointment(appointment);
+    }
+
+    @Override
+    public void deleteAppointment(Appointment target) {
+        stagedAppointmentBook.removeAppointment(target);
+        refreshStagedAppointments();
+        refreshFilteredAppointmentList();
+    }
+
+    @Override
+    public void addAppointment(Appointment appointment) {
+        stagedAppointmentBook.addAppointment(appointment);
+        refreshStagedAppointments();
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
+    @Override
+    public void setAppointment(Appointment target, Appointment editedAppointment) {
+        requireAllNonNull(target, editedAppointment);
+
+        stagedAppointmentBook.setAppointment(target, editedAppointment);
+    }
+
+    private void refreshStagedAppointments() {
+        stagedAppointments.setAll(stagedAppointmentBook.getAppointmentList());
+    }
+
+    /**
+     * Returns an unmodifiable view of the full list of {@code Appointment} backed by {@code stagedAppointments}
+     */
+    @Override
+    public ObservableList<Appointment> getStagedAppointmentList() {
+        return new FilteredList<>(FXCollections.unmodifiableObservableList(stagedAppointments));
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by {@code stagedAppointments}
+     */
+    @Override
+    public FilteredList<Appointment> getFilteredAppointmentList() {
+        return filteredAppointments;
+    }
+
+    /**
+     * Refreshes the filter of the filtered appointment list to filter by the given {@code predicate}.
+     * This will update the indexes of appointments if an appointment outside of the filtered list has been removed.
+     */
+    private void refreshFilteredAppointmentList() {
+        //In order to refresh predicate, need to reset it to show all appointments first.
+        //Otherwise it will not change anything
+        filteredAppointments.setPredicate(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        filteredAppointments.setPredicate(previousPredicateAppointments);
+    }
+
+    @Override
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+        requireNonNull(predicate);
+        previousPredicateAppointments = predicate;
+        filteredAppointments.setPredicate(predicate);
     }
 
     @Override

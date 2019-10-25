@@ -65,7 +65,7 @@ public class Appointment {
      * same.
      * This defines a weaker notion of equality between two appointments.
      */
-    public boolean isSameTimeSlot(Appointment otherAppointment) {
+    public boolean isSameAppointment(Appointment otherAppointment) {
         if (otherAppointment == this) {
             return true;
         }

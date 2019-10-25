@@ -19,4 +19,14 @@ public class CliSyntax {
     public static final Prefix PREFIX_VISIT_TASK_FINISH = new Prefix("f/");
     public static final Prefix PREFIX_VISIT_TASK_UNFINISH = new Prefix("uf/");
     public static final Prefix PREFIX_VISIT_REMARKS = new Prefix("r/");
+    // Appointment prefixes
+    public static final Prefix PREFIX_APPOINTMENT_START_DATE_AND_TIME = new Prefix("sdt/");
+    public static final Prefix PREFIX_APPOINTMENT_END_DATE_AND_TIME = new Prefix("edt/");
+    public static final Prefix PREFIX_RECUR_YEARS = new Prefix("ryr/");
+    public static final Prefix PREFIX_RECUR_MONTHS = new Prefix("rmon/");
+    public static final Prefix PREFIX_RECUR_WEEKS = new Prefix("rweek/");
+    public static final Prefix PREFIX_RECUR_DAYS = new Prefix("rday/");
+    public static final Prefix PREFIX_RECUR_HOURS = new Prefix("rhr/");
+    public static final Prefix PREFIX_RECUR_MINUTES = new Prefix("rmin/");
+    public static final Prefix PREFIX_APPOINTMENT_DESCRIPTION = new Prefix("desc/");
 }
