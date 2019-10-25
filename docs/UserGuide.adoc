@@ -16,9 +16,11 @@ endif::[]
 
 By: `Team TimeBook`      Since: `Aug 2019`      Licence: `MIT`
 
+Our team is still working on the User Guide. Keep a look out for more cool and exciting features coming soon!
+
 == Introduction
 
-TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3). TimeBook is a scheduler application that aims to help busy NUS undergraduates keep track of the schedules of the user and his or her friends. It also can find the common free time and venues among the user and his or her friends. TimeBook will have the following features:
+Thank you for checking out TimeBook! TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3). TimeBook is a scheduler application that aims to help busy NUS undergraduates keep track of the schedules of the user and his or her friends. It also can find the common free time and venues among the user and his or her friends. TimeBook will have the following features:
 
 .  A graphical user interface (GUI) but most of the interactions with the application would happen using command line interface (CLI).
 .  Allows users to add the schedules of his or her friends and organise them into groups.
@@ -26,7 +28,25 @@ TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3)
 .  Integration with NUSmods API to allow users to enter their NUSmods timetable link to add it to their schedule.
 .  Integration with Google Maps API to allow the application to evaluate the best venue for the group to meet up during the free time in their schedules.
 
-TimeBook is for users who *prefer to use a desktop app for managing their schedules*. More importantly, TimeBook is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TimeBook can get your schedule management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+== Understanding this guide
+=== Basic Information
+This guide is a explains how you can use *TimeBook* to the fullest extent to assist you to plan for your group's meeting.
+
+You can find the steps needed to start scheduling group activities with your friends or loved ones in the quick start and general
+*lifecycle* usage of our application. If you happen to stumble upon some difficulties, our *Frequently Asked Questions* (FAQ) is
+here to address that. If you are an experienced *Command Line Interface (CLI)* user, you can hope right into using the application by
+looking at our *Command Summary*. Otherwise, take a look at the *Unexperienced CLI user* section to obtain more information on how
+to use our application.
+
+We have used the following symbols to help you better understand our application usage. (For now we have not picked our symbols yet.)
+
+[width="80%",cols="^3, ^10",options="header"]
+|====
+| Symbol | What it means
+| impt | Important information that you may want to note.
+| tips | Shortcuts or hacks that would improve your experience using this application.
+| warn | Warning! Be careful if you encounter this symbol.
+|====
 
 == Quick Start
 
@@ -35,12 +55,14 @@ TimeBook is for users who *prefer to use a desktop app for managing their schedu
 .  Copy the file to the folder you want to use as the home folder for your TimeBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::startupwindow.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+* *`list`* : lists all information in TimeBook.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to TimeBook.
 * *`addperson`* `n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the TimeBook.
 * *`deleteperson`* `n/John Doe` : deletes the person named `John Doe` from the TimeBook.
 * *`addgroup`* `g/CS2103` : adds a new group called `CS2103` to the TimeBook.
@@ -49,13 +71,22 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+== Unexperienced CLI user
+
+Unlike most applications, where you use your mouse to interact with the application such as scrolling and clicking, our application
+mostly use the *Command Line Interface*. Most of the time, you would be interacting with the application through typing commands in the
+command box of the application.
+
+You can play around with the commands in the *Command Summary* to get yourself warmed up.
+
+
 [[Features]]
 == Features
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addperson n/NAME`, `NAME` is a parameter which can be used as `addperson n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -134,7 +165,7 @@ Format: `findperson n/NAME`
 ****
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Shows the groups that this person is in.
+* Shows the person in the tabs panel.
 ****
 
 === Locating group by name: `findgroup`
@@ -145,7 +176,7 @@ Format: `findgroup g/GROUP_NAME`
 ****
 * Only the group name is searched.
 * Only full words will be matched
-* Shows the members inside the group.
+* Shows the group in the tabs panel.
 ****
 
 // tag::delete[]
@@ -179,7 +210,55 @@ Examples:
 * `deletegroup g/CS2103` +
 Deletes the 'CS2103' group from the TimeBook.
 
+=== Show: `show`
+==== Show person:
+Shows details of a person. +
+Format: `show n/NAME`
+
+****
+* Shows the full name, address, email, phone number and schedule of this person.
+****
+
+Examples:
+
+* Type `show n/ Tim` in the command line as shown below: +
+
+image::showpersoncommand.png[]
+Hit the kbd:[Enter] key and you should see details of the person! You should see a window similar to the one below.
+
+image::showpersonresult.png[]
+
+==== Show group:
+Shows the details of a group. +
+Format: `show g/GROUP_NAME`
+
+****
+* Shows the description, members and aggregated schedules for this group.
+****
+
+Examples:
+
+* Type `show g/ Team1` in the command line as shown below +
+
+image::showgroupcommand.png[]
+
+Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
+
+image::showgroupresult.png[]
+
+*****
+tip: You can use the command `n` to help you navigate through the schedule view without touching your mouse!
+*****
+
+=== Switch tabs: `switch-tab`
+You can switch the tab of *Person* and *Group* using this command.
+Format: `switch-tab`
+
 // end::delete[]
+=== Clearing all entries : `clear`
+
+Clears all entries from the time book. +
+Format: `clear`
 
 === Exiting the program : `exit`
 
@@ -218,40 +297,20 @@ Examples:
 * `addevent n/John e/Math Lecture t/26092019:1300-26092019:1400-LT25`
 * `addevent n/John c/23F6B742CE`
 
-=== Show group: `show`
-
-Shows details of a group: who are its members and their available timings +
-Format:
-
-* `show g/GROUP_NAME`
-
-Examples:
-
-* `show g/TimeBook` +
-* `show g/CS2030 T2`
-
-=== Show person: `show`
-
-Shows a person’s details along with their schedule +
-Format:
-
-* `show n/NAME` +
-
-Examples:
-
-* `show n/James Lee` +
-
 === Export VR(Virtual Representation): `export-vr`
+
+This feature is currently work in progress!
 
 Exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file+
 Format:
 
-* `export-vr [n/NAME]… [g/GROUP_NAME]… o/SAVE_LOCATION` +
+* `export-vr [n/NAME]` +
+* `export-vr [g/GROUP_NAME]` +
 
 Examples:
 
-* `export-vr g/TimeBook o/timetable.jpg`
-* `export-vr n/John Doe n/Joe Dohn n/Jackie Chan o/timetable.jpg`
+* `export-vr g/ CS2103T Team project`
+* `export-vr n/ John Doe`
 
 === Export ICS: `export-ics`
 
@@ -334,13 +393,13 @@ Examples:
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TimeBook folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Time Book folder.
 
 == Command Summary
 
 * *List/Show All Persons* : `list`
 * *Add Person* `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]... [c/NUS_MOD_LINK]` +
-e.g. `add n/James Ho p/22224444 em/jamesho@example.com a/123, Clementi Rd, 1234665 r/Always helpful tag/friend tag/colleague`
+e.g. `addperson n/James Ho p/22224444 em/jamesho@example.com a/123, Clementi Rd, 1234665 r/Always helpful tag/friend tag/colleague`
 * *Edit Person* : `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...` +
 e.g. `editperson ed/James Lee em/jameslee@example.com`
 * *Delete Person* : `delete n/NAME` +
