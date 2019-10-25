@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
-import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.State;
+import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.util.FileReadWrite;
 
 /**
