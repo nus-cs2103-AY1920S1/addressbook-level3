@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Timer;
@@ -17,10 +16,10 @@ import seedu.address.model.item.EventList;
  * Uses a Timer to keep track of when to update the Event's startDateTime.
  */
 public class AutoRescheduleManager {
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private static AutoRescheduleManager manager;
     private static Timer timer;
 
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private AutoRescheduleManager() {}
 

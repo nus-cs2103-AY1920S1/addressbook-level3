@@ -38,7 +38,8 @@ public class Event {
         this(startDateTime, duration, false, null);
     }
 
-    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule) throws IllegalArgumentException {
+    public Event(LocalDateTime startDateTime, Duration duration, boolean isAutoReschedule)
+            throws IllegalArgumentException {
         this(startDateTime, duration, isAutoReschedule, null);
     }
 
