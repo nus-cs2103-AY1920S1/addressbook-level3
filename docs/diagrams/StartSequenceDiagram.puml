@@ -19,6 +19,8 @@ activate LogicManager
 LogicManager -> AddressBookParser : parseCommand("start cs2103")
 activate AddressBookParser
 
+AddressBookParser -> AddressBookParser : parseNormalCommand("start cs2103")
+activate AddressBookParser
 create StartCommandParser
 AddressBookParser -> StartCommandParser
 activate StartCommandParser
@@ -40,6 +42,8 @@ StartCommandParser --> AddressBookParser : d
 deactivate StartCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 StartCommandParser -[hidden]-> AddressBookParser
+AddressBookParser --> AddressBookParser : d
+deactivate AddressBookParser
 destroy StartCommandParser
 
 AddressBookParser --> LogicManager : d
