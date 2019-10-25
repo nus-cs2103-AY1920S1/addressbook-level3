@@ -297,21 +297,6 @@ Examples:
 * `addevent n/John e/Math Lecture t/26092019:1300-26092019:1400-LT25`
 * `addevent n/John c/23F6B742CE`
 
-=== Show group: `show`
-
-Shows details of a group: who are its members and their available timings +
-Format:
-
-Delete all schedule data of the specified person from TimeBook +
-Format:
-
-* `deleteschedule n/NAME` +
-
-Examples:
-
-* `delete-schedule n/ John`
-
-
 === Export VR(Virtual Representation): `export-vr`
 
 This feature is currently work in progress!
