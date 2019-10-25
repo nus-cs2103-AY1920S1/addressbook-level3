@@ -127,14 +127,11 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the Item Storage data
+* exposes four observable lists that can be viewed by the Ui and will cause an update in the Ui when it is updated
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+The reason for using four observable list as opposed to having one observable list that is filtered every time we update the list is because we believe that this will lead to faster loading time every time we switch view as it is just a change in the Visualization List pointer. This is better than the O(n) method of filtering a single VisualizeList as it will require going through all the items in the list.
 
 [[Design-Storage]]
 === Storage component
@@ -147,7 +144,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Item Storage data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -296,8 +293,8 @@ Step 3. ELISA will automatically disable the priority mode after 30 minutes and 
 
 The figure below shows the sequence diagram on what happens from a simple execution of the ```priority 30.min.later``` command.
 
+.Sequence diagram for priority mode
 image::PriorityMode.png[]
-_Fig 3.2.2.a Sequence diagram for priority mode_
 
 ==== Internal working of the command
 Referring to _Fig 3.2.2.a_, we will be going through step by step the internal mechanism of the execution of the ```ScheduledPriorityCommand```.
@@ -317,6 +314,9 @@ Step 6*. This creates a new ```TaskList``` which will be the visualization list 
 Step 7*. A ```CommandResult``` is passed to the ```ScheduledPriorityCommand``` and then back to the ```LogicManager``` to be passed into the ```Ui```, informing the user that the priority mode is activate.
 
 (At this point, a normal ```PriorityCommand``` will end the sequence diagram here and will only be deactivated by the user's input of ```priority``` again.)
+
+.Sequence diagram for the scheduled turning off of priority mode
+image::PriorityMode2.png[]
 
 Step 8. As the ```Timer``` within the ```ItemModelManager``` is still running on a separate thread, it will trigger the ```TimerTask#run()``` when the user defined time is reached.
 

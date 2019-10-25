@@ -11,8 +11,6 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant "timer:Timer" as Timer MODEL_COLOR
 participant ":TimerTask" as Task MODEL_COLOR
-participant "result:TaskList" as VisualList MODEL_COLOR
-participant ":Runnable" as Runnable MODEL_COLOR
 end box
 [-> LogicManager : execute(priority 30.min.later)
 activate LogicManager
@@ -58,11 +56,6 @@ activate Model
 
 Model -> Model: toggleOnPriorityMode()
 activate Model
-create VisualList
-Model -> VisualList : new TaskList()
-activate VisualList
-VisualList --> Model: result
-deactivate VisualList
 
 deactivate Model
 Model -> ScheduledPriorityCommand: CommandResult
@@ -73,32 +66,5 @@ destroy ScheduledPriorityCommand
 
 [<--LogicManager : CommandResult
 deactivate LogicManager
-
-Timer -> Task : run()
-activate Task
-
-Task -> Model : toggleOffPriorityMode()
-activate Model
-destroy Task
-Model -> Timer : cancel()
-destroy Timer
-
-
-create Runnable
-Model -> Runnable : new Runnable()
-activate Runnable
-Runnable --> Model
-deactivate Runnable
-
-Model -> Runnable : run()
-activate Runnable
-loop
-Runnable -> VisualList : add(Item)
-activate VisualList
-deactivate VisualList
-end
-destroy Runnable
-
-deactivate Model
 
 @enduml
