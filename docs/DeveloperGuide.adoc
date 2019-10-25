@@ -342,12 +342,22 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Calendar Window
 
-.Structure of the Calendar Window
-image::CalendarWindowClassDiagram.png[]
-
 The calendar window provides a visual representation of stored engagements over a monthly period.
 Users can choose to change the month being displayed and also open scrolling text windows which
 show more detailed descriptions of the stored engagements for a particular day.
+
+==== Implementation Structure
+.Structure of the Calendar Window
+image::CalendarWindowClassDiagram.png[]
+
+The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
+displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
+
+.CalendarWindow Initialization Sequence Diagram
+image::CalendarWindowSequenceDiagram.png[]
+
+The controller is set after constructing the `CalendarWindow` because there were some issues with
+using constructors containing at least one argument.
 
 === Game Window
 
