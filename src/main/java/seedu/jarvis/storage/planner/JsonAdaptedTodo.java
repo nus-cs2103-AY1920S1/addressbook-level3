@@ -18,8 +18,9 @@ public class JsonAdaptedTodo extends JsonAdaptedTask {
      * @param description Description of the todo.
      */
     @JsonCreator
-    public JsonAdaptedTodo(@JsonProperty("description") String description) {
-        super(description);
+    public JsonAdaptedTodo(@JsonProperty("description") String description, @JsonProperty("priority") String priority,
+                           @JsonProperty("frequency") String frequency) {
+        super(description, priority, frequency);
     }
 
     /**
@@ -39,6 +40,7 @@ public class JsonAdaptedTodo extends JsonAdaptedTask {
      */
     @Override
     public Task toModelType() throws IllegalValueException {
+        checkPriorityAndFrequency();
         return new Todo(description);
     }
 }

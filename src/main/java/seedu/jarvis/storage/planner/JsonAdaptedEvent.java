@@ -25,9 +25,10 @@ public class JsonAdaptedEvent extends JsonAdaptedTask {
      * @param end Ending date of the event.
      */
     @JsonCreator
-    public JsonAdaptedEvent(@JsonProperty("description") String description, @JsonProperty("start") String start,
+    public JsonAdaptedEvent(@JsonProperty("description") String description, @JsonProperty("priority") String priority,
+                            @JsonProperty("frequency") String frequency, @JsonProperty("start") String start,
                             @JsonProperty("end") String end) {
-        super(description);
+        super(description, priority, frequency);
         this.start = start;
         this.end = end;
     }
@@ -51,6 +52,7 @@ public class JsonAdaptedEvent extends JsonAdaptedTask {
      */
     @Override
     public Task toModelType() throws IllegalValueException {
+        checkPriorityAndFrequency();
         return new Event(description, LocalDate.parse(start, Task.getDateFormat()),
                 LocalDate.parse(end, Task.getDateFormat()));
     }

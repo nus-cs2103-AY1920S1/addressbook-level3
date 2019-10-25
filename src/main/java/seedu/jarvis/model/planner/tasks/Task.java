@@ -36,6 +36,22 @@ public abstract class Task {
         return taskDes;
     }
 
+    /**
+     * Gets the {@code Priority} of this {@code Todo}.
+     * @return {@code Priority} of the {@code Todo}.
+     */
+    public Priority getPriority() {
+        return priority;
+    }
+
+    /**
+     * Gets the {@code Frequency} of the {@Code Todo}.
+     * @return {@code Frequency} of the {@code Todo}.
+     */
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
     public abstract String toString();
 
     /**

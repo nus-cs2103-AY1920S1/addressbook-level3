@@ -23,8 +23,9 @@ public class JsonAdaptedDeadline extends JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedDeadline(@JsonProperty("description") String description,
+                               @JsonProperty("priority") String priority, @JsonProperty("frequency") String frequency,
                                @JsonProperty("date") String date) {
-        super(description);
+        super(description, priority, frequency);
         this.date = date;
     }
 
@@ -46,6 +47,7 @@ public class JsonAdaptedDeadline extends JsonAdaptedTask {
      */
     @Override
     public Task toModelType() throws IllegalValueException {
+        checkPriorityAndFrequency();
         return new Deadline(description, LocalDate.parse(date, Task.getDateFormat()));
     }
 }
