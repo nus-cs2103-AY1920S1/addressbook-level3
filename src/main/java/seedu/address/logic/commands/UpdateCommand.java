@@ -52,6 +52,8 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_ADMIN_REVOKE = "You cannot remove yourself as an admin.\n"
+            + "Please include t/admin in your update.";
 
     private final Index index;
     private final UpdatePersonDescriptor updatePersonDescriptor;
@@ -96,9 +98,20 @@ public class UpdateCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        // Admins cannot remove themselves as admins, updates session
+        boolean changeSession = false;
+        if (personToUpdate.equals(model.getLoggedInPerson())) {
+            if (!Person.isNotAdmin(model.getLoggedInPerson()) && Person.isNotAdmin(updatedPerson)) {
+                throw new CommandException(MESSAGE_ADMIN_REVOKE);
+            }
+            model.setSession(updatedPerson);
+            changeSession = true;
+        }
+
         model.setPerson(personToUpdate, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson));
+        return new CommandResult(String.format(MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson),
+                changeSession, false, false);
     }
 
     /**
