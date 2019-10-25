@@ -10,11 +10,16 @@ import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_THIRD_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_DUCK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_EXPIRED_MILK;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_DUCK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_EXPIRED_MILK;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
@@ -173,7 +178,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_SEVENTH_ITEM, set);
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TAGS);
     }
-    /*
+
     @Test
     public void execute_deleteQuantityLessThanItemQuantityFromItem_success() {
         //All item fields present
@@ -187,7 +192,7 @@ public class DeleteCommandTest {
                 .withReminderThreshold(VALID_REMINDER_THRESHOLD_BANANA)
                 .build();
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
-                quantityToDeduct.toString(), targetItem);
+                quantityToDeduct.toString(), expectedItem);
         expectedModel.setItem(targetItem, expectedItem);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
 
@@ -201,12 +206,13 @@ public class DeleteCommandTest {
                 .withQuantity("1")
                 .build();
         expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
-                quantityToDeduct.toString(), targetItem);
+                quantityToDeduct.toString(), expectedItem);
         expectedModel.setItem(targetItem, expectedItem);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
-
+    //To change test case after changing feedback?
+    /*
     @Test
     public void execute_deleteQuantityEqualsToItemQuantityFromItem_success() {
         Quantity quantityToDeduct = new Quantity("1");
@@ -218,7 +224,8 @@ public class DeleteCommandTest {
         expectedModel.deleteItem(itemToDelete);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
-    */
+     */
+
     @Test
     public void execute_deleteQuantityMoreThanItemQuantityFromItem_throwsCommandException() {
         Item itemToDelete = model.getFilteredItemList().get(INDEX_THIRD_ITEM.getZeroBased());
