@@ -1,9 +1,9 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.gui.Gui;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Interface all flash card types must implement.
@@ -13,19 +13,23 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     protected String back;
     protected Integer priority;
 
+    //@@author nattanyz
     /**
-     * Returns render of front of this flash card.
+     * Renders front of this flash card.
      *
-     * @return JavaFX Node
      */
-    public abstract Node renderFront();
+    public void renderFront() {
+        Gui.renderFront(this);
+    }
 
     /**
-     * Returns render of back of this flash card
+     * Renders back of this flash card
      *
-     * @return JavaFX Node
      */
-    public abstract Node renderBack();
+    public void renderBack() {
+        Gui.renderBack(this);
+    }
+    //@@author nattanyz
 
     /**
      * Evaluate if the input matches the card
@@ -36,27 +40,37 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     public abstract Boolean evaluate(String in) throws IndexNotFoundException;
 
     /**
-     * @return
+     * Returns front text of card.
+     *
+     * @return String of front text of card.
      */
     public abstract String getFront();
 
     /**
-     * @return
+     * Return back text of card.
+     *
+     * @return String of back text of card.
      */
     public abstract String getBack();
 
     /**
-     * @param newText
+     * Edits the front text of card.
+     *
+     * @param newText String of new text to replace in front.
      */
     public abstract void editFront(String newText);
 
     /**
-     * @param newText
+     * Edits the back text of card.
+     *
+     * @param newText String of new text to replace in back.
      */
     public abstract void editBack(String newText);
 
     /**
-     * @return
+     * Create JsonValue out of this Flashcard.
+     *
+     * @return JsonValue of flashcard.
      */
     @Override
     public JsonValue toJson() {
@@ -77,7 +91,9 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     }
 
     /**
-     * @return
+     * Returns priority level of flashcard.
+     *
+     * @return integer value of priorirty level.
      */
     public int getPriority() {
         return priority;

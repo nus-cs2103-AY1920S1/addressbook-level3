@@ -4,6 +4,7 @@ import static dream.fcard.model.cards.Priority.HIGH_PRIORITY;
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import dream.fcard.logic.stats.Statistics;
@@ -135,46 +136,52 @@ public class Deck implements JsonInterface {
     /**
      * Removes a specified card using index from the list of cards.
      *
-     * @param index Integer index of card to remove from list of Cards.
+     * @param indexProvided Integer index of card to remove from list of Cards.
      */
-    public void removeCard(int index) throws IndexNotFoundException {
-        if (index >= cards.size() || index < 0) {
-            String errorMessage = "Index entered is invalid: " + index;
+    public void removeCard(int indexProvided) throws IndexNotFoundException {
+        boolean isUserProvidedIndexValid = isIndexProvidedByUserValid(indexProvided);
+
+        if (!isUserProvidedIndexValid) {
+            String errorMessage = "Index entered is invalid: " + indexProvided;
             throw new IndexNotFoundException(errorMessage);
         }
 
-        cards.remove(index);
+        cards.remove(indexProvided);
     }
 
     /**
      * Edit front of card.
      *
-     * @param newFront String of new text to replace front of card.
-     * @param index    Index of card in the Deck.
+     * @param newFront      String of new text to replace front of card.
+     * @param indexProvided Index of card in the Deck.
      * @throws IndexNotFoundException If index >= number of cards in deck or < 0.
      */
-    public void editFrontCardInDeck(String newFront, int index) throws IndexNotFoundException {
-        if (index >= cards.size() || index < 0) {
-            String errorMessage = "Index entered is invalid: " + index;
+    public void editFrontCardInDeck(String newFront, int indexProvided) throws IndexNotFoundException {
+        boolean isUserProvidedIndexValid = isIndexProvidedByUserValid(indexProvided);
+
+        if (!isUserProvidedIndexValid) {
+            String errorMessage = "Index entered is invalid: " + indexProvided;
             throw new IndexNotFoundException(errorMessage);
         }
-        FlashCard cardToChange = cards.get(index);
+        FlashCard cardToChange = cards.get(indexProvided);
         cardToChange.editFront(newFront);
     }
 
     /**
      * Edit back of card.
      *
-     * @param newBack String of new text to replace back of card.
-     * @param index   Index of card in the Deck.
+     * @param newBack       String of new text to replace back of card.
+     * @param indexProvided Index of card in the Deck.
      * @throws IndexNotFoundException If index >= number of cards in deck or < 0.
      */
-    public void editBackCardInDeck(String newBack, int index) throws IndexNotFoundException {
-        if (index >= cards.size() || index < 0) {
-            String errorMessage = "Index entered is invalid: " + index;
+    public void editBackCardInDeck(String newBack, int indexProvided) throws IndexNotFoundException {
+        boolean isUserProvidedIndexValid = isIndexProvidedByUserValid(indexProvided);
+
+        if (!isUserProvidedIndexValid) {
+            String errorMessage = "Index entered is invalid: " + indexProvided;
             throw new IndexNotFoundException(errorMessage);
         }
-        FlashCard cardToChange = cards.get(index);
+        FlashCard cardToChange = cards.get(indexProvided);
         cardToChange.editBack(newBack);
     }
 
@@ -188,28 +195,38 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * @return
+     * Returns name of the deck.
+     *
+     * @return String name of deck.
      */
     public String getName() {
         return deckName;
     }
 
     /**
-     * @return
+     * Returns queue storing all high priority flashcards.
+     *
+     * @return ArrayList of flashcards of priority level, high.
      */
     public ArrayList<FlashCard> getHighPriorityQueue() {
         return highPriorityQueue;
     }
 
     /**
-     * @return
+     * Returns queue storing all low priority flashcards.
+     *
+     * @return ArrayList of flashcards of priority level low.
      */
     public ArrayList<FlashCard> getLowPriorityQueue() {
         return lowPriorityQueue;
     }
 
     /**
-     * @return
+     * Generates a subset of 10 flashcards for test in ExamRunner.
+     * Currently, fixed at 6 flashcards of high priority.
+     * And 4 flashcards of low priority.
+     *
+     * @return ArrayList of shuffled flashcards.
      */
     public ArrayList<FlashCard> getSubsetForTest() {
         ArrayList<FlashCard> testSet = new ArrayList<>();
@@ -219,9 +236,11 @@ public class Deck implements JsonInterface {
             return cards;
         }
 
-        int sizeOfLowPrioritySet = (int) Math.floor(totalDeckSize * 0.4);
-        int sizeOfHighPrioritySet = totalDeckSize - sizeOfLowPrioritySet;
-        int sizeOfTestSet = sizeOfHighPrioritySet + sizeOfLowPrioritySet;
+        //int sizeOfLowPrioritySet = (int) Math.floor(totalDeckSize * 0.4);
+        int sizeOfLowPrioritySet = 4;
+
+        //int sizeOfHighPrioritySet = totalDeckSize - sizeOfLowPrioritySet;
+        int sizeOfHighPrioritySet = 6;
 
         for (int i = 0; i < sizeOfHighPrioritySet; i++) {
             FlashCard chosenCard = getRandomCard(highPriorityQueue);
@@ -233,19 +252,33 @@ public class Deck implements JsonInterface {
             testSet.add(chosenCard);
         }
 
+        Collections.shuffle(testSet);
+
         return testSet;
     }
 
     /**
-     * @param list
-     * @return
+     * Returns a random flashcard from an Arraylist.
+     *
+     * @param list ArrayList of Flashcards.
+     * @return Flashcard chosen randomly from ArrayList.
      */
     private FlashCard getRandomCard(ArrayList<FlashCard> list) {
         Random rand = new Random(System.currentTimeMillis());
         int chosenCardIndex = rand.nextInt(list.size());
         return list.get(chosenCardIndex);
     }
-    public int getNumCards() {
-        return cards.size();
+
+    /**
+     * Checks if a user provided index is valid.
+     * Uses provide index that is 1-based, i.e. 1, 2, 3, etc.
+     * If index provided is within 1, 2, 3, ..., last card, then it is valid and return true.
+     * Else return false.
+     *
+     * @param indexProvided Boolean indicating if index provided by user is valid.
+     * @return True if valid, false if invalid.
+     */
+    private boolean isIndexProvidedByUserValid(int indexProvided) {
+        return indexProvided <= cards.size() && indexProvided > 0;
     }
 }

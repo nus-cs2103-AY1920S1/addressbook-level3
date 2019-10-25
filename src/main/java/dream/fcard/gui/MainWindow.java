@@ -1,153 +1,116 @@
+//@@author nattanyz
 package dream.fcard.gui;
 
-import java.util.logging.Logger;
-
-import dream.fcard.core.commons.core.GuiSettings;
-import dream.fcard.core.commons.core.LogsCenter;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
+import dream.fcard.gui.components.CommandTextField;
+import dream.fcard.gui.components.CommandTextFieldPlaceholder;
+import dream.fcard.gui.components.ScrollablePane;
+import dream.fcard.gui.components.TitleBar;
+import dream.fcard.model.State;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * Main window of the application's GUI. Houses all other UI components.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow {
 
-    private static final String FXML = "MainWindow.fxml";
-
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
+    private Gui gui;
     private Stage primaryStage;
+    private Scene scene;
+    private State state;
 
-    // Independent Ui parts residing in this Ui container
-    private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
+    // containers
+    private VBox window = new VBox();
+    private TitleBar titleBar = new TitleBar();
+    private ScrollablePane scrollablePane = new ScrollablePane();
+    private CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
 
-    @FXML
-    private StackPane commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
-
-    public MainWindow(Stage primaryStage) {
-        super(FXML, primaryStage);
-
-        // Set dependencies
-        this.primaryStage = primaryStage;
-
-
-        setAccelerators();
-
-        helpWindow = new HelpWindow();
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    /**
+     * Temporary no-argument constructor, called in Gui. To be refactored.
+     */
+    public MainWindow() {
+        // empty constructor body
     }
 
     /**
-     * Sets the accelerator of a MenuItem.
+     * Creates and displays a main window for the application. Called by UiManager when application
+     * is started. (To be refactored)
      *
-     * @param keyCombination the KeyCombination value of the accelerator
+     * @param primaryStage
+     * @param state
      */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
+    public MainWindow(Stage primaryStage, State state) {
+        // todo: refactor linkages between MainWindow, Gui and UiManager
+        this.primaryStage = primaryStage;
+        this.state = state;
+        this.gui = new Gui(this, state);
+        onStartup();
+        //testUiComponents();
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Initialises components of the main window and shows the main window upon startup.
      */
-    void fillInnerParts() {
+    private void onStartup() {
+        initializeStage();
 
+        // set up initial UI components
+        setupCommandTextField();
+        titleBar.setTitle("Welcome!");
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        // add UI components to scene
+        setupScene();
 
-
-        CommandBox commandBox = new CommandBox();
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
-    }
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
-    void show() {
+        // finally, display main window
         primaryStage.show();
     }
 
     /**
-     * Closes the application.
+     * Temporary method for testing display of various UI components.
      */
-    @FXML
-    private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        helpWindow.hide();
-        primaryStage.hide();
+    private void testUiComponents() {
+        Gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        //Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
     }
 
+    /**
+     * Initialises the stage by setting its size and title.
+     */
+    private void initializeStage() {
+        primaryStage.setTitle("FlashCard Pro"); // set title of application window
+        primaryStage.setMinHeight(GuiSettings.getMinHeight());
+        primaryStage.setMinWidth(GuiSettings.getMinWidth());
+    }
 
+    /**
+     * Set up the command text field with the given state and add to its placeholder.
+     */
+    private void setupCommandTextField() {
+        CommandTextField commandTextField = new CommandTextField(state);
+        commandTextFieldPlaceholder.add(commandTextField);
+    }
+
+    /**
+     * Add the UI components to main window, and display the scene.
+     */
+    private void setupScene() {
+        // add children to window
+        window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder);
+
+        // display window
+        scene = new Scene(window, 400, 400);
+        primaryStage.setScene(scene);
+    }
+
+    private Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    /**
+     * Temporary method (to be refactored) returning the ScrollablePane in this MainWindow.
+     */
+    ScrollablePane getScrollablePane() {
+        return this.scrollablePane;
+    }
 }
-

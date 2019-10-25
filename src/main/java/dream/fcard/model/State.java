@@ -37,10 +37,10 @@ public class State {
     }
 
     /**
-     * Adds a given Deck object to the decks list.
+     * Adds a deck object to decks list.
      *
-     * @param deck Deck object to be added.
-     * */
+     * @param deck deck object
+     */
     public void addDeck(Deck deck) {
         decks.add(deck);
     }
@@ -99,7 +99,8 @@ public class State {
 
     /**
      * Replace all decks with a new set of decks. Used by `root` command.
-     * @param newDecks  new decks
+     *
+     * @param newDecks new decks
      */
     public void reloadAllDecks(ArrayList<Deck> newDecks) {
         decks = newDecks;
@@ -108,6 +109,9 @@ public class State {
     /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
      * Else, return -1 if no deck with matching name is found.
+     *
+     * Note: this method is only used internally for State processing.
+     * Should not be confused with user seen indexes, since this is 0-based index.
      *
      * @return index
      */

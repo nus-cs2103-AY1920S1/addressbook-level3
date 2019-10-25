@@ -6,7 +6,6 @@ import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
@@ -57,26 +56,6 @@ public class JavascriptCard extends FlashCard {
         obj.put(Schema.FRONT_FIELD, front);
         obj.put(Schema.BACK_FIELD, back);
         return new JsonValue(obj);
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Node renderFront() {
-        // temporary
-        return null;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Node renderBack() {
-        // temporary
-        return null;
     }
 
     /**
