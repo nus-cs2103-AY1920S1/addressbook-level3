@@ -579,4 +579,8 @@ public class ItemModelManager implements ItemModel {
 
         return item;
     }
+
+    public EventList getEventList() {
+        return this.eventList;
+    }
 }
