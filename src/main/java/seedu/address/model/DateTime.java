@@ -60,7 +60,7 @@ public class DateTime implements Comparable<DateTime> {
 
     public DateTime(LocalDate localDate) {
         // No need to care about time
-        this.instant =  localDate.atStartOfDay(TIME_ZONE).toInstant();
+        this.instant = localDate.atStartOfDay(TIME_ZONE).toInstant();
     }
 
     public DateTime(YearMonth yearMonth) {
@@ -131,6 +131,11 @@ public class DateTime implements Comparable<DateTime> {
         return ICS_COMPOSER.compose(this.instant);
     }
 
+    /**
+     * Returns the date and time in readable english for the user.
+     *
+     * @return The date and time in readable english for the user.
+     */
     public String toEnglishDateTime() {
         String monthStr = new DateFormatSymbols().getMonths()[getMonth() - 1].toLowerCase();
         monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);

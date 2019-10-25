@@ -1,34 +1,29 @@
 package seedu.address.model;
 
-import seedu.address.logic.parser.CalendarDateParser;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.YearMonth;
+
+import seedu.address.logic.parser.CalendarDateParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents the date without a time, mainly for the UI system.
  */
 public class CalendarDate {
 
-    private static final String USER_DAY_MONTH_YEAR_PATTERN = "dd/MM/yyyy";
-    private static final String USER_MONTH_YEAR_PATTERN = "MM/yyyy";
+    public static final String DAY_MONTH_YEAR_PATTERN = "dd/MM/yyyy";
+    public static final String MONTH_YEAR_PATTERN = "MM/yyyy";
 
     private static final CalendarDateParser DAY_MONTH_YEAR_PARSER =
-            new CalendarDateParser(USER_DAY_MONTH_YEAR_PATTERN);
+            new CalendarDateParser(DAY_MONTH_YEAR_PATTERN);
     private static final CalendarDateParser MONTH_YEAR_PARSER =
-            new CalendarDateParser(USER_MONTH_YEAR_PATTERN);
+            new CalendarDateParser(MONTH_YEAR_PATTERN);
 
     private final LocalDate localDate;
 
     public CalendarDate(LocalDate localDate) {
         this.localDate = localDate;
-    }
-
-    public CalendarDate(YearMonth yearMonth) {
-        // Creates a CalendarDate at the end of the month, since the day is not necessary,
-        this.localDate = yearMonth.atEndOfMonth();
     }
 
     public static CalendarDate fromDayMonthYearString(String string) throws ParseException {
@@ -55,25 +50,62 @@ public class CalendarDate {
         return localDate.getYear();
     }
 
+    /**
+     * Returns the English name of the Month.
+     *
+     * @return English name of the Month.
+     */
     public String getEnglishMonth() {
         String monthStr = new DateFormatSymbols().getMonths()[getMonth() - 1].toLowerCase();
         return monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
     }
 
+    /**
+     * Returns the day of the week.
+     *
+     * @return The day of the week.
+     */
     public Integer getWeekIndex() {
         return localDate.getDayOfWeek().getValue();
     }
 
+    /**
+     * Returns a new CalendarDate of the previous day.
+     *
+     * @return A new CalendarDate of the previous day.
+     */
     public CalendarDate previousDay() {
         LocalDate previousLocalDate = localDate.minusDays(1);
         return new CalendarDate(previousLocalDate);
     }
 
+    /**
+     * Returns a new CalendarDate of the next day.
+     *
+     * @return A new CalendarDate of the next day.
+     */
     public CalendarDate nextDay() {
         LocalDate previousLocalDate = localDate.plusDays(1);
         return new CalendarDate(previousLocalDate);
     }
 
+    /**
+     * Returns a new CalendarDate of the current day plus the given days.
+     *
+     * @param days The number of days to add.
+     * @return A new CalendarDate of the next days.
+     */
+    public CalendarDate nextDays(Integer days) {
+        LocalDate previousLocalDate = localDate.plusDays(days);
+        return new CalendarDate(previousLocalDate);
+    }
+
+    /**
+     * Returns a new CalendarDate of the current day minus the given days.
+     *
+     * @param days The number of days to minus off.
+     * @return A new CalendarDate of the previous days.
+     */
     public CalendarDate previousDays(Integer days) {
         LocalDate previousLocalDate = localDate.minusDays(days);
         return new CalendarDate(previousLocalDate);
@@ -96,7 +128,21 @@ public class CalendarDate {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof CalendarDate) {
+            CalendarDate calendarDate = (CalendarDate) obj;
+            return sameDate(calendarDate.getDay(), calendarDate.getMonth(), calendarDate.getYear());
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return getDay() + "/" + getMonth() + "/" + getYear();
     }
+
+
 }

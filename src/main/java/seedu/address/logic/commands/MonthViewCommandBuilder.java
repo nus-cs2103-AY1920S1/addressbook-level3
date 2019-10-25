@@ -14,7 +14,7 @@ import seedu.address.model.CalendarDate;
  */
 class MonthViewCommandBuilder extends CommandBuilder {
 
-    private static final String ARGUMENT_MONTH= "MONTH_YEAR";
+    private static final String ARGUMENT_MONTH = "MONTH_YEAR";
 
     private CalendarDate start;
     private UiManager uiManager;

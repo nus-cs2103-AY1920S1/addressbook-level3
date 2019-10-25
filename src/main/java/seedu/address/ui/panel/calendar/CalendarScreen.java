@@ -59,8 +59,12 @@ public class CalendarScreen extends UiPart<Region> {
             // Day represents the column.
             for (int day = 0; day < 7; day++) {
                 CalendarGridDay calendarGridDay = new CalendarGridDay(currentDate, 0);
+                if (!calendarDate.sameMonthYear(currentDate.getMonth(), currentDate.getYear())) {
+                    calendarGridDay.reduceOpacity();
+                } else {
+                    dayIndexList.add(calendarGridDay);
+                }
                 calendarGrid.add(calendarGridDay.getRoot(), day, week);
-                dayIndexList.add(calendarGridDay);
                 currentDate = currentDate.nextDay();
             }
         }

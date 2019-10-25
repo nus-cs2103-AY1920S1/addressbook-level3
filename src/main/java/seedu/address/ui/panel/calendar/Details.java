@@ -1,7 +1,6 @@
 package seedu.address.ui.panel.calendar;
 
 import javafx.scene.layout.Region;
-import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
 /**

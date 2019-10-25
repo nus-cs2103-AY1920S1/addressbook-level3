@@ -30,7 +30,7 @@ public class Messages {
 
     public static final String MESSAGE_DAY_VIEW_SUCCESS = "Changed Day to: %s";
     public static final String MESSAGE_WEEK_VIEW_SUCCESS = "Changed Week to week of: %s";
-    public static final String MESSAGE_MONTH_VIEW_SUCCESS = "Changed Mont to: %s";
+    public static final String MESSAGE_MONTH_VIEW_SUCCESS = "Changed Month to: %s";
 
     public static final String MESSAGE_NOTIFICATION_OFF = "Notifications have been turned off.";
     public static final String MESSAGE_NOTIFICATION_ON = "Notifications have been turned on.";

@@ -44,7 +44,6 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
 
     private Stage primaryStage;
     private Consumer<String> onCommandInput;
-    private UiParser uiParser;
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
@@ -76,7 +75,6 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         // Set dependencies
         this.primaryStage = primaryStage;
         this.onCommandInput = onCommandInput;
-        this.uiParser = new UiParser();
 
         setWindowDefaultSize(new GuiSettings());
     }
@@ -153,12 +151,22 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
 
+    /**
+     * Changes the View Panel to show the Calendar Panel of a certain date in the timeline.
+     *
+     * @param calendarDate The given date.
+     */
     public void viewDay(CalendarDate calendarDate) {
         calendarPanel.changeToDayView(calendarDate);
         viewCalendar();
     }
 
 
+    /**
+     * Changes the View Panel to show the Calendar Panel of a certain week in the timeline.
+     *
+     * @param calendarDate The given date of the week.
+     */
     public void viewWeek(CalendarDate calendarDate) {
         calendarPanel.changeToWeekView(calendarDate);
         viewCalendar();

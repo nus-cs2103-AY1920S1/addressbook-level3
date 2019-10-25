@@ -1,7 +1,6 @@
 package seedu.address.ui.panel.calendar;
 
 import java.text.DateFormatSymbols;
-import java.util.Calendar;
 import java.util.List;
 
 import javafx.scene.layout.RowConstraints;
@@ -9,7 +8,6 @@ import javafx.scene.layout.RowConstraints;
 import seedu.address.model.CalendarDate;
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.UiParser;
 import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.card.EventCard;
 /**
@@ -21,8 +19,6 @@ public class TimelineWeekView extends TimelineView {
 
     private CalendarDate[] daysInWeek;
     private CalendarDate calendarDate;
-    private Integer month;
-    private Integer year;
 
     /**
      * Constructor for TimelineWeekView for a particular week.
@@ -33,11 +29,10 @@ public class TimelineWeekView extends TimelineView {
     public TimelineWeekView(CalendarDate calendarDate,
                             List<EventSource> eventList) {
         super(FXML);
-        this.month = calendarDate.getMonth();
-        this.year = calendarDate.getYear();
         this.calendarDate = calendarDate;
         setTotalRows(7);
-        setTimelineTitle("Timeline: " + getEnglishWeekDate(getWeek(calendarDate), month, year));
+        setTimelineTitle("Timeline: "
+                + getEnglishWeekDate(getWeek(calendarDate), calendarDate.getMonth(), calendarDate.getYear()));
         this.daysInWeek = addWeek();
 
         addGrids();
@@ -55,14 +50,19 @@ public class TimelineWeekView extends TimelineView {
         return new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     }
 
+    /**
+     * Returns an array of CalendarDate representing the list of days in the same week as the given day.
+     *
+     * @return An array of CalendarDate representing the list of days in the same week as the given day.
+     */
     private CalendarDate[] addWeek() {
         CalendarDate[] calendarDates = new CalendarDate[7];
         int weekIndex = calendarDate.getWeekIndex();
-        while(weekIndex > 1) {
-            calendarDate =  calendarDate.previousDay();
-            weekIndex --;
+        while (weekIndex > 1) {
+            calendarDate = calendarDate.previousDay();
+            weekIndex--;
         }
-        for(int i = 0; i < calendarDates.length; i++) {
+        for (int i = 0; i < calendarDates.length; i++) {
             calendarDates[i] = calendarDate;
             calendarDate = calendarDate.nextDay();
         }
@@ -70,10 +70,19 @@ public class TimelineWeekView extends TimelineView {
     }
 
     private Integer getWeek(CalendarDate calendarDate) {
-        Calendar ca1 = Calendar.getInstance();
-        ca1.set(calendarDate.getYear(), calendarDate.getMonth(), calendarDate.getDay());
-        ca1.setMinimalDaysInFirstWeek(1);
-        return ca1.get(Calendar.WEEK_OF_MONTH);
+        CalendarDate currentDate = calendarDate.firstDayOfTheMonth();
+        Integer weekIndex = currentDate.getWeekIndex();
+        currentDate = currentDate.previousDays(weekIndex - 1);
+        for (int week = 0; week < 6; week++) {
+            for (int day = 0; day < 7; day++) {
+                if (calendarDate.equals(currentDate)) {
+                    return week + 1;
+                }
+                currentDate = currentDate.nextDay();
+            }
+        }
+        // Not suppose to reach here.
+        return null;
     }
 
     private String getEnglishWeekDate(Integer week, Integer month, Integer year) {
@@ -101,9 +110,9 @@ public class TimelineWeekView extends TimelineView {
         DateTime eventDate = event.getStartDateTime();
         for (CalendarDate calendarDate : daysInWeek) {
             // Same day
-            if(calendarDate.sameDate(
+            if (calendarDate.sameDate(
                     eventDate.getDay(),
-                    eventDate.getHour(),
+                    eventDate.getMonth(),
                     eventDate.getYear())) {
                 return true;
             }

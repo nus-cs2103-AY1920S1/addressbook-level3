@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
-import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
 
@@ -19,7 +18,7 @@ import seedu.address.ui.UiPart;
 public class ListPanel extends UiPart<Region> implements EventListListener {
 
     private static final String FXML = "ListPanel.fxml";
-    private EventListPanel eventListPanel;
+    // private EventListPanel eventListPanel;
 
     @FXML
     private VBox list;
@@ -35,12 +34,12 @@ public class ListPanel extends UiPart<Region> implements EventListListener {
      */
     public ListPanel() {
         super(FXML);
-        this.eventListPanel = new EventListPanel();
+        // this.eventListPanel = new EventListPanel();
         // eventList.getChildren().add(eventListPanel.getRoot());
     }
 
     @Override
     public void onEventListChange(List<EventSource> events) {
-        this.eventListPanel.setItems(events);
+        // this.eventListPanel.setItems(events);
     }
 }
