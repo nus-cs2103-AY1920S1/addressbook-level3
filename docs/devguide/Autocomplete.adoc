@@ -1,5 +1,5 @@
 ==== Proposed Implementation
-The auto-complete mechanism extends NurseTraverse with 2 functionality, word completion and word suggestions. To support word suggestion of only compatible words, several lists are created and the list in operation will be switch during runtime by `AutoCompletePanel#resetList()`
+The auto-complete mechanism extends NurseTraverse with 2 functionalities, word completion and word suggestions. To support word suggestions of only compatible words, several lists are created and the list in operation will be switched during runtime by `AutoCompletePanel#resetList()`
 
 Given below is an example usage scenario and how the word suggestion and word completion function behaves at each step.
 
@@ -13,9 +13,9 @@ When the user launches the application, an instance of the object, command and p
 
 The auto-complete panel will be set to object list by default.
 
-Step 2: Whenever user typed a key in the command line, `CommandBox` will call `AutoCompletePanel#updateListView(String currentPhraseInCommandBox)`.
+Step 2: Whenever user types a key in the command line, `CommandBox` will call `AutoCompletePanel#updateListView(String currentPhraseInCommandBox)`.
 
-This will update the number of matched words with the current list and runs 3 sets of algorithm, through word list handler classes.
+This will update the number of matched words with the current list and runs 3 sets of algorithms, through word list handler classes.
 
 First, `AutoCompletePanel#resetList()` will switch the current list based on what is typed.
 
@@ -26,7 +26,7 @@ Lastly, `AutoCompleteListUpdater#updateSuggestedWordsInList()` will update the c
 ==== Design Considerations
 ===== Aspect: Method to suggest auto-complete words
 
-* **Alternative 1:** Have several list. First word list, Second word list, etc
+* **Alternative 1:** Have several lists. First word list, Second word list, etc
 ** Pros: Minimal effort in parsing of command line input.
 ** Cons: Auto-complete panel will be unorganised. Eg: both index 1 and prefix may be suggested instead of just all index or all prefix suggested.
 
@@ -34,7 +34,7 @@ Lastly, `AutoCompleteListUpdater#updateSuggestedWordsInList()` will update the c
 ** Pros: Easy to implement. No parsing required.
 ** Cons: Auto-complete panel will be chunky as all commands are suggested at the same time. User will not be guided in selecting which command to choose.
 
-* **Alternative 3(current choice):** Have several list. Object/Command/Index/Prefix lists.
+* **Alternative 3(current choice):** Have several lists. Object/Command/Index/Prefix lists.
 ** Pros: User will be guided. Very user friendly. Panel will be more organised as words are suggested in sets of the same type.
 ** Cons: Parsing of command line input can be tedious.
 
