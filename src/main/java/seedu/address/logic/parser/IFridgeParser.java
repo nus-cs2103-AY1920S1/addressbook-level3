@@ -18,7 +18,7 @@ import seedu.address.logic.parser.wastelist.WasteListParser;
 /**
  * Parses user input.
  */
-public class IfridgeParser {
+public class IFridgeParser {
 
     /**
      * Used for initial separation of command word and args.
