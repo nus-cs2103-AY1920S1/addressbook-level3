@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MooLah - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -109,7 +109,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MooLahParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -133,12 +133,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the MooLah data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `MooLah`, which `Person` can reference. This would allow `MooLah` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -153,7 +153,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the MooLah data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -234,6 +234,7 @@ by the `add` command.
 
 // end::undoredo[]
 
+
 // category::budget[]
 === Budget feature
 ==== Implementation
@@ -277,6 +278,7 @@ The fundamental classes of the budget feature are:
         `AddBudgetCommand` creates a new `Budget` and adds it to `UniqueBudgetList`
         `SwitchBudgetCommand` switches the primary budget to the specified budget
 * `AddBudgetCommandParser` and `SwitchBudgetCommandParser` : for parsing CLI input into commands
+
 
 Here are the class diagrams of the two key commands related to Budget:
 
@@ -432,7 +434,7 @@ Given below is an example usage scenario and how the `stats` command word is han
 
 Step 1. The user enters the command `stats sd/01-10-2019 ed/01-11-2019` to visualise the total percentage of each category
 as a percentage of total expenditure across all categories, in the primary budget.
-The command is received by `AddressBookParser`, which then creates a `StatsCommandParser` object,
+The command is received by `MooLahParser`, which then creates a `StatsCommandParser` object,
 to subsequently help to parse the input by the user.
 
 Step 2. The newly created `StatsCommandParser` calls `parse("stats sd/01-10-2019 ed/01-11-2019")`,
@@ -503,6 +505,7 @@ and users may have different preferences for formats. Various options such as ch
 // end::stats[]
 
 
+>>>>>>> b0c4666f38acaeadcb6dd43f2515a6f6dfae140f
 // category::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -709,7 +712,7 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User requests to see reminders.
-2.  AddressBook shows a list of reminders.
+2.  MooLah shows a list of reminders.
 +
 Use case ends.
 
@@ -727,7 +730,7 @@ Use case ends.
 *MSS*
 
 1.  User adds an event.
-2.  AddressBook tells the user that the event has been successfully added.
+2.  MooLah tells the user that the event has been successfully added.
 +
 Use case ends.
 
@@ -737,14 +740,14 @@ Use case ends.
 * 2a. The event is formatted incorrectly (e.g. the date is invalid).
 +
 [none]
-** 2a1. AddressBook shows an error message.
+** 2a1. MooLah shows an error message.
 +
 Use case ends.
 
 * 3a. The same event has been previously stored.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. MooLah shows an error message.
 +
 Use case ends.
 

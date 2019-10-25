@@ -33,9 +33,9 @@ public interface Logic {
     StringBuilder getBasicStatistics();
 
     /**
-     * Returns the AddressBook.
+     * Returns the MooLah.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getMooLah()
      */
     ReadOnlyAddressBook getAddressBook();
 

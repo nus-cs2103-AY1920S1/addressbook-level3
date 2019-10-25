@@ -38,14 +38,14 @@ import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ExpenseUtil;
 
-public class AddressBookParserTest {
+public class MooLahParserTest {
 
-    private final AddressBookParser parser;
+    private final MooLahParser parser;
 
     private final ReadOnlyUserPrefs readOnlyUserPrefs;
 
-    public AddressBookParserTest() {
-        parser = new AddressBookParser();
+    public MooLahParserTest() {
+        parser = new MooLahParser();
 
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setAliasMappings(AliasTestUtil.VALID_ALIAS_MAPPINGS);

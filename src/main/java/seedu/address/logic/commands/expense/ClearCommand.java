@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.MooLah;
 import seedu.address.ui.expense.ExpenseListPanel;
 
 /**
@@ -24,7 +24,7 @@ public class ClearCommand extends UndoableCommand {
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setMooLah(new MooLah());
         return new CommandResult(MESSAGE_SUCCESS, ExpenseListPanel.PANEL_NAME);
     }
 }

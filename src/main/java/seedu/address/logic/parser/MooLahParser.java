@@ -31,7 +31,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class MooLahParser {
 
     /**
      * Used for initial separation of command word and args.

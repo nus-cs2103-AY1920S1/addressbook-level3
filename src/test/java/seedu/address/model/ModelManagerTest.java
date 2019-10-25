@@ -36,7 +36,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new MooLah(), new MooLah(modelManager.getMooLah()));
         assertEquals(new ModelHistory(), modelManager.getModelHistory());
     }
 
@@ -47,7 +47,7 @@ public class ModelManagerTest {
 
     @Test
     public void resetData_success() {
-        Model other = new ModelManager(modelManager.getAddressBook(), modelManager.getUserPrefs(), new ModelHistory());
+        Model other = new ModelManager(modelManager.getMooLah(), modelManager.getUserPrefs(), new ModelHistory());
 
         modelManager.resetData(other);
         assertEquals(modelManager, other);
@@ -157,14 +157,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withExpense(ANNIVERSARY).withExpense(BUSAN_TRIP).build();
-        AddressBook differentAddressBook = new AddressBook();
+        MooLah mooLah = new AddressBookBuilder().withExpense(ANNIVERSARY).withExpense(BUSAN_TRIP).build();
+        MooLah differentMooLah = new MooLah();
         UserPrefs userPrefs = new UserPrefs();
         ModelHistory modelHistory = new ModelHistory();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, modelHistory);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, modelHistory);
+        modelManager = new ModelManager(mooLah, userPrefs, modelHistory);
+        ModelManager modelManagerCopy = new ModelManager(mooLah, userPrefs, modelHistory);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -176,13 +176,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, modelHistory)));
+        // different mooLah -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentMooLah, userPrefs, modelHistory)));
 
         // different filteredList -> returns false
         String[] keywords = ANNIVERSARY.getDescription().fullDescription.split("\\s+");
         modelManager.updateFilteredExpenseList(new DescriptionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, modelHistory)));
+        assertFalse(modelManager.equals(new ModelManager(mooLah, userPrefs, modelHistory)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
@@ -190,7 +190,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, modelHistory)));
+        assertFalse(modelManager.equals(new ModelManager(mooLah, differentUserPrefs, modelHistory)));
 
         // different history -> returns false
         ModelHistory differentHistory = new ModelHistory(makeModelStack(modelManager), makeModelStack());

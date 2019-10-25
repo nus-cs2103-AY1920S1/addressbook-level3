@@ -35,7 +35,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModelHistory());
+        ModelManager expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel.addToHistory();
         expectedModel.deleteExpense(expenseToDelete);
 
@@ -59,7 +59,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModelHistory());
+        Model expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel.deleteExpense(expenseToDelete);
         expectedModel.setModelHistory(new ModelHistory(makeModelStack(model), makeModelStack()));
         showNoExpense(expectedModel);
@@ -75,7 +75,7 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(
                 outOfBoundIndex.getZeroBased()
-                < model.getAddressBook().getExpenseList().size());
+                < model.getMooLah().getExpenseList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

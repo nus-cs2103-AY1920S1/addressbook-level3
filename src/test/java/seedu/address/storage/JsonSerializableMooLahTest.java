@@ -10,24 +10,24 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.MooLah;
 import seedu.address.testutil.TypicalExpenses;
 
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableMooLahTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_EXPENSES_FILE = TEST_DATA_FOLDER.resolve("typicalExpensesAddressBook.json");
-    private static final Path INVALID_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("invalidExpenseAddressBook.json");
-    private static final Path DUPLICATE_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("duplicateExpenseAddressBook.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableMooLahTest");
+    private static final Path TYPICAL_EXPENSES_FILE = TEST_DATA_FOLDER.resolve("typicalExpensesMooLah.json");
+    private static final Path INVALID_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("invalidExpenseMooLah.json");
+    private static final Path DUPLICATE_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("duplicateExpenseMooLah.json");
 
     @Test
     public void toModelType_typicalExpensesFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
                 JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalExpensesAddressBook = TypicalExpenses.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalExpensesAddressBook);
+        MooLah mooLahFromFile = dataFromFile.toModelType();
+        MooLah typicalExpensesMooLah = TypicalExpenses.getTypicalAddressBook();
+        assertEquals(mooLahFromFile, typicalExpensesMooLah);
     }
 
     @Test

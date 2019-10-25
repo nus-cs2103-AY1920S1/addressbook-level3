@@ -17,7 +17,7 @@ import seedu.address.model.expense.UniqueExpenseList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameExpense comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class MooLah implements ReadOnlyAddressBook {
 
     private final UniqueExpenseList expenses;
     private final UniqueBudgetList budgets;
@@ -42,16 +42,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         events = new UniqueEventList();
     }*/
 
-    public AddressBook() {
+    public MooLah() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
         events = new UniqueEventList();
     }
 
     /**
-     * Creates an AddressBook using the Expenses in the {@code toBeCopied}
+     * Creates an MooLah using the Expenses in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public MooLah(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -79,7 +79,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code MooLah} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
@@ -141,7 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code MooLah}.
      * {@code key} must exist in the address book.
      */
     public void removeExpense(Expense key) {
@@ -218,7 +218,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code MooLah}.
      * {@code key} must exist in the address book.
      */
     public void removeEvent(Event key) {
@@ -249,8 +249,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && expenses.equals(((AddressBook) other).expenses));
+                || (other instanceof MooLah // instanceof handles nulls
+                && expenses.equals(((MooLah) other).expenses));
     }
 
     @Override
