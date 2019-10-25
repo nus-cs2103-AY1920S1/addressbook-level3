@@ -1,0 +1,123 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":MakeSortCommandParser" as MakeSortCommandParser LOGIC_COLOR
+participant ":FieldParser" as FieldParser LOGIC_COLOR
+participant "command:MakeSortCommand" as MakeSortCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CustomSorter" as CustomSorter MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":JsonCustomSortStorage" as JsonCustomSortStorage STORAGE_COLOR
+participant ":JsonSerializableCustomSort" as JsonSerializableCustomSort STORAGE_COLOR
+participant ":JsonAdaptedCustomSort" as JsonAdaptedCustomSort STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("save PRICE ASC")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("save PRICE ASC")
+activate SaveNusParser
+
+create MakeSortCommandParser
+SaveNusParser -> MakeSortCommandParser
+activate MakeSortCommandParser
+
+MakeSortCommandParser --> SaveNusParser
+deactivate MakeSortCommandParser
+
+SaveNusParser -> MakeSortCommandParser : parse("PRICE ASC")
+activate MakeSortCommandParser
+
+create FieldParser
+MakeSortCommandParser -> FieldParser
+activate FieldParser
+
+FieldParser --> MakeSortCommandParser
+deactivate FieldParser
+
+MakeSortCommandParser -> FieldParser : parse("PRICE ASC")
+activate FieldParser
+
+FieldParser --> MakeSortCommandParser
+deactivate FieldParser
+FieldParser -[hidden]-> MakeSortCommandParser
+destroy FieldParser
+
+create MakeSortCommand
+MakeSortCommandParser -> MakeSortCommand
+activate MakeSortCommand
+
+MakeSortCommand --> MakeSortCommandParser : command
+deactivate MakeSortCommand
+
+MakeSortCommandParser --> SaveNusParser : command
+deactivate MakeSortCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+MakeSortCommandParser -[hidden]-> SaveNusParser
+destroy MakeSortCommandParser
+
+SaveNusParser --> LogicManager : command
+deactivate SaveNusParser
+
+LogicManager -> MakeSortCommand : execute()
+activate MakeSortCommand
+
+MakeSortCommand -> Model : setCustomSorter(List<String> fields)
+activate Model
+
+Model --> MakeSortCommand
+deactivate Model
+
+create CommandResult
+MakeSortCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> MakeSortCommand
+deactivate CommandResult
+
+MakeSortCommand --> LogicManager : result
+deactivate MakeSortCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+LogicManager -> Storage : saveFields(model.getCustomSorter())
+activate Storage
+
+Storage -> JsonCustomSortStorage : saveFields(CustomSorter sorter)
+activate JsonCustomSortStorage
+
+create JsonSerializableCustomSort
+JsonCustomSortStorage -> JsonSerializableCustomSort
+activate JsonSerializableCustomSort
+
+create JsonAdaptedCustomSort
+JsonSerializableCustomSort -> JsonAdaptedCustomSort
+activate JsonAdaptedCustomSort
+
+JsonAdaptedCustomSort --> JsonSerializableCustomSort
+deactivate JsonAdaptedCustomSort
+
+JsonSerializableCustomSort --> JsonCustomSortStorage
+deactivate JsonSerializableCustomSort
+
+JsonCustomSortStorage --> Storage
+deactivate JsonCustomSortStorage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
