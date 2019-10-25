@@ -166,5 +166,4 @@ public class CommandTestUtil {
     public static void deleteFirstBookmark(Model model) {
         deleteBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
     }
-
 }
