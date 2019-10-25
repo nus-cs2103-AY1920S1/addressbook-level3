@@ -609,7 +609,16 @@ This function is facilitated by the `CommandHistory` class.
 
 All the histories will be store in a static list `cmdList` in `CommandHistory`.
 
-Additionally, a state pointer that initially point to the end of cmdList will be maintain for Up(`&uarr;`)/Down(`&darr;`) key feature(See <<Up-Down-Feature>>)
+Also, a state pointer that initially point to the start of cmdList will be maintain
+for Up(`&uarr;`)/Down(`&darr;`) key feature(See <<Up-Down-Feature>>)
+
+Additionally, it implements the following operations:
+
+* `CommandHistory#addCmdHistory(String)` -- Store the command into cmdList.
+* `CommandHistory#peekNextCmd()` -- Get the next command in command history.
+* `CommandHistory#peekPreviousCmd()` -- Get the previous command in command history.
+* `CommandHistory#hasCommand()` -- Check whether any command is executed.
+
 
 The following sequence diagram shows how the storing operation works:
 
@@ -641,7 +650,7 @@ This feature makes use of the command history and state pointer stored while exe
 
 When initializing the fxml object `TextFiled` in `CommandBox` class,
 an action listener will be set to monitor the keyboard activity.
-Whenever a Up(`&uarr;`)/Down(`&darr;`) key is pressed, it will retrieve the previous/next command from the `CommandHistory` .
+Whenever a Up(`&uarr;`)/Down(`&darr;`) key is pressed, it will retrieve the previous/next command from the `CommandHistory`.
 
 Given below is an example usage scenario and how the Up(`&uarr;`)/Down(`&darr;`) mechanism behaves at each step.
 
@@ -652,13 +661,34 @@ and the statePointer is not pointing to any command state.
 .Initial state of CommandHistory
 image::UpDownKeyState0.png[]
 
-Step 2. The user then execute the
+Step 2. The user then execute the delete 5 command to delete the 5th expense in the billboard.
+The LogicManager calls CommandHistory#addCmdHistory() and a new command is append to the end of cmdList.
 
-.Interactions Inside the Logic Component for the `delete` Command
-image::DeleteSequenceDiagram.png[]
+.State of CommandHistory after "delete 5" command
+image::UpDownKeyState1.png[]
 
-The LogicManager will store the command to CommandHistory before parsing it to ensure all commands are saved.
-// end::history[]
+Step 3. The user now decides to execute the next command in the command history and press the Up(`&uarr;`)key.
+The actionListener of the TextField will call CommandHistory#peekNextCmd(),
+which will shift the statePointer once to the right,
+pointing it to the next command, and return it.
+
+.State of CommandHistory after Up(`&uarr;`)key
+image::UpDownKeyState2.png[]
+
+[NOTE]
+If the `statePointer` is at the end of cmdList, pointing to the final command state,
+then there are no next command states to get,
+it will return the last command to the user rather than attempting to get the next command.
+
+The following sequence diagram shows how the Up(`&uarr;`)key works:
+
+.Interactions between components of CommandBox and CommandHistory for the Up(`&uarr;`)key
+image::StoreSequenceDiagram.png[]
+
+The Down(`&darr;`) key does the opposite — it calls CommandHistory#peekPreviousCmd(),
+which shifts the statePointer once to the left,
+pointing to the previous command state, and return the command.
+// end::up/down key[]
 
 === Logging
 
