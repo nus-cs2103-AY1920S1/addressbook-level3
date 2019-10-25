@@ -9,6 +9,7 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -26,6 +27,7 @@ import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.category.Category;
 
 /**
@@ -60,7 +62,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         validifyQuestionType(questionType, argMultimap);
 
         this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
-        this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
         this.difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         this.categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
@@ -69,6 +70,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         switch (questionType.getType()) {
         case "mcq":
             answerable = new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
+            return new AddCommand(answerable);
+        case "tf":
+            answerable = new TrueFalse(question, correctAnswerList, wrongAnswerList,
+                                difficulty, categories);
             return new AddCommand(answerable);
         case "saq":
             answerable = new Saq(question, correctAnswerList, difficulty, categories);
@@ -80,35 +85,66 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     private boolean validifyQuestionType(QuestionType questionType, ArgumentMultimap argMultimap) throws
             ParseException{
-
         switch (questionType.getType()) {
         case "mcq":
-            if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
-                    PREFIX_DIFFICULTY) && argMultimap.getPreamble().isEmpty()) {
-
-                int numCorrect = argMultimap.getAllValues(PREFIX_CORRECT).size();
-                int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
-
-                if (numCorrect == 1 && numWrong == 3) {
-                    this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
-                    return true;
-                } else {
-                    throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
-                }
-            } else {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
+            return validfyMcq(argMultimap);
+        case "tf":
+            return validfyTF(argMultimap);
         case "saq":
-            if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
-                    PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
-            return true;
+            return validfySaq(argMultimap);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
 
+
+    private boolean validfySaq(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
+                PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        } else {
+            this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
+            return true;
+        }
+    }
+
+    private boolean validfyMcq(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
+                PREFIX_DIFFICULTY) && argMultimap.getPreamble().isEmpty()) {
+
+            int numCorrect = argMultimap.getAllValues(PREFIX_CORRECT).size();
+            int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
+
+            if (numCorrect == 1 && numWrong == 3) {
+                this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
+                this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
+                return true;
+            } else {
+                throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+    }
+
+    private boolean validfyTF(ArgumentMultimap argMultimap) throws ParseException {
+        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
+                PREFIX_DIFFICULTY) && argMultimap.getPreamble().isEmpty()) {
+
+            List<String> correctList = argMultimap.getAllValues(PREFIX_CORRECT);
+            List<String> wrongList = argMultimap.getAllValues(PREFIX_WRONG);
+
+            if (correctList.size() != 1 || wrongList.size() != 1) {
+                throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
+            } else {
+                    this.correctAnswerList = ParserUtil.parseAnswers()
+                    this.wrongAnswerList = ParserUtil.parseAnswers();
+            }
+            return true;
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+    }
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.

@@ -11,10 +11,10 @@ public class QuestionType {
     public static final String MESSAGE_CONSTRAINTS =
             "Question type should only be mcq or saq";
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the question type must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "(?i)mcq|saq";
+    public static final String VALIDATION_REGEX = "(?i)mcq|saq|tf";
 
     private final String type;
 
@@ -34,6 +34,8 @@ public class QuestionType {
      */
     public boolean isValidQuestionType(String test) {
         switch(test) {
+        case "tf":
+            // fall through
         case "mcq":
         //fallthrough
         case "saq":

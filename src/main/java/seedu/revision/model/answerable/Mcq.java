@@ -3,7 +3,9 @@ package seedu.revision.model.answerable;
 import seedu.revision.model.category.Category;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -24,6 +26,7 @@ public class Mcq extends Answerable {
     }
 
     public String toString() {
+
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: MCQ ")
                 .append("Question: ")
