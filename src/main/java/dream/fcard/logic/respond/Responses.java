@@ -64,7 +64,7 @@ enum Responses {
         System.out.println("No path specified, e.g. import ~/Desktop/file.json");
         return true;
     }),
-    EXPORT("(?i)^e(xport)?(\\s)+deck/(\\s)*.+(\\s)+path/(\\s)*.+", (commandInput, programState) -> {
+    EXPORT("(?i)^ex(port)?(\\s)+deck/(\\s)*.+(\\s)+path/(\\s)*.+", (commandInput, programState) -> {
         System.out.println("Current command is EXPORT");
 
         String[] parts = commandInput.split("deck/")[1].split("path/");
@@ -80,11 +80,11 @@ enum Responses {
 
         return true;
     }),
-    EXPORT_NO_PATH("(?i)^e(xport)?(\\s)+deck/(\\s)*.+", (commandInput, programState) -> {
+    EXPORT_NO_PATH("(?i)^ex(port)?(\\s)+deck/(\\s)*.+", (commandInput, programState) -> {
         System.out.println("No path specified, e.g. export deck/ deckName path/ ~/Desktop");
         return true;
     }),
-    EXPORT_NO_DECK("(?i)^e(xport)?.*", (commandInput, programState) -> {
+    EXPORT_NO_DECK("(?i)^ex(port)?.*", (commandInput, programState) -> {
         System.out.println("No deck specified, e.g. export deck/ deckName path/ ~/Desktop");
         return true;
     }),
@@ -191,6 +191,7 @@ enum Responses {
         // Exit from application
         return true; // capture is valid, end checking other commands
     }),
+
     EDIT("(?i)^(edit)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)+(action/[\\w\\p{Punct}]+){1}(\\s)*((\\s)+"
             + "(index/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+(front/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+"
             + "(back/[\\w\\p{Punct}]+))?(\\s)*", (
@@ -198,9 +199,9 @@ enum Responses {
                 System.out.println("Current command is EDIT");
                 return true; // capture is valid, end checking other commands
             }),
+
     UNKNOWN(".*", (commandInput, programState) -> {
         System.out.println("Sorry, I don't know what is this command.");
-
         LogsCenter.getLogger(Responses.class).warning("Unknown command entered.");
         return false;
     });
