@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import seedu.mark.commons.core.index.Index;
+import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.OfflineCommandResult;
@@ -28,7 +29,13 @@ public class DeleteAnnotationNoteCommand extends DeleteAnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         OfflineDocument doc = getRequiredDoc(model);
-        Paragraph p = doc.getParagraph(getPid());
+        Paragraph p;
+
+        try {
+            p = doc.getParagraph(getPid());
+        } catch (IllegalValueException e) {
+            throw new CommandException(DeleteAnnotationCommand.COMMAND_WORD + ": " + e.getMessage());
+        }
 
         if (!p.hasAnnotation() || !p.hasNote()) {
             throw new CommandException(DeleteAnnotationCommand.MESSAGE_NOTHING_TO_DELETE);
@@ -36,7 +43,12 @@ public class DeleteAnnotationNoteCommand extends DeleteAnnotationCommand {
 
         AnnotationNote note = p.removeNote();
         if (!p.isTrueParagraph()) {
-            doc.removePhantom(getPid());
+            try {
+                doc.removePhantom(getPid());
+            } catch (IllegalValueException e) {
+                assert false : "Should never come here since paragraph already checked to exist.";
+                throw new CommandException(DeleteAnnotationCommand.COMMAND_WORD + ": " + e.getMessage());
+            }
         }
 
         model.updateDocument(doc);

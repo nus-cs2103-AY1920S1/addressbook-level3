@@ -8,13 +8,14 @@ import seedu.mark.commons.exceptions.IllegalValueException;
  * Represents a note that is part of an annotation.
  */
 public class AnnotationNote {
+    public static final AnnotationNote SAMPLE_NOTE = new AnnotationNote("note");
 
     public static final String MESSAGE_BLANK_NOTE = "Annotation note content should not be blank.";
 
     /** Note content.*/
     private String content;
 
-    public AnnotationNote(String content) {
+    private AnnotationNote(String content) {
         this.content = content;
     }
 

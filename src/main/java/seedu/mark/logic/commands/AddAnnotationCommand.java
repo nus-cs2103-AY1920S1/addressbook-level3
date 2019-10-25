@@ -80,7 +80,7 @@ public class AddAnnotationCommand extends AnnotationCommand {
         try {
             doc.addAnnotation(getPid(), an);
         } catch (IllegalValueException e) {
-            throw new CommandException(e.getMessage());
+            throw new CommandException(COMMAND_WORD + ": " + e.getMessage());
         }
 
         model.updateDocument(doc);

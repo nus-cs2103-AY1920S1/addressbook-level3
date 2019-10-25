@@ -57,7 +57,8 @@ public class Annotation {
         } else if (!(other instanceof Annotation)) {
             return false;
         } else {
-            return this.colour.equals(((Annotation) other).colour) && this.note.equals(((Annotation) other).note);
+            return this.colour.equals(((Annotation) other).colour)
+                    && (this.note == ((Annotation) other).note || this.note.equals(((Annotation) other).note));
         }
     }
 

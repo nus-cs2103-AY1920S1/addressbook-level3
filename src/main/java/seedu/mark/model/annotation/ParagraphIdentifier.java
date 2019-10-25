@@ -22,6 +22,22 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
     }
 
     /**
+     * Returns a {@code ParagraphIdentifier} that identifies a {@code PhantomParagraph}.
+     * @param index The index to initialise tthe {@code ParagraphIdentifier}
+     */
+    public static ParagraphIdentifier makeStrayId(Index index) {
+        return new ParagraphIdentifier(index, ParagraphType.STRAY);
+    }
+
+    /**
+     * Returns a {@code ParagraphIdentifier} that identifies a {@code TrueParagraph}.
+     * @param index The index to initialise tthe {@code ParagraphIdentifier}
+     */
+    public static ParagraphIdentifier makeExistId(Index index) {
+        return new ParagraphIdentifier(index, ParagraphType.EXIST);
+    }
+
+    /**
      * Returns true if this identifier identifies a phantom paragraph.
      */
     public boolean isStray() {

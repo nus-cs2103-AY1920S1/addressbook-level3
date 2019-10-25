@@ -21,7 +21,7 @@ public class TrueParagraph extends Paragraph {
         requireNonNull(id);
         requireNonNull(content);
 
-        ParagraphIdentifier pi = new ParagraphIdentifier(id, ParagraphIdentifier.ParagraphType.EXIST);
+        ParagraphIdentifier pi = ParagraphIdentifier.makeExistId(id);
         this.id = pi;
         this.content = content;
 
