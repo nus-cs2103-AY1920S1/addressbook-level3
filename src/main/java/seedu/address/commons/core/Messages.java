@@ -15,6 +15,6 @@ public class Messages {
     public static final String MESSAGE_MANPOWER_COUNT_EXCEEDED = "Manpower count to allocate "
             + "exceeds manpower needed by event!";
     public static final String MESSAGE_INSUFFICIENT_MANPOWER_COUNT = "Insufficient manpower count for event! "
-            + "(possibly due to schedule overlap)";
+            + "(either due to schedule overlap or lack of manpower)";
     public static final String MESSAGE_EVENT_FULL_MANPOWER = "Event has full manpower!";
 }

@@ -41,20 +41,26 @@ public class AutoAllocateCommand extends Command {
             + PREFIX_TAG + "fun";
 
 
-    public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Allocated %2$d people to %1$s ";
+    public static final String MESSAGE_ALLOCATE_SUCCESS = "Allocated %2$d people to %1$s ";
 
     private Integer manpowerCountToAdd;
     private final Index eventIndex;
     private final Set<Tag> tagList;
 
     /**
-     * @param eventIndex of the event in the filtered event list to edit
-     * @param manpowerCountToAdd for the event
+     * @param eventIndex of the event in the filtered event list to edit (must contain a positive Integer)
+     * @param manpowerCountToAdd for the event (must be a positive Integer)
      * @param tagList list of tags to filter the list of available employees
      */
     public AutoAllocateCommand(Index eventIndex, Integer manpowerCountToAdd, Set<Tag> tagList) {
         requireNonNull(eventIndex);
         requireNonNull(tagList);
+
+        assert(eventIndex.getOneBased() > 0);
+
+        if (manpowerCountToAdd != null) {
+            assert manpowerCountToAdd > 0;
+        }
 
         this.manpowerCountToAdd = manpowerCountToAdd;
         this.eventIndex = eventIndex;
@@ -91,7 +97,8 @@ public class AutoAllocateCommand extends Command {
         requireNonNull(model);
         List<Event> lastShownEventList = model.getFilteredEventList();
 
-        if (eventIndex.getZeroBased() >= lastShownEventList.size()) {
+
+        if (eventIndex.getOneBased() > lastShownEventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
@@ -99,20 +106,19 @@ public class AutoAllocateCommand extends Command {
         Integer manpowerNeededByEvent = getManpowerNeededByEvent(eventToAllocate);
 
         if (manpowerCountToAdd == null) { //if manpower count is not specified
-            this.manpowerCountToAdd = getManpowerNeededByEvent(eventToAllocate);
+            this.manpowerCountToAdd = manpowerNeededByEvent;
+        }
+
+        if (manpowerNeededByEvent == 0) {
+            throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);
         }
 
         if (manpowerCountToAdd > manpowerNeededByEvent) {
             throw new CommandException(Messages.MESSAGE_MANPOWER_COUNT_EXCEEDED);
         }
 
-        if (manpowerCountToAdd == 0) {
-            throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);
-        }
-
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-
         List<Employee> availableEmployeeList = createAvailableEmployeeListForEvent(model, eventToAllocate);
 
         if (availableEmployeeList.size() < manpowerCountToAdd) {
@@ -120,16 +126,16 @@ public class AutoAllocateCommand extends Command {
         }
 
         Collections.shuffle(availableEmployeeList);
-
         Event newEventForAllocation = createEditedEvent(eventToAllocate);
 
         for (int i = 0; i < manpowerCountToAdd; i++) {
             Employee employeeToAdd = availableEmployeeList.get(i);
             newEventForAllocation.getManpowerAllocatedList().allocateEmployee(employeeToAdd);
         }
+
         model.setEvent(eventToAllocate, newEventForAllocation);
 
-        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, eventToAllocate.getName().eventName,
+        return new CommandResult(String.format(MESSAGE_ALLOCATE_SUCCESS, eventToAllocate.getName().eventName,
                 manpowerCountToAdd));
     }
 

@@ -53,8 +53,6 @@ public class FetchWindow extends UiPart<Stage> {
     @FXML
     private Button freeButton;
 
-
-
     /**
      * Creates a new FetchWindow.
      *
@@ -65,13 +63,7 @@ public class FetchWindow extends UiPart<Stage> {
         ObservableList<Employee> employeeList = logic.getFilteredEmployeeList();
         ObservableList<Event> filteredEventList = logic.getFilteredEventList();
         Event event = logic.getFilteredEventList().get(index);
-        ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
-
-        eventDescription.setText(event.toStringWithNewLine());
-        personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
-        personListView.setCellFactory(listView -> new PersonListViewCell());
-        eventListView.setItems(employeeListForEvent);
-        eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
+        updateCards(event, employeeList, filteredEventList);
         EventHandler<MouseEvent> handleAllocate = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -79,9 +71,7 @@ public class FetchWindow extends UiPart<Stage> {
                 try {
                     logic.execute("allocate " + oneBasedIndex);
                     Event event = logic.getFilteredEventList().get(index);
-                    ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
-                    eventListView.setItems(employeeListForEvent);
-                    eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
+                    updateCards(event, employeeList, filteredEventList);
                 } catch (CommandException ex) {
                     logger.fine("This should not appear!");
                 } catch (ParseException ex) {
@@ -89,7 +79,6 @@ public class FetchWindow extends UiPart<Stage> {
                 }
             }
         };
-
         EventHandler<MouseEvent> handleFree = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
@@ -97,9 +86,7 @@ public class FetchWindow extends UiPart<Stage> {
                 try {
                     logic.execute("free " + oneBasedIndex);
                     Event event = logic.getFilteredEventList().get(index);
-                    ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
-                    eventListView.setItems(employeeListForEvent);
-                    eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
+                    updateCards(event, employeeList, filteredEventList);
                 } catch (CommandException ex) {
                     logger.fine("This should not appear!");
                 } catch (ParseException ex) {
@@ -116,6 +103,19 @@ public class FetchWindow extends UiPart<Stage> {
      */
     public FetchWindow(Logic logic, Integer index) {
         this(new Stage(), logic, index);
+    }
+
+    /**
+     * Updates the EmployeeCard and EventDescriptions.
+     */
+    public void updateCards(Event event, ObservableList<Employee> employeeList,
+                            ObservableList<Event> filteredEventList) {
+        ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
+        eventDescription.setText(event.toStringWithNewLine());
+        personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
+        personListView.setCellFactory(listView -> new PersonListViewCell());
+        eventListView.setItems(employeeListForEvent);
+        eventListView.setCellFactory(listView -> new FetchWindow.PersonListViewCell());
     }
 
     /**
