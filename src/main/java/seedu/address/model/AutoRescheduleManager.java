@@ -82,7 +82,8 @@ public class AutoRescheduleManager {
         BigInteger millisDifferenceBi = new BigInteger("" + millisDifference);
 
         long millisRemainder = millisDifferenceBi.mod(periodBi).longValue();
-        LocalDateTime updatedDateTime = LocalDateTime.now().plusNanos(Duration.ofMillis(millisRemainder).toNanos());
+        long tillNextStart = period - millisRemainder;
+        LocalDateTime updatedDateTime = LocalDateTime.now().plusNanos(Duration.ofMillis(tillNextStart).toNanos());
 
         return updatedDateTime;
     }
