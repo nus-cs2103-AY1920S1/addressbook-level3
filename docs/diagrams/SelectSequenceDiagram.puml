@@ -1,0 +1,82 @@
+@startuml
+!include Style.puml
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR_T2
+end box
+
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SelectCommandParser" as SelectCommandParser LOGIC_COLOR
+participant ":SelectCommand" as SelectCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR_T3
+end box
+[-> MainWindow : executeCommand("select 1")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("select 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("1")
+activate AddressBookParser
+
+create SelectCommandParser
+AddressBookParser -> SelectCommandParser
+activate SelectCommandParser
+
+create SelectCommand
+SelectCommandParser -> SelectCommand
+activate SelectCommand
+
+SelectCommand --> SelectCommandParser : s
+deactivate SelectCommand
+
+SelectCommandParser --> AddressBookParser : s
+deactivate SelectCommandParser
+
+SelectCommandParser -[hidden]-> AddressBookParser
+destroy SelectCommandParser
+
+AddressBookParser --> LogicManager : s
+deactivate AddressBookParser
+
+LogicManager -> SelectCommand : execute()
+activate SelectCommand
+
+SelectCommand -> ModelManager : storePerson(1)
+activate ModelManager
+
+ModelManager --> SelectCommand
+deactivate
+
+create CommandResult
+SelectCommand -> CommandResult
+activate CommandResult
+
+SelectCommand --> LogicManager : result
+deactivate SelectCommand
+
+LogicManager --> MainWindow : result
+deactivate LogicManager
+
+MainWindow -> LogicManager : getPerson()
+activate LogicManager
+
+LogicManager -> ModelManager : selectPerson()
+activate ModelManager
+
+ModelManager --> LogicManager
+deactivate ModelManager
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+[<-- MainWindow
+deactivate MainWindow
+@enduml
