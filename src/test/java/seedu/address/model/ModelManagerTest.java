@@ -76,7 +76,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasTransaction_nullPerson_throwsNullPointerException() {
+    public void hasTransaction_nullTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasTransaction(null));
     }
 

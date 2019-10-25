@@ -6,9 +6,11 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,9 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.util.Date;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -44,7 +49,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class,
-                MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -149,49 +154,133 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() {
+    public void parseCategory_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCategory(null));
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() {
+    public void parseCategory_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseCategory(INVALID_TAG));
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
+    public void parseCategory_validValueWithoutWhitespace_returnsCategory() throws Exception {
         Category expectedCategory = new Category(VALID_TAG_1);
         assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_TAG_1));
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
+    public void parseCategory_validValueWithWhitespace_returnsTrimmedCategory() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Category expectedCategory = new Category(VALID_TAG_1);
         assertEquals(expectedCategory, ParserUtil.parseCategory(tagWithWhitespace));
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() {
+    public void parseCategories_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCategories(null));
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() {
+    public void parseCategories_collectionWithInvalidCategories_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseCategories(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
+    public void parseCategories_emptyCollection_returnsEmptySet() throws Exception {
         assertTrue(ParserUtil.parseCategories(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
+    public void parseCategories_collectionWithValidCategories_returnsCategorySet() throws Exception {
         Set<Category> actualCategorySet = ParserUtil.parseCategories(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
         Set<Category> expectedCategorySet = new HashSet<Category>(Arrays.asList(new Category(VALID_TAG_1),
-                new Category(VALID_TAG_2)));
+            new Category(VALID_TAG_2)));
 
         assertEquals(expectedCategorySet, actualCategorySet);
+    }
+
+    @Test
+    public void parseDescription_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription(null));
+    }
+
+    @Test
+    public void parseDescription_invalidDescription_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription("!loveyou!"));
+    }
+
+    @Test
+    public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
+        Description expectedDescription = new Description("milk");
+        assertEquals(expectedDescription, ParserUtil.parseDescription("milk"));
+    }
+
+    @Test
+    public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
+        Description expectedDescription = new Description("milk");
+        assertEquals(expectedDescription, ParserUtil.parseDescription(WHITESPACE + "milk" + WHITESPACE));
+    }
+
+    @Test
+    public void parseDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
+    }
+
+    @Test
+    public void parseDate_invalidDate_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("21/03/2019"));
+    }
+
+    @Test
+    public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
+        Date expectedDate = new Date("21032019");
+        assertEquals(expectedDate, ParserUtil.parseDate("21032019"));
+    }
+
+    @Test
+    public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
+        Date expectedDate = new Date("19112019");
+        assertEquals(expectedDate, ParserUtil.parseDate(WHITESPACE + "19112019" + WHITESPACE));
+    }
+
+    @Test
+    public void parseShares_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseShares(null));
+    }
+
+    @Test
+    public void parseShares_invalidShares_throwsParseException() {
+        List<String> invalidShares = new ArrayList<>(Arrays.asList("hello", "world"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseShares(invalidShares));
+    }
+
+    @Test
+    public void parseShares_validValueWithoutWhitespace_returnsList() throws Exception {
+        List<String> validShares = new ArrayList<>(Arrays.asList("1", "2"));
+        List<Integer> expectedValidShares = new ArrayList<>(Arrays.asList(1, 2));
+        assertEquals(expectedValidShares, ParserUtil.parseShares(validShares));
+    }
+
+    @Test
+    public void parseAmount_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAmount(null));
+    }
+
+    @Test
+    public void parseAmount_invalidAmount_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("$100.00"));
+    }
+
+    @Test
+    public void parseAmount_validPositiveValue_returnsAmount() throws Exception {
+        Amount expectedPositiveAmount = new Amount(10.00);
+        assertEquals(expectedPositiveAmount, ParserUtil.parseAmount("10.00"));
+    }
+
+    @Test
+    public void parseAmount_validNegativeValue_returnsAmount() throws Exception {
+        Amount expectedNegativeAmount = new Amount(-10.00);
+        assertEquals(expectedNegativeAmount, ParserUtil.parseAmount("-10.00"));
     }
 }
