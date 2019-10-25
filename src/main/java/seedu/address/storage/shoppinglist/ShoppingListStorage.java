@@ -9,7 +9,11 @@ import seedu.address.model.GroceryList;
 import seedu.address.model.ReadOnlyShoppingList;
 
 /**
+<<<<<<< HEAD
+ * Represents a storage for {@link seedu.address.model.GroceryList}.
+=======
  * Represents a storage for {@link GroceryList}.
+>>>>>>> master
  */
 public interface ShoppingListStorage {
 

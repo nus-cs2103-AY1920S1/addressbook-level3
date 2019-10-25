@@ -357,6 +357,57 @@ public class AddCommandTest {
         public void updateFilteredShoppingList(Predicate<ShoppingItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Path getBoughtListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBoughtListFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBoughtItem(GroceryItem food) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBoughtList(ReadOnlyGroceryList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyGroceryList getBoughtList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBoughtItem(GroceryItem food) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteBoughtItem(GroceryItem target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBoughtItem(GroceryItem target, GroceryItem editedFood) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<GroceryItem> getFilteredBoughtItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBoughtItemList(Predicate<GroceryItem> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

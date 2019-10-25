@@ -1,0 +1,93 @@
+@startuml
+!include style.puml
+
+group sd : Retrieve and edit specified template, template items and update templateList
+participant ":EditTemplateItemCommand" as EditTemplateItemCommand LOGIC_COLOR
+
+participant ":Model" as Model MODEL_COLOR
+participant "tToEdit:UniqueTemplateItems" as tToEdit MODEL_COLOR
+participant "editedT:UniqueTemplateItems" as editedT MODEL_COLOR
+participant "itemToEdit:TemplateItem" as itemToEdit MODEL_COLOR
+participant "editedItem:TemplateItem" as editedItem MODEL_COLOR
+
+[-> EditTemplateItemCommand : execute()
+activate EditTemplateItemCommand
+
+EditTemplateItemCommand -> Model : getFilteredTemplateList()
+activate Model
+
+Model -> EditTemplateItemCommand
+deactivate Model
+
+create tToEdit
+EditTemplateItemCommand -> tToEdit : get(1)
+activate tToEdit
+
+tToEdit --> EditTemplateItemCommand : tToEdit
+deactivate tToEdit
+
+create editedT
+EditTemplateItemCommand -> editedT
+activate editedT
+
+editedT --> EditTemplateItemCommand
+deactivate editedT
+
+create itemToEdit
+EditTemplateItemCommand -> itemToEdit
+activate itemToEdit
+
+itemToEdit --> EditTemplateItemCommand
+deactivate itemToEdit
+
+EditTemplateItemCommand -> tToEdit : get(1)
+activate tToEdit
+
+tToEdit --> EditTemplateItemCommand: itemToEdit
+deactivate tToEdit
+
+create editedItem
+EditTemplateItemCommand -> editedItem
+activate editedItem
+
+editedItem --> EditTemplateItemCommand
+deactivate editedItem
+
+EditTemplateItemCommand -> editedT: setTemplateItem(itemToEdit, editedItem)
+activate editedT
+
+editedT --> EditTemplateItemCommand: editedT
+deactivate editedT
+
+EditTemplateItemCommand -> Model: setTemplate(tToEdit, editedT)
+activate Model
+
+Model --> EditTemplateItemCommand
+deactivate Model
+
+EditTemplateItemCommand -> Model: setShownTemplate(t)
+activate Model
+
+Model --> EditTemplateItemCommand
+deactivate Model
+
+[<--EditTemplateItemCommand: result
+deactivate EditTemplateItemCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+tToEdit -[hidden]-> EditTemplateItemCommand
+destroy tToEdit
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+editedT -[hidden]-> EditTemplateItemCommand
+destroy editedT
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+itemToEdit -[hidden]-> EditTemplateItemCommand
+destroy itemToEdit
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+editedItem -[hidden]-> EditTemplateItemCommand
+destroy editedItem
+end
+@enduml

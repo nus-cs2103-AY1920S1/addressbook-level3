@@ -13,6 +13,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WasteList;
 import seedu.address.model.waste.WasteMonth;
+import seedu.address.storage.shoppinglist.BoughtListStorage;
 import seedu.address.storage.shoppinglist.ShoppingListStorage;
 import seedu.address.storage.wastelist.WasteListStorage;
 
@@ -20,7 +21,7 @@ import seedu.address.storage.wastelist.WasteListStorage;
  * API of the Storage component
  */
 public interface Storage extends GroceryListStorage, UserPrefsStorage, TemplateListStorage, WasteListStorage,
-        ShoppingListStorage {
+        ShoppingListStorage, BoughtListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -64,4 +65,12 @@ public interface Storage extends GroceryListStorage, UserPrefsStorage, TemplateL
     @Override
     void saveShoppingList(ReadOnlyShoppingList shoppingList) throws IOException;
 
+    @Override
+    Path getBoughtListFilePath();
+
+    @Override
+    Optional<ReadOnlyGroceryList> readBoughtList() throws DataConversionException, IOException;
+
+    @Override
+    void saveBoughtList(ReadOnlyGroceryList boughtList) throws IOException;
 }

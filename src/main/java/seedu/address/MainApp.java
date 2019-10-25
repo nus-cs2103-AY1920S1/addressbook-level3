@@ -37,6 +37,8 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TemplateListStorage;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.shoppinglist.BoughtListStorage;
+import seedu.address.storage.shoppinglist.JsonBoughtItemStorage;
 import seedu.address.storage.shoppinglist.JsonShoppingItemStorage;
 import seedu.address.storage.shoppinglist.ShoppingListStorage;
 import seedu.address.storage.wastelist.JsonWasteListStorage;
@@ -61,7 +63,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing GroceryList ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -73,8 +75,9 @@ public class MainApp extends Application {
         TemplateListStorage templateListStorage = new JsonTemplateListStorage(userPrefs.getTemplateListFilePath());
         WasteListStorage wasteListStorage = new JsonWasteListStorage(userPrefs.getWasteArchiveFilePath());
         ShoppingListStorage shoppingListStorage = new JsonShoppingItemStorage(userPrefs.getShoppingListFilePath());
+        BoughtListStorage boughtListStorage = new JsonBoughtItemStorage(userPrefs.getBoughtListFilePath());
         storage = new StorageManager(groceryListStorage, userPrefsStorage, templateListStorage, wasteListStorage,
-                shoppingListStorage);
+                shoppingListStorage, boughtListStorage);
 
         initLogging(config);
 
@@ -95,15 +98,18 @@ public class MainApp extends Application {
         Optional<ReadOnlyGroceryList> groceryListOptional;
         Optional<ReadOnlyTemplateList> templateListOptional;
         Optional<ReadOnlyShoppingList> shoppingListOptional;
+        Optional<ReadOnlyGroceryList> boughtListOptional;
         ReadOnlyGroceryList initialGroceryListData;
         ReadOnlyTemplateList initialTemplateListData;
         TreeMap<WasteMonth, WasteList> initialWasteArchiveData;
         ReadOnlyShoppingList initialShoppingListData;
+        ReadOnlyGroceryList initialBoughtListData;
 
         try {
             groceryListOptional = storage.readGroceryList();
             templateListOptional = storage.readTemplateList();
             shoppingListOptional = storage.readShoppingList();
+            boughtListOptional = storage.readBoughtList();
             if (!groceryListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample GroceryList");
             }
@@ -113,26 +119,32 @@ public class MainApp extends Application {
             if (!shoppingListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ShoppingList");
             }
+            if (!boughtListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Bought List.");
+            }
             initialGroceryListData = groceryListOptional.orElseGet(SampleDataUtil::getSampleGroceryList);
             initialTemplateListData = templateListOptional.orElseGet(SampleDataUtil::getSampleTemplateList);
             initialShoppingListData = shoppingListOptional.orElseGet(SampleDataUtil::getSampleShoppingList);
+            initialBoughtListData = boughtListOptional.orElseGet(SampleDataUtil::getSampleBoughtList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty GroceryList");
             initialGroceryListData = new GroceryList();
             initialTemplateListData = new TemplateList();
             initialShoppingListData = new ShoppingList();
+            initialBoughtListData = new GroceryList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty GroceryList");
             initialGroceryListData = new GroceryList();
             initialTemplateListData = new TemplateList();
             initialShoppingListData = new ShoppingList();
+            initialBoughtListData = new GroceryList();
         }
 
         initialWasteArchiveData = initModelManagerWaste(storage);
 
 
         return new ModelManager(initialGroceryListData, userPrefs, initialTemplateListData, initialWasteArchiveData,
-                initialShoppingListData);
+                initialShoppingListData, initialBoughtListData);
     }
 
     /**
@@ -224,7 +236,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty GroceryList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -240,13 +252,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting GroceryList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Grocery List ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

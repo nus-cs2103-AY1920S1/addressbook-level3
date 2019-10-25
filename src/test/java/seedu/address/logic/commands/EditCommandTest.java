@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalGroceryItems.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBoughtList.getTypicalBoughtList;
+import static seedu.address.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.address.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.address.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.address.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -14,8 +15,8 @@ import seedu.address.model.UserPrefs;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalTemplateList(),
-            getTypicalWasteArchive(), getTypicalShoppingList());
+    private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList());
 
     /*@Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -25,7 +26,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
         expectedModel.setGroceryItem(model.getFilteredGroceryItemList().get(0), editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -46,7 +47,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
         expectedModel.setGroceryItem(lastFood, editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -59,7 +60,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -75,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFood);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getGroceryList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new GroceryList(model.getGroceryList()), new UserPrefs());
         expectedModel.setGroceryItem(model.getFilteredGroceryItemList().get(0), editedFood);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

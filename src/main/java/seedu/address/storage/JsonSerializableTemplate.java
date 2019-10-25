@@ -13,7 +13,7 @@ import seedu.address.model.food.TemplateItem;
 import seedu.address.model.food.UniqueTemplateItems;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable GroceryList that is serializable to JSON format.
  */
 class JsonSerializableTemplate {
 

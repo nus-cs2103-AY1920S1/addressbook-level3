@@ -3,6 +3,7 @@ package seedu.address.logic.commands.templatelist.template;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 
 import java.util.List;
 
@@ -56,13 +57,17 @@ public class AddTemplateItemCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
         }
         UniqueTemplateItems templateToEdit = lastShownList.get(index.getZeroBased());
+        UniqueTemplateItems editedTemplate = templateToEdit;
 
         if (templateToEdit.contains(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
 
-        templateToEdit.add(toAdd);
-        model.setShownTemplate(templateToEdit);
+        editedTemplate.add(toAdd);
+
+        model.setTemplate(templateToEdit, editedTemplate);
+        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+        model.setShownTemplate(editedTemplate);
         model.updateFilteredTemplateToBeShown();
 
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
