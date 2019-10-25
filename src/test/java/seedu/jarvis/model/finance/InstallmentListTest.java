@@ -68,7 +68,22 @@ public class InstallmentListTest {
     }
 
     @Test
-    public void editInstallment_normalInputs_editedCorrectly() {
+    public void deleteInstallment_deleteCorrectInstance_deletedCorrectly() {
+        installmentList.addInstallment(new InstallmentBuilder().build());
+        Installment deletedInstallment = installmentList.deleteInstallment(new InstallmentBuilder().build());
+        assertEquals(deletedInstallment, new InstallmentBuilder().build());
+        assertEquals(3, installmentList.getNumInstallments());
+    }
+
+    @Test
+    public void deleteInstallment_deleteFirstInstance_deletedCorrectly() {
+        Installment deletedInstallment = installmentList.deleteInstallment(new InstallmentStub());
+        assertEquals(2, installmentList.getNumInstallments());
+        assertEquals(deletedInstallment, new InstallmentStub());
+    }
+
+    @Test
+    public void setInstallment_normalInputs_editedCorrectly() {
         Installment installment = installmentList.getInstallment(1);
         Installment editedInstallment = new InstallmentBuilder()
                 .withDescription("Spotify")
@@ -79,7 +94,7 @@ public class InstallmentListTest {
     }
 
     @Test
-    public void editInstallment_nonExistentInstallment_throwsError() {
+    public void setInstallment_nonExistentInstallment_throwsError() {
         Installment installment = new InstallmentBuilder()
                 .withDescription("something")
                 .build();

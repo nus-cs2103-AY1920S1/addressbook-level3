@@ -1,7 +1,10 @@
 package seedu.jarvis.logic.commands.finance;
 
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseFailure;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jarvis.model.financetracker.FinanceTrackerModel.PREDICATE_SHOW_ALL_INSTALLMENTS;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_INSTALLMENT;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
@@ -23,6 +26,7 @@ import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 public class RemoveInstallmentCommandTest {
 
@@ -32,7 +36,7 @@ public class RemoveInstallmentCommandTest {
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
                 new UserPrefs(), new Planner(), new CoursePlanner());
-        model.addInstallment(new InstallmentStub());
+        model.addInstallment(new InstallmentBuilder().build());
         model.addInstallment(new InstallmentStub());
         model.addInstallment(new InstallmentStub());
     }
@@ -68,6 +72,62 @@ public class RemoveInstallmentCommandTest {
         RemoveInstallmentCommand removeInstallmentCommand = new RemoveInstallmentCommand(outOfBoundIndex);
 
         assertCommandFailure(removeInstallmentCommand, model, Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
+    }
+
+    /**
+     * Ensures that {@code CommandException} is thrown if re-adding the installment that was deleted will be in conflict
+     * with existing installment in the finance tracker.
+     */
+    @Test
+    public void executeInverse_installmentToAddAlreadyExist_throwsCommandException() {
+        Installment installmentToDelete = model
+                .getFilteredInstallmentList()
+                .get(INDEX_FIRST_INSTALLMENT.getZeroBased());
+        RemoveInstallmentCommand removeInstallmentCommand = new RemoveInstallmentCommand(INDEX_FIRST_INSTALLMENT);
+
+        String expectedMessage = String.format(RemoveInstallmentCommand.MESSAGE_DELETE_INSTALLMENT_SUCCESS,
+                installmentToDelete);
+
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getPlanner(), model.getCoursePlanner());
+        expectedModel.deleteInstallment(installmentToDelete);
+
+        assertCommandSuccess(removeInstallmentCommand, model, expectedMessage, expectedModel);
+
+        String inverseExpectedMessage = String.format(
+                RemoveInstallmentCommand.MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST, installmentToDelete);
+
+        model.addInstallment(installmentToDelete);
+        assertCommandInverseFailure(removeInstallmentCommand, model, inverseExpectedMessage);
+    }
+
+    /**
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that the deleted installment was added back to the finance tracker.
+     */
+    @Test
+    public void executeInverse_success() {
+        Installment installmentToDelete = model
+                .getFilteredInstallmentList()
+                .get(INDEX_FIRST_INSTALLMENT.getZeroBased());
+        RemoveInstallmentCommand removeInstallmentCommand = new RemoveInstallmentCommand(INDEX_FIRST_INSTALLMENT);
+
+        String expectedMessage = String.format(RemoveInstallmentCommand.MESSAGE_DELETE_INSTALLMENT_SUCCESS,
+                installmentToDelete);
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getPlanner(), model.getCoursePlanner());
+        expectedModel.deleteInstallment(installmentToDelete);
+        assertCommandSuccess(removeInstallmentCommand, model, expectedMessage, expectedModel);
+
+        String inverseExpectedMessage = String.format(
+                RemoveInstallmentCommand.MESSAGE_INVERSE_SUCCESS_ADD, installmentToDelete);
+        model.deleteInstallment(installmentToDelete);
+
+        expectedModel.addInstallment(INDEX_FIRST_INSTALLMENT.getZeroBased(), installmentToDelete);
+        expectedModel.updateFilteredInstallmentList(PREDICATE_SHOW_ALL_INSTALLMENTS);
+        assertCommandInverseSuccess(removeInstallmentCommand, model, inverseExpectedMessage, expectedModel);
     }
 
     private static class InstallmentStub extends Installment {

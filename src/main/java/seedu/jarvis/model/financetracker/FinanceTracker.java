@@ -3,7 +3,7 @@ package seedu.jarvis.model.financetracker;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.OptionalDouble;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -160,10 +160,10 @@ public class FinanceTracker {
      *
      * @param purchase  deleted
      */
-    public void deleteSinglePurchase(Purchase purchase) throws PurchaseNotFoundException {
+    public Purchase deleteSinglePurchase(Purchase purchase) throws PurchaseNotFoundException {
         requireNonNull(purchase);
 
-        purchaseList.deletePurchase(purchase);
+        return purchaseList.deletePurchase(purchase);
     }
 
     /**
@@ -220,7 +220,7 @@ public class FinanceTracker {
      *
      * @return number of total installments
      */
-    public int getTotalInstallments() {
+    public int getNumInstallments() {
         return installmentList.getNumInstallments();
     }
 
@@ -286,10 +286,10 @@ public class FinanceTracker {
      *
      * @param installment to be removed
      */
-    public void deleteInstallment(Installment installment) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(Installment installment) throws InstallmentNotFoundException {
         requireNonNull(installment);
 
-        installmentList.deleteInstallment(installment);
+        return installmentList.deleteInstallment(installment);
     }
 
     /**
@@ -307,10 +307,10 @@ public class FinanceTracker {
 
     /**
      * Retrieves monthly limit if it has been set by the user.
-     * @return Optional containing the monthly limit
+     * @return Optional that contains the monthly limit if it exists
      */
-    public OptionalDouble getMonthlyLimit() {
-        return OptionalDouble.of(monthlyLimit.getMonthlyLimit());
+    public Optional<MonthlyLimit> getMonthlyLimit() {
+        return Optional.of(monthlyLimit);
     }
 
     /**

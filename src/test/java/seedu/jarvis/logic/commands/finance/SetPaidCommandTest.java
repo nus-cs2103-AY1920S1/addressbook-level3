@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
+import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,13 +17,35 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
+import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.CoursePlanner;
+import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
+import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
+import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
+import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 public class SetPaidCommandTest {
+
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
+                new UserPrefs(), new Planner(), new CoursePlanner());
+        model.addPurchase(new PurchaseStub());
+        model.addPurchase(new PurchaseStub());
+        model.addPurchase(new PurchaseStub());
+    }
 
     /**
      * Verifies that checking {@code PaidCommand} for the availability of inverse execution returns true.
@@ -37,7 +63,7 @@ public class SetPaidCommandTest {
     }
 
     @Test
-    public void execute_purchaseAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_purchaseAcceptedByModel_addSuccessful() throws CommandException {
         ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
         Purchase validPurchase = new PurchaseBuilder().build();
 
@@ -45,6 +71,41 @@ public class SetPaidCommandTest {
 
         assertEquals(String.format(SetPaidCommand.MESSAGE_SUCCESS, validPurchase), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPurchase), modelStub.purchasesAdded);
+    }
+
+    @Test
+    public void execute_purchaseAlreadyExists_throwsCommandException() {
+        ModelStubAcceptingPurchaseAdded modelStub = new ModelStubAcceptingPurchaseAdded();
+        modelStub.addPurchase(new PurchaseStub());
+
+        SetPaidCommand setPaidCommand = new SetPaidCommand(new PurchaseStub());
+
+        assertThrows(CommandException.class, () -> setPaidCommand.execute(modelStub));
+    }
+
+    /**
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that the added installment was deleted from the finance tracker.
+     * */
+    @Test
+    public void executeInverse_success() {
+        Purchase purchaseToAdd = new PurchaseBuilder().build();
+        SetPaidCommand setPaidCommand = new SetPaidCommand(purchaseToAdd);
+
+        String expectedMessage = String.format(SetPaidCommand.MESSAGE_SUCCESS,
+                purchaseToAdd);
+
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getPlanner(), model.getCoursePlanner());
+        expectedModel.addPurchase(purchaseToAdd);
+
+        assertCommandSuccess(setPaidCommand, model, expectedMessage, expectedModel);
+
+        String inverseExpectedMessage = String.format(
+                SetPaidCommand.MESSAGE_INVERSE_SUCCESS_DELETE, purchaseToAdd);
+
+        assertCommandInverseSuccess(setPaidCommand, model, inverseExpectedMessage, expectedModel);
     }
 
     @Test
@@ -96,9 +157,21 @@ public class SetPaidCommandTest {
         }
 
         @Override
+        public boolean hasPurchase(Purchase purchase) {
+            requireNonNull(purchase);
+            return purchasesAdded.contains(purchase);
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
     }
 
+    private static class PurchaseStub extends Purchase {
+        public PurchaseStub() {
+            super(new PurchaseDescription("lunch at Saizerya"), new PurchaseMoneySpent("5.00"),
+                    LocalDate.parse("10/04/2019", Purchase.getDateFormat()));
+        }
+    }
 }

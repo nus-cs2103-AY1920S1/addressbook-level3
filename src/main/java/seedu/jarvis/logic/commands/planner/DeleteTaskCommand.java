@@ -17,7 +17,7 @@ import seedu.jarvis.model.planner.tasks.Task;
  * Deletes a task from JARVIS
  */
 public class DeleteTaskCommand extends Command {
-    public static final String COMMAND_WORD = "deleteTask";
+    public static final String COMMAND_WORD = "delete-task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a task from the planner. "
             + "Parameters: INDEX (must be a positive integer)\n"

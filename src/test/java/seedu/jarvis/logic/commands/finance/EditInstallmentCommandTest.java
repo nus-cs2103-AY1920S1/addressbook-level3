@@ -9,6 +9,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_DESC_SPOTIFY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_MONEY_EARPHONES;
 import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_MONEY_SPOTIFY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_INSTALLMENT;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_INSTALLMENT;
@@ -47,7 +48,7 @@ public class EditInstallmentCommandTest {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
                 new UserPrefs(), new Planner(), new CoursePlanner());
         model.addInstallment(new InstallmentBuilder().build());
-        model.addInstallment(new InstallmentBuilder().build());
+        model.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
         model.addInstallment(new InstallmentBuilder().build());
     }
 
@@ -81,7 +82,7 @@ public class EditInstallmentCommandTest {
                 getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
 
         expectedModel.addInstallment(new InstallmentBuilder().build());
-        expectedModel.addInstallment(new InstallmentBuilder().build());
+        expectedModel.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.setInstallment(model.getFilteredInstallmentList().get(0), editedInstallment);
 
@@ -114,7 +115,7 @@ public class EditInstallmentCommandTest {
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
                 getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
         expectedModel.addInstallment(new InstallmentBuilder().build());
-        expectedModel.addInstallment(new InstallmentBuilder().build());
+        expectedModel.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
 
         expectedModel.setInstallment(lastInstallment, editedInstallment);
@@ -135,7 +136,7 @@ public class EditInstallmentCommandTest {
                 getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
 
         expectedModel.addInstallment(new InstallmentBuilder().build());
-        expectedModel.addInstallment(new InstallmentBuilder().build());
+        expectedModel.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
 
         assertCommandFailure(editInstallmentCommand, model, expectedMessage);
@@ -146,7 +147,7 @@ public class EditInstallmentCommandTest {
         Installment firstInstallment = model.getInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
         EditInstallmentDescriptor descriptor =
                 new EditInstallmentDescriptorBuilder(firstInstallment).build();
-        EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_SECOND_INSTALLMENT,
+        EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_FIRST_INSTALLMENT,
                 descriptor);
 
         assertCommandFailure(editInstallmentCommand, model, EditInstallmentCommand.MESSAGE_DUPLICATE_INSTALLMENT);
@@ -161,6 +162,46 @@ public class EditInstallmentCommandTest {
         EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editInstallmentCommand, model, Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
+    }
+
+    /**
+     * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
+     * execution, that the edited installment had its edits reversed back in the finance tracker.
+     */
+    @Test
+    public void executeInverse_success() {
+        Installment originalInstallment = model
+                .getFilteredInstallmentList()
+                .get(INDEX_SECOND_INSTALLMENT.getZeroBased());
+
+        Installment editedInstallment = new InstallmentBuilder()
+                .withDescription(
+                        VALID_DESC_EARPHONES)
+                .withMoneySpent(
+                        VALID_MONEY_EARPHONES)
+                .build();
+
+        EditInstallmentDescriptor descriptor =
+                new EditInstallmentDescriptorBuilder()
+                        .withDescription(VALID_DESC_EARPHONES)
+                        .withSubscriptionFee(VALID_MONEY_EARPHONES)
+                        .build();
+
+        EditInstallmentCommand editInstallmentCommand = new EditInstallmentCommand(INDEX_SECOND_INSTALLMENT,
+                descriptor);
+        String expectedMessage = String.format(EditInstallmentCommand.MESSAGE_EDIT_INSTALLMENT_SUCCESS,
+                editedInstallment);
+        Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
+                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getPlanner(), model.getCoursePlanner());
+        expectedModel.setInstallment(originalInstallment, editedInstallment);
+
+        assertCommandSuccess(editInstallmentCommand, model, expectedMessage, expectedModel);
+        String inverseExpectedMessage = String.format(
+                EditInstallmentCommand.MESSAGE_INVERSE_SUCCESS_REVERSE, originalInstallment);
+
+        expectedModel.setInstallment(editedInstallment, originalInstallment);
+        assertCommandInverseSuccess(editInstallmentCommand, model, inverseExpectedMessage, expectedModel);
     }
 
     @Test

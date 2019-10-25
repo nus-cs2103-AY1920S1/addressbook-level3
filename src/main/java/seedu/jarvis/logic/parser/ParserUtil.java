@@ -24,11 +24,6 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.financetracker.MonthlyLimit;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
-import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
-import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
@@ -118,78 +113,6 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
-    }
-
-    /**
-     * Parses a {@code String description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static InstallmentDescription parseInstallmentDescription(String description) throws ParseException {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-        if (!InstallmentDescription.isValidDescription(trimmedDescription)) {
-            throw new ParseException(InstallmentDescription.MESSAGE_CONSTRAINTS);
-        }
-        return new InstallmentDescription(trimmedDescription);
-    }
-
-    /**
-     * Parses a {@code String description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code money} is invalid.
-     */
-    public static InstallmentMoneyPaid parseInstallmentMoneySpent(String money) throws ParseException {
-        requireNonNull(money);
-        String trimmedMoney = money.trim();
-        if (!InstallmentMoneyPaid.isValidAmount(trimmedMoney)) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
-        return new InstallmentMoneyPaid(trimmedMoney);
-    }
-
-    /**
-     * Parses a {@code String description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static PurchaseDescription parsePurchaseDescription(String description) {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-        return new PurchaseDescription(trimmedDescription);
-    }
-
-    /**
-     * Parses a {@code String moneySpent}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static PurchaseMoneySpent parsePurchaseAmount(String moneySpent) throws ParseException {
-        requireNonNull(moneySpent);
-        String trimmedMoney = moneySpent.trim();
-        if (Double.parseDouble(moneySpent) < 0) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
-        return new PurchaseMoneySpent(trimmedMoney);
-    }
-
-    /**
-     * Parses a {@code String moneySpent}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static MonthlyLimit parseMonthlyLimit(String limit) throws ParseException {
-        requireNonNull(limit);
-        String trimmedLimit = limit.trim();
-        if (Double.parseDouble(limit) < 0) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
-        return new MonthlyLimit(limit);
     }
 
     /**

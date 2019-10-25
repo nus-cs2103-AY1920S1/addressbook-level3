@@ -60,7 +60,7 @@ class AddTaskCommandTest {
         AddTaskCommand command = new AddTaskCommand(t);
         String actualCommand = command.getCommandWord();
 
-        assertEquals("addTask", actualCommand);
+        assertEquals("add-task", actualCommand);
 
     }
 }

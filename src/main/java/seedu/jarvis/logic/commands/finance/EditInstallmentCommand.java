@@ -39,6 +39,9 @@ public class EditInstallmentCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists in your list.";
 
+    public static final String MESSAGE_INVERSE_SUCCESS_REVERSE = "Reversed editing on installment: %1$s";
+    public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment already deleted: %1$s";
+
     public static final boolean HAS_INVERSE = true;
 
     private final Index index;
@@ -48,6 +51,8 @@ public class EditInstallmentCommand extends Command {
     private Installment editedInstallment;
 
     /**
+     * Creates a {@code EditInstallmentCommand} to edit the specified {@code Installment}.
+     *
      * @param index of the installment in the installment list to edit
      * @param editInstallmentDescriptor details to edit the installment with
      */
@@ -109,8 +114,8 @@ public class EditInstallmentCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Installment} with the details of {@code installmentToEdit}
+     * edited with {@code editInstallmentDescriptor}.
      */
     private static Installment createEditedInstallment(Installment installmentToEdit,
                                              EditInstallmentDescriptor editInstallmentDescriptor) {
@@ -124,6 +129,28 @@ public class EditInstallmentCommand extends Command {
                 .orElse(installmentToEdit.getMoneySpentOnInstallment());
 
         return new Installment(description, moneyPaid);
+    }
+
+    /**
+     * Reverses the edits done to {@code Installment} from the finance tracker that was edited by this command's
+     * execution if the installment is still in the finance tracker
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} that installment was changed back if installment was in the finance tracker,
+     * else {@code CommandResult} that the installment was already not in the finance tracker
+     * @throws CommandException If installment to be edited is not found in the finance tracker
+     */
+    @Override
+    public CommandResult executeInverse(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (!model.hasInstallment(editedInstallment)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND, editedInstallment));
+        }
+
+        model.setInstallment(editedInstallment, originalInstallment);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_REVERSE, originalInstallment));
     }
 
     @Override
@@ -142,11 +169,6 @@ public class EditInstallmentCommand extends Command {
         EditInstallmentCommand e = (EditInstallmentCommand) other;
         return index.equals(e.index)
                 && editInstallmentDescriptor.equals(e.editInstallmentDescriptor);
-    }
-
-    @Override
-    public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
     }
 
     /**

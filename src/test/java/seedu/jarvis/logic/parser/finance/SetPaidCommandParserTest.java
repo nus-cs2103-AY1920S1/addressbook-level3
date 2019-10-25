@@ -7,7 +7,7 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.PURCHASE_DESC_LUNCH;
 import static seedu.jarvis.logic.commands.CommandTestUtil.PURCHASE_MONEY_LUNCH;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.jarvis.logic.parser.ParserUtil.MONEY_MESSAGE_CONSTRAINTS;
+import static seedu.jarvis.logic.parser.finance.FinanceParserUtil.MONEY_MESSAGE_CONSTRAINTS;
 
 import org.junit.jupiter.api.Test;
 
