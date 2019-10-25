@@ -40,6 +40,8 @@ public class LendLogEntryCard extends UiPart<Region> {
     private FlowPane cats;
     @FXML
     private Label to;
+    @FXML
+    private Label status;
 
     public LendLogEntryCard(LendLogEntry logEntry, int displayedIndex) {
         super(FXML);
@@ -52,6 +54,8 @@ public class LendLogEntryCard extends UiPart<Region> {
         logEntry.getCategories().stream()
                 .forEach(cat -> cats.getChildren().add(new Label(cat.catName)));
         to.setText(logEntry.getTo().name);
+        Boolean isRepaid = logEntry.isRepaid();
+        status.setText(isRepaid ? "repaid" : "LOAN SHARK TIME");
     }
 
     @Override

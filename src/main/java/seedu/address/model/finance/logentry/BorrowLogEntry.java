@@ -4,7 +4,6 @@ import java.util.Set;
 
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
-import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
@@ -22,18 +21,16 @@ public class BorrowLogEntry extends LogEntry {
 
     // Fields
     private final Person from; // person borrowed from
-    private Deadline deadline;
 
     /**
      * Every field must be present and not null.
      */
     public BorrowLogEntry(Amount amount, TransactionDate transactionDate, Description description,
                           TransactionMethod transactionMethod, Set<Category> categories,
-                          Person from, Deadline deadline) {
+                          Person from) {
         super(amount, transactionDate, description,
                 transactionMethod, categories);
         this.from = from;
-        this.deadline = deadline;
         this.isRepaid = false;
     }
 
@@ -43,10 +40,6 @@ public class BorrowLogEntry extends LogEntry {
 
     public Person getFrom() {
         return from;
-    }
-
-    public Deadline getDeadline() {
-        return deadline;
     }
 
     public boolean isRepaid() {
@@ -74,7 +67,6 @@ public class BorrowLogEntry extends LogEntry {
                 && otherLogEntry.getTransactionMethod().equals(getTransactionMethod())
                 && otherLogEntry.getCategories().equals(getCategories())
                 && otherLogEntry.getFrom().equals(getFrom())
-                && otherLogEntry.getDeadline().equals(getDeadline())
                 && (otherLogEntry.isRepaid() == isRepaid());
     }
 
@@ -91,8 +83,6 @@ public class BorrowLogEntry extends LogEntry {
                 .append(getTransactionMethod())
                 .append(" From: ")
                 .append(getFrom())
-                .append(" Deadline: ")
-                .append(getDeadline())
                 .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();

@@ -16,6 +16,4 @@ public class FinanceCliSyntax {
     public static final Prefix PREFIX_PLACE = new Prefix("<place>");
     public static final Prefix PREFIX_FROM = new Prefix("<from>");
     public static final Prefix PREFIX_TO = new Prefix("<to>");
-    public static final Prefix PREFIX_DEADLINE = new Prefix("<deadline>");
-
 }
