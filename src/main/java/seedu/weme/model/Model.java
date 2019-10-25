@@ -142,6 +142,30 @@ public interface Model {
      */
     void setMeme(Meme target, Meme editedMeme);
 
+    /**
+     * Returns true if a template with the same identity as {@code template} exists in Weme.
+     */
+    boolean hasTemplate(Template template);
+
+    /**
+     * Deletes the given template.
+     * The template must exist in Weme.
+     */
+    void deleteTemplate(Template template);
+
+    /**
+     * Adds the given template.
+     * {@code template} must not already exist in Weme.
+     */
+    void addTemplate(Template template);
+
+    /**
+     * Replaces the given template {@code target} with {@code editedTemplate}.
+     * {@code target} must exist in Weme.
+     * The template identity of {@code editedTemplate} must not be the same as another existing template in Weme.
+     */
+    void setTemplate(Template target, Template editedTemplate);
+
     /** Returns an unmodifiable view of the filtered meme list */
     ObservableList<Meme> getFilteredMemeList();
 

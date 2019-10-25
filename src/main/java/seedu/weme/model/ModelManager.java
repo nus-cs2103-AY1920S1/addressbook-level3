@@ -196,6 +196,28 @@ public class ModelManager implements Model {
         versionedWeme.unstageMeme(meme);
     }
 
+    @Override
+    public boolean hasTemplate(Template template) {
+        requireNonNull(template);
+        return versionedWeme.hasTemplate(template);
+    }
+
+    @Override
+    public void deleteTemplate(Template template) {
+        versionedWeme.removeTemplate(template);
+    }
+
+    @Override
+    public void addTemplate(Template template) {
+        versionedWeme.addTemplate(template);
+        updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+    }
+
+    @Override
+    public void setTemplate(Template target, Template editedTemplate) {
+        requireAllNonNull(target, editedTemplate);
+        versionedWeme.setTemplate(target, editedTemplate);
+    }
 
     //=========== Filtered Meme/Template List Accessors =============================================================
 
