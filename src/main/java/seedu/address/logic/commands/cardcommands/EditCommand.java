@@ -78,7 +78,7 @@ public class EditCommand extends CardCommand {
 
         model.setCard(cardToEdit, editedCard);
         model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
+        return new CardCommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
     }
 
     /**

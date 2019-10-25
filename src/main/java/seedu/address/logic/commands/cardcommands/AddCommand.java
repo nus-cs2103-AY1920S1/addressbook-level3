@@ -47,7 +47,7 @@ public class AddCommand extends CardCommand {
         }
 
         model.addCard(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CardCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

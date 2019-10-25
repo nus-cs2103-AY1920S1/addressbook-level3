@@ -35,7 +35,7 @@ public class CreateCommand extends HomeCommand {
     public HomeCommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.hasWordBank(wordBankName)) {
-            throw new CommandException(Messages.MESSAGE__INVALID_WORD_BANK_NAME);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
         }
         return new CreateCommandResult(String.format(MESSAGE_SUCCESS, wordBankName), wordBankName);
     }

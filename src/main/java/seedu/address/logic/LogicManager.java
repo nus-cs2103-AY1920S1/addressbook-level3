@@ -17,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.cardcommands.CardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.homecommands.*;
 import seedu.address.logic.parser.ParserManager;
@@ -80,6 +81,11 @@ public class LogicManager implements Logic, UiLogicHelper {
             if (commandResult instanceof HomeCommandResult) {
                 HomeCommandResult homeCommandResult = (HomeCommandResult) commandResult;
                 homeCommandResult.updateStorage(storage);
+            }
+
+            if (commandResult instanceof CardCommandResult) {
+                CardCommandResult cardCommandResult = (CardCommandResult) commandResult;
+                cardCommandResult.updateStorage(storage, (WordBank) model.getWordBank());
             }
 
 //            ReadOnlyWordBank wb = model.getWordBank();

@@ -140,7 +140,6 @@ public interface Model {
 
     boolean hasWordBank(String name);
 
-
     DifficultyEnum getCurrentGameDifficulty();
 
     /**

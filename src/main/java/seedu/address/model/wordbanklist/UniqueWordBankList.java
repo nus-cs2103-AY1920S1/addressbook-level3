@@ -40,10 +40,12 @@ public class UniqueWordBankList implements Iterable<WordBank> {
 
     /**
      * Returns true if the list contains a WordBank with the same name.
+     * Similar to contains(WordBank toCheck), just different parameters.
      */
     public boolean contains(String toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        WordBank temp = new WordBank(toCheck);
+        return internalList.stream().anyMatch(temp::isSameName);
     }
 
     /**

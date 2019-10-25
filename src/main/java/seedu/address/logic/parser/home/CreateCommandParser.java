@@ -24,7 +24,7 @@ public class CreateCommandParser implements Parser<CreateCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
         }
-        return new CreateCommand(name);
+        return new CreateCommand(trimmedArgs);
     }
 
 }

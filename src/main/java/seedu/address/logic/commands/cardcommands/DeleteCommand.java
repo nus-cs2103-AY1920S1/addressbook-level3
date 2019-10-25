@@ -44,7 +44,7 @@ public class DeleteCommand extends CardCommand {
 
         Card cardToDelete = cardList.get(targetIndex.getZeroBased());
         model.deleteCard(cardToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_CARD_SUCCESS, cardToDelete));
+        return new CardCommandResult(String.format(MESSAGE_DELETE_CARD_SUCCESS, cardToDelete));
     }
 
     @Override
