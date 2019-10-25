@@ -64,7 +64,7 @@ enum Responses {
         System.out.println("No path specified, e.g. import ~/Desktop/file.json");
         return true;
     }),
-    EXPORT("(?i)^ex(port)?(\\s)+deck/(\\s)*.+(\\s)+path/(\\s)*.+", (commandInput, programState) -> {
+    EXPORT("(?i)^exp(ort)?(\\s)+deck/(\\s)*.+(\\s)+path/(\\s)*.+", (commandInput, programState) -> {
         System.out.println("Current command is EXPORT");
 
         String[] parts = commandInput.split("deck/")[1].split("path/");
@@ -80,11 +80,11 @@ enum Responses {
 
         return true;
     }),
-    EXPORT_NO_PATH("(?i)^ex(port)?(\\s)+deck/(\\s)*.+", (commandInput, programState) -> {
+    EXPORT_NO_PATH("(?i)^exp(ort)?(\\s)+deck/(\\s)*.+", (commandInput, programState) -> {
         System.out.println("No path specified, e.g. export deck/ deckName path/ ~/Desktop");
         return true;
     }),
-    EXPORT_NO_DECK("(?i)^ex(port)?.*", (commandInput, programState) -> {
+    EXPORT_NO_DECK("(?i)^exp(ort)?.*", (commandInput, programState) -> {
         System.out.println("No deck specified, e.g. export deck/ deckName path/ ~/Desktop");
         return true;
     }),
