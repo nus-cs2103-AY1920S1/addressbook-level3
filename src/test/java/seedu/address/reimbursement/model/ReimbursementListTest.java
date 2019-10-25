@@ -1,0 +1,115 @@
+package seedu.address.reimbursement.model;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
+import seedu.address.testutil.ReimbursementBuilder;
+import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TypicalDeadlines;
+import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTransactions;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.util.TransactionList;
+
+public class ReimbursementListTest {
+    @Test
+    public void default_constructor() {
+        ReimbursementList reimbursementList = new ReimbursementList();
+        assertEquals(new ArrayList<Reimbursement>(), reimbursementList.getList());
+    }
+
+    @Test
+    public void constructor_from_transaction_list() {
+        TransactionList transList = new TransactionList();
+        transList.add(TypicalTransactions.ALICE_TRANSACTION_10);
+        transList.add(TypicalTransactions.ALICE_TRANSACTION_12);
+        transList.add(TypicalTransactions.ELLE_TRANSACTION_11);
+        ReimbursementList list = new ReimbursementList(transList);
+
+        assertEquals(-50, list.get(0).getAmount());
+
+        assertEquals(2, list.size());
+    }
+
+    @Test
+    public void update_find_done_person_reimbursement() {
+        Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
+        Reimbursement reimbursement = new ReimbursementBuilder(transaction).build();
+
+        ArrayList<Reimbursement> arrList = new ArrayList<>();
+        arrList.add(reimbursement);
+
+        ReimbursementList list = new ReimbursementList(arrList);
+
+        list.updatePerson(TypicalPersons.BOB, TypicalPersons.ALICE);
+        assertEquals(TypicalPersons.BOB, list.get(0).getPerson());
+
+        Reimbursement found = null;
+        try {
+            found = list.findReimbursement(TypicalPersons.BOB);
+        } catch (NoSuchPersonReimbursementException e) {
+            fail();
+        }
+        assertEquals(found, reimbursement);
+
+        try {
+            found = list.findReimbursement(TypicalPersons.ELLE);
+        } catch (NoSuchPersonReimbursementException e) {
+            assertTrue(true);
+        }
+
+        try {
+            found = list.doneReimbursement(TypicalPersons.BOB);
+        } catch (NoSuchPersonReimbursementException e) {
+            fail();
+        }
+        assertEquals(0, list.size());
+
+    }
+
+    @Test
+    public void sort_reimbursements_to_string() {
+        Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
+        Transaction transactionBob = new TransactionBuilder(TypicalPersons.BOB).withAmount(-20).build();
+        Reimbursement reimbursementAlice = new ReimbursementBuilder(transactionAlice).build();
+        Reimbursement reimbursementBob = new ReimbursementBuilder(transactionBob).build();
+
+        ArrayList<Reimbursement> arrList
+                = new ArrayList<>(Arrays.asList(reimbursementAlice, reimbursementBob));
+        ReimbursementList list = new ReimbursementList(arrList);
+
+        list.sortByAmount();
+        assertEquals(reimbursementBob, list.get(0));
+
+        list.sortByName();
+        assertEquals(reimbursementAlice, list.get(0));
+
+        try {
+            list.addDeadline(TypicalPersons.BOB, TypicalDeadlines.DEC_DEADLINE);
+            list.sortByDeadline();
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(reimbursementBob, list.get(0));
+
+        try {
+            list.addDeadline(TypicalPersons.ALICE, TypicalDeadlines.NOV_DEADLINE);
+            list.sortByDeadline();
+        } catch (Exception e) {
+            fail();
+        }
+        assertEquals(reimbursementAlice, list.get(0));
+
+        assertEquals(reimbursementAlice.toString() + reimbursementBob.toString(), list.toString());
+    }
+
+}

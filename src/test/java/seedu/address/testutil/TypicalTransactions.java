@@ -55,6 +55,8 @@ public class TypicalTransactions {
             .build();
     public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(9).withAmount(44.0).build();
+
+    //Transactions for reimbursements
     public static final Transaction ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(10)
             .withAmount(-20.0)
