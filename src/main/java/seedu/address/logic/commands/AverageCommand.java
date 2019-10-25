@@ -77,9 +77,4 @@ public class AverageCommand extends Command {
                 && recordType.equals(((AverageCommand) other).recordType)
                 && count == ((AverageCommand) other).count);
     }
-
-    @Override
-    public boolean getnewPaneIsToBeCreated() {
-        return true;
-    }
 }
