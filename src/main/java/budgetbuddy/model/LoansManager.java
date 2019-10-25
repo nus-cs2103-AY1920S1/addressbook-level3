@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.LoanSplit;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
@@ -29,9 +29,9 @@ public class LoansManager {
     /**
      * A list to store the results of the {@code loan split} command.
      */
-    private final ObservableList<LoanSplit> splitList = FXCollections.observableArrayList();
-    private final ObservableList<LoanSplit> unmodifiableSplitList =
-            FXCollections.unmodifiableObservableList(splitList);
+    private final ObservableList<Debtor> debtors = FXCollections.observableArrayList();
+    private final ObservableList<Debtor> unmodifiableDebtors =
+            FXCollections.unmodifiableObservableList(debtors);
 
     public LoansManager() {}
 
@@ -152,21 +152,21 @@ public class LoansManager {
         return Comparator.comparing(loan -> loan.getPerson().getName().toString());
     }
 
-    //========================================= Split Methods ===========================================
+    //========================================= Split/Debtor Methods ===================================
 
     /**
-     * Sets the elements of the split list to the given split list.
+     * Sets the elements of the list of debtors to the given list of debtors.
      */
-    public void setSplitList(List<LoanSplit> splitList) {
-        requireNonNull(splitList);
-        this.splitList.setAll(splitList);
+    public void setDebtors(List<Debtor> debtors) {
+        requireNonNull(debtors);
+        this.debtors.setAll(debtors);
     }
 
     /**
-     * Returns the split list as an unmodifiable {@code ObservableList}.
+     * Returns an unmodifiable {@code ObservableList} of the list of debtors.
      */
-    public ObservableList<LoanSplit> getSplitList() {
-        return unmodifiableSplitList;
+    public ObservableList<Debtor> getDebtors() {
+        return unmodifiableDebtors;
     }
 
     @Override

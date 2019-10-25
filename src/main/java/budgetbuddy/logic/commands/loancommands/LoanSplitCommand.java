@@ -4,12 +4,13 @@ import static budgetbuddy.commons.util.CollectionUtil.hasDuplicates;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
@@ -17,7 +18,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
-import budgetbuddy.model.loan.LoanSplit;
+import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
@@ -47,7 +48,11 @@ public class LoanSplitCommand extends Command {
     public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
     public static final String MESSAGE_ALREADY_SPLIT = "The amounts have already been split equally.";
 
+    public static final String MESSAGE_CALCULATION_ERROR = "An error occurred during calculation.";
+
     private HashMap<Person, Amount> personAmountMap;
+
+    private List<DebtorCreditorAmount> debtorCreditorAmountList;
 
     /**
      * Constructs a hash map with a person as the key and the amount they paid as the value.
@@ -84,7 +89,7 @@ public class LoanSplitCommand extends Command {
         long perPerson = totalAmount / personAmountMap.size();
 
         List<Participant> participants = new ArrayList<Participant>();
-        for (Map.Entry<Person, Amount> personAmountEntry : personAmountMap.entrySet()) {
+        for (Entry<Person, Amount> personAmountEntry : personAmountMap.entrySet()) {
             long amountPaid = personAmountEntry.getValue().toLong();
             long balance = amountPaid - perPerson;
             participants.add(new Participant(personAmountEntry.getKey(), balance));
@@ -95,24 +100,26 @@ public class LoanSplitCommand extends Command {
         }
 
         Comparator<Participant> sortBalanceIncreasing = Comparator.comparingLong(Participant::getBalance);
-        List<LoanSplit> splitList = calculateSplitList(participants, sortBalanceIncreasing);
+        calculateSplitList(participants, sortBalanceIncreasing);
+        List<Debtor> debtors = constructDebtorsList();
 
         LoansManager loansManager = model.getLoansManager();
-        loansManager.setSplitList(splitList);
-        return new CommandResult(loansManager.getSplitList().toString(), CommandCategory.LOAN_SPLIT);
+        loansManager.setDebtors(debtors);
+        return new CommandResult(MESSAGE_SUCCESS, CommandCategory.LOAN_SPLIT);
     }
 
     /**
-     * Constructs a list of {@code LoanSplit} objects, indicating which person owes which person what amount.
+     * Fills the {@code DebtorCreditorAmount} list.
+     * @see DebtorCreditorAmount
      * @param participants The list of particpants to calculate the debts from.
      * @param balanceIncreasing A {@code Comparator} to sort participants in order of increasing balance.
-     * @return The list of {@code LoanSplit} objects.
      */
-    private List<LoanSplit> calculateSplitList(
+    private void calculateSplitList(
             List<Participant> participants, Comparator<Participant> balanceIncreasing) {
         requireAllNonNull(participants, balanceIncreasing);
 
-        List<LoanSplit> splitList = new ArrayList<LoanSplit>();
+        debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
+
         while (participants.size() > 1) {
             participants.sort(balanceIncreasing); // participants MUST be sorted in the order of increasing balance
 
@@ -140,11 +147,35 @@ public class LoanSplitCommand extends Command {
             }
 
             if (amountTransferred != 0) {
-                splitList.add(new LoanSplit(debtor.getPerson(), creditor.getPerson(), new Amount(amountTransferred)));
+                debtorCreditorAmountList.add(
+                        new DebtorCreditorAmount(
+                                debtor.person, creditor.person, new Amount(amountTransferred)));
             }
         }
+    }
 
-        return splitList;
+    /**
+     * Constructs and returns a list of {@code Debtor} objects using {@code debtorCreditorAmountList}.
+     */
+    private List<Debtor> constructDebtorsList() {
+        requireNonNull(debtorCreditorAmountList);
+
+        debtorCreditorAmountList.sort(Comparator.comparing(dca -> dca.debtor.getName().toString()));
+
+        List<Debtor> debtors = new ArrayList<Debtor>();
+
+        Person currDebtor = debtorCreditorAmountList.get(0).debtor;
+        HashMap<Person, Amount> currCreditors = new HashMap<Person, Amount>();
+        for (DebtorCreditorAmount dca : debtorCreditorAmountList) {
+            if (!dca.debtor.equals(currDebtor)) {
+                debtors.add(new Debtor(currDebtor, currCreditors));
+                currDebtor = dca.debtor;
+                currCreditors.clear();
+            }
+            currCreditors.put(dca.creditor, dca.amount);
+        }
+
+        return debtors;
     }
 
     @Override
@@ -167,16 +198,12 @@ public class LoanSplitCommand extends Command {
      */
     private class Participant {
 
-        private final Person person;
+        public final Person person;
         private long balance;
 
         public Participant(Person person, long balance) {
             this.person = person;
             this.balance = balance;
-        }
-
-        public Person getPerson() {
-            return person;
         }
 
         public long getBalance() {
@@ -205,6 +232,22 @@ public class LoanSplitCommand extends Command {
             Participant otherParticipant = (Participant) other;
             return person.equals(otherParticipant.person)
                     && balance == otherParticipant.balance;
+        }
+    }
+
+    /**
+     * A utility class containing information about a debtor and the money they owe to a creditor.
+     */
+    private static class DebtorCreditorAmount {
+
+        public final Person debtor;
+        public final Person creditor;
+        public final Amount amount;
+
+        public DebtorCreditorAmount(Person debtor, Person creditor, Amount amount) {
+            this.debtor = debtor;
+            this.creditor = creditor;
+            this.amount = amount;
         }
     }
 }
