@@ -12,4 +12,10 @@ public class AmountComparator implements Comparator<BankAccountOperation> {
     public int compare(BankAccountOperation t1, BankAccountOperation t2) {
         return t1.getAmount().compareTo(t2.getAmount());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj
+            || obj instanceof AmountComparator;
+    }
 }
