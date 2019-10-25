@@ -12,9 +12,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.weme.commons.util.FileUtil;
-import seedu.weme.model.MemeBook;
-import seedu.weme.model.ReadOnlyMemeBook;
 import seedu.weme.model.ReadOnlyUserPrefs;
+import seedu.weme.model.ReadOnlyWeme;
+import seedu.weme.model.Weme;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
@@ -23,7 +23,7 @@ import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 
 /**
- * Contains utility methods for populating {@code MemeBook} with sample data.
+ * Contains utility methods for populating {@code Weme} with sample data.
  */
 public class SampleDataUtil {
     public static List<Meme> getSampleMemes(ReadOnlyUserPrefs userPrefs) {
@@ -108,8 +108,8 @@ public class SampleDataUtil {
         return copiedTemplates;
     }
 
-    public static ReadOnlyMemeBook getSampleMemeBook(ReadOnlyUserPrefs userPrefs) {
-        MemeBook sampleMb = new MemeBook();
+    public static ReadOnlyWeme getSampleWeme(ReadOnlyUserPrefs userPrefs) {
+        Weme sampleMb = new Weme();
         for (Meme sampleMeme : getSampleMemes(userPrefs)) {
             sampleMb.addMeme(sampleMeme);
         }

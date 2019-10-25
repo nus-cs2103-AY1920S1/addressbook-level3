@@ -3,7 +3,7 @@ package seedu.weme.logic.commands;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.showMemeAtIndex;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
-import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for MemeListCommand.
@@ -23,8 +22,8 @@ public class MemeListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
-        expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+        expectedModel = new ModelManager(model.getWeme(), new UserPrefs());
     }
 
     @Test

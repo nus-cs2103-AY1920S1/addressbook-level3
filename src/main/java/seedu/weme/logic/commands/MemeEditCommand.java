@@ -22,7 +22,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 
 /**
- * Edits the details of an existing meme in the meme book.
+ * Edits the details of an existing meme in weme.
  */
 public class MemeEditCommand extends Command {
 
@@ -74,7 +74,7 @@ public class MemeEditCommand extends Command {
         }
 
         model.setMeme(memeToEdit, editedMeme);
-        model.commitMemeBook();
+        model.commitWeme();
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
         return new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
     }

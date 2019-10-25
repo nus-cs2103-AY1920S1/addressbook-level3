@@ -7,7 +7,7 @@ import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
 
 /**
- * Reverts the {@code model}'s meme book to its previous state.
+ * Reverts the {@code model}'s weme to its previous state.
  */
 public class UndoCommand extends Command {
 
@@ -20,11 +20,11 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoMemeBook()) {
+        if (!model.canUndoWeme()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoMemeBook();
+        model.undoWeme();
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
         return new CommandResult(MESSAGE_SUCCESS);
     }

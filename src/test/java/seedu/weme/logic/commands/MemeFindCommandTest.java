@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.commons.core.Messages.MESSAGE_MEMES_LISTED_OVERVIEW;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,14 +16,13 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
-import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code MemeFindCommand}.
  */
 public class MemeFindCommandTest {
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
-    private Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
 
     @Test
     public void equals() {

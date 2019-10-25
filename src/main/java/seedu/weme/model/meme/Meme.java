@@ -11,7 +11,7 @@ import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**
- * Represents a Meme in the meme book.
+ * Represents a Meme in weme.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Meme {

@@ -11,19 +11,18 @@ import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.showMemeAtIndex;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND_MEME;
-import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
-import seedu.weme.model.MemeBook;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
+import seedu.weme.model.Weme;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.StatsManager;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 import seedu.weme.testutil.MemeBuilder;
 
@@ -33,7 +32,7 @@ import seedu.weme.testutil.MemeBuilder;
  */
 public class MemeEditCommandTest {
 
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
 
 
     @Test
@@ -44,10 +43,9 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
-                new UserPrefs(), new StatsManager());
+        Model expectedModel = new ModelManager(new Weme(model.getWeme()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
-        expectedModel.commitMemeBook();
+        expectedModel.commitWeme();
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -68,7 +66,7 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Weme(model.getMemeBook()), new UserPrefs());
         expectedModel.setMeme(lastMeme, editedMeme);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -82,9 +80,8 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()), new UserPrefs(),
-                new StatsManager());
-        expectedModel.commitMemeBook();
+        Model expectedModel = new ModelManager(new Weme(model.getWeme()), new UserPrefs());
+        expectedModel.commitWeme();
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -100,10 +97,9 @@ public class MemeEditCommandTest {
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
-        Model expectedModel = new ModelManager(new MemeBook(model.getMemeBook()),
-                new UserPrefs(), new StatsManager());
+        Model expectedModel = new ModelManager(new Weme(model.getWeme()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
-        expectedModel.commitMemeBook();
+        expectedModel.commitWeme();
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -121,8 +117,8 @@ public class MemeEditCommandTest {
     public void execute_duplicateMemeFilteredList_failure() {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
-        // edit meme in filtered list into a duplicate in meme book
-        Meme memeInList = model.getMemeBook().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
+        // edit meme in filtered list into a duplicate in weme
+        Meme memeInList = model.getWeme().getMemeList().get(INDEX_SECOND_MEME.getZeroBased());
         MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_FIRST_MEME,
                 new EditMemeDescriptorBuilder(memeInList).build());
 
@@ -140,14 +136,14 @@ public class MemeEditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of meme book
+     * but smaller than size of weme
      */
     @Test
     public void execute_invalidMemeIndexFilteredList_failure() {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
         Index outOfBoundIndex = INDEX_SECOND_MEME;
-        // ensures that outOfBoundIndex is still in bounds of meme book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
+        // ensures that outOfBoundIndex is still in bounds of weme list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getWeme().getMemeList().size());
 
         MemeEditCommand memeEditCommand = new MemeEditCommand(outOfBoundIndex,
                 new EditMemeDescriptorBuilder().withFilePath(VALID_FILEPATH_JOKER).build());

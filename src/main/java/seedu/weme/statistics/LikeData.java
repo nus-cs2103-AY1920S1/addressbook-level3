@@ -20,6 +20,11 @@ public class LikeData {
         likeMap = FXCollections.observableMap(new HashMap<>());
     }
 
+    public LikeData(ObservableMap<String, Integer> likeMap) {
+        this();
+        setLikeMap(likeMap);
+    }
+
     /**
      * Sets the current set of {@code LikeData} with a replacement.
      */

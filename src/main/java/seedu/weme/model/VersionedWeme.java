@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@code MemeBook} that keeps track of it's previous states.
+ * {@code Weme} that keeps track of it's previous states.
  */
-public class VersionedMemeBook extends MemeBook {
+public class VersionedWeme extends Weme {
 
-    private final List<ReadOnlyMemeBook> versionedMemeBookStates;
+    private final List<ReadOnlyWeme> versionedWemeStates;
     private int stateIndex = 0;
 
-    public VersionedMemeBook(ReadOnlyMemeBook initialState) {
+    public VersionedWeme(ReadOnlyWeme initialState) {
         super(initialState);
 
-        versionedMemeBookStates = new ArrayList<>();
-        versionedMemeBookStates.add(new MemeBook(initialState));
+        versionedWemeStates = new ArrayList<>();
+        versionedWemeStates.add(new Weme(initialState));
     }
 
     /**
@@ -29,7 +29,7 @@ public class VersionedMemeBook extends MemeBook {
      * Returns true if has previously undone states to redo to.
      */
     public boolean canRedo() {
-        return stateIndex < versionedMemeBookStates.size() - 1;
+        return stateIndex < versionedWemeStates.size() - 1;
     }
 
     /**
@@ -37,31 +37,31 @@ public class VersionedMemeBook extends MemeBook {
      * Wipes previously undone states.
      */
     public void commit() {
-        versionedMemeBookStates.subList(stateIndex + 1, versionedMemeBookStates.size()).clear();
-        versionedMemeBookStates.add(new MemeBook(this));
+        versionedWemeStates.subList(stateIndex + 1, versionedWemeStates.size()).clear();
+        versionedWemeStates.add(new Weme(this));
         stateIndex++;
     }
 
     /**
-     * Restores the meme book to its previous state.
+     * Restores weme to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         stateIndex--;
-        resetData(versionedMemeBookStates.get(stateIndex));
+        resetData(versionedWemeStates.get(stateIndex));
     }
 
     /**
-     * Restores the meme book to its previously undone state.
+     * Restores weme to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         stateIndex++;
-        resetData(versionedMemeBookStates.get(stateIndex));
+        resetData(versionedWemeStates.get(stateIndex));
     }
 
     @Override
@@ -70,15 +70,15 @@ public class VersionedMemeBook extends MemeBook {
             return true;
         }
 
-        if (!(other instanceof VersionedMemeBook)) {
+        if (!(other instanceof VersionedWeme)) {
             return false;
         }
 
-        VersionedMemeBook otherMemeBook = (VersionedMemeBook) other;
+        VersionedWeme otherWeme = (VersionedWeme) other;
 
-        return super.equals(otherMemeBook)
-                && versionedMemeBookStates.equals(otherMemeBook.versionedMemeBookStates)
-                && stateIndex == otherMemeBook.stateIndex;
+        return super.equals(otherWeme)
+                && versionedWemeStates.equals(otherWeme.versionedWemeStates)
+                && stateIndex == otherWeme.stateIndex;
     }
 
     /**

@@ -24,41 +24,38 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
-import seedu.weme.statistics.StatsManager;
 
 /**
- * Represents the in-memory model of the meme book data.
+ * Represents the in-memory model of weme data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedMemeBook versionedMemeBook;
+    private final VersionedWeme versionedWeme;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
     private final FilteredList<Template> filteredTemplates;
-    private final Stats stats;
 
     // ModelContext determines which parser to use at any point of time.
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
 
     /**
-     * Initializes a ModelManager with the given memeBook and userPrefs.
+     * Initializes a ModelManager with the given weme and userPrefs.
      */
-    public ModelManager(ReadOnlyMemeBook memeBook, ReadOnlyUserPrefs userPrefs, Stats stats) {
+    public ModelManager(ReadOnlyWeme weme, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(memeBook, userPrefs);
+        requireAllNonNull(weme, userPrefs);
 
-        logger.fine("Initializing with meme book: " + memeBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with weme: " + weme + " and user prefs " + userPrefs);
 
-        versionedMemeBook = new VersionedMemeBook(memeBook);
+        versionedWeme = new VersionedWeme(weme);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMemes = new FilteredList<>(versionedMemeBook.getMemeList());
-        filteredTemplates = new FilteredList<>(versionedMemeBook.getTemplateList());
-        this.stats = stats;
+        filteredMemes = new FilteredList<>(versionedWeme.getMemeList());
+        filteredTemplates = new FilteredList<>(versionedWeme.getTemplateList());
     }
 
     public ModelManager() {
-        this(new MemeBook(), new UserPrefs(), new StatsManager());
+        this(new Weme(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -118,32 +115,32 @@ public class ModelManager implements Model {
         userPrefs.setTemplateImagePath(templateImagePath);
     }
 
-    //=========== MemeBook ================================================================================
+    //=========== Weme ================================================================================
 
     @Override
-    public void setMemeBook(ReadOnlyMemeBook memeBook) {
-        this.versionedMemeBook.resetData(memeBook);
+    public void setWeme(ReadOnlyWeme weme) {
+        this.versionedWeme.resetData(weme);
     }
 
     @Override
-    public ReadOnlyMemeBook getMemeBook() {
-        return versionedMemeBook;
+    public ReadOnlyWeme getWeme() {
+        return versionedWeme;
     }
 
     @Override
     public boolean hasMeme(Meme meme) {
         requireNonNull(meme);
-        return versionedMemeBook.hasMeme(meme);
+        return versionedWeme.hasMeme(meme);
     }
 
     @Override
     public void deleteMeme(Meme target) {
-        versionedMemeBook.removeMeme(target);
+        versionedWeme.removeMeme(target);
     }
 
     @Override
     public void addMeme(Meme meme) {
-        versionedMemeBook.addMeme(meme);
+        versionedWeme.addMeme(meme);
         updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
     }
 
@@ -151,14 +148,14 @@ public class ModelManager implements Model {
     public void setMeme(Meme target, Meme editedMeme) {
         requireAllNonNull(target, editedMeme);
 
-        versionedMemeBook.setMeme(target, editedMeme);
+        versionedWeme.setMeme(target, editedMeme);
     }
 
     //=========== Filtered Meme/Template List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Meme} backed by the internal list of
-     * {@code versionedMemeBook}
+     * {@code versionedWeme}
      */
     @Override
     public ObservableList<Meme> getFilteredMemeList() {
@@ -193,62 +190,62 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean canUndoMemeBook() {
-        return versionedMemeBook.canUndo();
+    public boolean canUndoWeme() {
+        return versionedWeme.canUndo();
     }
 
     @Override
-    public boolean canRedoMemeBook() {
-        return versionedMemeBook.canRedo();
+    public boolean canRedoWeme() {
+        return versionedWeme.canRedo();
     }
 
     @Override
-    public void undoMemeBook() {
-        versionedMemeBook.undo();
+    public void undoWeme() {
+        versionedWeme.undo();
     }
 
     @Override
-    public void redoMemeBook() {
-        versionedMemeBook.redo();
+    public void redoWeme() {
+        versionedWeme.redo();
     }
 
     @Override
-    public void commitMemeBook() {
-        versionedMemeBook.commit();
+    public void commitWeme() {
+        versionedWeme.commit();
     }
 
     //=========== Statistics Methods =============================================================
 
     @Override
     public Stats getStats() {
-        return stats;
+        return versionedWeme.getStats();
     }
 
     @Override
     public LikeData getLikeData() {
-        return stats.getLikeManager();
+        return versionedWeme.getLikeData();
     }
 
     @Override
     public ObservableMap<String, Integer> getObservableLikeData() {
-        return stats.getObservableLikeData();
+        return versionedWeme.getObservableLikeData();
     }
 
     @Override
     public void incrementMemeLikeCount(Meme meme) {
-        stats.incrementMemeLikeCount(meme);
+        versionedWeme.incrementMemeLikeCount(meme);
     }
 
     @Override
     public void clearMemeStats(Meme meme) {
-        stats.deleteLikesByMeme(meme);
+        versionedWeme.clearMemeStats(meme);
     }
 
     @Override
     public void cleanMemeStorage() {
         try {
             Set<File> filesToKeep = new HashSet<>();
-            for (Meme meme : versionedMemeBook.getMemeList()) {
+            for (Meme meme : versionedWeme.getMemeList()) {
                 File file = meme.getFilePath().getFilePath().toFile();
                 filesToKeep.add(file);
             }
@@ -276,7 +273,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedMemeBook.equals(other.versionedMemeBook)
+        return versionedWeme.equals(other.versionedWeme)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMemes.equals(other.filteredMemes)
                 && context.getValue().equals(other.context.getValue());

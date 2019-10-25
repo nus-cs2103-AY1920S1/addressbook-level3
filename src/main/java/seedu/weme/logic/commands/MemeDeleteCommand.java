@@ -11,7 +11,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.meme.Meme;
 
 /**
- * Deletes a meme identified using it's displayed index from the meme book.
+ * Deletes a meme identified using it's displayed index from weme.
  */
 public class MemeDeleteCommand extends Command {
 
@@ -42,7 +42,7 @@ public class MemeDeleteCommand extends Command {
         Meme memeToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteMeme(memeToDelete);
         model.clearMemeStats(memeToDelete);
-        model.commitMemeBook();
+        model.commitWeme();
         return new CommandResult(String.format(MESSAGE_DELETE_MEME_SUCCESS, memeToDelete));
     }
 

@@ -18,7 +18,7 @@ import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
-import seedu.weme.testutil.MemeBookBuilder;
+import seedu.weme.testutil.WemeBuilder;
 
 public class ModelManagerTest {
 
@@ -28,7 +28,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new MemeBook(), new MemeBook(modelManager.getMemeBook()));
+        assertEquals(new Weme(), new Weme(modelManager.getWeme()));
     }
 
     @Test
@@ -63,12 +63,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setMemeBookFilePath_nullPath_throwsNullPointerException() {
+    public void setWemeFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setDataFilePath(null));
     }
 
     @Test
-    public void setMemeBookFilePath_validPath_setsMemeBookFilePath() {
+    public void setWemeFilePath_validPath_setsWemeFilePath() {
         Path path = Paths.get("weme/book/file/path");
         modelManager.setDataFilePath(path);
         assertEquals(path, modelManager.getDataFilePath());
@@ -80,12 +80,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasMeme_memeNotInMemeBook_returnsFalse() {
+    public void hasMeme_memeNotInWeme_returnsFalse() {
         assertFalse(modelManager.hasMeme(DOGE));
     }
 
     @Test
-    public void hasMeme_memeInMemeBook_returnsTrue() {
+    public void hasMeme_memeInWeme_returnsTrue() {
         modelManager.addMeme(DOGE);
         assertTrue(modelManager.hasMeme(DOGE));
     }
@@ -97,14 +97,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        MemeBook memeBook = new MemeBookBuilder().withMeme(DOGE).build();
-        MemeBook differentMemeBook = new MemeBook();
+        Weme weme = new WemeBuilder().withMeme(DOGE).build();
+        Weme differentWeme = new Weme();
         UserPrefs userPrefs = new UserPrefs();
         Stats stats = new StatsManager();
 
         // same values -> returns true
-        modelManager = new ModelManager(memeBook, userPrefs, stats);
-        ModelManager modelManagerCopy = new ModelManager(memeBook, userPrefs, stats);
+        modelManager = new ModelManager(weme, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(weme, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -116,8 +116,8 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different memeBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentMemeBook, userPrefs, stats)));
+        // different weme -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentWeme, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
@@ -125,11 +125,11 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         String[] keywords = JOKER.getFilePath().toString().split("\\s+");
         modelManager.updateFilteredMemeList(new TagContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(memeBook, userPrefs, stats)));
+        assertFalse(modelManager.equals(new ModelManager(weme, userPrefs)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setDataFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(memeBook, differentUserPrefs, stats)));
+        assertFalse(modelManager.equals(new ModelManager(weme, differentUserPrefs)));
     }
 }

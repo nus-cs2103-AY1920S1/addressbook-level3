@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Template's name in the meme book.
+ * Represents a Template's name in weme.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

@@ -7,7 +7,7 @@ import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.showMemeAtIndex;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND_MEME;
-import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,6 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.StatsManager;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,7 +24,7 @@ import seedu.weme.statistics.StatsManager;
  */
 public class MemeDeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,9 +33,9 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
+        ModelManager expectedModel = new ModelManager(model.getWeme(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
-        expectedModel.commitMemeBook();
+        expectedModel.commitWeme();
 
         assertCommandSuccess(memeDeleteCommand, model, expectedMessage, expectedModel);
     }
@@ -58,10 +57,10 @@ public class MemeDeleteCommandTest {
 
         String expectedMessage = String.format(MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS, memeToDelete);
 
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), new StatsManager());
+        Model expectedModel = new ModelManager(model.getWeme(), new UserPrefs());
         expectedModel.deleteMeme(memeToDelete);
         showNoMeme(expectedModel);
-        expectedModel.commitMemeBook();
+        expectedModel.commitWeme();
 
         assertCommandSuccess(memeDeleteCommand, model, expectedMessage, expectedModel);
     }
@@ -71,8 +70,8 @@ public class MemeDeleteCommandTest {
         showMemeAtIndex(model, INDEX_FIRST_MEME);
 
         Index outOfBoundIndex = INDEX_SECOND_MEME;
-        // ensures that outOfBoundIndex is still in bounds of meme book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getMemeBook().getMemeList().size());
+        // ensures that outOfBoundIndex is still in bounds of weme list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getWeme().getMemeList().size());
 
         MemeDeleteCommand memeDeleteCommand = new MemeDeleteCommand(outOfBoundIndex);
 

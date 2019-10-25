@@ -2,7 +2,7 @@ package seedu.weme.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import java.nio.file.Path;
 
@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.weme.commons.core.GuiSettings;
-import seedu.weme.model.MemeBook;
-import seedu.weme.model.ReadOnlyMemeBook;
+import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.UserPrefs;
+import seedu.weme.model.Weme;
 
 public class StorageManagerTest {
 
@@ -24,10 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMemeBookStorage memeBookStorage = new JsonMemeBookStorage(getTempFilePath("ab"));
+        JsonWemeStorage wemeStorage = new JsonWemeStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonStatsDataStorage likeDataStorage = new JsonStatsDataStorage(getTempFilePath("likes"));
-        storageManager = new StorageManager(memeBookStorage, userPrefsStorage, likeDataStorage);
+        storageManager = new StorageManager(wemeStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -49,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void memeBookReadSave() throws Exception {
+    public void wemeReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonMemeBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonMemeBookStorageTest} class.
+         * {@link JsonWemeStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonWemeStorageTest} class.
          */
-        MemeBook original = getTypicalMemeBook();
-        storageManager.saveMemeBook(original);
-        ReadOnlyMemeBook retrieved = storageManager.readMemeBook().get();
-        assertEquals(original, new MemeBook(retrieved));
+        Weme original = getTypicalWeme();
+        storageManager.saveWeme(original);
+        ReadOnlyWeme retrieved = storageManager.readWeme().get();
+        assertEquals(original, new Weme(retrieved));
     }
 
     @Test
-    public void getMemeBookFilePath() {
-        assertNotNull(storageManager.getMemeBookFilePath());
+    public void getWemeFilePath() {
+        assertNotNull(storageManager.getWemeFilePath());
     }
 
 }

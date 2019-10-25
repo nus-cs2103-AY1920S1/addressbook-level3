@@ -18,11 +18,10 @@ import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
-import seedu.weme.model.ReadOnlyMemeBook;
+import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.storage.JsonMemeBookStorage;
-import seedu.weme.storage.JsonStatsDataStorage;
 import seedu.weme.storage.JsonUserPrefsStorage;
+import seedu.weme.storage.JsonWemeStorage;
 import seedu.weme.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -36,11 +35,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonMemeBookStorage memeBookStorage =
-                new JsonMemeBookStorage(temporaryFolder.resolve("weme.json"));
+        JsonWemeStorage wemeStorage =
+                new JsonWemeStorage(temporaryFolder.resolve("weme.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonStatsDataStorage likeDataStorage = new JsonStatsDataStorage(temporaryFolder.resolve("likeData.json"));
-        StorageManager storage = new StorageManager(memeBookStorage, userPrefsStorage, likeDataStorage);
+        StorageManager storage = new StorageManager(wemeStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -65,9 +63,9 @@ public class LogicManagerTest {
     /* Test does not make sense.
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonMemeBookIoExceptionThrowingStub
-        JsonMemeBookStorage addressBookStorage =
-                new JsonMemeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonWemeIoExceptionThrowingStub
+        JsonWemeStorage addressBookStorage =
+                new JsonWemeIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
@@ -125,7 +123,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getMemeBook(), new UserPrefs(), model.getStats());
+        Model expectedModel = new ModelManager(model.getWeme(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -145,13 +143,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonMemeBookIoExceptionThrowingStub extends JsonMemeBookStorage {
-        private JsonMemeBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonWemeIoExceptionThrowingStub extends JsonWemeStorage {
+        private JsonWemeIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveMemeBook(ReadOnlyMemeBook memeBook, Path filePath) throws IOException {
+        public void saveWeme(ReadOnlyWeme weme, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

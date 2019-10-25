@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Meme's weme in the meme book.
+ * Represents a Meme's weme in weme.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
@@ -12,7 +12,7 @@ public class Description {
     public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, including empty input";
 
     /*
-     * The first character of the weme must not be a whitespace,
+     * The first character of weme must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = ".*";
