@@ -20,13 +20,14 @@ import seedu.address.model.tag.UserTag;
 public class SampleDataUtil {
     public static StudyPlan[] getSampleStudyPlans(ModulesInfo modulesInfo) {
         // Can populate this with more dummy study plans
-        StudyPlan[] studyPlans = new StudyPlan[3];
+        StudyPlan[] studyPlans = new StudyPlan[4];
 
         SemesterName sampleCurrentSemester = SemesterName.Y1S1;
 
         StudyPlan sp1 = new StudyPlan(new Title("first study plan"), modulesInfo, sampleCurrentSemester);
         StudyPlan sp2 = new StudyPlan(new Title("second study plan"), modulesInfo, sampleCurrentSemester);
         StudyPlan sp3 = new StudyPlan(new Title("third study plan"), modulesInfo, sampleCurrentSemester);
+        StudyPlan defaultStudyPlan = DefaultStudyPlanUtil.getDefaultStudyPlan(modulesInfo);
 
         sp1.addModuleToSemester(new ModuleCode("CS1101S"), SemesterName.Y1S1);
         sp1.addModuleToSemester(new ModuleCode("CS2030"), SemesterName.Y1S2);
@@ -41,6 +42,7 @@ public class SampleDataUtil {
         studyPlans[0] = sp1;
         studyPlans[1] = sp2;
         studyPlans[2] = sp3;
+        studyPlans[3] = defaultStudyPlan;
 
         return studyPlans;
     }

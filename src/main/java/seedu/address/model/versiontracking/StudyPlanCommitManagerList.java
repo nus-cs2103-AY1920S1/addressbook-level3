@@ -42,9 +42,13 @@ public class StudyPlanCommitManagerList {
                 managerExists = true;
             }
         }
+
+        // commented out because some study plans may not have commit manager if the user has not commited at all.
+        /*
         if (!managerExists) {
             throw new StudyPlanCommitManagerNotFoundException();
         }
+         */
     }
 
     /**

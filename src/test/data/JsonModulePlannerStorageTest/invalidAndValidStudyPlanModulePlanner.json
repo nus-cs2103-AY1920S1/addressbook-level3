@@ -1,0 +1,198 @@
+{
+"studyPlans" : [
+  {
+    "totalNumber": 5,
+    "index": 1,
+    "semesters": [
+      {
+        "semesterName": "INVALID_NAME",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": [
+          {
+            "moduleCode": "CS1101S"
+          }
+        ]
+      },
+      {
+        "semesterName": "Y1S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": [
+          {
+            "moduleCode": "CS2030"
+          }
+        ]
+      },
+      {
+        "semesterName": "Y2S1",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": [
+          {
+            "moduleCode": "CS2040S"
+          }
+        ]
+      },
+      {
+        "semesterName": "Y2S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y3S1",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y3S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y4S1",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y4S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      }
+    ],
+    "modules": [
+
+      {
+        "moduleCode": "CS1101S",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "CS4225",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "IS1103X",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "CS5230",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "CP3880",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "MA1521",
+        "color": "RED",
+        "userTags": []
+      }
+    ],
+    "tags": [],
+    "currentSemester": "Y1S1"
+  },
+  {
+    "totalNumber": 5,
+    "title": "second study plan",
+    "index": 2,
+    "semesters": [
+      {
+        "semesterName": "Y1S1",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y1S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y2S1",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": [
+          {
+            "moduleCode": "CS3230"
+          },
+          {
+            "moduleCode": "CS2100"
+          },
+          {
+            "moduleCode": "CS2103T"
+          }
+        ]
+      },
+      {
+        "semesterName": "Y2S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y3S1",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y3S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y4S1",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      },
+      {
+        "semesterName": "Y4S2",
+        "isBlocked": false,
+        "reasonForBlocked": null,
+        "modules": []
+      }
+    ],
+    "modules": [
+      {
+        "moduleCode": "CP3107",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "CS2106",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "CS3282",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "IS4010",
+        "color": "RED",
+        "userTags": []
+      },
+      {
+        "moduleCode": "CP4101",
+        "color": "RED",
+        "userTags": []
+      }
+    ],
+    "tags": [],
+    "currentSemester": "Y1S1"
+  }]
+}

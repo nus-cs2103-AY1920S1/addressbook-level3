@@ -1,5 +1,7 @@
 package seedu.address.model.versiontracking;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 
@@ -8,7 +10,7 @@ import seedu.address.model.versiontracking.exception.CommitNotFoundException;
  */
 public class StudyPlanCommitManager {
 
-    private static final String MESSAGE_REVERT_COMMIT = "Revert: %1$s";
+    public static final String MESSAGE_REVERT_COMMIT = "Revert to: %1$s";
 
     private int studyPlanIndex;
     private CommitList commitList;
@@ -42,6 +44,7 @@ public class StudyPlanCommitManager {
      * @param studyPlan study plan to commit.
      */
     public void commit(StudyPlan studyPlan, String commitMessage) {
+        requireAllNonNull(studyPlan, commitMessage);
         StudyPlan planToCommit = null;
         try {
             planToCommit = studyPlan.clone();
@@ -68,5 +71,12 @@ public class StudyPlanCommitManager {
         // commitList.deleteAllLaterCommits(commitNumber);
         commit(newActiveStudyPlan, String.format(MESSAGE_REVERT_COMMIT, commitMessage));
         return newActiveStudyPlan;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj
+                || ((obj instanceof StudyPlanCommitManager)
+                && this.studyPlanIndex == ((StudyPlanCommitManager) obj).studyPlanIndex);
     }
 }

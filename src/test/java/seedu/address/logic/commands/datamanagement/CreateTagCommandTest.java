@@ -130,6 +130,11 @@ public class CreateTagCommandTest {
         }
 
         @Override
+        public void deleteAllModulesInSemester(SemesterName semesterName) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public StudyPlan getActiveStudyPlan() {
             throw new AssertionError("This method should not be called.");
         }

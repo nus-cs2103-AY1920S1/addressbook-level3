@@ -32,4 +32,12 @@ public class Commit {
         return "Commit no. " + studyPlan.getIndex() + ".%1$d"
                 + " " + commitMessage;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Commit // instanceof handles nulls
+                && commitMessage.equals(((Commit) other).commitMessage)
+                && studyPlan.equals(((Commit) other).getStudyPlan())); // state check
+    }
 }

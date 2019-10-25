@@ -83,14 +83,17 @@ class JsonAdaptedStudyPlan {
 
     /**
      * Converts this Jackson-friendly adapted StudyPlan object into the model's {@code StudyPlan} object.
+     * This will be skeletal study plan that is not yet activated.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted StudyPlan.
      */
     public StudyPlan toModelType() throws IllegalValueException {
+        /*
         final List<Semester> studyPlanSemesters = new ArrayList<>();
         for (JsonAdaptedSemester semester : semesters) {
             studyPlanSemesters.add(semester.toModelType());
         }
+         */
 
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
@@ -103,7 +106,6 @@ class JsonAdaptedStudyPlan {
         if (index == 0) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "index"));
         }
-        final int modelIndex = index;
 
         final List<Semester> modelSemesters = new ArrayList<>();
         for (JsonAdaptedSemester semester : semesters) {
@@ -121,7 +123,7 @@ class JsonAdaptedStudyPlan {
         }
 
         StudyPlan result =
-                new StudyPlan(modelTitle, modelIndex, modelSemesters, modelModules, modelTags, currentSemester);
+                new StudyPlan(modelTitle, index, modelSemesters, modelModules, modelTags, currentSemester);
         StudyPlan.setTotalNumberOfStudyPlans(totalNumber);
 
         return result;
