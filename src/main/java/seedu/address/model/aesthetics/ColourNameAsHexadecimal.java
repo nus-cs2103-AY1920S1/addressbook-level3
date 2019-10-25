@@ -144,5 +144,5 @@ public enum ColourNameAsHexadecimal {
     HEX_778899,
     HEX_708090,
     HEX_2F4F4F,
-    HEX_000000;
+    HEX_000000
 }

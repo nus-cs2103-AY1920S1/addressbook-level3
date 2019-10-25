@@ -43,7 +43,16 @@ class JsonSerializableUserList {
     }
 
     /**
-     * Converts this address book into the model's {@code UserList} object.
+     * Return a list of maps of fields in the json file that contain invalid references.
+     *
+     * @return List of maps of fields in the json file containing invalid references.
+     */
+    public static List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return listOfFieldsContainingInvalidReferences;
+    }
+
+    /**
+     * Converts this address book into the sugarmummy.recmfood.model's {@code UserList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -56,8 +65,8 @@ class JsonSerializableUserList {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
 
-            Map<String, String> fieldsContainingInvalidReferences = jsonAdaptedUser
-                    .getFieldsContainingInvalidReferences();
+            Map<String, String> fieldsContainingInvalidReferences = JsonAdaptedUser
+                .getFieldsContainingInvalidReferences();
 
             if (!fieldsContainingInvalidReferences.isEmpty()) {
                 listOfFieldsContainingInvalidReferences.add(fieldsContainingInvalidReferences);
@@ -66,14 +75,6 @@ class JsonSerializableUserList {
             userList.addUser(user);
         }
         return userList;
-    }
-
-    /**
-     * Return a list of maps of fields in the json file that contain invalid references.
-     * @return List of maps of fields in the json file containing invalid references.
-     */
-    public static List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
-        return listOfFieldsContainingInvalidReferences;
     }
 
 

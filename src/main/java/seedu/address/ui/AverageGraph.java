@@ -50,8 +50,9 @@ public class AverageGraph {
     private final CustomLineChart<String, Number> customLineChart = new CustomLineChart<>(xAxis, yAxis);
 
     public AverageGraph(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                             SimpleStringProperty recordType) {
+                        SimpleStringProperty recordType) {
 
+        customLineChart.setId("lineChart");
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
@@ -146,8 +147,7 @@ public class AverageGraph {
     }
 
     /**
-     * Gets the record type to be used for y axis label.
-     * Adds horizontal range marker if record type is blood sugar.
+     * Gets the record type to be used for y axis label. Adds horizontal range marker if record type is blood sugar.
      */
     private String getYAxisLabel(SimpleStringProperty recordType) {
         switch (recordType.get().toLowerCase()) {

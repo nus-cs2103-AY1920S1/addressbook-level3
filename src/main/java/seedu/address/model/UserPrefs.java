@@ -108,8 +108,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     //=========== Records =============================================================
 
+    public void setFoodListFilePath(Path foodListFilePath) {
+        this.foodListFilePath = foodListFilePath;
+    }
+
     public Path getRecordListFilePath() {
         return recordListFilePath;
+    }
+
+    public void setRecordListFilePath(Path recordListFilePath) {
+        this.recordListFilePath = recordListFilePath;
     }
 
     public Path getEventListFilePath() {
@@ -118,14 +126,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getReminderListFilePath() {
         return reminderListFilePath;
-    }
-
-    public void setFoodListFilePath(Path foodListFilePath) {
-        this.foodListFilePath = foodListFilePath;
-    }
-
-    public void setRecordListFilePath(Path recordListFilePath) {
-        this.recordListFilePath = recordListFilePath;
     }
 
     @Override
@@ -140,7 +140,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+            && addressBookFilePath.equals(o.addressBookFilePath);
     }
 
     @Override

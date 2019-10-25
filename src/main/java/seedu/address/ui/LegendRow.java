@@ -17,11 +17,11 @@ public class LegendRow extends UiPart<Region> {
     private Rectangle symbol;
 
     @FXML
-    private Label description;
+    private Label lineChartDescription;
 
     public LegendRow(Color color, String legendDescription) {
         super(FXML);
         symbol.setFill(color);
-        description.setText(legendDescription);
+        lineChartDescription.setText(legendDescription);
     }
 }

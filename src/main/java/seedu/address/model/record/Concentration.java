@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Blood Sugar Record's sugar concentration in the record book.
- * Guarantees: immutable; is valid as declared in {@link #isValidConcentration(String)}
+ * Represents a Blood Sugar Record's sugar concentration in the record book. Guarantees: immutable; is valid as declared
+ * in {@link #isValidConcentration(String)}
  */
 public class Concentration {
 
@@ -20,12 +20,12 @@ public class Concentration {
         this.concentration = Double.parseDouble(concentration);
     }
 
-    public double getConcentration() {
-        return concentration;
-    }
-
     public static boolean isValidConcentration(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public double getConcentration() {
+        return concentration;
     }
 
     @Override

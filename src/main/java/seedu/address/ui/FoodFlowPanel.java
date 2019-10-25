@@ -10,7 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.sgm.model.food.Food;
+import seedu.address.model.food.Food;
 
 /**
  * Represents a panel of a list of foods.

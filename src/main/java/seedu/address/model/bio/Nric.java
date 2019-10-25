@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's nric in the user's biography data.
- * Guarantees: immutable; is valid as declared in {@link #isValidNric(String)}
+ * Represents a User's nric in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * #isValidNric(String)}
  */
 public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "NRIC should only contain alphanumeric characters and spaces, and it should not be blank.";
+        "NRIC should only contain alphanumeric characters and spaces, and it should not be blank.";
 
     public static final String VALIDATION_REGEX = "^$|[\\p{Alnum}][\\p{Alnum} ]*";
 
@@ -43,8 +43,8 @@ public class Nric {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Nric // instanceof handles nulls
-                && nric.equals(((Nric) other).nric)); // state check
+            || (other instanceof Nric // instanceof handles nulls
+            && nric.equals(((Nric) other).nric)); // state check
     }
 
     @Override

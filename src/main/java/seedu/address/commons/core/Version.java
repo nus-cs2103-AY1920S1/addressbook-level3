@@ -29,22 +29,6 @@ public class Version implements Comparable<Version> {
         this.isEarlyAccess = isEarlyAccess;
     }
 
-    public int getMajor() {
-        return major;
-    }
-
-    public int getMinor() {
-        return minor;
-    }
-
-    public int getPatch() {
-        return patch;
-    }
-
-    public boolean isEarlyAccess() {
-        return isEarlyAccess;
-    }
-
     /**
      * Parses a version number string in the format V1.2.3.
      *
@@ -60,9 +44,25 @@ public class Version implements Comparable<Version> {
         }
 
         return new Version(Integer.parseInt(versionMatcher.group(1)),
-                Integer.parseInt(versionMatcher.group(2)),
-                Integer.parseInt(versionMatcher.group(3)),
-                versionMatcher.group(4) != null);
+            Integer.parseInt(versionMatcher.group(2)),
+            Integer.parseInt(versionMatcher.group(3)),
+            versionMatcher.group(4) != null);
+    }
+
+    public int getMajor() {
+        return major;
+    }
+
+    public int getMinor() {
+        return minor;
+    }
+
+    public int getPatch() {
+        return patch;
+    }
+
+    public boolean isEarlyAccess() {
+        return isEarlyAccess;
     }
 
     @JsonValue

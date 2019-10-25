@@ -38,8 +38,8 @@ public class Calendar implements ReadOnlyCalendar {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the calendar list with {@code calendarEntries}. {@code calendarEntries} must not
-     * contain duplicate calendar entries.
+     * Replaces the contents of the calendar list with {@code calendarEntries}. {@code calendarEntries} must not contain
+     * duplicate calendar entries.
      */
     public void setCalendarEntries(List<CalendarEntry> calendarEntries) {
         this.calendarEntries.setCalendarEntries(calendarEntries);
@@ -74,8 +74,8 @@ public class Calendar implements ReadOnlyCalendar {
     /**
      * Adds a reminder to the past reminder list. The reminder must not already exist in the past reminder list.
      */
-    public void addPastReminder(Reminder reminder) {
-        pastReminders.add(reminder);
+    public void addPastReminders(List<Reminder> reminders) {
+        pastReminders.addAll(reminders);
     }
 
     /**
@@ -94,8 +94,8 @@ public class Calendar implements ReadOnlyCalendar {
 
     /**
      * Replaces the given calendar entry {@code target} in the list with {@code editedCalendarEntry}. {@code target}
-     * must exist in the calendar. The calendar entry identity of {@code editedCalendar} must not be the same as
-     * another existing calendar entry in the calendar.
+     * must exist in the calendar. The calendar entry identity of {@code editedCalendar} must not be the same as another
+     * existing calendar entry in the calendar.
      */
     public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
         requireNonNull(editedCalendarEntry);
@@ -127,8 +127,8 @@ public class Calendar implements ReadOnlyCalendar {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Calendar // instanceof handles nulls
-                && calendarEntries.equals(((Calendar) other).calendarEntries));
+            || (other instanceof Calendar // instanceof handles nulls
+            && calendarEntries.equals(((Calendar) other).calendarEntries));
     }
 
     @Override

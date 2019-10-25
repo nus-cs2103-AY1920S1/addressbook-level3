@@ -12,8 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
- * An extended line chart to add horizontal range markers.
- * Area between horizontal range markers is highlighted by user specified color.
+ * An extended line chart to add horizontal range markers. Area between horizontal range markers is highlighted by user
+ * specified color.
  */
 public class CustomLineChart<X, Y> extends LineChart<X, Y> {
 
@@ -21,16 +21,18 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
 
     public CustomLineChart(Axis<X> xAxis, Axis<Y> yAxis) {
         super(xAxis, yAxis);
-        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[] {data.XValueProperty()});
-        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[] {data.YValueProperty()});
+        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[]{data.XValueProperty()});
+        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[]{data.YValueProperty()});
         horizontalRangeMarkers.addListener((InvalidationListener) observable -> layoutPlotChildren());
     }
 
     //TODO: create a new marker class.
+
     /**
      * Adds two horizontal markers and color the area between them.
+     *
      * @param marker the y coordinates of the two horizontal markers.
-     * @param color fill the region with {@code Color} object.
+     * @param color  fill the region with {@code Color} object.
      */
     public void addHorizontalRangeMarker(Data<Y, Y> marker, Color color) {
         requireNonNull(marker);
@@ -59,7 +61,7 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
             Rectangle rectangle = (Rectangle) horizontalRangeMarker.getNode();
             rectangle.setY(getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()));
             rectangle.setHeight(getYAxis().getDisplayPosition(horizontalRangeMarker.getXValue())
-                    - getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()));
+                - getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()));
             rectangle.setX(0d);
             rectangle.setWidth(getBoundsInLocal().getWidth());
             rectangle.toBack();
