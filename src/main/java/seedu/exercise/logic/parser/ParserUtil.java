@@ -1,6 +1,10 @@
 package seedu.exercise.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_EXERCISE;
+import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_REGIME;
+import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_BASIC;
+import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_POSSIBLE;
 import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
@@ -167,8 +171,10 @@ public class ParserUtil {
     public static String parseCategory(String category) throws ParseException {
         requireNonNull(category);
         String trimmedCategory = category.trim();
-        if (!trimmedCategory.equals("exercise") && !trimmedCategory.equals("regime")) {
-            throw new ParseException("Category can only be \'exercise\' or \'regime\'");
+        if (!trimmedCategory.equals(ADD_CATEGORY_EXERCISE)
+                && !trimmedCategory.equals(ADD_CATEGORY_REGIME)) {
+            throw new ParseException("Category can only be \'" + ADD_CATEGORY_EXERCISE + "\'"
+                    + " or \'" + ADD_CATEGORY_REGIME + "\'");
         }
         return trimmedCategory;
     }
@@ -254,6 +260,23 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String suggestType} into a String.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static String parseSuggestType(String suggestType) throws ParseException {
+        requireNonNull(suggestType);
+        String trimmedSuggestType = suggestType.trim();
+        if (!trimmedSuggestType.equals(SUGGEST_TYPE_BASIC)
+                && !trimmedSuggestType.equals(SUGGEST_TYPE_POSSIBLE)) {
+            throw new ParseException("Suggest type can only be \'" + SUGGEST_TYPE_BASIC + "\'"
+                    + " or \'" + SUGGEST_TYPE_POSSIBLE + "\'");
+        }
+        return trimmedSuggestType;
+    }
+
+    /**
      * Formats a single word by capitalising the first letter and setting the remaining
      * as lowercase.
      */
@@ -321,19 +344,4 @@ public class ParserUtil {
         return trimmedNumber;
     }
 
-
-    /**
-     * Parses a {@code String suggestType} into a String.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException
-     */
-    public static String parseSuggestType(String suggestType) throws ParseException {
-        requireNonNull(suggestType);
-        String trimmedSuggestType = suggestType.trim();
-        if (!trimmedSuggestType.equals("basic")) {
-            throw new ParseException("Suggest type can only be \'basic\'");
-        }
-        return trimmedSuggestType;
-    }
 }

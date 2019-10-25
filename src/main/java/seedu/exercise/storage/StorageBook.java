@@ -23,7 +23,7 @@ public class StorageBook implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageBook.class);
     private ResourceBookStorage<Exercise> exerciseBookStorage;
-    private ResourceBookStorage<Exercise> exerciseDatabase;
+    private ResourceBookStorage<Exercise> exerciseDatabaseStorage;
     private ResourceBookStorage<Regime> regimeBookStorage;
     private ResourceBookStorage<Schedule> scheduleBookStorage;
     private UserPrefsStorage userPrefsStorage;
@@ -31,14 +31,14 @@ public class StorageBook implements Storage {
 
 
     public StorageBook(ResourceBookStorage<Exercise> exerciseBookStorage,
-                       ResourceBookStorage<Exercise> exerciseDatabase,
+                       ResourceBookStorage<Exercise> exerciseDatabaseStorage,
                        ResourceBookStorage<Regime> regimeBookStorage,
                        ResourceBookStorage<Schedule> scheduleBookStorage,
                        UserPrefsStorage userPrefsStorage,
                        PropertyBookStorage propertyBookStorage) {
         super();
         this.exerciseBookStorage = exerciseBookStorage;
-        this.exerciseDatabase = exerciseDatabase;
+        this.exerciseDatabaseStorage = exerciseDatabaseStorage;
         this.regimeBookStorage = regimeBookStorage;
         this.scheduleBookStorage = scheduleBookStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -97,20 +97,25 @@ public class StorageBook implements Storage {
 
     @Override
     public Path getExerciseDatabaseFilePath() {
-        return exerciseDatabase.getResourceBookFilePath();
+        return exerciseDatabaseStorage.getResourceBookFilePath();
     }
 
     @Override
     public Optional<ReadOnlyResourceBook<Exercise>> readExerciseDatabase()
         throws DataConversionException, IOException {
-        return readExerciseBook(exerciseDatabase.getResourceBookFilePath());
+        return readExerciseBook(exerciseDatabaseStorage.getResourceBookFilePath());
     }
 
     @Override
     public Optional<ReadOnlyResourceBook<Exercise>> readExerciseDatabase(Path filePath)
         throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return exerciseDatabase.readResourceBook();
+        return exerciseDatabaseStorage.readResourceBook();
+    }
+
+    @Override
+    public void saveExerciseDatabase(ReadOnlyResourceBook<Exercise> exerciseDatabase) throws IOException {
+        saveExerciseBook(exerciseDatabase, this.exerciseDatabaseStorage.getResourceBookFilePath());
     }
 
     //===============RegimeBook methods=============================================

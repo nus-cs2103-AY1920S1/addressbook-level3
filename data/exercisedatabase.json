@@ -1,0 +1,51 @@
+{
+  "jsonResources" : [ {
+    "name" : "Push ups",
+    "date" : "26/09/2019",
+    "calories" : "30",
+    "quantity" : "60",
+    "unit" : "counts",
+    "muscles" : [ "Triceps" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Sit ups",
+    "date" : "26/09/2019",
+    "calories" : "30",
+    "quantity" : "60",
+    "unit" : "counts",
+    "muscles" : [ "Abs" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Run",
+    "date" : "22/09/2019",
+    "calories" : "300",
+    "quantity" : "2.4",
+    "unit" : "km",
+    "muscles" : [ "Legs", "cardio" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Bench Press",
+    "date" : "22/09/2019",
+    "calories" : "50",
+    "quantity" : "30",
+    "unit" : "counts",
+    "muscles" : [ "Chest", "Triceps" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Squat",
+    "date" : "22/09/2019",
+    "calories" : "50",
+    "quantity" : "30",
+    "unit" : "counts",
+    "muscles" : [ "Legs", "Back" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Deadlift",
+    "date" : "22/09/2019",
+    "calories" : "50",
+    "quantity" : "30",
+    "unit" : "counts",
+    "muscles" : [ "Legs", "Back" ],
+    "customProperties" : { }
+  } ]
+}

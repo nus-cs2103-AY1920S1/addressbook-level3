@@ -56,6 +56,7 @@ public interface Storage extends UserPrefsStorage, PropertyBookStorage {
     Optional<ReadOnlyResourceBook<Exercise>> readExerciseDatabase(Path filePath)
         throws DataConversionException, IOException;
 
+    void saveExerciseDatabase(ReadOnlyResourceBook<Exercise> exerciseDatabase) throws IOException;
 
     // ================ RegimeBook methods ==============================
     Path getRegimeBookFilePath();

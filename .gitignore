@@ -10,6 +10,8 @@ src/main/resources/docs/
 
 # Storage/log files
 /data/
+!data/exercisedatabase.json
+
 /config.json
 /preferences.json
 /*.log.*

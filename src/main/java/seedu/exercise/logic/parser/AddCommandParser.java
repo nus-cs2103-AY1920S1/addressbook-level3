@@ -33,6 +33,9 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    public static final String ADD_CATEGORY_EXERCISE = "exercise";
+    public static final String ADD_CATEGORY_REGIME = "regime";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -50,11 +53,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         String category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
-        if (category.equals("exercise")) {
+        if (category.equals(ADD_CATEGORY_EXERCISE)) {
             return parseExercise(argMultimap);
         }
 
-        if (category.equals("regime")) {
+        if (category.equals(ADD_CATEGORY_REGIME)) {
             return parseRegime(argMultimap);
         }
 

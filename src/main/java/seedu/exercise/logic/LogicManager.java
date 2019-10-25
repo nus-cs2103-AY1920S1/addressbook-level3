@@ -126,6 +126,7 @@ public class LogicManager implements Logic {
      */
     private void saveAllData() throws IOException {
         storage.saveExerciseBook(model.getExerciseBookData());
+        storage.saveExerciseDatabase(model.getExerciseDatabaseData());
         storage.saveScheduleBook(model.getAllScheduleData());
         storage.saveRegimeBook(model.getAllRegimeData());
         storage.savePropertyBook(model.getPropertyBook());

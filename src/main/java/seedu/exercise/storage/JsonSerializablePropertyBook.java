@@ -31,7 +31,7 @@ public class JsonSerializablePropertyBook {
     /**
      * Constructs a {@code JsonSerializablePropertyBook} from the given parameters.
      *
-     * @param prefixNames       a list containing strings that represent the prefix names of the exercise's properties
+     * @param prefixNames      a list containing strings that represent the prefix names of the exercise's properties
      * @param fullNames        a list containing strings that represent the full names of the exercise's properties
      * @param customProperties a list containing {@code JsonAdaptedCustomProperty}
      */

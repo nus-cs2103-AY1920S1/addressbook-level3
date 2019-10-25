@@ -486,9 +486,9 @@ e.g. `schedule n/cardio d/19/9/2019`
 e.g. `resolve n/cardio`
 * *Suggest basic* : `suggest s/basic`
 * *Suggest possible* : `suggest s/possible [m/MUSCLE]...`
-e.g. `suggest t/possible m/chest`
+e.g. `suggest s/possible m/chest`
 * *Suggest intensity* : `suggest s/intensity i/INDEX`
-eg. `suggest intensity 1`
+eg. `suggest s/intensity 1`
 * *Custom* : `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
 e.g. `custom s/c f/End Date p/Date`
 * *Exit* : `exit`

@@ -277,7 +277,12 @@ public class AddExerciseCommandTest {
         //=======================suggest================================================================================
 
         @Override
-        public ReadOnlyResourceBook<Exercise> getDatabaseBook() {
+        public ObservableList<Exercise> getSuggestedExerciseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSuggestions(List<Exercise> suggestions) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -287,9 +292,15 @@ public class AddExerciseCommandTest {
         }
 
         @Override
-        public ObservableList<Exercise> getSuggestedExerciseList() {
+        public ReadOnlyResourceBook<Exercise> getDatabaseBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ReadOnlyResourceBook<Exercise> getExerciseDatabaseData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

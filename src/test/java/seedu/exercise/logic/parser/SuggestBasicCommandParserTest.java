@@ -14,7 +14,7 @@ public class SuggestBasicCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSuggestBasicCommand() {
-        assertParseSuccess(parser, " g/basic", new SuggestBasicCommand());
+        assertParseSuccess(parser, " s/basic", new SuggestBasicCommand());
     }
 
     @Test

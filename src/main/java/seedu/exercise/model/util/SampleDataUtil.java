@@ -97,6 +97,20 @@ public class SampleDataUtil {
         };
     }
 
+    public static Exercise[] getBasicExercises() {
+        return new Exercise[]{
+            new Exercise(new Name("Running"), new Date("26/09/2019"), new Calories("333"),
+                new Quantity("2.4"), new Unit("km"),
+                getMuscleSet("Legs", "Cardio")),
+            new Exercise(new Name("Push ups"), new Date("26/09/2019"), new Calories("50"),
+                new Quantity("60"), new Unit("counts"),
+                getMuscleSet("Chest", "Triceps")),
+            new Exercise(new Name("Sit ups"), new Date("26/09/2019"), new Calories("50"),
+                new Quantity("60"), new Unit("counts"),
+                getMuscleSet("Abs", "Core"))
+        };
+    }
+
     /**
      * Returns a muscle set containing the list of strings given.
      */
