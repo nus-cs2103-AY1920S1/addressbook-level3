@@ -67,8 +67,8 @@ public class GameResultPanel extends UiPart<Region> {
         AnchorPane.setLeftAnchor(title, 0.0);
         title.setText(gameStatistics.getTitle());
 
-        badgesRowPlaceholder.getChildren().add(new BadgesRow(wbStatistics.receivedBadgeEasy(),
-                wbStatistics.receivedBadgeNormal(), wbStatistics.receivedBadgeHard()).getRoot());
+        badgesRowPlaceholder.getChildren().add(new BadgesRow(wbStatistics.isReceivedBadgeEasy(),
+                wbStatistics.isReceivedBadgeNormal(), wbStatistics.isReceivedBadgeHard()).getRoot());
 
         // init score text
         int score = gameStatistics.getScore();
@@ -112,13 +112,13 @@ public class GameResultPanel extends UiPart<Region> {
                         : " - ");
         if (wbStatistics.getFastestClear().isPresent()
             && wbStatistics.getFastestClear().get().equals(gameStatistics.getSecTaken())
-            && gameStatistics.allCorrect()) {
+            && gameStatistics.isAllCorrect()) {
             // reach fastest clear, give some visual feedback
             fastestClearText.setStyle("-fx-text-fill: yellow; -fx-font-size: 16pt");
         }
 
         // init wrongAnswersBox
-        if (gameStatistics.allCorrect()) {
+        if (gameStatistics.isAllCorrect()) {
             wrongAnswersBox.setMaxHeight(0);
             gameFeedbackHeader.setText("Good Job! You answered everything correctly!");
         } else {

@@ -28,6 +28,17 @@ public class ScoreData {
         return Integer.toString(score);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof ScoreData)) {
+            return false;
+        }
+        return getScore() == ((ScoreData) obj).getScore();
+    }
+
     /**
      * Takes the maximum of the two scores.
      *

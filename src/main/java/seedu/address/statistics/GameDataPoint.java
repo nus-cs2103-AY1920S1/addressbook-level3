@@ -23,7 +23,7 @@ public class GameDataPoint {
     private GameDataPoint(GameDataType dataType, Optional<Guess> guess, long millisTaken) {
         requireAllNonNull(dataType, guess);
         if (millisTaken < 0) {
-            throw new AssertionError("Millis taken cannot be negative");
+            throw new IllegalArgumentException("Millis taken cannot be negative");
         }
         this.dataType = dataType;
         this.guess = guess;
@@ -58,6 +58,20 @@ public class GameDataPoint {
 
     public long getMillisTaken() {
         return millisTaken;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof GameDataPoint)) {
+            return false;
+        }
+        GameDataPoint other = (GameDataPoint) obj;
+        return dataType.equals(other.dataType)
+                && getMillisTaken() == other.getMillisTaken()
+                && guess.equals(other.guess);
     }
 
     @Override

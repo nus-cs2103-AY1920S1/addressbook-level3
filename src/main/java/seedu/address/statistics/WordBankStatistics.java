@@ -46,7 +46,7 @@ public class WordBankStatistics {
      */
     public void update(GameStatistics gameStats, DifficultyEnum difficultyEnum) {
         ++gamesPlayed;
-        if (gameStats.allCorrect()) {
+        if (gameStats.isAllCorrect()) {
             // update fastestClear if necessary
             fastestClear = fastestClear.map(aDouble -> Math.min(aDouble, gameStats.getSecTaken()))
                     .or(() -> Optional.of(gameStats.getSecTaken()));
@@ -123,15 +123,15 @@ public class WordBankStatistics {
         return cardStats;
     }
 
-    public boolean receivedBadgeEasy() {
+    public boolean isReceivedBadgeEasy() {
         return receivedBadgeEasy;
     }
 
-    public boolean receivedBadgeNormal() {
+    public boolean isReceivedBadgeNormal() {
         return receivedBadgeNormal;
     }
 
-    public boolean receivedBadgeHard() {
+    public boolean isReceivedBadgeHard() {
         return receivedBadgeHard;
     }
 
@@ -150,7 +150,7 @@ public class WordBankStatistics {
     }
 
     /**
-     * Create a new black statistics with the name {@code wbName}.
+     * Create a new word bank statistics with the name {@code wbName}.
      */
     public static WordBankStatistics getEmpty(String wbName) {
         return new WordBankStatistics(wbName,
