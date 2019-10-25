@@ -39,7 +39,8 @@ public class StudentAddCommand extends StudentCommand {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
         model.addStudent(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(generateSuccessMessage(toAdd), false, false,
+                false, false, false, true);
     }
 
     /**

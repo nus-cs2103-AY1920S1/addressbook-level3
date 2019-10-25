@@ -47,11 +47,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    /*@FXML
-    private StackPane personListPanelPlaceholder; */
-
     @FXML
-    private StackPane studentListPanelPlaceholder;
+    private StackPane mainPanelPlaceholder;
 
     @FXML
     private StackPane notesListPanelPlaceholder;
@@ -61,9 +58,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-    @FXML
-    private StackPane eventSchedulePanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -125,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -140,7 +134,6 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
-        eventSchedulePanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
     }
 
     /**
@@ -177,6 +170,22 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             slideShowWindow.focus();
         }
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleSchedule() {
+        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStudent() {
+        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     }
 
     /**
@@ -243,11 +252,17 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isScheduleChange()) {
                 eventSchedulePanel.updateScheduler();
+                handleSchedule();
             }
 
             if (commandResult.isShowStatistic()) {
                 handleStats();
             }
+
+            if (commandResult.isShowStudent()) {
+                handleStudent();
+            }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -3,22 +3,30 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.math3.util.Pair;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.EventUtil;
+import seedu.address.commons.util.StringUtil;
+
+import seedu.address.model.event.exceptions.DuplicateVEventException;
+import seedu.address.model.event.exceptions.VEventNotFoundException;
+
 
 /**
  * Stores events and provides functionality to map from events to vEvents.
+ * VEvents with the same eventName, startDateTime and endDateTime are not allowed.
  */
 public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VEvent> {
-    private final String dailyRecurRUleString = "FREQ=DAILY;INTERVAL=1";
-    private final String weeklyRecurRuleString = "FREQ=WEEKLY;INTERVAL=1";
+    private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
+    private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
     private final ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
     private final ObservableList<VEvent> vEventsUnmodifiableList =
             FXCollections.unmodifiableObservableList(vEvents);
@@ -56,7 +64,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         ArrayList<Event> eventList = new ArrayList<>();
         for (VEvent vEvent : vEvents) {
             vEvent.setDescription("testDescription");
-            eventList.add(vEventToEventMapper(vEvent));
+            eventList.add(EventUtil.vEventToEventMapper(vEvent));
         }
         return eventList;
     }
@@ -92,58 +100,9 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     private ArrayList<VEvent> eventsToVEventsMapper(List<Event> events) {
         ArrayList<VEvent> resultVEventList = new ArrayList<>();
         for (Event event : events) {
-            resultVEventList.add(eventToVEventMapper(event));
+            resultVEventList.add(EventUtil.eventToVEventMapper(event));
         }
         return resultVEventList;
-    }
-
-    /**
-     * Maps a event to VEvent
-     */
-    private VEvent eventToVEventMapper(Event eventToMap) {
-        VEvent resultVEvent = new VEvent();
-        resultVEvent.setDateTimeStart(eventToMap.getStartDateTime());
-        resultVEvent.setDateTimeEnd(eventToMap.getEndDateTime());
-        resultVEvent.setUniqueIdentifier(eventToMap.getUniqueIdentifier());
-        resultVEvent.setSummary(eventToMap.getEventName());
-
-        if (eventToMap.getRecurrenceType() == RecurrenceType.DAILY) {
-            resultVEvent.setRecurrenceRule(dailyRecurRUleString);
-        } else if (eventToMap.getRecurrenceType() == RecurrenceType.WEEKLY) {
-            resultVEvent.setRecurrenceRule(weeklyRecurRuleString);
-        }
-
-        resultVEvent.withCategories(eventToMap.getColorCategory());
-
-        return resultVEvent;
-    }
-
-    /**
-     * Maps a vEvent to event
-     */
-    private Event vEventToEventMapper(VEvent vEventToMap) {
-        Event resultEvent = new Event();
-        LocalDateTime startDateTime = LocalDateTime.parse(vEventToMap.getDateTimeStart().getValue().toString());
-        LocalDateTime endDateTime = LocalDateTime.parse(vEventToMap.getDateTimeEnd().getValue().toString());
-        String uniqueIdentifier = vEventToMap.getUniqueIdentifier().getValue();
-        String eventName = vEventToMap.getSummary().getValue();
-        resultEvent.setStartDateTime(startDateTime);
-        resultEvent.setEndDateTime(endDateTime);
-        resultEvent.setUniqueIdentifier(uniqueIdentifier);
-        resultEvent.setEventName(eventName);
-
-        if (vEventToMap.getRecurrenceRule() == null) {
-            resultEvent.setRecurrenceType(RecurrenceType.NONE);
-        } else if (vEventToMap.getRecurrenceRule().toString().contains("DAILY")) {
-            resultEvent.setRecurrenceType(RecurrenceType.DAILY);
-        } else if (vEventToMap.getRecurrenceRule().toString().contains("WEEKLY")) {
-            resultEvent.setRecurrenceType(RecurrenceType.WEEKLY);
-        }
-
-        String colorCategory = vEventToMap.getCategories().get(0).getValue().get(0);
-        resultEvent.setColorCategory(colorCategory);
-
-        return resultEvent;
     }
 
     /**
@@ -161,7 +120,11 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      * @param vEvent to add to the list.
      */
     public void addVEvent(VEvent vEvent) {
-        this.vEvents.add(vEvent);
+        requireNonNull(vEvent);
+        if (contains(vEvent)) {
+            throw new DuplicateVEventException();
+        }
+        vEvents.add(vEvent);
     }
 
     /**
@@ -182,7 +145,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     public void deleteVEvent(VEvent vEvent) {
         requireNonNull(vEvent);
         if (!vEvents.remove(vEvent)) {
-            //throw new EventNotFoundException();
+            throw new VEventNotFoundException();
         }
     }
 
@@ -217,7 +180,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
 
         int index = vEvents.indexOf(target);
         if (index == -1) {
-            //throw new VEventNotFoundException();
+            throw new VEventNotFoundException();
         }
 
         vEvents.set(index, editedVEvent);
@@ -235,7 +198,13 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      */
     public boolean contains(VEvent toCheck) {
         requireNonNull(toCheck);
-        return vEvents.stream().anyMatch(toCheck::equals);
+        return vEvents.stream().anyMatch(vEvent -> isSameVEvent(vEvent, toCheck));
+    }
+
+    private boolean isSameVEvent(VEvent vEvent1, VEvent vEvent2) {
+        return vEvent1.getSummary().equals(vEvent2.getSummary())
+                && vEvent1.getDateTimeStart().equals(vEvent2.getDateTimeStart())
+                && vEvent1.getDateTimeEnd().equals(vEvent2.getDateTimeEnd());
     }
 
     /**
@@ -256,6 +225,49 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         }
 
         return summary;
+    }
+
+    /**
+     * Gets a list of pair of Index and VEvent which eventNames are equal to the desiredEventName
+     *
+     * @return List of pair of Indexs and VEvents which equal to desiredEventName
+     */
+    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
+        List<Pair<Index, VEvent>> resultIndexList = new ArrayList<>();
+        for (int i = 0; i < vEvents.size(); i++) {
+            VEvent currentVEvent = vEvents.get(i);
+            if (currentVEvent.getSummary().getValue().equals(desiredEventName)) {
+                resultIndexList.add(new Pair(Index.fromZeroBased(i), currentVEvent));
+            }
+        }
+        return resultIndexList;
+    }
+
+    /**
+     * Gets most similar VEvent to that of desiredEventName
+     *
+     * @return List a pair representing the most similar VEvent and its Index
+     *
+     * Will default to first VEvent in list if cannot be found
+     */
+    public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
+        VEvent mostSimilarVEvent = vEvents.get(0);
+        Integer mostSimilarIndex = 0;
+        double highestSimilarityPercentage =
+                StringUtil.calculateStringSimilarity(mostSimilarVEvent.getSummary().getValue(), desiredEventName);
+
+        for (int i = 1; i < vEvents.size(); i++) {
+            VEvent currentEvent = vEvents.get(i);
+            double eventNameSimilarity =
+                    StringUtil.calculateStringSimilarity(currentEvent.getSummary().getValue(), desiredEventName);
+            if (eventNameSimilarity > highestSimilarityPercentage) {
+                mostSimilarIndex = i;
+                mostSimilarVEvent = currentEvent;
+                highestSimilarityPercentage = eventNameSimilarity;
+            }
+        }
+
+        return new Pair(Index.fromZeroBased(mostSimilarIndex), mostSimilarVEvent);
     }
 
     @Override
