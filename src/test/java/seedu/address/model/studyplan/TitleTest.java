@@ -1,21 +1,20 @@
 package seedu.address.model.studyplan;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import org.junit.jupiter.api.Test;
 
-/**
- * A test class for {@code Title}.
- */
 public class TitleTest {
     @Test
-    public void equals() {
-        /*
-        // same title -> true
-        assertTrue(SP_1.getTitle().equals(SP_1.getTitle()));
-        assertTrue(SP_1.getTitle().equals(new Title("first study plan")));
+    public void equals_valid_success() {
+        assertEquals(new Title("Study Plan 1"), new Title("Study Plan 1"));
+        assertNotSame(new Title("Study Plan 1"), new Title("Study Plan 2"));
+    }
 
-        // different titles -> false
-        assertFalse(SP_1.getTitle().equals(SP_2.getTitle()));
-
-         */
+    @Test
+    public void toString_valid_success() {
+        assertEquals(new Title("Study Plan 1").toString(), "Study Plan 1");
+        assertNotSame(new Title("Study Plan 1").toString(), "Study Plan 2");
     }
 }

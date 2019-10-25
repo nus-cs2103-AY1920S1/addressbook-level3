@@ -11,6 +11,7 @@ import seedu.address.model.ModulesInfo;
  * A utility class containing a list of {@code ModuleInfo} objects to be used in tests.
  */
 public class TypicalModulesInfo {
+    public static final ModulesInfo TYPICAL_MODULES_INFO = getTypicalModulesInfo();
 
     public static final ModuleInfo CS1101S = new ModuleInfo(
             "CS1101S",
@@ -50,7 +51,6 @@ public class TypicalModulesInfo {
         mapModulesInfo.put("CS1101S", CS1101S);
         mapModulesInfo.put("CS2040S", CS2040S);
         mapModulesInfo.put("CS4248", CS4248);
-        ModulesInfo modulesInfo = new ModulesInfo(mapModulesInfo);
-        return modulesInfo;
+        return new ModulesInfo(mapModulesInfo);
     }
 }

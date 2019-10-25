@@ -75,8 +75,8 @@ public class StudyPlanBuilder {
     /**
      * Sets the {@code title} of the {@code StudyPlan} that we are building.
      */
-    public StudyPlanBuilder withTitle(String title) {
-        this.title = new Title(title);
+    public StudyPlanBuilder withTitle(Title title) {
+        this.title = title;
         return this;
     }
 
