@@ -28,8 +28,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
 
+//@@author madanalogy
 /**
- * Updates the details of an existing person in the address book.
+ * Updates the details of an existing person in the incident manager
  */
 public class UpdateCommand extends Command {
 

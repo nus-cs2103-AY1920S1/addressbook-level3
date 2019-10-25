@@ -28,6 +28,7 @@ public class StatusBarFooter extends UiPart<Region> {
         sessionDetails.setText("Not Logged In");
     }
 
+    //@@author madanalogy
     public void setLoginDetails(Person person, Date time) {
         if (person != null) {
             sessionDetails.setText("Logged in as " + person.getUsername()

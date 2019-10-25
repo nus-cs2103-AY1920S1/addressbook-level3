@@ -148,32 +148,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides Vehicle & Incident Panels.
-     */
-    void initPreLogin() {
-        logic.isPersonView(true);
-        personListPanelPlaceholder.getParent().setVisible(true);
-        personListPanelPlaceholder.getParent().setManaged(true);
-        incidentListPanelPlaceholder.getParent().setVisible(false);
-        incidentListPanelPlaceholder.getParent().setManaged(false);
-        vehicleListPanelPlaceholder.getParent().setVisible(false);
-        vehicleListPanelPlaceholder.getParent().setManaged(false);
-    }
-
-    /**
-     * Shows Vehicle & Incident Panels.
-     */
-    void initPostLogin() {
-        logic.isPersonView(false);
-        personListPanelPlaceholder.getParent().setVisible(false);
-        personListPanelPlaceholder.getParent().setManaged(false);
-        incidentListPanelPlaceholder.getParent().setVisible(true);
-        incidentListPanelPlaceholder.getParent().setManaged(true);
-        vehicleListPanelPlaceholder.getParent().setVisible(true);
-        vehicleListPanelPlaceholder.getParent().setManaged(true);
-    }
-
-    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -199,6 +173,33 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    //@@author madanalogy
+    /**
+     * Hides Vehicle & Incident Panels.
+     */
+    void initPreLogin() {
+        logic.isPersonView(true);
+        personListPanelPlaceholder.getParent().setVisible(true);
+        personListPanelPlaceholder.getParent().setManaged(true);
+        incidentListPanelPlaceholder.getParent().setVisible(false);
+        incidentListPanelPlaceholder.getParent().setManaged(false);
+        vehicleListPanelPlaceholder.getParent().setVisible(false);
+        vehicleListPanelPlaceholder.getParent().setManaged(false);
+    }
+
+    /**
+     * Shows Vehicle & Incident Panels.
+     */
+    void initPostLogin() {
+        logic.isPersonView(false);
+        personListPanelPlaceholder.getParent().setVisible(false);
+        personListPanelPlaceholder.getParent().setManaged(false);
+        incidentListPanelPlaceholder.getParent().setVisible(true);
+        incidentListPanelPlaceholder.getParent().setManaged(true);
+        vehicleListPanelPlaceholder.getParent().setVisible(true);
+        vehicleListPanelPlaceholder.getParent().setManaged(true);
     }
 
     /**
