@@ -104,8 +104,7 @@ class JsonAdaptedProject {
         }
         final Finance modelFinance = finance.toModelType();
 
-        Project project = new Project(modelTitle, modelDescription, modelTasks, modelFinance);
-        project.getMembers().addAll(modelPersonList);
+        Project project = new Project(modelTitle, modelDescription, modelPersonList, modelTasks, modelFinance);
 
         Set<Meeting> meetingsList = new HashSet<>(meetings);
         project.setListOfMeeting(meetingsList);

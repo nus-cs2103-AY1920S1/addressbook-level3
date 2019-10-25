@@ -35,6 +35,6 @@ public class AddProjectMeetingCommand extends Command {
         requireNonNull(model);
 
         model.getWorkingProject().get().addNewMeeting(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_WORD);
     }
 }

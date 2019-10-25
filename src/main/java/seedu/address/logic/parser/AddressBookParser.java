@@ -46,6 +46,10 @@ public class AddressBookParser {
             return new AddCommandParser().parse(arguments);
         case AddMemberCommand.COMMAND_WORD:
             return new AddMemberCommandParser().parse(arguments);
+
+        case AddFromContactsCommand.COMMAND_WORD:
+            return new AddFromContactsCommandParser().parse(arguments);
+
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
 

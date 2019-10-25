@@ -35,19 +35,25 @@ public class AddBudgetCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException, IllegalValueException {
         requireNonNull(model);
+
         if (!model.isCheckedOut()) {
             throw new CommandException(model.checkoutConstrain());
         }
+
         Project currWorkingProject = model.getWorkingProject().get();
+
         for (Budget budget : budgets) {
             currWorkingProject.getFinance().addBudget(budget);
         }
-        Project editedProject = new Project(currWorkingProject.getTitle(),
-                currWorkingProject.getDescription(), currWorkingProject.getTasks(),
-                new Finance(currWorkingProject.getFinance().getBudgets()));
+
+        Project editedProject = new Project(currWorkingProject.getTitle(), //title
+                currWorkingProject.getDescription(), currWorkingProject.getMembers(), //description + members
+                currWorkingProject.getTasks(), new Finance(currWorkingProject.getFinance().getBudgets())); //tasks and budget
+
         model.setWorkingProject(editedProject);
         model.setProject(currWorkingProject, editedProject);
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS), COMMAND_WORD);
     }
 
 }
