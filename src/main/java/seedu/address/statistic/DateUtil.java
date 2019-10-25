@@ -1,13 +1,9 @@
 package seedu.address.statistic;
 
-import static seedu.address.commons.util.StringUtil.convertCalendarDateToString;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
-import jfxtras.internal.scene.control.fxml.CalendarPickerBuilder;
 import seedu.address.model.order.Order;
 
 /**
@@ -42,8 +38,8 @@ public class DateUtil {
                 .setDate(endingYear, endingMonth, endingDay)
                 .build();
         while (startDateCloned.before(endDateCloned)) {
-            if (startDateCloned.get(Calendar.MONTH) == endDateCloned.get(Calendar.MONTH) &&
-                    startDateCloned.get(Calendar.YEAR) == endDateCloned.get(Calendar.YEAR)) {
+            if (startDateCloned.get(Calendar.MONTH) == endDateCloned.get(Calendar.MONTH)
+                    && startDateCloned.get(Calendar.YEAR) == endDateCloned.get(Calendar.YEAR)) {
                 //same month same year i dont add
                 break;
             } else {
