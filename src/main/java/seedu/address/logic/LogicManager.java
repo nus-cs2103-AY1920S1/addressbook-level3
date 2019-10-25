@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
@@ -26,8 +27,6 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.RecordType;
-import seedu.address.model.statistics.AverageType;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
@@ -178,12 +177,12 @@ public class LogicManager implements Logic {
     //=========== Statistics List =============================================================
 
     @Override
-    public AverageType getAverageType() {
+    public SimpleStringProperty getAverageType() {
         return model.getAverageType();
     }
 
     @Override
-    public RecordType getRecordType() {
+    public SimpleStringProperty getRecordType() {
         return model.getRecordType();
     }
 

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
@@ -21,8 +22,6 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.RecordType;
-import seedu.address.model.statistics.AverageType;
 import seedu.address.ui.DisplayPaneType;
 import seedu.sgm.model.food.Food;
 
@@ -152,12 +151,12 @@ public interface Logic {
     /**
      * Returns the last average type calculated.
      */
-    AverageType getAverageType();
+    SimpleStringProperty getAverageType();
 
     /**
      * Returns the last record type whose average is calculated.
      */
-    RecordType getRecordType();
+    SimpleStringProperty getRecordType();
 
     /**
      * Returns a {@code Map} object that maps time period to the respective average values.

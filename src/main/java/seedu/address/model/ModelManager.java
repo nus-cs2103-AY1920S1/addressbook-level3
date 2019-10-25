@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
@@ -19,7 +20,6 @@ import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
-import seedu.address.model.calendar.Scheduler;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
@@ -47,11 +47,7 @@ public class ModelManager implements Model {
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
-    private final Scheduler scheduler;
     private final AverageMap averageMap;
-
-    private AverageType averageType;
-    private RecordType recordType;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -77,10 +73,7 @@ public class ModelManager implements Model {
         this.calendar = new Calendar(calendar);
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
         this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
-        this.scheduler = new Scheduler();
         this.averageMap = new AverageMap();
-        this.averageType = null;
-        this.recordType = null;
     }
 
     public ModelManager() {
@@ -290,12 +283,12 @@ public class ModelManager implements Model {
 
     @Override
     public void schedule() {
-        scheduler.schedule(this);
+        calendar.schedule();
     }
 
     @Override
     public void stopAllReminders() {
-        scheduler.stopAll();
+        calendar.stopAllReminders();
     }
 
     @Override
@@ -423,29 +416,17 @@ public class ModelManager implements Model {
     //=========== Statistics List =============================================================
 
     @Override
-    public AverageType getAverageType() {
-        return averageType;
+    public SimpleStringProperty getAverageType() {
+        return averageMap.getInternalAverageType();
     }
 
     @Override
-    public RecordType getRecordType() {
-        return recordType;
-    }
-
-    @Override
-    public void setAverageType(AverageType averageType) {
-        this.averageType = averageType;
-    }
-
-    @Override
-    public void setRecordType(RecordType recordType) {
-        this.recordType = recordType;
+    public SimpleStringProperty getRecordType() {
+        return averageMap.getInternalRecordType();
     }
 
     @Override
     public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
-        setAverageType(averageType);
-        setRecordType(recordType);
         averageMap.calculateAverage(getRecordList(), averageType, recordType, count);
     }
 
