@@ -35,13 +35,14 @@ public abstract class CalendarEntry {
     }
 
     /**
-     * Returns true if both calendar entries are same;
-     * This defines a weaker notion of equality between two calendar entries;
+     * Returns true if both calendar entries are same; This defines a weaker notion of equality between two calendar
+     * entries;
      */
     public abstract boolean isSameCalendarEntry(CalendarEntry calendarEntry);
 
     /**
      * Returns the day of week of the date in the entry.
+     *
      * @return the day of week of the date in the entry.
      */
     public DayOfWeek getDayOfWeek() {
@@ -62,6 +63,7 @@ public abstract class CalendarEntry {
 
     /**
      * Returns a String representation of the day of week of the date.
+     *
      * @return a String representation of the day of week of the date.
      */
     public String getDayOfWeekString() {

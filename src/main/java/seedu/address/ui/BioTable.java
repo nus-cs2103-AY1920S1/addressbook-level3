@@ -24,8 +24,8 @@ public class BioTable extends UiPart<Region> {
 
     private static final String FXML = "BioTable.fxml";
     private static final List<String> FIELD_LABELS = new ArrayList<>(List.of("Name:", "NRIC:", "Gender:", "DOB:",
-            "HP:", "Emergency HP:", "Medical Condition:", "Address:", "DP Path:", "Font Colour:", "Background:",
-            "Background Size:", "Background Repeat:", "My Goals:", "Other Bio Info"));
+        "HP:", "Emergency HP:", "Medical Condition:", "Address:", "DP Path:", "Font Colour:", "Background:",
+        "Background Size:", "Background Repeat:", "My Goals:", "Other Bio Info"));
     private ObservableList<BioTableFieldDataPair> list;
 
     @FXML
@@ -60,7 +60,7 @@ public class BioTable extends UiPart<Region> {
         this();
 
         List<String> data = new ArrayList<>(List.of(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address,
-                dpPath, fontColour, bg, bgSize, bgRepeat, myGoals, otherBioInfo));
+            dpPath, fontColour, bg, bgSize, bgRepeat, myGoals, otherBioInfo));
         Iterator<String> dataIterator = data.iterator();
         list = FXCollections.observableArrayList();
         FIELD_LABELS.forEach(fieldLabel -> list.add(new BioTableFieldDataPair(fieldLabel, dataIterator.next())));
@@ -70,6 +70,7 @@ public class BioTable extends UiPart<Region> {
 
     /**
      * Sets individual font colours to columns other than those in the header column
+     *
      * @param column Column for which colour is to be set.
      * @param colour Colour to be set to the selected column.
      */
@@ -93,6 +94,7 @@ public class BioTable extends UiPart<Region> {
 
     /**
      * Sets the given table column to wrap text.
+     *
      * @param column Column for which text is to be wrapped.
      */
     public void setTextWrapping(TableColumn<String, String> column) {

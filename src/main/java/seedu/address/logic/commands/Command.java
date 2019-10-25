@@ -19,10 +19,11 @@ public abstract class Command {
     public abstract CommandResult execute(Model model) throws CommandException;
 
     //TODO: make it abstract
+
     /**
      * Returns a {@code DisplayPaneType} that corresponds to a specific certain command.
      *
-     * @return  a {@code DisplayPaneType} based on the specific command
+     * @return a {@code DisplayPaneType} based on the specific command
      */
     public DisplayPaneType getDisplayPaneType() {
         return null;

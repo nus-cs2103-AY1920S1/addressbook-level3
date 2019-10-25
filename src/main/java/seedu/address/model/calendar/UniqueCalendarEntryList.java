@@ -24,7 +24,7 @@ import seedu.address.model.calendar.exceptions.DuplicateCalendarEntryException;
 public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     private final ObservableList<CalendarEntry> internalList = FXCollections.observableArrayList();
     private final ObservableList<CalendarEntry> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent calendar entry as the given argument.
@@ -46,9 +46,9 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     }
 
     /**
-     * Replaces the calendar entry {@code target} in the list with {@code editedCalendarEntry}.
-     * {@code target} must exist in the list. The calendar entry identity of {@code editedCalendarEntry} must not be
-     * the same as another existing calendar entry in the list.
+     * Replaces the calendar entry {@code target} in the list with {@code editedCalendarEntry}. {@code target} must
+     * exist in the list. The calendar entry identity of {@code editedCalendarEntry} must not be the same as another
+     * existing calendar entry in the list.
      */
     public void setCalendarEntry(CalendarEntry target, CalendarEntry editedCalendarEntry) {
         requireAllNonNull(target, editedCalendarEntry);
@@ -108,8 +108,8 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueCalendarEntryList // instanceof handles nulls
-                && internalList.equals(((UniqueCalendarEntryList) other).internalList));
+            || (other instanceof UniqueCalendarEntryList // instanceof handles nulls
+            && internalList.equals(((UniqueCalendarEntryList) other).internalList));
     }
 
     @Override

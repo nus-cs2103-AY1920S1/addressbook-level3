@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.RecmFoodCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.sgm.model.food.FoodNameContainsKeywordsPredicate;
-import seedu.sgm.model.food.FoodType;
-import seedu.sgm.model.food.FoodTypeIsWantedPredicate;
+import sugarmummy.recmfood.model.FoodNameContainsKeywordsPredicate;
+import sugarmummy.recmfood.model.FoodType;
+import sugarmummy.recmfood.model.FoodTypeIsWantedPredicate;
 
 /**
  * Parses input arguments and creates a new RecmFoodCommand object

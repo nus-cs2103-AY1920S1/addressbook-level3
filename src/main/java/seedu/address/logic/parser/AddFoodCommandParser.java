@@ -12,15 +12,15 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddFoodCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.sgm.model.food.Calorie;
-import seedu.sgm.model.food.Fat;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodName;
-import seedu.sgm.model.food.FoodType;
-import seedu.sgm.model.food.Gi;
-import seedu.sgm.model.food.NutritionValue;
-import seedu.sgm.model.food.Sugar;
-import seedu.sgm.model.food.exception.FoodNotSuitableException;
+import sugarmummy.recmfood.exception.FoodNotSuitableException;
+import sugarmummy.recmfood.model.Calorie;
+import sugarmummy.recmfood.model.Fat;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.FoodName;
+import sugarmummy.recmfood.model.FoodType;
+import sugarmummy.recmfood.model.Gi;
+import sugarmummy.recmfood.model.NutritionValue;
+import sugarmummy.recmfood.model.Sugar;
 
 /**
  * Parses input arguments and creates a new AddFoodCommand object

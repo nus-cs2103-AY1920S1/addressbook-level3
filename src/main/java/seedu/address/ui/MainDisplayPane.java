@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
-import seedu.address.model.bio.User;
+import sugarmummy.bio.model.User;
 
 /**
  * A class containing enumerations, storing the possible Main Display Panes to be displayed to the user.
@@ -22,49 +22,46 @@ public class MainDisplayPane {
     public MainDisplayPane(Logic logic) {
         this.logic = logic;
         map = new HashMap<>();
-        currPaneType = DisplayPaneType.MAIN;
     }
 
     /**
      * Returns a UiPart representing the Main Display Pane observed by the user.
-     * @param displayPaneType An enumerated display pane to retrieve or store the corresponding type of UiPart.
+     *
+     * @param displayPaneType      An enumerated display pane to retrieve or store the corresponding type of UiPart.
      * @param newPaneIsToBeCreated Boolean indicating whether a new pane is to be created, regardless of whether a pane
-     *                           already exists.
+     *                             already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
         switch (displayPaneType) {
-        case MAIN:
-            return getMappedPane(displayPaneType, () -> new PersonListPanel(logic.getFilteredPersonList()),
-                    newPaneIsToBeCreated);
         case BIO:
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
             BioPane previousPane = (BioPane) map.get(DisplayPaneType.BIO);
             Image previousDp = previousPane != null ? previousPane.getImg() : null;
 
             if (!filteredUserList.isEmpty() && previousDp != null && filteredUserList.get(0).getDpPath().toString()
-                    .equals(previousPane.getDpPath())) {
+                .equals(previousPane.getDpPath())) {
                 return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList, previousDp,
-                                logic.getFontColour(), logic.getBackground()),
-                        newPaneIsToBeCreated);
+                        logic.getFontColour(), logic.getBackground()),
+                    newPaneIsToBeCreated);
             } else {
                 return getMappedPane(displayPaneType, () -> new BioPane(filteredUserList,
-                                logic.getFontColour(), logic.getBackground()),
-                        newPaneIsToBeCreated);
+                        logic.getFontColour(), logic.getBackground()),
+                    newPaneIsToBeCreated);
             }
         case ACHVM:
             return getMappedPane(displayPaneType, AchievementsPane::new, newPaneIsToBeCreated);
         case RECM_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFilterFoodList()),
-                    newPaneIsToBeCreated);
+                newPaneIsToBeCreated);
         case ADD:
         case LIST:
         case DELETE:
             return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()),
-                    newPaneIsToBeCreated);
+                newPaneIsToBeCreated);
         case AVERAGE:
             return getMappedPane(displayPaneType, () -> new AverageGraphPanel(logic.getAverageMap(),
-                            logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
+                logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
         default:
             return null;
         }
@@ -72,11 +69,12 @@ public class MainDisplayPane {
 
     /**
      * Returns a UiPart to be displayed to the user, after adding it to the map of display panes, if not yet added.
-     * @param displayPaneType An enumerated display pane to retrieve or store the corresponding type of UiPart.
-     * @param newPaneSupplier A Supplier object containing the UiPart to be returned if a mapping for it does
-     *                        not exist yet, unless new pane is given to be created regardless.
-     * @param newPaneIsToBeCreated Boolean indicating whether a new pane is to be created, regardless of whether a
-     *                           pane of the same type already exists.
+     *
+     * @param displayPaneType      An enumerated display pane to retrieve or store the corresponding type of UiPart.
+     * @param newPaneSupplier      A Supplier object containing the UiPart to be returned if a mapping for it does not
+     *                             exist yet, unless new pane is given to be created regardless.
+     * @param newPaneIsToBeCreated Boolean indicating whether a new pane is to be created, regardless of whether a pane
+     *                             of the same type already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
@@ -91,16 +89,17 @@ public class MainDisplayPane {
     }
 
     /**
-     * Returns a UiPart to be displayed to the user. If a panel of the same type already exists,
-     * it simply returns the existing panel.
+     * Returns a UiPart to be displayed to the user. If a panel of the same type already exists, it simply returns the
+     * existing panel.
+     *
      * @param displayPaneType An enumerated display pane to retrieve or store the corresponding type of UiPart.
-     * @param newPaneSupplier A Supplier object containing the UiPart to be returned if a mapping for it does
-     *                        not exist yet.
-     * @return A UiPart representing the Main Display Pane observed by the user, and is simply the existing part of
-     * the same type if it already exists in the mapping of this MainDisplayPane object.
+     * @param newPaneSupplier A Supplier object containing the UiPart to be returned if a mapping for it does not exist
+     *                        yet.
+     * @return A UiPart representing the Main Display Pane observed by the user, and is simply the existing part of the
+     *     same type if it already exists in the mapping of this MainDisplayPane object.
      */
     private UiPart<Region> getMappedPane(DisplayPaneType displayPaneType,
-                                                 Supplier<UiPart<Region>> newPaneSupplier) {
+                                         Supplier<UiPart<Region>> newPaneSupplier) {
         return getMappedPane(displayPaneType, newPaneSupplier, false);
     }
 

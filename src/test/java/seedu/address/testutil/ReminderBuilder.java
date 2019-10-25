@@ -9,8 +9,8 @@ import seedu.address.model.calendar.Reminder;
 import seedu.address.model.calendar.Repetition;
 
 /**
-* A utility class to help with building Reminder objects.
-*/
+ * A utility class to help with building Reminder objects.
+ */
 public class ReminderBuilder {
     public static final String DEFAULT_DESCRIPTION = "Insulin injection";
     public static final LocalDate DEFAULT_DATE = LocalDate.of(2019, 10, 12);

@@ -12,11 +12,11 @@ import javafx.scene.layout.VBox;
 import seedu.address.MainApp;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
-import seedu.address.model.bio.User;
+import sugarmummy.bio.model.User;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
+ * can be placed.
  */
 public class BioPane extends UiPart<Region> {
 
@@ -53,15 +53,16 @@ public class BioPane extends UiPart<Region> {
             String gender = user.getGender().toString();
             String dob = user.getDateOfBirth().toString();
             String hp = listToString(user.getContactNumbers());
-            String emergencyHp = listToString(user.getEmergencyContacts());;
+            String emergencyHp = listToString(user.getEmergencyContacts());
+            ;
             String medicalCondition = listToString(user.getMedicalConditions());
             String address = user.getAddress().toString();
             String fontColourToString = background.showDefaultBackground()
-                    ? "yellow"
-                    : fontColour.toString();
+                ? "yellow"
+                : fontColour.toString();
             String bg = background.showDefaultBackground()
-                    ? "Temporary Background"
-                    : background.toString();
+                ? "Temporary Background"
+                : background.toString();
             String bgSize = background.getBgSize();
             String bgRepeat = background.getBgRepeat();
             String myGoals = listToString(user.getGoals());
@@ -86,7 +87,7 @@ public class BioPane extends UiPart<Region> {
             }
             profilePlaceholder.getChildren().add(profile.getRoot());
             bioTable = new BioTable(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath,
-                    fontColourToString, bg, bgSize, bgRepeat, myGoals, otherBioInfo);
+                fontColourToString, bg, bgSize, bgRepeat, myGoals, otherBioInfo);
         } else {
             img = new Image(MainApp.class.getResourceAsStream(DEFAULT_DP_PATH));
             this.img = img;
@@ -97,16 +98,9 @@ public class BioPane extends UiPart<Region> {
         bioTablePlaceholder.getChildren().add(bioTable.getRoot());
     }
 
-    public String getDpPath() {
-        return dpPath;
-    }
-
-    public Image getImg() {
-        return img;
-    }
-
     /**
      * Returns the String representation of a list that is to be displayed in this BioPane.
+     *
      * @param list A list for which its String representation is to be representation.
      * @return String representation of a list that is to be displayed in this BioPane.
      */
@@ -125,6 +119,14 @@ public class BioPane extends UiPart<Region> {
 
         }
         return stringBuilder.toString();
+    }
+
+    public String getDpPath() {
+        return dpPath;
+    }
+
+    public Image getImg() {
+        return img;
     }
 
 }

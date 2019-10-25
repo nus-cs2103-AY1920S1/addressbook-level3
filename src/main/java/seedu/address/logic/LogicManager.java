@@ -23,13 +23,13 @@ import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
-import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
-import seedu.sgm.model.food.Food;
+import sugarmummy.bio.model.User;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.storage.Storage;
 
 /**
  * The main LogicManager of the app.

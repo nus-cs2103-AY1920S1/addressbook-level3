@@ -21,29 +21,29 @@ import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
-import seedu.address.model.bio.Address;
-import seedu.address.model.bio.DateOfBirth;
-import seedu.address.model.bio.DisplayPicPath;
-import seedu.address.model.bio.Gender;
-import seedu.address.model.bio.Goal;
-import seedu.address.model.bio.MedicalCondition;
-import seedu.address.model.bio.Name;
-import seedu.address.model.bio.Nric;
-import seedu.address.model.bio.OtherBioInfo;
-import seedu.address.model.bio.Phone;
-import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Repetition;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
-import seedu.sgm.model.food.Calorie;
-import seedu.sgm.model.food.Fat;
-import seedu.sgm.model.food.FoodName;
-import seedu.sgm.model.food.Gi;
-import seedu.sgm.model.food.NutritionValue;
-import seedu.sgm.model.food.Sugar;
+import sugarmummy.bio.model.Address;
+import sugarmummy.bio.model.DateOfBirth;
+import sugarmummy.bio.model.DisplayPicPath;
+import sugarmummy.bio.model.Gender;
+import sugarmummy.bio.model.Goal;
+import sugarmummy.bio.model.MedicalCondition;
+import sugarmummy.bio.model.Name;
+import sugarmummy.bio.model.Nric;
+import sugarmummy.bio.model.OtherBioInfo;
+import sugarmummy.bio.model.Phone;
+import sugarmummy.bio.model.ProfileDesc;
+import sugarmummy.recmfood.model.Calorie;
+import sugarmummy.recmfood.model.Fat;
+import sugarmummy.recmfood.model.FoodName;
+import sugarmummy.recmfood.model.Gi;
+import sugarmummy.recmfood.model.NutritionValue;
+import sugarmummy.recmfood.model.Sugar;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -82,9 +82,9 @@ public class ParserUtil {
     }
 
     //=========== User List =============================================================
+
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -98,8 +98,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String profileDesc} into a {@code ProfileDesc}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String profileDesc} into a {@code ProfileDesc}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code profileDesc} is invalid.
      */
@@ -117,8 +117,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String displayPicPath} into a {@code DisplayPicPath}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String displayPicPath} into a {@code DisplayPicPath}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code displayPicPath} is invalid.
      */
@@ -145,8 +145,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String nric} into a {@code Nric}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String nric} into a {@code Nric}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code nric} is invalid.
      */
@@ -164,8 +163,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String gender} into a {@code Gender}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String gender} into a {@code Gender}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code gender} is invalid.
      */
@@ -183,8 +181,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String dateOfBirth} into a {@code DateOfBirth}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String dateOfBirth} into a {@code DateOfBirth}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code dateOfBirth} is invalid.
      */
@@ -202,8 +200,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
@@ -233,8 +230,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String medicalCondition} into a {@code MedicalCondition}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String medicalCondition} into a {@code MedicalCondition}. Leading and trailing whitespaces will
+     * be trimmed.
      *
      * @throws ParseException if the given {@code medicalCondition} is invalid.
      */
@@ -251,7 +248,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> medicalConditions} into a {@code List<MedicalCondition>}.
      */
     public static List<MedicalCondition> parseMedicalConditions(Collection<String> medicalConditions)
-            throws ParseException {
+        throws ParseException {
         requireNonNull(medicalConditions);
         if (medicalConditions.isEmpty()) {
             throw new ParseException(MedicalCondition.MESSAGE_CONSTRAINTS);
@@ -264,8 +261,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into a {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String address} into a {@code Address}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
@@ -283,8 +279,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String goal} into a {@code Goal}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String goal} into a {@code Goal}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code goal} is invalid.
      */
@@ -310,8 +305,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String otherInfo} into a {@code OtherBioInfo}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String otherInfo} into a {@code OtherBioInfo}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code otherBioInfo} is invalid.
      */
@@ -331,8 +325,7 @@ public class ParserUtil {
     //=========== Aesthetics =============================================================
 
     /**
-     * Parses a {@code String colour} into a {@code Colour}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String colour} into a {@code Colour}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code colour} is invalid.
      */
@@ -346,8 +339,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String background} into a {@code Background}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String background} into a {@code Background}. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code background} is invalid.
      */
@@ -374,6 +366,7 @@ public class ParserUtil {
     }
 
     //=========== Food Map =============================================================
+
     /**
      * Parses a {@code String name} into a {@code FoodName}. Leading and trailing whitespaces will be trimmed.
      *
@@ -500,8 +493,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String concentration} into an {@code Concentration}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String concentration} into an {@code Concentration}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code concentration} is invalid.
      */
@@ -540,8 +533,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String description} into a {@code Description}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String description} into a {@code Description}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code description} is invalid.
      */

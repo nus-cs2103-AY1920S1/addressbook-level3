@@ -15,32 +15,33 @@ import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.bio.UserList;
 import seedu.address.model.record.UniqueRecordList;
-import seedu.sgm.model.food.UniqueFoodList;
+import sugarmummy.bio.model.UserList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code
+ * DeleteCommand}.
  */
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
-            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
+        new UniqueFoodList(), new UniqueRecordList(), new Calendar());
 
     //    @Test
     //    public void execute_validIndexUnfilteredList_success() {
-    //        Record recordToDelete = model.getRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
+    //        Record recordToDelete = sugarmummy.recmfood.model.getRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
     //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECORD);
     //
     //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete);
     //
-    //        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserList(),
+    //        ModelManager expectedModel = new ModelManager(sugarmummy.recmfood.model.getAddressBook(), new UserPrefs(),
+    //        new UserList(),
     //                new UniqueFoodList(), new UniqueRecordList(), new Calendar());
     //
     //        expectedModel.deleteRecord(recordToDelete);
     //
-    //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    //        assertCommandSuccess(deleteCommand, sugarmummy.recmfood.model, expectedMessage, expectedModel);
     //    }
 
     @Test
@@ -53,34 +54,36 @@ public class DeleteCommandTest {
 
     //    @Test
     //    public void execute_validIndexFilteredList_success() {
-    ////        showRecordAtIndex(model, INDEX_FIRST_RECORD);
+    ////        showRecordAtIndex(sugarmummy.recmfood.model, INDEX_FIRST_RECORD);
     //
-    //        Record recordToDelete = model.getFilterRecordList().get(INDEX_FIRST_RECORD.getZeroBased());
+    //        Record recordToDelete = sugarmummy.recmfood.model.getFilterRecordList().get(INDEX_FIRST_RECORD.
+    //        getZeroBased());
     //        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECORD);
     //
     //        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete);
     //
-    //        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+    //        Model expectedModel = new ModelManager(sugarmummy.recmfood.model.getAddressBook(), new UserPrefs(),
     //                new UserList(), new UniqueFoodList(),
     //            new UniqueRecordList(), new Calendar());
     //
     //        expectedModel.deleteRecord(recordToDelete);
     ////        showNoRecord(expectedModel);
     //
-    //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    //        assertCommandSuccess(deleteCommand, sugarmummy.recmfood.model, expectedMessage, expectedModel);
     //    }
 
     //    @Test
     //    public void execute_invalidIndexFilteredList_throwsCommandException() {
-    ////        showRecordAtIndex(model, INDEX_FIRST_PERSON);
+    ////        showRecordAtIndex(sugarmummy.recmfood.model, INDEX_FIRST_PERSON);
     //
     //        Index outOfBoundIndex = INDEX_SECOND_RECORD;
     //        // ensures that outOfBoundIndex is still in bounds of address book list
-    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getFilterRecordList().size());
+    //        assertTrue(outOfBoundIndex.getZeroBased() < sugarmummy.recmfood.model.getFilterRecordList().size());
     //
     //        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
     //
-    //        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
+    //        assertCommandFailure(deleteCommand, sugarmummy.recmfood.model,
+    //        Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
     //    }
 
     @Test
@@ -106,7 +109,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show no one.
+     * Updates {@code sugarmummy.recmfood.model}'s filtered list to show no one.
      */
     private void showNoRecord(Model model) {
         model.updateFilteredRecordList(p -> false);

@@ -19,9 +19,9 @@ public class LogsCenter {
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
     private static final String LOG_FILE = "addressbook.log";
     private static Level currentLogLevel = Level.INFO;
-    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
+    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object) Loggers obtained *AFTER* this
@@ -72,7 +72,7 @@ public class LogsCenter {
      */
     private static void removeHandlers(Logger logger) {
         Arrays.stream(logger.getHandlers())
-                .forEach(logger::removeHandler);
+            .forEach(logger::removeHandler);
     }
 
     /**

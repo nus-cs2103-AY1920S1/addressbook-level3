@@ -58,7 +58,7 @@ public class SugarMummyParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased());
+            DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
 
@@ -81,7 +81,7 @@ public class SugarMummyParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 

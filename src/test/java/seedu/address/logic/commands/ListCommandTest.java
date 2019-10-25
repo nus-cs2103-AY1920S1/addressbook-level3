@@ -10,9 +10,9 @@ import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.bio.UserList;
 import seedu.address.model.record.UniqueRecordList;
-import seedu.sgm.model.food.UniqueFoodList;
+import sugarmummy.bio.model.UserList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -37,7 +37,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        //        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        //        showPersonAtIndex(sugarmummy.recmfood.model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

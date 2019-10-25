@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 /**
- * Marks the option flags for selective food recommendations.
- * E.g. '-m' in 'recmf -m' to only show meal recommendations.
+ * Marks the option flags for selective food recommendations. E.g. '-m' in 'recmf -m' to only show meal
+ * recommendations.
  */
 public class Flag {
     private final String flag;

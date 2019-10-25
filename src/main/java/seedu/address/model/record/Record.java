@@ -7,8 +7,8 @@ import java.util.Objects;
 import seedu.address.model.DateTime;
 
 /**
- * Represents a record in the record book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a record in the record book. Guarantees: details are present and not null, field values are validated,
+ * immutable.
  */
 public abstract class Record {
 

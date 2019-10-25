@@ -65,11 +65,7 @@
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
+    -fx-border-color: transparent transparent derive(-fx-base, 80%) transparent;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -104,7 +100,7 @@
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
+    -fx-graphic-text-gap: 0;
     -fx-padding: 0 0 0 0;
 }
 
@@ -160,13 +156,13 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -186,11 +182,11 @@
 }
 
 .profile-name {
-     -fx-background-color: transparent;
-     -fx-font-family: "Segoe UI Light";
-     -fx-font-size: 20pt;
-     -fx-text-fill: white;
- }
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 20pt;
+    -fx-text-fill: white;
+}
 
 .profile-asl {
     -fx-background-color: transparent;
@@ -212,7 +208,7 @@
 }
 
 .bio-table .table-cell .table-cell-text {
-    -fx-fill: white ;
+    -fx-fill: white;
     -fx-font-family: "Segoe UI Light";
 }
 
@@ -239,7 +235,7 @@
     -fx-text-fill: white !important;
 }
 
-.data-column .label{
+.data-column .label {
     -fx-font-family: "Arial" !important;
     -fx-font-size: 10pt !important;
     -fx-text-fill: white !important;
@@ -317,8 +313,8 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
 }
 
 .button:focused {
@@ -369,7 +365,7 @@
     -fx-text-fill: white;
 }
 
-.profile-scroll, .calendar-scroll{
+.profile-scroll, .calendar-scroll {
     -fx-background: transparent !important;
     -fx-background-color: transparent !important;
     -fx-border-color: transparent !important;

@@ -1,6 +1,6 @@
 package seedu.address;
 
-import static seedu.sgm.model.food.TypicalFoods.FOODS;
+import static sugarmummy.recmfood.model.TypicalFoods.FOODS;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,25 +28,26 @@ import seedu.address.model.ReadOnlyData;
 import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.bio.UserList;
 import seedu.address.model.record.UniqueRecordList;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleCalendarDataUtil;
 import seedu.address.model.util.SampleFoodDataUtil;
+import seedu.address.model.util.SampleRecordDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonCalendarStorage;
-import seedu.address.storage.JsonFoodListStorage;
-import seedu.address.storage.JsonRecordListStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserListStorage;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.bio.JsonUserListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import seedu.sgm.model.food.UniqueFoodList;
+import sugarmummy.bio.model.UserList;
+import sugarmummy.recmfood.model.UniqueFoodList;
+import sugarmummy.storage.AddressBookStorage;
+import sugarmummy.storage.JsonAddressBookStorage;
+import sugarmummy.storage.JsonCalendarStorage;
+import sugarmummy.storage.JsonFoodListStorage;
+import sugarmummy.storage.JsonRecordListStorage;
+import sugarmummy.storage.JsonUserPrefsStorage;
+import sugarmummy.storage.Storage;
+import sugarmummy.storage.StorageManager;
+import sugarmummy.storage.UserListStorage;
+import sugarmummy.storage.UserPrefsStorage;
+import sugarmummy.storage.bio.JsonUserListStorage;
 
 /**
  * Runs the application.
@@ -83,9 +84,9 @@ public class MainApp extends Application {
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(userPrefs.getEventListFilePath(),
-                userPrefs.getReminderListFilePath());
+            userPrefs.getReminderListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
-                jsonRecordListStorage, jsonCalendarStorage);
+            jsonRecordListStorage, jsonCalendarStorage);
 
         initLogging(config);
 
@@ -102,68 +103,73 @@ public class MainApp extends Application {
      * empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialData = new AddressBook();
         ReadOnlyUserList initialUserData;
         UniqueFoodList foodList = new UniqueFoodList();
         foodList.setFoods(FOODS);
         UniqueRecordList initialRecordListData;
         ReadOnlyCalendar initialCalendar;
 
-        initialData = (ReadOnlyAddressBook) getInitialData("Address Book",
-                SampleDataUtil::getSampleAddressBook, AddressBook::new);
         initialUserData = (ReadOnlyUserList) getInitialData(LABEL_BIO_DATA_TYPE,
-                SampleUserDataUtil::getSampleUserList, UserList::new);
+            SampleUserDataUtil::getSampleUserList, UserList::new);
         foodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
-                SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
+            SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
         initialRecordListData = (UniqueRecordList) getInitialData(LABEL_RECORD_DATA_TYPE,
-                SampleDataUtil::getSampleRecordList, UniqueRecordList::new);
+            SampleRecordDataUtil::getSampleRecordList, UniqueRecordList::new);
         initialCalendar = (ReadOnlyCalendar) getInitialData(LABEL_CALENDAR_DATA_TYPE,
-                SampleDataUtil::getSampleCalendar, Calendar::new);
+            SampleCalendarDataUtil::getSampleCalendar, Calendar::new);
 
         return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData,
-                initialCalendar);
+            initialCalendar);
     }
 
     /**
      * Returns an optional containing read-only data types.
+     *
      * @param dataType String label of data type for which optional data is to be obtained.
      * @return Optional containing read-only data types.
      * @throws IOException
      * @throws DataConversionException
      */
     private Optional<? extends ReadOnlyData> getOptionalData(String dataType) throws IOException,
-            DataConversionException {
+        DataConversionException {
         switch (dataType) {
-        case LABEL_BIO_DATA_TYPE: return storage.readUserList();
-        case LABEL_FOOD_DATA_TYPE: return storage.readFoodList();
-        case LABEL_RECORD_DATA_TYPE: return storage.readRecordList();
-        case LABEL_CALENDAR_DATA_TYPE: return storage.readCalendar();
-        default: return storage.readAddressBook();
+        case LABEL_BIO_DATA_TYPE:
+            return storage.readUserList();
+        case LABEL_FOOD_DATA_TYPE:
+            return storage.readFoodList();
+        case LABEL_RECORD_DATA_TYPE:
+            return storage.readRecordList();
+        case LABEL_CALENDAR_DATA_TYPE:
+            return storage.readCalendar();
+        default:
+            return storage.readAddressBook();
         }
     }
 
     /**
      * Returns an object representing data of the given data type.
-     * @param dataType String representing the type of initial data to be retrieved
+     *
+     * @param dataType           String representing the type of initial data to be retrieved
      * @param sampleDataSupplier Supplier that creates a new sample data file upon execution.
      * @param dataObjectSupplier Supplier that creates a new data file upon execution.
      * @return Object representing data of the given data type.
      */
     private Object getInitialData(String dataType, Supplier<? extends Object> sampleDataSupplier,
-                                        Supplier<? extends Object> dataObjectSupplier) {
+                                  Supplier<? extends Object> dataObjectSupplier) {
         Object initialData;
         try {
             Optional<? extends ReadOnlyData> dataOptional = getOptionalData(dataType);
             if (!dataOptional.isPresent()) {
                 logger.info(capitaliseFirstLetter(dataType) + " data file not found. Will be starting a sample "
-                        + dataType + " data file");
+                    + dataType + " data file");
                 initialData = sampleDataSupplier.get();
             } else {
                 initialData = dataOptional.get();
             }
         } catch (DataConversionException | IOException e) {
             logger.warning(dataType + "data file not in the correct format. Will be starting with an empty "
-                    + dataType + " data file");
+                + dataType + " data file");
             initialData = dataObjectSupplier.get();
         }
         return initialData;

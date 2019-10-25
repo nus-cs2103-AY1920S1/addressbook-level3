@@ -22,14 +22,14 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.record.UniqueRecordList;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonCalendarStorage;
-import seedu.address.storage.JsonFoodListStorage;
-import seedu.address.storage.JsonRecordListStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.bio.JsonUserListStorage;
-import seedu.sgm.model.food.UniqueFoodList;
+import sugarmummy.recmfood.model.UniqueFoodList;
+import sugarmummy.storage.JsonAddressBookStorage;
+import sugarmummy.storage.JsonCalendarStorage;
+import sugarmummy.storage.JsonFoodListStorage;
+import sugarmummy.storage.JsonRecordListStorage;
+import sugarmummy.storage.JsonUserPrefsStorage;
+import sugarmummy.storage.StorageManager;
+import sugarmummy.storage.bio.JsonUserListStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -51,9 +51,9 @@ public class LogicManagerTest {
             temporaryFolder.resolve("recordList.json")
         );
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("eventlist.json"),
-                temporaryFolder.resolve("reminderlist.json"));
+            temporaryFolder.resolve("reminderlist.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage,
-                jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
+            jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -85,7 +85,7 @@ public class LogicManagerTest {
     //        JsonUserPrefsStorage userPrefsStorage =
     //                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
     //        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-    //        logic = new LogicManager(model, storage);
+    //        logic = new LogicManager(sugarmummy.recmfood.model, storage);
     //
     //        // Execute add command
     //        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
@@ -104,7 +104,8 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that - no exceptions are thrown <br> - the feedback message is equal to {@code
-     * expectedMessage} <br> - the internal model manager state is the same as that in {@code expectedModel} <br>
+     * expectedMessage} <br> - the internal sugarmummy.recmfood.model manager state is the same as that in {@code
+     * expectedModel} <br>
      *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
@@ -141,14 +142,14 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getUserList(),
-                new UniqueFoodList(), new UniqueRecordList(), new Calendar());
+            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
     /**
      * Executes the command and confirms that - the {@code expectedException} is thrown <br> - the resulting error
-     * message is equal to {@code expectedMessage} <br> - the internal model manager state is the same as that in {@code
-     * expectedModel} <br>
+     * message is equal to {@code expectedMessage} <br> - the internal sugarmummy.recmfood.model manager state is the
+     * same as that in {@code expectedModel} <br>
      *
      * @see #assertCommandSuccess(String, String, Model)
      */

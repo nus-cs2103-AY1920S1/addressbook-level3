@@ -25,7 +25,6 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
-import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
@@ -34,8 +33,9 @@ import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageType;
 import seedu.address.testutil.ReminderBuilder;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.UniqueFoodList;
+import sugarmummy.bio.model.User;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 class ReminderCommandTest {
     @Test
@@ -90,17 +90,17 @@ class ReminderCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default sugarmummy.recmfood.model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -130,12 +130,12 @@ class ReminderCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -177,6 +177,11 @@ class ReminderCommandTest {
         @Override
         public ObservableList<Record> getRecordList() {
             return null;
+        }
+
+        @Override
+        public void setRecordList(UniqueRecordList newRecordList) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -234,17 +239,7 @@ class ReminderCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void setRecordList(UniqueRecordList newRecordList) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         //=========== User List =============================================================
-
-        @Override
-        public void setUserList(ReadOnlyUserList userList) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public boolean bioExists() {
@@ -257,7 +252,17 @@ class ReminderCommandTest {
         }
 
         @Override
+        public void setUserList(ReadOnlyUserList userList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getUserListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserListFilePath(Path userListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -335,11 +340,6 @@ class ReminderCommandTest {
 
         @Override
         public void setUser(User target, User editedUser) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserListFilePath(Path userListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

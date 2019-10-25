@@ -10,7 +10,6 @@ import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
-import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.person.Person;
@@ -18,8 +17,9 @@ import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageType;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.UniqueFoodList;
+import sugarmummy.bio.model.User;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * The API of the Model component.
@@ -102,17 +102,13 @@ public interface Model {
 
 
     //==================Food List====================
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Replaces food list data with the data in {@code newFoodList}.
-     */
-    void setFoodList(UniqueFoodList newFoodList);
 
     boolean hasFood(Food food);
 
@@ -132,6 +128,11 @@ public interface Model {
     ObservableList<Food> getFoodList();
 
     /**
+     * Replaces food list data with the data in {@code newFoodList}.
+     */
+    void setFoodList(UniqueFoodList newFoodList);
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Food> getFilterFoodList();
@@ -145,10 +146,6 @@ public interface Model {
 
 
     //==================RECORD====================
-    /**
-     * Replaces record list data with the data in {@code newRecordList}.
-     */
-    void setRecordList(UniqueRecordList newRecordList);
 
     boolean hasRecord(Record record);
 
@@ -171,6 +168,11 @@ public interface Model {
      * Returns the a list of records.
      */
     ObservableList<Record> getRecordList();
+
+    /**
+     * Replaces record list data with the data in {@code newRecordList}.
+     */
+    void setRecordList(UniqueRecordList newRecordList);
 
     /**
      * Returns an unmodifiable view of the filtered record list
@@ -210,22 +212,25 @@ public interface Model {
 
     /**
      * Returns whether or not a user biography already exists.
+     *
      * @return
      */
     public boolean bioExists();
 
-    /** Returns the UserList */
-    ReadOnlyUserList getUserList();
-
     /**
-     * Returns the user prefs' user list file path.
+     * Returns the UserList
      */
-    Path getUserListFilePath();
+    ReadOnlyUserList getUserList();
 
     /**
      * Replaces user list data with the data in {@code userList}.
      */
     void setUserList(ReadOnlyUserList userList);
+
+    /**
+     * Returns the user prefs' user list file path.
+     */
+    Path getUserListFilePath();
 
     /**
      * Sets the user prefs' user list file path.
@@ -243,9 +248,8 @@ public interface Model {
     void addUser(User user);
 
     /**
-     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the address
-     * book. The user identity of {@code editedUser} must not be the same as another existing user in the address
-     * book.
+     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the address book.
+     * The user identity of {@code editedUser} must not be the same as another existing user in the address book.
      */
     void setUser(User target, User editedUser);
 

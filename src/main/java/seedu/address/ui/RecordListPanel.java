@@ -29,8 +29,8 @@ public class RecordListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code BloodSugarRecordCard} or
-     * a {@code BmiRecordCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code BloodSugarRecordCard} or a
+     * {@code BmiRecordCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override
