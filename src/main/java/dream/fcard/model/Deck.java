@@ -21,54 +21,64 @@ import javafx.scene.Node;
  * Collection of cards.
  */
 public class Deck implements JsonInterface {
+
+    /** Name of this Deck object. */
     private String deckName;
+
+    /** List of FlashCard objects in this Deck object. */
     private ArrayList<FlashCard> cards;
-    private ArrayList<FlashCard> highPriorityQueue;
-    private ArrayList<FlashCard> lowPriorityQueue;
+
+    /** List of FlashCards with High priority levels. */
+    private ArrayList<FlashCard> highPriorityList;
+
+    /** List of FlashCards with Low priority levels. */
+    private ArrayList<FlashCard> lowPriorityList;
 
     /**
-     * Constructor to create a Deck with no name and cards.
+     * Constructor to create a Deck object with no name and cards.
      */
     public Deck() {
         cards = new ArrayList<>();
         deckName = "untitled";
 
-        highPriorityQueue = new ArrayList<>();
-        lowPriorityQueue = new ArrayList<>();
+        highPriorityList = new ArrayList<>();
+        lowPriorityList = new ArrayList<>();
     }
 
     /**
-     * Constructor to create a Deck with name and cards.
+     * Constructor to create a Deck object with name and FlashCard objects.
      *
-     * @param name String name of the deck.
+     * @param name String name of the Deck object.
      */
     public Deck(String name) {
         cards = new ArrayList<>();
         deckName = name;
 
-        highPriorityQueue = new ArrayList<>();
-        lowPriorityQueue = new ArrayList<>();
+        highPriorityList = new ArrayList<>();
+        lowPriorityList = new ArrayList<>();
     }
 
     /**
-     * Constructor to create a Deck with name and cards.
+     * Constructor to create a Deck object with name and FlashCard objects.
      *
-     * @param name String name of the deck.
+     * @param name String name of the Deck object.
      */
     public Deck(ArrayList<FlashCard> initialCards, String name) {
         cards = initialCards;
         deckName = name;
 
-        highPriorityQueue = new ArrayList<>();
-        lowPriorityQueue = new ArrayList<>();
+        highPriorityList = new ArrayList<>();
+        lowPriorityList = new ArrayList<>();
 
-        addCardsToQueues(initialCards);
+        addCardsToPriorityLists(initialCards);
     }
 
     /**
-     * @param list
+     * Adds FlashCard objects to a specific Priority List.
+     *
+     * @param list ArrayList of FlashCard objects to add to Priority lists.
      */
-    private void addCardsToQueues(ArrayList<FlashCard> list) {
+    private void addCardsToPriorityLists(ArrayList<FlashCard> list) {
         for (int i = 0; i < list.size(); i++) {
             FlashCard card = list.get(i);
 
@@ -76,31 +86,13 @@ public class Deck implements JsonInterface {
             boolean isLowPriorityCard = card.getPriority() == LOW_PRIORITY;
 
             if (isHighPriorityCard) {
-                highPriorityQueue.add(card);
+                highPriorityList.add(card);
             }
 
             if (isLowPriorityCard) {
-                lowPriorityQueue.add(card);
+                lowPriorityList.add(card);
             }
         }
-    }
-
-    /**
-     * Render all the cards of the deck in a list.
-     *
-     * @return Node of list
-     */
-    public Node renderListView() {
-        return null;
-    }
-
-    /**
-     * Render tile icon of this deck to display alongside other decks.
-     *
-     * @return Node of tile
-     */
-    public Node renderTileView() {
-        return null;
     }
 
     /**
@@ -126,16 +118,16 @@ public class Deck implements JsonInterface {
      *
      * @param newCard FlashCard object to add to Deck.
      */
-    public void addNewCard(FlashCard newCard) {
+    public void addNewCardToDeck(FlashCard newCard) {
         cards.add(newCard);
     }
 
     /**
-     * Removes a specified card using index from the list of cards.
+     * Removes a specified FlashCard using index from the list of FlashCards.
      *
-     * @param indexProvided Integer index of card to remove from list of Cards.
+     * @param indexProvided Integer index of FlashCard to remove from list of FlashCards.
      */
-    public void removeCard(int indexProvided) throws IndexNotFoundException {
+    public void removeCardFromDeck(int indexProvided) throws IndexNotFoundException {
         boolean isUserProvidedIndexValid = isIndexProvidedByUserValid(indexProvided);
 
         if (!isUserProvidedIndexValid) {
@@ -147,13 +139,13 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * Edit front of card.
+     * Set front of card.
      *
-     * @param newFront      String of new text to replace front of card.
-     * @param indexProvided Index of card in the Deck.
-     * @throws IndexNotFoundException If index >= number of cards in deck or < 0.
+     * @param newFront      String of new text to replace front of FlashCard.
+     * @param indexProvided Index of FlashCard in the Deck.
+     * @throws IndexNotFoundException If index >= number of FlashCard objects in Deck or < 0.
      */
-    public void editFrontCardInDeck(String newFront, int indexProvided) throws IndexNotFoundException {
+    public void editFrontCardFromDeck(String newFront, int indexProvided) throws IndexNotFoundException {
         boolean isUserProvidedIndexValid = isIndexProvidedByUserValid(indexProvided);
 
         if (!isUserProvidedIndexValid) {
@@ -165,11 +157,11 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * Edit back of card.
+     * Set back of FlashCard object.
      *
-     * @param newBack       String of new text to replace back of card.
+     * @param newBack       String of new text to replace back of FlashCard.
      * @param indexProvided Index of card in the Deck.
-     * @throws IndexNotFoundException If index >= number of cards in deck or < 0.
+     * @throws IndexNotFoundException If index >= number of FlashCards in Deck or < 0.
      */
     public void editBackCardInDeck(String newBack, int indexProvided) throws IndexNotFoundException {
         boolean isUserProvidedIndexValid = isIndexProvidedByUserValid(indexProvided);
@@ -192,38 +184,39 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * Returns name of the deck.
+     * Returns name of the Deck.
      *
-     * @return String name of deck.
+     * @return String name of Deck.
      */
     public String getName() {
         return deckName;
     }
 
     /**
-     * Returns queue storing all high priority flashcards.
+     * Returns list storing all High priority FlashCards.
      *
-     * @return ArrayList of flashcards of priority level, high.
+     * @return ArrayList of FlashCards of priority level, High.
      */
-    public ArrayList<FlashCard> getHighPriorityQueue() {
-        return highPriorityQueue;
+    public ArrayList<FlashCard> getHighPriorityList() {
+        return highPriorityList;
     }
 
     /**
-     * Returns queue storing all low priority flashcards.
+     * Returns list storing all low priority flashcards.
      *
      * @return ArrayList of flashcards of priority level low.
      */
-    public ArrayList<FlashCard> getLowPriorityQueue() {
-        return lowPriorityQueue;
+    public ArrayList<FlashCard> getLowPriorityList() {
+        return lowPriorityList;
     }
 
     /**
-     * Generates a subset of 10 flashcards for test in ExamRunner.
-     * Currently, fixed at 6 flashcards of high priority.
-     * And 4 flashcards of low priority.
+     * Returns a list of FlashCard objects created for test.
+     * Generates a subset of 10 FlashCard objects for test in ExamRunner.
+     * Currently, fixed at 6 FlashCard objects of High priority.
+     * And 4 FlashCards of Low priority.
      *
-     * @return ArrayList of shuffled flashcards.
+     * @return ArrayList of shuffled FlashCards.
      */
     public ArrayList<FlashCard> getSubsetForTest() {
         ArrayList<FlashCard> testSet = new ArrayList<>();
@@ -234,18 +227,18 @@ public class Deck implements JsonInterface {
         }
 
         //int sizeOfLowPrioritySet = (int) Math.floor(totalDeckSize * 0.4);
-        int sizeOfLowPrioritySet = 4;
-
         //int sizeOfHighPrioritySet = totalDeckSize - sizeOfLowPrioritySet;
+
+        int sizeOfLowPrioritySet = 4;
         int sizeOfHighPrioritySet = 6;
 
         for (int i = 0; i < sizeOfHighPrioritySet; i++) {
-            FlashCard chosenCard = getRandomCard(highPriorityQueue);
+            FlashCard chosenCard = getRandomCard(highPriorityList);
             testSet.add(chosenCard);
         }
 
         for (int i = 0; i < sizeOfLowPrioritySet; i++) {
-            FlashCard chosenCard = getRandomCard(lowPriorityQueue);
+            FlashCard chosenCard = getRandomCard(lowPriorityList);
             testSet.add(chosenCard);
         }
 
@@ -255,10 +248,10 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * Returns a random flashcard from an Arraylist.
+     * Returns a random FlashCard object from an ArrayList.
      *
-     * @param list ArrayList of Flashcards.
-     * @return Flashcard chosen randomly from ArrayList.
+     * @param list ArrayList of FlashCards.
+     * @return FlashCard chosen randomly from ArrayList.
      */
     private FlashCard getRandomCard(ArrayList<FlashCard> list) {
         Random rand = new Random(System.currentTimeMillis());
@@ -267,6 +260,7 @@ public class Deck implements JsonInterface {
     }
 
     /**
+     * Returns a boolean value, if user provided index is valid.
      * Checks if a user provided index is valid.
      * Uses provide index that is 1-based, i.e. 1, 2, 3, etc.
      * If index provided is within 1, 2, 3, ..., last card, then it is valid and return true.
