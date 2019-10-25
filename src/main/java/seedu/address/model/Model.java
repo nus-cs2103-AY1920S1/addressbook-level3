@@ -119,49 +119,49 @@ public interface Model {
      */
     void addUserAlias(Alias alias);
 
-    // ======== ADDRESS BOOK SETTINGS ===============
+    // ======== MOOLAH SETTINGS ===============
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' MooLah file path.
      */
-    Path getAddressBookFilePath();
+    Path getMooLahFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' MooLah file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setMooLahFilePath(Path mooLahFilePath);
 
     /** Returns the MooLah */
-    ReadOnlyAddressBook getMooLah();
+    ReadOnlyMooLah getMooLah();
 
     /**
-     * Replaces address book data with the data in {@code mooLah}.
+     * Replaces MooLah data with the data in {@code mooLah}.
      */
-    void setMooLah(ReadOnlyAddressBook mooLah);
+    void setMooLah(ReadOnlyMooLah mooLah);
 
-    // ======== ADDRESS BOOK ACTIONS ===============
+    // ======== MOOLAH ACTIONS ===============
     /**
      * Returns true if a expense with the same identity as {@code expense}
-     * exists in the address book.
+     * exists in the MooLah.
      */
     boolean hasExpense(Expense expense);
 
     /**
      * Deletes the given expense.
-     * The expense must exist in the address book.
+     * The expense must exist in the MooLah.
      */
     void deleteExpense(Expense target);
 
     /**
      * Adds the given expense.
-     * {@code expense} must not already exist in the address book.
+     * {@code expense} must not already exist in the MooLah.
      */
     void addExpense(Expense expense);
 
     /**
      * Replaces the given expense {@code target} with {@code editedExpense}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the MooLah.
      * The expense identity of {@code editedExpense} must not be the same as another
-     * existing expense in the address book.
+     * existing expense in the MooLah.
      */
     void setExpense(Expense target, Expense editedExpense);
 
@@ -176,8 +176,11 @@ public interface Model {
     void switchBudgetTo(Description description);
 
     /** Returns an unmodifiable view of the filtered expense list */
-    ObservableList<Budget> getFilteredBudgetList();
+    //ObservableList<Budget> getFilteredBudgetList();
 
+    //void updateFilteredBudgetList(Predicate<? super Budget> budget);
+
+    //Predicate<? super Budget> getFilteredBudgetPredicate();
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();

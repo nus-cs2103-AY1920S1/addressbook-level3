@@ -137,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
 
         singlePanelView = new SinglePanelView();
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList(), true);
-        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
+        //budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
 
         if (logic.getPrimaryBudget() != null) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
-        singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
+        //singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME, expenseListPanel);
 
         singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMooLahFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

@@ -14,10 +14,10 @@ import seedu.address.model.expense.UniqueEventList;
 import seedu.address.model.expense.UniqueExpenseList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the MooLah level
  * Duplicates are not allowed (by .isSameExpense comparison)
  */
-public class MooLah implements ReadOnlyAddressBook {
+public class MooLah implements ReadOnlyMooLah {
 
     private final UniqueExpenseList expenses;
     private final UniqueBudgetList budgets;
@@ -51,7 +51,7 @@ public class MooLah implements ReadOnlyAddressBook {
     /**
      * Creates an MooLah using the Expenses in the {@code toBeCopied}
      */
-    public MooLah(ReadOnlyAddressBook toBeCopied) {
+    public MooLah(ReadOnlyMooLah toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -81,7 +81,7 @@ public class MooLah implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code MooLah} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyMooLah newData) {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenseList());
@@ -93,7 +93,7 @@ public class MooLah implements ReadOnlyAddressBook {
 
     /**
      * Returns true if an expense with the same identity as {@code expense}
-     * exists in the address book.
+     * exists in the MooLah.
      */
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
@@ -101,8 +101,8 @@ public class MooLah implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds an expense to the address book.
-     * The expense must not already exist in the address book.
+     * Adds an expense to the MooLah.
+     * The expense must not already exist in the MooLah.
      */
     public void addExpense(Expense p) {
         if (budgets.isEmpty()) {
@@ -127,9 +127,9 @@ public class MooLah implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given expense {@code target} in the list with {@code editedExpense}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the MooLah.
      * The expense identity of {@code editedExpense} must not be the same as another existing
-     * expense in the address book.
+     * expense in the MooLah.
      */
     public void setExpense(Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);
@@ -142,7 +142,7 @@ public class MooLah implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code key} from this {@code MooLah}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the MooLah.
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
@@ -171,9 +171,9 @@ public class MooLah implements ReadOnlyAddressBook {
     }
 
     /**
-     * Checks whether address book has a budget with the specified name.
+     * Checks whether MooLah has a budget with the specified name.
      * @param targetDescription The description (i.e. name) of the budget to check.
-     * @return A boolean indicating whether the address book has such budget.
+     * @return A boolean indicating whether the MooLah has such budget.
      */
     public boolean hasBudgetWithName(Description targetDescription) {
         requireNonNull(targetDescription);
@@ -181,8 +181,8 @@ public class MooLah implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns the primary budget in the address book.
-     * @return The primary budget in the address book.
+     * Returns the primary budget in the MooLah.
+     * @return The primary budget in the MooLah.
      */
     public Budget getPrimaryBudget() {
         return budgets.getPrimaryBudget();
@@ -202,7 +202,7 @@ public class MooLah implements ReadOnlyAddressBook {
 
     /**
      * Returns true if an event with the same identity as {@code event}
-     * exists in the address book.
+     * exists in the MooLah.
      */
     public boolean hasEvent(Event event) {
         requireNonNull(event);
@@ -210,8 +210,8 @@ public class MooLah implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds an event to the address book.
-     * The event must not already exist in the address book.
+     * Adds an event to the MooLah.
+     * The event must not already exist in the MooLah.
      */
     public void addEvent(Event event) {
         events.add(event);
@@ -219,7 +219,7 @@ public class MooLah implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code key} from this {@code MooLah}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the MooLah.
      */
     public void removeEvent(Event key) {
         events.remove(key);
@@ -242,6 +242,7 @@ public class MooLah implements ReadOnlyAddressBook {
         return budgets.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
     }

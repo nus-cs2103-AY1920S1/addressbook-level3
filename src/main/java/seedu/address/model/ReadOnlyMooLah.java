@@ -6,9 +6,9 @@ import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a MooLah
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyMooLah {
 
     /**
      * Returns an unmodifiable view of the expenses list.

@@ -9,12 +9,12 @@ import seedu.address.model.MooLah;
 import seedu.address.ui.expense.ExpenseListPanel;
 
 /**
- * Clears the address book.
+ * Clears the MooLah.
  */
 public class ClearCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "MooLah has been cleared!";
 
     @Override
     protected void validate(Model model) {

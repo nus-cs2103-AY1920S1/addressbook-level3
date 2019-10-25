@@ -13,12 +13,12 @@ import seedu.address.model.Model;
 import seedu.address.model.expense.Expense;
 
 /**
- * Adds a expense to the address book.
+ * Adds a expense to the MooLah.
  */
 public class AddExpenseCommand extends AddCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an expense to the address book. \n"
+            + ": Adds an expense to MooLah. \n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
@@ -31,7 +31,7 @@ public class AddExpenseCommand extends AddCommand {
             + PREFIX_TIMESTAMP + "10-10";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah";
 
     private final Expense toAdd;
 

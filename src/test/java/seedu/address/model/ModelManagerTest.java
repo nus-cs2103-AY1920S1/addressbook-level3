@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.MooLahBuilder;
 
 public class ModelManagerTest {
 
@@ -99,14 +99,16 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        //userPrefs.setMooLahFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setMooLahFilePath(Paths.get("moolah/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        //userPrefs.setMooLahFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setMooLahFilePath(Paths.get("new/moolah/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -123,15 +125,16 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setMooLahFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setMooLahFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setMooLahFilePath_validPath_setsMooLahFilePath() {
+        //Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("moolah/file/path");
+        modelManager.setMooLahFilePath(path);
+        assertEquals(path, modelManager.getMooLahFilePath());
     }
 
     @Test
@@ -140,12 +143,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasExpense_expenseNotInAddressBook_returnsFalse() {
+    public void hasExpense_expenseNotInMooLah_returnsFalse() {
         assertFalse(modelManager.hasExpense(ANNIVERSARY));
     }
 
     @Test
-    public void hasExpense_expenseInAddressBook_returnsTrue() {
+    public void hasExpense_expenseInMooLah_returnsTrue() {
         modelManager.addExpense(ANNIVERSARY);
         assertTrue(modelManager.hasExpense(ANNIVERSARY));
     }
@@ -157,7 +160,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        MooLah mooLah = new AddressBookBuilder().withExpense(ANNIVERSARY).withExpense(BUSAN_TRIP).build();
+        MooLah mooLah = new MooLahBuilder().withExpense(ANNIVERSARY).withExpense(BUSAN_TRIP).build();
         MooLah differentMooLah = new MooLah();
         UserPrefs userPrefs = new UserPrefs();
         ModelHistory modelHistory = new ModelHistory();
@@ -189,7 +192,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setMooLahFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(mooLah, differentUserPrefs, modelHistory)));
 
         // different history -> returns false

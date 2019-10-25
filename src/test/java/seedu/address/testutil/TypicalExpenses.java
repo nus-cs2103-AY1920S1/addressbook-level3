@@ -104,7 +104,7 @@ public class TypicalExpenses {
     /**
      * Returns an {@code MooLah} with all the typical expenses.
      */
-    public static MooLah getTypicalAddressBook() {
+    public static MooLah getTypicalMooLah() {
         MooLah ab = new MooLah();
         for (Expense expense : getTypicalExpenses()) {
             ab.addExpense(expense);

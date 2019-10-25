@@ -1,15 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.expense;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
 import static seedu.address.testutil.TestUtil.makeModelStack;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.expense.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
@@ -25,7 +24,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
     }
 

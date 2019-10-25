@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * Represents an Expense's timestamp in the address book.
+ * Represents an Expense's timestamp in the MooLah.
  * Guarantees: immutable; is valid as declared in {@link #createTimestampIfValid(String)}
  */
 public class Timestamp implements Comparable<Timestamp> {

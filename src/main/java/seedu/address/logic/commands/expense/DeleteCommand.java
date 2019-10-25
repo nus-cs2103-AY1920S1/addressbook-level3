@@ -14,7 +14,7 @@ import seedu.address.model.expense.Expense;
 import seedu.address.ui.expense.ExpenseListPanel;
 
 /**
- * Deletes a expense identified using it's displayed index from the address book.
+ * Deletes a expense identified using it's displayed index from the MooLah.
  */
 public class DeleteCommand extends UndoableCommand {
 

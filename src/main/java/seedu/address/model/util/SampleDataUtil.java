@@ -1,7 +1,7 @@
 package seedu.address.model.util;
 
 import seedu.address.model.MooLah;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMooLah;
 
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
@@ -28,7 +28,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyMooLah getSampleMooLah() {
         MooLah sampleAb = new MooLah();
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);

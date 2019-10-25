@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Expense's unique identifier in the address book.
+ * Represents a Expense's unique identifier in the MooLah.
  * Guarantees: immutable; is valid as declared in {@link #isValidUniqueIdentifier(String)}
  */
 public class UniqueIdentifier {

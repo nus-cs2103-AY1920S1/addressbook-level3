@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.expense;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,12 +21,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.model.Model;
 import seedu.address.model.MooLah;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyModelHistory;
+import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
@@ -96,10 +96,10 @@ public class AddExpenseCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public ObservableList<Budget> getFilteredBudgetList() {
-            throw new AssertionError("This method should not be called.");
-        }
+        //@Override
+        //public ObservableList<Budget> getFilteredBudgetList() {
+        //    throw new AssertionError("This method should not be called.");
+        //}
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -187,12 +187,12 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getMooLahFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setMooLahFilePath(Path mooLahFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -207,12 +207,12 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public void setMooLah(ReadOnlyAddressBook newData) {
+        public void setMooLah(ReadOnlyMooLah newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getMooLah() {
+        public ReadOnlyMooLah getMooLah() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -371,7 +371,7 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getMooLah() {
+        public ReadOnlyMooLah getMooLah() {
             return new MooLah();
         }
 

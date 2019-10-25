@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.MooLah;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -18,8 +18,8 @@ import seedu.address.model.expense.Expense;
 /**
  * An Immutable MooLah that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "moolah")
+class JsonSerializableMooLah {
 
     public static final String MESSAGE_DUPLICATE_EXPENSE = "Expenses list contains duplicate expense(s).";
 
@@ -34,30 +34,30 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given expenses.
+     * Constructs a {@code JsonSerializableMooLah} with the given expenses.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
-                                       @JsonProperty("events") List<JsonAdaptedEvent> events,
-                                       @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
+    public JsonSerializableMooLah(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
+                                  @JsonProperty("events") List<JsonAdaptedEvent> events,
+                                  @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
         this.expenses.addAll(expenses);
         this.events.addAll(events);
         this.budgets.addAll(budgets);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyMooLah} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableMooLah}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableMooLah(ReadOnlyMooLah source) {
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         events.addAll(source.getEventList().stream().map(JsonAdaptedEvent::new).collect(Collectors.toList()));
         budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code MooLah} object.
+     * Converts this MooLah into the model's {@code MooLah} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

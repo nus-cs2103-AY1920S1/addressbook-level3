@@ -1,12 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.expense;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.ModelManager;
@@ -22,7 +21,7 @@ public class AddExpenseCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModelHistory());
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
     }
 
     // No addCommand should not be the same as another addCommand, odds are unlikely because of use of UUID

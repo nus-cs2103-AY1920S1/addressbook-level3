@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.MooLahParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
@@ -49,7 +49,7 @@ public class LogicManager implements Logic {
         commandResult = command.run(model);
 
         try {
-            storage.saveAddressBook(model.getMooLah());
+            storage.saveMooLah(model.getMooLah());
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -74,7 +74,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyMooLah getMooLah() {
         return model.getMooLah();
     }
 
@@ -83,10 +83,10 @@ public class LogicManager implements Logic {
         return model.getFilteredExpenseList();
     }
 
-    @Override
-    public ObservableList<Budget> getFilteredBudgetList() {
-        return model.getFilteredBudgetList();
-    }
+    //@Override
+    //public ObservableList<Budget> getFilteredBudgetList() {
+    //  return model.getFilteredBudgetList();
+    //}
 
     @Override
     public Budget getPrimaryBudget() {
@@ -94,8 +94,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getMooLahFilePath() {
+        return model.getMooLahFilePath();
     }
 
     @Override

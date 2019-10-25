@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Expense values as in TypicalExpenses#getTypicalAddressBook()",
+  "_comment": "MooLah save file which contains the same Expense values as in TypicalExpenses#getTypicalMooLah()",
   "expenses" : [ {
     "description" : "Alices Birthday",
     "price" : "20",

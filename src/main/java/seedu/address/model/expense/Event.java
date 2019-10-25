@@ -7,7 +7,7 @@ import java.util.Objects;
 import seedu.address.model.category.Category;
 
 /**
- * Represents an Event in the address book.
+ * Represents an Event in the MooLah.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {

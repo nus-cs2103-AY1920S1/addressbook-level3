@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,8 +38,8 @@ public class MooLahTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        MooLah newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyMooLah_replacesData() {
+        MooLah newData = getTypicalMooLah();
         mooLah.resetData(newData);
         assertEquals(newData, mooLah);
     }
@@ -49,7 +49,7 @@ public class MooLahTest {
         // Two expenses with the same identity fields
         Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_TAG_CLAIMABLE).build();
         List<Expense> newExpenses = Arrays.asList(ANNIVERSARY, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newExpenses);
+        MooLahStub newData = new MooLahStub(newExpenses);
 
         assertThrows(DuplicateExpenseException.class, () -> mooLah.resetData(newData));
     }
@@ -60,12 +60,12 @@ public class MooLahTest {
     }
 
     @Test
-    public void hasExpense_expenseNotInAddressBook_returnsFalse() {
+    public void hasExpense_expenseNotInMooLah_returnsFalse() {
         assertFalse(mooLah.hasExpense(ANNIVERSARY));
     }
 
     @Test
-    public void hasExpense_expenseInAddressBook_returnsTrue() {
+    public void hasExpense_expenseInMooLah_returnsTrue() {
         mooLah.addExpense(ANNIVERSARY);
         assertTrue(mooLah.hasExpense(ANNIVERSARY));
     }
@@ -76,14 +76,14 @@ public class MooLahTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose expenses list can violate interface constraints.
+     * A stub ReadOnlyMooLah whose expenses list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class MooLahStub implements ReadOnlyMooLah {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
         private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Expense> expenses) {
+        MooLahStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
         }
 

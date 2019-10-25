@@ -10,7 +10,7 @@ import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.address.ui.expense.ExpenseListPanel;
 
 /**
- * Finds and lists all expenses in address book whose description contains any of the argument keywords.
+ * Finds and lists all expenses in MooLah whose description contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends UndoableCommand {

@@ -16,7 +16,7 @@ import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
 
 /**
- * Represents a Budget in Moolah.
+ * Represents a Budget in MooLah.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Budget {

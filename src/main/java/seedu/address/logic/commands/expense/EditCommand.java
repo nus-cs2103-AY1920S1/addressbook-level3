@@ -25,7 +25,7 @@ import seedu.address.model.expense.Timestamp;
 import seedu.address.ui.expense.ExpenseListPanel;
 
 /**
- * Edits the details of an existing expense in the address book.
+ * Edits the details of an existing expense in the MooLah.
  */
 public class EditCommand extends UndoableCommand {
 
@@ -44,7 +44,7 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah.";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
