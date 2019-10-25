@@ -135,4 +135,16 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
     public int getSize() {
         return listOfBorrowers.size();
     }
+
+    /**
+     * Checks if a borrower has duplicated phone or email in the borrower records.
+     *
+     * @param editedBorrower Borrower to be checked.
+     */
+    public boolean hasDuplicateBorrower(Borrower editedBorrower) {
+        return listOfBorrowers.stream().anyMatch(current ->
+                current.getBorrowerId() != editedBorrower.getBorrowerId()
+                        && (current.getPhone().equals(editedBorrower.getPhone())
+                        || current.getEmail().equals(editedBorrower.getEmail())));
+    }
 }

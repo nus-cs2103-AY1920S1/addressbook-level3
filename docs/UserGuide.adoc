@@ -102,7 +102,7 @@ Format: `clear`
 ==== Adding a book: `add`
 
 Adds a new book to library records. +
-Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
+Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]`
 
 [TIP]
 A book can have any number of genres (including 0)
@@ -205,7 +205,7 @@ Format: `done`
 ==== Editing a borrower: `edit`
 
 Edit borrower’s particulars. +
-Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
+Format: `edit {  [n/NAME] [p/PHONE_NUMBER] [e/email] }`
 
 ****
 * Edits the currently serving borrower's particulars.
@@ -224,7 +224,7 @@ Edits the name of the borrower to be `Betsy Crower`
 
 Loan book(s) by their serial number +
 Format: `loan sn/BOOK_SN` +
-Format: `loan sn/BOOK_SN...` - Coming in v2.0
+Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` - Coming in v2.0
 
 Examples:
 
@@ -232,6 +232,11 @@ Examples:
 Loans the book with serial number B00041
 * `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
 Loans the books with serial numbers B00201, B02929 and B00203
+
+Upon loaning a book, a printable loan slip in pdf format will be generated.
+
+.Printable PDF version of a Loan Slip
+image::LoanSlip.png[width=250]
 
 ==== Renewing book(s): `renew`
 
@@ -284,6 +289,7 @@ LiBerry data are saved in the hard disk automatically after any command that cha
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LiBerry folder.
 
 == Command Summary
+Commands applicable to both *Normal* and *Serve* mode:
 
 * *Help* : `help`
 * *Find a book* : `find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] } [NUMBER]` +
@@ -304,14 +310,17 @@ e.g. `register n/matt p/83938249 e/matt@damon.com`
 * *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
 
 '''
+Commands only applicable in *serve mode*:
 
 * *Serve mode* : `serve id/BORROWER_ID` +
 e.g. `serve id/K0001`
 * *Exit serve mode* : `done`
+
 * *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
 e.g. `edit p/91234567 e/jane@austen.com`
-* *Loan book(s)* : `loan sn/BOOK_SN` +
-e.g. `loan sn/B00201`
+* *Loan book(s)* : `loan sn/BOOK_SN...` +
+e.g. `loan sn/B00201 sn/B02929 sn/B00203`
+
 * *Renew book(s)* : `renew INDEX… [-all]`
 * *Return book(s)* : `return INDEX… [-all]`
 * *Pay fines* : `pay AMOUNT`

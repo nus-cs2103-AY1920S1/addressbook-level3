@@ -91,11 +91,6 @@ public class StorageManager implements Storage {
         LoanSlipUtil.createLoanSlipInDirectory();
     }
 
-    @Override
-    public void openNewLoanSlip() throws LoanSlipException {
-        LoanSlipUtil.openLoanSlip();
-    }
-
     // ================ Catalog methods ==============================
 
     @Override

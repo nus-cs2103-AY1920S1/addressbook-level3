@@ -15,11 +15,16 @@ import java.util.List;
 
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.borrower.Borrower;
+import seedu.address.model.borrower.BorrowerId;
 
 /**
  * A utility class containing a list of {@code Borrower} objects to be used in tests.
  */
 public class TypicalBorrowers {
+
+    public static final BorrowerId ID_FIRST_BORROWER = new BorrowerId("K0001");
+    public static final BorrowerId ID_SECOND_BORROWER = new BorrowerId("K0002");
+
     public static final Borrower ALICE = new BorrowerBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
             .withPhone("94351253")
@@ -67,7 +72,7 @@ public class TypicalBorrowers {
     }
 
     public static List<Borrower> getTypicalBorrowers() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, BOB));
     }
 
 }

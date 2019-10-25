@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":Storage" as Storage LOGIC_COLOR
+participant ":LoanCommand" as LoanCommand LOGIC_COLOR
+participant ":Model" as Model LOGIC_COLOR
+participant ":Loan" as Loan LOGIC_COLOR
+participant ":LoanSlipUtil" as LoanSlipUtil LOGIC_COLOR
+
+activate Logic
+Logic -> LoanCommand : execute(model)
+activate LoanCommand
+
+LoanCommand -> Model : getBook(toLoan)
+activate Model
+Model -> LoanCommand : Book
+deactivate Model
+
+LoanCommand -> Model : getServingBorrower()
+activate Model
+Model -> LoanCommand : ServingBorrower
+deactivate Model
+
+create Loan
+LoanCommand -> Loan : new Loan(LoanId, Book, Borrower, StartDate, DueDate)
+activate Loan
+Loan -> LoanCommand : Loan
+deactivate Loan
+
+LoanCommand -> LoanSlipUtil : mountLoan(Loan, Book, Borrower)
+activate LoanSlipUtil
+LoanSlipUtil -> LoanCommand
+deactivate LoanSlipUtil
+
+LoanCommand -> Logic : CommandResult
+deactivate LoanCommand
+destroy LoanCommand
+
+Logic -> Storage : storeNewLoanSlip()
+activate Storage
+Storage -> LoanSlipUtil : createLoanSlipInDirectory()
+activate LoanSlipUtil
+LoanSlipUtil -> Storage : LoanSlip.pdf
+deactivate LoanSlipUtil
+
+Storage -> Logic
+deactivate Storage
+
+Logic -> LoanSlipUtil : openGeneratedLoanSlip()
+activate LoanSlipUtil
+LoanSlipUtil -> Logic
+deactivate LoanSlipUtil
+
+Logic -> LoanSlipUtil : unmountLoan()
+activate LoanSlipUtil
+LoanSlipUtil -> Logic
+deactivate LoanSlipUtil
+
+deactivate Logic
+@enduml

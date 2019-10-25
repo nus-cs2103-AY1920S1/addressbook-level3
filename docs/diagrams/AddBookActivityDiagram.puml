@@ -1,0 +1,10 @@
+@startuml
+start
+:User executes AddCommand;
+if () then ([Serial Number not provided])
+    :Generate serial number;
+else ([Serial Number provided])
+endif
+:Create book;
+stop
+@enduml
