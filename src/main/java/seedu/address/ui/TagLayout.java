@@ -6,7 +6,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
-public class TagLayout extends UiPart<Region>{
+/**
+ * Represents a tag for an athlete.
+ */
+public class TagLayout extends UiPart<Region> {
 
     private static final String FXML = "TagLayout.fxml";
 
