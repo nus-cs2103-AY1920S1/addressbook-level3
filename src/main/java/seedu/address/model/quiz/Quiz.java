@@ -159,14 +159,14 @@ public class Quiz {
                                         + "</font><input type=\"radio\" name =" + "\"" + questionText
                                         + "\" value=\"" + optionD + "\"><br><br>\n";
             } else {
-                formattedQuestions += "<form>\n" +
-                        "  <br><font size=\"4\">Answer:</font> <input type=\"text\" name=\"answer\" size=\"100\"><br><br>\n" +
-                        "</form>";
+                formattedQuestions += "<form>\n"
+                        + "  <br><font size=\"4\">Answer:</font>"
+                        + " <input type=\"text\" name=\"answer\" size=\"100\"><br><br>\n"
+                        + "</form>";
             }
         }
 
-        formattedQuestions += "</body>\n" +
-                "</html>";
+        formattedQuestions += "</body>\n" + "</html>";
 
         return formattedQuestions;
     }

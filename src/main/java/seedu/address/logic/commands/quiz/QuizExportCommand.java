@@ -1,10 +1,10 @@
 package seedu.address.logic.commands.quiz;
 
+import java.io.IOException;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import java.io.IOException;
 
 /**
  * Represents an export command, specific to a quiz.
@@ -37,7 +37,7 @@ public class QuizExportCommand extends QuizCommand {
     public CommandResult execute(Model model) throws CommandException, IOException {
         boolean isSuccess = model.exportQuiz(quizId);
 
-        if(isSuccess) {
+        if (isSuccess) {
             return new CommandResult(generateSuccessMessage(quizId));
         } else {
             return new CommandResult(generateFailureMessage(quizId));
