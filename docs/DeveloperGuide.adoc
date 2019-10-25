@@ -305,11 +305,13 @@ In the code base, Persons represent user accounts. See person model for more inf
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
 
-Automatic vehicle dispatchment:
+With automatic vehicle dispatchment:
 
 image::NewDraftSequenceDiagramAuto.png[]
 
-Manual vehicle dispatchment:
+With manual vehicle dispatchment:
+
+image::NewDraftSequenceDiagramManual.png[]
 
 ==== Design Considerations
 
@@ -352,6 +354,7 @@ The `IncidentManagerParser` will return a new `FillCommand` which has its fields
 image::fillCommandSequenceDiagramNoParams.png[]
 
 The `SubmitCommand` functions similarly, this time listing the incidents filtered by whether they are `COMPLETE` or not.
+
 ===== Parameter mode (modifying incidents)
 The `FillCommandParser` will be invoked to parse the fields `targetIndex`, `callerNumber`, and `description` and return a `FillCommand` containing these non-null fields. The `execute()` method in `FillCommand` will now fetch the specified incident from the list of drafts and call the static `updateReport()` method. The `updateReport()` method creates a new Incident object which has all its required attributes filled. The attributes from the incident to be updated are simply copied into this new Incident object. The fill command then inserts this new Incident into the list of incidents at the same index.
 The `SubmitCommand` functions similarly, with one crucial difference. As no Incident fields are to be updated, the specified incident is simply retrieved, marked as `FINAL` using the static `submitReport()` method, and inserted into the list of incidents at the same index again. The `submitReport` method also creates a new Incident object which is a copy of the Incident to be submitted, with the difference being that the newly created Incident is marked `FINAL`.
@@ -375,6 +378,7 @@ image::fillCommandSequenceDiagramWithoutParams.png[]
 ==== Implementation
 
 The incident search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+
 * Unfiltered - Displays all incidents in `Model`
 * ID - Displays all incidents with exact matches in `IncidentId incidentId` in `Incident incident`
 * Description - Displays all incidents with keyword(s) contained within the `Description description` in `Incident incident`
@@ -464,6 +468,46 @@ image::EditCommandSequence.png[]
 ** Pros: less objects created, do not need to worry much about `IncidentId` of instance.
 ** Cons: More prone to errors since attributes can be directly access and changed outside the class.
 // end::incidentedit[]
+
+// tag::vehiclesearch[]
+=== Vehicle Search feature
+==== Implementation
+
+The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+
+* Unfiltered - Displays all vehicles in `Model`
+* District - Displays all vehicles with exact matches in `District district` in `Vehicle vehicle`
+* Vehicle Number - Displays all vehicles with exact matches in `VehicleNumber vehicleNumber` in `Vehicle vehicle`
+* Vehicle Type - Displays all vehicles with exact matches in `VehicleType vehicleType` in `Vehicle vehicle`
+
+The vehicle search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Vehicle> filteredVehicles`, which internally stores the list of displayed vehicles in the GUI. Additionally, it implements the following key method:
+
+* `updateFilteredVehiclesList(Predicate<Vehicle> predicate)` - Updates the stored filtered vehicle list with the new predicate
+
+==== Design Considerations
+
+===== Aspect: How vehicle search keyword is inputted
+
+* **Current choice:** Parse user input after flag (eg. `ds\` or `vnum\`)
+** Pros:
+*** Easy to implement.
+*** Reduce number of steps of input, more efficient.
+** Cons:
+*** Have to parse keyword from command and flag, user has to follow style of flag for successful search.
+* **Alternative 2:** Prompt user for search input
+** Pros: Separates command from keyword for ease of reading and parsing.
+** Cons:
+*** Difficult to implement multi-command execution.
+*** Requires multiple steps of input, slower and less efficient.
+
+===== Aspect: How listing all incidents is called
+
+* **Current choice:** Utilise separate command `vehicles`
+** Pros: Easy to implement.
+** Cons: Might not be very intuitive; user might prefer action words like `list vehicles"
+* **Alternative 2:** Utilise `list` command (eg. `list vehicles`)
+** Pros: Intuitive and clear.
+** Cons: More keywords to parse.
 
 === Logging
 
