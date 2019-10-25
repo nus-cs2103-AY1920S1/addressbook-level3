@@ -4,12 +4,16 @@
 
 Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
+Participant ":HistoryListPanel" as history_panel LOGIC_COLOR_T2
+box Logic LOGIC_COLOR_T2
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":AddressBookParser" as ab_parser MODEL_COLOR_T4
 Participant ":HistoryCommand" as history_command LOGIC_COLOR_T4
+end box
+box Model MODEL_COLOR_T1
 Participant ":Model" as model MODEL_COLOR
 Participant ":CommandHistory" as command_history STORAGE_COLOR
-Participant ":HistoryListPanel" as history_panel LOGIC_COLOR_T2
+end box
 
 user -[USER_COLOR]> ui : "history"
 activate ui UI_COLOR

@@ -1,15 +1,20 @@
 @startuml
 
-class CommandHistory {
--userInputHistory: ObservableList<Pair<String, String>>
-+addCommand(commandWord: String, userInput: String)
-+getHistory(): ObservableList<Pair<String, String>>
-}
+class CommandHistory
+CommandHistory : -userInputHistory : ObservableList<Pair<String, String>>
+CommandHistory : +addCommand(commandWord : String, userInput: String)
+CommandHistory : +getHistory() : ObservableList<Pair<String, String>>
 
 class ModelManager
 CommandHistory <-- ModelManager
 ModelManager : ...()
 ModelManager : +getHistoryList() : ObservableList<Pair<String, String>>
-ModelManager : +addCommandToHistory(String commandWord, String commandTest)
+ModelManager : +addCommandToHistory(commandWord: String, commandTest: String)
+
+class LogicManager
+ModelManager <-- LogicManager
+LogicManager : ...()
+LogicManager : -addCommandToHistory(command: Command, commandText: String)
+LogicManager : +getHistoryList() : ObservableList<Pair<String, String>>
 
 @enduml
