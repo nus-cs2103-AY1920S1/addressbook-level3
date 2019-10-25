@@ -119,6 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         showListPanel = new ShowListPanel(logic.getFilteredShowList());
         showListPanel.setMainWindow(this);
         watchedPanel = new WatchedPanel(logic.getWatchedList());
+        watchedPanel.setMainWindow(this);
         searchPanel = new SearchPanel(logic.getSearchResultList());
         statisticsPanel = new StatisticsPanel(/*logic.getWatchedList()*/);
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
