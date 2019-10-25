@@ -10,6 +10,7 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
     public static final String MESSAGE_TASK_LISTED_OVERVIEW = "%1$d tasks listed!";
+    public static final String MESSAGE_TASK_IS_ALREADY_MARKED_AS_COMPLETE = "The task is already marked as complete";
 
     public static final String MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX = "The person index provided is invalid";
 
