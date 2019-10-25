@@ -282,9 +282,28 @@ To exit:
 . The application window will close by itself.
 
 
-=== View overall stats: `stats`
+=== View overall statistics: `stats`
 
+This command allow to you to view the number of good, hard and easy flashcards completed during test mode and in the application. +
 `stats`
+
+To view statistics:
+
+. Type `stats` and press **Enter** to execute it.
++
+image::AddStep1.png[width="600"]
+
+. The result box will display the message: 
++
+_STATISTICS_
++
+_Total: Good(x) Hard(x) Easy(x)_
++
+_Completed in test: Good(x) Hard(x) Easy(x)_
++
+image::AddStep2.png[width="600"]
+
+
 
 === Cycle through color themes: `theme` [coming in v2.0]
 
