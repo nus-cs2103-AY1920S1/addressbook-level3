@@ -8,6 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+
+import seedu.address.model.flashcard.FlashCard;
 
 /**
  * Represents the full path to a document, including parent directories.
@@ -99,6 +102,11 @@ public class DocumentPath extends ExportPath {
     @Override
     public String toString() {
         return directoryPath.toString() + File.separator + documentFilePath.toString();
+    }
+
+    @Override
+    public void export(List<FlashCard> list) {
+        //TODO
     }
 
     /**

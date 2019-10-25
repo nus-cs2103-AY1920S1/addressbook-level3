@@ -8,6 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+
+import seedu.address.model.flashcard.FlashCard;
 
 /**
  * Represents the full path to a JSON export file, including parent directories.
@@ -99,6 +102,11 @@ public class JsonExportPath extends ExportPath {
     @Override
     public String toString() {
         return directoryPath.toString() + File.separator + jsonExportFilePath.toString();
+    }
+
+    @Override
+    public void export(List<FlashCard> list) {
+        //TODO
     }
 
     /**
