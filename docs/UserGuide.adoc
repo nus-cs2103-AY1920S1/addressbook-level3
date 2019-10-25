@@ -259,7 +259,7 @@ Format: `loan delete <loan ID ...> <p/person ...>`
 
 Splits and calculates a group payment, then prints a list of who owes who.
 
-Format: `loan split n/<name> a/<amount paid> ...`
+Format: `loan split n/<name ...> x/<amount paid ...>`
 
 === Automating with rules: `rule`
 
