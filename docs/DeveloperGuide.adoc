@@ -265,17 +265,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedCatalog` will be initialized with an empty `commandHistoryList`.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width=300]
 
 Step 2. The user executes `delete 5` command to delete the 5th book in the catalog. The `delete` command calls `Model#commitCatalog()`, causing the `delete 5` command to be saved in the `catalogHistoryList`, and the `currentCommandPointer` is pointed to the newly inserted command.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width=300]
 
 Step 3. The user executes `add t/Animal Farm ...` to add a new book.
 The `add` command also calls `Model#commitCatalog()`, causing the add
 command to be saved into the `catalogHistoryList`.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width=300]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitCatalog()`, so the command will not be saved into the `commandHistoryList`.
@@ -285,7 +285,7 @@ The `undo` command will call `Model#undoCatalog()`, which will call `ReversibleC
 the add command. This undo command would then be executed, which will shift the `currentCommandPointer` once to the left,
 pointing it to the previous command,
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[width=300]
 
 [NOTE]
 If the `currentCommandPointer` is at index -1, pointing to no command, then there are no previous command to undo. The `undo` command uses `Model#canUndoCatalog()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -309,7 +309,7 @@ Commands that do not modify the catalog, such as `find t/Animal Farm`,
 will usually not call `Model#commitCatalog()`,`Model#undoCatalog()` or
 `Model#redoCatalog()`. Thus, the `catalogHistoryList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width=300]
 
 Step 6. The user executes `clear`, which calls `Model#commitCatalog()`.
 Since the `currentCommandPointer` is not pointing at the end of the `commandHistoryList`,
@@ -318,7 +318,7 @@ We designed it this way because it no longer makes sense to redo the
 `add t/Animal Farm ...` command. This is the behavior that most modern
 desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[width=300]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
