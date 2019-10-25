@@ -2,6 +2,7 @@ package seedu.address.model.quiz;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,9 +108,10 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      * Removes a question from a quiz.
      * @param quizId The identifier of the quiz to be handled.
      * @param questionNumber The question number of the question to be removed.
+     * @return True if the question can be removed, else false.
      */
-    public void removeQuizQuestion(String quizId, int questionNumber) {
-        QuizManager.removeQuizQuestion(quizId, questionNumber, quizzes);
+    public boolean removeQuizQuestion(String quizId, int questionNumber) {
+        return QuizManager.removeQuizQuestion(quizId, questionNumber, quizzes);
     }
 
     /**
@@ -119,6 +121,14 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      */
     public String getQuestionsAndAnswers(String quizId) {
         return QuizManager.getQuestionsAndAnswers(quizId, quizzes);
+    }
+
+    /**
+     * Exports a quiz to a html file.
+     * @param quizId The identifier of the quiz to be exported.
+     */
+    public boolean exportQuiz(String quizId) throws IOException {
+        return QuizManager.exportQuiz(quizId, quizzes);
     }
 
     /**
