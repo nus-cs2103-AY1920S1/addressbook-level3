@@ -174,6 +174,7 @@ public class LoanSplitCommand extends Command {
             }
             currCreditors.put(dca.creditor, dca.amount);
         }
+        debtors.add(new Debtor(currDebtor, currCreditors));
 
         return debtors;
     }
@@ -248,6 +249,11 @@ public class LoanSplitCommand extends Command {
             this.debtor = debtor;
             this.creditor = creditor;
             this.amount = amount;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s, %s, %s", debtor, creditor, amount);
         }
     }
 }
