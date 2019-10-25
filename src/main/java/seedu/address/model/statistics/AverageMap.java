@@ -147,7 +147,7 @@ public class AverageMap {
             return recordMap.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
                     .stream().map(record -> (Bmi) record)
-                    .map(record -> record.getWeight().getWeight())
+                    .map(record -> record.getBmi())
                     .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
             // will not happen

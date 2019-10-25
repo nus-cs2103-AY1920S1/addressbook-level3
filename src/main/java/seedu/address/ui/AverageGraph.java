@@ -44,6 +44,22 @@ public class AverageGraph {
 
     private static final String UNKNOWN = "unknown";
 
+    // Horizontal range marker for BMI
+    private static final XYChart.Data<Number, Number> UNDER_WEIGHT_MARKER = new XYChart.Data<>(0, 18.5);
+    private static final XYChart.Data<Number, Number> NORMAL_WEIGHT_MARKER = new XYChart.Data<>(18.5, 25);
+    private static final XYChart.Data<Number, Number> OVER_WEIGHT_MARKER = new XYChart.Data<>(25, 30);
+    private static final XYChart.Data<Number, Number> OBESE_WEIGHT_MARKER = new XYChart.Data<>(30, 40);
+
+    // Horizontal range marker for blood sugar
+    private static final XYChart.Data<Number, Number> BEFORE_MEALS = new XYChart.Data<>(4.0, 5.9);
+    private static final XYChart.Data<Number, Number> AFTER_MEALS = new XYChart.Data<>(5.9, 7.8);
+
+    // Color for symbols
+    private static final Color COLOR_BLUE = Color.BLUE.deriveColor(1, 1, 1, 0.25);
+    private static final Color COLOR_GREEN = Color.GREEN.deriveColor(1, 1, 1, 0.25);
+    private static final Color COLOR_YELLOW = Color.YELLOW.deriveColor(1, 1, 1, 0.25);
+    private static final Color COLOR_RED = Color.RED.deriveColor(1, 1, 1, 0.25);
+
     private final CategoryAxis xAxis = new CategoryAxis();
     private final NumberAxis yAxis = new NumberAxis();
 
@@ -52,7 +68,6 @@ public class AverageGraph {
     public AverageGraph(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
                         SimpleStringProperty recordType) {
 
-        customLineChart.setId("lineChart");
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
@@ -98,6 +113,8 @@ public class AverageGraph {
         setAxesLabel(averageType, recordType);
 
         loadAndShowChart(averageMap);
+
+        addHorizontalRangeMarker(recordType);
     }
 
     /**
@@ -147,18 +164,37 @@ public class AverageGraph {
     }
 
     /**
-     * Gets the record type to be used for y axis label. Adds horizontal range marker if record type is blood sugar.
+     * Gets the record type to be used for y axis label.
      */
     private String getYAxisLabel(SimpleStringProperty recordType) {
         switch (recordType.get().toLowerCase()) {
         case RECORD_TYPE_BMI:
             return WEIGHT + WEIGHT_UNIT;
         case RECORD_TYPE_BLOODSUGAR:
-            XYChart.Data<Number, Number> horizontalRangeMarker = new XYChart.Data<>(4.0, 5.4);
-            customLineChart.addHorizontalRangeMarker(horizontalRangeMarker, Color.GREEN);
             return BLOODSUGAR + BLOODSUGAR_UNIT;
         default:
             return UNKNOWN;
+        }
+    }
+
+    /**
+     * Adds horizontal range marker to denote ranges of values for given record type.
+     * @param recordType the record type of specified by user.
+     */
+    private void addHorizontalRangeMarker(SimpleStringProperty recordType) {
+        switch (recordType.get().toLowerCase()) {
+        case RECORD_TYPE_BMI:
+            customLineChart.addHorizontalRangeMarker(UNDER_WEIGHT_MARKER, COLOR_BLUE);
+            customLineChart.addHorizontalRangeMarker(NORMAL_WEIGHT_MARKER, COLOR_GREEN);
+            customLineChart.addHorizontalRangeMarker(OVER_WEIGHT_MARKER, COLOR_YELLOW);
+            customLineChart.addHorizontalRangeMarker(OBESE_WEIGHT_MARKER, COLOR_RED);
+            break;
+        case RECORD_TYPE_BLOODSUGAR:
+            customLineChart.addHorizontalRangeMarker(BEFORE_MEALS, COLOR_GREEN);
+            customLineChart.addHorizontalRangeMarker(AFTER_MEALS, COLOR_BLUE);
+            break;
+        default:
+            break;
         }
     }
 

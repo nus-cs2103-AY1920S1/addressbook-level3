@@ -39,7 +39,7 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
 
         Rectangle rectangle = new Rectangle(0, 0, 0, 0);
         rectangle.setStroke(Color.TRANSPARENT);
-        rectangle.setFill(color.deriveColor(1, 1, 1, 0.2));
+        rectangle.setFill(color);
 
         marker.setNode(rectangle);
 
