@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -420,6 +421,11 @@ public class ModelManager implements Model {
     @Override
     public String getQuestionsAndAnswers(String quizId) {
         return savedQuizzes.getQuestionsAndAnswers(quizId);
+    }
+
+    @Override
+    public boolean exportQuiz(String quizId) throws IOException {
+        return savedQuizzes.exportQuiz(quizId);
     }
 
     //endregion

@@ -2,6 +2,7 @@ package seedu.address.model.quiz;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +120,14 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      */
     public String getQuestionsAndAnswers(String quizId) {
         return QuizManager.getQuestionsAndAnswers(quizId, quizzes);
+    }
+
+    /**
+     * Exports a quiz to a html file.
+     * @param quizId The identifier of the quiz to be exported.
+     */
+    public boolean exportQuiz(String quizId) throws IOException {
+        return QuizManager.exportQuiz(quizId, quizzes);
     }
 
     /**

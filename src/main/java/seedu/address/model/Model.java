@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -273,6 +274,11 @@ public interface Model {
      * Returns a quiz's questions and answers, for testing purposes.
      */
     String getQuestionsAndAnswers(String quizId);
+
+    /**
+     * Exports a quiz to a html file.
+     */
+    boolean exportQuiz(String quizId) throws IOException;
 
     //endregion
 

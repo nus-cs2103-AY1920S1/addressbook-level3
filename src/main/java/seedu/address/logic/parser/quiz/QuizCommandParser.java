@@ -2,25 +2,12 @@ package seedu.address.logic.parser.quiz;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE_AUTO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE_MANUAL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_QUESTIONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ_QUESTION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.quiz.QuizAddQuestionCommand;
-import seedu.address.logic.commands.quiz.QuizCommand;
-import seedu.address.logic.commands.quiz.QuizCreateAutomaticallyCommand;
-import seedu.address.logic.commands.quiz.QuizCreateManuallyCommand;
-import seedu.address.logic.commands.quiz.QuizGetQuestionsAndAnswersCommand;
-import seedu.address.logic.commands.quiz.QuizRemoveQuestionCommand;
+import seedu.address.logic.commands.quiz.*;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -45,7 +32,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer
                 .tokenize(args, PREFIX_QUIZ, PREFIX_MODE_AUTO, PREFIX_MODE_MANUAL,
                         PREFIX_QUIZ_ID, PREFIX_NUM_QUESTIONS, PREFIX_QUESTION_NUMBER,
-                        PREFIX_QUIZ_QUESTION_NUMBER, PREFIX_TYPE, PREFIX_LIST);
+                        PREFIX_EXPORT, PREFIX_QUIZ_QUESTION_NUMBER, PREFIX_TYPE, PREFIX_LIST);
 
         if (argMultimap.getValue(PREFIX_MODE_AUTO).isPresent()) { // Create auto command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_NUM_QUESTIONS, PREFIX_TYPE)
@@ -98,6 +85,16 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
 
             return new QuizRemoveQuestionCommand(quizId, quizQuestionNumber);
+        } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { // Export command
+            if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(
+                        String
+                                .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizExportCommand.MESSAGE_USAGE));
+            }
+
+            String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
+            return new QuizExportCommand(quizId);
         } else { // List command
             if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                     || !argMultimap.getPreamble().isEmpty()) {

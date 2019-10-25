@@ -1,5 +1,6 @@
 package seedu.address.model.quiz;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -143,6 +144,16 @@ public class QuizManager {
             answers = quiz.getFormattedAnswers();
         }
         return questions + answers;
+    }
+
+    public static boolean exportQuiz(String quizId, QuizBank quizBank) throws IOException {
+        String quizInfo = "";
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            quizInfo = quiz.getQuestionsForExport();
+        }
+        return QuizExporter.exportQuiz(quizId, quizInfo);
     }
 
     /**
