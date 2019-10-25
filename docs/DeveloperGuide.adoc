@@ -561,6 +561,42 @@ below, in the example where the user changes the displayed expenses by using the
 image::DisplayStatisticsSequenceDiagram.png[]
 
 
+==== Design Considerations
+
+===== Aspect: Approach to generating of statistics
+* ** Alternative one (current choice):** Each time there is a change in the backing list of expenses, the statistics are re-generated
+by the specific `StatisticsGenerator` for the appropriate statistics format.
+** Pros:
+*** Simplest implementation, each statistic generator can simply provide a pure function with no side effects that maps from
+a list of expenses to the desired format of statistics.
+*** Runtime is acceptable as most operations can run in O(n) time at worst, with a reasonable input size of expenses.
+*** Statelessness means it is thread safe.
+** Cons:
+*** Even in cases where the backing list of expenses only change by one element (eg. when a single expense is deleted), the entire
+set of statistics will still be re-generated from the list, thus potentially incurring an expensive operation each time
+the list is changed.
+
+* ** Alternative two:** Each `StatisticsGenerator` can be structured as a data structure that keeps track of the current statistics data.
+Upon a change in the backing list, only the specific change will be propagated, ie. addition of one new expense will internally call
+`StatisticsGenerator#AddExpense` which modifies the statistics data appropriately.
+** Pros:
+*** For simple list changes like adding/removing a single expense, this approach is much faster as it does not have to regenerate
+the statistics from the entire list, the statistics only needs to be updated with the specific change.
+** Cons:
+*** Complicated, need to include methods to handle cases where expenses are added, removed and updated, for every statistic type. If the entire
+list is changed frequently, there is no performance benefit.
+*** Worse in terms of testability. The `StatisticsGenerator` will depend on an internal state which can be complicated for certain statistics.
+*** Not thread safe, in the case of future upgrades to a multi-threaded application, will require adjustments.
+
+* **Alternative three:** The data for certain aggregate statistics formats can be serialized. These formats include things like lifetime average spending
+per day/week/month, total number of expenses etc. Upon addition/removal/update of expenses, an in-mem copy of the serialized data can be updated
+and saved.
+** Pros:
+*** The data for certain statistics formats will always be quickly available by simply querying the storage.
+*** The data can be stored in a human readable format, so users can view those statistics without opening the application.
+** Cons:
+*** Requires extra complexity to serialize the data upon each change to the overall list of expenses.
+
 // tag::history[]
 === History feature
 ==== Implementation
