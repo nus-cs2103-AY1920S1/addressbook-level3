@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 import seedu.address.commons.core.GuiSettings;
 
@@ -16,4 +17,6 @@ public interface ReadOnlyUserPrefs {
     AliasTable getAliasTable();
 
     Reminder getReminders();
+
+    LocalDate getLastUpdate();
 }

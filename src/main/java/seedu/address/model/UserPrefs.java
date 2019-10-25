@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
@@ -16,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private AliasTable aliasTable;
     private Reminder reminders;
+    private LocalDate lastUpdate;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     /**
@@ -24,6 +26,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public UserPrefs() {
         aliasTable = AliasTable.getDefaultAliasTable();
         reminders = Reminder.getDefaultReminders();
+        lastUpdate = LocalDate.now();
     }
 
     /**
@@ -43,6 +46,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setAliasTable(newUserPrefs.getAliasTable());
         setReminders(newUserPrefs.getReminders());
+        lastUpdate = newUserPrefs.getLastUpdate();
     }
 
     public AliasTable getAliasTable() {
@@ -95,12 +99,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && aliasTable.equals(o.aliasTable)
-                && reminders.equals(o.reminders);
+                && reminders.equals(o.reminders)
+                && lastUpdate.equals(o.lastUpdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, aliasTable, reminders);
+        return Objects.hash(guiSettings, addressBookFilePath, aliasTable, reminders, lastUpdate);
     }
 
     @Override
@@ -110,6 +115,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAlias table : " + aliasTable);
         sb.append("\nReminders table : " + reminders);
+        sb.append("\nLast update : " + lastUpdate);
         return sb.toString();
     }
 
@@ -131,5 +137,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public String outputReminders() {
         return reminders.outputReminders();
+    }
+
+    public LocalDate getLastUpdate() {
+        return LocalDate.now();
     }
 }
