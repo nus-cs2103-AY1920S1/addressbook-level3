@@ -9,11 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
-import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.note.Note;
 
 /**
  * Globally searches for any StudyBuddyItem that has tags which matches the user input of keywords.
