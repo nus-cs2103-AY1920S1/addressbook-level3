@@ -32,6 +32,8 @@ public class InfoCommand extends Command {
 
     public static final String DELETE_INFO = COMMAND_INDICATOR + DeleteCommand.COMMAND_WORD;
 
+    public static final String DISLIKE_INFO = COMMAND_INDICATOR + DislikeCommand.COMMAND_WORD;
+
     public static final String EDIT_INFO = COMMAND_INDICATOR + EditCommand.COMMAND_WORD;
 
     public static final String EXIT_INFO = COMMAND_INDICATOR + ExitCommand.COMMAND_WORD;
@@ -43,6 +45,8 @@ public class InfoCommand extends Command {
     public static final String HELP_INFO = COMMAND_INDICATOR + HelpCommand.COMMAND_WORD;
 
     public static final String INFO_INFO = COMMAND_INDICATOR + InfoCommand.COMMAND_WORD;
+
+    public static final String LIKE_INFO = COMMAND_INDICATOR + LikeCommand.COMMAND_WORD;
 
     public static final String LIST_INFO = COMMAND_INDICATOR + ListCommand.COMMAND_WORD;
 
@@ -93,6 +97,8 @@ public class InfoCommand extends Command {
             return new CommandResult(DEFAULT_INFO);
         case DeleteCommand.COMMAND_WORD :
             return new CommandResult(DELETE_INFO);
+        case DislikeCommand.COMMAND_WORD :
+            return new CommandResult(DISLIKE_INFO);
         case EditCommand.COMMAND_WORD :
             return new CommandResult(EDIT_INFO);
         case ExitCommand.COMMAND_WORD :
@@ -105,6 +111,8 @@ public class InfoCommand extends Command {
             return new CommandResult(HELP_INFO);
         case InfoCommand.COMMAND_WORD :
             return new CommandResult(INFO_INFO);
+        case LikeCommand.COMMAND_WORD :
+            return new CommandResult(LIKE_INFO);
         case ListCommand.COMMAND_WORD :
             return new CommandResult(LIST_INFO);
         case MakeSortCommand.COMMAND_WORD :
