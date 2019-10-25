@@ -26,17 +26,30 @@ You can type quickly and serve your long line of borrowers in a short amount of 
 LiBerry can manage all your books and borrowers efficiently and meticulously.
 
 === Purpose of Developer Guide
+This developer guide is targeted towards *potential developers* of the project and it aims to explain:
+
+* The *design* of the software architecture of the system using a top-down approach
+* The *implementation* and *behaviour* of the main features of the system.
 
 === Legend
+// How to use developer guide
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+To set up LiBerry on your system, please refer to the guide <<SettingUp#, here>>.
 
 == Design
+In this section, we will explain the design and behaviour of the top-level components in the system, which are the following:
+
+* Architecture overview
+* User Interface (UI) Component
+* Logic Component
+* Model Component
+* Storage Component
 
 [[Design-Architecture]]
 === Architecture
+This sub-section shows the *relationship* between the major components at the highest level, illustrated by the following diagram.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -59,11 +72,11 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the system consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Ui,*`UI`*>>: The UI of the system.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`Model`*>>: Holds the data of the system in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -86,18 +99,32 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::AddBook.png[]
 {nbsp} +
 
-The sections below give more details of each component.
+In the diagram above, we can see how the components integrate together to execute a single command. +
+{nbsp} +
+The sections below give more details about each component, starting of with the UI component.
 
 [[Design-Ui]]
 === UI component
+This sub-section shows the structure of the User Interface (UI) and the relationship between each component in the UI. +
+{nbsp} +
+The following diagram aims to illustrate how each UI sub-component is linked to one another.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 {nbsp} +
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+In the figure above, we can see the association between the different UI sub-components, as well as the classes that interact with the external `Logic` and `Model` components.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up these main parts:
+
+* `CommandBox`
+* `ResultDisplay`
+* `BookListPanel`
+*  Other smaller components
+
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -107,27 +134,33 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 Given below is the Sequence Diagram for interactions within
-the UI component when the user enter an add command.
+the UI component when the user enters an add command.
 The exact command entered is `add t/Animal Farm a/George`.
 
 .Interactions Inside the UI Component for the `add t/Animal Farm a/George` Command
 image::UiAddBookSequenceDiagram.png[]
 {nbsp} +
 
-The following activity diagram summarizes what happens to the `UI`
+In the figure above, we can see how the UI components invoke the `execute` method of the `Logic` class in order to obtain and subsequently display the result of the execution.
+
+The following activity diagram summarizes what happens to the `UI` component
 when a user executes a new command:
 
 .Flow of Events within `UI`
 image::UiUpdateBookListActivityDiagram.png[width=270]
 {nbsp} +
-
+The activity diagram above aims to illustrate how `UI` only updates the `BookListPanel` when the catalog is being updated by a command. +
+We will now move on to give more details about the `Logic` component.
 [[Design-Logic]]
 === Logic component
-
+In this sub-section, we will explain the internal workings of the `Logic` component, which handles the execution of the different commands. +
+{nbsp} +
+The following class diagram aims to show how the 'Command Design Pattern' is used to achieve a high-level form of encapsulation of the `Command` object.
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 {nbsp} +
+In the diagram above, we can see that the `LogicManager` executes the `Command` class without knowledge of what each command does. This is achieve through polymorphism where all possible commands extend from the `Command` class.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -143,19 +176,24 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `add t/Animal Farm a/George` Command
 image::AddBookLogicSequenceDiagram.png[]
 {nbsp} +
+In the diagram above, we can see that the `Logic` component's `execute` is invoked by the `UI` component from before. A series of method calls would invoke the `addBook` method of the `Model`, moving the chain of calls further downstream.
 
 NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+{nbsp} +
 
+In short, the `Logic` component interprets the different commands and execute them accordingly. Most of these commands will have to interact with the `Model` component, which will will explore in the next sub-section.
 [[Design-Model]]
 === Model component
+The `Model` component is mainly composed of the `Book`, `Borrower` and `Loan` classes and shows how they are related to one another.
+{nbsp} +
+
+The figure below shows the relationship between smaller components. These smaller components are modelled after real world objects.
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 {nbsp} +
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
-
-The `Model`,
+The figure illustrates the composition of the `Model` component. The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Catalog data.
@@ -165,24 +203,47 @@ The `Model`,
 * references a list of filtered books which depends on the state of the model.
 * exposes an unmodifiable `ObservableList<Book>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+{nbsp} +
+When there are changes in the `Model` component, the system will update its in-memory via the `Storage` component, which will be explained in-depth in the next section.
 [[Design-Storage]]
 === Storage component
+The `Storage` component is responsible for updating the memory of the system (in `JSON` format) whenever there are changes.
+
+{nbsp} +
+The figure below aims to show the different records storage that is implemented in LiBerry.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 {nbsp} +
 
+In the figure above, we can see that we are maintaining 4 different storages. These storages aim to keep the memory of:
+
+* `UserPrefs`
+* `Catalog`
+* `BorrowerRecords`
+* `LoanRecords`
+
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save LiBerry data in json format and read it back.
+* can save `UserPref` objects in `JSON` format and read it back.
+* can save LiBerry data in `JSON` format and read it back.
 
+There are certain classes (eg. Utility classes) that are used by different components. In the following section, we will explain how we allow all components to access these classes.
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
+These classes include (to list a few):
+
+* User Settings
+* Exceptions
+* Utility classes like `DateUtil` and `JsonUtil`
+
+We will now move on to the next section, which aims to explain the implementation of some of our main features.
 
 == Implementation
 
@@ -190,6 +251,8 @@ This section describes some noteworthy details on how certain features are imple
 
 //tag::addBook[]
 === Add book feature
+This feature allows a user to add a new book to the LiBerry system.
+
 ==== Implementation
 
 The add book function is facilitated by `Catalog`.
@@ -268,6 +331,7 @@ The following describes the sequence of events displayed in the figure above.
 6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
 7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
 ****
+
 ==== Design Considerations
 
 ===== Aspect: How to create and use an instance of a `LoanSlipDocument`.
