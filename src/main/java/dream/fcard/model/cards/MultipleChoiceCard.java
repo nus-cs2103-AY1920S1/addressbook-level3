@@ -190,7 +190,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      *
      * @return
      */
-    public ArrayList<String> getListOfChoices(){
+    public ArrayList<String> getListOfChoices() {
         shuffleChoices();
         return displayChoices;
     }
