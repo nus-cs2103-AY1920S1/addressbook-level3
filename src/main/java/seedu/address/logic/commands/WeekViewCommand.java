@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DAY_VIEW_SUCCESS;
+import static seedu.address.commons.core.Messages.MESSAGE_WEEK_VIEW_SUCCESS;
 
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public class WeekViewCommand extends Command {
 
     @Override
     public UserOutput execute() {
-        uiManager.viewWeek(calendarDate.getDay(), calendarDate.getMonth(), calendarDate.getYear());
-        return new UserOutput(String.format(MESSAGE_DAY_VIEW_SUCCESS, calendarDate.toString()));
+        uiManager.viewWeek(calendarDate);
+        return new UserOutput(String.format(MESSAGE_WEEK_VIEW_SUCCESS, calendarDate.toString()));
     }
 }

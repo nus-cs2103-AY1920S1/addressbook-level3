@@ -28,9 +28,8 @@ public class EventListPanel extends UiPart<Region> {
     /**
      * Constructor for EventListPanel. Creates an instance of a panel to store the Event Cards.
      */
-    public EventListPanel(UiParser uiParser) {
+    public EventListPanel() {
         super(FXML);
-        this.uiParser = uiParser;
         eventListView.setCellFactory(listView -> new EventListViewCell());
     }
 

@@ -24,12 +24,11 @@ public class EventCard extends Card {
      * Constructor for the EventCard, which displays the information of a particular event.
      *
      * @param event The given event.
-     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
      */
-    public EventCard(EventSource event, UiParser uiParser) {
+    public EventCard(EventSource event) {
         super(FXML);
         eventCardName.setText(event.getDescription());
-        eventCardDate.setText(uiParser.getFullEnglishDateTime(event.getStartDateTime().toInstant()));
+        eventCardDate.setText(event.getStartDateTime().toEnglishDateTime());
         eventCardName.setMinHeight(Region.USE_PREF_SIZE);
     }
 }

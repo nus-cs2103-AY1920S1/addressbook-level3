@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.CalendarDate;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.listeners.UserOutputListener;
@@ -92,8 +93,8 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        calendarPanel = new CalendarPanel(uiParser);
-        listPanel = new ListPanel(uiParser);
+        calendarPanel = new CalendarPanel();
+        listPanel = new ListPanel();
         logPanel = new LogPanel();
         commandBox = new CommandBox(this.onCommandInput);
 
@@ -151,38 +152,25 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         viewTitle.setText("Calendar");
     }
 
-    /**
-     * Changes the View Panel to show the Calendar Panel of a certain day.
-     *
-     * @param day The given day.
-     * @param month The given month.
-     * @param year The given year.
-     */
-    public void viewDay(int day, int month, int year) {
-        calendarPanel.changeToDayView(day, month, year);
+
+    public void viewDay(CalendarDate calendarDate) {
+        calendarPanel.changeToDayView(calendarDate);
         viewCalendar();
     }
 
-    /**
-     * Changes the View Panel to show the Calendar Panel of a certain week.
-     *
-     * @param week The given day.
-     * @param month The given month.
-     * @param year The given year.
-     */
-    public void viewWeek(int week, int month, int year) {
-        calendarPanel.changeToWeekView(week, month, year);
+
+    public void viewWeek(CalendarDate calendarDate) {
+        calendarPanel.changeToWeekView(calendarDate);
         viewCalendar();
     }
 
     /**
      * Changes the View Panel to show the Calendar Panel of a certain month.
      *
-     * @param month The given month.
-     * @param year The given year.
+     * @param calendarDate The Calendar's date.
      */
-    public void viewMonth(int month, int year) {
-        calendarPanel.changeToMonthView(month, year);
+    public void viewMonth(CalendarDate calendarDate) {
+        calendarPanel.changeToMonthView(calendarDate);
         viewCalendar();
     }
 
@@ -269,8 +257,8 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     /**
      * Changes of the calendar screen of the calendar
      */
-    public void changeCalendarScreenDate(int month, int year) {
-        calendarPanel.changeCalendarScreenDate(month, year);
+    public void changeCalendarScreenDate(CalendarDate calendarDate) {
+        calendarPanel.changeCalendarScreenDate(calendarDate);
         viewCalendar();
     }
 

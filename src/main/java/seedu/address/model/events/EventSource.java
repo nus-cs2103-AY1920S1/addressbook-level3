@@ -109,4 +109,5 @@ public class EventSource {
         icsStringBuilder.append("\n").append("END:VEVENT");
         return icsStringBuilder.toString();
     }
+
 }

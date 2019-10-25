@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.text.DateFormatSymbols;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -128,6 +129,12 @@ public class DateTime implements Comparable<DateTime> {
 
     public String toIcsString() {
         return ICS_COMPOSER.compose(this.instant);
+    }
+
+    public String toEnglishDateTime() {
+        String monthStr = new DateFormatSymbols().getMonths()[getMonth() - 1].toLowerCase();
+        monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
+        return getDay() + " " + monthStr + " " + getYear() + " " + getHour() + ":" + getMinute();
     }
 
     @Override

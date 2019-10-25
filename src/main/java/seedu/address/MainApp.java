@@ -61,7 +61,7 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_NOTIFICATION_ON, () -> NotificationOnCommand.newBuilder(notificationManager));
         commandManager.addCommand(COMMAND_DAY_VIEW, () -> DayViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_WEEK_VIEW, () -> WeekViewCommand.newBuilder(uiManager));
-        // commandManager.addCommand(COMMAND_WEEK_VIEW, () -> MonthViewCommand.newBuilder(uiManager));
+        commandManager.addCommand(COMMAND_MONTH_VIEW, () -> MonthViewCommand.newBuilder(uiManager));
 
         // Add Listeners
         commandManager.addUserOutputListener(uiManager);

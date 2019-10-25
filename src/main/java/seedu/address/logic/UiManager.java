@@ -13,6 +13,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
+import seedu.address.model.CalendarDate;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.ColorTheme;
@@ -55,13 +56,9 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
                     this.mainWindow.viewList();
                 } else if (commandInput.equals("log")) {
                     this.mainWindow.viewLog();
-                } else if (commandInput.equals("week 2")) {
-                    this.mainWindow.viewWeek(1, 11, 2019);
-                } else if (commandInput.equals("month 2")) {
-                    this.mainWindow.viewMonth(11, 2019);
                 } else if (commandInput.equals("calendar 11/2019")) {
                     // No need for day
-                    this.mainWindow.changeCalendarScreenDate(11, 2019);
+                    // this.mainWindow.changeCalendarScreenDate(11, 2019);
                 } else {
                     // Notify listeners of new command input.
                     this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
@@ -115,16 +112,16 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         System.exit(1);
     }
 
-    public void viewDay(Integer day, Integer month, Integer year) {
-        mainWindow.viewDay(day, month, year);
+    public void viewDay(CalendarDate calendarDate) {
+        mainWindow.viewDay(calendarDate);
     }
 
-    public void viewWeek(Integer week, Integer month, Integer year) {
-        mainWindow.viewWeek(week, month, year);
+    public void viewWeek(CalendarDate calendarDate) {
+        mainWindow.viewWeek(calendarDate);
     }
 
-    public void viewMonth(Integer month, Integer year) {
-        mainWindow.viewMonth(month, year);
+    public void viewMonth(CalendarDate calendarDate) {
+        mainWindow.viewMonth(calendarDate);
     }
 
     @Override

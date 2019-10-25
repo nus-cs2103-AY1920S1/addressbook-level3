@@ -19,7 +19,6 @@ import seedu.address.ui.UiPart;
 public class ListPanel extends UiPart<Region> implements EventListListener {
 
     private static final String FXML = "ListPanel.fxml";
-    private UiParser uiParser;
     private EventListPanel eventListPanel;
 
     @FXML
@@ -34,10 +33,9 @@ public class ListPanel extends UiPart<Region> implements EventListListener {
     /**
      * Constructor for ListPanel. Stores the event list, and task list[in v2.0].
      */
-    public ListPanel(UiParser uiParser) {
+    public ListPanel() {
         super(FXML);
-        this.uiParser = uiParser;
-        this.eventListPanel = new EventListPanel(uiParser);
+        this.eventListPanel = new EventListPanel();
         // eventList.getChildren().add(eventListPanel.getRoot());
     }
 

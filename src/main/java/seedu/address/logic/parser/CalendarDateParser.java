@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CALENDAR_DATE;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -24,9 +24,9 @@ public class CalendarDateParser implements Parser<CalendarDate> {
     @Override
     public CalendarDate parse(String userInput) throws ParseException {
         try {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(this.pattern);
-            LocalDate localDate = LocalDate.from(dateTimeFormatter.parse(userInput));
-            return new CalendarDate(localDate);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+            YearMonth yearMonth = YearMonth.from(dateTimeFormatter.parse(userInput));
+            return new CalendarDate(yearMonth);
         } catch (DateTimeParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_CALENDAR_DATE, pattern));
         }
