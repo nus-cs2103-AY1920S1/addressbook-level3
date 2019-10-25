@@ -60,7 +60,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same username.
+     * Returns true if both persons have the same name or username.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -124,9 +124,9 @@ public class Person {
     }
 
     /**
-     * Checks whether a person is an admin.
+     * Checks whether a person is a regular user or an admin.
      * @param person represents the person to be checked
-     * @return true if the person is an admin
+     * @return false if the person is an admin
      */
     public static boolean isNotAdmin(Person person) {
         if (person == null) {
