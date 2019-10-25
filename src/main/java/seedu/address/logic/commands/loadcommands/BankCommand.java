@@ -9,37 +9,35 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 
 /**
- * Selects Bank and switches to APP mode if successful
+ * Selects a word bank.
  */
 public class BankCommand extends HomeCommand {
 
     public static final String COMMAND_WORD = "bank";
 
-    public static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Selected the word bank\n Type start to start game.";
+    private final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Selected a word bank.\n"
+            + "Type start to start the game\n"
+            + "Or type open to edit word bank.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Loads the bank identified by the name.\n"
-            + "Parameters: NAME\n"
-            + "Example: " + COMMAND_WORD + " wordbank";
+            + " WORDBANK \n"
+            + "Eg: " + COMMAND_WORD + " sample";
 
-    private final String name;
+    private String name = "";
 
     public BankCommand(String name) {
         this.name = name;
     }
 
-    public BankCommand() {
-        this.name = null;
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         WordBankList wbl = model.getWordBankList();
-        WordBankStatisticsList wbStatsList = model.getWordBankStatisticsList();
-        if (wbl.getWordBank(this.name) == null) {
+        if (wbl.getWordBankFromName(this.name) == null) {
             throw new CommandException("Work bank does not exist");
         }
-        model.setWordBank(wbl.getWordBank(name));
+        model.setWordBank(wbl.getWordBankFromName(name).get());
+
+        WordBankStatisticsList wbStatsList = model.getWordBankStatisticsList();
         WordBankStatistics wbStats = wbStatsList.getWordBankStatistics(name);
         if (wbStats == null) {
             WordBankStatistics newWbStats = WordBankStatistics.getEmpty(name);
@@ -48,6 +46,7 @@ public class BankCommand extends HomeCommand {
         } else {
             model.setWordBankStatistics(wbStats);
         }
+
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT, false, false);
     }
 

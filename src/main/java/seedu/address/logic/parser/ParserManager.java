@@ -120,7 +120,7 @@ public class ParserManager {
 
     /**
      * Updates the current state of the Model and ParserManager based on whether
-     * {@code bankLoaded} is true, and whether {@code gameIsOver}.
+     * {@code getHasBank} is true, and whether {@code gameIsOver}.
      */
     public void updateState(boolean bankLoaded, boolean gameIsOver) {
         this.bankLoaded = bankLoaded;

@@ -30,7 +30,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWordBankListStorage.class);
     private ReadOnlyWordBankList readOnlyWordBankList;
-    private Path wordBanksFilePath; // default : data/wordbanks
+    private Path wordBanksFilePath; // default : data/wordBanks
 
     /**
      * Storage that contains all information related to word banks.
@@ -69,14 +69,14 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Creates the wordbanks folder if it has not been initialised.
-     * By default, it is located at data/wordbanks
+     * Creates the wordBanks folder if it has not been initialised.
+     * By default, it is located at data/wordBanks
      * Also creates a sample.json file if there are no word banks when initialising.
      *
      * @param filePath of storage. By default, it is data.
      */
     private void initData(Path filePath) {
-        wordBanksFilePath = Paths.get(filePath.toString(), "wordbanks");
+        wordBanksFilePath = Paths.get(filePath.toString(), "wordBanks");
         try {
             if (!filePath.toFile().exists()) {
                 Files.createDirectory(filePath);
@@ -180,7 +180,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     public void removeWordBank(String wordBankName) {
         Path filePath = Paths.get(wordBanksFilePath.toString(), wordBankName + ".json");
         File toDelete = filePath.toFile();
-        WordBank wb = readOnlyWordBankList.getWordBank(wordBankName);
+        WordBank wb = readOnlyWordBankList.getWordBankFromName(wordBankName).get();
         if (toDelete.exists()) {
             toDelete.delete();
         }

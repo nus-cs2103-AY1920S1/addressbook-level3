@@ -3,6 +3,8 @@ package seedu.address.model.wordbanklist;
 import javafx.collections.ObservableList;
 import seedu.address.model.wordbank.WordBank;
 
+import java.util.Optional;
+
 /**
  * Unmodifiable view of a word bank list.
  */
@@ -15,9 +17,7 @@ public interface ReadOnlyWordBankList {
      */
     ObservableList<WordBank> getWordBankList();
 
-    WordBank getWordBank(String name);
+    Optional<WordBank> getWordBankFromName(String name);
 
     int size();
-
-    boolean hasWordBank(WordBank wordBank);
 }

@@ -103,7 +103,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean bankLoaded() {
+        public boolean getHasBank() {
             return false;
         }
 

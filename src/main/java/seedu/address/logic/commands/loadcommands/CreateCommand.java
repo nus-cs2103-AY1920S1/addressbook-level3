@@ -39,10 +39,7 @@ public class CreateCommand extends HomeCommand {
         requireNonNull(model);
 
         // Check for duplicate word bank
-        if (model.getWordBankList().hasWordBank(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_WORD_BANK);
-        }
-
+        model.getWordBankList().addBank((WordBank) toAdd);
         model.setWordBank(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }

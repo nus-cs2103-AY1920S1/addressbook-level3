@@ -69,7 +69,7 @@ public class StartCommand extends SwitchCommand {
 
         String wordBankName = model.getWordBank().getName();
         WordBankList wbList = model.getWordBankList();
-        WordBank wordBank = wbList.getWordBank(wordBankName);
+        WordBank wordBank = wbList.getWordBankFromName(wordBankName).get();
 
         // Check size of WordBank, if less than 3 cards, cannot start game.
         if (wordBank.size() < 3) {

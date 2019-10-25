@@ -70,7 +70,7 @@ public class LogicManager implements Logic, UiLogicHelper {
         2 user modes: Game mode and Normal mode
         */
 
-        parserManager.updateState(model.bankLoaded(), model.gameIsOver());
+        parserManager.updateState(model.getHasBank(), model.gameIsOver());
 
         Command command = parserManager.parseCommand(commandText);
 
@@ -84,7 +84,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
         commandResult = command.execute(model);
 
-        parserManager.updateState(model.bankLoaded(), model.gameIsOver());
+        parserManager.updateState(model.getHasBank(), model.gameIsOver());
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.

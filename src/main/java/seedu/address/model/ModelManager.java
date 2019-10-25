@@ -20,6 +20,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -30,9 +31,10 @@ import seedu.address.statistics.WordBankStatistics;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+    private boolean hasBank = false;
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private WordBank wordBank = new WordBank("Empty wordbank");
+    private WordBank wordBank = SampleDataUtil.getSampleWordBank();
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
@@ -199,6 +201,7 @@ public class ModelManager implements Model {
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
         this.wordBank = (WordBank) wordBank;
+        hasBank = true;
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
         //        this.wordBank.resetData(wordBank);
     }
@@ -293,8 +296,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean bankLoaded() {
-        return !wordBank.getName().equals("Empty wordbank");
+    public boolean getHasBank() {
+        return hasBank;
     }
 
     @Override

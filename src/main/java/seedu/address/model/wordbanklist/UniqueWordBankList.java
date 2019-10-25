@@ -9,16 +9,16 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbank.WordBank;
 
 /**
- * A list of cards that enforces uniqueness between its elements and does not allow nulls.
- * A card is considered unique by comparing using {@code Card#isSameName(Card)}. As such, adding and updating of
- * cards uses Card#isSameName(Card) for equality so as to ensure that the person being added or updated is
- * unique in terms of names in UniqueCardList. However, the removal of a card uses Card#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of word banks that enforces uniqueness between its elements and does not allow nulls.
+ * A word bank is considered unique by comparing using {@code WordBank#isSameName(WordBank)}. As such, adding and
+ * updating of word banks uses WordBank#isSameName(WordBank) for equality so as to ensure that the word bank being
+ * added or updated is unique in terms of names in UniqueWordBankList. However, the removal of a word bank uses
+ * WordBank#equals(WordBank) so as to ensure that the person with exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  *
@@ -31,7 +31,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains a wordBank with the same name.
+     * Returns true if the list contains a WordBank with the same name.
      */
     public boolean contains(WordBank toCheck) {
         requireNonNull(toCheck);
@@ -39,8 +39,8 @@ public class UniqueWordBankList implements Iterable<WordBank> {
     }
 
     /**
-     * Adds a card to the list.
-     * The card must not exist in the list.
+     * Adds a WordBank to the list.
+     * The WordBank must not exist in the list.
      *
      * @see UniqueWordBankList#contains(WordBank)
      */
@@ -53,40 +53,14 @@ public class UniqueWordBankList implements Iterable<WordBank> {
     }
 
     /**
-     * Replaces the card {@code target} in the list with {@code editedCard}.
-     * {@code target} must exist in the list.
-     * The name of {@code editedPerson} must not be the same as another existing card in the list.
-     */
-    public void setWordBankList(WordBank target, WordBank editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new CardNotFoundException();
-        }
-
-        if (!target.isSameName(editedPerson) && contains(editedPerson)) {
-            throw new DuplicateCardException();
-        }
-
-        internalList.set(index, editedPerson);
-    }
-
-    public void setWordBankList(UniqueWordBankList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code cards}.
-     * {@code cards} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code List<WordBank>}.
+     * {@code List<WordBank>} must not contain duplicate WordBank.
      */
     public void setWordBankList(List<WordBank> cards) {
         requireAllNonNull(cards);
         if (!wordBanksAreUnique(cards)) {
             throw new DuplicateCardException();
         }
-
         internalList.setAll(cards);
     }
 
@@ -97,7 +71,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
     public void remove(WordBank toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new CardNotFoundException();
+            throw new WordBankNotFoundException();
         }
     }
 

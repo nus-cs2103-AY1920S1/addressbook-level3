@@ -40,7 +40,7 @@ public class ExportCommand extends HomeCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        WordBank wb = model.getWordBankList().getWordBank(wordBankName);
+        WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName).get();
         this.wordBank = wb;
         if (wb == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_NAME);
