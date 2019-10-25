@@ -48,8 +48,9 @@ class UrlUtilTest {
 
     @Test
     void generateGmapsStaticImage() {
-        String expectedURL = "https://maps.googleapis.com/maps/api/staticmap?size=500x500&zoom=17&markers=color:blue|size:large|label:L|NUS_LT17&center=NUS_LT17&key=&";
-        assertEquals(UrlUtil.generateGmapsStaticImage("NUS_LT17"), expectedURL);
+        String expectedUrl = "https://maps.googleapis.com/maps/api/staticmap?size=500x500&zoom=17"
+                + "&markers=color:blue|size:large|label:L|NUS_LT17&center=NUS_LT17&key=&";
+        assertEquals(UrlUtil.generateGmapsStaticImage("NUS_LT17"), expectedUrl);
     }
 }
 

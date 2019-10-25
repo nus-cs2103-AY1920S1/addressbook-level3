@@ -28,37 +28,37 @@ class ClosestCommonLocationDataTest {
     @Test
     void getFirstClosest() {
         closestCommonLocationData.setFirstClosest("FOO");
-        assertEquals("FOO",closestCommonLocationData.getFirstClosest());
+        assertEquals("FOO", closestCommonLocationData.getFirstClosest());
     }
 
     @Test
     void getSecondClosest() {
         closestCommonLocationData.setSecondClosest("FOO");
-        assertEquals("FOO",closestCommonLocationData.getSecondClosest());
+        assertEquals("FOO", closestCommonLocationData.getSecondClosest());
     }
 
     @Test
     void getThirdClosest() {
         closestCommonLocationData.setThirdClosest("FOO");
-        assertEquals("FOO",closestCommonLocationData.getThirdClosest());
+        assertEquals("FOO", closestCommonLocationData.getThirdClosest());
     }
 
     @Test
     void getFirstAvg() {
         closestCommonLocationData.setFirstAvg((long) Long.MAX_VALUE);
-        assertEquals(Long.MAX_VALUE,closestCommonLocationData.getFirstAvg());
+        assertEquals(Long.MAX_VALUE, closestCommonLocationData.getFirstAvg());
     }
 
     @Test
     void getSecondAvg() {
         closestCommonLocationData.setSecondAvg((long) Long.MAX_VALUE);
-        assertEquals(Long.MAX_VALUE,closestCommonLocationData.getSecondAvg());
+        assertEquals(Long.MAX_VALUE, closestCommonLocationData.getSecondAvg());
     }
 
     @Test
     void getThirdAvg() {
         closestCommonLocationData.setThirdAvg((long) Long.MAX_VALUE);
-        assertEquals(Long.MAX_VALUE,closestCommonLocationData.getThirdAvg());
+        assertEquals(Long.MAX_VALUE, closestCommonLocationData.getThirdAvg());
     }
 
     @Test

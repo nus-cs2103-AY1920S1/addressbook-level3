@@ -23,7 +23,7 @@ class ClosestLocationCommandTest {
     @Test
     void execute() throws CommandException {
         ClosestLocationCommand closestLocationCommand = new ClosestLocationCommand(locationNameList);
-        String expectedResult = "Closest location found: First closest location: LT17 | Average travelling time 0\n"
+        String expectedResult = "Closest location found: \nFirst closest location: LT17 | Average travelling time 0\n"
                 + "Second closest location: LT19 | Average travelling time 4\n"
                 + "Third closest location: AS4 | Average travelling time 70\n"
                 + " location you entered: LT17 LT17 LT17 ";

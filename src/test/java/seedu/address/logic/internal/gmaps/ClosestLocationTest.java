@@ -40,7 +40,7 @@ class ClosestLocationTest {
     void closestLocation() {
         ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("LT17", "LT17", "LT17"));
         String result = closestLocation.closestLocationDataString(locationNameList);
-        String expectedResult = "First closest location: LT17 | Average travelling time 0\n"
+        String expectedResult = "\nFirst closest location: LT17 | Average travelling time 0\n"
                 + "Second closest location: LT19 | Average travelling time 4\n"
                 + "Third closest location: AS4 | Average travelling time 70\n";
         assertEquals(expectedResult, result);

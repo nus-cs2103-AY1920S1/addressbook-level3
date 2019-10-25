@@ -33,11 +33,11 @@ public class ImageQuery {
     }
 
     /**
-     * This method is used to check if an image is valid
+     *This method is used to check is the API response is valid.
      * @param imageUrl
      * @return
      */
-   private static boolean isValid(String imageUrl) {
+    private static boolean isValid(String imageUrl) {
         boolean isValid = true;
         try {
             URL url = new URL(imageUrl);
@@ -54,7 +54,7 @@ public class ImageQuery {
             e.printStackTrace();
         }
         return isValid;
-   }
+    }
 
     /**
      * This method is used to save an image from api response
