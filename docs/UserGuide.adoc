@@ -163,24 +163,6 @@ Edits the name, date and calories burnt of the 4th exercise to `Swim`, `21/09/20
 Edits the name, date, calories burnt, quantity, units and muscle group trained of the 3rd exercise to `Bench press`,
 `22/09/2019`, `240`, `10`, `sets` and `Chest` respectively.
 
-=== Locating exercises by name: `find`
-
-Finds exercises whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `run` will match `Run`
-* The order of the keywords does not matter. e.g. `Bench Press` will match `Press Bench`
-* Only the name is searched.
-* Only full words will be matched e.g. `Runs` will not match `Run`
-* Exercises matching at least one keyword will be returned (i.e. `OR` search). e.g. `Bench Press` will return `Incline Bench Press`, `Decline Bench Press`
-****
-
-Examples:
-
-* `find bench press`
-* `find run`
-
 // tag::delete[]
 === Delete health information : `delete`
 
@@ -471,8 +453,6 @@ e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 e.g. `list t/exercise s/12/12/2019 e/17/12/2019`
 * *Edit* : `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
 e.g. `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]`
-e.g. `find bench press`
 * *Delete* : `delete t/exercise i/INDEX`
 e.g. `delete t/exercise i/2`
 * *Clear* : `clear`

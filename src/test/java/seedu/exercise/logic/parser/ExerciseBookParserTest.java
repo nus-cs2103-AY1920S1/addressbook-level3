@@ -9,10 +9,6 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.commands.AddExerciseCommand;
@@ -21,12 +17,10 @@ import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.exercise.logic.commands.ExitCommand;
-import seedu.exercise.logic.commands.FindCommand;
 import seedu.exercise.logic.commands.HelpCommand;
 import seedu.exercise.logic.commands.ListCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
 import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
 import seedu.exercise.testutil.exercise.ExerciseBuilder;
 import seedu.exercise.testutil.exercise.ExerciseUtil;
@@ -69,14 +63,6 @@ public class ExerciseBookParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
