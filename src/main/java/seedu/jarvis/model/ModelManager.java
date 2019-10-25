@@ -713,12 +713,12 @@ public class ModelManager implements Model {
 
     @Override
     public String getDisplayText() {
-        return null;
+        return coursePlanner.getText();
     }
 
     @Override
     public String getDisplayText(int lineCharacterLimit) {
-        return null;
+        return coursePlanner.getText(lineCharacterLimit);
     }
 
     @Override
