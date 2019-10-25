@@ -22,8 +22,8 @@ import seedu.address.model.person.Name;
 public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindPersonCommand
-     * and returns a FindPersonCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FindPersonsCommand
+     * and returns a FindPersonsCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindIncidentsCommand parse(String args) throws ParseException {
