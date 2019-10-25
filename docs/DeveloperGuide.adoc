@@ -382,6 +382,8 @@ Step 3. The `MainWindow` creates a new `HistoryListPanel` object with the list o
 Following is the sequence diagram that shows the interaction between different components of the app when the command
 `history` is typed in by the user:
 
+image::CommandHistorySequenceDiagram.png[]
+
 Step 4. The `HistoryListPanel` object then initialises all the attributes of the associated FXML object, following which this
 component is placed in the secondary panel display.
 
@@ -414,7 +416,98 @@ feature to undo/redo application.
 * **Alternative 2:** Display every valid command entered by the user
 ** Pros: More accurate representation of command history, every command entered is a part of the history
 ** Cons: Clutters the command history with unnecessary commands like `history` and `undo`.
+<<<<<<< HEAD
 >>>>>>> Add Command History in Developer Guide
+=======
+// end::history[]
+
+// tag::undoredo[]
+=== Undo/Redo Feature
+==== Implementation
+
+To allow users to revert/return to a previous/future state of the address book, an undo/redo mechanism is implemented, which
+undoes/redoes the last data change made in the application. This feature can be performed using the `undo` or `redo`
+command, and it performs an undo or a redo only when possible. The feature is supported by the `StatefulAddressBook` class,
+an instance of which is stored as one of the memory objects inside `ModelManager`. The main operations implemented by this class are:
+
+* `StatefulAddressBook#saveAddressBookState()` -- Adds an address book with the current state to the list `statefulAddressBookList`. Also
+clears states after the `currentStatePointer` and updates it by one.
+* `StatefulAddressBook#undo()` -- Reverts the `currentStatePointer` to the previous one, and resets the address book to use the one pointed
+by `currentStatePointer`.
+* `StatefulAddressBook#redo()` -- Increments the `currentStatePointer` to the future one, and resets the address book to use the one pointed
+by `currentStatePointer`.
+
+image::UndoRedoClassDiagram.png[]
+
+Given below is an example usage scenario and how the undo-redo mechanism works at each step. Let us assume that `StatefulAddressBook` has just been initialised.
+
+image::UndoRedoState0.png[]
+
+Step 1. The user makes some data changes. This adds a list of states to our `StatefulAddressBook`, and updates the
+`currentStatePointer`.
+
+image::UndoRedoState1.png[]
+
+Step 2. User types `undo`. This invokes the `UndoCommand::execute` method, which further invokes the `StatefulAddressBook::undo`
+method. The `currentStatePointer` is decremented, and the address book is reset to the one being pointed to by
+`currentStatePointer`.
+
+image::UndoRedoState2.png[]
+
+Step 3a. The use can perform another data change, following which states after `currentStatePointer` are erased,
+and a new state is added.
+
+image::UndoRedoState3a.png[]
+
+Step 3b. If a command which does not perform a data change is called, nothing happens in the `StatefulAddressBook`.
+
+image::UndoRedoState3b.png[]
+
+Step 3c. If a `redo()` is called, then the `currentStatePointer` is incremented, and the address book is reset to the one
+being pointed to by `currentStatePointer`.
+
+image::UndoRedoState3c.png[]
+
+Step 4. If the address book data is reset to another state's, then all the data inside the application is reloaded, with
+the resulting changes now reflected.
+
+Following is an activity diagram which shows the execution when the user makes in a data change or types in the `undo`
+command. The diagram for a `redo` command will be similar.
+
+image::UndoActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement, takes way lesser code.
+** Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for delete, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+* **Alternative 3:** Do not store entire address book, but a PersonList, PolicyList and BinList depending on what
+is changed.
+** Pros: Will use less memory (e.g. for delete, just save the person list).
+** Cons: We must ensure that the implementation of each individual command are correct. Several cases to consider
+when we try to undo a command.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming
+developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
+HistoryManager and VersionedAddressBook.
+
+* **Alternative 2:** Use HistoryManager (a history of commands) for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+Violates Single Responsibility Principle and Separation of Concerns as HistoryManager now needs to do two different things.
+// end::undoredo[]
+>>>>>>> Add undo/redo in Developer Guide
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

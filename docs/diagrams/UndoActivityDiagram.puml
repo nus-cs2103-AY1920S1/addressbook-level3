@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes undo command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([canUndo() returns true])
+    :Decrement currentStatePointer;
+    :Reset AddressBook data to
+    addressBookStateList.get(currentStatePointer);
+else ([else])
+    :Throw CannotUndoException;
+endif
+stop
+@enduml
