@@ -41,9 +41,6 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = flashcardListParser.parseCommand(commandText);
         CommandResult commandResult = command.execute(model);
-        if (!(command instanceof QuizCommand)) {
-            model.updateLastViewedFlashcard(null);
-        }
         try {
             storage.saveFlashcardList(model.getFlashcardList());
         } catch (IOException e) {

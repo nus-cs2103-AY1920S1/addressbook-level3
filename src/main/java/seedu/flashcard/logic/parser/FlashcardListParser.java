@@ -1,7 +1,8 @@
 package seedu.flashcard.logic.parser;
 
 import static seedu.flashcard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flashcard.commons.core.Messages.MESSAGE_UNKOWN_COMMAND;
+import static seedu.flashcard.commons.core.Messages.MESSAGE_QUIZ_UNSUPPORTED_COMMAND;
+import static seedu.flashcard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +34,8 @@ public class FlashcardListParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    private static boolean isQuizMode = false;
+
     /**
      * Parses the original user input and calls corresponding commands or sub-parsers.
      * @param userInput the original user input.
@@ -47,6 +50,11 @@ public class FlashcardListParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        if (isQuizMode) {
+            return parseQuizMode(commandWord, arguments);
+        }
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -80,10 +88,11 @@ public class FlashcardListParser {
             return new DeleteTagCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
+            isQuizMode = true;
             return new QuizCommandParser().parse(arguments);
 
         case FlipCommand.COMMAND_WORD:
-            return new FlipCommandParser().parse(arguments);
+            throw new ParseException(FlipCommand.MESSAGE_NULL_QUIZ_FLASHCARD);
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
@@ -92,7 +101,24 @@ public class FlashcardListParser {
             return new StatsCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(MESSAGE_UNKOWN_COMMAND);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    public Command parseQuizMode(String commandWord, String arguments) throws ParseException {
+
+        switch (commandWord) {
+
+        case ExitCommand.COMMAND_WORD:
+            isQuizMode = false;
+            return new ExitCommand();
+
+        case FlipCommand.COMMAND_WORD:
+            isQuizMode = false;
+            return new FlipCommandParser().parse(arguments);
+
+        default:
+            throw new ParseException(MESSAGE_QUIZ_UNSUPPORTED_COMMAND);
         }
     }
 

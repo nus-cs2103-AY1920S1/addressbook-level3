@@ -21,8 +21,8 @@ public class FlipCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Flashcard flipped";
-    private static final String MESSAGE_NULL_VIEW_FLASHCARD = "There are no viewed flashcards";
-    private static final String MESSAGE_INVALID_CHOICE = "The index of the choice you chose is invalid.";
+    public static final String MESSAGE_NULL_QUIZ_FLASHCARD = "There are no quiz-able flashcards";
+    public static final String MESSAGE_INVALID_CHOICE = "The index of the choice you chose is invalid.";
 
     public final Answer answer;
 
@@ -35,7 +35,7 @@ public class FlipCommand extends Command {
         requireNonNull(model);
         Flashcard lastViewedFlashcard = model.getLastViewedFlashcard();
         if (lastViewedFlashcard == null) {
-            throw new CommandException(MESSAGE_NULL_VIEW_FLASHCARD);
+            throw new CommandException(MESSAGE_NULL_QUIZ_FLASHCARD);
         }
 
         Answer updatedAnswer = updateAnswer(lastViewedFlashcard);
