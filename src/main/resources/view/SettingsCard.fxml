@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="settingCard" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Label" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
-      <Label text="Label" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
-      <Label text="Label" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="200.0" />
+      <Label fx:id="settingName" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
+      <Label fx:id="optionOne" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+      <Label text="optionTwo" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="200.0" />
    </children>
 </AnchorPane>

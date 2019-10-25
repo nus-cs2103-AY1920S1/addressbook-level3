@@ -1,6 +1,5 @@
 package seedu.address.ui.views;
 
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.swing.plaf.synth.Region;
@@ -9,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
 import seedu.address.ui.UiPart;
 
 public class SettingsView extends UiPart<Region> {
@@ -22,6 +23,7 @@ public class SettingsView extends UiPart<Region> {
     @FXML
     private AnchorPane clockSetting;
 
+    // All possible labels
     private Label themeLabel = new Label(THEME_LABEL);
     private Label themeLabelDark = new Label("DARK");
     private Label themeLabelLight = new Label("LIGHT");
@@ -37,12 +39,12 @@ public class SettingsView extends UiPart<Region> {
         handleClock(clockFormat);
     }
 
-    private handleTheme(Theme theme) {
-        themeSetting = (AnchorPane) new SettingsCard(themeLabel, themeLabelLight, themeLabelDark).getRoot();
+    private void handleTheme(Theme theme) {
+        themeSetting = new SettingsCard(themeLabel, themeLabelLight, themeLabelDark).getRoot();
     }
 
-    private handleClock(ClockFormat clockFormat) {
-        clockSetting = (AnchorPane) new SettingsCard(clockLabel, clockLabelTwelve, clockLabelTwentyFour).getRoot();
+    private void handleClock(ClockFormat clockFormat) {
+        clockSetting = new SettingsCard(clockLabel, clockLabelTwelve, clockLabelTwentyFour).getRoot();
     }
 
 }
