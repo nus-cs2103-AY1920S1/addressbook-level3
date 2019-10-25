@@ -62,7 +62,7 @@ public class AccountEditCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), null);
     }
 
     /**
@@ -72,7 +72,7 @@ public class AccountEditCommand extends Command {
     private static Account createEditedAccount(Account accountToEdit, AccountEditDescriptor accountEditDescriptor) {
         assert accountToEdit != null;
 
-        Name updatedName = accountToEdit.getName();
+        Name updatedName = accountEditDescriptor.getName().orElse(accountToEdit.getName());
         Description updatedDescription = accountEditDescriptor.getDescription().orElse(accountToEdit.getDescription());
 
         return new Account(updatedName, updatedDescription, accountToEdit.getTransaction());
