@@ -37,6 +37,10 @@ public class NotificationCheckingThread extends Thread {
         notificationsOn = true;
     }
 
+    public boolean getNotificationsOnStatus() {
+        return notificationsOn;
+    }
+
     @Override
     public void run() {
         try {
