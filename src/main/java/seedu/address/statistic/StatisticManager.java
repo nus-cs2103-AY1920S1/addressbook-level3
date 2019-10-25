@@ -2,6 +2,8 @@ package seedu.address.statistic;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -153,18 +155,21 @@ public class StatisticManager implements Statistic {
      * Takes in an orderlist, calculates the profit of all orders in this month
      */
     private static double calculateProfitByMonth(List<Order> orderList, Calendar month) {
+        DecimalFormat profitFormatter = new DecimalFormat("#.####");
+        profitFormatter.setRoundingMode(RoundingMode.CEILING);
+
         double[] doubleProfitList =
                 StatisticManager.checkIfOrderIsPresent(orderList.stream())
                         .filter(currentOrder ->
-                                DateUtil.extractMonth(currentOrder) == month.get(2)
+                               DateUtil.extractMonth(currentOrder) == month.get(2)
                                         && DateUtil.extractYear(currentOrder) == month.get(1))
                         .map(currentOrder ->
-                                MoneyUtil.convertToDouble(currentOrder.getPrice())
+                                profitFormatter.format(MoneyUtil.convertToDouble(currentOrder.getPrice())
                                 -
-                                MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
+                                MoneyUtil.convertToDouble(currentOrder.getPhone().getCost())))
                         .collect(Collectors.toList())
                         .stream()
-                        .mapToDouble(d -> d).toArray();
+                        .mapToDouble(d -> Double.parseDouble(d)).toArray();
         return StatUtils.sum(doubleProfitList);
     }
 

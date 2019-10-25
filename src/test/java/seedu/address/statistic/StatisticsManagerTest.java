@@ -70,6 +70,31 @@ public class StatisticsManagerTest {
     }
 
     @Test
+    public void execute_calculateTotalProfitOnCompletedGraph() {
+        Statistic freshStatisticModule = new StatisticManager();
+        OrderBookStub orderBookStub = new OrderBookStub();
+        ObservableList<XYChart.Data<String, Number>> expectedResult = new XyChartExpectedProfitStub().getList();
+        //orderBookStub.getList().forEach(x -> System.out.println(x));
+        XYChart.Series<String, Number> testResult = freshStatisticModule.calculateTotalProfitOnCompletedGraph(
+                orderBookStub, TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_GRAPH);
+
+        ObservableList<XYChart.Data<String, Number>> testResultData = testResult.getData();
+        for (int i = 0; i < testResultData.size(); i++) {
+            String currentTestString = testResultData.get(i).getXValue();
+            Number currentTestProfit = testResultData.get(i).getYValue().doubleValue();
+            String currentExpTestString = expectedResult.get(i).getXValue();
+            Number currentExpTestProfit = expectedResult.get(i).getYValue().doubleValue();
+            //System.out.println(currentTestProfit);
+            assertTrue(currentTestString.equals(currentExpTestString));
+            assertTrue(currentTestProfit.equals(currentExpTestProfit));
+        }
+
+        //ObservableList<XYChart.Data<String, Number>> expectedResultData = expectedResult.getData();
+        //testResultData.forEach(x -> System.out.println(x));
+    }
+
+
+    @Test
     public void execute_calculateTotalCostOnCompletedGraph() {
         Statistic freshStatisticModule = new StatisticManager();
         OrderBookStub orderBookStub = new OrderBookStub();
@@ -208,6 +233,32 @@ public class StatisticsManagerTest {
             testSeries.getData().add(new XYChart.Data<String, Number>("September 2019", 0.0));
             testSeries.getData().add(new XYChart.Data<String, Number>("October 2019", 0.0));
             testSeries.getData().add(new XYChart.Data<String, Number>("November 2019", 500.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("December 2019", 0.0));
+        }
+
+        public ObservableList<XYChart.Data<String, Number>> getList() {
+            return this.testSeries.getData();
+        }
+    }
+
+    /**
+     * hardcoded XYChart.series
+     */
+    private class XyChartExpectedProfitStub {
+        private final XYChart.Series<String, Number> testSeries = new XYChart.Series<>();
+
+        XyChartExpectedProfitStub() {
+            testSeries.getData().add(new XYChart.Data<String, Number>("January 2019", 0.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("February 2019", 931.12));
+            testSeries.getData().add(new XYChart.Data<String, Number>("March 2019", 609.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("April 2019", 0.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("May 2019", 200.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("June 2019", 600.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("July 2019", 0.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("August 2019", 0.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("September 2019", 0.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("October 2019", 0.0));
+            testSeries.getData().add(new XYChart.Data<String, Number>("November 2019", 200.0));
             testSeries.getData().add(new XYChart.Data<String, Number>("December 2019", 0.0));
         }
 
