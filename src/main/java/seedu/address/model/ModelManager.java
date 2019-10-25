@@ -287,6 +287,15 @@ public class ModelManager implements Model {
         return this.filteredTeamList;
     }
 
+    /**
+     * Resets the filtered lists to display all entities in the list.
+     */
+    public void resetFilteredLists() {
+        this.filteredTeamList.setPredicate(team -> true);
+        this.filteredMentorList.setPredicate(mentor -> true);
+        this.filteredParticipantList.setPredicate(participant -> true);
+    }
+
     //========== Entity Methods =============================
 
     /* Participant Methods */

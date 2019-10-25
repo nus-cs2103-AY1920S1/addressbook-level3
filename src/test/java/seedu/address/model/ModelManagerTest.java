@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -41,7 +42,7 @@ public class ModelManagerTest {
 
     @BeforeEach
     public void clearTeamA() {
-        modelManager = new ModelManager(storage, new UserPrefs());
+        modelManager = spy(new ModelManager(storage, new UserPrefs()));
         TypicalTeams.clearTeamA();
     }
 

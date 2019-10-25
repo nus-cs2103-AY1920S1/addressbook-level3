@@ -103,6 +103,8 @@ public interface Model {
 
     FilteredList<Mentor> getFilteredMentorList();
 
+    void resetFilteredLists();
+
     /* Below is the API exposed for the controllers to call */
 
     /* Participant methods */
