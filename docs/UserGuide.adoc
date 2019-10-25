@@ -153,7 +153,7 @@ Edits an existing bookmark in the bookmark manager.
 Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
 
 ****
-* Edits the bookmark at the specified `INDEX`. The index refers to the index
+* The bookmark at the specified `INDEX` will be edited. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
 positive integer `1`, `2`, `3`, …​
 * At least one of the optional fields must be provided.
