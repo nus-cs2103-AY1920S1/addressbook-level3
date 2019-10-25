@@ -12,6 +12,7 @@ import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.ScriptManager;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.storage.Storage;
@@ -62,6 +63,11 @@ public class LogicManager implements Logic {
     @Override
     public SortedList<Loan> getSortedLoanList() {
         return model.getLoansManager().getSortedLoans();
+    }
+
+    @Override
+    public SortedList<Debtor> getSortedDebtorList() {
+        return model.getLoansManager().getDebtors();
     }
 
     @Override

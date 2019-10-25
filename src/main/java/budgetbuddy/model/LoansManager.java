@@ -163,10 +163,11 @@ public class LoansManager {
     }
 
     /**
-     * Returns an unmodifiable {@code ObservableList} of the list of debtors.
+     * Returns an unmodifiable {@code SortedList} of debtors.
+     * The list is sorted by the debtors' names in alphabetical order.
      */
-    public ObservableList<Debtor> getDebtors() {
-        return unmodifiableDebtors;
+    public SortedList<Debtor> getDebtors() {
+        return unmodifiableDebtors.sorted(Comparator.comparing(debtor -> debtor.getDebtor().getName().toString()));
     }
 
     @Override

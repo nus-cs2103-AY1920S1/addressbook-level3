@@ -4,6 +4,7 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
 
@@ -27,6 +28,11 @@ public interface Logic {
      * Returns an unmodifiable view of the list of loans.
      */
     SortedList<Loan> getSortedLoanList();
+
+    /**
+     * Returns an modifiable view of the list of debtors.
+     */
+    SortedList<Debtor> getSortedDebtorList();
 
     /** Returns an unmodifiable view of the list of rules */
     ObservableList<Rule> getRuleList();
