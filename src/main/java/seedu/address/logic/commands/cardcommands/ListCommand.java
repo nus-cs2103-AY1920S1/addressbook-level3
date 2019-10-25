@@ -1,21 +1,20 @@
-package seedu.address.logic.commands.appcommands;
+package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
-import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.CardCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
  * Lists all cards in the word bank to the user.
  */
-public class ListCommand extends AppCommand {
+public class ListCommand extends CardCommand {
 
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all cards";
-
 
     @Override
     public CommandResult execute(Model model) {

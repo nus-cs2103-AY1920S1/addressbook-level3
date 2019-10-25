@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.appcommands.AddCommand;
+import seedu.address.logic.commands.cardcommands.AddCommand;
 
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;

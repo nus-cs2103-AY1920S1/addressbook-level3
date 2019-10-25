@@ -1,18 +1,24 @@
-package seedu.address.logic.commands.appcommands;
+package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.CardCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Clears the word bank.
+ * Empties the word bank.
  */
-public class ClearCommand extends AppCommand {
+public class ClearCommand extends CardCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
+
+    /**
+     * Creates a ClearCommand.
+     */
+    public ClearCommand() {
+    }
 
     @Override
     public CommandResult execute(Model model) {

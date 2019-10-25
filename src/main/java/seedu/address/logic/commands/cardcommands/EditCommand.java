@@ -1,6 +1,7 @@
-package seedu.address.logic.commands.appcommands;
+package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_CARD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEANING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
@@ -15,7 +16,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.CardCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -27,30 +28,29 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing card in the word bank.
  */
-public class EditCommand extends AppCommand {
+public class EditCommand extends CardCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the card identified "
-            + "by the index number used in the displayed card list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + " INDEX "
             + "[" + PREFIX_WORD + "WORD] "
             + "[" + PREFIX_MEANING + "MEANING] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MEANING + "PIKA PIKA";
+            + "[" + PREFIX_TAG + "TAG]\n"
+            + "Eg: " + COMMAND_WORD + " 1 "
+            + PREFIX_MEANING + "evolves into Kadabra";
 
-    public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
+    public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card meaning already exists in the word bank.";
 
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
 
     /**
-     * @param index of the card in the filtered card list to edit
-     * @param editCardDescriptor details to edit the card with
+     * Creates an edit command to edit the indexed card.
+     *
+     * @param index of the card in the filtered card list to edit.
+     * @param editCardDescriptor details to edit the card with.
      */
     public EditCommand(Index index, EditCardDescriptor editCardDescriptor) {
         requireNonNull(index);

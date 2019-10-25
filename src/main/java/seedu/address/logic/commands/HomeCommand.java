@@ -4,8 +4,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Represents a game command todo give a more descriptive comment
+ * Represents a command executed on banks.
  */
-public abstract class LoadCommand extends Command {
+public abstract class HomeCommand extends Command {
     public abstract CommandResult execute(Model model) throws CommandException;
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.loadcommands;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.LoadCommand;
+import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -11,7 +11,7 @@ import seedu.address.statistics.WordBankStatistics;
 /**
  * Selects Bank and switches to APP mode if successful
  */
-public class BankCommand extends LoadCommand {
+public class BankCommand extends HomeCommand {
 
     public static final String COMMAND_WORD = "bank";
 

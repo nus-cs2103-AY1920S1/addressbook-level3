@@ -1,11 +1,12 @@
-package seedu.address.logic.commands.appcommands;
+package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_CARD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEANING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
-import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.CardCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -14,35 +15,28 @@ import seedu.address.model.card.Card;
 /**
  * Adds a card to the word bank.
  */
-public class AddCommand extends AppCommand {
+public class AddCommand extends CardCommand {
 
     public static final String COMMAND_WORD = "add";
+    public static final String MESSAGE_SUCCESS = "New card added: %1$s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the word bank. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + PREFIX_WORD + "WORD "
             + PREFIX_MEANING + "MEANING "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_WORD + "Abra "
-            + PREFIX_MEANING + "It sleeps eighteen hours a day, but employs telekinesis even while sleeping."
-            + PREFIX_TAG + "psychic ";
-
-    public static final String MESSAGE_SUCCESS = "New card added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card meaning already exists in the word bank";
+            + "[" + PREFIX_TAG + "TAG] \n"
+            + "Eg: " + COMMAND_WORD + " "
+            + PREFIX_WORD + "Charmander "
+            + PREFIX_MEANING + "Fire starter pokemon "
+            + PREFIX_TAG + "Fire";
 
     private final Card toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Card}
+     * Creates an AddCommand to add the specified {@code Card}.
      */
     public AddCommand(Card card) {
         requireNonNull(card);
         toAdd = card;
-    }
-
-    public AddCommand() {
-        toAdd = null;
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.io.File;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.LoadCommand;
+import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.wordbank.WordBank;
@@ -16,7 +16,7 @@ import seedu.address.model.wordbank.WordBank;
 /**
  * Removes a word bank identified using it's unique name.
  */
-public class ExportCommand extends LoadCommand {
+public class ExportCommand extends HomeCommand {
 
     public static final String COMMAND_WORD = "export";
 

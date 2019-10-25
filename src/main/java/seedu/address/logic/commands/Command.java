@@ -7,14 +7,6 @@ import seedu.address.model.Model;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-
-    /*
-    Step 13.
-    Extends to Step 14 in StartCommand.java
-
-    Modify commands to take in a game object.
-     */
-
     /**
      * Executes the command and returns the result message.
      *

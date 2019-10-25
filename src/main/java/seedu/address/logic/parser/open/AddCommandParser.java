@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.app;
+package seedu.address.logic.parser.open;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEANING;
@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.appcommands.AddCommand;
+import seedu.address.logic.commands.cardcommands.AddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

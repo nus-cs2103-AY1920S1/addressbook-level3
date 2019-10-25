@@ -42,13 +42,11 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
-    //Settings for the app.
     private final AppSettings appSettings;
 
     private FilteredList<Card> filteredCards;
     private final FilteredList<WordBank> filteredWordBanks;
 
-    //Placeholder game model
     private Game game = null;
 
     /**
@@ -279,7 +277,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
 
         filteredCards.setPredicate(predicate);
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+//        filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
 
     //=========== WordBankStatistics methods =============================================================
