@@ -14,11 +14,7 @@ Class ResultDisplay
 Class StatusBarFooter
 Class CommandBox
 Class DisplayPanel
-Class PersonListPanel
-Class PolicyListPanel
-Class HistoryListPanel
-Class BinItemListPanel
-Class ReportPanel
+Class ListPanel
 }
 
 package Logic <<Rectangle>> {
@@ -33,11 +29,7 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> PolicyListPanel
-MainWindow *-down-> HistoryListPanel
-MainWindow *-down-> BinItemListPanel
-MainWindow *-down-> ReportPanel
+MainWindow *-down-> ListPanel
 MainWindow *-down-> DisplayPanel
 MainWindow *-down-> StatusBarFooter
 
@@ -46,22 +38,14 @@ MainWindow -left-|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 StatusBarFooter --|> UiPart
-PersonListPanel --|> UiPart
-PolicyListPanel --|> UiPart
-HistoryListPanel --|> UiPart
-BinItemListPanel --|> UiPart
-ReportPanel --|> UiPart
+ListPanel --|> UiPart
 DisplayPanel --|> UiPart
 HelpWindow -down-|> UiPart
 
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- PolicyListPanel
-PolicyListPanel -[hidden]left- HistoryListPanel
-HistoryListPanel -[hidden]left- BinItemListPanel
-BinItemListPanel -[hidden]left- ReportPanel
-ReportPanel -[hidden]left- HelpWindow
+ListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
