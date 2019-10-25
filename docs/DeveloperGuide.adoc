@@ -313,6 +313,13 @@ Due to lack of space, please refer to the below list for args1, args2, args3, ar
 NOTE: The lifeline for `TemplateListParser`, `TemplateItemParser`,
 `EditTemplateItemCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+The following sequence diagram shows how the edit template item operation works for the model component:
+
+image::EditTemplateItemSequenceDiagram3.png[]
+NOTE: The lifeline for `TemplateListParser`, `TemplateItemParser`,
+`EditTemplateItemCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
 ==== Design Considerations
 Aspect: How edit command is parsed
 
@@ -327,6 +334,7 @@ Aspect: How edit command is parsed
     * Cons: Not as obvious to the user that both commands involve the same template list.
 
 
+The following sequence diagram shows how the edit template item operation works for the logic component:
 
 == Documentation
 
