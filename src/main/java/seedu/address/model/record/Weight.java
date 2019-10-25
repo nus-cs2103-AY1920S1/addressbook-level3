@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Bmi Record's weight in the record book.
- * Guarantees: immutable; is valid as declared in {@link #isValidWeight(String)}
+ * Represents a Bmi Record's weight in the record book. Guarantees: immutable; is valid as declared in {@link
+ * #isValidWeight(String)}
  */
 public class Weight {
 
@@ -20,12 +20,12 @@ public class Weight {
         this.weight = Double.parseDouble(weight);
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
     public static boolean isValidWeight(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     @Override

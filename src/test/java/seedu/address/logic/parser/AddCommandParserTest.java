@@ -82,7 +82,7 @@ public class AddCommandParserTest {
 
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, " rt/BLOODSUGAR dt/1970-01-01 08:00",
-                expectedMessage);
+            expectedMessage);
         assertParseFailure(parser, " rt/BLOODSUGAR con/12.34",
             expectedMessage);
         assertParseFailure(parser, " rt/BMI w/1 h/1",

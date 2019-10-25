@@ -10,8 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.food.Food;
 import seedu.address.ui.DisplayPaneType;
-import seedu.sgm.model.food.Food;
 
 /**
  * Adds a food to the food recommendation list.
@@ -21,14 +21,14 @@ public class AddFoodCommand extends Command {
     public static final String COMMAND_WORD = "addfood";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food to the food recommendation list.\n"
-            + "Parameters: " + PREFIX_FOOD + "FOOD_NAME " + PREFIX_FOOD_TYPE + "FOOD_TYPE "
-            + PREFIX_CALORIE + "CALORIE " + PREFIX_GI + "GI " + PREFIX_SUGAR + "SUGAR " + PREFIX_FAT + "FAT\n"
-            + "Food type can be one of the following:\n"
-            + "nsv: non-starchy vegetables; sv: starchy vegetables; f: fruit; p: protein; s: snack; m: meal\n"
-            + "Calorie(Cal), GI, sugar(g), and fat(g) are all numbers.\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FOOD + "Cherry " + PREFIX_FOOD_TYPE + "f "
-            + PREFIX_CALORIE + "63 " + PREFIX_GI + "20 " + PREFIX_SUGAR + "12 " + PREFIX_FAT + "0\n";
+        + "Parameters: " + PREFIX_FOOD + "FOOD_NAME " + PREFIX_FOOD_TYPE + "FOOD_TYPE "
+        + PREFIX_CALORIE + "CALORIE " + PREFIX_GI + "GI " + PREFIX_SUGAR + "SUGAR " + PREFIX_FAT + "FAT\n"
+        + "Food type can be one of the following:\n"
+        + "nsv: non-starchy vegetables; sv: starchy vegetables; f: fruit; p: protein; s: snack; m: meal\n"
+        + "Calorie(Cal), GI, sugar(g), and fat(g) are all numbers.\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_FOOD + "Cherry " + PREFIX_FOOD_TYPE + "f "
+        + PREFIX_CALORIE + "63 " + PREFIX_GI + "20 " + PREFIX_SUGAR + "12 " + PREFIX_FAT + "0\n";
 
     public static final String MESSAGE_SUCCESS = "New food added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists";
@@ -63,7 +63,7 @@ public class AddFoodCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof AddFoodCommand
-                && toAdd.equals(((AddFoodCommand) other).toAdd));
+            || (other instanceof AddFoodCommand
+            && toAdd.equals(((AddFoodCommand) other).toAdd));
     }
 }

@@ -27,7 +27,7 @@ deactivate AverageCommand
 SugarMummyParser --> LogicManager
 deactivate SugarMummyParser
 
-LogicManager -> AverageCommand : execute(model)
+LogicManager -> AverageCommand : execute(sugarmummy.recmfood.model)
 activate AverageCommand
 
 AverageCommand -> Model : calculateAverageMap(averageType, recordType, count)

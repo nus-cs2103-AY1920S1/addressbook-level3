@@ -21,17 +21,17 @@ import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageMap;
 import seedu.address.model.statistics.AverageType;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.UniqueFoodList;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory sugarmummy.recmfood.model of the address book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -60,7 +60,7 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList, calendar);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-                + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
+            + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -79,20 +79,20 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList(),
-                new Calendar());
+            new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -120,11 +120,6 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
@@ -133,6 +128,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+
+    @Override
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.addressBook.resetData(addressBook);
     }
 
     @Override
@@ -172,7 +172,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean equals(
-            Object obj) {
+        Object obj) {
         // short circuit if same object
         if (obj == this) {
             return true;
@@ -186,16 +186,11 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+            && userPrefs.equals(other.userPrefs)
+            && filteredPersons.equals(other.filteredPersons);
     }
 
     //=========== User List =============================================================
-
-    @Override
-    public void setUserList(ReadOnlyUserList userList) {
-        this.userList.resetData(userList);
-    }
 
     @Override
     public boolean bioExists() {
@@ -208,8 +203,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setUserList(ReadOnlyUserList userList) {
+        this.userList.resetData(userList);
+    }
+
+    @Override
     public Path getUserListFilePath() {
         return userPrefs.getUserListFilePath();
+    }
+
+    @Override
+    public void setUserListFilePath(Path userListFilePath) {
+        requireNonNull(userListFilePath);
+        userPrefs.setUserListFilePath(userListFilePath);
     }
 
     @Override
@@ -298,12 +304,6 @@ public class ModelManager implements Model {
         userList.setUser(target, editedUser);
     }
 
-    @Override
-    public void setUserListFilePath(Path userListFilePath) {
-        requireNonNull(userListFilePath);
-        userPrefs.setUserListFilePath(userListFilePath);
-    }
-
 
     //=========== Aesthetics =============================================================
 
@@ -344,12 +344,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setFoodList(UniqueFoodList uniqueFoodLists) {
-        requireAllNonNull(uniqueFoodLists);
-        foodList.setFoods(uniqueFoodLists);
-    }
-
-    @Override
     public UniqueFoodList getUniqueFoodListObject() {
         return foodList;
     }
@@ -357,6 +351,12 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Food> getFoodList() {
         return foodList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public void setFoodList(UniqueFoodList uniqueFoodLists) {
+        requireAllNonNull(uniqueFoodLists);
+        foodList.setFoods(uniqueFoodLists);
     }
 
     @Override
@@ -388,12 +388,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setRecordList(UniqueRecordList uniqueRecordLists) {
-        requireAllNonNull(uniqueRecordLists);
-        recordList.setRecords(uniqueRecordLists);
-    }
-
-    @Override
     public UniqueRecordList getUniqueRecordListObject() {
         return recordList;
     }
@@ -401,6 +395,12 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Record> getRecordList() {
         return recordList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public void setRecordList(UniqueRecordList uniqueRecordLists) {
+        requireAllNonNull(uniqueRecordLists);
+        recordList.setRecords(uniqueRecordLists);
     }
 
     @Override

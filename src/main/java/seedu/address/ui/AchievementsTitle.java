@@ -5,8 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * A ui for the title of the achievements window used to display the user's list of
- * achievements.
+ * A ui for the title of the achievements window used to display the user's list of achievements.
  */
 public class AchievementsTitle extends UiPart<Region> {
 

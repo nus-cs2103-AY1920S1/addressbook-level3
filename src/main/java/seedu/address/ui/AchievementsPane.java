@@ -8,8 +8,8 @@ import javafx.scene.layout.Region;
 import seedu.address.MainApp;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
+ * can be placed.
  */
 public class AchievementsPane extends UiPart<Region> {
 
@@ -29,7 +29,7 @@ public class AchievementsPane extends UiPart<Region> {
     public AchievementsPane() {
         super(FXML);
         achievementsTitle = new AchievementsTitle("My Achievements",
-                "Hi Amy, here are the list of achievements you have collected so far.");
+            "Hi Amy, here are the list of achievements you have collected so far.");
         achievementsTitlePlaceholder.getChildren().add(achievementsTitle.getRoot());
 
         achievements = new Achievements();

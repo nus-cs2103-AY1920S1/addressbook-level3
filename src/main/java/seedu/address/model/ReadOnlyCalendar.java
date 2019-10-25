@@ -8,8 +8,8 @@ import seedu.address.model.calendar.CalendarEntry;
  */
 public interface ReadOnlyCalendar extends ReadOnlyData {
     /**
-     * Returns an unmodifiable view of the calendar entry list. This list will not contain any
-     * duplicate calendar entries.
+     * Returns an unmodifiable view of the calendar entry list. This list will not contain any duplicate calendar
+     * entries.
      */
     ObservableList<CalendarEntry> getCalendarEntryList();
 }

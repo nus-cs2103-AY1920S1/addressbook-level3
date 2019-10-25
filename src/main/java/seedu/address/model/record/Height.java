@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Bmi Record's height in the record book.
- * Guarantees: immutable; is valid as declared in {@link #isValidHeight(String)}
+ * Represents a Bmi Record's height in the record book. Guarantees: immutable; is valid as declared in {@link
+ * #isValidHeight(String)}
  */
 public class Height {
 

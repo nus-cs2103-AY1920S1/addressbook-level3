@@ -20,10 +20,10 @@ import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.ui.DisplayPaneType;
-import seedu.sgm.model.food.Food;
 
 /**
  * API of the Logic component
@@ -74,9 +74,9 @@ public interface Logic {
      */
     ObservableList<Food> getFilterFoodList();
 
-    public ObservableList<Record> getRecordList();
+    ObservableList<Record> getRecordList();
 
-    public ObservableList<Record> getFilterRecordList();
+    ObservableList<Record> getFilterRecordList();
 
     /**
      * Returns the user prefs' address book file path.
@@ -114,11 +114,13 @@ public interface Logic {
 
     /**
      * Return a list of maps of fields in the json file that contain invalid references.
+     *
      * @return List of maps of fields in the json file containing invalid references.
      */
     List<Map<String, String>> getListOfFieldsContainingInvalidReferences();
 
     //=========================Calendar==============================
+
     /**
      * Returns the Calendar.
      *

@@ -22,14 +22,6 @@ public class Index {
         this.zeroBasedIndex = zeroBasedIndex;
     }
 
-    public int getZeroBased() {
-        return zeroBasedIndex;
-    }
-
-    public int getOneBased() {
-        return zeroBasedIndex + 1;
-    }
-
     /**
      * Creates a new {@code Index} using a zero-based index.
      */
@@ -44,10 +36,18 @@ public class Index {
         return new Index(oneBasedIndex - 1);
     }
 
+    public int getZeroBased() {
+        return zeroBasedIndex;
+    }
+
+    public int getOneBased() {
+        return zeroBasedIndex + 1;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Index // instanceof handles nulls
-                && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
+            || (other instanceof Index // instanceof handles nulls
+            && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
     }
 }

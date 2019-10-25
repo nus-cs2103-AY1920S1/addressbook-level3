@@ -6,7 +6,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -18,7 +17,7 @@ public class DateTime {
     public static final String VALIDATION_PATTERN_STRING = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VALIDATION_PATTERN_STRING);
     public static final String MESSAGE_CONSTRAINTS = "DateTime should be in the format: yyyy-MM-dd HH:mm and it "
-            + "should contain valid number";
+        + "should contain valid number";
 
     private LocalDate date;
     private LocalTime time;
@@ -81,6 +80,7 @@ public class DateTime {
 
     /**
      * Returns true if time are same.
+     *
      * @param dateTime the dateTime to be compared with.
      * @return true if time are same.
      */
@@ -100,7 +100,7 @@ public class DateTime {
      */
     public boolean isBetweenTime(DateTime startingDateTime, DateTime endingDateTime) {
         return (time.isAfter(startingDateTime.getTime()) || time.equals(startingDateTime.getTime()))
-                && (time.isBefore(endingDateTime.getTime()) || time.equals(endingDateTime.getTime()));
+            && (time.isBefore(endingDateTime.getTime()) || time.equals(endingDateTime.getTime()));
     }
 
     /**
@@ -111,7 +111,7 @@ public class DateTime {
         LocalDateTime starting = startingDateTime.toLocalDateTime();
         LocalDateTime ending = endingDateTime.toLocalDateTime();
         return (thisDateTime.isAfter(starting) || thisDateTime.equals(starting))
-                && (thisDateTime.isBefore(ending) || thisDateTime.equals(ending));
+            && (thisDateTime.isBefore(ending) || thisDateTime.equals(ending));
     }
 
     /**

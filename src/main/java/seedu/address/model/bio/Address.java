@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Represents a Person's address in the address book. Guarantees: immutable; is valid as declared in {@link
+ * #isValidAddress(String)}
  */
 public class Address {
 
@@ -41,8 +41,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && address.equals(((Address) other).address)); // state check
+            || (other instanceof Address // instanceof handles nulls
+            && address.equals(((Address) other).address)); // state check
     }
 
     @Override

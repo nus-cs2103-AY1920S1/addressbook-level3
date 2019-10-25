@@ -32,7 +32,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.aesthetics.Background;
-import seedu.sgm.model.food.exception.FoodNotSuitableException;
+import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
@@ -146,6 +146,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Returns messages for invalid references in a given map.
+     *
      * @param fieldsContainingInvalidReferences Map that contains field and invalid reference pairs.
      * @return Messages for invalid references in a given map.
      */
@@ -161,16 +162,16 @@ public class MainWindow extends UiPart<Stage> {
 
 
     /**
-     * Displays invalid references to the user if any.
-     * Clears the list of invalid references after displaying to the user so the message would not be displayed again
-     * during the next startup.
+     * Displays invalid references to the user if any. Clears the list of invalid references after displaying to the
+     * user so the message would not be displayed again during the next startup.
+     *
      * @param resultDisplay ResultDisplay object that is used to display information to user.
      */
     private void displayInvalidReferences(ResultDisplay resultDisplay) {
         List<Map<String, String>> listOfFieldsContainingInvalidReferences = logic
-                .getListOfFieldsContainingInvalidReferences();
+            .getListOfFieldsContainingInvalidReferences();
         Map<String, String> guiFieldsContainingInvalidReferences =
-                logic.getGuiSettings().getFieldsContainingInvalidReferences();
+            logic.getGuiSettings().getFieldsContainingInvalidReferences();
 
         StringBuilder sb = new StringBuilder();
 
@@ -190,39 +191,37 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Displays the welcome message to the user.
+     *
      * @param resultDisplay ResultDisplay object that is used to display information to user.
      */
     private void displayWelcomeMessage(ResultDisplay resultDisplay) {
         if (!logic.getFilteredUserList().isEmpty()) {
             String name = logic.getFilteredUserList().get(0).getName().toString();
             resultDisplay.appendFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
-                    + "assist you today?");
+                + "assist you today?");
         } else {
             resultDisplay.appendFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
-                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+                + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
         }
     }
 
     /**
      * Displays the main background to the user.
+     *
      * @param mainDisplayPanePlaceholder MainDisplayPaneholder containing background to be displayed.
      * @imagePath String representation of path to background image to be displayed to the user upon startup.
      */
     private void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
-        //        ImageView imageView = new ImageView(imagePath);
-        //        imageView.fitWidthProperty().bind(mainDisplayPanePlaceholder.widthProperty());
-        //        imageView.fitHeightProperty().bind(mainDisplayPanePlaceholder.heightProperty());
-        //        imageView.setPreserveRatio(true);
-        //        mainDisplayPanePlaceholder.getChildren().add(imageView);
 
         mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); "
-                + "-fx-background-position: center center; "
-                + "-fx-background-repeat: no-repeat;"
-                + "-fx-background-size: contain;");
+            + "-fx-background-position: center center; "
+            + "-fx-background-repeat: no-repeat;"
+            + "-fx-background-size: contain;");
     }
 
     /**
      * Fills up intiial placeholders of this window.
+     *
      * @imagePath String representation of path to background image to be displayed to the user upon startup.
      */
     void fillInnerParts() throws URISyntaxException {
@@ -273,9 +272,9 @@ public class MainWindow extends UiPart<Stage> {
         if (background.showDefaultBackground()) {
             styleManager.setBackground(new Background("transparent"));
             mainWindowPlaceholder.setStyle("-fx-background-image: url('" + TEMPORARY_BACKGROUND_PATH + "'); "
-                    + "-fx-background-position: center center; "
-                    + "-fx-background-repeat: no-repeat;"
-                    + "-fx-background-size: cover;");
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: no-repeat;"
+                + "-fx-background-size: cover;");
             styleManager.setFontColour("yellow");
         } else {
             styleManager.setBackground(guiSettings.getBackground());
@@ -295,12 +294,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns the pane to be displayed depending on the type of pane to be displayed and whether the GUI has
-     * been modified.
-     * If the GUI has been modified, then the BIO page needs to reload to display the update if the current
+     * Returns the pane to be displayed depending on the type of pane to be displayed and whether the GUI has been
+     * modified. If the GUI has been modified, then the BIO page needs to reload to display the update if the current
      * pane displayed happens to be so.
+     *
      * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
-     * @param guiIsModified Boolean indicating whether the GUI has been modified.
+     * @param guiIsModified   Boolean indicating whether the GUI has been modified.
      * @return
      */
     private DisplayPaneType getPaneToDisplay(DisplayPaneType displayPaneType, boolean guiIsModified) {
@@ -315,6 +314,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Modifies the GUI based on the displayPaneType and returns true if the GUI has been modified
+     *
      * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
      * @return Boolean indicating whether the GUI has been modified.
      */
@@ -342,7 +342,7 @@ public class MainWindow extends UiPart<Stage> {
                 return;
             }
             newPaneIsToBeCreated = ((displayPaneType == COLOUR || displayPaneType == BACKGROUND)
-                    && paneToDisplay == BIO) || newPaneIsToBeCreated;
+                && paneToDisplay == BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()

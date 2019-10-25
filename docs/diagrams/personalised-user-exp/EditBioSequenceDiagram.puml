@@ -49,8 +49,8 @@ LogicManager -> EditBioCommand : execute()
 activate EditBioCommand
 
 
-'model.setUser(userToEdit, editedUser);
-'            model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
+'sugarmummy.recmfood.model.setUser(userToEdit, editedUser);
+'            sugarmummy.recmfood.model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
 
 
 EditBioCommand -> EditBioCommand : createEditedUser(userToEdit, \neditUserDescriptor)

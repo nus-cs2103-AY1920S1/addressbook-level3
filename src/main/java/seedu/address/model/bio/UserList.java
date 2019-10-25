@@ -8,25 +8,18 @@ import javafx.collections.ObservableList;
 import seedu.address.model.ReadOnlyUserList;
 
 /**
- * Wraps all data at the user-list level
- * Duplicates are not allowed (by .isSameUser comparison)
+ * Wraps all data at the user-list level Duplicates are not allowed (by .isSameUser comparison)
  */
 public class UserList implements ReadOnlyUserList {
 
     private final UniqueUserList users;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
     {
         users = new UniqueUserList();
     }
 
-    public UserList() {}
+    public UserList() {
+    }
 
     /**
      * Creates an UserList using the Users in the {@code toBeCopied}
@@ -46,8 +39,7 @@ public class UserList implements ReadOnlyUserList {
     }
 
     /**
-     * Replaces the contents of the user list with {@code users}.
-     * {@code users} must not contain duplicate users.
+     * Replaces the contents of the user list with {@code users}. {@code users} must not contain duplicate users.
      */
     public void setUsers(List<User> users) {
         this.users.setUsers(users);
@@ -73,17 +65,15 @@ public class UserList implements ReadOnlyUserList {
     }
 
     /**
-     * Adds a user to the user list.
-     * The user must not already exist in the user list.
+     * Adds a user to the user list. The user must not already exist in the user list.
      */
     public void addUser(User p) {
         users.add(p);
     }
 
     /**
-     * Replaces the given user {@code target} in the list with {@code editedUser}.
-     * {@code target} must exist in the user list.
-     * The user identity of {@code editedUser} must not be the same as another existing user in the user list.
+     * Replaces the given user {@code target} in the list with {@code editedUser}. {@code target} must exist in the user
+     * list. The user identity of {@code editedUser} must not be the same as another existing user in the user list.
      */
     public void setUser(User target, User editedUser) {
         requireNonNull(editedUser);
@@ -92,8 +82,7 @@ public class UserList implements ReadOnlyUserList {
     }
 
     /**
-     * Removes {@code key} from this {@code UserList}.
-     * {@code key} must exist in the user list.
+     * Removes {@code key} from this {@code UserList}. {@code key} must exist in the user list.
      */
     public void removeUser(User key) {
         users.remove(key);
@@ -115,8 +104,8 @@ public class UserList implements ReadOnlyUserList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UserList // instanceof handles nulls
-                && users.equals(((UserList) other).users));
+            || (other instanceof UserList // instanceof handles nulls
+            && users.equals(((UserList) other).users));
     }
 
     @Override

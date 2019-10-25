@@ -22,16 +22,25 @@ public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String COUNT_REGEX = "[1-9]";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AverageCommand
-     * and returns a AverageCommand object for execution.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
+     * ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AverageCommand and returns a AverageCommand
+     * object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AverageCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AVGTYPE, PREFIX_RECORDTYPE, PREFIX_COUNT);
+            ArgumentTokenizer.tokenize(args, PREFIX_AVGTYPE, PREFIX_RECORDTYPE, PREFIX_COUNT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_AVGTYPE, PREFIX_RECORDTYPE)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
         }
 
@@ -47,7 +56,7 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                    AverageCommand.MESSAGE_INVALID_AVGTYPE));
+                AverageCommand.MESSAGE_INVALID_AVGTYPE));
         }
 
         RecordType recordType;
@@ -60,7 +69,7 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                    AverageCommand.MESSAGE_INVALID_RECORDTYPE));
+                AverageCommand.MESSAGE_INVALID_RECORDTYPE));
         }
 
         String strCount;
@@ -73,20 +82,12 @@ public class AverageCommandParser implements Parser<AverageCommand> {
 
         if (!strCount.matches(COUNT_REGEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                    AverageCommand.MESSAGE_INVALID_COUNT));
+                AverageCommand.MESSAGE_INVALID_COUNT));
         }
 
         int count = Integer.parseInt(strCount);
 
         return new AverageCommand(averageType, recordType, count);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

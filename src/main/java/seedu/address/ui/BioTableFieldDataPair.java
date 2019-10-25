@@ -3,8 +3,8 @@ package seedu.address.ui;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * A class that fields to display in the bioTable displayed to the user.
- * Reference to example from: https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
+ * A class that fields to display in the bioTable displayed to the user. Reference to example from:
+ * https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
  */
 public class BioTableFieldDataPair {
 

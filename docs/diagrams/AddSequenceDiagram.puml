@@ -28,7 +28,7 @@ deactivate AddCommand
 AddressBookParser --> LogicManager : command
 deactivate AddressBookParser
 
-LogicManager -> Model : execute(model)
+LogicManager -> Model : execute(sugarmummy.recmfood.model)
 activate Model
 
 Model -> ModelManager : addRecord(record)
