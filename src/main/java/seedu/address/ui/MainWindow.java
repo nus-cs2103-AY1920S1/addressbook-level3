@@ -35,7 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ActivityWindow activityWindow;
@@ -186,10 +185,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -267,4 +262,5 @@ public class MainWindow extends UiPart<Stage> {
         ft.setToValue(1);
         ft.play();
     }
+
 }

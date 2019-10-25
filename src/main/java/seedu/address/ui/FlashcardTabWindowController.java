@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javafx.animation.KeyFrame;
@@ -83,5 +84,9 @@ public class FlashcardTabWindowController {
     private void resetViews() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
+    }
+
+    private void startTimeTrial(ArrayList<Flashcard> flashcards) {
+
     }
 }

@@ -30,4 +30,6 @@ public class Messages {
     public static final String FILTER = "filter";
     public static final String GLOBAL_TAG_FILTER = "globaltagfilter";
 
+    public static final String TIMETRIAL = "timetrial";
+
 }

@@ -25,6 +25,7 @@ import seedu.address.logic.commands.cheatsheet.ViewCheatSheetCommand;
 import seedu.address.logic.commands.flashcard.AddFlashcardCommand;
 import seedu.address.logic.commands.flashcard.DeleteFlashcardCommand;
 import seedu.address.logic.commands.flashcard.FilterFlashcardByTagCommand;
+import seedu.address.logic.commands.flashcard.StartTimeTrialCommand;
 import seedu.address.logic.commands.flashcard.ViewFlashcardCommand;
 import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.commands.note.DeleteNoteCommand;
@@ -39,6 +40,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.flashcard.AddFlashcardCommandParser;
 import seedu.address.logic.parser.flashcard.DeleteFlashcardCommandParser;
 import seedu.address.logic.parser.flashcard.FilterFlashcardByTagCommandParser;
+import seedu.address.logic.parser.flashcard.StartTimeTrialCommandParser;
 import seedu.address.logic.parser.flashcard.ViewFlashcardCommandParser;
 import seedu.address.logic.parser.note.AddNoteCommandParser;
 import seedu.address.logic.parser.note.DeleteNoteCommandParser;
@@ -118,6 +120,22 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
+    private Command parseTimeTrialCommands(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+
+    /**
+     * Parses user input into command for execution.
+     * @param commandWord the command to execute
+     * @param arguments the parameters supplied to command
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private Command parseCheatSheetCommands(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
         case AddCheatSheetCommand.COMMAND_WORD:
@@ -161,6 +179,9 @@ public class AddressBookParser {
         case ViewFlashcardCommand.COMMAND_WORD:
             return new ViewFlashcardCommandParser().parse(arguments);
 
+        case StartTimeTrialCommand.COMMAND_WORD:
+            return new StartTimeTrialCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -192,92 +213,3 @@ public class AddressBookParser {
         }
     }
 }
-
-/*
-switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case AddNoteCommand.COMMAND_WORD:
-            return new AddNoteCommandParser().parse(arguments);
-
-        case AddCheatSheetCommand.COMMAND_WORD:
-            return new AddCheatSheetCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case EditCheatSheetCommand.COMMAND_WORD:
-            return new EditCheatSheetCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case DeleteNoteCommand.COMMAND_WORD:
-            return new DeleteNoteCommandParser().parse(arguments);
-
-        case DeleteCheatSheetCommand.COMMAND_WORD:
-            return new DeleteCheatSheetCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ViewNoteCommand.COMMAND_WORD:
-            return new ViewNoteCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ListNoteCommand.COMMAND_WORD:
-            return new ListNoteCommand();
-
-        case ListTagCommand.COMMAND_WORD:
-            return new ListTagCommand();
-
-        case ListCheatSheetCommand.COMMAND_WORD:
-            return new ListCheatSheetCommand();
-
-        case DisplayTagsCommand.COMMAND_WORD:
-            return new DisplayTagsCommand();
-
-        case FilterByTagCommand.COMMAND_WORD:
-            return new FilterByTagCommandParser().parse(arguments);
-
-        case FilterCheatSheetByTagCommand.COMMAND_WORD:
-            return new FilterCheatSheetByTagCommandParser().parse(arguments);
-
-        case FilterFlashcardByTagCommand.COMMAND_WORD:
-            return new FilterFlashcardByTagCommandParser().parse(arguments);
-
-        case FilterNoteByTagCommand.COMMAND_WORD:
-            return new FilterNoteByTagCommandParser().parse(arguments);
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        case AddFlashcardCommand.COMMAND_WORD:
-            return new AddFlashcardCommandParser().parse(arguments);
-
-        case DeleteFlashcardCommand.COMMAND_WORD:
-            return new DeleteFlashcardCommandParser().parse(arguments);
-
-        case SwitchModeCommand.COMMAND_WORD:
-            return new SwitchModeCommandParser().parse(arguments);
-
-        case ViewFlashcardCommand.COMMAND_WORD:
-            return new ViewFlashcardCommandParser().parse(arguments);
-
-        case ViewCheatSheetCommand.COMMAND_WORD:
-            return new ViewCheatSheetCommandParser().parse(arguments);
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
- */
