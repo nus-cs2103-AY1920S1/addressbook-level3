@@ -2,7 +2,10 @@ package seedu.jarvis.logic.commands.course;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
+
+import java.util.List;
 
 import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.commons.util.andor.AndOrTree;
@@ -25,10 +28,15 @@ public class CheckCommand extends Command {
         COMMAND_WORD, PREFIX_COURSE, PREFIX_COURSE
     );
 
+    /** Result Strings */
     public static final String MESSAGE_SUCCESS = "Checked %1$s";
-    public static final String MESSAGE_FAILURE = "%1$s has no prerequisites!";
-    public static final String MESSAGE_NO_INVERSE =
-            "The command " + COMMAND_WORD + " cannot be undone";
+    public static final String MESSAGE_NO_INVERSE = "The command " + COMMAND_WORD + " cannot be undone";
+
+    /** To print to user */
+    public static final String MESSAGE_NO_PREREQS = "%1$s has no prerequisites!";
+    public static final String MESSAGE_CAN_TAKE_COURSE = "You are able to take this course: %1$s";
+    public static final String MESSAGE_CANNOT_TAKE_COURSE = "You are able to take this course: %1$s";
+
     public static final boolean HAS_INVERSE = false;
 
     private final Course toCheck;
@@ -69,21 +77,30 @@ public class CheckCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
+        requireAllNonNull(model, toCheck);
         if (isNull(toCheck.getPrereqTree())) {
-            throw new CommandException(String.format(MESSAGE_FAILURE, toCheck));
+            handleNoPrereqs(model);
+        } else {
+            handleWithPrereqs(model);
         }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toCheck));
+    }
 
-        AndOrTree tree = AndOrTree.buildTree(
+    private void handleNoPrereqs(Model model) {
+        String messageToUser = String.format(MESSAGE_NO_PREREQS, toCheck);
+        model.checkCourse(messageToUser);
+    }
+
+    private void handleWithPrereqs(Model model) {
+        AndOrTree<Course> tree = AndOrTree.buildTree(
             toCheck.toString(),
             toCheck.getPrereqTree().toString(), (c) -> CourseUtil.getCourse(c).orElse(null)
         );
-
-        // TODO act on model
-        // return new CommandResult(String.format(MESSAGE_SUCCESS, toCheck));
-
-        return new CommandResult(tree.toString());
+        List<Course> userCourses = model.getUnfilteredCourseList();
+        String messageToUser = (tree.fulfills(userCourses))
+                ? String.format(MESSAGE_CAN_TAKE_COURSE, toCheck)
+                : String.format(MESSAGE_CANNOT_TAKE_COURSE, toCheck);
+        model.checkCourse(messageToUser);
     }
 
     @Override
