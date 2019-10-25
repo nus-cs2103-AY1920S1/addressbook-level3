@@ -9,15 +9,15 @@ import java.util.regex.Pattern;
 /**
  * Represents a graph using an adjacency list.
  */
-public abstract class Graph<T> {
+public abstract class Graph {
 
     private final String commandWord;
-    private final Node<T> startNode;
+    private final Node startNode;
     private final Pattern prefixPattern = Pattern.compile(" [a-z]/");
 
     public String lastMatchEnd;
 
-    public Graph(String commandWord, Node<T> startNode) {
+    public Graph(String commandWord, Node startNode) {
         this.commandWord = commandWord;
         this.startNode = startNode;
     }
@@ -26,17 +26,17 @@ public abstract class Graph<T> {
         return commandWord;
     }
 
-    public Node<T> getStartNode() {
+    public Node getStartNode() {
         return startNode;
     }
 
-    public Node<T> process(String input) {
+    public Node process(String input) {
         lastMatchEnd = "";
         Matcher matcher = prefixPattern.matcher(input);
-        Node<T> currentNode = startNode;
+        Node currentNode = startNode;
         while (matcher.find()) {
             String prefix = matcher.group().trim();
-            Optional<Node<T>> nextNode = currentNode.traverse(new Prefix(prefix));
+            Optional<Node> nextNode = currentNode.traverse(new Prefix(prefix));
             if (nextNode.isEmpty() || nextNode.get().isEnd()) {
                 break;
             } else {

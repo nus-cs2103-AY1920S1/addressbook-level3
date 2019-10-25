@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class ValueSet<T> {
+public class ValueSet {
 
-    private List<T> backingList;
+    private List<?> backingList;
 
-    public ValueSet(List<T> backingList) {
+    public ValueSet(List<?> backingList) {
         this.backingList = backingList;
     }
 
     public SortedSet<String> getValues() {
         SortedSet<String> values = new TreeSet<>();
-        backingList.forEach(t -> values.add(t.toString()));
+        backingList.forEach(obj -> values.add(obj.toString()));
         return values;
     }
 
