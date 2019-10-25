@@ -46,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private GroupListPanel groupListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ScheduleView scheduleView;
+    private ScheduleViewManager scheduleViewManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -241,10 +241,10 @@ public class MainWindow extends UiPart<Stage> {
      * Method to handle scrolling events.
      */
     private void handleScroll() {
-        if (scheduleView == null) {
+        if (scheduleViewManager == null) {
             //No schedule has been loaded yet. Do nothing.
         } else {
-            scheduleView.scrollNext();
+            scheduleViewManager.scrollNext();
         }
     }
 
@@ -298,25 +298,23 @@ public class MainWindow extends UiPart<Stage> {
             switch(displayType) {
             case PERSON:
                 //There is only 1 schedule in the detailWindowDisplay
-                ScheduleView personScheduleView = new IndividualScheduleViewManager(detailWindowDisplay.getMonthSchedules().get(0),
-                        "white").getScheduleView(0);
-                handleChangeOnDetailsView(personScheduleView.getRoot());
+                this.scheduleViewManager = new IndividualScheduleViewManager(detailWindowDisplay.getMonthSchedules().get(0),
+                        "white");
+                handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(
                         new PersonDetailCard(detailWindowDisplay
                                 .getMonthSchedules()
                                 .get(0)
                                 .getPersonDisplay())
                                 .getRoot());
-                scheduleView = personScheduleView;
                 break;
             case GROUP:
-                ScheduleView groupScheduleView = new GroupScheduleViewManager(detailWindowDisplay.getMonthSchedules(),
+                scheduleViewManager = new GroupScheduleViewManager(detailWindowDisplay.getMonthSchedules(),
                         colors,
                         detailWindowDisplay.getGroupDisplay().getGroupName(),
-                        detailWindowDisplay.getFreeSchedules()).getScheduleView(0);
-                handleChangeOnDetailsView(groupScheduleView.getRoot());
+                        detailWindowDisplay.getFreeSchedules());
+                handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(new GroupInformation(detailWindowDisplay, colors).getRoot());
-                scheduleView = groupScheduleView;
                 break;
             case DEFAULT:
                 handleChangeToTabsPanel();
@@ -346,6 +344,11 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isPopUp()) {
                 LocationsView locationsView = new LocationsView();
                 new LocationPopup(locationsView.getRoot()).show();
+            }
+
+            if (commandResult.isToggleNextWeek()) {
+                scheduleViewManager.toggleNext();
+                handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
             }
 
             return commandResult;

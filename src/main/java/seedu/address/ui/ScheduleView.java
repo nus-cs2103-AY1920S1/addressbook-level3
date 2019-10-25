@@ -61,10 +61,10 @@ public class ScheduleView extends UiPart<Region> {
     private int currentDay;
     private LocalDate currentDate;
 
-    public ScheduleView(WeekSchedule weekSchedule) {
+    public ScheduleView(WeekSchedule weekSchedule, LocalDate date) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
-        this.currentDate = LocalDate.now();
+        this.currentDate = date;
         this.title.setText(weekSchedule.getPersonDisplay().getName().fullName + "'s Schedule");
         initialise();
         initialiseHeaders();
@@ -77,10 +77,10 @@ public class ScheduleView extends UiPart<Region> {
     }
 
     public ScheduleView(ArrayList<WeekSchedule> weekSchedules, List<String> colors, GroupName groupName,
-                        FreeSchedule freeSchedule) {
+                        FreeSchedule freeSchedule, LocalDate date) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
-        this.currentDate = LocalDate.now();
+        this.currentDate = date;
         this.colors = colors;
         this.title.setText(groupName.toString() + "'s Schedule");
         initialise();

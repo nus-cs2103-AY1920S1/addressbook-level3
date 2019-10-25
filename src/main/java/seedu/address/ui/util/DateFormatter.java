@@ -7,6 +7,7 @@ import java.time.LocalDate;
  */
 public class DateFormatter {
     public static String formatToString(LocalDate localDate) {
-        return localDate.getDayOfMonth() + "/" + localDate.getMonthValue();
+        String date = localDate.getDayOfMonth() < 10 ? "0" + localDate.getDayOfMonth() : "" + localDate.getDayOfMonth();
+        return date + "/" + localDate.getMonthValue();
     }
 }
