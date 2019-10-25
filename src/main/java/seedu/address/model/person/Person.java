@@ -23,17 +23,19 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Photo photo;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Photo photo) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.photo = photo;
     }
 
     public Name getName() {
@@ -54,6 +56,10 @@ public class Person {
 
     public Person getPerson() {
         return this;
+    }
+
+    public Photo getPhoto() {
+        return photo;
     }
 
     /**
