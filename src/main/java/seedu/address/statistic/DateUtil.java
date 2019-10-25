@@ -5,7 +5,9 @@ import static seedu.address.commons.util.StringUtil.convertCalendarDateToString;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
+import jfxtras.internal.scene.control.fxml.CalendarPickerBuilder;
 import seedu.address.model.order.Order;
 
 /**
@@ -25,19 +27,30 @@ public class DateUtil {
 
         List<Calendar> listOfYearMonth = new ArrayList<>();
         Calendar startDate = statsPayload.getStartingDate();
+        int startingMonth = startDate.get(Calendar.MONTH);
+        int startingYear = startDate.get(Calendar.YEAR);
+        int startingDay = startDate.get(Calendar.DAY_OF_MONTH);
         Calendar endDate = statsPayload.getEndingDate();
-        System.out.println(startDate.getTime());
-        System.out.println(startDate.get(Calendar.MONTH));
+        int endingMonth = endDate.get(Calendar.MONTH);
+        int endingYear = endDate.get(Calendar.YEAR);
+        int endingDay = endDate.get(Calendar.DAY_OF_MONTH);
 
-        System.out.println(endDate.getTime());
-        System.out.println(endDate.get(Calendar.MONTH));
-
-
-        while (startDate.before(endDate) && !(startDate.get(Calendar.MONTH) == endDate.get(Calendar.MONTH))) {
-            System.out.println(convertCalendarDateToString(startDate));
-            Calendar temp = (Calendar) startDate.clone();
-            listOfYearMonth.add(temp);
-            startDate.add(Calendar.MONTH, 1);
+        Calendar startDateCloned = new Calendar.Builder()
+                .setDate(startingYear, startingMonth, startingDay)
+                .build();
+        Calendar endDateCloned = new Calendar.Builder()
+                .setDate(endingYear, endingMonth, endingDay)
+                .build();
+        while (startDateCloned.before(endDateCloned)) {
+            if (startDateCloned.get(Calendar.MONTH) == endDateCloned.get(Calendar.MONTH) &&
+                    startDateCloned.get(Calendar.YEAR) == endDateCloned.get(Calendar.YEAR)) {
+                //same month same year i dont add
+                break;
+            } else {
+                Calendar temp = (Calendar) startDateCloned.clone();
+                listOfYearMonth.add(temp);
+                startDateCloned.add(Calendar.MONTH, 1);
+            }
         }
         listOfYearMonth.add(endDate);
         return listOfYearMonth;

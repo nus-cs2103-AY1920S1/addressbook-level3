@@ -90,16 +90,16 @@ public class StatisticsManagerTest {
         }
 
         //ObservableList<XYChart.Data<String, Number>> expectedResultData = expectedResult.getData();
-        testResultData.forEach(x -> System.out.println(x));
+        //testResultData.forEach(x -> System.out.println(x));
     }
-    /*
+
     @Test
     public void execute_calculateTotalRevenueOnCompletedGraph() {
         Statistic freshStatisticModule = new StatisticManager();
         OrderBookStub orderBookStub = new OrderBookStub();
         ObservableList<XYChart.Data<String, Number>> expectedResultRevenue = new XyChartExpectedRevenueStub().getList();
         XYChart.Series<String, Number> testRevenue = freshStatisticModule.calculateTotalRevenueOnCompletedGraph(
-                orderBookStub, DEFAULT_STATS_PAYLOAD_GRAPH);
+                orderBookStub, TypicalStatsPayload.DEFAULT_STATS_PAYLOAD_GRAPH);
 
 
         ObservableList<XYChart.Data<String, Number>> testResultData = testRevenue.getData();
@@ -114,9 +114,9 @@ public class StatisticsManagerTest {
         }
 
         //ObservableList<XYChart.Data<String, Number>> expectedResultData = expectedResult.getData();
-        testResultData.forEach(x -> System.out.println(x));
+        //testResultData.forEach(x -> System.out.println(x));
     }
-    */
+
 
     /**
      * Stub method to build a dummy order book for use here

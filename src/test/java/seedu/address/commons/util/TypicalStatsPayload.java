@@ -63,8 +63,6 @@ public class TypicalStatsPayload {
             .build();
 
 
-
-
     public static final StatsPayload DEFAULT_STATS_PAYLOAD_REVENUE_1 =
             new StatsPayloadBuilder().withStatsType(StatisticType.REVENUE)
                     .withStartingDate(MIN_DATE_TEST)

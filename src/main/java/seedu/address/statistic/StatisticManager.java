@@ -87,7 +87,7 @@ public class StatisticManager implements Statistic {
 
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
-        listOfMonth.forEach(x -> System.out.println(x));
+        //listOfMonth.forEach(x -> System.out.println(x));
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         // loops through the list of months, for each month, calculate the cost for all orders in that month
