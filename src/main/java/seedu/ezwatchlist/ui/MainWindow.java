@@ -17,6 +17,7 @@ import seedu.ezwatchlist.logic.Logic;
 import seedu.ezwatchlist.logic.commands.CommandResult;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.model.Model;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,12 +25,18 @@ import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    private static final String MAIN_TAB =  "watch-list";
+    private static final String WATCHED_TAB =  "watched-list";
+    private static final String SEARCH_TAB =  "search-list";
+    private static final String STATISTICS_TAB =  "statistics tab";
+
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private String currentTab;
 
     // Independent Ui parts residing in this Ui container
     private ShowListPanel showListPanel;
@@ -57,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.primaryStage.setTitle("Ezwatchlist");
+        this.currentTab = MAIN_TAB;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -174,13 +182,15 @@ public class MainWindow extends UiPart<Stage> {
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException {
         try {
+            if (currentTab.equals(WATCHED_TAB)) { // to ensure that the command executed is based off watched list index
+                logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+            }
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             //somehow use this code to display list of search results???
             //showListPanel = new ShowListPanel(logic.getSearchResultList());
             //contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -204,6 +214,8 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
+        logic.getModel().updateFilteredShowList(Model.PREDICATE_SHOW_ALL_SHOWS);
+        currentTab = MAIN_TAB;
     }
 
     /**
@@ -213,6 +225,8 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
+        logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
+        currentTab = WATCHED_TAB;
     }
 
     /**
@@ -222,6 +236,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToSearch() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+        currentTab = SEARCH_TAB;
     }
 
     /**
@@ -231,6 +246,7 @@ public class MainWindow extends UiPart<Stage> {
     public void goToStatistics() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        currentTab = STATISTICS_TAB;
     }
 
 }

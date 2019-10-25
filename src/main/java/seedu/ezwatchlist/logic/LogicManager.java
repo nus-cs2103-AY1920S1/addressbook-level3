@@ -54,6 +54,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Model getModel() {
+        return model;
+    }
+
+
+    @Override
     public ReadOnlyWatchList getWatchList() {
         return model.getWatchList();
     }
