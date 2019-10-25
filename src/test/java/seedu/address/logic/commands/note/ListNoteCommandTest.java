@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.note;
 
 import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_LIST_RESULT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalNotes.getTypicalNoteList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.note.ListNoteCommand;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -30,12 +30,14 @@ public class ListNoteCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListNoteCommand(), model, EXPECTED_LIST_RESULT, expectedModel);
+        NoteCommandResult expectedCommandResult = new NoteCommandResult(EXPECTED_LIST_RESULT);
+        assertCommandSuccess(new ListNoteCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showNoteAtIndex(model, INDEX_FIRST_NOTE);
-        assertCommandSuccess(new ListNoteCommand(), model, EXPECTED_LIST_RESULT, expectedModel);
+        NoteCommandResult expectedCommandResult = new NoteCommandResult(EXPECTED_LIST_RESULT);
+        assertCommandSuccess(new ListNoteCommand(), model, expectedCommandResult, expectedModel);
     }
 }
