@@ -45,8 +45,8 @@ public class ModuleCard extends UiPart<Region> {
         lecturerName.setText(module.getLecturerName());
         timeSlot.setText(module.getModuleTimeTableToString());
         enrolment.setText(Integer.toString(module.getCurrentEnrolment()));
-        quota.setText(Integer.toString(module.getQuota()));
-        double percentageFilled = (double) module.getCurrentEnrolment() / module.getQuota();
+        quota.setText(Integer.toString(module.getQuotaInt()));
+        double percentageFilled = (double) module.getCurrentEnrolment() / module.getQuotaInt();
         quotaBar.setProgress(percentageFilled);
     }
 
