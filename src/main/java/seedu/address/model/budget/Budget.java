@@ -21,7 +21,7 @@ import seedu.address.model.expense.Timestamp;
  */
 public class Budget {
 
-    private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
+    private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("default budget");
     //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
     private static final Price DEFAULT_BUDGET_AMOUNT = new Price("999999999999999999999");
     //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
