@@ -19,8 +19,8 @@ public class JavaRunner {
      * @throws IOException thrown when reading in the Java file.
      */
     public static void main(String[] args) throws IOException {
-        String result = compileAndRun("C:\\Users\\User\\Documents\\GitHub\\main\\src\\main\\java"
-                + "\\dream\\fcard\\util\\code\\data\\Solution.java");
+        String result = compileAndRun("C:/Users/User/Documents/GitHub/main/src/main/java"
+                + "/dream/fcard/util/code/data/Solution.java");
         System.out.print(result);
     }
 
