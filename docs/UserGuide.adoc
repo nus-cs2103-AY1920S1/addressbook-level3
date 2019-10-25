@@ -49,11 +49,12 @@ named `Pro Git` to Mark.
 * *`delete 3`* : deletes the 3rd bookmark shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details
-of each command.
+.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+
+This section describes the main features of Mark and how to use them.
 
 ====
 *Command Format*
@@ -87,7 +88,7 @@ Format: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]...​`
 ****
 * A bookmark can have any number of tags (including 0).
 * `FOLDER` must be an existing folder (see <<folder>>).
-* Use the keyword `this` in place of URL to bookmark the current page,
+* The keyword `this` can be used in place of a URL to bookmark the current page,
 e.g. `*add* u/this n/Homepage`
 ****
 
@@ -106,7 +107,7 @@ Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookma
 "video" and "watch-later".
 
 [[folder]]
-=== Adding a new folder *`folder`*
+=== Adding a new folder: *`folder`*
 
 Creates a new folder for organizing bookmarks into.
 
@@ -123,7 +124,7 @@ Examples:
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 
-=== Deleting a folder *`folder delete`*
+=== Deleting a folder: *`folder delete`*
 //TODO: What happens to the bookmarks under the folder?
 Deletes the specified folder and its subfolders.
 
@@ -366,13 +367,13 @@ file `mark/data/bookmarks/myBookmarks.json`
 Imports bookmarks from the files `myBookmarks.json`, `nusBookmarks.json`,
 and `youtubeBookmarks.json`.
 
-=== Creating automatic tags: *`autotag`*
+=== Creating an automatic tag: *`autotag`*
 
 Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
 Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [nn/NOT_NAME_KEYWORD]...
-[u/URL_KEYWORD]... [nu/NOT_URL_KEYWORD]... [f/FOLDER] [nf/NOT_FOLDER]...
+[u/URL_KEYWORD]... [nu/NOT_URL_KEYWORD]... [f/FOLDER]... [nf/NOT_FOLDER]...
 [t/TAG]... [nt/NOT_TAG]...`
 
 ****
@@ -403,7 +404,7 @@ in the folder `NUS` but are not tagged with `academic` or `admin`.
  Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
 containing `luminus`.
 
-=== Saving offline Readable copies of bookmarked website: *`cache`*
+=== Saving an offline copy: *`cache`*
 
 Saves the bookmarked website locally for offline viewing.
 
@@ -432,7 +433,7 @@ Deletes the cached version at the second index.
 * `*cache* 1 u/true` +
 Manually save a new copy of the site.
 
-=== Making annotations on offline copy of bookmarked website: *`annotate`*
+=== Making annotations on an offline copy: *`annotate`*
 
 Adds new annotations on locally saved, offline version of the bookmarked
 website. When this command is given, the UI will switch to the offline tab showing the results of your command.
@@ -473,7 +474,7 @@ colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
 a new note with content "change or add note content" will be added to the paragraph.
 
 
-=== Deleting annotations on offline copy of bookmarked website: *`annotate delete`*
+=== Deleting annotations on an offline copy: *`annotate delete`*
 
 Deletes selected highlights or notes from the offline copy of the given bookmarked website.
 When this command is given, the UI will switch to the offline tab showing the results of your command.
@@ -522,7 +523,7 @@ Deletes stray note S1 from the offline copy of bookmark 2.
 Removes all annotations of the offline copy of bookmark 1.
 
 
-=== Modifying annotations on offline copy of bookmarked website: *`annotate edit`*
+=== Modifying annotations on an offline copy: *`annotate edit`*
 
 Modifies existing annotations on the offline version of the bookmarked
 website. When this command is given, the UI will switch to the offline tab showing the results of your command.
@@ -573,7 +574,7 @@ In the offline copy of bookmark 1, paragraph 3 is annotated with the highlight o
 note with content "changing and moving notes". Annotation on paragraph 2 is removed.
 
 
-=== Viewing annotated bookmarked website: *`offline`*
+=== Viewing an annotated offline copy: *`offline`*
 
 Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
 show the latest offline copy with annotations by default.
@@ -673,7 +674,7 @@ Lists all the bookmarks based on name/alphabetical order.
 * `*sort* default` +
 Sort all the bookmarks based on the order they were added.
 
-=== Expanding folder hierarchy: *`expand`*
+=== Expanding the folder hierarchy: *`expand`*
 
 Expands the folder hierarchy by the specified number of levels.
 
@@ -694,7 +695,7 @@ Examples:
 * `*expand* 3` +
 Expands the folder hierarchy by 3 levels.
 
-=== Collapsing folder hierarchy: *`collapse`*
+=== Collapsing the folder hierarchy: *`collapse`*
 
 Collapses the folder hierarchy by the specified number of levels.
 
@@ -775,25 +776,28 @@ image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
 .Mark's Offline Tab View
 image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
 
-
-*What is the [[Dashboard]] Dashboard?*
-
-****
-The default tab in view when the application starts. The dashboard
-contains a help section (command summary), favorite tags, current
-reminders, and a view of the folder hierarchy for bookmarks.
-****
-
 _{ more coming soon }_
 
 == Glossary
 This glossary aims to provide a definition for the special vocabulary used in this user guide.
 
-[[offline]] Offline::
-Refers to files stored locally on the computer.
+[[annotation]] Annotation::
+Notes or highlights that can be made on <<offline-copy, offline copies>> of a bookmark.
 
-[[oneline]] Online::
-Refers to having web access, namely to browse the internet.
+[[bookmark]] Bookmark::
+A saved shortcut to a website. In Mark, a bookmark can contain other information besides the website URL,
+such as reminders, <<offline-copy, offline copies>> and <<annotation, annotations>>.
+
+[[dashboard]] Dashboard::
+The default tab in view when the application starts. The dashboard
+contains a help section (command summary), favorite tags, current
+reminders, and a view of the folder hierarchy for bookmarks.
+
+[[folder-hierarchy]] Folder Hierarchy::
+The structure of folders in Mark. This is displayed in the dashboard tab when the application starts.
+
+[[offline-copy]] Offline copy::
+An offline copy of a bookmarked website that is stored as a HTML file on the computer.
 
 [[stray-notes]] Stray notes::
 Annotated notes that are not attached to an existing paragraph are described as stray.

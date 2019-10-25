@@ -491,7 +491,7 @@ The following are a few design considerations made in deciding how to implement 
 // end::folders[]
 
 // tag::reminder[]
-=== Reminder Feature
+=== Reminder feature
 ==== Implementation
 A bookmark can have a reminder, and a reminder can be used to open the bookmark.
 This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
