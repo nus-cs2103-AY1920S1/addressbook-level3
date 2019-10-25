@@ -111,7 +111,7 @@ public class LoanSplitCommand extends Command {
 
     /**
      * Finds all sub-groups among participants and checks the balance of each sub-group.
-     * If the balance is non-zero, {@code calculateSplitList} is called for the sub-group.
+     * If the balance is zero, {@code calculateSplitList} is called for the sub-group.
      * This method, while expensive, will minimize the total number of debts.
      */
     private List<DebtorCreditorAmount> findSubGroups(

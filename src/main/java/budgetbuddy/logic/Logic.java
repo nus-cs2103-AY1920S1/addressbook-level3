@@ -30,7 +30,7 @@ public interface Logic {
     SortedList<Loan> getSortedLoanList();
 
     /**
-     * Returns an modifiable view of the list of debtors.
+     * Returns an unmodifiable view of the list of debtors.
      */
     SortedList<Debtor> getSortedDebtorList();
 
