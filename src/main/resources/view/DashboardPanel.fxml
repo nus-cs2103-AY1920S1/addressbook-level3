@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.geometry.Insets?>
 <VBox xmlns:fx="http://javafx.com/fxml/1"
       prefHeight="400.0" prefWidth="600.0">
 
-    <HBox VBox.vgrow="ALWAYS">
+    <HBox spacing="5" VBox.vgrow="ALWAYS">
         <StackPane fx:id="folderStructurePlaceholder" VBox.vgrow="ALWAYS"/>
+        <VBox spacing="5">
+            <Label text="Favorites" styleClass="label-bright" alignment="TOP_LEFT" underline="true"/>
+            <FlowPane fx:id="favoriteBookmarkList" alignment="TOP_CENTER" styleClass="pane-with-border">
+                <padding>
+                    <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+            </FlowPane>
+        </VBox>
     </HBox>
 
     <HBox VBox.vgrow="ALWAYS">
         <StackPane fx:id="reminderListPlaceholder" VBox.vgrow="ALWAYS"/>
     </HBox>
-
 </VBox>

@@ -10,7 +10,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.tag.Tag;
+import seedu.mark.model.predicates.FavoriteBookmarkPredicate;
 import seedu.mark.storage.Storage;
 
 /**
@@ -28,8 +28,6 @@ public class FavoriteCommand extends Command {
 
     public static final String MESSAGE_FAVORITE_BOOKMARK_SUCCESS = "Bookmark added to Favorites: %1$s";
     public static final String MESSAGE_FAVORITE_BOOKMARK_DUPLICATE = "This bookmark already exists in Favorites";
-
-    private static final Tag favTag = new Tag("Favorite");
 
     private final Index targetIndex;
 
@@ -49,7 +47,7 @@ public class FavoriteCommand extends Command {
 
         Bookmark bookmarkToFavorite = lastShownList.get(targetIndex.getZeroBased());
 
-        if (bookmarkToFavorite.getTags().contains(favTag)) {
+        if (new FavoriteBookmarkPredicate().test(bookmarkToFavorite)) {
             throw new CommandException(MESSAGE_FAVORITE_BOOKMARK_DUPLICATE);
         }
 

@@ -108,6 +108,9 @@ public interface Model {
      */
     ObservableList<Bookmark> getFilteredBookmarkList();
 
+    /** Returns an unmodifiable view of the favorite bookmark list */
+    ObservableList<Bookmark> getFavoriteBookmarkList();
+
     /**
      * Updates the filter of the filtered bookmark list to filter by the given {@code predicate}.
      *
