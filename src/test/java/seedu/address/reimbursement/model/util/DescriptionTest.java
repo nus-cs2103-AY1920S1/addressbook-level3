@@ -27,7 +27,7 @@ public class DescriptionTest {
         transList.add(transBob);
         Description testedDescription = new Description(transList);
         String testedString = testedDescription.toString();
-        System.out.println(testedString);
+
         assertEquals(CORRECT_STRING, testedString);
     }
 

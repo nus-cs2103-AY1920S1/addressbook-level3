@@ -108,7 +108,6 @@ public class ReimbursementTest {
 
         String strFromToStringNoDeadline = "Elle Meyer $-100.0" + System.lineSeparator()
                 + "1. food";
-        System.out.println(reimbursementElle.toString());
         assertEquals(strFromToStringNoDeadline, reimbursementElle.toString());
 
     }
