@@ -1,0 +1,40 @@
+=== Proposed Implementation
+The appointment class extends NurseTraverse with the following functionalities:
+
+* Lists all appointments nurses have scheduled, including reference to patient details, appointment time, date, and duration, medication to be carried for each appointment, and additional details associated with the appointment.
+* Displays appointments in the side screen with a calendar and also a list of the next earliest appointments for the day/week.
+* Supports finding specific appointments by patient name or other parameters
+* Supports recurring tasks (e.g. weekly appointments)
+* Allows adding, deleting, and editing of appointments
+* Sends notifications/reminders to nurses on upcoming appointments
+
+==== Model
+
+All appointments are stored and managed in the `AppointmentBook`.
+
+`Model` implements the following operations to accommodate for the `AppointmentBook`:
+
+* `Model#setStagedAppointmentBook(ReadOnlyAppointmentBook appointmentBook)` -- Replace appointment book in the Model with data from the `ReadOnlyAppointmentBook appointmentBook` passed in as argument.
+* `Model#replaceStagedAppointmentBook(List<Appointment> appointments)` -- Replace all appointments in appointment book with new appointments from the list.
+* `Model#getStagedAppointmentBook()` -- Return the current AppointmentBook.
+* `Model#hasAppointment(Appointment appointment)` -- Return true if an appointment with the same identity as the appointment passed in as argument exists in the appointment list.
+* `Model#deleteAppointment(Appointment target)` -- Delete the given appointment. The appointment must exist in the appointment list.
+* `Model#addAppointment(Appointment appointment)` -- Add the given appointment. The appointment passed in as argument must not already exist in the appointment list.
+* `Model#setAppointment(Appointment target, Appointment editedAppointment)` -- Replace the given appointment `target` with `editedAppointment`. `target` must exist in the appointment list. The appointment identity of `editedAppointment` must not be the same as another existing appointment in the appointment list.
+* `Model#ObservableList<Appointment> getStagedAppointmentList()` -- Return an unmodifiable view of the entire appointment list.
+* `Model#FilteredList<Appointment> getFilteredAppointmentList()` -- Return an unmodifiable view of the filtered appointment list.
+* `Model#void updateFilteredAppointmentList(Predicate<Appointment> predicate)` -- Update the filter of the filtered appointment list to filter by the given `predicate`. Throws `NullPointerException` if `predicate` is `null`.
+
+==== Model Design Considerations
+
+==== Logic
+
+==== Logic Design Considerations
+
+==== UI
+
+A list of `Appointment` s are displayed on a side pane with `appt-list` and `appt-find`.
+
+A side pane is split into two parts, the top consisting of a calendar of the current month with the appointments marked for that month, and the bottom pane has the upcoming list of appointments for the week.
+
+==== UI Design Considerations
