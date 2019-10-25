@@ -11,7 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 /**
  * Represents the result of a command execution.
  */
-public class GlobalCommandResult implements CommandResult {
+public class GlobalCommandResult extends CommandResult {
 
     private final String feedbackToUser;
 
@@ -78,21 +78,6 @@ public class GlobalCommandResult implements CommandResult {
     @Override
     public boolean isGlobalCommandResult() {
         return true;
-    }
-
-    @Override
-    public boolean isFlashcardCommandResult() {
-        return false;
-    }
-
-    @Override
-    public boolean isCheatSheetCommandResult() {
-        return false;
-    }
-
-    @Override
-    public boolean isNoteCommandResult() {
-        return false;
     }
 
     @Override

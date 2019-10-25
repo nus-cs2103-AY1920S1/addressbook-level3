@@ -26,7 +26,7 @@ public abstract class CommandResult {
     public boolean isNoteCommandResult() {
         return false;
     }
-    
+
     /**
      *
      * @param other
