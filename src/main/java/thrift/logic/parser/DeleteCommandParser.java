@@ -22,7 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_INDEX);
 
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreambleIncludeIndex());
+            Index index = ParserUtil.parseIndex(argMultimap.getIndexFromCommand());
             return new DeleteCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

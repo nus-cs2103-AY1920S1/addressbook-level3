@@ -38,7 +38,7 @@ public class UpdateCommandParserTest {
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
+    public void parse_invalidIndex_failure() {
         // negative index
         assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "-5"
                 + CommandTestUtil.DESC_LAKSA, MESSAGE_INVALID_FORMAT);
@@ -55,7 +55,7 @@ public class UpdateCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    public void parse_invalidParam_failure() {
         assertParseFailure(parser, " i/1"
                 + CommandTestUtil.INVALID_VALUE, Value.VALUE_CONSTRAINTS); // invalid value
         assertParseFailure(parser, " i/1"
@@ -65,10 +65,10 @@ public class UpdateCommandParserTest {
         assertParseFailure(parser, " i/1"
                 + CommandTestUtil.INVALID_VALUE + CommandTestUtil.TAG_LAKSA, Value.VALUE_CONSTRAINTS);
 
-        // valid value followed by invalid value. The test case for invalid value followed by valid value
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
+        // valid value followed by invalid value.
         assertParseFailure(parser, " i/1"
-                + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.INVALID_VALUE, Value.VALUE_CONSTRAINTS);
+                + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.INVALID_VALUE,
+                String.format(ArgumentMultimap.WARNING_NOT_SINGULAR_FORMAT, CliSyntax.PREFIX_VALUE));
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Transaction} being updated,
         // parsing it together with a valid tag results in error
@@ -129,43 +129,35 @@ public class UpdateCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = TypicalIndexes.INDEX_THIRD_TRANSACTION;
-        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA
-                + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.TAG_LAKSA
-                + CommandTestUtil.DESC_AIRPODS + CommandTestUtil.VALUE_AIRPODS
-                + CommandTestUtil.TAG_AIRPODS;
+    public void parse_fieldsOutOfOrder_success() {
+        Index targetIndex = TypicalIndexes.INDEX_FIRST_TRANSACTION;
+        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased()
+                + CommandTestUtil.TAG_AIRPODS + CommandTestUtil.VALUE_AIRPODS + CommandTestUtil.REMARK_AIRPODS
+                + CommandTestUtil.TAG_BURSARY + CommandTestUtil.DESC_AIRPODS;
 
         UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
                 .withDescription(CommandTestUtil.VALID_DESCRIPTION_AIRPODS)
                 .withValue(CommandTestUtil.VALID_VALUE_AIRPODS)
-                .withTags(CommandTestUtil.VALID_TAG_ACCESSORY, CommandTestUtil.VALID_TAG_LUNCH)
-                .build();
+                .withRemark(CommandTestUtil.VALID_REMARK_AIRPODS)
+                .withTags(CommandTestUtil.VALID_TAG_ACCESSORY, CommandTestUtil.VALID_TAG_AWARD).build();
         UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
-        // no other valid values specified
-        Index targetIndex = TypicalIndexes.INDEX_FIRST_TRANSACTION;
-        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased()
-                + CommandTestUtil.INVALID_VALUE + CommandTestUtil.VALUE_AIRPODS;
-        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder()
-                .withValue(CommandTestUtil.VALID_VALUE_AIRPODS).build();
-        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+    public void parse_multipleRepeatedFields_throwsParseException() {
+        Index targetIndex = TypicalIndexes.INDEX_THIRD_TRANSACTION;
+        String userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA
+                + CommandTestUtil.VALUE_LAKSA + CommandTestUtil.TAG_LAKSA
+                + CommandTestUtil.DESC_AIRPODS + CommandTestUtil.VALUE_AIRPODS
+                + CommandTestUtil.TAG_AIRPODS;
 
-        // other valid values specified
-        userInput = CommandTestUtil.INDEX_TOKEN + targetIndex.getOneBased() + CommandTestUtil.DESC_LAKSA
-                + CommandTestUtil.INVALID_VALUE + CommandTestUtil.VALUE_LAKSA;
-        descriptor = new UpdateTransactionDescriptorBuilder()
-                .withDescription(CommandTestUtil.VALID_DESCRIPTION_LAKSA)
-                .withValue(CommandTestUtil.VALID_VALUE_LAKSA)
-                .build();
-        expectedCommand = new UpdateCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        // Repeated fields error message pinpoints first repeated field
+        String repeatedFieldsMessage = String.format(ArgumentMultimap.WARNING_NOT_SINGULAR_FORMAT,
+                CliSyntax.PREFIX_NAME);
+
+        assertParseFailure(parser, userInput, repeatedFieldsMessage);
     }
 
     @Test

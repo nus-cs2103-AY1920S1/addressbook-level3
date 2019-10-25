@@ -22,7 +22,7 @@ public class CloneCommandParser extends AddTransactionCommandParser implements P
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_INDEX);
 
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreambleIncludeIndex());
+            Index index = ParserUtil.parseIndex(argMultimap.getIndexFromCommand());
             return new CloneCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

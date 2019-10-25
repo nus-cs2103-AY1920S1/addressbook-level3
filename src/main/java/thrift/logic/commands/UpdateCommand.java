@@ -115,7 +115,7 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
 
         // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
         // handle JavaFX initialization
-        if (transactionListPanel != null) {
+        if (model.isInView(updatedTransaction) && transactionListPanel != null) {
             transactionListPanel.getTransactionListView().scrollTo(index.getZeroBased());
         }
 

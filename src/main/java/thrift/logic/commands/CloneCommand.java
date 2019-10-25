@@ -21,11 +21,12 @@ import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
+import thrift.ui.TransactionListPanel;
 
 /**
  * Clones a transaction specified by its index in THRIFT.
  */
-public class CloneCommand extends NonScrollingCommand implements Undoable {
+public class CloneCommand extends ScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "clone";
 
@@ -59,7 +60,7 @@ public class CloneCommand extends NonScrollingCommand implements Undoable {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, TransactionListPanel transactionListPanel) throws CommandException {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
@@ -73,6 +74,12 @@ public class CloneCommand extends NonScrollingCommand implements Undoable {
             model.addExpense((Expense) clonedTransaction);
         } else if (clonedTransaction instanceof Income) {
             model.addIncome((Income) clonedTransaction);
+        }
+
+        // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
+        // handle JavaFX initialization
+        if (model.isInView(clonedTransaction) && transactionListPanel != null) {
+            transactionListPanel.getTransactionListView().scrollTo(clonedTransaction);
         }
 
         return new CommandResult(String.format(MESSAGE_CLONE_TRANSACTION_SUCCESS, clonedTransaction));

@@ -32,7 +32,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreambleIncludeIndex());
+            index = ParserUtil.parseIndex(argMultimap.getIndexFromCommand());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
         }
@@ -40,19 +40,20 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         UpdateCommand.UpdateTransactionDescriptor updateTransactionDescriptor =
                 new UpdateCommand.UpdateTransactionDescriptor();
 
+        // Besides Tags, multiple repeated fields not allowed for more comprehensible results
         if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
             updateTransactionDescriptor.setDescription(ParserUtil.parseDescription(
-                argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
+                argMultimap.getSingleValue(CliSyntax.PREFIX_NAME).get()));
         }
 
         if (argMultimap.getValue(CliSyntax.PREFIX_VALUE).isPresent()) {
             updateTransactionDescriptor.setValue(ParserUtil.parseValue(
-                    argMultimap.getValue(CliSyntax.PREFIX_VALUE).get()));
+                    argMultimap.getSingleValue(CliSyntax.PREFIX_VALUE).get()));
         }
 
         if (argMultimap.getValue(CliSyntax.PREFIX_REMARK).isPresent()) {
             updateTransactionDescriptor.setRemark(ParserUtil.parseRemark(
-                    argMultimap.getValue(CliSyntax.PREFIX_REMARK).get()
+                    argMultimap.getSingleValue(CliSyntax.PREFIX_REMARK).get()
             ));
         }
 
