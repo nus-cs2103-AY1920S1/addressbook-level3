@@ -24,7 +24,7 @@ public class AverageGraphPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(AverageGraphPanel.class);
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane lineChartScrollPane;
 
     @FXML
     private VBox vBox;
@@ -38,7 +38,7 @@ public class AverageGraphPanel extends UiPart<Region> {
 
         vBox.getChildren().add(averageGraph.getAverageGraph());
         vBox.getChildren().add(legendBox.getRoot());
-        scrollPane.setContent(vBox);
+        lineChartScrollPane.setContent(vBox);
     }
 
 }
