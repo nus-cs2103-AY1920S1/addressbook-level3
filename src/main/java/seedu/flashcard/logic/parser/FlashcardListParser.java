@@ -12,6 +12,7 @@ import seedu.flashcard.logic.commands.Command;
 import seedu.flashcard.logic.commands.DeleteCommand;
 import seedu.flashcard.logic.commands.DeleteTagCommand;
 import seedu.flashcard.logic.commands.EditCommand;
+import seedu.flashcard.logic.commands.EndCommand;
 import seedu.flashcard.logic.commands.ExitCommand;
 import seedu.flashcard.logic.commands.FindCommand;
 import seedu.flashcard.logic.commands.FlipCommand;
@@ -108,6 +109,10 @@ public class FlashcardListParser {
     public Command parseQuizMode(String commandWord, String arguments) throws ParseException {
 
         switch (commandWord) {
+
+        case EndCommand.COMMAND_WORD:
+            isQuizMode = false;
+            return new EndCommand();
 
         case ExitCommand.COMMAND_WORD:
             isQuizMode = false;
