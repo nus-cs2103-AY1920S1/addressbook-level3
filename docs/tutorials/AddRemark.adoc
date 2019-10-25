@@ -34,11 +34,11 @@ For now, let's keep `RemarkCommand` as simple as possible and print some output.
 We accomplish that by returning a `CommandResult` with an accompanying message.
 
 .RemarkCommand.java
-[source, java]
+[source,java]
 ----
-package seedu.address.logic.commands;
+package seedu.ifridge.logic.commands;
 
-import seedu.address.model.Model;
+import seedu.ifridge.model.Model;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -108,9 +108,9 @@ We start by modifying the constructor of `RemarkCommand` to accept an `Index` an
 While we are at it, let's change the error message to echo the values.
 While this is not a replacement for tests, it is an obvious way to tell if our code is functioning as intended.
 
-[source, java]
+[source,java]
 ----
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
 //...
 public class RemarkCommand extends Command {
     //...
