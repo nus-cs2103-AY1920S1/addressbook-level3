@@ -12,7 +12,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import seedu.address.model.statistics.CustomLineChart;
 
 /**

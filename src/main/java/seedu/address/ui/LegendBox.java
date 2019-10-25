@@ -21,12 +21,12 @@ public class LegendBox extends UiPart<Region> {
     // Weight categorization
     private static final Color COLOR_UNDER_WEIGHT = Color.BLUE.deriveColor(1, 1, 1, 0.2);
     private static final Color COLOR_NORMAL_WEIGHT = Color.GREEN.deriveColor(1, 1, 1, 0.2);
-    private static final Color COLOR_OVER_WEIGHT = Color.ORANGE.deriveColor(1, 1, 1, 0.2);
+    private static final Color COLOR_OVER_WEIGHT = Color.YELLOW.deriveColor(1, 1, 1, 0.2);
     private static final Color COLOR_OBESE = Color.RED.deriveColor(1, 1, 1, 0.2);
 
     // Blood sugar categorization
     private static final Color COLOR_BEFORE_MEALS = Color.GREEN.deriveColor(1, 1, 1, 0.2);
-    private static final Color COLOR_AFTER_MEALS = Color.ORANGE.deriveColor(1, 1, 1, 0.2);
+    private static final Color COLOR_AFTER_MEALS = Color.YELLOW.deriveColor(1, 1, 1, 0.2);
 
     // Weight categorization description
     private static final String UNDER_WEIGHT = "Under weight";
@@ -71,14 +71,11 @@ public class LegendBox extends UiPart<Region> {
     private void updateLegendBox(SimpleStringProperty recordType) {
         switch (recordType.get().toLowerCase()) {
         case RECORD_TYPE_BMI:
-            vBox.getChildren().add(UNDER_WEIGHT_LEGEND_ROW.getRoot());
-            vBox.getChildren().add(NORMAL_WEIGHT_LEGEND_ROW.getRoot());
-            vBox.getChildren().add(OVER_WEIGHT_LEGEND_ROW.getRoot());
-            vBox.getChildren().add(OBESE_LEGEND_ROW.getRoot());
+            vBox.getChildren().addAll(UNDER_WEIGHT_LEGEND_ROW.getRoot(), NORMAL_WEIGHT_LEGEND_ROW.getRoot(),
+                    OVER_WEIGHT_LEGEND_ROW.getRoot(), OBESE_LEGEND_ROW.getRoot());
             break;
         case RECORD_TYPE_BLOODSUGAR:
-            vBox.getChildren().add(BEFORE_MEAL_LEGEND_ROW.getRoot());
-            vBox.getChildren().add(AFTER_MEAL_LEGEND_ROW.getRoot());
+            vBox.getChildren().addAll(BEFORE_MEAL_LEGEND_ROW.getRoot(), AFTER_MEAL_LEGEND_ROW.getRoot());
             break;
         default:
             break;
