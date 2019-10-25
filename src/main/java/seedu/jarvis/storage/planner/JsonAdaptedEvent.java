@@ -14,7 +14,6 @@ import seedu.jarvis.model.planner.tasks.Task;
  */
 public class JsonAdaptedEvent extends JsonAdaptedTask {
 
-    private final String description;
     private final String start;
     private final String end;
 
@@ -28,7 +27,7 @@ public class JsonAdaptedEvent extends JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("description") String description, @JsonProperty("start") String start,
                             @JsonProperty("end") String end) {
-        this.description = description;
+        super(description);
         this.start = start;
         this.end = end;
     }
@@ -39,7 +38,7 @@ public class JsonAdaptedEvent extends JsonAdaptedTask {
      * @param event {@code Event} to be used to construct the {@code JsonAdaptedEvent}.
      */
     public JsonAdaptedEvent(Event event) {
-        description = event.getTaskDescription();
+        super(event);
         start = event.getStartDate().format(Task.getDateFormat());
         end = event.getEndDate().format(Task.getDateFormat());
     }

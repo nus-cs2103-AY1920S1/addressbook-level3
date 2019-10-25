@@ -1,5 +1,7 @@
 package seedu.jarvis.storage.planner;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -21,6 +23,17 @@ import seedu.jarvis.model.planner.tasks.Task;
         @JsonSubTypes.Type(value = JsonAdaptedEvent.class, name = "JsonAdaptedEvent")
 })
 public abstract class JsonAdaptedTask {
+
+    protected final String description;
+
+    @JsonCreator
+    public JsonAdaptedTask(@JsonProperty("description") String description) {
+        this.description = description;
+    }
+
+    public JsonAdaptedTask(Task task) {
+        this.description = task.getTaskDescription();
+    }
 
     /**
      * Converts this Jackson-friendly adapted task into the model's {@code Task} object.

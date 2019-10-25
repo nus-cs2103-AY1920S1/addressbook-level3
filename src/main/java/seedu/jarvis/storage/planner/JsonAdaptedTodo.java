@@ -12,8 +12,6 @@ import seedu.jarvis.model.planner.tasks.Todo;
  */
 public class JsonAdaptedTodo extends JsonAdaptedTask {
 
-    private final String description;
-
     /**
      * Constructs a {@code JsonAdaptedTodo} with the given todo details.
      *
@@ -21,7 +19,7 @@ public class JsonAdaptedTodo extends JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedTodo(@JsonProperty("description") String description) {
-        this.description = description;
+        super(description);
     }
 
     /**
@@ -30,7 +28,7 @@ public class JsonAdaptedTodo extends JsonAdaptedTask {
      * @param todo {@code Todo} to be used to construct the {@code JsonAdaptedTodo}.
      */
     public JsonAdaptedTodo(Todo todo) {
-        this.description = todo.getTaskDescription();
+        super(todo);
     }
 
     /**

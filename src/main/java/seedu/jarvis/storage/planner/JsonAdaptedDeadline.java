@@ -13,7 +13,6 @@ import seedu.jarvis.model.planner.tasks.Task;
  * Jackson-friendly version of {@link Deadline}.
  */
 public class JsonAdaptedDeadline extends JsonAdaptedTask {
-    private final String description;
     private final String date;
 
     /**
@@ -25,7 +24,7 @@ public class JsonAdaptedDeadline extends JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedDeadline(@JsonProperty("description") String description,
                                @JsonProperty("date") String date) {
-        this.description = description;
+        super(description);
         this.date = date;
     }
 
@@ -35,7 +34,7 @@ public class JsonAdaptedDeadline extends JsonAdaptedTask {
      * @param deadline {@code Deadline} to be used to construct the {@code JsonAdaptedDeadline}.
      */
     public JsonAdaptedDeadline(Deadline deadline) {
-        description = deadline.getTaskDescription();
+        super(deadline);
         date = deadline.getDueDate().format(Task.getDateFormat());
     }
 
