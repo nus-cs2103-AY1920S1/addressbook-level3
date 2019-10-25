@@ -201,54 +201,53 @@ Format: `history INDEX`
 
 Commands in the restaurant context
 
-==== Listing all restaurants
+==== Adding a Restaurant: `add`
+This command adds a Restaurant to the Restaurant Database.
 
-Lists all available restaurants
+Format: `add n/NAME l/LOCATION [t/TAG]...`
 
-Format: -list
+Example: `add n/KFC l/Jurong t/FastFood`
 
-==== Entering specific restaurant
+==== Deleting a Restaurant: `delete`
+This command deletes the Restaurant identified by the Index in the list of Restaurants from the Restaurant Database
 
-Enters a specific restaurant
+Format: `delete INDEX`
 
-Format: -enter {restaurant}
+Example: `delete 1`
 
-Example: -enter muthu&#39;s curry
+==== Entering EditMode: `edit`
+This command enters EditMode for the Restaurant identified by the Index in the list of Restaurants.
+Unlocks commands for editing details, adding and removing of Food Items in the menu.
 
-==== Adding food item
+Format: `edit INDEX`
 
-Adds a food item for a specific restaurant
+Example: `edit 1`
 
-Format: -add {item}
+==== Editing a Restaurant (Under EditMode): `editdetails`
+This command edits the details of the Restaurant under EditMode.
 
-Example: -add chicken rice
+Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 
-==== Removing food item
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
+* You can remove all the restaurant’s tags by typing t/ without specifying any tags after it.
 
-Removes a food item for a specific restaurant
+Example: `editdetails n/New KFC l/Tuas`
 
-Format: -remove {item}
+==== Adding food item (Under EditMode): `add`
+This command adds a Food item for the Restaurant under EditMode.
 
-Example: -remove laksa
+Format: `add n/NAME a/PRICE [t/TAG]...`
 
-==== Adding rating
+Example: `add n/Chicken a/7.90 t/Popular`
 
-Adds a rating (out of 5) for the restaurant
+==== Removing food item (Under EditMode): `delete`
+This command removes the Food item identified by the Index in the Menu list of the Restaurant under EditMode.
 
-Format: -rate {rating}
+Format: `remove INDEX`
 
-Example: -rate 5
-
-==== ChefHat food item
-
-Marks a food item as Chef&#39;s recommendation
-
-Format: -chefhat {item}
-
-Example: -chefhat nasi lemak
-
-// end::restaurantCommand[]
-// tag::deliverymenCommand[]
+Example: `remove 1`
 
 === Deliverymen commands
 
@@ -313,12 +312,12 @@ Example: -status Stanley Tay
 - Viewing a customer's order history: `history INDEX`
 
 * Restaurant commands
-- List restaurants: -list
-- Enter specific restaurant: -enter {restaurant}
-- Add food item: -add {item}
-- Remove food item: -remove {item}
-- Add Rating from Customer: -rate {rating}
-- ChefHat Food Item: -chefhat {item}
+- Adding a restaurant: `add n/NAME l/LOCATION [t/TAG]...`
+- Deleting a restaurant: `delete INDEX`
+- Entering EditMode: `edit INDEX`
+- Editing a restaurant: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
+- Adding food item: `add n/NAME a/PRICE [t/TAG]...`
+- Removing food item: `delete INDEX`
 
 * Deliverymen commands
 - List deliverymen: -list
