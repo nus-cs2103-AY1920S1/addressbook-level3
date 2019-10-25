@@ -164,27 +164,44 @@ Example: `find Gmail`
 ==== Generating a new password: `generate`
 
 Lazy to think of a strong password?
-Simply enter `generate` into the command box to generate a new random password and have it copied onto your clipboard!
+Simply enter `generate` into the command box to get one.
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-Additionally, you can also opt to add in custom preferences for the password:
-
+* You can also opt to add in custom preferences using the following format:
 * `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`
+* All passwords are automatically copied onto your clipboard.
+====
 
-For instance, if you wish to generate a password without special characters,
-do: `generate lower/true upper/true num/true special/fasle`
+Format: `generate`
+
+Example: `generate`
+
+Example `generate lower/true upper/true num/true special/false`
 
 
-==== Analysing all password: `analyse`
+==== Password analysis: `analyse`
 
-Analyses all passwords currently stored and produces a security summary report.
+Curious how secure your passwords really are? Type `analyse` into the command box to find out.
 
-Format: `analyse`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
 
-==== Analysing all password: `analyse strong`
+* You can analyse a specific password in greater detail using the following format:
+* `analyse strong/<index>`
+====
 
-Analyses in detail a specified password based on the user specified index.
+Format: `analyse` / `analyse strong/<index>`
 
-Format: `analyse strong/<index>`
+Example: `analyse`
+
+Example: `analyse strong/8`
 
 === Card
 
