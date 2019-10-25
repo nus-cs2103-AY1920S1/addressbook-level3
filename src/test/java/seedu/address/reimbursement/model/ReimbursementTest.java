@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.TypicalDeadlines.DATE_TIME_FORMATTER;
 
 import java.util.ArrayList;
 
@@ -78,7 +79,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void ui_display() {
+    public void test_ui_display() {
         Reimbursement reimbursement = new ReimbursementBuilder().build();
 
         reimbursement.setIdCol(1);
@@ -87,6 +88,28 @@ public class ReimbursementTest {
         reimbursement.setPersonCol();
         assertEquals(TypicalPersons.ALICE.getName().toString(), reimbursement.getPersonCol());
 
+        reimbursement.setDescriptionCol();
+        assertEquals("1. " + TypicalTransactions.ALICE_TRANSACTION_10.getDescription(),
+                reimbursement.getDescriptionCol());
+
+        reimbursement.setDeadlineCol();
+        assertEquals(TypicalDeadlines.DEC_DEADLINE.format(DATE_TIME_FORMATTER), reimbursement.getDeadlineCol());
+    }
+
+    @Test
+    public void testToString() {
+        Reimbursement reimbursementAlice = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
+        Reimbursement reimbursementElle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
+
+        String strFromToString = "Alice Pauline $-20.0" + System.lineSeparator()
+                + "02-Dec-2019" + System.lineSeparator()
+                + "1. poster printing";
+        assertEquals(strFromToString, reimbursementAlice.toString());
+
+        String strFromToStringNoDeadline = "Elle Meyer $-100.0" + System.lineSeparator()
+                + "1. food";
+        System.out.println(reimbursementElle.toString());
+        assertEquals(strFromToStringNoDeadline, reimbursementElle.toString());
 
     }
 }

@@ -172,10 +172,9 @@ public class Reimbursement {
     public String toString() {
         String msg = "";
         if (deadline == null) {
-            msg = person.getName().toString() + " $" + amount + System.lineSeparator()
-                    + description.toString();
+            msg = toStringNoDeadline();
         } else {
-            msg = person.getName().toString() + " $" + amount
+            msg = person.getName().toString() + " $" + amount + System.lineSeparator()
                     + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
                     + description.toString();
         }
