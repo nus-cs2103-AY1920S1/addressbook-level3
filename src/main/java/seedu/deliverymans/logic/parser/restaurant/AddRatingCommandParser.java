@@ -8,7 +8,6 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.restaurant.Rating;
 
-
 /**
  * Parses input arguments and creates a new AddRatingCommand object
  */
