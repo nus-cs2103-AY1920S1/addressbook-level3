@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
 import seedu.address.model.bio.User;
+import seedu.address.ui.bio.BioPane;
 
 /**
  * A class containing enumerations, storing the possible Main Display Panes to be displayed to the user.

@@ -51,6 +51,7 @@ public class AverageGraph {
     public AverageGraph(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
                              SimpleStringProperty recordType) {
 
+        customLineChart.setId("lineChart");
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.bio;
 
 import java.io.File;
 import java.util.List;
@@ -13,6 +13,8 @@ import seedu.address.MainApp;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
+import seedu.address.ui.Profile;
+import seedu.address.ui.UiPart;
 
 /**
  * The Main Window. Provides the basic application layout containing
