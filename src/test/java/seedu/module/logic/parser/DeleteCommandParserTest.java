@@ -3,11 +3,11 @@ package seedu.module.logic.parser;
 import static seedu.module.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.module.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.module.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.module.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.module.logic.commands.DeleteCommand;
+import seedu.module.model.module.SameModuleCodePredicate;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -17,16 +17,18 @@ import seedu.module.logic.commands.DeleteCommand;
  * therefore should be covered by the ParserUtilTest.
  */
 public class DeleteCommandParserTest {
-
+    private static final String VALID_MODULE_CODE = "cs2103t";
     private DeleteCommandParser parser = new DeleteCommandParser();
+    private SameModuleCodePredicate deleteCommandParserPredicate = new SameModuleCodePredicate(VALID_MODULE_CODE);
+
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, VALID_MODULE_CODE, new DeleteCommand(deleteCommandParserPredicate));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

@@ -2,12 +2,9 @@ package seedu.module.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
-import seedu.module.commons.core.Messages;
-import seedu.module.commons.core.index.Index;
 import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
+import seedu.module.model.module.SameModuleCodePredicate;
 import seedu.module.model.module.TrackedModule;
 
 /**
@@ -18,28 +15,26 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the Module identified by the index number used in the displayed Module list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the Module identified by the Module code in the displayed Module list.\n"
+            + "Parameters: MODULE CODE\n"
+            + "Example: " + COMMAND_WORD + " CS2103T";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted module: %1$s";
+    public static final String MESSAGE_MODULE_NOT_FOUND =
+            "This module is not found within the list of tracked modules.";
 
-    private final Index targetIndex;
+    private final SameModuleCodePredicate predicate;
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(SameModuleCodePredicate predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<TrackedModule> lastShownList = model.getFilteredModuleList();
+        TrackedModule trackedModuleToDelete = model.findTrackedModule(predicate).orElseThrow(()
+            -> new CommandException(MESSAGE_MODULE_NOT_FOUND));
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-        }
-
-        TrackedModule trackedModuleToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteModule(trackedModuleToDelete);
         model.displayTrackedList();
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, trackedModuleToDelete));
@@ -49,6 +44,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && predicate.equals(((DeleteCommand) other).predicate)); // state check
     }
 }

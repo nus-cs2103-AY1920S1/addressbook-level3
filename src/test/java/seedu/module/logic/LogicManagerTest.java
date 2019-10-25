@@ -1,8 +1,8 @@
 package seedu.module.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.module.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static seedu.module.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.module.logic.commands.DeleteCommand.MESSAGE_MODULE_NOT_FOUND;
 import static seedu.module.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_MODULE_NOT_FOUND);
     }
 
     @Test

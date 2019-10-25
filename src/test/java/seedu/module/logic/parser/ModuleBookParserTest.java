@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.module.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.module.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.module.testutil.Assert.assertThrows;
-import static seedu.module.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +24,9 @@ import seedu.module.logic.parser.exceptions.ParseException;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.NameContainsKeywordsPredicate;
 import seedu.module.model.module.SameModuleCodePredicate;
+import seedu.module.model.module.TrackedModule;
 import seedu.module.testutil.ArchivedModuleBuilder;
+import seedu.module.testutil.TrackedModuleBuilder;
 
 public class ModuleBookParserTest {
 
@@ -41,12 +42,14 @@ public class ModuleBookParserTest {
         assertEquals(new AddCommand(predicate), command);
     }
 
-    // TODO: Adapt this test to ModuleBook
     @Test
     public void parseCommand_delete() throws Exception {
+        TrackedModule trackedModule = new TrackedModuleBuilder().build();
+        SameModuleCodePredicate predicate = new SameModuleCodePredicate(trackedModule.getModuleCode());
+
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + trackedModule.getModuleCode());
+        assertEquals(new DeleteCommand(predicate), command);
     }
 
     @Test

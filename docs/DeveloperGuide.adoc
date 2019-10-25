@@ -599,12 +599,10 @@ _{ more test cases ... }_
 . Deleting a module while all modules are listed
 
 .. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete cs2103t` +
+   Expected: Module with module code cs2103t is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete INVALID_MODULE_CODE` +
    Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
 
 _{ more test cases ... }_
 

@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : lists all modules.
 * **`add`**`cs2103t` : adds a module with module code `cs2103t` to be tracked by ModuleBook.
-* **`delete`**`1` : deletes module at index 1.
+* **`delete`**`cs2103t` : deletes tracked module with module code CS2103T from the list of tracked module if the module exists.
 * **`deadline`**`cs2103t`**`d/complete UG and DG`**`t/time` : adds deadline to module with code 'cs2103t'
 * *`exit`* : exits the app
 
@@ -259,36 +259,6 @@ Example: `link cs1231 a/delete t/module website`
 Shows a list of all current tracked modules. +
 Format: `list`
 
-////
-=== Editing a person : `edit`
-
-Edits an existing module in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the module at the specified `INDEX`. The index refers to the index number shown in the displayed module list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the module will be removed i.e adding of tags is not cumulative.
-* You can remove all the module's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st module to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd module to be `Betsy Crower` and clears all existing tags.
-
-=== Deleting a module : `delete`
-
-Deletes a module from the tracked list. +
-Format: `delete MODULE_INDEX`
-
-Examples:
-
-* `delete 1`
-////
 === Exiting the program: `exit`
 
 Exits the program. +
@@ -368,8 +338,8 @@ Exits module-view and return to module list
 === List View
 * *Add* `add MODULE_CODE` +
 e.g. `add cs2101`
-* *Delete* : `delete MODULE_INDEX` +
-e.g. `delete 1`
+* *Delete* : `delete MODULE_CODE` +
+e.g. `delete cs2101`
 * *Exit* : `exit`
 * *Find* : `find MODULE_CODE` +
 e.g. `find cs2101`
