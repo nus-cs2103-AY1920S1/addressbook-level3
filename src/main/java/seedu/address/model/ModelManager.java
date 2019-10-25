@@ -290,6 +290,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return healthRecords.hasRecord(record);
+    }
+
+    @Override
+    public void deleteRecord(Record record) {
+        healthRecords.removeRecord(record);
+    }
+
+
+    @Override
     public void addRecord(Record record) {
         healthRecords.addRecord(record);
         updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);

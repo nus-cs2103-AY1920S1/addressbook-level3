@@ -158,6 +158,17 @@ public interface Model {
     ReadOnlyHealthRecords getHealthRecords();
 
     /**
+     * Returns true if a record with the same identity as {@code record} exists in Duke Cooks.
+     */
+    boolean hasRecord(Record record);
+
+    /**
+     * Deletes the given record.
+     * The record must exist in Duke Cooks.
+     */
+    void deleteRecord(Record record);
+
+    /**
      * Adds the given record.
      * {@code record} must not already exist in Health Records.
      */

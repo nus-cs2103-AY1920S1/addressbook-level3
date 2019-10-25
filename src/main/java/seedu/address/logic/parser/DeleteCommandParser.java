@@ -10,12 +10,14 @@ import seedu.address.logic.commands.dashboard.DeleteTaskCommand;
 import seedu.address.logic.commands.diary.DeleteDiaryCommand;
 import seedu.address.logic.commands.diary.DeletePageCommand;
 import seedu.address.logic.commands.exercise.DeleteExerciseCommand;
+import seedu.address.logic.commands.health.DeleteRecordCommand;
 import seedu.address.logic.commands.recipe.DeleteRecipeCommand;
 import seedu.address.logic.parser.dashboard.DeleteTaskCommandParser;
 import seedu.address.logic.parser.diary.DeleteDiaryCommandParser;
 import seedu.address.logic.parser.diary.DeletePageCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.exercise.DeleteExerciseCommandParser;
+import seedu.address.logic.parser.health.DeleteRecordCommandParser;
 import seedu.address.logic.parser.recipe.DeleteRecipeCommandParser;
 
 /**
@@ -49,6 +51,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         case DeleteRecipeCommand.VARIANT_WORD:
             return new DeleteRecipeCommandParser().parse(arguments);
+
+        case DeleteRecordCommand.VARIANT_WORD:
+            return new DeleteRecordCommandParser().parse(arguments);
 
         case DeleteDiaryCommand.VARIANT_WORD:
             return new DeleteDiaryCommandParser().parse(arguments);

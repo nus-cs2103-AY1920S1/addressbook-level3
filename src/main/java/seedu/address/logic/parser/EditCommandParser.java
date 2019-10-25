@@ -9,12 +9,14 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.dashboard.EditTaskCommand;
 import seedu.address.logic.commands.diary.EditDiaryCommand;
 import seedu.address.logic.commands.exercise.EditExerciseCommand;
+import seedu.address.logic.commands.health.EditRecordCommand;
 import seedu.address.logic.commands.profile.EditProfileCommand;
 import seedu.address.logic.commands.recipe.EditRecipeCommand;
 import seedu.address.logic.parser.dashboard.EditTaskCommandParser;
 import seedu.address.logic.parser.diary.EditDiaryCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.exercise.EditExerciseCommandParser;
+import seedu.address.logic.parser.health.EditRecordCommandParser;
 import seedu.address.logic.parser.profile.EditProfileCommandParser;
 import seedu.address.logic.parser.recipe.EditRecipeCommandParser;
 
@@ -49,6 +51,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         case EditRecipeCommand.VARIANT_WORD:
             return new EditRecipeCommandParser().parse(arguments);
+
+        case EditRecordCommand.VARIANT_WORD:
+            return new EditRecordCommandParser().parse(arguments);
 
         case EditDiaryCommand.VARIANT_WORD:
             return new EditDiaryCommandParser().parse(arguments);
