@@ -61,7 +61,7 @@ public class UpdateCommand extends Command {
      * @param updatePersonDescriptor details to update the person with
      */
     public UpdateCommand(Index index, UpdatePersonDescriptor updatePersonDescriptor) {
-        requireNonNull(index);
+        //requireNonNull(index);
         requireNonNull(updatePersonDescriptor);
 
         this.index = index;
@@ -71,13 +71,18 @@ public class UpdateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        Person personToUpdate;
+        if (index != null) {
+            List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            personToUpdate = lastShownList.get(index.getZeroBased());
+        } else {
+            personToUpdate = model.getLoggedInPerson();
         }
-
-        Person personToUpdate = lastShownList.get(index.getZeroBased());
         Person updatedPerson = createUpdatedPerson(personToUpdate, updatePersonDescriptor);
 
         if (!personToUpdate.isSamePerson(updatedPerson) && model.hasPerson(updatedPerson)) {
