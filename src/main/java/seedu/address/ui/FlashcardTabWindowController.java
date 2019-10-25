@@ -1,17 +1,11 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
@@ -40,7 +34,9 @@ public class FlashcardTabWindowController {
 
     private Timeline timeline;
 
-
+    /**
+     *
+     */
     @FXML
     public void initialize() {
         currentSeconds = new SimpleIntegerProperty(TIMER_DURATION);
@@ -60,11 +56,13 @@ public class FlashcardTabWindowController {
         startTimer();
     }
 
+    /**
+     * Hides the timer and flashes the answer of the flashcard.
+     */
     public void showFlashcardAns() {
         ansTextArea.setVisible(true);
         timerLabel.setVisible(false);
     }
-
 
     /**
      * Starts the timer countdown.
@@ -81,12 +79,4 @@ public class FlashcardTabWindowController {
         timeline.play();
     }
 
-    private void resetViews() {
-        qnsTextArea.setText("");
-        ansTextArea.setText("");
-    }
-
-    private void startTimeTrial(ArrayList<Flashcard> flashcards) {
-
-    }
 }
