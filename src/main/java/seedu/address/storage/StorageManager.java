@@ -10,6 +10,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appsettings.AppSettings;
+import seedu.address.model.card.exceptions.DuplicateWordBankException;
+import seedu.address.model.card.exceptions.WordBankNotFoundException;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
@@ -85,7 +87,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void addWordBank(ReadOnlyWordBank wordBank) {
+    public void addWordBank(ReadOnlyWordBank wordBank) throws DuplicateWordBankException {
         wordBankListStorage.addWordBank(wordBank);
     }
 
@@ -95,7 +97,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void removeWordBank(String wordBankName) {
+    public void removeWordBank(String wordBankName) throws WordBankNotFoundException {
         wordBankListStorage.removeWordBank(wordBankName);
     }
 

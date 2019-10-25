@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loadcommands;
+package seedu.address.logic.commands.homecommands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -31,7 +31,7 @@ public class RemoveCommand extends HomeCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName).get();
+        WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName);
         if (wb == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_NAME);
         }
@@ -43,8 +43,8 @@ public class RemoveCommand extends HomeCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.loadcommands.RemoveCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.loadcommands.RemoveCommand) other).wordBankName));
+                || (other instanceof seedu.address.logic.commands.homecommands.RemoveCommand // instanceof handles nulls
+                && wordBankName.equals(((seedu.address.logic.commands.homecommands.RemoveCommand) other).wordBankName));
     }
 
     public static String getWordBankName() {

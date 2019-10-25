@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loadcommands;
+package seedu.address.logic.commands.homecommands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -25,13 +25,13 @@ public class CreateCommand extends HomeCommand {
     public static final String MESSAGE_DUPLICATE_WORD_BANK = "This Word Bank name already exists in Dukemon";
 
     private final WordBank toAdd;
-
+    private final String name;
     /**
      * Creates an AddCommand to add the specified {@code Card}
      */
-    public CreateCommand(WordBank wordBank) {
-        requireNonNull(wordBank);
-        toAdd = wordBank;
+    public CreateCommand(String name) {
+        requireNonNull(name);
+        this.name = name;
     }
 
     @Override

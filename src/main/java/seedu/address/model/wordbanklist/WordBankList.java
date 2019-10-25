@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.card.exceptions.DuplicateWordBankException;
+import seedu.address.model.card.exceptions.WordBankNotFoundException;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -20,13 +22,16 @@ public class WordBankList implements ReadOnlyWordBankList {
 
     public WordBankList(List<WordBank> wbl) {
         wordBankList = new UniqueWordBankList();
-        if (!wbl.isEmpty()) {
-            for (WordBank wb : wbl) {
-                wordBankList.add(wb);
+        try {
+            if (!wbl.isEmpty()) {
+                for (WordBank wb : wbl) {
+                    wordBankList.add(wb);
+                }
+            } else {
+                WordBank sampleWb = SampleDataUtil.getSampleWordBank();
+                wordBankList.add(sampleWb);
             }
-        } else {
-            WordBank sampleWb = SampleDataUtil.getSampleWordBank();
-            wordBankList.add(sampleWb);
+        } catch (DuplicateWordBankException e) {
         }
     }
 
@@ -34,23 +39,15 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Replaces the contents of the word bank list with {@code List<WordBank>}.
      * {@code List<WordBank>} must not contain any cards with the same meaning.
      */
-    public void setWordBankList(List<WordBank> wordBankList) {
+    public void setWordBankList(List<WordBank> wordBankList) throws DuplicateWordBankException {
         this.wordBankList.setWordBankList(wordBankList);
-    }
-
-    /**
-     * Resets the existing data of this {@code WordBank} with {@code newData}.
-     */
-    public void resetData(ReadOnlyWordBankList newData) {
-        requireNonNull(newData);
-        setWordBankList(newData.getWordBankList());
     }
 
     /**
      * Adds a card to the word bank.
      * A card with the same meaning must not already exist in the word bank.
      */
-    public void addBank(ReadOnlyWordBank wordBank) {
+    public void addBank(ReadOnlyWordBank wordBank) throws DuplicateWordBankException {
         wordBankList.add((WordBank) wordBank);
     }
 
@@ -58,7 +55,7 @@ public class WordBankList implements ReadOnlyWordBankList {
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
      */
-    public void removeWordBank(WordBank wordBankName) {
+    public void removeWordBank(WordBank wordBankName) throws WordBankNotFoundException {
         wordBankList.remove(wordBankName);
     }
 
@@ -75,13 +72,13 @@ public class WordBankList implements ReadOnlyWordBankList {
     }
 
     @Override
-    public Optional<WordBank> getWordBankFromName(String name) {
+    public WordBank getWordBankFromName(String name) throws WordBankNotFoundException {
         for (WordBank wb : wordBankList) {
             if (wb.getName().equals(name)) {
-                return Optional.of(wb);
+                return wb;
             }
         }
-        return Optional.empty();
+        throw new WordBankNotFoundException();
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.card.exceptions.DuplicateCardException;
+import seedu.address.model.card.exceptions.DuplicateWordBankException;
 import seedu.address.model.card.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbank.WordBank;
 
@@ -44,10 +44,10 @@ public class UniqueWordBankList implements Iterable<WordBank> {
      *
      * @see UniqueWordBankList#contains(WordBank)
      */
-    public void add(WordBank toAdd) {
+    public void add(WordBank toAdd) throws DuplicateWordBankException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateCardException();
+            throw new DuplicateWordBankException();
         }
         internalList.add(toAdd);
     }
@@ -56,10 +56,10 @@ public class UniqueWordBankList implements Iterable<WordBank> {
      * Replaces the contents of this list with {@code List<WordBank>}.
      * {@code List<WordBank>} must not contain duplicate WordBank.
      */
-    public void setWordBankList(List<WordBank> cards) {
+    public void setWordBankList(List<WordBank> cards) throws DuplicateWordBankException {
         requireAllNonNull(cards);
         if (!wordBanksAreUnique(cards)) {
-            throw new DuplicateCardException();
+            throw new DuplicateWordBankException();
         }
         internalList.setAll(cards);
     }
@@ -68,7 +68,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
      * Removes the equivalent card from the list.
      * The card must exist in the list.
      */
-    public void remove(WordBank toRemove) {
+    public void remove(WordBank toRemove) throws WordBankNotFoundException {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new WordBankNotFoundException();
@@ -120,5 +120,4 @@ public class UniqueWordBankList implements Iterable<WordBank> {
         }
         return true;
     }
-
 }

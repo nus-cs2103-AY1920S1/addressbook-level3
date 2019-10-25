@@ -2,13 +2,13 @@ package seedu.address.logic.parser.home;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.loadcommands.CreateCommand;
+import seedu.address.logic.commands.homecommands.CreateCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wordbank.WordBank;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new CreateCommand object
  */
 public class CreateCommandParser implements Parser<CreateCommand> {
 
@@ -24,8 +24,7 @@ public class CreateCommandParser implements Parser<CreateCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
         }
-        WordBank wordBank = new WordBank(trimmedArgs);
-        return new CreateCommand(wordBank);
+        return new CreateCommand(name);
     }
 
 }

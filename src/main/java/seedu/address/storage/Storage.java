@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.card.exceptions.WordBankNotFoundException;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
@@ -54,7 +55,7 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
 
 
     @Override
-    void removeWordBank(String wordBankName);
+    void removeWordBank(String wordBankName) throws WordBankNotFoundException;
 
     @Override
     Optional<ReadOnlyWordBank> createWordBank(Path wordBankPathFile) throws DataConversionException;

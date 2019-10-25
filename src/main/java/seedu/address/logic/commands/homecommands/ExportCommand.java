@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loadcommands;
+package seedu.address.logic.commands.homecommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
@@ -52,8 +52,8 @@ public class ExportCommand extends HomeCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.loadcommands.ExportCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.loadcommands.ExportCommand) other).wordBankName));
+                || (other instanceof seedu.address.logic.commands.homecommands.ExportCommand // instanceof handles nulls
+                && wordBankName.equals(((seedu.address.logic.commands.homecommands.ExportCommand) other).wordBankName));
     }
 
 

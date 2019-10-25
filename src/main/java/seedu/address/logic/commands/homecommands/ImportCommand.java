@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loadcommands;
+package seedu.address.logic.commands.homecommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
@@ -45,8 +45,8 @@ public class ImportCommand extends HomeCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.loadcommands.ImportCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.loadcommands.ImportCommand) other).wordBankName));
+                || (other instanceof seedu.address.logic.commands.homecommands.ImportCommand // instanceof handles nulls
+                && wordBankName.equals(((seedu.address.logic.commands.homecommands.ImportCommand) other).wordBankName));
     }
 
     public static File getDirectory() {

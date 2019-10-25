@@ -18,10 +18,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.loadcommands.CreateCommand;
-import seedu.address.logic.commands.loadcommands.ExportCommand;
-import seedu.address.logic.commands.loadcommands.ImportCommand;
-import seedu.address.logic.commands.loadcommands.RemoveCommand;
+import seedu.address.logic.commands.homecommands.*;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
@@ -47,6 +44,7 @@ public class LogicManager implements Logic, UiLogicHelper {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+
     private final Storage storage;
 
     private final ParserManager parserManager;
@@ -63,27 +61,9 @@ public class LogicManager implements Logic, UiLogicHelper {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-
-        /*
-        Step 10.
-        Modify parseCommand()
-        2 user modes: Game mode and Normal mode
-        */
-
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
-
         Command command = parserManager.parseCommand(commandText);
-
-        /*
-        Step 11.
-        Extends to Step 13 in Command.java
-
-        commandResult = command.execute(model, game);
-         */
-        //commandResult = command.execute(model);
-
         commandResult = command.execute(model);
-
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
 
         // todo need to save wordbankstatistics after deletion.
@@ -91,39 +71,41 @@ public class LogicManager implements Logic, UiLogicHelper {
         // todo currently, on deletion, the statistics is deleted on the model, and will be saved only if
         // todo a game is played with that word bank. If no game is played, and the app is closed, the statistics
         // todo will stay there forever...
-        /*
-        Step 12.
-        We save game here too.
-        Similar methods to saveWordBanks();
-         */
+
         try {
             if (getMode().equals(ModeEnum.SETTINGS)) {
                 storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
             }
-            ReadOnlyWordBank wb = model.getWordBank();
 
-            if (!wb.getName().equals("Empty wordbank")) {
-                storage.saveWordBank(wb);
+            if (commandResult instanceof HomeCommandResult) {
+                HomeCommandResult homeCommandResult = (HomeCommandResult) commandResult;
+                commandResult.update(storage, model);
             }
-            if (command instanceof CreateCommand) {
-                storage.addWordBank(wb);
-            }
-            if (command instanceof RemoveCommand) {
-                storage.removeWordBank(((RemoveCommand) command).getWordBankName());
-            }
-            if (command instanceof ExportCommand) {
-                File dir = ((ExportCommand) command).getDirectory();
-                Path filePath = Paths.get(dir.toString());
-                storage.saveWordBank(((ExportCommand) command).getWordBank(), filePath);
-            }
-            if (command instanceof ImportCommand) {
-                File dir = ((ImportCommand) command).getDirectory();
-                String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
-                Path filePath = Paths.get(dir.toString(), wordBankName);
-                WordBank wordBank = (WordBank) storage.createWordBank(filePath).get();
-                storage.saveWordBank(wordBank);
-                model.getWordBankList().addBank(wordBank);
-            }
+
+//            ReadOnlyWordBank wb = model.getWordBank();
+//
+//            if (!wb.getName().equals("Empty wordbank")) {
+//                storage.saveWordBank(wb);
+//            }
+//            if (command instanceof CreateCommand) {
+//                storage.addWordBank(wb);
+//            }
+//            if (command instanceof RemoveCommand) {
+//                storage.removeWordBank(((RemoveCommand) command).getWordBankName());
+//            }
+//            if (command instanceof ExportCommand) {
+//                File dir = ((ExportCommand) command).getDirectory();
+//                Path filePath = Paths.get(dir.toString());
+//                storage.saveWordBank(((ExportCommand) command).getWordBank(), filePath);
+//            }
+//            if (command instanceof ImportCommand) {
+//                File dir = ((ImportCommand) command).getDirectory();
+//                String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
+//                Path filePath = Paths.get(dir.toString(), wordBankName);
+//                WordBank wordBank = (WordBank) storage.createWordBank(filePath).get();
+//                storage.saveWordBank(wordBank);
+//                model.getWordBankList().addBank(wordBank);
+//            }
 
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -261,4 +243,13 @@ public class LogicManager implements Logic, UiLogicHelper {
         return model.getGame().getCurrQuestion();
     }
 
+    @Override
+    public Storage getStorage() {
+        return storage;
+    }
+
+    @Override
+    public Model getModel() {
+        return model;
+    }
 }

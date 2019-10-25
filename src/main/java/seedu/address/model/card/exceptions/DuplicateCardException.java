@@ -2,7 +2,7 @@ package seedu.address.model.card.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Cards (Cards are considered duplicates if they have the same
- * names).
+ * meaning).
  */
 public class DuplicateCardException extends RuntimeException {
     public DuplicateCardException() {

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.loadcommands;
+package seedu.address.logic.commands.homecommands;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HomeCommand;
@@ -49,6 +49,4 @@ public class BankCommand extends HomeCommand {
 
         return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT, false, false);
     }
-
-
 }
