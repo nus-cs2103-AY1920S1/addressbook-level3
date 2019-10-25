@@ -1,0 +1,10 @@
+@startuml
+object BookPredicate {
+    String title = null
+    String author = null
+    String serialNumber = null
+    Set<Genre> genres = null;
+    Flag loanState = null;
+    int displayLimit = -1;
+}
+@enduml
