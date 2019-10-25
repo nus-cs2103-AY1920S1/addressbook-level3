@@ -403,23 +403,15 @@ Order manager follows the AB3 style and implements its own 'Model', 'Command' an
 
 **Add command:** `-add_order`
 
-*add words here*
+The add command adds an order to the `ModelManager` and `UniqueOrderList`. The `UniversalParser` invokes `AddOrderCommandParser#parse()`, which parses the target **customer**, **restaurant**, **food** and **quantity** from a *String* into *Name* and *Integer* objects. 
+
+Only valid **customer**, **restaurant**, **food** and **quantity** are allowed. This validation is done through accessing `UniqueCustomerList` and `UniqueRestaurantList` through `ModelManager#getFilteredCustomerList()`, `ModelManager#getFilteredRestaurantList()` and calling their respective `isValidName()` methods. **Food** validity will be checked through retrieving the respective using `Restaurant#getMenu()` and `Menu#isValidName()`.
+
+Duplicated `Order` will be checked for using `ModelManager#hasOrder()` and is then added to the `UniqueOrderList` via `ModelManager#addOrder()`.
 
 **Delete command:** `-delete_order`
 
 The delete command deletes an `Order` from the `ModelManager` and `UniqueOrderList` by a specified index. The `UniversalParser` invokes `DeleteOrderCommandParser#parse()` and user input is used to get the index of the `Order` to be deleted.
-
-**Edit command:** `-edit_order`
-
-*add words here*
-
-**List command:** `-list_orders` & `-summary_orders`
-
-*add words here*
-
-**Sort command:** `-sort_orders`
-
-*add words here*
 
 ==== Design Considerations
 
@@ -437,12 +429,12 @@ Below are a few design considerations of the Order manager class.
 // end::orders[]
 
 // tag::deliverymen statistics
-=== [Proposed] Deliverymen salary adjustment feature
+=== Deliverymen salary adjustment feature
 
 This is a feature which allows the user to keep track of the deliverymen who have met the requirements for a salary increment
 based on their delivery rate and duration of service. It extends DeliveryMANS with a delivery record for every deliveryman as well as relevant analysis of the record.
 
-==== Proposed Implementation
+==== Implementation
 
 The salary adjustment feature is primarily monitored by the 'Analyzer', which has access to the delivery record of every deliveryman in the database. From the record, the Analyzer computes two data:
 
