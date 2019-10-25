@@ -17,7 +17,7 @@ public class StorageManagerTest {
 
     public StorageManagerTest() {
         try {
-            file = File.createTempFile("testing", "tempReimbursement.txt");
+            file = File.createTempFile("testingStorage", "tempReimbursement.txt");
             file.deleteOnExit();
             storageManager = new StorageManager(file);
         } catch (IOException e) {

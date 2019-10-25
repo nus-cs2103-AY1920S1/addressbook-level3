@@ -26,13 +26,13 @@ public class TypicalReimbursements {
 
     public static ReimbursementList getTypicalReimbursements() {
         ArrayList<Reimbursement> arrList
-                = new ArrayList<>(Arrays.asList(ALICE_REIMBURSEMENT_20, ELLE_REIMBURSEMENT_100));
+                = new ArrayList<>(Arrays.asList(ALICE_REIMBURSEMENT_30, ELLE_REIMBURSEMENT_100));
         return new ReimbursementList(arrList);
     }
 
     public static TransactionList getTypicalTransactions() {
         ArrayList<Transaction> arrayList
-                = new ArrayList<>(Arrays.asList(TypicalTransactions.ALICE_TRANSACTION_10,
+                = new ArrayList<>(Arrays.asList(TypicalTransactions.ALICE_TRANSACTION_12,
                 TypicalTransactions.ELLE_TRANSACTION_11));
         return new TransactionList(arrayList);
     }
