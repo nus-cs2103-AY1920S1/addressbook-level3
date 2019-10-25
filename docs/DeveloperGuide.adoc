@@ -505,6 +505,8 @@ The following sequence diagram shows how `stats d/01/01/2019 d/07/01/2019` works
 .Sequence Diagram demonstrating the preparation stage of Statistics feature
 image::StatsSequenceDiagram.png[]
 
+NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 1. User executes `stats d/01/01/2019 d/07/01/2019` to generate statistics for spending within `01/01/2019` and `07/01/2019`.
 
 2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
@@ -523,6 +525,10 @@ Below is the UML sequence diagram and a step-by-step explanation for the retriev
 .Sequence Diagram of Execution Phase showing retrieving of `statsData`
 image::StatsDataSequenceDiagram.png[]
 
+
+NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
 1. Upon checking that the boolean `isShowStats` = true, the MainWindow calls `LogicManager#getStatsData()`.
 
 2. SpendingBookParser will parse and identify the command as a StatsCommand and pass on the argument `d/01/01/2019 d/07/01/2019` to StatsCommandParser.
@@ -538,13 +544,13 @@ The filtering is done through a predicate parameter which checks through the dat
 
 ===== How to pass statistics data parameters from Logic to UI
 
-Alternative 1 (current choice): UI gets all data and parameters from Logic, which gets data from Model.
+====== Alternative 1 (current choice): UI gets all data and parameters from Logic, which gets data from Model.
 
 Pros: Easy to implement. Aligned with architecture.
 
-Cons: A lot of method calls
+Cons: A lot of method calls.
 
-Alternative 2: Pass data and parameters through event
+====== Alternative 2: Pass data and parameters through event
 
 Pros: Less method calls. Easier to read.
 
