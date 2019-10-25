@@ -1,0 +1,54 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor ITEM_COLOR_T4
+skinparam classBackgroundColor ITEM_COLOR
+
+package Commons {
+
+package Core {
+
+package Item {
+class Item
+class Task
+class Event
+class Reminder
+class ItemDescription
+enum Priority {
+    HIGH
+    MEDIUM
+    LOW
+}
+}
+
+}
+
+
+/'
+LogicManager .up.|> Logic
+LogicManager -->"1" AddressBookParser
+AddressBookParser .left.> XYZCommandParser: creates >
+
+XYZCommandParser ..> XYZCommand : creates >
+XYZCommandParser ..|> Parser
+XYZCommandParser ..> ArgumentMultimap
+XYZCommandParser ..> ArgumentTokenizer
+ArgumentTokenizer .left.> ArgumentMultimap
+XYZCommandParser ..> CliSyntax
+CliSyntax ..> Prefix
+XYZCommandParser ..> ParserUtil
+ParserUtil .down.> Prefix
+ArgumentTokenizer .down.> Prefix
+XYZCommand -up-|> Command
+LogicManager .left.> Command : executes >
+
+LogicManager --> Model
+Command .right.> Model
+note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+
+Logic ..> CommandResult
+LogicManager .down.> CommandResult
+Command .up.> CommandResult
+CommandResult -[hidden]-> Parser
+'/
+@enduml

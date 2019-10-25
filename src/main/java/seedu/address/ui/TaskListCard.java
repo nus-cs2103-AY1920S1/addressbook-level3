@@ -42,7 +42,7 @@ public class TaskListCard extends UiPart<Region> {
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        priority.setText("Priority: " + item.getTask().get().getPriority().toString());
+        priority.setText("Priority: " + item.getPriority().toString());
         completed.setText("Complete: " + item.getTask().get().isComplete().toString());
     }
 

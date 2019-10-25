@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,6 +41,7 @@ public class ItemModelManager implements ItemModel {
     private final UserPrefs userPrefs;
     private ItemStorage itemStorage;
     private final ElisaCommandHistory elisaCommandHistory;
+    private final JokeList jokeList;
     private boolean priorityMode = false;
     private PriorityQueue<Item> sortedTask = null;
 
@@ -67,6 +69,8 @@ public class ItemModelManager implements ItemModel {
         pastReminders = new ReminderList();
 
         activeReminders = new ActiveRemindersList(new ReminderList());
+
+        this.jokeList = new JokeList();
         /*
         activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
             @Override
@@ -288,6 +292,14 @@ public class ItemModelManager implements ItemModel {
         return elisaCommandHistory;
     }
 
+    @Override
+    public JokeList getJokeList() {
+        return jokeList;
+    }
+
+    public String getJoke() {
+        return jokeList.getJoke();
+    }
 
     /**
      * Remove an item from the current list.
@@ -445,6 +457,16 @@ public class ItemModelManager implements ItemModel {
      */
     public void sort() {
         this.visualList = visualList.sort();
+    }
+
+    /**
+     * Sorts the current visual list based on a comparator.
+     * @param comparator the comparator to sort the current list by.
+     */
+    public void sort(Comparator<Item> comparator) {
+        VisualizeList tempList = visualList.deepCopy();
+        tempList.sort(comparator);
+        this.visualList = tempList;
     }
 
     /**
@@ -615,5 +637,9 @@ public class ItemModelManager implements ItemModel {
         }
 
         return item;
+    }
+
+    public EventList getEventList() {
+        return this.eventList;
     }
 }

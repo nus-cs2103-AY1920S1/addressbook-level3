@@ -18,6 +18,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AutoRescheduleManager;
 import seedu.address.model.ItemModel;
 import seedu.address.model.ItemStorage;
 import seedu.address.model.item.VisualizeList;
@@ -34,12 +35,14 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final ScheduledThreadPoolExecutor checker;
+    private final AutoRescheduleManager autoRescheduleManager;
 
     public LogicManager(ItemModel model, Storage storage) {
         this.storage = storage;
         this.model = model;
-
         addressBookParser = new AddressBookParser(model.getElisaCommandHistory());
+        autoRescheduleManager = AutoRescheduleManager.getInstance();
+        autoRescheduleManager.initStorageEvents(model.getEventList(), model);
 
         //Create new thread class to check
         /*
@@ -61,7 +64,7 @@ public class LogicManager implements Logic {
                 System.out.println("running checkTask");
                 Reminder reminder;
                 ArrayList<Item> reminders = model.getFutureRemindersList();
-                ArrayList<Item> activeReminders = new ArrayList<Item> (0);
+                ArrayList<Item> activeReminders = new ArrayList<Item>(0);
                 if (reminders.size() > 0) {
                     System.out.println("There are pending reminders: " + reminders.toString());
                     //TODO: Check if Optional is present before .get()
@@ -97,10 +100,11 @@ public class LogicManager implements Logic {
     }
 
     /**
-     * Method to be called when shutting down the program to tie up all loose ends.
+     * Shutdown threads for Reminders and AutoRescheduleManager
      */
     public final void shutdown() {
         checker.shutdown();
+        autoRescheduleManager.shutdown();
         model.offPriorityMode();
     }
 

@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
@@ -10,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
+import seedu.address.model.item.EventList;
 import seedu.address.model.item.VisualizeList;
 
 /**
@@ -81,6 +83,8 @@ public interface ItemModel {
 
     public void sort();
 
+    public void sort(Comparator<Item> comparator);
+
     public boolean hasItem(Item item);
 
     public void addToSeparateList(Item item);
@@ -105,10 +109,16 @@ public interface ItemModel {
 
     public Item markIncomplete(int index) throws IllegalListException;
 
+    public JokeList getJokeList();
+
+    public String getJoke();
+
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();
 
     ArrayList<Item> getFutureRemindersList();
 
     void updateCommandHistory(Command command);
+
+    public EventList getEventList();
 }

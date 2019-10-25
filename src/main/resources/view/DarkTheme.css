@@ -300,6 +300,13 @@
     -fx-padding: 8 1 8 1;
 }
 
+.calendar_pane {
+    -fx-background-color:  white;
+    -fx-border-style: dashed;
+    -fx-border-width: .5;
+    -fx-border-color: gray;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;

@@ -72,4 +72,3 @@ public class ShowCommand extends UndoableCommand {
         return COMMAND_WORD;
     }
 }
-

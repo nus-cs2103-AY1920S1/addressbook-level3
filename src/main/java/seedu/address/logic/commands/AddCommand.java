@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.item.Item;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AutoRescheduleManager;
 import seedu.address.model.ItemModel;
 
 
@@ -16,6 +17,7 @@ import seedu.address.model.ItemModel;
  */
 public abstract class AddCommand extends UndoableCommand {
 
+    public static final AutoRescheduleManager AUTO_RESCHEDULE_MANAGER = AutoRescheduleManager.getInstance();
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Task to the Task List. "
             + "Parameters: "
