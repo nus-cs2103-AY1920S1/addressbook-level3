@@ -250,14 +250,42 @@ image::ExportActivityDiagram.png[width=320,height=480]
 ** Cons: Might give rise to inconvenience in printing, as most text editors (e.g. Notepad, Vim, Gedit) do not have built-in printing functionality
 // end::flashcardexport[]
 
-//@@ author LeowWB
+//@@author keiteo
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Test Yourself Mode
+Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
+flashcards contained in the system will be tested.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Implementation
+This feature is supported by the following classes:
+
+* `AddressBookParser` to control the flow of command in the entire program.
+* `StartCommandParser` to parse arguments for StartCommand.
+* `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode.
+* `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags.
+
+The following sequence diagram shows the intended case for the `start` command:
+
+image::StartSequenceDiagram.png[]
+
+==== Design Considerations
+Aspect: Data structure to support `FlashCardTestModel`:
+
+* **Alternative 1 (Current choice):** `LinkedList` implementation:
+** Pros: Very efficient, with O(1) complexity removing the head of the list every time a question is tested.
+** Cons: Less memory efficient than `ArrayList`.
+* **Alternative 2:** ArrayList implementation:
+** Pros: More memory efficient than `LinkedList`.
+** Cons: To obtain the same performance as `LinkedList`, the last index/size of the `ArrayList` has to be constantly tracked.
+This slightly decreases code readability compared to the `LinkedList` implementation.
+* **Alternative 3:** Queue interface:
+** Pros: Use of `Queue` interface brings simplicity to code structure and readability while having the same performance
+as a `LinkedList` implementation.
+** Cons: There will be potential coupling by using `Queue` instead of `List` interface.
 
 // end::dataencryption[]
 
+//@@author
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

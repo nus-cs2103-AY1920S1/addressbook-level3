@@ -222,6 +222,7 @@ public class ModelManager implements Model {
     }
 
     @Override
+    // TODO: refactor parameter here
     public String getTestQuestion(Model model) {
         return flashCardTestModel.getQuestion(model);
     }
