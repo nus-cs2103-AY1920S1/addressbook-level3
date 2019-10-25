@@ -340,7 +340,7 @@ Example: `payrise`
 * Deliverymen commands
 - Add a deliveryman: `add n/NAME p/PHONE`
 - Delete a deliveryman: `delete INDEX`
-- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE]
+- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE]`
 - List available deliverymen: `lista`
 - List specific deliveryman info: `list NAME`
 - Assign order to deliveryman: `assn NAME #orderINDEX`
