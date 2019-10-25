@@ -58,8 +58,8 @@ public class WordBankStatisticsPanel extends UiPart<Region> {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.title.setText(wbStatistics.getWordBankName());
 
-        badgesRowPlaceholder.getChildren().add(new BadgesRow(wbStatistics.receivedBadgeEasy(),
-                wbStatistics.receivedBadgeNormal(), wbStatistics.receivedBadgeHard()).getRoot());
+        badgesRowPlaceholder.getChildren().add(new BadgesRow(wbStatistics.isReceivedBadgeEasy(),
+                wbStatistics.isReceivedBadgeNormal(), wbStatistics.isReceivedBadgeHard()).getRoot());
 
         this.playedTimesText.setText(wbStatistics.getGamesPlayed()
             + (wbStatistics.getGamesPlayed() == 1

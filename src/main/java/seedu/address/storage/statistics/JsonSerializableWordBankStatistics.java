@@ -66,9 +66,9 @@ public class JsonSerializableWordBankStatistics {
         this.cardStats.addAll(cardStatsList);
         this.scoreStats.addAll(scoreDataList);
 
-        this.badgeEasy = wbStats.receivedBadgeEasy();
-        this.badgeNormal = wbStats.receivedBadgeNormal();
-        this.badgeHard = wbStats.receivedBadgeHard();
+        this.badgeEasy = wbStats.isReceivedBadgeEasy();
+        this.badgeNormal = wbStats.isReceivedBadgeNormal();
+        this.badgeHard = wbStats.isReceivedBadgeHard();
     }
 
     /**
