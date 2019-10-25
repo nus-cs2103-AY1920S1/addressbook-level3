@@ -7,16 +7,20 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+import org.apache.commons.math3.util.CombinatoricsUtils;
 
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
-import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.person.Person;
@@ -46,12 +50,9 @@ public class LoanSplitCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSONS = "Names of persons entered must be unique.";
 
     public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
-    public static final String MESSAGE_ALREADY_SPLIT = "The amounts have already been split equally.";
-
-    public static final String MESSAGE_CALCULATION_ERROR = "An error occurred during calculation.";
+    public static final String MESSAGE_ALREADY_SPLIT_EQUALLY = "The amounts have already been split equally.";
 
     private HashMap<Person, Amount> personAmountMap;
-
     private List<DebtorCreditorAmount> debtorCreditorAmountList;
 
     /**
@@ -75,6 +76,7 @@ public class LoanSplitCommand extends Command {
         for (int i = 0; i < persons.size(); i++) {
             personAmountMap.put(persons.get(i), amounts.get(i));
         }
+        this.debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
     }
 
     @Override
@@ -96,28 +98,57 @@ public class LoanSplitCommand extends Command {
         }
 
         if (participants.stream().allMatch(p -> p.getBalance() >= 0)) {
-            throw new CommandException(MESSAGE_ALREADY_SPLIT);
+            throw new CommandException(MESSAGE_ALREADY_SPLIT_EQUALLY);
         }
 
         Comparator<Participant> sortBalanceIncreasing = Comparator.comparingLong(Participant::getBalance);
-        calculateSplitList(participants, sortBalanceIncreasing);
-        List<Debtor> debtors = constructDebtorsList();
+        debtorCreditorAmountList.addAll(findSubGroups(participants, sortBalanceIncreasing));
+        debtorCreditorAmountList.addAll(calculateSplitList(participants, sortBalanceIncreasing));
 
-        LoansManager loansManager = model.getLoansManager();
-        loansManager.setDebtors(debtors);
+        model.getLoansManager().setDebtors(constructDebtorsList());
         return new CommandResult(MESSAGE_SUCCESS, CommandCategory.LOAN_SPLIT);
     }
 
     /**
-     * Fills the {@link DebtorCreditorAmount} list.
-     * @param participants The list of particpants to calculate the debts from.
-     * @param balanceIncreasing A {@code Comparator} to sort participants in order of increasing balance.
+     * Finds all sub-groups among participants and checks the balance of each sub-group.
+     * If the balance is non-zero, {@code calculateSplitList} is called for the sub-group.
+     * This method, while expensive, will minimize the total number of debts.
      */
-    private void calculateSplitList(
+    private List<DebtorCreditorAmount> findSubGroups(
             List<Participant> participants, Comparator<Participant> balanceIncreasing) {
         requireAllNonNull(participants, balanceIncreasing);
 
-        debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
+        List<DebtorCreditorAmount> debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
+
+        for (int i = 2; i < participants.size(); i++) {
+            Iterator<int[]> iterator = CombinatoricsUtils.combinationsIterator(participants.size(), i);
+            while (iterator.hasNext()) {
+                int[] combination = iterator.next();
+                List<Participant> subGroup = Arrays.stream(combination)
+                        .mapToObj(participants::get)
+                        .collect(Collectors.toList());
+                long subGroupBalance = subGroup.stream()
+                        .mapToLong(Participant::getBalance)
+                        .reduce(Long::sum).getAsLong();
+                if (subGroupBalance == 0) {
+                    debtorCreditorAmountList.addAll(calculateSplitList(subGroup, balanceIncreasing));
+                }
+            }
+        }
+
+        return debtorCreditorAmountList;
+    }
+
+    /**
+     * Fills and returns a {@link DebtorCreditorAmount} list.
+     * @param participants The list of particpants to calculate the debts from.
+     * @param balanceIncreasing A {@code Comparator} to sort participants in order of increasing balance.
+     */
+    private List<DebtorCreditorAmount> calculateSplitList(
+            List<Participant> participants, Comparator<Participant> balanceIncreasing) {
+        requireAllNonNull(participants, balanceIncreasing);
+
+        List<DebtorCreditorAmount> debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
 
         while (participants.size() > 1) {
             participants.sort(balanceIncreasing); // participants MUST be sorted in the order of increasing balance
@@ -134,7 +165,7 @@ public class LoanSplitCommand extends Command {
                 creditor.setBalance(0);
             } else if (debtorBalancePositive < creditor.getBalance()) {
                 amountTransferred = debtorBalancePositive;
-                creditor.setBalance(creditor.getBalance() - debtor.getBalance());
+                creditor.setBalance(creditor.getBalance() - debtorBalancePositive);
                 debtor.setBalance(0);
             }
 
@@ -151,6 +182,7 @@ public class LoanSplitCommand extends Command {
                                 debtor.person, creditor.person, new Amount(amountTransferred)));
             }
         }
+        return debtorCreditorAmountList;
     }
 
     /**
