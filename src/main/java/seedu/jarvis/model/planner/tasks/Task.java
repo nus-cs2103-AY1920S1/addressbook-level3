@@ -67,7 +67,7 @@ public abstract class Task {
      * Sets the Priority Level of a Task
      * @param priority User input priority level
      */
-    public void addPriority(Priority priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
@@ -75,7 +75,7 @@ public abstract class Task {
      * Sets the frequency level of a Task, i.e. how regularly a Task occurs.
      * @param freq Frequency level of a task
      */
-    public void addFrequency(Frequency freq) {
+    public void setFrequency(Frequency freq) {
         frequency = freq;
     }
 

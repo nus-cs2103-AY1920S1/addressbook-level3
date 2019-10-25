@@ -111,4 +111,16 @@ public abstract class JsonAdaptedTask {
             throw new IllegalValueException(MESSAGE_INVALID_FREQUENCY);
         }
     }
+
+    /**
+     * Sets the {@code Priority} and {@code Frequency} of the given {@code Task}.
+     *
+     * @param task {@code Task} to be updated.
+     * @throws IllegalValueException If either {@code priority} or {@code frequency} are not valid enum constants.
+     */
+    protected void updatePriorityAndFrequency(Task task) throws IllegalValueException {
+        checkPriorityAndFrequency();
+        task.setPriority(Priority.valueOf(priority));
+        task.setFrequency(Frequency.valueOf(frequency));
+    }
 }

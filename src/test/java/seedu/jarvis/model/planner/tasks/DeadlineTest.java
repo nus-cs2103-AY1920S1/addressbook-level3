@@ -20,7 +20,7 @@ class DeadlineTest {
     void addPriority_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
-        d.addPriority(Priority.HIGH);
+        d.setPriority(Priority.HIGH);
         assertNotNull(d.priority);
     }
 
@@ -28,7 +28,7 @@ class DeadlineTest {
     void addFrequency_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
-        d.addFrequency(Frequency.MONTHLY);
+        d.setFrequency(Frequency.MONTHLY);
         assertNotNull(d.frequency);
     }
 
@@ -79,8 +79,8 @@ class DeadlineTest {
     void toString_withAllAttributesPresent() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
-        d.addPriority(Priority.LOW);
-        d.addFrequency(Frequency.MONTHLY);
+        d.setPriority(Priority.LOW);
+        d.setFrequency(Frequency.MONTHLY);
         d.addTag(new Tag("school"));
         d.addTag(new Tag("cs"));
 

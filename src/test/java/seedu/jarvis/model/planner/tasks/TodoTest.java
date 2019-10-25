@@ -16,14 +16,14 @@ class TodoTest {
     @Test
     void addPriority() {
         Todo t = new Todo("homework");
-        t.addPriority(Priority.HIGH);
+        t.setPriority(Priority.HIGH);
         assertNotNull(t.priority);
     }
 
     @Test
     void addFrequency() {
         Todo t = new Todo("homework");
-        t.addFrequency(Frequency.DAILY);
+        t.setFrequency(Frequency.DAILY);
         assertNotNull(t.frequency);
     }
 
@@ -61,8 +61,8 @@ class TodoTest {
     @Test
     void toString_withAllAttributesPresent() {
         Todo t = new Todo("homework");
-        t.addFrequency(Frequency.DAILY);
-        t.addPriority(Priority.HIGH);
+        t.setFrequency(Frequency.DAILY);
+        t.setPriority(Priority.HIGH);
         t.addTag(new Tag("help"));
 
         String expected = "Todo: homework\nPriority: HIGH\nFrequency: DAILY"

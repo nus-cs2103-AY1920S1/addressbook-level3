@@ -20,7 +20,7 @@ class EventTest {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
         Event e = new Event("homework", start, end);
-        e.addPriority(Priority.HIGH);
+        e.setPriority(Priority.HIGH);
         assertNotNull(e.priority);
     }
 
@@ -29,7 +29,7 @@ class EventTest {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
         Event e = new Event("homework", start, end);
-        e.addFrequency(Frequency.DAILY);
+        e.setFrequency(Frequency.DAILY);
         assertNotNull(e.frequency);
     }
 
@@ -103,8 +103,8 @@ class EventTest {
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
         Event testEvent = new Event("borrow book", start, end);
 
-        testEvent.addFrequency(Frequency.WEEKLY);
-        testEvent.addPriority(Priority.HIGH);
+        testEvent.setFrequency(Frequency.WEEKLY);
+        testEvent.setPriority(Priority.HIGH);
         testEvent.addTag(new Tag("school"));
 
         String expected = "Event: borrow book from 2019-10-18 to 2019-10-19\nPriority: HIGH\nFrequency: WEEKLY"

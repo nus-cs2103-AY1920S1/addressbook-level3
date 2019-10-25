@@ -60,8 +60,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         }
 
         Task task = ParserUtil.buildTask(taskType, taskDes, dates);
-        task.addFrequency(frequency);
-        task.addPriority(priority);
+        task.setFrequency(frequency);
+        task.setPriority(priority);
         for (Tag tag : tagList) {
             task.addTag(tag);
         }
