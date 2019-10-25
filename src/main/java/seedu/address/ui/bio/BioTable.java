@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.bio;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import seedu.address.ui.UiPart;
 
 
 /**
