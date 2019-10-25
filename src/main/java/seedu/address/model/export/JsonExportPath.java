@@ -14,7 +14,7 @@ import seedu.address.model.flashcard.FlashCard;
 
 /**
  * Represents the full path to a JSON export file, including parent directories.
- * Guarantees: immutable; is valid as declared in {@link #isValidJsonExportPath(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class JsonExportPath extends ExportPath {
 
@@ -41,7 +41,7 @@ public class JsonExportPath extends ExportPath {
      */
     public JsonExportPath(String jsonExportPath) {
         requireNonNull(jsonExportPath);
-        checkArgument(isValidJsonExportPath(jsonExportPath), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(jsonExportPath), MESSAGE_CONSTRAINTS);
         this.directoryPath = extractDirectoryPath(jsonExportPath);
         this.jsonExportFilePath = extractJsonExportFilePath(jsonExportPath);
     }
@@ -49,7 +49,7 @@ public class JsonExportPath extends ExportPath {
     /**
      * Returns true if a given string is a valid json export path.
      */
-    public static boolean isValidJsonExportPath(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

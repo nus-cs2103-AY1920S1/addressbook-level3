@@ -15,7 +15,7 @@ import seedu.address.model.flashcard.FlashCard;
 
 /**
  * Represents the full path to a document, including parent directories.
- * Guarantees: immutable; is valid as declared in {@link #isValidDocumentPath(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class DocumentPath extends ExportPath {
 
@@ -42,7 +42,7 @@ public class DocumentPath extends ExportPath {
      */
     public DocumentPath(String documentPath) {
         requireNonNull(documentPath);
-        checkArgument(isValidDocumentPath(documentPath), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(documentPath), MESSAGE_CONSTRAINTS);
         this.directoryPath = extractDirectoryPath(documentPath);
         this.documentFilePath = extractDocumentFilePath(documentPath);
     }
@@ -50,7 +50,7 @@ public class DocumentPath extends ExportPath {
     /**
      * Returns true if a given string is a valid document path.
      */
-    public static boolean isValidDocumentPath(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

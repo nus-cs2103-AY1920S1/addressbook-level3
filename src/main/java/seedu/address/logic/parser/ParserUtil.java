@@ -149,7 +149,7 @@ public class ParserUtil {
     public static DocumentPath parseDocumentPath(String documentPath) throws ParseException {
         requireNonNull(documentPath);
         String trimmedFilePath = documentPath.trim();
-        if (!DocumentPath.isValidDocumentPath((trimmedFilePath))) {
+        if (!DocumentPath.isValid((trimmedFilePath))) {
             throw new ParseException(DocumentPath.MESSAGE_CONSTRAINTS);
         }
         return new DocumentPath(trimmedFilePath);

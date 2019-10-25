@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 /**
  * Represents the path to a JSON export file from its immediate parent directory.
- * Guarantees: immutable; is valid as declared in {@link #isValidJsonExportFilePath(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class JsonExportFilePath {
 
@@ -30,14 +30,14 @@ public class JsonExportFilePath {
      */
     public JsonExportFilePath(String jsonExportFilePath) {
         requireNonNull(jsonExportFilePath);
-        checkArgument(isValidJsonExportFilePath(jsonExportFilePath), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(jsonExportFilePath), MESSAGE_CONSTRAINTS);
         path = Paths.get(jsonExportFilePath);
     }
 
     /**
      * Returns true if a given string is a valid jsonExport file path.
      */
-    public static boolean isValidJsonExportFilePath(String test) {
+    public static boolean isValid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
