@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.addcommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -35,7 +36,7 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
      */
     public AddScheduleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_VENUE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_VENUE, PREFIX_TAG, PREFIX_ALLOW);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_TIME, PREFIX_VENUE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddScheduleCommand.MESSAGE_USAGE));
@@ -56,7 +57,12 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
 
         Schedule schedule = new Schedule(UUID.randomUUID(), calendar, venue, tagList);
 
-        return new AddScheduleCommand(schedule, index);
+        boolean canClash = false;
+        if (!arePrefixesPresent(argMultimap, PREFIX_ALLOW)) {
+            canClash = true;
+        }
+
+        return new AddScheduleCommand(schedule, index, canClash);
     }
 
     /**

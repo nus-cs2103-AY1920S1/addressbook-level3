@@ -20,8 +20,8 @@ public class Messages {
     public static final String MESSAGE_ORDER_CANCELLED = "This order is already cancelled in SML.";
     public static final String MESSAGE_ORDER_COMPLETED = "This order is already completed in SML.";
     public static final String MESSAGE_ORDER_UNSCHEDULED = "This order is unscheduled in SML.";
-
-
+    public static final String MESSAGE_SCHEDULE_CONFLICT = "Scheduling conflicts detected. Add \"-allow\" flag to " +
+            "allow overlapping schedules.";
 
     public static final String DATE_MESSAGE_CONSTRAINTS =
             "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank "

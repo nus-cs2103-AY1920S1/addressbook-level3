@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,15 +47,17 @@ public class AddScheduleCommand extends Command {
 
     private final Schedule toAdd;
     private final Index orderIndex;
+    private final boolean canClash;
 
     /**
      * Creates an AddScheduleCommand to add the specified {@code Schedule}
      */
-    public AddScheduleCommand(Schedule schedule, Index index) {
+    public AddScheduleCommand(Schedule schedule, Index index, boolean canClash) {
         requireNonNull(schedule);
         requireNonNull(index);
-        toAdd = schedule;
-        orderIndex = index;
+        this.toAdd = schedule;
+        this.orderIndex = index;
+        this.canClash = canClash;
     }
 
     @Override
@@ -66,6 +70,19 @@ public class AddScheduleCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         } else if (orderIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        }
+
+        List<Schedule> conflicts = model.getConflictingSchedules(toAdd);
+
+        // Conflicts present, throw exception
+        if (!conflicts.isEmpty() && !canClash) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("\nHere are the list of conflicting schedules:\n");
+            Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
+            for (Schedule s : conflicts) {
+                sb.append(s.getCalendarString() + "\n");
+            }
+            throw new CommandException(Messages.MESSAGE_SCHEDULE_CONFLICT + sb.toString());
         }
 
         Order orderToSchedule = lastShownList.get(orderIndex.getZeroBased());
@@ -84,10 +101,12 @@ public class AddScheduleCommand extends Command {
                 orderToSchedule.getPhone(), orderToSchedule.getPrice(), Status.SCHEDULED, Optional.of(toAdd),
                 orderToSchedule.getTags());
 
+
+
         model.setOrder(orderToSchedule, scheduledOrder);
         model.addSchedule(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiChange.SCHEDULE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + sb.toString(), toAdd), UiChange.SCHEDULE);
     }
 
     @Override
