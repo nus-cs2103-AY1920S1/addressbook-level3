@@ -61,6 +61,10 @@ public class TabManager {
         this.tabs.addAll(tabs);
     }
 
+    public void removeTab(Index index) {
+        this.tabs.remove(index.getZeroBased());
+    }
+
     public ObservableList<TabData> getTabs() {
         return tabs;
     }
