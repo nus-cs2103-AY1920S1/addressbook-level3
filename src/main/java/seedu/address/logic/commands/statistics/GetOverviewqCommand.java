@@ -4,12 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.statistics.Type.OVERVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
-import java.util.List;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizResultFilter;
 
 /**
  * Gets statistics of how well the user has attempted the questions.
@@ -29,20 +27,20 @@ public class GetOverviewqCommand extends Command {
             + "dt/10/09/2019";
 
     public static final String MESSAGE_SUCCESS = "Here is an overview of the questions: ";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "The format of date is incorrect.";
     public static final String MESSAGE_NO_STATISTICS = "There are no questions done, try doing some questions.";
 
-    private List<String> dates;
+    private QuizResultFilter quizResultFilter;
 
-    public GetOverviewqCommand(List<String> dates) {
-        requireNonNull(dates);
-        this.dates = dates;
+    public GetOverviewqCommand(QuizResultFilter quizResultFilter) {
+        requireNonNull(quizResultFilter);
+        this.quizResultFilter = quizResultFilter;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
-        //model.updateFilteredNoteList(PREDICATE_SHOW_NO_NOTES);
-        //model.setStatistics(); overload set statistics method? or use list of strings for all commands
+        model.filterQuizResult(quizResultFilter);
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(OVERVIEW);
         return c;

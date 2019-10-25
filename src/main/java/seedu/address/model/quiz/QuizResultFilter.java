@@ -1,10 +1,13 @@
 package seedu.address.model.quiz;
 
+import static seedu.address.model.quiz.FilterType.CORRECT;
 import static seedu.address.model.quiz.FilterType.DATE;
 import static seedu.address.model.quiz.FilterType.DIFFICULTY;
+import static seedu.address.model.quiz.FilterType.INCORRECT;
 import static seedu.address.model.quiz.FilterType.NONE;
 import static seedu.address.model.quiz.FilterType.SUBJECT;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
@@ -19,8 +22,9 @@ public class QuizResultFilter {
     private Date startDate;
     private Date endDate;
     private boolean isCorrectQns;
-    //private FilterType filterType;
     private Stack<FilterType> operations = new Stack<>();
+
+    public QuizResultFilter() {}
 
     public QuizResultFilter(List<Subject> subjects) {
         this.subjects = subjects;
@@ -42,16 +46,21 @@ public class QuizResultFilter {
         operations.push(DATE);
     }
 
-    /*public QuizResultFilter(List<Subject> subjects, boolean isCorrectQns) {
+    public QuizResultFilter(List<Subject> subjects, boolean isCorrectQns) {
         this.subjects = subjects;
         this.isCorrectQns = isCorrectQns;
         if (isCorrectQns) {
-            filterType = SUBJECT_AND_CORRECT_QUESTION;
+            operations.push(CORRECT);
         } else {
-            filterType = SUBJECT_AND_WRONG_QUESTION;
+            operations.push(INCORRECT);
         }
 
-    }*/
+        if (subjects.isEmpty()) {
+            operations.push(NONE);
+        } else {
+            operations.push(SUBJECT);
+        }
+    }
 
     public QuizResultFilter(List<Subject> subjects, Difficulty difficulty) {
         this.subjects = subjects;
@@ -59,6 +68,14 @@ public class QuizResultFilter {
         if (!subjects.isEmpty()) {
             operations.push(SUBJECT);
         }
+        operations.push(DIFFICULTY);
+    }
+
+    public QuizResultFilter(Subject subject, Difficulty difficulty) {
+        this.subjects = new ArrayList<>();
+        this.subjects.add(subject);
+        this.difficulty = difficulty;
+        operations.push(SUBJECT);
         operations.push(DIFFICULTY);
     }
 
@@ -70,6 +87,10 @@ public class QuizResultFilter {
         return difficulty;
     }
 
+    public boolean getIsCorrectQns() {
+        return isCorrectQns;
+    }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -77,10 +98,6 @@ public class QuizResultFilter {
     public Date getEndDate() {
         return endDate;
     }
-
-    /*public FilterType getFilterType() {
-        return filterType;
-    }*/
 
     public Stack<FilterType> getOperations() {
         return operations;

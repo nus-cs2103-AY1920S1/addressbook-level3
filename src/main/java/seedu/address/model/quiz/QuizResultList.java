@@ -2,17 +2,19 @@ package seedu.address.model.quiz;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.exceptions.FilterTypeNotFoundException;
-import seedu.address.model.statistics.TempStatsQnsModel;
-
-//import java.util.Date;
 
 /**
  * Represents a quiz result list.
@@ -21,10 +23,6 @@ public class QuizResultList implements Iterable<QuizResult> {
     private final ObservableList<QuizResult> internalList = FXCollections.observableArrayList();
     private final ObservableList<QuizResult> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-
-    //will be changed to <Question> later
-    private final ObservableList<TempStatsQnsModel> correctQns = FXCollections.observableArrayList();
-    private final ObservableList<TempStatsQnsModel> incorrectQns = FXCollections.observableArrayList();
 
     public void setQuizResults(List<QuizResult> replacement) {
         requireNonNull(replacement);
@@ -58,17 +56,34 @@ public class QuizResultList implements Iterable<QuizResult> {
         return internalUnmodifiableList;
     }
 
-    public ObservableList<TempStatsQnsModel> getCorrectQns() {
-        return FXCollections.unmodifiableObservableList(correctQns);
-    }
-
-    public ObservableList<TempStatsQnsModel> getIncorrectQns() {
-        return FXCollections.unmodifiableObservableList(incorrectQns);
+    /**
+     * Returns a list of subjects that exists in the quizResults list.
+     * The subjects will not be duplicated.
+     * @return A unique list of subejects.
+     */
+    public ObservableList<Subject> getUniqueSubjectList() {
+        List<Subject> subjectsList = internalList.stream()
+                .map(quizResult -> quizResult.getSubject())
+                .collect(Collectors.toList());
+        Set<Subject> uniqueSubjectList = new HashSet<Subject>(subjectsList);
+        return FXCollections.observableArrayList(new ArrayList<>(uniqueSubjectList));
     }
 
     /**
-     * Returns a list with quizResults filtered by {@code subject}, {@code difficulty}, {@code start}
-     * and {@code end}.
+     * Returns a list of difficulties that exists in the quizResults list.
+     * The difficulties will not be duplicated.
+     * @return A unique list of difficulties.
+     */
+    public ObservableList<Difficulty> getUniqueDifficultyList() {
+        List<Difficulty> difficultyList = internalList.stream()
+                .map(quizResult -> quizResult.getDifficulty())
+                .collect(Collectors.toList());
+        Set<Difficulty> uniqueDifficultyList = new HashSet<Difficulty>(difficultyList);
+        return FXCollections.observableArrayList(new ArrayList<>(uniqueDifficultyList));
+    }
+
+    /**
+     * Returns a list with quizResults filtered by {@code quizResultFilter}.
      */
     public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter) {
         Stack<FilterType> filterType = quizResultFilter.getOperations();
@@ -89,6 +104,18 @@ public class QuizResultList implements Iterable<QuizResult> {
                 filteredQuizResults = filteredQuizResults
                         .stream()
                         .filter(quizResult -> quizResult.getDifficulty().equals(quizResultFilter.getDifficulty()))
+                        .collect(Collectors.toList());
+                break;
+            case CORRECT:
+                filteredQuizResults = filteredQuizResults
+                        .stream()
+                        .filter(quizResult -> quizResult.getResult() && quizResultFilter.getIsCorrectQns())
+                        .collect(Collectors.toList());
+                break;
+            case INCORRECT:
+                filteredQuizResults = filteredQuizResults
+                        .stream()
+                        .filter(quizResult -> !quizResult.getResult() && !quizResultFilter.getIsCorrectQns())
                         .collect(Collectors.toList());
                 break;
             case DATE:

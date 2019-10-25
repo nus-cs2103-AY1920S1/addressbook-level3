@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizResultFilter;
 
 /**
  * Gets questions that have been answered correctly/incorrectly by subject.
@@ -29,32 +29,17 @@ public class GetQnsCommand extends Command {
     public static final String MESSAGE_NO_CORRECT_QNS = "There are no correctly answered questions. ";
     public static final String MESSAGE_NO_INCORRECT_QNS = "There are no incorrectly answered questions. ";
 
-    //private final List subjects;
-    private final boolean getCorrectQns;
-    //private final boolean getAnswers;
+    private QuizResultFilter quizResultFilter;
 
-    /*public GetQnsCommand(List subjects, boolean getCorrectQns, boolean getAnswers) {
-        requireNonNull(subjects);
-        requireNonNull(getCorrectQns);
-        requireNonNull(getAnswers);
-        this.subjects = subjects;
-        this.getCorrectQns = getCorrectQns;
-        this.getAnswers = getAnswers;
-    }*/
-
-    public GetQnsCommand(boolean getCorrectQns) {
-        requireNonNull(getCorrectQns);
-        this.getCorrectQns = getCorrectQns;
+    public GetQnsCommand(QuizResultFilter quizResultFilter) {
+        requireNonNull(quizResultFilter);
+        this.quizResultFilter = quizResultFilter;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
-        if (getCorrectQns) {
-            model.setCorrectQnsList();
-        } else {
-            model.setIncorrectQnsList();
-        }
+        model.filterQuizResult(quizResultFilter);
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(QUESTIONS);
         return c;

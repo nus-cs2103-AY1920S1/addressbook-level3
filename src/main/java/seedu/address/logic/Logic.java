@@ -4,7 +4,6 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -12,7 +11,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -43,9 +44,11 @@ public interface Logic {
      */
     ObservableList<PieChart.Data> getStatsPieChartData();
 
-    ObservableList<XYChart.Data> getStackBarChartData();
+    ObservableList<StackBarChartModel> getStackBarChartData();
 
-    ObservableList<TempStatsQnsModel> getStatsQnsList();
+    ObservableList<Subject> getUniqueSubjectList();
+
+    ObservableList<QuizResult> getQuizResultList();
 
     /**
      * Returns the total number of quiz questions done.

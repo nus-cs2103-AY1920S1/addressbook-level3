@@ -202,10 +202,9 @@ get the statistics of different subjects by adding `s/`. +
 Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
 ==== Get questions with correct/incorrect answers: `questions`
-Gets all questions that have been answered correctly/incorrectly for a particular subject by using `-c/-i` respectively.
-Either one of `-c` or `-i` must be used.
-You can also choose to see past answers to the questions by adding an optional `-a`. +
-Format: `questions s/SUBJECT [-c] [-i] [-a]`
+Gets all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
+Either one of `-c` or `-i` must be used, you can also filter by subjects by adding `s/`. +
+Format: `questions [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
 
 ==== Get a report for individual questions: `report`
 Returns a report of how well you have answered a particular question,

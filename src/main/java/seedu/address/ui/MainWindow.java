@@ -51,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private StatsPieChart statsPieChart;
     private StackBarChart stackBarChart;
-    private StatsQnsList statsQnsList;
+    private StatsQnsList quizResultList;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -229,13 +229,13 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case QUESTIONS:
             statsPanelPlaceholder.getChildren().clear();
-            statsQnsList = new StatsQnsList(logic.getStatsQnsList());
-            statsPanelPlaceholder.getChildren().add(statsQnsList.getLabel());
+            quizResultList = new StatsQnsList(logic.getQuizResultList());
+            statsPanelPlaceholder.getChildren().add(quizResultList.getLabel());
             break;
         case OVERVIEW:
             statsPanelPlaceholder.getChildren().clear();
-            stackBarChart = new StackBarChart(logic.getStackBarChartData(), logic.getTotalQuestionsDone());
-            statsPanelPlaceholder.getChildren().add(statsPieChart.getRoot());
+            stackBarChart = new StackBarChart(logic.getStackBarChartData(), logic.getUniqueSubjectList());
+            statsPanelPlaceholder.getChildren().add(stackBarChart.getRoot());
             break;
         default:
             throw new ParseException("Invalid type: " + type);

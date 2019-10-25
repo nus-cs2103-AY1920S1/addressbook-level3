@@ -20,7 +20,6 @@ import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.quiz.QuizResultList;
-import seedu.address.model.statistics.TempStatsQnsModel;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -249,14 +248,13 @@ public class AppData implements ReadOnlyAppData {
         return quizResults.filterQuizResult(quizResultFilter);
     }
 
-    public ObservableList<TempStatsQnsModel> getCorrectQns() {
-        return quizResults.getCorrectQns();
+    public ObservableList<Subject> getUniqueSubjectList() {
+        return quizResults.getUniqueSubjectList();
     }
 
-    public ObservableList<TempStatsQnsModel> getIncorrectQns() {
-        return quizResults.getIncorrectQns();
+    public ObservableList<Difficulty> getUniqueDifficultyList() {
+        return quizResults.getUniqueDifficultyList();
     }
-
 
     // util methods
 

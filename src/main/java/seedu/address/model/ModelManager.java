@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,7 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
@@ -21,7 +23,7 @@ import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultFilter;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -38,7 +40,6 @@ public class ModelManager implements Model {
     private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
     private ObservableList<QuizResult> quizResults;
-    private ObservableList<TempStatsQnsModel> statsQnsList;
 
     /**
      * Initializes a ModelManager with the given appData and userPrefs.
@@ -333,8 +334,8 @@ public class ModelManager implements Model {
 
     //=========== Statistics ===============================================================================
     @Override
-    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
-        return statsQnsList;
+    public ObservableList<QuizResult> getQuizResultList() {
+        return quizResults;
     }
 
     @Override
@@ -363,29 +364,33 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setCorrectQnsList() {
-        statsQnsList = appData.getCorrectQns();
-    }
-
-    @Override
-    public void setIncorrectQnsList() {
-        statsQnsList = appData.getIncorrectQns();
-    }
-
-    @Override
     public ObservableList<PieChart.Data> getStatsPieChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        // need to change according to difficulty or subjects
         pieChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
         pieChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
         return pieChartData;
     }
 
     @Override
-    public ObservableList<XYChart.Data> getStackBarChartData() {
-        ObservableList<XYChart.Data> barChartData = FXCollections.observableArrayList();
-        //barChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
-        //barChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
-        return barChartData;
+    public ObservableList<Subject> getUniqueSubjectList() {
+        return appData.getUniqueSubjectList();
+    }
+
+    @Override
+    public ObservableList<StackBarChartModel> getStackBarChartData() {
+        List<Difficulty> uniqueDifficultyList = appData.getUniqueDifficultyList();
+        List<Subject> uniqueSubjectList = getUniqueSubjectList();
+        List<StackBarChartModel> barChartData = new ArrayList<>();
+
+        for (Difficulty d : uniqueDifficultyList) {
+            List<Pair<Subject, Integer>> dataListPerDifficulty = new ArrayList<>();
+            for (Subject s : uniqueSubjectList) {
+                filterQuizResult(new QuizResultFilter(s, d));
+                int n = quizResults.size();
+                dataListPerDifficulty.add(new Pair(s, n));
+            }
+            barChartData.add(new StackBarChartModel(d, dataListPerDifficulty));
+        }
+        return FXCollections.observableArrayList(barChartData);
     }
 }

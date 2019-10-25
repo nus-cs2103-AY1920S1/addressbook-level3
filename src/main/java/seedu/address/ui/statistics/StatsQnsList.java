@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.quiz.QuizResult;
 import seedu.address.ui.UiPart;
 
 /**
@@ -18,7 +18,7 @@ public class StatsQnsList extends UiPart<Region> {
     @FXML
     private Label qnsListLabel;
 
-    public StatsQnsList(ObservableList<TempStatsQnsModel> qnsList) {
+    public StatsQnsList(ObservableList<QuizResult> qnsList) {
         super(FXML);
         qnsListLabel.setText(createLabel(qnsList));
     }
@@ -32,10 +32,10 @@ public class StatsQnsList extends UiPart<Region> {
      * @param qnsList The question list.
      * @return string A string object for the label.
      */
-    private String createLabel(List<TempStatsQnsModel> qnsList) {
+    private String createLabel(List<QuizResult> qnsList) {
         String qnsListInString = "";
         int i = 1;
-        for (TempStatsQnsModel qnsModel : qnsList) {
+        for (QuizResult qnsModel : qnsList) {
             qnsListInString += i + ". " + qnsModel.toString() + "\n";
             i++;
         }

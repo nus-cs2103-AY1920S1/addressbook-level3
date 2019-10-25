@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -19,7 +18,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -87,13 +88,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<XYChart.Data> getStackBarChartData() {
+    public ObservableList<StackBarChartModel> getStackBarChartData() {
         return model.getStackBarChartData();
     }
 
     @Override
-    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
-        return model.getStatsQnsList();
+    public ObservableList<Subject> getUniqueSubjectList() {
+        return model.getUniqueSubjectList();
+    }
+
+    @Override
+    public ObservableList<QuizResult> getQuizResultList() {
+        return model.getQuizResultList();
     }
 
     @Override

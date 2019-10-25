@@ -8,16 +8,16 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" styleClass="stats-pane-color" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" styleClass="stats-pane-color" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
     <content>
         <AnchorPane styleClass="stats-pane-color">
             <children>
-            <StackedBarChart fx:id="bc" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+            <StackedBarChart fx:id="bc" styleClass="chart-title" title="Questions attempted by Subject" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis label="Subjects" styleClass="axis-label" side="BOTTOM" tickLabelFill="WHITE" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis label="Number of questions" styleClass="axis-label" side="LEFT" tickLabelFill="WHITE" />
               </yAxis>
             </StackedBarChart>
                 <Label fx:id="overview" styleClass="label-bright" text="Label">

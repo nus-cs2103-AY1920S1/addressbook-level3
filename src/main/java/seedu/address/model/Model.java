@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Answer;
@@ -14,7 +13,7 @@ import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultFilter;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -224,21 +223,13 @@ public interface Model {
     int getTotalQuestionsDone();
 
     /**
-     * Returns an unmodifiable view of a list correct questions.
-     */
-    void setCorrectQnsList();
-
-    /**
-     * Returns an unmodifiable view of a list incorrect questions.
-     */
-    void setIncorrectQnsList();
-
-    /**
      * Returns an unmodifiable view of the pie chart data.
      */
     ObservableList<PieChart.Data> getStatsPieChartData();
 
-    ObservableList<TempStatsQnsModel> getStatsQnsList();
+    ObservableList<QuizResult> getQuizResultList();
 
-    ObservableList<XYChart.Data> getStackBarChartData();
+    ObservableList<Subject> getUniqueSubjectList();
+
+    ObservableList<StackBarChartModel> getStackBarChartData();
 }

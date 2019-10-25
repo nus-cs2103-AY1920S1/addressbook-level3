@@ -1,5 +1,7 @@
 package seedu.address.model.quiz;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,6 +9,7 @@ import seedu.address.model.question.Answer;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.QuestionBody;
 import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.exceptions.WrongDateFormatException;
 
 /**
  * Represents a question. Its answer, questionBody, quizTime and result are guaranteed non-null.
@@ -53,9 +56,15 @@ public class QuizResult {
         return result;
     }
 
-    public boolean isWithinDate(Date start, Date end) { //can either pass it in as a string or as a date
-        //return !(quizTime.before(start) || quizTime.after(end));
-        return true;
+    public boolean isWithinDate(Date start, Date end) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = formatter.parse(quizTime);
+        } catch (ParseException e) {
+            throw new WrongDateFormatException();
+        }
+        return !(date.before(start) || date.after(end));
     }
 
     @Override
@@ -79,6 +88,6 @@ public class QuizResult {
 
     @Override
     public String toString() {
-        return (questionBody.toString()); //temporary method for debugging
+        return questionBody + "\n   " + answer + "\n";
     }
 }
