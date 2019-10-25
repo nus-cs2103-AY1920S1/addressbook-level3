@@ -87,13 +87,13 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     }
 
     /**
-     *
+     * Updates the list with the task marked as complete.
      */
     public void done(Dashboard key) {
         requireAllNonNull(key);
 
         int index = internalList.indexOf(key);
-        if(index == -1) {
+        if (index == -1) {
             throw new DashboardNotFoundException();
         }
 

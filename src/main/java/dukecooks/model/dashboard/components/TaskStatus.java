@@ -1,7 +1,5 @@
 package dukecooks.model.dashboard.components;
 
-import javafx.concurrent.Task;
-
 /**
  * Represents a TaskStatus in DukeCooks.
  */

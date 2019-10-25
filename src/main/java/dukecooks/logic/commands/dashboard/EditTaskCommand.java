@@ -1,9 +1,9 @@
 package dukecooks.logic.commands.dashboard;
 
+import static dukecooks.logic.parser.CliSyntax.PREFIX_TASKDATE;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_TASKNAME;
 import static dukecooks.model.Model.PREDICATE_SHOW_ALL_DASHBOARD;
 import static java.util.Objects.requireNonNull;
-import static dukecooks.logic.parser.CliSyntax.*;
-import static dukecooks.model.Model.PREDICATE_SHOW_ALL_DASHBOARD;
 
 import java.util.List;
 import java.util.Optional;

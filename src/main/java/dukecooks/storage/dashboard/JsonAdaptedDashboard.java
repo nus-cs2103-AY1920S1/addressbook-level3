@@ -65,7 +65,7 @@ class JsonAdaptedDashboard {
         }
         final TaskDate modelDate = new TaskDate(taskDate);
 
-        if(isDone == null) {
+        if (isDone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Boolean.class.getSimpleName()));
         }

@@ -2,6 +2,8 @@ package dukecooks.logic.commands.dashboard;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.Command;
@@ -9,10 +11,7 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
 import dukecooks.model.dashboard.components.Dashboard;
-
 import dukecooks.model.dashboard.components.TaskStatus;
-
-import java.util.List;
 
 /**
  * Adds a task into Duke Cooks
@@ -43,7 +42,7 @@ public class DoneTaskCommand extends Command {
 
         Dashboard taskToMark = lastShownList.get(targetIndex.getZeroBased());
 
-        if(taskToMark.getTaskStatus().isDone(taskToMark.getTaskStatus().toString())) {
+        if (taskToMark.getTaskStatus().isDone(taskToMark.getTaskStatus().toString())) {
             throw new CommandException(Messages.MESSAGE_TASK_IS_ALREADY_MARKED_AS_COMPLETE);
         }
         Dashboard createDoneTask = createDoneTask(taskToMark);
@@ -51,6 +50,7 @@ public class DoneTaskCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, createDoneTask));
     }
 
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DoneTaskCommand // instanceof handles nulls

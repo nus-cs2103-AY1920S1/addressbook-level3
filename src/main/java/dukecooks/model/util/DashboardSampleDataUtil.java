@@ -13,18 +13,18 @@ import dukecooks.model.dashboard.components.TaskStatus;
 public class DashboardSampleDataUtil {
     public static Dashboard[] getSampleDashboards() {
         return new Dashboard[] {
-                new Dashboard(new DashboardName("Cook chicken rice"), new TaskDate("21/10/2019"),
-                        new TaskStatus("NOT COMPLETE")),
-                new Dashboard(new DashboardName("Write diary entry"), new TaskDate("22/10/2019"),
-                        new TaskStatus("NOT COMPLETE")),
-                new Dashboard(new DashboardName("Exercise"), new TaskDate("22/10/2019"),
-                        new TaskStatus("NOT COMPLETE")),
-                new Dashboard(new DashboardName("Try the new vegan diet recipe"), new TaskDate("24/10/2019"),
-                        new TaskStatus("NOT COMPLETE")),
-                new Dashboard(new DashboardName("Doctor appointment at polyclinic"), new TaskDate("27/10/2019"),
-                        new TaskStatus("NOT COMPLETE")),
-                new Dashboard(new DashboardName("Bake a cake"), new TaskDate("27/10/2019"),
-                        new TaskStatus("NOT COMPLETE")),
+            new Dashboard(new DashboardName("Cook chicken rice"), new TaskDate("21/10/2019"),
+                    new TaskStatus("NOT COMPLETE")),
+            new Dashboard(new DashboardName("Write diary entry"), new TaskDate("22/10/2019"),
+                    new TaskStatus("NOT COMPLETE")),
+            new Dashboard(new DashboardName("Exercise"), new TaskDate("22/10/2019"),
+                    new TaskStatus("NOT COMPLETE")),
+            new Dashboard(new DashboardName("Try the new vegan diet recipe"), new TaskDate("24/10/2019"),
+                    new TaskStatus("NOT COMPLETE")),
+            new Dashboard(new DashboardName("Doctor appointment at polyclinic"), new TaskDate("27/10/2019"),
+                    new TaskStatus("NOT COMPLETE")),
+            new Dashboard(new DashboardName("Bake a cake"), new TaskDate("27/10/2019"),
+                    new TaskStatus("NOT COMPLETE")),
         };
     }
 
