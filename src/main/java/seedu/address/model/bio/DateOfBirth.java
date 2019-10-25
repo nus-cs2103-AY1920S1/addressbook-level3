@@ -4,15 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's dateOfBirth number in the user's biography data.
- * Guarantees: immutable; is valid as declared in {@link #isValidDateOfBirth(String)}
+ * Represents a User's dateOfBirth number in the user's biography data. Guarantees: immutable; is valid as declared in
+ * {@link #isValidDateOfBirth(String)}
  */
 public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date should be in the format DD/MM/YYYY, should only contain numbers. "
-                    + "Please also check that the number of days in a month (including those for leap years), "
-                    + "and the number of months in a year are correct.";
+        "Date should be in the format DD/MM/YYYY, should only contain numbers. "
+            + "Please also check that the number of days in a month (including those for leap years), "
+            + "and the number of months in a year are correct.";
     public static final String VALIDATION_REGEX = "^$|^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
     public final String dateOfBirth;
 
@@ -29,16 +29,15 @@ public class DateOfBirth {
 
     /**
      * Returns whether a given year is a leap year.
+     *
      * @param year Integer year between 0-9999.
      * @return A boolean of whether or not the given year is a leap year.
      */
     private static boolean isLeapYear(int year) {
         if (year % 4 == 0 && year % 100 != 0) {
             return true;
-        } else if (year % 400 == 0) {
-            return true;
         } else {
-            return false;
+            return year % 400 == 0;
         }
     }
 
@@ -50,15 +49,14 @@ public class DateOfBirth {
             return true;
         } else if (!test.matches(VALIDATION_REGEX)) {
             return false;
-        } else if (getDateToken(test) == null) {
-            return false;
         } else {
-            return true;
+            return getDateToken(test) != null;
         }
     }
 
     /**
      * Returns a validated three-item array representing the date.
+     *
      * @param dateString String representation of date.
      * @return An integer array with integers representing day, month and year respectively.
      */
@@ -82,7 +80,7 @@ public class DateOfBirth {
             }
 
             if ((month <= 7 && month % 2 != 0)
-                    || (month > 7 && month % 2 == 0)) {
+                || (month > 7 && month % 2 == 0)) {
                 if (day > 31) {
                     return null;
                 }
@@ -115,8 +113,8 @@ public class DateOfBirth {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DateOfBirth // instanceof handles nulls
-                && dateOfBirth.equals(((DateOfBirth) other).dateOfBirth)); // state check
+            || (other instanceof DateOfBirth // instanceof handles nulls
+            && dateOfBirth.equals(((DateOfBirth) other).dateOfBirth)); // state check
     }
 
     @Override

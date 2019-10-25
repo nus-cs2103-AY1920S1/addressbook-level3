@@ -34,7 +34,7 @@ class JsonAdaptedGoals {
     }
 
     /**
-     * Converts this Jackson-friendly adapted goal object into the model's {@code Goal} object.
+     * Converts this Jackson-friendly adapted goal object into the sugarmummy.recmfood.model's {@code Goal} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted goal.
      */

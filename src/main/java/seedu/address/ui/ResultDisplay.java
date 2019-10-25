@@ -22,13 +22,9 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
     }
 
-    public void setFeedbackToUser(String feedbackToUser) {
-        requireNonNull(feedbackToUser);
-        resultDisplay.setText(feedbackToUser);
-    }
-
     /**
      * Concatenates the given String to the end of this feedback.
+     *
      * @param feedbackToUser String to be concantenated to the end of this feedback
      */
     public void appendFeedbackToUser(String feedbackToUser) {
@@ -45,6 +41,7 @@ public class ResultDisplay extends UiPart<Region> {
 
     /**
      * Adds a given number new lines to this feedback;
+     *
      * @param n Integer number representing number of lines to be appended.
      */
     public void appendNewLineInFeedBackToUser(int n) {
@@ -55,6 +52,11 @@ public class ResultDisplay extends UiPart<Region> {
 
     public String getFeedbackToUser() {
         return resultDisplay.getText();
+    }
+
+    public void setFeedbackToUser(String feedbackToUser) {
+        requireNonNull(feedbackToUser);
+        resultDisplay.setText(feedbackToUser);
     }
 
 }

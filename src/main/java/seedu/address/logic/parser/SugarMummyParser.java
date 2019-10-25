@@ -32,7 +32,7 @@ import seedu.address.logic.parser.aesthetics.FontColourCommandParser;
 import seedu.address.logic.parser.bio.AddBioCommandParser;
 import seedu.address.logic.parser.bio.EditBioCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.sgm.model.food.exception.FoodNotSuitableException;
+import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
  * Parses user input.
@@ -138,8 +138,9 @@ public class SugarMummyParser {
     }
 
     /**
-     * Ensures commands not meant to have trailing arguments do not have any.
-     * Trailing spaces following commands are fine and would have been trimmed off automatically by the program.
+     * Ensures commands not meant to have trailing arguments do not have any. Trailing spaces following commands are
+     * fine and would have been trimmed off automatically by the program.
+     *
      * @param arguments Argument inputs keyed in by the user following the command.
      * @throws ParseException If there are additional arguments after the command.
      */

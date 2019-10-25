@@ -7,19 +7,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represents a User's colour in the user's biography data.
- * Guarantees: immutable; is valid as declared in {@link #isValidColour(String)}
+ * Represents a User's colour in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * #isValidColour(String)}
  */
 public class Colour {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Colour should be a valid colour or a hexadecimal representation of a colour.";
+        "Colour should be a valid colour or a hexadecimal representation of a colour.";
 
     public static final String HEXADECIMAL_VALIDATION_REGEX = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
 
     private static final List<ColourName> COLOUR_NAMES = Arrays.asList(ColourName.values());
     private static final List<ColourNameAsHexadecimal> COLOUR_NAMES_AS_HEXADECIMAL = Arrays
-            .asList(ColourNameAsHexadecimal.values());
+        .asList(ColourNameAsHexadecimal.values());
 
     public final String colour;
 
@@ -33,15 +33,15 @@ public class Colour {
         checkArgument(isValidColour(colour), MESSAGE_CONSTRAINTS);
         ColourName colourName = getColourNameAsHexadecimal(colour);
         this.colour = (colourName != null)
-                ? colourName.toString().toLowerCase()
-                : isHexaDecimal(colour)
-                ? colour.toUpperCase()
-                : colour.toLowerCase();
+            ? colourName.toString().toLowerCase()
+            : isHexaDecimal(colour)
+            ? colour.toUpperCase()
+            : colour.toLowerCase();
     }
 
     /**
-     * Converts a hexadecimal value entered into a colour name, if available.
-     * Otherwise returns null.
+     * Converts a hexadecimal value entered into a colour name, if available. Otherwise returns null.
+     *
      * @param hexadecimal String representation of hexadecimal to be converted.
      * @return Colour name converted from a hexadecimal value if any.
      */
@@ -85,6 +85,10 @@ public class Colour {
         return test.matches(HEXADECIMAL_VALIDATION_REGEX);
     }
 
+    public static List<ColourName> getColourNames() {
+        return COLOUR_NAMES;
+    }
+
     @Override
     public String toString() {
         return colour;
@@ -93,12 +97,8 @@ public class Colour {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Colour // instanceof handles nulls
-                && colour.equals(((Colour) other).colour)); // state check
-    }
-
-    public static List<ColourName> getColourNames() {
-        return COLOUR_NAMES;
+            || (other instanceof Colour // instanceof handles nulls
+            && colour.equals(((Colour) other).colour)); // state check
     }
 
     @Override

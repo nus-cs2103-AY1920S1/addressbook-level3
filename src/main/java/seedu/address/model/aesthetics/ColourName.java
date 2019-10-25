@@ -144,5 +144,5 @@ public enum ColourName {
     LIGHTSLATEGRAY,
     SLATEGRAY,
     DARKSLATEGRAY,
-    BLACK;
+    BLACK
 }

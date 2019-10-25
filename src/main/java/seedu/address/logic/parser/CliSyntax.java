@@ -66,7 +66,7 @@ public class CliSyntax {
     public static final Flag FLAG_P = new Flag(FLAG_SIGNAL + ABBR_PROTEIN);
     public static final Flag FLAG_S = new Flag(FLAG_SIGNAL + ABBR_SNACK);
     public static final Flag FLAG_M = new Flag(FLAG_SIGNAL + ABBR_MEAL);
-    public static final List<Flag> FLAGS = Arrays.asList(new Flag[]{FLAG_NSV, FLAG_SV, FLAG_F, FLAG_P, FLAG_S, FLAG_M});
+    public static final List<Flag> FLAGS = Arrays.asList(FLAG_NSV, FLAG_SV, FLAG_F, FLAG_P, FLAG_S, FLAG_M);
     public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
     public static final Prefix PREFIX_COUNT = new Prefix("n/");
 

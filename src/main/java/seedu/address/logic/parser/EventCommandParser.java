@@ -22,16 +22,25 @@ import seedu.address.model.calendar.Repetition;
  */
 public class EventCommandParser implements Parser<EventCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the EventCommand
-     * and returns an EventCommand object for execution.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
+     * ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the EventCommand and returns an EventCommand
+     * object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR_DESCRIPTION, PREFIX_DATETIME, PREFIX_TIME_DURATION);
+            ArgumentTokenizer.tokenize(args, PREFIX_CALENDAR_DESCRIPTION, PREFIX_DATETIME, PREFIX_TIME_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CALENDAR_DESCRIPTION, PREFIX_DATETIME)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventCommand.MESSAGE_USAGE));
         }
 
@@ -58,14 +67,6 @@ public class EventCommandParser implements Parser<EventCommand> {
 
     private String getAutoReminderDescription(Event event, TimeDuration timeDuration) {
         return "Event: " + event.getDescription() + " in " + timeDuration;
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

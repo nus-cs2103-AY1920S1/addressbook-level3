@@ -2,7 +2,6 @@ package seedu.address.model.calendar;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.address.testutil.TypicalEvents.APPOINTMENT;
 import static seedu.address.testutil.TypicalEvents.AUTO_REMINDER;
 import static seedu.address.testutil.TypicalEvents.DATE_FEB10;
@@ -26,7 +25,7 @@ class EventTest {
 
         // different description and date, time -> returns false
         Event editedEvent = new EventBuilder(APPOINTMENT).withDescription("description")
-                .withDateTime(DATE_MAR22, TIME_MORN).build();
+            .withDateTime(DATE_MAR22, TIME_MORN).build();
         assertFalse(APPOINTMENT.isSameEvent(editedEvent));
 
         // different date and time -> returns false

@@ -9,7 +9,7 @@
 
 <ScrollPane fx:id="lineChartScrollPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox fx:id="vBox" prefHeight="383.0" prefWidth="582.0" />
+      <VBox fx:id="vBox"/>
       <LineChart fx:id="lineChart" prefWidth="465.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
@@ -19,7 +19,7 @@
         </yAxis>
       </LineChart>
    </content>
-    <stylesheets>
-        <URL value="@LineChart.css" />
-    </stylesheets>
+<!--    <stylesheets>-->
+<!--        <URL value="@LineChart.css" />-->
+<!--    </stylesheets>-->
 </ScrollPane>

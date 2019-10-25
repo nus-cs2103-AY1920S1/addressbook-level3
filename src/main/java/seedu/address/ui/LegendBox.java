@@ -72,7 +72,7 @@ public class LegendBox extends UiPart<Region> {
         switch (recordType.get().toLowerCase()) {
         case RECORD_TYPE_BMI:
             vBox.getChildren().addAll(UNDER_WEIGHT_LEGEND_ROW.getRoot(), NORMAL_WEIGHT_LEGEND_ROW.getRoot(),
-                    OVER_WEIGHT_LEGEND_ROW.getRoot(), OBESE_LEGEND_ROW.getRoot());
+                OVER_WEIGHT_LEGEND_ROW.getRoot(), OBESE_LEGEND_ROW.getRoot());
             break;
         case RECORD_TYPE_BLOODSUGAR:
             vBox.getChildren().addAll(BEFORE_MEAL_LEGEND_ROW.getRoot(), AFTER_MEAL_LEGEND_ROW.getRoot());

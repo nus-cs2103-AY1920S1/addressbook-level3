@@ -79,17 +79,17 @@ public class ParserUtilTest {
 
     @Test
     public void parseHeight_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseHeight((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseHeight(null));
     }
 
     @Test
     public void parseWeight_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseWeight((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseWeight(null));
     }
 
     @Test
     public void parseConcentration_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseConcentration((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseConcentration(null));
     }
 
     @Test
@@ -158,7 +158,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -230,7 +230,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseDateOfBirth_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth((Optional<String>) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth(null));
     }
 
     @Test
@@ -293,7 +293,7 @@ public class ParserUtilTest {
     public void parsePhones_collectionWithValidPhones_returnsPhoneSet() throws Exception {
         List<Phone> actualPhoneList = ParserUtil.parsePhones(Arrays.asList(VALID_PHONE_1, VALID_PHONE_2));
         List<Phone> expectedPhoneList = new ArrayList<Phone>(Arrays.asList(new Phone(VALID_PHONE_1),
-                new Phone(VALID_PHONE_2)));
+            new Phone(VALID_PHONE_2)));
         assertEquals(expectedPhoneList, actualPhoneList);
     }
 
@@ -322,18 +322,18 @@ public class ParserUtilTest {
 
     @Test
     public void parseGoals_collectionWithValidGoals_returnsGoalSet()
-            throws Exception {
+        throws Exception {
         List<Goal> actualGoalList = ParserUtil.parseGoals(
-                Arrays.asList(VALID_GOAL_1, VALID_GOAL_2));
+            Arrays.asList(VALID_GOAL_1, VALID_GOAL_2));
         List<Goal> expectedGoalList = new ArrayList<Goal>(
-                Arrays.asList(new Goal(VALID_GOAL_1),
+            Arrays.asList(new Goal(VALID_GOAL_1),
                 new Goal(VALID_GOAL_2)));
         assertEquals(expectedGoalList, actualGoalList);
     }
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((Optional<String>) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null));
     }
 
     @Test
@@ -376,7 +376,7 @@ public class ParserUtilTest {
     @Test
     public void parseMedicalConditions_collectionWithInvalidMedicalConditions_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseMedicalConditions(Arrays.asList(
-                VALID_MEDICAL_CONDITION_1, INVALID_MEDICAL_CONDITION)));
+            VALID_MEDICAL_CONDITION_1, INVALID_MEDICAL_CONDITION)));
     }
 
     @Test
@@ -386,12 +386,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseMedicalConditions_collectionWithValidMedicalConditions_returnsMedicalConditionSet()
-            throws Exception {
+        throws Exception {
         List<MedicalCondition> actualMedicalConditionList = ParserUtil.parseMedicalConditions(
-                Arrays.asList(VALID_MEDICAL_CONDITION_1, VALID_MEDICAL_CONDITION_2));
+            Arrays.asList(VALID_MEDICAL_CONDITION_1, VALID_MEDICAL_CONDITION_2));
         List<MedicalCondition> expectedMedicalConditionList = new ArrayList<MedicalCondition>(
-                Arrays.asList(new MedicalCondition(VALID_MEDICAL_CONDITION_1),
-                        new MedicalCondition(VALID_MEDICAL_CONDITION_2)));
+            Arrays.asList(new MedicalCondition(VALID_MEDICAL_CONDITION_1),
+                new MedicalCondition(VALID_MEDICAL_CONDITION_2)));
         assertEquals(expectedMedicalConditionList, actualMedicalConditionList);
     }
 

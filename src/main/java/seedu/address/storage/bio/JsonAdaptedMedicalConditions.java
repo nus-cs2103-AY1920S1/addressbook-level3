@@ -34,7 +34,8 @@ class JsonAdaptedMedicalConditions {
     }
 
     /**
-     * Converts this Jackson-friendly adapted medical condition object into the model's {@code MedicalCondition} object.
+     * Converts this Jackson-friendly adapted medical condition object into the sugarmummy.recmfood.model's {@code
+     * MedicalCondition} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted medical condition.
      */

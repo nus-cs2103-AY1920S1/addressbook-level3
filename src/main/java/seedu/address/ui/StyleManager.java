@@ -28,7 +28,7 @@ public class StyleManager {
     private static final String MY_STYLE_SHEET_NAME = "MyStyleSheet.css";
     private static final String STYLESHEET_DIRECTORY_NAME = "temp";
     private static final String STYLESHEET_DIRECTORY_PATH_NAME = System.getProperty("user.dir") + SEPARATOR
-            + STYLESHEET_DIRECTORY_NAME;
+        + STYLESHEET_DIRECTORY_NAME;
 
     private Scene scene;
     private VBox mainWindowPlaceholder;
@@ -68,6 +68,7 @@ public class StyleManager {
 
     /**
      * Returns the list of stylesheets stored in the scene attribute of this object.
+     *
      * @return List of stylesheets stored in the scene attribute of this object.
      */
     private ObservableList<String> getSceneStylesheets() {
@@ -86,6 +87,7 @@ public class StyleManager {
 
     /**
      * Creates a new stylesheet with input file name.
+     *
      * @param name Name of stylesheet to be created, including extensions.
      * @return File to contain data of new stylesheet.
      */
@@ -104,8 +106,8 @@ public class StyleManager {
     }
 
     /**
-     * Returns the new styleSheet to be used by the program for rendering nodes of this
-     * style manager's scene.
+     * Returns the new styleSheet to be used by the program for rendering nodes of this style manager's scene.
+     *
      * @return New styleSheet to be used by the program for rendering.
      */
     private File getMyStyleSheet() {
@@ -117,6 +119,7 @@ public class StyleManager {
 
     /**
      * Sets the given styleSheet to be the active styleSheet used by the program for rendering.
+     *
      * @param styleSheet Css file to bew used as the active styleSheet.
      */
     private void setStyleSheet(File styleSheet) {
@@ -125,9 +128,9 @@ public class StyleManager {
     }
 
     /**
-     * Adds a stylesheet URI path to the List of paths representing CSS stylesheet locations.
-     * This function may be used by future developers, alongside storage implementations,
-     * to allow users to save themes.
+     * Adds a stylesheet URI path to the List of paths representing CSS stylesheet locations. This function may be used
+     * by future developers, alongside storage implementations, to allow users to save themes.
+     *
      * @param string String representation of a URI path referencing a CSS stylesheet.
      */
     private void addToStyleSheetUriPaths(String string) {
@@ -135,8 +138,9 @@ public class StyleManager {
     }
 
     /**
-     * Initialises a new variable to store the output file and generates streams responsible for handling the process
-     * to modify this scene's CSS stylesheets.
+     * Initialises a new variable to store the output file and generates streams responsible for handling the process to
+     * modify this scene's CSS stylesheets.
+     *
      * @throws FileNotFoundException If creation of the streams is unsuccessful.
      */
     private void initialiseOutputCssAndStreams() throws FileNotFoundException {
@@ -159,6 +163,7 @@ public class StyleManager {
 
     /**
      * Writes the line to be written via this StyleManager's writer stream to the output file.
+     *
      * @throws IOException If the writing process is unsuccessful.
      */
     private void writeToOutput() throws IOException {
@@ -167,8 +172,9 @@ public class StyleManager {
     }
 
     /**
-     * Closes the streams of this StyleManager that have previously been opened to modify the CSS required CSS files
-     * to be modified.
+     * Closes the streams of this StyleManager that have previously been opened to modify the CSS required CSS files to
+     * be modified.
+     *
      * @throws IOException If closing of any of the streams is unsuccessful.
      */
     private void closeStreams() throws IOException {
@@ -180,12 +186,13 @@ public class StyleManager {
 
     /**
      * Copies the temporary output file to this active stylesheet belonging to the scene of this StyleManager.
+     *
      * @throws IOException If the copying process is unsuccessful.
      */
     private void copyTempOutputToMyStyleSheet() throws IOException {
         if ((myStyleSheet != null && myStyleSheet.exists())
-                && tempOutputCss != null && tempOutputCss.exists()
-                && myStyleSheet.getPath() != tempOutputCss.getPath()) {
+            && tempOutputCss != null && tempOutputCss.exists()
+            && myStyleSheet.getPath() != tempOutputCss.getPath()) {
             bufferedReader = new BufferedReader(new FileReader(tempOutputCss));
             myStyleSheet.delete();
             myStyleSheet = getMyStyleSheet();
@@ -203,6 +210,7 @@ public class StyleManager {
 
     /**
      * Writes the styling content to be written and sets the file with the content as the CSS stylesheet to be used.
+     *
      * @throws IOException If writing to the files are unsuccessful.
      */
     public void writeAndSave() throws IOException {
@@ -214,6 +222,7 @@ public class StyleManager {
 
     /**
      * Sets the font family of this style manager's scene.
+     *
      * @param fontFamily String representation of a CSS font family.
      */
     public void setFontFamily(String fontFamily) {
@@ -223,7 +232,7 @@ public class StyleManager {
                 ignoreTextToBeIgnored();
                 if (lineReadFromReader != null) {
                     linesToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-font-family",
-                            fontFamily) + "\n";
+                        fontFamily) + "\n";
                 }
             }
             writeAndSave();
@@ -234,6 +243,7 @@ public class StyleManager {
 
     /**
      * Sets the font colour of this style manager's scene.
+     *
      * @param fontColour String representation of a CSS font colour.
      */
     public void setFontColour(String fontColour) {
@@ -243,10 +253,10 @@ public class StyleManager {
                 ignoreTextToBeIgnored();
                 if (lineReadFromReader != null) {
                     String changedTextFill = getLineAfterReplacement(lineReadFromReader, "fx-text-fill",
-                            fontColour);
+                        fontColour);
                     String changedFill = getLineAfterReplacement(changedTextFill,
-                            "fx-fill",
-                            fontColour);
+                        "fx-fill",
+                        fontColour);
                     linesToWriteViaWriter += changedFill + "\n";
                 }
             }
@@ -258,6 +268,7 @@ public class StyleManager {
 
     /**
      * Ignores text to be ignored in each line read by this style manager's reader.
+     *
      * @throws IOException If consumption of lines to be ignored is unsuccessful.
      */
     private void ignoreTextToBeIgnored() throws IOException {
@@ -270,6 +281,7 @@ public class StyleManager {
 
     /**
      * Sets the background of this style manager's scene.
+     *
      * @param background String representation of a CSS background.
      */
     public void setBackground(Background background) {
@@ -277,16 +289,16 @@ public class StyleManager {
             initialiseOutputCssAndStreams();
             String backgroundColourForImages = "transparent";
             String backgroundColour = background.isBackgroundColour()
-                    ? background.toString()
-                    : backgroundColourForImages;
+                ? background.toString()
+                : backgroundColourForImages;
             while ((lineReadFromReader = bufferedReader.readLine()) != null) {
                 ignoreTextToBeIgnored();
                 if (lineReadFromReader != null) {
                     String changedBackgroundFields = getLineAfterReplacement(lineReadFromReader, "fx-background",
-                            backgroundColour);
+                        backgroundColour);
                     String changedBackgroundColourFields = getLineAfterReplacement(changedBackgroundFields,
-                            "fx-background-color",
-                            backgroundColour);
+                        "fx-background-color",
+                        backgroundColour);
                     linesToWriteViaWriter += changedBackgroundColourFields + "\n";
                 }
             }
@@ -302,6 +314,7 @@ public class StyleManager {
 
     /**
      * Sets the background image of main window placeholder of this instance of style manager.
+     *
      * @param background Background object representing background information of this application.
      */
     public void setBackgroundImage(Background background) {
@@ -313,15 +326,16 @@ public class StyleManager {
 
         if (this.background == null || !this.background.equals(background)) {
             mainWindowPlaceholder.setStyle("-fx-background-image: url('" + file.toURI().toString() + "'); "
-                    + "-fx-background-position: center center; "
-                    + "-fx-background-repeat: " + bgRepeat + ";"
-                    + "-fx-background-size: " + bgSize + ";");
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: " + bgRepeat + ";"
+                + "-fx-background-size: " + bgSize + ";");
             this.background = background;
         }
     }
 
     /**
      * Returns a String representation of the given file's name without extensions.
+     *
      * @param file File with name to be extracted without extensions.
      * @return Given file's name without extension as a String.
      */
@@ -331,29 +345,30 @@ public class StyleManager {
 
     /**
      * Returns the output String after replacing the values of the specified fields in a stylesheet.
+     *
      * @param lineReadFromReader Line of string in which content may have to be possibly replace.
-     * @param field Field of a stylesheet with values to be replaced.
-     * @param replacement Replacement string for the field which requires values to be replaced.
+     * @param field              Field of a stylesheet with values to be replaced.
+     * @param replacement        Replacement string for the field which requires values to be replaced.
      * @return Output String after replacing the values of the specified fields in a stylesheet.
      */
     private String getLineAfterReplacement(String lineReadFromReader, String field, String replacement) {
         String outputLine = lineReadFromReader;
         int textFillIndex = outputLine.indexOf("-" + field + ": ");
         if (textFillIndex != -1) {
-            String subText = lineReadFromReader.substring(textFillIndex, lineReadFromReader.length());
+            String subText = lineReadFromReader.substring(textFillIndex);
             int semiColonIndex = subText.indexOf(":");
             int exclamationIndex = subText.indexOf("!");
             String toReplace;
             if (exclamationIndex == -1) {
                 int colonIndex = subText.indexOf(";");
                 toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1, textFillIndex
-                        + colonIndex);
+                    + colonIndex);
                 lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replacement);
             } else {
                 toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1,
-                        textFillIndex + exclamationIndex);
+                    textFillIndex + exclamationIndex);
                 lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replacement
-                        + " ");
+                    + " ");
             }
         }
         return lineReadFromReader;
@@ -361,6 +376,7 @@ public class StyleManager {
 
     /**
      * Consumes the next whole field from this current onwards.
+     *
      * @throws IOException If reading of lines of text is unsuccessful.
      */
     private void ignoreUntilNextField() throws IOException {
