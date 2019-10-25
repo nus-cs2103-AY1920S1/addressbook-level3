@@ -1,9 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddMemberToTaskCommand;
+import seedu.address.logic.commands.AddTaskToMemberCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.member.MemberId;
 
@@ -17,14 +22,27 @@ public class AddMemberToTaskParser implements Parser<AddMemberToTaskCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddMemberToTaskCommand parse(String args) throws ParseException {
-        try {
-            MemberId id = ParserUtil.parseMemberId(args);
-            Index index = ParserUtil.parseIndex(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
 
-            return new AddMemberToTaskCommand(index, id);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMemberToTaskCommand.MESSAGE_USAGE), pe);
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddMemberToTaskCommand.MESSAGE_USAGE));
         }
+
+        MemberId id = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
+
+        return new AddMemberToTaskCommand(index, id);
     }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
 }

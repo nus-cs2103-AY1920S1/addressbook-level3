@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -33,12 +34,12 @@ public class ProjectDashboardParserTest {
 
     private final ProjectDashboardParser parser = new ProjectDashboardParser();
 
-    /*@Test
+    @Test
     public void parseCommand_add() throws Exception {
         Task task = new TaskBuilder().build();
         AddTaskCommand command = (AddTaskCommand) parser.parseCommand(TaskUtil.getAddTaskCommand(task));
         assertEquals(new AddTaskCommand(task), command);
-    }*/
+    }
 
     @Test
     public void parseCommand_clear() throws Exception {

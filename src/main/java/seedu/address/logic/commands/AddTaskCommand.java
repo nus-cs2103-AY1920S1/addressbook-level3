@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,10 +21,12 @@ public class AddTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the dashboard. "
             + "Parameters: "
             + PREFIX_TASK_NAME + "NAME "
-            + PREFIX_MEMBER_NAME + "MEMBER_NAME\n"
+            + PREFIX_TASK_STATUS + "STATUS "
+            + PREFIX_TASK_TAG + "TAG "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_NAME + "finish user guide "
-            + PREFIX_MEMBER_NAME + "elsa koh";
+            + PREFIX_TASK_NAME + "Complete Assignment "
+            + PREFIX_TASK_STATUS + "unbegun "
+            + PREFIX_TASK_TAG + "urgent";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
