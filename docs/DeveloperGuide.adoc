@@ -449,17 +449,48 @@ Step 3. A new `SearchCommand` is created, with the list containing the name of t
 
 Step 4. The `SearchCommand#execute()` method is called, referencing the current model.
 
+Step 5. The `SearchCommand#searchByName()` method is called, referencing the current model.
+
+Step 6. The `SearchCommand#addShowFromWatchListIfSameNameAs()` method is called, referencing the current model and name of search to be searched from the list of names.
+
+Step 7. The `Model#getShowIfHasName()` method is called and any show with the name to be searched is added to the `filteredShowList`.
+
+Step 8. The `SearchCommand#addShowToSearchResult()` method is called and shows from the `filteredShowList` is added to the `searchResult`.
+
+Step 9. The `SearchCommand#addShowFromOnlineIfSameNameAs()` method is also called, referencing the name of show to be searched from the list of names.
+
 [NOTE]
 If the user is not connected online, a new `OnlineConnectionException` is thrown.
 
-Step 5.
+Step 10. The `SearchCommand#addOnlineMovieSearchedByNameToResults()` method is called, referencing the name of show to be searched.
 
-The following sequence diagram shows how the search operation works:
+
+//The following sequence diagram shows how the search operation works:
 
 //image::SearchSequenceDiagram.png[]
 
+//_Figure 1: Sequence Diagram for `SearchCommand`_
 
+The following activity diagram summarises the workflow of Search:
 
+image::SearchActivityDiagram.png[]
+
+_Figure 2: Activity Diagram of `SearchCommand`_
+
+In Figure 2, the user first launches the app. After the user input a search command, the program runs and shows the list of shows found in the search page.
+
+==== Design Considerations
+
+===== Aspect: How `SearchCommand` takes in the information to be searched for
+** Current choice: Takes in a hash map from `SearchCommandParser` and gets the list of information to be searched for.
+*** Pros: Easy to implement and make use of.
+*** Cons: Certain list might be redundant as there might have no information in them.
+
+===== Aspect: How Search searches for the shows
+** Current choice: Checks if the user choose to search by name, actor or both, then filter them accordingly.
+*** Pros: Easy to implement and make use of.
+*** Cons: User has to input either a name or actor to be searched.
+*** Cons: Logic is repetitive when searching based on actor or name.
 
 == Documentation
 
