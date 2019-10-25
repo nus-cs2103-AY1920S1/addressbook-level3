@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Participant;
-import seedu.address.model.entity.PrefixType;
 
 /**
  * Lists every {@link Participant} in Alfred.
@@ -23,6 +23,6 @@ public class ListParticipantCommand extends ListCommand {
         this.displayParticipants(model);
         model.resetFilteredLists();
         model.updateHistory(this);
-        return new CommandResult(MESSAGE_SUCCESS, PrefixType.P);
+        return new CommandResult(MESSAGE_SUCCESS, CommandType.P);
     }
 }

@@ -41,7 +41,7 @@ Interested? Well, head to <<Quick Start>> to get started. We hope Alfred serves 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `alfred.jar` link:{releaseURL}[here].
 .  Copy the file to the folder you want to use as the home folder for Alfred.
-.  Double-click the file to start the app. Alternatively, if you use a Mac, type the command `java -jar alfred.jar`
+.  Double-click the file to start the app. Alternatively, if you use a Mac, commandType the command `java -jar alfred.jar`
 on terminal in the jar file's directory to open start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -65,13 +65,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters which you need to supply. For example, in `add mentor n/NAME`,
 `NAME` is a parameter which you need to specify as the mentor's name, for example `add mentor n/John Doe`.
-* You can type the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
+* You can commandType the parameters in any order. For instance, if the command specifies `n/NAME p/PHONE_NUMBER`,
 you may input `p/PHONE_NUMBER n/NAME` and Alfred will still deem it as an acceptable command.
 * Words in {curly braces} indicate values for the command that you need to select and provide.
-** For example in the case of `add {mentor/participant/list}`, you can choose to type `add mentor`, `add participant` or `add team`
+** For example in the case of `add {mentor/participant/list}`, you can choose to commandType `add mentor`, `add participant` or `add team`
 * Words in [brackets] indicate values that are optional for the command.
 ** For example, in the case of `export [CSV_FILE_PATH]`, you can choose to leave out the file path.
-* Whenever you need to specify an ID, the ID will be prefixed with an alphabet indicating the type of the Entity (e.g. M for Mentors, P for Participants, T for Teams).
+* Whenever you need to specify an ID, the ID will be prefixed with an alphabet indicating the commandType of the Entity (e.g. M for Mentors, P for Participants, T for Teams).
 * Type your commands in the textbox displayed on the Alfred UI. After you are done typing the command, press ENTER on your keyboard to execute the command.
 ====
 
@@ -151,7 +151,7 @@ Examples:
 Edits an entity based on the parameter values you supply. Use this command in case you want to make changes to an entity you have already created within Alfred.
 
 ****
-* Updates the fields of the Entity with the `ENTITY_ID` you specified to the new fields you type in as the parameter. The ID is the unique identifier for the particular Entity you wish to edit.
+* Updates the fields of the Entity with the `ENTITY_ID` you specified to the new fields you commandType in as the parameter. The ID is the unique identifier for the particular Entity you wish to edit.
 * You must provide at least one of the optional fields.
 * The fields you provide must pertain to the specified entity in order for the edit to be successful. For instance, you cannot add a field "pn/NewProjectName" for a participant as a participant doesn't have a project name.
 * Existing values will be updated to the input values you provide.
@@ -348,7 +348,7 @@ Example:
 In order for the contents of the CSV file to be correctly loaded into Alfred, the file has to be in the correct format.
 
 ****
-`EntityType` - single capital letter representing the entity type
+`EntityType` - single capital letter representing the entity commandType
 
 * **Mentor:** M
 * **Participant:** P
@@ -502,7 +502,7 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 
 |Update an Entity|Edits an entity based on the supplied parameter values |`edit {mentor/participant/team} ID [PARAMETERS]` | *Participant:* `edit participant P01 n/NewParticipantName` *Team:* `edit team T01 n/NewTeamName pn/New Project Name` *Mentor:* `edit participant P01 n/NewMentorName`
 
-|List all Entities |Shows a list of all the entities corresponding to the entity type |`list {mentors/teams/participants}`| *Participant:* `list participants` *Team:* `list teams` *Mentor:* `list mentors`
+|List all Entities |Shows a list of all the entities corresponding to the entity commandType |`list {mentors/teams/participants}`| *Participant:* `list participants` *Team:* `list teams` *Mentor:* `list mentors`
 
 |Deleting an Entity |Deletes an Entity, so that Alfred will no longer keep track of that Entity | `delete {participant/mentor/team} ID` | *Participant:* `delete participant P-1` *Team:* `delete team T-1` *Mentor:* `delete mentor M-1`
 

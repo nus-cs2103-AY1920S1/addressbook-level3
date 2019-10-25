@@ -238,7 +238,7 @@ module Slim::Helpers
 
     if attr? 'stem'
       scripts << { src: MATHJAX_JS_URI }
-      scripts << { type: 'text/x-mathjax-config', text: %(MathJax.Hub.Config(#{MATHJAX_CONFIG});) }
+      scripts << { commandType: 'text/x-mathjax-config', text: %(MathJax.Hub.Config(#{MATHJAX_CONFIG});) }
     end
 
     case attr 'source-highlighter'
@@ -288,9 +288,9 @@ module Slim::Helpers
 
     scripts.each do |item|
       if item.key? :text
-        tags << html_tag(:script, {type: item[:type]}, item[:text])
+        tags << html_tag(:script, {commandType: item[:commandType]}, item[:text])
       else
-        tags << html_tag(:script, type: item[:type], src: urlize(*item[:src]))
+        tags << html_tag(:script, commandType: item[:commandType], src: urlize(*item[:src]))
       end
     end
 

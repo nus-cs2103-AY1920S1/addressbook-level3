@@ -4,7 +4,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.entity.PrefixType;
+import seedu.address.model.entity.CommandType;
 
 /**
  * Command that undoes the effects of the previous command, returning the model to its previous state.
@@ -13,6 +13,7 @@ public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";
     public static final String MESSAGE_SUCCESS = "History shown";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the history of (undo-able) past commands";
+    public static final String MESSAGE_SHOW_HISTORY = "Showing the history of your commands.";
 
     /**
      * Executes the command and returns a CommandResult with a message.
@@ -21,7 +22,6 @@ public class HistoryCommand extends Command {
      * @throws CommandException
      */
     public CommandResult execute(Model model) throws CommandException {
-        String commandHistory = model.getCommandHistory();
-        return new CommandResult(commandHistory, PrefixType.P); //TODO: Check whether PrefixType is appropriate
+        return new CommandResult(MESSAGE_SHOW_HISTORY, CommandType.H); //TODO: Check whether PrefixType is appropriate
     }
 }

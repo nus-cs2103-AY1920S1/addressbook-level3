@@ -73,6 +73,13 @@
                                             <FontAwesomeIconView fill="#3083cc" glyphName="TROPHY" size="17"/>
                                         </graphic>
                                     </JFXButton>
+                                    <JFXButton fx:id="historyButton" id="historyButton" alignment="BASELINE_LEFT" graphicTextGap="40.0"
+                                               layoutX="3.0" layoutY="290.0" prefHeight="60.0"
+                                               prefWidth="160.0" text="History" onAction="#displayHistory">
+                                        <graphic>
+                                            <FontAwesomeIconView fill="#3083cc" glyphName="CLONE" size="17"/>
+                                        </graphic>
+                                    </JFXButton>
                                     <JFXButton alignment="BASELINE_LEFT" graphicTextGap="40.0" layoutX="5.0"
                                                layoutY="322.0" prefHeight="60.0" prefWidth="160.0"
                                                text="Food">
@@ -102,7 +109,7 @@
                         </left>
                         <center>
                             <AnchorPane prefHeight="555.0" prefWidth="520.0" BorderPane.alignment="CENTER" style = "-fx-background-color: transparent;">
-                                <StackPane fx:id="entityListPanelPlaceholder" VBox.vgrow="ALWAYS"
+                                <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS"
                                            AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" style = "-fx-background-color: transparent;"/>
                             </AnchorPane>

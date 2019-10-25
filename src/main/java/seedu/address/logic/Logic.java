@@ -2,11 +2,16 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CommandRecord;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
@@ -24,7 +29,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, AlfredModelHistoryException;
 
     /**
      * Returns the AddressBook.
@@ -44,6 +49,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of Teams */
     ObservableList<Mentor> getFilteredMentorList();
+
+    /** Returns the Record of all Commands entered by User */
+    ArrayList<CommandRecord> getCommandHistory() throws AlfredModelHistoryException;
 
     /**
      * Returns the user prefs' address book file path.

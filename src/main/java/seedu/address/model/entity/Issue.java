@@ -129,7 +129,7 @@ public class Issue extends Entity {
                 .append(getName())
                 .append(" Id: ")
                 .append(getId())
-                .append(" Type: ")
+                .append(" CommandType: ")
                 .append(getType())
                 .append(" Description: ")
                 .append(getDescription())

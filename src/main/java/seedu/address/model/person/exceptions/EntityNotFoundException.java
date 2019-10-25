@@ -10,7 +10,7 @@ public class EntityNotFoundException extends AlfredRuntimeException {
 
     /**
      * Creates a new instance of EntityNotFoundException according to type of entity.
-     * @param type Type of entity.
+     * @param type CommandType of entity.
      */
     public EntityNotFoundException(String type) {
         super(type + "is not found");

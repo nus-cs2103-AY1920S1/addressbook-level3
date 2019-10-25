@@ -838,7 +838,7 @@ public class ModelManager implements Model {
      * Gets a String detailing the previously executed commands that can be undone by the user.
      * @return String representing the previously executed commands that can be undone by the user.
      */
-    public String getCommandHistory() {
+    public ArrayList<CommandRecord> getCommandHistory() throws AlfredModelHistoryException {
         return this.history.getCommandHistory();
     }
 }

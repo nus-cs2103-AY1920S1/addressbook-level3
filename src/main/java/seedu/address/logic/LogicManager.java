@@ -1,16 +1,19 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AlfredParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CommandRecord;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.Mentor;
@@ -67,6 +70,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Mentor> getFilteredMentorList() {
         return model.getFilteredMentorList();
+    }
+
+    @Override
+    public ArrayList<CommandRecord> getCommandHistory() throws AlfredModelHistoryException {
+        return model.getCommandHistory();
     }
 
     @Override

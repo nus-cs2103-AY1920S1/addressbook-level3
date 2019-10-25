@@ -6,10 +6,10 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
-import seedu.address.model.entity.PrefixType;
 
 /**
  * Deletes a {@link Participant} in Alfred.
@@ -56,7 +56,7 @@ public class DeleteParticipantCommand extends DeleteCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PARTICIPANT_SUCCESS,
-                                               participantToBeDeleted.toString()), PrefixType.P);
+                                               participantToBeDeleted.toString()), CommandType.P);
     }
 
     @Override
