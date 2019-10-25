@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +43,15 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
         if (contains(toAdd)) {
             throw new DuplicateCalendarEntryException();
         }
-        internalList.add(0, toAdd);
+        internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a list of calendar entries that does not exit in the list to the list.
+     */
+    public void addAll(List<? extends CalendarEntry> toAdd) {
+        internalList.addAll(toAdd.stream().filter(calendarEntry -> !contains(calendarEntry))
+                .collect(Collectors.toList()));
     }
 
     /**

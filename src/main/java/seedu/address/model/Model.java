@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -282,9 +283,9 @@ public interface Model {
     void addCalendarEntry(CalendarEntry calendarEntry);
 
     /**
-     * Adds the given reminder to the past calendar. {@code reminder} must not already exist in the past calendar.
+     * Adds a list reminders to the calendar. Only {@code Reminders} that don't already exist in the list will be added.
      */
-    void addPastReminder(Reminder reminder);
+    void addPastReminders(List<Reminder> reminders);
 
     /**
      * Replaces the given calendarEntry {@code target} with {@code editedCalendarEntry}. {@code target} must exist in

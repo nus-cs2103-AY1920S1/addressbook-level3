@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.model.DateTime;
 import seedu.address.model.calendar.Reminder;
 
 /**
@@ -33,7 +36,7 @@ public class ReminderCard extends UiPart<Region> {
     public ReminderCard(Reminder reminder) {
         super(FXML);
         this.reminder = reminder;
-        dateTime.setText(reminder.getDateTime().toString());
+        dateTime.setText(new DateTime(LocalDate.now(), reminder.getTime()).toString());
         description.setText(reminder.getDescription().value);
     }
 

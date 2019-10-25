@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -305,7 +306,7 @@ class AddFoodCommandTest {
         }
 
         @Override
-        public void addPastReminder(Reminder reminder) {
+        public void addPastReminders(List<Reminder> reminders) {
             throw new AssertionError("This method should not be called.");
         }
 
