@@ -23,7 +23,12 @@ public class JsonAdaptedCca {
     private final JsonAdaptedCcaProgress ccaProgress;
 
     /**
-     * Constructs a {@code JsonAdaptedCca} with the given {@code Cca}.
+     * Constructs a {@code JsonAdaptedCca} with the given cca details.
+     *
+     * @param name {@code CcaName} of the cca.
+     * @param ccaType {@code CcaType} of the cca.
+     * @param equipmentList {@code List} of {@code JsonAdaptedEquipment} objects of the cca.
+     * @param ccaProgress {@code CcaProgress} of the cca.
      */
     @JsonCreator
     public JsonAdaptedCca(@JsonProperty("name") String name, @JsonProperty("ccaType") String ccaType,
@@ -35,6 +40,11 @@ public class JsonAdaptedCca {
         this.ccaProgress = ccaProgress;
     }
 
+    /**
+     * Converts a given {@code Cca} into this class for Jackson use.
+     *
+     * @param cca {@code Cca} to be used to construct the {@code JsonAdaptedCca}.
+     */
     public JsonAdaptedCca(Cca cca) {
         name = cca.getName().fullName;
         ccaType = cca.getCcaType().ccaType;

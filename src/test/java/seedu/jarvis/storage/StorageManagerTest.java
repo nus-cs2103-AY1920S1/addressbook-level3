@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 import static seedu.jarvis.testutil.cca.TypicalCcas.getTypicalCcaTracker;
+import static seedu.jarvis.testutil.course.TypicalCourses.getTypicalCoursePlanner;
 import static seedu.jarvis.testutil.history.TypicalCommands.getTypicalHistoryManager;
 
 import java.nio.file.Path;
@@ -16,10 +17,12 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
+import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 
@@ -36,8 +39,9 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonHistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(getTempFilePath("hm"));
         JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(getTempFilePath("ct"));
+        JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(getTempFilePath("cp"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage);
+                ccaTrackerStorage, coursePlannerStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -100,5 +104,18 @@ public class StorageManagerTest {
     @Test
     public void getCcaTrackerFilePath() {
         assertNotNull(storageManager.getCcaTrackerFilePath());
+    }
+
+    @Test
+    public void coursePlannerReadSave() throws Exception {
+        CoursePlanner original = getTypicalCoursePlanner();
+        storageManager.saveCoursePlanner(original);
+        CoursePlanner retrieved = storageManager.readCoursePlanner().get();
+        assertEquals(original, new CoursePlanner(retrieved));
+    }
+
+    @Test
+    public void getCoursePlannerFilePath() {
+        assertNotNull(storageManager.getCoursePlannerFilePath());
     }
 }

@@ -9,6 +9,7 @@ import static seedu.jarvis.testutil.address.PersonBuilder.DEFAULT_PHONE;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
+import seedu.jarvis.storage.address.JsonAdaptedEditPersonDescriptor;
 import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
 
 /**

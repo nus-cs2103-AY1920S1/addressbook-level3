@@ -14,7 +14,10 @@ public class JsonAdaptedCcaCurrentProgress {
     private final int currentProgress;
 
     /**
-     * Constructs a {@code JsonAdaptedCcaCurrentProgress} with the given {@code CcaCurrentProgress}.
+     * Constructs a {@code JsonAdaptedCcaCurrentProgress} with the given cca current progress details.
+     *
+     * @param maxProgress Max progress.
+     * @param currentProgress Current progress.
      */
     @JsonCreator
     public JsonAdaptedCcaCurrentProgress(@JsonProperty("maxProgress") int maxProgress,
@@ -23,6 +26,12 @@ public class JsonAdaptedCcaCurrentProgress {
         this.currentProgress = currentProgress;
     }
 
+    /**
+     * Converts a given {@code CcaCurrentProgress} into this class for Jackson use.
+     *
+     * @param ccaCurrentProgress {@code CcaCurrentProgress} to be used to construct the
+     * {@code JsonAdaptedCcaCurrentProgress}.
+     */
     public JsonAdaptedCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
         maxProgress = ccaCurrentProgress.getMaxProgress();
         currentProgress = ccaCurrentProgress.getCurrentProgress();

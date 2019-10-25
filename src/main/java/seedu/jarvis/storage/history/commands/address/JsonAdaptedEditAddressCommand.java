@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
+import seedu.jarvis.storage.address.JsonAdaptedEditPersonDescriptor;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
-import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Jackson-friendly version of {@link EditAddressCommand}.
@@ -45,17 +45,12 @@ public class JsonAdaptedEditAddressCommand extends JsonAdaptedCommand {
     }
 
     /**
-     * Converts a given {@code Command} into this class for Jackson use.
-     * {@code Command} should be a {@code EditAddressCommand}.
+     * Converts a given {@code EditAddressCommand} into this class for Jackson use.
      *
-     * @param command {@code Command} to be used to construct the {@code JsonAdaptedEditAddressCommand}.
-     * @throws InvalidCommandToJsonException If {@code Command} is not a {@code EditAddressCommand}.
+     * @param editAddressCommand {@code EditAddressCommand} to be used to construct the
+     * {@code JsonAdaptedEditAddressCommand}.
      */
-    public JsonAdaptedEditAddressCommand(Command command) throws InvalidCommandToJsonException {
-        if (!(command instanceof EditAddressCommand)) {
-            throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
-        }
-        EditAddressCommand editAddressCommand = (EditAddressCommand) command;
+    public JsonAdaptedEditAddressCommand(EditAddressCommand editAddressCommand) {
         index = new JsonAdaptedIndex(editAddressCommand.getIndex());
         editPersonDescriptor = new JsonAdaptedEditPersonDescriptor(editAddressCommand.getEditPersonDescriptor());
         originalPerson = editAddressCommand.getOriginalPerson().map(JsonAdaptedPerson::new).orElse(null);
