@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * utility class to check stats Input
@@ -23,13 +25,15 @@ public class StatsParseUtil {
     /**
      * list of valid stat types
      */
-    private static final List<String> typeList = Arrays.asList("PROFIT", "COST", "REVENUE");
+    private static final String regexList = "\\bPROFIT\\b|\\bCOST\\b|\\bREVENUE\\b";
 
     /**
      * Returns true if a given string is a valid Stat Type.
      */
     public static boolean isValidStatType(String test) {
-        return typeList.stream().anyMatch(x -> x.contains(test.toUpperCase()));
+        Pattern p = Pattern.compile(regexList);
+        Matcher m = p.matcher(test);
+        return m.find();
     }
     //generate-s s/PROFIT d1/2018.12.12 d2/2019.12.12
 }

@@ -9,7 +9,6 @@ import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.util.TypicalStatsPayload;
 import seedu.address.model.order.Order;
 import seedu.address.testutil.TypicalOrders;
 
