@@ -37,6 +37,8 @@ public class TypicalSchedules {
     public static final Schedule CBD_SCHEDULE = new ScheduleBuilder()
             .withCalendar(CBD_CALENDAR).withVenue(CBD_VENUE).withTags(DEFAULT_TAG_1).build();
 
+    public static final Schedule MONDAY = new ScheduleBuilder().withCalendar()
+
     /**
      * Returns a {@code DataBook} with all the typical schedules.
      */

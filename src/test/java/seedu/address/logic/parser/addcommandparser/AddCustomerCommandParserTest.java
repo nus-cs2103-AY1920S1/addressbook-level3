@@ -59,7 +59,6 @@ public class AddCustomerCommandParserTest {
                 + EMAIL_DESC_BEN + EMAIL_DESC_ALICE
                 + TAG_DESC_RICH, new AddCustomerCommand(expectedCustomer));
 
-
         // multiple tags - all accepted
         Customer expectedCustomerMultipleTags = new CustomerBuilder(ALICE).withTags(VALID_TAG_RICH, VALID_TAG_REGULAR)
                 .build();
@@ -109,7 +108,6 @@ public class AddCustomerCommandParserTest {
         // invalid email
         assertParseFailure(parser, NAME_DESC_ALICE + CONTACT_NUMBER_DESC_ALICE
                 + INVALID_EMAIL_DESC + TAG_DESC_RICH, Email.MESSAGE_CONSTRAINTS);
-
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_ALICE + CONTACT_NUMBER_DESC_ALICE

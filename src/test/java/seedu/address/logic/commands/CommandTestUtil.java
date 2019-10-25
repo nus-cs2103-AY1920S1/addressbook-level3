@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -78,6 +81,15 @@ public class CommandTestUtil {
     public static final String VALID_TAG_NEW = "New";
     public static final String VALID_TAG_BESTSELLER = "Bestseller";
 
+    public static final String VALID_DATE_MONDAY = "2019.12.12";
+    public static final String VALID_DATE_FRIDAY = "2018.5.8";
+    public static final String VALID_TIME_MONDAY = "17.30";
+    public static final String VALID_TIME_FRIDAY = "6.30";
+    public static final String VALID_VENUE_MONDAY = "MRT";
+    public static final String VALID_VENUE_FRIDAY = "NUS";
+    public static final String VALID_TAG_MONDAY = "Freebie";
+    public static final String VALID_TAG_FRIDAY = "Carrier";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -104,6 +116,19 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String DATE_DESC_MONDAY = " " + PREFIX_DATE + VALID_DATE_MONDAY;
+    public static final String DATE_DESC_FRIDAY = " " + PREFIX_DATE + VALID_DATE_FRIDAY;
+    public static final String TIME_DESC_MONDAY = " " + PREFIX_TIME + VALID_DATE_MONDAY;
+    public static final String TIME_DESC_FRIDAY = " " + PREFIX_TIME + VALID_DATE_FRIDAY;
+    public static final String VENUE_DESC_MONDAY = " " + PREFIX_VENUE + VALID_VENUE_MONDAY;
+    public static final String VENUE_DESC_FRIDAY = " " + PREFIX_VENUE + VALID_VENUE_FRIDAY;
+    public static final String TAG_DESC_MONDAY = " " + PREFIX_TAG + VALID_TAG_MONDAY;
+    public static final String TAG_DESC_FRIDAY = " " + PREFIX_TAG + VALID_TAG_FRIDAY;
+
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2012.a.1"; // 'a' not allowed in dates
+    public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "20.$"; // '$' not allowed in time
+    public static final String INVALID_VENUE_DESC = " " + PREFIX_VENUE; // empty string not allowed for venues
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
