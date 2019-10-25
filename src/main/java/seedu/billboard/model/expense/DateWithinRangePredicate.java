@@ -1,5 +1,6 @@
 package seedu.billboard.model.expense;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -38,4 +39,8 @@ public class DateWithinRangePredicate implements Predicate<Expense> {
                 && (endDate == ((DateWithinRangePredicate) other).endDate)); // state check
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(startDate, endDate);
+    }
 }

@@ -3,10 +3,6 @@ package seedu.billboard.model.expense;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.testutil.ExpenseBuilder;
@@ -86,11 +82,11 @@ public class DateWithinRangePredicateTest {
         // Same date, time after end time
         predicate = new DateWithinRangePredicate(
                 new CreatedDateTime("5/6/2019 0800"), new CreatedDateTime("5/6/2019 1000"));
-        assertTrue(predicate.test(new ExpenseBuilder().withCreatedDateTime("5/6/2019 1100").build()));
+        assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("5/6/2019 1100").build()));
 
         // Date before start date, time correct
         predicate = new DateWithinRangePredicate(
                 new CreatedDateTime("1/6/2019 0800"), new CreatedDateTime("3/6/2019 1000"));
-        assertTrue(predicate.test(new ExpenseBuilder().withCreatedDateTime("1/5/2019 0900").build()));
+        assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("1/5/2019 0900").build()));
     }
 }

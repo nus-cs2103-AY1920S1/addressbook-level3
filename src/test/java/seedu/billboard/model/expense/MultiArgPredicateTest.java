@@ -3,7 +3,6 @@ package seedu.billboard.model.expense;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -26,8 +25,8 @@ public class MultiArgPredicateTest {
 
         CreatedDateTime firstPredicateStartDate = new CreatedDateTime("1/1/2019");
         CreatedDateTime secondPredicateStartDate = new CreatedDateTime("2/2/2019");
-        CreatedDateTime firstPredicateEndDate = new CreatedDateTime("1/1/2019");
-        CreatedDateTime secondPredicateEndDate = new CreatedDateTime("2/2/2019");
+        CreatedDateTime firstPredicateEndDate = new CreatedDateTime("2/1/2019");
+        CreatedDateTime secondPredicateEndDate = new CreatedDateTime("3/2/2019");
 
         MultiArgPredicate firstPredicate = new MultiArgPredicate();
         firstPredicate.setKeywords(firstPredicateKeywordList);
@@ -107,43 +106,102 @@ public class MultiArgPredicateTest {
 
     @Test
     public void test_argumentsNotWithinLimit_returnsFalse() {
-        // 3 conditions
+
+        // 3 conditions, none met
         MultiArgPredicate predicate = new MultiArgPredicate();
         predicate.setKeywords(Arrays.asList("book"));
         predicate.setDateRange(new CreatedDateTime("1/8/2019"), new CreatedDateTime("20/8/2019"));
         predicate.setAmtRange(new Amount("2"), new Amount("20"));
-
-        // 3 conditions, none met
         assertFalse(predicate.test(new ExpenseBuilder().build()));
 
         // 3 conditions, 1 met
-        assertFalse(predicate.test(new ExpenseBuilder().withDescription("buy book").build()));
-        assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("2/8/2019").build()));
-        assertFalse(predicate.test(new ExpenseBuilder().withAmount("6").build()));
+        predicate = new MultiArgPredicate();
+        predicate.setKeywords(Arrays.asList("car"));
+        predicate.setDateRange(new CreatedDateTime("6/8/2019"), new CreatedDateTime("30/9/2019"));
+        predicate.setAmtRange(new Amount("59"), new Amount("880"));
+
+        assertFalse(predicate.test(new ExpenseBuilder().withDescription("buy car").build()));
+        assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("2/9/2019").build()));
+        assertFalse(predicate.test(new ExpenseBuilder().withAmount("666").build()));
 
         // 3 conditions, 2 met
-        assertFalse(predicate.test(new ExpenseBuilder().withDescription("buy book").withCreatedDateTime("2/8/2019")
+        predicate = new MultiArgPredicate();
+        predicate.setKeywords(Arrays.asList("boat"));
+        predicate.setDateRange(new CreatedDateTime("6/8/2009"), new CreatedDateTime("30/9/2010"));
+        predicate.setAmtRange(new Amount("500"), new Amount("555"));
+        assertFalse(predicate.test(new ExpenseBuilder().withName("buy boat").withCreatedDateTime("2/8/2019")
                 .build()));
-        assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("2/8/2019").withAmount("15").build()));
-        assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("5/8/2011").withAmount("10").build()));
+        assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("20/8/2009").withAmount("522").build()));
+        assertFalse(predicate.test(new ExpenseBuilder().withDescription("sell boat").withAmount("544").build()));
 
-        // 2 conditions
+        // 2 conditions, 1 met
         predicate = new MultiArgPredicate();
         predicate.setKeywords(Arrays.asList("book"));
         predicate.setDateRange(new CreatedDateTime("1/8/2019"), new CreatedDateTime("20/8/2019"));
 
-        // 2 conditions, 1 met
         assertFalse(predicate.test(new ExpenseBuilder().withDescription("buy book").build()));
         assertFalse(predicate.test(new ExpenseBuilder().withCreatedDateTime("2/8/2019").build()));
 
         // 2 conditions, none met
+        predicate = new MultiArgPredicate();
+        predicate.setKeywords(Arrays.asList("lunch school"));
+        predicate.setDateRange(new CreatedDateTime("1/8/2018"), new CreatedDateTime("20/8/2018"));
+
         assertFalse(predicate.test(new ExpenseBuilder().build()));
 
-        // 1 condition
+        // 1 condition, none met
         predicate = new MultiArgPredicate();
         predicate.setKeywords(Arrays.asList("book"));
 
-        // 1 condition, none met
         assertFalse(predicate.test(new ExpenseBuilder().build()));
+    }
+
+    @Test
+    public void setKeywords_singletonList_setPredicateSuccess() {
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(Collections.singletonList("book"));
+        assertTrue(predicate.test(new ExpenseBuilder().withDescription("buy book").build()));
+    }
+
+    @Test
+    public void setDateRange_startDateAndEndDate_setPredicateSuccess() {
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setDateRange(new CreatedDateTime("1/1/2019"), new CreatedDateTime("1/3/2109"));
+        assertTrue(predicate.test(new ExpenseBuilder().withCreatedDateTime("1/2/2019").build()));
+    }
+
+    @Test
+    public void setDateRange_startDateNoEndDate_setPredicateSuccess() {
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setDateRange(new CreatedDateTime("1/1/2019"), null);
+        assertTrue(predicate.test(new ExpenseBuilder().withCreatedDateTime("1/2/2019").build()));
+    }
+
+    @Test
+    public void setDateRange_endDateNoStartDate_setPredicateSuccess() {
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setDateRange(null, new CreatedDateTime("1/3/2109"));
+        assertTrue(predicate.test(new ExpenseBuilder().withCreatedDateTime("1/2/2019").build()));
+    }
+
+    @Test
+    public void setAmtRange_lowerLimitAndUpperLimit_setPredicateSuccess() {
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setAmtRange(new Amount("20"), new Amount("50"));
+        assertTrue(predicate.test(new ExpenseBuilder().withAmount("30").build()));
+    }
+
+    @Test
+    public void setAmtRange_lowerLimitNoUpperLimit_setPredicateSuccess() {
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setAmtRange(new Amount("20"), null);
+        assertTrue(predicate.test(new ExpenseBuilder().withAmount("30").build()));
+    }
+
+    @Test
+    public void setAmtRange_upperLimitNoLowerLimit_setPredicateSuccess() {
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setAmtRange(null, new Amount("50"));
+        assertTrue(predicate.test(new ExpenseBuilder().withAmount("30").build()));
     }
 }
