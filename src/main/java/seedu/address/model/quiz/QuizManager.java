@@ -124,13 +124,20 @@ public class QuizManager {
      * @param quizId The identifier of the quiz to be handled.
      * @param questionNumber The question number of the question to be removed.
      * @param quizBank The quiz bank.
+     * @return True if the question can be removed, else false.
      */
-    public static void removeQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
+    public static boolean removeQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
         int quizIndex = quizBank.getQuizIndex(quizId);
         if (quizIndex != -1) {
             Quiz quiz = quizBank.getQuiz(quizIndex);
+            int numQuestions = quiz.getQuestionList().getQuestions().size();
+            if(questionNumber < 0 || questionNumber > numQuestions + 1) {
+                return false;
+            }
             quiz.removeQuestion(questionNumber);
+            return true;
         }
+        return false;
     }
 
     /**

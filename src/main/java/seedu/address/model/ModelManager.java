@@ -414,8 +414,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeQuizQuestion(String quizId, int questionNumber) {
-        savedQuizzes.removeQuizQuestion(quizId, questionNumber);
+    public boolean removeQuizQuestion(String quizId, int questionNumber) {
+        return savedQuizzes.removeQuizQuestion(quizId, questionNumber);
     }
 
     @Override
