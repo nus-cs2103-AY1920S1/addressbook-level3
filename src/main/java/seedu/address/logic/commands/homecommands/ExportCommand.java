@@ -40,13 +40,14 @@ public class ExportCommand extends HomeCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName).get();
+        WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName);
         this.wordBank = wb;
         if (wb == null) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
         }
 
-        return new CommandResult(String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directory));
+        return new ExportCommandResult(String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directory),
+                wordBankName, directory.toPath());
     }
 
     @Override

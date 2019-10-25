@@ -79,7 +79,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
             if (commandResult instanceof HomeCommandResult) {
                 HomeCommandResult homeCommandResult = (HomeCommandResult) commandResult;
-                homeCommandResult.update(storage);
+                homeCommandResult.updateStorage(storage);
             }
 
 //            ReadOnlyWordBank wb = model.getWordBank();
@@ -109,8 +109,6 @@ public class LogicManager implements Logic, UiLogicHelper {
 
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        } catch (DataConversionException e) {
-            e.printStackTrace();
         }
 
         return commandResult;

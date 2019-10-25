@@ -71,6 +71,12 @@ public class StorageManager implements Storage {
     // ================ WordBankList methods ==============================
 
     @Override
+    public Optional<ReadOnlyWordBankList> getWordBankList() {
+        return wordBankListStorage.getWordBankList();
+    }
+
+
+    @Override
     public void createWordBank(String wordBankName) {
         wordBankListStorage.createWordBank(wordBankName);
     }

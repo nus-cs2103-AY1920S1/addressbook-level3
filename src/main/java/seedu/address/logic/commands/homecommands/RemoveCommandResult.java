@@ -3,17 +3,17 @@ package seedu.address.logic.commands.homecommands;
 import seedu.address.storage.Storage;
 
 /**
- * Represents the command result returned by {@code CreateCommand}.
+ * Represents the command result returned by {@code RemoveCommand}.
  * This class is needed to pass some info to the {@code LogicManager} to update storage.
  */
-public class CreateCommandResult extends HomeCommandResult {
+public class RemoveCommandResult extends HomeCommandResult {
 
-    public CreateCommandResult(String feedback, String wordBankName) {
+    public RemoveCommandResult(String feedback, String wordBankName) {
         super(feedback, wordBankName);
     }
 
     @Override
     public void updateStorage(Storage storage) {
-        storage.createWordBank(super.wordBankName);
+        storage.removeWordBank(wordBankName);
     }
 }

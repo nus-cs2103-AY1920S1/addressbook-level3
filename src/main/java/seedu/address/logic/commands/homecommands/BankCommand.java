@@ -32,10 +32,10 @@ public class BankCommand extends HomeCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         WordBankList wbl = model.getWordBankList();
-        if (wbl.getWordBankFromName(this.name) == null) {
+        if (wbl.getWordBankFromName(this.name).equals("sample")) {
             throw new CommandException("Work bank does not exist");
         }
-        model.setWordBank(wbl.getWordBankFromName(name).get());
+        model.setWordBank(wbl.getWordBankFromName(name));
 
         WordBankStatisticsList wbStatsList = model.getWordBankStatisticsList();
         WordBankStatistics wbStats = wbStatsList.getWordBankStatistics(name);

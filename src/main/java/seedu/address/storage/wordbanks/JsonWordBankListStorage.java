@@ -169,8 +169,14 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Called by CreateCommand to create a word bank, add into the internal list, and
-     * save it into storage.
+     * Retrieves the WordBankList that WordBankListStorage holds.
+     */
+    public Optional<ReadOnlyWordBankList> getWordBankList() {
+        return Optional.of(readOnlyWordBankList);
+    }
+
+    /**
+     * Creates a word bank, add into the internal list, and save it into storage.
      *
      * @param wordBankName cannot be null.
      */
@@ -182,8 +188,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Called by RemoveCommand to retrieve the specified word bank, delete from storage,
-     * and then remove from internal list.
+     * Retrieves the specified word bank, delete from storage, and then remove from internal list.
      *
      * @param wordBankName cannot be null.
      */
@@ -194,8 +199,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Called by ImportCommand to create the word bank specified by the file path,
-     * add to internal list, and then add to storage.
+     * Creates the word bank specified by the file path, add to internal list, and then add to storage.
      *
      * @param filePath cannot be null.
      */
@@ -207,8 +211,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Called by ExportCommand, to retrieve the word bank, add to internal list,
-     * then add to storage.
+     * Retrieves the word bank, add to internal list, then add to storage.
      *
      * @param wordBankName cannot be null.
      * @param filePath cannot be null.
@@ -220,8 +223,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Called by CardCommand to automatically update any changes to word banks that were
-     * manipulated in ModelManager.
+     * Updates any changes to word banks that were manipulated in ModelManager.
      *
      * @param wordBank cannot be null.
      */

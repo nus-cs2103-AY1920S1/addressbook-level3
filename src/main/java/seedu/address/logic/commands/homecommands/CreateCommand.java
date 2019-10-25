@@ -3,7 +3,6 @@ package seedu.address.logic.commands.homecommands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -22,30 +21,29 @@ public class CreateCommand extends HomeCommand {
             + "sample wordbank";
 
     public static final String MESSAGE_SUCCESS = "New word bank added: %1$s";
-    public static final String MESSAGE_DUPLICATE_WORD_BANK = "This Word Bank name already exists in Dukemon";
 
-    private final String name;
+    private final String wordBankName;
     /**
      * Creates a CreateCommand to add the specified {@code Card}
      */
     public CreateCommand(String name) {
         requireNonNull(name);
-        this.name = name;
+        this.wordBankName = name;
     }
 
     @Override
     public HomeCommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasWordBank(name)) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
+        if (model.hasWordBank(wordBankName)) {
+            throw new CommandException(Messages.MESSAGE__INVALID_WORD_BANK_NAME);
         }
-        return new HomeCommandResult(String.format(MESSAGE_SUCCESS, name));
+        return new CreateCommandResult(String.format(MESSAGE_SUCCESS, wordBankName), wordBankName);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CreateCommand // instanceof handles nulls
-                && name.equals(((CreateCommand) other).name));
+                && wordBankName.equals(((CreateCommand) other).wordBankName));
     }
 }

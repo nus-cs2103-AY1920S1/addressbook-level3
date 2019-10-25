@@ -37,7 +37,7 @@ public class RemoveCommand extends HomeCommand {
         }
 
         model.removeWordBank();
-        return new CommandResult(String.format(MESSAGE_REMOVE_CARD_SUCCESS, wordBankName));
+        return new RemoveCommandResult(String.format(MESSAGE_REMOVE_CARD_SUCCESS, wordBankName), wordBankName);
     }
 
     @Override
