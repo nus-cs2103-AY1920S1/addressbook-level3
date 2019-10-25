@@ -518,28 +518,29 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 === Edit Mode
-==== Model
-Restaurant class contains both the details and a List of Food items as its menu,
-which makes it difficult to edit an entire restaurant item using 1 command line,
-hence the use of Edit Mode.
+A Restaurant object contains many attributes, including a List of Food items as its menu,
+which makes it difficult to edit an entire Restaurant object using 1 command line.
+This feature allows editing of a Restaurant's details and Food menu under 1 mode, through different commands.
 
-ModelManager now contains an extra editingRestaurantList on top of FilteredRestaurantList
-for access to the Restaurant currently under EditMode.
+==== Implementation
+* **Model**:
+ModelManager now contains a editingRestaurantList in addition to the filteredRestaurantList.
+access to the Restaurant currently under EditMode.
 
-==== Ui
+* **Logic**:
+
+A different Parser will parse the userInput based on the current context.
+Current commands for EditMode can only be accessed if under Editing Context.
+
+* **Ui**:
 Changes to the Ui for edit mode is facilitated by `Context` enum type.
 Changes to the Ui will be made accordingly,
 An extra StackPane showing the restaurant under EditMode currently will be displayed,
 while the StackPane displaying the list of Restaurants originally will be filled with the restaurants Food menu instead.
 
-==== Logic
-A different Parser will parse the userInput based on the current context.
-Current commands for EditMode can only be accessed if under Editing Context.
-
-
-
 ==== Design Considerations
 * **Alternative 1:**
+* **Alternative 2:**
 
 == Documentation
 
