@@ -181,7 +181,11 @@ table.tableblock > .title,
 }
 
 .navbar-lg .navbar-brand img {
-    height: 2.3rem;
+    /*height: 2.3rem;*/
+    height: 1.4rem;
+    margin: 0rem 0.4rem;
+    padding: 0;
+    vertical-align: middle;
 }
 
 .navbar-nav {
