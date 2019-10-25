@@ -22,8 +22,6 @@ import seedu.deliverymans.model.order.Order;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Restaurant {
-    private int numberOfRatings;
-
     // Identity fields
     private final Name name;
     private final Location location;
@@ -39,7 +37,6 @@ public class Restaurant {
      */
     public Restaurant(Name name, Location location, Set<Tag> tags) {
         requireAllNonNull(name, location, tags);
-        this.numberOfRatings = 0;
         this.name = name;
         this.location = location;
         this.rating = new Rating("0");
@@ -48,7 +45,6 @@ public class Restaurant {
 
     public Restaurant(Name name, Location location, Set<Tag> tags, ObservableList<Food> menu) {
         requireAllNonNull(name, location, tags, menu);
-        this.numberOfRatings = 0;
         this.name = name;
         this.location = location;
         this.rating = new Rating("0");
@@ -57,8 +53,7 @@ public class Restaurant {
     }
 
     public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu) {
-        requireAllNonNull(name, location, rating, numberOfRatings, tags);
-        this.numberOfRatings = 0;
+        requireAllNonNull(name, location, rating, tags);
         this.name = name;
         this.location = location;
         this.rating = rating;

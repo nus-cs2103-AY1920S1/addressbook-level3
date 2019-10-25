@@ -11,8 +11,9 @@ public class Rating {
     public static final String MESSAGE_CONSTRAINTS =
             "Rating should be an integer from 0 to 5";
     public static final String VALIDATION_REGEX = "\\d{1}";
+
+    public final String numberOfRatings;
     public final String rating;
-    public final double ratingValue;
 
     /**
      * Constructs a {@code Rating}.
@@ -23,7 +24,20 @@ public class Rating {
         requireNonNull(rating);
         checkArgument(isValidRating(rating), MESSAGE_CONSTRAINTS);
         this.rating = rating;
-        this.ratingValue = Double.parseDouble(rating);
+        this.numberOfRatings = "0";
+    }
+
+    /**
+     * Constructs a {@code Rating}.
+     *
+     * @param rating A valid rating
+     * @param numberOfRatings
+     */
+    public Rating(String rating, String numberOfRatings) {
+        requireNonNull(rating, numberOfRatings);
+        checkArgument(isValidRating(rating), MESSAGE_CONSTRAINTS);
+        this.rating = rating;
+        this.numberOfRatings = numberOfRatings;
     }
 
     /**
@@ -33,7 +47,7 @@ public class Rating {
         boolean matchRegex = rating.matches(VALIDATION_REGEX);
 
         if (matchRegex) {
-            double value = Double.parseDouble(rating);
+            double value = getRatingValue(rating);
             boolean matchRange = (value <= 5) && (value >= 0);
             return matchRange;
         } else {
@@ -41,8 +55,8 @@ public class Rating {
         }
     }
 
-    public double getRatingValue() {
-        return this.ratingValue;
+    public static double getRatingValue(String rating) {
+        return Double.parseDouble(rating);
     }
 
     @Override
