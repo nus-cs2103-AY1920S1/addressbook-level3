@@ -49,29 +49,29 @@ public class StorageManager {
         URL thisClassUrl = StorageManager.class.getResource("StorageManager.class");
 
         switch (thisClassUrl.getProtocol()) {
-            case "file":
-                try {
-                    String platformIndependentPath = Paths.get(StorageManager.class
-                            .getResource("StorageManager.class").toURI()).toString();
-                    root = FileReadWrite.resolve(platformIndependentPath, "../../../../../../../../../");
-                } catch (URISyntaxException i) {
-                    System.out.println("error");
-                    System.exit(-1);
-                }
-                //root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
-                break;
-            case "jar":
-                try {
-                    root = FileReadWrite.resolve(
-                            new File(StorageManager.class.getProtectionDomain().getCodeSource().getLocation().toURI())
-                                    .getPath(), "../");
-                } catch (URISyntaxException e) {
-                    System.out.println("jar is broken as unable to resolve path");
-                    System.exit(-1);
-                }
-                break;
-            default:
-                root = System.getProperty("user.dir");
+        case "file":
+            try {
+                String platformIndependentPath = Paths.get(StorageManager.class
+                        .getResource("StorageManager.class").toURI()).toString();
+                root = FileReadWrite.resolve(platformIndependentPath, "../../../../../../../../../");
+            } catch (URISyntaxException i) {
+                System.out.println("error");
+                System.exit(-1);
+            }
+            //root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
+            break;
+        case "jar":
+            try {
+                root = FileReadWrite.resolve(
+                        new File(StorageManager.class.getProtectionDomain().getCodeSource().getLocation().toURI())
+                        .getPath(), "../");
+            } catch (URISyntaxException e) {
+                System.out.println("jar is broken as unable to resolve path");
+                System.exit(-1);
+            }
+            break;
+        default:
+            root = System.getProperty("user.dir");
         }
         root = FileReadWrite.resolve(root, "./data");
         isRootResolved = true;
@@ -79,8 +79,7 @@ public class StorageManager {
 
     /**
      * User provide directory to use for storage
-     *
-     * @param path path to new directory for storage
+     * @param path  path to new directory for storage
      */
     public static void provideRoot(String path) {
         root = path;
@@ -89,8 +88,7 @@ public class StorageManager {
 
     /**
      * Returns value of current root.
-     *
-     * @return root directory
+     * @return  root directory
      */
     public static String getRoot() {
         return root;
@@ -98,8 +96,7 @@ public class StorageManager {
 
     /**
      * Write a deck into decks storage.
-     *
-     * @param deck deck object to write
+     * @param deck  deck object to write
      */
     public static void writeDeck(Deck deck) {
         resolveRoot();
@@ -109,8 +106,7 @@ public class StorageManager {
 
     /**
      * Load all decks in storage.
-     *
-     * @return ArrayList of decks in storage
+     * @return  ArrayList of decks in storage
      */
     public static ArrayList<Deck> loadDecks() {
         resolveRoot();
@@ -133,9 +129,8 @@ public class StorageManager {
 
     /**
      * Loads a single deck.
-     *
-     * @param filePath Must be valid existing filepath to a deck json file.
-     * @return deck object
+     * @param filePath  Must be valid existing filepath to a deck json file.
+     * @return          deck object
      */
     public static Deck loadDeck(String filePath) {
         try {
@@ -148,9 +143,8 @@ public class StorageManager {
 
     /**
      * Parse input as a json deck string.
-     *
      * @param input json deck string
-     * @return deck object
+     * @return      deck object
      */
     private static Deck parseDeckJsonFile(String input) {
         try {
@@ -160,31 +154,31 @@ public class StorageManager {
                 for (JsonValue x : deckJson.get(Schema.DECK_CARDS).getArray()) {
                     JsonObject cardJson = x.getObject();
                     FlashCard card = null;
-                    switch (cardJson.get(Schema.TYPE_FIELD).getString()) {
-                        case Schema.FRONT_BACK_TYPE:
-                            card = new FrontBackCard(
-                                    cardJson.get(Schema.FRONT_FIELD).getString(),
-                                    cardJson.get(Schema.BACK_FIELD).getString());
-                            break;
-                        case Schema.JAVASCRIPT_TYPE:
-                            card = new JavascriptCard(
-                                    cardJson.get(Schema.FRONT_FIELD).getString(),
-                                    cardJson.get(Schema.BACK_FIELD).getString());
-                            break;
-                        case Schema.MULTIPLE_CHOICE_TYPE:
-                            ArrayList<String> choices = new ArrayList<>();
-                            for (JsonValue choiceJson : cardJson.get(Schema.CHOICES_FIELD).getArray()) {
-                                choices.add(choiceJson.getString());
-                            }
-                            card = new MultipleChoiceCard(
-                                    cardJson.get(Schema.FRONT_FIELD).getString(),
-                                    cardJson.get(Schema.BACK_FIELD).getString(),
-                                    choices);
+                    switch(cardJson.get(Schema.TYPE_FIELD).getString()) {
+                    case Schema.FRONT_BACK_TYPE:
+                        card = new FrontBackCard(
+                                cardJson.get(Schema.FRONT_FIELD).getString(),
+                                cardJson.get(Schema.BACK_FIELD).getString());
+                        break;
+                    case Schema.JAVASCRIPT_TYPE:
+                        card = new JavascriptCard(
+                                cardJson.get(Schema.FRONT_FIELD).getString(),
+                                cardJson.get(Schema.BACK_FIELD).getString());
+                        break;
+                    case Schema.MULTIPLE_CHOICE_TYPE:
+                        ArrayList<String> choices = new ArrayList<>();
+                        for (JsonValue choiceJson : cardJson.get(Schema.CHOICES_FIELD).getArray()) {
+                            choices.add(choiceJson.getString());
+                        }
+                        card = new MultipleChoiceCard(
+                                cardJson.get(Schema.FRONT_FIELD).getString(),
+                                cardJson.get(Schema.BACK_FIELD).getString(),
+                                choices);
 
-                            break;
-                        default:
-                            System.out.println("Unexpected card type, but silently continues");
-                            continue;
+                        break;
+                    default:
+                        System.out.println("Unexpected card type, but silently continues");
+                        continue;
                     }
                     cards.add(card);
                 }
@@ -193,7 +187,7 @@ public class StorageManager {
                 System.out.println("JSON file wrong schema");
             } catch (DuplicateInChoicesException d) {
                 System.out.println("Duplicated choices detected in Multiple Choice Card.");
-            } catch (IndexNotFoundException i) {
+            } catch (IndexNotFoundException i){
                 System.out.println(i.getMessage());
             }
         } catch (JsonFormatException e2) {
