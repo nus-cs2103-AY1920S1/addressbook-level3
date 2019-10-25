@@ -44,7 +44,7 @@ public class RestaurantCard extends UiPart<Region> {
         this.restaurant = restaurant;
         id.setText(displayedIndex + ". ");
         name.setText(restaurant.getName().fullName);
-        loc.setText(restaurant.getLocation().name);
+        loc.setText("Location: " + restaurant.getLocation().name);
         rating.setText("Rating: " + restaurant.getRating().rating);
         restaurant.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
