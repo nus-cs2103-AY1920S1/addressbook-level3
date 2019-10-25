@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.Calendar;
 import seedu.address.model.DateTime;
-import seedu.address.model.Model;
 
 /**
  * A class representing a scheduler.
@@ -57,15 +57,15 @@ public class Scheduler {
     /**
      * Schedules reminders according to the current model.
      */
-    public void schedule(Model model) {
-        Map<LocalTime, List<Reminder>> dateTimeMap = getDateTimeMapToReminders(model.getFilteredCalendarEntryList());
+    public void schedule(Calendar calendar) {
+        Map<LocalTime, List<Reminder>> dateTimeMap = getDateTimeMapToReminders(calendar.getCalendarEntryList());
 
         cancelAll();
         for (Map.Entry<LocalTime, List<Reminder>> entry: dateTimeMap.entrySet()) {
-            scheduledFutures.add(scheduler.schedule(new ReminderAdder(entry.getValue(), model),
+            scheduledFutures.add(scheduler.schedule(new ReminderAdder(entry.getValue(), calendar),
                     getDuration(entry.getKey()), TimeUnit.MILLISECONDS));
         }
-        scheduler.schedule(new Initializer(model),
+        scheduler.schedule(new Initializer(calendar),
                 getDuration(currentDeadline.plusMinutes(1)), TimeUnit.MILLISECONDS);
     }
 
@@ -74,7 +74,7 @@ public class Scheduler {
      */
     private TreeMap<LocalTime, List<Reminder>> getDateTimeMapToReminders(
             ObservableList<CalendarEntry> calendarEntries) {
-        currentStartingDateTime = LocalDateTime.now();
+        currentStartingDateTime = LocalDateTime.now().withSecond(0).withNano(0);
 
         return calendarEntries
                 .stream()
@@ -104,17 +104,17 @@ public class Scheduler {
      */
     private class ReminderAdder implements Runnable {
         private List<Reminder> reminders;
-        private Model model;
+        private Calendar calendar;
 
-        public ReminderAdder(List<Reminder> reminders, Model model) {
+        public ReminderAdder(List<Reminder> reminders, Calendar calendar) {
             this.reminders = reminders;
-            this.model = model;
+            this.calendar = calendar;
         }
 
         @Override
         public void run() {
             for (Reminder reminder: reminders) {
-                model.addPastReminder(reminder);
+                calendar.addPastReminder(reminder);
             }
         }
     }
@@ -123,16 +123,16 @@ public class Scheduler {
      * A class implementing Runnable interface for initializing the scheduler.
      */
     private class Initializer implements Runnable {
-        private Model model;
+        private Calendar calendar;
 
-        public Initializer(Model model) {
-            this.model = model;
+        public Initializer(Calendar calendar) {
+            this.calendar = calendar;
         }
 
         @Override
         public void run() {
             currentDeadline = currentDeadline.plusDays(1);
-            schedule(model);
+            schedule(calendar);
         }
     }
 }

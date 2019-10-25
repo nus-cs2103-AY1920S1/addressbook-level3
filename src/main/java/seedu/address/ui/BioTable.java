@@ -91,6 +91,10 @@ public class BioTable extends UiPart<Region> {
         });
     }
 
+    /**
+     * Sets the given table column to wrap text.
+     * @param column Column for which text is to be wrapped.
+     */
     public void setTextWrapping(TableColumn<String, String> column) {
         column.setCellFactory(tc -> {
             TableCell<String, String> cell = new TableCell<>();

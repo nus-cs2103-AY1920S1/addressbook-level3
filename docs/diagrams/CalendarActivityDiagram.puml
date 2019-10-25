@@ -1,0 +1,20 @@
+@startuml
+start
+
+fork
+    :User executes command;
+
+    if () then ([Command adds an new event])
+        : Add the event to the calendar;
+            if () then ([The event has an auto reminder])
+            : Add the reminder to the calendar;
+            : Scheduler schedules upcoming reminders;
+            endif
+    else ([else])
+    endif
+fork again
+    :Add a reminder to the past reminder list;
+    :Add a reminder to the past reminder list;
+end fork
+stop
+@enduml
