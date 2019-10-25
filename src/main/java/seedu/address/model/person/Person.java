@@ -124,6 +124,11 @@ public class Person {
         return password;
     }
 
+    /**
+     * Checks whether a person is an admin.
+     * @param person represents the person to be checked
+     * @return true if the person is an admin
+     */
     public static boolean isAdmin(Person person) {
         return person.getTags().stream().anyMatch(tag ->
                 StringUtil.containsWordIgnoreCase(tag.tagName, "admin"));

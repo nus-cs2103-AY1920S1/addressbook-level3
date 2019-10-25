@@ -12,8 +12,10 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ENTITY;
+import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalIncidentManager;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -33,6 +35,11 @@ import seedu.address.testutil.UpdatePersonDescriptorBuilder;
 public class UpdateCommandTest {
 
     private Model model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
+
+    @BeforeEach
+    public void setUp() {
+        model.setSession(AMY); // Added to simulate a logged in person
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
