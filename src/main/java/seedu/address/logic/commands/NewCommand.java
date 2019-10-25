@@ -28,16 +28,16 @@ public class NewCommand extends Command {
             + "management system";
 
     private final District location;
-    private final boolean auto;
+    private final boolean isAuto;
     private Incident draft;
 
     /**
      * Creates a NewCommand to generate a new {@code Incident}
      */
-    public NewCommand(District location, boolean auto) {
+    public NewCommand(District location, boolean isAuto) {
         requireNonNull(location);
         this.location = location;
-        this.auto = auto;
+        this.isAuto = isAuto;
     }
 
     /**
@@ -48,8 +48,8 @@ public class NewCommand extends Command {
      * @param model
      */
     public void dispatchVehicle(Incident draft, boolean isAuto, Model model) {
-        FindVehiclesCommand searchVehicle = new FindVehiclesCommand(draft, isAuto);
-        searchVehicle.execute(model);
+        FindVehiclesCommand findVehicle = new FindVehiclesCommand(draft, isAuto);
+        findVehicle.execute(model);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class NewCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_REPORT);
         }
 
-        dispatchVehicle(draft, auto, model);
+        dispatchVehicle(draft, isAuto, model);
 
         model.addIncident(draft);
         return new CommandResult(String.format(MESSAGE_SUCCESS, draft));
