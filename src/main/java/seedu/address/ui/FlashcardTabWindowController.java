@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -18,6 +22,8 @@ import seedu.address.model.flashcard.Flashcard;
 public class FlashcardTabWindowController {
 
     private static final Integer TIMER_DURATION = 5;
+    private static final Integer SHOW_ANSWER_DURATION = 2;
+    private static final Integer ONE_FLASHCARD_DURATION = TIMER_DURATION + SHOW_ANSWER_DURATION;
 
     @FXML
     private Label timerLabel;
@@ -76,8 +82,30 @@ public class FlashcardTabWindowController {
         currentSeconds.set(TIMER_DURATION);
         timeline = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
                 new KeyValue(currentSeconds, 0)),
-                new KeyFrame(Duration.seconds(TIMER_DURATION + 1), e -> showFlashcardAns()));
+                new KeyFrame(Duration.seconds(TIMER_DURATION), e -> showFlashcardAns()));
         timeline.play();
+    }
+
+    public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
+        Timeline timeline = new Timeline();
+        int cardCount = 0;
+        for (Flashcard fc: deck.get()){
+                    timeline.getKeyFrames().addAll(
+                            new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION),
+                            e -> loadFlashcard(fc),
+                            new KeyValue(currentSeconds, 0)),
+                    new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION + TIMER_DURATION),
+                            e -> showFlashcardAns()));
+                    cardCount++;
+        }
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION
+                + SHOW_ANSWER_DURATION), e -> resetTexts()));
+        timeline.play();
+    }
+
+    private void resetTexts() {
+        qnsTextArea.setText("");
+        ansTextArea.setText("");
     }
 
 }

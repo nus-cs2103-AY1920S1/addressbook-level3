@@ -16,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Loads the next flashcard into the window.
@@ -44,10 +45,10 @@ public class StartTimeTrialCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException, TagNotFoundException {
         requireNonNull(model);
 
-        Optional<ArrayList<Flashcard>> deck = Optional.of(model.collectTaggedFlashcards(tagPredicate));
+        Optional<ArrayList<Flashcard>> deck = Optional.of(model.getTaggedFlashcards(tagPredicate));
 
         return new FlashcardCommandResult(String.format(MESSAGE_SUCCESS), true, deck);
     }

@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -67,6 +70,10 @@ public class ActivityWindow extends UiPart<Region> {
 
     public void displayFlashcard(Flashcard flashcard) {
         flashcardTabWindowController.loadFlashcard(flashcard);
+    }
+
+    public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
+        flashcardTabWindowController.startTimeTrial(deck);
     }
 
     public void displayNote(Note note) {

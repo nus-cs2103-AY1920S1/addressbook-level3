@@ -235,4 +235,12 @@ public interface Model {
     public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate);
 
     public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate);
+
+    /**
+     * Collect tagged flashcards
+     * @param predicate to test on the object
+     * @return arraylist of tagged flashcards that contains the specified tag
+     */
+    public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate);
+
 }
