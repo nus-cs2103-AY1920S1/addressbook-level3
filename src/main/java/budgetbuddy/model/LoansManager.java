@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.LoanSplit;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
@@ -25,6 +26,13 @@ public class LoansManager {
     private final ObservableList<Loan> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    /**
+     * A list to store the results of the {@code loan split} command.
+     */
+    private final ObservableList<LoanSplit> splitList = FXCollections.observableArrayList();
+    private final ObservableList<LoanSplit> unmodifiableSplitList =
+            FXCollections.unmodifiableObservableList(splitList);
+
     public LoansManager() {}
 
     /**
@@ -35,6 +43,8 @@ public class LoansManager {
         requireNonNull(loans);
         this.internalList.setAll(loans);
     }
+
+    //========================================= Loan Methods ===========================================
 
     /**
      * Retrieves the list of loans.
@@ -133,6 +143,23 @@ public class LoansManager {
         if (toCheck.getOneBased() > getLoansCount()) {
             throw new LoanNotFoundException();
         }
+    }
+
+    //========================================= Split Methods ===========================================
+
+    /**
+     * Sets the elements of the split list to the given split list.
+     */
+    public void setSplitList(List<LoanSplit> splitList) {
+        requireNonNull(splitList);
+        this.splitList.setAll(splitList);
+    }
+
+    /**
+     * Returns the split list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<LoanSplit> getSplitList() {
+        return unmodifiableSplitList;
     }
 
     @Override
