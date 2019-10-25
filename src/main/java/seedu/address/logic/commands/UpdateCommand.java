@@ -73,7 +73,7 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
 
         // Access Control check for tag addition
-        if (updatePersonDescriptor.getTags().isPresent() && !Person.isAdmin(model.getLoggedInPerson())) {
+        if (updatePersonDescriptor.getTags().isPresent() && Person.isNotAdmin(model.getLoggedInPerson())) {
             throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
         }
 

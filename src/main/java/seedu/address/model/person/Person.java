@@ -60,7 +60,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons have the same username.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -69,8 +69,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName()) && otherPerson.getUsername().equals(getUsername())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+                && (otherPerson.getUsername().equals(getUsername()) || otherPerson.getName().equals(getName()));
     }
 
     /**
@@ -129,8 +128,11 @@ public class Person {
      * @param person represents the person to be checked
      * @return true if the person is an admin
      */
-    public static boolean isAdmin(Person person) {
-        return person.getTags().stream().anyMatch(tag ->
+    public static boolean isNotAdmin(Person person) {
+        if (person == null) {
+            return true;
+        }
+        return person.getTags().stream().noneMatch(tag ->
                 StringUtil.containsWordIgnoreCase(tag.tagName, "admin"));
     }
 }

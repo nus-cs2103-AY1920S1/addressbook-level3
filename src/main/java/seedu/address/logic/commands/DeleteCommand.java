@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
 
         // Access Control check for command operation
-        if (!Person.isAdmin(model.getLoggedInPerson())) {
+        if (Person.isNotAdmin(model.getLoggedInPerson())) {
             throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
         }
 

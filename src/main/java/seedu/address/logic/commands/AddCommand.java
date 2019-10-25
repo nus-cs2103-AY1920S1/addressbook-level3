@@ -20,7 +20,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a user to the incident management system. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a user to the incident management system.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -55,7 +55,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         // Access Control check for tag addition
-        if (!toAdd.getTags().isEmpty() && !Person.isAdmin(model.getLoggedInPerson())) {
+        if (!toAdd.getTags().isEmpty() && Person.isNotAdmin(model.getLoggedInPerson())) {
             throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
         }
 
