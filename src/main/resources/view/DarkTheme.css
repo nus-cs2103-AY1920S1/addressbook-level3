@@ -444,3 +444,8 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#customLineChart {
+    -fx-min-height: 300;
+    -fx-legend-visible: false;
+}

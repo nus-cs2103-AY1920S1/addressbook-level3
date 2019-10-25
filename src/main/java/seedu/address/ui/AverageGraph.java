@@ -11,6 +11,8 @@ import javafx.collections.ObservableMap;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import seedu.address.model.statistics.CustomLineChart;
 
@@ -18,7 +20,6 @@ import seedu.address.model.statistics.CustomLineChart;
  * Represents ui of an average graph with no legend.
  */
 public class AverageGraph {
-    private static final String FXML = "AverageGraph.fxml";
     private static final String TITLE = "%1$s average of %2$s";
 
     // average type
@@ -78,8 +79,10 @@ public class AverageGraph {
             }
         });
 
+        customLineChart.setId("customLineChart");
         customLineChart.setAnimated(false);
-        customLineChart.setLegendVisible(false);
+
+        VBox.setVgrow(customLineChart, Priority.ALWAYS);
 
         createChart(averageMap, averageType, recordType);
     }
