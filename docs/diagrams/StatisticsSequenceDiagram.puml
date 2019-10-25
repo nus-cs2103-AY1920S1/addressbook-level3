@@ -57,7 +57,7 @@ activate CommandResult
 CommandResult --> GetStatisticsCommand
 deactivate CommandResult
 
-GetStatisticsCommand --> LogicManager : result
+GetStatisticsCommand --> LogicManager : c
 deactivate GetStatisticsCommand
 
 [<--LogicManager
