@@ -86,11 +86,17 @@ public class CheckCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toCheck));
     }
 
+    /**
+     * Handles the case where toCheck has no prerequisites.
+     */
     private void handleNoPrereqs(Model model) {
         String messageToUser = String.format(MESSAGE_NO_PREREQS, toCheck);
         model.checkCourse(messageToUser);
     }
 
+    /**
+     * Handles the case where toCheck has some prerequisites.
+     */
     private void handleWithPrereqs(Model model) {
         AndOrTree<Course> tree = AndOrTree.buildTree(
             toCheck.toString(),

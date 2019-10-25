@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.jarvis.commons.util.CourseUtil;
-import seedu.jarvis.commons.util.andor.AndOrTree;
 
 /**
  * Wraps all data for the Course Planner.
@@ -100,8 +98,8 @@ public class CoursePlanner {
             return false;
         }
         CoursePlanner that = (CoursePlanner) o;
-        return Objects.equals(uniqueCourseList, that.uniqueCourseList) &&
-            Objects.equals(courseDisplayText, that.courseDisplayText);
+        return Objects.equals(uniqueCourseList, that.uniqueCourseList)
+            && Objects.equals(courseDisplayText, that.courseDisplayText);
     }
 
     @Override
