@@ -170,6 +170,10 @@ _{Explain here how the data encryption feature will be implemented}_
 
 include::./devguide/VisitsManagement.adoc[]
 
+=== Import and Export
+
+include::./devguide/ImportExport.adoc[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
