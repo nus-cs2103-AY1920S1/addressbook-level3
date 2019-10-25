@@ -29,7 +29,8 @@ public class ListDefaultCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         IFridgeSettings prev = model.getIFridgeSettings();
-        model.setIFridgeSettings(new IFridgeSettings(prev.getNumberOfDays(), prev.getSortMethod(), listDefault));
+        IFridgeSettings curr = new IFridgeSettings(prev.getNumberOfDays(), prev.getSortMethod(), listDefault);
+        model.setIFridgeSettings(curr);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, listDefault));
     }

@@ -139,7 +139,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        groceryListPanel = new GroceryListPanel(logic.getFilteredGroceryItemList());
+        groceryListPanel = new GroceryListPanel(logic.getFilteredGroceryItemList(),
+                logic.getIFridgeSettings().getNumberOfDays());
         personListPanelPlaceholder.getChildren().add(groceryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
