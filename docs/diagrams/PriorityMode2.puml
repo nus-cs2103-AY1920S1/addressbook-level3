@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "timer:Timer" as Timer MODEL_COLOR
+participant ":TimerTask" as Task MODEL_COLOR
+end box
+
+activate Timer
+Timer -> Task : run()
+activate Task
+
+Task -> Model : toggleOffPriorityMode()
+activate Model
+destroy Task
+Model -> Timer : cancel()
+destroy Timer
+
+deactivate Model
+@enduml

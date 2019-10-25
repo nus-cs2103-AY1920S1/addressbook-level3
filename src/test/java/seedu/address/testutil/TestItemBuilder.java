@@ -28,12 +28,13 @@ public class TestItemBuilder {
     private ItemDescription description;
     private Event event;
     private Reminder reminder;
-    private Priority priority; // priority of the Event
+    private Priority priority; // priority of the Item
     private Set<Tag> tags;
 
     public TestItemBuilder() {
         description = new ItemDescription(DEFAULT_DESCRIPTION);
-        event = processEvent(DEFAULT_EVENT, DEFAULT_EVENT_DURATION, DEFAULT_PRIORITY);
+        priority = Priority.valueOf(DEFAULT_PRIORITY);
+        event = processEvent(DEFAULT_EVENT, DEFAULT_EVENT_DURATION);
         reminder = processReminder(DEFAULT_REMINDER);
         tags = new HashSet<>();
     }
@@ -43,6 +44,7 @@ public class TestItemBuilder {
      */
     public TestItemBuilder(Item itemToCopy) {
         description = itemToCopy.getItemDescription();
+        priority = itemToCopy.getPriority();
         event = itemToCopy.getEvent().orElse(null);
         reminder = itemToCopy.getReminder().orElse(null);
         tags = new HashSet<>(itemToCopy.getTags());
@@ -57,6 +59,14 @@ public class TestItemBuilder {
     }
 
     /**
+     * Parses the {@code priority} into a {@code Priority} and set it to the {@code Item} that we are building.
+     */
+    public TestItemBuilder withPriority(String priority) {
+        this.priority = Priority.valueOf(priority);
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Item} that we are building.
      */
     public TestItemBuilder withTags(String ... tags) {
@@ -67,8 +77,8 @@ public class TestItemBuilder {
     /**
      * Sets the {@code itemEvent} of the {@code Item} that we are building.
      */
-    public TestItemBuilder withEvent(String itemEvent, String duration, String priority) {
-        this.event = processEvent(itemEvent, duration, priority);
+    public TestItemBuilder withEvent(String itemEvent, String duration) {
+        this.event = processEvent(itemEvent, duration);
         return this;
     }
 
@@ -86,6 +96,7 @@ public class TestItemBuilder {
      */
     public Item build() {
         ItemBuilder itemBuilder = new ItemBuilder();
+        itemBuilder.setItemPriority(priority);
         itemBuilder.setItemDescription(description);
         itemBuilder.setEvent(event);
         itemBuilder.setReminder(reminder);
@@ -105,17 +116,14 @@ public class TestItemBuilder {
      * Processes a {@code datetime}, a {@code duration} and a {@code itemPriority} to generate an appropriate Event.
      * @param datetime start DateTime of this Event
      * @param duration of this Event
-     * @param itemPriority of this Event
      * @return a new Event with the given parameters
      */
-    private Event processEvent(String datetime, String duration, String itemPriority) {
+    private Event processEvent(String datetime, String duration) {
         Event event = null;
         try {
             event = ParserUtil.parseDateTime(datetime).get();
-            priority = ParserUtil.parsePriority(itemPriority).get();
-            event = event.changePriority(priority);
         } catch (ParseException e) {
-            // should not enter here as DEFAULT_EVENT and DEFAULT_PRIORITY are of the correct format.
+            // should not enter here as DEFAULT_EVENT are of the correct format.
         }
         return event;
     }

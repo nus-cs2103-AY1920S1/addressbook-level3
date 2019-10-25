@@ -43,8 +43,12 @@ public class AddTaskCommandParser implements Parser<AddCommand> {
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(description);
         itemBuilder.setTags(tagList);
-        Task task = new Task(priority.orElse(null), null);
+        Task task = new Task(null);
         itemBuilder.setTask(task);
+
+        if (priority.isPresent()) {
+            itemBuilder.setItemPriority(priority.get());
+        }
 
         if (dateTime.isPresent()) {
             itemBuilder.setEvent(dateTime.get());

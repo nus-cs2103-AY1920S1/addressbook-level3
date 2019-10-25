@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.exceptions.IllegalListException;
 import seedu.address.model.item.ActiveRemindersList;
+import seedu.address.model.item.EventList;
 import seedu.address.model.item.VisualizeList;
 
 /**
@@ -101,10 +102,16 @@ public interface ItemModel {
 
     public Item markIncomplete(int index) throws IllegalListException;
 
+    public JokeList getJokeList();
+
+    public String getJoke();
+
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();
 
     ArrayList<Item> getFutureRemindersList();
 
     void updateCommandHistory(Command command);
+
+    public EventList getEventList();
 }

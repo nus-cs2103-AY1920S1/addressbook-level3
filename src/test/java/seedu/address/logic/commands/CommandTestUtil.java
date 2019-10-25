@@ -59,11 +59,13 @@ public class CommandTestUtil {
 
     static {
         ITEM_1 = new EditItemDescriptorBuilder().withDescription(VALID_DESCRIPTION_1)
-                .withEvent(VALID_EVENT_1, VALID_DURATION_NULL, VALID_PRIORITY_HIGH)
+                .withPriority(VALID_PRIORITY_HIGH)
+                .withEvent(VALID_EVENT_1, VALID_DURATION_NULL)
                 .withReminder(VALID_REMINDER_1)
                 .withTags(VALID_TAG_1).build();
         ITEM_2 = new EditItemDescriptorBuilder().withDescription(VALID_DESCRIPTION_2)
-                .withEvent(VALID_EVENT_2, VALID_DURATION_NULL, VALID_PRIORITY_LOW)
+                .withPriority(VALID_PRIORITY_LOW)
+                .withEvent(VALID_EVENT_2, VALID_DURATION_NULL)
                 .withReminder(VALID_REMINDER_2)
                 .withTags(VALID_TAG_2).build();
     }

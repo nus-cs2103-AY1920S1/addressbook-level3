@@ -14,6 +14,7 @@ import seedu.address.logic.commands.DownCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.JokeCommand;
 import seedu.address.logic.commands.PriorityCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.SortCommand;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.ElisaCommandHistory;
 
 /**
@@ -98,6 +100,12 @@ public class AddressBookParser {
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(description, flags);
 
+        case JokeCommand.COMMAND_WORD:
+            return new JokeCommand();
+        /*
+        case ShowCommand.COMMAND_WORD:
+            return new ShowCommand(description);
+        */
         case UpCommand.COMMAND_WORD:
             return new UpCommand(description);
 
