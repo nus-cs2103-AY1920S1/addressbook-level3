@@ -25,7 +25,7 @@ The intended audience of this document is the developers, designers, and softwar
 === Software Overview
 MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
-In particular, it is tailored to students in National University of Singapore who dines frequently in school canteens.
+In particular, it is tailored to students in National University of Singapore who dine frequently in school canteens.
 
 == Setting up
 
@@ -245,6 +245,7 @@ will be tracked under this budget. If the user wants to track an expense under a
 switches to the target budget first, before adding the expense.
 
 Each `Budget` has 8 fields:
+
 * description: `Description` - budget name
 * amount: `Price` - amount of budget limit
 * startDate: `Timestamp` - the start date of the budget (for the current period)
@@ -271,6 +272,7 @@ it has a method Budget#getCurrentPeriodExpenses() that generates a filtered list
 period, which interacts with GUI to be shown in the current screen.
 
 The fundamental classes of the budget feature are:
+
 * `Budget` : main functional backend class
 * `JsonAdaptedBudget` : for storage of a `Budget` object in Json format
 * `UniqueBudgetList` : a list of non-duplicate budgets in MooLah
