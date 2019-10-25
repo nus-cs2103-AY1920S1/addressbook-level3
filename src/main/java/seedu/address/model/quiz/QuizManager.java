@@ -131,7 +131,7 @@ public class QuizManager {
         if (quizIndex != -1) {
             Quiz quiz = quizBank.getQuiz(quizIndex);
             int numQuestions = quiz.getQuestionList().getQuestions().size();
-            if(questionNumber < 0 || questionNumber > numQuestions + 1) {
+            if (questionNumber < 0 || questionNumber > numQuestions + 1) {
                 return false;
             }
             quiz.removeQuestion(questionNumber);
