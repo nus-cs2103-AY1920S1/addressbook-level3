@@ -390,8 +390,10 @@ _{More to be added}_
 [discrete]
 === System: Athletick
 
-=== Use case: UC1 - Marking attendance of players
-=== Actor: User
+[discrete]
+=== UC1 - Marking attendance of players
+
+Actor: User
 
 *MSS*
 
@@ -417,8 +419,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC2 - Delete person
-=== Actor: User
+=== UC2 - Delete person
+
+Actor: User
 
 *MSS*
 
@@ -444,8 +447,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC3 - Key in Performance of a Player
-=== Actor: User
+=== UC3 - Key in Performance of a Player
+Actor: User
 
 *MSS*
 
@@ -479,8 +482,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC4 - View a player’s profile
-=== Actor: User
+=== UC4 - View a player’s profile
+
+Actor: User
 
 *MSS*
 
@@ -507,8 +511,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC5 - Add a person
-=== Actor: User
+=== UC5 - Add a person
+
+Actor: User
 
 *MSS*
 
@@ -519,7 +524,6 @@ Use case ends.
 
 *Extensions*
 
-[none]
 * 1a. Details are invalid (eg. not all fields are filled up)
 +
 [none]
@@ -537,8 +541,9 @@ Use case ends.
 [discrete]
 
 [discrete]
-=== Use case: UC6 - Undo a command
-=== Actor: User
+=== UC6 - Undo a command
+
+Actor: User
 
 *MSS*
 
@@ -549,8 +554,6 @@ Use case ends.
 
 *Extensions*
 
-
-[none]
 * 1a. There are no tasks to be undone.
 +
 [none]
@@ -562,26 +565,13 @@ Use case ends
 +
 [none]
 ** 1b1. Athletick shows the most recent command that can be undone and undo
-
-[none]
-* 1a. There are no tasks to be undone.
-+
-[none]
-** Athletick shows an error message
-+
-Use case ends.
-
-* 1b. The most recent command cannot be undone
-+
-[none]
-** 1b1. Athletick shows the most recent command that can be undone and undo
 +
 Use case ends.
 
 [discrete]
+=== UC7 - Redo a command
 
-=== Use Case: UC7 - Redo a command
-=== Actor: User
+Actor: User
 
 *MSS*
 
@@ -600,16 +590,12 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
