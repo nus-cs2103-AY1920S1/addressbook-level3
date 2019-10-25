@@ -69,7 +69,7 @@ public class CalendarPanel extends UiPart<Region> {
                     new Agenda.AppointmentImplLocal()
                             .withStartLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()))
                             .withEndLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()).plusHours(1))
-                            .withSummary("Order " + orderIndex)
+                            .withSummary(String.format("Order %d: %s", orderIndex, schedule.getVenue().toString()))
             );
         }
     }
