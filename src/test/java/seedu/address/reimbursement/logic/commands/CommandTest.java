@@ -21,12 +21,12 @@ import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.reimbursement.ui.ReimbursementMessages;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.model.Transaction;
 
 public class CommandTest {
+
     @Test
     public void back_command_test() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
