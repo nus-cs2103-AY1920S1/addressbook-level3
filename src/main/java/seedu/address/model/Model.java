@@ -61,6 +61,7 @@ public interface Model {
      * Replaces all persons in address book with new persons from the list.
      */
     void replaceStagedAddressBook(List<Person> persons);
+
     /** Returns the current AddressBook */
     ReadOnlyAddressBook getStagedAddressBook();
 
@@ -172,7 +173,15 @@ public interface Model {
      * @param record record to revert to
      * @return list of reverted records with the first reversion at index 0
      */
-    List<HistoryRecord> revertTo(HistoryRecord record);
+    List<HistoryRecord> undoTo(HistoryRecord record);
+
+    /**
+     * Redoes the previous {@link MutatorCommand} if it was an undo.
+     *
+     * @return record describing the redone command and the state after its execution
+     * @throws IllegalStateException if the previous command was not an undo
+     */
+    HistoryRecord redo() throws IllegalStateException;
 
     /** Returns an unmodifiable view of the history */
     ObservableList<HistoryRecord> getHistory();
