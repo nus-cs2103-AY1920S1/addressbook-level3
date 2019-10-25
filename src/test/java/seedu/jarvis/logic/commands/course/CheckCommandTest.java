@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.util.CourseUtil;
+import seedu.jarvis.commons.util.andor.AndOrTree;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
@@ -75,7 +76,11 @@ public class CheckCommandTest {
     @Test
     public void execute_withPrereqsDoesNotFulfill_cannotTakeCourse() {
         CheckCommand cc = new CheckCommand(CS3230);
-        String expectedMessage = String.format(MESSAGE_CANNOT_TAKE_COURSE, CS3230);
+        String expectedTreeString = AndOrTree.buildTree(
+            CS3230.getCourseCode().toString(),
+            CS3230.getPrereqTree().toString(), (c) -> CourseUtil.getCourse(c).get()
+        ).toString();
+        String expectedMessage = String.format(MESSAGE_CANNOT_TAKE_COURSE, CS3230, expectedTreeString);
         expectedModel.checkCourse(expectedMessage);
         String expectedResult = String.format(MESSAGE_SUCCESS, CS3230);
         assertCommandSuccess(cc, model, expectedResult, expectedModel);
@@ -88,7 +93,11 @@ public class CheckCommandTest {
         CheckCommand cc = new CheckCommand(actualCS3230);
         model.addCourse(actualCS2040);
         expectedModel.addCourse(actualCS2040);
-        String expectedMessage = String.format(MESSAGE_CANNOT_TAKE_COURSE, actualCS3230);
+        String expectedTreeString = AndOrTree.buildTree(
+            actualCS3230.getCourseCode().toString(),
+            actualCS3230.getPrereqTree().toString(), (c) -> CourseUtil.getCourse(c).get()
+        ).toString();
+        String expectedMessage = String.format(MESSAGE_CANNOT_TAKE_COURSE, actualCS3230, expectedTreeString);
         expectedModel.checkCourse(expectedMessage);
         String expectedResult = String.format(MESSAGE_SUCCESS, actualCS3230);
         assertCommandSuccess(cc, model, expectedResult, expectedModel);
@@ -104,7 +113,15 @@ public class CheckCommandTest {
         model.addCourse(actualCS1231);
         expectedModel.addCourse(actualCS2040);
         expectedModel.addCourse(actualCS1231);
-        String expectedMessage = String.format(MESSAGE_CAN_TAKE_COURSE, actualCS3230);
+        String expectedTreeString = AndOrTree.buildTree(
+                actualCS3230.getCourseCode().toString(),
+                actualCS3230.getPrereqTree().toString(), (c) -> CourseUtil.getCourse(c).get()
+            ).toString();
+        String expectedMessage = String.format(
+            MESSAGE_CAN_TAKE_COURSE,
+            actualCS3230,
+            expectedTreeString
+        );
         expectedModel.checkCourse(expectedMessage);
         String expectedResult = String.format(MESSAGE_SUCCESS, actualCS3230);
         assertCommandSuccess(cc, model, expectedResult, expectedModel);

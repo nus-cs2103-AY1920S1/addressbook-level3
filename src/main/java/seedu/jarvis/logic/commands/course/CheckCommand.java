@@ -34,8 +34,11 @@ public class CheckCommand extends Command {
 
     /** To print to user */
     public static final String MESSAGE_NO_PREREQS = "%1$s has no prerequisites!";
-    public static final String MESSAGE_CAN_TAKE_COURSE = "You are able to take this course: %1$s";
-    public static final String MESSAGE_CANNOT_TAKE_COURSE = "You are able to take this course: %1$s";
+    public static final String MESSAGE_CAN_TAKE_COURSE =
+        "%s: You are able to take this course!\n These are the prerequisites you have satisfied: %s";
+
+    public static final String MESSAGE_CANNOT_TAKE_COURSE =
+        "%s: You are not able to take this course!\n These are the prerequisites for this course: %s";
 
     public static final boolean HAS_INVERSE = false;
 
@@ -104,8 +107,8 @@ public class CheckCommand extends Command {
         );
         List<Course> userCourses = model.getUnfilteredCourseList();
         String messageToUser = (tree.fulfills(userCourses))
-                ? String.format(MESSAGE_CAN_TAKE_COURSE, toCheck)
-                : String.format(MESSAGE_CANNOT_TAKE_COURSE, toCheck);
+                ? String.format(MESSAGE_CAN_TAKE_COURSE, toCheck, tree.toString())
+                : String.format(MESSAGE_CANNOT_TAKE_COURSE, toCheck, tree.toString());
         model.checkCourse(messageToUser);
     }
 
