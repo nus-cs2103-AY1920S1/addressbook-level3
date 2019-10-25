@@ -42,7 +42,6 @@ Budget --> ParseUtil
 
 deactivate Budget
 
-
 ParseUtil --> BudgetCommandParser
 deactivate ParseUtil
 
@@ -62,11 +61,10 @@ destroy BudgetCommandParser
 SpendingBookParser --> LogicManager : f
 deactivate SpendingBookParser
 
-
 LogicManager -> BudgetCommand : execute()
 activate BudgetCommand
 
-BudgetCommand -> Model : setSpending(predicate)
+BudgetCommand -> Model : setBudget(100000)
 activate Model
 
 Model --> BudgetCommand

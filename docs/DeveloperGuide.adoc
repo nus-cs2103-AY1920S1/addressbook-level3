@@ -561,7 +561,7 @@ As the current statistics feature does not require a large amount of data, the n
 Alternative 2 requires a change in the architecture which may result in higher complexity.
 
 === Budget Feature
-The `Budget` component has two core feature:
+The `Budget` component has two core features:
 
 1. Allowing the user to set the monthly budget
 2. Calculating the remanding budget after all the spending in the same month.
