@@ -1,7 +1,5 @@
 package seedu.address.model.training;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

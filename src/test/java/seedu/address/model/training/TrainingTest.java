@@ -2,7 +2,6 @@ package seedu.address.model.training;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -20,20 +19,15 @@ import seedu.address.testutil.TypicalTraining;
 class TrainingTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Training(null, null));
-    }
-
-    @Test
     public void test_validDate_returnTrue() {
-        Date date = new Date();
+        String date = new Date().toString();
         Training training = new Training(date, new TypicalTraining().getTraining());
         assertTrue(date.equals(training.getDate()));
     }
 
     @Test
     public void test_validTrainingAttendance_returnTrue() {
-        Date date = new Date();
+        String date = new Date().toString();
         TypicalTraining trainingGroup = new TypicalTraining();
         Training training = new Training(date, trainingGroup.getTraining());
         assertTrue(trainingGroup.getTraining().equals(training.getTrainingAttendance()));
@@ -41,7 +35,7 @@ class TrainingTest {
 
     @Test
     public void test_personHasAttendance_returnTrue() {
-        Date date = new Date();
+        String date = new Date().toString();
         TypicalTraining trainingGroup = new TypicalTraining();
         Training training = new Training(date, trainingGroup.getTraining());
 
@@ -52,7 +46,7 @@ class TrainingTest {
 
     @Test
     public void test_personHasNoAttendance_returnFalse() {
-        Date date = new Date();
+        String date = new Date().toString();
         TypicalTraining trainingGroup = new TypicalTraining();
         Training training = new Training(date, trainingGroup.getTraining());
 
