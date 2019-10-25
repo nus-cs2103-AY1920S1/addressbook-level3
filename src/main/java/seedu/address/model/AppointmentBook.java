@@ -3,19 +3,12 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Optional;
 
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import seedu.address.commons.exceptions.CopyError;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.PersonHasOngoingVisitException;
-import seedu.address.model.visit.Visit;
-import seedu.address.storage.JsonSerializableAddressBook;
 import seedu.address.storage.JsonSerializableAppointmentBook;
 
 /**

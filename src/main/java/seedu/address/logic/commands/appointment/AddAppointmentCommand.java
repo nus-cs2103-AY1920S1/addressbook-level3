@@ -1,31 +1,23 @@
 package seedu.address.logic.commands.appointment;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_VISIT_TODO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_MINUTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_MONTHS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_WEEKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.MutatorCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Person;
 
 /**
  * Adds an appointment to the appointment list

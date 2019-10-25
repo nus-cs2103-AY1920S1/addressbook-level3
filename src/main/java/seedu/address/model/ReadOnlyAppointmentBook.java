@@ -1,9 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Person;
 
 /**
  * Unmodifiable view of an appointment book

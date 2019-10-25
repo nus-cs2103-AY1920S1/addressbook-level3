@@ -1,31 +1,19 @@
 package seedu.address.logic.commands.appointment;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_VISIT_TODO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_MINUTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_MONTHS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_WEEKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -40,14 +28,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.RecurringDateTime;
 import seedu.address.model.datetime.StartDateTime;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.visit.Visit;
-import seedu.address.model.visittodo.VisitTodo;
 
 /**
  * Edits the details of an existing appointment in the appointment book.

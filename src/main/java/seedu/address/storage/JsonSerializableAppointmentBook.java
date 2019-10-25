@@ -2,22 +2,16 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javafx.util.Pair;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.AppointmentBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Person;
-import seedu.address.model.visit.Visit;
 
 /**
  * An Immutable AppointmentBook that is serializable to JSON format.
@@ -44,7 +38,10 @@ public class JsonSerializableAppointmentBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAppointmentBook}.
      */
     public JsonSerializableAppointmentBook(ReadOnlyAppointmentBook source) {
-        appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new).collect(Collectors.toList()));
+        appointments.addAll(source.getAppointmentList()
+                    .stream()
+                    .map(JsonAdaptedAppointment::new)
+                    .collect(Collectors.toList()));
     }
 
     /**
