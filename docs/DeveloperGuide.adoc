@@ -16,13 +16,23 @@ endif::[]
 
 By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
 
+== Introduction
+
+Welcome to Mark. This developer guide aims to introduce potential developers to the structure and implementation of Mark,
+so that you can contribute too!
+
+The guide first covers the high-level design of Mark, and then discusses the implementation of key features and the
+rationale behind certain design decisions. Next, it provides links to guides for the tools used in Documentation, Testing,
+and DevOps. Finally, the appendices of this guide specify the product scope, requirements, a glossary, and instructions for
+manual testing.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
-This section shows the design of AddressBook Level 3, which Mark is adapted from. It will be updated in a future release.
+This section shows the design of Mark.
 
 [[Design-Architecture]]
 === Architecture
@@ -34,24 +44,21 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/mark/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/mark/MainApp.java[`MainApp`]. It is responsible for,
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* Initializes the components in the correct sequence, and connects them up with each other.
+* Shuts down the components and invokes cleanup method where necessary.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+For example, `LogsCenter` plays an important role at the architecture level as it is used by many classes to write log messages to the App's log file.
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+The rest of the App consists of the following four components:
 
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+. <<Design-Ui,*`UI`*>>: The UI of the App.
+. <<Design-Logic,*`Logic`*>>: The command executor.
+. <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+. <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
@@ -131,22 +138,39 @@ The `Logic` component does the following:
 [[Design-Model]]
 === Model component
 
+The `Model` component:
+
+* Stores the data of Mark.
+* Does not depend on any of the other three components.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/mark/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` consists of the following:
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+1. `VersionedMark` - contains Mark data
+2. `UserPrefs` - represents the user's preferences
+3. `OfflineDocument` - represents the current document being displayed in the offline tab
+4. `Url` - represents the current URL being displayed in the offline tab
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+It also exposes an unmodifiable `ObservableList<Bookmark>` that
+can be 'observed', e.g. the UI can be bound to this list so that the UI automatically updates
+when the list data are changed.
+
+`VersionedMark` contains a list of `ReadOnlyMark` objects that represent past or future states of
+Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssociation` object, an
+`AutotagController`, and a `FolderStructure`.
+
+.Structure of the Annotation package
+image::AnnotationPackageClassDiagram.png[]
+
+The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
+An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
+contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagraph`, which contains `AnnotationNote`,
+`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `AnnotationNote` and `Highlight` are optional fields
+whenever they are used, i.e. in `PhantomParagraph` and/or `TrueParagraph`.
 
 [[Design-Storage]]
 === Storage component
@@ -277,6 +301,78 @@ image::SaveMarkActivityDiagram.png[]
 undo stack and pushing it into the redo stack. There is no way to pop multiple state records efficiently at one time.
 // end::undoredo[]
 
+// tag::autotag[]
+=== Autotag feature
+==== Implementation
+
+The autotag mechanism is facilitated by `AutotagController`. It stores and manages a list of `SelectiveBookmarkTaggers` which apply tags to
+bookmarks if they match specific criteria. It also implements the following operations:
+
+* `AutotagController#hasTagger(SelectiveBookmarkTagger)` -- Checks whether the controller contains the given tagger.
+* `AutotagController#addTagger(SelectiveBookmarkTagger)` -- Starts managing the given tagger.
+* `AutotagController#applyTaggersToList(List<Bookmark>)` -- Tags the bookmarks in the list using all relevant taggers.
+* `AutotagController#applyTaggers(Bookmark)` -- Tags the bookmark using all relevant taggers.
+
+The first three operations are exposed in the `Model` interface as `Model#hasTagger(SelectiveBookmarkTagger)`, `Model#addTagger(SelectiveBookmarkTagger)`,
+and `Model#applyAllTaggers()` respectively.
+
+Given below is an example usage scenario and how the autotag mechanism behaves at each step.
+
+Step 1. The user opens the application with an existing list of bookmarks and no autotags.
+
+image::AutotagState0.png[]
+
+Step 2. The user executes the command `autotag Help u/stackoverflow.com/questions` to add an autotag that tags all bookmarks
+from StackOverflow with the tag ProgrammingHelp. A `SelectiveBookmarkTagger` is created with a `UrlContainsKeywordsPredicate` and the tag
+`Help`. `b2`, which matches the `UrlContainsKeywordsPredicate`, is replaced by a copy of itself that also contains the tag
+`Help`.
+
+image::AutotagState1.png[]
+
+The following sequence diagram shows how the `autotag` command works.
+__(The sequence diagram will be improved in future versions of the Developer Guide.)__
+
+// TODO: improve sequence diagram
+image::AutotagSequenceDiagram.png[]
+
+NOTE: The lifeline for `AutotagCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, it reaches the end of this diagram.
+
+Now, autotags will be applied whenever a bookmark is added or modified.
+
+Step 3. The user then executes the command `add n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/` to bookmark
+a question on StackOverflow. This bookmark matches the conditions for the autotag `Help`, so it is tagged.
+
+image::AutotagState2.png[]
+
+The following activity diagram summarizes what happens when a user executes a `*autotag*` command:
+
+// TODO: make activity diagram
+.The activity diagram has not been created yet
+image::AutotagActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How autotags are applied
+
+* **Alternative 1 (current choice):** Iterate through each autotag and bookmark, then apply tags to all bookmarks that match.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of runtime, as bookmarks may be checked multiple times.
+* **Alternative 2:** Check for changes in the bookmark list then edit tags accordingly.
+** Pros: Will be faster if most bookmarks are unchanged.
+** Cons: More complicated to implement.
+
+===== Aspect: How to apply taggers to a bookmark list in Mark
+
+* **Alternative 1:** Modify individual bookmarks when adding tags.
+** Pros: Eliminates the need to reset Mark's bookmark list whenever taggers are applied.
+** Cons: Can cause unanticipated changes in other parts of the Model.
+* **Alternative 2 (current choice):** Replace the whole bookmark list with a new list of bookmarks, some of which have been tagged.
+** Pros: Simple to implement, ensures immutability of bookmarks.
+** Cons: Inefficient to construct a new list each time a single bookmark is tagged.
+* **Alternative 3:** Replace only those bookmarks that were tagged.
+** Pros: Minimises performance issues from creating a new bookmark list.
+** Cons: More complicated to implement.
+// end::autotag[]
 
 // tag::annotation[]
 === Annotation feature
@@ -393,6 +489,32 @@ The following are a few design considerations made in deciding how to implement 
 ** Pros: Single source of truth, its folder is simply where it's located
 ** Cons: The whole `BookmarkList` abstraction will have to be rewritten
 // end::folders[]
+
+// tag::reminder[]
+=== Reminder Feature
+==== Implementation
+A bookmark can have a reminder, and a reminder can be used to open the bookmark.
+This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
+
+`Reminder` contains a reminding time, the `Url` of the `Bookmark` and a `Note`.
+
+`ReminderAssociation` represents the association between `Reminder` and `Bookmark`, containing
+ the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
+
+.Structure of the Reminder
+image::ReminderAssociationDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to represent the relationship between reminder and bookmark
+* **Alternative 1 (current choice):** Use two hashmaps to store both the relationship from reminder to bookmark and bookmark to reminder.
+** Pros: More OOP and can easily find the relationship.
+** Cons: More complex when doing any operation to a reminder. Need to check two hashmaps.
+
+* **Alternative 2:** Reminder is a field of bookmark.
+** Pros: Easier to implement.
+//TODO: Change this description
+** Cons: Reminder is a field of bookmark, so using a reminder to open the bookmark violate the relationship.
+// end::reminder[]
 
 
 === Logging

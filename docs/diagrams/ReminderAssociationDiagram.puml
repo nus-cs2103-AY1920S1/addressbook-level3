@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Reminder <<Rectangle>> {
+Class ReminderAssociation
+Class Reminder
+Class Note
+}
+
+Package Bookmark {
+Class Bookmark
+Class Name
+Class Url
+Class Remark
+Class Folder
+Class UniqueBookmarkList
+}
+
+ReminderAssociation --> "*" Reminder
+ReminderAssociation --> "*" Bookmark
+Reminder --> "1" Note
+Reminder --> "1" Url
+
+UniqueBookmarkList o--> "*" Bookmark
+Bookmark *--> Name
+Bookmark *--> Url
+Bookmark *--> Remark
+Bookmark *--> Folder
+Bookmark *--> "*" Tag
+
+@enduml

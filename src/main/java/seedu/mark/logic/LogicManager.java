@@ -105,4 +105,9 @@ public class LogicManager implements Logic {
     public void updateDocument(OfflineDocument doc) {
         model.updateDocument(doc);
     }
+
+    @Override
+    public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
+        return model.getBookmarkDisplayingCacheProperty();
+    }
 }

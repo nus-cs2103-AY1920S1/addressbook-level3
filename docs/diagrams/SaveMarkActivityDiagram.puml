@@ -6,7 +6,7 @@ start
 'diamond we place it as the true branch instead.
 
 if () then ([command saves Mark])
-    :Purge redunant states;
+    :Purge redundant states;
     :Save Mark and the
     corresponding record to
     markStateRecords;

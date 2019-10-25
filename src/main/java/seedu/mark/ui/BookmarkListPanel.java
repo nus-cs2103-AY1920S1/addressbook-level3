@@ -19,13 +19,17 @@ import seedu.mark.model.bookmark.Url;
 public class BookmarkListPanel extends UiPart<Region> {
     private static final String FXML = "BookmarkListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BookmarkListPanel.class);
+    @org.jetbrains.annotations.NotNull
+    private final ObservableValue<Bookmark> bookmarkToDisplayCache;
 
     @FXML
     private ListView<Bookmark> bookmarkListView;
 
     public BookmarkListPanel(ObservableList<Bookmark> bookmarkList, ObservableValue<Url> currentBookmarkUrl,
+                             ObservableValue<Bookmark> bookmarkToDisplayCache,
                              Consumer<Url> currentBookmarkUrlChangeHandler, MainWindow mainWindow) {
         super(FXML);
+        this.bookmarkToDisplayCache = bookmarkToDisplayCache;
         bookmarkListView.setItems(bookmarkList);
         bookmarkListView.setCellFactory(listView -> new BookmarkListViewCell());
 
@@ -60,6 +64,15 @@ public class BookmarkListPanel extends UiPart<Region> {
                 bookmarkListView.getSelectionModel().clearAndSelect(index);
             }
         });
+
+        bookmarkToDisplayCache.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            System.out.println("listener");
+            bookmarkListView.refresh();
+            bookmarkListView.scrollTo(newValue);
+        });
     }
 
     /**
@@ -74,7 +87,11 @@ public class BookmarkListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BookmarkCard(bookmark, getIndex() + 1).getRoot());
+                BookmarkCard card = new BookmarkCard(bookmark, getIndex() + 1);
+                if (bookmark.equals(bookmarkToDisplayCache.getValue())) {
+                    card.displayCache();
+                }
+                setGraphic(card.getRoot());
             }
         }
     }

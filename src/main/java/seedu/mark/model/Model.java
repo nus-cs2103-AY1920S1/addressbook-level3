@@ -73,6 +73,12 @@ public interface Model {
     void deleteBookmark(Bookmark target);
 
     /**
+     * Tags the given bookmark as a favorite bookmark.
+     * The bookmark must exist in Mark.
+     */
+    void favoriteBookmark(Bookmark target);
+
+    /**
      * Adds the given bookmark.
      * {@code bookmark} must not already exist in Mark.
      */
@@ -210,4 +216,14 @@ public interface Model {
      */
     void updateDocument(OfflineDocument doc);
 
+    /**
+     * Updates the specified bookmark to be the one to display its cache
+     */
+    void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache);
+
+    /**
+     * Returns the observable of the bookmark with its cache currently displayed.
+     * @return the observable bookmark property
+     */
+    SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 }

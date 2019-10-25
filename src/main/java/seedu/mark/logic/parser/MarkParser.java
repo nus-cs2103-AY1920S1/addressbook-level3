@@ -10,17 +10,20 @@ import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AddReminderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
+import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.ExportCommand;
+import seedu.mark.logic.commands.FavoriteCommand;
 import seedu.mark.logic.commands.FindCommand;
 import seedu.mark.logic.commands.GotoCommand;
 import seedu.mark.logic.commands.HelpCommand;
 import seedu.mark.logic.commands.ImportCommand;
 import seedu.mark.logic.commands.ListCommand;
+import seedu.mark.logic.commands.OfflineCommand;
 import seedu.mark.logic.commands.RedoCommand;
 import seedu.mark.logic.commands.TabCommand;
 import seedu.mark.logic.commands.UndoCommand;
@@ -58,6 +61,10 @@ public class MarkParser {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case FavoriteCommand.COMMAND_WORD:
+        case FavoriteCommand.COMMAND_ALIAS:
+            return new FavoriteCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -103,6 +110,12 @@ public class MarkParser {
 
         case AutotagCommand.COMMAND_WORD:
             return new AutotagCommandParser().parse(arguments);
+
+        case CacheCommand.COMMAND_WORD:
+            return new CacheCommandParser().parse(arguments);
+
+        case OfflineCommand.COMMAND_WORD:
+            return new OfflineCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
