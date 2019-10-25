@@ -20,9 +20,9 @@
       </StackPane>
       <ScrollPane fx:id="timelineScrollPane" fitToWidth="true">
          <content>
-            <GridPane fx:id="timelineGrid" alignment="CENTER_LEFT">
+            <GridPane fx:id="timelineGrid">
               <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="100.0" minWidth="80.0" prefWidth="80.0" />
                 <ColumnConstraints hgrow="ALWAYS" />
               </columnConstraints>
             </GridPane>

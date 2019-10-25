@@ -4,8 +4,9 @@ import java.util.List;
 
 import javafx.scene.layout.RowConstraints;
 
+import seedu.address.model.CalendarDate;
+import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.UiParser;
 import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.card.EventCard;
 
@@ -16,31 +17,23 @@ public class TimelineDayView extends TimelineView {
 
     private static final String FXML = "TimelineDayView.fxml";
 
-    private Integer day;
-    private Integer month;
-    private Integer year;
+    private CalendarDate calendarDate;
 
     /**
      * Constructor for TimelineDayView for a particular day.
      *
-     * @param day Represents the day of the timeline.
-     * @param month Represents the month of the timeline.
-     * @param year Represents the year of the timeline.
+     * @param calendarDate Represents the given or current date.
      * @param eventList Represents the current list of events.
-     * @param uiParser Represents a parser to convert certain types of objects into other types of objects.
      */
-    public TimelineDayView(Integer day,
-                           Integer month,
-                           Integer year,
-                           List<EventSource> eventList,
-                           UiParser uiParser) {
-        super(uiParser, FXML);
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        setTotalRows(24);
-        setTimelineTitle("Timeline: " + uiParser.getEnglishDate(day, month, year));
+    public TimelineDayView(CalendarDate calendarDate, List<EventSource> eventList) {
+        super(FXML);
+        this.calendarDate = calendarDate;
 
+        setTotalRows(24);
+        setTimelineTitle("Timeline: "
+                + calendarDate.getDay() + " "
+                + calendarDate.getEnglishMonth() + " "
+                + calendarDate.getYear());
         addGrids();
         addLabels(getLabels());
         addEventCardHolders();
@@ -65,10 +58,9 @@ public class TimelineDayView extends TimelineView {
 
     @Override
     void addEventCard(EventSource event) {
-        // Gets the event Hour
-        Integer eventHour = getUiParser().getHour(event.getStartDateTime().toInstant());
+        Integer eventHour = event.getStartDateTime().getHour();
 
-        EventCard eventCard = new EventCard(event, getUiParser());
+        EventCard eventCard = new EventCard(event);
         CardHolder eventCardHolder = getEventCardHolder().get(eventHour);
         eventCardHolder.addEvent(eventCard);
 
@@ -79,7 +71,7 @@ public class TimelineDayView extends TimelineView {
 
     @Override
     boolean isWithinTimeline(EventSource event) {
-        Integer[] dayMonthYear = getUiParser().getDateToNumbers(event.getStartDateTime().toInstant());
-        return dayMonthYear[0].equals(day) && dayMonthYear[1].equals(month) && dayMonthYear[2].equals(year);
+        DateTime eventDateTime = event.getStartDateTime();
+        return calendarDate.sameDate(eventDateTime.getDay(), eventDateTime.getMonth(), eventDateTime.getYear());
     }
 }

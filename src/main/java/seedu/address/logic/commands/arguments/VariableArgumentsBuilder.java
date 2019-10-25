@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.arguments;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Represents an object that builds variable arguments.
@@ -9,11 +10,13 @@ import java.util.List;
 public abstract class VariableArgumentsBuilder<T> {
 
     private final String description;
+    private final Consumer<List<T>> promise;
 
     private VariableArguments<T> argument;
 
-    VariableArgumentsBuilder(String description) {
+    VariableArgumentsBuilder(String description, Consumer<List<T>> promise) {
         this.description = description;
+        this.promise = promise;
     }
 
     public List<T> getValues() {
@@ -33,5 +36,9 @@ public abstract class VariableArgumentsBuilder<T> {
 
     String getDescription() {
         return description;
+    }
+
+    Consumer<List<T>> getPromise() {
+        return promise;
     }
 }

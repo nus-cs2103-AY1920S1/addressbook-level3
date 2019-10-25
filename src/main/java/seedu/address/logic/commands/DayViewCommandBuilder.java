@@ -2,47 +2,44 @@ package seedu.address.logic.commands;
 
 import java.util.Map;
 
-import seedu.address.logic.commands.arguments.DateTimeArgument;
-import seedu.address.logic.commands.arguments.DateTimeArgumentBuilder;
-import seedu.address.logic.commands.options.Option;
-import seedu.address.logic.commands.options.OptionBuilder;
-import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
+import seedu.address.logic.UiManager;
+import seedu.address.logic.commands.arguments.DayMonthYearArgument;
+import seedu.address.logic.commands.arguments.list.ArgumentList;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
+import seedu.address.model.CalendarDate;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
  */
 class DayViewCommandBuilder extends CommandBuilder {
 
-    private static final String ARGUMENT_START_DATE_TIME = "START_DATE_TIME";
+    private static final String ARGUMENT_START_DATE_TIME = "START_DATE";
 
-    private final ModelManager model;
+    private CalendarDate start;
+    private UiManager uiManager;
 
-    private final DateTimeArgumentBuilder start;
-
-    DayViewCommandBuilder(ModelManager model) {
-        this.model = model;
-
-        this.start = DateTimeArgument.newBuilder(ARGUMENT_START_DATE_TIME);
+    DayViewCommandBuilder(UiManager uiManager) {
+        this.uiManager = uiManager;
     }
 
     @Override
-    OptionBuilder getCommandArguments() {
-        return Option.newBuilder()
-                .addArgument(this.start);
+    RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .addArgument(DayMonthYearArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
     }
 
     @Override
-    Map<String, OptionBuilder> getCommandOptions() {
-        return Map.of();
+    Map<String, OptionalArgumentList> defineCommandOptions() {
+        return null;
     }
 
-    ModelManager getModel() {
-        return model;
+    UiManager getUiManager() {
+        return uiManager;
     }
 
-    DateTime getStart() {
-        return this.start.getValue();
+    CalendarDate getStart() {
+        return this.start;
     }
 
     @Override

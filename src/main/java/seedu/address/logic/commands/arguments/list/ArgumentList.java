@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.options;
+package seedu.address.logic.commands.arguments.list;
 
 import java.util.List;
 
@@ -8,25 +8,30 @@ import seedu.address.logic.commands.exceptions.ArgumentException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Represents an option in a Command.
- * It can contain 0..* other arguments, and can contain 0..1 variable arguments.
+ * Represents a list of arguments in a Command.
+ * It can contain 0..* arguments, and can contain 0..1 variable arguments.
  */
-public class Option {
+public class ArgumentList {
 
-    // Determines whether or not this option is used in the Command.
-    private boolean active;
+    // Determines whether or not the arguments in this list is required.
+    private boolean required;
     private int argumentIndex;
 
     private final List<Argument> arguments;
     private final VariableArguments variableArguments;
 
-    Option(List<Argument> arguments, VariableArguments variableArguments) {
-        this.arguments = arguments;
-        this.variableArguments = variableArguments;
+    ArgumentList(ArgumentListBuilder builder) {
+        this.required = builder.isRequired();
+        this.arguments = builder.getArguments();
+        this.variableArguments = builder.getVariableArguments();
     }
 
-    public static OptionBuilder newBuilder() {
-        return new OptionBuilder();
+    public static OptionalArgumentList optional() {
+        return new OptionalArgumentList();
+    }
+
+    public static RequiredArgumentList required() {
+        return new RequiredArgumentList();
     }
 
     /**
@@ -49,7 +54,7 @@ public class Option {
      */
     public void build() throws ArgumentException, ParseException {
         for (Argument argument : this.arguments) {
-            argument.build(this.active);
+            argument.build(this.required);
         }
 
         if (this.variableArguments != null) {
@@ -57,11 +62,7 @@ public class Option {
         }
     }
 
-    public void setActive() {
-        this.active = true;
-    }
-
-    public boolean isActive() {
-        return active;
+    public void setRequired() {
+        this.required = true;
     }
 }

@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.model.events.DateTime.USER_DATE_TIME_PATTERN;
+import static seedu.address.model.DateTime.USER_DATE_TIME_PATTERN;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
