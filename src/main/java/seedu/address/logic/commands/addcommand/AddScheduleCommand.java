@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.addcommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -30,12 +31,14 @@ public class AddScheduleCommand extends Command {
     public static final String COMMAND_WORD = "add-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a schedule to an existing order in the SML "
-            + "by the index number of the order to be scheduled in the displayed order list. \n"
+            + "by the index number of the order to be scheduled in the displayed order list. Add \"" + PREFIX_ALLOW
+            + "\" to confirm any clashing schedules.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DATE + "YYYY.MM.DD "
             + PREFIX_TIME + "HH.MM "
             + PREFIX_VENUE + "VENUE "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_ALLOW + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "2019.12.12 "
             + PREFIX_TIME + "17.30 "
@@ -64,28 +67,40 @@ public class AddScheduleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Order> lastShownList = model.getFilteredOrderList();
+        List<Order> orderList = model.getFilteredOrderList();
 
+        // check if model already has this schedule
+        // or if the order index is invalid
         if (model.hasSchedule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
-        } else if (orderIndex.getZeroBased() >= lastShownList.size()) {
+        } else if (orderIndex.getZeroBased() >= orderList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
+        // Get the list of conflicts from model
         List<Schedule> conflicts = model.getConflictingSchedules(toAdd);
+        StringBuilder sb = new StringBuilder();
 
-        // Conflicts present, throw exception
+        // if there are conflicts present and user did not put -allow flag, throw exception
         if (!conflicts.isEmpty() && !canClash) {
-            StringBuilder sb = new StringBuilder();
             sb.append("\nHere are the list of conflicting schedules:\n");
             Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
-            for (Schedule s : conflicts) {
-                sb.append(s.getCalendarString() + "\n");
+            for (Schedule schedule : conflicts) {
+                for (Order order : orderList) {
+                    Optional<Schedule> s = order.getSchedule();
+                    if (s.isPresent() && s.get().isSameAs(schedule)) {
+                        // change to 1-based index
+                        int index = orderList.indexOf(order) + 1;
+                        sb.append(String.format("Order %d: %s\n", index, schedule.getCalendarString()));
+                        break;
+                    }
+                }
             }
             throw new CommandException(Messages.MESSAGE_SCHEDULE_CONFLICT + sb.toString());
         }
 
-        Order orderToSchedule = lastShownList.get(orderIndex.getZeroBased());
+        // Check if the order status is valid - only UNSCHEDULED is valid
+        Order orderToSchedule = orderList.get(orderIndex.getZeroBased());
         switch (orderToSchedule.getStatus()) {
         case SCHEDULED:
             throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED);
@@ -101,12 +116,10 @@ public class AddScheduleCommand extends Command {
                 orderToSchedule.getPhone(), orderToSchedule.getPrice(), Status.SCHEDULED, Optional.of(toAdd),
                 orderToSchedule.getTags());
 
-
-
         model.setOrder(orderToSchedule, scheduledOrder);
         model.addSchedule(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + sb.toString(), toAdd), UiChange.SCHEDULE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS + sb.toString(), toAdd), UiChange.SCHEDULE);
     }
 
     @Override

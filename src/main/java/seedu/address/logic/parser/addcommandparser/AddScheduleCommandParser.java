@@ -58,7 +58,7 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
         Schedule schedule = new Schedule(UUID.randomUUID(), calendar, venue, tagList);
 
         boolean canClash = false;
-        if (!arePrefixesPresent(argMultimap, PREFIX_ALLOW)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_ALLOW)) {
             canClash = true;
         }
 

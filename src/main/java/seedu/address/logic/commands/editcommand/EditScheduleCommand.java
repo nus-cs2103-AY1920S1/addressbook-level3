@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.editcommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -9,6 +10,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SCHEDULE;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,7 @@ import seedu.address.model.schedule.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing schedule in the address book.
+ * Edits the details of an existing schedule in SML.
  */
 public class EditScheduleCommand extends Command {
 
@@ -37,12 +39,14 @@ public class EditScheduleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the schedule identified "
             + "by the schedule's order index number in the displayed order list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing values will be overwritten by the input values. Add \"" + PREFIX_ALLOW + "\" to confirm any "
+            + "clashing schedules.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_VENUE + "VENUE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_ALLOW + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "2019.12.12 "
             + PREFIX_TIME + "12.12 "
@@ -54,30 +58,33 @@ public class EditScheduleCommand extends Command {
 
     private final Index index;
     private final EditScheduleDescriptor editScheduleDescriptor;
+    private final boolean canClash;
 
     /**
-     * @param index of the order to be rescheduled in the filtered order list to edit
-     * @param editScheduleDescriptor details to edit the schedule with
+     * Creates an EditScheduleCommand to edit the specified schedule using {@code EditScheduleDescriptor}
      */
-    public EditScheduleCommand(Index index, EditScheduleDescriptor editScheduleDescriptor) {
+    public EditScheduleCommand(Index index, EditScheduleDescriptor editScheduleDescriptor, boolean canClash) {
         requireNonNull(index);
         requireNonNull(editScheduleDescriptor);
 
         this.index = index;
         this.editScheduleDescriptor = new EditScheduleDescriptor(editScheduleDescriptor);
+        this.canClash = canClash;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Order> lastShownList = model.getFilteredOrderList();
+        List<Order> orderList = model.getFilteredOrderList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        // check if the order index is valid
+        if (index.getZeroBased() >= orderList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToReschedule = lastShownList.get(index.getZeroBased());
+        // Check if the order status is valid - only SCHEDULED is valid
+        Order orderToReschedule = orderList.get(index.getZeroBased());
         switch (orderToReschedule.getStatus()) {
         case COMPLETED:
             throw new CommandException(Messages.MESSAGE_ORDER_COMPLETED);
@@ -96,9 +103,32 @@ public class EditScheduleCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         }
 
+        // Get the list of conflicts from model
+        List<Schedule> conflicts = model.getConflictingSchedules(editedSchedule);
+        StringBuilder sb = new StringBuilder();
+
+        // if there are conflicts present and user did not put -allow flag, throw exception
+        if (!conflicts.isEmpty() && !canClash) {
+            sb.append("\nHere are the list of conflicting schedules:\n");
+            Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
+            for (Schedule schedule : conflicts) {
+                for (Order order : orderList) {
+                    Optional<Schedule> s = order.getSchedule();
+                    if (!schedule.isSameAs(scheduleToEdit) && s.isPresent() && s.get().isSameAs(schedule)) {
+                        // change to 1-based index
+                        int index = orderList.indexOf(order) + 1;
+                        sb.append(String.format("Order %d: %s\n", index, schedule.getCalendarString()));
+                        break;
+                    }
+                }
+            }
+            throw new CommandException(Messages.MESSAGE_SCHEDULE_CONFLICT + sb.toString());
+        }
+
         model.setSchedule(scheduleToEdit, editedSchedule);
         model.updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULE);
-        return new CommandResult(String.format(MESSAGE_EDIT_SCHEDULE_SUCCESS, editedSchedule), UiChange.SCHEDULE);
+        return new CommandResult(String.format(MESSAGE_EDIT_SCHEDULE_SUCCESS + sb.toString(), editedSchedule),
+                UiChange.SCHEDULE);
     }
 
     /**
