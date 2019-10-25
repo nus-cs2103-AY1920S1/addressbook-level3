@@ -42,7 +42,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void setPerson() {
+    public void set_person() {
         Person person = TypicalPersons.BOB;
         Reimbursement reimbursement = new ReimbursementBuilder().build();
         reimbursement.setPerson(person);
@@ -59,7 +59,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void comparePerson() {
+    public void compare_person() {
         Reimbursement reimbursement_alice_20 = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
         Reimbursement reimbursement_elle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
         Reimbursement reimbursement_alice_30 = TypicalReimbursements.ALICE_REIMBURSEMENT_30;
@@ -97,7 +97,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void testToString() {
+    public void convert_to_string() {
         Reimbursement reimbursementAlice = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
         Reimbursement reimbursementElle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
 
