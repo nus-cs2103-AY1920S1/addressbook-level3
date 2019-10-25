@@ -269,6 +269,9 @@ The `clock twelve` and `clock twenty_four` have a similar operation to `theme da
 `ThemeCommand` and the associated methods called in `Model` are different.
 
 ==== Design Considerations
+
+This section explores how the design can affect the level of customisation available to the user through the settings feature in +Work.
+
 ===== Aspect: Level of user customisation for +Work clock format
 
 * **Alternative 1 (current choice):** User can change the display format of date and time only
