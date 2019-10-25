@@ -24,7 +24,7 @@ import seedu.address.model.food.NameContainsKeywordsPredicate;
 
 public class GroceryListParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final GroceryListParser parser = new GroceryListParser();
 
     /* @Test
     public void parseCommand_add() throws Exception {

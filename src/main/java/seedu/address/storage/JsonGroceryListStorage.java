@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyGroceryList;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access GroceryList data stored as a json file on the hard disk.
  */
 public class JsonGroceryListStorage implements GroceryListStorage {
 
@@ -65,7 +65,11 @@ public class JsonGroceryListStorage implements GroceryListStorage {
     }
 
     /**
+<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonGroceryListStorage.java
+     * Similar to {@link #saveGroceryList(ReadOnlyGroceryList, Path)}.
+=======
      * Similar to {@link #saveGroceryList(ReadOnlyGroceryList)}.
+>>>>>>> master:src/main/java/seedu/address/storage/JsonGroceryListStorage.java
      *
      * @param filePath location of the data. Cannot be null.
      */

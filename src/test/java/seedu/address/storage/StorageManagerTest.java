@@ -11,6 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.shoppinglist.JsonBoughtItemStorage;
 import seedu.address.storage.shoppinglist.JsonShoppingItemStorage;
 import seedu.address.storage.wastelist.JsonWasteListStorage;
 
@@ -23,13 +24,14 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonGroceryListStorage addressBookStorage = new JsonGroceryListStorage(getTempFilePath("ab"));
+        JsonGroceryListStorage groceryListStorage = new JsonGroceryListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTemplateListStorage templateListStorage = new JsonTemplateListStorage(getTempFilePath("ac"));
         JsonWasteListStorage wasteListStorage = new JsonWasteListStorage(getTempFilePath("ad"));
-        JsonShoppingItemStorage shoppingListStorage = new JsonShoppingItemStorage(getTempFilePath("ad"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, templateListStorage,
-                wasteListStorage, shoppingListStorage);
+        JsonShoppingItemStorage shoppingListStorage = new JsonShoppingItemStorage(getTempFilePath("ae"));
+        JsonBoughtItemStorage boughtListStorage = new JsonBoughtItemStorage(getTempFilePath("af"));
+        storageManager = new StorageManager(groceryListStorage, userPrefsStorage, templateListStorage,
+                wasteListStorage, shoppingListStorage, boughtListStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -54,13 +56,13 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {*/
     /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonGroceryListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonGroceryListStorageTest} class.
     */
-    /*   AddressBook original = getTypicalAddressBook();
+    /*   GroceryList original = getTypicalGroceryList();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ReadOnlyGroceryList retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new GroceryList(retrieved));
     }*/
 
     @Test

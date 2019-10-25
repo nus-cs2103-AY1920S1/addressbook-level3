@@ -31,7 +31,7 @@ public class GroceryList implements ReadOnlyGroceryList {
     public GroceryList() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an GroceryList using the Persons in the {@code toBeCopied}
      */
     public GroceryList(ReadOnlyGroceryList toBeCopied) {
         this();
@@ -49,7 +49,7 @@ public class GroceryList implements ReadOnlyGroceryList {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code GroceryList} with {@code newData}.
      */
     public void resetData(ReadOnlyGroceryList newData) {
         requireNonNull(newData);
@@ -87,7 +87,7 @@ public class GroceryList implements ReadOnlyGroceryList {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code GroceryList}.
      * {@code key} must exist in the address book.
      */
     public void removeGroceryItem(Food key) {

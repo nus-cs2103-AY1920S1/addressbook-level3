@@ -19,7 +19,11 @@ public interface GroceryListStorage {
     Path getGroceryListFilePath();
 
     /**
+<<<<<<< HEAD:src/main/java/seedu/address/storage/GroceryListStorage.java
+     * Returns GroceryList data as a {@link ReadOnlyGroceryList}.
+=======
      * Returns AddressBook data as a {@link ReadOnlyGroceryList}.
+>>>>>>> master:src/main/java/seedu/address/storage/GroceryListStorage.java
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.

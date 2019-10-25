@@ -14,7 +14,7 @@ import seedu.address.model.TemplateList;
 import seedu.address.model.food.UniqueTemplateItems;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable GroceryList that is serializable to JSON format.
  */
 @JsonRootName(value = "templateList")
 class JsonSerializableTemplateList {

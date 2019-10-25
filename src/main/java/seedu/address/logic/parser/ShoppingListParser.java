@@ -13,6 +13,7 @@ import seedu.address.logic.commands.shoppinglist.BoughtShoppingCommand;
 import seedu.address.logic.commands.shoppinglist.DeleteShoppingCommand;
 import seedu.address.logic.commands.shoppinglist.EditShoppingCommand;
 import seedu.address.logic.commands.shoppinglist.ListShoppingCommand;
+import seedu.address.logic.commands.shoppinglist.MergeShoppingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.shoppinglist.AddShoppingCommandParser;
 import seedu.address.logic.parser.shoppinglist.BoughtShoppingCommandParser;
@@ -68,6 +69,8 @@ public class ShoppingListParser {
         case ListShoppingCommand.COMMAND_WORD:
             return new ListShoppingCommand();
 
+        case MergeShoppingCommand.COMMAND_WORD:
+            return new MergeShoppingCommand();
             //case ExitCommand.COMMAND_WORD:
             //    return new ExitCommand();
 
