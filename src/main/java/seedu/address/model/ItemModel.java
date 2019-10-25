@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.item.Item;
@@ -80,6 +81,8 @@ public interface ItemModel {
     public void setVisualizeList(VisualizeList list);
 
     public void sort();
+
+    public void sort(Comparator<Item> comparator);
 
     public boolean hasItem(Item item);
 
