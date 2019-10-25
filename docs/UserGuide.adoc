@@ -86,7 +86,7 @@ You can play around with the commands in the *Command Summary* to get yourself w
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addperson n/NAME`, `NAME` is a parameter which can be used as `addperson n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -420,7 +420,7 @@ Examples:
 
 * *List/Show All Persons* : `list`
 * *Add Person* `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]... [c/NUS_MOD_LINK]` +
-e.g. `add n/James Ho p/22224444 em/jamesho@example.com a/123, Clementi Rd, 1234665 r/Always helpful tag/friend tag/colleague`
+e.g. `addperson n/James Ho p/22224444 em/jamesho@example.com a/123, Clementi Rd, 1234665 r/Always helpful tag/friend tag/colleague`
 * *Edit Person* : `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...` +
 e.g. `editperson ed/James Lee em/jameslee@example.com`
 * *Delete Person* : `delete n/NAME` +
