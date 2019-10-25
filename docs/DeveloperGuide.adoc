@@ -416,6 +416,13 @@ Use case ends.
 Steps 1a1-1a2 are repeated until the data entered are correct.
 +
 Use case resumes at step 2.
++
+Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort/rate)`
++
+.Structure of the Logic Component when executing `sort` command
++
+image::SortSequenceDiagram.png[width=790]
++
 
 _{More to be added}_
 

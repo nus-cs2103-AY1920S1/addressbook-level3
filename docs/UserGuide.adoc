@@ -358,13 +358,17 @@ a specific donor and patient. +
 
 After typing this command, the following changes occur:
 
-* the patient and donor statuses will be set to 'under cross matching'
-* the patient and donor will not be included in matching with other donor and patients until a status update.
+* A list will be generated to show the necessary tasks the hospital need to do for the respective donor and patient.
+* The list will be unique to the specific donor and patient pair
+* The list can be updated using `done** TASK NUMBER**` +
 
-Format: `processing icP/**PATIENT NRIC** icD/**DONOR NRIC**` +
+The list will be saved after the command `exit` is executed. The page will then stop displaying the list.
+
+Format: `processing ic/**PATIENT NRIC** ic/**DONOR NRIC**` +
+The order of the NRICs does not matter.
 
 Example:
-`processing icP/S6764235G icD/S1234567D`
+`processing ic/S6764235G ic/S1234567D`
 
 
 === Mark as done : `done`
