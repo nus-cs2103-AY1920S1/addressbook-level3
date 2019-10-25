@@ -15,7 +15,8 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Person}.

@@ -21,7 +21,7 @@ import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.commons.core.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditAddressCommand object

@@ -80,10 +80,10 @@ public class JsonSerializableHistoryManager {
         this.executedCommands.clear();
         this.inverselyExecutedCommands.clear();
         for (Command command : executedCommands) {
-            this.executedCommands.add(convertToJsonAdaptedCommand(command));
+            this.executedCommands.add(adaptToJsonAdaptedCommand(command));
         }
         for (Command command : inverselyExecutedCommands) {
-            this.inverselyExecutedCommands.add(convertToJsonAdaptedCommand(command));
+            this.inverselyExecutedCommands.add(adaptToJsonAdaptedCommand(command));
         }
     }
 
@@ -95,7 +95,7 @@ public class JsonSerializableHistoryManager {
      * @throws InvalidCommandToJsonException If there was an error in converting any commands into Jackson-Friendly
      * objects.
      */
-    private JsonAdaptedCommand convertToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
+    private JsonAdaptedCommand adaptToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
         try {
             switch (command.getCommandWord()) {
             case AddAddressCommand.COMMAND_WORD:

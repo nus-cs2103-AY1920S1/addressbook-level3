@@ -1,13 +1,17 @@
 package seedu.jarvis.storage.planner;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -26,9 +30,10 @@ public class JsonAdaptedEvent extends JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("description") String description, @JsonProperty("priority") String priority,
-                            @JsonProperty("frequency") String frequency, @JsonProperty("start") String start,
+                            @JsonProperty("frequency") String frequency,
+                            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("start") String start,
                             @JsonProperty("end") String end) {
-        super(description, priority, frequency);
+        super(description, priority, frequency, tags);
         this.start = start;
         this.end = end;
     }
@@ -52,9 +57,10 @@ public class JsonAdaptedEvent extends JsonAdaptedTask {
      */
     @Override
     public Task toModelType() throws IllegalValueException {
-        Event event = new Event(description, LocalDate.parse(start, Task.getDateFormat()),
+        checkPriorityAndFrequency();
+
+        return new Event(description, Priority.valueOf(priority), Frequency.valueOf(frequency), adaptToTags(tags),
+                LocalDate.parse(start, Task.getDateFormat()),
                 LocalDate.parse(end, Task.getDateFormat()));
-        updatePriorityAndFrequency(event);
-        return event;
     }
 }

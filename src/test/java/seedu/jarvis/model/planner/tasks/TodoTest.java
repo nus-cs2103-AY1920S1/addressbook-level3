@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 

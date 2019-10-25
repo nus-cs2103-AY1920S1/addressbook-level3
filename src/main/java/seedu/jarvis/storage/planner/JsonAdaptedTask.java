@@ -5,10 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -33,19 +41,23 @@ public abstract class JsonAdaptedTask {
     protected final String description;
     protected final String priority;
     protected final String frequency;
+    protected final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("description") String description, @JsonProperty("priority") String priority,
-                           @JsonProperty("frequency") String frequency) {
+                           @JsonProperty("frequency") String frequency,
+                           @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.description = description;
         this.priority = priority;
         this.frequency = frequency;
+        this.tags.addAll(tags);
     }
 
     public JsonAdaptedTask(Task task) {
         description = task.getTaskDescription();
         priority = task.getPriority().name();
         frequency = task.getFrequency().name();
+        tags.addAll(task.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
     /**
@@ -113,14 +125,18 @@ public abstract class JsonAdaptedTask {
     }
 
     /**
-     * Sets the {@code Priority} and {@code Frequency} of the given {@code Task}.
+     * Converts a {@code List<JsonAdaptedTag>} to a {@code Set<Tag>}.
      *
-     * @param task {@code Task} to be updated.
-     * @throws IllegalValueException If either {@code priority} or {@code frequency} are not valid enum constants.
+     * @param jsonAdaptedTags {@code List<JsonAdaptedTag>}.
+     * @return {@code Set<Tag>}.
+     * @throws IllegalValueException If there were any data constraints violated.
      */
-    protected void updatePriorityAndFrequency(Task task) throws IllegalValueException {
-        checkPriorityAndFrequency();
-        task.setPriority(Priority.valueOf(priority));
-        task.setFrequency(Frequency.valueOf(frequency));
+    protected Set<Tag> adaptToTags(List<JsonAdaptedTag> jsonAdaptedTags) throws IllegalValueException {
+        Set<Tag> setOfTags = new HashSet<>();
+        for (JsonAdaptedTag jsonAdaptedTag : jsonAdaptedTags) {
+            setOfTags.add(jsonAdaptedTag.toModelType());
+        }
+        return setOfTags;
     }
+
 }

@@ -1,6 +1,11 @@
 package seedu.jarvis.model.planner.tasks;
 
 import java.time.LocalDate;
+import java.util.Set;
+
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
 
 /**
  * Represents a Deadline task in JARVIS
@@ -9,9 +14,13 @@ public class Deadline extends Task {
 
     private LocalDate deadline;
 
-    public Deadline(String taskDes, LocalDate deadline) {
-        super(taskDes);
+    public Deadline(String taskDes, Priority priority, Frequency frequency, Set<Tag> tags, LocalDate deadline) {
+        super(taskDes, priority, frequency, tags);
         this.deadline = deadline;
+    }
+
+    public Deadline(String taskDes, LocalDate deadline) {
+        this(taskDes, null, null, null, deadline);
     }
 
     /**

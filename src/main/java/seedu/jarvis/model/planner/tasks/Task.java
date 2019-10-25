@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 
@@ -20,13 +20,23 @@ public abstract class Task {
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     protected String taskDes;
-    protected Priority priority = null;
-    protected Frequency frequency = null;
+    protected Priority priority;
+    protected Frequency frequency;
     protected Set<Tag> tags = new HashSet<>();
 
-    public Task(String taskDes) {
+    public Task(String taskDes, Priority priority, Frequency frequency, Set<Tag> tags) {
         this.taskDes = taskDes;
+        this.priority = priority;
+        this.frequency = frequency;
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
     }
+
+    public Task(String taskDes) {
+        this(taskDes, null, null, null);
+    }
+
 
     /**
      * Gets the task description of this {@code Todo}.
@@ -91,7 +101,7 @@ public abstract class Task {
      * Retrieves all the tags tagged to a particular task
      * @return a set of Tags
      */
-    protected Set<Tag> getTags() {
+    public Set<Tag> getTags() {
         return this.tags;
     }
 

@@ -1,10 +1,10 @@
-package seedu.jarvis.model.address.tag;
+package seedu.jarvis.commons.core.tag;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

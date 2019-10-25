@@ -1,5 +1,7 @@
 package seedu.jarvis.storage.planner;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,6 +10,7 @@ import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
+import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Todo}.
@@ -21,8 +24,9 @@ public class JsonAdaptedTodo extends JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedTodo(@JsonProperty("description") String description, @JsonProperty("priority") String priority,
-                           @JsonProperty("frequency") String frequency) {
-        super(description, priority, frequency);
+                           @JsonProperty("frequency") String frequency,
+                           @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+        super(description, priority, frequency, tags);
     }
 
     /**
@@ -42,9 +46,8 @@ public class JsonAdaptedTodo extends JsonAdaptedTask {
      */
     @Override
     public Task toModelType() throws IllegalValueException {
-        Todo todo = new Todo(description);
-        updatePriorityAndFrequency(todo);
-        return todo;
+        checkPriorityAndFrequency();
+        return new Todo(description, Priority.valueOf(priority), Frequency.valueOf(frequency), adaptToTags(tags));
     }
 
 }

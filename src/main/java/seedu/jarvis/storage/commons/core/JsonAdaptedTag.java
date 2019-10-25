@@ -1,10 +1,10 @@
-package seedu.jarvis.storage.address;
+package seedu.jarvis.storage.commons.core;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.commons.core.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.

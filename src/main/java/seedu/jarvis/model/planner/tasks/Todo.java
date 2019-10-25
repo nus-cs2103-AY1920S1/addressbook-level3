@@ -1,12 +1,22 @@
 package seedu.jarvis.model.planner.tasks;
 
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
+
+import java.util.Set;
+
 /**
  * Represents a Todo task in JARVIS
  */
 public class Todo extends Task {
 
+    public Todo(String taskDes, Priority priority, Frequency frequency, Set<Tag> tags) {
+        super(taskDes, priority, frequency, tags);
+    }
+
     public Todo(String taskDes) {
-        super(taskDes);
+        this(taskDes, null, null, null);
     }
 
     @Override

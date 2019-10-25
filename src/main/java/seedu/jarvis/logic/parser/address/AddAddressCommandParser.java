@@ -22,7 +22,7 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.commons.core.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddAddressCommand object

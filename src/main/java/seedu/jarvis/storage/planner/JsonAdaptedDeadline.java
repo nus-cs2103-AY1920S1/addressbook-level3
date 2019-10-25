@@ -1,13 +1,17 @@
 package seedu.jarvis.storage.planner;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
+import seedu.jarvis.model.planner.Frequency;
+import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Deadline}.
@@ -24,8 +28,8 @@ public class JsonAdaptedDeadline extends JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedDeadline(@JsonProperty("description") String description,
                                @JsonProperty("priority") String priority, @JsonProperty("frequency") String frequency,
-                               @JsonProperty("date") String date) {
-        super(description, priority, frequency);
+                               @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("date") String date) {
+        super(description, priority, frequency, tags);
         this.date = date;
     }
 
@@ -47,8 +51,8 @@ public class JsonAdaptedDeadline extends JsonAdaptedTask {
      */
     @Override
     public Task toModelType() throws IllegalValueException {
-        Deadline deadline = new Deadline(description, LocalDate.parse(date, Task.getDateFormat()));
-        updatePriorityAndFrequency(deadline);
-        return deadline;
+        checkPriorityAndFrequency();
+        return new Deadline(description, Priority.valueOf(priority), Frequency.valueOf(frequency),
+                adaptToTags(tags), LocalDate.parse(date, Task.getDateFormat()));
     }
 }
