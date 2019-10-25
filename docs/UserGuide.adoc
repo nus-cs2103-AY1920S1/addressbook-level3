@@ -18,7 +18,14 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-MooLah is for those who *prefer to use a desktop app for tracking expenses*. More importantly, MooLah is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MooLah can get your expense management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+MooLah is a hassle-free expense tracker for those who *prefer to use a desktop app for tracking expenses*.
+More importantly, MooLah is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+while still having the benefits of a Graphical User Interface (GUI). MooLah supports user-friendly input format and
+aliases that greatly improves the efficiency of CLI operations. It also supports recurring expenses and includes menus
+from canteens of National University of Singapore for students to track their everyday food expenses in a second.
+If you can type fast, MooLah can get your expense management tasks done much faster than traditional GUI expense
+trackers.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -78,7 +85,7 @@ Examples:
 * `add d/Brian birthday p/40 c/Gifts t/31-12`
 * `add d/Buffet p/250 c/Food`
 
-===== (Coming in v1.4)Using relative time/date input: `yesterday`
+===== (Coming in v1.4) Using relative time/date input: `yesterday`
 
 The user can specify an expense/event’s time using relative dates and times.
 
@@ -92,7 +99,7 @@ Result: adds an expense of 2.50 at 11 Sep 2013, 12pm
 Shows a list of all expenses in the expense tracker.
 Format: `list`
 
-==== (Coming in v1.4)Listing all events : `events`
+==== (Coming in v1.4) Listing all events : `events`
 Lists all events that you have inputted.
 
 Format: `events`
@@ -138,7 +145,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Puff Curry` will match `Curry Puff`
 * Only the description is searched.
 * Only full words will be matched e.g. `chick` will not match `chicken`
-* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description `Chicken rice`, and expense with description `Duck Rice` will both match `rice`
+* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description
+`Chicken rice`, and expense with description `Duck Rice` will both match `rice`
 ****
 
 Examples:
@@ -189,7 +197,8 @@ Format: `clear`
 
 ==== Undo the previous command : `undo`
 
-User can undo the previous command. Only commands that modify the data, e.g. `add` `edit` `delete` `clear`, can be undone.
+User can undo the previous command. Only commands that modify the data, e.g. `add` `edit` `delete` `clear`,
+can be undone.
 
 Format: `undo`
 
@@ -221,22 +230,23 @@ Expense no. 5 will now be deleted.
 ==== Creating new budgets : `budget`
 Creates a new expense budget.
 
-Format: `budget n/BUDGET_NAME a/BUDGET_AMOUNT t/BUDGET_PERIOD d/BUDGET_START_DATE [p/IS_PRIMARY]`
+Format: `budget d/BUDGET_NAME p/BUDGET_AMOUNT sd/BUDGET_START_DATE pr/BUDGET_PERIOD`
 
 E.g.
-`budget n/General expense a/100 t/1 month d/18-09-2019`
-This will create a new budget “General expense” that is set to $100 per month, starting from 18th September 2019.
+`budget d/school p/300 sd/01-10-2019 pr/month`
+This will create a new budget “school” that is set to $300 per month, starting from 1st October 2019.
 
-==== Switch current budget : `switchbudget`
-Switches currently active budget to another.
+==== Switch current budget : `switch`
+Switches currently active budget (i.e. primary budget) to another budget.
 
-Format: `switchbudget n/BUDGET_NAME`
+Format: `switch d/BUDGET_NAME`
 
 E.g.
-`switchbudget General Expense`
+`switch d/outside school`
 
 === (Coming in v2.0)Prediction : `predict`
-User can get a rough estimation of next month's total expense based on extrapolation from this month's expenditure. The prediction will take into account important dates that require extra spending in next month.
+User can get a rough estimation of next month's total expense based on extrapolation from this month's expenditure.
+The prediction will take into account important dates that require extra spending in next month.
 
 Format: `predict`
 
@@ -250,7 +260,8 @@ Format: `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS`
 
 E.g.
 `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-Result creates an alias “chicken rice” for the command which adds an expense of 2.50 under the Food category with a description of “Chicken Rice” at the current system time.
+Result creates an alias “chicken rice” for the command which adds an expense of 2.50 under the Food category with a
+description of “Chicken Rice” at the current system time.
 
 - Note: all white spaces characters will be removed from alias names
 - Note: aliases with names of official commands cannot be made
@@ -269,7 +280,8 @@ under the category, taken as a percentage of the total expenditure in the budget
 
 Format: `stats [sd/START_DATE] [ed/END_DATE]`
 
-- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is not specified.
+- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is
+not specified.
 
 - `START_DATE` will be checked to be earlier than `END_DATE`
 
@@ -286,19 +298,22 @@ Example:
 
 ==== Compare : `statscompare`
 Produces and displays statistics regarding the user’s finance for 2 time periods.
-The statistics include all categories of items, the number of entries and the total expenditure of all expenses under the category.
+The statistics include all categories of items, the number of entries and the total expenditure of all expenses under
+the category.
 The number under each cell represents the difference using `second period – first period`.
 
 Format: `statscompare sd1/START_DATE_1 sd2/END_DATE pr/PERIOD`
 
-- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is not specified.
+- Date formats accepted include `DD-MM-YYYY` or `DD-MM`, where the year will be taken as the current year if it is not
+specified.
 
 - `PERIOD` takes in either of the following keywords: week, month, year
 
 NOTE[Work in progress]:
 - day is ideally recognised as a keyword to `PERIOD`
 
-- If day is given as a keyword under `PERIOD`, statistics will be calculated from 12:00am of the day till 11:59pm of the same day
+- If day is given as a keyword under `PERIOD`, statistics will be calculated from 12:00am of the day till 11:59pm of
+the same day
 
 Examples:
 `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/month`
@@ -323,7 +338,8 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MooLah folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous MooLah folder.
 
 == Command Summary
 
@@ -334,8 +350,8 @@ e.g. `add d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
 * *Create alias* : `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-* *Create new budget* : `budget n/BUDGET_NAME a/BUDGET_AMOUNT t/BUDGET_PERIOD d/BUDGET_START_DATE [p/IS_PRIMARY]` +
-e.g. `budget n/General expense a/100 t/1 month d/18-09-2019`
+* *Create new budget* : `budget d/BUDGET_NAME p/BUDGET_AMOUNT sd/BUDGET_START_DATE pr/BUDGET_PERIOD` +
+e.g. `budget d/school p/300 sd/01-10-2019 pr/month`
 * *Currency conversion* : `convert`
 * *Delete an expense* : `delete INDEX` +
 e.g. `delete 3`
@@ -351,8 +367,8 @@ e.g. `find rice`
 * *Record important date* : `remind EVENT DATE [n DAYS]` +
 e.g. `remind Brian’s birthday 04/06/2020 14 DAYS`
 * *Redo* : `redo`
-* *Switch budget* : `switchbudget n/BUDGET_NAME` +
-e.g. `switchbudget General Expense`
+* *Switch budget* : `switch d/BUDGET_NAME` +
+e.g. `switch d/outside school`
 * *Undo* : `undo`
 * *View statistics* : `stats [start/START_DATE] [end/END_DATE]` +
 e.g. `stats sd/11-11-2018 ed/12-12-2018`
