@@ -78,7 +78,8 @@ class JsonAdaptedRecipe {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, RecipeName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    RecipeName.class.getSimpleName()));
         }
         if (!RecipeName.isValidName(name)) {
             throw new IllegalValueException(RecipeName.MESSAGE_CONSTRAINTS);

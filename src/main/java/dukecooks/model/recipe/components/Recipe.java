@@ -26,7 +26,8 @@ public class Recipe {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(RecipeName name, Set<Ingredient> ingredients, Calories calories, Carbs carbs, Fats fats, Protein protein) {
+    public Recipe(RecipeName name, Set<Ingredient> ingredients,
+                  Calories calories, Carbs carbs, Fats fats, Protein protein) {
         CollectionUtil.requireAllNonNull(name, ingredients);
         this.name = name;
         this.ingredients.addAll(ingredients);
