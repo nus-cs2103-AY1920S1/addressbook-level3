@@ -56,6 +56,12 @@ public class QuizResult {
         return result;
     }
 
+    /**
+     * Returns true if the quizResult is stored within the given time period and false otherwise.
+     * @param start The starting date.
+     * @param end The ending date.
+     * @return A boolean.
+     */
     public boolean isWithinDate(Date start, Date end) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = null;

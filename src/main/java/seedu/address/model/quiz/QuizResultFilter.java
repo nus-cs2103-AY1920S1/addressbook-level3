@@ -15,6 +15,9 @@ import java.util.Stack;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
 
+/**
+ * A class to store the operations to filter quiz results by.
+ */
 public class QuizResultFilter {
 
     private List<Subject> subjects;

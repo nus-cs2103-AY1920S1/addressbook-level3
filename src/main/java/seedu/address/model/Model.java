@@ -182,6 +182,20 @@ public interface Model {
      */
     void setQuizQuestionList(ObservableList<Question> quizQuestionList);
 
+    /**
+     * Gets one question from the list and return a new list contains this question.
+     */
+    ObservableList<Question> getOneQuizQuestionAsList();
+
+    /**
+     * Return the number of remaining quiz questions.
+     */
+    int getSize();
+
+    Question getOneQuizQuestion();
+
+    void removeOneQuizQuestion();
+
     void setTask(Task target, Task editedTask);
 
     /**
@@ -199,7 +213,7 @@ public interface Model {
     /**
      * Checks the an answer input by user and return the boolean value as the result.
      */
-    boolean checkQuizAnswer(int index, Answer answer);
+    boolean checkQuizAnswer(Answer answer);
 
     void addQuizResult(QuizResult quizResult);
 
@@ -215,7 +229,7 @@ public interface Model {
     /**
      * Returns an answer for question in quiz with specific {@code index}.
      */
-    Answer showQuizAnswer(int index);
+    Answer showQuizAnswer();
 
     /**
      * Returns the total number of questions answered.

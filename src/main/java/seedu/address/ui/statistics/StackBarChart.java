@@ -26,6 +26,8 @@ public class StackBarChart extends UiPart<Region> {
     @FXML
     private StackedBarChart bc;
     @FXML
+    private CategoryAxis categoryAxis;
+    @FXML
     private Label overview;
 
     public StackBarChart(ObservableList<StackBarChartModel> data, ObservableList<Subject> uniqueSubjectList) {
@@ -35,7 +37,7 @@ public class StackBarChart extends UiPart<Region> {
                 .stream()
                 .map(subject -> subject.toString())
                 .collect(Collectors.toList());
-        ((CategoryAxis) bc.getXAxis()).setCategories(FXCollections.observableArrayList(subjects));
+        categoryAxis.setCategories(FXCollections.observableArrayList(subjects));
 
         bc.setLegendSide(Side.LEFT);
 

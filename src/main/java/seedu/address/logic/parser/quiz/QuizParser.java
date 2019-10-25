@@ -9,6 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.quiz.QuitQuizModeCommand;
 import seedu.address.logic.commands.quiz.QuizShowAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizSkipQuestion;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -41,7 +42,10 @@ public class QuizParser {
             return new QuitQuizModeCommand();
 
         case QuizShowAnswerCommand.COMMAND_WORD:
-            return new QuizShowAnswerParser().parse(arguments.trim());
+            return new QuizShowAnswerCommand();
+
+        case QuizSkipQuestion.COMMAND_WORD:
+            return new QuizSkipQuestion();
 
         default:
             return new QuizAnswerParser().parse(userInput);

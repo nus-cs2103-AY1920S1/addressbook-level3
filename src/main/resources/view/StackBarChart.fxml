@@ -14,7 +14,7 @@
             <children>
             <StackedBarChart fx:id="bc" styleClass="chart-title" title="Questions attempted by Subject" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
               <xAxis>
-                <CategoryAxis label="Subjects" styleClass="axis-label" side="BOTTOM" tickLabelFill="WHITE" />
+                <CategoryAxis fx:id="categoryAxis" label="Subjects" styleClass="axis-label" side="BOTTOM" tickLabelFill="WHITE" />
               </xAxis>
               <yAxis>
                 <NumberAxis label="Number of questions" styleClass="axis-label" side="LEFT" tickLabelFill="WHITE" />
