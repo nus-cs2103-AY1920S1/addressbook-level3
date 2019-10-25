@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -189,9 +190,9 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> taskTimes} into a {@code Set<TaskTime>}.
      */
-    public static Set<TaskTime> parseTaskTimes(Collection<String> taskTimes) throws ParseException {
+    public static TreeSet<TaskTime> parseTaskTimes(Collection<String> taskTimes) throws ParseException {
         requireNonNull(taskTimes);
-        final Set<TaskTime> taskTimeList = new HashSet<>();
+        final TreeSet<TaskTime> taskTimeList = new TreeSet<>(TaskTime::compareTo);
         for (String taskTime : taskTimes) {
             taskTimeList.add(parseTaskTime(taskTime));
         }

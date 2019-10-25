@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.task.Task;
@@ -18,7 +19,7 @@ public class Reminder {
     // Identity fields
     private final Task task;
     private final ClassId classId;
-    private final Set<TaskTime> taskTimeSet = new HashSet<>();
+    private final TreeSet<TaskTime> taskTimeSet = new TreeSet<>(TaskTime::compareTo);
 
     /**
      * Every field must be present and not null.
@@ -35,8 +36,8 @@ public class Reminder {
         return classId;
     }
 
-    public Set<TaskTime> getTime() {
-        return Collections.unmodifiableSet(taskTimeSet);
+    public TreeSet<TaskTime> getTime() {
+        return taskTimeSet;
     }
 
 

@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -88,7 +89,7 @@ public class EditTaskCommand extends Command {
         ClassId updatedClassId = editTaskDescriptor.getClassId().orElse(taskToEdit.getClassId());
         Marking updatedMarking = editTaskDescriptor.getMarking()
                 .orElse(taskToEdit.getMarking());
-        Set<TaskTime> updatedTimes = editTaskDescriptor.getTaskTimes().orElse(taskToEdit.getTime());
+        TreeSet<TaskTime> updatedTimes = editTaskDescriptor.getTaskTimes().orElse(taskToEdit.getTime());
 
         return new Task(updatedClassId, updatedTimes, updatedMarking);
     }
@@ -118,7 +119,7 @@ public class EditTaskCommand extends Command {
     public static class EditTaskDescriptor {
         private ClassId classId;
         private Marking marking;
-        private Set<TaskTime> taskTimes;
+        private TreeSet<TaskTime> taskTimes;
 
         public EditTaskDescriptor() {}
 
@@ -147,12 +148,12 @@ public class EditTaskCommand extends Command {
             return Optional.ofNullable(marking);
         }
 
-        public void setTaskTimes(Set<TaskTime> taskTimes) {
-            this.taskTimes = (taskTimes != null) ? new HashSet<>(taskTimes) : null;
+        public void setTaskTimes(TreeSet<TaskTime> taskTimes) {
+            this.taskTimes = (taskTimes != null) ? new TreeSet<>(taskTimes) : null;
         }
 
-        public Optional<Set<TaskTime>> getTaskTimes() {
-            return (taskTimes != null) ? Optional.of(Collections.unmodifiableSet(taskTimes)) : Optional.empty();
+        public Optional<TreeSet<TaskTime>> getTaskTimes() {
+            return (taskTimes != null) ? Optional.of(taskTimes) : Optional.empty();
         }
 
         public void setClassId(ClassId classId) {

@@ -47,7 +47,7 @@ public class TaskCard extends UiPart<Region> {
         classId.setText(task.getClassId().value);
         mark.setText("Marking Status: " + task.getMarking().getStatus());
         task.getTime().stream()
-                .sorted(Comparator.comparing(taskTime -> taskTime.fullTime))
+                .sorted(Comparator.comparing(taskTime -> taskTime))
                 .forEach(taskTime -> times.getChildren().add(new Label(taskTime.fullTime + " || ")));
     }
 
