@@ -2,6 +2,7 @@ package seedu.address.logic.commands.commandresults;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -11,12 +12,16 @@ import seedu.address.model.flashcard.Flashcard;
 /**
  * Represents the result of a command execution.
  */
-public class FlashcardCommandResult implements CommandResult {
+public class FlashcardCommandResult extends CommandResult {
+
+    private boolean isTimeTrial;
 
     private final String feedbackToUser;
 
     /** Flashcard to display (if any) */
     private final Optional<Flashcard> flashcard;
+
+    private final Optional<ArrayList<Flashcard>> deck;
 
     /**
      * Constructs a {@code FlashcardCommandResult} with the specified fields.
@@ -24,6 +29,18 @@ public class FlashcardCommandResult implements CommandResult {
     public FlashcardCommandResult(String feedbackToUser, Optional<Flashcard> flashcard) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.flashcard = flashcard;
+        deck = Optional.empty();
+        isTimeTrial = false;
+    }
+
+    /**
+     * Constructs a {@code FlashcardCommandResult} with the specified fields.
+     */
+    public FlashcardCommandResult(String feedbackToUser, boolean isTimeTrial, Optional<ArrayList<Flashcard>> deck) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.flashcard = Optional.empty();
+        this.isTimeTrial = isTimeTrial;
+        this.deck = deck;
     }
 
     /**
@@ -42,24 +59,10 @@ public class FlashcardCommandResult implements CommandResult {
         return flashcard;
     }
 
-    @Override
-    public boolean isGlobalCommandResult() {
-        return false;
-    }
 
     @Override
     public boolean isFlashcardCommandResult() {
         return true;
-    }
-
-    @Override
-    public boolean isCheatSheetCommandResult() {
-        return false;
-    }
-
-    @Override
-    public boolean isNoteCommandResult() {
-        return false;
     }
 
     @Override

@@ -30,4 +30,6 @@ public class Messages {
     public static final String FILTER = "filter";
     public static final String FILTER_ALL = "filterall";
 
+    public static final String TIMETRIAL = "timetrial";
+
 }

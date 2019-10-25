@@ -11,7 +11,7 @@ import seedu.address.model.note.Note;
 /**
  * Represents the result of a command execution.
  */
-public class NoteCommandResult implements CommandResult {
+public class NoteCommandResult extends CommandResult {
 
     private final String feedbackToUser;
 
@@ -40,21 +40,6 @@ public class NoteCommandResult implements CommandResult {
 
     public Optional<Note> getNote() {
         return note;
-    }
-
-    @Override
-    public boolean isGlobalCommandResult() {
-        return false;
-    }
-
-    @Override
-    public boolean isFlashcardCommandResult() {
-        return false;
-    }
-
-    @Override
-    public boolean isCheatSheetCommandResult() {
-        return false;
     }
 
     @Override

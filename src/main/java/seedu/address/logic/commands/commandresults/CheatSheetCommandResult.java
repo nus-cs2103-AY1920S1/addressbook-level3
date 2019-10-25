@@ -11,7 +11,7 @@ import seedu.address.model.cheatsheet.CheatSheet;
 /**
  * Represents the result of a command execution.
  */
-public class CheatSheetCommandResult implements CommandResult {
+public class CheatSheetCommandResult extends CommandResult {
 
     private final String feedbackToUser;
 
@@ -43,23 +43,8 @@ public class CheatSheetCommandResult implements CommandResult {
     }
 
     @Override
-    public boolean isGlobalCommandResult() {
-        return false;
-    }
-
-    @Override
-    public boolean isFlashcardCommandResult() {
-        return false;
-    }
-
-    @Override
     public boolean isCheatSheetCommandResult() {
         return true;
-    }
-
-    @Override
-    public boolean isNoteCommandResult() {
-        return false;
     }
 
     @Override
