@@ -17,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.detailwindow.WeekSchedule;
@@ -569,7 +570,7 @@ public class ModelManager implements Model {
     //=========== Gmaps ================================================================================
 
     @Override
-    public Hashtable<String, Object> getClosestLocationData(ArrayList<String> locationNameList) {
+    public ClosestCommonLocationData getClosestLocationData(ArrayList<String> locationNameList) {
         return gmapsModelManager.closestLocationData(locationNameList);
     }
 

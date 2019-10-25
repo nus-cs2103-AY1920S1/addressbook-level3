@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.gmaps.Location;
 import seedu.address.model.gmaps.LocationGraph;
 
@@ -30,9 +30,9 @@ class ClosestLocationTest {
     @Test
     void closestLocationData() {
         ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("LT17", "LT17", "LT17"));
-        Hashtable<String, Object> result = closestLocation.closestLocationData(locationNameList);
-        assertEquals((String) result.get(ClosestLocationSyntax.FIRST_CLOSEST), "LT17");
-        assertEquals((long) result.get(ClosestLocationSyntax.FIRST_CLOSEST_AVG_TIME), (long) 0);
+        ClosestCommonLocationData result = closestLocation.closestLocationData(locationNameList);
+        assertEquals(result.getFirstClosest(), "LT17");
+        assertEquals(result.getFirstAvg(), (long) 0);
 
     }
 
