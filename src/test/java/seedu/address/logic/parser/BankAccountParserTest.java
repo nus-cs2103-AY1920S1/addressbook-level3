@@ -8,6 +8,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ClearCommand;
@@ -19,10 +23,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 // TODO: ADD ALL THE COMMANDS
 public class BankAccountParserTest {
