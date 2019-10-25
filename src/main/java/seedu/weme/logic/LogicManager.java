@@ -129,7 +129,9 @@ public class LogicManager implements Logic {
         return model.getObservableLikeData();
     }
 
+    @Override
     public void cleanUp() {
-        model.cleanMemeStorage();
+        new Thread(() -> model.cleanMemeStorage()).start();
+        new Thread(() -> model.cleanTemplateStorage()).start();
     }
 }

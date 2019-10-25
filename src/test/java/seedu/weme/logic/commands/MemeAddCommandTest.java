@@ -270,6 +270,10 @@ public class MemeAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void cleanTemplateStorage() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public Stats getStats() {
