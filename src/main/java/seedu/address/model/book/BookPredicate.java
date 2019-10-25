@@ -26,7 +26,7 @@ public class BookPredicate implements Predicate<Book> {
     private String serialNumber;
     private Set<Genre> genres;
     private Flag loanState;
-    private int displayLimit = -1;  // default for show all
+    private int displayLimit = -1; // default for show all
 
     public BookPredicate() {
         this.title = null;

@@ -4,11 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_FICTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_NONFICTION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_1;
@@ -19,9 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.parser.Flag;
-import seedu.address.model.borrower.BorrowerId;
-import seedu.address.model.loan.Loan;
-import seedu.address.model.loan.LoanId;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.LoanBuilder;
 

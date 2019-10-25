@@ -42,8 +42,7 @@ public class FindCommandParserTest {
                         .setGenres(VALID_GENRE_FICTION, VALID_GENRE_ACTION)
                         .setLoanState(Flag.LOANED));
 
-        assertParseSuccess(parser, FindCommand.COMMAND_WORD
-                + " t/Harry Potter" + " "
+        assertParseSuccess(parser, " t/Harry Potter" + " "
                 + PREFIX_AUTHOR + VALID_AUTHOR_BOOK_1 + " "
                 + PREFIX_SERIAL_NUMBER + VALID_SERIAL_NUMBER_BOOK_1 + " "
                 + PREFIX_GENRE + VALID_GENRE_FICTION + " "
@@ -51,8 +50,7 @@ public class FindCommandParserTest {
                 + "-loaned", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, FindCommand.COMMAND_WORD
-                + SPACES + " t/ Harry Potter "
+        assertParseSuccess(parser, SPACES + " t/ Harry Potter "
                 + PREFIX_AUTHOR + SPACES + VALID_AUTHOR_BOOK_1 + " "
                 + PREFIX_SERIAL_NUMBER + SPACES + VALID_SERIAL_NUMBER_BOOK_1 + " "
                 + PREFIX_GENRE + SPACES + VALID_GENRE_FICTION + " "
@@ -62,7 +60,7 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_duplicateLoanState_throwsParseException() {
-        assertParseFailure(parser, FindCommand.COMMAND_WORD + " -loaned -available",
+        assertParseFailure(parser, " -loaned -available",
                 Messages.MESSAGE_LOANSTATE_CONSTRAINTS);
     }
 
