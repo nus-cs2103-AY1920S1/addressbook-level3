@@ -16,6 +16,11 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-T13-2`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+Mortago is a mortuary management system for hospitals. This developer guide serves as a documentation of the interactions with Mortago. As a developer, you will be able to gain a better understanding of how Mortago works.
+
+This developer guide is organised in a top-down approach, starting with Architecture Design. You may jump to any section by clicking on the heading in the contents page.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
