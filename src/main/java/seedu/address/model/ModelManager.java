@@ -428,5 +428,4 @@ public class ModelManager implements Model {
     public void saveDashboardState() {
         previousSaveState.push(new ProjectDashboard(projectDashboard));
     }
-
 }
