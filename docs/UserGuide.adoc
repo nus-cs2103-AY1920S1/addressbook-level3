@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= TimeBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -16,29 +16,65 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+Our team is still working on the User Guide. Keep a look out for more cool and exciting features coming soon!
+
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Thank you for checking out TimeBook!
+
+TimeBook is an application to store your friends’ information and schedule.
+The unique feature of TimeBook is that it can assist you to find *free time* for you and your group of friends to *meet up for projects,
+meals or casual drinking sessions* based on you and your friends’ schedules.
+In addition, *TimeBook* has been optimised for those who prefer using *Command Line Interface (CLI)* while keeping the benefits of a *Graphical User Interface (GUI)*.
+Furthermore, *TimeBook* has a simple and optimised *User Interface (UI)* and *User Experience (UX)* to cater for users who have never used a CLI at all.
+
+== Understanding this guide
+=== Basic Information
+This guide is a explains how you can use *TimeBook* to the fullest extent to assist you to plan for your group's meeting.
+
+You can find the steps needed to start scheduling group activities with your friends or loved ones in the quick start and general
+*lifecycle* usage of our application. If you happen to stumble upon some difficulties, our *Frequently Asked Questions* (FAQ) is
+here to address that. If you are an experienced *Command Line Interface (CLI)* user, you can hope right into using the application by
+looking at our *Command Summary*. Otherwise, take a look at the *Unexperienced CLI user* section to obtain more information on how
+to use our application.
+
+We have used the following symbols to help you better understand our application usage. (For now we have not picked our symbols yet.)
+
+[width="80%",cols="^3, ^10",options="header"]
+|====
+| Symbol | What it means
+| impt | Important information that you may want to note.
+| tips | Shortcuts or hacks that would improve your experience using this application.
+| warn | Warning! Be careful if you encounter this symbol.
+|====
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `timebook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::startupwindow.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all information in TimeBook.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to TimeBook.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+== Unexperienced CLI user
+
+Unlike most applications, where you use your mouse to interact with the application such as scrolling and clicking, our application
+mostly use the *Command Line Interface*. Most of the time, you would be interacting with the application through typing commands in the
+command box of the application.
+
+You can play around with the commands in the *Command Summary* to get yourself warmed up.
+
 
 [[Features]]
 == Features
@@ -125,7 +161,7 @@ Format: `findperson n/NAME`
 ****
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Shows the groups that this person is in.
+* Shows the person in the tabs panel.
 ****
 
 === Locating persons by name: `findgroup`
@@ -136,7 +172,7 @@ Format: `findgroup g/GROUP_NAME`
 ****
 * Only the group name is searched.
 * Only full words will be matched
-* Shows the members inside the group.
+* Shows the group in the tabs panel.
 ****
 
 // tag::delete[]
@@ -170,6 +206,48 @@ Examples:
 * `deletegroup g/CS2103` +
 Deletes the 'CS2103' in the timebook.
 
+=== Show: `show`
+==== Show person:
+Shows details of a person. +
+Format: `show n/ NAME`
+
+****
+* Shows the full name, address, email, phone number and schedule of this person.
+****
+
+Examples:
+* Type `show n/ Tim` in the command line as shown below: +
+
+image::showpersoncommand.png[]
+Hit the kbd:[Enter] key and you should see details of the person! You should see a window similar to the one below.
+
+image::showpersonresult.png[]
+
+==== Show group:
+Shows the details of a group. +
+Format: `show g/ GROUP_NAME`
+
+****
+* Shows the description, members and aggregated schedules for this group.
+****
+
+Examples:
+* Type `show g/ Team1` in the command line as shown below +
+
+image::showgroupcommand.png[]
+
+Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
+
+image::showgroupresult.png[]
+
+*****
+tip: You can use the command `n` to help you navigate through the schedule view without touching your mouse!
+*****
+
+=== Switch tabs: `switch-tab`
+You can switch the tab of *Person* and *Group* using this command.
+Format: `switch-tab`
+
 // end::delete[]
 === Clearing all entries : `clear`
 
@@ -183,8 +261,9 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+*TimeBook* data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -228,20 +307,23 @@ Format:
 
 Examples:
 
-* `delete-schedule /n John`
+* `delete-schedule /n John` +
 
 
 === Export VR(Virtual Representation): `export-vr`
 
+This feature is currently work in progress!
+
 Exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file+
 Format:
 
-* `export-vr [-n NAME]… [-g GROUP_NAME]…` +
+* `export-vr [n/ NAME]` +
+* `export-vr [g/ GROUP_NAME]` +
 
 Examples:
 
-* `export-vr -g TimeBook -o timetable.jpg`
-* `export-vr -n John Doe -n Joe Dohn -n Jackie Chan -o timetable.jpg`
+* `export-vr g/ CS2103T Team project`
+* `export-vr n/ John Doe`
 
 === Export ICS: `export-ics`
 
@@ -295,15 +377,17 @@ Examples:
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *AddPerson* `addperson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `addperson n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *Delete* : `delete n/NAME` or `delete g/GROUP_NAME` +
+e.g. `delete n/ Ben`, `delete g/ CS2103T Team Project`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Show*: `show n/NAME` or `show g/GROUP_NAME`
+e.g. `show n/ Ben`, `show g/ CS2103T Team Project`
 * *List* : `list`
 * *Help* : `help`
 * *Closes Location* : `closestlocation l/ LOCATIONA LOCATIONB ...`
