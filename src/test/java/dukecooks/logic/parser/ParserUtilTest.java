@@ -98,6 +98,16 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseRecipeName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRecipeName((String) null));
+    }
+
+    @Test
+    public void parseRecipeName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecipeName(INVALID_NAME));
+    }
+
+    @Test
     public void parseRecipeName_validValueWithoutWhitespace_returnsName() throws Exception {
         RecipeName expectedName = new RecipeName(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseRecipeName(VALID_NAME));
