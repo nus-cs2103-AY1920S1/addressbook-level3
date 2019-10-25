@@ -28,15 +28,15 @@ activate BudgetCommandParser
 BudgetCommandParser --> SpendingBookParser
 deactivate BudgetCommandParser
 
-SpendingBookParser -> BudgetCommandParser : parse(" 1000")
+SpendingBookParser -> BudgetCommandParser : parse(" 100000")
 activate BudgetCommandParser
+activate Budget
 
 BudgetCommandParser -> ParseUtil
 activate ParseUtil
 
 create Budget
 ParseUtil -> Budget
-activate Budget
 
 Budget --> ParseUtil
 
