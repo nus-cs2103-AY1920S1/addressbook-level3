@@ -33,11 +33,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the GroceryList.
      *
      * @see seedu.address.model.Model#getGroceryList()
      */
-    ReadOnlyGroceryList getAddressBook();
+    ReadOnlyGroceryList getGroceryList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<GroceryItem> getFilteredGroceryItemList();
@@ -89,6 +89,11 @@ public interface Logic {
      */
     Path getShoppingListFilePath();
 
+    ReadOnlyGroceryList getBoughtList();
+
+    ObservableList<GroceryItem> getFilteredBoughtList();
+
+    Path getBoughtListFilePath();
     /**
      * Returns the user prefs' GUI settings.
      */

@@ -19,13 +19,13 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.GroceryListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.food.NameContainsKeywordsPredicate;
 
 public class TemplateListParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final GroceryListParser parser = new GroceryListParser();
 
     /* @Test
     public void parseCommand_add() throws Exception {

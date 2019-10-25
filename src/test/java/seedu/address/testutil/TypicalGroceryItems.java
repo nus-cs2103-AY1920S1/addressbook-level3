@@ -13,7 +13,7 @@ import seedu.address.model.GroceryList;
 import seedu.address.model.food.GroceryItem;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Food} objects to be used in tests.
  */
 public class TypicalGroceryItems {
 
@@ -49,9 +49,9 @@ public class TypicalGroceryItems {
     private TypicalGroceryItems() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code GroceryList} with all the typical persons.
      */
-    public static GroceryList getTypicalAddressBook() {
+    public static GroceryList getTypicalGroceryList() {
         GroceryList ab = new GroceryList();
         for (GroceryItem food : getTypicalPersons()) {
             ab.addGroceryItem(food);

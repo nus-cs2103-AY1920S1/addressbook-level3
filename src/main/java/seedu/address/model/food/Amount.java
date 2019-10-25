@@ -160,6 +160,17 @@ public class Amount {
         return new Amount(resultantAmount + unit);
     }
 
+    /**
+     * Increases the value of amount by the specified amount
+     * @param amt the Amount to be increased by
+     * @return Returns Amount with its value increased
+     */
+    public Amount increaseBy(Amount amt) {
+        float resultantAmount = Amount.getValue(this) + Amount.getValue(amt);
+        String unit = Amount.getUnit(this);
+        return new Amount(resultantAmount + unit);
+    }
+
     @Override
     public String toString() {
         return fullAmt;
