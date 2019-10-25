@@ -43,7 +43,7 @@ public class ExportCommand extends HomeCommand {
         WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName).get();
         this.wordBank = wb;
         if (wb == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_NAME);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
         }
 
         return new CommandResult(String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directory));

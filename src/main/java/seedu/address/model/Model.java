@@ -138,6 +138,8 @@ public interface Model {
 
     Game getGame();
 
+    boolean hasWordBank(String name);
+
 
     DifficultyEnum getCurrentGameDifficulty();
 

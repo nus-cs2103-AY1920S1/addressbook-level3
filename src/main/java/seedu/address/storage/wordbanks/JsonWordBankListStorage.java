@@ -17,8 +17,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.card.exceptions.DuplicateWordBankException;
-import seedu.address.model.card.exceptions.WordBankNotFoundException;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
@@ -77,11 +75,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
         if (!haveSampleWordBank) {
             WordBank sampleWb = SampleDataUtil.getSampleWordBank();
-            try {
-                saveWordBank(sampleWb);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            saveWordBank(sampleWb);
         }
     }
 
@@ -97,13 +91,9 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         for (int i = 0; i < pathArray.length; i++) {
             if (pathArray[i].endsWith(".json")) {
                 Path wordBankPath = Paths.get(wordBanksFilePath.toString(), pathArray[i]);
-                try {
-                    ReadOnlyWordBank readOnlyWordBank = createWordBank(wordBankPath).get();
-                    WordBank wbToAdd = (WordBank) readOnlyWordBank;
-                    wordBankList.add(wbToAdd);
-                } catch (DataConversionException e) {
-                    e.printStackTrace();
-                }
+                ReadOnlyWordBank readOnlyWordBank = jsonToWordBank(wordBankPath).get();
+                WordBank wbToAdd = (WordBank) readOnlyWordBank;
+                wordBankList.add(wbToAdd);
             }
         }
         this.readOnlyWordBankList = new WordBankList(wordBankList);
@@ -113,35 +103,30 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Creates a word bank object from the specified .json file given as filePath.
      *
      * @param filePath location of the .json word bank file. Cannot be null.
-     * @throws DataConversionException if the .json file is not in the correct format.
      */
-    @Override
-    public Optional<ReadOnlyWordBank> createWordBank(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
-
-        Optional<JsonSerializableWordBank> jsonWordBank = JsonUtil.readJsonFile(
-                filePath, JsonSerializableWordBank.class);
-        if (jsonWordBank.isEmpty()) {
-            return Optional.empty();
-        }
-
+    private Optional<ReadOnlyWordBank> jsonToWordBank(Path filePath) {
         try {
+            requireNonNull(filePath);
+            Optional<JsonSerializableWordBank> jsonWordBank = JsonUtil.readJsonFile(
+                    filePath, JsonSerializableWordBank.class);
+            if (jsonWordBank.isEmpty()) {
+                return Optional.empty();
+            }
             String pathName = filePath.toString();
             int len = filePath.getParent().toString().length();
             String wordBankName = pathName.substring(len + 1, pathName.length() - ".json".length());
             return Optional.of(jsonWordBank.get().toModelType(wordBankName));
-        } catch (IllegalValueException ive) {
+
+        } catch (IllegalValueException | DataConversionException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
+            return Optional.empty();
         }
     }
 
     /**
      * Save a word bank into the default file location.
-     *
-     * @throws IOException if there was any problem writing to the file.
      */
-    public void saveWordBank(ReadOnlyWordBank wordBank) throws IOException {
+    private void saveWordBank(ReadOnlyWordBank wordBank) {
         saveWordBank(wordBank, wordBanksFilePath);
     }
 
@@ -150,48 +135,98 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Typically used by Export command, where user writes to their system.
      *
      * @param filePath location of the data. Cannot be null.
-     * @throws IOException if there was any problem writing to the file.
      */
-    public void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException {
-        requireNonNull(wordBank);
-        requireNonNull(filePath);
-        Path wordBankFilePath = Paths.get(filePath.toString(), wordBank.getName() + ".json");
-        FileUtil.createIfMissing(wordBankFilePath);
-        JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), wordBankFilePath);
-    }
-
-    /**
-     * Adds a word bank into the word bank list.
-     * saves the word bank afterwards.
-     *
-     * @param wordBank data. Cannot be null.
-     * @throws DuplicateWordBankException if duplicate word bank exists.
-     */
-    @Override
-    public void addWordBank(ReadOnlyWordBank wordBank) throws DuplicateWordBankException {
-        WordBankList wbl = (WordBankList) readOnlyWordBankList;
+    private void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) {
         try {
-            wbl.addBank(wordBank);
-            saveWordBank(wordBank);
-        } catch (DuplicateWordBankException e) {
-            throw new DuplicateWordBankException();
+            requireNonNull(wordBank);
+            requireNonNull(filePath);
+            Path wordBankFilePath = Paths.get(filePath.toString(), wordBank.getName() + ".json");
+            FileUtil.createIfMissing(wordBankFilePath);
+            JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), wordBankFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void removeWordBank(String wordBankName) throws WordBankNotFoundException {
-            WordBank wb = readOnlyWordBankList.getWordBankFromName(wordBankName);
-            Path filePath = Paths.get(wordBanksFilePath.toString(), wb.getName() + ".json");
-            File toDelete = filePath.toFile();
-            if (toDelete.exists()) {
-                toDelete.delete();
-            }
-            WordBankList wbl = ((WordBankList) readOnlyWordBankList);
-            wbl.removeWordBank(wb);
+    /**
+     * Adds a word bank into the internal list.
+     *
+     * @param wordBank data. Cannot be null.
+     */
+    private void addWordBank(ReadOnlyWordBank wordBank) {
+        WordBankList wbl = (WordBankList) readOnlyWordBankList;
+        wbl.addBank(wordBank);
     }
-    public Optional<ReadOnlyWordBankList> getWordBankList() {
-        return Optional.of(readOnlyWordBankList);
+
+    private void deleteWordBank(WordBank wordBank) {
+        Path filePath = Paths.get(wordBanksFilePath.toString(), wordBank.getName() + ".json");
+        File toDelete = filePath.toFile();
+        if (toDelete.exists()) {
+            toDelete.delete();
+        }
+        WordBankList wbl = ((WordBankList) readOnlyWordBankList);
+        wbl.removeWordBank(wordBank);
+    }
+
+    /**
+     * Called by CreateCommand to create a word bank, add into the internal list, and
+     * save it into storage.
+     *
+     * @param wordBankName cannot be null.
+     */
+    @Override
+    public void createWordBank(String wordBankName) {
+        WordBank wb = new WordBank(wordBankName);
+        addWordBank(wb);
+        saveWordBank(wb);
+    }
+
+    /**
+     * Called by RemoveCommand to retrieve the specified word bank, delete from storage,
+     * and then remove from internal list.
+     *
+     * @param wordBankName cannot be null.
+     */
+    @Override
+    public void removeWordBank(String wordBankName) {
+        WordBank wb = readOnlyWordBankList.getWordBankFromName(wordBankName);
+        deleteWordBank(wb);
+    }
+
+    /**
+     * Called by ImportCommand to create the word bank specified by the file path,
+     * add to internal list, and then add to storage.
+     *
+     * @param filePath cannot be null.
+     */
+    @Override
+    public void importWordBank(Path filePath) {
+        WordBank wb = (WordBank) jsonToWordBank(filePath).get();
+        addWordBank(wb);
+        saveWordBank(wb);
+    }
+
+    /**
+     * Called by ExportCommand, to retrieve the word bank, add to internal list,
+     * then add to storage.
+     *
+     * @param wordBankName cannot be null.
+     * @param filePath cannot be null.
+     */
+    @Override
+    public void exportWordBank(String wordBankName, Path filePath) {
+        WordBank wb = readOnlyWordBankList.getWordBankFromName(wordBankName);
+        saveWordBank(wb, filePath);
+    }
+
+    /**
+     * Called by CardCommand to automatically update any changes to word banks that were
+     * manipulated in ModelManager.
+     *
+     * @param wordBank cannot be null.
+     */
+    @Override
+    public void updateWordBank(WordBank wordBank) {
+        saveWordBank(wordBank);
     }
 }

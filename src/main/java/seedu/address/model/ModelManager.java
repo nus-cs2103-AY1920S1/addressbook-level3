@@ -47,7 +47,6 @@ public class ModelManager implements Model {
     private final AppSettings appSettings;
 
     private FilteredList<Card> filteredCards;
-    private final FilteredList<WordBank> filteredWordBanks;
 
     private Game game = null;
 
@@ -70,7 +69,6 @@ public class ModelManager implements Model {
         this.appSettings = new AppSettings(appSettings);
 
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
-        filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
     }
 
     public ModelManager() {
@@ -221,7 +219,8 @@ public class ModelManager implements Model {
     }
 
     public void removeWordBank() {
-        this.wordBank = new WordBank("Empty wordbank");
+        hasBank = false;
+        this.wordBank = SampleDataUtil.getSampleWordBank();
     }
 
 
@@ -249,6 +248,13 @@ public class ModelManager implements Model {
         wordBank.setCard(target, editedCard);
     }
 
+    //=========== WordBankList ============================================================================
+
+    @Override
+    public boolean hasWordBank(String name) {
+        return wordBankList.hasWordBankName(name);
+    }
+
     //=========== Filtered Card List Accessors =============================================================
 
     /**
@@ -267,7 +273,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<WordBank> getFilteredWordBankList() {
-        return filteredWordBanks;
+        return wordBankList.getWordBankList();
     }
 
     @Override

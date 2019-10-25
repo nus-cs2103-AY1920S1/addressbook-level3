@@ -19,9 +19,6 @@ public class CommandResult {
     /** The application is prompting a guess. */
     private final boolean promptsGuess;
 
-    /** Word bank name passed in. */
-    private String wordBankName;
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -38,15 +35,6 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false);
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and a word bank.
-     */
-    public CommandResult(String feedbackToUser, String wordBankName) {
-        this(feedbackToUser, false, false, false);
-        this.wordBankName = wordBankName;
     }
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean promptsGuess) {

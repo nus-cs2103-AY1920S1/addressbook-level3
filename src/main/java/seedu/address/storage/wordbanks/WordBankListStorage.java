@@ -1,64 +1,53 @@
 package seedu.address.storage.wordbanks;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.card.exceptions.DuplicateWordBankException;
-import seedu.address.model.card.exceptions.WordBankNotFoundException;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+
+import java.nio.file.Path;
 
 /**
  * Represents a storage for {@link WordBank}.
+ * All arguments passed in should be already be validated by the respective command parsers.
  */
 public interface WordBankListStorage {
     /**
-     * Returns an optional of ReadonlyWordBankList
-     *
-     * @return Optional of ReadonlyWordBankList
-     */
-    Optional<ReadOnlyWordBankList> getWordBankList();
-
-    /**
-     * Save a word bank into the default file location.
-     *
-     * @param wordBank cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveWordBank(ReadOnlyWordBank wordBank) throws IOException;
-
-    /**
-     * Save a word bank into the default file location.
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException;
-
-    /**
-     * Add a word bank into the word bank list.
-     *
-     * @param wordBank cannot be null.
-     * @throws DuplicateWordBankException if duplicate exists.
-     */
-    void addWordBank(ReadOnlyWordBank wordBank) throws DuplicateWordBankException;
-
-    /**
-     * Remove a word bank
+     * Called by CreateCommand to create a word bank, add into the internal list, and
+     * save it into storage.
      *
      * @param wordBankName cannot be null.
-     * @throws WordBankNotFoundException if word bank not found.
      */
-    void removeWordBank(String wordBankName) throws WordBankNotFoundException;
-
+    void createWordBank(String wordBankName);
 
     /**
-     * Get a word bank
+     * Called by RemoveCommand to retrieve the specified word bank, delete from storage,
+     * and then remove from internal list.
      *
-     * @param wordBankPathFile data. Cannot be null.
+     * @param wordBankName cannot be null.
      */
-    Optional<ReadOnlyWordBank> createWordBank(Path wordBankPathFile) throws DataConversionException;
+    void removeWordBank(String wordBankName);
+
+    /**
+     * Called by ImportCommand to create the word bank specified by the file path,
+     * add to internal list, and then add to storage.
+     *
+     * @param filePath cannot be null.
+     */
+    void importWordBank(Path filePath);
+
+    /**
+     * Called by ExportCommand, to retrieve the word bank, add to internal list,
+     * then add to storage.
+     *
+     * @param wordBankName cannot be null.
+     * @param filePath cannot be null.
+     */
+    void exportWordBank(String wordBankName, Path filePath);
+
+    /**
+     * Called by CardCommand to automatically update any changes to word banks that were
+     * manipulated in ModelManager.
+     *
+     * @param wordBank cannot be null.
+     */
+    void updateWordBank(WordBank wordBank);
 }

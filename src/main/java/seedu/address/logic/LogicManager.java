@@ -79,7 +79,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
             if (commandResult instanceof HomeCommandResult) {
                 HomeCommandResult homeCommandResult = (HomeCommandResult) commandResult;
-                commandResult.update(storage, model);
+                homeCommandResult.update(storage);
             }
 
 //            ReadOnlyWordBank wb = model.getWordBank();
@@ -102,7 +102,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 //                File dir = ((ImportCommand) command).getDirectory();
 //                String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
 //                Path filePath = Paths.get(dir.toString(), wordBankName);
-//                WordBank wordBank = (WordBank) storage.createWordBank(filePath).get();
+//                WordBank wordBank = (WordBank) storage.jsonToWordBank(filePath).get();
 //                storage.saveWordBank(wordBank);
 //                model.getWordBankList().addBank(wordBank);
 //            }

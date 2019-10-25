@@ -1,10 +1,8 @@
 package seedu.address.model.wordbanklist;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.card.exceptions.WordBankNotFoundException;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbank.WordBank;
-
-import java.util.Optional;
 
 /**
  * Unmodifiable view of a word bank list.
@@ -18,9 +16,8 @@ public interface ReadOnlyWordBankList {
      */
     ObservableList<WordBank> getWordBankList();
 
-
     /**
-     * Retrieves a word bank from its unique name
+     * Retrieves a word bank from its unique name.
      *
      * @param name word bank name.
      * @return word bank.

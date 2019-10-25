@@ -33,7 +33,7 @@ public class RemoveCommand extends HomeCommand {
         requireNonNull(model);
         WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName);
         if (wb == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_NAME);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
         }
 
         model.removeWordBank();
