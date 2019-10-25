@@ -487,7 +487,7 @@ object, providing an abstraction with `add`, `delete` and `getCourseList`
 operations that are called by `CoursePlanner`.
 
 The `String` that is displayed to the user within a the UI text box is
-abstracted within a class called `CourseText`. This is a simple class that 
+abstracted within a class called `CourseText`. This is a simple class that
 abstracts some operations of operations on a `String`, such as setting,
 getting, printing to a displayable form, etc.
 
