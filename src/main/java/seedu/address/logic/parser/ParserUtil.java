@@ -69,6 +69,7 @@ public class ParserUtil {
         }
         return new Description(trimmedDescription);
     }
+
     /**
      * Parses a {@code String name} into a {@code Name}. Leading and trailing
      * whitespaces will be trimmed.
@@ -198,7 +199,13 @@ public class ParserUtil {
         requireNonNull(shares);
         final List<Integer> intShares = new ArrayList<>();
         for (String share : shares) {
-            intShares.add(Integer.parseInt(share));
+            try {
+                intShares.add(Integer.parseInt(share.trim()));
+            } catch (NumberFormatException ex) {
+                // TODO: CORRECT?
+                throw new ParseException(Amount.SHARE_CONSTRAINTS);
+            }
+
         }
         return intShares;
     }
@@ -209,9 +216,14 @@ public class ParserUtil {
      * @param s input
      * @return Amount
      */
-    public static Amount parseAmount(String s) {
+    public static Amount parseAmount(String s) throws ParseException {
         requireNonNull(s);
-        return new Amount(Double.parseDouble(s));
+        try {
+            return new Amount(Double.parseDouble(s));
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
     }
 
 }
