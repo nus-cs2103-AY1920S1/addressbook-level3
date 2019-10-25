@@ -376,7 +376,7 @@ to the instantiation of a controller.)
 ==== Implementation
 
 The bin feature is facilitated by `BinItem`, `UniqueBinItemList` classes and the interface`Binnable`. Objects that
-can be "binned" will implement the interface `Binnable`. When a `Binnable` object is deleted, it is wrapped in a
+can be "binned" will implement the interface  `Binnable`. When a `Binnable` object is deleted, it is wrapped in a
 wrapper class `BinItem` and is moved into `UniqueBinItemList`.
 
 The follow class diagram shows how bin is implemented.
