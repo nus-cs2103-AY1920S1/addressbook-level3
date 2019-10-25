@@ -15,7 +15,7 @@
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
          title="SugarMummy App" minWidth="650" minHeight="550" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/address_book_32.png"/>
+        <Image url="@/images/sugar_mummy_logo.png"/>
     </icons>
     <scene>
         <Scene fx:id="scene">
