@@ -242,6 +242,41 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Waste Report Feature
+
+==== Implementation
+
+Under `WasteReportCommand#execute`, when iterating through the months from the starting month to
+the ending month:
+
+* We first retrieve the relevant `WasteList` for the month using `Model#getWasteListByMonth(WasteMonth)`
+* Thereafter, we obtain a `WasteStatistic` object, which contains the weight, volume and quantity of food wasted
+for the given month by calling `WasteList#getWasteStatistic`.
+* Collect the data by storing it in a `HashMap` indexed by the month (a `WasteMonth` object) with the corresponding
+`WasteStatistic` as the value.
+
+The following sequence diagram shows how the waste report feature works:
+
+image::WasteReportSequenceDiagram.png[]
+
+image::WasteReportSequenceDiagramRef.png[]
+
+The following activity diagram shows what happens when the user enters a command to generate a waste report:
+
+image::WasteReportActivityDiagram.png[]
+
+To see what constitutes a valid time frame, refer to our
+https://ay1920s1-cs2103-f10-2.github.io/main/UserGuide.html#displaying-food-wastage-statistics-code-wlist-report-code[user guide].
+
+==== Possible Alternative Implementations
+* **Alternative 1**
+Since the waste statistics for the previous months are unlikely to change, they can be stored externally and loaded
+upon launch of the application, instead of calculating every time the waste report command is executed.
+** Pros: Will improve the runtime of the application.
+** Cons: Will take up more storage space.
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -256,6 +291,25 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Use Grocery Feature
+
+image::UseGrocerySequenceDiagram.png[]
+
+==== Implementations
+Refer to sequence diagram above.
+
+==== Design Considerations
+
+===== Aspect: Subtracting the values
+
+* **Alternative 1 (current choice):** Create a new grocery item and replace it with the old one.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Modify the Amount in the grocery item.
+** Pros: Will be more efficient and use less memory.
+** Cons: We must ensure that the implementation is correct.
+
 
 [[Implementation-Configuration]]
 === Configuration

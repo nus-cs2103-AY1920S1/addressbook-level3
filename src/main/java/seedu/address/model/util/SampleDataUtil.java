@@ -237,15 +237,15 @@ public class SampleDataUtil {
     // ============================= Bought Item Sample List ============================= //
     public static GroceryItem[] getSampleBoughtItems() {
         return new GroceryItem[] {
-            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30.09.2019"),
+            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30/09/2019"),
                     getTagSet()),
-            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20.11.2019"),
+            new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20/11/2019"),
                     getTagSet()),
-            new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15.10.2019"),
+            new GroceryItem(new Name("Apples"), new Amount("6units"), new ExpiryDate("15/10/2019"),
                     getTagSet()),
-            new GroceryItem(new Name("Orange juice"), new Amount("500ml"), new ExpiryDate("22.11.2019"),
+            new GroceryItem(new Name("Orange juice"), new Amount("500ml"), new ExpiryDate("22/11/2019"),
                     getTagSet()),
-            new GroceryItem(new Name("Green tea latte"), new Amount("10units"), new ExpiryDate("30.10.2019"),
+            new GroceryItem(new Name("Green tea latte"), new Amount("10units"), new ExpiryDate("30/10/2019"),
                     getTagSet())
         };
     }
