@@ -13,7 +13,12 @@ end box
 [-> ExportCommand : execute(model)
 activate ExportCommand
 
-loop for each rating predicate
+loop for each rating
+    ExportCommand -> Model : RatingContainsKeywordPredicate(rating)
+    activate Model
+    ExportCommand <-- Model : predicate
+    deactivate Model
+
     ExportCommand -> Model : updateFilteredFlashCardList(predicate)
     activate Model
     ExportCommand <-- Model : list
