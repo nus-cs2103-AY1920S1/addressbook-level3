@@ -42,7 +42,7 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
             mainWindow.displayReminders();
-            mainWindow.notifyAboutTranspiredEvents();
+            mainWindow.handleTranspiredEvents();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

@@ -314,7 +314,7 @@ public class MainWindow extends UiPart<Stage> {
      * Handles the opening of popup windows to notify the user of transpired events.
      */
     @FXML
-    public void notifyAboutTranspiredEvents() {
+    public void handleTranspiredEvents() {
         List<Event> transpiredEvents = logic.getTranspiredEvents();
         for (Event event : transpiredEvents) {
             new TranspiredEventsWindow(logic).show(event);
