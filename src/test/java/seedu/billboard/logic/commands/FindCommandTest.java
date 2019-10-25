@@ -81,13 +81,4 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(FOOD, GROCERIES, MOVIE), model.getFilteredExpenses());
     }
-
-    /**
-     * Parses {@code userInput} into a {@code MultiArgPredicate}.
-     */
-    private MultiArgPredicate preparePredicate(String userInput) {
-        MultiArgPredicate predicate = new MultiArgPredicate();
-        predicate.setKeywords(Arrays.asList(userInput.split("\\s+")));
-        return predicate;
-    }
 }

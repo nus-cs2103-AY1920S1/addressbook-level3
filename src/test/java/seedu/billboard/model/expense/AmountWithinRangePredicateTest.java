@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.billboard.testutil.ExpenseBuilder;
 
-public class AmtWithinRangePredicateTest {
+public class AmountWithinRangePredicateTest {
 
     @Test
     public void equals() {
@@ -33,7 +33,7 @@ public class AmtWithinRangePredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
 
         // different expense -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));

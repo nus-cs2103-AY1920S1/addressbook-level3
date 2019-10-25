@@ -53,7 +53,7 @@ public class MultiArgPredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
 
         // different expense -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
