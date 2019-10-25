@@ -12,7 +12,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
-import seedu.address.model.export.ExportUtil;
+import seedu.address.model.export.DocumentExportUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
@@ -58,7 +58,7 @@ public class ExportCommand extends Command {
         requireNonNull(model);
 
         try {
-            ExportUtil.exportFlashCards(
+            DocumentExportUtil.exportFlashCardsToDocument(
                     getFlashCardsByCategory(model, category),
                     this.documentPath
             );

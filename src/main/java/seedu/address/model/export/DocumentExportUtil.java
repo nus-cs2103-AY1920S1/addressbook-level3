@@ -17,7 +17,7 @@ import seedu.address.model.flashcard.Question;
 /**
  * Utility class that handles exporting of FlashCards to an external file.
  */
-public class ExportUtil {
+public class DocumentExportUtil {
 
     /**
      * Exports a List of FlashCards to a file at the given DocumentPath.
@@ -26,7 +26,7 @@ public class ExportUtil {
      * @param documentPath DocumentPath to export the FlashCards to
      * @throws IOException If an error arises in writing to the File.
      */
-    public static void exportFlashCards(List<FlashCard> cards, DocumentPath documentPath) throws IOException {
+    public static void exportFlashCardsToDocument(List<FlashCard> cards, DocumentPath documentPath) throws IOException {
         XWPFDocument doc = new XWPFDocument();
 
         for (FlashCard card : cards) {
