@@ -188,7 +188,6 @@ Format: `deleteperson n/NAME`
 ****
 * Removes the person from all the groups they are in
 * Deletes the person specified by 'NAME'
-* Deletes all mappings of this person in groups.
 ****
 
 Examples:
@@ -203,7 +202,7 @@ Format: `deletegroup g/GROUP_NAME`
 
 ****
 * Deletes the group specified by 'GROUP_NAME'
-* Deletes all mappings of persons to this group.
+* The people who were in this group will not be deleted.
 ****
 
 Examples:
@@ -214,13 +213,14 @@ Deletes the 'CS2103' group from the TimeBook.
 === Show: `show`
 ==== Show person:
 Shows details of a person. +
-Format: `show n/ NAME`
+Format: `show n/NAME`
 
 ****
 * Shows the full name, address, email, phone number and schedule of this person.
 ****
 
 Examples:
+
 * Type `show n/ Tim` in the command line as shown below: +
 
 image::showpersoncommand.png[]
@@ -230,13 +230,14 @@ image::showpersonresult.png[]
 
 ==== Show group:
 Shows the details of a group. +
-Format: `show g/ GROUP_NAME`
+Format: `show g/GROUP_NAME`
 
 ****
 * Shows the description, members and aggregated schedules for this group.
 ****
 
 Examples:
+
 * Type `show g/ Team1` in the command line as shown below +
 
 image::showgroupcommand.png[]
@@ -268,13 +269,6 @@ Format: `exit`
 
 TimeBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == Advanced Features
 
@@ -311,7 +305,7 @@ Format:
 Delete all schedule data of the specified person from TimeBook +
 Format:
 
-* `deleteschedule n/ NAME` +
+* `deleteschedule n/NAME` +
 
 Examples:
 
@@ -325,8 +319,8 @@ This feature is currently work in progress!
 Exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file+
 Format:
 
-* `export-vr [n/ NAME]` +
-* `export-vr [g/ GROUP_NAME]` +
+* `export-vr [n/NAME]` +
+* `export-vr [g/GROUP_NAME]` +
 
 Examples:
 
