@@ -60,6 +60,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = incidentManagerParser.parseCommand(commandText);
 
+        //@@author madanalogy
         // Guard Statement for available commands prior to login.
         if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand
                 || command instanceof ExitCommand)) {

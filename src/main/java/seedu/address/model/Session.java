@@ -4,6 +4,7 @@ import java.util.Date;
 
 import seedu.address.model.person.Person;
 
+//@@author madanalogy
 /**
  * Represents details relating to the session currently active in the incident management system.
  */

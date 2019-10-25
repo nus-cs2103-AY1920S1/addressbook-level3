@@ -8,8 +8,9 @@ import java.util.Objects;
 import seedu.address.model.Model;
 import seedu.address.model.person.TagContainsKeywordsPredicate;
 
+//@@author madanalogy
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the incident manager to the user.
  */
 public class ListPersonsCommand extends Command {
 

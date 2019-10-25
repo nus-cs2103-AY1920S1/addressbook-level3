@@ -5,8 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 
+//@@author madanalogy
 /**
- * Tests that a {@code Person}'s {@code Name} or {@code Username} matches any of the keywords given.
+ * Tests that a {@code Tag} in a {@code Person}'s set of tags matches any of the keywords given.
  */
 public class TagContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
@@ -17,10 +18,9 @@ public class TagContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
-                .anyMatch(keyword ->
-                        person.getTags().stream().anyMatch(tag ->
-                                StringUtil.containsWordIgnoreCase(tag.tagName, keyword)));
+        return keywords.stream().anyMatch(keyword ->
+                person.getTags().stream().anyMatch(tag ->
+                        StringUtil.containsWordIgnoreCase(tag.tagName, keyword)));
     }
 
     @Override
