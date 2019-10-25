@@ -2,8 +2,6 @@ package seedu.address.reimbursement.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,6 +12,7 @@ import java.util.Arrays;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.testutil.ReimbursementBuilder;
 import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TypicalDeadlines;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.model.Transaction;
 
@@ -58,13 +57,45 @@ public class ModelManagerTest {
 
     @Test
     public void find_reimbursement() {
-        try{
+        try {
             assertEquals(reimbursementAlice, modelManager.findReimbursement(TypicalPersons.ALICE));
-        }catch(NoSuchPersonReimbursementException e) {
+        } catch (NoSuchPersonReimbursementException e) {
             fail();
         }
 
+        assertEquals(reimbursementAlice, modelManager.getFilteredReimbursementList().get(0));
+        assertEquals(1, modelManager.getFilteredReimbursementList().size());
 
+        modelManager.listReimbursement();
+        assertEquals(list_alice_amy, modelManager.getFilteredReimbursementList());
+
+    }
+
+    @Test
+    public void sort_list() {
+        modelManager.sortListByAmount();
+        assertEquals(reimbursementAmy, modelManager.getFilteredReimbursementList().get(0));
+
+        modelManager.sortListByName();
+        assertEquals(reimbursementAlice, modelManager.getFilteredReimbursementList().get(0));
+
+        try {
+            modelManager.addDeadline(TypicalPersons.AMY, TypicalDeadlines.DEC_DEADLINE);
+        } catch (Exception e) {
+            fail();
+        }
+        modelManager.sortListByDeadline();
+        assertEquals(reimbursementAmy, modelManager.getFilteredReimbursementList().get(0));
+    }
+
+    @Test
+    public void done_reimbursement() {
+        try {
+            modelManager.doneReimbursement(TypicalPersons.AMY);
+        } catch (Exception e) {
+            fail();
+        }
+        assertThrows(Exception.class, () -> modelManager.findReimbursement(TypicalPersons.AMY));
     }
 
 }
