@@ -22,7 +22,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new QuizCommand(index);
         } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCommand.MESSAGE_USAGE), e);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + QuizCommand.MESSAGE_USAGE), e);
         }
     }
 }
