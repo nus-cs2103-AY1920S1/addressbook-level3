@@ -17,7 +17,7 @@ import seedu.address.commons.util.StringUtil;
  */
 public class UrlUtil {
 
-    private static String gmapsApiKey = "";
+    private static String gmapsApiKey = "AIzaSyCbe-MwxRGx8ZXEnR7VfwhJsT3Y9Ttt_54";
 
     /**
      * Generates a URL object from a String.
@@ -109,6 +109,20 @@ public class UrlUtil {
         String apiKeyQueryParams = "key=" + gmapsApiKey + "&";
         String queryParams = "input=" + locationName + "&";
         String fullUrl = baseUrl + queryParams + apiKeyQueryParams;
+        return fullUrl;
+    }
+
+    /**
+     * This method is used to get image from GMAPS and save to local directory
+     * @param validLocationName
+     * @return
+     */
+    public static String generateGmapsStaticImage(String validLocationName) {
+        String baseUrl = "https://maps.googleapis.com/maps/api/staticmap?size=500x500&zoom=17";
+        String markerQueryParam = "&markers=color:blue|size:large|label:L|" + validLocationName;
+        String centerQueryParam = "&center=" + validLocationName;
+        String apiKeyQueryParams = "&key=" + gmapsApiKey + "&";
+        String fullUrl = baseUrl + markerQueryParam + centerQueryParam + apiKeyQueryParams;
         return fullUrl;
     }
 }

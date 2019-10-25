@@ -46,6 +46,15 @@ public class ProcessVenues {
         return processVenuesWVenues;
     }
 
+    /**
+     * Gnerate all static images
+     * @return
+     */
+
+    public void generateImages() {
+        sanitizeLocation.generateImage();
+    }
+
     public ArrayList<String> getValidLocationList() {
         return sanitizeLocation.getValidLocationList();
     }
@@ -90,5 +99,10 @@ public class ProcessVenues {
             }
             return currLocation;
         }
+    }
+
+    public static void main(String[] ars) throws ConnectException {
+        ProcessVenues processVenues = new ProcessVenues().process();
+        processVenues.generateImages();
     }
 }
