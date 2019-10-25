@@ -74,6 +74,7 @@ public interface Logic {
      * Returns an unmodifiable view of the processed statistics of students
      */
     ObservableList<Statistics> getProcessedStatistics();
+
     //endregion
 
     //region Notes
