@@ -53,8 +53,8 @@ public class TypicalTransactions {
             .withAmount(33.0)
             .withDate("13-Feb-2019")
             .build();
-    /*public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(9).withAmount(44.0).build();*/
+    public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
+            .withId(9).withAmount(44.0).build();
 
     /**
      * Returns an {@code TransactionList} with all the typical transactions.

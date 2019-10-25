@@ -28,8 +28,8 @@ class SortDateCommandTest {
         assertEquals(sortDateCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getDateSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getDateSortedTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getDateSortedTransactionList().getTarrList());
     }
 
     @Test
@@ -40,7 +40,7 @@ class SortDateCommandTest {
         assertEquals(sortDateCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getDateSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getDateSortedTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getDateSortedTransactionList().getTarrList());
     }
 }

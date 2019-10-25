@@ -28,8 +28,8 @@ class SortNameCommandTest {
         assertEquals(sortNameCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getNameSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getNameSortedTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getNameSortedTransactionList().getTarrList());
     }
 
     @Test
@@ -40,7 +40,7 @@ class SortNameCommandTest {
         assertEquals(sortNameCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getNameSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getNameSortedTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getNameSortedTransactionList().getTarrList());
     }
 }

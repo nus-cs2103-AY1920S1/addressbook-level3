@@ -28,8 +28,8 @@ class SortResetCommandTest {
         assertEquals(sortResetCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getTypicalTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getTypicalTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getTypicalTransactionList().getTarrList());
     }
 
     @Test
@@ -40,7 +40,7 @@ class SortResetCommandTest {
         assertEquals(sortResetCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getTypicalTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().gettArrList(),
-                TypicalTransactions.getTypicalTransactionList().gettArrList());
+        assertEquals(model.getTransactionList().getTarrList(),
+                TypicalTransactions.getTypicalTransactionList().getTarrList());
     }
 }
