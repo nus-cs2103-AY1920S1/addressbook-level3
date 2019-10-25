@@ -70,14 +70,6 @@ public class Event {
         return duration;
     }
 
-    public Event changeStartDateTime(LocalDateTime newStartDateTime) {
-        return new Event(newStartDateTime, getDuration());
-    }
-
-    public Event changeDuration(Duration newDuration) {
-        return new Event(getStartDateTime(), newDuration);
-    }
-  
     public boolean hasAutoReschedule() {
         return isAutoReschedule;
     }
