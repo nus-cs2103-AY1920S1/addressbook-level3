@@ -563,6 +563,12 @@ public class ModelManager implements Model {
         filteredDiaries.setPredicate(predicate);
     }
 
+    //=========== Filtered Dashboard List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Dashboard} backed by the internal list of
+     * {@code versionedDashboard}
+     */
     @Override
     public ObservableList<Dashboard> getFilteredDashboardList() {
         return filteredDashboard;

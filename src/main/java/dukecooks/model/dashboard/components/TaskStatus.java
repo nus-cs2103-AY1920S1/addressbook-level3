@@ -25,6 +25,22 @@ public class TaskStatus {
         }
     }
 
+    public boolean getDoneStatus() {
+        if (taskStatus.equals("COMPLETE")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean getNotDoneStatus() {
+        if (taskStatus.equals("NOT COMPLETE")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public String toString() {
         return taskStatus;

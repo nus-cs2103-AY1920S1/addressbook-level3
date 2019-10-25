@@ -40,6 +40,16 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Dashboard> PREDICATE_SHOW_ALL_DASHBOARD = unused -> true;
 
+    /**
+     * {@code Predicate} is true if the task is completed
+     */
+    Predicate<Dashboard> PREDICATE_SHOW_DONE_DASHBOARD = i -> (i.getTaskStatus().getDoneStatus());
+
+    /**
+     * {@code Predicate} is true if the task is incomplete
+     */
+    Predicate<Dashboard> PREDICATE_SHOW_NOT_DONE_DASHBOARD = i -> (i.getTaskStatus().getNotDoneStatus());
+
     //=========== UserPrefs ==================================================================================
 
     /**
