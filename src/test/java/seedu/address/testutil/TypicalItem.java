@@ -12,9 +12,9 @@ import seedu.address.inventory.model.Item;
 public class TypicalItem {
     public static final Item FISH_BURGER = new ItemBuilder()
             .withDescription("Burger")
-            .withId("1")
-            .withPrice(3.25)
-            .withCost(5.23)
+//            .withId("1")
+//            .withPrice(3.25)
+//            .withCost(5.23)
             .withQuantity(85)
             .build();
 
@@ -55,12 +55,6 @@ public class TypicalItem {
     public static ArrayList<Item> getTypicalItems() {
         return new ArrayList<>(Arrays.asList(FISH_BURGER, STORYBOOK));
     }
-
-
-
-
-
-
 
 
 

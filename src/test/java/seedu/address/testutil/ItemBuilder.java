@@ -11,7 +11,7 @@ public class ItemBuilder {
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     public static final String DEFAULT_CATEGORY = "food";
     public static final String DEFAULT_DESCRIPTION = "Burger";
-    public static final Integer DEFAULT_QUANTITY = 75;
+    public static final Integer DEFAULT_QUANTITY = 85;
     public static final Double DEFAULT_COST = 4.59;
     public static final Double DEFAULT_TOTALCOST = 344.25;
     public static final Double DEFAULT_PRICE = 6.30;

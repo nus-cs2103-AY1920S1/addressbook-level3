@@ -29,6 +29,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
 
+        model.addItem(TypicalItem.FISH_BURGER);
         // whitespace only preamble
         System.out.println("desc: " + VALID_DESCRIPTION_FISH_BURGER);
         System.out.println(model.hasItemInInventory(VALID_DESCRIPTION_FISH_BURGER));
