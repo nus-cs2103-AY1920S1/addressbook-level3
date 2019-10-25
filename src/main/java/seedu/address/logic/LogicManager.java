@@ -50,9 +50,8 @@ public class LogicManager implements Logic {
         if (command instanceof MutatorCommand) {
             if (!model.hasStagedChanges()) {
                 logger.info("Command " + command + " is a MutatorCommand but did not stage changes");
-            } else {
-                model.commit((MutatorCommand) command);
             }
+            model.commit((MutatorCommand) command);
         } else {
             if (model.hasStagedChanges()) {
                 model.discardStagedChanges();
