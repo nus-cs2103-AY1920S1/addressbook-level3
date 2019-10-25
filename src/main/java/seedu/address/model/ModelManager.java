@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -265,8 +266,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPastReminder(Reminder reminder) {
-        calendar.addPastReminder(reminder);
+    public void addPastReminders(List<Reminder> reminders) {
+        calendar.addPastReminders(reminders);
     }
 
     @Override

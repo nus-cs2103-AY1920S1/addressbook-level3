@@ -61,6 +61,7 @@ public class Scheduler {
         Map<LocalTime, List<Reminder>> dateTimeMap = getDateTimeMapToReminders(calendar.getCalendarEntryList());
 
         cancelAll();
+        currentStartingDateTime = LocalDateTime.now();
         for (Map.Entry<LocalTime, List<Reminder>> entry: dateTimeMap.entrySet()) {
             scheduledFutures.add(scheduler.schedule(new ReminderAdder(entry.getValue(), calendar),
                     getDuration(entry.getKey()), TimeUnit.MILLISECONDS));
@@ -113,9 +114,7 @@ public class Scheduler {
 
         @Override
         public void run() {
-            for (Reminder reminder: reminders) {
-                calendar.addPastReminder(reminder);
-            }
+            calendar.addPastReminders(reminders);
         }
     }
 
