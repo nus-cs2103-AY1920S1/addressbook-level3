@@ -381,6 +381,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void checkCourse(String val) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addCourse(Course course) {
         throw new AssertionError("This method should not be called.");
     }
@@ -402,6 +407,16 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Course> getUnfilteredCourseList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getDisplayText() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getDisplayText(int lineCharacterLimit) {
         throw new AssertionError("This method should not be called.");
     }
 
