@@ -566,7 +566,8 @@ The `Budget` component has two core feature:
 1. Allowing the user to set the monthly budget
 2. Calculating the remanding budget after all the spending in the same month.
 
-The budget component allows the users to modify the current monthly budget `budget AMOUNT` command.
+The budget component allows the users to modify the current monthly budget `budget AMOUNT` command, where AMOUNT is a double representing 
+the desired monthly budget.
 
 For example `budget 10000` sets the current monthly budget to 10000.
 
@@ -580,12 +581,10 @@ The current `Budget` component keeps track of three variables:
 2. the current month
 3. the sum of all spending in the same month.
 
-All of which are saved with the `SpendingBook`.
+All of which are saved with the SpendingBook.
 
 Upon initialization, if a save file is found it will automatically set the monthly budget based on the
-save file's options.
-
-Upon initialization MoneyGoWhere will check the current date. If the current month is different from the current month
+save file's options. If the current month is different from the current month
 the total spending will reset to 0, but the monthly budget will remain the same.
 
 The sum of spending will only be modified when `add` and `delete` commands are called.
@@ -606,15 +605,15 @@ If the user input is valid, the command is then executed to access the Budget in
 |Aspect |Alternative 1 |Alternative 2
 
 |Method to calculate total spending
-|Calculate from `SpendingList` each time +
-Pros: seems intuitive +
-Cons: not efficient, requires Budget to access Model, resulting in circular dependency
 |Keep track of the sum and modifies the sum when `add` and `delete` commands are added +
 Pros: does not waste time to calculate sum, easy to implement +
 Cons: none
+|Calculate from `SpendingList` each time +
+Pros: seems intuitive +
+Cons: not efficient, requires Budget to access Model, resulting in circular dependency
 
 |===
-The second option is chosen to prevent circular dependency.
+The first option is chosen to prevent circular dependency.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
