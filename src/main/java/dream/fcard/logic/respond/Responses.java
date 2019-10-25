@@ -1,7 +1,5 @@
 package dream.fcard.logic.respond;
 
-import java.util.logging.Logger;
-
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.logic.storage.StorageManager;
@@ -118,7 +116,7 @@ enum Responses {
         System.out.println("Current command is CREATE");
 
         // Split according to numerous white spaces in between
-        String[] userInputFields = commandInput.split("\\s+");
+        String[] userInputFields = commandInput.trim().split("\\s+");
 
         // Extract user input field
         String deckName = userInputFields[1].replaceFirst("deck/", "");
@@ -153,7 +151,7 @@ enum Responses {
                 System.out.println("Current command is DECK_CREATE_REG_CARD");
 
                 // Split according to numerous white spaces in between
-                String[] userInputFields = commandInput.split("\\s+");
+                String[] userInputFields = commandInput.trim().split("\\s+");
 
                 // Extract user input field
                 String deckName = userInputFields[1].replaceFirst("deck/", "");

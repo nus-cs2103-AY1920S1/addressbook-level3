@@ -9,7 +9,7 @@ public class DuplicateFoundException extends Throwable {
      *
      * @param cause
      */
-    public DuplicateFoundException(String cause){
+    public DuplicateFoundException(String cause) {
         super(cause);
     }
 }
