@@ -80,9 +80,10 @@ image::UiClassDiagram.png[]
 
 The `UI` consists of a `MainWindow` that is made up of static and non-static parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-**How non-static UI components are switched:**
+**Functionality of `UserView` classes:**
 
-`UserViewMain` is the component responsible for switching the user view. The controller class of `UserViewMain` is `UserViewController`.
+`UserViewMain` is the component responsible for switching the user view. As it needs fetch data from the `Model`, it contains
+a reference to `Logic`, hence Figure 4 shows an association between `UserViewMain` and `Logic`. The controller class of `UserViewMain` is `UserViewController`.
 
 Step 1: User enters a command.
 
@@ -144,7 +145,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Member` or 'Task' can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Project Dashboard`, which `Member` or 'Task' can reference. This would allow `Project Dashboard` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagramNew.png[]
 
@@ -188,7 +189,7 @@ Given below is an example usage scenario and how the various commands work.
 Step 1. The user launches the application. The `ProjectCalendar` will be initialised based on the
 saved `ProjectCalendar`.
 
-Step 2. The user imports members' calendars by executing `impport-calendar`.
+Step 2. The user imports members' calendars by executing `import-calendar`.
 
 Step 3. The user executes `generate-timings` command.
 
@@ -293,9 +294,9 @@ offered by +Work. Furthermore the compatibility of the theme with JavaFx must be
 The commands introduced by this statistics feature includes: `get-task-stats` and `get-member-stats`. These commands are faciliatated by the class 'Statistics' that resides within model. The 'Statistics' class implements the following operations:
 
 * `Statistics#doCalculations()` -- Calculates the statistics needed using existing list of tasks, members and mappings.
-* `Statistics#getPortionMembersByTasks()` -- Retrives statistics of all the members and number of tasks completed by the each individual member.
-* `Statistics#getPortionMembersByItems()` -- Retrives statistics of all the members and number of items purchased by the each individual member.
-* `Statistics#getPortionTasksByStatus()` -- Retrives statistics of all existing tasks and number of tasks of each status.
+* `Statistics#getPortionMembersByTasks()` -- Retrieves statistics of all the members and number of tasks completed by the each individual member.
+* `Statistics#getPortionMembersByItems()` -- Retrieves statistics of all the members and number of items purchased by the each individual member.
+* `Statistics#getPortionTasksByStatus()` -- Retrieves statistics of all existing tasks and number of tasks of each status.
 
 These operations are exposed in the `Model` interface as `Model#doCalculations`, and 'Model#getStatistics'.
 
@@ -524,7 +525,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ProjectDashboard` and the *Actor* is the `user`, unless specified otherwise)
 
 
 [discrete]
@@ -967,12 +968,12 @@ _{ more test cases ... }_
 
 . Deleting a task while all tasks are listed
 
-.. Prerequisites: List all tasks using the `list` command. Multiple tasks in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all tasks using the `list-tasks` command. Multiple tasks in the list.
+.. Test case: `delete-task 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete-task 0` +
    Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete-task`, `delete-task x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
