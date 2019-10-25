@@ -47,6 +47,7 @@ public class AddAnnotationCommand extends Command {
     public static final String MESSAGE_NO_CACHE_AVAILABLE = "No cache is available to annotate.\n"
             //+ "A cache has been created for you. Kindly press Enter to confirm to add the annotation to this cache."
             + "Download a cache using the " + CacheCommand.COMMAND_WORD + " command to start annotating.";
+    public static final String MESSAGE_CANNOT_ANNOTATE_PHANTOM = "You cannot annotate phantom paragraphs.";
     //TODO: change msg to more informative one (what content, to which paragraph, which colour, which bkmark version
     public static final String MESSAGE_SUCCESS = "Annotation successfully added to paragraph %1$s:\n%2$s";
     private static final String MESSAGE_HIGHLIGHT_ADDED = "%s highlight";
@@ -84,8 +85,13 @@ public class AddAnnotationCommand extends Command {
             //TODO: maybe - create cache if it dne so they can annotate immediately. (then need to change ug and dg too)
             throw new CommandException(MESSAGE_NO_CACHE_AVAILABLE);
         }
+
+        if (pid.isStray()) {
+            throw new CommandException(MESSAGE_CANNOT_ANNOTATE_PHANTOM);
+        }
+
         String returnMsg;
-        //TODO: pick out the appropriate cache. (change ug; default version on newwest cache; but can access others too)
+        //TODO: pick out the appropriate cache. (change ug; default version on newest cache; but can access others too)
         CachedCopy c = caches.get(0);
         OfflineDocument doc = c.getAnnotations();
         Annotation an;

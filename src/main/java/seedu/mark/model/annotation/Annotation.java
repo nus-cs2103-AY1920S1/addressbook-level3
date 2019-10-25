@@ -65,4 +65,9 @@ public class Annotation {
     public int hashCode() {
         return Objects.hash(this.colour, this.note);
     }
+
+    @Override
+    public String toString() {
+        return colour.toString() + " :: " + note.toString();
+    }
 }

@@ -28,6 +28,7 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         OfflineDocument doc = getRequiredDoc(model);
+        System.out.println(getPid());
         Paragraph p = doc.getParagraph(getPid());
 
         if (!p.hasAnnotation()) {
@@ -39,6 +40,7 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
 
         if (!p.isTrueParagraph()) {
             doc.removePhantom(getPid());
+            System.out.println("check phantom removed: hashmap.get(getPid()) is "+ doc.getParagraph(getPid()));
             noteRemoved = noteRemoved + "\n" + MESSAGE_PHANTOM_REMOVED;
         } else {
             noteRemoved = String.format(MESSAGE_ORIG_HIGHLIGHT, note.getHighlight()) + " with " + noteRemoved;

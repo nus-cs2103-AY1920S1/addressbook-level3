@@ -63,7 +63,7 @@ public class OfflineCommand extends Command {
         if (version >= cachedCopies.size()) {
             throw new CommandException(String.format(MESSAGE_INVALID_VERSION, version));
         }
-        model.updateDocument(new OfflineDocument(bookmarkToOpen.getCachedCopies().get(version).html));
+        model.updateDocument(bookmarkToOpen.getCachedCopies().get(version).getAnnotations()); //new OfflineDocument(bookmarkToOpen.getCachedCopies().get(version).html));
 
         return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, bookmarkToOpen));
     }

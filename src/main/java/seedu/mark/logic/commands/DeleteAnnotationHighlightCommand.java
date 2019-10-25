@@ -40,7 +40,9 @@ public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
         }
 
         Annotation an = p.removeAnnotation();
-        doc.addPhantom(an);
+        if (an.hasNote()) {
+            doc.addPhantom(an);
+        }
 
         model.updateDocument(doc);
 

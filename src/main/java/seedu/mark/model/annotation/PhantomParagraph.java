@@ -2,6 +2,7 @@ package seedu.mark.model.annotation;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.mark.commons.core.LogsCenter;
@@ -61,13 +62,17 @@ public class PhantomParagraph extends Paragraph {
      */
     @Override
     public boolean hasAnnotation() {
+        assert note != null : "Phantom has no annotations...";
         return true;
     }
 
     @Override
     public Annotation getAnnotation() {
-        assert false : "Phantom getAnnotation() shouldn't be called.";
-        return null;
+        //assert false : "Phantom getAnnotation() shouldn't be called.";
+        if (note == null) {
+            logger.log(Level.SEVERE, "PHANTOM PARA HAS NO NOTES???");
+        }
+        return note;
     }
 
     @Override
@@ -77,11 +82,13 @@ public class PhantomParagraph extends Paragraph {
 
     @Override
     public boolean hasNote() {
+        assert note != null && note.hasNote() : "Phantom does not have note...";
         return true;
     }
 
     @Override
     public AnnotationNote getNote() {
+        assert note != null : "no annotations?";
         return this.note.getNote();
     }
 

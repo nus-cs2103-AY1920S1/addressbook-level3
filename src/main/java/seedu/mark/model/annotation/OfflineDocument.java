@@ -162,6 +162,10 @@ public class OfflineDocument {
      */
     public void loadAnnotations(HashMap<Annotation, ParagraphIdentifier> annotations) {
         for (Annotation a : annotations.keySet()) {
+            if (a == null) {
+                logger.log(Level.WARNING, "Annotation loaded is null. Ignored.");
+                continue;
+            }
             Paragraph p = paragraphs.get(annotations.get(a));
             if (p == null) {
                 logger.log(Level.SEVERE, "Annotation was referring to wrong paragraph. Note now stray.");
