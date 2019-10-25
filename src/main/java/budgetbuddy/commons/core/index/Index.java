@@ -1,7 +1,5 @@
 package budgetbuddy.commons.core.index;
 
-import java.util.Comparator;
-
 /**
  * Represents a zero-based or one-based index.
  *

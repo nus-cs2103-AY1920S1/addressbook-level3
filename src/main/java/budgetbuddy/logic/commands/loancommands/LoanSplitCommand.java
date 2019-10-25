@@ -109,8 +109,7 @@ public class LoanSplitCommand extends Command {
     }
 
     /**
-     * Fills the {@code DebtorCreditorAmount} list.
-     * @see DebtorCreditorAmount
+     * Fills the {@link DebtorCreditorAmount} list.
      * @param participants The list of particpants to calculate the debts from.
      * @param balanceIncreasing A {@code Comparator} to sort participants in order of increasing balance.
      */

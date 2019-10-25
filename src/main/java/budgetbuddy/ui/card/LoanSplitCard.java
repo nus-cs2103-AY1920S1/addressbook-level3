@@ -12,6 +12,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+/**
+ * A UI component that displays information of a {@code Debtor}.
+ */
 public class LoanSplitCard extends UiPart<Region> {
 
     private static final String FXML = "LoanSplitCard.fxml";
