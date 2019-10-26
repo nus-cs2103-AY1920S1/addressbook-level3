@@ -38,8 +38,8 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.BookmarkUtil;
@@ -68,7 +68,7 @@ public class MarkParserTest {
         AutotagCommand command = (AutotagCommand) parser.parseCommand(
                 AutotagCommand.COMMAND_WORD + " " + VALID_TAG_FRIEND + NAME_DESC_AMY);
         AutotagCommand expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG_FRIEND),
-                new NameContainsKeywordsPredicate(Arrays.asList(VALID_NAME_AMY))));
+                new BookmarkPredicate().withNameKeywords(Arrays.asList(VALID_NAME_AMY))));
         assertEquals(command, expectedCommand);
     }
 

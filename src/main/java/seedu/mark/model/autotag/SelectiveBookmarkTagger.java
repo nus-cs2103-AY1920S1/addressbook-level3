@@ -1,20 +1,27 @@
 package seedu.mark.model.autotag;
 
-import java.util.function.Predicate;
-
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 
 /**
  * A type of BookmarkTagger that tags specific Bookmarks only, based on
- * whether they match a given {@code Predicate}.
+ * whether they match a given {@code BookmarkPredicate}.
  */
 public class SelectiveBookmarkTagger extends BookmarkTagger {
-    private final Predicate<Bookmark> predicate;
 
-    public SelectiveBookmarkTagger(Tag tag, Predicate<Bookmark> predicate) {
+    private final BookmarkPredicate predicate;
+
+    public SelectiveBookmarkTagger(Tag tag, BookmarkPredicate predicate) {
         super(tag);
         this.predicate = predicate;
+    }
+
+    /**
+     * Returns the {@code BookmarkPredicate} used in this {@code SelectiveBookmarkTagger}.
+     */
+    public BookmarkPredicate getPredicate() {
+        return predicate;
     }
 
     /**

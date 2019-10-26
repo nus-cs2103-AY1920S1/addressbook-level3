@@ -32,12 +32,28 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
     }
 
     private BookmarkPredicate(List<String> nameKeywords, List<String> notNameKeywords,
-                             List<String> urlKeywords, List<String> notUrlKeywords, Predicate<Bookmark> predicate) {
+                              List<String> urlKeywords, List<String> notUrlKeywords, Predicate<Bookmark> predicate) {
         this.nameKeywords = nameKeywords;
         this.notNameKeywords = notNameKeywords;
         this.urlKeywords = urlKeywords;
         this.notUrlKeywords = notUrlKeywords;
         this.predicate = predicate;
+    }
+
+    public List<String> getNameKeywords() {
+        return nameKeywords;
+    }
+
+    public List<String> getNotNameKeywords() {
+        return notNameKeywords;
+    }
+
+    public List<String> getUrlKeywords() {
+        return urlKeywords;
+    }
+
+    public List<String> getNotUrlKeywords() {
+        return notUrlKeywords;
     }
 
     @Override
