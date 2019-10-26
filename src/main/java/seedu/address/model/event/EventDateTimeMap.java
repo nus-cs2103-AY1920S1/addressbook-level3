@@ -37,4 +37,18 @@ public class EventDateTimeMap {
     public int hashCode() {
         return dateTimeMap.hashCode();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (EventDate keyEventDate: dateTimeMap.keySet()) {
+            if(sb.length() > 0) {
+                sb.append(","); //delimiter
+            }
+            sb.append(keyEventDate.toString()); //Event Date
+            sb.append(":");
+            sb.append(dateTimeMap.get(keyEventDate).toString());
+        }
+        return sb.toString();
+    }
 }
