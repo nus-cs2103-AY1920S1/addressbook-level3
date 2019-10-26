@@ -752,18 +752,15 @@ Shares your bookmarks and notes with your friends via Email or Telegram.
 
 *How do I transfer my data to another Computer?*
 
-****
 Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous Mark folder.
-****
 
 *What are [[Tabs]] Tabs?*
 
-****
 Different user displays. There are three tabs: dashboard, online view
 (web browser), and offline view (caches and notes).
-****
 
+****
 [#imgId-dashboard]
 .Mark's Dashboard Tab View
 image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 600, 400]
@@ -775,6 +772,7 @@ image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
 [#imgId-offline]
 .Mark's Offline Tab View
 image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
+****
 
 _{ more coming soon }_
 
@@ -797,7 +795,7 @@ reminders, and a view of the folder hierarchy for bookmarks.
 The structure of folders in Mark. This is displayed in the dashboard tab when the application starts.
 
 [[offline-copy]] Offline copy::
-The copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
+An copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
 
 [[stray-notes]] Stray notes::
 Annotated notes that are not attached to an existing paragraph are described as stray.
