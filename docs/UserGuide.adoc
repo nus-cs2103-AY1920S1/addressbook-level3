@@ -212,8 +212,8 @@ Examples:
 * `log 2 30092019 7` +
 2nd Employee in the employee list has 8 hours previously logged, is now overwritten with 7 hours.
 
+// tag::calvin[]
 === Event-Specific Management
-
 ==== Automated allocation of Employees to Events: `allocate` (also a GUI feature)
 
 Automatically chooses and allocates employees to events that meet the requirements.
@@ -258,7 +258,7 @@ Examples:
 
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
-
+// end::calvin[]
 ==== Setting a Date&Time to an Event
 
 Sets a Date-Time mapping to an specific Event.
@@ -277,6 +277,8 @@ Examples:
 * `set_ev_dt 2 on/18/10/2019 time/1000-2000` +
 Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 18th October 2019.
 
+//tag::calvin2[]
+
 ==== Fetch Full Details of an Event: `fetch_ev` (also a GUI feature)
 
 Fetches an event by displaying a pop-up window with full details of the event.
@@ -294,16 +296,17 @@ Returns the 2rd event from the event list
 
 Alternatively, simply double-click the event card in the list.
 
-image::beforefetch.png[width="790"]
+image::BeforeFetch.png[width="790"]
 
 After double-clicking, a pop-up window should show:
 
-image::afterfetch.png[width="790"]
+image::AfterFetch.png[width="790"]
 
 After clicking the allocate button, the employee list should be updated.
 
 image::afterallocate.png[width="790"]
 
+//end::calvin2[]
 
 === Finance Management
 

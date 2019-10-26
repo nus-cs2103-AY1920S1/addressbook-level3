@@ -2,10 +2,9 @@ package seedu.address.logic.commands.allocate;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -15,6 +14,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventManpowerAllocatedList;
+import seedu.address.model.event.EventManpowerNeeded;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventVenue;
+import seedu.address.model.tag.Tag;
 
 /**
  * Allocates a person to an event.
@@ -62,16 +67,36 @@ public class ManualAllocateCommand extends Command {
         }
 
         Employee personToAdd = lastShownList.get(index.getZeroBased());
-        Event eventToEdit = lastShownEventList.get(eventIndex.getZeroBased());
-        if (!eventToEdit.isAvailableForEvent(personToAdd, model.getFilteredEventList())) {
+        Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
+        if (!eventToAllocate.isAvailableForEvent(personToAdd, model.getFilteredEventList())) {
             throw new CommandException(Messages.MESSAGE_UNAVAILABLE_MANPOWER);
         }
-        eventToEdit.getManpowerAllocatedList().allocateEmployee(personToAdd);
+        Event newEventForAllocation = createEditedEvent(eventToAllocate, personToAdd);
 
-        model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        model.setEvent(eventToAllocate, newEventForAllocation);
         return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, personToAdd.getEmployeeName().fullName,
-                eventToEdit.getName().eventName));
+                newEventForAllocation.getName().eventName));
+    }
+
+    /**
+     * Creates and returns a {@code Event} with the details of {@code eventToEdit}
+     */
+    private static Event createEditedEvent(Event eventToEdit, Employee employeeToAdd) {
+        assert eventToEdit != null;
+
+        EventName updatedEventName = eventToEdit.getName();
+        EventVenue updatedEventVenue = eventToEdit.getVenue();
+        EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
+        EventDate updatedStartDate = eventToEdit.getStartDate();
+        EventDate updatedEndDate = eventToEdit.getEndDate();
+        List<String> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
+        Set<Tag> updatedTags = eventToEdit.getTags();
+        updatedManpowerList.add(employeeToAdd.getEmployeeId().id);
+        EventManpowerAllocatedList updatedManpowerAllocatedList = new EventManpowerAllocatedList(updatedManpowerList);
+
+        return new Event(updatedEventName, updatedEventVenue,
+                updatedManpowerNeeded, updatedStartDate,
+                updatedEndDate, updatedManpowerAllocatedList, updatedTags);
     }
 
 

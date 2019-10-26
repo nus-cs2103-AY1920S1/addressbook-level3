@@ -13,8 +13,21 @@ import seedu.address.model.employee.Employee;
 public class EventManpowerAllocatedList {
     private List<String> manpowerList;
 
+    public EventManpowerAllocatedList(String unprocessedList) {
+        if (unprocessedList.equals("")) {
+            manpowerList = new ArrayList<>();
+            return;
+        }
+        String[] personIds = unprocessedList.split(" ");
+        manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
+    }
+
+    public EventManpowerAllocatedList(List<String> manpowerList) {
+        this.manpowerList = manpowerList;
+    }
+
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code EventManpowerAllocatedList}.
      */
     public EventManpowerAllocatedList() {
         manpowerList = new ArrayList<>();
@@ -22,36 +35,6 @@ public class EventManpowerAllocatedList {
 
     public List<String> getManpowerList() {
         return manpowerList;
-    }
-
-    public void setManpowerAllocatedList(String unprocessedList) {
-        if (unprocessedList.equals("")) {
-            return;
-        }
-        String[] personIds = unprocessedList.split(" ");
-        manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
-    }
-
-    /**
-     * Frees all employees for an Event.
-     */
-    public boolean freeEmployees() {
-        manpowerList = new ArrayList<String>();
-        return true;
-    }
-
-    /**
-     * Allocates employee to the Manpower List for an Event.
-     * @param employee to be allocated
-     * @return boolean to represent if employee is successfully allocated to event
-     */
-    public boolean allocateEmployee(Employee employee) {
-        String employeeId = employee.getEmployeeId().id;
-        if (manpowerList.contains(employeeId)) {
-            return false;
-        } else {
-            return manpowerList.add(employeeId);
-        }
     }
 
     /**
