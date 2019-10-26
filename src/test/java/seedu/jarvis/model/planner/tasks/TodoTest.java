@@ -8,8 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 
 class TodoTest {
 
@@ -87,5 +88,31 @@ class TodoTest {
         String expected = "homework";
 
         assertEquals(expected, t.getTaskDes());
+    }
+
+    @Test
+    void markAsDone() {
+        Todo t = new Todo("homework");
+
+        t.markAsDone();
+
+        assertEquals(Status.DONE, t.getStatus());
+    }
+
+    @Test
+    void markAsNotDone() {
+        Todo t = new Todo("homework");
+        t.markAsDone();
+        assertEquals(Status.DONE, t.getStatus());
+
+        t.markAsNotDone();
+        assertEquals(Status.NOT_DONE, t.getStatus());
+    }
+
+    @Test
+    void getStatus() {
+        Todo t = new Todo("homework");
+
+        assertEquals(Status.NOT_DONE, t.getStatus());
     }
 }

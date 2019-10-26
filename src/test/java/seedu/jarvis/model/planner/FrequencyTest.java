@@ -2,7 +2,7 @@ package seedu.jarvis.model.planner;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.model.planner.Frequency.isValidFrequency;
+import static seedu.jarvis.model.planner.enums.Frequency.isValidFrequency;
 
 import org.junit.jupiter.api.Test;
 

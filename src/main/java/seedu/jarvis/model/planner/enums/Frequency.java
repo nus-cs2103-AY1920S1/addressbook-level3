@@ -1,4 +1,4 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.enums;
 
 /**
  * Represents the frequency of a task
