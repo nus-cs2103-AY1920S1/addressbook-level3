@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExportAllCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ImportReplaceCommand;
@@ -53,7 +52,7 @@ public class AutoCompleteWordStorage {
         oListAllCommandWord.add(new CommandWord(APPLICATIONOBJECTWORD, UndoCommand.COMMAND_WORD, false, false));
         oListAllCommandWord.add(new CommandWord(APPLICATIONOBJECTWORD, RedoCommand.COMMAND_WORD, false, false));
         oListAllCommandWord.add(new CommandWord(APPLICATIONOBJECTWORD, ImportReplaceCommand.COMMAND_WORD, false, true));
-        oListAllCommandWord.add(new CommandWord(APPLICATIONOBJECTWORD, ExportAllCommand.COMMAND_WORD, false, false));
+        oListAllCommandWord.add(new CommandWord(APPLICATIONOBJECTWORD, "export-all", false, false));
         oListAllCommandWord.add(new CommandWord(APPLICATIONOBJECTWORD, HelpCommand.COMMAND_WORD, false, false));
         oListAllCommandWord.add(new CommandWord(MEDCONOBJECTWORD, DeleteCommand.COMMAND_WORD, true, false));
         oListAllCommandWord.add(new CommandWord(MEDOBJECTWORD, AddCommand.COMMAND_WORD, false, true));
