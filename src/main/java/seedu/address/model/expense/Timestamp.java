@@ -30,7 +30,7 @@ public class Timestamp implements Comparable<Timestamp> {
     public static final int CURRENT_YEAR = LocalDate.now().getYear();
 
     public static final String MESSAGE_CONSTRAINTS_PERIOD =
-            "Input period is not week/month/year";
+            "Input period is not day/week/month/year";
 
     public static final String MESSAGE_CONSTRAINTS_DATE =
             "Timestamps must be in the format dd-MM[-yyyy]";
@@ -137,6 +137,22 @@ public class Timestamp implements Comparable<Timestamp> {
 
     public Timestamp plusDays(long numDays) {
         return new Timestamp(fullTimestamp.plusDays(numDays));
+    }
+
+    public Timestamp minusDays(long numDays) {
+        return new Timestamp(fullTimestamp.minusDays(numDays));
+    }
+
+    public int getDayOfMonth() {
+        return fullTimestamp.getDayOfMonth();
+    }
+
+    public int getDayOfYear() {
+        return fullTimestamp.getDayOfYear();
+    }
+
+    public int getMonthValue() {
+        return fullTimestamp.getMonthValue();
     }
 
     public boolean isEqual(Timestamp startDate) {

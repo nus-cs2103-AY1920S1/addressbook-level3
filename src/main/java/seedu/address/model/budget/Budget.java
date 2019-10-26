@@ -47,7 +47,7 @@ public class Budget {
         this.amount = amount;
         this.startDate = startDate;
         this.period = period;
-        this.endDate = startDate.plus(period);
+        this.endDate = calculateEndDate();
         this.expenses = FXCollections.observableArrayList();
         this.isPrimary = false;
         this.proportionUsed = new Percentage(0);
@@ -61,7 +61,7 @@ public class Budget {
         this.amount = amount;
         this.startDate = startDate;
         this.period = period;
-        this.endDate = startDate.plus(period);
+        this.endDate = calculateEndDate();
         this.isPrimary = false;
         this.proportionUsed = new Percentage(0);
         this.expenses = expenses;
@@ -120,6 +120,62 @@ public class Budget {
                 DEFAULT_BUDGET_PERIOD);
         defaultBudget.setPrimary();
         return defaultBudget;
+    }
+
+
+    private Timestamp calculateEndDate() {
+        Timestamp endDate = startDate.plus(period);
+        if (period.getMonths() == 1 && endDate.getDayOfMonth() < startDate.getDayOfMonth()) {
+            endDate.plusDays(1);
+        }
+        return endDate.minusDays(1);
+    }
+
+    public void normalize() {
+        LocalDateTime now = LocalDateTime.now();
+
+        if (period.getMonths() == 1) {
+
+            int specifiedDayOfMonth = startDate.getDayOfMonth();
+            int currentDayOfMonth = now.getDayOfMonth();
+            LocalDateTime normalized;
+            if (currentDayOfMonth >= specifiedDayOfMonth) {
+                normalized = now.withDayOfMonth(specifiedDayOfMonth);
+            } else  {
+                normalized = now.minusMonths(1).withDayOfMonth(specifiedDayOfMonth);
+            }
+            startDate = new Timestamp(normalized);
+            endDate = calculateEndDate();
+
+        } else if (period.getYears() == 1) {
+
+            int specifiedDayOfYear = startDate.getDayOfYear();
+            int currentDayOfYear = now.getDayOfYear();
+            LocalDateTime normalized;
+            if (currentDayOfYear >= specifiedDayOfYear) {
+                normalized = now.withMonth(startDate.getMonthValue())
+                        .withDayOfMonth(startDate.getDayOfMonth());
+            } else {
+                normalized = now.minusYears(1)
+                        .withMonth(startDate.getMonthValue())
+                        .withDayOfMonth(startDate.getDayOfMonth());
+            }
+            startDate = new Timestamp(normalized);
+            endDate = calculateEndDate();
+
+        } else if (period.getDays() == 1) {
+
+            startDate = new Timestamp(now);
+            endDate = calculateEndDate();
+
+        } else if (period.getDays() == 7) {
+
+            long daysDiff = ChronoUnit.DAYS.between(startDate.getFullTimestamp().toLocalDate(), now.toLocalDate());
+            long offset = daysDiff >= 0 ? daysDiff % 7 : daysDiff % 7 + 7;
+            startDate = new Timestamp(now.minusDays(offset));
+            endDate = calculateEndDate();
+
+        }
     }
 
     /**

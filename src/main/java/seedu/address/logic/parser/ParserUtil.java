@@ -122,6 +122,8 @@ public class ParserUtil {
     public static Period parsePeriod(String period) throws ParseException {
         String trimmedPeriod = period.trim();
         switch (trimmedPeriod) {
+        case "day":
+            return Period.ofDays(1);
         case "week":
             return Period.ofWeeks(1);
         case "month":
@@ -140,15 +142,20 @@ public class ParserUtil {
      * @param period
      * @return dummy.
      */
+
     public static String formatPeriod(Period period) {
         String periodString = period.toString();
         switch (periodString) {
+        case "P1D":
+            return "day";
+        case "P7D":
+            //fallthrough
+        case "P1W":
+            return "week";
         case "P1M":
             return "month";
         case "P1Y":
             return "year";
-        case "P1W":
-            return "week";
         case "P999Y":
             return "infinity";
         default:
