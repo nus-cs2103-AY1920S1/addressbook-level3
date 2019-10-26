@@ -55,6 +55,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.logic.parser.Prefix;
 
@@ -62,7 +63,7 @@ import seedu.address.logic.parser.Prefix;
  * A single line text area utilising RichTextFX to support syntax highlighting of user input.
  * This has some code which is adapted from OverrideBehaviorDemo and JavaKeywordsDemo in RichTextFX.
  */
-public class CommandSyntaxHighlightingTextArea extends StackPane {
+public class CommandSyntaxHighlightingTextArea extends Region {
 
     private static final String PLACE_HOLDER_REGEX = "(?<placeholder><[^>]+>)";
     private static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|" + PLACE_HOLDER_REGEX + "|%s(?<arg>\\S+)";
@@ -127,8 +128,10 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
             keyReleased(KeyCode.Z, SHIFT_ANY, SHORTCUT_DOWN)));
     private static InputMap<Event> consumeContextMenuRequestEvent = InputMap.consume(EventPattern.anyOf(
             eventType(ContextMenuEvent.CONTEXT_MENU_REQUESTED)));
-    private TextArea textArea;
-    private StyleClassedTextArea styleClassedTextArea;
+
+    private AutofillSuggestionMenu autofillMenu;
+    private TextArea functionalTextArea;
+    private StyleClassedTextArea visibleTextArea;
     private Map<String, Pattern> stringPatternMap;
     private Map<String, Integer> stringIntMap;
     private Map<String, String> stringAutofillMap;
@@ -137,8 +140,6 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
     public CommandSyntaxHighlightingTextArea() {
         super();
 
-        setId("SyntaxBox");
-
         // to store patterns/syntax
         stringPatternMap = new HashMap<>();
         stringIntMap = new HashMap<>();
@@ -146,93 +147,99 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
 
         //--------------- actual text area ---------------
 
-        textArea = new TextArea();
+        functionalTextArea = new TextArea();
+        autofillMenu = new AutofillSuggestionMenu(functionalTextArea);
+        functionalTextArea.setContextMenu(autofillMenu);
+
         // textformatter which handles syntax/placeholder insertion and replacement of placeholder
-        textArea.setTextFormatter(new TextFormatter<String>(this::autofillAndPlaceholderReplacement));
+        functionalTextArea.setTextFormatter(new TextFormatter<String>(this::autofillAndPlaceholderReplacement));
         //textArea.setOpacity(0);
-        textArea.setBackground(Background.EMPTY);
+        functionalTextArea.setBackground(Background.EMPTY);
 
         //------------ visible text area ---------------
         // richtextfx element to underlay text area for syntax highlighting
-        styleClassedTextArea = new StyleClassedTextArea();
-        styleClassedTextArea.setId("styled");
-        styleClassedTextArea.setDisable(true);
-        styleClassedTextArea.setShowCaret(Caret.CaretVisibility.ON);
+        visibleTextArea = new StyleClassedTextArea();
+        visibleTextArea.setId("styled");
+        visibleTextArea.setDisable(true);
+        visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
 
         // ---------- mirror text property and caret position --------
-        textArea.textProperty().addListener((observableValue, s, t1) -> {
-            styleClassedTextArea.replaceText(t1);
+        functionalTextArea.textProperty().addListener((observableValue, s, t1) -> {
+            visibleTextArea.replaceText(t1);
         });
 
-        textArea.caretPositionProperty().addListener((observableValue, number, t1) -> {
+        functionalTextArea.caretPositionProperty().addListener((observableValue, number, t1) -> {
             try {
-                if ((int) t1 != styleClassedTextArea.getCaretPosition()) {
-                    styleClassedTextArea.displaceCaret((int) t1);
+                if ((int) t1 != visibleTextArea.getCaretPosition()) {
+                    visibleTextArea.displaceCaret((int) t1);
                 }
             } catch (IndexOutOfBoundsException e) {
-                styleClassedTextArea.displaceCaret(styleClassedTextArea.getLength());
+                visibleTextArea.displaceCaret(visibleTextArea.getLength());
             }
         });
 
         // to overlay elements
-        getChildren().addAll(styleClassedTextArea, textArea);
+        StackPane stackPane =  new StackPane();
+        stackPane.setId("SyntaxBox");
+        stackPane.getChildren().addAll(visibleTextArea, functionalTextArea);
+        getChildren().add(stackPane);
 
         //------------ for alignment of actual and visible text area ---------------
 
-        textArea.setPadding(Insets.EMPTY);
-        textArea.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            mirrorViewportMovement(styleClassedTextArea, keyEvent);
+        functionalTextArea.setPadding(Insets.EMPTY);
+        functionalTextArea.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            mirrorViewportMovement(visibleTextArea, keyEvent);
         });
 
         // disable selection of text
-        textArea.selectionProperty().addListener((observableValue, indexRange, t1) -> {
+        functionalTextArea.selectionProperty().addListener((observableValue, indexRange, t1) -> {
             if (t1.getLength() > 0) {
-                textArea.deselect();
+                functionalTextArea.deselect();
             }
         });
 
         // ----- sizing ------
-        textArea.fontProperty().addListener((observableValue, font, t1) -> {
+        functionalTextArea.fontProperty().addListener((observableValue, font, t1) -> {
             double h = t1.getSize() + 5;
-            styleClassedTextArea.setPrefHeight(h);
-            styleClassedTextArea.setMaxHeight(h);
-            styleClassedTextArea.setMinHeight(h);
-            textArea.setPrefHeight(h);
-            textArea.setMaxHeight(h);
-            textArea.setMinHeight(h);
+            visibleTextArea.setPrefHeight(h);
+            visibleTextArea.setMaxHeight(h);
+            visibleTextArea.setMinHeight(h);
+            functionalTextArea.setPrefHeight(h);
+            functionalTextArea.setMaxHeight(h);
+            functionalTextArea.setMinHeight(h);
         });
 
         widthProperty().addListener((observableValue, number, t1) -> {
-            textArea.setPrefWidth(t1.doubleValue());
-            textArea.setMinWidth(t1.doubleValue());
-            textArea.setMaxWidth(t1.doubleValue());
+            functionalTextArea.setPrefWidth(t1.doubleValue());
+            functionalTextArea.setMinWidth(t1.doubleValue());
+            functionalTextArea.setMaxWidth(t1.doubleValue());
 
-            styleClassedTextArea.setPrefWidth(t1.doubleValue());
-            styleClassedTextArea.setMinWidth(t1.doubleValue());
-            styleClassedTextArea.setMaxWidth(t1.doubleValue());
+            visibleTextArea.setPrefWidth(t1.doubleValue());
+            visibleTextArea.setMinWidth(t1.doubleValue());
+            visibleTextArea.setMaxWidth(t1.doubleValue());
         });
 
-        Nodes.addInputMap(textArea, consumeMassSelectionEvent);
-        Nodes.addInputMap(textArea, consumeContextMenuRequestEvent);
-        Nodes.addInputMap(textArea, consumeCopyPasteEvent);
-        Nodes.addInputMap(textArea, consumeUndoRedoEvent);
-        Nodes.addInputMap(textArea, consumeMassDeletionEvent);
-        Nodes.addInputMap(textArea, consumeEnterKeyEvent);
+        Nodes.addInputMap(functionalTextArea, consumeMassSelectionEvent);
+        Nodes.addInputMap(functionalTextArea, consumeContextMenuRequestEvent);
+        Nodes.addInputMap(functionalTextArea, consumeCopyPasteEvent);
+        Nodes.addInputMap(functionalTextArea, consumeUndoRedoEvent);
+        Nodes.addInputMap(functionalTextArea, consumeMassDeletionEvent);
+        Nodes.addInputMap(functionalTextArea, consumeEnterKeyEvent);
 
-        Nodes.addInputMap(styleClassedTextArea, consumeMassSelectionEvent);
-        Nodes.addInputMap(styleClassedTextArea, consumeContextMenuRequestEvent);
-        Nodes.addInputMap(styleClassedTextArea, consumeCopyPasteEvent);
-        Nodes.addInputMap(styleClassedTextArea, consumeUndoRedoEvent);
-        Nodes.addInputMap(styleClassedTextArea, consumeMassDeletionEvent);
-        Nodes.addInputMap(styleClassedTextArea, consumeEnterKeyEvent);
+        Nodes.addInputMap(visibleTextArea, consumeMassSelectionEvent);
+        Nodes.addInputMap(visibleTextArea, consumeContextMenuRequestEvent);
+        Nodes.addInputMap(visibleTextArea, consumeCopyPasteEvent);
+        Nodes.addInputMap(visibleTextArea, consumeUndoRedoEvent);
+        Nodes.addInputMap(visibleTextArea, consumeMassDeletionEvent);
+        Nodes.addInputMap(visibleTextArea, consumeEnterKeyEvent);
     }
 
     /**
      * Clears the text.
      */
     public void clear() {
-        textArea.clear();
-        styleClassedTextArea.clear();
+        functionalTextArea.clear();
+        visibleTextArea.clear();
     }
 
     /**
@@ -240,11 +247,11 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
      * @return The text property value of the text area with placeholders replaced with an empty String.
      */
     public String getText() {
-        return textArea.getText().replaceAll(PLACE_HOLDER_REGEX, "");
+        return functionalTextArea.getText().replaceAll(PLACE_HOLDER_REGEX, "");
     }
 
     public StringProperty textProperty() {
-        return textArea.textProperty();
+        return functionalTextArea.textProperty();
     }
 
     /**
@@ -252,11 +259,11 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
      */
     public void enableSyntaxHighlighting() {
         syntaxHighlightSubscription =
-                styleClassedTextArea.multiPlainChanges()
+                visibleTextArea.multiPlainChanges()
                     .successionEnds(Duration.ofMillis(500))
                         .subscribe(ignore -> {
-                            styleClassedTextArea.setStyleSpans(
-                                    0, computeHighlighting(styleClassedTextArea.getText()));
+                            visibleTextArea.setStyleSpans(
+                                    0, computeHighlighting(visibleTextArea.getText()));
                         });
     }
 
@@ -289,8 +296,8 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
      */
     public void overrideStyle(String styleClass) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        spansBuilder.add(Collections.singleton(styleClass), styleClassedTextArea.getLength());
-        styleClassedTextArea.setStyleSpans(0, spansBuilder.create());
+        spansBuilder.add(Collections.singleton(styleClass), visibleTextArea.getLength());
+        visibleTextArea.setStyleSpans(0, spansBuilder.create());
         if (syntaxHighlightSubscription != null) {
             syntaxHighlightSubscription.unsubscribe();
         }
@@ -344,7 +351,9 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
             autofill.append(">");
         }
         stringAutofillMap.put(command, autofill.toString());
+        autofillMenu.setSuggestions(stringPatternMap.keySet());
     }
+
 
     /**
      * Remove support for syntax highlighting and auto fill for the specified command.
@@ -355,6 +364,7 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
             stringPatternMap.remove(command);
             stringIntMap.remove(command);
             stringAutofillMap.remove(command);
+            autofillMenu.setSuggestions(stringPatternMap.keySet());
         }
     }
 
@@ -369,6 +379,7 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
         String commandWordRegex = String.join("|", stringPatternMap.keySet());
         Matcher m = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\b").matcher(text);
+        Matcher onlyOne = Pattern.compile("^\\s*\\S+\\s*$").matcher(text);
 
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
@@ -427,8 +438,9 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
             // styleclass for prefix
             for (int groupNum = 1; groupNum <= prefixcount; groupNum++) {
                 if (matcher.group("prefix" + groupNum) != null) {
-                    lastPrefix = "prefix" + groupNum;
-                    styleClass = "style" + groupNum;
+                    int styleNumber = (groupNum % 4) + 1;
+                    lastPrefix = "prefix" + styleNumber;
+                    styleClass = "style" + styleNumber;
                     break;
                 }
             }
@@ -466,12 +478,8 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
      */
     private TextFormatter.Change autofillAndPlaceholderReplacement(TextFormatter.Change change) {
         if (change.isContentChange()) {
-            // prevent manually entering < > placeholder indicators
-            if (change.getText().equals("<") || change.getText().equals(">")) {
-                return null;
-            }
-
-            change.setText(change.getText().replaceAll("[\\n\\r]+", ""));
+            // prevent insertion of newline and < > characters
+            change.setText(change.getText().replaceAll("[<>\\n\\r]", ""));
 
             String commandWordRegex = String.join("|", stringPatternMap.keySet());
 
@@ -481,10 +489,8 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
             // if adding a character results in a command word, auto fill the command's syntax.
             if (command.matches()) {
                 if (change.isAdded()) {
-
                     int commandWordEnd = command.group().stripTrailing().length();
                     int commandWordStart = command.group().length() - command.group().stripLeading().length();
-
                     if (change.getCaretPosition() <= commandWordEnd
                             && change.getCaretPosition() >= commandWordStart) {
                         change.setRange(0, change.getControlNewText().length() - 1);
@@ -493,30 +499,30 @@ public class CommandSyntaxHighlightingTextArea extends StackPane {
                     }
                 }
 
-            } else if (command.find()) {
-                String commandWord = command.group("COMMAND");
-                Pattern placeHolderPattern = Pattern.compile(PLACE_HOLDER_REGEX);
-                Matcher placeholder = placeHolderPattern.matcher(change.getControlText());
+            }
+            Pattern placeHolderPattern = Pattern.compile(PLACE_HOLDER_REGEX);
+            Matcher placeholder = placeHolderPattern.matcher(change.getControlText());
+            // replace the entire placeholder if change occurs within it
+            while (placeholder.find()) {
                 // find group until caret lies inside
-                while (placeholder.find()) {
-                    if (change.getCaretPosition() <= placeholder.end()
-                            && change.getCaretPosition() >= placeholder.start()) {
+                if (change.getCaretPosition() <= placeholder.end()
+                        && change.getCaretPosition() >= placeholder.start()) {
 
-                        String before = change.getControlText().substring(0, placeholder.start());
-                        String mid = change.getText();
-                        String after = change.getControlText().substring(placeholder.end());
-                        String replacement = before + mid + after;
+                    String before = change.getControlText().substring(0, placeholder.start());
+                    String mid = change.getText();
+                    String after = change.getControlText().substring(placeholder.end());
+                    String replacement = before + mid + after;
 
-                        change.setRange(0, change.getControlText().length());
+                    change.setRange(0, change.getControlText().length());
 
-                        change.setText(replacement);
-                        change.setCaretPosition((before + mid).length());
-                        change.setAnchor((before + mid).length());
+                    change.setText(replacement);
+                    change.setCaretPosition((before + mid).length());
+                    change.setAnchor((before + mid).length());
 
-                        return change;
-                    }
+                    return change;
                 }
             }
+
         }
         return change;
     }
