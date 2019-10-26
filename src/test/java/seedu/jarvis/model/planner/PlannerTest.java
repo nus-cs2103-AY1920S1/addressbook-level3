@@ -28,7 +28,7 @@ class PlannerTest {
         planner.addTask(new Todo("borrow book"));
         planner.addTask(new Todo("read book"));
 
-        assertTrue(expected.equals(planner.getTasks()));
+        assertTrue(expected.equals(planner.getTaskList()));
 
     }
 
@@ -36,14 +36,14 @@ class PlannerTest {
     void addTask_task() {
         Planner planner = new Planner();
         planner.addTask(new Todo("read book"));
-        assertNotNull(planner.getTasks().getTasks());
+        assertNotNull(planner.getTaskList().getTasks());
     }
 
     @Test
     void addTask_taskAndIndex() {
         Planner planner = new Planner();
         planner.addTask(0, new Todo("read book"));
-        assertNotNull(planner.getTasks().getTasks());
+        assertNotNull(planner.getTaskList().getTasks());
     }
 
     @Test

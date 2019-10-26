@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.planner.Planner;
@@ -15,6 +16,7 @@ import seedu.jarvis.storage.JsonAdapter;
 /**
  * A {@code Planner} that is serializable to JSON format.
  */
+@JsonRootName(value = "planner")
 public class JsonSerializablePlanner implements JsonAdapter<Planner> {
 
     public static final String MESSAGE_DUPLICATE_TASK = "Task list contains duplicate task(s).";
@@ -35,7 +37,7 @@ public class JsonSerializablePlanner implements JsonAdapter<Planner> {
      * @param planner Future changes to this will not affect the created {@code JsonSerializablePlanner}.
      */
     public JsonSerializablePlanner(Planner planner) {
-        tasks.addAll(planner.getFilteredTaskList()
+        tasks.addAll(planner.getTasks()
                 .stream()
                 .map(Task::adaptToJsonAdaptedTask)
                 .collect(Collectors.toList()));

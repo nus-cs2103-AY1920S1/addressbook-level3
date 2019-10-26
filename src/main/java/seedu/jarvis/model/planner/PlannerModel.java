@@ -12,6 +12,10 @@ import seedu.jarvis.model.planner.tasks.Task;
  */
 public interface PlannerModel {
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+
     /**
      * Retrieves the tasks stored in the planner
      * @return a list of tasks stored in the planner

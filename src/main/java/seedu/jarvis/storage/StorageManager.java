@@ -11,12 +11,14 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.AddressBookStorage;
 import seedu.jarvis.storage.cca.CcaTrackerStorage;
 import seedu.jarvis.storage.course.CoursePlannerStorage;
 import seedu.jarvis.storage.history.HistoryManagerStorage;
+import seedu.jarvis.storage.planner.PlannerStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 
 /**
@@ -30,17 +32,19 @@ public class StorageManager implements Storage {
     private HistoryManagerStorage historyManagerStorage;
     private CcaTrackerStorage ccaTrackerStorage;
     private CoursePlannerStorage coursePlannerStorage;
+    private PlannerStorage plannerStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
                           HistoryManagerStorage historyManagerStorage, CcaTrackerStorage ccaTrackerStorage,
-                          CoursePlannerStorage coursePlannerStorage) {
+                          CoursePlannerStorage coursePlannerStorage, PlannerStorage plannerStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.historyManagerStorage = historyManagerStorage;
         this.ccaTrackerStorage = ccaTrackerStorage;
         this.coursePlannerStorage = coursePlannerStorage;
+        this.plannerStorage = plannerStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -277,5 +281,67 @@ public class StorageManager implements Storage {
     @Override
     public void saveCoursePlanner(CoursePlanner coursePlanner, Path filePath) throws IOException {
         coursePlannerStorage.saveCoursePlanner(coursePlanner, filePath);
+    }
+
+    // ================ Planner methods ==================================
+
+    /**
+     * Gets the file path of the data file for {@code Planner}.
+     *
+     * @return File path of the data file for {@code Planner}.
+     */
+    @Override
+    public Path getPlannerFilePath() {
+        return plannerStorage.getPlannerFilePath();
+    }
+
+    /**
+     * Returns {@code Planner} data.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @return {@code Planner} data, or {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    @Override
+    public Optional<Planner> readPlanner() throws DataConversionException, IOException {
+        return plannerStorage.readPlanner(plannerStorage.getPlannerFilePath());
+    }
+
+    /**
+     * Returns {@code Planner} data.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @param filePath {@code Path} to read {@code Planner} data.
+     * @return {@code Planner} data, or {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    @Override
+    public Optional<Planner> readPlanner(Path filePath) throws DataConversionException, IOException {
+        return plannerStorage.readPlanner(filePath);
+    }
+
+    /**
+     * Saves the given {@link Planner} to the storage.
+     *
+     * @param planner {@code Planner} to be saved, which cannot be null.
+     * @throws IOException If there was any problem writing to the file.
+     */
+    @Override
+    public void savePlanner(Planner planner) throws IOException {
+        plannerStorage.savePlanner(planner, plannerStorage.getPlannerFilePath());
+    }
+
+    /**
+     * Saves the given {@link Planner} to the storage.
+     *
+     * @param planner  {@code Planner} to be saved, which cannot be null.
+     * @param filePath {@code Path} to read {@code Planner} data.
+     * @throws IOException If there was any problem writing to the file.
+     */
+    @Override
+    public void savePlanner(Planner planner, Path filePath) throws IOException {
+        plannerStorage.savePlanner(planner, filePath);
     }
 }
