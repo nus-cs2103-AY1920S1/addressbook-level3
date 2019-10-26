@@ -23,6 +23,7 @@ public class Messages {
     public static final String MESSAGE_SCHEDULE_CONFLICT = "Scheduling conflict detected. Add \"-allow\" flag to "
             + "confirm overlapping schedules.";
 
+    public static final String TIME_MESSAGE_CONSTRAINTS = "Time should only contain numbers in the format of HH.MM";
     public static final String DATE_MESSAGE_CONSTRAINTS =
             "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank "
                     + "for PROFIT, COST, REVENUE type";
