@@ -308,10 +308,10 @@ image::StatisticsActivityDiagram.png[]
 ==== Design Considerations
 Aspect: Methods to collect statistics
 
-* **Alternative 1 (Current choice):** Collect total number of good/hard/easy flashcards using predicates and those completed in test mode using the model. 
+* **Alternative 1 (Current choice):** Collect total number of good/hard/easy flashcards using predicates and those completed in test mode using the model.
 ** Pros: This is easy to implement.
 ** Cons: This requires extra lines of code to combine all the statistics.
-* **Alternative 2:** Collect all statistics using the model. 
+* **Alternative 2:** Collect all statistics using the model.
 ** Pros: This allows the collection of all statistics with minimal methods involved.
 ** Cons: This requires constant updating of the model when new FlashCards are added, removed or edited.
 
