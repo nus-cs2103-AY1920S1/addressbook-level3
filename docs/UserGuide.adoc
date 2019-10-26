@@ -181,7 +181,7 @@ Example:
 
 
 === Finding a flashcard
-Find a flashcard based on the keyword in its question, definition, answer or choices. +
+Find a flashcard based on the keyword in its question, definition or answer. +
 Format: `find KEYWORD`
 
 ****
