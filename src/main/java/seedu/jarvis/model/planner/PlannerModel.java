@@ -93,4 +93,10 @@ public interface PlannerModel {
      * of {@code Planner}
      */
     ObservableList<Task> getFilteredTaskList();
+
+    /**
+     * Marks a {@code Task} at the specified {@code Index} as done
+     * @param i {@code Index} of the {@code Task} to be marked as done
+     */
+    void markTaskAsDone(Index i);
 }
