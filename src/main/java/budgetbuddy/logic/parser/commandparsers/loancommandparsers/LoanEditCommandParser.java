@@ -30,6 +30,12 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
         ArgumentMultimap argMultiMap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DATE);
 
+        if (argMultiMap.getAllValues(PREFIX_AMOUNT).size() > 1
+                || argMultiMap.getAllValues(PREFIX_DESCRIPTION).size() > 1
+                || argMultiMap.getAllValues(PREFIX_DATE).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanEditCommand.MESSAGE_USAGE));
+        }
+
         Index loanIndex;
         try {
             loanIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
