@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEvents.getTypicalEventList;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ import seedu.address.model.person.Person;
 
 class SelectCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfliteredList_success() {
@@ -29,7 +30,7 @@ class SelectCommandTest {
 
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, personToSelect);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getEventList(), new UserPrefs());
         expectedModel.selectPerson();
 
         assertCommandSuccess(selectCommand, model, expectedMessage, expectedModel);
