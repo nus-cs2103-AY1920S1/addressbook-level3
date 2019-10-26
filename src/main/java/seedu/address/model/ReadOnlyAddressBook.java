@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
+import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
@@ -22,6 +23,8 @@ public interface ReadOnlyAddressBook extends Observable {
      * Returns an unmodifiable view of the persons list. This list will not contain
      * any duplicate persons.
      */
+    CategoryList getCategoryList();
+
     ObservableList<Category> getExpenseCategoryList();
 
     ObservableList<Category> getIncomeCategoryList();

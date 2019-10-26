@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
+import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
@@ -130,6 +131,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasCategory(Category category) {
+        return versionedAddressBook.hasCategory(category);
+    }
+
+    @Override
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
         return versionedAddressBook.hasEntry(entry);
@@ -139,6 +145,11 @@ public class ModelManager implements Model {
     public boolean hasExpenseReminder(ExpenseReminder reminder) {
         requireNonNull(reminder);
         return versionedAddressBook.hasExpenseReminder(reminder);
+    }
+
+    @Override
+    public void deleteCategory(Category target) {
+        versionedAddressBook.removeCategory(target);
     }
 
     @Override
@@ -289,13 +300,17 @@ public class ModelManager implements Model {
         versionedAddressBook.updateExpenseReminders();
     }
 
-
+    @Override
+    public CategoryList getCategoryList() {
+        return versionedAddressBook.getCategoryList();
+    }
     // =========== Filtered Person List Accessors
 
     /**
      * Returns an unmodifiable view of the list of {@code Entry} backed by the
      * internal list of {@code versionedAddressBook}
      */
+
     @Override
     public ObservableList<Category> getExpenseCategoryList() {
         return expenseCategoryList;

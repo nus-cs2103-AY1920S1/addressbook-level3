@@ -36,7 +36,7 @@ public class Income extends Entry {
         }
 
         Income otherIncome = (Income) other;
-        return otherIncome.getCat().equals(getCat())
+        return otherIncome.getCategory().equals(getCategory())
                 && otherIncome.getDesc().equals(getDesc())
                 && otherIncome.getAmount().equals(getAmount())
                 && otherIncome.getTags().equals(getTags())
@@ -47,7 +47,7 @@ public class Income extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
-                .append(getCat())
+                .append(getCategory())
                 .append(" Description: ")
                 .append(getDesc())
                 .append(" Amount: ")

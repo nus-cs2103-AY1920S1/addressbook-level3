@@ -15,20 +15,23 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Entry[] getSampleEntries() {
         return new Entry[] {
-            new Expense(new Category("Food"), new Description("mala at deck"), new Date("2019 09 09"), new Amount(5.40),
+            new Expense(new Category("Food", "Expense"), new Description("mala at deck"), new Date("2019 09 09"), new Amount(5.40),
                     getTagSet("mala")),
-            new Expense(new Category("Food"), new Description("chicken rice"), new Date("2019 09 09"), new Amount(3.50),
+            new Expense(new Category("Food", "Expense"), new Description("chicken rice"), new Date("2019 09 09"), new Amount(3.50),
                     getTagSet("mala")),
-            new Income(new Category("Work"), new Description("october salary"), new Date("2019 10 11"), new Amount(3000),
+            new Income(new Category("Work", "Income"), new Description("october salary"), new Date("2019 10 11"), new Amount(3000),
                     getTagSet("salary"))
         };
     }
 
     public static Category[] getSampleCategories() {
-        return new Category[] {new Category("Food"), new Category("Travel"), new Category("Family"),
-                new Category("Bills"), new Category("Entertainment"), new Category("Transport"),
-                new Category("Shopping"), new Category("HealthCare"), new Category("Groceries"),
-                new Category("Rent")};
+        return new Category[] {new Category("Food", "Expense"), new Category("Travel", "Expense"),
+                new Category("Family","Expense"), new Category("Bills","Expense"),
+                new Category("Entertainment","Expense"), new Category("Transport","Expense" ),
+                new Category("Shopping","Expense"), new Category("HealthCare","Expense"),
+                new Category("Groceries","Expense"), new Category("Rent","Expense"),
+                new Category("Business","Income"), new Category("Salary","Income"),
+                new Category("Gifts","Income"), new Category("Loans", "Income")};
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {

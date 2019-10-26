@@ -30,7 +30,8 @@ public class DeleteCategoryCommandParser implements Parser<DeleteCategoryCommand
         String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
         String categoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
 
-        return new DeleteCategoryCommand(categoryName, categoryType);
+        //will check if category exist when creating new category
+        return new DeleteCategoryCommand(new Category(categoryName, categoryType));
 }
 
     /**

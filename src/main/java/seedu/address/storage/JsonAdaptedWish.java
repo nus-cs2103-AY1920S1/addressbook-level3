@@ -76,7 +76,7 @@ class JsonAdaptedWish {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
 
-        final Category modelCategory = new Category(category);
+        final Category modelCategory = new Category(category, "Expense");
         final Description modelDesc = new Description(desc);
         final Date modelDate = new Date(time);
         final Amount modelAmt = new Amount(amt);

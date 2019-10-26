@@ -35,7 +35,7 @@ class JsonAdaptedExpense {
         this.category = category;
         this.desc = desc;
         this.amt = amt;
-        this.date = date;
+        this.date = time;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -74,7 +74,7 @@ class JsonAdaptedExpense {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
 
-        final Category modelCategory = new Category(category);
+        final Category modelCategory = new Category(category, "Expense");
 
         final Description modelDesc = new Description(desc);
 

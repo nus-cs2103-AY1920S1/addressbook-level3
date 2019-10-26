@@ -41,7 +41,6 @@ public class UniqueEntryList implements Iterable<Entry> {
      */
     public void add(Entry toAdd) {
         requireNonNull(toAdd);
-
         internalList.add(toAdd);
     }
 

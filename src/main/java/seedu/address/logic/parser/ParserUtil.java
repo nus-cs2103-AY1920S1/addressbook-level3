@@ -137,13 +137,6 @@ public class ParserUtil {
         return tagSet;
     }
 
-
-    public static Category parseCategory(String category) throws ParseException {
-        requireNonNull(category);
-        String trimmedCategory = category.trim();
-        return new Category(trimmedCategory);
-    }
-
     /**
      * Parses {@code String panelNamee} into a {@code PanelName}.
      */

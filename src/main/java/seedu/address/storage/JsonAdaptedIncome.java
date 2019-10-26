@@ -74,7 +74,7 @@ class JsonAdaptedIncome {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
 
-        final Category modelCategory = new Category(category);
+        final Category modelCategory = new Category(category, "Income");
         final Description modelDesc = new Description(desc);
 
         final Date modelTime = new Date(time);

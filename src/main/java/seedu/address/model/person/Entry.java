@@ -75,7 +75,7 @@ public class Entry {
         }
 
         return otherEntry != null
-                && otherEntry.getCategory().equals(getCategory());
+                && otherEntry.getCategory().equals(getCategory())
                 && otherEntry.getDesc().equals(getDesc())
                 && otherEntry.getAmount().equals(getAmount())
                 && this.equals(otherEntry);
@@ -127,7 +127,7 @@ public class Entry {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method ford custom fields hashing instead of implementing your own
         return Objects.hash(desc, amt, tags);
     }
 

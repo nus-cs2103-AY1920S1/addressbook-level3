@@ -38,6 +38,10 @@ public class AddCategoryCommand extends Command {
         toAdd = entry;
     }
 
+    /**
+     * Creates an AddCategoryCommand to add to the existing categories. Model will handle the check if the category is
+     * already present in the list.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

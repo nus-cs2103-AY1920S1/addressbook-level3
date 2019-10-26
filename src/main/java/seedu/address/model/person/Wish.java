@@ -12,8 +12,8 @@ public class Wish extends Entry {
 
     private static final String ENTRY_TYPE = "Wish";
 
-    public Wish(Category cat, Description desc, LocalDate date, Amount amount, Set<Tag> tags) {
-        super(cat, desc, new Date(date), amount, tags);
+    public Wish(Category cat, Description desc, Date date, Amount amount, Set<Tag> tags) {
+        super(cat, desc, date, amount, tags);
     }
 
     public String getType() {

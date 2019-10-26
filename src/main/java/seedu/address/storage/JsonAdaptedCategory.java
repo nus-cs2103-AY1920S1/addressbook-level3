@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -12,14 +13,17 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedCategory {
 
-    private final String categoryName;
+    public static final String WRONG_CATEGORY_TYPE_MESSAGE_FORMAT = "Category Type of %s is not Income or Expense!";
 
+    private final String categoryName;
+    private final String categoryType;
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedCategory(String category) {
-        this.categoryName = category;
+    public JsonAdaptedCategory(@JsonProperty("categoryName") String categoryName, @JsonProperty("categoryType") String categoryType) {
+        this.categoryName = categoryName;
+        this.categoryType = categoryType;
     }
 
     /**
@@ -27,11 +31,17 @@ class JsonAdaptedCategory {
      */
     public JsonAdaptedCategory(Category source) {
         categoryName = source.categoryName;
+        categoryType = source.categoryType;
     }
 
     @JsonValue
     public String getCategoryName() {
         return categoryName;
+    }
+
+    @JsonValue
+    public String getCategoryType() {
+        return categoryType;
     }
 
     /**
@@ -40,7 +50,10 @@ class JsonAdaptedCategory {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Category toModelType() throws IllegalValueException {
-        return new Category(categoryName);
+        if (!Category.isValidCategoryType(categoryType)) {
+            throw new IllegalValueException(String.format(WRONG_CATEGORY_TYPE_MESSAGE_FORMAT, categoryName));
+        }
+        return new Category(categoryName, categoryType);
     }
 
 }

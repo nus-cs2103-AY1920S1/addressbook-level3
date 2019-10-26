@@ -1,17 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Budget;
-import seedu.address.model.person.Category;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
@@ -24,20 +19,25 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    public static final String MESSAGE_CATEGORY = "Call the command listCategories for the list of Categories.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a entry to the finance tracker. "
             + "Parameters: "
+            + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_DESC + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_CATEGORY + "Food "
             + PREFIX_TYPE + "Expense "
             + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
             + PREFIX_DATE + "2019 09 09 "
             + PREFIX_TAG + "food "
-            + PREFIX_TAG + "indulgence";
+            + PREFIX_TAG + "indulgence.\n"
+            + MESSAGE_CATEGORY;
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
 

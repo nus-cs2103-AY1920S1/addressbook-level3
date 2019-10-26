@@ -166,6 +166,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * address book.
      */
+    public boolean hasCategory(Category category) {
+        requireNonNull(category);
+        return categoryList.contains(category);
+    }
+
+    /**
+     * Returns true if a entry with the same identity as {@code entry} exists in the
+     * address book.
+     */
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
         return entries.contains(entry);
@@ -206,6 +215,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * * @param expense the specified Expense to be added.
      */
     public void addExpense(Expense expense) {
+        hasCategory(expense.getCategory());
         entries.add(expense);
         expenses.add(expense);
         indicateModified();
@@ -217,6 +227,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param income the specified Income to be added.
      */
     public void addIncome(Income income) {
+        hasCategory(income.getCategory());
         entries.add(income);
         incomes.add(income);
         indicateModified();
@@ -227,6 +238,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param budget the specified Income to be added.
      */
     public void addBudget(Budget budget) {
+        hasCategory(budget.getCategory());
         entries.add(budget);
         budgets.add(budget);
         indicateModified();
@@ -234,10 +246,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds the specified Wish to the finance app.
+     * carries out check if category is valid here.
      *
      * @param wish the specified Wish to be added.
      */
     public void addWish(Wish wish) {
+        hasCategory(wish.getCategory());
         entries.add(wish);
         wishes.add(wish);
         indicateModified();
@@ -265,6 +279,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addWishReminder(WishReminder wishReminder) {
         wishReminders.add(wishReminder);
     }
+
     /**
      * Adds the specified AutoExpense to the finance app.
      *
@@ -511,6 +526,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return entries.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
+    }
+
+    @Override
+    public CategoryList getCategoryList() {
+        return categoryList;
     }
 
     @Override

@@ -37,10 +37,11 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE));
         }
 
-        String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase()
+        String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
         String categoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
+        Category categoryToCreate = new Category(categoryName, categoryType);
 
-        return new AddCategoryCommand(new Category(categoryName, categoryType));
+        return new AddCategoryCommand(categoryToCreate);
     }
 
     /**

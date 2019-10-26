@@ -50,7 +50,7 @@ public class Budget extends Entry {
         }
 
         Budget otherBudget = (Budget) other;
-        return otherBudget.getCat().equals(getCat())
+        return otherBudget.getCategory().equals(getCategory())
                 && otherBudget.getDesc().equals(getDesc())
                 && otherBudget.getAmount().equals(getAmount())
                 && otherBudget.getTags().equals(getTags())
@@ -61,7 +61,7 @@ public class Budget extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
-                .append(getCat())
+                .append(getCategory())
                 .append(" Description: ")
                 .append(getDesc())
                 .append(" Amount: ")
