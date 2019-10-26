@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
@@ -29,6 +30,7 @@ import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.testutil.StatisticBuilder;
 import seedu.exercise.testutil.exercise.ExerciseBuilder;
 
 public class AddExerciseCommandTest {
@@ -306,6 +308,20 @@ public class AddExerciseCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateStatistic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatistic(Statistic statistic) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Statistic getStatistic() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -347,6 +363,22 @@ public class AddExerciseCommandTest {
         @Override
         public ReadOnlyResourceBook<Exercise> getExerciseBookData() {
             return new ReadOnlyResourceBook<>();
+        }
+
+        @Override
+        public void updateStatistic() {
+            //will add here when writing tests
+        }
+
+        @Override
+        public void setStatistic(Statistic statistic) {
+            //will add here when writing tests
+        }
+
+        @Override
+        public Statistic getStatistic() {
+            StatisticBuilder statisticBuilder = new StatisticBuilder();
+            return statisticBuilder.build();
         }
     }
 

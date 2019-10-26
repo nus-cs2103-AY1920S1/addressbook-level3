@@ -7,6 +7,7 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.conflict.Conflict;
@@ -78,6 +79,11 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the Statistic object currently in focus.
+     */
+    Statistic getStatistic();
 
     /**
      * Returns the conflict that needs to be resolved in {@code Model}.

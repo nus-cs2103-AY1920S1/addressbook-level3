@@ -56,7 +56,7 @@
                     <center>
                         <BorderPane>
                             <top>
-                                <StackPane fx:id="resultPanelPlaceholder" BorderPane.alignment="CENTER"/>
+                                <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER"/>
                             </top>
                             <bottom>
                                 <StackPane fx:id="suggestionPanelPlaceholder" BorderPane.alignment="CENTER"/>

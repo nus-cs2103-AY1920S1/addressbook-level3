@@ -15,6 +15,7 @@ import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.Logic;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 
 /**
@@ -65,6 +66,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultPanelPlaceholder;
+
+    @FXML
+    private StackPane chartPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -137,8 +141,11 @@ public class MainWindow extends UiPart<Stage> {
         scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
         scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
 
-        resultPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
-        resultPanelPlaceholder.getChildren().add(resultPanel.getRoot());
+        //resultPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        //resultPanelPlaceholder.getChildren().add(resultPanel.getRoot());
+
+        chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
+
 
         regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
         regimeListPanelPlaceholder.getChildren().add(regimeListPanel.getRoot());
@@ -147,6 +154,21 @@ public class MainWindow extends UiPart<Stage> {
         suggestionPanelPlaceholder.getChildren().add(suggestionPanel.getRoot());
     }
 
+    /**
+     * Sets the chart type in chartPlaceholder according to user input.
+     */
+    private void setChart() {
+        Statistic statistic = logic.getStatistic();
+        String chart = statistic.getChart();
+        chartPlaceholder.getChildren().clear();
+        if (chart.equals("barchart")) {
+            chartPlaceholder.getChildren().add(new BarChartPanel(statistic).getRoot());
+        } else if (chart.equals("linechart")) {
+            chartPlaceholder.getChildren().add(new LineChartPanel(statistic).getRoot());
+        } else {
+            chartPlaceholder.getChildren().add(new PieChartPanel(statistic).getRoot());
+        }
+    }
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -219,6 +241,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            setChart();
 
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);

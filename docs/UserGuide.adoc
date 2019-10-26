@@ -215,8 +215,10 @@ Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
 
 ****
 * Supported chart types: Pie Chart, Line Chart, Bar Chart
+* Supported category: exercise, calories
 * If no `START_DATE` and `END_DATE` are provided, the recent 7 days of history will be used.
 * If any date is provided, both `START_DATE` and `END_DATE` dates must be there.
+* The maximum range between `START_DATE` and `END_DATE` is 31 days.
 ****
 
 Example:

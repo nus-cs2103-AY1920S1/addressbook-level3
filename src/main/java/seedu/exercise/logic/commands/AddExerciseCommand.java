@@ -62,6 +62,7 @@ public class AddExerciseCommand extends AddCommand implements PayloadCarrierComm
         }
 
         model.addExercise(exerciseToAdd);
+        model.updateStatistic();
         eventPayload.put(KEY_EXERCISE_TO_ADD, exerciseToAdd);
         EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, exerciseToAdd));
@@ -75,6 +76,7 @@ public class AddExerciseCommand extends AddCommand implements PayloadCarrierComm
     @Override
     public String getResourceType() {
         return RESOURCE_TYPE;
+
     }
 
     @Override

@@ -27,8 +27,8 @@ public class RedoCommand extends Command {
         }
 
         Event eventToRedo = eventHistory.redo(model);
+        model.updateStatistic();
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, eventToRedo));
     }
-
 }
