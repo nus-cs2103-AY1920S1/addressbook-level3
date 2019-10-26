@@ -6,8 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.quiz.QuizResultFilter;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 
 /**
  * Gets questions that have been answered correctly/incorrectly by subject.
@@ -26,8 +28,8 @@ public class GetQnsCommand extends Command {
             + PREFIX_SUBJECT + "CS2103T" + " -c -a";
 
     public static final String MESSAGE_SUCCESS = "Here are the questions: ";
-    public static final String MESSAGE_NO_CORRECT_QNS = "There are no correctly answered questions. ";
-    public static final String MESSAGE_NO_INCORRECT_QNS = "There are no incorrectly answered questions. ";
+    public static final String MESSAGE_NO_QNS = "There are no correctly/incorrectly answered questions, "
+            + "try doing some questions.";
 
     private QuizResultFilter quizResultFilter;
 
@@ -37,9 +39,13 @@ public class GetQnsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.filterQuizResult(quizResultFilter);
+        try {
+            model.filterQuizResult(quizResultFilter);
+        } catch (EmptyQuizResultListException e) {
+            throw new CommandException(MESSAGE_NO_QNS);
+        }
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(QUESTIONS);
         return c;

@@ -290,6 +290,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void updateQuizResultFilter(QuizResultFilter quizResultFilter) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Answer showQuizAnswer() {
             throw new AssertionError("This method should not be called.");
         }

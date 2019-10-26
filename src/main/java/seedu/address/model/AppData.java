@@ -20,6 +20,7 @@ import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.quiz.QuizResultList;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -263,7 +264,8 @@ public class AppData implements ReadOnlyAppData {
         return quizResults.contains(quizResult);
     }
 
-    public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter) {
+    public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter)
+            throws EmptyQuizResultListException {
         return quizResults.filterQuizResult(quizResultFilter);
     }
 

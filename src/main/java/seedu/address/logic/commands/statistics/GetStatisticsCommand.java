@@ -6,8 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.quiz.QuizResultFilter;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 
 /**
  * Gets statistics of how well the user has attempted the questions.
@@ -36,9 +38,13 @@ public class GetStatisticsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.filterQuizResult(quizResultFilter);
+        try {
+            model.filterQuizResult(quizResultFilter);
+        } catch (EmptyQuizResultListException e) {
+            throw new CommandException(MESSAGE_NO_STATISTICS);
+        }
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(STATS);
         return c;

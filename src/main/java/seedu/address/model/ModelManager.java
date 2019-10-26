@@ -23,6 +23,7 @@ import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.quiz.QuizResultFilter;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
@@ -39,6 +40,7 @@ public class ModelManager implements Model {
     private final FilteredList<Question> filteredQuizQuestions;
     private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
+    private QuizResultFilter quizResultFilter;
     private ObservableList<QuizResult> quizResults;
 
     /**
@@ -231,8 +233,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void filterQuizResult(QuizResultFilter quizResultFilter) {
-        quizResults = appData.filterQuizResult(quizResultFilter);
+    public void filterQuizResult(QuizResultFilter quizResultFilter) throws EmptyQuizResultListException {
+        this.quizResults = appData.filterQuizResult(quizResultFilter);
+    }
+
+    @Override
+    public void updateQuizResultFilter(QuizResultFilter quizResultFilter) throws EmptyQuizResultListException {
+        if (filteredQuizResults.isEmpty()) {
+            throw new EmptyQuizResultListException();
+        }
+        this.quizResultFilter = quizResultFilter;
     }
 
     //=========== Filtered Note List Accessors =============================================================
@@ -405,7 +415,8 @@ public class ModelManager implements Model {
         for (Difficulty d : uniqueDifficultyList) {
             List<Pair<Subject, Integer>> dataListPerDifficulty = new ArrayList<>();
             for (Subject s : uniqueSubjectList) {
-                filterQuizResult(new QuizResultFilter(s, d));
+                quizResultFilter.setOperation(s, d);
+                filterQuizResult(quizResultFilter);
                 int n = quizResults.size();
                 dataListPerDifficulty.add(new Pair(s, n));
             }

@@ -1,10 +1,10 @@
 package seedu.address.logic.parser.statistics;
 
+import static seedu.address.logic.commands.statistics.GetOverviewqCommand.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.statistics.GetOverviewqCommand.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,21 +31,29 @@ public class GetOverviewqCommandParser implements Parser<GetOverviewqCommand> {
         QuizResultFilter quizResultFilter = new QuizResultFilter();
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-        List<String> dates = new ArrayList<>();
-        List<Date> formattedDates = new ArrayList<>();
+        List<String> dates;
+        Date startDate;
+        Date endDate;
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             dates = argMultimap.getAllValues(PREFIX_DATE);
-            for (String date : dates) {
-                try {
-                    Date d = formatter.parse(date);
-                    formattedDates.add(d);
-                } catch (java.text.ParseException e) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT,
-                            GetOverviewqCommand.MESSAGE_USAGE));
-                }
+            if (dates.size() != 2) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        GetOverviewqCommand.MESSAGE_USAGE));
             }
-            quizResultFilter = new QuizResultFilter(formattedDates.get(0), formattedDates.get(1));
+            try {
+                startDate = formatter.parse(dates.get(0));
+                endDate = formatter.parse(dates.get(1));
+            } catch (java.text.ParseException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT,
+                        GetOverviewqCommand.MESSAGE_USAGE));
+            }
+            if (startDate.after(endDate)) {
+                Date temp = startDate;
+                startDate = endDate;
+                endDate = temp;
+            }
+            quizResultFilter = new QuizResultFilter(startDate, endDate);
         }
         return new GetOverviewqCommand(quizResultFilter);
     }

@@ -74,14 +74,6 @@ public class QuizResultFilter {
         operations.push(DIFFICULTY);
     }
 
-    public QuizResultFilter(Subject subject, Difficulty difficulty) {
-        this.subjects = new ArrayList<>();
-        this.subjects.add(subject);
-        this.difficulty = difficulty;
-        operations.push(SUBJECT);
-        operations.push(DIFFICULTY);
-    }
-
     public List<Subject> getSubjects() {
         return subjects;
     }
@@ -104,5 +96,16 @@ public class QuizResultFilter {
 
     public Stack<FilterType> getOperations() {
         return operations;
+    }
+
+    public void setOperation(Subject s, Difficulty d) {
+        this.subjects = new ArrayList<>();
+        this.subjects.add(s);
+        this.difficulty = d;
+        if (operations.empty() && startDate != null && endDate != null) {
+            operations.push(DATE);
+        }
+        operations.push(SUBJECT);
+        operations.push(DIFFICULTY);
     }
 }

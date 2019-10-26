@@ -205,6 +205,8 @@ public interface Model {
 
     void filterQuizResult(QuizResultFilter quizResultFilter);
 
+    void updateQuizResultFilter(QuizResultFilter quizResultFilter);
+
     /**
      * Returns an unmodifiable view of the filtered quiz result list.
      */

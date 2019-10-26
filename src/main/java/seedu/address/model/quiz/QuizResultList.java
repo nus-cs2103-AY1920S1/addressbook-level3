@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 import seedu.address.model.quiz.exceptions.FilterTypeNotFoundException;
 
 /**
@@ -85,9 +86,13 @@ public class QuizResultList implements Iterable<QuizResult> {
     /**
      * Returns a list with quizResults filtered by {@code quizResultFilter}.
      */
-    public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter) {
+    public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter)
+            throws EmptyQuizResultListException {
         Stack<FilterType> filterType = quizResultFilter.getOperations();
         List<QuizResult> filteredQuizResults = internalList;
+        if (internalList.isEmpty()) {
+            throw new EmptyQuizResultListException();
+        }
         while (!filterType.empty()) {
             switch(filterType.pop()) {
             case NONE:

@@ -70,7 +70,8 @@ public class QuizResult {
         } catch (ParseException e) {
             throw new WrongDateFormatException();
         }
-        return !(date.before(start) || date.after(end));
+        boolean isWithinDate = !(date.before(start) || date.after(end));
+        return isWithinDate;
     }
 
     @Override
