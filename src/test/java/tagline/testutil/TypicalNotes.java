@@ -50,12 +50,12 @@ public class TypicalNotes {
     public static final Note TIMEHEIST = new NoteBuilder().withNoteId(NOTEID_TIMEHEIST)
             .withTitle(TITLE_TIMEHEIST)
             .withContent(CONTENT_TIMEHEIST).withTimeCreated(TIMECREATED_TIMEHEIST)
-            .withTimeLastUpdated(TIMELASTUPDATED_TIMEHEIST).build();
+            .withTimeLastEdited(TIMELASTUPDATED_TIMEHEIST).build();
 
     public static final Note ULTRON = new NoteBuilder().withNoteId(NOTEID_ULTRON)
             .withTitle(TITLE_ULTRON)
             .withContent(CONTENT_ULTRON).withTimeCreated(TIMECREATED_ULTRON)
-            .withTimeLastUpdated(TIMELASTUPDATED_ULTRON).build();
+            .withTimeLastEdited(TIMELASTUPDATED_ULTRON).build();
 
 
     // Manually added
@@ -74,7 +74,7 @@ public class TypicalNotes {
     public static final Note TOKYO = new NoteBuilder().withNoteId(NOTEID_TOKYO)
             .withTitle(TITLE_TOKYO)
             .withContent(CONTENT_TOKYO).withTimeCreated(TIMECREATED_TOKYO)
-            .withTimeLastUpdated(TIMELASTUPDATED_TOKYO).build();
+            .withTimeLastEdited(TIMELASTUPDATED_TOKYO).build();
 
     public static final long NOTEID_EARTH = 49;
     public static final String TITLE_EARTH = "Battle Of Earth";
@@ -91,22 +91,22 @@ public class TypicalNotes {
     public static final Note EARTH = new NoteBuilder().withNoteId(NOTEID_EARTH)
             .withTitle(TITLE_EARTH)
             .withContent(CONTENT_EARTH).withTimeCreated(TIMECREATED_EARTH)
-            .withTimeLastUpdated(TIMELASTUPDATED_EARTH).build();
+            .withTimeLastEdited(TIMELASTUPDATED_EARTH).build();
     public static final Note EARTH_NO_TITLE = new NoteBuilder().withNoteId(NOTEID_EARTH)
             .withTitle("")
             .withContent(CONTENT_EARTH).withTimeCreated(TIMECREATED_EARTH)
-            .withTimeLastUpdated(TIMELASTUPDATED_EARTH).build();
+            .withTimeLastEdited(TIMELASTUPDATED_EARTH).build();
 
     // Manually added - Note's details found in {@code NoteCommandTestUtil}
     public static final Note PROTECTOR = new NoteBuilder().withNoteId(VALID_NOTEID_PROTECTOR)
             .withTitle(VALID_TITLE_PROTECTOR)
             .withContent(VALID_CONTENT_PROTECTOR).withTimeCreated(VALID_TIMECREATED_PROTECTOR)
-            .withTimeLastUpdated(VALID_TIMELASTUPDATED_PROTECTOR).build();
+            .withTimeLastEdited(VALID_TIMELASTUPDATED_PROTECTOR).build();
 
     public static final Note INCIDENT = new NoteBuilder().withNoteId(VALID_NOTEID_INCIDENT)
             .withTitle(VALID_TITLE_INCIDENT)
             .withContent(VALID_CONTENT_INCIDENT).withTimeCreated(VALID_TIMECREATED_INCIDENT)
-            .withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT).build();
+            .withTimeLastEdited(VALID_TIMELASTUPDATED_INCIDENT).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

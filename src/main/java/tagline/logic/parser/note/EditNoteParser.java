@@ -12,7 +12,6 @@ import tagline.logic.parser.ArgumentMultimap;
 import tagline.logic.parser.ArgumentTokenizer;
 import tagline.logic.parser.Parser;
 import tagline.logic.parser.exceptions.ParseException;
-import tagline.model.note.Content;
 import tagline.model.note.NoteId;
 import tagline.model.note.Title;
 
@@ -43,7 +42,7 @@ public class EditNoteParser implements Parser<EditNoteCommand> {
             editNoteDescriptor.setTitle(new Title(argMultimap.getValue(PREFIX_TITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
-            editNoteDescriptor.setContent(new Content(argMultimap.getValue(PREFIX_CONTENT).get()));
+            editNoteDescriptor.setContent(NoteParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()));
         }
         /* TO ADD TAGS WHEN TAG IMPLEMENTED */
 

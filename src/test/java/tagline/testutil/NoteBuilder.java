@@ -19,11 +19,11 @@ import tagline.model.util.SampleDataUtil;
 public class NoteBuilder {
 
     public static final long DEFAULT_NOTEID = 99999;
-    public static final String DEFAULT_TITLE = "The Protector Initiative";
-    public static final String DEFAULT_CONTENT = "Phase 1:\n A response team comprised "
-        + "of the most able individuals humankind has to offer. The Initiative will "
-        + "defend Earth from imminent global threats that are beyond the warfighting "
-        + "capability of conventional military forces.";
+    public static final String DEFAULT_TITLE = "Infinity Stones";
+    public static final String DEFAULT_CONTENT = "The Infinity Stones were six immensely powerful "
+            + "gem-like objects tied to different aspects of the universe, created "
+            + "by the Cosmic Entities. Each of the stones possesses unique capabilities "
+            + "that have been enhanced and altered by various alien civilizations for millennia.";
     public static final String DEFAULT_TIMECREATED = "13-May-1995 15:35:08";
     public static final String DEFAULT_TIMELASTUPDATED = "13-May-1995 15:35:08";
 
@@ -102,8 +102,16 @@ public class NoteBuilder {
     /**
      * Sets the {@code TimeLastEdited} of the {@code Note} that we are building.
      */
-    public NoteBuilder withTimeLastUpdated(String timestamp) {
+    public NoteBuilder withTimeLastEdited(String timestamp) {
         this.timeLastEdited = new TimeLastEdited(new Date(timestamp));
+        return this;
+    }
+
+    /**
+     * Sets the {@code TimeLastEdited} of the {@code Note} that we are building.
+     */
+    public NoteBuilder withTimeLastEdited(TimeLastEdited timestamp) {
+        this.timeLastEdited = timestamp;
         return this;
     }
 

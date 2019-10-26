@@ -8,6 +8,7 @@ import static tagline.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.note.Note;
@@ -48,6 +49,8 @@ public class NoteCommandTestUtil {
     public static final String CONTENT_DESC_INCIDENT = " " + PREFIX_CONTENT + VALID_CONTENT_INCIDENT;
     /* TO ADD FOR TAG WHEN TAG IMPLEMENTED */
 
+    public static final String INVALID_CONTENT_DESC = " " + PREFIX_CONTENT + " "; // content cannot be blank
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
@@ -71,11 +74,11 @@ public class NoteCommandTestUtil {
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
+     * that takes a string {@code expectedMessage} and a {@code ViewType} {@code expectedViewType}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+                                            ViewType expectedViewType, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedViewType);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

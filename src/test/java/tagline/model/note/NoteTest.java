@@ -72,7 +72,7 @@ public class NoteTest {
         assertTrue(PROTECTOR.isSameNote(editedProtector));
 
         // different timeLastEdited -> returns true
-        editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT).build();
+        editedProtector = new NoteBuilder(PROTECTOR).withTimeLastEdited(VALID_TIMELASTUPDATED_INCIDENT).build();
         assertTrue(PROTECTOR.isSameNote(editedProtector));
     }
 
@@ -105,7 +105,7 @@ public class NoteTest {
         assertTrue(PROTECTOR.isUniqueNote(editedProtector));
 
         // different timeLastEdited -> returns true
-        editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT).build();
+        editedProtector = new NoteBuilder(PROTECTOR).withTimeLastEdited(VALID_TIMELASTUPDATED_INCIDENT).build();
         assertTrue(PROTECTOR.isUniqueNote(editedProtector));
     }
 
@@ -144,7 +144,7 @@ public class NoteTest {
         assertFalse(PROTECTOR.equals(editedProtector));
 
         // different address -> returns false
-        editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT).build();
+        editedProtector = new NoteBuilder(PROTECTOR).withTimeLastEdited(VALID_TIMELASTUPDATED_INCIDENT).build();
         assertFalse(PROTECTOR.equals(editedProtector));
 
         // different tags -> returns false
