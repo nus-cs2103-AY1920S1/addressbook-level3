@@ -4,12 +4,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.loadcommands.CreateCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new RemoveCommand object
  */
-public class RemoveCommandParser {
+public class RemoveCommandParser implements Parser<RemoveCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the RemoveCommand
      * and returns an RemoveCommand object for execution.
