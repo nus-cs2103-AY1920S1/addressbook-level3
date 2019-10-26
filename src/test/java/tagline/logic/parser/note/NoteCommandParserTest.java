@@ -6,7 +6,9 @@ import static tagline.testutil.NoteBuilder.DEFAULT_NOTEID;
 import org.junit.jupiter.api.Test;
 
 import tagline.logic.commands.note.CreateNoteCommand;
+import tagline.logic.commands.note.DeleteNoteCommand;
 import tagline.model.note.Note;
+import tagline.model.note.NoteId;
 import tagline.model.note.NoteIdCounter;
 import tagline.testutil.NoteBuilder;
 import tagline.testutil.NoteUtil;
@@ -24,4 +26,11 @@ class NoteCommandParserTest {
         assertEquals(new CreateNoteCommand(note), command);
     }
 
+    @Test
+    public void parseCommand_delete() throws Exception {
+        NoteId noteId = new NoteId(1);
+        DeleteNoteCommand command = (DeleteNoteCommand) parser.parseCommand(
+                DeleteNoteCommand.COMMAND_WORD + " " + noteId.toString());
+        assertEquals(new DeleteNoteCommand(noteId), command);
+    }
 }
