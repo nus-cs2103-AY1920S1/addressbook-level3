@@ -30,11 +30,11 @@ public class ClosestLocation {
         String result = "";
 
         result = result + "\nFirst closest location: " + data.getFirstClosest()
-                + " | Average travelling time " + data.getFirstAvg() + "\n";
+                + " | Average travelling distance/meters " + data.getFirstAvg() + "\n";
         result = result + "Second closest location: " + data.getSecondClosest()
-                + " | Average travelling time " + data.getSecondAvg() + "\n";
+                + " | Average travelling distance/meters " + data.getSecondAvg() + "\n";
         result = result + "Third closest location: " + data.getThirdClosest()
-                + " | Average travelling time " + data.getThirdAvg() + "\n";
+                + " | Average travelling distance/meters " + data.getThirdAvg() + "\n";
         if (!data.getInvalidLocation().isEmpty()) {
             result = result + "Could not recognise these locations:\n"
                     + ArrayListUtil

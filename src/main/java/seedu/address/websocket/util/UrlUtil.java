@@ -17,7 +17,7 @@ import seedu.address.commons.util.StringUtil;
  */
 public class UrlUtil {
 
-    private static String gmapsApiKey = "AIzaSyD8EjsAA4fk2h7TQIXvjc-vsyt9tHdLIQQ";
+    private static String gmapsApiKey = "";
 
     /**
      * Generates a URL object from a String.
