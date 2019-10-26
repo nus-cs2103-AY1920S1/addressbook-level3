@@ -16,7 +16,6 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Author;
@@ -96,11 +95,11 @@ public class EditCommand extends Command {
         Author updatedAuthor = editBookDescriptor.getAuthor().orElse(bookToEdit.getAuthor());
         boolean bookHasLoan = bookToEdit.isCurrentlyLoanedOut();
         Loan updatedLoan;
-        if (bookHasLoan) {
-            updatedLoan = editBookDescriptor.getLoan().orElse(bookToEdit.getLoan().get());
-        } else {
-            updatedLoan = null;
-        }
+        //        if (bookHasLoan) {
+        //            updatedLoan = editBookDescriptor.getLoan().orElse(bookToEdit.getLoan().get());
+        //        } else {
+        updatedLoan = null;
+        //        }
         Set<Genre> updatedGenres = editBookDescriptor.getGenres().orElse(bookToEdit.getGenres());
 
         return new Book(updatedTitle, updatedSerialNumber, updatedAuthor, updatedLoan, updatedGenres);
@@ -152,9 +151,9 @@ public class EditCommand extends Command {
         /**
          * Returns true if at least one field is edited.
          */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, serialNumber, author, genres);
-        }
+        //        public boolean isAnyFieldEdited() {
+        //            return CollectionUtil.isAnyNonNull(title, serialNumber, author, genres);
+        //        }
 
         public void setTitle(Title title) {
             this.title = title;
@@ -180,9 +179,9 @@ public class EditCommand extends Command {
             this.loan = loan;
         }
 
-        public Optional<Loan> getLoan() {
-            return Optional.ofNullable(loan);
-        }
+        //        public Optional<Loan> getLoan() {
+        //            return Optional.ofNullable(loan);
+        //        }
 
         public Optional<Author> getAuthor() {
             return Optional.ofNullable(author);
