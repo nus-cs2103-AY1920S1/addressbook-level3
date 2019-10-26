@@ -13,6 +13,12 @@ public class Event {
     public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
 
+    /*
+     * The first character of the address must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "[^\\s].*";
+
     private String name;
     private HashMap<Person, ArrayList<Record>> performances;
 
@@ -23,6 +29,13 @@ public class Event {
     public Event(String name) {
         this.name = name;
         this.performances = new HashMap<>();
+    }
+
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getName() {
