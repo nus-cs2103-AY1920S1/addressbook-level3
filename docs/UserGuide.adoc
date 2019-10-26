@@ -158,19 +158,19 @@ Sorts the current list of problems from lowest to highest difficulty.
 
 === Tags
 
-==== Creating new tags: `newtag`
+==== Creating new tags: `addtag`
 
 Generates a new tag. +
-Format: `newtag n/NAME`
+Format: `addtag n/NAME`
 
 Examples:
 
 * `newtag n/sssp`
 
-==== Listing tags: `lstag`
+==== Listing tags: `listtag`
 
 Displays a list of all existing tags. +
-Format: `lstag`
+Format: `liststag`
 
 ==== Deleting new tags: `deletetag`
 
@@ -179,6 +179,14 @@ Format: `deletetag INDEX`
 Examples:
 
 * `deletetag 1`
+
+==== Editing tags: `edittag`
+
+Edits an existing tag. +
+Format: `edittag INDEX t/NAME`
+Examples:
+
+* `edittag 1 t/difficult`
 
 === Training Plans
 
