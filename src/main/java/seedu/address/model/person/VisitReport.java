@@ -75,6 +75,7 @@ public class VisitReport implements Comparable<VisitReport> {
                 && diagnosis.equals(((VisitReport) other).diagnosis)
                 && remarks.equals(((VisitReport) other).remarks); // state check
     }
+
     @Override
     public int compareTo(VisitReport otherReport) {
         String[] reportDate = this.date.split("/");

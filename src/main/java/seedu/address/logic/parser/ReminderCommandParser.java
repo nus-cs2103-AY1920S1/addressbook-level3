@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Reminder;
 
 /**
  * Parses input arguments and creates a new {@code RemindCommand} object
@@ -25,11 +24,11 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
         int days;
         try {
             description = argMultimap.getPreamble();
-            days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("1"));
+            days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("7"));
         } catch (Exception ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE), ex);
         }
 
-        return new ReminderCommand(new Reminder(description, days));
+        return new ReminderCommand(description, days);
     }
 }

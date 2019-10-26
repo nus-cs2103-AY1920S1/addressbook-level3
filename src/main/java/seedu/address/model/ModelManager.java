@@ -130,8 +130,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addReminder(Reminder reminder) {
-        Reminder.addReminder(reminder);
+    public void addReminder(int type, String description, int days) {
+        userPrefs.addReminder(type, description, days);
+    }
+
+    @Override
+    public void addAlias(String alias, String aliasTo) {
+        userPrefs.addAlias(alias, aliasTo);
+    }
+
+    @Override
+    public boolean removeAlias(String alias) {
+        return userPrefs.removeAlias(alias);
+    }
+
+    @Override
+    public String applyAlias(String commandText) {
+        return userPrefs.applyAlias(commandText);
     }
 
     @Override

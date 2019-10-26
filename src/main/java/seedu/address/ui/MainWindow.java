@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private MotdWindow motdWindow;
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
-    private ProfilePanel profilePanel;
+    private ProfileWindow profilePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -69,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         visitWindow = new VisitRecordWindow();
         visitListPanel = new VisitListPanel();
-        profilePanel = new ProfilePanel();
+        profilePanel = new ProfileWindow();
     }
 
     public Stage getPrimaryStage() {
