@@ -26,9 +26,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.UserPrefs;
 //import seedu.address.model.task.Task;
+import seedu.address.model.UserSettings;
 import seedu.address.model.task.Task;
 import seedu.address.storage.JsonProjectDashboardStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserSettingsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.TaskBuilder;
 //import seedu.address.testutil.TaskBuilder;
@@ -47,7 +49,9 @@ public class LogicManagerTest {
         JsonProjectDashboardStorage projectDashboardStorage =
                 new JsonProjectDashboardStorage(temporaryFolder.resolve("projectDashboard.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage, );
+        JsonUserSettingsStorage userSettingsStorage =
+                new JsonUserSettingsStorage(temporaryFolder.resolve("plusworksettings.json"));
+        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage, userSettingsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -73,10 +77,13 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonProjectDashboardIoExceptionThrowingStub
         JsonProjectDashboardStorage projectDashboardStorage =
-                new JsonProjectDashboardIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+                new JsonProjectDashboardIoExceptionThrowingStub(
+                        temporaryFolder.resolve("ioExceptionProjectDashboard.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage, );
+        JsonUserSettingsStorage userSettingsStorage =
+                new JsonUserSettingsStorage(temporaryFolder.resolve("ioExceptionUserSettings.json"));
+        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage, userSettingsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -130,7 +137,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
+        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), new UserSettings());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

@@ -17,6 +17,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 
@@ -25,7 +26,7 @@ import seedu.address.model.member.MemberId;
  * {@code DeleteMemberCommand}.
  */
 public class DeleteMemberCommandTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     @Test
     public void execute_validIdUnfilteredList_success() {
@@ -42,7 +43,7 @@ public class DeleteMemberCommandTest {
 
         String expectedMessage = String.format(deleteMemberCommand.MESSAGE_DELETE_MEMBER_SUCCESS, memberToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
+        ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), new UserSettings());
         expectedModel.deleteMember(memberToDelete);
 
         assertCommandSuccess(deleteMemberCommand, model, expectedMessage, expectedModel);
@@ -73,7 +74,7 @@ public class DeleteMemberCommandTest {
 
         String expectedMessage = String.format(deleteMemberCommand.MESSAGE_DELETE_MEMBER_SUCCESS, memberToDelete);
 
-        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
+        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), new UserSettings());
         expectedModel.deleteMember(memberToDelete);
         showNoMember(expectedModel);
 

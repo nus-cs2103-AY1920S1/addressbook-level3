@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
@@ -25,7 +26,7 @@ import seedu.address.testutil.InventoryBuilder;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditInventoryCommandTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     private static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_BALL =
                                 new EditInventoryCommand.EditInventoryDescriptor();
@@ -44,7 +45,8 @@ public class EditInventoryCommandTest {
 
         String expectedMessage = String.format(EditInventoryCommand.MESSAGE_EDIT_INVENTORY_SUCCESS, editedInventory);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
+        Model expectedModel = new ModelManager(new ProjectDashboard(
+                model.getProjectDashboard()), new UserPrefs(), new UserSettings());
         expectedModel.setInventory(model.getFilteredInventoriesList().get(0), editedInventory);
 
         assertCommandSuccess(editInventoryCommand, model, expectedMessage, expectedModel);
@@ -83,7 +85,8 @@ public class EditInventoryCommandTest {
 
         String expectedMessage = String.format(EditInventoryCommand.MESSAGE_EDIT_INVENTORY_SUCCESS, editedInventory);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
+        Model expectedModel = new ModelManager(new ProjectDashboard(
+                model.getProjectDashboard()), new UserPrefs(), new UserSettings());
 
         assertCommandSuccess(editInventoryCommand, model, expectedMessage, expectedModel);
     }
@@ -108,14 +111,19 @@ public class EditInventoryCommandTest {
     */
     @Test
     public void equals() {
-        final EditInventoryCommand standardCommand = new EditInventoryCommand(INDEX_FIRST_INVENTORY, INVENTORY_DESC_TOY);
+        final EditInventoryCommand standardCommand =
+                new EditInventoryCommand(INDEX_FIRST_INVENTORY, INVENTORY_DESC_TOY);
 
-        /*
-        // same values -> returns true
-        EditInventoryCommand.EditInventoryDescriptor copyDescriptor = new EditInventoryCommand.EditInventoryDescriptor(INVENTORY_DESC_TOY);
-        EditInventoryCommand commandWithSameValues = new EditInventoryCommand(INDEX_FIRST_INVENTORY, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
-         */
+        //
+
+        //// same values -> returns true
+
+        //EditInventoryCommand.EditInventoryDescriptor copyDescriptor =
+        // new EditInventoryCommand.EditInventoryDescriptor(INVENTORY_DESC_TOY);
+
+        //EditInventoryCommand commandWithSameValues = new EditInventoryCommand(INDEX_FIRST_INVENTORY, copyDescriptor);
+
+        //assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));

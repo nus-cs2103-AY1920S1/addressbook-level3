@@ -16,6 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
 import seedu.address.model.task.Task;
 
 /**
@@ -24,7 +25,7 @@ import seedu.address.model.task.Task;
  */
 public class DeleteTaskCommandTest {
 
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +34,7 @@ public class DeleteTaskCommandTest {
 
         String expectedMessage = String.format(deleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
+        ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), new UserSettings());
         expectedModel.deleteTask(taskToDelete);
 
         assertCommandSuccess(deleteTaskCommand, model, expectedMessage, expectedModel);
@@ -56,7 +57,7 @@ public class DeleteTaskCommandTest {
 
         String expectedMessage = String.format(deleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
 
-        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
+        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), new UserSettings());
         expectedModel.deleteTask(taskToDelete);
         showNoTask(expectedModel);
 
