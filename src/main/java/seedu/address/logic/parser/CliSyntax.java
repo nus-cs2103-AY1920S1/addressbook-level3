@@ -12,6 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("ad/");
+    public static final Prefix PREFIX_TAG = new Prefix("t/");
     // END OF ADDRESS BOOK PREFIX
 
     // EVENT PREFIX
@@ -35,17 +36,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_SLIDESHOW = new Prefix("slideshow");
     // END OF QUESTION PREFIX
 
-    // MARK PREFIX
-    public static final Prefix PREFIX_UNMARK = new Prefix("unmark");
-    // END OF MARK PREFIX
-
     // STUDENT PREFIX
-    public static final Prefix PREFIX_STUDENT = new Prefix("name/");
-    public static final Prefix PREFIX_TAG = new Prefix("tag/");
+    public static final Prefix PREFIX_STUDENT = new Prefix("student/");
     // END OF STUDENT PREFIX
-
-    // TAG PREFIX
-    public static final Prefix PREFIX_INDEX = new Prefix("index/");
 
     // NOTE PREFIX
     public static final Prefix PREFIX_NOTE = new Prefix("note/");

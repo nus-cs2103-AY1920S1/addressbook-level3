@@ -26,7 +26,7 @@ public class GroupAddStudentCommand extends GroupCommand {
     private final int groupIndexNumber;
 
     /**
-     * Creates a GroupAddStudentCommand instance with the appropriate attributes.
+     * Creates a QuizAddQuestionCommand instance with the appropriate attributes.
      *
      * @param groupId       The identifier of the group.
      * @param studentNumber The student's index number.

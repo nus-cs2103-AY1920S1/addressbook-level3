@@ -1,13 +1,8 @@
 package seedu.address.model.student;
 
-import seedu.address.model.tag.Tag;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents a Student in the student record.
@@ -17,16 +12,13 @@ public class Student {
 
     // Identity fields
     private Name name;
-    private final Set<Tag> tags = new HashSet<>();
-    private Boolean isMarked = false;
 
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Set<Tag> tags) {
+    public Student(Name name) {
         requireAllNonNull(name);
         this.name = name;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -69,21 +61,6 @@ public class Student {
         this.name = studentName;
     }
 
-    public void setMarked(){
-        this.isMarked = true;
-    }
-
-    public void setUnmarked(){
-        this.isMarked = false;
-    }
-
-    public boolean getIsMarked(){
-        return this.isMarked;
-    }
-
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
@@ -96,6 +73,5 @@ public class Student {
         builder.append(getName());
         return builder.toString();
     }
-
 
 }

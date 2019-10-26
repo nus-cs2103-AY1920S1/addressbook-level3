@@ -12,12 +12,6 @@ import java.util.logging.Logger;
 
 import org.apache.commons.math3.util.Pair;
 
-
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import com.fasterxml.jackson.databind.type.CollectionType;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
@@ -193,23 +187,34 @@ public class ModelManager implements Model {
     }
     //endregion
 
+    //region StudentRecord
+    @Override
+    public void setStudentRecordFilePath(Path studentRecordFilePath) {
+        requireNonNull(studentRecordFilePath);
+        userPrefs.setStudentRecordFilePath(studentRecordFilePath);
+    }
+
+    @Override
+    public Path getStudentRecordFilePath() {
+        return userPrefs.getStudentRecordFilePath();
+    }
+
+    @Override
+    public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
+        this.studentRecord.resetData(studentRecord);
+    }
+
+    @Override
+    public ReadOnlyStudentRecord getStudentRecord() {
+        return studentRecord;
+    }
+
     //endregion
 
     //region FilteredStudent List Accessors
     @Override
     public ObservableList<Student> getFilteredStudentList() {
         return studentRecord.getStudentList();
-    }
-
-    @Override
-    public Optional<Index> getIndexFromStudentList(Student student) {
-        return studentRecord.getIndex(student);
-    }
-
-    @Override
-    public void setStudentWithIndex(Index index, Student student) {
-        requireAllNonNull(index, student);
-        studentRecord.setStudentWithIndex(index,student);
     }
 
     @Override
@@ -234,85 +239,30 @@ public class ModelManager implements Model {
     public void addStatistics(Statistics statistic) {
         statisticsRecord.setStatistics(statistic);
     }
-
-    //region Mark
-
-    /**
-     * Mark a student who is struggling academically.
-     * @param student Student who is struggling with academics.
-     */
-    public void markStudent(Student student){
-        student.setMarked();
-    }
-
-    /**
-     * Unmark a student who has been wrongly marked/has made significant improvements and
-     * no longer needs to be monitored.
-     * @param student
-     */
-    public void unmarkStudent(Student student){
-        student.setUnmarked();
-    }
-
-    public boolean getIsMarked(Student student){
-        return student.getIsMarked();
-    }
     //region Students
-
-    /**
-     * Checks if the student list has a particular student.
-     * @param student Student to be checked.
-     * @return true if the student is present in the list of students.
-     */
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return studentRecord.hasStudent(student);
     }
 
-    /**
-     * Gets the student record in read only format.
-     * @return Read only version of the student record.
-     */
-    @Override
-    public ReadOnlyStudentRecord getStudentRecord() {
-        return studentRecord;
-    }
-
-    /**
-     * Deletes a student in the student list.
-     * @param target Student to be deleted.
-     */
     @Override
     public void deleteStudent(Student target) {
         studentRecord.removeStudent(target);
     }
 
-    /**
-     * Adds student to student list.
-     * @param student Student to be added.
-     */
     @Override
     public void addStudent(Student student) {
         studentRecord.addStudent(student);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
-    /**
-     * Edits a student that is currently in the student list to a new student.
-     * @param target Student to be edited.
-     * @param editedStudent New student.
-     */
     @Override
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
         studentRecord.setStudent(target, editedStudent);
     }
 
-    /**
-     * Gets string representation of the student list.
-     * @return String representation of the student list.
-     */
     @Override
     public String getStudentSummary() {
         return studentRecord.getStudentSummary();

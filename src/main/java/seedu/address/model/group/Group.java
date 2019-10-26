@@ -21,9 +21,9 @@ public class Group {
     }
 
     /**
-     * Returns a String representation of the group identifier.
+     * Returns a String representation of the quiz identifier.
      *
-     * @return The String representation of the group identifier.
+     * @return The String representation of the quiz identifier.
      */
     public String getGroupId() {
         return this.groupId;
