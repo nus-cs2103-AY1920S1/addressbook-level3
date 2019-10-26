@@ -2,10 +2,13 @@ package seedu.address.model.policy;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-import seedu.address.model.person.Person;
 import seedu.address.model.binitem.Binnable;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -142,6 +145,9 @@ public class Policy implements Binnable {
                 && otherPolicy.getTags().equals(getTags());
     }
 
+    /**
+     * Returns true if the specified {@code Person} is eligible for the policy.
+     */
     public boolean isEligible(Person person) {
         int year = person.getDateOfBirth().toLocalDate().getYear();
         return person.getTags().containsAll(criteria)
