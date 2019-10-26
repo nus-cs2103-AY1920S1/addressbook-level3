@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Performance;
 
 /**
  * Adds an event for the performance recording.
@@ -31,11 +31,11 @@ public class EventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (Event.doesExist(name)) {
+        if (Performance.doesEventExist(name)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        Event.addEvent(name);
+        Performance.addEvent(name);
         return new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, name));
     }
 }

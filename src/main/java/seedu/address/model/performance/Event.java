@@ -13,8 +13,6 @@ public class Event {
     public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
 
-    private static ArrayList<Event> events = new ArrayList<>();
-
     private String name;
     private HashMap<Person, ArrayList<Record>> performances;
 
@@ -27,21 +25,8 @@ public class Event {
         this.performances = new HashMap<>();
     }
 
-    /**
-     * Retrieves a list of all events.
-     * @return List of all events.
-     */
-    public static ArrayList<Event> getEvents() {
-        return events;
-    }
-
-    /**
-     * Adds an event to the event list.
-     * @param name of event added.
-     */
-    public static void addEvent(String name) {
-        Event newEvent = new Event(name);
-        events.add(newEvent);
+    public String getName() {
+        return name;
     }
 
     public String addPerformance(Person athlete, Record record) {
@@ -64,36 +49,4 @@ public class Event {
                 + " with a timing of " + record.getTime();
     }
 
-    /**
-     * Checks if an event with the specified name exists in the event list, case insensitive.
-     * @param name of event to check for.
-     * @return Whether an event with the specified name exists.
-     */
-    public static boolean doesExist(String name) {
-        String queryName = name.toLowerCase();
-        for (Event event : events) {
-            String eventName = event.name.toLowerCase();
-            if (eventName.equals(queryName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Retrieves an event of the specified name from the event list.
-     * @param name of the event to be retrieved.
-     * @return Event of the specified name.
-     */
-    public static Event getEvent(String name) {
-        assert doesExist(name);
-        String queryName = name.toLowerCase();
-        for (Event event : events) {
-            String eventName = event.name.toLowerCase();
-            if (eventName.equals(queryName)) {
-                return event;
-            }
-        }
-        return null;
-    }
 }
