@@ -1,6 +1,8 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -29,9 +31,11 @@ public class DiaryEntry {
         return title;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDateAsString() {
+        return DateFormatter.convertToStringPrint(date);
     }
+
+    public Date getDate() { return date;}
 
 
 
@@ -75,10 +79,10 @@ public class DiaryEntry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Title: ")
+        builder.append("Title: ")
                 .append(getTitle())
                 .append(" Date: ")
-                .append(getDate());
+                .append(getDateAsString());
         return builder.toString();
     }
 
