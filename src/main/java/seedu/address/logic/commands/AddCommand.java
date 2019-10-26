@@ -18,16 +18,16 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a book to the catalog. \n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
-            + PREFIX_AUTHOR + "AUTHOR "
+            + PREFIX_AUTHOR + "AUTHOR  \n"
             + "[ " + PREFIX_SERIAL_NUMBER + "SERIAL_NUMBER] "
             + "[" + PREFIX_GENRE + "GENRE]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Harry Potter "
             + PREFIX_SERIAL_NUMBER + "B0001 "
-            + PREFIX_AUTHOR + "J K Rowling "
+            + PREFIX_AUTHOR + "J K Rowling \n"
             + PREFIX_GENRE + "Fiction "
             + PREFIX_GENRE + "Action ";
 

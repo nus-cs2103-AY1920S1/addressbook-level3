@@ -315,6 +315,110 @@ We need to come up with a solution to give us "B00001" in the given example.
 ** Cons: Will be inefficient once the number of books grow.
 //end::addBook[]
 
+// tag::undo/redo[]
+=== [Proposed] Undo/Redo feature
+==== Proposed Implementation
+
+The undo/redo mechanism is facilitated by `VersionedCatalog`.
+It extends `Catalog` with an undo/redo command history, stored internally as an `commandHistoryList` and `currentCommandPointer`.
+Additionally, it implements the following operations:
+
+* `VersionedCatalog#commit()` -- Saves the current reversible command in its command history.
+* `VersionedCatalog#undo()` -- Restores the previous catalog state using its command history.
+* `VersionedCatalog#redo()` -- Restores a previously undone catalog state using its command history.
+
+These operations are exposed in the `Model` interface as `Model#commitCatalog()`, `Model#undoCatalog()` and `Model#redoCatalog()` respectively.
+
+The undo/redo mechanism only works for commands that implements the `ReversibleCommand` interface.
+The `ReversibleCommand` interface specifies that the commands these two operations:
+
+* `ReversibleCommand#getUndoCommand()` -- Returns a command that undo the `ReversibleCommand`.
+* `ReversibleCommand#getRedoCommand()` -- Returns a command that redo the `ReversibleCommand`.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedCatalog` will be initialized with an empty `commandHistoryList`.
+
+image::UndoRedoState0.png[width=300]
+
+Step 2. The user executes `delete 5` command to delete the 5th book in the catalog. The `delete` command calls `Model#commitCatalog()`, causing the `delete 5` command to be saved in the `catalogHistoryList`, and the `currentCommandPointer` is pointed to the newly inserted command.
+
+image::UndoRedoState1.png[width=300]
+
+Step 3. The user executes `add t/Animal Farm ...` to add a new book.
+The `add` command also calls `Model#commitCatalog()`, causing the add
+command to be saved into the `catalogHistoryList`.
+
+image::UndoRedoState2.png[width=300]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitCatalog()`, so the command will not be saved into the `commandHistoryList`.
+
+Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undoCatalog()`, which will call `ReversibleCommand#getUndoCommand()` to get the command to undo
+the add command. This undo command would then be executed, which will shift the `currentCommandPointer` once to the left,
+pointing it to the previous command,
+
+image::UndoRedoState3.png[width=300]
+
+[NOTE]
+If the `currentCommandPointer` is at index -1, pointing to no command, then there are no previous command to undo. The `undo` command uses `Model#canUndoCatalog()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoCatalog()`, which shifts the `currentCommandPointer` once to the right, pointing to the previously undone Command, and executes that Command.
+
+[NOTE]
+If the `currentCommandPointer` is at index `catalogHistoryList.size() - 1`,
+pointing to the latest command, then there are no undone command to execute.
+The `redo` command uses `Model#canRedoCatalog()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `find t/Animal Farm`.
+Commands that do not modify the catalog, such as `find t/Animal Farm`,
+will usually not call `Model#commitCatalog()`,`Model#undoCatalog()` or
+`Model#redoCatalog()`. Thus, the `catalogHistoryList` remains unchanged.
+
+image::UndoRedoState4.png[width=300]
+
+Step 6. The user executes `clear`, which calls `Model#commitCatalog()`.
+Since the `currentCommandPointer` is not pointing at the end of the `commandHistoryList`,
+all commands after the `currentCommandPointer` will be purged.
+We designed it this way because it no longer makes sense to redo the
+`add t/Animal Farm ...` command. This is the behavior that most modern
+desktop applications follow.
+
+image::UndoRedoState5.png[width=300]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the book being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2:** Saves the entire catalog.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use two stacks to store a list of undoable and redoable commands.
+** Pros: Easy for future developers to understand as there are two separate stacks to keep track of the command to undo and redo.
+** Cons: Additional time required to add and pop from the stack.
+* **Alternative 2:** Use a list to store the commands for undo and redo.
+** Pros: We do not need to maintain a separate stack.
+** Cons: Harder for new developers to understand.
+// end::undo/redo[]
+
 // tag::printLoanSlip[]
 === Generate Loan Slip feature
 ==== Proposed Implementation
@@ -549,15 +653,62 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 
 === Book Finding
 The command for finding a book in the catalog is as follows: +
-`find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] } [NUMBER]`
+`find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
 
+==== Implementation
 ModelManager contains a `FilteredList` of `Books` (`filteredBooks`), which is used to display books on the LiBerry GUI. Book finding works by
 starting converting the command string in to a `BookPredicate` object, then updating `filteredBooks` with that predicate.
 
-The parsing of the `BookPredicate` object is done with the help of the `ArgumentTokenizer` object to generate an
+The parsing of the command string to create the required `BookPredicate` object is done with the help of the `ArgumentTokenizer` object.
+`ArgumentTokenizer` tokenizes the command string to generate an
 `ArgumentMultimap`, which is internally a HashMap of predicate values paired to prefix keys. The `FindCommandParser`
 then extracts all the values from the `ArgumentMultimap` prefix by prefix and building the predicate through functions
-such as `setTitle()`, `setGenres()` etc.
+such as `setTitle()`, `setGenres()` `setLoanStatus` etc.
+
+The diagram below shows a simplifed execution sequence of a 'find t/Animal Farm a/George' command string.
+
+.Sequence Diagram showing the execution of a Find Command input
+image::FindSequenceDiagram.png[width="840]
+
+The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
+there is no need to filter for that field. Below is an example.
+
+.Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
+image:BookPredicateEmptyObjectDiagram.png[height="300"]
+image:BookPredicateFilledObjectDiagram.png[height="300"]
+
+The figure above shows what happens when we are trying to filter for books with title 'harry' and 'Potter' that are loaned out,
+showing up to 5 books only. Notice that the rest of the fields in the object are null.
+
+==== Design Considerations
+===== Aspect: Ensuring only 1 Loan Status Flag
+In order for LiBerry to display only books that are *loaned*, *available* or *overdue*, flags are used. All flags have
+the prefix `-`, and the `ArgumentTokenizer` is able to detect this. However, a user can technically enter more than 1
+of such loan status flags eg. `-loaned -available`. This is not meaningful, as there can be multiple interpretations of
+this statement. The user could be looking for both types of books (which will show every book), or books that are both
+loaned and available (which will show none). To prevent such meaningless confusion, there is a need for only 1 such
+flag to be accepted in the `BookPredicate`.
+
+* **Alternative 1: Hard code a priority for loan status flags and accept the highest one**
+** Pros: Easy to implement
+** Cons: Does not make it clear for the user why an unintended display is shown
+
+* **Alternative 2 (Currently Used): Raise an exception whenever there are more than 1 loan status flags**
+** Pros: Helps user clarify misconception of using more than 1 loan status flag
+** Cons: Slightly more complicated code where the output `ArgumentMultimap`
+
+===== Aspect: Limiting the Number of Books to Display
+As users generally do not want to be flooded with information when using the find command, a display limit `[NUMBER]` is used. Users
+can ask for a limited number of books to display. However, the `FilteredList` JavaFx class that is used to implement the list of
+filtered books does not have an API that sets a hard limit on the number of books to show. A work-around has to be made.
+
+* **Alternative 1: Create an new class that extends the JavaFx `FilteredList` class**
+** Pros: Does not require a change in other parts of the code
+** Cons: Hard to implement. Need to know the ins and outs of FilteredList
+
+* **Alternative 2 (Currently Used): Create a counter variable in `BookPredicate` that decrements after every passed test**
+** Pros: Easy to implement.
+** Cons: Not the most cleanest way of implementation
 
 //tag::registerBorrower[]
 === Register borrower feature
@@ -768,6 +919,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 2a. LiBerry cannot find the ID in its system.
 [none]
 ** 2a1. LiBerry requests for a valid and registered ID.
