@@ -284,6 +284,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void servingBorrowerRenewLoan(Loan loanToBeRenewed, Loan renewedLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasBorrowerId(BorrowerId borrowerId) {
             throw new AssertionError("This method should not be called.");
         }

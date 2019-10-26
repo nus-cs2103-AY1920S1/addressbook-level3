@@ -7,7 +7,7 @@ import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new LoanCommand object
+ * Parses input arguments and creates a new ReturnCommand object.
  */
 public class ReturnCommandParser implements Parser<ReturnCommand> {
 
@@ -15,14 +15,14 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
      * Parses the given {@code String} of arguments in the context of the ReturnCommand
      * and returns a ReturnCommand object for execution.
      *
-     * @param args User input.
+     * @param userInput User input.
      * @return ReturnCommand object for execution.
      * @throws ParseException if {@code userInput} does not conform the expected format.
      */
     @Override
-    public ReturnCommand parse(String args) throws ParseException {
+    public ReturnCommand parse(String userInput) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
+            Index index = ParserUtil.parseIndex(userInput);
             return new ReturnCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

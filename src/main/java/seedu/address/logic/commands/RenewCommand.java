@@ -7,7 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_BOOK_NOT_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
-import static seedu.address.commons.core.UserSettings.DEFAULT_RENEW_COUNT;
+import static seedu.address.commons.core.UserSettings.DEFAULT_MAX_RENEW_COUNT;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -75,7 +75,7 @@ public class RenewCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER, servingBorrower, bookToBeRenewed));
         }
 
-        if (loanToBeRenewed.getRenewCount() > DEFAULT_RENEW_COUNT) { // TODO take from userSettings in model instead
+        if (loanToBeRenewed.getRenewCount() > DEFAULT_MAX_RENEW_COUNT) { // TODO take from userSettings in model instead
             throw new CommandException(String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, bookToBeRenewed));
         }
 
@@ -87,7 +87,7 @@ public class RenewCommand extends Command {
                 model.getUserSettings().getRenewPeriod());
         Loan renewedLoan = new Loan(loanToBeRenewed.getLoanId(), loanToBeRenewed.getBookSerialNumber(),
                 loanToBeRenewed.getBorrowerId(), loanToBeRenewed.getStartDate(), extendedDueDate,
-                loanToBeRenewed.getReturnDate(),loanToBeRenewed.getRenewCount() + 1,
+                loanToBeRenewed.getReturnDate(), loanToBeRenewed.getRenewCount() + 1,
                 loanToBeRenewed.getRemainingFineAmount(), loanToBeRenewed.getPaidFineAmount());
 
         Book renewedBook = new Book(bookToBeRenewed.getTitle(), bookToBeRenewed.getSerialNumber(),

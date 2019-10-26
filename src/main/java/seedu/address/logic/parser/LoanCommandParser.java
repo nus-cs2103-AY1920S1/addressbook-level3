@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.SerialNumber;
 
 /**
- * Parses input arguments and creates a new LoanCommand object
+ * Parses input arguments and creates a new LoanCommand object.
  */
 public class LoanCommandParser implements Parser<LoanCommand> {
 
