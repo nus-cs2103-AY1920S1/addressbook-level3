@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddMemberToTaskCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.AddTaskToMemberCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClockCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
@@ -144,6 +145,9 @@ public class ProjectDashboardParser {
         // SETTINGS
         case ThemeCommand.COMMAND_WORD:
             return new ThemeCommandParser().parse(arguments);
+
+        case ClockCommand.COMMAND_WORD:
+            return new ClockCommandParser().parse(arguments);
 
         // UNIVERSAL
         case ClearCommand.COMMAND_WORD:

@@ -6,6 +6,9 @@ import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.settings.Theme;
 
+/**
+ * Parses input arguments and creates a new ThemeCommand parser object
+ */
 public class ThemeCommandParser implements Parser<ThemeCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.
