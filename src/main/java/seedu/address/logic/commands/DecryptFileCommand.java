@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
@@ -27,6 +29,10 @@ public class DecryptFileCommand extends Command {
 
     public static final String MESSAGE_DELETE_FILE_SUCCESS = "File decrypted: %1$s";
     public static final String MESSAGE_DELETE_FILE_FAILURE = "File decryption failed.";
+    public static final String MESSAGE_DECRYPT_FILE_FAILURE = "File decryption failed. "
+            + "File may be corrupted. \nUse remove command to remove the file from the file list.";
+    public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist. "
+            + "File may be renamed or deleted. \nUse remove command to remove the file from the file list.";
 
     private final Index targetIndex;
     private final String password;
@@ -46,15 +52,19 @@ public class DecryptFileCommand extends Command {
         }
 
         EncryptedFile fileToDecrypt = lastShownList.get(targetIndex.getZeroBased());
+        if (!Files.exists(Path.of(fileToDecrypt.getEncryptedPath()))) {
+            throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        }
 
         try {
-            EncryptionUtil.decryptFile(fileToDecrypt.getEncryptedPath(), password);
+            if (!EncryptionUtil.isFileEncrypted(fileToDecrypt.getEncryptedPath())) {
+                throw new CommandException(MESSAGE_DECRYPT_FILE_FAILURE);
+            }
+            EncryptionUtil.decryptFile(fileToDecrypt.getEncryptedPath(), fileToDecrypt.getFullPath(), password);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new CommandException(MESSAGE_DELETE_FILE_FAILURE);
         } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-            throw new CommandException(MESSAGE_DELETE_FILE_FAILURE);
+            throw new CommandException(MESSAGE_DECRYPT_FILE_FAILURE);
         }
         model.deleteFile(fileToDecrypt);
         return new CommandResult(String.format(MESSAGE_DELETE_FILE_SUCCESS, fileToDecrypt));

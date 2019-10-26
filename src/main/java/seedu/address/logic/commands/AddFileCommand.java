@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.GeneralSecurityException;
 import java.util.Date;
 
 import seedu.address.commons.util.EncryptionUtil;
@@ -17,34 +17,32 @@ import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.ModifiedAt;
 
 /**
- * Encrypt a file identified using it's file path.
+ * Add an encrypted file identified using it's file path.
  */
-public class EncryptFileCommand extends Command {
+public class AddFileCommand extends Command {
 
-    public static final String COMMAND_WORD = "encrypt";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Encrypts a file in user's file system using the specified file path.\n"
+            + ": Adds an encrypted file in user's file system using the specified file path.\n"
             + "Parameters: FILEPATH [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " /Desktop/Test.txt t/personal";
+            + "Example: " + COMMAND_WORD + " /Desktop/[LOCKED] Test.txt t/personal";
 
-    public static final String MESSAGE_SUCCESS = "File encrypted: %1$s";
-    public static final String MESSAGE_FAILURE = "File encryption failed.";
+    public static final String MESSAGE_SUCCESS = "File added: %1$s";
+    public static final String MESSAGE_FAILURE = "Cannot add file.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist.";
-    public static final String MESSAGE_DUPLICATE_FILE = "This file is already in the list.";
-    public static final String MESSAGE_ENCRYPTED_FILE = "This file is already encrypted.\n"
-            + "Use add command to add encrypted files to the list.";
+    public static final String MESSAGE_DUPLICATE_FILE = "This file is already added.";
+    public static final String MESSAGE_FILE_NOT_ENCRYPTED = "File is not yet encrypted.\n"
+            + "Use encrypt command to encrypt files instead.";
 
     private final EncryptedFile toAdd;
-    private final String password;
 
     /**
      * Creates an EncryptFileCommand to encrypt the specified {@code File}
      */
-    public EncryptFileCommand(EncryptedFile file, String password) {
-        requireAllNonNull(file, password);
+    public AddFileCommand(EncryptedFile file) {
+        requireAllNonNull(file);
         toAdd = file;
-        this.password = password;
     }
 
     @Override
@@ -54,25 +52,30 @@ public class EncryptFileCommand extends Command {
         if (model.hasFile(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FILE);
         }
-        if (!Files.exists(Path.of(toAdd.getFullPath()))) {
-            throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        String realFilePath = toAdd.getEncryptedPath();
+        if (!Files.exists(Path.of(realFilePath))) {
+            realFilePath = toAdd.getFullPath();
+            if (!Files.exists(Path.of(realFilePath))) {
+                throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+            }
         }
+
         try {
-            if (EncryptionUtil.isFileEncrypted(toAdd.getFullPath())) {
-                throw new CommandException(MESSAGE_ENCRYPTED_FILE);
+            if (!EncryptionUtil.isFileEncrypted(realFilePath)) {
+                throw new CommandException(MESSAGE_FILE_NOT_ENCRYPTED);
             }
             toAdd.setModifiedAt(
                     new ModifiedAt(
                             new Date(
                                     Files.getLastModifiedTime(
-                                            Path.of(toAdd.getFullPath())
+                                            Path.of(realFilePath)
                                     ).toMillis()
                             )
                     )
             );
-            EncryptionUtil.encryptFile(toAdd.getFullPath(), toAdd.getEncryptedPath(), password);
-            toAdd.setEncryptedAt(new EncryptedAt(new Date()));
-        } catch (IOException | GeneralSecurityException e) {
+            toAdd.setEncryptedAt(new EncryptedAt(new Date(0)));
+            new File(realFilePath).renameTo(new File(toAdd.getEncryptedPath()));
+        } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE);
         }
         model.addFile(toAdd);
@@ -83,6 +86,6 @@ public class EncryptFileCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((EncryptFileCommand) other).toAdd));
+                && toAdd.equals(((AddFileCommand) other).toAdd));
     }
 }

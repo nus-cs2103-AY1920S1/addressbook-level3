@@ -39,6 +39,8 @@ public class FileCard extends UiPart<Region> {
     @FXML
     private Label encryptedAt;
     @FXML
+    private Label modifiedAt;
+    @FXML
     private FlowPane tags;
 
     public FileCard(EncryptedFile file, int displayedIndex) {
@@ -48,6 +50,7 @@ public class FileCard extends UiPart<Region> {
         name.setText(file.getFileName().value);
         path.setText("Location:\t\t" + file.getFilePath().value);
         encryptedAt.setText("Encrypted: \t" + DateUtil.formatDateForDisplay(file.getEncryptedAt().value));
+        modifiedAt.setText("Last edited:\t" + DateUtil.formatDateForDisplay(file.getModifiedAt().value));
         file.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

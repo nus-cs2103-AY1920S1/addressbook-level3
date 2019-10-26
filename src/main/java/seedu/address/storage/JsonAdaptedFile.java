@@ -15,6 +15,7 @@ import seedu.address.model.file.EncryptedAt;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
+import seedu.address.model.file.ModifiedAt;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.DateUtil;
 
@@ -28,6 +29,7 @@ class JsonAdaptedFile {
     private final String fileName;
     private final String filePath;
     private final String encryptedAt;
+    private final String modifiedAt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -37,10 +39,12 @@ class JsonAdaptedFile {
     public JsonAdaptedFile(@JsonProperty("filename") String fileName,
                              @JsonProperty("path") String filePath,
                              @JsonProperty("encrypted_at") String encryptedAt,
+                             @JsonProperty("modified_at") String modifiedAt,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.fileName = fileName;
         this.filePath = filePath;
         this.encryptedAt = encryptedAt;
+        this.modifiedAt = modifiedAt;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -53,6 +57,7 @@ class JsonAdaptedFile {
         fileName = source.getFileName().value;
         filePath = source.getFilePath().value;
         encryptedAt = DateUtil.formatDate(source.getEncryptedAt().value);
+        modifiedAt = DateUtil.formatDate(source.getModifiedAt().value);
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -92,8 +97,19 @@ class JsonAdaptedFile {
             throw new IllegalValueException(EncryptedAt.MESSAGE_CONSTRAINTS);
         }
 
+        if (modifiedAt == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModifiedAt.class.getSimpleName()));
+        }
+        final ModifiedAt modelModifiedAt;
+        try {
+            modelModifiedAt = new ModifiedAt(DateUtil.parseDate(modifiedAt));
+        } catch (ParseException e) {
+            throw new IllegalValueException(ModifiedAt.MESSAGE_CONSTRAINTS);
+        }
+
         final Set<Tag> modelTags = new HashSet<>(fileTags);
-        return new EncryptedFile(modelName, modelPath, modelEncryptedAt, modelTags);
+        return new EncryptedFile(modelName, modelPath, modelTags, modelEncryptedAt, modelModifiedAt);
     }
 
 }

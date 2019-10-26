@@ -6,12 +6,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddFileCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DecryptFileCommand;
 import seedu.address.logic.commands.EncryptFileCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.RemoveFileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -56,6 +58,12 @@ public class FileBookParser {
 
         case DecryptFileCommand.COMMAND_WORD:
             return new DecryptFileCommandParser().parse(arguments, password);
+
+        case AddFileCommand.COMMAND_WORD:
+            return new AddFileCommandParser().parse(arguments);
+
+        case RemoveFileCommand.COMMAND_WORD:
+            return new RemoveFileCommandParser().parse(arguments);
 
         case GoToCommand.COMMAND_WORD:
             return new GoToCommandParser().parse(arguments);
