@@ -10,7 +10,8 @@ import seedu.address.model.Model;
  */
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
-
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns to List Mode. \n"
+            + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Exited from Serve Mode. ";
 
     /**
