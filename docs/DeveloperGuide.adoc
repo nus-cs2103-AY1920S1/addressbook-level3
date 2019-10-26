@@ -252,7 +252,7 @@ image::CommitActivityDiagram.png[]
 The archive feature supports the following actions:
 
 * Creating an archive
-* Added an expense to an archive
+* Adding an expense to an archive
 * Reverting/"unarchiving" an archived expense
 * Deleting an archived expense
 * Displaying the list of expense of a particular archive
@@ -260,6 +260,9 @@ The archive feature supports the following actions:
 
 
 These actions are facilitated by the `ArchiveWrapper` and `Archive` classes:
+
+.Structure and associations of `ArchiveWrapper` and `Archive` classes
+image::ArchiveClassDiagram.png[]
 
 *  `Archive` extends from `ExpenseList` in order to encapsulate an archive name and a list of expenses together as an archive.
 * `ArchiveWrapper` manages all existing archives and hashes each `Archive` object to its archive name.
@@ -288,19 +291,20 @@ These operations are exposed in the `Model` interface respectively as:
 
 Given below is an example usage scenario of the add expense to archive function, showing how the command is parsed in `Logic` and how it interacts with `Model`: +
 
-Firstly, the user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
+Step 1. The user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
 this list. +
 
-Next, the user executes the command `archive add 3 arc/archiveName` to archive an expense. +
+Step 2. The user executes the command `archive add 3 arc/archiveName` to archive an expense. +
 The command is first parsed by `BillboardParser` to determine what kind of general command it is. `archive` indicates it is an archive command so the remaining input is parsed through `ArchiveCommandParser`. +
 `ArchiveCommandParser` determines which archive command should be called. `add` indicates it is an add command, so the input is parsed for the final time through `AddArchiveCommandParser` to extract out the arguments entered for the operation.
 In this case, the arguments are `3` and `archiveName` +
 
-This parsing process is shown in the cropped portion of the full sequence diagram below:
+This layered parsing process can be visualised below:
 
+.Process of parsing `AddArchiveCommand` in a cropped sequence diagram
 image::AddArchiveCommandSequenceDiagram_Parsing.png[]
 
-`AddArchiveCommandParser` then returns an `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
+Step 3. `AddArchiveCommandParser` then returns an `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
 
 * First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid,
 so `Model` is left unmodified in this case.
@@ -316,16 +320,19 @@ After the checks are completed and if no exception is thrown, the command execut
 
 These interactions with `Model` by `AddArchiveCommand` can be shown in the cropped portion of the full sequence diagram below:
 
+.Interactions between `Model` and `AddArchiveCommand` during the execution of the command
 image::AddArchiveCommandSequenceDiagram_executeCommand.png[]
 
-Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
+Step 4. Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
 
-Below is the full sequence diagram of the operation:
+Full Sequence diagram of the operation:
 
+.Full sequence diagram of the operation
 image::AddArchiveCommandSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new `AddArchiveCommand`:
 
+.`AddArchiveCommand` activity diagram
 image::AddArchiveCommandActivityDiagram.png[]
 
 ===== Storing Archive
