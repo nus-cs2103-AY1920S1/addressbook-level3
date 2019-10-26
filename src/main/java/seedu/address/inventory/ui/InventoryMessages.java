@@ -8,7 +8,7 @@ public class InventoryMessages {
             "The items can be sorted by category, quantity and description.\n"
                     + "Please input sort by category/quantity/description";
 
-    public static final String RESET_TO_ORIGINAL_ORDER = "The items are now reset to original order of input "
+    public static final String MESSAGE_RESET_TO_ORIGINAL_ORDER = "The items are now reset to original order of input "
             + "when treasurerPro was just open.";
 
     public static final String MESSAGE_SORTED_BY_DESCRIPTION = "The items are now sorted by description!";

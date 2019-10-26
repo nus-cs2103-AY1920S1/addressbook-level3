@@ -21,4 +21,11 @@ public interface Model {
 
     void readInUpdatedList();
 
+    void sortByQuantity();
+
+    void sortByDescription();
+
+    void sortByCategory();
+
+    void sortReset();
 }

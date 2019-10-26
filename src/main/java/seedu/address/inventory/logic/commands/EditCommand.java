@@ -6,7 +6,7 @@ import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_EDITED_ITEM;
 import java.util.Optional;
 
 import seedu.address.inventory.model.Item;
-import seedu.address.inventory.model.ModelManager;
+import seedu.address.inventory.model.Model;
 import seedu.address.person.commons.util.CollectionUtil;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 
@@ -30,7 +30,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager model)
+    public CommandResult execute(Model model)
             throws Exception {
         Item itemToEdit = model.findItemByIndex(index);
         Item editedItem = createdEditedItem(itemToEdit, editItemDescriptor);

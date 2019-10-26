@@ -112,6 +112,10 @@ public class ModelManager implements Model {
         inventoryList.sortByQuantity();
     }
 
+    public void sortReset() {
+        inventoryList.sortReset();
+    }
+
     /**
      * Updates the recent inventory list from the data file.
      */

@@ -97,6 +97,10 @@ public class InventoryList {
         return iList.get(i);
     }
 
+    public void sortReset() {
+        Collections.sort(iList, new ResetSort());
+    }
+
     /**
      * Comparator to compare by the name in transaction.
      */
@@ -133,6 +137,22 @@ public class InventoryList {
         @Override
         public int compare(Item a, Item b) {
             return a.getCategory().compareTo(b.getCategory());
+        }
+    }
+
+    /**
+     * Comparator to compare by trueId in item.
+     */
+    class ResetSort implements Comparator<Item> {
+        @Override
+        public int compare(Item a, Item b) {
+            if (a.getTrueId() < b.getTrueId()) {
+                return -1;
+            } else if (a.getTrueId() == b.getTrueId()) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
     }
 }
