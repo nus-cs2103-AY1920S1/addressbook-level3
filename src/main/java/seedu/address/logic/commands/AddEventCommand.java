@@ -14,7 +14,7 @@ import seedu.address.model.RescheduleTask;
 public class AddEventCommand extends AddCommand {
 
     public static final String SHOW_EVENT_VIEW = "E";
-    public static final String MESSAGE_SUCCESS = "New Event added: %1$s";
+    public static final String MESSAGE_SUCCESS = "Oh great, new Event added: %1$s \nDon't forget about it!";
 
     public AddEventCommand(Item item) {
         super(item);

@@ -45,7 +45,8 @@ public class EditCommand extends UndoableCommand {
             + PREFIX_DESCRIPTION + "DRINK WATER "
             + PREFIX_PRIORITY + "HIGH";
 
-    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
+    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s,"
+            + " because someone couldn't make up their mind";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the item list.";
 

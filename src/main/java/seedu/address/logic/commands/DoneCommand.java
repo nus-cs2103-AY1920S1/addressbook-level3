@@ -23,7 +23,7 @@ public class DoneCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COMPLETE_ITEM_SUCCESS = "Completed Item: %1$s";
+    public static final String MESSAGE_COMPLETE_ITEM_SUCCESS = "Finally! Completed Item: %1$s";
 
     private final Index targetIndex;
 

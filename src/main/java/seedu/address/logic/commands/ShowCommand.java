@@ -22,7 +22,7 @@ public class ShowCommand extends UndoableCommand {
             + "Parameters: KEYWORD (T,E,R,C)\n"
             + "Example: " + COMMAND_WORD + " E";
 
-    public static final String MESSAGE_SUCCESS = "Switched view to %1$s";
+    public static final String MESSAGE_SUCCESS = "Switched view to %1$s, because somebody couldn't use the mouse";
 
     private final String targetView;
     private final String targetList;

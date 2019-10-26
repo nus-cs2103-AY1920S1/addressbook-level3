@@ -24,7 +24,8 @@ public class UndoCommand extends Command {
         } else {
             UndoableCommand lastDone = elisaCommandHistory.popCommand();
             lastDone.reverse(model);
-            return new CommandResult("Undo [" + lastDone.getCommandWord() + "] command successful!");
+            return new CommandResult("Undo [" + lastDone.getCommandWord() + "] command successful!"
+                    + " Try to do it right this time..");
         }
     }
 

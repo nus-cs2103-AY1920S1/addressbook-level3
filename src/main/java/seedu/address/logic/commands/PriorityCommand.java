@@ -11,8 +11,10 @@ public class PriorityCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "priority";
     public static final String MESSAGE_USAGE = "Activates the priority mode of this application.\n"
             + "It can be activated indefinitely by using \"priority\" or priority 10.min.later";
-    private static final String PRIORITY_MODE_ON = "Priority mode activated";
-    private static final String PRIORITY_MODE_OFF = "Priority mode deactivated";
+
+    private static final String PRIORITY_MODE_ON = "Priority mode activated, just manage this one task, that'll do.";
+    private static final String PRIORITY_MODE_OFF = "Priority mode deactivated! Not so stressed anymore, are you?";
+
     private static final String PRIORITY_MODE_ERROR = "Priority mode can only be activated on task pane";
 
     @Override
