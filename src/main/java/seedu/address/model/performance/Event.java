@@ -73,7 +73,7 @@ public class Event {
             performances.put(athlete, currentPerformanceEntries);
         }
         return "For " + athlete.getName() + " in the " + name + " event, on " + record.getDate()
-                + " with a timing of " + record.getTime();
+                + " with a timing of " + record.getTiming();
     }
 
 }
