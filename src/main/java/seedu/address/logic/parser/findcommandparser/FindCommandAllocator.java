@@ -1,11 +1,11 @@
-package seedu.address.logic.parser.addcommandparser;
+package seedu.address.logic.parser.findcommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.addcommand.AddCommand;
+import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.parser.AlfredParser;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.CliSyntax;
@@ -13,41 +13,36 @@ import seedu.address.logic.parser.CommandAllocator;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Allocates the user's add command input to the correct parser in order to
- * call the appropriate entity's add parser.
+ * Allocates the user's find command input top the correct parser.
  */
-public class AddCommandAllocator implements CommandAllocator<AddCommand> {
-
+public class FindCommandAllocator implements CommandAllocator<FindCommand> {
     private final Logger logger = LogsCenter.getLogger(AlfredParser.class);
 
     @Override
-    public AddCommand allocate(String userInput) throws ParseException {
+    public FindCommand allocate(String userInput) throws ParseException {
         String entity;
         String args;
         try {
             entity = AlfredParserUtil.getSpecifierFromCommand(userInput);
             args = AlfredParserUtil.getArgumentsFromCommand(userInput);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
         }
 
         switch (entity) {
         case CliSyntax.ENTITY_MENTOR:
-            //logger.info("Adding a new Mentor...");
-            return new AddMentorCommandParser().parse(args);
+            return new FindMentorCommandParser().parse(args);
 
         case CliSyntax.ENTITY_PARTICIPANT:
-            //logger.info("Adding a new Participant...");
-            return new AddParticipantCommandParser().parse(args);
+            return new FindParticipantCommandParser().parse(args);
 
         case CliSyntax.ENTITY_TEAM:
-            //logger.info("Adding a new Team...");
-            return new AddTeamCommandParser().parse(args);
+            return new FindTeamCommandParser().parse(args);
 
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
         }
     }
-
 }

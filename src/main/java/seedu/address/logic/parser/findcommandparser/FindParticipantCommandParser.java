@@ -1,10 +1,13 @@
 package seedu.address.logic.parser.findcommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
+import java.util.Optional;
 
 import seedu.address.logic.commands.findcommand.FindParticipantCommand;
-import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -23,15 +26,20 @@ public class FindParticipantCommandParser implements Parser<FindParticipantComma
      */
     public FindParticipantCommand parse(String args) throws ParseException {
         ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE);
 
-        if (!AlfredParserUtil.arePrefixesPresent(argumentMultimap, PREFIX_NAME)
-                || !argumentMultimap.getPreamble().isEmpty()) {
+        Optional<String> name = argumentMultimap.getValue(PREFIX_NAME);
+        Optional<String> email = argumentMultimap.getValue(PREFIX_EMAIL);
+        Optional<String> phone = argumentMultimap.getValue(PREFIX_PHONE);
+
+        // If no prefixes given, we will throw an error later
+        boolean allPrefixesEmpty = name.isEmpty() && email.isEmpty() && phone.isEmpty();
+
+        if (allPrefixesEmpty || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindParticipantCommand.MESSAGE_USAGE));
         }
 
-        String name = argumentMultimap.getValue(PREFIX_NAME).get();
-        return new FindParticipantCommand(name);
+        return new FindParticipantCommand(name, email, phone);
     }
 }

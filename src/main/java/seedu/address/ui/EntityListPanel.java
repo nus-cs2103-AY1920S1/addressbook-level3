@@ -28,8 +28,6 @@ public class EntityListPanel extends UiPart<Region> {
     @FXML
     private VBox panelContainer;
 
-    //TODO: clarify
-    //Not sure whether these generics is advisable, please advise
     public EntityListPanel(ObservableList<? extends Entity> entityList) {
         super(FXML);
         entityList.stream().forEach(item -> listView.getItems().add((Entity) item));

@@ -12,6 +12,14 @@ import seedu.address.model.entity.PrefixType;
  * Abstract class for the find commands.
  */
 public abstract class FindCommand extends Command {
+    public static final String COMMAND_WORD = "find";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds entity according to search terms.\n"
+            + "Find command must specify the entity being found "
+            + "and its corresponding fields "
+            + "Format: find [entity] [entity fields] \n"
+            + "Example: find team n/Teamnamehere";
+
     public abstract CommandResult execute(Model model);
 
     /**

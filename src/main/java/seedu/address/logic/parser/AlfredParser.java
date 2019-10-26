@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -17,9 +16,7 @@ import seedu.address.logic.commands.addcommand.AddCommand;
 import seedu.address.logic.commands.csvcommand.ExportCommand;
 import seedu.address.logic.commands.csvcommand.ImportCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
-import seedu.address.logic.commands.findcommand.FindMentorCommand;
-import seedu.address.logic.commands.findcommand.FindParticipantCommand;
-import seedu.address.logic.commands.findcommand.FindTeamCommand;
+import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
 import seedu.address.logic.commands.undocommand.HistoryCommand;
 import seedu.address.logic.commands.undocommand.UndoCommand;
@@ -30,9 +27,7 @@ import seedu.address.logic.parser.csvcommandparser.ImportCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteCommandAllocator;
 import seedu.address.logic.parser.editcommandparser.EditCommandAllocator;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.findcommandparser.FindMentorCommandParser;
-import seedu.address.logic.parser.findcommandparser.FindParticipantCommandParser;
-import seedu.address.logic.parser.findcommandparser.FindTeamCommandParser;
+import seedu.address.logic.parser.findcommandparser.FindCommandAllocator;
 import seedu.address.logic.parser.listcommandparser.ListCommandParser;
 import seedu.address.logic.parser.viewcommandparser.ViewCommandAllocator;
 
@@ -70,21 +65,12 @@ public class AlfredParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandAllocator().allocate(arguments);
 
-        case FindParticipantCommand.COMMAND_WORD:
-            return new FindParticipantCommandParser().parse(arguments);
-
-        case FindMentorCommand.COMMAND_WORD:
-            return new FindMentorCommandParser().parse(arguments);
-
-        case FindTeamCommand.COMMAND_WORD:
-            return new FindTeamCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandAllocator().allocate(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             logger.info("Deleting an existing Participant...");
             return new DeleteCommandAllocator().allocate(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);

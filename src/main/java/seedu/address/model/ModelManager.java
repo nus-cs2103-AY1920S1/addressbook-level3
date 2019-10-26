@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.Predicates;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredException;
@@ -659,55 +660,37 @@ public class ModelManager implements Model {
     /**
      * This method searches for all participants whose name matches the param.
      *
-     * @param name
+     * @param predicate
      * @return {@code List<Participant>}
      */
-    public List<Participant> findParticipantByName(String name) {
-        List<Participant> results = new ArrayList<>();
-        for (Participant p: this.participantList.getSpecificTypedList()) {
-            if (p.getName().toString().contains(name)) {
-                results.add(p);
-            }
-        }
-        this.filteredParticipantList.setPredicate(
-                Predicates.getPredicateFindEntityByName(name));
-        return results;
+    public List<Participant> findParticipant(Predicate<Participant> predicate) {
+        this.filteredParticipantList.setPredicate(predicate);
+        return this.participantList.getSpecificTypedList().stream()
+                .filter(predicate).collect(Collectors.toList());
     }
 
     /**
      * This method searches for all teams whose name matches the param.
      *
-     * @param name
+     * @param predicate
      * @return {@code List<Team>}
      */
-    public List<Team> findTeamByName(String name) {
-        List<Team> results = new ArrayList<>();
-        for (Team t: this.teamList.getSpecificTypedList()) {
-            if (t.getName().toString().contains(name)) {
-                results.add(t);
-            }
-        }
-        this.filteredTeamList.setPredicate(
-                Predicates.getPredicateFindEntityByName(name));
-        return results;
+    public List<Team> findTeam(Predicate<Team> predicate) {
+        this.filteredTeamList.setPredicate(predicate);
+        return this.teamList.getSpecificTypedList().stream()
+                .filter(predicate).collect(Collectors.toList());
     }
 
     /**
      * This method searches for all mentors whose name matches the param.
      *
-     * @param name
+     * @param predicate
      * @return {@code List<Mentor>}
      */
-    public List<Mentor> findMentorByName(String name) {
-        List<Mentor> results = new ArrayList<>();
-        for (Mentor m: this.mentorList.getSpecificTypedList()) {
-            if (m.getName().toString().contains(name)) {
-                results.add(m);
-            }
-        }
-        this.filteredMentorList.setPredicate(
-                Predicates.getPredicateFindEntityByName(name));
-        return results;
+    public List<Mentor> findMentor(Predicate<Mentor> predicate) {
+        this.filteredMentorList.setPredicate(predicate);
+        return this.mentorList.getSpecificTypedList().stream()
+                .filter(predicate).collect(Collectors.toList());
     }
 
     //=========== AddressBook ================================================================================

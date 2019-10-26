@@ -148,11 +148,11 @@ public interface Model {
 
     /* Find commands */
 
-    List<Participant> findParticipantByName(String name);
+    List<Participant> findParticipant(Predicate<Participant> predicate);
 
-    List<Team> findTeamByName(String name);
+    List<Team> findTeam(Predicate<Team> predicate);
 
-    List<Mentor> findMentorByName(String name);
+    List<Mentor> findMentor(Predicate<Mentor> predicate);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
