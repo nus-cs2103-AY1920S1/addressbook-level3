@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.RangeMarkerColor.COLOR_BLUE;
+import static seedu.address.ui.RangeMarkerColor.COLOR_GREEN;
+import static seedu.address.ui.RangeMarkerColor.COLOR_RED;
+import static seedu.address.ui.RangeMarkerColor.COLOR_YELLOW;
+
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -13,7 +18,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import seedu.address.model.record.RecordType;
+import seedu.address.model.statistics.AverageType;
 import seedu.address.model.statistics.CustomLineChart;
 
 /**
@@ -22,26 +28,17 @@ import seedu.address.model.statistics.CustomLineChart;
 public class AverageGraph {
     private static final String TITLE = "%1$s average of %2$s";
 
-    // average type
-    private static final String AVERAGE_TYPE_DAILY = "daily";
-    private static final String AVERAGE_TYPE_WEEKLY = "weekly";
-    private static final String AVERAGE_TYPE_MONTHLY = "monthly";
-
-    // record type
-    private static final String RECORD_TYPE_BMI = "bmi";
-    private static final String RECORD_TYPE_BLOODSUGAR = "bloodsugar";
-
+    // labels used for axis and title
     private static final String BMI = "BMI";
     private static final String BLOODSUGAR = "blood sugar";
 
     // units
     private static final String BLOODSUGAR_UNIT = " (mmol/L)";
 
+    // labels used for x axis
     private static final String DAY = "day";
     private static final String WEEK = "week";
     private static final String MONTH = "month";
-
-    private static final String UNKNOWN = "unknown";
 
     // Horizontal range marker for BMI
     private static final XYChart.Data<Number, Number> UNDER_WEIGHT_MARKER = new XYChart.Data<>(0, 18.5);
@@ -52,12 +49,6 @@ public class AverageGraph {
     // Horizontal range marker for blood sugar
     private static final XYChart.Data<Number, Number> BEFORE_MEALS = new XYChart.Data<>(4.0, 5.9);
     private static final XYChart.Data<Number, Number> AFTER_MEALS = new XYChart.Data<>(5.9, 7.8);
-
-    // Color for symbols
-    private static final Color COLOR_BLUE = Color.BLUE.deriveColor(1, 1, 1, 0.25);
-    private static final Color COLOR_GREEN = Color.GREEN.deriveColor(1, 1, 1, 0.25);
-    private static final Color COLOR_YELLOW = Color.YELLOW.deriveColor(1, 1, 1, 0.25);
-    private static final Color COLOR_RED = Color.RED.deriveColor(1, 1, 1, 0.25);
 
     private final CategoryAxis xAxis = new CategoryAxis();
     private final NumberAxis yAxis = new NumberAxis();
@@ -149,13 +140,14 @@ public class AverageGraph {
      * Gets the record type to be used in chart title.
      */
     private String getTitleInRecord(SimpleStringProperty recordType) {
-        switch (recordType.get().toLowerCase()) {
-        case RECORD_TYPE_BMI:
-            return BMI;
-        case RECORD_TYPE_BLOODSUGAR:
-            return BLOODSUGAR;
+        switch (RecordType.valueOf(recordType.get())) {
+        case BMI:
+            return this.BMI;
+        case BLOODSUGAR:
+            return this.BLOODSUGAR;
         default:
-            return UNKNOWN;
+            assert false : "Record type is not supported";
+            return null;
         }
     }
 
@@ -163,13 +155,14 @@ public class AverageGraph {
      * Gets the record type to be used for y axis label.
      */
     private String getYAxisLabel(SimpleStringProperty recordType) {
-        switch (recordType.get().toLowerCase()) {
-        case RECORD_TYPE_BMI:
-            return BMI;
-        case RECORD_TYPE_BLOODSUGAR:
-            return BLOODSUGAR + BLOODSUGAR_UNIT;
+        switch (RecordType.valueOf(recordType.get())) {
+        case BMI:
+            return this.BMI;
+        case BLOODSUGAR:
+            return this.BLOODSUGAR + this.BLOODSUGAR_UNIT;
         default:
-            return UNKNOWN;
+            assert false : "Record type is not supported";
+            return null;
         }
     }
 
@@ -178,19 +171,19 @@ public class AverageGraph {
      * @param recordType the record type of specified by user.
      */
     private void addHorizontalRangeMarker(SimpleStringProperty recordType) {
-        switch (recordType.get().toLowerCase()) {
-        case RECORD_TYPE_BMI:
+        switch (RecordType.valueOf(recordType.get())) {
+        case BMI:
             customLineChart.addHorizontalRangeMarker(UNDER_WEIGHT_MARKER, COLOR_BLUE);
             customLineChart.addHorizontalRangeMarker(NORMAL_WEIGHT_MARKER, COLOR_GREEN);
             customLineChart.addHorizontalRangeMarker(OVER_WEIGHT_MARKER, COLOR_YELLOW);
             customLineChart.addHorizontalRangeMarker(OBESE_WEIGHT_MARKER, COLOR_RED);
             break;
-        case RECORD_TYPE_BLOODSUGAR:
+        case BLOODSUGAR:
             customLineChart.addHorizontalRangeMarker(BEFORE_MEALS, COLOR_GREEN);
             customLineChart.addHorizontalRangeMarker(AFTER_MEALS, COLOR_BLUE);
             break;
         default:
-            break;
+            assert false : "Record type is not supported";
         }
     }
 
@@ -198,15 +191,16 @@ public class AverageGraph {
      * Gets the average type to be used for x axis label.
      */
     private String getXAxisLabel(SimpleStringProperty averageType) {
-        switch (averageType.get().toLowerCase()) {
-        case AVERAGE_TYPE_DAILY:
+        switch (AverageType.valueOf(averageType.get())) {
+        case DAILY:
             return DAY;
-        case AVERAGE_TYPE_WEEKLY:
+        case WEEKLY:
             return WEEK;
-        case AVERAGE_TYPE_MONTHLY:
+        case MONTHLY:
             return MONTH;
         default:
-            return UNKNOWN;
+            assert false : "Average type is not supported.";
+            return null;
         }
     }
 
