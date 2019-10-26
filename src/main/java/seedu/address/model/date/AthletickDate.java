@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AthletickDate {
 
+    public static final String DATE_FORMAT = "DDMMYYYY";
     private static final String WRONG_DATE_FORMAT = "Invalid date specified.";
 
     private int day;
@@ -37,7 +38,7 @@ public class AthletickDate {
             month = Integer.parseInt(new SimpleDateFormat("M").format(d));
             year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
         } catch (java.text.ParseException pe) {
-            throw new ParseException(WRONG_DATE_FORMAT);
+            throw new ParseException(WRONG_DATE_FORMAT + "\n" + "Date must be in the format:" + DATE_FORMAT);
         }
     }
 
@@ -51,5 +52,10 @@ public class AthletickDate {
 
     public int getYear() {
         return year;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d%d%d", day, month, year);
     }
 }

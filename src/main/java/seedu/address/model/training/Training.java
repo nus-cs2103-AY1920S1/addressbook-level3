@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 /**
  * Represents a Training
@@ -12,15 +13,15 @@ import seedu.address.model.person.Person;
  */
 public class Training {
 
-    private String date;
+    private AthletickDate date;
     private HashMap<Person, Boolean> trainingAttendance;
 
-    public Training(String date, HashMap<Person, Boolean> trainingAttendance) {
+    public Training(AthletickDate date, HashMap<Person, Boolean> trainingAttendance) {
         this.date = date;
         this.trainingAttendance = trainingAttendance;
     }
 
-    public String getDate() {
+    public AthletickDate getDate() {
         return this.date;
     }
 

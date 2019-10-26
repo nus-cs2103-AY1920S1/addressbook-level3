@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -35,6 +37,21 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code oneBasedIndexes} into an {@code List<Index>} and returns it. Leading and trailing whitespaces
+     * will be trimmed.
+     * @throws ParseException if any index is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
+        String[] indexes = oneBasedIndexes.trim().split("\\s+");
+        List<Index> listOfIndexes = new ArrayList<>();
+        for(String indexString: indexes) {
+            Index parsedIndex = parseIndex(indexString);
+            listOfIndexes.add(parsedIndex);
+        }
+        return listOfIndexes;
     }
 
     /**
