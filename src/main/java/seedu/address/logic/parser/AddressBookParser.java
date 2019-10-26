@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.commands.AddCategoryCommand;
-import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddExpenseReminderCommand;
 import seedu.address.logic.commands.BudgetListCommand;
