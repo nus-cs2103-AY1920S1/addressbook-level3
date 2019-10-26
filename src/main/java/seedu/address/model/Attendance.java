@@ -22,8 +22,6 @@ public class Attendance {
     public Attendance(List<Training> trainings) {
         this.trainings = trainings;
     }
-
-
     public void addTraining(Training training) {
         this.trainings.add(training);
     }

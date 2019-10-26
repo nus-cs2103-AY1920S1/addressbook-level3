@@ -75,6 +75,6 @@ public class AttendanceCommand extends Command {
     }
     @Override
     public boolean isUndoable() {
-        return true;
+        return false;
     }
 }

@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -110,8 +111,15 @@ public class ModelManager implements Model {
         ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
         HistoryManager.getUndoneCommands().push(undoneCommand);
         HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
-        ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
-        addressBook.resetData(afterUndoneState);
+        if (undoneCommand instanceof TrainingCommand) {
+            int attendanceListSize = this.attendance.getTrainings().size();
+            int lastIndex = attendanceListSize - 1;
+            Training undoneTraining = this.attendance.getTrainings().remove(lastIndex);
+            HistoryManager.getUndoneTrainingLists().push(undoneTraining);
+        } else {
+            ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
+            addressBook.resetData(afterUndoneState);
+        }
     }
     @Override
     public void redo() {
@@ -119,7 +127,12 @@ public class ModelManager implements Model {
         ReadOnlyAddressBook redoneAddressBook = HistoryManager.getUndoneAddressBooks().pop();
         HistoryManager.getCommands().push(redoneCommand);
         HistoryManager.getAddressBooks().push(redoneAddressBook);
-        addressBook.resetData(redoneAddressBook);
+        if (redoneCommand instanceof TrainingCommand) {
+            Training redoneTraining = HistoryManager.getUndoneTrainingLists().pop();
+            this.attendance.getTrainings().add(redoneTraining);
+        } else {
+            addressBook.resetData(redoneAddressBook);
+        }
     }
 
     @Override
