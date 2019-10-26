@@ -1,0 +1,27 @@
+@startuml
+start
+:User rates flashcard as "Bad";
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Flashcard is not in "bad-list"])
+    :Create flashcard entry in "bad-list";
+    :Add list as deadline on GUI;
+    if () then([No existing "bad-list"
+     in deadline list]
+    )
+      :Create new Deadline with list
+      of "bad" flashcards;
+      :Add Deadline to the storage;
+      :Update the GUI Deadline list
+      with due date of 3 days later;
+    else ([else])
+      :add flashcard entry in existing
+      "bad-list";
+    endif
+else ([else])
+  :display error message;
+endif
+stop
+@enduml

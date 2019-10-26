@@ -1,0 +1,92 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeadlineCommandParser" as DeadlineCommandParser LOGIC_COLOR
+participant ":DeadlineCommand" as DeadlineCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":Deadline" as Deadline LOGIC_COLOR
+
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deadline t>Task d>01/01/2019")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("deadline t>Task d>01/01/2019")
+activate AddressBookParser
+
+create DeadlineCommandParser
+AddressBookParser -> DeadlineCommandParser : DeadlineCommandParser()
+activate DeadlineCommandParser
+
+DeadlineCommandParser --> AddressBookParser
+deactivate DeadlineCommandParser
+
+AddressBookParser -> DeadlineCommandParser : parse("t>Task d>01/01/2019")
+activate DeadlineCommandParser
+
+DeadlineCommandParser -> ParserUtil: parseTask("Task")
+activate ParserUtil
+
+ParserUtil --> DeadlineCommandParser: Task
+deactivate ParserUtil
+
+DeadlineCommandParser -> ParserUtil: parseDueDate("01/01/2019")
+activate ParserUtil
+
+ParserUtil --> DeadlineCommandParser: DueDate
+deactivate ParserUtil
+
+create Deadline
+DeadlineCommandParser -> Deadline: FlashCard(Task, DueDate)
+activate Deadline
+
+Deadline --> DeadlineCommandParser: deadline
+deactivate Deadline
+
+create DeadlineCommand
+DeadlineCommandParser -> DeadlineCommand: DeadlineCommand(deadline)
+activate DeadlineCommand
+
+
+DeadlineCommand --> DeadlineCommandParser : deadline
+deactivate DeadlineCommand
+
+DeadlineCommandParser --> AddressBookParser : deadline
+deactivate DeadlineCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeadlineCommandParser -[hidden]-> AddressBookParser
+destroy DeadlineCommandParser
+
+AddressBookParser --> LogicManager : deadline
+deactivate AddressBookParser
+
+LogicManager -> DeadlineCommand : execute(model)
+activate DeadlineCommand
+
+DeadlineCommand -> Model : addDeadline(deadline)
+activate Model
+
+Model --> DeadlineCommand
+deactivate Model
+
+create CommandResult
+DeadlineCommand -> CommandResult: CommandResult()
+activate CommandResult
+
+CommandResult --> DeadlineCommand : result
+deactivate CommandResult
+
+DeadlineCommand --> LogicManager : result
+deactivate DeadlineCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

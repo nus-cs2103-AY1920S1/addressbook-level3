@@ -224,12 +224,21 @@ Starts the flashcard test from any specific category
 `remind Math 04/11 1030`
 
 
-=== Add general deadlines reminders: `deadline t>[TASK] d[DUE DATE]`
+=== Add general deadlines reminders: `deadline t>[TASK] d>[DUE DATE]`
 
-Adds a general deadline into the deadline list. The list will be display on the right-side pane.
+This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
+You can refer to the example below:
 `deadline t>CS2103 Exam d>10/11/2019`
+
+Key the above mentioned into the command box
+
+image::deadline-entry.png[][width="600"]
+
+After which, the result box will show the success message. The new deadline will now be shown at the right side-bar.
+
+image::deadline-entered.png[][width="600"]
 
 === Remove deadline from list: `remove [index]`
 
@@ -243,7 +252,7 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 
 === Show monthly calendar with all deadlines: `calendar`
 
-Shows the calendar filled with all dealines in the month. The calendar will be shown as a new window pop-up.
+Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
 
 `calendar`
 
@@ -265,7 +274,9 @@ exporting to document files.
 
 `help`
 
+=== Search flashcards: `search [keywords]`
 
+`search process`
 
 === Stop test: `stop`
 
@@ -333,26 +344,34 @@ There is no need to save manually.
 
 * Add new flashcard: add [q>QUESTION] [q>ANSWER] [c>CATEGORY]…​ +
 e.g. `add q>1+1 a>2`
-* Edit an existing flashcard - ` edit [INDEX] {fields wanted to edit}…​` +
-e.g.  `edit 2 c>CS2103`
-* Delete an existing flashcard - `delete [INDEX]` +
-e.g.  `delete 10`
+* Show Calendar of Deadlines- `calendar`
 * Clear all the flashcard - `clear` +
 e.g. `clear`
-* Start a certain topic of flashcards - `start [keyword]` +
-e.g.  `start Mathematics`
-* Set user preference for reminders - `remind [category] DD/MM HHmm` +
-e.g.  `remind Math 04/10 1230`
+* Edit an existing flashcard - ` edit [INDEX] {fields wanted to edit}…​` +
+e.g.  `edit 2 c>CS2103`
+* Add a new Deadline - `deadline t>[TASK] d>[DUE DATE]` +
+e.g.  `deadline t>Math Test d>01/10/2019`
+* Delete an existing flashcard - `delete [INDEX]` +
+e.g.  `delete 10`
+* Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
+e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Search of flashcards - `find`
 ** find [keyword(s)]
 ** findq [keyword(s)]
 ** finda [keyword(s)]
 ** findcat [keyword(s)]
-* List all flashcards - list
-* Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
-e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
-* Stop flashcard test - `stop`
-* Exit - `exit`
+* List all flashcards - list
+* List all flashcards under a specific category - `list [category]` +
+e.g.  `list Math`
+* Set user preference for reminders - `remind [category] DD/MM HHmm` +
+e.g.  `remind Math 04/10 1230`
+* Remove Deadline from list - `remove [INDEX]` +
+e.g.  `remove 2`
+* Start a certain topic of flashcards - `start [keyword]` +
+e.g.  `start Mathematics`
 * View overall statistics - `stats`
+* Search specific flashcards - `search [keywords]` +
+e.g.  `search UML diagrams`
+* Stop flashcard test - `stop`
