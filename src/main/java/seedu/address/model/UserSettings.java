@@ -34,8 +34,13 @@ public class UserSettings implements ReadOnlyUserSettings {
         resetData(userSettings);
     }
 
+    /**
+     * Resets the existing data of this {@code UserSettings} with {@code newUserSettings}.
+     */
     public void resetData(ReadOnlyUserSettings newUserSettings) {
         requireNonNull(newUserSettings);
+        setClockFormat(newUserSettings.getClockFormat());
+        setTheme(newUserSettings.getTheme());
         setUserSettingsFilePath(newUserSettings.getUserSettingsFilePath());
     }
 

@@ -70,8 +70,6 @@ public class ModelManager implements Model {
         stats = new Statistics(filteredMembers, filteredTasks, filteredMappings);
         stats.doCalculations();
 
-        // temporary measure to load saved clock format on start up
-        DateTimeUtil.switchDisplayFormat(userSettings.getClockFormat().getDisplayFormatter());
     }
 
     public ModelManager() {
