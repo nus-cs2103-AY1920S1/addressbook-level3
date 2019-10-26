@@ -202,17 +202,11 @@
     -fx-text-fill: pink;
 }
 
-.hint-display .text {
-    -fx-underline: true;
-}
 
 .result-display .label {
     -fx-text-fill: black !important;
 }
 
-.result-display .label {
-    -fx-text-fill: black !important;
-}
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
@@ -412,14 +406,24 @@
     -fx-text-fill: lightgreen;
 }
 
-.progress-bar > .track {
+#progress-bar-alert > .track {
     -fx-box-border: red;
     -fx-control-inner-background: #383838;
 }
 
-.progress-bar {
+#progress-bar-alert {
+    -fx-accent: red;
+}
+
+#progress-bar-normal > .track {
+    -fx-box-border: red;
+    -fx-control-inner-background: #383838;
+}
+
+#progress-bar-normal {
     -fx-accent: lightgreen;
 }
+
 
 /*combo box*/
 .combo-box .list-cell {
@@ -472,4 +476,22 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#timer-alert-style .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
+#timer-alert-style {
+    -fx-text-fill: #FF69B4;
+}
+
+#timer-normal-style .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
+#timer-normal-style {
+    -fx-text-fill: #ADFF2F;
 }

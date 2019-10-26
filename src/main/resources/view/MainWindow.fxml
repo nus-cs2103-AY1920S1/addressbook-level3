@@ -22,7 +22,7 @@
       <VBox>
             <HBox VBox.vgrow="NEVER">
                <children>
-              <MenuBar fx:id="menuBar" prefHeight="35.0" HBox.hgrow="ALWAYS">
+              <MenuBar fx:id="menuBar" prefHeight="35.0" HBox.hgrow="ALWAYS" >
                 <Menu mnemonicParsing="false" text="File">
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                 </Menu>
@@ -30,7 +30,8 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                 </Menu>
               </MenuBar>
-                    <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" HBox.hgrow="NEVER">
+                    <AnchorPane fx:id="timerDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
+                                minWidth="500" prefHeight="35.0" HBox.hgrow="NEVER">
 
                     </AnchorPane>
                </children>

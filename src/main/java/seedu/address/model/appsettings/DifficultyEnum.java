@@ -5,9 +5,9 @@ package seedu.address.model.appsettings;
  * Difficulty levels for the Game
  */
 public enum DifficultyEnum {
-    EASY(8000),
-    MEDIUM(6000),
-    HARD(3000); // Hints are not allowed for HARD Mode
+    EASY(15000),
+    MEDIUM(10000),
+    HARD(5000);
 
     private long timeAllowedPerQuestion;
 

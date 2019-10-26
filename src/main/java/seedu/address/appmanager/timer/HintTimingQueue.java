@@ -3,6 +3,9 @@ package seedu.address.appmanager.timer;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import seedu.address.model.appsettings.DifficultyEnum;
+
+
 /**
  * Class that represents a queue of timestamps for the GameTimer to request for more hints.
  */
@@ -20,7 +23,8 @@ public class HintTimingQueue {
 
         // Rate of Hint Characters being shown is linear (time between each hint character is constant).
         // Hints are only showed after 1/4 * 8000ms have passed.
-        long delta = (long) (8000 * 0.75) / (numberOfTimings - 1);
+        long delta =
+                (long) (DifficultyEnum.EASY.getTimeAllowedPerQuestion() * 0.75) / (numberOfTimings - 1);
 
         // Populate the hintTimesQueue with timings that are evenly spaced out.
         for (int i = 0; i < numberOfTimings; i++) {
