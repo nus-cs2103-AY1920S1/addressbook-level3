@@ -2,36 +2,109 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":StatsCommand" as StatsCommand LOGIC_COLOR
+participant ":logic" as Logic LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":StatsWindow" as StatsWindow UI_COLOR
+end box
+
+box MODEL MODEL_COLOR_T1
 participant ":model" as Model MODEL_COLOR
 end box
 
-
-[-> StatsCommand : execute(model)
-activate StatsCommand
-
-loop for each predicate
-    StatsCommand -> Model : updateFilteredFlashCardList(predicate)
-    activate Model
-    StatsCommand <-- Model : list
-    deactivate Model
-
-     StatsCommand -> StatsCommand : size()
-     activate StatsCommand
-     StatsCommand <-- StatsCommand : number
-     deactivate StatsCommand
-
-end
-
-StatsCommand -> Model : getStats()
-activate Model
-StatsCommand <-- Model : stats
-deactivate Model
+box JavaFx EXTERNAL_LIBRARY_COLOR_T1
+participant ":Scene" as Scene EXTERNAL_LIBRARY_COLOR
+participant ":Stage" as Stage EXTERNAL_LIBRARY_COLOR
+end box
 
 
-[<--StatsCommand
-deactivate StatsCommand
+[-> LogicManager : parseCommand(stats)
+activate LogicManager
+
+    LogicManager -> StatsCommand : execute(model)
+    activate StatsCommand
+        LogicManager <-- StatsCommand : CommandResult
+    deactivate StatsCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+[-> MainWindow : executeCommand(stats)
+activate MainWindow
+
+       alt commandResult.isShowStats()
+       MainWindow -> MainWindow : handleStats()
+           activate MainWindow
+
+                MainWindow -> StatsWindow : isShowing()
+                activate StatsWindow
+                MainWindow <-- StatsWindow : result
+                deactivate StatsWindow
+
+                alt result = false
+                MainWindow -> Logic :
+                activate Logic
+                Logic -> LogicManager : getModel()
+                activate LogicManager
+                Logic <-- LogicManager : model
+                deactivate LogicManager
+                Logic -> MainWindow : model
+                deactivate Logic
+
+                MainWindow -> StatsWindow : show(model)
+
+                loop for each rating
+                activate StatsWindow
+                StatsWindow -> Model : updateFilteredFlashCardList(rating)
+                activate Model
+                StatsWindow <-- Model : ObservableList<FlashCard>
+                deactivate Model
+                StatsWindow -> Model : size()
+                activate Model
+                StatsWindow <-- Model : number
+                deactivate Model
+                end
+
+                StatsWindow -> Model : getTestStats()
+                activate Model
+                StatsWindow <-- Model : stats[]
+                deactivate Model
+
+                StatsWindow -> Scene : Scene(bar chart)
+                activate Scene
+                StatsWindow <-- Scene : scene
+                deactivate Scene
+
+                StatsWindow -> Stage : setScene(scene)
+                activate Stage
+                StatsWindow <-- Stage :
+                deactivate Stage
+
+                StatsWindow -> Stage : getRoot()
+                activate Stage
+                StatsWindow <-- Stage : root
+                deactivate Stage
+
+
+                StatsWindow -> Stage : show()
+                activate Stage
+                StatsWindow <-- Stage :
+                deactivate Stage
+
+                MainWindow <-- StatsWindow :
+                deactivate StatsWindow
+                MainWindow <-- MainWindow :
+
+           deactivate MainWindow
+           [<-- MainWindow :
+           deactivate MainWindow
+
+       end
+
+
+
 @enduml

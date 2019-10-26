@@ -5,6 +5,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Model;
@@ -51,7 +52,7 @@ public class StatsWindow extends UiPart<Stage> {
         model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
         int numEasy = model.getFilteredFlashCardList().size();
 
-        int[] stats = model.getStats();
+        int[] stats = model.getTestStats();
 
         //stage.setTitle("Statistics");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -72,7 +73,7 @@ public class StatsWindow extends UiPart<Stage> {
         series2.getData().add(new XYChart.Data(hard, stats[1]));
         series2.getData().add(new XYChart.Data(easy, stats[2]));
 
-        Scene scene  = new Scene(bc,800,600);
+        Scene scene  = new Scene(bc,800,600, Color.BLACK);
         bc.getData().addAll(series1, series2);
         stage.setScene(scene);
         getRoot().show();
