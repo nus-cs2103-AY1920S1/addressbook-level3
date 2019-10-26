@@ -8,7 +8,7 @@ package seedu.ezwatchlist.model.show;
 public class Name {
     public static final String DEFAULT_NAME = "na";
     public static final String MESSAGE_CONSTRAINTS =
-            "Show names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Show names should only contain characters and spaces, and it should not be blank";
 
     /*
      * The first character of the show must not be a whitespace,

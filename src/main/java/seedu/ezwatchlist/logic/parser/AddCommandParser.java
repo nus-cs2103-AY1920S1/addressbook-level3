@@ -8,6 +8,7 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -57,7 +58,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             return new AddCommand(movie);
         } else if (type.equals("tv")) {
             TvShow tvShow = new TvShow(name, description, isWatched, dateOfRelease, runningTime, actorList,
-                    0, 0, null);
+                    0, 0, new ArrayList<>());
             return new AddCommand(tvShow);
         }
         throw new ParseException("Type can only be movie or tv.");

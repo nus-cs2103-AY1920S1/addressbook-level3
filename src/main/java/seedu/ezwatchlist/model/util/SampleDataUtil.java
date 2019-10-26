@@ -10,6 +10,7 @@ import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
 import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
@@ -20,7 +21,7 @@ import seedu.ezwatchlist.model.show.Show;
 public class SampleDataUtil {
     public static Show[] getSampleShows() {
         return new Show[] {
-            new Show(new Name("Joker"), new Description("In Gotham City, mentally-troubled comedian Arthur Fleck"
+            new Movie(new Name("Joker"), new Description("In Gotham City, mentally-troubled comedian Arthur Fleck"
                     + " embarks on a downward-spiral of social revolution and bloody crime. This path brings"
                     + " him face-to-face with his infamous alter-ego: \"The Joker\"."),
                     new IsWatched(false), new Date("4 October 2019"), new RunningTime(122),

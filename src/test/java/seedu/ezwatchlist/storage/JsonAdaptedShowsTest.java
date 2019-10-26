@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-public class JsonAdaptedShowTest {
+public class JsonAdaptedShowsTest {
     private static final String INVALID_NAME = "";
     private static final String INVALID_DESCRIPTION = "";
     private static final String INVALID_DATE_OF_RELEASE = "";
@@ -24,7 +24,7 @@ public class JsonAdaptedShowTest {
     /*
     @Test
     public void toModelType_validShowDetails_returnsShow() throws Exception {
-        JsonAdaptedShow show = new JsonAdaptedShow(AVENGERSENDGAME);
+        JsonAdaptedShows show = new JsonAdaptedShows(AVENGERSENDGAME);
         assertEquals(AVENGERSENDGAME, show.toModelType());
     }
 
@@ -33,8 +33,8 @@ public class JsonAdaptedShowTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        /*JsonAdaptedShow show =
-                new JsonAdaptedShow(INVALID_NAME, "Movie", VALID_DATEOFRELEASE, true, VALID_DESCRIPTION,
+        /*JsonAdaptedShows show =
+                new JsonAdaptedShows(INVALID_NAME, "Movie", VALID_DATEOFRELEASE, true, VALID_DESCRIPTION,
                         VALID_RUNNINGTIME, VALID_ACTOR);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, show::toModelType);
@@ -43,7 +43,7 @@ public class JsonAdaptedShowTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        /*JsonAdaptedShow show = new JsonAdaptedShow(null, "Movie", VALID_DATEOFRELEASE,
+        /*JsonAdaptedShows show = new JsonAdaptedShows(null, "Movie", VALID_DATEOFRELEASE,
                 true, VALID_DESCRIPTION,
                 VALID_RUNNINGTIME, VALID_ACTOR);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
@@ -54,8 +54,8 @@ public class JsonAdaptedShowTest {
     @Test
     public void toModelType_invalidDateOfRelease_throwsIllegalValueException() {
         /*
-        JsonAdaptedShow show =
-                new JsonAdaptedShow(VALID_NAME, "MOVIE", INVALID_DATE_OF_RELEASE, false,
+        JsonAdaptedShows show =
+                new JsonAdaptedShows(VALID_NAME, "MOVIE", INVALID_DATE_OF_RELEASE, false,
                         VALID_DESCRIPTION, VALID_RUNNINGTIME, VALID_ACTOR);
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, show::toModelType);
@@ -65,7 +65,7 @@ public class JsonAdaptedShowTest {
     @Test
     public void toModelType_nullDateOfRelease_throwsIllegalValueException() {
         /*
-        JsonAdaptedShow show = new JsonAdaptedShow(VALID_NAME, "Movie", null,
+        JsonAdaptedShows show = new JsonAdaptedShows(VALID_NAME, "Movie", null,
                 false, VALID_DESCRIPTION,
                 VALID_RUNNINGTIME, VALID_ACTOR);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
@@ -76,7 +76,7 @@ public class JsonAdaptedShowTest {
     @Test
     public void toModelType_invalidRunningTime_throwsIllegalValueException() {
         /*
-        JsonAdaptedShow show = new JsonAdaptedShow(VALID_NAME, "Movie",
+        JsonAdaptedShows show = new JsonAdaptedShows(VALID_NAME, "Movie",
                 VALID_DATEOFRELEASE, false, "hello",
                 INVALID_RUNNINGTIME, VALID_ACTOR);
         String expectedMessage = RunningTime.MESSAGE_CONSTRAINTS2;
@@ -89,8 +89,8 @@ public class JsonAdaptedShowTest {
         /*
         List<JsonAdaptedActor> invalidActors = new ArrayList<>(VALID_ACTOR);
         invalidActors.add(new JsonAdaptedActor(INVALID_ACTOR));
-        JsonAdaptedShow show =
-                new JsonAdaptedShow(VALID_NAME, "Movie", VALID_DATEOFRELEASE, false , VALID_DESCRIPTION,
+        JsonAdaptedShows show =
+                new JsonAdaptedShows(VALID_NAME, "Movie", VALID_DATEOFRELEASE, false , VALID_DESCRIPTION,
                         VALID_RUNNINGTIME, invalidActors);
         assertThrows(IllegalValueException.class, show::toModelType);
 
