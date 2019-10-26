@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import dukecooks.commons.core.index.Index;
 import dukecooks.model.Model;
+import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.exercise.components.Exercise;
@@ -67,5 +68,12 @@ public class TestUtil {
      */
     public static Diary getDiary(Model model, Index index) {
         return model.getFilteredDiaryList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the dashboard in the {@code model}'s dashboard list at {@code index}.
+     */
+    public static Dashboard getDashboard(Model model, Index index) {
+        return model.getFilteredDashboardList().get(index.getZeroBased());
     }
 }

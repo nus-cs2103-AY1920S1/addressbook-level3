@@ -1,5 +1,7 @@
 package dukecooks.model;
 
+import static dukecooks.testutil.dashboard.TypicalDashboard.TASK1;
+import static dukecooks.testutil.dashboard.TypicalDashboard.TASK2;
 import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
 import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
@@ -16,6 +18,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import dukecooks.model.dashboard.DashboardRecords;
+import dukecooks.model.dashboard.components.Dashboard;
+import dukecooks.testutil.dashboard.DashboardRecordBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +45,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         Assertions.assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        Assertions.assertEquals(new DashboardRecords(), new DashboardRecords(modelManager.getDashboardRecords()));
         Assertions.assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
         Assertions.assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
         Assertions.assertEquals(new WorkoutPlanner(), new WorkoutPlanner(modelManager.getWorkoutPlanner()));
@@ -54,6 +60,7 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
+        userPrefs.setDashboardFilePath(Paths.get("address/book/file/path"));
         userPrefs.setRecipesFilePath(Paths.get("address/book/file/path"));
         userPrefs.setUserProfileFilePath(Paths.get("address/book/file/path"));
         userPrefs.setDiaryFilePath(Paths.get("address/book/file/path"));
@@ -63,6 +70,7 @@ public class ModelManagerTest {
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
+        userPrefs.setDashboardFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setRecipesFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setUserProfileFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setExercisesFilePath(Paths.get("new/address/book/file/path"));
@@ -88,6 +96,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setDashboardFilePath_nullPath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.setDashboardFilePath(null));
+    }
+
+    @Test
     public void setRecipesFilePath_nullPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.setRecipesFilePath(null));
     }
@@ -105,6 +118,13 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setDashboardFilePath_validPath_setsDashboardFilePath() {
+        Path path = Paths.get("address/book/file/path");
+        modelManager.setDashboardFilePath(path);
+        assertEquals(path, modelManager.getDashboardFilePath());
+    }
+
+    @Test
     public void setRecipesFilePath_validPath_setsRecipesFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setRecipesFilePath(path);
@@ -116,6 +136,11 @@ public class ModelManagerTest {
         Path path = Paths.get("address/book/file/path");
         modelManager.setDiaryFilePath(path);
         assertEquals(path, modelManager.getDiaryFilePath());
+    }
+
+    @Test
+    public void hasDashboard_nullDashboard_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasDashboard(null));
     }
 
     @Test
@@ -150,6 +175,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasDashboard_dashboardInDukeCooks_returnsTrue() {
+        modelManager.addDashboard(TASK1);
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
@@ -169,6 +199,8 @@ public class ModelManagerTest {
         UserProfile userProfile = new UserProfileBuilder().withPerson(ALICE).withPerson(BENSON).build();
         UserProfile differentUserProfile = new UserProfile();
 
+        DashboardRecords dashboardRecords = new DashboardRecordBuilder()
+                .withDashboard(TASK1).withDashboard(TASK2).build();
         RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
         RecipeBook differentRecipeBook = new RecipeBook();
 
