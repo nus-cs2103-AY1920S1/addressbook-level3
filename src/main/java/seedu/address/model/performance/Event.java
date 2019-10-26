@@ -13,6 +13,8 @@ public class Event {
     public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
 
+    public static final String INVALID_NAME_MESSAGE_CONSTRAINTS = "Evnt name should not begin with a space.\n";
+
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
