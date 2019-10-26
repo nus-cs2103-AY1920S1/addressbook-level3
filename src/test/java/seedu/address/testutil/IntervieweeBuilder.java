@@ -1,14 +1,18 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.model.person.Department;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Emails;
 import seedu.address.model.person.Faculty;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -18,35 +22,26 @@ public class IntervieweeBuilder extends PersonBuilder {
 
     public static final String DEFAULT_FACULTY = "School of Computing";
     public static final String DEFAULT_YEAR_OF_STUDY = "2019";
-    public static final String DEFAULT_DEPARTMENT = "Marketing";
-    public static final String DEFAULT_SLOT_DATE = "16/10/2019";
-    public static final String DEFAULT_SLOT_START = "00:00";
-    public static final String DEFAULT_SLOT_END = "23:59";
 
     private Faculty faculty;
     private Integer yearOfStudy;
     private List<Department> departmentChoices;
     private List<Slot> allocatedTimeslots;
+    private Emails emails;
 
     /**
-     * Initializes the IntervieweeBuilder with all default data.
-     */
-    public IntervieweeBuilder() {
-        this(new PersonBuilder().build());
-    }
-
-    /**
-     * Partially initializes the IntervieweeBuilder with the data of {@code p}.
-     * @param p
+     * Partially initializes the IntervieweeBuilder with {@code p}'s data. Faculty will be {@code DEFAULT_FACULTY} and
+     * year of study will be {@code DEFAULT_YEAR_OF_STUDY}, with all other fields empty but not null.
+     *
+     * @param p the person to copy.
      */
     public IntervieweeBuilder(Person p) {
         super(p);
         this.faculty = new Faculty(DEFAULT_FACULTY);
         this.yearOfStudy = Integer.parseInt(DEFAULT_YEAR_OF_STUDY);
-        this.departmentChoices = Stream.of(new Department(DEFAULT_DEPARTMENT)).collect(Collectors.toList());
-        this.allocatedTimeslots = Stream.of(
-                new Slot(String.format(Slot.STRING_FORMAT, DEFAULT_SLOT_DATE, DEFAULT_SLOT_START, DEFAULT_SLOT_END)))
-                .collect(Collectors.toList());
+        this.departmentChoices = new ArrayList<>();
+        this.allocatedTimeslots = new ArrayList<>();
+        this.emails = new Emails();
     }
 
     /**
@@ -55,12 +50,12 @@ public class IntervieweeBuilder extends PersonBuilder {
     public IntervieweeBuilder(Interviewee i) {
         super(i.getName().fullName,
                 i.getPhone().value,
-                i.getAddress().value,
                 i.getTags().stream().map(x -> x.tagName).toArray(String[]::new));
         faculty = i.getFaculty();
         yearOfStudy = i.getYearOfStudy();
         departmentChoices = i.getDepartmentChoices();
         allocatedTimeslots = i.getAvailableTimeslots();
+        emails = i.getEmails();
     }
 
     /**
@@ -96,14 +91,51 @@ public class IntervieweeBuilder extends PersonBuilder {
     }
 
     /**
+     * Sets the personal email of the {@code Interviewee} that we are building.
+     */
+    public IntervieweeBuilder withPersonalEmail(String email) {
+        Email toAdd = new Email(email);
+        if (emails != null) {
+            this.emails.addPersonalEmail(toAdd);
+        } else {
+            this.emails = new Emails().addPersonalEmail(toAdd);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the Nus work email of the {@code Interviewee} that we are building.
+     */
+    public IntervieweeBuilder withNusWorkEmail(String email) {
+        Email toAdd = new Email(email);
+        if (emails != null) {
+            this.emails.addNusEmail(toAdd);
+        } else {
+            this.emails = new Emails().addNusEmail(toAdd);
+        }
+        return this;
+    }
+
+    /**
+     * Clears all tags from the parent class and replaces it with the supplied tags.
+     */
+    @Override
+    public IntervieweeBuilder withTags(String... tags) {
+        super.getTags().clear();
+        super.getTags().addAll(Arrays.stream(tags).map(Tag::new).collect(Collectors.toList()));
+        return this;
+    }
+
+    /**
      * Builds the Interviewee.
      */
     public Interviewee build() {
-        return new Interviewee.IntervieweeBuilder(getName(), getPhone(), getAddress(), getTags())
+        return new Interviewee.IntervieweeBuilder(getName(), getPhone(), getTags())
                     .faculty(faculty)
                     .yearOfStudy(yearOfStudy)
                     .departmentChoices(departmentChoices)
                     .availableTimeslots(allocatedTimeslots)
+                    .emails(emails)
                     .build();
     }
 

@@ -59,13 +59,26 @@ public class Emails {
         return emails.get(type);
     }
 
+    /**
+     * Returns true if there are any emails of specified type present.
+     */
+    public boolean hasEmailsOfType(EmailType type) {
+        return emails.get(type) != null && !emails.get(type).isEmpty();
+    }
+
     public HashMap<EmailType, List<Email>> getAllEmails() {
         return emails;
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s %s %s", PERSONAL, getEmailsOfType(PERSONAL), NUS, getEmailsOfType(NUS));
+        if (hasEmailsOfType(PERSONAL) && hasEmailsOfType(NUS)) {
+            return String.format("%s %s %s %s", PERSONAL, getEmailsOfType(PERSONAL), NUS, getEmailsOfType(NUS));
+        }
+        if (hasEmailsOfType(NUS)) {
+            return String.format("%s %s", NUS, getEmailsOfType(NUS));
+        }
+        return String.format("%s %s", PERSONAL, getEmailsOfType(PERSONAL));
     }
 
     @Override

@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +41,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         // add interviewee
-        Interviewee interviewee = new IntervieweeBuilder().build();
+        Interviewee interviewee = new IntervieweeBuilder(BOB_INTERVIEWEE).build();
         AddCommand command = (AddCommand) parser.parseCommand(IntervieweeUtil.getAddCommand(interviewee));
         assertEquals(new AddCommand(interviewee), command);
     }

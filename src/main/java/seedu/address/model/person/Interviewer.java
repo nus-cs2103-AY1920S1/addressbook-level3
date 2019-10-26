@@ -19,9 +19,9 @@ public class Interviewer extends Person {
     /**
      * Every field must be present and not null.
      */
-    private Interviewer(Name name, Phone phone, Address address, Set<Tag> tags,
+    private Interviewer(Name name, Phone phone, Set<Tag> tags,
                         Email email, Department department, List<Slot> availabilities) {
-        super(name, phone, address, tags);
+        super(name, phone, tags);
         this.department = department;
         this.email = email;
         this.availabilities = availabilities;
@@ -34,7 +34,6 @@ public class Interviewer extends Person {
         // Required parameters for Person
         private final Name name;
         private final Phone phone;
-        private final Address address;
         private final Set<Tag> tags;
 
         // Optional parameters - initialised to default values
@@ -42,10 +41,9 @@ public class Interviewer extends Person {
         private Email email = DefaultValues.DEFAULT_PERSONAL_EMAIL;
         private List<Slot> availabilities = DefaultValues.DEFAULT_TIMESLOTS;
 
-        public InterviewerBuilder(Name name, Phone phone, Address address, Set<Tag> tags) {
+        public InterviewerBuilder(Name name, Phone phone, Set<Tag> tags) {
             this.name = name;
             this.phone = phone;
-            this.address = address;
             this.tags = tags;
         }
 
@@ -77,7 +75,7 @@ public class Interviewer extends Person {
          * Build and return the Interviewer object.
          */
         public Interviewer build() {
-            return new Interviewer(name, phone, address, tags, email, department, availabilities);
+            return new Interviewer(name, phone, tags, email, department, availabilities);
         }
     }
 
@@ -124,7 +122,7 @@ public class Interviewer extends Person {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(department, email, availabilities,
-                getName(), getPhone(), getAddress(), getTags());
+                getName(), getPhone(), getTags());
     }
 
     @Override
@@ -135,8 +133,6 @@ public class Interviewer extends Person {
                 .append(getClass().getSimpleName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Department ")
                 .append(getDepartment())
                 .append(" Availabilities ")

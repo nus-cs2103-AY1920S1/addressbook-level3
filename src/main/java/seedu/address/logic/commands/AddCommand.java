@@ -1,15 +1,25 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NUS_WORK_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONAL_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR_OF_STUDY;
+import static seedu.address.model.person.DefaultValues.DEFAULT_DEPARTMENT;
+import static seedu.address.model.person.DefaultValues.DEFAULT_FACULTY;
+import static seedu.address.model.person.DefaultValues.DEFAULT_INTERVIEWEE_ROLE;
+import static seedu.address.model.person.DefaultValues.DEFAULT_NAME;
+import static seedu.address.model.person.DefaultValues.DEFAULT_NUS_WORK_EMAIL;
+import static seedu.address.model.person.DefaultValues.DEFAULT_PERSONAL_EMAIL;
+import static seedu.address.model.person.DefaultValues.DEFAULT_PHONE;
+import static seedu.address.model.person.DefaultValues.DEFAULT_SLOT;
+import static seedu.address.model.person.DefaultValues.DEFAULT_YEAR_OF_STUDY;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -27,24 +37,26 @@ public class AddCommand extends Command {
             + PREFIX_ROLE + "ROLE "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_ADDRESS + "ADDRESS " // TODO: Delet dis address field
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_FACULTY + "FACULTY] "
             + "[" + PREFIX_YEAR_OF_STUDY + "YEAR OF STUDY] "
             + "[" + PREFIX_DEPARTMENT + "DEPARTMENT]... "
-            + "[" + PREFIX_SLOT + "TIMESLOTS]...\n"
+            + "[" + PREFIX_SLOT + "TIMESLOTS]... "
+            + "[" + PREFIX_PERSONAL_EMAIL + "PERSONAL_EMAIL] "
+            + "[" + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL]\n"
             + "Example: "
             + COMMAND_WORD + " "
-            + PREFIX_ROLE + "interviewee "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_ROLE + DEFAULT_INTERVIEWEE_ROLE + " "
+            + PREFIX_NAME + DEFAULT_NAME + " "
+            + PREFIX_PHONE + DEFAULT_PHONE + " "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
-            + PREFIX_FACULTY + "School of Computing "
-            + PREFIX_YEAR_OF_STUDY + "2019 "
-            + PREFIX_DEPARTMENT + "Marketing "
-            + PREFIX_SLOT + "17/10/2019 13:00-14:00";
+            + PREFIX_FACULTY + DEFAULT_FACULTY + " "
+            + PREFIX_YEAR_OF_STUDY + DEFAULT_YEAR_OF_STUDY + " "
+            + PREFIX_DEPARTMENT + DEFAULT_DEPARTMENT + " "
+            + PREFIX_SLOT + DEFAULT_SLOT + " "
+            + PREFIX_PERSONAL_EMAIL + DEFAULT_PERSONAL_EMAIL + " "
+            + PREFIX_NUS_WORK_EMAIL + DEFAULT_NUS_WORK_EMAIL;
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
@@ -67,6 +79,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        // TODO: eventually phase this out to addInterviewee / addInterviewer
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmailType;
@@ -45,9 +44,10 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
             @JsonProperty("departmentChoices") List<JsonAdaptedDepartment> departmentChoices,
             @JsonProperty("availableTimeslots") List<JsonAdaptedSlot> availableTimeslots,
             @JsonProperty("emails") HashMap<String, List<String>> emails,
-            @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("address") String address, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        super(name, phone, address, tagged);
+            @JsonProperty("name") String name,
+            @JsonProperty("phone") String phone,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        super(name, phone, tagged);
         this.faculty = faculty;
         this.yearOfStudy = yearOfStudy;
         if (departmentChoices != null) {
@@ -65,7 +65,7 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
      * Converts a given {@code Interviewee} into this class for Jackson use.
      */
     public JsonAdaptedInterviewee(Interviewee source) {
-        super(source.getName().fullName, source.getPhone().value, source.getAddress().value,
+        super(source.getName().fullName, source.getPhone().value,
                 source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         faculty = source.getFaculty().faculty;
         yearOfStudy = source.getYearOfStudy();
@@ -93,7 +93,6 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
     public Interviewee toModelType() throws IllegalValueException {
         final String name = getName();
         final String phone = getPhone();
-        final String address = getAddress();
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : getTagged()) {
             personTags.add(tag.toModelType());
@@ -130,15 +129,6 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
-        // check address
-        if (address == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
         // check faculty
         if (faculty == null) {
             throw new IllegalValueException(
@@ -151,7 +141,7 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Integer.class.getSimpleName()));
         }
         final Integer modelYearOfStudy = Integer.valueOf(yearOfStudy);
-        // no need to check departments departments
+        // no need to check departments
         final List<Department> modelDepartments = new ArrayList<>(departments);
         // no need to check tags
         final Set<Tag> modelTags = new HashSet<>(personTags);
@@ -160,7 +150,7 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
         // no need to check emails
         final Emails modelEmails = new Emails(personEmails);
 
-        return new Interviewee.IntervieweeBuilder(modelName, modelPhone, modelAddress, modelTags)
+        return new Interviewee.IntervieweeBuilder(modelName, modelPhone, modelTags)
                 .faculty(modelFaculty)
                 .yearOfStudy(modelYearOfStudy)
                 .departmentChoices(modelDepartments)

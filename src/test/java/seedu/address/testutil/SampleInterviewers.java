@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.person.Address;
 import seedu.address.model.person.DefaultValues;
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
@@ -51,10 +50,9 @@ public class SampleInterviewers {
         Name name = alice.getName();
         Phone phone = alice.getPhone();
         Email email = DefaultValues.DEFAULT_PERSONAL_EMAIL;
-        Address address = alice.getAddress();
         Set<Tag> tags = alice.getTags();
 
-        Interviewer alicePauline = new Interviewer.InterviewerBuilder(name, phone, address, tags)
+        Interviewer alicePauline = new Interviewer.InterviewerBuilder(name, phone, tags)
                 .email(email)
                 .department(department)
                 .build();
@@ -84,10 +82,9 @@ public class SampleInterviewers {
         Name name = new Name(nameString);
         Phone phone = alice.getPhone();
         Email email = DefaultValues.DEFAULT_PERSONAL_EMAIL;
-        Address address = alice.getAddress();
         Set<Tag> tags = alice.getTags();
 
-        return new Interviewer.InterviewerBuilder(name, phone, address, tags)
+        return new Interviewer.InterviewerBuilder(name, phone, tags)
                 .department(department)
                 .email(email)
                 .build();

@@ -22,8 +22,8 @@ public class Interviewee extends Person {
      */
     private Interviewee(Faculty faculty, Integer yearOfStudy,
                        List<Department> departmentChoices, List<Slot> availableTimeslots, Emails emails,
-                       Name name, Phone phone, Address address, Set<Tag> tags) {
-        super(name, phone, address, tags);
+                       Name name, Phone phone, Set<Tag> tags) {
+        super(name, phone, tags);
         this.faculty = faculty;
         this.yearOfStudy = yearOfStudy;
         this.departmentChoices = departmentChoices;
@@ -38,7 +38,6 @@ public class Interviewee extends Person {
         // Required parameters for Person
         private final Name name;
         private final Phone phone;
-        private final Address address;
         private final Set<Tag> tags;
 
         // Optional parameters - initialised to default values
@@ -48,15 +47,10 @@ public class Interviewee extends Person {
         private List<Department> departmentChoices = DefaultValues.DEFAULT_DEPARTMENTS;
         private List<Slot> availableTimeslots = DefaultValues.DEFAULT_TIMESLOTS;
 
-        public IntervieweeBuilder(Name name, Phone phone, Address address, Set<Tag> tags) {
+        public IntervieweeBuilder(Name name, Phone phone, Set<Tag> tags) {
             this.name = name;
             this.phone = phone;
-            this.address = address;
             this.tags = tags;
-        }
-
-        public IntervieweeBuilder(Person p) {
-            this(p.getName(), p.getPhone(), p.getAddress(), p.getTags());
         }
 
         /**
@@ -104,7 +98,7 @@ public class Interviewee extends Person {
          */
         public Interviewee build() {
             return new Interviewee(faculty, yearOfStudy, departmentChoices,
-                    availableTimeslots, emails, name, phone, address, tags);
+                    availableTimeslots, emails, name, phone, tags);
         }
     }
 
@@ -156,7 +150,7 @@ public class Interviewee extends Person {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(emails, faculty, yearOfStudy, departmentChoices, availableTimeslots,
-                getName(), getPhone(), getAddress(), getTags());
+                getName(), getPhone(), getTags());
     }
 
     @Override
@@ -169,8 +163,6 @@ public class Interviewee extends Person {
                 .append(getPhone())
                 .append(" Emails: ")
                 .append(getEmails())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Faculty: ")
                 .append(getFaculty())
                 .append(" Year of study: ")

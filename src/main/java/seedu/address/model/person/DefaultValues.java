@@ -11,22 +11,24 @@ import seedu.address.model.Schedule;
 public class DefaultValues {
 
     // Person
-    public static final Name DEFAULT_NAME = new Name("Anson Bellfield");
-    public static final Phone DEFAULT_PHONE = new Phone("90091234");
-    public static final Address DEFAULT_ADDRESS = new Address("23 Hillview Heights");
+    public static final Name DEFAULT_NAME = new Name("John Cena");
+    public static final Phone DEFAULT_PHONE = new Phone("88888888");
 
     // Interviewee
-    public static final Email DEFAULT_PERSONAL_EMAIL = new Email("defaultPersonalEmail@example.com");
-    public static final Email DEFAULT_NUS_EMAIL = new Email("defaultNusEmail@example.com");
+    public static final Role DEFAULT_INTERVIEWEE_ROLE = new Role("interviewee");
+    public static final Email DEFAULT_PERSONAL_EMAIL = new Email("default@example.com");
+    public static final Email DEFAULT_NUS_WORK_EMAIL = new Email("default@u.nus.edu");
     public static final Emails DEFAULT_EMAILS = new Emails()
                 .addPersonalEmail(DEFAULT_PERSONAL_EMAIL)
-                .addNusEmail(DEFAULT_NUS_EMAIL);
-    public static final Faculty DEFAULT_FACULTY = new Faculty("Default faculty");
+                .addNusEmail(DEFAULT_NUS_WORK_EMAIL);
+    public static final Faculty DEFAULT_FACULTY = new Faculty("School of Computing");
     public static final Integer DEFAULT_YEAR_OF_STUDY = 2019;
+    public static final Slot DEFAULT_SLOT = new Slot("17/10/2019 13:00-14:00");
     public static final List<Department> DEFAULT_DEPARTMENTS = new ArrayList<>();
     public static final List<Slot> DEFAULT_TIMESLOTS = new ArrayList<>();
 
     // Interviewer
+    public static final Role DEFAULT_INTERVIEWER_ROLE = new Role("interviewer");
     public static final List<Schedule> DEFAULT_SCHEDULES = new ArrayList<>();
-    public static final Department DEFAULT_DEPARTMENT = new Department("Default department");
+    public static final Department DEFAULT_DEPARTMENT = new Department("Marketing");
 }

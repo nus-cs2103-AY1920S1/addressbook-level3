@@ -206,7 +206,7 @@ classes were added:
 
 The following *sequence diagram* describes how the add command works when adding an interviewee:
 
-image::AddSequenceDiagram.png[]
+image::AddSequenceDiagram_1_2.png[]
 
 The following activity diagram shows the steps needed to add a new interviewee:
 

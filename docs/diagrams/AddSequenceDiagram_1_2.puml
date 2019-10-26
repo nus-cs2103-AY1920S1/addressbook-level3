@@ -12,7 +12,7 @@ participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 'Model
-box Logic MODEL_COLOR_T1
+box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 participant ":IntervieweeBuilder" as IntervieweeBuilder MODEL_COLOR
 end box
