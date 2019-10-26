@@ -57,7 +57,7 @@ public class StatsWindow extends UiPart<Stage> {
         //stage.setTitle("Statistics");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String, Number> bc = new BarChart<>(xAxis,yAxis);
+        final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
         bc.setTitle("STATISTICS");
         xAxis.setLabel("Rating");
         yAxis.setLabel("Number of FlashCards");
