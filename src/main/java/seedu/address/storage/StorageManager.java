@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.Attendance;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEvents;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -23,14 +24,16 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private EventStorage eventStorage;
     private UserPrefsStorage userPrefsStorage;
+    private AttendanceStorage attendanceStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage,
-                          EventStorage eventStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, EventStorage eventStorage,
+                          AttendanceStorage attendanceStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
         this.eventStorage = eventStorage;
+        this.attendanceStorage = attendanceStorage;
+        this.userPrefsStorage = userPrefsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -107,5 +110,27 @@ public class StorageManager implements Storage {
     public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         eventStorage.saveEvents(events, filePath);
+    }
+
+    // ================ Attendance methods ==============================
+
+    @Override
+    public Optional<Attendance> readAttendance() throws DataConversionException, IOException {
+        return attendanceStorage.readAttendance();
+    }
+
+    @Override
+    public Optional<Attendance> readAttendance(Path filePath) throws DataConversionException, IOException {
+        return attendanceStorage.readAttendance(filePath);
+    }
+
+    @Override
+    public void saveAttendance(Attendance attendance) throws IOException {
+        attendanceStorage.saveAttendance(attendance);
+    }
+
+    @Override
+    public void saveAttendance(Attendance attendance, Path filePath) throws IOException {
+        attendanceStorage.saveAttendance(attendance, filePath);
     }
 }

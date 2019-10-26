@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalEvents.getTypicalEventList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -23,14 +24,16 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(), new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getEventList(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getEventList(),
+                model.getAttendance(), new UserPrefs());
+
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,

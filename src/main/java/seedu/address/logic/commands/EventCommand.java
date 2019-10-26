@@ -38,4 +38,9 @@ public class EventCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, toAdd.getName()));
     }
+
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
 }

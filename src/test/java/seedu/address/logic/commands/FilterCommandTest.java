@@ -16,6 +16,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -25,13 +26,18 @@ import seedu.address.model.person.TagMatchesPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FilterCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new UserPrefs());
+
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(),
+            new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(),
+            new UserPrefs());
 
     @Test
     public void equals() {
-        TagMatchesPredicate firstPredicate = new TagMatchesPredicate("first");
-        TagMatchesPredicate secondPredicate = new TagMatchesPredicate("second");
+        TagMatchesPredicate firstPredicate =
+                new TagMatchesPredicate(Collections.singletonList("first"));
+        TagMatchesPredicate secondPredicate =
+                new TagMatchesPredicate(Collections.singletonList("second"));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -66,7 +72,7 @@ public class FilterCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        TagMatchesPredicate predicate = preparePredicate("friends");
+        TagMatchesPredicate predicate = preparePredicate("friends colleagues");
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -74,9 +80,9 @@ public class FilterCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code TagMatchesPredicate}.
      */
     private TagMatchesPredicate preparePredicate(String userInput) {
-        return new TagMatchesPredicate(userInput.trim());
+        return new TagMatchesPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

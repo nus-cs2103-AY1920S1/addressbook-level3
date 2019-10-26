@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalEvents.getTypicalEventList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -22,8 +23,9 @@ public class SortCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getEventList(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), model.getEventList(),
+                new Attendance(), new UserPrefs());
     }
 
     @Test

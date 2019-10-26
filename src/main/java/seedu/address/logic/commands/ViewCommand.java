@@ -12,13 +12,10 @@ import seedu.address.model.feature.Feature;
 public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
-            + "Feature: "
-            + "calendar / attendance / performance\n"
+    public static final String MESSAGE_USAGE = "Usage: " + COMMAND_WORD
+            + " calendar / attendance / performance\n"
             + "Example: " + COMMAND_WORD + " "
-            + "calendar\n"
-            + COMMAND_WORD + " "
-            + "attendance\n";
+            + "calendar\n";
 
     public static final String MESSAGE_SUCCESS_1 = "Viewing your calendar";
     public static final String MESSAGE_SUCCESS_2 = "Viewing your team's attendance";
@@ -44,5 +41,9 @@ public class ViewCommand extends Command {
         default:
             throw new CommandException(MESSAGE_INVALID_FEATURE);
         }
+    }
+    @Override
+    public boolean isUndoable() {
+        return false;
     }
 }

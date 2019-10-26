@@ -66,4 +66,8 @@ public class PerformanceCommand extends Command {
         return new Record(date, time);
     }
 
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
 }

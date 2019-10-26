@@ -10,8 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Feature {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Please indicate one of the following features to view: 1) calender, 2) attendance, "
-                    + "3) performance";
+            "Please indicate one of the following features to view: 1) calendar, 2) attendance, 3) performance";
 
     private final String name;
 
