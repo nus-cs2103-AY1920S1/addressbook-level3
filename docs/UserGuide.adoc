@@ -293,7 +293,7 @@ To view statistics:
 +
 image::AddStep1.png[width="600"]
 
-. The result box will display the message: 
+. The result box will display the message:
 +
 _STATISTICS_
 +
