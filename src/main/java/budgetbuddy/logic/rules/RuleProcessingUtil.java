@@ -146,21 +146,4 @@ public class RuleProcessingUtil {
 
         return true;
     }
-
-    /**
-     * Returns if the predicate expression is valid,
-     * i.e. attribute and value are all working with the expected type specified by the operator.
-     */
-    public static boolean isValidPredicateExpr(Attribute attribute, Operator operator, Value value) {
-        return operator.getExpectedType().equals(attribute.getEvaluatedType())
-                && isValueParsable(operator.getExpectedType(), value);
-    }
-
-    /**
-     * Returns if the action expression is valid,
-     * i.e. value is working with the expected type specified by the operator.
-     */
-    public static boolean isValidActionExpr(Operator operator, Value value) {
-        return isValueParsable(operator.getExpectedType(), value);
-    }
 }

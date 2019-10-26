@@ -204,7 +204,7 @@ public class CommandParserUtil {
         Operator operator = parseOperator(matcher.group("exprOperator"));
         Value value = parseValue(matcher.group("exprValue"));
 
-        if (!RuleProcessingUtil.isValidPredicateExpr(attribute, operator, value)) {
+        if (!PredicateExpression.isValidPredicateExpr(attribute, operator, value)) {
             throw new ParseException(PredicateExpression.MESSAGE_TYPE_REQUIREMENTS);
         }
         return new PredicateExpression(attribute, operator, value);
@@ -228,7 +228,7 @@ public class CommandParserUtil {
         Operator operator = parseOperator(matcher.group("exprOperator"));
         Value value = parseValue(matcher.group("exprValue"));
 
-        if (!RuleProcessingUtil.isValidActionExpr(operator, value)) {
+        if (!ActionExpression.isValidActionExpr(operator, value)) {
             throw new ParseException(ActionExpression.MESSAGE_TYPE_REQUIREMENTS);
         }
         return new ActionExpression(operator, value);

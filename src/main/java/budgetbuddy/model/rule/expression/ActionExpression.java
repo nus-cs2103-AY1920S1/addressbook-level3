@@ -1,6 +1,7 @@
 package budgetbuddy.model.rule.expression;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.rules.RuleProcessingUtil.isValueParsable;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -47,6 +48,14 @@ public class ActionExpression extends RuleAction {
 
     public Value getValue() {
         return value;
+    }
+
+    /**
+     * Returns if the action expression is valid,
+     * i.e. value is working with the expected type specified by the operator.
+     */
+    public static boolean isValidActionExpr(Operator operator, Value value) {
+        return isValueParsable(operator.getExpectedType(), value);
     }
 
     @Override

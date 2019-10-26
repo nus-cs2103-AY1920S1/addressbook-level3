@@ -1,6 +1,7 @@
 package budgetbuddy.model.rule.expression;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
+import static budgetbuddy.logic.rules.RuleProcessingUtil.isValueParsable;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -55,6 +56,15 @@ public class PredicateExpression extends RulePredicate {
 
     public Value getValue() {
         return value;
+    }
+
+    /**
+     * Returns if the predicate expression is valid,
+     * i.e. attribute and value are all working with the expected type specified by the operator.
+     */
+    public static boolean isValidPredicateExpr(Attribute attribute, Operator operator, Value value) {
+        return operator.getExpectedType().equals(attribute.getEvaluatedType())
+                && isValueParsable(operator.getExpectedType(), value);
     }
 
     @Override
