@@ -53,4 +53,9 @@ public abstract class Entity {
      * @return HashMap Maps String to a String, each key is mapped to a data field of the specific Entity type.
      */
     public abstract HashMap<String, String> viewDetailed();
+
+    /**
+     * Returns the {@code PrefixType} of the {@code Entity}.
+     */
+    public abstract PrefixType getPrefix();
 }

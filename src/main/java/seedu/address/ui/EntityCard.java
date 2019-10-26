@@ -37,8 +37,6 @@ public class EntityCard extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-
-
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -49,12 +47,10 @@ public class EntityCard extends UiPart<Region> {
 
     private PrefixType type;
 
-
     @FXML
     private HBox cardPane;
     @FXML
     private VBox labels;
-
     @FXML
     private Label name; //can be team name, mentor name or participant name
     @FXML
@@ -83,10 +79,8 @@ public class EntityCard extends UiPart<Region> {
             this.generateMentorCard(entity);
         } else {
             this.generateTeamCard(entity);
-
         }
     }
-
 
     /**
      * Generates participant Card according to entity type.
@@ -136,17 +130,13 @@ public class EntityCard extends UiPart<Region> {
         labels.getChildren().add(new Label(team.getLocation().toString()));
         labels.getChildren().add(new Label("Score: " + team.getScore().toString()));
         this.type = PrefixType.T;
-
     }
-
-
 
     private Image getImage(String imagePath) {
         logger.info("File path of image is: " + imagePath);
         logger.info(this.getClass().getResourceAsStream(imagePath).toString());
         return new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(imagePath)));
     }
-
 
     @Override
     public boolean equals(Object other) {
