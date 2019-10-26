@@ -154,11 +154,11 @@ public class MainWindow extends UiPart<Stage> {
 
         List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
         sampleTestCaseResults.add(
-                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz", "Fizz"));
+                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz"));
         sampleTestCaseResults.add(
                 TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
         sampleTestCaseResults.add(
-                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz", "FizzBuzz"));
+                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz"));
 
         codeResultPanel = new CodeResultPanel(programSubmissionLogic.getTestResultObservable());
         codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());

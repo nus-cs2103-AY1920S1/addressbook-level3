@@ -24,8 +24,8 @@ public class TestCaseResult {
         this.runtimeError = runtimeError;
     }
 
-    public static TestCaseResult getSuccessfulTestCaseResult(String input, String expectedOutput, String actualOutput) {
-        return new TestCaseResult(true, input, expectedOutput, actualOutput, null);
+    public static TestCaseResult getSuccessfulTestCaseResult(String input, String actualOutput) {
+        return new TestCaseResult(true, input, actualOutput, actualOutput, null);
     }
 
     public static TestCaseResult getFailedTestCaseResult(String input, String expectedOutput, String actualOutput) {
@@ -66,13 +66,14 @@ public class TestCaseResult {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof TestCaseResult) {
-            return ((TestCaseResult) o).isSuccessful == this.isSuccessful
-                    && ((TestCaseResult) o).input.equals(this.input)
-                    && ((TestCaseResult) o).expectedOutput.equals(this.expectedOutput)
-                    && ((TestCaseResult) o).actualOutput.equals(this.actualOutput)
-                    && ((TestCaseResult) o).runtimeError.equals(this.runtimeError);
+    public boolean equals(Object object) {
+        if (object instanceof TestCaseResult) {
+           TestCaseResult other = (TestCaseResult) object;
+           return other.isSuccessful == this.isSuccessful
+                   && other.input.equals(this.input)
+                   && other.expectedOutput.equals(this.expectedOutput)
+                   && other.getActualOutput().equals(this.getActualOutput())
+                   && other.getRuntimeError().equals(this.getRuntimeError());
         } else {
             return false;
         }

@@ -11,14 +11,9 @@ class UserProgramTest {
     private String canonicalName = "foo.bar.Test";
     private String content = "package foo.bar;\n"
             + "public class Test {\n}";
-    @Test
-    public void getCanonicalName() {
-        UserProgram program = new UserProgram(canonicalName, content);
-        assertEquals("foo.bar.Test", program.getCanonicalName());
-    }
 
     @Test
-    public void constructor() {
+    public void testConstructorAndGetters() {
         assertThrows(NullPointerException.class, () -> new UserProgram(null, null));
         UserProgram userProgram = new UserProgram(canonicalName, content);
         assertEquals(canonicalName, userProgram.getCanonicalName());

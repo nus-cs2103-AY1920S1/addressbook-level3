@@ -42,8 +42,9 @@ public class TestExecutor {
     }
 
     /**
-     * Runs the user's program against a list of test cases.
-     *
+     * Runs the user's program against a list of test cases. The UserProgram's sourceCode is required to match its
+     * canonical name for the tests to be executed successfully. The results are packaged and returned as a TestResult
+     * instance.
      * @param testCases the test cases to be run.
      * @param program   the user's program.
      * @return a result instance.
@@ -81,6 +82,7 @@ public class TestExecutor {
      * @return a Java class file.
      * @throws TestExecutorException        if the test executor fails unexpectedly.
      * @throws CompilerFileContentException if the contents of the program is not compilable.
+     * @throws IncorrectCanonicalNameException if the canonical name of the user program does not match its contents
      */
     private ClassFile compileProgram(UserProgram program) throws TestExecutorException, CompilerFileContentException,
             IncorrectCanonicalNameException {
@@ -127,7 +129,7 @@ public class TestExecutor {
         String expected = testcase.getExpectedResult();
         String actual = output.getOutput();
         if (expected.equals(actual)) {
-            return TestCaseResult.getSuccessfulTestCaseResult(input, expected, actual);
+            return TestCaseResult.getSuccessfulTestCaseResult(input, actual);
         } else {
             return TestCaseResult.getFailedTestCaseResult(input, expected, actual);
         }

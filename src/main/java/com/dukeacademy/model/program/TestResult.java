@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import com.dukeacademy.testexecutor.models.CompileError;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents the results of running a user's solution against the specified test cases
  */
@@ -15,7 +17,9 @@ public class TestResult {
     private final Optional<CompileError> compileError;
 
     public TestResult(List<TestCaseResult> results) {
-        this.results = results;
+        requireNonNull(results);
+
+        this.results = new ArrayList<>(results);
         this.numPassed = results.parallelStream().filter(TestCaseResult::isSuccessful).count();
         this.compileError = Optional.empty();
     }
@@ -27,6 +31,10 @@ public class TestResult {
     }
 
     public boolean isSuccessful() {
+        if (this.compileError.isPresent()) {
+            return false;
+        }
+
         return this.numPassed == results.size();
     }
 
@@ -43,11 +51,12 @@ public class TestResult {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof TestResult) {
-            return ((TestResult) o).results.equals(this.results)
-                    && ((TestResult) o).numPassed == this.numPassed
-                    && ((TestResult) o).compileError.equals(this.compileError);
+    public boolean equals(Object object) {
+        if (object instanceof TestResult) {
+            TestResult other = (TestResult) object;
+            return other.numPassed == this.numPassed
+                    && other.results.equals(this.results)
+                    && other.getCompileError().equals(this.getCompileError());
         } else {
             return false;
         }
