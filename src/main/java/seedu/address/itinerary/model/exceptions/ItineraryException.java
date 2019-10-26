@@ -1,4 +1,4 @@
-package seedu.address.itinerary.Model.Exceptions;
+package seedu.address.itinerary.model.exceptions;
 
 /**
  * Represents an error which occurs during execution of an itinerary command.
