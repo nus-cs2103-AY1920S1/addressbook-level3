@@ -163,6 +163,27 @@ public class ModelManager implements Model {
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
+    public ModelManager(ReadOnlyDashboard dashboardRecord, ReadOnlyUserPrefs userPrefs) {
+        super();
+        CollectionUtil.requireAllNonNull(dashboardRecord, userPrefs);
+
+        logger.fine("Initializing with Dashboard Record: " + dashboardRecord
+                + "and user prefs " + userPrefs);
+
+        this.dashboard = new DashboardRecords(dashboardRecord);
+        this.userProfile = defaultProfile;
+        this.healthRecords = defaultHealthRecords;
+        this.recipeBook = defaultRecipeBook;
+        this.workoutPlanner = defaultWorkoutPlanner;
+        this.diaryRecords = defaultDiaryRecords;
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+    }
     //=========== UserPrefs ==================================================================================
 
     @Override

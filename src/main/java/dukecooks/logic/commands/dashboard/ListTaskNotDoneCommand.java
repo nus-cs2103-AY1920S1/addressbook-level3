@@ -14,12 +14,18 @@ public class ListTaskNotDoneCommand extends ListCommand {
     public static final String VARIANT_WORD = "taskincomplete";
 
     public static final String MESSAGE_SHOW_COMPLETE_SUCCESS = "Listed all incomplete tasks";
+    public static final String MESSAGE_SHOW_COMPLETE_SUCCESS_NOTASK = "Wow you are productive!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredDashboardList(Model.PREDICATE_SHOW_NOT_DONE_DASHBOARD);
-        return new CommandResult(MESSAGE_SHOW_COMPLETE_SUCCESS);
+
+        if(model.getFilteredDashboardList().size() == 0) {
+            return new CommandResult(MESSAGE_SHOW_COMPLETE_SUCCESS_NOTASK);
+        } else {
+            return new CommandResult(MESSAGE_SHOW_COMPLETE_SUCCESS);
+        }
     }
 }
