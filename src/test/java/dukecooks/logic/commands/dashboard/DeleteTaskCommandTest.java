@@ -4,7 +4,6 @@ import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardR
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dukecooks.model.dashboard.components.Dashboard;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;

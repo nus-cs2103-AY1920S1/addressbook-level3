@@ -6,17 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-import dukecooks.testutil.dashboard.DashboardBuilder;
 import org.junit.jupiter.api.Test;
 
-import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.dashboard.components.Dashboard;
-import dukecooks.model.dashboard.exceptions.DuplicateDashboardException;
 import dukecooks.testutil.Assert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,8 +55,8 @@ public class DashboardRecordsTest {
 
     @Test
     public void getDashboardList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows
-                (UnsupportedOperationException.class, () -> dashboardRecords.getDashboardList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> dashboardRecords.getDashboardList()
+                .remove(0));
     }
 
     /**

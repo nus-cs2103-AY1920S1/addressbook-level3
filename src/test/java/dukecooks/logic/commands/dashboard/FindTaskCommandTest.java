@@ -1,9 +1,6 @@
 package dukecooks.logic.commands.dashboard;
 
-import static dukecooks.testutil.dashboard.TypicalDashboard.TASK1;
-import static dukecooks.testutil.dashboard.TypicalDashboard.TASK2;
-import static dukecooks.testutil.dashboard.TypicalDashboard.TASK3;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardRecords;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,13 +9,10 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import dukecooks.commons.core.Messages;
-import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.dashboard.components.DashboardNameContainsKeywordsPredicate;
-import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardRecords;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindTaskCommand}.

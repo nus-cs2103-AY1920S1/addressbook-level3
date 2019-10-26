@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import dukecooks.testutil.Assert;
 import dukecooks.model.dashboard.components.DashboardName;
+import dukecooks.testutil.Assert;
 
 public class DashboardNameTest {
 

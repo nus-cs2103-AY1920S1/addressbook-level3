@@ -18,13 +18,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import dukecooks.model.dashboard.DashboardRecords;
-import dukecooks.model.dashboard.components.Dashboard;
-import dukecooks.testutil.dashboard.DashboardRecordBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.GuiSettings;
+import dukecooks.model.dashboard.DashboardRecords;
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import dukecooks.model.profile.UserProfile;
@@ -32,6 +30,7 @@ import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 import dukecooks.model.workout.exercise.WorkoutPlanner;
 import dukecooks.testutil.Assert;
+import dukecooks.testutil.dashboard.DashboardRecordBuilder;
 import dukecooks.testutil.diary.DiaryRecordBuilder;
 import dukecooks.testutil.exercise.WorkoutPlannerBuilder;
 import dukecooks.testutil.profile.UserProfileBuilder;

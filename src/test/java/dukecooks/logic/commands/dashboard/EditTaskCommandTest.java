@@ -1,31 +1,19 @@
 package dukecooks.logic.commands.dashboard;
 
 import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardRecords;
-import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.stream.Collectors;
-
-import com.sun.javafx.embed.EmbeddedSceneDSInterface;
-import dukecooks.logic.commands.recipe.EditRecipeCommand;
-import dukecooks.model.dashboard.DashboardRecords;
-import dukecooks.model.dashboard.components.Dashboard;
-import dukecooks.testutil.dashboard.DashboardBuilder;
-import dukecooks.testutil.dashboard.EditDashboardDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
-import dukecooks.commons.core.Messages;
-import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
-import dukecooks.model.recipe.RecipeBook;
-import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.dashboard.DashboardRecords;
+import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.testutil.TypicalIndexes;
-import dukecooks.testutil.recipe.EditRecipeDescriptorBuilder;
-import dukecooks.testutil.recipe.RecipeBuilder;
+import dukecooks.testutil.dashboard.EditDashboardDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)

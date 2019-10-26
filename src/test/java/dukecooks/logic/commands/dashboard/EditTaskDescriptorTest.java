@@ -28,13 +28,13 @@ public class EditTaskDescriptorTest {
         Assertions.assertFalse(CommandTestUtil.DESC_HW.equals(CommandTestUtil.DESC_PLAY));
 
         // different name -> returns false
-        EditTaskCommand.EditTaskDescriptor editedHW = new EditDashboardDescriptorBuilder(CommandTestUtil.DESC_PLAY)
+        EditTaskCommand.EditTaskDescriptor editedHw = new EditDashboardDescriptorBuilder(CommandTestUtil.DESC_PLAY)
                 .withDashboardName(CommandTestUtil.VALID_DASHBOARDNAME_YOGA).build();
-        Assertions.assertFalse(CommandTestUtil.DESC_HW.equals(editedHW));
+        Assertions.assertFalse(CommandTestUtil.DESC_HW.equals(editedHw));
 
         // different date -> returns false
-        editedHW = new EditDashboardDescriptorBuilder(CommandTestUtil.DESC_HW).withTaskDate(CommandTestUtil
+        editedHw = new EditDashboardDescriptorBuilder(CommandTestUtil.DESC_HW).withTaskDate(CommandTestUtil
                 .VALID_TASKDATE2).build();
-        Assertions.assertFalse(CommandTestUtil.DESC_HW.equals(editedHW));
+        Assertions.assertFalse(CommandTestUtil.DESC_HW.equals(editedHw));
     }
 }
