@@ -13,10 +13,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Expense;
-import seedu.address.model.person.ExpenseReminder;
+import seedu.address.model.reminders.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-import seedu.address.model.person.WishReminder;
+import seedu.address.model.reminders.WishReminder;
 
 
 /**

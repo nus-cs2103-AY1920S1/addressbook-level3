@@ -14,17 +14,17 @@ import seedu.address.model.person.BudgetList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
-import seedu.address.model.person.ExpenseReminder;
-import seedu.address.model.person.ExpenseReminderList;
-import seedu.address.model.person.ExpenseTracker;
-import seedu.address.model.person.ExpenseTrackerList;
+import seedu.address.model.reminders.ExpenseReminder;
+import seedu.address.model.reminders.ExpenseReminderList;
+import seedu.address.model.reminders.ExpenseTracker;
+import seedu.address.model.reminders.ExpenseTrackerList;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.IncomeList;
 import seedu.address.model.person.UniqueEntryList;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishList;
-import seedu.address.model.person.WishReminder;
-import seedu.address.model.person.WishReminderList;
+import seedu.address.model.reminders.WishReminder;
+import seedu.address.model.reminders.WishReminderList;
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by

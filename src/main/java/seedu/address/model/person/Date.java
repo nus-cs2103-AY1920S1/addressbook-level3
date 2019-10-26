@@ -88,7 +88,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return date.toString();
+        return fullTime;
     }
 
     @Override

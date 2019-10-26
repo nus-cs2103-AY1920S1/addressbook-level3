@@ -1,6 +1,9 @@
-package seedu.address.model.person;
+package seedu.address.model.reminders;
 
 import java.time.LocalDate;
+
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Wish;
 
 /**
  * Implements wish reminder

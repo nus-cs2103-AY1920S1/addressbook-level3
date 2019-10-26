@@ -1,7 +1,8 @@
-package seedu.address.model.person;
+package seedu.address.model.reminders;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.person.Expense;
 
 /**
  * Manages ExpenseTrackerList. Will be instantiated inside Object Manager and Address Book.

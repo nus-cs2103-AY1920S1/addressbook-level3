@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.reminders;
 
 /**
  * Basic reminder class with minimal functionality.

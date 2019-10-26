@@ -1,5 +1,7 @@
-package seedu.address.model.person;
+package seedu.address.model.reminders;
 
+
+import seedu.address.model.person.ExpenseContainsTagPredicate;
 
 /**
  * Expense Tracker used by expense reminder to trigger reminder.

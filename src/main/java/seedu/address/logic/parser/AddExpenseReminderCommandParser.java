@@ -13,8 +13,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.ExpenseContainsTagPredicate;
-import seedu.address.model.person.ExpenseReminder;
-import seedu.address.model.person.ExpenseTracker;
+import seedu.address.model.reminders.ExpenseReminder;
+import seedu.address.model.reminders.ExpenseTracker;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -16,13 +16,13 @@ import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
-import seedu.address.model.person.ExpenseReminder;
-import seedu.address.model.person.ExpenseTrackerManager;
+import seedu.address.model.reminders.ExpenseReminder;
+import seedu.address.model.reminders.ExpenseTrackerManager;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
-import seedu.address.model.person.WishReminder;
+import seedu.address.model.reminders.WishReminder;
 import seedu.address.model.util.EntryComparator;
 
 /**

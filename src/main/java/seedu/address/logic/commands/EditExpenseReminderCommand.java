@@ -19,8 +19,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.ExpenseContainsTagPredicate;
-import seedu.address.model.person.ExpenseReminder;
-import seedu.address.model.person.ExpenseTracker;
+import seedu.address.model.reminders.ExpenseReminder;
+import seedu.address.model.reminders.ExpenseTracker;
 import seedu.address.model.tag.Tag;
 
 /**

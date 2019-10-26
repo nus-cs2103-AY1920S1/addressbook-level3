@@ -7,7 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Wish;
-import seedu.address.model.person.WishReminder;
+import seedu.address.model.reminders.WishReminder;
 
 /**
  * Jackson-friendly version of {@link Entry}.
