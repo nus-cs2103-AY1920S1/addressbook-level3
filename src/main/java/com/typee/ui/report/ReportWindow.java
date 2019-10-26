@@ -1,6 +1,8 @@
 package com.typee.ui.report;
 
-import java.io.IOException;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
@@ -8,8 +10,8 @@ import com.typee.commons.util.PdfUtil;
 import com.typee.ui.UiPart;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
 
 /**
@@ -21,13 +23,24 @@ public class ReportWindow extends UiPart<Region> {
     private PdfUtil pdfUtil;
 
     @FXML
-    private Label lblStatus;
+    private TreeView treeViewReports;
 
-    @FXML
-    private Button btnTest;
-
-    public ReportWindow() throws IOException {
+    public ReportWindow() {
         super(FXML);
-        pdfUtil = new PdfUtil();
+        Path filePath = Paths.get(System.getProperty("user.dir"));
+        logger.info(filePath.toString());
+        treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
+    }
+    private TreeItem<String> getNodesForDirectory(File directory) {
+        TreeItem<String> root = new TreeItem<String>(directory.getName());
+        for(File f : directory.listFiles()) {
+            logger.info( "Loading " + f.getName());
+            if(f.isDirectory()) {
+                root.getChildren().add(getNodesForDirectory(f));
+            } else {
+                root.getChildren().add(new TreeItem<String>(f.getName()));
+            }
+        }
+        return root;
     }
 }
