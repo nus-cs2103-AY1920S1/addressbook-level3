@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -29,6 +30,9 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
 
     @Override
     Optional<ReadOnlyWordBankList> getWordBankList();
+
+    @Override
+    ObservableList<WordBank> getFilteredWordBankList();
 
     @Override
     void createWordBank(String wordBankName);

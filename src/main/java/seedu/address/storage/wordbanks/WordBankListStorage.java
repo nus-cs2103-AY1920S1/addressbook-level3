@@ -3,6 +3,7 @@ package seedu.address.storage.wordbanks;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 
@@ -52,4 +53,11 @@ public interface WordBankListStorage {
      * @param wordBank cannot be null.
      */
     void updateWordBank(WordBank wordBank);
+
+    /**
+     * Returns an observable list of word banks.
+     *
+     * @return observable list of word banks
+     */
+    ObservableList<WordBank> getFilteredWordBankList();
 }

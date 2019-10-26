@@ -24,6 +24,7 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.statistics.WordBankStatistics;
+import seedu.address.storage.Storage;
 
 /**
  * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
@@ -128,6 +129,8 @@ public class AppManager {
     public Logic getLogic() {
         return logic;
     }
+
+    public Storage getStorage() {return logic.getStorage(); }
 
     public ReadOnlyWordBank getActiveWordBank() {
         return logic.getActiveWordBank();
