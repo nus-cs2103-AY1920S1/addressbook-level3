@@ -38,23 +38,23 @@ public class AthletickDate {
         SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
         monthYear.setLenient(false);
         try {
-            Date d = fullDate.parse(date);
-            day = Integer.parseInt(new SimpleDateFormat("d").format(d));
-            month = Integer.parseInt(new SimpleDateFormat("M").format(d));
-            year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
-            mth = new SimpleDateFormat("MMMM").format(d);
-            type = 1;
-        } catch (java.text.ParseException pe) {
-            try {
+            if (date.length() == 8) {
+                Date d = fullDate.parse(date);
+                day = Integer.parseInt(new SimpleDateFormat("d").format(d));
+                month = Integer.parseInt(new SimpleDateFormat("M").format(d));
+                year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
+                mth = new SimpleDateFormat("MMMM").format(d);
+                type = 1;
+            } else if (date.length() == 6) {
                 Date d2 = monthYear.parse(date);
                 day = Integer.parseInt("0");
                 month = Integer.parseInt(new SimpleDateFormat("M").format(d2));
                 year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d2));
                 mth = new SimpleDateFormat("MMMM").format(d2);
                 type = 2;
-            } catch (java.text.ParseException pe2) {
-                throw new ParseException(WRONG_DATE_FORMAT + " " + MESSAGE_CONSTRAINTS);
             }
+        } catch (java.text.ParseException pe) {
+            throw new ParseException(WRONG_DATE_FORMAT + " " + MESSAGE_CONSTRAINTS);
         }
     }
 

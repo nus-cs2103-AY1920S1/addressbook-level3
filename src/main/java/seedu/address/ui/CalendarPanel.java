@@ -65,6 +65,7 @@ public class CalendarPanel extends UiPart<Region> {
         retrieveCurrentDate();
         setCurrentDateTitle();
         initialiseSelectedDate(0);
+        populateTrainingData();
     }
 
     public CalendarPanel(AthletickDate date) {
@@ -74,7 +75,8 @@ public class CalendarPanel extends UiPart<Region> {
         retrieveCurrentDate();
         setCurrentDateTitle();
         retrieveProvidedDate(date);
-        initialiseProvidedDate();
+        initialiseSelectedDate(0);
+        populateTrainingData();
     }
 
     private void setButtonImage() {
@@ -125,11 +127,6 @@ public class CalendarPanel extends UiPart<Region> {
      */
     private void initialiseSelectedDate(int monthChange) {
         updateDateVariables(monthChange);
-        setSelectedDateTitle();
-        fillUpDays();
-    }
-
-    private void initialiseProvidedDate() {
         setSelectedDateTitle();
         fillUpDays();
     }
@@ -347,6 +344,15 @@ public class CalendarPanel extends UiPart<Region> {
                 counter++;
             }
         }
+    }
+
+    private void populateTrainingData() {
+        // Get attendance
+            // get vbox and add image view aligned to top left
+            // add red indicator
+        // Get performance
+            // get vbox and add image view alignned to top left
+            // add purple indicator
     }
 
     /**
