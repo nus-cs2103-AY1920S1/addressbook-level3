@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -105,17 +106,6 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
     //endregion
 
-    //region StudentRecord
-    Path getStudentRecordFilePath();
-
-    void setStudentRecordFilePath(Path addressBookFilePath);
-
-    void setStudentRecord(ReadOnlyStudentRecord studentRecord);
-
-    ReadOnlyStudentRecord getStudentRecord();
-
-    //endregion
-
     //region SavedQuestions
     /**
      * Returns the user prefs' questions file path.
@@ -137,13 +127,60 @@ public interface Model {
 
     //endregion
 
+    //region Mark
+    void markStudent(Student student);
+    void unmarkStudent(Student student);
+    boolean getIsMarked(Student student);
     //region Students
+
+    /**
+     * Gets the record of students in read only format.
+     */
+    ReadOnlyStudentRecord getStudentRecord();
+
+    /**
+     * Checks if the list already contains specified student.
+     */
     boolean hasStudent(Student student);
+
+    /**
+     * Deletes specified student from the list of students.
+     */
     void deleteStudent(Student target);
+
+    /**
+     * Adds a specified student to the list of students.
+     */
     void addStudent(Student student);
+
+    /**
+     * Gets the index of a specified student.
+     */
+    Optional<Index> getIndexFromStudentList(Student student);
+
+    /**
+     * Adds a student to the list with a specific index.
+     */
+    void setStudentWithIndex(Index index, Student student);
+
+    /**
+     * Edits a student in the student list to become a new student that was specified.
+     */
     void setStudent(Student target, Student editedStudent);
+
+    /**
+     * Gets the filtered student list.
+     */
     ObservableList<Student> getFilteredStudentList();
+
+    /**
+     * Updates the filtered student list.
+     */
     void updateFilteredStudentList(Predicate<Student> predicate);
+
+    /**
+     * Gets the list of students in string format.
+     */
     String getStudentSummary();
     //endregion
 
