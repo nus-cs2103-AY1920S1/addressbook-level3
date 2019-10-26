@@ -29,19 +29,13 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final seedu.address.transaction.logic.Logic transactionLogic;
     private final seedu.address.reimbursement.logic.Logic reimbursementLogic;
-    private final seedu.address.cashier.logic.Logic cashierLogic;
-    private final seedu.address.inventory.logic.Logic inventoryLogic;
 
     public LogicManager(Model model, Storage storage, seedu.address.transaction.logic.Logic transactionLogic,
-                        seedu.address.reimbursement.logic.Logic reimbursementLogic,
-                        seedu.address.cashier.logic.Logic cashierLogic,
-                        seedu.address.inventory.logic.Logic inventoryLogic) {
+                        seedu.address.reimbursement.logic.Logic reimbursementLogic) {
         this.model = model;
         this.storage = storage;
         this.transactionLogic = transactionLogic;
         this.reimbursementLogic = reimbursementLogic;
-        this.cashierLogic = cashierLogic;
-        this.inventoryLogic = inventoryLogic;
         addressBookParser = new AddressBookParser();
     }
 
@@ -51,7 +45,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model, transactionLogic, reimbursementLogic, cashierLogic);
+        commandResult = command.execute(model, transactionLogic, reimbursementLogic);
 
         try {
             storage.saveAddressBook(model.getAddressBook());

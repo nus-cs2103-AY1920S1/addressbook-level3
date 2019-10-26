@@ -93,11 +93,8 @@ public class AddCommandTest {
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         transactionModel, transactionManager, personModel);
-        seedu.address.cashier.logic.Logic cashierLogic =
-                new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        transactionModel, inventoryModel);
         CommandResult commandResult =
-                new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic, cashierLogic);
+                new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.getPersonAdded());
@@ -156,12 +153,9 @@ public class AddCommandTest {
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         transactionModel, transactionManager, personModel);
-        seedu.address.cashier.logic.Logic cashierLogic =
-                new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        transactionModel, inventoryModel);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () ->
-                addCommand.execute(personModelStub, logic, reimbursementLogic, cashierLogic));
+                addCommand.execute(personModelStub, logic, reimbursementLogic));
     }
 
     @Test
