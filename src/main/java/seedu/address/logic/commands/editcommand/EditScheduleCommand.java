@@ -110,7 +110,6 @@ public class EditScheduleCommand extends Command {
         // if there are conflicts present and user did not put -allow flag, throw exception
         if (!conflicts.isEmpty() && !canClash) {
             sb.append("\nHere are the list of conflicting schedules:\n");
-            Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
             for (Schedule schedule : conflicts) {
                 for (Order order : orderList) {
                     Optional<Schedule> s = order.getSchedule();
