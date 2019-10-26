@@ -108,12 +108,9 @@ public class AverageGraph {
     private void createChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
                              SimpleStringProperty recordType) {
         setTitle(averageType, recordType);
-
         setAxesLabel(averageType, recordType);
-
-        loadAndShowChart(averageMap);
-
         addHorizontalRangeMarker(recordType);
+        loadAndShowChart(averageMap);
     }
 
     /**

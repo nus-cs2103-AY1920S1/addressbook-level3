@@ -31,8 +31,8 @@ public class LegendPane extends UiPart<Region> {
     private static final String OBESE = "Obese: BMI above 30";
 
     // Blood sugar categorization description
-    private static final String BEFORE_MEALS = "Before meals";
-    private static final String AFTER_MEALS = "At least 90 minutes after meals";
+    private static final String BEFORE_MEALS = "Non-diabetic (before meals): Between 4.0 and 5.9";
+    private static final String AFTER_MEALS = "Non-diabetic (At least 90 minutes after meals): Between 5.9 and 7.8";
 
 
     // Weight legend row
