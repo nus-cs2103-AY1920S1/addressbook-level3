@@ -21,7 +21,7 @@ public class ListTaskDoneCommand extends ListCommand {
         requireNonNull(model);
         model.updateFilteredDashboardList(Model.PREDICATE_SHOW_DONE_DASHBOARD);
 
-        if(model.getFilteredDashboardList().size() == 0) {
+        if (model.getFilteredDashboardList().size() == 0) {
             return new CommandResult(MESSAGE_SHOW_COMPLETE_SUCCESS_NOTASK);
         } else {
             return new CommandResult(MESSAGE_SHOW_COMPLETE_SUCCESS);

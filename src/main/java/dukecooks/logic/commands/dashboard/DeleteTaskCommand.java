@@ -42,7 +42,7 @@ public class DeleteTaskCommand extends DeleteCommand {
 
         Dashboard taskToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        if(taskToDelete.getTaskStatus().getDoneStatus()) {
+        if (taskToDelete.getTaskStatus().getDoneStatus()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_IS_COMPLETE);
         }
 
