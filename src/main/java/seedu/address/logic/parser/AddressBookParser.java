@@ -33,10 +33,12 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindPolicyCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListBinCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReportCommand;
+import seedu.address.logic.commands.RestoreCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -190,6 +192,9 @@ public class AddressBookParser {
             case ListPolicyCommand.COMMAND_WORD:
                 return new ListPolicyCommand();
 
+            case ListBinCommand.COMMAND_WORD:
+                return new ListBinCommand();
+
             case UndoCommand.COMMAND_WORD:
                 return new UndoCommand();
 
@@ -199,6 +204,9 @@ public class AddressBookParser {
             case HistoryCommand.COMMAND_WORD:
                 return new HistoryCommand();
 
+            case RestoreCommand.COMMAND_WORD:
+                return new RestoreCommandParser().parse(arguments);
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
@@ -207,10 +215,10 @@ public class AddressBookParser {
 
             case MergePersonCommand.COMMAND_WORD:
                 if (isSystemInput) {
-                    isMerging = true;
+                    setIsMerging(true);
                     MergePersonCommand command = new MergePersonCommandParser().parse(arguments);
-                    currentMergeCommand = command;
-                    mergeType = MERGE_PERSON;
+                    setCurrentMergeCommand(command);
+                    setMergeType(MERGE_PERSON);
                     return command;
                 } else {
                     throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
@@ -221,10 +229,10 @@ public class AddressBookParser {
 
             case MergePolicyCommand.COMMAND_WORD:
                 if (isSystemInput) {
-                    isMerging = true;
+                    setIsMerging(true);
                     MergePolicyCommand command = new MergePolicyCommandParser().parse(arguments);
-                    currentMergeCommand = command;
-                    mergeType = MERGE_POLICY;
+                    setCurrentMergeCommand(command);
+                    setMergeType(MERGE_POLICY);
                     return command;
                 } else {
                     throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
@@ -335,6 +343,18 @@ public class AddressBookParser {
      */
     public boolean isSuggestionOn() {
         return suggestionOn;
+    }
+
+    public void setIsMerging(boolean isMerging) {
+        this.isMerging = isMerging;
+    }
+
+    public void setCurrentMergeCommand(MergeCommand mergeCommand) {
+        this.currentMergeCommand = mergeCommand;
+    }
+
+    public void setMergeType(String mergeType) {
+        this.mergeType = mergeType;
     }
 
 }

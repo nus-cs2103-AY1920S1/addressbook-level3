@@ -15,6 +15,7 @@ public class DisplayFormat {
     public static final String DATA_TYPE = "Indicator";
     public static final String PIECHART = "piechart";
     public static final String BARCHART = "barchart";
+    public static final String LINECHART = "linechart";
     private static final Set<String> VALID_DISPLAY_FORMAT = initializeValidDisplayFormat();
     private static final String MESSAGE_CONSTRAINTS = initializeMessageConstraints();
     public final String value;
@@ -38,6 +39,7 @@ public class DisplayFormat {
         HashSet<String> result = new HashSet<>();
         result.add(PIECHART);
         result.add(BARCHART);
+        result.add(LINECHART);
         return result;
     }
 

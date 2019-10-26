@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.POLICY_NAME_DESC_HEALTH;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_DIABETIC;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -13,20 +15,31 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.PersonBuilder;
+import seedu.address.commons.util.PolicyBuilder;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPolicyCommand;
+import seedu.address.logic.commands.AddTagCommand;
+import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Coverage;
 import seedu.address.model.policy.Description;
 import seedu.address.model.policy.EndAge;
+import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.Price;
 import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.visual.DisplayIndicator;
+import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PolicyUtil;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -330,7 +343,57 @@ public class ParserUtilTest {
     public void parseEndAge_validValueWithWhitespace_returnsTrimmedEndAge() throws Exception {
         String endAgeWithWhitespace = WHITESPACE + VALID_END_AGE + WHITESPACE;
         EndAge expectedEndAge = new EndAge(VALID_END_AGE);
-        assertEquals(expectedEndAge, ParserUtil.parseEndAge(VALID_END_AGE));
+        assertEquals(expectedEndAge, ParserUtil.parseEndAge(endAgeWithWhitespace));
+    }
+
+    @Test
+    public void parseCommand_nullCommand_throwsNullPointerException() {
+        Policy policy = new PolicyBuilder().withCriteria().withTags().build();
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCommand((String) null,
+                PolicyUtil.getAddPolicyCommand(policy)));
+    }
+
+    @Test
+    public void parseCommand_nullArgument_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCommand(AddPolicyCommand.COMMAND_WORD,
+                (String) null));
+    }
+
+    @Test
+    public void parseCommand_validCommand_returnsSameCommand() {
+        String command = AddPolicyCommand.COMMAND_WORD;
+        Person person = new PersonBuilder().withPolicies().withTags().build();
+        String arguments = PersonUtil.getPersonDetails(person);
+        assertEquals(AddCommand.COMMAND_WORD, ParserUtil.parseCommand(command, arguments));
+    }
+
+    @Test
+    public void parseCommand_invalidCommandWithNoPrefixes_returnsClosestCommand() {
+        String invalidCommand = "lstpeo";
+        String arguments = "";
+        assertEquals(ListPeopleCommand.COMMAND_WORD, ParserUtil.parseCommand(invalidCommand, arguments));
+    }
+
+    @Test
+    public void parseCommand_invalidCommandWithTagPrefixes_returnsClosestCommand() {
+        String invalidCommand = "adtg";
+        String arguments = TAG_DESC_DIABETIC;
+        assertEquals(AddTagCommand.COMMAND_WORD, ParserUtil.parseCommand(invalidCommand, arguments));
+    }
+
+    @Test
+    public void parseCommand_invalidCommandWithPersonPrefixes_returnsClosestCommand() {
+        String invalidCommand = "editpicy";
+        String arguments = POLICY_NAME_DESC_HEALTH;
+        assertEquals(EditPolicyCommand.COMMAND_WORD, ParserUtil.parseCommand(invalidCommand, arguments));
+    }
+
+    @Test
+    public void parseCommand_invalidCommandWithPolicyPrefixes_returnsClosestCommand() {
+        String invalidCommand = "addpoy";
+        Policy policy = new PolicyBuilder().withCriteria().withTags().build();
+        String arguments = PolicyUtil.getPolicyDetails(policy);
+        assertEquals(AddPolicyCommand.COMMAND_WORD, ParserUtil.parseCommand(invalidCommand, arguments));
     }
 
     @Test

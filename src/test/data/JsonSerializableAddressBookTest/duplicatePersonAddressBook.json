@@ -19,5 +19,6 @@
     "policies" : [],
     "address": "4th street"
   } ],
-  "policies": []
+  "policies": [ ],
+  "binItems":[ ]
 }

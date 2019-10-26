@@ -37,8 +37,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private PolicyListPanel policyListPanel;
-    private DisplayPanel displayPanel;
+    private BinItemListPanel binItemListPanel;
     private HistoryListPanel historyListPanel;
+    private DisplayPanel displayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportPanel reportPanel;
@@ -220,6 +221,12 @@ public class MainWindow extends UiPart<Stage> {
                 displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
             }
 
+            if (commandResult.isListBin()) {
+                binItemListPanel = new BinItemListPanel(logic.getFilteredBinItemList());
+                listPanelPlaceholder.getChildren().clear();
+                listPanelPlaceholder.getChildren().add(binItemListPanel.getRoot());
+            }
+
             if (commandResult.isReport()) {
                 reportPanel = new ReportPanel();
                 listPanelPlaceholder.getChildren().clear();
@@ -229,18 +236,23 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isDisplay()) {
                 DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
                 DisplayFormat displayFormat = commandResult.getDisplayFormat();
+                DisplayController displayController = null;
 
                 displayPlaceHolder.getChildren().clear();
                 switch (displayFormat.value) {
                 case DisplayFormat.PIECHART:
-                    displayPlaceHolder.getChildren().add(new PieChartVisual(logic, displayIndicator).getRoot());
+                    displayController = new PieChartController(logic, displayIndicator);
                     break;
                 case DisplayFormat.BARCHART:
-                    displayPlaceHolder.getChildren().add(new BarChartVisual(logic, displayIndicator).getRoot());
+                    displayController = new BarChartController(logic, displayIndicator);
+                    break;
+                case DisplayFormat.LINECHART:
+                    displayController = new LineChartController(logic, displayIndicator);
                     break;
                 default:
                     throw new ParseException(DisplayFormat.getMessageConstraints());
                 }
+                displayPlaceHolder.getChildren().add(displayController.getRoot());
             }
 
             if (commandResult.isExpandPerson()) {

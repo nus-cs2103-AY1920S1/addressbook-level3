@@ -29,7 +29,7 @@ public class MergePolicyCommandTest {
     }
 
     @Test
-    public void execute_mergeConfirmedWithOneDifference_mergeSuccessful() throws Exception {
+    public void execute_mergeWithOneDifference_mergeSuccessful() throws Exception {
         Policy validPolicy = new PolicyBuilder().build();
         Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
@@ -41,7 +41,7 @@ public class MergePolicyCommandTest {
     }
 
     @Test
-    public void execute_mergeConfirmedWithMoreThanOneDifference_mergeSuccessful() throws Exception {
+    public void execute_mergeWithMoreThanOneDifference_mergeSuccessful() throws Exception {
         Policy validPolicy = new PolicyBuilder().build();
         Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
             .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();

@@ -14,6 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.binitem.BinItem;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
 import seedu.address.model.policy.PolicyName;
@@ -127,6 +128,11 @@ public class TestUtil {
         }
 
         @Override
+        public void addBinItem(BinItem binItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Policy getPolicyWithName(PolicyName policyName) {
             throw new AssertionError("This method should not be called.");
         }
@@ -152,6 +158,11 @@ public class TestUtil {
         }
 
         @Override
+        public boolean hasBinItem(BinItem binItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPolicyWithName(PolicyName policyName) {
             throw new AssertionError("This method should not be called.");
         }
@@ -167,12 +178,22 @@ public class TestUtil {
         }
 
         @Override
+        public void deleteBinItem(BinItem binItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setPolicy(Policy target, Policy editedPolicy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBinItem(BinItem target, BinItem editedBinItem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,7 +208,22 @@ public class TestUtil {
         }
 
         @Override
+        public ObservableList<BinItem> getFilteredBinItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPolicyList(Predicate<Policy> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBinItemList(Predicate<BinItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -203,11 +239,6 @@ public class TestUtil {
 
         @Override
         public ObservableMap<String, Integer> getGenderBreakdown() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPolicyList(Predicate<Policy> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

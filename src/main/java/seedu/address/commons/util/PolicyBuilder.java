@@ -53,15 +53,15 @@ public class PolicyBuilder {
     /**
      * Initializes the Policy with the data of {@code policyToCopy}.
      */
-    public PolicyBuilder(Policy policy) {
-        name = policy.getName();
-        description = policy.getDescription();
-        coverage = policy.getCoverage();
-        price = policy.getPrice();
-        startAge = policy.getStartAge();
-        endAge = policy.getEndAge();
-        criteria = new HashSet<>(policy.getCriteria());
-        tags = new HashSet<>(policy.getTags());
+    public PolicyBuilder(Policy policyToCopy) {
+        name = policyToCopy.getName();
+        description = policyToCopy.getDescription();
+        coverage = policyToCopy.getCoverage();
+        price = policyToCopy.getPrice();
+        startAge = policyToCopy.getStartAge();
+        endAge = policyToCopy.getEndAge();
+        criteria = new HashSet<>(policyToCopy.getCriteria());
+        tags = new HashSet<>(policyToCopy.getTags());
     }
 
     /**

@@ -4,14 +4,18 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.*;
 
+<<<<<<< HEAD
 import seedu.address.model.person.Person;
+=======
+import seedu.address.model.binitem.Binnable;
+>>>>>>> e8bab323a301b605400bb83ade04efd53303341c
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Policy in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Policy {
+public class Policy implements Binnable {
 
     public static final String MESSAGE_CONSTRAINTS =
             "This policy is not available.";

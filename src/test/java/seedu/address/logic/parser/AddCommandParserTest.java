@@ -52,7 +52,6 @@ import seedu.address.model.person.Phone;
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
-    // POLICIES HAVENT BEEN ADDED
     @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).withPolicies().withTags().build();

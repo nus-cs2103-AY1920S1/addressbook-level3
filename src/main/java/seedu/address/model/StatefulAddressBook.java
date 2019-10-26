@@ -93,7 +93,9 @@ public class StatefulAddressBook extends AddressBook {
             return false;
         }
 
+
         StatefulAddressBook other = (StatefulAddressBook) obj;
+        System.out.println(statefulAddressBookList.equals(other.statefulAddressBookList));
         return super.equals(other)
                 && statefulAddressBookList.equals(other.statefulAddressBookList)
                 && currentStatePointer == other.currentStatePointer;

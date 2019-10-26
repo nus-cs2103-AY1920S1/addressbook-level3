@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.binitem.BinItem;
+import seedu.address.model.binitem.UniqueBinItemList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.policy.Policy;
@@ -20,6 +22,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniquePolicyList policies;
+    private final UniqueBinItemList binItems;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         policies = new UniquePolicyList();
+        binItems = new UniqueBinItemList();
     }
 
     public AddressBook() {}
@@ -62,6 +66,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the binItems list with {@code items}.
+     * {@code items} must not contain duplicate BinItems.
+     */
+    public void setBinItems(List<BinItem> items) {
+        this.binItems.setBinItems(items);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -69,6 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setPolicies(newData.getPolicyList());
+        setBinItems(newData.getBinItemList());
     }
 
     //// person-level operations
@@ -166,12 +179,49 @@ public class AddressBook implements ReadOnlyAddressBook {
         policies.remove(key);
     }
 
+    //// BinItem-level operations
+
+    /**
+     * Returns true if a BinItem with the same identity as {@code binItem} exists in the bin.
+     */
+    public boolean hasBinItem(BinItem binItem) {
+        requireNonNull(binItem);
+        return binItems.contains(binItem);
+    }
+
+    /**
+     * Adds a BinItem to the bin.
+     * The BinItem must not already exist in the bin.
+     */
+    public void addBinItem(BinItem binItem) {
+        binItems.add(binItem);
+    }
+
+    /**
+     * Replaces the BinItem {@code target} in the list with {@code editedBinItem}.
+     * {@code target} must exist in the list.
+     * The BinItem identity of {@code editedBinItem} must not be the same as another existing BinItem in the list.
+     */
+    public void setBinItem(BinItem target, BinItem editedBinItem) {
+        requireNonNull(editedBinItem);
+        binItems.setBinItem(target, editedBinItem);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeBinItem(BinItem key) {
+        binItems.remove(key);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons"
-                + policies.asUnmodifiableObservableList().size() + " policies";
+                + policies.asUnmodifiableObservableList().size() + " policies"
+                + binItems.asUnmodifiableObservableList().size() + " items";
     }
 
     @Override
@@ -185,15 +235,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<BinItem> getBinItemList() {
+        return binItems.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && policies.equals(((AddressBook) other).policies));
+                && policies.equals(((AddressBook) other).policies)
+                && binItems.equals(((AddressBook) other).binItems));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, policies);
+        return Objects.hash(persons, policies, binItems);
     }
 }

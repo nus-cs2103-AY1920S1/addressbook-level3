@@ -16,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.TimeUtil;
+import seedu.address.model.binitem.BinItem;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
@@ -31,6 +32,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Policy> filteredPolicies;
+    private final FilteredList<BinItem> filteredBinItems;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,12 +41,14 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs "
+            + userPrefs);
 
         this.statefulAddressBook = new StatefulAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.statefulAddressBook.getPersonList());
         filteredPolicies = new FilteredList<>(this.statefulAddressBook.getPolicyList());
+        filteredBinItems = new FilteredList<>(this.statefulAddressBook.getBinItemList());
     }
 
     public ModelManager() {
@@ -181,6 +185,30 @@ public class ModelManager implements Model {
         statefulAddressBook.setPolicy(target, editedPolicy);
     }
 
+    @Override
+    public boolean hasBinItem(BinItem binItem) {
+        requireNonNull(binItem);
+        return statefulAddressBook.hasBinItem(binItem);
+    }
+
+    @Override
+    public void deleteBinItem(BinItem target) {
+        statefulAddressBook.removeBinItem(target);
+    }
+
+    @Override
+    public void addBinItem(BinItem binItem) {
+        statefulAddressBook.addBinItem(binItem);
+        updateFilteredBinItemList(PREDICATE_SHOW_ALL_BIN_ITEMS);
+    }
+
+    @Override
+    public void setBinItem(BinItem target, BinItem editedBinItem) {
+        requireAllNonNull(target, editedBinItem);
+
+        statefulAddressBook.setBinItem(target, editedBinItem);
+    }
+
     //=========== Functions related to undo/redo =============================================================
 
     @Override
@@ -298,6 +326,21 @@ public class ModelManager implements Model {
     public void updateFilteredPolicyList(Predicate<Policy> predicate) {
         requireNonNull(predicate);
         filteredPolicies.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code BinItem} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<BinItem> getFilteredBinItemList() {
+        return filteredBinItems;
+    }
+
+    @Override
+    public void updateFilteredBinItemList(Predicate<BinItem> predicate) {
+        requireNonNull(predicate);
+        filteredBinItems.setPredicate(predicate);
     }
 
     @Override

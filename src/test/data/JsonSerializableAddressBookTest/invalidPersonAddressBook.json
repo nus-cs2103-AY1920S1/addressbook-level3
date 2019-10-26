@@ -9,5 +9,6 @@
     "policies": [ {} ],
     "tagged": [ ]
   } ],
-  "policies" : [ ]
+  "policies": [ ],
+  "binItems": [ ]
 }

@@ -19,6 +19,6 @@ public class ReportCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false,
-            false, true, false, false, false, false);
+            false, true, false, false, false, false, false);
     }
 }

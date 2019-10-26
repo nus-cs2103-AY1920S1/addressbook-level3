@@ -235,6 +235,201 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::merging[]
+=== Merging Feature
+==== Implementation
+
+The merging mechanism is facilitated by abstract classes `MergeCommand`, `DoNotMergeCommand`, `MergeConfirmedCommand` and `MergeRejectedCommand` and their child classes, which implement the merging of profiles and policies respectively.
+These classes extend `Command`. The child classes of `MergeCommand` are `MergePersonCommand` and `MergePolicyCommand`. A `MergePersonCommand` object will store the `Person` created by the input and the corresponding `Person` that is stored in the model.
+Additionally, the main crucial operations implemented by this class are:
+
+* `MergeCommand#getDifferences()` -- Finds all the different fields between the input person and the original person.
+* `MergeCommand#removeFirstDifferentField()` -- Removes the first different field in the list of differences. This method is called after a merge decision has been input by the user and executed.
+* `MergeCommand#getNextMergeFieldType()` -- Returns the type of the field for the next merge.
+* `MergeCommand#onlyOneMergeLeft()` -- Checks whether there is only one merge left.
+
+The implementation of `MergePolicyCommand` is similar.
+
+The child classes of `MergeConfirmedCommand` are `MergePersonConfirmedCommand` and `MergePolicyConfirmedCommand`, while the child classes of `MergeRejectedCommand` are `MergePersonRejectedCommand` and `MergePolicyRejectedCommand`.
+They all implement `#execute(Model)`. Additionally, these classes implement an `#isLastMerge()` command to indicate if this is the last possible merge for the entity being merged.
+
+AddressBookParser stores a boolean flag to indicate whether a merge is currently taking place. When it is set as true, all other commands will not be parsed and will be treated as invalid commands.
+The AddressBookParser object also stores the MergeCommand object during a merge process. This object is then used by `MergeConfirmedCommand` objects and `MergeRejectedCommand` objects in their execution.
+
+image::MergeClassDiagram.png[]
+
+Given below is an example usage scenario and how the merge mechanism behaves at each step.
+
+Step 1. The user adds a duplicate profile. The `AddCommand` will throw a `DuplicatePersonWithMergeException` during its execution.
+This exception is thrown if there is at least one different field between the input person and the original person stored in the model. Else, a `DuplicatePersonWithoutMergeException` will be thrown.
+The `DuplicatePersonWithMergeException` will finally be caught in the `CommandBox`. UI outputs the error message and a prompt to start a merge. `CommandBox` then constructs two command strings: one to proceed with the merge and one to reject the merge.
+This is done via `#standByForMerge(String, String)`. This string is then stored.
+
+Step 2. The user inputs yes or presses enter to proceed with the merge. `CommandBox` then calls `CommandExecutor#execute()` to execute the merge command it constructed previously.
+When the command is being parsed in the `AddressBookParser` object, a new `MergeCommand` object is created and stored. The `isMerging` flag is also set to true.
+The execution of this command then returns a CommandResult that prompts the next merge.
+
+Step 3. The user inputs yes or presses enter to update the field that was displayed in the prompt. The `AddressBookParser` parses the input and creates a new `MergePersonConfirmedCommand` object.
+The `MergePersonConfirmedCommand` object obtains information for the merge from the `MergeCommand` object that was passed in as a parameter in the constructor.
+In the execution, a new `EditCommand` is created and `EditCommand#executeForMerge()` is used to update the person in the model. If the
+`MergePersonConfirmedCommand#isLastMerge` returns false, `MergeCommand#removeFirstDifferentField` is called and the command result then shows a success message and the next prompt.
+
+This process is shown in the sequence diagram below.
+
+image::MergeSequenceDiagram.png[]
+
+[NOTE]
+If the user inputs an invalid command, the prompt will be displayed again along with an error message.
+
+Step 4. The user inputs no to reject the update of the field that was displayed in the prompt. The input gets parsed in the `AddressBookParser` object and creates a new MergePersonRejectedCommand.
+If it is not the last merge, `MergeCommand#removeFirstDifferentField` is called. The command result then shows the next prompt. Else, it will show a success message of successfully updating the profile.
+
+This is repeated until all merges have been prompted.
+
+image::MergeActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How merge command executes
+
+* **Alternative 1 (current choice):** Stores the `MergeCommand` object in the `AddressBookParser` to be accessed by `MergeConfirmedCommand` and `MergeRejectedCommand` objects.
+** Pros: Finding of different fields is only executed once and can be used by future commands.
+** Cons: More coupling between `MergeCommand` and other classes.
+* **Alternative 2:** Update the field in the command string and pass it on in the command result.
+** Pros: Less coupling between `MergeCommand` and other classes.
+** Cons:
+*** User has to see the updated command (information that user does not need to see is displayed).
+*** Command still has to be stored somewhere to be accessed by other future merge commands.
+// end::merging[]
+
+// tag::display[]
+=== Display Feature
+==== Implementation
+
+The `display` mechanism follows the Model-View-Controller framework. The model is facilitated by the `AddressBook`
+instance, which provides the data the controller needs.
+The controller is facilitated by an abstract class `DisplayController`, which extends `UIPart<Region>`.
+Every supported format controller extends this abstract class.
+
+The following class diagram shows the OOP solution for `display`:
+
+image::DisplayClassDiagram.png[]
+
+[NOTE]
+Every controller needs to support every indicator. In the event a controller cannot display a particular
+indicator, it will throw a `parseException` error, which provides suggestions of which visual controllers are supported
+by the particular indicator.
+
+The view is facilitated by the associated FXML. These views share a common
+CSS, and also have their individual CSS file.
+
+Given below is an example usage scenario and how the display mechanism behaves at each step.
+
+Step 1. The user executes the `display i/policy-popularity-breakdown f/barchart` command to display the policy
+popularity breakdown indicator in bar chart format. The execution of a `display` command determines
+what will be shown (`displayIndicator`) and how it will be shown (`displayFormat`).
+
+Step 2. `displayFormat` specifies that the controller `BarChartController` will be instantiated.
+
+Step 3. The `BarChartController` initialises all the attributes of its associated FXML in its construction.
+Let us take a  closer look at the initialisation of the `series` attribute. The controller utilises the display
+indicator `policy-popularity-breakdown` to retrieve the data in the model it needs. The controller
+then casts the model’s data type to the data type supported by bar charts. The result is assigned to `series` attribute.
+
+The following sequence diagram shows the interaction between UI, Controller and Model for steps 2 and 3:
+
+image::DisplaySequenceDiagram.png[]
+
+Step 4. The bar chart controller then sets all the attributes of its associated FXML.
+
+Step 5. Finally, the `MainWindow` calls `DisplayController#getRoot()` and displays the view.
+
+The following activity diagram summarizes what happens when a user executes the display command:
+
+image::DisplayActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How should controllers interact with model
+
+* **Alternative 1 (current choice):** Within controllers (by passing `logic`, which accesses the model, as an argument
+to the instantiation of a controller.)
+** Pros: Every controller handles their own interaction with the model.
+** Cons: Inconsistent with current implementation (alternative 2).
+* **Alternative 2:** Within `MainWindow`
+** Pros: Consistent with current implementation
+** Cons: The controllers are fully dependent on `MainWindow` for the data from the model. This entails that
+
+
+===== Aspect: OOP solution for visual controllers
+
+* **Alternative 1 (current choice):** Display controllers to extend from abstract class `DisplayController`
+** Pros:
+*** Allows display controller subclasses to share code. (refer to class diagram above)
+*** Subclasses have many common methods (`initIndicators(Logic)`)
+* **Alternative 2:** Display controllers to implement interface `DisplayController`
+** Pros: Satisfies the can-do relationship of an interface.
+** Cons: Restricted to public access modifiers. This violates Law of Demeter.
+// end::display[]
+
+// tag::bin[]
+=== Bin Feature
+==== Implementation
+
+The bin feature is facilitated by `BinItem`, `UniqueBinItemList` classes and the interface`Binnable`. Objects that
+can be "binned" will implement the interface  `Binnable`. When a `Binnable` object is deleted, it is wrapped in a
+wrapper class `BinItem` and is moved into `UniqueBinItemList`.
+
+The follow class diagram shows how bin is implemented.
+
+image::BinClassDiagram.png[]
+
+`BinItem` has 2 key attributes that is wrapped on top of the `Binnable` object, namely: `dateDeleted` and `expiryDate`.
+Objects in the bin stays there for 30 days, before it is automatically deleted forever. Both attributes are used in the
+auto-deletion mechanism of objects in the bin.
+
+Given below is an example usage scenario and how the bin mechanism behaves at each step.
+
+Step 1. When the user launches *Insurelytics*, `AddressBook` will run `Addressbook#cleanUp()`, which will check the
+`expiryDate` of all objects in `UniqueBinItemList` against the system clock. If the system clock exceeds `expiryDate`,
+`UniqueBinItemList#remove()` is called and deletes the expired object forever.
+
+Step 2. The user executes `delete 1` command to delete the first person in the address book. The `delete` command calls
+the constructor of `BinItem` with the deleted person to create a new `BinItem` object. At this juncture, the attribute
+`dateDeleted` is created, and `expiryDate` is generated by adding `TIME_TO_LIVE` to `dateDeleted`.
+
+Step 3. The `delete` command then calls `Model#addBinItem(personToBin)` and shifts the newly created `BinItem` to
+`UniqueBinItemList`.
+
+The following sequence diagram shows how a delete operation involves the bin.
+
+image::BinDeleteSequenceDiagram.png[]
+
+Step 4. The user quits the current session and starts a new session some time later. He/she then realises that he/she
+needs that contact that was deleted and wants it back, so he/she executes `restore 1` to restore the deleted person
+from the bin.
+
+Step 5. The `restore` command then calls `Model#deleteBinItem(itemToRestore)`, which removes `itemToRestore` from
+`UniqueBinItemList`. The wrapper class `BinItem` is then stripped and the internal person item is added back to
+`UniquePersonList`.
+
+The following sequence diagram shows how a restore command operates.
+
+image::RestoreSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Which part of the architecture does Bin belong
+* **Alternative 1 (current choice):** As part of AddressBook
+** Pros: Lesser repeated code and unnecessary refactoring. Other features at the AddressBook level such as undo/redo
+will not be affected with a change/modification made to Bin as it is not dependent on them.
+** Cons: From a OOP design point of view, this is not the most direct way of structuring the program.
+
+* **Alternative 2:** Just like AddressBook, as part of Model
+** Pros: More OOP like and lesser dependencies since Bin is extracted out from AddressBook. Methods related to bin
+operations are called only from within Bin.
+** Cons: Many sections with repeated code since it is structurally similar to AddressBook.
+
+// end::bin[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

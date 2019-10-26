@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.ArrayList;
 
@@ -16,14 +16,16 @@ import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.logic.commands.merge.MergePersonRejectedCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.policy.Policy;
-import seedu.address.testutil.TestUtil.ModelStub;
 
 public class MergePersonRejectedCommandTest {
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullCommand_throwsNullPointerException() {
@@ -32,36 +34,38 @@ public class MergePersonRejectedCommandTest {
 
     @Test
     public void execute_mergeRejectedWithOneMergeLeft_mergeSuccessful() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).build();
-        MergePersonCommandStub mergeCommandStub = new MergePersonCommandStub(inputPerson);
-        ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergePersonRejectedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergePersonRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED, Phone.DATA_TYPE)
-            + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
-            mergeCommandStub.getOriginalPerson()), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPerson(), new PersonBuilder().build());
+        Person originalPerson = new PersonBuilder(model.getFilteredPersonList().get(0)).build();
+        Person inputPerson = new PersonBuilder(originalPerson).withPhone(VALID_PHONE_BOB).build();
+        MergePersonCommandStub mergeCommandStub = new MergePersonCommandStub(inputPerson, originalPerson);
+        MergePersonRejectedCommand mergePersonRejectedCommand = new MergePersonRejectedCommand(mergeCommandStub);
+        String expectedMessage = String.format(MergePersonRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
+                Phone.DATA_TYPE) + "\n" + String.format(mergeCommandStub.MESSAGE_SUCCESS,
+                mergeCommandStub.getOriginalPerson());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        assertCommandSuccess(mergePersonRejectedCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_mergeConfirmedWithMoreThanOneMergeLeft_mergeSuccessful() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
+    public void execute_mergeRejectedWithMoreThanOneMergeLeft_mergeSuccessful() throws Exception {
+        Person originalPerson = new PersonBuilder(model.getFilteredPersonList().get(0)).build();
+        Person inputPerson = new PersonBuilder(originalPerson).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+                .build();
         MergePersonCommandStubWithMultipleMerges mergeCommandStub =
-            new MergePersonCommandStubWithMultipleMerges(inputPerson);
-        ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergePersonRejectedCommand(mergeCommandStub).execute(modelStub);
-        assertEquals(String.format(MergePersonRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED, Phone.DATA_TYPE)
-            + "\n" + mergeCommandStub.getNextMergePrompt(), commandResult.getFeedbackToUser());
-        assertEquals(modelStub.getPerson(), new PersonBuilder().build());
+                new MergePersonCommandStubWithMultipleMerges(inputPerson, originalPerson);
+        MergePersonRejectedCommand mergePersonRejectedCommand = new MergePersonRejectedCommand(mergeCommandStub);
+        String expectedMessage = String.format(MergePersonRejectedCommand.MESSAGE_MERGE_FIELD_NOT_EXECUTED,
+                Phone.DATA_TYPE) + "\n" + mergeCommandStub.getNextMergePrompt();
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        assertCommandSuccess(mergePersonRejectedCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
+        Person person = new PersonBuilder().build();
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        MergePersonCommandStub commandWithAlice = new MergePersonCommandStub(alice);
-        MergePersonCommandStub commandWithBob = new MergePersonCommandStub(bob);
+        MergePersonCommandStub commandWithAlice = new MergePersonCommandStub(alice, person);
+        MergePersonCommandStub commandWithBob = new MergePersonCommandStub(bob, person);
         MergePersonRejectedCommand mergeAliceCommand = new MergePersonRejectedCommand(commandWithAlice);
         MergePersonRejectedCommand mergeBobCommand = new MergePersonRejectedCommand(commandWithBob);
 
@@ -88,10 +92,11 @@ public class MergePersonRejectedCommandTest {
          *
          * @param inputPerson
          */
-        private Person originalPerson = new PersonBuilder().build();
+        private Person originalPerson;
 
-        public MergePersonCommandStub(Person inputPerson) {
+        public MergePersonCommandStub(Person inputPerson, Person originalPerson) {
             super(inputPerson);
+            this.originalPerson = originalPerson;
         }
 
         public void updateOriginalPerson(Person editedPerson) {
@@ -133,13 +138,14 @@ public class MergePersonRejectedCommandTest {
          *
          * @param inputPerson
          */
-        private Person originalPerson = new PersonBuilder().build();
+        private Person originalPerson;
         private ArrayList<String> dataTypes = new ArrayList<>();
 
-        public MergePersonCommandStubWithMultipleMerges(Person inputPerson) {
+        public MergePersonCommandStubWithMultipleMerges(Person inputPerson, Person originalPerson) {
             super(inputPerson);
             dataTypes.add(Phone.DATA_TYPE);
             dataTypes.add(Address.DATA_TYPE);
+            this.originalPerson = originalPerson;
         }
 
         public void updateOriginalPerson(Person editedPerson) {
@@ -176,64 +182,6 @@ public class MergePersonRejectedCommandTest {
 
         public boolean onlyOneMergeLeft() {
             return false;
-        }
-    }
-
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-
-        public Person getPerson() {
-            return this.person;
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            this.person = editedPerson;
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-        final ArrayList<Policy> policiesAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public void addPolicy(Policy policy) {
-            requireNonNull(policy);
-            policiesAdded.add(policy);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
         }
     }
 

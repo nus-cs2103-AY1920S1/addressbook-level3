@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":RestoreCommand" as RestoreCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "itemToRestore:BinItem" as BinItem MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+participant ":UniqueBinItemList" as UniqueBinItemList MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+end box
+
+[-> RestoreCommand : execute()
+activate RestoreCommand
+
+RestoreCommand -> Model : RestorePerson(1)
+activate Model
+
+Model -> AddressBook : removeBinItem(itemToRestore)
+activate AddressBook
+
+AddressBook -> UniqueBinItemList : remove(itemToRestore)
+activate UniqueBinItemList
+
+UniqueBinItemList --> AddressBook
+deactivate UniqueBinItemList
+
+AddressBook --> Model
+deactivate AddressBook
+
+Model -> BinItem : getItem()
+activate BinItem
+
+BinItem --> Model : p
+deactivate BinItem
+
+Model -> Model : addPerson(p)
+activate Model
+
+Model -> UniquePersonList : addPerson(p)
+activate UniquePersonList
+
+UniquePersonList --> Model
+deactivate UniquePersonList
+deactivate Model
+
+Model --> RestoreCommand
+deactivate Model
+
+@enduml
