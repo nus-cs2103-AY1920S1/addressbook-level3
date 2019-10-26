@@ -1,6 +1,9 @@
 package seedu.address.storage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -24,7 +27,7 @@ public class JsonModulesInfoStorage implements ModulesInfoStorage {
     }
 
     @Override
-    public Optional<ModulesInfo> readModulesInfo() throws DataConversionException {
+    public Optional<ModulesInfo> readModulesInfo() throws IOException {
         return readModulesInfo(filePath);
     }
 
@@ -34,11 +37,17 @@ public class JsonModulesInfoStorage implements ModulesInfoStorage {
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<ModulesInfo> readModulesInfo(Path prefsFilePath) throws DataConversionException {
-        Optional<ModulesInfo> modulesInfo = JsonUtil.readJsonFile(prefsFilePath, ModulesInfo.class);
-        if (!modulesInfo.isEmpty()) {
-            modulesInfo.get().init();
+    public Optional<ModulesInfo> readModulesInfo(Path prefsFilePath) throws IOException {
+        System.out.println(prefsFilePath.toString());
+        InputStream stream = getClass()
+                .getClassLoader()
+                .getResourceAsStream(prefsFilePath.toString());
+        if (stream == null) {
+            return Optional.empty();
         }
-        return modulesInfo;
+        ModulesInfo modulesInfo = JsonUtil.fromJsonString(
+                new String(Objects.requireNonNull(stream.readAllBytes())), ModulesInfo.class);
+        modulesInfo.init();
+        return Optional.of(modulesInfo);
     }
 }

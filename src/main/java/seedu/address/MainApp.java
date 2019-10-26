@@ -83,7 +83,7 @@ public class MainApp extends Application {
         ReadOnlyModulePlanner initialData;
         try {
             modulePlannerOptional = storage.readModulePlanner(modulesInfo);
-            if (!modulePlannerOptional.isPresent()) {
+            if (modulePlannerOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample ModulePlanner");
             }
             initialData = modulePlannerOptional.orElseGet(() -> SampleDataUtil.getSampleModulePlanner(modulesInfo));

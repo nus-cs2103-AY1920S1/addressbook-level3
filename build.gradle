@@ -67,7 +67,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'csmodbuddy.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

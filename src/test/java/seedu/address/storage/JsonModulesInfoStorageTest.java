@@ -1,8 +1,10 @@
 package seedu.address.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -10,7 +12,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ModulesInfo;
 
 public class JsonModulesInfoStorageTest {
@@ -26,49 +27,37 @@ public class JsonModulesInfoStorageTest {
     }
 
     private Optional<ModulesInfo> readModulesInfo(String modulesInfoFileInTestDataFolder)
-            throws DataConversionException {
-        Path prefsFilePath = addToTestDataPathIfNotNull(modulesInfoFileInTestDataFolder);
+            throws IOException {
+        Path prefsFilePath = Paths.get(modulesInfoFileInTestDataFolder);
         return new JsonModulesInfoStorage(prefsFilePath).readModulesInfo(prefsFilePath);
     }
 
     @Test
-    public void readModulesInfo_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(readModulesInfo("NonExistentFile.json").isPresent());
-    }
-
-    @Test
-    public void readModulesInfo_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readModulesInfo("NotJsonFormatModulesInfo.json"));
-    }
-
-    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
-        return userPrefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
-                : null;
+    public void readModulesInfo_missingFile_emptyResult() throws IOException {
+        assertFalse(readModulesInfo("JsonModulesInfoStorageTest/NonExistentFile.json").isPresent());
     }
 
     /*
     @Test
-    public void readModulesInfo_fileInOrder_successfullyRead() throws DataConversionException {
+    public void readModulesInfo_fileInOrder_successfullyRead() throws IOException {
         ModulesInfo expected = getTypicalModulesInfo();
-        ModulesInfo actual = readModulesInfo("TypicalModulesInfo.json").get();
+        ModulesInfo actual = readModulesInfo("JsonModulesInfoStorageTest/TypicalModulesInfo.json").get();
         assertEquals(expected, actual);
     }
-     */
 
-    /*
     @Test
-    public void readModulesInfo_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
-        ModulesInfo actual = readModulesInfo("EmptyModulesInfo.json").get();
+    public void readModulesInfo_extraValuesInFile_extraValuesIgnored() throws IOException {
+        ModulesInfo expected = getTypicalModulesInfo();
+        ModulesInfo actual = readModulesInfo("JsonModulesInfoStorageTest/ExtraValuesModulesInfo.json").get();
+
+        assertEquals(expected, actual);
+    }
+    */
+
+    @Test
+    public void readModulesInfo_valuesMissingFromFile_defaultValuesUsed() throws IOException {
+        ModulesInfo actual = readModulesInfo("JsonModulesInfoStorageTest/EmptyModulesInfo.json").get();
         assertEquals(new ModulesInfo(), actual);
     }
 
-    @Test
-    public void readModulesInfo_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
-        ModulesInfo expected = getTypicalModulesInfo();
-        ModulesInfo actual = readModulesInfo("ExtraValuesModulesInfo.json").get();
-
-        assertEquals(expected, actual);
-    }
-     */
 }
