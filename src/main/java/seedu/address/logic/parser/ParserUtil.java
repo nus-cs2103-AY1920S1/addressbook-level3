@@ -421,7 +421,7 @@ public class ParserUtil {
             }
             localTime = LocalTime.of(input[0], input[1]);
         } catch (NumberFormatException | DateTimeException e) {
-            throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
+            throw new ParseException(MESSAGE_INVALID_TIME);
         }
 
         return new Calendar.Builder().setTimeOfDay(input[0], input[1], 0).build();

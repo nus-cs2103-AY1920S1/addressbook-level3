@@ -20,6 +20,7 @@ import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
 
 /**
@@ -29,7 +30,7 @@ import seedu.address.model.schedule.Schedule;
 public class DeleteScheduleCommandTest {
 
     private Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-            getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+            getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
@@ -44,7 +45,8 @@ public class DeleteScheduleCommandTest {
         String expectedMessage = String.format(DeleteScheduleCommand.MESSAGE_DELETE_SCHEDULE_SUCCESS, scheduleToDelete);
 
         Model expectedModel = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-                getTypicalOrderBook(), new DataBook<Schedule>(model.getScheduleBook()), new UserPrefs());
+                getTypicalOrderBook(), new DataBook<Schedule>(model.getScheduleBook()), new DataBook<Order>(),
+                new UserPrefs());
         expectedModel.deleteSchedule(scheduleToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

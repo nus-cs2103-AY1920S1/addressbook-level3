@@ -94,7 +94,11 @@ public class AddScheduleCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddScheduleCommand // instanceof handles nulls
-                && toAdd.equals(((AddScheduleCommand) other).toAdd));
+                && orderIndex.equals(((AddScheduleCommand) other).orderIndex)
+                // not checking ID
+                && toAdd.getCalendar().equals(((AddScheduleCommand) other).toAdd.getCalendar())
+                && toAdd.getVenue().equals(((AddScheduleCommand) other).toAdd.getVenue())
+                && toAdd.getTags().equals(((AddScheduleCommand) other).toAdd.getTags()));
     }
 
 }

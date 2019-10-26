@@ -86,7 +86,7 @@ public class OrderListPanelTest extends GuiUnitTest {
             Email email = new Email("a@aa");
             Customer customer = new Customer(name, contactNumber, email, Collections.emptySet());
             Phone orderPhone = TypicalPhones.IPHONEONE;
-            Optional<Schedule> orderSchedule = Optional.of(TypicalSchedules.SCHEDULEONE);
+            Optional<Schedule> orderSchedule = Optional.of(TypicalSchedules.MONDAY_SCHEDULE);
             Price orderPrice = new Price("$1.00");
             Status orderStatus = Status.UNSCHEDULED;
             UUID orderUuId = UUID.randomUUID();
