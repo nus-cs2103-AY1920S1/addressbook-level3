@@ -12,10 +12,8 @@ import seedu.address.model.feature.Feature;
 public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
-    public static final String MESSAGE_USAGE = "Usage: " + COMMAND_WORD
-            + " calendar / attendance / performance\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "calendar\n";
+    public static final String MESSAGE_USAGE = "Usage: " + COMMAND_WORD + " calendar / attendance / performance\n"
+            + "Example: " + COMMAND_WORD + " " + "calendar\n";
 
     public static final String MESSAGE_SUCCESS_1 = "Viewing your calendar";
     public static final String MESSAGE_SUCCESS_2 = "Viewing your team's attendance";
@@ -46,6 +44,11 @@ public class ViewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ViewCommand // instanceof handles nulls
-                && feature.equals(((ViewCommand) other).feature));
+                        && feature.equals(((ViewCommand) other).feature));
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return false;
     }
 }

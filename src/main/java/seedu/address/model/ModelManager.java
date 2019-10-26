@@ -11,7 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.TrainingCommand;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.training.Training;
 
 /**
@@ -24,13 +28,15 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final Attendance attendance;
     private final FilteredList<Person> filteredPersons;
+    private ReadOnlyAddressBook readOnlyAddressBook;
     private Person selectedPerson;
+    private HistoryManager history = new HistoryManager();
 
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, Attendance attendance, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -38,12 +44,12 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.attendance = new Attendance();
+        this.attendance = attendance;
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new Attendance(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -91,6 +97,42 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+    @Override
+    public ReadOnlyAddressBook getAddressBookDeepCopy() {
+        UniquePersonList persons = addressBook.getPersons();
+        AddressBook deepCopy = new AddressBook();
+        deepCopy.getPersons().setPersons(persons);
+        return deepCopy;
+    }
+    @Override
+    public void undo() {
+        Command undoneCommand = HistoryManager.getCommands().pop();
+        ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
+        HistoryManager.getUndoneCommands().push(undoneCommand);
+        HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
+        if (undoneCommand instanceof TrainingCommand) {
+            int attendanceListSize = this.attendance.getTrainings().size();
+            int lastIndex = attendanceListSize - 1;
+            Training undoneTraining = this.attendance.getTrainings().remove(lastIndex);
+            HistoryManager.getUndoneTrainingLists().push(undoneTraining);
+        } else {
+            ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
+            addressBook.resetData(afterUndoneState);
+        }
+    }
+    @Override
+    public void redo() {
+        Command redoneCommand = HistoryManager.getUndoneCommands().pop();
+        ReadOnlyAddressBook redoneAddressBook = HistoryManager.getUndoneAddressBooks().pop();
+        HistoryManager.getCommands().push(redoneCommand);
+        HistoryManager.getAddressBooks().push(redoneAddressBook);
+        if (redoneCommand instanceof TrainingCommand) {
+            Training redoneTraining = HistoryManager.getUndoneTrainingLists().pop();
+            this.attendance.getTrainings().add(redoneTraining);
+        } else {
+            addressBook.resetData(redoneAddressBook);
+        }
     }
 
     @Override
