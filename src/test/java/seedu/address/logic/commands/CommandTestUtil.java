@@ -13,7 +13,7 @@ import java.util.Arrays;
 //import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.appcommands.EditCommand;
+import seedu.address.logic.commands.cardcommands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
@@ -98,11 +98,11 @@ public class CommandTestUtil {
     //    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
     //        // we are unable to defensively copy the model for comparison later, so we can
     //        // only do so by copying its components.
-    //        WordBank expectedWordBank = new WordBank(actualModel.getWordBank());
+    //        WordBank expectedWordBank = new WordBank(actualModel.toModelType());
     //        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
     //
     //        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-    //        assertEquals(expectedWordBank, actualModel.getWordBank());
+    //        assertEquals(expectedWordBank, actualModel.toModelType());
     //        assertEquals(expectedFilteredList, actualModel.getFilteredCardList());
     //    }
 

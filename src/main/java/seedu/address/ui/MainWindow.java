@@ -29,8 +29,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String FIRST_MESSAGE_LOAD_BANK = "Welcome! Start by loading a bank:"
-            + "\n eg. bank sample";
+    private static final String FIRST_MESSAGE_LOAD_BANK = "Welcome to Dukemon!\n"
+            + "Start by loading a bank:\n"
+            + "Eg. bank sample";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

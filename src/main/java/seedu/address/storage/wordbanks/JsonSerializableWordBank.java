@@ -24,7 +24,7 @@ class JsonSerializableWordBank {
     private final List<JsonAdaptedCard> wordBank = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableWordBank} with the given persons.
+     * Constructs a {@code JsonSerializableWordBank} with the given word bank.
      */
     @JsonCreator
     public JsonSerializableWordBank(@JsonProperty("wordBank") List<JsonAdaptedCard> card) {
@@ -32,7 +32,7 @@ class JsonSerializableWordBank {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyWordBank} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableWordBank}.
      */
@@ -41,7 +41,7 @@ class JsonSerializableWordBank {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this word bank into the model's {@code WordBank} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

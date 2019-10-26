@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.appcommands.AddCommand;
-import seedu.address.logic.commands.appcommands.EditCommand;
+import seedu.address.logic.commands.cardcommands.AddCommand;
+import seedu.address.logic.commands.cardcommands.EditCommand;
 import seedu.address.model.card.Card;
 import seedu.address.model.tag.Tag;
 

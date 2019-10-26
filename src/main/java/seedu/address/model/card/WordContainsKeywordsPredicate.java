@@ -7,7 +7,7 @@ import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Card}'s {@code Word} contains any of the keywords given.
- * Keyword "HE" will match all {"he", "HeArt", "HeAVEN", "NEW HeaVEN"
+ * Keyword "HE" will match all {"he", "HeArt", "HeAVEN", "NEW HeaVEN"}.
  */
 public class WordContainsKeywordsPredicate implements Predicate<Card> {
     private final List<String> keywords;

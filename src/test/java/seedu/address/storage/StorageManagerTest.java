@@ -58,13 +58,13 @@ public class StorageManagerTest {
     //         */
     //        WordBank original = getTypicalWordBank();
     //        storageManager.saveWordBanks(original);
-    //        ReadOnlyWordBankList retrieved = storageManager.getWordBank().get();
+    //        ReadOnlyWordBankList retrieved = storageManager.toModelType().get();
     //        assertEquals(original, new WordBank(retrieved));
     //    }
 
     //    @Test
-    //    public void getWordBankListFilePath() {
-    //        assertNotNull(storageManager.getWordBankListFilePath());
+    //    public void getWordBanksFilePath() {
+    //        assertNotNull(storageManager.getWordBanksFilePath());
     //    }
 
 }

@@ -20,6 +20,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.game.Game;
 import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
@@ -32,7 +33,9 @@ import seedu.address.statistics.WordBankStatistics;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private WordBank wordBank = new WordBank("Empty wordbank");
+    private boolean hasBank = false;
+
+    private WordBank wordBank = SampleDataUtil.getSampleWordBank();
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
@@ -42,13 +45,10 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
-    //Settings for the app.
     private final AppSettings appSettings;
 
     private FilteredList<Card> filteredCards;
-    private final FilteredList<WordBank> filteredWordBanks;
 
-    //Placeholder game model
     private Game game = null;
 
     /**
@@ -70,7 +70,6 @@ public class ModelManager implements Model {
         this.appSettings = new AppSettings(appSettings);
 
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
-        filteredWordBanks = new FilteredList<>(this.wordBankList.getWordBankList());
     }
 
     public ModelManager() {
@@ -201,6 +200,7 @@ public class ModelManager implements Model {
     @Override
     public void setWordBank(ReadOnlyWordBank wordBank) {
         this.wordBank = (WordBank) wordBank;
+        hasBank = true;
         filteredCards = new FilteredList<>(this.wordBank.getCardList());
         //        this.wordBank.resetData(wordBank);
     }
@@ -219,10 +219,13 @@ public class ModelManager implements Model {
         return wordBank;
     }
 
-    public void removeWordBank() {
-        this.wordBank = new WordBank("Empty wordbank");
+    @Override
+    public void updateWordBank(String name) {
+        if (wordBank.getName().equals(name)) {
+            hasBank = false;
+            this.wordBank = SampleDataUtil.getSampleWordBank();
+        }
     }
-
 
     @Override
     public boolean hasCard(Card card) {
@@ -248,6 +251,18 @@ public class ModelManager implements Model {
         wordBank.setCard(target, editedCard);
     }
 
+    //=========== WordBankList ============================================================================
+
+    @Override
+    public boolean hasWordBank(String name) {
+        return wordBankList.hasWordBankName(name);
+    }
+
+    @Override
+    public WordBank getWordBankFromName(String name) {
+        return wordBankList.getWordBankFromName(name);
+    }
+
     //=========== Filtered Card List Accessors =============================================================
 
     /**
@@ -266,7 +281,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<WordBank> getFilteredWordBankList() {
-        return filteredWordBanks;
+        return wordBankList.getWordBankList();
     }
 
     @Override
@@ -279,7 +294,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
 
         filteredCards.setPredicate(predicate);
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        //filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
 
     //=========== WordBankStatistics methods =============================================================
@@ -295,8 +310,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean bankLoaded() {
-        return !wordBank.getName().equals("Empty wordbank");
+    public boolean getHasBank() {
+        return hasBank;
     }
 
     @Override

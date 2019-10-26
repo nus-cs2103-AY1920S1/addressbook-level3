@@ -2,11 +2,9 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
 import java.io.IOException;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -14,14 +12,11 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.cardcommands.CardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.loadcommands.CreateCommand;
-import seedu.address.logic.commands.loadcommands.ExportCommand;
-import seedu.address.logic.commands.loadcommands.ImportCommand;
-import seedu.address.logic.commands.loadcommands.RemoveCommand;
+import seedu.address.logic.commands.homecommands.HomeCommandResult;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
@@ -47,6 +42,7 @@ public class LogicManager implements Logic, UiLogicHelper {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+
     private final Storage storage;
 
     private final ParserManager parserManager;
@@ -63,73 +59,34 @@ public class LogicManager implements Logic, UiLogicHelper {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-
-        /*
-        Step 10.
-        Modify parseCommand()
-        2 user modes: Game mode and Normal mode
-        */
-
-        parserManager.updateState(model.bankLoaded(), model.gameIsOver());
-
+        parserManager.updateState(model.getHasBank(), model.gameIsOver());
         Command command = parserManager.parseCommand(commandText);
-
-        /*
-        Step 11.
-        Extends to Step 13 in Command.java
-
-        commandResult = command.execute(model, game);
-         */
-        //commandResult = command.execute(model);
-
         commandResult = command.execute(model);
-
-        parserManager.updateState(model.bankLoaded(), model.gameIsOver());
+        parserManager.updateState(model.getHasBank(), model.gameIsOver());
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.
         // todo currently, on deletion, the statistics is deleted on the model, and will be saved only if
         // todo a game is played with that word bank. If no game is played, and the app is closed, the statistics
         // todo will stay there forever...
-        /*
-        Step 12.
-        We save game here too.
-        Similar methods to saveWordBanks();
-         */
+
         try {
             if (getMode().equals(ModeEnum.SETTINGS)) {
                 storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
             }
-            ReadOnlyWordBank wb = model.getWordBank();
 
-            Path wordBankListFilePath = storage.getWordBankListFilePath();
-            if (!wb.getName().equals("Empty wordbank")) {
-                storage.saveWordBank(wb, wordBankListFilePath);
+            if (commandResult instanceof HomeCommandResult) {
+                HomeCommandResult homeCommandResult = (HomeCommandResult) commandResult;
+                homeCommandResult.updateStorage(storage);
             }
-            if (command instanceof CreateCommand) {
-                storage.addWordBank(wb);
-            }
-            if (command instanceof RemoveCommand) {
-                storage.removeWordBank(((RemoveCommand) command).getWordBankName());
-            }
-            if (command instanceof ExportCommand) {
-                File dir = ((ExportCommand) command).getDirectory();
-                Path filePath = Paths.get(dir.toString());
-                storage.saveWordBank(((ExportCommand) command).getWordBank(), filePath);
-            }
-            if (command instanceof ImportCommand) {
-                File dir = ((ImportCommand) command).getDirectory();
-                String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
-                Path filePath = Paths.get(dir.toString(), wordBankName);
-                WordBank wordBank = (WordBank) storage.getWordBank(filePath).get();
-                storage.saveWordBank(wordBank, wordBankListFilePath);
-                model.getWordBankList().addBank(wordBank);
+
+            if (commandResult instanceof CardCommandResult) {
+                CardCommandResult cardCommandResult = (CardCommandResult) commandResult;
+                cardCommandResult.updateStorage(storage, (WordBank) model.getWordBank());
             }
 
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        } catch (DataConversionException e) {
-            e.printStackTrace();
         }
 
         return commandResult;
@@ -262,4 +219,13 @@ public class LogicManager implements Logic, UiLogicHelper {
         return model.getGame().getCurrQuestion();
     }
 
+    @Override
+    public Storage getStorage() {
+        return storage;
+    }
+
+    @Override
+    public Model getModel() {
+        return model;
+    }
 }

@@ -9,45 +9,21 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Card;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by Card#isSameMeaning(Card) comparison)
+ * Word bank stores multiple word - meaning pair
+ * Duplicates of cards are not allowed (by Card#isSameName(Card) comparison)
  */
 public class WordBank implements ReadOnlyWordBank {
-
     private final UniqueCardList cards;
     private String name;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+    /**
+     * Creates a word bank with the unique name.
      *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+     * @param name of the word bank.
      */
-    {
-        cards = new UniqueCardList();
-    }
-
     public WordBank(String name) {
         this.name = name;
-    }
-
-    /**
-     * Creates a WordBank using the Cards in the {@code toBeCopied}
-     */
-    public WordBank(ReadOnlyWordBank toBeCopied, String name) {
-        this(name);
-        resetData(toBeCopied);
-    }
-
-    //// list overwrite operations
-
-    /**
-     * Replaces the contents of the card list with {@code cards}.
-     * {@code cards} must not contain any cards with the same meaning.
-     */
-    public void setCards(List<Card> cards) {
-        this.cards.setCards(cards);
+        cards = new UniqueCardList();
     }
 
     /**
@@ -55,11 +31,17 @@ public class WordBank implements ReadOnlyWordBank {
      */
     public void resetData(ReadOnlyWordBank newData) {
         requireNonNull(newData);
-
         setCards(newData.getCardList());
     }
 
-    //// card-level operations
+    /**
+     * Replaces the contents of the card list with {@code cards}.
+     * {@code cards} must not contain any cards with the same meaning.
+     */
+    public void setCards(List<Card> cards) {
+        requireNonNull(cards);
+        this.cards.setCards(cards);
+    }
 
     /**
      * Returns true if a card with the same meaning as {@code card} exists in the word bank.
@@ -72,6 +54,7 @@ public class WordBank implements ReadOnlyWordBank {
     /**
      * Adds a card to the word bank.
      * A card with the same meaning must not already exist in the word bank.
+     * The checking is handled by UniqueCardList class.
      */
     public void addCard(Card p) {
         cards.add(p);
@@ -84,7 +67,6 @@ public class WordBank implements ReadOnlyWordBank {
      */
     public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);
-
         cards.setCard(target, editedCard);
     }
 
@@ -92,11 +74,10 @@ public class WordBank implements ReadOnlyWordBank {
      * Removes {@code key} from this {@code WordBank}.
      * {@code key} must exist in the word bank.
      */
-    public void removeCard(Card key) {
-        cards.remove(key);
+    public void removeCard(Card card) {
+        cards.remove(card);
     }
 
-    //// util methods
     @Override
     public int size() {
         return cards.size();
@@ -127,10 +108,11 @@ public class WordBank implements ReadOnlyWordBank {
     public int hashCode() {
         return name.hashCode();
     }
+
     /**
      * Returns true if both cards have the same meaning.
      */
-    public boolean isSameMeaning(WordBank other) {
+    public boolean isSameName(WordBank other) {
         if (other == null) {
             return false;
         }
@@ -145,5 +127,4 @@ public class WordBank implements ReadOnlyWordBank {
     public String toString() {
         return getName();
     }
-
 }

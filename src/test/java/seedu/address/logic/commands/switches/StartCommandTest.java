@@ -195,7 +195,7 @@ class StartCommandTest {
         }
 
         @Override
-        public void removeWordBank() {
+        public void updateWordBank(String name) {
 
         }
 
@@ -285,13 +285,23 @@ class StartCommandTest {
         }
 
         @Override
-        public boolean bankLoaded() {
+        public boolean getHasBank() {
             return false;
         }
 
         @Override
         public Game getGame() {
             return game;
+        }
+
+        @Override
+        public boolean hasWordBank(String name) {
+            return false;
+        }
+
+        @Override
+        public WordBank getWordBankFromName(String name) {
+            return null;
         }
 
         @Override

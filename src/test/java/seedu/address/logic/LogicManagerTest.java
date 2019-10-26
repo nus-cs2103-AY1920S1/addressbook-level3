@@ -11,10 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.CommandResult;
+
+//import seedu.address.logic.commands.CommandResult;
+
+//import seedu.address.logic.commands.switches.HomeCommand;
+//import seedu.address.logic.commands.switches.OpenCommand;
+
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.switches.HomeCommand;
-import seedu.address.logic.commands.switches.OpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -66,19 +69,19 @@ public class LogicManagerTest {
     //        String bankCommand = "bank";
     //        assertCommandException(bankCommand, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     //    }
-
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String bankBypass = "bank 123";
-        logic.execute(bankBypass);
-        String homeCommand = HomeCommand.COMMAND_WORD;
-        String openCommand = OpenCommand.COMMAND_WORD;
-        CommandResult homeResult = logic.execute(homeCommand);
-        assertEquals(HomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
-        CommandResult openResult = logic.execute(openCommand);
-        assertEquals(OpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
-        assertEquals(model, model);
-    }
+    //
+    //    @Test
+    //    public void execute_validCommand_success() throws Exception {
+    //        String bankBypass = "bank 123";
+    //        logic.execute(bankBypass);
+    //        String homeCommand = HomeCommand.COMMAND_WORD;
+    //        String openCommand = OpenCommand.COMMAND_WORD;
+    //        CommandResult homeResult = logic.execute(homeCommand);
+    //        assertEquals(HomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
+    //        CommandResult openResult = logic.execute(openCommand);
+    //        assertEquals(OpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
+    //        assertEquals(model, model);
+    //    }
 
     //    todo: storage test
     //    @Test

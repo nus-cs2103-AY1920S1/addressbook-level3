@@ -15,9 +15,7 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Card {
-
     private final String id;
-    // field values
     private final Word word;
     private final Meaning meaning;
     private final Set<Tag> tags = new HashSet<>();
@@ -36,7 +34,6 @@ public class Card {
         this.tags.addAll(tags);
         this.hintSupplier = new HintSupplier(word.value);
     }
-
 
     /**
      * Returns a deep copy of the current {@code Card}.
@@ -135,5 +132,4 @@ public class Card {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

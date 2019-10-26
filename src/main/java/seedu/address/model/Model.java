@@ -22,7 +22,9 @@ import seedu.address.statistics.WordBankStatistics;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     /**
@@ -61,9 +63,9 @@ public interface Model {
     void setWordBank(ReadOnlyWordBank wordBank);
 
     /**
-     * Set the word bank to empty.
+     * Set the word bank to default if the removed.
      */
-    void removeWordBank();
+    void updateWordBank(String name);
 
     /**
      * Returns the active word bank statistics. Null if no active.
@@ -85,7 +87,9 @@ public interface Model {
      */
     void clearWordBank();
 
-    /** Returns the WordBank */
+    /**
+     * Returns the WordBank
+     */
     ReadOnlyWordBank getWordBank();
 
     /**
@@ -112,10 +116,14 @@ public interface Model {
      */
     void setCard(Card target, Card editedCard);
 
-    /** Returns an unmodifiable view of the filtered card list */
+    /**
+     * Returns an unmodifiable view of the filtered card list
+     */
     ObservableList<Card> getFilteredCardList();
 
-    /** Returns an unmodifiable view of the filtered card list */
+    /**
+     * Returns an unmodifiable view of the filtered card list
+     */
     ObservableList<WordBank> getFilteredWordBankList();
 
     WordBankList getWordBankList();
@@ -126,6 +134,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCardList(Predicate<Card> predicate);
@@ -134,9 +143,13 @@ public interface Model {
 
     boolean gameIsOver();
 
-    boolean bankLoaded();
+    boolean getHasBank();
 
     Game getGame();
+
+    boolean hasWordBank(String name);
+
+    WordBank getWordBankFromName(String name);
 
 
     DifficultyEnum getCurrentGameDifficulty();

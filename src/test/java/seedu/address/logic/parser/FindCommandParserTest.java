@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.app;
+package seedu.address.logic.parser.open;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appcommands.FindCommand;
+import seedu.address.logic.commands.cardcommands.FindCommand;
 import seedu.address.model.card.WordContainsKeywordsPredicate;
 
 public class FindCommandParserTest {

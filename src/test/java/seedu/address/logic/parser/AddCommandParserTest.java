@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.app;
+package seedu.address.logic.parser.open;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -24,7 +24,7 @@ import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appcommands.AddCommand;
+import seedu.address.logic.commands.cardcommands.AddCommand;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;

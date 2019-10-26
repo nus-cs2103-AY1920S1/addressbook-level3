@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path dataFilePath = Paths.get("data");
-    private Path wordBankListFilePath = Paths.get("data", "wordbanks");
+    private Path wordBankListFilePath = Paths.get("data", "wordBanks");
     private Path appSettingsFilePath = Paths.get("data" , "appsettings.json");
 
     /**

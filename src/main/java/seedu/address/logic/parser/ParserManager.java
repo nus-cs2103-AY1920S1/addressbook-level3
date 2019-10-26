@@ -8,23 +8,23 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.SwitchCommand;
-import seedu.address.logic.commands.appcommands.AddCommand;
-import seedu.address.logic.commands.appcommands.ClearCommand;
-import seedu.address.logic.commands.appcommands.DeleteCommand;
-import seedu.address.logic.commands.appcommands.EditCommand;
-import seedu.address.logic.commands.appcommands.FindCommand;
-import seedu.address.logic.commands.appcommands.HelpCommand;
-import seedu.address.logic.commands.appcommands.ListCommand;
+import seedu.address.logic.commands.cardcommands.AddCommand;
+import seedu.address.logic.commands.cardcommands.ClearCommand;
+import seedu.address.logic.commands.cardcommands.DeleteCommand;
+import seedu.address.logic.commands.cardcommands.EditCommand;
+import seedu.address.logic.commands.cardcommands.ExitCommand;
+import seedu.address.logic.commands.cardcommands.FindCommand;
+import seedu.address.logic.commands.cardcommands.HelpCommand;
+import seedu.address.logic.commands.cardcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.commands.gamecommands.GuessCommand;
 import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.gamecommands.StopCommand;
-import seedu.address.logic.commands.loadcommands.BankCommand;
-import seedu.address.logic.commands.loadcommands.CreateCommand;
-import seedu.address.logic.commands.loadcommands.ExitCommand;
-import seedu.address.logic.commands.loadcommands.ExportCommand;
-import seedu.address.logic.commands.loadcommands.ImportCommand;
-import seedu.address.logic.commands.loadcommands.RemoveCommand;
+import seedu.address.logic.commands.homecommands.BankCommand;
+import seedu.address.logic.commands.homecommands.CreateCommand;
+import seedu.address.logic.commands.homecommands.ExportCommand;
+import seedu.address.logic.commands.homecommands.ImportCommand;
+import seedu.address.logic.commands.homecommands.RemoveCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.commands.settingcommands.HintsCommand;
 import seedu.address.logic.commands.settingcommands.ThemeCommand;
@@ -32,17 +32,17 @@ import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.OpenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
-import seedu.address.logic.parser.app.AddCommandParser;
-import seedu.address.logic.parser.app.DeleteCommandParser;
-import seedu.address.logic.parser.app.EditCommandParser;
-import seedu.address.logic.parser.app.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
-import seedu.address.logic.parser.load.BankCommandParser;
-import seedu.address.logic.parser.load.CreateCommandParser;
-import seedu.address.logic.parser.load.ExportCommandParser;
-import seedu.address.logic.parser.load.ImportCommandParser;
-import seedu.address.logic.parser.load.RemoveCommandParser;
+import seedu.address.logic.parser.home.BankCommandParser;
+import seedu.address.logic.parser.home.CreateCommandParser;
+import seedu.address.logic.parser.home.ExportCommandParser;
+import seedu.address.logic.parser.home.ImportCommandParser;
+import seedu.address.logic.parser.home.RemoveCommandParser;
+import seedu.address.logic.parser.open.AddCommandParser;
+import seedu.address.logic.parser.open.DeleteCommandParser;
+import seedu.address.logic.parser.open.EditCommandParser;
+import seedu.address.logic.parser.open.FindCommandParser;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
 import seedu.address.logic.parser.settings.HintsCommandParser;
 import seedu.address.logic.parser.settings.ThemeCommandParser;
@@ -66,7 +66,7 @@ public class ParserManager {
     private SpecificModeParser switchParser;
     private SpecificModeParser currentParser;
 
-    public ParserManager () {
+    public ParserManager() {
         this.mode = ModeEnum.HOME;
         this.gameIsOver = true;
         this.switchParser = new SpecificModeParser();
@@ -120,7 +120,7 @@ public class ParserManager {
 
     /**
      * Updates the current state of the Model and ParserManager based on whether
-     * {@code bankLoaded} is true, and whether {@code gameIsOver}.
+     * {@code getHasBank} is true, and whether {@code gameIsOver}.
      */
     public void updateState(boolean bankLoaded, boolean gameIsOver) {
         this.bankLoaded = bankLoaded;

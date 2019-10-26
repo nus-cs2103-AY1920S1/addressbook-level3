@@ -27,11 +27,11 @@ public class JsonWordBankStorageTest {
 //
 //    @Test
 //    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-//        assertThrows(NullPointerException.class, () -> getWordBank(null));
+//        assertThrows(NullPointerException.class, () -> toModelType(null));
 //    }
 //
-//    private java.util.Optional<ReadOnlyWordBankList> getWordBank(String filePath) throws Exception {
-//        return new JsonWordBankListStorage(Paths.get(filePath)).getWordBank(addToTestDataPathIfNotNull(filePath));
+//    private java.util.Optional<ReadOnlyWordBankList> toModelType(String filePath) throws Exception {
+//        return new JsonWordBankListStorage(Paths.get(filePath)).toModelType(addToTestDataPathIfNotNull(filePath));
 //    }
 //
 //    private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,22 +42,22 @@ public class JsonWordBankStorageTest {
 //
 //    @Test
 //    public void read_missingFile_emptyResult() throws Exception {
-//        assertFalse(getWordBank("NonExistentFile.json").isPresent());
+//        assertFalse(toModelType("NonExistentFile.json").isPresent());
 //    }
 //
 //    @Test
 //    public void read_notJsonFormat_exceptionThrown() {
-//        assertThrows(DataConversionException.class, () -> getWordBank("notJsonFormatAddressBook.json"));
+//        assertThrows(DataConversionException.class, () -> toModelType("notJsonFormatAddressBook.json"));
 //    }
 //
 //    @Test
 //    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-//        assertThrows(DataConversionException.class, () -> getWordBank("invalidPersonAddressBook.json"));
+//        assertThrows(DataConversionException.class, () -> toModelType("invalidPersonAddressBook.json"));
 //    }
 //
 //    @Test
 //    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-//        assertThrows(DataConversionException.class, () -> getWordBank("invalidAndValidPersonAddressBook.json"));
+//        assertThrows(DataConversionException.class, () -> toModelType("invalidAndValidPersonAddressBook.json"));
 //    }
 //
 //    @Test
@@ -68,20 +68,20 @@ public class JsonWordBankStorageTest {
 //
 //        // Save in new file and read back
 //        jsonAddressBookStorage.saveWordBanks(original, filePath);
-//        ReadOnlyWordBankList readBack = jsonAddressBookStorage.getWordBank(filePath).get();
+//        ReadOnlyWordBankList readBack = jsonAddressBookStorage.toModelType(filePath).get();
 //        assertEquals(original, new WordBank(readBack));
 //
 //        // Modify data, overwrite exiting file, and read back
 //        original.addBank(HOON);
 //        original.removePerson(ALICE);
 //        jsonAddressBookStorage.saveWordBanks(original, filePath);
-//        readBack = jsonAddressBookStorage.getWordBank(filePath).get();
+//        readBack = jsonAddressBookStorage.toModelType(filePath).get();
 //        assertEquals(original, new WordBank(readBack));
 //
 //        // Save and read without specifying file path
 //        original.addBank(IDA);
 //        jsonAddressBookStorage.saveWordBanks(original); // file path not specified
-//        readBack = jsonAddressBookStorage.getWordBank().get(); // file path not specified
+//        readBack = jsonAddressBookStorage.toModelType().get(); // file path not specified
 //        assertEquals(original, new WordBank(readBack));
 //
 //    }

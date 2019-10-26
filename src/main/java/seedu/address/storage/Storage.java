@@ -8,7 +8,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.globalstatistics.GlobalStatistics;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.appsettings.AppSettingsStorage;
@@ -23,6 +24,26 @@ import seedu.address.storage.wordbanks.WordBankListStorage;
  */
 public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBankStatisticsListStorage,
         GlobalStatisticsStorage, AppSettingsStorage {
+
+    // ===================== word bank list ==========================
+
+    @Override
+    Optional<ReadOnlyWordBankList> getWordBankList();
+
+    @Override
+    void createWordBank(String wordBankName);
+
+    @Override
+    void removeWordBank(String wordBankName);
+
+    @Override
+    void importWordBank(Path filePath, String wordBankName);
+
+    @Override
+    void exportWordBank(String wordBankName, Path filePath);
+
+    @Override
+    void updateWordBank(WordBank wordBank);
 
     // ===================== word bank statistics =====================
     @Override
@@ -49,14 +70,5 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
-
-
-
-
-    @Override
-    void removeWordBank(String wordBankName);
-
-    @Override
-    Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException;
 
 }

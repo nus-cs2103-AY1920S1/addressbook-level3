@@ -11,7 +11,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.globalstatistics.GlobalStatistics;
-import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
@@ -22,7 +22,7 @@ import seedu.address.storage.userprefs.UserPrefsStorage;
 import seedu.address.storage.wordbanks.WordBankListStorage;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Dukemon data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -68,34 +68,14 @@ public class StorageManager implements Storage {
     // ================ WordBankList methods ==============================
 
     @Override
-    public Path getWordBankListFilePath() {
-        return wordBankListStorage.getWordBankListFilePath();
-    }
-
-    private void saveWordBank(ReadOnlyWordBank wordBank) throws IOException {
-        saveWordBank(wordBank, getWordBankListFilePath());
-    }
-
-    /**
-     * Saves the word bank at the specified path file.
-     *
-     * @param wordBank
-     * @param filePath location of the data. Cannot be null.
-     * @throws IOException
-     */
-    public void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        wordBankListStorage.saveWordBank(wordBank, filePath);
-    }
-
-    @Override
-    public void addWordBank(ReadOnlyWordBank wordBank) {
-        wordBankListStorage.addWordBank(wordBank);
-    }
-
-    @Override
     public Optional<ReadOnlyWordBankList> getWordBankList() {
         return wordBankListStorage.getWordBankList();
+    }
+
+
+    @Override
+    public void createWordBank(String wordBankName) {
+        wordBankListStorage.createWordBank(wordBankName);
     }
 
     @Override
@@ -104,10 +84,19 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyWordBank> getWordBank(Path wordBankPathFile) throws DataConversionException {
-        return wordBankListStorage.getWordBank(wordBankPathFile);
+    public void importWordBank(Path filePath, String wordBankName) {
+        wordBankListStorage.importWordBank(filePath, wordBankName);
     }
 
+    @Override
+    public void exportWordBank(String wordBankName, Path filePath) {
+        wordBankListStorage.exportWordBank(wordBankName, filePath);
+    }
+
+    @Override
+    public void updateWordBank(WordBank wordBank) {
+        wordBankListStorage.updateWordBank(wordBank);
+    }
 
     // ================ WordBankStatistics methods ==============================
 

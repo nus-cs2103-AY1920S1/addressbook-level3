@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.appcommands.AddCommand;
+import seedu.address.logic.commands.cardcommands.AddCommand;
 
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -98,12 +98,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasWordBank(String name) {
+            return false;
+        }
+
+        @Override
+        public WordBank getWordBankFromName(String name) {
+            return null;
+        }
+
+        @Override
         public boolean gameIsOver() {
             return false;
         }
 
         @Override
-        public boolean bankLoaded() {
+        public boolean getHasBank() {
             return false;
         }
 
@@ -208,6 +218,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateWordBank(String name) {
+
+        }
+
+        @Override
         public WordBankStatistics getWordBankStatistics() {
             return null;
         }
@@ -269,11 +284,6 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeWordBank() {
             throw new AssertionError("This method should not be called.");
         }
 
