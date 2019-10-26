@@ -13,6 +13,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -24,6 +25,7 @@ import seedu.address.logic.export.VisualExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.detailwindow.MonthSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.util.*;
@@ -254,10 +256,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleExport(DetailWindowDisplay detailWindowDisplay) {
         DetailWindowDisplayType type = detailWindowDisplay.getDetailWindowDisplayType();
+        /*
         if (type.equals(DetailWindowDisplayType.PERSON)) {
-            PersonDetailsView personDetailsView = new PersonDetailsView(detailWindowDisplay);
+            MonthSchedule ms = detailWindowDisplay.getMonthSchedules().get(0);
+            ScheduleView personScheduleView = new IndividualScheduleViewManager(ms, ms.getPersonDisplay(),
+                    ColorGenerator.generateColorList(1).get(0)).getScheduleView();
             StackPane stackPane = new StackPane();
-            stackPane.getChildren().add(personDetailsView.getRoot());
+            HBox exportContainer = new HBox();
+            exportContainer.getChildren().add(personScheduleView.getRoot());
+            stackPane.getChildren().add(exportContainer);
             Scene scene = new Scene(stackPane);
             try {
                 VisualExporter.exportTo(stackPane, "png", "./export.png");
@@ -274,7 +281,7 @@ public class MainWindow extends UiPart<Stage> {
             } catch (IOException e) {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
-        }
+        }*/
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -299,7 +306,7 @@ public class MainWindow extends UiPart<Stage> {
             case PERSON:
                 //There is only 1 schedule in the detailWindowDisplay
                 this.scheduleViewManager = new IndividualScheduleViewManager(detailWindowDisplay.getMonthSchedules().get(0),
-                        "white");
+                        detailWindowDisplay.getMonthSchedules().get(0).getPersonDisplay(), colors.get(0));
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(
                         new PersonDetailCard(detailWindowDisplay

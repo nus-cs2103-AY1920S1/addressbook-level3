@@ -2,6 +2,7 @@ package seedu.address.model.display.detailwindow;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.mapping.Role;
@@ -34,8 +35,8 @@ public class MonthSchedule {
         personDisplay = new PersonDisplay(person);
     }
 
-    public static ArrayList<WeekSchedule> getWeekSchedulesForWeek(ArrayList<MonthSchedule> monthSchedules, int weekNum) {
-        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+    public static List<WeekSchedule> getWeekSchedulesForWeek(ArrayList<MonthSchedule> monthSchedules, int weekNum) {
+        List<WeekSchedule> weekSchedules = new ArrayList<>();
         for (MonthSchedule m : monthSchedules) {
             weekSchedules.add(m.getWeekScheduleOf(weekNum));
         }

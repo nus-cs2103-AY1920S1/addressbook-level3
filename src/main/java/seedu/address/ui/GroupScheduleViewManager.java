@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.model.display.detailwindow.FreeSchedule;
 import seedu.address.model.display.detailwindow.MonthSchedule;
 import seedu.address.model.display.detailwindow.WeekSchedule;
 import seedu.address.model.group.GroupName;
-import seedu.address.model.person.schedule.Schedule;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Class to handle schedule view of groups
@@ -32,14 +32,16 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
     }
 
     /**
-     * Method to initialise or reinitialise ScheduleView object to be displayed in the UI.
+     * Method to initialise or reinitialise group ScheduleView object to be displayed in the UI.
+     * Group schedules show free time.
      */
     private void initScheduleView() {
         LocalDate currentDate = LocalDate.now();
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
-        ArrayList<WeekSchedule> weekSchedules = MonthSchedule.getWeekSchedulesForWeek(monthSchedules, weekNumber);
+        List<WeekSchedule> weekSchedules = MonthSchedule.getWeekSchedulesForWeek(monthSchedules, weekNumber);
         this.scheduleView = new ScheduleView(weekSchedules, colors,
-                groupName, freeSchedules.get(weekNumber), dateToShow);
+                groupName.toString(), dateToShow);
+        this.scheduleView.showFreeTime(freeSchedules.get(weekNumber));
     }
 
     @Override

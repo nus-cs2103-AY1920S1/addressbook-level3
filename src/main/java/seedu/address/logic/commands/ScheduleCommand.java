@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -44,7 +45,7 @@ public class ScheduleCommand extends Command {
         // update side panel
         model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
 
-        ArrayList<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(
+        List<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(
                 model.getDetailWindowDisplay().getMonthSchedules(), 0);
         String output = "";
         for (WeekSchedule s : schedules) {

@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class GroupInformation extends UiPart<Region> {
 
     public GroupInformation(DetailWindowDisplay detailWindowDisplay, ArrayList<String> colors) {
         super(FXML);
-        ArrayList<WeekSchedule> wkschds = MonthSchedule.getWeekSchedulesForWeek(detailWindowDisplay.getMonthSchedules(), 0);
+        List<WeekSchedule> wkschds = MonthSchedule.getWeekSchedulesForWeek(detailWindowDisplay.getMonthSchedules(), 0);
         ArrayList<String> names = wkschds.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));

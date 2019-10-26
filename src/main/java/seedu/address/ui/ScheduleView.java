@@ -22,7 +22,6 @@ import seedu.address.model.display.detailwindow.DayTimeslot;
 import seedu.address.model.display.detailwindow.FreeSchedule;
 import seedu.address.model.display.detailwindow.FreeTimeslot;
 import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.model.group.GroupName;
 import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
@@ -76,19 +75,18 @@ public class ScheduleView extends UiPart<Region> {
         scheduleHeaderWrapper.setContent(scheduleHeader);
     }
 
-    public ScheduleView(ArrayList<WeekSchedule> weekSchedules, List<String> colors, GroupName groupName,
-                        FreeSchedule freeSchedule, LocalDate date) {
+    public ScheduleView(List<WeekSchedule> weekSchedules, List<String> colors, String title,
+                        LocalDate date) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = date;
         this.colors = colors;
-        this.title.setText(groupName.toString() + "'s Schedule");
+        this.title.setText(title + "'s Schedule");
         initialise();
         initialiseHeaders();
         initialiseTimeslotHeaders();
         initialiseTableCells();
         showGroupSchedule(weekSchedules);
-        showFreeTime(freeSchedule);
         scheduleContents.setContent(scheduleView);
         scheduleHeaderWrapper.setContent(scheduleHeader);
     }
@@ -220,7 +218,7 @@ public class ScheduleView extends UiPart<Region> {
      */
     private VBox getDayVBoxOfIndividualSchedule(ArrayList<DayTimeslot> daySchedule, String color) {
         VBox timeslotContainer = new VBox();
-        timeslotContainer.setStyle("-fx-padding: 0 2 0 2; -fx-border-width: 2;");
+        timeslotContainer.setId("timeslotContainer");
         timeslotContainer.getChildren().add(new Block(30).makeEmptyTimeslot());
         int originalTimeStamp = startTime * 100;
         for (int j = 0; j < daySchedule.size(); j++) {
@@ -287,7 +285,7 @@ public class ScheduleView extends UiPart<Region> {
      * @param schedules An array list of schedule maps obtained from calling getScheduleMap on a Schedule Object.
      * @return  GridPane table view of schedules.
      */
-    public GridPane showGroupSchedule(ArrayList<WeekSchedule> schedules) {
+    public GridPane showGroupSchedule(List<WeekSchedule> schedules) {
         //Assign colors to each schedule.
         //Draw VBox of each individual's schedule.
         //Put VBoxes of all individuals' timeslot for the day into HBox.

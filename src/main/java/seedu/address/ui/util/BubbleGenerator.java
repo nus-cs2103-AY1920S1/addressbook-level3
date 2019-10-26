@@ -31,7 +31,7 @@ public class BubbleGenerator {
         String color = ColorGenerator.generateColorList(1).get(0);
         Ellipse outer = new Ellipse(size / 2, size / 2);
         Label bubbleLabel = new Label(bubbleContent);
-        bubbleLabel.setStyle("-fx-text-fill: black;");
+        bubbleLabel.setStyle("-fx-text-fill: black; -fx-font-size: 20;");
         outer.setStyle("-fx-fill: " + color + ";");
         bubbleContainer.getChildren().addAll(outer, bubbleLabel);
         return bubbleContainer;

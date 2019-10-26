@@ -1,6 +1,7 @@
 package seedu.address.ui.util;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class GroupDetailsExport extends UiPart<Region> {
     public GroupDetailsExport(DetailWindowDisplay detailWindowDisplay) {
         super(FXML);
         ScheduleStub stub = new ScheduleStub();
-        ArrayList<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(detailWindowDisplay.getMonthSchedules(), 0);
+        List<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(detailWindowDisplay.getMonthSchedules(), 0);
         ArrayList<String> names = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -45,7 +46,7 @@ public class GroupDetailsExport extends UiPart<Region> {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         ArrayList<String> colors = ColorGenerator.generateColorList(names.size());
-        ScheduleExport scheduleView = new ScheduleExport(schedules, colors);
+        ScheduleExport scheduleView = new ScheduleExport(new ArrayList<WeekSchedule>(schedules), colors);
         GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
         groupDetailCard.getChildren().add(groupCard.getRoot());
         groupMembersList.getChildren().add(new MemberList(names, emails, roles, colors).getRoot());
