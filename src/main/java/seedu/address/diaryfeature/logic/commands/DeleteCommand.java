@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.diaryfeature.logic.parser.exceptions.IndexException;
 import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.diaryfeature.model.DiaryEntry;
 import seedu.address.logic.commands.Command;
@@ -41,6 +42,7 @@ public class DeleteCommand extends Command<DiaryModel> {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
         DiaryEntry entryToDelete = model.deleteDiaryEntry(targetIndex.getOneBased());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, entryToDelete));
     }

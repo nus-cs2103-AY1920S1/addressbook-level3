@@ -32,7 +32,7 @@ public class DiaryEntryCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label id;
-
+//Image credited to: Icon made by Icongeek26 from Flaticon
 
     public DiaryEntryCard(DiaryEntry entryInput, int displayedIndex) {
         super(FXML);

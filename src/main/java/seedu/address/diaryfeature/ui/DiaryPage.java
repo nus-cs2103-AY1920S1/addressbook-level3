@@ -5,9 +5,9 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
 import seedu.address.diaryfeature.model.DiaryModel;
@@ -45,7 +45,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
     private Scene diaryScene;
 
     @FXML
-    private BorderPane diaryPane;
+    private VBox diaryPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
