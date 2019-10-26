@@ -25,7 +25,8 @@ public class ClearDateMappingCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS = "Cleared all Date-Time Mappings: %1$s";
+    public static final String MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS =
+            "Cleared all Date-Time Mappings from Event: [%s]";
 
     private final Index targetIndex;
 
