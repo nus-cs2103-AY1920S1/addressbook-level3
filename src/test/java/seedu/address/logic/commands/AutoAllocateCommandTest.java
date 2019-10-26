@@ -2,7 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.AutoAllocateCommand.*;
+import static seedu.address.logic.commands.AutoAllocateCommand.MESSAGE_ALLOCATE_SUCCESS;
+import static seedu.address.logic.commands.AutoAllocateCommand.createEventAfterManpowerAllocation;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
