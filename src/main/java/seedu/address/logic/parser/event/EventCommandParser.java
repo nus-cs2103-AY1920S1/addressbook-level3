@@ -10,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GET_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW;
 
+import java.util.HashMap;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -19,6 +21,7 @@ import seedu.address.logic.commands.event.EventCommand;
 import seedu.address.logic.commands.event.EventDeleteCommand;
 import seedu.address.logic.commands.event.EventEditCommand;
 import seedu.address.logic.commands.event.EventIndexCommand;
+import seedu.address.logic.commands.event.EventViewCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -31,6 +34,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new {@code EventCommand} object
  */
 public class EventCommandParser implements Parser<EventCommand> {
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,
+        Prefix... prefixes) {
+        return Stream.of(prefixes)
+            .allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     /**
      * Parses the given {@code String} of arguments in the context of the EventAddCommand
      * and returns an EventAddCommand object for execution.
@@ -47,7 +60,9 @@ public class EventCommandParser implements Parser<EventCommand> {
                     PREFIX_END_DATETIME,
                     PREFIX_RECUR,
                     PREFIX_COLOR,
-                    PREFIX_GET_INDEX);
+                    PREFIX_GET_INDEX,
+                    PREFIX_VIEW,
+                    PREFIX_DELETE);
 
         boolean isEdit = false;
         Index index = Index.fromZeroBased(0);
@@ -63,19 +78,49 @@ public class EventCommandParser implements Parser<EventCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventEditCommand.MESSAGE_USAGE),
                 pe);
         }
-        if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
+        if (argMultimap.getValue(PREFIX_VIEW).isPresent()) { // List command
+            return new EventViewCommand();
+        } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
             return indexOfCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
+        } else if (isEdit) { // Delete command
+            return editCommand(index, argMultimap);
         } else {
             return addCommand(argMultimap);
         }
     }
 
     /**
+     * Performs validation and return the EventEdit object.
+     *
+     * @param index       of vEvent in the list.
+     * @param argMultimap for tokenized input.
+     * @return EventEditCommand object.
+     * @throws ParseException
+     */
+    private EventEditCommand editCommand(Index index, ArgumentMultimap argMultimap) {
+        HashMap<String, String> fields = new HashMap<>();
+
+        String eventName = argMultimap.getValue(PREFIX_EVENT_NAME).orElse("");
+        String startDateTime = argMultimap.getValue(PREFIX_START_DATETIME).orElse("");
+        String endDateTime = argMultimap.getValue(PREFIX_END_DATETIME).orElse("");
+        String recurType = argMultimap.getValue(PREFIX_RECUR).orElse("");
+        String colorString = argMultimap.getValue(PREFIX_COLOR).orElse("");
+
+        fields.put("eventName", eventName);
+        fields.put("startDateTime", startDateTime);
+        fields.put("endDateTime", endDateTime);
+        fields.put("recurType", recurType);
+        fields.put("colorString", colorString);
+
+        return new EventEditCommand(index, fields);
+    }
+
+    /**
      * Performs validation and return the EventDeleteCommand object.
      *
-     * @param index       of question in the list.
+     * @param index       of vEvent in the list.
      * @param argMultimap for tokenized input.
      * @return EventDeleteCommand object.
      * @throws ParseException
@@ -144,16 +189,6 @@ public class EventCommandParser implements Parser<EventCommand> {
         String desiredEventName = argMultimap.getValue(PREFIX_GET_INDEX).orElse("");
 
         return new EventIndexCommand(desiredEventName);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,
-        Prefix... prefixes) {
-        return Stream.of(prefixes)
-            .allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
