@@ -6,6 +6,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.text.ParseException;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
@@ -34,6 +35,7 @@ public class JsonAdaptedLoan {
     /**
      * Constructs a {@code JsonAdaptedLoan} with the given loan details.
      */
+    @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("personName") String personName,
                            @JsonProperty("direction") String direction,
                            @JsonProperty("amount") long amount,

@@ -51,7 +51,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model, scriptManager);
 
         try {
-            storage.saveLoans(model.getLoansManager());
+            storage.save(model);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

@@ -1,7 +1,6 @@
 package budgetbuddy.model.rule.expression;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import budgetbuddy.logic.rules.RuleProcessingUtil;
 
@@ -48,13 +47,14 @@ public enum Operator {
     }
 
     /**
-     * Returns an {@code Optional<Operator>} given a representation.
+     * Returns an {@code Operator} given a valid representation.
      */
-    public static Optional<Operator> of(String rep) {
+    public static Operator of(String rep) {
         return Arrays
                 .stream(Operator.values())
                 .filter(operator -> operator.representation.equals(rep.toLowerCase()))
-                .findFirst();
+                .findFirst()
+                .get();
     }
 
     /**

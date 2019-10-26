@@ -41,7 +41,7 @@ public class JsonSerializableLoansManager {
      * @throws IllegalValueException If any data constraints are violated.
      */
     public LoansManager toModelType() throws IllegalValueException {
-        List<Loan> loanList = new ArrayList<Loan>();
+        List<Loan> loanList = new ArrayList<>();
         for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
             loanList.add(jsonAdaptedLoan.toModelType());
         }

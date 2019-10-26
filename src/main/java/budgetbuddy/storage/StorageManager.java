@@ -8,9 +8,12 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.commons.exceptions.DataConversionException;
 import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyUserPrefs;
+import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.loans.LoansStorage;
+import budgetbuddy.storage.rules.RuleStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -19,14 +22,22 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private LoansStorage loansStorage;
+    private RuleStorage ruleStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(LoansStorage loansStorage,
+    public StorageManager(LoansStorage loansStorage, RuleStorage ruleStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
         this.loansStorage = loansStorage;
+        this.ruleStorage = ruleStorage;
         this.userPrefsStorage = userPrefsStorage;
+    }
+
+    @Override
+    public void save(Model model) throws IOException {
+        saveLoans(model.getLoansManager());
+        saveRules(model.getRuleManager());
     }
 
     // ================ UserPrefs methods ==============================
@@ -73,5 +84,34 @@ public class StorageManager implements Storage {
     public void saveLoans(LoansManager loansManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         loansStorage.saveLoans(loansManager, filePath);
+    }
+
+    // ================ Rule Storage methods ==============================
+
+    @Override
+    public Path getRuleFilePath() {
+        return ruleStorage.getRuleFilePath();
+    }
+
+    @Override
+    public Optional<RuleManager> readRules() throws DataConversionException, IOException {
+        return readRules(getRuleFilePath());
+    }
+
+    @Override
+    public Optional<RuleManager> readRules(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return ruleStorage.readRules(filePath);
+    }
+
+    @Override
+    public void saveRules(RuleManager ruleManager) throws IOException {
+        saveRules(ruleManager, ruleStorage.getRuleFilePath());
+    }
+
+    @Override
+    public void saveRules(RuleManager ruleManager, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        ruleStorage.saveRules(ruleManager, filePath);
     }
 }

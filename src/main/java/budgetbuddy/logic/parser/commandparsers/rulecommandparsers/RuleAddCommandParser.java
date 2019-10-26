@@ -41,6 +41,7 @@ public class RuleAddCommandParser implements CommandParser<RuleAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RuleAddCommand.MESSAGE_USAGE));
         }
 
+
         RulePredicate predicate = CommandParserUtil.parsePredicate(argMultimap.getValue(PREFIX_PREDICATE).get(),
                 Rule.TYPE_EXPRESSION);
         RuleAction action = CommandParserUtil.parseAction(argMultimap.getValue(PREFIX_ACTION).get(),

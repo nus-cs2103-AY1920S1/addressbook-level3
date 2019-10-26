@@ -26,6 +26,8 @@ import budgetbuddy.storage.StorageManager;
 import budgetbuddy.storage.UserPrefsStorage;
 import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.loans.LoansStorage;
+import budgetbuddy.storage.rules.JsonRuleStorage;
+import budgetbuddy.storage.rules.RuleStorage;
 import budgetbuddy.ui.Ui;
 import budgetbuddy.ui.UiManager;
 import javafx.application.Application;
@@ -48,7 +50,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Budget Buddy ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,7 +59,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         LoansStorage loansStorage = new JsonLoansStorage(userPrefs.getLoansFilePath());
-        storage = new StorageManager(loansStorage, userPrefsStorage);
+        RuleStorage ruleStorage = new JsonRuleStorage(userPrefs.getRuleFilePath());
+
+        storage = new StorageManager(loansStorage, ruleStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,14 +73,12 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage} and {@code userPrefs}.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         AccountsManager accountsManager = new AccountsManager();
         LoansManager loansManager = initLoansManager(storage);
-        RuleManager ruleManager = new RuleManager();
+        RuleManager ruleManager = initRuleManager(storage);
 
         return new ModelManager(loansManager, ruleManager, accountsManager, userPrefs);
     }
@@ -100,6 +102,28 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from loans file. Will be starting with an empty LoansManager.");
             return new LoansManager();
+        }
+    }
+
+    /**
+     * Loads and returns a Rule Manager from storage.
+     * Returns an empty Rule Manager if no file found or if exception occurs during loading.
+     */
+    private RuleManager initRuleManager(Storage storage) {
+        Optional<RuleManager> ruleManagerOptional;
+
+        try {
+            ruleManagerOptional = storage.readRules();
+            if (ruleManagerOptional.isEmpty()) {
+                logger.info("Rule file not found. Will be starting with an empty RuleManager.");
+            }
+            return ruleManagerOptional.orElseGet(RuleManager::new);
+        } catch (DataConversionException e) {
+            logger.warning("Rule file not in the correct format. Will be starting with an empty RuleManager.");
+            return new RuleManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from rule file. Will be starting with an empty RuleManager.");
+            return new RuleManager();
         }
     }
 

@@ -152,7 +152,7 @@ public class CommandParserUtil {
         if (!Attribute.isValidAttribute(trimmedAttr)) {
             throw new ParseException(Attribute.MESSAGE_CONSTRAINTS);
         }
-        return Attribute.of(trimmedAttr).get();
+        return Attribute.of(trimmedAttr);
     }
 
     /**
@@ -167,7 +167,7 @@ public class CommandParserUtil {
         if (!Operator.isValidOperator(trimmedOp)) {
             throw new ParseException(Operator.MESSAGE_CONSTRAINTS);
         }
-        return Operator.of(trimmedOp).get();
+        return Operator.of(trimmedOp);
     }
 
     /**

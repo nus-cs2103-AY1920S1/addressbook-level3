@@ -1,7 +1,6 @@
 package budgetbuddy.model.rule.expression;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import budgetbuddy.logic.rules.RuleProcessingUtil;
 
@@ -40,13 +39,14 @@ public enum Attribute {
     }
 
     /**
-     * Returns an {@code Optional<Attribute>} given a valid representation.
+     * Returns an {@code Attribute} given a valid string representation.
      */
-    public static Optional<Attribute> of(String rep) {
+    public static Attribute of(String rep) {
         return Arrays
                 .stream(Attribute.values())
                 .filter(attribute -> attribute.representation.equals(rep.toLowerCase()))
-                .findFirst();
+                .findFirst()
+                .get();
     }
 
     /**

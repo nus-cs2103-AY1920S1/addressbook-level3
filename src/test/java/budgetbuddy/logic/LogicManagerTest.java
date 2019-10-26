@@ -21,6 +21,7 @@ import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.JsonUserPrefsStorage;
 import budgetbuddy.storage.StorageManager;
 import budgetbuddy.storage.loans.JsonLoansStorage;
+import budgetbuddy.storage.rules.JsonRuleStorage;
 
 public class LogicManagerTest {
     // TODO
@@ -36,8 +37,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonLoansStorage loansStorage =
                 new JsonLoansStorage(temporaryFolder.resolve("loans.json"));
+        JsonRuleStorage ruleStorage =
+                new JsonRuleStorage(temporaryFolder.resolve("rules.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(loansStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(loansStorage, ruleStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 

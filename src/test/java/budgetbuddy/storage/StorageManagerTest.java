@@ -11,6 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.loans.JsonLoansStorage;
+import budgetbuddy.storage.rules.JsonRuleStorage;
 
 public class StorageManagerTest {
 
@@ -22,8 +23,9 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonLoansStorage loansStorage = new JsonLoansStorage(getTempFilePath("loans"));
+        JsonRuleStorage ruleStorage = new JsonRuleStorage(getTempFilePath("rules"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(loansStorage, userPrefsStorage);
+        storageManager = new StorageManager(loansStorage, ruleStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
