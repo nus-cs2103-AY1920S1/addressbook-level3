@@ -24,7 +24,7 @@ public class QuizResultFilter {
     private Difficulty difficulty;
     private Date startDate;
     private Date endDate;
-    private boolean isCorrectQns;
+    private Boolean isCorrectQns;
     private Stack<FilterType> operations = new Stack<>();
 
     public QuizResultFilter() {}
@@ -106,6 +106,18 @@ public class QuizResultFilter {
             operations.push(DATE);
         }
         operations.push(SUBJECT);
+        operations.push(DIFFICULTY);
+    }
+
+    public void setOperation(Difficulty d) {
+        this.difficulty = d;
+        if (operations.empty() && isCorrectQns != null) {
+            if (isCorrectQns) {
+                operations.push(CORRECT);
+            } else {
+                operations.push(INCORRECT);
+            }
+        }
         operations.push(DIFFICULTY);
     }
 }

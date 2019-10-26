@@ -6,14 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -27,7 +25,7 @@ import seedu.address.ui.panels.QuizQuestionListPanel;
 import seedu.address.ui.panels.TaskListPanel;
 import seedu.address.ui.statistics.StackBarChart;
 import seedu.address.ui.statistics.StatsPieChart;
-import seedu.address.ui.statistics.StatsQnsList;
+import seedu.address.ui.statistics.StatsQns;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -51,7 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private StatsPieChart statsPieChart;
     private StackBarChart stackBarChart;
-    private StatsQnsList quizResultList;
+    private StatsQns statsQns;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -220,18 +218,13 @@ public class MainWindow extends UiPart<Stage> {
             statsPanelPlaceholder.getChildren().clear();
             statsPieChart = new StatsPieChart(logic.getStatsPieChartData(), logic.getTotalQuestionsDone());
             statsPanelPlaceholder.getChildren().add(statsPieChart.getRoot());
-            statsPieChart.getChart().getData().forEach(data -> {
-                String value = "" + (int) data.getPieValue();
-                Tooltip toolTip = new Tooltip(value);
-                toolTip.setStyle("-fx-font-size: 20");
-                toolTip.setShowDelay(Duration.seconds(0));
-                Tooltip.install(data.getNode(), toolTip);
-            });
+            statsPieChart.setMouseover();
             break;
         case QUESTIONS:
             statsPanelPlaceholder.getChildren().clear();
-            quizResultList = new StatsQnsList(logic.getQuizResultList());
-            statsPanelPlaceholder.getChildren().add(quizResultList.getLabel());
+            statsQns = new StatsQns(logic.getQuizResultList(), logic.getQnsPieChartData());
+            statsPanelPlaceholder.getChildren().add(statsQns.getRoot());
+            statsQns.setMouseover();
             break;
         case OVERVIEW:
             statsPanelPlaceholder.getChildren().clear();

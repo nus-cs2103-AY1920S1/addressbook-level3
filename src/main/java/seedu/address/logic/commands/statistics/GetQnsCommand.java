@@ -43,6 +43,7 @@ public class GetQnsCommand extends Command {
         requireNonNull(model);
         try {
             model.filterQuizResult(quizResultFilter);
+            model.updateQuizResultFilter(quizResultFilter);
         } catch (EmptyQuizResultListException e) {
             throw new CommandException(MESSAGE_NO_QNS);
         }

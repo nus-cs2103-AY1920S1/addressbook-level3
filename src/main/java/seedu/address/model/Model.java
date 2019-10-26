@@ -248,4 +248,6 @@ public interface Model {
     ObservableList<Subject> getUniqueSubjectList();
 
     ObservableList<StackBarChartModel> getStackBarChartData();
+
+    ObservableList<PieChart.Data> getQnsPieChartData();
 }
