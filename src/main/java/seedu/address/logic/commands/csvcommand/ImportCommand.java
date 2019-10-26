@@ -150,7 +150,7 @@ public class ImportCommand extends Command {
                 }
                 return CsvUtil.parseToTeam(data, model);
             default:
-                // If Entity Type is incorrect
+                // If Entity CommandType is incorrect
                 this.errors.add(new Error(lineNumber, line, CAUSE_INVALID_DATA));
             }
         } catch (IllegalArgumentException iae) {

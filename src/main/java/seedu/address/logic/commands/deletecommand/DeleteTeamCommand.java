@@ -6,8 +6,8 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Id;
-import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
 
 /**
@@ -40,7 +40,7 @@ public class DeleteTeamCommand extends DeleteCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TEAM_SUCCESS,
-                teamToBeDeleted.toString()), PrefixType.T);
+                teamToBeDeleted.toString()), CommandType.T);
     }
 
     @Override

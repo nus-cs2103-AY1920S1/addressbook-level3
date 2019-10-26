@@ -10,12 +10,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
+import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
-import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.SubjectName;
 
 /**
@@ -64,7 +64,8 @@ public class EditMentorCommand extends EditCommand {
         try {
             model.updateMentor(this.id, editedMentor);
             model.updateHistory(this);
-            return new CommandResult(String.format(MESSAGE_EDIT_MENTOR_SUCCESS, editedMentor.toString()), PrefixType.M);
+            return new CommandResult(String.format(MESSAGE_EDIT_MENTOR_SUCCESS, editedMentor.toString()),
+                    CommandType.M);
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());
         }

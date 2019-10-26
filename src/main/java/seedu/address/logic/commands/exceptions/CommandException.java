@@ -9,7 +9,7 @@ import seedu.address.logic.commands.Command;
  * 1) Could not store data to file
  * 2) Person index is invalid
  * 3) Duplicate person with the same identity is added to model
- * 4) Type of entity(mentor, participant, team) is invalid)
+ * 4) CommandType of entity(mentor, participant, team) is invalid)
  */
 public class CommandException extends AlfredException {
     public CommandException(String message) {

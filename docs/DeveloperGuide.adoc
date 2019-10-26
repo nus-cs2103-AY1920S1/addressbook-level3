@@ -98,7 +98,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Looks at the prefix type given in the CommandResult(returned after every Command is executed), as displays the specific EntityListPanel respectively.
+* Looks at the prefix commandType given in the CommandResult(returned after every Command is executed), as displays the specific EntityListPanel respectively.
 
 [[Design-Logic]]
 === Logic component
@@ -335,7 +335,7 @@ Refer to the guide <<DevOps#, here>>.
 * has a need to keep track of the competition winners and prizes won
 * has a need to search for specific Mentor, Team or Participant at times
 * prefer desktop apps over other types
-* can type fast
+* can commandType fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
@@ -369,7 +369,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Admin In-Charge |keep track of winning teams and the prizes won | ensure that the prize-giving ceremony runs smoothly
 
-|`* * *` |Admin In-Charge |make sure that I will be notified on any wrong commands that I type | make sure that I do not accidentally clutter up my list of entries
+|`* * *` |Admin In-Charge |make sure that I will be notified on any wrong commands that I commandType | make sure that I do not accidentally clutter up my list of entries
 
 |`* * *` |Admin In-Charge |have a readable and organised User Interface | understand the output of my commands
 
@@ -386,7 +386,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |Admin In-Charge |keep track of amount of food or catering | make sure they are adequately catered to all participants
 
 
-|`*` |Admin In-Charge |automatically match Teams to Mentor by their expertise and project type of the Team | do not need to perform the matching manually
+|`*` |Admin In-Charge |automatically match Teams to Mentor by their expertise and project commandType of the Team | do not need to perform the matching manually
 
 |`*` |Admin In-Charge |schedule meetings between Teams and Mentors | lets Mentors know when to consult each Team in an organised manner
 |=======================================================================
@@ -403,8 +403,8 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests a list of an entity type
-2.  HackathonManager shows a list of that entity type
+1.  User requests a list of an entity commandType
+2.  HackathonManager shows a list of that entity commandType
 3.  User requests to delete a specific entity in the list by name
 4.  HackathonManager deletes the person
 +
@@ -456,8 +456,8 @@ Use case ends.
 
 *MSS*
 
-1. User requests a list of an entity type
-2.  HackathonManager shows a list of that entity type
+1. User requests a list of an entity commandType
+2.  HackathonManager shows a list of that entity commandType
 3.  User requests to update a specific entity in the list by name or index
 4.  HackathonManager updates the person
 Use case ends.

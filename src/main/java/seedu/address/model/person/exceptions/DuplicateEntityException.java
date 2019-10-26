@@ -7,7 +7,7 @@ package seedu.address.model.person.exceptions;
 public class DuplicateEntityException extends RuntimeException {
     /**
      * Creates a new instance of DuplicateEntityException according to type of entity.
-     * @param type Type of entity.
+     * @param type CommandType of entity.
      */
     public DuplicateEntityException(String type) {
         super("Operation would result in duplicate " + type + " s");

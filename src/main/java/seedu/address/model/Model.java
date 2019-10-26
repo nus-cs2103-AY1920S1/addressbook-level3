@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -209,5 +210,5 @@ public interface Model {
      * Gets a String detailing the previously executed commands that can be undone by the user.
      * @return String representing the previously executed commands that can be undone by the user.
      */
-    String getCommandHistory();
+    ArrayList<CommandRecord> getCommandHistory() throws AlfredModelHistoryException;
 }

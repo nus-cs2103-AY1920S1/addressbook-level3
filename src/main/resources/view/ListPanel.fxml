@@ -4,5 +4,5 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="panelContainer" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="entityListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="listView" VBox.vgrow="ALWAYS" />
 </VBox>

@@ -6,9 +6,9 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
-import seedu.address.model.entity.PrefixType;
 
 /**
  * Shows detailed view of the {@link Mentor} at specified ID.
@@ -40,7 +40,7 @@ public class ViewMentorCommand extends ViewCommand {
         }
         viewEntity(mentorToView);
 
-        return new CommandResult(MESSAGE_SUCCESS, PrefixType.M);
+        return new CommandResult(MESSAGE_SUCCESS, CommandType.M);
     }
 
     @Override

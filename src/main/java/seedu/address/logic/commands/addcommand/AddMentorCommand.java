@@ -7,8 +7,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
+import seedu.address.model.entity.CommandType;
 import seedu.address.model.entity.Mentor;
-import seedu.address.model.entity.PrefixType;
 
 /**
  * Adds a {@link Mentor} to Alfred.
@@ -69,7 +69,7 @@ public class AddMentorCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_MENTOR);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, this.mentor.toString()), PrefixType.M);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, this.mentor.toString()), CommandType.M);
     }
 
     @Override

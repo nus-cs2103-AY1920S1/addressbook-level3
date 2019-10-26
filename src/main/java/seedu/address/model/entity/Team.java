@@ -304,7 +304,7 @@ public class Team extends Entity {
                 .append(getScore())
                 .append(" Project Name: ")
                 .append(getProjectName())
-                .append(" Project Type: ")
+                .append(" Project CommandType: ")
                 .append(getProjectType())
                 .append(" Participants: ")
                 .append(participantsString);
