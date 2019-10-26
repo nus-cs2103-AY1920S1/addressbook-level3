@@ -47,7 +47,7 @@ public class LogicManagerTest {
         JsonProjectDashboardStorage projectDashboardStorage =
                 new JsonProjectDashboardStorage(temporaryFolder.resolve("projectDashboard.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage, );
         logic = new LogicManager(model, storage);
     }
 
@@ -76,7 +76,7 @@ public class LogicManagerTest {
                 new JsonProjectDashboardIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(projectDashboardStorage, userPrefsStorage, );
         logic = new LogicManager(model, storage);
 
         // Execute add command

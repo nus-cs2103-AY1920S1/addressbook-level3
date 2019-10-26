@@ -21,12 +21,14 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ProjectDashboardStorage projectDashboardStorage;
     private UserPrefsStorage userPrefsStorage;
+    private UserSettingsStorage userSettingsStorage;
 
-
-    public StorageManager(ProjectDashboardStorage projectDashboardStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ProjectDashboardStorage projectDashboardStorage, UserPrefsStorage userPrefsStorage,
+                          UserSettingsStorage userSettingsStorage) {
         super();
         this.projectDashboardStorage = projectDashboardStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.userSettingsStorage = userSettingsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -77,50 +79,32 @@ public class StorageManager implements Storage {
         projectDashboardStorage.saveProjectDashboard(projectDashboard, filePath);
     }
 
-    // ================ Settings methods ==============================
+    // ================ UserSettings methods ==============================
 
-    /**
-     * Returns the file path of the UserSettings data file.
-     */
     @Override
     public Path getUserSettingsFilePath() {
-        return null;
+        return userSettingsStorage.getUserSettingsFilePath();
     }
 
-    /**
-     * Returns UserSettings data from storage.
-     * Returns {@code Optional.empty()} if storage file is not found.
-     *
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException             if there was any problem when reading from the storage.
-     */
     @Override
     public Optional<UserSettings> readUserSettings() throws DataConversionException, IOException {
-        return Optional.empty();
+        return readUserSettings(userSettingsStorage.getUserSettingsFilePath());
     }
 
-    /**
-     * @param filePath
-     * @see #getUserSettingsFilePath().
-     */
     @Override
     public Optional<UserSettings> readUserSettings(Path filePath) throws DataConversionException {
-        return Optional.empty();
+        logger.fine("Attempting to read data from file: " + filePath);
+        return userSettingsStorage.readUserSettings(filePath);
     }
 
-    /**
-     * Saves the given {@link ReadOnlyUserSettings} to the storage.
-     *
-     * @param userSettings cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
     @Override
     public void saveUserSettings(ReadOnlyUserSettings userSettings) throws IOException {
-
+        saveUserSettings(userSettings, userSettingsStorage.getUserSettingsFilePath());
     }
 
     @Override
     public void saveUserSettings(ReadOnlyUserSettings userSettings, Path filePath) throws IOException {
-
+        logger.fine("Attempting to write to data file: " + filePath);
+        userSettingsStorage.saveUserSettings(userSettings, filePath);
     }
 }

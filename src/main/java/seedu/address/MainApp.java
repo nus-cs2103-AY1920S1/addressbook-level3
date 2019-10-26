@@ -26,6 +26,7 @@ import seedu.address.model.UserSettings;
 import seedu.address.model.util.SampleTaskDataUtil;
 import seedu.address.storage.JsonProjectDashboardStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserSettingsStorage;
 import seedu.address.storage.ProjectDashboardStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -61,7 +62,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ProjectDashboardStorage projectDashboardStorage =
                 new JsonProjectDashboardStorage(userPrefs.getProjectDashboardFilePath());
-        storage = new StorageManager(projectDashboardStorage, userPrefsStorage);
+        UserSettingsStorage userSettingsStorage = new JsonUserSettingsStorage(userPrefs.getUserSettingsFilePath());
+        storage = new StorageManager(projectDashboardStorage, userPrefsStorage, userSettingsStorage);
 
         initLogging(config);
 
@@ -73,26 +75,31 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s project dashboard and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s project dashboard, user settings
+     * and {@code userPrefs}. <br>
      * The data from the sample project dashboard will be used instead if {@code storage}'s project dashboard
-     * is not found, or an project dashboard will be used instead if errors occur when reading {@code storage}'s
+     * is not found, or a new project will be used instead if errors occur when reading {@code storage}'s
      * project dashboard.
+     * Similarly, default user settings will be used instead if {@code storage}'s user settings is not found.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyProjectDashboard> projectDashboardOptional;
         ReadOnlyProjectDashboard initialData;
-        ReadOnlyUserSettings initialSettings;
+        Optional<UserSettings> userSettingsOptional;
+        ReadOnlyUserSettings userSettings = null;
         try {
             projectDashboardOptional = storage.readProjectDashBoard();
             if (!projectDashboardOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ProjectDashboard");
             }
             initialData = projectDashboardOptional.orElseGet(SampleTaskDataUtil::getSampleProjectDashboard);
+            userSettingsOptional = storage.readUserSettings();
+            userSettings = userSettingsOptional.orElse(new UserSettings());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ProjectDashboard");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Project");
             initialData = new ProjectDashboard();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ProjectDashboard");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Project");
             initialData = new ProjectDashboard();
         }
 
