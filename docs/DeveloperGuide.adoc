@@ -197,6 +197,53 @@ prefixes like `q>`, `a>`, `r>` and `c>`
 ** cons: Harder to implement.
 // end::addflashcard[]
 
+
+//@@author: dalsontws
+// tag::deadline[]
+=== Deadline feature
+==== Implementation
+
+The deadline feature allows the user to add tasks with specific due dates, with a compulsory field
+of `TASK` and `DUE DATE`.
+
+[NOTE]
+Following are the prefixes for each field: +
+- t> : `TASK` +
+- d> : `DUE DATE`
+- For `DUE DATE` : Date format must be in dd/MM/yyyy
+i.e. 01/01/2019
+
+Given below is an example usage scenario of `deadline` :
+
+The user executes `deadline t>Complete Homework d>04/10/2019` to add new deadline to the task
+of completing homework by the 4th October 2019.
+
+The following sequence diagram shows how the deadline operation works:
+
+image::DeadlineSequenceDiagram.png[]
+
+
+The deadline feature does not allow adding of duplicate/identical deadlines.
+i.e. A duplicated/identical deadline is one that has identical fields for both the task and the due date.
+If the duplicated/identical deadline exists in the storage, an error will be shown.
+
+The following activity diagram summarizes what happens when a user executes a deadline command:
+
+image::DeadlineActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to implement Deadline
+
+* **Alternative 1(current choice):** Use command `deadline` together with
+prefixes like `t>` and `d>`
+** Pros: Easier to implement.
+** Cons: User might miss the prefixes hence adding wrong deadlines
+* **Alternative 2:** Make use of the GUI. after user execute `deadline` command,
+ an **add deadline window** would pop up with a section for individual fields.
+** Pros: More user friendly.
+** Cons: Difficult to implement.
+// end::deadline[]
+
 //@@ author LeowWB
 // tag::flashcardexport[]
 === Exporting of FlashCards
