@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -76,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsReportWindow = new StatsReportWindow();
         slideShowWindow = new SlideshowWindow(new Stage(), logic);
     }
 
@@ -208,7 +210,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStats() {
-        statsReportWindow = new StatsReportWindow();
         StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
         statsReportWindow.setStatsCard(statsCard);
         if (!statsReportWindow.isShowing()) {
@@ -237,10 +238,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /*public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }*/
-
     /**
      * Executes the command and returns the result.
      *
@@ -253,31 +250,31 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            CommandResultType commandResultType = commandResult.getCommandResultType();
+            switch (commandResultType) {
+
+            case SHOW_HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isShowSlideshow()) {
+                break;
+            case SHOW_SLIDESHOW:
                 handleSlideshow();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case EXIT:
                 handleExit();
-            }
-
-            if (commandResult.isScheduleChange()) {
+                break;
+            case SHOW_SCHEDULE:
                 eventSchedulePanel.updateScheduler();
                 handleSchedule();
-            }
-
-            if (commandResult.isShowStatistic()) {
+                break;
+            case SHOW_STATISTIC:
                 handleStats();
-            }
-
-            if (commandResult.isShowStudent()) {
+                break;
+            case SHOW_STUDENT:
                 handleStudent();
+                break;
+            default:
+                break;
             }
-
 
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {

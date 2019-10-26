@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -58,8 +59,7 @@ public class StudentEditCommand extends StudentCommand {
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(generateSuccessMessage(editedStudent), false, false,
-                false, false, false, true);
+        return new CommandResult(generateSuccessMessage(editedStudent), CommandResultType.SHOW_STUDENT);
     }
 
 

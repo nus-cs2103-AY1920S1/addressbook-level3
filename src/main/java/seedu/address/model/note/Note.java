@@ -9,11 +9,11 @@ import java.util.Objects;
  */
 public class Note {
 
-    protected String note;
-    protected String description;
+    private String note;
+    private String description;
 
     /**
-     * Creates a new question.
+     * Creates a new note.
      *
      * @param note to set.
      * @param description to the question.

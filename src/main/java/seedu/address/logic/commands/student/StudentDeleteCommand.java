@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Student;
@@ -43,8 +44,7 @@ public class StudentDeleteCommand extends StudentCommand {
 
         Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteStudent(studentToDelete);
-        return new CommandResult(generateSuccessMessage(studentToDelete), false, false,
-                false, false, false, true);
+        return new CommandResult(generateSuccessMessage(studentToDelete), CommandResultType.SHOW_STUDENT);
     }
 
     /**
