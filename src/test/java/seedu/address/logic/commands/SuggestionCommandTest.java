@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CAR_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETIC;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
@@ -18,7 +18,6 @@ import seedu.address.model.UserPrefs;
 class SuggestionCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel;
 
     @Test
     public void constructor_allNull_throwsNullPointerException() {
@@ -48,12 +47,22 @@ class SuggestionCommandTest {
     }
 
     @Test
-    public void execute_successCase_throwsCommandWordException() {
+    public void execute_successCaseWithoutArguments_throwsCommandWordException() {
         String invalidCommand = "lst";
         String suggestedCommand = ParserUtil.parseCommand(invalidCommand, "");
         SuggestionCommand suggestionCommand = new SuggestionCommand(
                 invalidCommand, suggestedCommand, "");
-        assertThrows(CommandWordException.class,String.format(SuggestionCommand.MESSAGE,
+        assertThrows(CommandWordException.class, String.format(SuggestionCommand.MESSAGE,
+                invalidCommand) + suggestedCommand, () -> suggestionCommand.execute(model));
+    }
+
+    @Test
+    public void execute_successCaseWithArguments_throwsCommandWordException() {
+        String invalidCommand = "atag";
+        String suggestedCommand = ParserUtil.parseCommand(invalidCommand, "1 " + VALID_TAG_CAR_INSURANCE);
+        SuggestionCommand suggestionCommand = new SuggestionCommand(
+                invalidCommand, suggestedCommand, "");
+        assertThrows(CommandWordException.class, String.format(SuggestionCommand.MESSAGE,
                 invalidCommand) + suggestedCommand, () -> suggestionCommand.execute(model));
     }
 
@@ -75,6 +84,36 @@ class SuggestionCommandTest {
         SuggestionCommand addTagSuggestionCommandCopy = new SuggestionCommand(invalidAddTagCommand,
                 addTagSuggestedCommand, addTagArguments);
         assertTrue(suggestionCommandWithAddTag.equals(addTagSuggestionCommandCopy));
+
+        // different original values -> returns false
+        SuggestionCommand differentOriginal = new SuggestionCommand(invalidListCommand,
+                addTagSuggestedCommand, addTagArguments);
+        assertFalse(suggestionCommandWithAddTag.equals(differentOriginal));
+
+        // different suggested values -> returns false
+        SuggestionCommand differentSuggestion = new SuggestionCommand(invalidAddTagCommand,
+                listSuggestedCommand, addTagArguments);
+        assertFalse(suggestionCommandWithAddTag.equals(differentSuggestion));
+
+        // different argument values -> returns false
+        SuggestionCommand differentArguments = new SuggestionCommand(invalidAddTagCommand,
+                addTagSuggestedCommand, "");
+        assertFalse(suggestionCommandWithAddTag.equals(differentArguments));
+
+        // different suggested and argument values -> returns false
+        SuggestionCommand differentSuggestedAndArgument = new SuggestionCommand(invalidAddTagCommand,
+                listSuggestedCommand, "");
+        assertFalse(suggestionCommandWithAddTag.equals(differentSuggestedAndArgument));
+
+        // different original and suggested values -> returns false
+        SuggestionCommand differentOriginalAndSuggested = new SuggestionCommand(invalidListCommand,
+                listSuggestedCommand, addTagArguments);
+        assertFalse(suggestionCommandWithAddTag.equals(differentOriginalAndSuggested));
+
+        // different original and argument values -> returns false
+        SuggestionCommand differentOriginalAndArgument = new SuggestionCommand(invalidAddTagCommand,
+                addTagSuggestedCommand, "");
+        assertFalse(suggestionCommandWithAddTag.equals(differentOriginalAndArgument));
 
         // different types -> returns false
         assertFalse(addTagSuggestedCommand.equals(1));

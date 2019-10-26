@@ -157,7 +157,7 @@ public class AddressBookParserTest {
         String switchOnCommand = SuggestionSwitchCommand.COMMAND_WORD + " " + PREFIX_ON;
         assertTrue(parser.parseCommand(switchOnCommand) instanceof SuggestionSwitchCommand);
         String invalidCommand = "asdf";
-        assertTrue(parser.parseCommand(invalidCommand) instanceof  SuggestionCommand);
+        assertTrue(parser.parseCommand(invalidCommand) instanceof SuggestionCommand);
     }
 
     @Test
@@ -166,7 +166,7 @@ public class AddressBookParserTest {
         String switchOnCommand = SuggestionSwitchCommand.COMMAND_WORD + " " + PREFIX_ON;
         assertTrue(parser.parseCommand(switchOnCommand) instanceof SuggestionSwitchCommand);
         String invalidCommand = "asdf";
-        assertTrue(parser.parseCommand(invalidCommand) instanceof  SuggestionCommand);
+        assertTrue(parser.parseCommand(invalidCommand) instanceof SuggestionCommand);
     }
 
     @Test
@@ -185,7 +185,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommandWithSuggestions_emptyString_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-                -> parser.parseCommand(""));
+            -> parser.parseCommand(""));
     }
 
     @Test
