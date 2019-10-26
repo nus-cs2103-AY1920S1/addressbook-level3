@@ -1,24 +1,31 @@
 package seedu.mark.logic.commands;
 
-import seedu.mark.commons.core.Messages;
-import seedu.mark.commons.core.index.Index;
-import seedu.mark.commons.util.CollectionUtil;
-import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.logic.commands.results.CommandResult;
-import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.*;
-import seedu.mark.model.reminder.Note;
-import seedu.mark.model.reminder.Reminder;
-import seedu.mark.storage.Storage;
-
-import java.time.LocalDateTime;
-import java.util.*;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import seedu.mark.commons.core.Messages;
+import seedu.mark.commons.core.index.Index;
+import seedu.mark.commons.util.CollectionUtil;
+
+import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
+
+import seedu.mark.model.Model;
+import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.reminder.Note;
+import seedu.mark.model.reminder.Reminder;
+
+import seedu.mark.storage.Storage;
+
+/**
+ * Edits the details of an existing reminder in Mark.
+ */
 public class EditReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "reminder-edit";
@@ -40,7 +47,7 @@ public class EditReminderCommand extends Command {
     private final EditReminderDescriptor editReminderDescriptor;
 
     /**
-     * @param index of the bookmark in the filtered bookmark list to edit
+     * @param index of the reminder in the reminder list to edit
      * @param editReminderDescriptor details to edit the reminder with
      */
     public EditReminderCommand(Index index, EditReminderDescriptor editReminderDescriptor) {
@@ -59,10 +66,10 @@ public class EditReminderCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size() || index.getOneBased() < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_REMINDER_DISPLAYED_INDEX);
         }
-        
+
         Reminder reminderToEdit = lastShownList.get(index.getZeroBased());
         Reminder editedReminder = createEditedReminder(reminderToEdit, editReminderDescriptor);
-        
+
         model.editReminder(reminderToEdit, editedReminder);
         model.saveMark();
         model.setReminders();
@@ -82,6 +89,24 @@ public class EditReminderCommand extends Command {
         Bookmark bookmark = reminderToEdit.getBookmark();
 
         return new Reminder(bookmark, updatedTime, updatedNote);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditReminderCommand)) {
+            return false;
+        }
+
+        // state check
+        EditReminderCommand e = (EditReminderCommand) other;
+        return index.equals(e.index)
+                && editReminderDescriptor.equals(e.editReminderDescriptor);
     }
 
 

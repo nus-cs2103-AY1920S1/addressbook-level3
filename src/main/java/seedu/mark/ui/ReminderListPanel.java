@@ -1,30 +1,32 @@
 package seedu.mark.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.JsonMarkStorage;
 
-import java.util.logging.Logger;
-
+/**
+ * The Reminder List Panel of Mark.
+ */
 public class ReminderListPanel extends UiPart<Region> {
+    private static final Logger logger = LogsCenter.getLogger(JsonMarkStorage.class);
+
     private static final String FXML = "ReminderList.fxml";
 
     @FXML
     private VBox reminderList;
     private ObservableList<Reminder> reminders;
     private ObservableList<Node> reminderItems;
-
-    private static final Logger logger = LogsCenter.getLogger(JsonMarkStorage.class);
 
     public ReminderListPanel(ObservableList<Reminder> reminders) {
         super(FXML);

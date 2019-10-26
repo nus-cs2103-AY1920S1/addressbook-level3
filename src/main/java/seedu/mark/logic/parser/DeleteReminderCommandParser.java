@@ -1,10 +1,11 @@
 package seedu.mark.logic.parser;
 
+import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.mark.commons.core.index.Index;
+
 import seedu.mark.logic.commands.DeleteReminderCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
-
-import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new DeleteReminderCommand object

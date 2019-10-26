@@ -1,17 +1,23 @@
 package seedu.mark.logic.commands;
 
-import seedu.mark.commons.core.Messages;
-import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.logic.commands.results.CommandResult;
-import seedu.mark.model.Model;
-import seedu.mark.model.reminder.Reminder;
-import seedu.mark.storage.Storage;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import seedu.mark.commons.core.Messages;
+import seedu.mark.commons.core.index.Index;
 
+import seedu.mark.logic.commands.exceptions.CommandException;
+import seedu.mark.logic.commands.results.CommandResult;
+
+import seedu.mark.model.Model;
+import seedu.mark.model.reminder.Reminder;
+
+import seedu.mark.storage.Storage;
+
+/**
+ * Deletes a reminder identified using its displayed index from Mark.
+ */
 public class DeleteReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "reminder-delete";
