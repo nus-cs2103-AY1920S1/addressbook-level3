@@ -6,14 +6,16 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.performance.Event;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.history.HistoryManager;
+import seedu.address.model.performance.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.training.Training;
