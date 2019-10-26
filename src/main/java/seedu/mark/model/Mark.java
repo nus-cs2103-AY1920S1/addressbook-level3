@@ -182,7 +182,7 @@ public class Mark implements ReadOnlyMark {
      * Replaces the taggers in the current {@code AutotagController} with
      * taggers from {@code autotagController}.
      */
-    private void setAutotagController(AutotagController autotagController) {
+    public void setAutotagController(AutotagController autotagController) {
         requireNonNull(autotagController);
 
         this.autotagController.removeAllTaggers();
