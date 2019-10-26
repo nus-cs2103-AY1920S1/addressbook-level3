@@ -116,7 +116,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::design/model/ModelClassDiagram.png[width="55%"]
+image::design/model/ModelClassDiagram.png[width="65%"]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/model/Model.java[`Model.java`]
 
@@ -124,7 +124,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the AlgoBase data.
-* exposes unmodifiable `ObservableList<Problem>`, `ObservableList<Tag>`, `ObservableList<Plan>`, `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes unmodifiable `ObservableList<Problem>`, `ObservableList<Tag>`, `ObservableList<Plan>`, `ObservableList<Task>`, `ObservableList<ProblemSearchRule>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 We organize different data classes into packages (e.g. `Problem`), inside which we provide a collection class of that data object (e.g. `UniqueProblemList`) so that `AlgoBase` can manage these data objects without knowing the details of each data class.
@@ -140,6 +140,9 @@ image::design/model/TagPackageDiagram.png[width="30%"]
 
 .Structure of the Task Package
 image::design/model/TaskPackageDiagram.png[width="30%"]
+
+.Structure of the ProblemSearchRule Package
+image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 //@@author
 

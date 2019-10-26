@@ -19,7 +19,8 @@ Package Model <<Rectangle>> {
         PROBLEM,
         TAG,
         PLAN,
-        TASK
+        TASK,
+        FINDRULE
     }
 
     Class GuiState
@@ -27,7 +28,7 @@ Package Model <<Rectangle>> {
     Class Problem
     Class Tag
     Class Task
-
+    Class ProblemSearchRule
 }
 
 Class HiddenOutside #FFFFFF
@@ -44,6 +45,7 @@ ModelManager -right->"*" Problem : filtered and sorted list
 ModelManager -->"*" Tag: filtered list
 ModelManager -->"*" Plan: filtered list
 ModelManager -->"*" Task: filtered list
+ModelManager -->"*" ProblemSearchRule: filtered list
 ModelManager --->"1" GuiState
 UserPrefs .up.|> ReadOnlyUserPrefs
 
