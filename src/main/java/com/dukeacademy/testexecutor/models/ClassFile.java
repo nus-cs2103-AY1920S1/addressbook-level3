@@ -30,7 +30,7 @@ public class ClassFile {
         this.classPath = classPath;
 
         if (!this.getFile().exists()) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException("No Class file found : " + this.toString());
         }
     }
 
@@ -71,5 +71,10 @@ public class ClassFile {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.getAbsolutePath();
     }
 }

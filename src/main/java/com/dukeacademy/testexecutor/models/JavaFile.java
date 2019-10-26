@@ -18,7 +18,7 @@ public class JavaFile {
         this.classPath = classPath;
 
         if (!this.getFile().exists()) {
-            throw new FileNotFoundException("No file " + canonicalName + " found at : " + classPath);
+            throw new FileNotFoundException("No Java file found : " + this.toString());
         }
     }
 
@@ -50,5 +50,10 @@ public class JavaFile {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.getAbsolutePath();
     }
 }
