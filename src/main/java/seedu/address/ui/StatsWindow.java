@@ -23,11 +23,11 @@ public class StatsWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(StatsWindow.class);
     private static final String FXML = "StatsWindow.fxml";
-    public final static Stage stage = new Stage();
+    private final static Stage stage = new Stage();
 
-    public final static String good = "Good";
-    public final static String hard = "Hard";
-    public final static String easy = "Easy";
+    private final static String good = "Good";
+    private final static String hard = "Hard";
+    private final static String easy = "Easy";
 
 
     /**
@@ -57,7 +57,7 @@ public class StatsWindow extends UiPart<Stage> {
         //stage.setTitle("Statistics");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
+        final BarChart<String, Number> bc = new BarChart<>(xAxis,yAxis);
         bc.setTitle("STATISTICS");
         xAxis.setLabel("Rating");
         yAxis.setLabel("Number of FlashCards");
@@ -73,7 +73,7 @@ public class StatsWindow extends UiPart<Stage> {
         series2.getData().add(new XYChart.Data(hard, stats[1]));
         series2.getData().add(new XYChart.Data(easy, stats[2]));
 
-        Scene scene  = new Scene(bc,800,600, Color.BLACK);
+        Scene scene = new Scene(bc, 800, 600, Color.BLACK);
         bc.getData().addAll(series1, series2);
         stage.setScene(scene);
         getRoot().show();
