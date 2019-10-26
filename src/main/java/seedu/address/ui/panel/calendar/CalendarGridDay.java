@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
+import seedu.address.model.CalendarDate;
 import seedu.address.ui.UiPart;
 
 /**
@@ -16,9 +17,8 @@ public class CalendarGridDay extends UiPart<Region> {
     private static final float MAX_SATURATION = 0.75f;
     private static final int MAX_EVENT = 10;
     private static final String FXML = "CalendarGridDay.fxml";
-    private Integer day;
-    private Integer month;
-    private Integer year;
+
+    private CalendarDate calendarDate;
     private Integer totalEvents;
 
     @FXML
@@ -27,13 +27,11 @@ public class CalendarGridDay extends UiPart<Region> {
     @FXML
     private Label calendarDay;
 
-    public CalendarGridDay(Integer day, Integer month, Integer year, Integer totalEvents) {
+    public CalendarGridDay(CalendarDate calendarDate, Integer totalEvents) {
         super(FXML);
-        this.day = day;
-        this.month = month;
-        this.year = year;
+        this.calendarDate = calendarDate;
         this.totalEvents = totalEvents;
-        calendarDay.setText(day.toString());
+        calendarDay.setText(calendarDate.getDay().toString());
         colorChange();
     }
 
@@ -43,16 +41,6 @@ public class CalendarGridDay extends UiPart<Region> {
     public void addAnEvent() {
         this.totalEvents++;
         colorChange();
-    }
-
-    /**
-     * Return the day, month and year.
-     *
-     * @return The day, month and year.
-     */
-    public Integer[] getDayMonthYear() {
-        Integer[] dayMonthYear = {day, month, year};
-        return dayMonthYear;
     }
 
     /**

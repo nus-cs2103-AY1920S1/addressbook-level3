@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import java.util.Map;
 
 import seedu.address.logic.commands.arguments.StringArgument;
-import seedu.address.logic.commands.arguments.StringArgumentBuilder;
-import seedu.address.logic.commands.options.Option;
-import seedu.address.logic.commands.options.OptionBuilder;
+import seedu.address.logic.commands.arguments.list.ArgumentList;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 import seedu.address.model.ModelManager;
 
 /**
@@ -17,11 +17,11 @@ public class ExportIcsCommandBuilder extends CommandBuilder {
     private static final String ARGUMENT_DIRECTORY = "DIRECTORY";
 
     private final ModelManager model;
-    private final StringArgumentBuilder optionDirectory;
+
+    private String optionDirectory;
 
     ExportIcsCommandBuilder(ModelManager model) {
         this.model = model;
-        this.optionDirectory = StringArgument.newBuilder(ARGUMENT_DIRECTORY);
     }
 
     ModelManager getModel() {
@@ -29,18 +29,18 @@ public class ExportIcsCommandBuilder extends CommandBuilder {
     }
 
     String getOptionDirectory() {
-        return this.optionDirectory.getValue();
+        return this.optionDirectory;
     }
 
     @Override
-    OptionBuilder getCommandArguments() {
-        return Option.newBuilder();
+    RequiredArgumentList defineCommandArguments() {
+        return null;
     }
 
     @Override
-    Map<String, OptionBuilder> getCommandOptions() {
-        return Map.of(OPTION_DIRECTORY, Option.newBuilder()
-                .addArgument(this.optionDirectory));
+    Map<String, OptionalArgumentList> defineCommandOptions() {
+        return Map.of(OPTION_DIRECTORY, ArgumentList.optional()
+            .addArgument(StringArgument.newBuilder(ARGUMENT_DIRECTORY, o -> this.optionDirectory = o)));
     }
 
     @Override
