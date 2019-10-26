@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.EditContactCommand;
@@ -51,14 +53,15 @@ public class FinSecParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
-
-//    @Test
-//    public void parseCommand_find() throws Exception {
-//        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-//        FindCommand command = (FindCommand) parser.parseCommand(
-//                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-//        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-//    }
+    /*
+    @Test
+    public void parseCommand_find() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+    */
 
     @Test
     public void parseCommand_help() throws Exception {
@@ -72,8 +75,10 @@ public class FinSecParserTest {
             -> parser.parseCommand(""));
     }
 
-//    @Test
-//    public void parseCommand_unknownCommand_throwsParseException() {
-//        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
-//    }
+    /*
+    @Test
+    public void parseCommand_unknownCommand_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+    */
 }
