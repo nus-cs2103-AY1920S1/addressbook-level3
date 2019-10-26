@@ -4,10 +4,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -37,10 +35,18 @@ public class CommandBox extends UiPart<Region> {
     private TextField commandTextField;
 
     @FXML
-    private MenuBar commandMenuField;
+    private Label modeHeader;
+
 
     @FXML
-    private ComboBox<String> commandComboField;
+    private Label modeLabel;
+
+
+    @FXML
+    private Label modesLabel;
+
+    @FXML
+    private MenuBar commandMenuField;
 
     private Menu temp;
     private List<Menu> currentMenus;
@@ -51,6 +57,8 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         this.uiLogicHelper = uiLogicHelper;
 
+        modeHeader.getStyleClass().add("label-bright");
+        modeLabel.getStyleClass().add("label-bright");
 
         initialiseText();
         fillMenu();
@@ -84,6 +92,7 @@ public class CommandBox extends UiPart<Region> {
                 @Override
                 public void handle(MouseEvent event) {
                     commandTextField.setText(temp.toString() + " ");
+                    commandTextField.positionCaret(temp.toString().length() + 1);
                 }
             });
             Menu button = new Menu();
@@ -102,6 +111,7 @@ public class CommandBox extends UiPart<Region> {
                 @Override
                 public void handle(MouseEvent event) {
                     commandTextField.setText(temp.toString() + " ");
+                    commandTextField.positionCaret(temp.toString().length() + 1);
                 }
             });
             Menu button = new Menu();
@@ -114,24 +124,20 @@ public class CommandBox extends UiPart<Region> {
      *  Fills in combo in ui
      */
     private void fillCombo() {
-        commandComboField.getItems().clear();
+        modeLabel.setText(uiLogicHelper.getMode().toString());
+        String modes = " | ";
         List<ModeEnum> temp = uiLogicHelper.getModes();
-        EventHandler<ActionEvent> event =
-            new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e) {
-                    commandComboField.setValue(uiLogicHelper.getMode().toString());
-                    //try {
-                    //commandExecutor.execute(commandComboField.getValue());
-                    //} catch (CommandException | ParseException ex) {
-                    //  setStyleToIndicateCommandFailure();
-                    //}
 
-                }
-            };
-        commandComboField.setOnAction(event);
         for (ModeEnum mode : temp) {
-            commandComboField.getItems().add(mode.toString());
+            if (!uiLogicHelper.getMode().toString().equals(mode.toString())) {
+                modes += (mode.toString() + " | ");
+            }
         }
+
+        if (modes.equals(" | ")) {
+            modes = "None";
+        }
+        modesLabel.setText(modes);
     }
 
 
@@ -146,7 +152,7 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
         }
         fillCombo();
-        commandComboField.setValue(uiLogicHelper.getMode().toString());
+        //commandComboField.setValue(uiLogicHelper.getMode().toString());
     }
 
     /**

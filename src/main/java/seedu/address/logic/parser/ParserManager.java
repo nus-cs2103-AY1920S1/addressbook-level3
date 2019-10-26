@@ -92,11 +92,11 @@ public class ParserManager {
             temp.add(FindCommand.class, FindCommandParser.class);
             temp.add(ClearCommand.class, null);
             temp.add(ListCommand.class, null);
-            temp.add(ExitCommand.class, null);
             temp.add(HelpCommand.class, null);
             return temp;
         case HOME:
             temp.add(BankCommand.class, BankCommandParser.class);
+            temp.add(ExitCommand.class, null);
             temp.add(ImportCommand.class, ImportCommandParser.class);
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);

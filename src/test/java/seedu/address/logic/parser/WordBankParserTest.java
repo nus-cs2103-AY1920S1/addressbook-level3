@@ -17,7 +17,7 @@ package seedu.address.logic.parser;
 //import seedu.address.logic.commands.appcommands.ClearCommand;
 //import seedu.address.logic.commands.appcommands.DeleteCommand;
 //import seedu.address.logic.commands.appcommands.EditCommand;
-//import seedu.address.logic.commands.appcommands.ExitCommand;
+//import seedu.address.logic.commands.loadcommands.ExitCommand;
 //import seedu.address.logic.commands.appcommands.FindCommand;
 //import seedu.address.logic.commands.appcommands.HelpCommand;
 //import seedu.address.logic.commands.appcommands.ListCommand;
