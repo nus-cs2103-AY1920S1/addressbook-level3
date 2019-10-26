@@ -82,7 +82,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing report form.");
+        logger.fine("Showing Visit Record Window.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -162,7 +162,6 @@ public class VisitRecordWindow extends UiPart<Stage> {
                 KeyCombination.valueOf("F2"),
                 new Runnable() {
                     @FXML public void run() {
-
                         button.fire();
                     }
                 }

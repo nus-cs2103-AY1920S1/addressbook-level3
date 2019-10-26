@@ -9,7 +9,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -54,7 +53,10 @@ public class ProfileWindow extends UiPart<Stage> {
      */
     public ProfileWindow() {
         this(new Stage());
+        /*
+         * Using default window instead.
         this.getRoot().initStyle(StageStyle.UTILITY);
+         */
     }
 
     /**

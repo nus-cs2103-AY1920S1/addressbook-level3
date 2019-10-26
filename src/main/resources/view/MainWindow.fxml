@@ -60,9 +60,9 @@
                <children>
                    <VBox fx:id="personList" styleClass="pane-with-border" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="4">
                     <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
+                        <Insets left="5.0" right="5.0" top="10.0" />
                     </padding>
-                    <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    <StackPane fx:id="personListPanelPlaceholder" prefWidth="178.0" VBox.vgrow="ALWAYS" />
                    </VBox>
                   <VBox fx:id="reminderList" prefWidth="466.0" styleClass="pane-with-border" GridPane.rowIndex="1" GridPane.rowSpan="4" />
                   <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Patients" GridPane.columnIndex="1">
