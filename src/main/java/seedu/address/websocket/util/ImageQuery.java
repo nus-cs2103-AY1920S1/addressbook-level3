@@ -1,13 +1,20 @@
 package seedu.address.websocket.util;
 
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -48,6 +55,22 @@ public class ImageQuery {
                 String key = entry.getKey();
                 if (key != null && key.equals("X-Staticmap-API-Warning")) {
                     isValid = false;
+                    JSONParser parser;
+                    parser = new JSONParser();
+                    String name = imageUrl.split("center=")[1].split("&")[0]);
+                    try (Reader reader = new FileReader("/Users/tandeningklement/Desktop/codes/School/CS2103T_tP/main/src/main/resources/ApiResponseCache/GoogleMapsApi/Invalid.json")) {
+                        JSONObject jsonObject = (JSONObject) parser.parse(reader);
+                        jsonObject.put(imageUrl, imageUrl.split("center=")[1].split("&")[0]);
+                        try (FileWriter file = new FileWriter("/Users/tandeningklement/Desktop/codes/School/CS2103T_tP/main/src/main/resources/ApiResponseCache/GoogleMapsApi/Invalid.json")) {
+                            file.write(jsonObject.toJSONString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (IOException e) {
