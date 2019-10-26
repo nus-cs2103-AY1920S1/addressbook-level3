@@ -12,7 +12,7 @@ public class UndoCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Undo Command Success";
     private static final String MESSAGE_FAILURE = "Undo Command Failure:"
         + " No available commands to be undone. "
-        + " Commands that can be undone is as follows: add, delete, edit.";
+        + " Commands that can be undone is as follows: add, delete, edit and clear.";
     @Override
     public CommandResult execute(Model model) throws CommandException {
         HistoryManager history = new HistoryManager();
