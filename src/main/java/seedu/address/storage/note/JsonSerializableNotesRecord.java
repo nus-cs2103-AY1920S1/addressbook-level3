@@ -1,5 +1,7 @@
 package seedu.address.storage.note;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_NOTE;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +14,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NotesRecord;
 import seedu.address.model.note.ReadOnlyNotesRecord;
-
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_NOTE;
 
 /**
  * An Immutable notesRecord that is serializable to JSON format.

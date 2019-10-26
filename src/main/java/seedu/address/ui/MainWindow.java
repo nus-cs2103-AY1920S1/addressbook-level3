@@ -72,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsReportWindow = new StatsReportWindow();
         slideShowWindow = new SlideshowWindow(new Stage(), logic);
     }
 
@@ -193,7 +194,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStats() {
-        statsReportWindow = new StatsReportWindow();
         StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
         statsReportWindow.setStatsCard(statsCard);
         if (!statsReportWindow.isShowing()) {
@@ -221,10 +221,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-
-    /*public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }*/
 
     /**
      * Executes the command and returns the result.
@@ -262,8 +258,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowStudent()) {
                 handleStudent();
             }
-
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

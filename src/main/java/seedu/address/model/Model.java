@@ -345,7 +345,7 @@ public interface Model {
     void setNote(Note target, Note editedNote);
 
     /**
-     * Returns an unmodifiable view of the filtered notes list
+     * Returns an unmodifiable view of the filtered notes list.
      */
     ObservableList<Note> getFilteredNotesList();
 
