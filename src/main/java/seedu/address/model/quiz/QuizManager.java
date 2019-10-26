@@ -1,5 +1,6 @@
 package seedu.address.model.quiz;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -25,6 +26,7 @@ public class QuizManager {
      * @param quizId The identifier of the quiz to be created.
      * @param questionNumbers The question numbers to be added to the quiz.
      * @param savedQuestions The saved questions.
+     * @param quizBank The quiz bank.
      */
     public static void createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
                                         SavedQuestions savedQuestions, QuizBank quizBank) {
@@ -49,6 +51,7 @@ public class QuizManager {
      * @param numQuestions The number of questions to be added to the quiz.
      * @param type The type of questions to be added to the quiz.
      * @param savedQuestions The saved questions.
+     * @param quizBank The quiz bank.
      */
     public static void createQuizAutomatically(String quizId, int numQuestions, String type,
                                             SavedQuestions savedQuestions, QuizBank quizBank) {
@@ -98,6 +101,7 @@ public class QuizManager {
      * @param questionNumber The question number of the question to be added.
      * @param quizQuestionNumber The quiz question number for the added question.
      * @param savedQuestions The saved questions.
+     * @param quizBank The quiz bank.
      * @return True if the question is not a duplicate, else false.
      */
     public static boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber,
@@ -119,18 +123,27 @@ public class QuizManager {
      * Removes a question from a quiz.
      * @param quizId The identifier of the quiz to be handled.
      * @param questionNumber The question number of the question to be removed.
+     * @param quizBank The quiz bank.
+     * @return True if the question can be removed, else false.
      */
-    public static void removeQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
+    public static boolean removeQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
         int quizIndex = quizBank.getQuizIndex(quizId);
         if (quizIndex != -1) {
             Quiz quiz = quizBank.getQuiz(quizIndex);
+            int numQuestions = quiz.getQuestionList().getQuestions().size();
+            if (questionNumber < 0 || questionNumber > numQuestions + 1) {
+                return false;
+            }
             quiz.removeQuestion(questionNumber);
+            return true;
         }
+        return false;
     }
 
     /**
      * Returns a String representation of a quiz's questions and answers.
      * @param quizId The identifier of the quiz to be handled.
+     * @param quizBank The quiz bank.
      * @return The String representation of the quiz's questions and answers.
      */
     public static String getQuestionsAndAnswers(String quizId, QuizBank quizBank) {
@@ -143,6 +156,23 @@ public class QuizManager {
             answers = quiz.getFormattedAnswers();
         }
         return questions + answers;
+    }
+
+    /**
+     * Exports a quiz to a html file.
+     * @param quizId The identifier of the quiz.
+     * @param quizBank The quiz bank.
+     * @return True if the file does not exist, else false.
+     * @throws IOException The exception to be thrown.
+     */
+    public static boolean exportQuiz(String quizId, QuizBank quizBank) throws IOException {
+        String quizInfo = "";
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            quizInfo = quiz.getQuestionsForExport();
+        }
+        return QuizExporter.exportQuiz(quizId, quizInfo);
     }
 
     /**

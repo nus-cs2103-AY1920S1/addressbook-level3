@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.group;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.ListOfGroups;
@@ -38,7 +39,7 @@ public class GroupGetStudentsCommand extends GroupCommand {
             return new CommandResult(String.format(GROUP_DOES_NOT_EXIST,groupId)); //group doesn't exist
         }
         ListOfGroups.setCurrentlyQueriedGroup(groupId);
-        return new CommandResult("Starting group view.", false, false, false, true,false);
+        return new CommandResult("Starting group view.", CommandResultType.SHOW_GROUP);
     }
 
     /**

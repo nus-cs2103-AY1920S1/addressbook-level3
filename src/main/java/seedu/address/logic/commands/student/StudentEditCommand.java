@@ -11,6 +11,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -65,7 +66,16 @@ public class StudentEditCommand extends StudentCommand {
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS,studentToEdit, editedStudent));
+        return new CommandResult(generateSuccessMessage(editedStudent), CommandResultType.SHOW_STUDENT);
+    }
+
+    /**
+     * Generates a command execution success message.
+     *
+     * @param student that has been added.
+     */
+    private String generateSuccessMessage(Student student) {
+        return "Edited student: " + student;
     }
 
 

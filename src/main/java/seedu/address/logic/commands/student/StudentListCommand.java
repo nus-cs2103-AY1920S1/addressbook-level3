@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.student;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -20,7 +21,7 @@ public class StudentListCommand extends StudentCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(generateSuccessMessage(model.getStudentSummary()));
+        return new CommandResult(generateSuccessMessage(model.getStudentSummary()), CommandResultType.SHOW_STUDENT);
     }
 
     /**

@@ -21,6 +21,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.note.NotesRecord;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
@@ -40,6 +42,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.event.EventStorage;
+import seedu.address.storage.event.JsonEventStorage;
 import seedu.address.storage.note.JsonNotesRecordStorage;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.JsonQuestionStorage;
@@ -83,11 +87,13 @@ public class MainApp extends Application {
             new JsonStudentRecordStorage(userPrefs.getStudentRecordFilePath());
         QuestionStorage savedQuestionStorage =
             new JsonQuestionStorage(userPrefs.getSavedQuestionsFilePath());
+        EventStorage eventStorage =
+            new JsonEventStorage(userPrefs.getEventRecordFilePath());
         QuizStorage savedQuizStorage =
                 new JsonQuizStorage(userPrefs.getSavedQuizzesFilePath());
         NotesRecordStorage notesRecordStorage = new JsonNotesRecordStorage(userPrefs.getNotesRecordFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage,
-            savedQuestionStorage, savedQuizStorage, notesRecordStorage);
+            savedQuestionStorage, savedQuizStorage, notesRecordStorage, eventStorage);
 
         initLogging(config);
 
@@ -108,12 +114,14 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyStudentRecord> studentRecordOptional;
         Optional<ReadOnlyQuestions> questionsOptional;
+        Optional<ReadOnlyEvents> eventsOptional;
         Optional<ReadOnlyQuizzes> quizzesOptional;
         Optional<ReadOnlyNotesRecord> notesRecordOptional;
 
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
+        ReadOnlyEvents initialEvents;
         ReadOnlyQuizzes initialQuizzes;
         ReadOnlyNotesRecord initialNotesRecord;
         ReadOnlyStatisticsRecord initialStatisticsRecord;
@@ -122,6 +130,7 @@ public class MainApp extends Application {
             addressBookOptional = storage.readAddressBook();
             studentRecordOptional = storage.readStudentRecord();
             questionsOptional = storage.readQuestions();
+            eventsOptional = storage.readEvents();
             quizzesOptional = storage.readQuizzes();
             notesRecordOptional = storage.readNotesRecord();
 
@@ -134,6 +143,9 @@ public class MainApp extends Application {
             if (!questionsOptional.isPresent()) {
                 logger.info("Question file not found. Will create an empty one.");
             }
+            if (!eventsOptional.isPresent()) {
+                logger.info("Events file not found. Will create an empty one.");
+            }
             if (!quizzesOptional.isPresent()) {
                 logger.info("Quiz file not found. Will create an empty one.");
             }
@@ -144,9 +156,11 @@ public class MainApp extends Application {
                 .orElseGet(SampleDataUtil::getSampleAddressBook);
             initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudents);
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
+            initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEventsList);
             initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
             initialStatisticsRecord = SampleStatisticUtil.getSampleStatisticsRecord();
             initialQuizzes = quizzesOptional.orElseGet(SampleDataUtil::getSampleQuizList);
+
 
         } catch (DataConversionException e) {
             logger.warning(
@@ -154,8 +168,8 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialEvents = new EventRecord();
             initialQuizzes = new SavedQuizzes();
-
             initialNotesRecord = new NotesRecord();
             initialStatisticsRecord = new StatisticsRecord(); //later
 
@@ -165,13 +179,14 @@ public class MainApp extends Application {
             initialAddressBook = new AddressBook();
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
+            initialEvents = new EventRecord();
             initialQuizzes = new SavedQuizzes();
             initialNotesRecord = new NotesRecord();
             initialStatisticsRecord = new StatisticsRecord(); //later
         }
 
         return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialQuizzes,
-                initialNotesRecord, initialStatisticsRecord, userPrefs);
+                initialNotesRecord, initialEvents, initialStatisticsRecord, userPrefs);
     }
 
     private void initLogging(Config config) {

@@ -9,7 +9,7 @@ public interface ReadOnlyStatisticsRecord {
 
     /**
      * Returns an unmodifiable view of the statistics list.
-     * This list will not contain any duplicate notes.
+     * This list contains only one Statistics object at once.
      */
     ObservableList<Statistics> getProcessedStatistics();
 }

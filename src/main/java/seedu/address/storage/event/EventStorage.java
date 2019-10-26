@@ -30,7 +30,7 @@ public interface EventStorage {
      * @see #getEventRecordFilePath()
      */
     Optional<ReadOnlyEvents> readEvents(Path filePath)
-            throws DataConversionException, IOException;
+        throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyEvents} to the storage.
@@ -44,4 +44,5 @@ public interface EventStorage {
      * @see #saveEvents(ReadOnlyEvents)
      */
     void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException;
+
 }

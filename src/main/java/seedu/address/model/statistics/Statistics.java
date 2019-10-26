@@ -12,10 +12,17 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
  */
 public class Statistics {
 
+    //Grade Ranges
+    public static final String EIGHTY_AND_ABOVE = "eightyAndAbove";
+    public static final String SEVENTY_TO_SEVENTY_NINE = "seventies";
+    public static final String SIXTY_TO_SIXTY_NINE = "sixties";
+    public static final String FIFTY_TO_FIFTY_NINE = "fifties";
+    public static final String BELOW_FIFTY = "belowFifty";
+
     private HashMap<String, HashMap<String, Double>> data; //mapping of name to map of {subject, scores}
     private ArrayList<StudentStat> studentWeightedScores;
-    private HashMap<Integer, Integer> scoreCounters;
-    private HashMap<String, Integer> gradeGroupings;
+    private HashMap<Integer, Integer> scoreCounters; //frequency of individual (rounded down) scores
+    private HashMap<String, Integer> gradeGroupings; //frequency of score ranges
     private int totalStudents;
     private double min;
     private double max;
@@ -42,11 +49,11 @@ public class Statistics {
      * Initializes the groupings's size to zero before populating them with processed data.
      */
     public void initializeData() {
-        gradeGroupings.put("aboveEighty", 0);
-        gradeGroupings.put("seventies", 0);
-        gradeGroupings.put("sixties", 0);
-        gradeGroupings.put("fifties", 0);
-        gradeGroupings.put("belowFifty", 0);
+        gradeGroupings.put(EIGHTY_AND_ABOVE, 0);
+        gradeGroupings.put(SEVENTY_TO_SEVENTY_NINE, 0);
+        gradeGroupings.put(SIXTY_TO_SIXTY_NINE, 0);
+        gradeGroupings.put(FIFTY_TO_FIFTY_NINE, 0);
+        gradeGroupings.put(BELOW_FIFTY, 0);
     }
 
     /**
@@ -57,10 +64,9 @@ public class Statistics {
         data.forEach((name, subjectScoreMap) -> studentWeightedScores.add(new StudentStat(name, subjectScoreMap)));
         studentWeightedScores.sort((s1, s2) -> s1.weightedScore >= s2.weightedScore ? 1 : -1);
         studentWeightedScores.stream().forEach(x -> sortIntoGrade(x));
-        studentWeightedScores
-                .stream()
-                .mapToInt(studentStat -> (int) studentStat.weightedScore)
-                .forEach(score -> allocateDistribution(score));
+        studentWeightedScores.stream()
+            .mapToInt(studentStat -> (int) studentStat.weightedScore)
+            .forEach(score -> allocateDistribution(score));
 
         DescriptiveStatistics statsGenerator = new DescriptiveStatistics();
         studentWeightedScores.stream().forEach((dataValue) -> statsGenerator.addValue(dataValue.weightedScore));
@@ -84,26 +90,26 @@ public class Statistics {
         }
     }
 
-    public HashMap<Integer, Integer> getFrequencyDistribution() {
-        return scoreCounters;
-    }
-
     /**
      * Places each {@code StudentStat} into their respective score range groupings and updates the counter.
      * @param studentStat
      */
     private void sortIntoGrade(StudentStat studentStat) {
         if (studentStat.weightedScore >= 80) {
-            gradeGroupings.put("aboveEighty", gradeGroupings.get("aboveEighty") + 1);
+            gradeGroupings.put(EIGHTY_AND_ABOVE, gradeGroupings.get(EIGHTY_AND_ABOVE) + 1);
         } else if (studentStat.weightedScore >= 70) {
-            gradeGroupings.put("seventies", gradeGroupings.get("seventies") + 1);
+            gradeGroupings.put(SEVENTY_TO_SEVENTY_NINE, gradeGroupings.get(SEVENTY_TO_SEVENTY_NINE) + 1);
         } else if (studentStat.weightedScore >= 60) {
-            gradeGroupings.put("sixties", gradeGroupings.get("sixties") + 1);
+            gradeGroupings.put(SIXTY_TO_SIXTY_NINE, gradeGroupings.get(SIXTY_TO_SIXTY_NINE) + 1);
         } else if (studentStat.weightedScore >= 50) {
-            gradeGroupings.put("fifties", gradeGroupings.get("fifties") + 1);
+            gradeGroupings.put(FIFTY_TO_FIFTY_NINE, gradeGroupings.get(FIFTY_TO_FIFTY_NINE) + 1);
         } else {
-            gradeGroupings.put("belowFifty", gradeGroupings.get("belowFifty") + 1);
+            gradeGroupings.put(BELOW_FIFTY, gradeGroupings.get(BELOW_FIFTY) + 1);
         }
+    }
+
+    public HashMap<Integer, Integer> getFrequencyDistribution() {
+        return scoreCounters;
     }
 
     public HashMap<String, Integer> getGradeGroupings() {
@@ -142,9 +148,9 @@ public class Statistics {
      * Represents a student data entry and their respective scores.
      */
     private class StudentStat {
-        protected String name;
-        protected double weightedScore;
-        protected HashMap<String, Double> subjectScoreMap;
+        private String name;
+        private double weightedScore;
+        private HashMap<String, Double> subjectScoreMap;
 
         public StudentStat(String name, HashMap<String, Double> subjectScoreMap) {
             this.name = name;

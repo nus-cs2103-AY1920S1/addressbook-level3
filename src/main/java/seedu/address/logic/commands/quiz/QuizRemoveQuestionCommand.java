@@ -11,7 +11,7 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes an existing question from an existing quiz\n"
             + "Parameters:\n"
-            + "quizID/ [QUIZ_ID]\n"
+            + "delete quizID/ [QUIZ_ID]\n"
             + "Example: quizID/ CS2103T Finals\n\n"
             + "quizQuestionNumber/ [QUIZ_QUESTION_NUMBER]\n"
             + "Example: quizQuestionNumber/ 2 (Specifies the question number in the quiz to remove)";
@@ -37,8 +37,13 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.removeQuizQuestion(quizId, quizQuestionNumber);
-        return new CommandResult(generateSuccessMessage());
+        boolean isSuccess = model.removeQuizQuestion(quizId, quizQuestionNumber);
+        if (isSuccess) {
+            return new CommandResult(generateSuccessMessage());
+        } else {
+            return new CommandResult(generateFailureMessage());
+        }
+
     }
 
     /**
@@ -47,6 +52,14 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
      */
     private String generateSuccessMessage() {
         return "Removed question: " + quizQuestionNumber + " from quiz: " + quizId;
+    }
+
+    /**
+     * Generates a command execution failure message.
+     * @return The String representation of a failure message.
+     */
+    private String generateFailureMessage() {
+        return "There is no quiz with the ID of " + quizId + ".";
     }
 
     @Override

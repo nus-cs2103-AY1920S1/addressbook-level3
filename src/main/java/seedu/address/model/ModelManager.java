@@ -3,18 +3,25 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import com.fasterxml.jackson.databind.type.CollectionType;
+import org.apache.commons.math3.util.Pair;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import jfxtras.icalendarfx.components.VEvent;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
@@ -33,7 +40,6 @@ import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.StudentRecord;
 
-
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -46,6 +52,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
     private final SavedQuestions savedQuestions;
+    private final EventRecord eventRecord;
     private final SavedQuizzes savedQuizzes;
     private final NotesRecord notesRecord;
     private final StatisticsRecord statisticsRecord;
@@ -61,6 +68,7 @@ public class ModelManager implements Model {
                         ReadOnlyQuestions savedQuestions,
                         ReadOnlyQuizzes savedQuizzes,
                         ReadOnlyNotesRecord notesRecord,
+                        ReadOnlyEvents readEvents,
                         ReadOnlyStatisticsRecord statisticsRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
@@ -68,13 +76,14 @@ public class ModelManager implements Model {
                 savedQuizzes, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
-                "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+            "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.groupList = new ListOfGroups();
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
         this.savedQuestions = new SavedQuestions(savedQuestions);
+        this.eventRecord = new EventRecord(readEvents);
         this.savedQuizzes = new SavedQuizzes(savedQuizzes);
         this.notesRecord = new NotesRecord(notesRecord);
         this.statisticsRecord = new StatisticsRecord(statisticsRecord);
@@ -85,7 +94,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new SavedQuizzes(),
-                new NotesRecord(), new StatisticsRecord(), new UserPrefs());
+                new NotesRecord(), new EventRecord(), new StatisticsRecord(), new UserPrefs());
     }
 
     //region PREFERENCES & SETTINGS
@@ -136,6 +145,7 @@ public class ModelManager implements Model {
     //endregion
 
     //region FilteredPerson List Accessors
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
@@ -176,8 +186,6 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
-    //endregion
-
     //endregion
 
     //region FilteredStudent List Accessors
@@ -410,6 +418,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getAllQuestions() {
+        return savedQuestions.getAllQuestions();
+    }
+
+    @Override
     public Question getQuestion(Index index) {
         return savedQuestions.getQuestion(index);
     }
@@ -417,6 +430,11 @@ public class ModelManager implements Model {
     @Override
     public void setQuestion(Index index, Question question) {
         savedQuestions.setQuestion(index, question);
+    }
+
+    @Override
+    public void setSlideshowQuestions(List<Index> questionsIndexes) {
+        savedQuestions.setSlideshowQuestions(questionsIndexes);
     }
 
     @Override
@@ -446,6 +464,11 @@ public class ModelManager implements Model {
     public ReadOnlyQuestions getSavedQuestions() {
         return savedQuestions;
     }
+
+    @Override
+    public ObservableList<Question> getSlideshowQuestions() {
+        return savedQuestions.getSlideshowQuestionList();
+    }
     //endregion
 
     //region Quizzes
@@ -466,13 +489,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeQuizQuestion(String quizId, int questionNumber) {
-        savedQuizzes.removeQuizQuestion(quizId, questionNumber);
+    public boolean removeQuizQuestion(String quizId, int questionNumber) {
+        return savedQuizzes.removeQuizQuestion(quizId, questionNumber);
     }
 
     @Override
     public String getQuestionsAndAnswers(String quizId) {
         return savedQuizzes.getQuestionsAndAnswers(quizId);
+    }
+
+    @Override
+    public boolean exportQuiz(String quizId) throws IOException {
+        return savedQuizzes.exportQuiz(quizId);
     }
 
     //endregion
@@ -524,8 +552,10 @@ public class ModelManager implements Model {
     //endregion
 
     //region FilteredNote List Accessors
+
     /**
-     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of notes record.
+     * Returns an unmodifiable view of the list of {@code Note} backed by the internal list of notes
+     * record.
      */
     @Override
     public ObservableList<Note> getFilteredNotesList() {
@@ -564,6 +594,85 @@ public class ModelManager implements Model {
     }
     //endregion
 
+    //region EventRecord
+    @Override
+    public void setEventRecord(Path eventRecordFilePath) {
+        requireNonNull(eventRecordFilePath);
+        userPrefs.setEventRecordFilePath(eventRecordFilePath);
+    }
+
+    @Override
+    public void setEventRecord(ReadOnlyEvents events) {
+        this.eventRecord.resetData(events);
+    }
+
+    @Override
+    public Path getEventRecordFilePath() {
+        return userPrefs.getEventRecordFilePath();
+    }
+
+    @Override
+    public ReadOnlyEvents getEventRecord() {
+        return eventRecord;
+    }
+
+    //endregion
+
+    //region Events
+    @Override
+    public boolean hasVEvent(VEvent vEvent) {
+        requireNonNull(vEvent);
+        return eventRecord.contains(vEvent);
+    }
+
+    @Override
+    public VEvent getVEvent(Index index) {
+        return eventRecord.getVEvent(index);
+    }
+
+    @Override
+    public void deleteVEvent(VEvent vEvent) {
+        eventRecord.deleteVEvent(vEvent);
+    }
+
+    @Override
+    public void addVEvent(VEvent vEvent) {
+        eventRecord.addVEvent(vEvent);
+    }
+
+    @Override
+    public void setVEvent(VEvent target, VEvent editedVEvent) {
+        requireAllNonNull(target, editedVEvent);
+        eventRecord.setVEvent(target, editedVEvent);
+    }
+
+    @Override
+    public void setVEvent(Index index, VEvent editedVEvent) {
+        requireAllNonNull(index, editedVEvent);
+        eventRecord.setVEvent(index, editedVEvent);
+    }
+
+    @Override
+    public String getVEventSummary() {
+        return eventRecord.getVEventSummary();
+    }
+
+    @Override
+    public ObservableList<VEvent> getVEventList() {
+        return eventRecord.getVEventList();
+    }
+
+    @Override
+    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
+        return eventRecord.findVEventsIndex(desiredEventName);
+    }
+
+    @Override
+    public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
+        return eventRecord.findMostSimilarVEvent(desiredEventName);
+    };
+    //endregion
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -579,8 +688,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+            && userPrefs.equals(other.userPrefs)
+            && filteredPersons.equals(other.filteredPersons);
     }
 
 }

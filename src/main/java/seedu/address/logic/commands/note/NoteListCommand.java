@@ -12,7 +12,8 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
  * Lists the summary of notes in note list.
  */
 public class NoteListCommand extends NoteCommand {
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " list: List of notes";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " list";
     public static final String MESSAGE_SUCCESS = "Listed all notes";
 
     @Override
@@ -24,7 +25,7 @@ public class NoteListCommand extends NoteCommand {
 
     /**
      * Generates a command execution success message.
-     * @param notesRecord The relevant notesRecord from the model.
+     * @param notesRecord The relevant notes record from the model.
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage(ReadOnlyNotesRecord notesRecord) {
