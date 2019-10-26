@@ -435,7 +435,7 @@ The import command will then populate all of the memes in the staging area to th
 by clearing the memes in the import context.
 
 ==== Current Implementation
-Internally, `ModelManager` uses two `UniqueMemeList` to store memes that are to be imported or exported.
+Internally, `Weme` uses two `UniqueMemeList` to store memes that are to be imported or exported.
 While the user is selecting which meme to stage, the user should have a visual reference all the existing memes.
 Hence, the `Stage Command` works in the Meme Context, and the user is able to stage by the Meme Index.
 On the contrary, the unstage command is only available in the export tab, where the user can reference which
