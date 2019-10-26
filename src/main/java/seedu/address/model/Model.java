@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-
 import org.apache.commons.math3.util.Pair;
 
 import javafx.collections.ObservableList;
@@ -111,7 +110,9 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
@@ -154,7 +155,9 @@ public interface Model {
 
     //region Mark
     void markStudent(Student student);
+
     void unmarkStudent(Student student);
+
     boolean getIsMarked(Student student);
     //region Students
 
@@ -210,6 +213,7 @@ public interface Model {
     //endregion
 
     //region Group
+
     /**
      * Creates a group manually.
      */
@@ -319,6 +323,7 @@ public interface Model {
     //endregion
 
     //region SavedQuizzes
+
     /**
      * Returns the user prefs' quizzes file path.
      */
@@ -334,7 +339,9 @@ public interface Model {
      */
     void setSavedQuizzes(ReadOnlyQuizzes savedQuizzes);
 
-    /** Returns the saved questions */
+    /**
+     * Returns the saved questions
+     */
     ReadOnlyQuizzes getSavedQuizzes();
 
     //endregion
@@ -401,21 +408,33 @@ public interface Model {
 
     //region EventRecord
     void setEventRecord(Path eventRecordFilePath);
+
     void setEventRecord(ReadOnlyEvents events);
+
     Path getEventRecordFilePath();
+
     ReadOnlyEvents getEventRecord();
     //endregion
 
     //region VEvents
     boolean hasVEvent(VEvent vEvent);
+
     void deleteVEvent(VEvent vEvent);
+
     void addVEvent(VEvent vEvent);
+
     void setVEvent(VEvent target, VEvent editedVEvent);
+
     void setVEvent(Index index, VEvent editedVEvent);
+
     String getVEventSummary();
+
     VEvent getVEvent(Index index);
+
     List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);
+
     ObservableList<VEvent> getVEventList();
+
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
     //endregion
 
