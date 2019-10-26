@@ -16,7 +16,7 @@ import seedu.ezwatchlist.logic.commands.ExitCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
 import seedu.ezwatchlist.logic.commands.ListCommand;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
-import seedu.ezwatchlist.logic.commands.SyncCommand;
+
 import seedu.ezwatchlist.logic.commands.WatchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
@@ -74,8 +74,6 @@ public class WatchListParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case SyncCommand.COMMAND_WORD:
-            return new SyncCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

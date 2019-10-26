@@ -13,7 +13,9 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.ezwatchlist.commons.core.Messages;
+import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.AddCommand;
+
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
@@ -35,6 +37,12 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new AddCommand(index);
+        } catch (ParseException e) {
+            System.out.println(e);
+        }
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TYPE, PREFIX_DATE_OF_RELEASE, PREFIX_IS_WATCHED,
                         PREFIX_DESCRIPTION, PREFIX_RUNNING_TIME, PREFIX_ACTOR);

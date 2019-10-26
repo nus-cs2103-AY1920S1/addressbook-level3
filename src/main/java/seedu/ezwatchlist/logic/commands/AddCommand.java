@@ -9,9 +9,14 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.List;
+
+import seedu.ezwatchlist.commons.core.Messages;
+import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
+
 
 /**
  * Adds a show to the watchlist.
@@ -39,23 +44,52 @@ public class AddCommand extends Command {
             + PREFIX_ACTOR + "Joaquin Phoenix "
             + PREFIX_ACTOR + "Robert De Niro";
 
+    public static final String MESSAGE_USAGE2 = COMMAND_WORD + ": Sync a show from IMDB to the watchlist. "
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
     public static final String MESSAGE_SUCCESS = "New show added: %1$s";
     public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist";
+    public static final String MESSAGE_SUCCESS2 = "Sync movie: %1$s";
 
     private final Show toAdd;
-
+    private final Index index;
+    private final boolean isFromSearch;
     /**
      * Creates an AddCommand to add the specified {@code Show}
      */
     public AddCommand(Show show) {
         requireNonNull(show);
         toAdd = show;
+        index = null;
+        isFromSearch = false;
+    }
+
+    public AddCommand(Index index) {
+        requireNonNull(index);
+        this.index = index;
+        toAdd = null;
+        isFromSearch = true;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (isFromSearch) {
+            List<Show> searchResultList = model.getSearchResultList();
+            if (index.getZeroBased() >= searchResultList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
+            }
+            Show fromImdb = searchResultList.get(index.getZeroBased());
+
+            if (model.hasShow(fromImdb)) {
+                throw new CommandException(MESSAGE_DUPLICATE_SHOW);
+            }
+
+            model.addShow(fromImdb);
+            return new CommandResult(String.format(MESSAGE_SUCCESS2, fromImdb));
+        }
         if (model.hasShow(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOW);
         }
