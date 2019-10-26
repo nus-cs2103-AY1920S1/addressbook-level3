@@ -76,24 +76,24 @@ public class LegendPane extends UiPart<Region> {
         double maxAvg = findMax(averageMap);
         switch (RecordType.valueOf(recordType.get())) {
         case BMI:
-            if (maxAvg >= 18.5 || (0 < maxAvg && maxAvg <= 18.5)) {
+            if (maxAvg > 0) {
                 flowPane.getChildren().add(UNDER_WEIGHT_LEGEND_ROW.getRoot());
             }
-            if (maxAvg >= 25 || (18 < maxAvg && maxAvg <= 25)) {
+            if (maxAvg > 18.5) {
                 flowPane.getChildren().add(NORMAL_WEIGHT_LEGEND_ROW.getRoot());
             }
-            if (maxAvg >= 30 || (25 < maxAvg && maxAvg <= 30)) {
+            if (maxAvg > 25) {
                 flowPane.getChildren().add(OVER_WEIGHT_LEGEND_ROW.getRoot());
             }
-            if (maxAvg >= 30) {
+            if (maxAvg > 30) {
                 flowPane.getChildren().add(OBESE_LEGEND_ROW.getRoot());
             }
             break;
         case BLOODSUGAR:
-            if (maxAvg >= 4.0 || (4.0 < maxAvg && maxAvg <= 5.9)) {
+            if (maxAvg >= 4.0) {
                 flowPane.getChildren().add(BEFORE_MEAL_LEGEND_ROW.getRoot());
             }
-            if (maxAvg >= 5.9 || (5.9 < maxAvg && maxAvg <= 7.0)) {
+            if (maxAvg >= 5.9) {
                 flowPane.getChildren().add(AFTER_MEAL_LEGEND_ROW.getRoot());
             }
             break;
