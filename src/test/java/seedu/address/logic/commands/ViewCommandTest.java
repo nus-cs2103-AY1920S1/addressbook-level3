@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -14,8 +15,10 @@ import seedu.address.testutil.FeatureBuilder;
 
 public class ViewCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new Attendance(),
+            new UserPrefs());
+    private ModelManager expectedModel = new ModelManager(model.getAddressBook(),
+            new Attendance(), new UserPrefs());
 
     @Test
     public void execute_validFeature_success() {

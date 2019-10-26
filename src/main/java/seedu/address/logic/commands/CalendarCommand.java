@@ -55,4 +55,9 @@ public class CalendarCommand extends Command {
                 || (other instanceof CalendarCommand // instanceof handles nulls
                 && date.equals(((CalendarCommand) other).date));
     }
+
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
 }
