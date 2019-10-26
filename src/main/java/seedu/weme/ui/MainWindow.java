@@ -18,6 +18,8 @@ import seedu.weme.logic.Logic;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.logic.prompter.CommandPrompt;
+import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.model.ModelContext;
 
 /**
@@ -275,8 +277,15 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Parse the user input and display the suggestions in ResultDisplay.
-     * @param userInput text input from CommandBox
+     * @param commandText text input from CommandBox
      */
-    private void promptCommand(String userInput) {
+    private void promptCommand(String commandText) throws PromptException {
+        try {
+            CommandPrompt commandPrompt = logic.prompt(commandText);
+            resultDisplay.setFeedbackToUser(commandPrompt.toString());
+        } catch (PromptException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
     }
 }

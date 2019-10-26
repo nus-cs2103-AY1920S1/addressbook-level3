@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.logic.prompter.exceptions.PromptException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -57,7 +58,11 @@ public class CommandBox extends UiPart<Region> {
      * Display the command prompt in the result box.
      */
     private void displayCommandPrompt() {
-        commandPrompter.execute(commandTextField.getText());
+        try {
+            commandPrompter.execute(commandTextField.getText());
+        } catch (PromptException e) {
+            setStyleToIndicateCommandFailure();
+        }
     }
 
     /**
@@ -95,7 +100,7 @@ public class CommandBox extends UiPart<Region> {
          * Parse the user input and display the suggestions in ResultDisplay.
          * @param userInput text input from CommandBox
          */
-        void execute(String userInput);
+        void execute(String userInput) throws PromptException;
     }
 
 }

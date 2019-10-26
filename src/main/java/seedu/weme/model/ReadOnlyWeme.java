@@ -39,4 +39,10 @@ public interface ReadOnlyWeme {
      * Returns the statistics data of Weme.
      */
     Stats getStats();
+
+    /** Return records of Weme.
+     * @return
+     */
+    Records getRecords();
+
 }

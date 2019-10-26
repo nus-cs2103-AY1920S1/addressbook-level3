@@ -6,13 +6,17 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
 import seedu.weme.model.imagePath.ImagePath;
+import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.UniqueMemeList;
+import seedu.weme.model.tag.Tag;
+import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 import seedu.weme.model.template.UniqueTemplateList;
 import seedu.weme.model.util.ImageUtil;
@@ -32,6 +36,7 @@ public class Weme implements ReadOnlyWeme {
     private final UniqueMemeList importList;
     private final UniqueTemplateList templates;
     private final Stats stats;
+    private final Records records;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -46,6 +51,7 @@ public class Weme implements ReadOnlyWeme {
         importList = new UniqueMemeList();
         templates = new UniqueTemplateList();
         stats = new StatsManager();
+        records = new RecordsManager();
     }
 
     public Weme() {}
@@ -62,6 +68,9 @@ public class Weme implements ReadOnlyWeme {
         stats.resetData(replacement);
     }
 
+    public void setRecords(Records replacement) {
+        records.resetRecords(replacement);
+    }
     //// list overwrite operations
 
     /**
@@ -89,6 +98,7 @@ public class Weme implements ReadOnlyWeme {
         setMemes(newData.getMemeList());
         setTemplates(newData.getTemplateList());
         setStats(newData.getStats());
+        setRecords(newData.getRecords());
     }
 
     //// meme-level operations
@@ -244,6 +254,7 @@ public class Weme implements ReadOnlyWeme {
         return templates.asUnmodifiableObservableList();
     }
 
+    @Override
     public Stats getStats() {
         return stats;
     }
@@ -262,6 +273,43 @@ public class Weme implements ReadOnlyWeme {
 
     public void clearMemeStats(Meme meme) {
         stats.deleteLikesByMeme(meme);
+    }
+
+    @Override
+    public Records getRecords() {
+        return records;
+    }
+
+    public Set<String> getPaths() {
+        return records.getPaths();
+    }
+
+    public Set<String> getDescriptions() {
+        return records.getDescriptions();
+    }
+
+    public Set<String> getTags() {
+        return records.getTags();
+    }
+
+    public Set<String> getNames() {
+        return records.getNames();
+    }
+
+    public void addPath(ImagePath path) {
+        records.addPath(path);
+    }
+
+    public void addDescription(Description description) {
+        records.addDescription(description);
+    }
+
+    public void addTags(Set<Tag> tags) {
+        records.addTags(tags);
+    }
+
+    public void addName(Name name) {
+        records.addName(name);
     }
 
     @Override

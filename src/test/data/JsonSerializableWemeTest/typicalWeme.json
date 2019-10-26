@@ -32,5 +32,19 @@
       "data/memes/74b9fc9f-a545-4bbc-98d5-09596a9166a9.jpg" : 1,
       "data/memes/5642dc30-927c-4e02-805d-831ea16bc68e.png" : 2
     }
+  },
+  "records" : {
+    "pathRecords" : [
+      "/home/me/Pictures/weme.jpg"
+    ],
+    "descriptionRecords" : [
+      "OMG my favorite meme!!!"
+    ],
+    "tagRecords" : [
+      "[CS2103]"
+    ],
+    "nameRecords" : [
+      "disaster girl"
+    ]
   }
 }

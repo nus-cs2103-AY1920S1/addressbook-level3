@@ -101,6 +101,7 @@ public class ModelManagerTest {
         Weme differentWeme = new Weme();
         UserPrefs userPrefs = new UserPrefs();
         Stats stats = new StatsManager();
+        Records records = new RecordsManager();
 
         // same values -> returns true
         modelManager = new ModelManager(weme, userPrefs);

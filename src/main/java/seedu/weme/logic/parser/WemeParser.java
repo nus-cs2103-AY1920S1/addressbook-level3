@@ -22,7 +22,9 @@ public abstract class WemeParser {
     /**
      * Used for initial separation of command word and args.
      */
-    protected static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final String COMMAND_WORD = "commandWord";
+    public static final String ARGUMENTS = "arguments";
 
     /**
      * Parses user input into command for execution.
@@ -37,8 +39,8 @@ public abstract class WemeParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String commandWord = matcher.group(COMMAND_WORD).toLowerCase();
+        final String arguments = matcher.group(ARGUMENTS);
         switch (commandWord) {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
