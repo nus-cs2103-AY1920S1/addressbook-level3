@@ -42,7 +42,6 @@ public class ViewCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_FEATURE);
         }
     }
-    
     @Override
     public boolean isUndoable() {
         return false;

@@ -7,13 +7,14 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.history.HistoryManager;
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -41,13 +42,10 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
-        HistoryManager.commands.push(command);
-        HistoryManager.addressBooks.push(model.getAddressBookDeepCopy());
-        System.out.println(HistoryManager.commands);
-        System.out.println(HistoryManager.addressBooks);
+        HistoryManager.getCommands().push(command);
+        HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
 
         try {
-            System.out.println("storing in storage");
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

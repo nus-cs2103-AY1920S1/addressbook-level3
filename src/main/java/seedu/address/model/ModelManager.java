@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.history.HistoryManager;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.training.Training;
@@ -97,7 +97,6 @@ public class ModelManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
-    
     @Override
     public ReadOnlyAddressBook getAddressBookDeepCopy() {
         UniquePersonList persons = addressBook.getPersons();
@@ -105,23 +104,21 @@ public class ModelManager implements Model {
         deepCopy.getPersons().setPersons(persons);
         return deepCopy;
     }
-    
     @Override
     public void undo() {
-        Command undoneCommand = HistoryManager.commands.pop();
-        ReadOnlyAddressBook undoneAddressBooks = HistoryManager.addressBooks.pop();
-        HistoryManager.undoneCommands.push(undoneCommand);
-        HistoryManager.undoneAddressBooks.push(undoneAddressBooks);
-        ReadOnlyAddressBook afterUndoneState = HistoryManager.addressBooks.peek();
+        Command undoneCommand = HistoryManager.getCommands().pop();
+        ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
+        HistoryManager.getUndoneCommands().push(undoneCommand);
+        HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
+        ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
         addressBook.resetData(afterUndoneState);
     }
-    
     @Override
     public void redo() {
-        Command redoneCommand = HistoryManager.undoneCommands.pop();
-        ReadOnlyAddressBook redoneAddressBook = HistoryManager.undoneAddressBooks.pop();
-        HistoryManager.commands.push(redoneCommand);
-        HistoryManager.addressBooks.push(redoneAddressBook);
+        Command redoneCommand = HistoryManager.getUndoneCommands().pop();
+        ReadOnlyAddressBook redoneAddressBook = HistoryManager.getUndoneAddressBooks().pop();
+        HistoryManager.getCommands().push(redoneCommand);
+        HistoryManager.getAddressBooks().push(redoneAddressBook);
         addressBook.resetData(redoneAddressBook);
     }
 

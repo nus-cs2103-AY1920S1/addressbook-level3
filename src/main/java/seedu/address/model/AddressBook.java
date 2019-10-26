@@ -88,7 +88,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public UniquePersonList getPersons() {
         return this.persons;
     }
-    
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.

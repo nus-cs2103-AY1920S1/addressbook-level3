@@ -52,11 +52,8 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
-    
     ReadOnlyAddressBook getAddressBookDeepCopy();
-    
     void undo();
-    
     void redo();
 
     /**

@@ -19,7 +19,6 @@ public class SortCommand extends Command {
         model.sortAddressBookByName();
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    
     @Override
     public boolean isUndoable() {
         return false;
