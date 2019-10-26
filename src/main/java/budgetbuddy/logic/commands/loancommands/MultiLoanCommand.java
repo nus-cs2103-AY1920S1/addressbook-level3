@@ -21,7 +21,7 @@ import budgetbuddy.model.person.Person;
 public abstract class MultiLoanCommand extends Command {
 
     protected static final String MULTI_LOAN_SYNTAX = "<loan number... > [p/<person> ...]";
-    protected static final String MULTI_LOAN_SYNTAX_EXAMPLE = "1 3 4 p/Peter Mary";
+    protected static final String MULTI_LOAN_SYNTAX_EXAMPLE = "1 3 4 p/Peter p/Mary";
 
     private static final String MESSAGE_NO_TARGETS =
             "No loan indices or persons given as targets.";

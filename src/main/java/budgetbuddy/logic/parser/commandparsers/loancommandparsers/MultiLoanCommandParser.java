@@ -1,10 +1,15 @@
 package budgetbuddy.logic.parser.commandparsers.loancommandparsers;
 
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.loancommands.MultiLoanCommand;
+import budgetbuddy.logic.parser.ArgumentMultimap;
+import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
@@ -33,13 +38,18 @@ public abstract class MultiLoanCommandParser implements CommandParser<MultiLoanC
     protected void parseMultiLoanArgs(String args) throws ParseException {
         loanIndices.clear();
         persons.clear();
-        String[] argsArray = args.trim().split("\\s+");
-        for (String arg : argsArray) {
-            try {
-                loanIndices.add(CommandParserUtil.parseIndex(arg));
-            } catch (ParseException e) {
-                persons.add(new Person(CommandParserUtil.parseName(arg)));
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON);
+
+        if (!argMultimap.getPreamble().isBlank()) {
+            String[] indicesArr = argMultimap.getPreamble().split("\\s+");
+            for (String indexStr : indicesArr) {
+                loanIndices.add(CommandParserUtil.parseIndex(indexStr));
             }
+        }
+
+        for (String personName : argMultimap.getAllValues(PREFIX_PERSON)) {
+            persons.add(new Person(CommandParserUtil.parseName(personName)));
         }
     }
 }
