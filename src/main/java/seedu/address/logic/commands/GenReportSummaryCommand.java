@@ -17,11 +17,12 @@ import seedu.address.report.ReportGenerator;
 public class GenReportSummaryCommand extends Command {
 
 
-    public static final String COMMAND_WORD = "genReports";
+    public static final String COMMAND_WORD = "genReportSummary";
 
-    private static final String MESSAGE_GENREPORT_SUCCESS = "Generated all reports";
+    private static final String MESSAGE_GENREPORT_SUCCESS = "Generated report summary";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a PDF report for all bodies.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Generates a PDF report with an overview for all bodies.\n"
             + "Example: " + COMMAND_WORD;
 
     private static final String MESSAGE_REPORT_NOT_GENERATED = "Report not generated";
@@ -33,7 +34,7 @@ public class GenReportSummaryCommand extends Command {
         if (lastShownList.isEmpty()) {
             throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
         }
-        ReportGenerator.generateAll(lastShownList);
+        ReportGenerator.generateSummary(lastShownList);
         return new CommandResult(MESSAGE_GENREPORT_SUCCESS);
     }
 

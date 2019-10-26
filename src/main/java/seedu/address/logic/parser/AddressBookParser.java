@@ -13,6 +13,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GenReportCommand;
+import seedu.address.logic.commands.GenReportSummaryCommand;
 import seedu.address.logic.commands.GenReportsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -91,6 +92,10 @@ public class AddressBookParser {
 
         case GenReportsCommand.COMMAND_WORD:
             return new GenReportsCommand();
+
+        case GenReportSummaryCommand.COMMAND_WORD:
+            return new GenReportSummaryCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
