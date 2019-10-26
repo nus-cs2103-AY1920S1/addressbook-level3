@@ -11,7 +11,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an existing question to an existing quiz\n"
             + "Parameters:\n"
-            + "add quizID/ [QUIZ_ID]\n"
+            + "quizID/ [QUIZ_ID]\n"
             + "Example: quizID/ CS2103T Finals\n\n"
             + "questionNumber/ [QUESTION_NUMBER]\n"
             + "Example: questionNumber/ 3 (Specifies the third question in the question bank)\n\n"
@@ -42,12 +42,8 @@ public class QuizAddQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        boolean isSuccess = model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
-        if (isSuccess) {
-            return new CommandResult(generateSuccessMessage());
-        } else {
-            return new CommandResult(generateFailureMessage());
-        }
+        model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
+        return new CommandResult(generateSuccessMessage());
     }
 
     /**
@@ -55,15 +51,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Added question: " + questionNumber + " to quiz: " + quizId + ".";
-    }
-
-    /**
-     * Generates a command execution failure message.
-     * @return The String representation of a failure message.
-     */
-    private String generateFailureMessage() {
-        return "There is no quiz with the ID of " + quizId + ".";
+        return "Added question: " + questionNumber + " to quiz: " + quizId;
     }
 
     @Override

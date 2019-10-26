@@ -18,7 +18,7 @@ public class StatisticsRecord implements ReadOnlyStatisticsRecord {
     }
 
     /**
-     * Creates an StatisticsRecord using the Statistics in the {@code toBeCopied}
+     * Creates an AddressBook using the Students in the {@code toBeCopied}
      */
     public StatisticsRecord(ReadOnlyStatisticsRecord toBeCopied) {
         this();
@@ -26,9 +26,8 @@ public class StatisticsRecord implements ReadOnlyStatisticsRecord {
     }
 
     /**
-     * Replaces the contents of the StatisticsRecord with {@code stats}.
-     *
-     * @param stats the Statistics object to replace existing data with.
+     * Replaces the contents of the Student list with {@code Students}.
+     * {@code Students} must not contain duplicate Students.
      */
     public void setStatistics(Statistics stats) {
         requireNonNull(stats);
@@ -36,7 +35,7 @@ public class StatisticsRecord implements ReadOnlyStatisticsRecord {
     }
 
     /**
-     * Resets the existing data of this {@code StatisticsRecord} with {@code newData}.
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyStatisticsRecord newData) {
         requireNonNull(newData);
@@ -47,7 +46,8 @@ public class StatisticsRecord implements ReadOnlyStatisticsRecord {
 
     @Override
     public String toString() {
-        return "Statistics Record is maintaining a statistics data of size: " + internalUnmodifiableList.size();
+        return internalUnmodifiableList.size() + " Statistics";
+        // TODO: refine later
     }
 
     @Override
@@ -58,8 +58,8 @@ public class StatisticsRecord implements ReadOnlyStatisticsRecord {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof StatisticsRecord // instanceof handles nulls
-            && internalList.equals(((StatisticsRecord) other).internalList));
+                || (other instanceof StatisticsRecord // instanceof handles nulls
+                && internalList.equals(((StatisticsRecord) other).internalList));
     }
 
     @Override

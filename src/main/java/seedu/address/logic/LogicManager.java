@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -16,8 +15,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
-import seedu.address.model.question.Question;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
@@ -26,7 +26,6 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -41,7 +40,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -52,7 +51,6 @@ public class LogicManager implements Logic {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveStudentRecord(model.getStudentRecord());
             storage.saveQuestions(model.getSavedQuestions());
-            storage.saveEvents(model.getEventRecord());
             storage.saveQuizzes(model.getSavedQuizzes());
             storage.saveNotesRecord(model.getNotesRecord());
         } catch (IOException ioe) {
@@ -83,13 +81,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Question> getSlideshowQuestions() {
-        return model.getSlideshowQuestions();
+    public ReadOnlyStatisticsRecord getStatisticsRecord() {
+        return model.getStatisticsRecord();
     }
 
     @Override
     public ObservableList<Statistics> getProcessedStatistics() {
         return model.getProcessedStatistics();
+    }
+
+    @Override
+    public ReadOnlyNotesRecord getNotesRecord() {
+        return model.getNotesRecord();
     }
 
     @Override
@@ -100,11 +103,6 @@ public class LogicManager implements Logic {
     @Override
     public Path getNotesRecordFilePath() {
         return model.getNotesRecordFilePath();
-    }
-
-    @Override
-    public ObservableList<VEvent> getVEventList() {
-        return model.getVEventList();
     }
 
     @Override

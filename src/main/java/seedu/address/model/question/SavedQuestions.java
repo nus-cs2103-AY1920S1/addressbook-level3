@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 
@@ -14,7 +13,6 @@ import seedu.address.commons.core.index.Index;
 public class SavedQuestions implements ReadOnlyQuestions {
 
     private final QuestionBank questions;
-    private ObservableList<Question> slideshowQuestions = FXCollections.observableArrayList();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -46,14 +44,6 @@ public class SavedQuestions implements ReadOnlyQuestions {
      */
     public QuestionBank getQuestionBank() {
         return questions;
-    }
-
-    /**
-     * Returns all questions currently stored.
-     * @return The question list.
-     */
-    public ObservableList<Question> getAllQuestions() {
-        return questions.getAllQuestions();
     }
 
     /**
@@ -112,15 +102,6 @@ public class SavedQuestions implements ReadOnlyQuestions {
     }
 
     /**
-     * Returns the questions to be used in slideshow.
-     *
-     * @return Slideshow Question List.
-     */
-    public ObservableList<Question> getSlideshowQuestionList() {
-        return slideshowQuestions;
-    }
-
-    /**
      * Returns all the McqQuestions in a question bank in an ObservableList representation.
      *
      * @return mcq questions
@@ -158,20 +139,6 @@ public class SavedQuestions implements ReadOnlyQuestions {
         requireNonNull(editedQuestion);
 
         questions.setQuestion(index, editedQuestion);
-    }
-
-    /**
-     * Sets slideshow questions based on the list of question indexes passed in.
-     *
-     * @param questionsIndexes list of question indexes.
-     */
-    public void setSlideshowQuestions(List<Index> questionsIndexes) {
-        slideshowQuestions.clear();
-
-        for (int i = 0; i < questionsIndexes.size(); i++) {
-            Question question = getQuestion(questionsIndexes.get(i));
-            slideshowQuestions.add(question);
-        }
     }
 
     /**

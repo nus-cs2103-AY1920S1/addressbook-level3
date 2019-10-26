@@ -29,7 +29,7 @@ public class UniqueNotesList implements Iterable<Note> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent note as the given argument.
+     * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(Note toCheck) {
         requireNonNull(toCheck);
@@ -69,8 +69,8 @@ public class UniqueNotesList implements Iterable<Note> {
     }
 
     /**
-     * Removes the equivalent note from the list.
-     * The note must exist in the list.
+     * Removes the equivalent person from the list.
+     * The person must exist in the list.
      */
     public void remove(Note toRemove) {
         requireNonNull(toRemove);

@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the notes-record level
- * Notes with same identity are not allowed as compared by {@code Note#isSameNote(Note)}.
+ * Duplicates are not allowed (by .isSameNote comparison)
  */
 public class NotesRecord implements ReadOnlyNotesRecord {
 
@@ -30,7 +30,7 @@ public class NotesRecord implements ReadOnlyNotesRecord {
     //// list overwrite operations
     /**
      * Replaces the contents of the Notes list with {@code notes}.
-     * {@code notes} must not contain duplicate Note as compared by {@code Note#isSameNote(Note)}.
+     * {@code notes} must not contain duplicate Note.
      */
     public void setNotes(List<Note> notes) {
         this.notes.setNotes(notes);
@@ -46,8 +46,7 @@ public class NotesRecord implements ReadOnlyNotesRecord {
 
     //// Notes-level operations
     /**
-     * Returns true if a Note with the same identity as {@code note}
-     * exists in the notes record.
+     * Returns true if a Note with the same identity as {@code Note} exists in the notes record.
      */
     public boolean hasNote(Note note) {
         requireNonNull(note);
@@ -56,8 +55,7 @@ public class NotesRecord implements ReadOnlyNotesRecord {
 
     /**
      * Adds a Note to the notes record.
-     * A note with the with the same identity as compared by
-     * {@code Note#isSameNote(Note)} must not already exist in the notes record.
+     * The Note must not already exist in the notes record.
      */
     public void addNote(Note n) {
         notes.add(n);
@@ -66,8 +64,8 @@ public class NotesRecord implements ReadOnlyNotesRecord {
     /**
      * Replaces the given Note {@code target} in the list with {@code editedNote}.
      * {@code target} must exist in the notes record.
-     * The Note identity of {@code editedNote} must not have the same identity as another
-     * existing Note in the notes record as compared by {@code Note#isSameNote(Note)}.
+     * The Note identity of {@code editedNote} must not be the same as another
+     * existing Note in the notes record.
      */
     public void setNote(Note target, Note editedNote) {
         requireNonNull(editedNote);
@@ -76,7 +74,7 @@ public class NotesRecord implements ReadOnlyNotesRecord {
 
     /**
      * Removes {@code key} from this {@code NotesRecord}.
-     * {@code key} must exist in the notes record.
+     * {@code key} must exist in the address book.
      */
     public void removeNote(Note key) {
         notes.remove(key);

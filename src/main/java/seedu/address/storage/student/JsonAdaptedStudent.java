@@ -6,6 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
+import seedu.address.model.tag.Tag;
+import seedu.address.storage.tag.JsonAdaptedTag;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Jackson-friendly version of {@link Student}.
@@ -15,6 +22,7 @@ class JsonAdaptedStudent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "student's %s field is missing!";
 
     private final String name;
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedStudent} with the given student details.
@@ -45,8 +53,14 @@ class JsonAdaptedStudent {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+        final List<Tag> studentTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            studentTags.add(tag.toModelType());
+        }
 
-        return new Student(modelName);
+        final Set<Tag> modelTags = new HashSet<>(studentTags);
+
+        return new Student(modelName, modelTags);
     }
 
 }

@@ -1,18 +1,17 @@
 package seedu.address.logic;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
-import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
-import seedu.address.model.question.Question;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
 
@@ -20,7 +19,6 @@ import seedu.address.model.student.Student;
  * API of the Logic component
  */
 public interface Logic {
-
     /**
      * Executes the command and returns the result.
      *
@@ -29,7 +27,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException   If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
+    CommandResult execute(String commandText) throws CommandException, ParseException;
 
     //region AddressBook
 
@@ -51,16 +49,15 @@ public interface Logic {
     Path getAddressBookFilePath();
     //endregion
 
-    //region Questions
-    /**
-     * Returns the list of slideshow questions
-     *
-     * @see seedu.address.model.Model#getSlideshowQuestions()
-     */
-    ObservableList<Question> getSlideshowQuestions();
-    //endregion
-
     //region Statistics
+
+    /**
+     * Returns the StatisticsRecord.
+     *
+     * @see seedu.address.model.Model#getStatisticsRecord()
+     */
+    ReadOnlyStatisticsRecord getStatisticsRecord();
+
     /**
      * Returns an unmodifiable view of the processed statistics of students
      */
@@ -68,24 +65,30 @@ public interface Logic {
     //endregion
 
     //region Notes
+
+    /**
+     * Returns the NotesRecord.
+     *
+     * @see seedu.address.model.Model#getNotesRecord()
+     */
+    ReadOnlyNotesRecord getNotesRecord();
+
     /**
      * Returns an unmodifiable view of the filtered list of notes
      */
     ObservableList<Note> getFilteredNotesList();
 
     /**
+     * Returns an unmodifiable view of the filtered list of students
+     */
+
+    ObservableList<Student> getFilteredStudentList();
+
+
+    /**
      * Returns the user prefs' notes record file path.
      */
     Path getNotesRecordFilePath();
-    //endregion
-
-    /**
-     * Returns an unmodifiable view of the filtered list of students
-     */
-    ObservableList<Student> getFilteredStudentList();
-
-    //region VEvents
-    ObservableList<VEvent> getVEventList();
     //endregion
 
     /**

@@ -8,3 +8,5 @@ import seedu.address.logic.commands.Command;
 public abstract class NoteCommand extends Command {
     public static final String COMMAND_WORD = "note";
 }
+
+

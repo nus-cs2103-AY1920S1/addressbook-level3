@@ -26,7 +26,7 @@ public interface NotesRecordStorage {
     Optional<ReadOnlyNotesRecord> readNotesRecord() throws DataConversionException, IOException;
 
     /**
-     * @see #readNotesRecord()
+     * @see #getNotesRecordFilePath()
      */
     Optional<ReadOnlyNotesRecord> readNotesRecord(Path filePath) throws DataConversionException, IOException;
 

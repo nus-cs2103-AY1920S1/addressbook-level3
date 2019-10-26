@@ -29,9 +29,9 @@ public class StatsReportWindow extends UiPart<Stage> {
     private StackPane statisticsPanelPlaceholder;
 
     /**
-     * Creates a new StatsReportWindow.
+     * Creates a new HelpWindow.
      *
-     * @param root Stage to use as the root of the StatsReportWindow.
+     * @param root Stage to use as the root of the HelpWindow.
      */
     public StatsReportWindow(Stage root) {
         super(FXML, root);
@@ -51,7 +51,7 @@ public class StatsReportWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new StatsReportWindow.
+     * Creates a new HelpWindow.
      */
     public StatsReportWindow() {
         this(new Stage());
@@ -63,7 +63,7 @@ public class StatsReportWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the statistics window.
+     * Shows the help window.
      *
      * @throws IllegalStateException <ul>
      *                               <li>
@@ -81,28 +81,28 @@ public class StatsReportWindow extends UiPart<Stage> {
      *                               </ul>
      */
     public void show() {
-        logger.fine("Showing Statistics Report...");
+        logger.fine("Show slideshow.");
         getRoot().show();
         getRoot().centerOnScreen();
         getRoot().setFullScreen(true);
     }
 
     /**
-     * Returns true if the statistics report window is currently being shown.
+     * Returns true if the help window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the statistics report window.
+     * Hides the slideshow window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the statistics report window.
+     * Focuses on the slideshow window.
      */
     public void focus() {
         getRoot().requestFocus();

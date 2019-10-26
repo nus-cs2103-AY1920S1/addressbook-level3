@@ -2,7 +2,6 @@ package seedu.address.logic.commands.question;
 
 import java.util.HashMap;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -70,11 +69,6 @@ public class QuestionEditCommand extends QuestionCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
-        if (index.getZeroBased() >= model.getAllQuestions().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
-        }
-
         Question questionObj = model.getQuestion(index);
 
         String question = (!this.question.isBlank()) ? this.question : questionObj.getQuestion();

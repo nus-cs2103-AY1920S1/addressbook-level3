@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,7 +14,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -34,14 +31,12 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    //private PersonListPanel personListPanel;
     private StudentListPanel studentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
-    private EventSchedulePanel eventSchedulePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,7 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane mainPanelPlaceholder;
+    private StackPane studentListPanelPlaceholder;
 
     @FXML
     private StackPane notesListPanelPlaceholder;
@@ -74,8 +69,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        statsReportWindow = new StatsReportWindow();
-        slideShowWindow = new SlideshowWindow(new Stage(), logic);
+        slideShowWindow = new SlideshowWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -122,7 +116,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+
+        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -135,8 +132,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
     }
 
     /**
@@ -176,26 +171,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the schedule window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleSchedule() {
-        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
-    }
-
-    /**
-     * Opens the schedule window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleStudent() {
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
-    }
-
-    /**
      * Opens the statistics report window or focuses on it if it's already opened.
      */
     @FXML
     public void handleStats() {
+        statsReportWindow = new StatsReportWindow();
         StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
         statsReportWindow.setStatsCard(statsCard);
         if (!statsReportWindow.isShowing()) {
@@ -205,9 +185,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Show UI
-     */
     void show() {
         primaryStage.show();
     }
@@ -224,46 +201,40 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /*public PersonListPanel getPersonListPanel() {
+        return personListPanel;
+    }*/
+
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException, IOException {
+        throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            CommandResultType commandResultType = commandResult.getCommandResultType();
-            switch (commandResultType) {
-
-            case SHOW_HELP:
+            if (commandResult.isShowHelp()) {
                 handleHelp();
-                break;
-            case SHOW_SLIDESHOW:
+            }
+
+            if (commandResult.isShowSlideshow()) {
                 handleSlideshow();
-                break;
-            case EXIT:
+            }
+
+            if (commandResult.isExit()) {
                 handleExit();
-                break;
-            case SHOW_SCHEDULE:
-                eventSchedulePanel.updateScheduler();
-                handleSchedule();
-                break;
-            case SHOW_STATISTIC:
+            }
+
+            if (commandResult.isShowStatistic()) {
                 handleStats();
-                break;
-            case SHOW_STUDENT:
-                handleStudent();
-                break;
-            default:
-                break;
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | IOException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

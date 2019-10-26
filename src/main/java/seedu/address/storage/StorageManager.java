@@ -10,12 +10,10 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
-import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.note.NotesRecordStorage;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.quiz.QuizStorage;
@@ -33,17 +31,16 @@ public class StorageManager implements Storage {
     private QuizStorage quizStorage;
     private NotesRecordStorage notesRecordStorage;
     private UserPrefsStorage userPrefsStorage;
-    private EventStorage eventStorage;
+
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage,
-                          QuizStorage quizStorage, NotesRecordStorage notesStorage, EventStorage eventStorage) {
+        StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage,
+                          QuizStorage quizStorage, NotesRecordStorage notesStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.studentRecordStorage = studentRecordStorage;
         this.questionStorage = questionStorage;
-        this.eventStorage = eventStorage;
         this.quizStorage = quizStorage;
         this.notesRecordStorage = notesStorage;
     }
@@ -153,7 +150,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveQuestions(ReadOnlyQuestions questions, Path filePath) throws IOException {
-        logger.fine("Attempting to write to questions data file: " + filePath);
+        logger.fine("Attempting to write to student data file: " + filePath);
         questionStorage.saveQuestions(questions, filePath);
     }
     //endregion
@@ -195,7 +192,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyNotesRecord> readNotesRecord() throws DataConversionException, IOException {
+    public Optional<ReadOnlyNotesRecord> readNotesRecord()
+            throws DataConversionException, IOException {
         return readNotesRecord(notesRecordStorage.getNotesRecordFilePath());
     }
 
@@ -212,40 +210,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveNotesRecord(ReadOnlyNotesRecord notesRecord, Path filePath) throws IOException {
+    public void saveNotesRecord(ReadOnlyNotesRecord notesRecord, Path filePath)
+            throws IOException {
         logger.fine("Attempting to write to student data file: " + filePath);
         notesRecordStorage.saveNotesRecord(notesRecord, filePath);
     }
     //endregion
-
-    // ================ Event methods ==============================
-
-    @Override
-    public Path getEventRecordFilePath() {
-        return eventStorage.getEventRecordFilePath();
-    }
-
-    @Override
-    public Optional<ReadOnlyEvents> readEvents() throws DataConversionException, IOException {
-        return readEvents(eventStorage.getEventRecordFilePath());
-    }
-
-    @Override
-    public Optional<ReadOnlyEvents> readEvents(Path filePath)
-            throws DataConversionException, IOException {
-        logger.fine("Attempting to read events data from file: " + filePath);
-        return eventStorage.readEvents(filePath);
-    }
-
-    @Override
-    public void saveEvents(ReadOnlyEvents events) throws IOException {
-        saveEvents(events, eventStorage.getEventRecordFilePath());
-    }
-
-    @Override
-    public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
-        logger.fine("Attempting to write to events data file: " + filePath);
-        eventStorage.saveEvents(events, filePath);
-    }
 
 }

@@ -1,11 +1,5 @@
 package seedu.address.ui;
 
-import static seedu.address.model.statistics.Statistics.BELOW_FIFTY;
-import static seedu.address.model.statistics.Statistics.EIGHTY_AND_ABOVE;
-import static seedu.address.model.statistics.Statistics.FIFTY_TO_FIFTY_NINE;
-import static seedu.address.model.statistics.Statistics.SEVENTY_TO_SEVENTY_NINE;
-import static seedu.address.model.statistics.Statistics.SIXTY_TO_SIXTY_NINE;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,12 +23,6 @@ public class StatisticsCard extends UiPart<Region> {
 
     private static final String FXML = "StatisticsCard.fxml";
 
-    private static final String PIE_CHART_TITLE = "Weighted Grade Distribution";
-    private static final String LINE_CHART_TITLE = "Score Frequency Distribution";
-    private static final String AXIS_X_LABEL = "Weighted Average Score";
-    private static final String AXIS_Y_LABEL = "Num Of Students(s)";
-    private static final String DATA_SERIES_LABEL = "Class Data Series";
-
     private Statistics stat;
 
     @FXML
@@ -56,15 +44,9 @@ public class StatisticsCard extends UiPart<Region> {
     @FXML
     private LineChart<Number, Number> lineChart;
 
-    /**
-     * Contains UI elements and data for the statistics report.
-     * @param stat the Statistics object containing relevant processed information.
-     */
     public StatisticsCard(ObservableList<Statistics> stat) {
         super(FXML);
         postStat(stat);
-        populatePieChart();
-        populateLineChart();
     }
 
     /**
@@ -79,41 +61,38 @@ public class StatisticsCard extends UiPart<Region> {
         min.setText((String.format("%.2f", this.stat.getMin())));
         max.setText((String.format("%.2f", this.stat.getMax())));
         standardDev.setText((String.format("%.2f", this.stat.getStandardDev())));
+        setPieChart();
+        setLineChart();
     }
 
-    /**
-     * Sets the pie chart element with corresponding data.
-     */
-    public void populatePieChart() {
+    public void setPieChart() {
         HashMap<String, Integer> gradeGroupings = stat.getGradeGroupings();
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data(">= 80", gradeGroupings.get(EIGHTY_AND_ABOVE)),
-                        new PieChart.Data("70 ~ 79", gradeGroupings.get(SEVENTY_TO_SEVENTY_NINE)),
-                        new PieChart.Data("60 ~ 69", gradeGroupings.get(SIXTY_TO_SIXTY_NINE)),
-                        new PieChart.Data("50 ~ 59", gradeGroupings.get(FIFTY_TO_FIFTY_NINE)),
-                        new PieChart.Data("< 50", gradeGroupings.get(BELOW_FIFTY)));
+                        new PieChart.Data(">= 80", gradeGroupings.get("aboveEighty")),
+                        new PieChart.Data("70 ~ 79", gradeGroupings.get("seventies")),
+                        new PieChart.Data("60 ~ 69", gradeGroupings.get("sixties")),
+                        new PieChart.Data("50 ~ 59", gradeGroupings.get("fifties")),
+                        new PieChart.Data("< 50", gradeGroupings.get("belowFifty")));
         distributionChart.setData(pieChartData);
-        distributionChart.setTitle(PIE_CHART_TITLE);
+        distributionChart.setTitle("Weighted Grade Distribution");
         distributionChart.setLegendSide(Side.LEFT);
         distributionChart.setLabelsVisible(false);
     }
 
-    /**
-     * Sets the line chart element with corresponding data.
-     */
-    public void populateLineChart() {
+    public void setLineChart() {
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
         NumberAxis yAxis = (NumberAxis) lineChart.getYAxis();
 
-        yAxis.setLabel(AXIS_Y_LABEL);
-        xAxis.setLabel(AXIS_X_LABEL);
+        yAxis.setLabel("Num Of Students(s)");
+        xAxis.setLabel("Weighted Average Score");
         xAxis.setForceZeroInRange(false);
 
-        lineChart.setTitle(LINE_CHART_TITLE);
-
+        lineChart.setTitle("Score Frequency Distribution");
+        //defining a series
         XYChart.Series series = new XYChart.Series();
-        series.setName(DATA_SERIES_LABEL);
+        series.setName("Class Data Series");
+        //populating the series with data
         HashMap<Integer, Integer> frequencyDistribution = stat.getFrequencyDistribution();
         for (Map.Entry<Integer, Integer> entry : frequencyDistribution.entrySet()) {
             series.getData().add(new XYChart.Data(entry.getKey(), entry.getValue()));

@@ -12,18 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("ad/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
     // END OF ADDRESS BOOK PREFIX
-
-    // EVENT PREFIX
-    public static final Prefix PREFIX_EVENT = new Prefix("event/");
-    public static final Prefix PREFIX_EVENT_NAME = new Prefix("eventName/");
-    public static final Prefix PREFIX_START_DATETIME = new Prefix("startDateTime/");
-    public static final Prefix PREFIX_END_DATETIME = new Prefix("endDateTime/");
-    public static final Prefix PREFIX_RECUR = new Prefix("recur/");
-    public static final Prefix PREFIX_COLOR = new Prefix("color/");
-    public static final Prefix PREFIX_GET_INDEX = new Prefix("indexOf/");
-    // END OF EVENT PREFIX
 
     // QUESTION PREFIX
     public static final Prefix PREFIX_QUESTION = new Prefix("question/");
@@ -36,9 +25,17 @@ public class CliSyntax {
     public static final Prefix PREFIX_SLIDESHOW = new Prefix("slideshow");
     // END OF QUESTION PREFIX
 
+    // MARK PREFIX
+    public static final Prefix PREFIX_UNMARK = new Prefix("unmark");
+    // END OF MARK PREFIX
+
     // STUDENT PREFIX
-    public static final Prefix PREFIX_STUDENT = new Prefix("student/");
+    public static final Prefix PREFIX_STUDENT = new Prefix("name/");
+    public static final Prefix PREFIX_TAG = new Prefix("tag/");
     // END OF STUDENT PREFIX
+
+    // TAG PREFIX
+    public static final Prefix PREFIX_INDEX = new Prefix("index/");
 
     // NOTE PREFIX
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
@@ -50,8 +47,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_FILEPATH = new Prefix("file/");
     //END IF STATISTICS PREFIX
 
-    public static final Prefix PREFIX_ADD = new Prefix("add");
-    public static final Prefix PREFIX_EXPORT = new Prefix("export");
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
 
