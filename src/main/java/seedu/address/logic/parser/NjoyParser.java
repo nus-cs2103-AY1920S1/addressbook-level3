@@ -14,20 +14,25 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.event.EventCommand;
 import seedu.address.logic.commands.group.GroupCommand;
+import seedu.address.logic.commands.mark.MarkCommand;
 import seedu.address.logic.commands.note.NoteCommand;
 import seedu.address.logic.commands.question.QuestionCommand;
 import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.statistics.StatisticsCommand;
 import seedu.address.logic.commands.student.StudentCommand;
+import seedu.address.logic.commands.tag.TagCommand;
 
 import seedu.address.logic.parser.event.EventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.group.GroupCommandParser;
+import seedu.address.logic.parser.mark.MarkCommandParser;
 import seedu.address.logic.parser.note.NoteCommandParser;
 import seedu.address.logic.parser.question.QuestionCommandParser;
 import seedu.address.logic.parser.quiz.QuizCommandParser;
 import seedu.address.logic.parser.statistics.StatisticsCommandParser;
 import seedu.address.logic.parser.student.StudentCommandParser;
+import seedu.address.logic.parser.tag.TagCommandParser;
+
 
 /**
  * Parses user input.
@@ -76,6 +81,12 @@ public class NjoyParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
+
+        case MarkCommand.COMMAND_WORD:
+            return new MarkCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

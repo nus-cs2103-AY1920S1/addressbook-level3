@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class ListOfGroups {
 
+    private static String currentlyQueriedGroup;
     private ArrayList<Group> groups;
 
     /**
@@ -17,7 +18,24 @@ public class ListOfGroups {
     }
 
     /**
+     * Sets the currently queried group
+     */
+    public static void setCurrentlyQueriedGroup(String queriedGroup) {
+        currentlyQueriedGroup = queriedGroup;
+    }
+
+    /**
+     * Gets the currently queried group
+     *
+     * @return the currently queried group
+     */
+    public static String getCurrentlyQueriedGroup() {
+        return currentlyQueriedGroup;
+    }
+
+    /**
      * Adds a group to the list of groups.
+     *
      * @param group The group to be added to the list of groups.
      */
     public void addGroup(Group group) {
@@ -26,6 +44,7 @@ public class ListOfGroups {
 
     /**
      * Removes a group from the list of groups.
+     *
      * @param groupId The group to be removed from the list of groups.
      */
     public void removeGroup(String groupId) {
@@ -38,6 +57,7 @@ public class ListOfGroups {
 
     /**
      * Returns the groupIndex of a group if found, else -1.
+     *
      * @param groupId The identifier of the group.
      * @return The groupIndex of the group.
      */
@@ -53,10 +73,20 @@ public class ListOfGroups {
 
     /**
      * Returns a group from the list of groups.
+     *
      * @param groupIndex The group index.
      * @return The group from the list of groups.
      */
     public Group getGroup(int groupIndex) {
         return groups.get(groupIndex);
+    }
+
+    /**
+     * Returns array list of groups.
+     *
+     * @return array list of groups.
+     */
+    public ArrayList<Group> getGroupList() {
+        return this.groups;
     }
 }

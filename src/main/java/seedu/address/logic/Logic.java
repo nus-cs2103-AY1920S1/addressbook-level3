@@ -84,6 +84,11 @@ public interface Logic {
      */
     ObservableList<Student> getFilteredStudentList();
 
+    /**
+     * Returns an unmodifiable view of the students in queried group.
+     */
+    ObservableList<Student> getStudentsInGroup();
+
     //region VEvents
     ObservableList<VEvent> getVEventList();
     //endregion

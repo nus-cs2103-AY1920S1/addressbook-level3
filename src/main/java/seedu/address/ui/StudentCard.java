@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.student.Student;
@@ -28,12 +31,20 @@ public class StudentCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private FlowPane tags;
 
     public StudentCard(Student student, int displayedIndex) {
         super(FXML);
         this.student = student;
         id.setText(displayedIndex + ". ");
         name.setText(student.getName().fullName);
+        if (student.getIsMarked()) {
+            cardPane.setStyle("-fx-background-color: #ff6666");
+        }
+        student.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

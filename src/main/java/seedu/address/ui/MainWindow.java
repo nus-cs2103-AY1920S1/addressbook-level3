@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.student.Student;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -39,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private GroupWindow groupWindow;
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
     private EventSchedulePanel eventSchedulePanel;
@@ -169,6 +172,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the group window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleGroup() {
+        groupWindow = new GroupWindow();
+        //get observable list of students in group and put inside.
+        ObservableList<Student> students = logic.getStudentsInGroup();
+        groupWindow.setStudentsInGroup(students);
+        if (!groupWindow.isShowing()) {
+            groupWindow.show();
+        } else {
+            groupWindow.focus();
+        }
+    }
+
+    /**
      * Opens the slideshow window or focuses on it if it's already opened.
      */
     @FXML
@@ -267,6 +286,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case SHOW_STATISTIC:
                 handleStats();
+                break;
+            case SHOW_GROUP:
+                handleGroup();
                 break;
             case SHOW_STUDENT:
                 handleStudent();
