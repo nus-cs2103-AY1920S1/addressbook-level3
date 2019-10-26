@@ -4,11 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.*;
 
-<<<<<<< HEAD
 import seedu.address.model.person.Person;
-=======
 import seedu.address.model.binitem.Binnable;
->>>>>>> e8bab323a301b605400bb83ade04efd53303341c
 import seedu.address.model.tag.Tag;
 
 /**
