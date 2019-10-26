@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.DisplayScheduleForDateCommand;
+import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventDate;

@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ManualAllocateCommand;
+import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

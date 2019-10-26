@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AssignDateCommand;
+import seedu.address.logic.commands.event.AssignDateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDayTime;
