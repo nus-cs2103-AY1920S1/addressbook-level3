@@ -48,8 +48,6 @@ public class LogicManagerTest {
     private Logic logic;
     private seedu.address.transaction.logic.Logic transactionLogic;
     private seedu.address.reimbursement.logic.Logic reimbursementLogic;
-    private seedu.address.cashier.logic.Logic cashierLogic;
-    private seedu.address.inventory.logic.Logic inventoryLogic;
 
     @BeforeEach
     public void setUp() {
@@ -101,14 +99,7 @@ public class LogicManagerTest {
         reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         transactionModel, transactionManager, personModel);
-        cashierLogic =
-                new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
-                        transactionModel, inventoryModel);
-        inventoryLogic =
-                new seedu.address.inventory.logic.LogicManager(cashierModel, cashierManager, inventoryModel,
-                        inventoryManager);
-        logic = new LogicManager(model, personManager, transactionLogic, reimbursementLogic,
-                cashierLogic, inventoryLogic);
+        logic = new LogicManager(model, personManager, transactionLogic, reimbursementLogic);
     }
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
@@ -134,8 +125,7 @@ public class LogicManagerTest {
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
-        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic,
-                cashierLogic, inventoryLogic);
+        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY

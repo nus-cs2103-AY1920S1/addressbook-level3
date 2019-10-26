@@ -82,7 +82,7 @@ Commands in treasurerPro are tab-specific.
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues
 the command `delete 1` in the Transactions tab.
 
-.Component interactions for `delete 1` command within Transactions tab.
+.Component interactions for `delete 1` command within Transactions tab. <NEEDS TO BE UPDATED>
 image::ArchitectureSequenceDiagram.png[]
 
 A command input by the user is received by the Ui, and based upon which tab the user is currently on, forwarded to
@@ -115,12 +115,14 @@ The `UI` component:
 
 [[Design-Logic]]
 === Logic component
+This section will show the structures of the Logic Component of the different tabs.
+
+The diagram below shows a generalised view of the Logic component within each package.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
-The above diagram shows a generalised view of the Logic component within each package.
 An outline of how a command is processed through Logic is as follows:
 
 . `Logic` uses the tab's `Parser` class to parse the user command.
@@ -128,14 +130,66 @@ An outline of how a command is processed through Logic is as follows:
 . The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` (not depicted).
 
-Further details on the implementation of the Parser and Command can be found below in Section 3, Implementation.
+Further details on the implementation of the Parser and Command can be found below in <<RTLogic, Section 2.3.1. Home and Reimbursement Tab>>,
+<<ICLogic, Section 2.3.2. Inventory and Cashier Tab>> and <<PLogic, Section 2.3.3. Members Tab>> below.
 
-Given below is a generalised Sequence Diagram depicting the steps outlined above.
+[[GeneralLogicSD]]
+Given below is a general Sequence Diagram depicting interactions within the `Logic` component.
 
 .Interactions Inside the Logic Component for a Command
 image::GeneralSequenceDiagram.png[]
 
 More detailed Sequence Diagram's for commands in each Tab can be found in <<Implementation>>
+
+[[RTLogic]]
+==== Home and Reimbursement Tab
+This section will show the general structure of the Logic Component of the Home Tab and Reimbursement Tab.
+Given below is a general Class Diagram showing the structure of the Logic Component for these 2 tabs.
+
+.Structure of Logic Component for Transaction and Reimbursement Tab.
+image::LogicForR&T.png[]
+
+[NOTE]
+The `XYZTabParser` represents the `TransactionTabParser` for the Home Tab and `ReimbursementTabParser` for the Reimbursement
+Tab.
+
+The parsers represented by the `ABCParser` and `XYZParser`:
+`ABCParser`:
+
+* Transaction Tab:
+** `EditCommandParser`
+** `AddCommandParser`
+** `DeleteCommandParser`
+
+* Reimbursement Tab:
+** `FindCommandParser`
+** `DoneCommandParser`
+** `DeadlineCommandParser`
+
+`XYZParser`
+
+* Transaction Tab:
+** `FindCommandParser`
+** `SortCommandParser`
+
+* Reimbursement Tab:
+** `BackCommandParser`
+** `ExitCommandParser`
+
+
+[[ICLogic]]
+==== Inventory and Cashier Tab
+To be filled in by the respective members :)
+
+[[PLogic]]
+==== Members Tab
+This section will show the general structure of the Logic Component of the Members Tab.
+This is integrated from the existing `AddressBook`.
+Given below is a general Class Diagram showing the structure of the Logic Component for these 2 tabs.
+
+.Structure of Logic Component for Members Tab.
+image::LogicForAB.png[]
+
 
 [[Design-Model]]
 === Model component
@@ -179,41 +233,61 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 [[Implementation]]
 == Implementation
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented and works.
 There are a total of 6 tabs in our application for each feature: Home Tab, Members Tab, Reimbursement Tab,
 Inventory Tab, Cashier Tab, Overview Tab.
 
 === Home Tab
 This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
-cost of buying items to sell.
-
-Each transaction will require an input of its date, description, category, amount
+cost of buying items to sell. Each transaction will require an input of its date, description, category, amount
 and member that is accountable for it.
 
 Revenue from each cashier checkout will also be automatically inputted as
-a positive transaction in this tab with the person being the cashier. The inputted transactions that corresponds to
-a spending will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
-
-
-This is the overall Class Diagram of this tab:
-
-.Class Diagram of Home Tab (transaction package)
-
-image::HomeTabClassDiagram.png[]
+a transaction with positive amount in this tab with the person being the cashier. The inputted transactions that corresponds to
+a spending with a negative amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
 
 ==== Add Command feature
-The Add command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+This command requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
 
-The following sequence diagram shows how the add command works:
+The following sequence diagram shows how the `AddCommand` works and is the reference from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
 
 .Sequence Diagram of Add Command in Home Tab (transaction package)
 
-image::HomeTabAddCommandSequenceDiagram.png[]
+image::HomeAddCommandSD.png[]
 
-The following activity diagram shows the steps needed to add a new transaction:
+
+In addition, the `resetPredicate()` method from `ModelManager` is called in the `AddCommand`. Thus, the UI table will immediately shows the full
+transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a Find Command,
+then the list in the beginning of the activity diagram would be a filtered list but after the add command is executed,
+the full list of transactions would be shown.
+
+After the command is executed, the `LogicManager` updates the in-app list of transactions via the `ModelManager` and updates
+the data file via the `StorageManager`. The following sequence diagram shows how the updating of the list of transactions in the app and
+in the data file:
+[[UpdateTL]]
+.Sequence Diagram of updating the transaction list in Home Tab (transaction package)
+
+image::HomeAddCommandMMSM.png[]
+
+[NOTE]
+This update of the list of transactions is done for every command that is executed successfully in the Home Tab.
+
+Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest list of transactions
+to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
+the Reimbursement Tab is updated:
+[[update-reimbursement]]
+.Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
+
+image::HomeUpdateReimbursement.png[]
+
+[NOTE]
+This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<UpdateTL, Sequence Diagram of updating the transaction list in Home Tab>>) when there is a command executed successfully in the Home Tab.
+
+To better illustrate the flow of events from the moment a user inputs a command till the completion of the command,
+the activity diagram for the Add Command is shown below:
 
 .Activity Diagram of Add Command in Home Tab (transaction package)
 
@@ -223,20 +297,8 @@ As shown, when a user does not input all the compulsory fields or input a name t
 the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
 done, a response message is shown as well by our mascot, Leo.
 
-In addition, since the `resetPredicate()` method is called as shown, the UI table will immediately show the full
-transaction list regardless of the list at the start of the activity diagram showing the filtered list
-due to prior the inputted Find Command.
-
 Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
 amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
-
-The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
-[[update-reimbursement]]
-.Sequence Diagram of updating Reimbursement Tab (reimbursement package)
-
-image::TransactionUpdatingReimbursement.png[]
-
-This is done for every feature in the `LogicManager`.
 
 ==== Delete Feature
 The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 2 types of deletion, by
@@ -247,9 +309,23 @@ The following sequence diagram shows how the delete by name command works:
 
 .Sequence Diagram of Delete Command in Home Tab (transaction package)
 
-image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
+image::HomeDeleteNameCommand.png[]
 
-After this, the reimbursement tab is updated as shown in <<update-reimbursement,Figure 12>>.
+In addition, the `resetPredicate()` method in `ModelManager` is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
+filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
+To view the full transaction list, the user would be required to input the
+Back Command where `BackCommand` calls `resetPredicate()`.
+
+The `BackCommand` is not initialised by a parser but initialised by the `TransactionTabParser` instead.
+The following detailed sequence diagram shows how the back command works:
+
+.Sequence Diagram of Back Command in Home Tab (transaction package)
+
+image::HomeTabBackCommandSequenceDiagram.png[]
+
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
+respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
 
@@ -262,17 +338,6 @@ image::HomeTabActivityDiagramDeleteCommand.png[]
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
 When a successful deletion is done, a response message is shown as well.
-
-In addition, since the `resetPredicate()` method is not called as shown, the UI table will continue to show the
-filtered transaction list if the prior input is a Find Command and the list at the start of the activity diagram shows
-a filtered list by the Find Command's keywords. To view the full transaction list, the user would have to input the
-Back Command that calls `resetPredicate()`.
-
-The following sequence diagram shows how the back command works:
-
-.Sequence Diagram of Back Command in Home Tab (transaction package)
-
-image::HomeTabBackCommandSequenceDiagram.png[]
 
 ==== Sort Feature
 The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
