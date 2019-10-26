@@ -12,6 +12,11 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD +
+            ": lists all problems in AlgoBase\n" +
+            "Example: " +
+            COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Listed all problems";
 
 
