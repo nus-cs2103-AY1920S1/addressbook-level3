@@ -20,6 +20,7 @@ import seedu.address.ui.NotifWindow;
 import seedu.address.ui.NotificationButton;
 
 //@@author arjavibahety
+
 /**
  * Notifies a user when there is an automatic change in BodyStatus.
  */
@@ -45,11 +46,10 @@ public class NotifCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasNotif(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
+        if (!model.hasNotif(toAdd)) {
+            // throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
+            model.addNotif(toAdd);
         }
-
-        model.addNotif(toAdd);
 
         startSesChangeBodyStatus();
         startSesChangeBodyStatusUi(model);
@@ -58,8 +58,10 @@ public class NotifCommand extends Command {
     }
 
     //@@author ambervoong
+
     /**
      * Removes a notification from the model. Used to undo changes made in an AddCommand
+     *
      * @param model model of Mortago.
      */
     public void removeNotif(Model model) {
@@ -80,13 +82,14 @@ public class NotifCommand extends Command {
 
     /**
      * Updates the UI to reflect the change in BodyStatus.
+     *
      * @param model refers to the ModelManager
      */
     public void startSesChangeBodyStatusUi(Model model) throws CommandException {
         Body body = toAdd.getBody();
         String notifContent = "Body Id: " + body.getIdNum()
-                                + "\nName: " + body.getName()
-                                + "\nNext of Kin has been uncontactable. Please contact the police";
+                + "\nName: " + body.getName()
+                + "\nNext of Kin has been uncontactable. Please contact the police";
 
         Runnable changeUi = () -> Platform.runLater(() -> {
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
@@ -115,6 +118,10 @@ public class NotifCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof NotifCommand
                 && toAdd.equals(((NotifCommand) other).toAdd));
+    }
+
+    public ScheduledExecutorService getSes() {
+        return ses;
     }
 }
 

@@ -2,6 +2,7 @@ package seedu.address.model.notif;
 
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ public class Notif {
 
     private Body body;
     private Runnable alert;
+    private Date notifCreationTime;
 
     public Notif(Body body) {
         this.body = body;
@@ -39,6 +41,7 @@ public class Notif {
                 }
             }
         };
+        this.notifCreationTime = new Date();
     }
 
     public Body getBody() {
@@ -51,6 +54,14 @@ public class Notif {
 
     public Runnable getAlert() {
         return alert;
+    }
+
+    public Date getNotifCreationTime() {
+        return notifCreationTime;
+    }
+
+    public void setNotifCreationTime(Date notifCreationTime) {
+        this.notifCreationTime = notifCreationTime;
     }
 
     /**
