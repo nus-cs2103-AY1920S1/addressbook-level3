@@ -212,7 +212,7 @@ Examples:
 * `log 2 30092019 7` +
 2nd Employee in the employee list has 8 hours previously logged, is now overwritten with 7 hours.
 
-// tag::calvin[]
+//tag::calvin[]
 === Event-Specific Management
 ==== Automated allocation of Employees to Events: `allocate` (also a GUI feature)
 
@@ -258,7 +258,7 @@ Examples:
 
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
-// end::calvin[]
+//end::calvin[]
 ==== Setting a Date&Time to an Event
 
 Sets a Date-Time mapping to an specific Event.
