@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.CustomTextField;
 
 import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.BACK_SLASH;
@@ -31,9 +31,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.fxmisc.richtext.Caret;
 import org.fxmisc.richtext.StyleClassedTextArea;
@@ -63,7 +65,7 @@ import seedu.address.logic.parser.Prefix;
  * A single line text area utilising RichTextFX to support syntax highlighting of user input.
  * This has some code which is adapted from OverrideBehaviorDemo and JavaKeywordsDemo in RichTextFX.
  */
-public class CommandSyntaxHighlightingTextArea extends Region {
+public class CommandTextField extends Region {
 
     private static final String PLACE_HOLDER_REGEX = "(?<placeholder><[^>]+>)";
     private static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|" + PLACE_HOLDER_REGEX + "|%s(?<arg>\\S+)";
@@ -137,7 +139,7 @@ public class CommandSyntaxHighlightingTextArea extends Region {
     private Map<String, String> stringAutofillMap;
     private Subscription syntaxHighlightSubscription;
 
-    public CommandSyntaxHighlightingTextArea() {
+    public CommandTextField() {
         super();
 
         // to store patterns/syntax
@@ -309,7 +311,7 @@ public class CommandSyntaxHighlightingTextArea extends Region {
     public void importStyleSheet(Scene parentSceneOfNode) {
         parentSceneOfNode
                 .getStylesheets()
-                .add(CommandSyntaxHighlightingTextArea.class.getResource("/view/syntax-highlighting.css")
+                .add(CommandTextField.class.getResource("/view/syntax-highlighting.css")
                         .toExternalForm());
         enableSyntaxHighlighting();
     }
@@ -338,6 +340,7 @@ public class CommandSyntaxHighlightingTextArea extends Region {
      * @param prefixes List of prefixes required in the command
      */
     public void createPattern(String command, List<Prefix> prefixes) {
+        new SupportedCommand(command, prefixes);
         Pattern p = compileCommandPattern(command, prefixes);
         stringPatternMap.put(command, p);
         stringIntMap.put(command, prefixes.size());
@@ -525,6 +528,48 @@ public class CommandSyntaxHighlightingTextArea extends Region {
 
         }
         return change;
+    }
+
+    private static class SupportedCommand {
+        List<Prefix> prefixes;
+        String syntax;
+        String commandWord;
+        Pattern pattern;
+
+        public SupportedCommand(String commandWord, List<Prefix> prefixes) {
+            this.prefixes = prefixes;
+            StringBuilder autofill = new StringBuilder();
+            autofill.append(commandWord);
+            for (Prefix prefix : prefixes) {
+                autofill.append(" ");
+                autofill.append(prefix.getPrefix());
+                autofill.append(" <");
+                autofill.append(prefix.getDescriptionOfArgument());
+                autofill.append(">");
+            }
+            syntax = autofill.toString();
+        }
+
+        public int getPrefixCount() {
+            return prefixes.size();
+        }
+
+    }
+
+    private static class SupportedCommands {
+        Map<String, SupportedCommand> map;
+
+        public SupportedCommands() {
+            map = new HashMap<>();
+        }
+
+        public List<String> getCommandWords() {
+            return map.values().stream().map(x -> x.commandWord).collect(Collectors.toList());
+        }
+
+        public String getSyntax(String commandWord) {
+            return map.get(commandWord).syntax;
+        }
     }
 
 }

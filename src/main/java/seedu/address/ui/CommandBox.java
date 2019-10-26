@@ -12,6 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CustomTextField.CommandTextField;
 import seedu.address.ui.panel.exceptions.UnmappedPanelException;
 
 /**
@@ -23,7 +24,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private final CommandSyntaxHighlightingTextArea commandSyntaxHighlightingTextArea;
+    private final CommandTextField commandTextField;
 
 
     @FXML
@@ -33,12 +34,12 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandSyntaxHighlightingTextArea = new CommandSyntaxHighlightingTextArea();
-        commandSyntaxHighlightingTextArea.textProperty()
+        commandTextField = new CommandTextField();
+        commandTextField.textProperty()
                 .addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        commandInputAreaPlaceholder.getChildren().add(commandSyntaxHighlightingTextArea);
+        commandInputAreaPlaceholder.getChildren().add(commandTextField);
 
-        commandSyntaxHighlightingTextArea.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 handleCommandEntered();
             }
@@ -46,7 +47,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     public void importSyntaxStyleSheet(Scene scene) {
-        commandSyntaxHighlightingTextArea.importStyleSheet(scene);
+        commandTextField.importStyleSheet(scene);
     }
 
     /**
@@ -54,8 +55,8 @@ public class CommandBox extends UiPart<Region> {
      */
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandSyntaxHighlightingTextArea.getText());
-            commandSyntaxHighlightingTextArea.clear();
+            commandExecutor.execute(commandTextField.getText());
+            commandTextField.clear();
         } catch (CommandException | ParseException | UnmappedPanelException e) {
             setStyleToIndicateCommandFailure();
         }
@@ -66,7 +67,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void setStyleToDefault() {
         // enable syntax highlighting
-        commandSyntaxHighlightingTextArea.enableSyntaxHighlighting();
+        commandTextField.enableSyntaxHighlighting();
     }
 
     /**
@@ -74,7 +75,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void setStyleToIndicateCommandFailure() {
         //override style and disable syntax highlighting
-        commandSyntaxHighlightingTextArea.overrideStyle(ERROR_STYLE_CLASS);
+        commandTextField.overrideStyle(ERROR_STYLE_CLASS);
     }
 
     /**
@@ -83,7 +84,7 @@ public class CommandBox extends UiPart<Region> {
      * @param pre The prefix of the command
      */
     public void enableSyntaxHighlightingForCommand(String com, List<Prefix> pre) {
-        commandSyntaxHighlightingTextArea.createPattern(com, pre);
+        commandTextField.createPattern(com, pre);
     }
 
     /**
@@ -91,11 +92,11 @@ public class CommandBox extends UiPart<Region> {
      * @param command The command word of the command.
      */
     public void disableSyntaxHighlightingForCommand(String command) {
-        commandSyntaxHighlightingTextArea.removePattern(command);
+        commandTextField.removePattern(command);
     }
 
     public void enableSyntaxHighlighting() {
-        commandSyntaxHighlightingTextArea.enableSyntaxHighlighting();
+        commandTextField.enableSyntaxHighlighting();
     }
 
 
