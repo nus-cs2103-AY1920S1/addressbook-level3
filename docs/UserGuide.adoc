@@ -143,7 +143,7 @@ Format: `mealplan <exerciseName> <day> add <recipe exerciseName>`
 Generates a shopping list for the specified meal plan. If `<shoplist exerciseName>` is not specified, we use `<exerciseName>` by default. +
 Format: `mealplan <exerciseName> shoplist <shoplist exerciseName>`
 
-== Dashboard (Analytics + Suggestions)
+== Dashboard 
 === Adding a task:  `add task tn/` _insert task name here_ `td/` _insert task date here_ `[coming in v1.3]`
 Adds a task into DukeCooks. The task consists of the task name and task date.
 
