@@ -1,16 +1,20 @@
 package seedu.address.model.person;
 
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.CategoryNotFoundException;
 import seedu.address.model.person.exceptions.DuplicateCategoryException;
 
+/**
+ * A list of categories that enforces uniqueness between its elements and does not
+ * allow nulls.
+ */
 public class CategoryList {
 
     public static final String MESSAGE_CONSTRAINTS_IN_LIST =
@@ -29,9 +33,12 @@ public class CategoryList {
     private final ObservableList<Category> internalListForOtherEntries = FXCollections.observableArrayList();
 
 
+    /**
+     * Determines whether the category belongs to the expense list or the income category list.
+     */
     public ObservableList<Category> determineWhichList(String input) {
         ObservableList<Category> typeOfCategory;
-        if(input.equalsIgnoreCase("Income")) {
+        if (input.equalsIgnoreCase("Income")) {
             typeOfCategory = internalListForIncome;
         } else {
             typeOfCategory = internalListForOtherEntries;
@@ -49,6 +56,9 @@ public class CategoryList {
         return !typeOfCategory.stream().anyMatch(t -> t.toString().equalsIgnoreCase(category.categoryName));
     }
 
+    /**
+     * Returns true if the Category is in the CategoryList.
+     */
     public boolean contains(Category toCheck) {
         requireNonNull(toCheck);
         ObservableList<Category> typeOfCategory = determineWhichList(toCheck.categoryType);
@@ -58,12 +68,6 @@ public class CategoryList {
     public void setEntries(List<Category> replacementExpenseList, List<Category> replacementIncomeList) {
         requireNonNull(replacementExpenseList);
         requireNonNull(replacementIncomeList);
-//        if (this.getInternalListForIncome().size() != 0 ) {
-//
-//        }
-//        if (!categoriesAreUnique(replacementExpenseList) || !categoriesAreUnique(replacementIncomeList)) {
-//            throw new DuplicateCategoryException();
-//        }
         internalListForOtherEntries.setAll(replacementExpenseList);
         internalListForIncome.setAll(replacementIncomeList);
     }
@@ -96,11 +100,15 @@ public class CategoryList {
         internalList.set(index, editedCategory);
     }
 
+    /**
+     * Adds a Category to the list.
+     * The Category must not exist in the list.
+     */
     public void add(Category category) {
         requireNonNull(category);
         checkArgument(isValidAndNotInList(category), MESSAGE_CONSTRAINTS_IN_LIST);
         ObservableList<Category> typeOfCategory;
-        if(category.categoryType.equalsIgnoreCase("Income")) {
+        if (category.categoryType.equalsIgnoreCase("Income")) {
             typeOfCategory = internalListForIncome;
         } else {
             typeOfCategory = internalListForOtherEntries;
@@ -109,8 +117,8 @@ public class CategoryList {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent Category from the list.
+     * The Category must exist in the list.
      */
     public void remove(Category toRemove) {
         requireNonNull(toRemove);

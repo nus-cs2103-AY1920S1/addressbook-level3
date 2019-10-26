@@ -10,6 +10,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Category;
 
 
+/**
+ * Adds a Category to guiltTrip.
+ */
 public class AddCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "addCategory";

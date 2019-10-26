@@ -19,7 +19,9 @@ public class Income extends Entry {
         return this.ENTRY_TYPE;
     }
 
-
+    /**
+     * Returns a new Income if and only if it's category is edited.
+     */
     public Income modifiedCategory(String newName) {
         Category newCategory = new Category(newName, super.getCategory().categoryType);
         return new Income(newCategory, super.getDesc(), super.getDate(), super.getAmount(), super.getTags());

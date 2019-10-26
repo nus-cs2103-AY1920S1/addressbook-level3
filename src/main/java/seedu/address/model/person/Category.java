@@ -5,6 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Arrays;
 
+/**
+ * Represents a entry's Category in the guiltTrip.
+ */
 public class Category {
 
     public static final String MESSAGE_CONSTRAINTS_TYPE =
@@ -16,8 +19,9 @@ public class Category {
     public final String categoryType;
 
     /**
-     * Constructs a {@code Name}. Validates that the categoryType is Expense or Income, and that the category is not in the
-     * existing lists if its a new Category to be added, and that it is in the existing list if it's a Category created for Entry.
+     * Constructs a {@code Name}. Validates that the categoryType is Expense or Income, and that the category
+     * is not in the existing lists if its a new Category to be added, and that it is in the existing list
+     * if it's a Category created for Entry.
      *
      * @param desc A valid name.
      */
@@ -35,6 +39,9 @@ public class Category {
         return Arrays.stream(VALIDATIONLIST).anyMatch(t -> t.equalsIgnoreCase(categoryType));
     }
 
+    /**
+     * Returns the truth value for whether the category to be edited is in the same category as the original.
+     */
     public boolean isSameCategory(Category otherCategory) {
         if (otherCategory == this) {
             return true;

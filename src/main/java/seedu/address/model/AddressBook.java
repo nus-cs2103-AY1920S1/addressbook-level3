@@ -1,7 +1,9 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_EXISTING_ENTRIES_CATEGORY;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
+import static seedu.address.commons.core.Messages.MESSAGE_NONEXISTENT_CATEGORY;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
@@ -295,34 +297,27 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    //TODO:(MC) Is there a better way about this?
+    //TODO:(MC) Is there a better way about this? ALso update the rest
+
+    /**
+     *
+     * @param oldCategoryName is the original CategoryName which is about to be edited
+     * @param newCategoryName is the new CategoryName which is about to replace the original
+     * @param categoryType is the type of the Category
+     *
+     * Checks all the current entries for entries that have the same category and create an editedEntry.
+     */
     public void editCategoryNamesToNewName(String oldCategoryName, String newCategoryName, String categoryType) {
         if (categoryType.equalsIgnoreCase("Income")) {
             ObservableList<Income> tocheckIncomeList = this.getIncomeList();
             List<Income> filteredListOfIncome = tocheckIncomeList.stream().filter(t -> t.getCategory().categoryName
                     .equalsIgnoreCase(oldCategoryName)).collect(Collectors.toList());
-            filteredListOfIncome.stream().forEach(t -> setIncome(t,t.modifiedCategory(newCategoryName)));
+            filteredListOfIncome.stream().forEach(t -> setIncome(t, t.modifiedCategory(newCategoryName)));
         } else {
-//            ObservableList<Entry> toCheckEntry = this.getEntryList();
-//            List<Entry> filteredListOfEntry = toCheckEntry.stream().filter(t -> t.getCategory().categoryName
-//                    .equalsIgnoreCase(oldCategoryName)).collect(Collectors.toList());
-//            filteredListOfEntry.stream().forEach(t -> setEntry(t,t.modifiedCategory(newCategoryName)));
             ObservableList<Expense> toCheckExpenseList = this.getExpenseList();
             List<Expense> filteredListOfExpense = toCheckExpenseList.stream().filter(t -> t.getCategory().categoryName
                     .equalsIgnoreCase(oldCategoryName)).collect(Collectors.toList());
-            filteredListOfExpense.stream().forEach(t -> setExpense(t,t.modifiedCategory(newCategoryName)));
-//            ObservableList<Budget> toCheckBudgetList = this.getBudgetList();
-//            List<Budget> filteredListOfBudget = toCheckBudgetList.stream().filter(t -> t.getCategory().categoryName
-//                    .equalsIgnoreCase(oldCategoryName)).collect(Collectors.toList());
-//            filteredListOfBudget.stream().forEach(t -> t.getCategory().modifyCategoryName(newCategoryName));
-//            ObservableList<Wish> toCheckWish = this.getWishList();
-//            List<Wish> filteredListOfWish = toCheckWish.stream().filter(t -> t.getCategory().categoryName
-//                    .equalsIgnoreCase(oldCategoryName)).collect(Collectors.toList());
-//            filteredListOfWish.stream().forEach(t -> t.getCategory().modifyCategoryName(newCategoryName));
-//            ObservableList<AutoExpense> toCheckAuto = this.getAutoExpenseList();
-//            List<AutoExpense> filteredListAutoExpense = toCheckAuto.stream().filter(t -> t.getCategory().categoryName
-//                    .equalsIgnoreCase(oldCategoryName)).collect(Collectors.toList());
-//            filteredListAutoExpense.stream().forEach(t -> t.getCategory().modifyCategoryName(newCategoryName));
+            filteredListOfExpense.stream().forEach(t -> setExpense(t, t.modifiedCategory(newCategoryName)));
         }
 
     }
@@ -450,24 +445,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 
+    /**
+     * Returns the truth value for whether the Category has any entries that currently exist in guiltTrip.
+     */
     public boolean categoryHasAnyEntries(Category category) {
         if (category.categoryType.equalsIgnoreCase("Income")) {
             ObservableList<Income> tocheckIncomeList = this.getIncomeList();
-            return tocheckIncomeList.stream().anyMatch(t -> t.getCategory().categoryName.
-                    equalsIgnoreCase(category.categoryName));
+            return tocheckIncomeList.stream().anyMatch(t -> t.getCategory().categoryName
+                    .equalsIgnoreCase(category.categoryName));
         } else {
             ObservableList<Expense> toCheckExpenseList = this.getExpenseList();
-            boolean hasEntriesInExpenseList = toCheckExpenseList.stream().anyMatch(t -> t.getCategory().categoryName.
-                    equalsIgnoreCase(category.categoryName));
+            boolean hasEntriesInExpenseList = toCheckExpenseList.stream().anyMatch(t -> t.getCategory().categoryName
+                    .equalsIgnoreCase(category.categoryName));
             ObservableList<Budget> tocheckBudgetList = this.getBudgetList();
-            boolean hasEntriesInBudgetList = tocheckBudgetList.stream().anyMatch(t -> t.getCategory().categoryName.
-                    equalsIgnoreCase(category.categoryName));
+            boolean hasEntriesInBudgetList = tocheckBudgetList.stream().anyMatch(t -> t.getCategory().categoryName
+                    .equalsIgnoreCase(category.categoryName));
             ObservableList<Wish> toCheckWish = this.getWishList();
-            boolean hasEntriesInWishList = toCheckWish.stream().anyMatch(t -> t.getCategory().categoryName.
-                    equalsIgnoreCase(category.categoryName));
+            boolean hasEntriesInWishList = toCheckWish.stream().anyMatch(t -> t.getCategory().categoryName
+                    .equalsIgnoreCase(category.categoryName));
             ObservableList<AutoExpense> toCheckAutoExpense = this.getAutoExpenseList();
-            boolean hasEntriesInAutoList = toCheckAutoExpense.stream().anyMatch(t -> t.getCategory().categoryName.
-                    equalsIgnoreCase(category.categoryName));
+            boolean hasEntriesInAutoList = toCheckAutoExpense.stream().anyMatch(t -> t.getCategory().categoryName
+                    .equalsIgnoreCase(category.categoryName));
             return hasEntriesInBudgetList || hasEntriesInExpenseList || hasEntriesInWishList || hasEntriesInAutoList;
         }
     }

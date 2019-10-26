@@ -6,11 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCategoryCommand;
 import seedu.address.logic.commands.DeleteCategoryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Category;
 
+/**
+ * Parses input arguments and creates a new DeleteCategoryCommand object
+ */
 public class DeleteCategoryCommandParser implements Parser<DeleteCategoryCommand> {
 
     /**
@@ -24,7 +26,8 @@ public class DeleteCategoryCommandParser implements Parser<DeleteCategoryCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_DESC)
                     || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCategoryCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                        DeleteCategoryCommand.MESSAGE_USAGE));
         }
 
         String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
@@ -32,7 +35,7 @@ public class DeleteCategoryCommandParser implements Parser<DeleteCategoryCommand
 
         //will check if category exist when creating new category
         return new DeleteCategoryCommand(new Category(categoryName, categoryType));
-}
+    }
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

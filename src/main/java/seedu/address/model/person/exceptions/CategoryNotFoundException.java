@@ -1,4 +1,7 @@
 package seedu.address.model.person.exceptions;
 
-public class CategoryNotFoundException extends RuntimeException  {
+/**
+ * Signals that the operation will result in unfound Categories.
+ */
+public class CategoryNotFoundException extends RuntimeException {
 }

@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Category;
@@ -21,7 +20,8 @@ class JsonAdaptedCategory {
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedCategory(@JsonProperty("categoryName") String categoryName, @JsonProperty("categoryType") String categoryType) {
+    public JsonAdaptedCategory(@JsonProperty("categoryName") String categoryName,
+                               @JsonProperty("categoryType") String categoryType) {
         this.categoryName = categoryName;
         this.categoryType = categoryType;
     }

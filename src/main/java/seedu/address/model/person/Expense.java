@@ -19,6 +19,9 @@ public class Expense extends Entry {
         return this.ENTRYTYPE;
     }
 
+    /**
+     * Returns a new Expense if and only if it's category is edited.
+     */
     public Expense modifiedCategory(String newName) {
         Category newCategory = new Category(newName, super.getCategory().categoryType);
         return new Expense(newCategory, super.getDesc(), super.getDate(), super.getAmount(), super.getTags());
