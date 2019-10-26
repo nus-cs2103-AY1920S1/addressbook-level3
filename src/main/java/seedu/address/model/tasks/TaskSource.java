@@ -39,6 +39,10 @@ public class TaskSource {
         this.tags = taskSource.tags;
     }
 
+    public static TaskSourceBuilder newBuilder(String description, DateTime dueDate) {
+        return new TaskSourceBuilder(description, dueDate);
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object instanceof TaskSource) {
@@ -49,10 +53,6 @@ public class TaskSource {
                     && Objects.equals(this.tags, t.tags);
         }
         return false;
-    }
-
-    public static TaskSourceBuilder newBuilder(String description, DateTime dueDate) {
-        return new TaskSourceBuilder(description, dueDate);
     }
 
     public String getDescription() {
