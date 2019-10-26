@@ -16,7 +16,7 @@ import seedu.address.person.commons.core.LogsCenter;
 /**
  * Parses input arguments and creates a new CheckoutCommand object.
  */
-public class CheckoutCommandParser {
+public class CheckoutCommandParser implements Parser {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -42,7 +42,9 @@ public class CheckoutCommandParser {
         }
 
         try {
-            amount = Double.parseDouble(userInput.substring(1));
+            String[] input = userInput.split(" ");
+            //amount = Double.parseDouble(userInput.substring(1));
+            amount = Double.parseDouble(input[1]);
         } catch (Exception e) {
             throw new NotANumberException(AMOUNT_NOT_A_NUMBER);
         }

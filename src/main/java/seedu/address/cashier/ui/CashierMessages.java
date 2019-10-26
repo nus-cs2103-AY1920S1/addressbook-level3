@@ -36,7 +36,7 @@ public class CashierMessages {
     public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = "Sorry! Please type \"edit"
             + " i/INDEX q/QUANTITY\" \n OR \n \"edit d/DESCRIPTION\n q/QUANTITY\" \n ";
 
-    public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item to be deleted "
+    public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item "
             + "according to the table.";
 
     public static final String QUANTITY_NOT_A_NUMBER = "Please input an integer for the quantity of item to be sold.";

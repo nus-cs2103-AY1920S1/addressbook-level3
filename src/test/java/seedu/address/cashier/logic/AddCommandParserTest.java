@@ -47,7 +47,6 @@ public class AddCommandParserTest {
     private seedu.address.person.model.Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-
     @Test
     public void parse_allFieldsPresent_success() throws NoSuchIndexException {
 
@@ -61,18 +60,18 @@ public class AddCommandParserTest {
                 new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_2), model, personModel);
 
         // multiple description - last description accepted
-        assertCommandParserSuccess(parser, DESC_DESCRIPTION_FISH_BURGER + DESC_DESCRIPTION_STORYBOOK +
-                        DESC_QUANTITY_1,
+        assertCommandParserSuccess(parser, DESC_DESCRIPTION_FISH_BURGER + DESC_DESCRIPTION_STORYBOOK
+                        + DESC_QUANTITY_1,
                 new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_1), model, personModel);
 
         // multiple quantity - last quantity accepted
-        assertCommandParserSuccess(parser, DESC_DESCRIPTION_FISH_BURGER + DESC_QUANTITY_1 +
-                        DESC_QUANTITY_2,
+        assertCommandParserSuccess(parser, DESC_DESCRIPTION_FISH_BURGER + DESC_QUANTITY_1
+                        + DESC_QUANTITY_2,
                 new AddCommand(VALID_DESCRIPTION_FISH_BURGER, VALID_QUANTITY_2), model, personModel);
 
         // optional category included
-        assertCommandParserSuccess(parser, DESC_CATEGORY_1 + DESC_DESCRIPTION_FISH_BURGER + DESC_QUANTITY_1 +
-                        DESC_QUANTITY_2,
+        assertCommandParserSuccess(parser, DESC_CATEGORY_1 + DESC_DESCRIPTION_FISH_BURGER + DESC_QUANTITY_1
+                        + DESC_QUANTITY_2,
                 new AddCommand(VALID_DESCRIPTION_FISH_BURGER, VALID_QUANTITY_2), model, personModel);
 
     }
@@ -80,8 +79,8 @@ public class AddCommandParserTest {
     @Test
     public void parse_itemNotInInventory_failure() throws NoSuchIndexException {
         // with item not found in inventory
-        assertCommandParserFailure(parser, INVALID_DESCRIPTION_1 +
-                        DESC_BUILDER_QUANTITY,
+        assertCommandParserFailure(parser, INVALID_DESCRIPTION_1
+                        + DESC_BUILDER_QUANTITY,
                 noSuchItemRecommendation(model.getRecommendedItems(INVALID_DESCRIPTION_1)), model, personModel);
     }
 
@@ -109,7 +108,7 @@ public class AddCommandParserTest {
         assertCommandParserFailure(parser, VALID_DESCRIPTION_FISH_BURGER + VALID_QUANTITY_1,
                 expectedMessage, model, personModel);
 
-         //with optional category field, but missing description
+        //with optional category field, but missing description
         ArrayList<String> listItems = model.getDescriptionByCategory(VALID_CATEGORY_1);
         assertCommandParserFailure(parser, DESC_CATEGORY_1,
                 itemsByCategory(listItems), model, personModel);

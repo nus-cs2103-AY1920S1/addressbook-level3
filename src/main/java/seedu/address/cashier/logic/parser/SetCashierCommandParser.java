@@ -14,7 +14,7 @@ import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 /**
  * Parses input arguments and creates a new SetCashierCommand object.
  */
-public class SetCashierCommandParser {
+public class SetCashierCommandParser implements Parser {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

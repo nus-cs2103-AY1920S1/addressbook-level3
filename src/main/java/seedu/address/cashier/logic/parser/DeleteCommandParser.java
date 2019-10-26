@@ -14,7 +14,7 @@ import seedu.address.person.commons.core.LogsCenter;
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteCommandParser {
+public class DeleteCommandParser implements Parser {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -27,7 +27,9 @@ public class DeleteCommandParser {
             throws NotANumberException, NoSuchIndexException {
         int index;
         try {
-            index = Integer.parseInt(userInput.substring(1));
+            String[] input = userInput.split(" ");
+            index = Integer.parseInt(input[1]);
+            //index = Integer.parseInt(userInput.substring(1));
         } catch (Exception e) {
             logger.info("Index is not an integer.");
             throw new NotANumberException(CashierMessages.INDEX_NOT_A_NUMBER);
