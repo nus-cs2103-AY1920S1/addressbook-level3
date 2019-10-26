@@ -3,6 +3,10 @@ package calofit.commons.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import java.util.function.Function;
@@ -16,50 +20,59 @@ import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 class ObservableListUtilTest {
 
     abstract static class ObservableListBaseTest {
 
         private ObservableList<Integer> sourceList;
-        private ObservableList<Integer> mappedList;
+        private Function<Integer, Integer> baseFunc;
+
+        private ObservableList<? extends Integer> mappedList;
+
+        //Mocked, but we need to generate Answer at runtime
         private Function<Integer, Integer> mapFunc;
+        @Mock
         private ListChangeListener<Integer> listener;
+        @Captor
         private ArgumentCaptor<Integer> argCaptor;
+        @Captor
         private ArgumentCaptor<ListChangeListener.Change<Integer>> changeCaptor;
 
+        /**
+         * Allows subclass to construct tested object, from source list and mapping function.
+         * This function is generic in the source/target types, to prevent subclasses from cheating.
+         * @param source Source list
+         * @param func Mapping function
+         * @param <S> Source type
+         * @param <T> Target type
+         * @return Mapped list to test
+         */
         protected abstract <S, T> ObservableList<? extends T> makeMappedList(ObservableList<S> source,
                                                                              Function<? super S, ? extends T> func);
 
         @BeforeEach
         void setUp() {
-            mapFunc = Mockito.mock(Function.class);
-            Mockito.when(mapFunc.apply(Mockito.anyInt())).thenAnswer(new Answer<Integer>() {
-                @Override
-                public Integer answer(InvocationOnMock invocation) throws Throwable {
-                    int val = invocation.getArgument(0);
-                    return val * val;
-                }
-            });
-            argCaptor = ArgumentCaptor.forClass(Integer.class);
+            MockitoAnnotations.initMocks(this);
 
+            baseFunc = x -> x * x;
             sourceList = FXCollections.observableArrayList(1, 2, 3, 4, 5);
-            mappedList = ObservableListUtil.map(sourceList, mapFunc);
 
-            listener = Mockito.mock(ListChangeListener.class);
+            mapFunc = mock(Function.class, AdditionalAnswers.delegatesTo(baseFunc));
+
+            mappedList = makeMappedList(sourceList, mapFunc);
             mappedList.addListener(listener);
-
-            changeCaptor = ArgumentCaptor.forClass(ListChangeListener.Change.class);
         }
 
         @Test
         void testGet() {
             assertEquals(mappedList.get(2), 9);
-            Mockito.verify(mapFunc, Mockito.atLeastOnce()).apply(argCaptor.capture());
+            verify(mapFunc, atLeastOnce()).apply(argCaptor.capture());
             assertTrue(argCaptor.getAllValues().contains(sourceList.get(2)));
         }
 
@@ -72,7 +85,7 @@ class ObservableListUtilTest {
         @Test
         void testRemove() {
             sourceList.remove(Integer.valueOf(2));
-            Mockito.verify(listener, Mockito.times(1)).onChanged(changeCaptor.capture());
+            verify(listener, times(1)).onChanged(changeCaptor.capture());
 
             ListChangeListener.Change<Integer> change = changeCaptor.getValue();
             assertTrue(change.next());
@@ -88,7 +101,7 @@ class ObservableListUtilTest {
         @Test
         void testSet() {
             sourceList.set(1, 9);
-            Mockito.verify(listener, Mockito.times(1)).onChanged(changeCaptor.capture());
+            verify(listener, times(1)).onChanged(changeCaptor.capture());
 
             ListChangeListener.Change<Integer> change = changeCaptor.getValue();
             assertTrue(change.next());
@@ -104,7 +117,7 @@ class ObservableListUtilTest {
         @Test
         void testAdd() {
             sourceList.add(6);
-            Mockito.verify(listener, Mockito.times(1)).onChanged(changeCaptor.capture());
+            verify(listener, times(1)).onChanged(changeCaptor.capture());
 
             ListChangeListener.Change<Integer> change = changeCaptor.getValue();
             assertTrue(change.next());
