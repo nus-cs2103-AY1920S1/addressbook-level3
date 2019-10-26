@@ -44,11 +44,16 @@ public class TestExecutor {
     /**
      * Runs the user's program against a list of test cases. The UserProgram's sourceCode is required to match its
      * canonical name for the tests to be executed successfully. The results are packaged and returned as a TestResult
-     * instance.
+     * instance. The user's program specified canonical name and its source code must match or an exception will be
+     * thrown. E.g. if the canonical name is dukeacademy.testexecutor.TestExecutor, it must
+     * have the package statement "package dukeacademy.testexecutor" and it must contain an outer class
+     * TestExecutor.
+     *
      * @param testCases the test cases to be run.
      * @param program   the user's program.
      * @return a result instance.
-     * @throws TestExecutorException if the test executor fails unexpectedly.
+     * @throws TestExecutorException           if the test executor fails unexpectedly.
+     * @throws IncorrectCanonicalNameException if the canonical name of the UserProgram does not match its source code.
      */
     public TestResult runTestCases(List<TestCase> testCases, UserProgram program) throws TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {
@@ -80,8 +85,8 @@ public class TestExecutor {
      *
      * @param program the user's program
      * @return a Java class file.
-     * @throws TestExecutorException        if the test executor fails unexpectedly.
-     * @throws CompilerFileContentException if the contents of the program is not compilable.
+     * @throws TestExecutorException           if the test executor fails unexpectedly.
+     * @throws CompilerFileContentException    if the contents of the program is not compilable.
      * @throws IncorrectCanonicalNameException if the canonical name of the user program does not match its contents
      */
     private ClassFile compileProgram(UserProgram program) throws TestExecutorException, CompilerFileContentException,

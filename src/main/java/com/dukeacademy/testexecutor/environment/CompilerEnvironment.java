@@ -15,7 +15,10 @@ import com.dukeacademy.testexecutor.models.JavaFile;
  */
 public interface CompilerEnvironment {
     /**
-     * Creates a Java file within the compiler environment
+     * Creates a Java file within the compiler environment. The canonical name described in the UserProgram instance
+     * must match its source code. E.g. if the canonical name is dukeacademy.testexecutor.CompilerEnvironment, it must
+     * have the package statement "package dukeacademy.testexecutor" and it must contain
+     * an outer class CompilerEnvironment.
      * @param program the program to be converted to a Java file
      * @return the file created
      * @throws JavaFileCreationException if the file creation fails
