@@ -45,9 +45,11 @@ public class DeleteGroceryCommand extends Command {
         boolean isFullyUsed = groceryItemToDelete.isEmpty();
         if (!isFullyUsed) {
             model.addWasteItem(groceryItemToDelete);
+            model.commitWasteList();
         }
 
         model.deleteGroceryItem(groceryItemToDelete);
+        model.commitGroceryList();
         CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_GROCERY_ITEM_SUCCESS,
                 groceryItemToDelete));
         result.setWasteListCommand();

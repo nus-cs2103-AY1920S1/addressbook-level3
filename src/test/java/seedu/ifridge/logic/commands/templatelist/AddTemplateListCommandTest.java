@@ -167,6 +167,31 @@ public class AddTemplateListCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void commitGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyGroceryList undoGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyGroceryList redoGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public Path getTemplateListFilePath() {
@@ -314,6 +339,21 @@ public class AddTemplateListCommandTest {
 
         @Override
         public WasteReport getWasteReport() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitWasteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyWasteList undoWasteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyWasteList redoWasteList() {
             throw new AssertionError("This method should not be called.");
         }
 

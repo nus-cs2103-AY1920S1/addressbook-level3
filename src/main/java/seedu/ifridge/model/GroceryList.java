@@ -31,7 +31,7 @@ public class GroceryList implements ReadOnlyGroceryList {
     public GroceryList() {}
 
     /**
-     * Creates an GroceryList using the Persons in the {@code toBeCopied}
+     * Creates a GroceryList using the Persons in the {@code toBeCopied}
      */
     public GroceryList(ReadOnlyGroceryList toBeCopied) {
         this();
