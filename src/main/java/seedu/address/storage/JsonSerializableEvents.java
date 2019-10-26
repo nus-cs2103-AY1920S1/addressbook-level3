@@ -19,7 +19,7 @@ public class JsonSerializableEvents {
     private final List<JsonAdaptedEvent> events = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableEvents} with the given events.
      */
     @JsonCreator
     public JsonSerializableEvents(@JsonProperty("events") List<JsonAdaptedEvent> events) {
@@ -27,16 +27,16 @@ public class JsonSerializableEvents {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code stream} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableEvents}.
      */
     public JsonSerializableEvents(ReadOnlyEvents source) {
         events.addAll(source.getEvents().stream().map(JsonAdaptedEvent::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this event list into the model's {@code EventList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

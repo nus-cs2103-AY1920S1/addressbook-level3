@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 
@@ -111,4 +112,6 @@ public interface Model {
     boolean hasEvent(Event event);
 
     ReadOnlyEvents getEventList();
+
+    String addRecord(Event event, Person person, Record record);
 }

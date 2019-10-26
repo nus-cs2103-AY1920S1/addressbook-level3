@@ -63,7 +63,7 @@ public class PerformanceCommand extends Command {
 
         Person athlete = lastShownList.get(index.getZeroBased());
         Record record = createRecord();
-        String response = createdEvent.addPerformance(athlete, record);
+        String response = model.addRecord(createdEvent, athlete, record);
         return new CommandResult(String.format(MESSAGE_SUCCESS, response));
 
     }

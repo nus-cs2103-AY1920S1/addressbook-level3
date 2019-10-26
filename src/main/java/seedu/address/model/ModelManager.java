@@ -16,6 +16,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.training.Training;
@@ -240,6 +241,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyEvents getEventList() {
         return eventList;
+    }
+
+    @Override
+    public String addRecord(Event event, Person person, Record record) {
+        return eventList.addRecord(event, person, record);
     }
 
 }

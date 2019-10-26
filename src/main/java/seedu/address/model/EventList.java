@@ -6,7 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Record;
 import seedu.address.model.performance.UniqueEventList;
+import seedu.address.model.person.Person;
 
 public class EventList implements ReadOnlyEvents {
 
@@ -68,6 +70,10 @@ public class EventList implements ReadOnlyEvents {
      */
     public void addEvent(Event e) {
         events.add(e);
+    }
+
+    public String addRecord(Event e, Person p, Record r) {
+        return events.getEvent(e).addPerformance(p, r);
     }
 
     @Override
