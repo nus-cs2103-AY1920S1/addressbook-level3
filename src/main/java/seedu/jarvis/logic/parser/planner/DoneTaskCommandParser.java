@@ -8,7 +8,6 @@ import seedu.jarvis.logic.parser.exceptions.ParseException;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-//TODO tests
 public class DoneTaskCommandParser implements Parser<DoneTaskCommand> {
 
     /**

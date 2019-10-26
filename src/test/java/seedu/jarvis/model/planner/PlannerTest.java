@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -139,5 +140,18 @@ class PlannerTest {
         //planner.updateFilteredTaskList(predicate);
 
         //assertEquals(1, planner.getFilteredTaskList().size());
+    }
+
+    @Test
+    void markTaskAsDone() throws ParseException {
+        Planner planner = new Planner();
+        planner.addTask(new Todo("borrow book"));
+        planner.addTask(new Todo("read book"));
+
+        planner.markTaskAsDone(ParserUtil.parseIndex("1"));
+        Task check = planner.getTask(ParserUtil.parseIndex("1"));
+
+        assertEquals("borrow book", check.getTaskDes());
+        assertEquals(Status.DONE, check.getStatus());
     }
 }

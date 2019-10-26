@@ -14,7 +14,6 @@ import static java.util.Objects.requireNonNull;
 /**
  * Updates a {@code Task} from incomplete to complete
  */
-//TODO tests
 public class DoneTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "done-task";

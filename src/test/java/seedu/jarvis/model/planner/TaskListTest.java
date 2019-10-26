@@ -1,5 +1,6 @@
 package seedu.jarvis.model.planner;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,11 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
@@ -165,5 +168,35 @@ class TaskListTest {
 
         assertEquals(2, taskTest.size());
         assertTrue(new Todo("help").equals(taskTest.getTask(ParserUtil.parseIndex("2"))));
+    }
+
+    @Test
+    void find() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Todo("read book"));
+        TaskList tasklist = new TaskList(tasks);
+
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        filteredTasks.add(new Todo("borrow book"));
+        TaskList filtered = new TaskList(filteredTasks);
+
+        TaskList actual = tasklist.find(new TaskDesContainsKeywordsPredicate(Arrays.asList("borrow")));
+
+        assertEquals(filtered, actual);
+    }
+
+    @Test
+    void markTaskAsDone() throws ParseException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("borrow book"));
+        tasks.add(new Todo("read book"));
+        TaskList tasklist = new TaskList(tasks);
+
+        tasklist.markTaskAsDone(ParserUtil.parseIndex("1"));
+        Task check = tasklist.getTask(ParserUtil.parseIndex("1"));
+
+        assertEquals("borrow book", check.getTaskDes());
+        assertEquals(Status.DONE, check.getStatus());
     }
 }

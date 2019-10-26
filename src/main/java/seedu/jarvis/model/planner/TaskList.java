@@ -150,7 +150,6 @@ public class TaskList {
      * Marks a {@code Task} as done
      * @param i {@code Index} of the {@code Task} to be marked as done
      */
-    //TODO test
     public void markTaskAsDone(Index i) {
         Task t = tasks.get(i.getZeroBased());
         t.markAsDone();
