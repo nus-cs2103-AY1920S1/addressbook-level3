@@ -87,12 +87,22 @@ Starts the flashcard test from any specific category
 `remind Math 04/11 1030`
 
 
-=== Add general deadlines reminders: `deadline t/[TASK] d[DUE DATE]`
+=== Add general deadlines reminders: `deadline t>[TASK] d>[DUE DATE]`
 
-Adds a general deadline into the deadline list. The list will be display on the right-side pane.
+This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
-`deadline t/CS2103 Exam d/10/11/2019`
+You can refer to the example below:
+`deadline t>CS2103 Exam d>10/11/2019`
+
+Key the above mentioned into the command box
+
+image::deadline-entry.png[]
+
+After which, the result box will show the success message. The new deadline will now be shown at the right side-bar.
+
+image::deadline-entered.png[]
+
 
 === Remove deadline from list: `remove [index]`
 
@@ -106,9 +116,14 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 
 === Show monthly calendar with all deadlines: `calendar`
 
-Shows the calendar filled with all dealines in the month. The calendar will be shown as a new window pop-up.
+Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
 
 `calendar`
+
+Calendar with deadlines will be shown as seen below:
+
+image::Calendar.png[]
+
 
 === Get the full list of commands: `help`
 
@@ -176,26 +191,32 @@ There is no need to save manually.
 
 == Command Summary
 
-* Start a certain topic of flashcards - `start [keyword]` +
-e.g.  `start Mathematics`
-* Add a new (empty) category - `cat [name]` +
-e.g.  `cat Math`
 * Add a new flashcard - `add [category]` +
 e.g.  `add Math`
-* Edit an existing flashcard - `edit [category] [ID]` +
-e.g.  `edit Math 10`
+* Add a new (empty) category - `cat [name]` +
+e.g.  `cat Math`
+* Add a new Deadline - `deadline t>[TASK] d>[DUE DATE]` +
+e.g.  `deadline t>Math Test d>01/10/2019`
+* Show Calendar of Deadlines- `calendar`
 * Delete an existing flashcard - `delete [category] [ID]` +
 e.g.  `delete Math 10`
 * Delete an entire category - `delete [category]` +
 e.g.  `delete Math *`
-* Set user preference for reminders - `remind [category] DD/MM HHmm` +
-e.g.  `remind Math 04/10 1230`
-* List all flashcards under a specific category - `list [category]` +
-e.g.  `list Math`
+* Edit an existing flashcard - `edit [category] [ID]` +
+e.g.  `edit Math 10`
+* Exit - `exit`
 * Get full list of commands - `help` +
 e.g.  `help`
+* List all flashcards under a specific category - `list [category]` +
+e.g.  `list Math`
+* Set user preference for reminders - `remind [category] DD/MM HHmm` +
+e.g.  `remind Math 04/10 1230`
+* Remove Deadline from list - `remove [INDEX]` +
+e.g.  `remove 2`
 * Search specific flashcards - `search [keywords]` +
 e.g.  `search UML diagrams`
-* Stop flashcard test - `stop`
-* Exit - `exit`
+* Start a certain topic of flashcards - `start [keyword]` +
+e.g.  `start Mathematics`
 * View overall statistics - `stats`
+* Stop flashcard test - `stop`
+
