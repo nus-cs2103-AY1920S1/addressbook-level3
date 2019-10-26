@@ -43,8 +43,7 @@ public class Date {
     /**
      * Converts String to LocalDate
      *
-     * @param date
-     *                 in the format yyyy mm dd.
+     * @param date in the format yyyy mm dd.
      */
     public Date(String date) {
         requireNonNull(date);
