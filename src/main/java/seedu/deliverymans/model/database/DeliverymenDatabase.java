@@ -75,7 +75,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         }
     }
 
-    //// deliverymen-level operations
+    // ========== Basic functions related to deliverymen ==========================================================
 
     /**
      * Returns true if a deliveryman with the same identity as {@code deliveryman} exists in the deliverymen database.
@@ -94,8 +94,33 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         statusManager.addAvailableMan(man);
         //statusManager.updateStatusOf(man,"UNAVAILABLE");
     }
+    /**
+     * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
+     * {@code target} must exist in the deliveryman database.
+     * The deliveryman identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
+     * deliverymen database.
+     */
+    public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
+        requireNonNull(editedDeliveryman);
+        deliverymen.setDeliveryman(target, editedDeliveryman);
+    }
 
-    /// status methods
+    /**
+     * Removes {@code key} from this {@code DeliverymenDatabase}.
+     * {@code key} must exist in the deliverymen database.
+     */
+    public void removeDeliveryman(Deliveryman key) {
+        deliverymen.remove(key);
+    }
+
+    // ========= Methods related to list command =================================================================
+
+    /**
+     * Returns the list that contains all deliverymen with the same status.
+     */
+    public ObservableList<Deliveryman> getStatusSortedDeliverymenList() {
+        return statusSortedList;
+    }
 
     /**
      * Lists all the available deliverymen;
@@ -118,6 +143,9 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         return statusManager.listUnavailableMen();
     }
 
+    /**
+     * Sets the status list in ModelManager to display available deliverymen. For the implementation of lista command.
+     */
     public void setAsAvailable() {
         //statusSortedList = statusManager.listAvailableMen();
         for (Deliveryman man: statusManager.listAvailableMen()) {
@@ -125,28 +153,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         }
     }
 
-    public ObservableList<Deliveryman> getStatusSortedDeliverymenList() {
-        return statusSortedList;
-    }
-
-    /**
-     * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
-     * {@code target} must exist in the deliveryman database.
-     * The deliveryman identity of {@code editedDeliveryman} must not be the same as another existing deliveryman in the
-     * deliverymen database.
-     */
-    public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
-        requireNonNull(editedDeliveryman);
-        deliverymen.setDeliveryman(target, editedDeliveryman);
-    }
-
-    /**
-     * Removes {@code key} from this {@code DeliverymenDatabase}.
-     * {@code key} must exist in the deliverymen database.
-     */
-    public void removeDeliveryman(Deliveryman key) {
-        deliverymen.remove(key);
-    }
+    // ========== Methods related to Order ====================================================================
 
     /**
      * Replaces the current status of a deliveryman.
@@ -155,7 +162,14 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         statusManager.updateStatusOf(target, newStatus);
     }
 
-    //// util methods
+    /**
+     * Retrieves an available deliveryman for OrderManager for the purpose of delivering an order.
+     */
+    public Deliveryman getAvailableDeliveryman() {
+        return statusManager.getAvailableDeliveryman();
+    }
+
+    // ========== util methods =================================================================================
 
     @Override
     public String toString() {

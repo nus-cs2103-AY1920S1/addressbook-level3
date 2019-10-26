@@ -13,9 +13,7 @@ import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
  */
 public class StatusManager {
 
-    //private ObservableList<Deliveryman> statusList = SortedList<Deliveryman>(null);
-
-    private final UniqueDeliverymanList deliverymen; // used for sorting later
+    private final UniqueDeliverymanList deliverymen;
     private final UniqueStatusList statuses;
 
     private ObservableList<Deliveryman> availableMen = FXCollections.observableArrayList();
@@ -29,9 +27,9 @@ public class StatusManager {
         initStatusLists();
     }
 
+    // ====== Methods to initialise all the lists when app is opened ==============================================
     /**
-     *
-     * @param deliverymenList
+     * Initialise the deliverymen list when app is re-opened.
      */
     public void initDeliverymenList(UniqueDeliverymanList deliverymenList) {
         for (Deliveryman man: deliverymenList) {
@@ -40,7 +38,7 @@ public class StatusManager {
     }
 
     /**
-     *
+     * Initialise all the statuses of every deliveryman when app is re-opened.
      */
     public void initStatusLists() {
         for (Deliveryman man: deliverymen) {
@@ -72,60 +70,6 @@ public class StatusManager {
     }
 
     /**
-     *
-     */
-    public void updateStatusOf(Deliveryman deliveryman, String strStatus) {
-        removePreviousStatus(deliveryman);
-        assignStatusTagTo(deliveryman, strStatus);
-    }
-
-    /**
-     * Replaces the status tag of a deliveryman with another one.
-     */
-    public void assignStatusTagTo(Deliveryman deliveryman, String strStatus) {
-        switch (strStatus) {
-        case "AVAILABLE":
-            deliveryman.setStatusTo(statuses.getAvailableTag());
-            availableMen.add(deliveryman);
-            break;
-        case "UNAVAILABLE":
-            deliveryman.setStatusTo(statuses.getUnavailableTag());
-            unavailableMen.add(deliveryman);
-            break;
-        case "DELIVERING":
-            deliveryman.setStatusTo(statuses.getDeliveringTag());
-            deliveringMen.add(deliveryman);
-            break;
-        default:
-            return;
-        }
-    }
-
-    /**
-     *
-     */
-    public void removePreviousStatus(Deliveryman deliveryman) {
-        switch (deliveryman.getStatus().getDescription()) {
-        case "AVAILABLE":
-            availableMen.remove(deliveryman);
-            break;
-        case "UNAVAILABLE":
-            unavailableMen.remove(deliveryman);
-            break;
-        case "DELIVERING":
-            deliveringMen.remove(deliveryman);
-            break;
-        default:
-            return;
-        }
-    }
-
-    /**
-     * Lists all the deliverymen with their respective statuses.
-     */
-    public void listAll() {}
-
-    /**
      * Returns a list of all available deliverymen.
      */
     public ObservableList<Deliveryman> listAvailableMen() {
@@ -144,6 +88,66 @@ public class StatusManager {
      */
     public ObservableList<Deliveryman> listDeliveringMen() {
         return deliveringMen;
+    }
+
+    // ========== Methods for Order assignment ===================================================================
+
+    /**
+     * Returns an available deliveryman to the DeliverymenDatabase.
+     */
+    public Deliveryman getAvailableDeliveryman() {
+        Deliveryman removed = availableMen.remove(0);
+        updateStatusOf(removed, "DELIVERING");
+        return removed;
+    }
+
+    /**
+     * Updates the status of a deliveryman by removing the previous status and assigning the new status.
+     */
+    public void updateStatusOf(Deliveryman deliveryman, String strStatus) {
+        removePreviousStatus(deliveryman);
+        assignStatusTagTo(deliveryman, strStatus);
+    }
+
+    /**
+     * Removes original status from a deliveryman.
+     */
+    public void removePreviousStatus(Deliveryman deliveryman) {
+        switch (deliveryman.getStatus().getDescription()) {
+        case "AVAILABLE":
+            availableMen.remove(deliveryman);
+            break;
+        case "UNAVAILABLE":
+            unavailableMen.remove(deliveryman);
+            break;
+        case "DELIVERING":
+            deliveringMen.remove(deliveryman);
+            break;
+        default:
+            return;
+        }
+    }
+
+    /**
+     * Assigns new status tag to a deliveryman.
+     */
+    public void assignStatusTagTo(Deliveryman deliveryman, String strNewStatus) {
+        switch (strNewStatus) {
+        case "AVAILABLE":
+            deliveryman.setStatusTo(statuses.getAvailableTag());
+            availableMen.add(deliveryman);
+            break;
+        case "UNAVAILABLE":
+            deliveryman.setStatusTo(statuses.getUnavailableTag());
+            unavailableMen.add(deliveryman);
+            break;
+        case "DELIVERING":
+            deliveryman.setStatusTo(statuses.getDeliveringTag());
+            deliveringMen.add(deliveryman);
+            break;
+        default:
+            return;
+        }
     }
 
 }
