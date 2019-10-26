@@ -15,7 +15,7 @@ public class StatsCommand extends Command {
 
     ////////// Should return a CommandResult with the statistics ////////////////
     @Override
-    public CommandResult execute(Model model)  {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         return new CommandResult(MESSAGE_USAGE, false, true, false);
