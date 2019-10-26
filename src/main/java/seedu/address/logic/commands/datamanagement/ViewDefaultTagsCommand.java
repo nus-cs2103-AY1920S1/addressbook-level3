@@ -45,4 +45,11 @@ public class ViewDefaultTagsCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS, ResultViewType.TAG, defaultTags);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewDefaultTagsCommand); // instanceof handles nulls and type check
+    }
+
+
 }

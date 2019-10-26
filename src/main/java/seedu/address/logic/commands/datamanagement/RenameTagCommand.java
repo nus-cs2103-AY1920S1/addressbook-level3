@@ -9,13 +9,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UserTag;
+import seedu.address.model.tag.exceptions.InvalidTagNameException;
 
 /**
  * Renames a tag
  */
 public class RenameTagCommand extends Command {
-
-    // not in parser yet
 
     public static final String COMMAND_WORD = "renametag";
 
@@ -30,6 +29,7 @@ public class RenameTagCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Tag [%1$s] renamed to %2$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be renamed";
+    public static final String MESSAGE_INVALID_TAG_NAME = "You cannot rename a tag to a default tag name";
 
     private final String originalTagName;
     private final String newTagName;
@@ -62,10 +62,22 @@ public class RenameTagCommand extends Command {
 
         UserTag toRename = (UserTag) targetTag;
 
-        toRename.rename(newTagName);
+        try {
+            toRename.rename(newTagName);
+        } catch (InvalidTagNameException exception) {
+            throw new CommandException(MESSAGE_INVALID_TAG_NAME);
+        }
         model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, originalTagName, toRename));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RenameTagCommand // instanceof handles nulls
+                && originalTagName.equals(((RenameTagCommand) other).originalTagName)
+                && newTagName.equals(((RenameTagCommand) other).newTagName)); // state check
     }
 
 }

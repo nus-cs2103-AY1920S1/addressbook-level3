@@ -60,7 +60,10 @@ public class UserTag implements Tag {
      *
      * @param newName The new name of the tag.
      */
-    public void rename(String newName) {
+    public void rename(String newName) throws InvalidTagNameException {
+        if (DefaultTagType.contains(newName)) {
+            throw new InvalidTagNameException("Tags cannot be renamed to default tag names");
+        }
         this.tagName = newName;
     }
 

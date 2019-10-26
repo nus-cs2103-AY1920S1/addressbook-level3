@@ -23,7 +23,8 @@ public class RemoveTagFromAllCommand extends Command {
             + "removeall exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s hass been removed from all modules";
-    public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "There is no [%1$s] tag in this study plan";
+    public static final String MESSAGE_TAG_NOT_FOUND_IN_STUDY_PLAN = "There is no [%1$s] tag in this study plan";
+    public static final String MESSAGE_TAG_NOT_FOUND_IN_MODULES = "There is no [%1$s] tag in any module";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be removed";
 
     private final String tagName;
@@ -47,14 +48,27 @@ public class RemoveTagFromAllCommand extends Command {
         }
 
         if (!model.activeSpContainsTag(tagName)) {
-            throw new CommandException(String.format(MESSAGE_TAG_CANNOT_BE_FOUND, tagName));
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND_IN_STUDY_PLAN, tagName));
         }
 
         UserTag toRemove = (UserTag) model.getTagFromActiveSp(tagName);
 
-        model.removeTagFromAllModulesInActiveSp(toRemove);
+        boolean removed = model.removeTagFromAllModulesInActiveSp(toRemove);
+
+        if (!removed) {
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND_IN_MODULES, tagName));
+        }
+
         model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemoveTagFromAllCommand // instanceof handles nulls
+                && tagName.equals(((RemoveTagFromAllCommand) other).tagName)); // state check
+    }
+
 }

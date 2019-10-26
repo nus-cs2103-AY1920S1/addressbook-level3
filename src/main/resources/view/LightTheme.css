@@ -461,7 +461,7 @@
 }
 
 #tagListView {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
 }
 
 #tagCardPane {

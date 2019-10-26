@@ -105,7 +105,6 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
 
     /**
      * Gets a specific tag that has the given tag name.
-     *
      * @param tagName Name of the tag
      * @return Tag
      */

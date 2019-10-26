@@ -37,4 +37,10 @@ public class ViewAllTagsCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS, ResultViewType.TAG, uniqueTagList.asUnmodifiableObservableList());
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewAllTagsCommand); // instanceof handles nulls and type check
+    }
+
 }

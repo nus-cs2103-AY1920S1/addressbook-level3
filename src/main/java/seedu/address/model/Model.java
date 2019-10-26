@@ -224,7 +224,7 @@ public interface Model {
 
     void deleteTagFromActiveSp(UserTag toDelete);
 
-    void removeTagFromAllModulesInActiveSp(UserTag toRemove);
+    boolean removeTagFromAllModulesInActiveSp(UserTag toRemove);
 
     boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode);
 

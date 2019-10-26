@@ -322,8 +322,8 @@ public class ModelManager implements Model {
         modulePlanner.deleteTagFromActiveSp(toDelete);
     }
 
-    public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
-        modulePlanner.removeTagFromAllModulesInActiveSp(toRemove);
+    public boolean removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        return modulePlanner.removeTagFromAllModulesInActiveSp(toRemove);
     }
 
     public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {

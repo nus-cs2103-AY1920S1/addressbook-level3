@@ -14,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.tag.Tag;
@@ -141,11 +142,11 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        resultDisplay.removeResultView();
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            resultDisplay.removeResultView();
             semesterListPanel.refresh();
 
             StudyPlan sp = logic.getActiveStudyPlan();
@@ -203,9 +204,9 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setResultView(tagListPanel.getRoot());
             break;
         case MODULE:
-            //ObservableList<Module> moduleContent = (ObservableList<Module>) resultContent;
-            //ModuleListPanel moduleListPanel = new ModuleListPanel(moduleContent);
-            //resultDisplay.setResultView(moduleListPanel.getRoot());
+            ObservableList<Module> moduleContent = (ObservableList<Module>) resultContent;
+            ModuleListPanel moduleListPanel = new ModuleListPanel(moduleContent);
+            resultDisplay.setResultView(moduleListPanel.getRoot());
             break;
         case STUDY_PLAN:
             ObservableList<Semester> studyPlanContent = (ObservableList<Semester>) resultContent;

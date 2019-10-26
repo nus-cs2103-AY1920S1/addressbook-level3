@@ -397,8 +397,8 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         activeStudyPlan.deleteTag(toDelete);
     }
 
-    public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
-        activeStudyPlan.removeTagFromAllModules(toRemove);
+    public boolean removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        return activeStudyPlan.removeTagFromAllModules(toRemove);
     }
 
     public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {

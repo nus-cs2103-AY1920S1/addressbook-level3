@@ -232,7 +232,7 @@ public class ValidModsCommandTest {
         }
 
         @Override
-        public void removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        public boolean removeTagFromAllModulesInActiveSp(UserTag toRemove) {
             throw new AssertionError("This method should not be called.");
         }
 

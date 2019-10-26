@@ -32,25 +32,25 @@ public class DeleteTagCommandTest {
 
     @Test
     public void execute_tagPresentInStudyPlan_deleteSuccessful() {
-        // construct tags
+        // construct user tags
         Tag validTagOne = new TagBuilder().buildTestUserTag();
         String validTagNameOne = validTagOne.getTagName();
         Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
         String validTagNameTwo = validTagTwo.getTagName();
 
-        // construct model containing study plan with two tags
+        // construct model containing study plan with two user tags
         StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
-        // construct expected model containing study plan with only one tag
+        // construct expected model containing study plan with only one user tag
         StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTags(validTagNameTwo).build();
         Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         expectedModel.addToHistory();
 
-        // construct command to delete one of the tags
+        // construct command to delete one of the user tags
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(validTagNameOne);
         assertCommandSuccess(deleteTagCommand, model, String.format(DeleteTagCommand.MESSAGE_SUCCESS, validTagOne),
                 expectedModel);
@@ -58,74 +58,73 @@ public class DeleteTagCommandTest {
 
     @Test
     public void execute_tagPresentInModules_deleteSuccessful() {
-        // construct tags
+        // construct user tags
         Tag validTagOne = new TagBuilder().buildTestUserTag();
         String validTagNameOne = validTagOne.getTagName();
         Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
         String validTagNameTwo = validTagTwo.getTagName();
 
-        // construct two modules with two tags
+        // construct two modules with two user tags
         Module cs1231 = new ModuleBuilder().withTags(validTagNameOne, validTagNameTwo).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameOne, validTagNameTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("moduleOne", cs1231);
-        moduleHashMap.put("moduleTwo", cs2100);
+        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS2100", cs2100);
 
-
-        // construct model containing study plan with two tags
+        // construct model containing study plan with two user tags
         StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo)
                 .withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
-        // construct two expected modules with only one tags
+        // construct two expected modules with only one user tag
         Module expectedCS1231 = new ModuleBuilder().withTags(validTagNameTwo).build();
         Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameTwo).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
         expectedModuleHashMap.put("CS1231", expectedCS1231);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
 
-        // construct expected model containing study plan with only one tag
+        // construct expected model containing study plan with only one user tag
         StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTags(validTagNameTwo)
                 .withModules(expectedModuleHashMap).build();
         Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         expectedModel.addToHistory();
 
-        // construct command to delete one of the tags
+        // construct command to delete one of the user tags
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(validTagNameOne);
         assertCommandSuccess(deleteTagCommand, model, String.format(DeleteTagCommand.MESSAGE_SUCCESS, validTagOne),
                 expectedModel);
     }
 
     @Test
-    public void execute_tagNotPresentInStudyPlan_throwsException() throws Exception {
-        // construct tags
+    public void execute_tagNotPresentInStudyPlan_throwsCommandException() {
+        // construct user tag
         Tag validTagOne = new TagBuilder().buildTestUserTag();
         String validTagNameOne = validTagOne.getTagName();
 
-        // construct model containing study plan with two tags
+        // construct model containing study plan with two user tags
         StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
-        // construct command to delete one of the tags
+        // construct command to delete one of the user tags
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand("someOtherTag");
         assertThrows(CommandException.class, () -> deleteTagCommand.execute(model),
                 DeleteTagCommand.MESSAGE_TAG_NOT_FOUND);
     }
 
     @Test
-    public void execute_deleteDefaultTag_throwsException() throws Exception {
-        // construct model containing study plan with two tags
+    public void execute_deleteDefaultTag_throwsException() {
+        // construct model containing study plan with two user tags
         StudyPlan studyPlan = new StudyPlanBuilder().build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
-        // construct command to delete one of the tags
+        // construct command to delete one of the user tags
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand("Core");
         assertThrows(CommandException.class, () -> deleteTagCommand.execute(model),
                 DeleteTagCommand.MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
@@ -149,7 +148,7 @@ public class DeleteTagCommandTest {
         // null -> returns false
         assertFalse(deleteTestUserTagCommand.equals(null));
 
-        // different studyPlan -> returns false
+        // different user tag -> returns false
         assertFalse(deleteTestUserTagCommand.equals(deleteOtherUserTagCommand));
     }
 

@@ -1,10 +1,11 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.joining;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,15 +14,15 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.ui.ResultViewType;
 
 /**
  * Shows all modules attached to specific tags.
  */
 public class ViewTaggedCommand extends Command {
-
-    // not in parser yet
 
     public static final String COMMAND_WORD = "viewtagged";
 
@@ -31,7 +32,8 @@ public class ViewTaggedCommand extends Command {
             + "Example: "
             + "viewtagged core completed";
 
-    public static final String MESSAGE_SUCCESS = "All modules with the specified tags shown \n%1$s.";
+    public static final String MESSAGE_SUCCESS = "All modules with the specified tags shown";
+    public static final String MESSAGE_NO_MODULES_FOUND = "There are no modules attached to this tag";
 
     private final String[] tagNames;
 
@@ -39,6 +41,7 @@ public class ViewTaggedCommand extends Command {
      * Creates an {@code ViewTaggedCommand} to show all modules with the specified tags.
      */
     public ViewTaggedCommand(String... tagNames) {
+        Arrays.stream(tagNames).forEach(tagName -> requireNonNull(tagName));
         this.tagNames = tagNames;
     }
 
@@ -48,18 +51,35 @@ public class ViewTaggedCommand extends Command {
 
         HashMap<String, Module> moduleHashMap = model.getModulesFromActiveSp();
 
-        Set<Module> allMatchingModules = getAllMatchingModules(moduleHashMap);
+        UniqueModuleList allMatchingModules = getAllMatchingModules(moduleHashMap);
 
-        final String stringOfModules = allMatchingModules.stream()
-                .map(item -> item.toString())
-                .collect(joining("\n"));
+        if (allMatchingModules.asUnmodifiableObservableList().size() == 0) {
+            throw new CommandException(MESSAGE_NO_MODULES_FOUND);
+        }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, stringOfModules));
+        return new CommandResult(MESSAGE_SUCCESS, ResultViewType.MODULE,
+                allMatchingModules.asUnmodifiableObservableList());
     }
 
-    private Set<Module> getMatchingModules(String tagName, HashMap<String, Module> moduleHashMap) {
+    private UniqueModuleList getAllMatchingModules(HashMap<String, Module> moduleHashMap) {
+        UniqueModuleList allMatchingModules = new UniqueModuleList();
+        for (String tagName : tagNames) {
+            List<Module> matchingModules = getMatchingModules(tagName, moduleHashMap);
+            if (allMatchingModules.asUnmodifiableObservableList().size() == 0) {
+                allMatchingModules.setModules(matchingModules);
+            } else {
+                allMatchingModules.setModules(allMatchingModules.asUnmodifiableObservableList()
+                        .stream()
+                        .filter(matchingModules::contains)
+                        .collect(Collectors.toList()));
+            }
+        }
+        return allMatchingModules;
+    }
+
+    private List<Module> getMatchingModules(String tagName, HashMap<String, Module> moduleHashMap) {
         Set<String> moduleNames = moduleHashMap.keySet();
-        Set<Module> matchingModules = new HashSet<>();
+        List<Module> matchingModules = new ArrayList<Module>();
         for (String moduleName : moduleNames) {
             Module currentModule = moduleHashMap.get(moduleName);
             boolean matches = checkMatch(currentModule, tagName);
@@ -68,21 +88,6 @@ public class ViewTaggedCommand extends Command {
             }
         }
         return matchingModules;
-    }
-
-    private Set<Module> getAllMatchingModules(HashMap<String, Module> moduleHashMap) {
-        Set<Module> allMatchingModules = new HashSet<>();
-        for (String tagName : tagNames) {
-            Set<Module> matchingModules = getMatchingModules(tagName, moduleHashMap);
-            if (allMatchingModules.size() == 0) {
-                allMatchingModules.addAll(matchingModules);
-            } else {
-                allMatchingModules = allMatchingModules.stream()
-                        .filter(matchingModules::contains)
-                        .collect(Collectors.toSet());
-            }
-        }
-        return allMatchingModules;
     }
 
     /**
@@ -95,11 +100,20 @@ public class ViewTaggedCommand extends Command {
     private boolean checkMatch(Module currentModule, String tagName) {
         UniqueTagList tags = currentModule.getTags();
         for (Tag tag : tags) {
-            boolean match = tag.getTagName().equals(tagName);
+            boolean match = (tag.getTagName().compareToIgnoreCase(tagName) == 0);
             if (match) {
                 return true;
             }
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewTaggedCommand // instanceof handles nulls
+                && tagNames.length == ((ViewTaggedCommand) other).tagNames.length // state check
+                && Arrays.asList(tagNames).containsAll(Arrays.asList(((ViewTaggedCommand) other).tagNames)));
+    }
+
 }

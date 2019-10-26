@@ -89,12 +89,15 @@ public class CommandResult<T> {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && changesActiveStudyPlan == otherCommandResult.changesActiveStudyPlan
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && ((resultViewType == null) ? (otherCommandResult.resultViewType == null)
+                        : resultViewType.equals(otherCommandResult.resultViewType)
+                                && (resultContent != null) && resultContent.equals(otherCommandResult.resultContent));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, changesActiveStudyPlan, exit);
+        return Objects.hash(feedbackToUser, changesActiveStudyPlan, exit, resultViewType, resultContent);
     }
 
 }

@@ -69,4 +69,12 @@ public class RemoveTagFromModuleCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove, moduleCode));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemoveTagFromModuleCommand // instanceof handles nulls
+                && tagName.equals(((RemoveTagFromModuleCommand) other).tagName)
+                && moduleCode.equals(((RemoveTagFromModuleCommand) other).moduleCode)); // state check
+    }
+
 }
