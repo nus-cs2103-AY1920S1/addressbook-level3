@@ -12,7 +12,6 @@ import seedu.address.logic.commands.appcommands.AddCommand;
 import seedu.address.logic.commands.appcommands.ClearCommand;
 import seedu.address.logic.commands.appcommands.DeleteCommand;
 import seedu.address.logic.commands.appcommands.EditCommand;
-import seedu.address.logic.commands.appcommands.ExitCommand;
 import seedu.address.logic.commands.appcommands.FindCommand;
 import seedu.address.logic.commands.appcommands.HelpCommand;
 import seedu.address.logic.commands.appcommands.ListCommand;
@@ -22,6 +21,7 @@ import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.gamecommands.StopCommand;
 import seedu.address.logic.commands.loadcommands.BankCommand;
 import seedu.address.logic.commands.loadcommands.CreateCommand;
+import seedu.address.logic.commands.loadcommands.ExitCommand;
 import seedu.address.logic.commands.loadcommands.ExportCommand;
 import seedu.address.logic.commands.loadcommands.ImportCommand;
 import seedu.address.logic.commands.loadcommands.RemoveCommand;
@@ -92,11 +92,11 @@ public class ParserManager {
             temp.add(FindCommand.class, FindCommandParser.class);
             temp.add(ClearCommand.class, null);
             temp.add(ListCommand.class, null);
-            temp.add(ExitCommand.class, null);
             temp.add(HelpCommand.class, null);
             return temp;
         case HOME:
             temp.add(BankCommand.class, BankCommandParser.class);
+            temp.add(ExitCommand.class, null);
             temp.add(ImportCommand.class, ImportCommandParser.class);
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);
