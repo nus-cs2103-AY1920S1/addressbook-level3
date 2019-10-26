@@ -18,8 +18,9 @@ import seedu.address.model.question.Subject;
 import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.quiz.QuizResultList;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -87,6 +88,7 @@ public class AppData implements ReadOnlyAppData {
 
         setNotes(newData.getNoteList());
         setQuestions(newData.getQuestionList());
+        setQuizResults(newData.getQuizResultList());
         setTasks(newData.getTaskList());
     }
 
@@ -249,12 +251,30 @@ public class AppData implements ReadOnlyAppData {
         quiz.clearQuizQuestionList();
     }
 
+    // Quiz Result operations
+    public void setQuizResults(List<QuizResult> quizResults) {
+        this.quizResults.setQuizResults(quizResults);
+    }
+
     public void addQuizResult(QuizResult quizResult) {
         quizResults.add(quizResult);
     }
 
     public boolean hasQuizResult(QuizResult quizResult) {
         return quizResults.contains(quizResult);
+    }
+
+    public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter)
+            throws EmptyQuizResultListException {
+        return quizResults.filterQuizResult(quizResultFilter);
+    }
+
+    public ObservableList<Subject> getUniqueSubjectList() {
+        return quizResults.getUniqueSubjectList();
+    }
+
+    public ObservableList<Difficulty> getUniqueDifficultyList() {
+        return quizResults.getUniqueDifficultyList();
     }
 
     // util methods
@@ -283,26 +303,6 @@ public class AppData implements ReadOnlyAppData {
     @Override
     public ObservableList<QuizResult> getQuizResultList() {
         return quizResults.asUnmodifiableObservableList();
-    }
-
-    public int getTotalQuestionsDone() {
-        return quizResults.getTotalQuestionsDone();
-    }
-
-    public int getTotalQuestionsCorrect() {
-        return quizResults.getTotalQuestionsCorrect();
-    }
-
-    public int getTotalQuestionsIncorrect() {
-        return quizResults.getTotalQuestionsIncorrect();
-    }
-
-    public ObservableList<TempStatsQnsModel> getCorrectQns() {
-        return quizResults.getCorrectQns();
-    }
-
-    public ObservableList<TempStatsQnsModel> getIncorrectQns() {
-        return quizResults.getIncorrectQns();
     }
 
     @Override

@@ -12,7 +12,8 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.quiz.QuizResultFilter;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -202,6 +203,10 @@ public interface Model {
      */
     ObservableList<Question> getFilteredQuizQuestionList();
 
+    void filterQuizResult(QuizResultFilter quizResultFilter);
+
+    void updateQuizResultFilter(QuizResultFilter quizResultFilter);
+
     /**
      * Returns an unmodifiable view of the filtered quiz result list.
      */
@@ -234,29 +239,13 @@ public interface Model {
     int getTotalQuestionsDone();
 
     /**
-     * Returns the total number of questions answered correctly.
-     */
-    int getTotalQuestionsCorrect();
-
-    /**
-     * Returns the total number of questions answered incorrectly.
-     */
-    int getTotalQuestionsIncorrect();
-
-    /**
-     * Returns an unmodifiable view of a list correct questions.
-     */
-    void setCorrectQnsList();
-
-    /**
-     * Returns an unmodifiable view of a list incorrect questions.
-     */
-    void setIncorrectQnsList();
-
-    /**
      * Returns an unmodifiable view of the pie chart data.
      */
-    ObservableList<PieChart.Data> getStatsChartData();
+    ObservableList<PieChart.Data> getStatsPieChartData();
 
-    ObservableList<TempStatsQnsModel> getStatsQnsList();
+    ObservableList<QuizResult> getQuizResultList();
+
+    ObservableList<Subject> getUniqueSubjectList();
+
+    ObservableList<StackBarChartModel> getStackBarChartData();
 }

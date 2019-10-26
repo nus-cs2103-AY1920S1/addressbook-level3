@@ -1,10 +1,21 @@
 package seedu.address.logic.parser.statistics;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import seedu.address.logic.commands.statistics.GetStatisticsCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResultFilter;
 
 /**
  * Parses input arguments and creates a new GetStatisticsCommand object.
@@ -18,20 +29,25 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
      * @throws ParseException if the user input does not conform to the expected format
      */
     public GetStatisticsCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        // To be implemented later
-        /*ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT);
+        Difficulty difficulty;
+        QuizResultFilter quizResultFilter;
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT, PREFIX_DIFFICULTY);
 
-        List subjects = argMultimap.getAllValues(PREFIX_SUBJECT);
-
-        if (subjects.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    GetStatisticsCommand.MESSAGE_USAGE));
+        List<Subject> subjects = new ArrayList<>();
+        for (String subject : argMultimap.getAllValues(PREFIX_SUBJECT)) {
+            subjects.add(ParserUtil.parseSubject(subject));
         }
 
-        return new GetStatisticsCommand(subjects);
-        */
-        return new GetStatisticsCommand();
+        Optional<String> d = argMultimap.getValue(PREFIX_DIFFICULTY);
+
+        if (d.isPresent()) {
+            difficulty = ParserUtil.parseDifficulty(d.get());
+            quizResultFilter = new QuizResultFilter(subjects, difficulty);
+        } else {
+            quizResultFilter = new QuizResultFilter(subjects);
+        }
+
+        return new GetStatisticsCommand(quizResultFilter);
     }
 }

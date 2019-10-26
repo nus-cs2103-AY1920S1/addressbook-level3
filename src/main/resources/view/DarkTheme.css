@@ -316,6 +316,15 @@
     -fx-background-color: #383838;
 }
 
+.chart-title {
+    -fx-text-fill: white;
+    -fx-font-size: 1.2em;
+}
+
+.axis-label {
+    -fx-text-fill: white;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;

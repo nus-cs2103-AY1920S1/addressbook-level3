@@ -11,7 +11,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -40,9 +42,13 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the pie chart data.
      */
-    ObservableList<PieChart.Data> getStatsChartData();
+    ObservableList<PieChart.Data> getStatsPieChartData();
 
-    ObservableList<TempStatsQnsModel> getStatsQnsList();
+    ObservableList<StackBarChartModel> getStackBarChartData();
+
+    ObservableList<Subject> getUniqueSubjectList();
+
+    ObservableList<QuizResult> getQuizResultList();
 
     /**
      * Returns the total number of quiz questions done.
