@@ -12,7 +12,6 @@ import seedu.ezwatchlist.model.actor.Actor;
  */
 public class TvShow extends Show {
 
-    private static final Image imageOfShow = null;
     private int numOfEpisodesWatched;
     private List<TvSeason> tvSeasons;
     private final int totalNumOfEpisodes;
