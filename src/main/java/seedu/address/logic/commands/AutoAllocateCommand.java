@@ -34,12 +34,12 @@ public class AutoAllocateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Auto allocates a specified number of people to an event."
             + "\n"
-            + "Parameters: EVENT_INDEX (must be a positive integer) "
-            + "[" + PREFIX_MANPOWER_TO_ADD + "NUMBER] "
+            + "Parameters: EVENT_INDEX "
+            + "[" + PREFIX_MANPOWER_TO_ADD + "NUMBER_OF_EMPLOYEES_TO_ALLOCATE] "
             + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "3 "
-            + PREFIX_TAG + "fun";
+            + PREFIX_TAG + "male";
 
 
     public static final String MESSAGE_ALLOCATE_SUCCESS = "Allocated %2$d people to %1$s ";

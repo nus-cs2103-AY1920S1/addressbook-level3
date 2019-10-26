@@ -295,12 +295,13 @@ public class ParserUtil {
         Integer manpowerToAdd;
         try {
             manpowerToAdd = Integer.valueOf(trimmed);
-        } catch (NumberFormatException e) {
+            if (manpowerToAdd <= 0) {
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
             throw new ParseException("Number of employees to allocate must be a positive integer!");
         }
-        if (manpowerToAdd <= 0) {
-            throw new ParseException("Number of employees to allocate must be a positive integer!");
-        }
+
         return manpowerToAdd;
     }
 }
