@@ -1,7 +1,6 @@
 package seedu.algobase.model;
 
 import java.nio.file.Path;
-
 import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -11,6 +10,7 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -206,4 +206,40 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered Plan list */
     ObservableList<Task> getCurrentTaskList();
+
+    //========== Find Rules =============================================================
+
+    /**
+     * Returns true if the given {@code ProblemSearchRule} has the same identity as one that exists in the AlgoBase.
+     * @param rule the rule to be matched
+     */
+    boolean hasFindRule(ProblemSearchRule rule);
+
+    /**
+     * Adds the given rule into AlgoBase.
+     * @param rule the rule to be added
+     */
+    void addFindRule(ProblemSearchRule rule);
+
+    /**
+     * Deletes the given rule into AlgoBase.
+     * The given {@code ProblemSearchRule} must exist in the AlgoBase.
+     * @param rule the rule to be deleted
+     */
+    void deleteFindRule(ProblemSearchRule rule);
+
+    /**
+     * Replaces the given {@code ProblemSearchRule} with {@code editedRule}.
+     * {@code target} must exist in the algobase.
+     * The identity of {@code editedRule} must not be the same as another existing {@code ProblemSearchRule}
+     * in the algobase.
+     * @param target the rule to be edited
+     * @param editedRule the edited rule
+     */
+    void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule);
+
+    /**
+     * Returns an unmodifiable view of the filtered list of AlgoBase's find rules.
+     */
+    ObservableList<ProblemSearchRule> getFilteredFindRuleList();
 }

@@ -103,6 +103,31 @@ Edits the author of the 1st problem to be `John Doe` respectively.
 * `edit 2 n/permutations t/` +
 Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
 
+==== Listing all problems : `list`
+
+Displays a list of all existing problems. +
+Format: `list`
+
+==== Sorting problems: `sort`
+
+Sorts the current list of results by a specified order and direction. +
+Format: `sort m/METHOD [ord/ORDER]`
+
+* Method can be `name`, `author`, `weblink`, `difficulty` or `source`.
+* ORDER can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
+* String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
+
+Examples:
+
+* `sort m/name`
+Sorts the current list of problems in ascending order of names.
+* `sort m/author ord/descend`
+Sorts the current list of problems in descending order of author names.
+* `sort m/difficulty ord/ascend`
+Sorts the current list of problems from lowest to highest difficulty.
+
+=== Searching Problems
+
 ==== Locating problems: `find`
 
 Finds problems fulfilling all provided constraints. +
@@ -135,28 +160,48 @@ Returns any problem with `algorithm` as one of its tags AND with a difficulty be
 * `find a/Hentin Marz src/Kattis` +
 Returns any problem from `Kattis` that's authored by `Hentin Marz`.
 
-==== Listing all problems : `list`
+==== Storing a problem-finding rule: `addfindrule`
 
-Displays a list of all existing problems. +
-Format: `list`
+Saves a problem-finding rule from provided constraints. +
+Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
 
-==== Sorting problems: `sort`
-
-Sorts the current list of results by a specified order and direction. +
-Format: `sort m/METHOD [ord/ORDER]`
-
-* Method can be `name`, `author`, `weblink`, `difficulty` or `source`.
-* ORDER can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
-* String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
+[NOTE]
+The rules for constraints are the same as those described in `find` command.
 
 Examples:
 
-* `sort m/name`
-Sorts the current list of problems in ascending order of names.
-* `sort m/author ord/descend`
-Sorts the current list of problems in descending order of author names.
-* `sort m/difficulty ord/ascend`
-Sorts the current list of problems from lowest to highest difficulty.
+* `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0` +
+Adds a new find rule named `MediumDiffAlgo` that when applied, returns any problem with `algorithm` as one of its tags AND with a difficulty between 2.0 and 4.0 (inclusive).
+* `addfindrule Kattis src/Kattis` +
+Adds a new find rule named `Kattis` that when applied, returns any problem from `Kattis`.
+
+==== Applying a problem-finding rule: `apply`
+
+Applies a problem-finding rule. +
+Format: `apply INDEX`
+
+* Applies the find rule at the specified `INDEX`.
+* The index refers to the index number shown in the displayed find rule list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
+Examples:
+
+* `apply 2` +
+Applies the 2nd find rule in the displayed list.
+
+==== Deleting a problem-finding rule: `deletefindrule`
+
+Deletes a problem-finding rule. +
+Format: `deletefindrule INDEX`
+
+* Deletes the find rule at the specified `INDEX`.
+* The index refers to the index number shown in the displayed find rule list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
+Examples:
+
+* `deletefindrule 2` +
+Deletes the 2nd find rule in the displayed list.
 
 === Tags
 
