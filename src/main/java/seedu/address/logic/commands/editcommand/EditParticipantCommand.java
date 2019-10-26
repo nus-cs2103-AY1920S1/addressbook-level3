@@ -67,6 +67,24 @@ public class EditParticipantCommand extends EditCommand {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditParticipantCommand)) {
+            return false;
+        }
+
+        // state check
+        EditParticipantCommand e = (EditParticipantCommand) other;
+        return id.equals(e.id)
+                && editParticipantDescriptor.equals(e.editParticipantDescriptor);
+    }
+
     /**
      * Creates and returns a new {@code Participant} with the details {@code participantToEdit}
      * edited with {@code editParticipantDescriptor}.

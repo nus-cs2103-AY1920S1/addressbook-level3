@@ -26,7 +26,6 @@ import seedu.address.logic.commands.addcommand.AddTeamCommand;
 import seedu.address.logic.commands.deletecommand.DeleteMentorCommand;
 import seedu.address.logic.commands.deletecommand.DeleteParticipantCommand;
 import seedu.address.logic.commands.deletecommand.DeleteTeamCommand;
-import seedu.address.logic.commands.editcommand.EditCommand;
 import seedu.address.logic.commands.editcommand.EditMentorCommand;
 import seedu.address.logic.commands.editcommand.EditMentorCommand.EditMentorDescriptor;
 import seedu.address.logic.commands.listcommand.ListMentorCommand;
