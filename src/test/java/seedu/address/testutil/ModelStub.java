@@ -263,4 +263,43 @@ public class ModelStub implements Model {
     public CalendarDate getCalendarDate() {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+    @Override
+    public ReadOnlyDataBook<Order> getArchivedOrderBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasArchivedOrder(Order order) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteArchivedOrder(Order target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addArchivedOrder(Order order) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setArchivedOrder(Order target, Order editedOrder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Order> getFilteredArchivedOrderList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredArchivedOrderList(Predicate<Order> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
 }

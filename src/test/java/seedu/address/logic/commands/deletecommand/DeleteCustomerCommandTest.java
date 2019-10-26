@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -29,7 +30,7 @@ import seedu.address.model.customer.Customer;
 public class DeleteCustomerCommandTest {
 
     private Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-            getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+            getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -39,7 +40,7 @@ public class DeleteCustomerCommandTest {
         String expectedMessage = String.format(DeleteCustomerCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
         Model expectedModel = new ModelManager(new DataBook<Customer>(model.getCustomerBook()), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -63,7 +64,7 @@ public class DeleteCustomerCommandTest {
         String expectedMessage = String.format(DeleteCustomerCommand.MESSAGE_DELETE_CUSTOMER_SUCCESS, customerToDelete);
 
         Model expectedModel = new ModelManager(new DataBook<Customer>(model.getCustomerBook()), getTypicalPhoneBook(),
-                getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         expectedModel.deleteCustomer(customerToDelete);
         showNoCustomer(expectedModel);
 

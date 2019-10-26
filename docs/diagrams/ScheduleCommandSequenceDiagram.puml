@@ -35,10 +35,7 @@ deactivate SellerManagerParser
 
 LogicManager -> AddScheduleCommand : execute(model)
 activate AddScheduleCommand
-AddScheduleCommand -> Model : getFilteredOrderList()
-activate Model
-Model --> AddScheduleCommand : lastShownList
-deactivate Model
+
 AddScheduleCommand -> Model : setOrder(uuid, customer)
 activate Model
 Model --> AddScheduleCommand
@@ -53,7 +50,7 @@ deactivate Model
 
 create CommandResult
 AddScheduleCommand -> CommandResult ++: message, UiChange
-CommandResult --> AddScheduleCommand
+CommandResult --> AddScheduleCommand : commandResult
 deactivate CommandResult
 
 AddScheduleCommand --> LogicManager : commandResult

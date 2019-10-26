@@ -37,14 +37,14 @@ class OrderTest {
         // null -> returns false
         assertFalse(ORDERONE.isSameAs(null));
 
-        // different id -> returns false
-        assertFalse(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withId(VALID_ID).build()));
+        // different id -> returns true
+        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withId(VALID_ID).build()));
 
         // different customer -> returns true
         assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withCustomer(VALID_CUSTOMER).build()));
 
-        // different phone -> returns true
-        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withPhone(VALID_PHONE).build()));
+        // different phone -> returns false
+        assertFalse(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withPhone(VALID_PHONE).build()));
 
         // different price -> returns true
         assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withPrice(VALID_PRICE).build()));

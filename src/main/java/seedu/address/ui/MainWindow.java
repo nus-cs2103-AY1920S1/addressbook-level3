@@ -137,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(),
                 logic.getCalendarDate());
-        archiveOrderListPanel = new ArchivedOrderListPanel(logic.getArchivedFilteredOrderList());
+        archiveOrderListPanel = new ArchivedOrderListPanel(logic.getFilteredArchivedOrderList());
         tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel,
                 calendarPanel, archiveOrderListPanel);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
