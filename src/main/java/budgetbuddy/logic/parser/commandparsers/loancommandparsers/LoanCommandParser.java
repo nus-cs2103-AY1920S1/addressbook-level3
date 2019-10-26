@@ -51,6 +51,13 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
         }
 
+        if (argMultimap.getAllValues(PREFIX_PERSON).size() > 1
+                || argMultimap.getAllValues(PREFIX_AMOUNT).size() > 1
+                || argMultimap.getAllValues(PREFIX_DESCRIPTION).size() > 1
+                || argMultimap.getAllValues(PREFIX_DATE).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
+        }
+
         Name name = CommandParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON).get());
         Person person = new Person(name);
 
