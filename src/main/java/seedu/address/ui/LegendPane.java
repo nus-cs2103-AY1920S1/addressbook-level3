@@ -5,9 +5,13 @@ import static seedu.address.ui.RangeMarkerColor.COLOR_GREEN;
 import static seedu.address.ui.RangeMarkerColor.COLOR_RED;
 import static seedu.address.ui.RangeMarkerColor.COLOR_YELLOW;
 
+import java.time.LocalDate;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -43,36 +47,72 @@ public class LegendPane extends UiPart<Region> {
     @FXML
     private FlowPane flowPane;
 
-    public LegendPane(SimpleStringProperty recordType) {
+    public LegendPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
         super(FXML);
 
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 flowPane.getChildren().clear();
-                updateLegendPane(recordType);
+                updateLegendPane(averageMap, recordType);
             }
         });
 
-        updateLegendPane(recordType);
+        averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
+            @Override
+            public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
+                flowPane.getChildren().clear();
+                updateLegendPane(averageMap, recordType);
+            }
+        });
+
+        updateLegendPane(averageMap, recordType);
     }
 
     /**
      * Updates legend box to suit the record type given.
      */
-    private void updateLegendPane(SimpleStringProperty recordType) {
+    private void updateLegendPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
+        double maxAvg = findMax(averageMap);
         switch (RecordType.valueOf(recordType.get())) {
         case BMI:
-            flowPane.getChildren().addAll(UNDER_WEIGHT_LEGEND_ROW.getRoot(), NORMAL_WEIGHT_LEGEND_ROW.getRoot(),
-                    OVER_WEIGHT_LEGEND_ROW.getRoot(), OBESE_LEGEND_ROW.getRoot());
+            if (maxAvg >= 18.5 || (0 < maxAvg && maxAvg <= 18.5)) {
+                flowPane.getChildren().add(UNDER_WEIGHT_LEGEND_ROW.getRoot());
+            }
+            if (maxAvg >= 25 || (18 < maxAvg && maxAvg <= 25)) {
+                flowPane.getChildren().add(NORMAL_WEIGHT_LEGEND_ROW.getRoot());
+            }
+            if (maxAvg >= 30 || (25 < maxAvg && maxAvg <= 30)) {
+                flowPane.getChildren().add(OVER_WEIGHT_LEGEND_ROW.getRoot());
+            }
+            if (maxAvg >= 30) {
+                flowPane.getChildren().add(OBESE_LEGEND_ROW.getRoot());
+            }
             break;
         case BLOODSUGAR:
-            flowPane.getChildren().addAll(BEFORE_MEAL_LEGEND_ROW.getRoot(), AFTER_MEAL_LEGEND_ROW.getRoot());
+            if (maxAvg >= 4.0 || (4.0 < maxAvg && maxAvg <= 5.9)) {
+                flowPane.getChildren().add(BEFORE_MEAL_LEGEND_ROW.getRoot());
+            }
+            if (maxAvg >= 5.9 || (5.9 < maxAvg && maxAvg <= 7.0)) {
+                flowPane.getChildren().add(AFTER_MEAL_LEGEND_ROW.getRoot());
+            }
             break;
         default:
             // will not happen
             assert false : "Record type is not supported.";
         }
+    }
+
+    /**
+     * Returns the maximum average value in averageMap.
+     * @param averageMap a {@code AverageMap} object that maps time period to the respective average values.
+     */
+    private double findMax(ObservableMap<LocalDate, Double> averageMap) {
+        double maxAvg = 0;
+        for (Double average : averageMap.values()) {
+            maxAvg = Math.max(maxAvg, average);
+        }
+        return maxAvg;
     }
 
 }

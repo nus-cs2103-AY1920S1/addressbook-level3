@@ -34,7 +34,7 @@ public class AverageGraphPane extends UiPart<Region> {
         super(FXML);
 
         this.averageGraph = new AverageGraph(averageMap, averageType, recordType);
-        this.legendPane = new LegendPane(recordType);
+        this.legendPane = new LegendPane(averageMap, recordType);
 
         vBox.getChildren().add(averageGraph.getAverageGraph());
         vBox.getChildren().add(legendPane.getRoot());

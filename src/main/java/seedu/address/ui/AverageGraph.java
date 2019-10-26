@@ -7,6 +7,7 @@ import static seedu.address.ui.RangeMarkerColor.COLOR_YELLOW;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +15,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Priority;
@@ -87,6 +89,7 @@ public class AverageGraph {
 
         customLineChart.setId("customLineChart");
         customLineChart.setAnimated(false);
+        customLineChart.setAxisSortingPolicy(LineChart.SortingPolicy.NONE);
 
         VBox.setVgrow(customLineChart, Priority.ALWAYS);
 
@@ -128,7 +131,9 @@ public class AverageGraph {
      */
     private void loadAndShowChart(ObservableMap<LocalDate, Double> averageMap) {
         XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
-        for (Map.Entry<LocalDate, Double> entry : averageMap.entrySet()) {
+        TreeMap<LocalDate, Double> averageTreeMap = new TreeMap<>();
+        averageTreeMap.putAll(averageMap);
+        for (Map.Entry<LocalDate, Double> entry : averageTreeMap.entrySet()) {
             LocalDate date = entry.getKey();
             Double average = entry.getValue();
             dataSeries.getData().add(new XYChart.Data<String, Number>(date.toString(), average));
