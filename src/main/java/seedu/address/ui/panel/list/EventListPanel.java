@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
@@ -25,6 +26,10 @@ public class EventListPanel extends UiPart<Region> {
     @FXML
     private ListView<EventSource> eventListView;
 
+    /* =======================================To be implemented========================================== */
+    @FXML
+    private ListView<TaskSource> taskListView;
+
     /**
      * Constructor for EventListPanel. Creates an instance of a panel to store the Event Cards.
      */
@@ -34,8 +39,12 @@ public class EventListPanel extends UiPart<Region> {
         eventListView.setCellFactory(listView -> new EventListViewCell());
     }
 
-    public void setItems(List<EventSource> events) {
+    public void setEventItems(List<EventSource> events) {
         this.eventListView.setItems(FXCollections.observableList(events));
+    }
+
+    public void setTaskItems(List<TaskSource> tasks) {
+        this.taskListView.setItems(FXCollections.observableList(tasks));
     }
 
     /**

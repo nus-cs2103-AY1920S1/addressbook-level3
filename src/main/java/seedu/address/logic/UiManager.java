@@ -18,6 +18,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.ColorTheme;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.Ui;
@@ -28,7 +30,7 @@ import seedu.address.ui.listeners.UserOutputListener;
  * The manager of the UI component.
  * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui, UserOutputListener, EventListListener {
+public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -127,8 +129,13 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
-        this.mainWindow.onEventListChange(events);
+    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.mainWindow.onEventListChange(events, tasks);
+    }
+
+    @Override
+    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.mainWindow.onTaskListChange(events, tasks);
     }
 
     @Override

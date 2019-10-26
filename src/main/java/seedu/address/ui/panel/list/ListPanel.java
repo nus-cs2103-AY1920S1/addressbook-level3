@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
@@ -16,7 +18,7 @@ import seedu.address.ui.UiPart;
 /**
  * An Ui that stores the logged feedback from the program to the user.
  */
-public class ListPanel extends UiPart<Region> implements EventListListener {
+public class ListPanel extends UiPart<Region> implements EventListListener, TaskListListener {
 
     private static final String FXML = "ListPanel.fxml";
     private UiParser uiParser;
@@ -42,7 +44,12 @@ public class ListPanel extends UiPart<Region> implements EventListListener {
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
-        this.eventListPanel.setItems(events);
+    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.eventListPanel.setEventItems(events);
+    }
+
+    @Override
+    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.eventListPanel.setTaskItems(tasks);
     }
 }
