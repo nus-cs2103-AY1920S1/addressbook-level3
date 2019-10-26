@@ -23,11 +23,11 @@ public class StatsWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(StatsWindow.class);
     private static final String FXML = "StatsWindow.fxml";
-    private final static Stage stage = new Stage();
+    private static final Stage stage = new Stage();
 
-    private final static String good = "Good";
-    private final static String hard = "Hard";
-    private final static String easy = "Easy";
+    private static final String good = "Good";
+    private static final String hard = "Hard";
+    private static final String easy = "Easy";
 
 
     /**
