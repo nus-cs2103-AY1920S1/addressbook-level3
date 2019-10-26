@@ -95,27 +95,6 @@ public class MarkParserTest {
     }
 
     @Test
-    public void parseCommand_favorite() throws Exception {
-        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
-                FavoriteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
-        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
-    }
-
-    @Test
-    public void parseCommand_favoriteAlias() throws Exception {
-        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
-                FavoriteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_BOOKMARK.getOneBased());
-        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
-    }
-
-    @Test
-    public void parseCommand_goto() throws Exception {
-        GotoCommand command = (GotoCommand) parser.parseCommand(
-                GotoCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
-        assertEquals(new GotoCommand(INDEX_FIRST_BOOKMARK), command);
-    }
-
-    @Test
     public void parseCommand_edit() throws Exception {
         Bookmark bookmark = new BookmarkBuilder().build();
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder(bookmark).build();
@@ -140,11 +119,17 @@ public class MarkParserTest {
     }
 
     @Test
-    public void parseCommand_import() throws Exception {
-        // assumption: bookmarks are imported from the folder data/bookmarks/ (see ImportCommandParser)
-        String fileName = "myBookmarks";
-        ImportCommand command = (ImportCommand) parser.parseCommand(ImportCommand.COMMAND_WORD + " " + fileName);
-        assertEquals(new ImportCommand(Path.of("data", "bookmarks", fileName + ".json")), command);
+    public void parseCommand_favorite() throws Exception {
+        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
+                FavoriteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
+    }
+
+    @Test
+    public void parseCommand_favoriteAlias() throws Exception {
+        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
+                FavoriteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
     }
 
     @Test
@@ -156,9 +141,24 @@ public class MarkParserTest {
     }
 
     @Test
+    public void parseCommand_goto() throws Exception {
+        GotoCommand command = (GotoCommand) parser.parseCommand(
+                GotoCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new GotoCommand(INDEX_FIRST_BOOKMARK), command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_import() throws Exception {
+        // assumption: bookmarks are imported from the folder data/bookmarks/ (see ImportCommandParser)
+        String fileName = "myBookmarks";
+        ImportCommand command = (ImportCommand) parser.parseCommand(ImportCommand.COMMAND_WORD + " " + fileName);
+        assertEquals(new ImportCommand(Path.of("data", "bookmarks", fileName + ".json")), command);
     }
 
     @Test
@@ -168,15 +168,15 @@ public class MarkParserTest {
     }
 
     @Test
-    public void parseCommand_undo() throws Exception {
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
-    }
-
-    @Test
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 3") instanceof RedoCommand);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
     }
 
     @Test
