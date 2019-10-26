@@ -1,6 +1,7 @@
 package seedu.jarvis.ui.course;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -17,28 +18,20 @@ public class CoursePlannerWindow extends UiPart<Region> {
     private CourseTextDisplay courseTextDisplay;
 
     @FXML
-    private StackPane courseContainer;
-
-    @FXML
-    private AnchorPane courseListPanelContainer;
-
-    @FXML
-    private AnchorPane courseTextDisplayContainer;
+    private SplitPane courseSplitPane;
 
     public CoursePlannerWindow(Logic logic) {
         super(FXML);
         this.logic = logic;
     }
 
-    void fillInnerParts() {
+    public void fillInnerParts() {
         courseListPanel = new CourseListPanel(logic.getUnfilteredCourseList());
-        courseListPanelContainer.getChildren().add(courseListPanel.getRoot());
-
         courseTextDisplay = new CourseTextDisplay();
         courseTextDisplay.setFeedbackToUser(logic.getCourseTextDisplay());
-        courseTextDisplayContainer.getChildren().add(courseTextDisplay.getRoot());
-
-        courseContainer.getChildren().add(courseListPanelContainer);
-        courseContainer.getChildren().add(courseTextDisplayContainer);
+        courseSplitPane.getItems().addAll(
+            courseListPanel.getRoot(),
+            courseTextDisplay.getRoot()
+        );
     }
 }

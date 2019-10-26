@@ -151,10 +151,6 @@ asciidoctor {
         options.compilerArgs += ["-Xlint:unchecked", "-Xlint:deprecation"]
         options.fork = true
     }
-
-    processResources {
-        exclude '**/modinfo/**' // Exclude all module json files
-    }
 }
 
 // Copies stylesheets into the directory containing generated HTML files as

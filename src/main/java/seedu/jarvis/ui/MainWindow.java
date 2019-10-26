@@ -17,6 +17,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.ui.address.PersonListPanel;
+import seedu.jarvis.ui.course.CoursePlannerWindow;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CoursePlannerWindow coursePlannerWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane coursePlannerPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -119,6 +124,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        coursePlannerWindow = new CoursePlannerWindow(logic);
+        coursePlannerWindow.fillInnerParts();
+        coursePlannerPlaceholder.getChildren().add(coursePlannerWindow.getRoot());
     }
 
     /**
