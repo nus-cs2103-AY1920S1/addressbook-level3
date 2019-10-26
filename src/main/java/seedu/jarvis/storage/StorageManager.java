@@ -9,11 +9,13 @@ import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.exceptions.DataConversionException;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.AddressBookStorage;
 import seedu.jarvis.storage.cca.CcaTrackerStorage;
+import seedu.jarvis.storage.course.CoursePlannerStorage;
 import seedu.jarvis.storage.history.HistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 
@@ -27,15 +29,18 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private HistoryManagerStorage historyManagerStorage;
     private CcaTrackerStorage ccaTrackerStorage;
+    private CoursePlannerStorage coursePlannerStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          HistoryManagerStorage historyManagerStorage, CcaTrackerStorage ccaTrackerStorage) {
+                          HistoryManagerStorage historyManagerStorage, CcaTrackerStorage ccaTrackerStorage,
+                          CoursePlannerStorage coursePlannerStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.historyManagerStorage = historyManagerStorage;
         this.ccaTrackerStorage = ccaTrackerStorage;
+        this.coursePlannerStorage = coursePlannerStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -211,4 +216,66 @@ public class StorageManager implements Storage {
         ccaTrackerStorage.saveCcaTracker(ccaTracker, filePath);
     }
 
+    // ================ CoursePlanner methods ============================
+
+
+    /**
+     * Gets the file path of the data file for {@code CoursePlanner}.
+     *
+     * @return File path of the data file for {@code CoursePlanner}.
+     */
+    @Override
+    public Path getCoursePlannerFilePath() {
+        return coursePlannerStorage.getCoursePlannerFilePath();
+    }
+
+    /**
+     * Returns {@code CoursePlanner} data.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @return {@code CoursePlanner} data, or {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    @Override
+    public Optional<CoursePlanner> readCoursePlanner() throws DataConversionException, IOException {
+        return coursePlannerStorage.readCoursePlanner(coursePlannerStorage.getCoursePlannerFilePath());
+    }
+
+    /**
+     * Returns {@code CoursePlanner} data.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @param filePath {@code Path} to read {@code CoursePlanner} data.
+     * @return {@code CoursePlanner} data, or {@code Optional.empty()} if storage file is not found.
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    @Override
+    public Optional<CoursePlanner> readCoursePlanner(Path filePath) throws DataConversionException, IOException {
+        return coursePlannerStorage.readCoursePlanner(filePath);
+    }
+
+    /**
+     * Saves the given {@link CoursePlanner} to the storage.
+     *
+     * @param coursePlanner {@code CoursePlanner} to be saved, which cannot be null.
+     * @throws IOException If there was any problem writing to the file.
+     */
+    @Override
+    public void saveCoursePlanner(CoursePlanner coursePlanner) throws IOException {
+        coursePlannerStorage.saveCoursePlanner(coursePlanner, coursePlannerStorage.getCoursePlannerFilePath());
+    }
+
+    /**
+     * Saves the given {@link CoursePlanner} to the storage.
+     *
+     * @param coursePlanner {@code CoursePlanner} to be saved, which cannot be null.
+     * @param filePath      {@code Path} to read {@code CoursePlanner} data.
+     * @throws IOException If there was any problem writing to the file.
+     */
+    @Override
+    public void saveCoursePlanner(CoursePlanner coursePlanner, Path filePath) throws IOException {
+        coursePlannerStorage.saveCoursePlanner(coursePlanner, filePath);
+    }
 }

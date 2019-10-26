@@ -13,7 +13,6 @@ import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
-import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Jackson-friendly version of {@link ClearAddressCommand}.
@@ -32,17 +31,12 @@ public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
     }
 
     /**
-     * Converts a given {@code Command} into this class for Jackson use.
-     * {@code Command} should be a {@code ClearAddressCommand}.
+     * Converts a given {@code ClearAddressCommand} into this class for Jackson use.
      *
-     * @param command {@code Command} to be used to construct the {@code JsonAdaptedClearAddressCommand}.
-     * @throws InvalidCommandToJsonException If {@code Command} is not a {@code ClearAddressCommand}.
+     * @param clearAddressCommand {@code ClearAddressCommand} to be used to construct the
+     * {@code JsonAdaptedClearAddressCommand}.
      */
-    public JsonAdaptedClearAddressCommand(Command command) throws InvalidCommandToJsonException {
-        if (!(command instanceof ClearAddressCommand)) {
-            throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
-        }
-        ClearAddressCommand clearAddressCommand = (ClearAddressCommand) command;
+    public JsonAdaptedClearAddressCommand(ClearAddressCommand clearAddressCommand) {
         persons.addAll(clearAddressCommand.getClearedPersons()
                 .stream()
                 .map(JsonAdaptedPerson::new)

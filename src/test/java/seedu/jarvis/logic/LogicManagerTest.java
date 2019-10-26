@@ -30,6 +30,7 @@ import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
+import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 import seedu.jarvis.testutil.address.PersonBuilder;
@@ -52,8 +53,10 @@ public class LogicManagerTest {
                 temporaryFolder.resolve("historymanager.json"));
         JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(
                 temporaryFolder.resolve("ccatracker.json"));
+        JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(
+                temporaryFolder.resolve("courseplanner.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage);
+                ccaTrackerStorage, coursePlannerStorage);
         model = new ModelManager();
         logic = new LogicManager(model, storage);
     }
@@ -106,8 +109,10 @@ public class LogicManagerTest {
                 temporaryFolder.resolve("ioExceptionHistoryManager.json"));
         JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(
                 temporaryFolder.resolve("ioExceptionCcaTracker.json"));
+        JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(
+                temporaryFolder.resolve("ioExceptionCoursePlanner.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage);
+                ccaTrackerStorage, coursePlannerStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

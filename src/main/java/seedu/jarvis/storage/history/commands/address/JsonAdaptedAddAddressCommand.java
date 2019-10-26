@@ -8,7 +8,6 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
-import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Jackson-friendly version of {@link AddAddressCommand}.
@@ -30,17 +29,12 @@ public class JsonAdaptedAddAddressCommand extends JsonAdaptedCommand {
     }
 
     /**
-     * Converts a given {@code Command} into this class for Jackson use.
-     * {@code Command} should be a {@code AddAddressCommand}.
+     * Converts a given {@code AddAddressCommand} into this class for Jackson use.
      *
-     * @param command {@code Command} to be used to construct the {@code JsonAdaptedAddAddressCommand}.
-     * @throws InvalidCommandToJsonException If {@code Command} is not a {@code AddAddressCommand}.
+     * @param addAddressCommand {@code AddAddressCommand} to be used to construct the
+     * {@code JsonAdaptedAddAddressCommand}.
      */
-    public JsonAdaptedAddAddressCommand(Command command) throws InvalidCommandToJsonException {
-        if (!(command instanceof AddAddressCommand)) {
-            throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
-        }
-        AddAddressCommand addAddressCommand = (AddAddressCommand) command;
+    public JsonAdaptedAddAddressCommand(AddAddressCommand addAddressCommand) {
         toAdd = new JsonAdaptedPerson(addAddressCommand.getPersonToAdd());
     }
 

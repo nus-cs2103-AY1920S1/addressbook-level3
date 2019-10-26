@@ -1,6 +1,6 @@
 {
-  "_comment": "CcaTracker save file which contains the same Cca values as in TypicalCcas#getTypicalCcaTracker()",
-  "ccas": [ {
+  "_comment" : "CcaTracker save file which contains the same Cca values as in TypicalCcas#getTypicalCcaTracker()",
+  "ccas" : [ {
     "name" : "Canoeing",
     "ccaType" : "sport",
     "equipmentList" : [ "paddle" ],

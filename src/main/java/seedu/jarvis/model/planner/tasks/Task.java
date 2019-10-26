@@ -28,6 +28,14 @@ public abstract class Task {
         this.taskDes = taskDes;
     }
 
+    /**
+     * Gets the task description of this {@code Todo}.
+     * @return {@code String} containing the description of this {@code Todo}.
+     */
+    public String getTaskDescription() {
+        return taskDes;
+    }
+
     public abstract String toString();
 
     /**
@@ -67,7 +75,7 @@ public abstract class Task {
      * Retrieves all the tags tagged to a particular task
      * @return a set of Tags
      */
-    protected Set getTags() {
+    protected Set<Tag> getTags() {
         return this.tags;
     }
 
