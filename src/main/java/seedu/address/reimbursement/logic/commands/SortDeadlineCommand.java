@@ -1,10 +1,11 @@
 package seedu.address.reimbursement.logic.commands;
 
+import static seedu.address.reimbursement.ui.ReimbursementMessages.SORT_BY_DEADLINE;
+
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.reimbursement.model.Model;
-import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 /**
  * Represents a command to sort by deadline.
@@ -14,9 +15,8 @@ public class SortDeadlineCommand extends SortCommand {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
-        ReimbursementMessages reimbursementMessages = new ReimbursementMessages();
         model.sortListByDeadline();
         logger.info("sort by deadline");
-        return new CommandResult(reimbursementMessages.SORT_BY_DEADLINE);
+        return new CommandResult(SORT_BY_DEADLINE);
     }
 }

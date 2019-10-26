@@ -56,6 +56,31 @@ public class TypicalTransactions {
     public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(9).withAmount(44.0).build();
 
+    //Transactions for reimbursements
+    //general
+    public static final Transaction ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
+            .withId(10)
+            .withAmount(-20.0)
+            .withDate("14-Feb-2019")
+            .build();
+    public static final Transaction ELLE_TRANSACTION_11 = new TransactionBuilder(TypicalPersons.ELLE)
+            .withId(11)
+            .withAmount(-100)
+            .withDescription("food")
+            .withDate("12-Jun-2019")
+            .build();
+    public static final Transaction ALICE_TRANSACTION_12 = new TransactionBuilder(TypicalPersons.ALICE)
+            .withId(12)
+            .withAmount(-30.0)
+            .withDate("14-Oct-2019")
+            .build();
+    public static final Transaction BOB_TRANSACTION_13 = new TransactionBuilder(TypicalPersons.BOB)
+            .withId(13)
+            .withAmount(-50.0)
+            .withDate("26-Oct-2019")
+            .build();
+
+
     /**
      * Returns an {@code TransactionList} with all the typical transactions.
      */

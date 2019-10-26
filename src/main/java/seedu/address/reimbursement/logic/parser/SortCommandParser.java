@@ -10,7 +10,7 @@ import seedu.address.reimbursement.ui.ReimbursementMessages;
 /**
  * Parser for sort command.
  */
-public class SortCommandParser implements SimpleParser<SortCommand> {
+public class SortCommandParser implements IndependentCommandParser<SortCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
      * and returns a SortCommand object for execution.
