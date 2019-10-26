@@ -42,7 +42,7 @@ public class GmapsModelManager {
     /**
      * Method used to initProcess venues and get location list and validLocationList
      */
-    private void initProcessVenues() throws TimeBookInvalidState, ConnectException {
+    private void initProcessVenues() throws TimeBookInvalidState {
         ProcessVenues processVenues;
         processVenues = new ProcessVenues().process();
         locations = processVenues.getLocations();
