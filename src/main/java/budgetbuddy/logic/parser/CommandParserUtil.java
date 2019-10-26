@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.logic.rules.RuleProcessingUtil;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
