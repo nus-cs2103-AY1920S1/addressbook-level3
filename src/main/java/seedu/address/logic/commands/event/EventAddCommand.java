@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -128,16 +129,11 @@ public class EventAddCommand extends EventCommand {
         colorCategoryList.add(colorCategory);
         vEvent.setCategories(colorCategoryList);
 
-
         if (model.hasVEvent(vEvent)) {
             return new CommandResult("Will Result in duplicate VEvent being created");
         } else {
             model.addVEvent(vEvent);
-
-
-            return new CommandResult(generateSuccessMessage(vEvent),
-                    false, false, false, false,
-                    true, false);
+            return new CommandResult(generateSuccessMessage(vEvent), CommandResultType.SHOW_SCHEDULE);
         }
     }
 

@@ -9,6 +9,7 @@ import org.apache.commons.math3.util.Pair;
 import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -38,11 +39,9 @@ public class EventIndexCommand extends EventCommand {
         List<Pair<Index, VEvent>> resultVEventIndexList = model.findVEventsIndex(desiredEventName);
         if (resultVEventIndexList.isEmpty()) {
             Pair<Index, VEvent> suggestedEventPair = model.findMostSimilarVEvent(desiredEventName);
-            return new CommandResult(generateSuggestionMessage(suggestedEventPair), false,
-                    false, false, false, true, false);
+            return new CommandResult(generateSuggestionMessage(suggestedEventPair), CommandResultType.SHOW_SCHEDULE);
         } else {
-            return new CommandResult(generateResultMessage(resultVEventIndexList), false,
-                    false, false, false, true, false);
+            return new CommandResult(generateResultMessage(resultVEventIndexList), CommandResultType.SHOW_SCHEDULE);
         }
     }
 

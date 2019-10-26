@@ -2,7 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_INPUT;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -42,14 +43,14 @@ public class NjoyParserTest {
 
     @Test
     public void parseCommand_statistics_addInvalidFile() throws Exception {
-        assertThrows(ParseException.class, "Grade must be a numeric value, not string or text", () ->
+        assertThrows(ParseException.class, EXCEL_FILE_ILLEGAL_INPUT, () ->
             parser.parseCommand(
                 "statistics file/src/test/data/SampleStatisticsData/InvalidSampleStatistics.xlsx"));
     }
 
     @Test
     public void parseCommand_statistics_addEmptyFile() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_FILE_NOT_FOUND, () ->
+        assertThrows(ParseException.class, EXCEL_FILE_NOT_FOUND, () ->
             parser.parseCommand("statistics file/e"));
     }
 

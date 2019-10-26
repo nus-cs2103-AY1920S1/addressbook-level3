@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_NOTE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
@@ -28,7 +29,6 @@ public class NoteEditCommand extends NoteCommand {
 
     public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited Note: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the notes record.";
 
     private final Index index;
     private final EditNoteDescriptor editNoteDescriptor;
@@ -111,8 +111,7 @@ public class NoteEditCommand extends NoteCommand {
         public EditNoteDescriptor() {}
 
         /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * Creates object of details to edit a Note object.
          */
         public EditNoteDescriptor(NoteEditCommand.EditNoteDescriptor toCopy) {
             setNote(toCopy.note);

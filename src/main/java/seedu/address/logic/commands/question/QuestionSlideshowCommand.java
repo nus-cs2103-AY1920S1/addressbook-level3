@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -31,7 +32,6 @@ public class QuestionSlideshowCommand extends QuestionCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.setSlideshowQuestions(questionIndexes);
-        return new CommandResult("Starting slideshow.", false,
-                true, false, false, false, false);
+        return new CommandResult("Starting slideshow.", CommandResultType.SHOW_SLIDESHOW);
     }
 }

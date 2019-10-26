@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 
 /**
- * Deletes a note identified using it's displayed index from the student record.
+ * Deletes a note identified using it's displayed index from the notes record.
  */
 public class NoteDeleteCommand extends NoteCommand {
 

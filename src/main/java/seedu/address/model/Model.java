@@ -351,7 +351,7 @@ public interface Model {
     void setNote(Note target, Note editedNote);
 
     /**
-     * Returns an unmodifiable view of the filtered notes list
+     * Returns an unmodifiable view of the filtered notes list.
      */
     ObservableList<Note> getFilteredNotesList();
 
@@ -384,8 +384,23 @@ public interface Model {
     //endregion
 
     //region Statistics
+
+    /**
+     * Returns the ReadOnlyStatisticsRecord in the Model.
+     */
     ReadOnlyStatisticsRecord getStatisticsRecord();
+
+    /**
+     * Returns the one-item list of Statistics list in StatisticsRecord.
+     */
     ObservableList<Statistics> getProcessedStatistics();
+
+    /**
+     * Sets the Statistics item in StatisticsRecord to be {@code statistic}
+     *
+     * @param statistics Statistic object to place in StatisticsRecord.
+     */
     void addStatistics(Statistics statistics);
+
     //endregion
 }
