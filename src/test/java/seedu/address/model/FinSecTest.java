@@ -54,7 +54,9 @@ public class FinSecTest {
         seedu.address.model.contact.Contact editedAlice = new ContactBuilder(ALICE)
                 .withTags(VALID_TAG_HUSBAND).build();
         List<seedu.address.model.contact.Contact> newContacts = Arrays.asList(ALICE, editedAlice);
-        ContactStub newData = new ContactStub(newContacts);
+        List<Income> newIncomes = Arrays.asList();
+        List<Claim> newClaims = Arrays.asList();
+        FinSecStub newData = new FinSecStub(newContacts, newIncomes, newClaims);
 
         assertThrows(DuplicateContactException.class, () -> finSec.resetData(newData));
     }
@@ -65,12 +67,12 @@ public class FinSecTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasContact_contactNotInAddressBook_returnsFalse() {
         assertFalse(finSec.hasContact(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasContact_contactInAddressBook_returnsTrue() {
         finSec.addContact(ALICE);
         assertTrue(finSec.hasContact(ALICE));
     }
@@ -91,7 +93,7 @@ public class FinSecTest {
     /**
      * A stub ReadOnlyContact whose contacts list can violate interface constraints.
      */
-    private static class ContactStub implements ReadOnlyFinSec {
+    private static class FinSecStub implements ReadOnlyFinSec {
 
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
         private final ObservableList<Income> incomes = FXCollections.observableArrayList();
@@ -99,8 +101,10 @@ public class FinSecTest {
         private final ObservableList<AutocorrectSuggestion> suggestions = FXCollections.observableArrayList();
         private final ObservableList<CommandItem> commands = FXCollections.observableArrayList();
 
-        ContactStub(Collection<Contact> contacts) {
+        FinSecStub(Collection<Contact> contacts, Collection<Income> incomes, Collection<Claim> claims) {
             this.contacts.setAll(contacts);
+            this.incomes.setAll(incomes);
+            this.claims.setAll(claims);
         }
 
         @Override

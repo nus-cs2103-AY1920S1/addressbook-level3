@@ -5,24 +5,24 @@ import seedu.address.model.FinSec;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code FinSec ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code FinSec ab = new FinSecBuilder().withContact("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class FinSecBuilder {
 
     private FinSec finSec;
 
-    public AddressBookBuilder() {
+    public FinSecBuilder() {
         finSec = new FinSec();
     }
 
-    public AddressBookBuilder(FinSec finSec) {
+    public FinSecBuilder(FinSec finSec) {
         this.finSec = finSec;
     }
 
     /**
      * Adds a new {@code FinSec} to the {@code FinSec} that we are building.
      */
-    public AddressBookBuilder withPerson(seedu.address.model.contact.Contact contact) {
+    public FinSecBuilder withContact(seedu.address.model.contact.Contact contact) {
         finSec.addContact(contact);
         return this;
     }
