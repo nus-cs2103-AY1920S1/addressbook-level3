@@ -16,8 +16,9 @@ import com.typee.commons.core.LogsCenter;
  */
 public class FileUtil {
 
-    private static final String CHARSET = "UTF-8";
     public static final String DOCUMENT_PROPERTIES_FILE_NAME = "document_template.properties";
+
+    private static final String CHARSET = "UTF-8";
     private static final Logger logger = LogsCenter.getLogger(FileUtil.class);
 
     public static boolean isFileExists(Path file) {
@@ -94,7 +95,7 @@ public class FileUtil {
         String resourceName = "document_template.properties"; // could also be a constant
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Properties props = new Properties();
-        try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
+        try (InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
             props.load(resourceStream);
         }
         return props;

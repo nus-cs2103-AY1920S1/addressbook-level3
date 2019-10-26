@@ -35,7 +35,7 @@ import com.typee.model.report.Report;
 public class PdfUtil {
 
     private static final String FOLDER_PATH = "reports/";
-    private static Properties doc_prop;
+    private static Properties docProp;
     private static final Logger logger = LogsCenter.getLogger(PdfUtil.class);
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-YY_HH:mm");
 
@@ -43,7 +43,7 @@ public class PdfUtil {
      * Generates a {@code Report} in .pdf format and opens the file.
      */
     public static void generateReport(Report report) throws DocumentException, IOException {
-        doc_prop = FileUtil.loadProperties();
+        docProp = FileUtil.loadProperties();
         Engagement engagement = report.getEngagement();
         Document document = initDoc(engagement, report.getTo());
 
@@ -70,7 +70,7 @@ public class PdfUtil {
         Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 14, BaseColor.BLACK);
         addCompanyLogo(doc);
 
-        Paragraph par = new Paragraph(doc_prop.getProperty("document.header") + " " + to + ",", font);
+        Paragraph par = new Paragraph(docProp.getProperty("document.header") + " " + to + ",", font);
         par.setSpacingBefore(50);
         par.setSpacingAfter(28);
         doc.add(par);
@@ -95,24 +95,24 @@ public class PdfUtil {
      * Adds the conclusion and footer paragraph of the document.
      */
     private static void addConclusion(Document doc, Person from) throws DocumentException {
-        Paragraph par = new Paragraph(doc_prop.getProperty("document.conclusion") + "\n"
+        Paragraph par = new Paragraph(docProp.getProperty("document.conclusion") + "\n"
                 + from + "\n"
-                + doc_prop.getProperty("document.sender.profile") + "\n"
-                + doc_prop.getProperty("document.sender.contact") + "\n"
-                + doc_prop.getProperty("document.company.address") + "\n"
-                + doc_prop.getProperty("document.company.name"));
+                + docProp.getProperty("document.sender.profile") + "\n"
+                + docProp.getProperty("document.sender.contact") + "\n"
+                + docProp.getProperty("document.company.address") + "\n"
+                + docProp.getProperty("document.company.name"));
         par.setSpacingBefore(70);
         par.setSpacingAfter(30);
 
         doc.add(par);
-        doc.add(new Paragraph(doc_prop.getProperty("document.footer")));
+        doc.add(new Paragraph(docProp.getProperty("document.footer")));
     }
 
     /**
      * Adds first introduction paragraph of the document.
      */
     private static Document addIntroductionPar(Document doc) throws DocumentException {
-        Paragraph par = new Paragraph(doc_prop.getProperty("appointment.introduction"));
+        Paragraph par = new Paragraph(docProp.getProperty("appointment.introduction"));
         par.setSpacingAfter(10);
         doc.add(par);
         return doc;
@@ -149,9 +149,9 @@ public class PdfUtil {
         for (Person person : attendeeList.getAttendees()) {
             orderedAttendeesList.add(new ListItem(person.getName().fullName));
         }
+
         cellAttendees.addElement(orderedAttendeesList);
         table.addCell(cellAttendees);
-        
         Paragraph par = new Paragraph();
         par.setSpacingBefore(10);
         par.add(table);
