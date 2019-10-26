@@ -23,6 +23,7 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " g/mystery g/children -available";
 
     private final BookPredicate predicate;
+    private final int showLimit = 0;
 
     public FindCommand(BookPredicate predicate) {
         this.predicate = predicate;

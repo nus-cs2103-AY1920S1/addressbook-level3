@@ -5,50 +5,49 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":CatalogParser" as CatalogParser LOGIC_COLOR
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
-participant "a:FindCommand" as FindCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "command:FindCommand" as FindCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-'participant ":Book" as Book MODEL_COLOR
+participant "predicate:BookPredicate" as BookPredicate MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
 [-> LogicManager : execute("find t/Animal Farm a/George")
 activate LogicManager
 
-LogicManager -> CatalogParser ++ : parseCommand("find t/Animal Farm a/George")
+LogicManager -> CatalogParser ++ : parseCommand()
 
 create FindCommandParser
-CatalogParser -> FindCommandParser
-activate FindCommandParser
+CatalogParser -> FindCommandParser ++
+return
 
-FindCommandParser --> CatalogParser
-deactivate FindCommandParser
+CatalogParser -> FindCommandParser ++ : parse("t/Animal Farm a/George")
 
-CatalogParser -> FindCommandParser : parse("t/Animal Farm a/George")
-activate FindCommandParser
+FindCommandParser -> ArgumentTokenizer ++ : tokenize()
+return
+
+create BookPredicate
+FindCommandParser -> BookPredicate ++
+FindCommandParser -> BookPredicate : set title and author
+return predicate
 
 create FindCommand
-FindCommandParser -> FindCommand ++
-return a
+FindCommandParser -> FindCommand ++ : new FindCommand(predicate)
+return command
+return command
 
-FindCommandParser --> CatalogParser : a
-deactivate FindCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 FindCommandParser -[hidden]-> CatalogParser
 destroy FindCommandParser
 
-return a
+return command
 
 LogicManager -> FindCommand ++ : execute()
 
-FindCommand -> Model ++: updateFilteredList()
-return
+FindCommand -> Model : updateFilteredList()
 
-create CommandResult
-FindCommand -> CommandResult ++
-return
 
 return result
 

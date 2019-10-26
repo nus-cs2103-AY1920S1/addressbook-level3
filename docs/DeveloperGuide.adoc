@@ -642,15 +642,62 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 
 === Book Finding
 The command for finding a book in the catalog is as follows: +
-`find { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] } [NUMBER]`
+`find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
 
+==== Implementation
 ModelManager contains a `FilteredList` of `Books` (`filteredBooks`), which is used to display books on the LiBerry GUI. Book finding works by
 starting converting the command string in to a `BookPredicate` object, then updating `filteredBooks` with that predicate.
 
-The parsing of the `BookPredicate` object is done with the help of the `ArgumentTokenizer` object to generate an
+The parsing of the command string to create the required `BookPredicate` object is done with the help of the `ArgumentTokenizer` object.
+`ArgumentTokenizer` tokenizes the command string to generate an
 `ArgumentMultimap`, which is internally a HashMap of predicate values paired to prefix keys. The `FindCommandParser`
 then extracts all the values from the `ArgumentMultimap` prefix by prefix and building the predicate through functions
-such as `setTitle()`, `setGenres()` etc.
+such as `setTitle()`, `setGenres()` `setLoanStatus` etc.
+
+The diagram below shows a simplifed execution sequence of a 'find t/Animal Farm a/George' command string.
+
+.Sequence Diagram showing the execution of a Find Command input
+image::FindSequenceDiagram.png[width="840]
+
+The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
+there is no need to filter for that field. Below is an example.
+
+.Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
+image:BookPredicateEmptyObjectDiagram.png[height="300"]
+image:BookPredicateFilledObjectDiagram.png[height="300"]
+
+The figure above shows what happens when we are trying to filter for books with title 'harry' and 'Potter' that are loaned out,
+showing up to 5 books only. Notice that the rest of the fields in the object are null.
+
+==== Design Considerations
+===== Aspect: Ensuring only 1 Loan Status Flag
+In order for LiBerry to display only books that are *loaned*, *available* or *overdue*, flags are used. All flags have
+the prefix `-`, and the `ArgumentTokenizer` is able to detect this. However, a user can technically enter more than 1
+of such loan status flags eg. `-loaned -available`. This is not meaningful, as there can be multiple interpretations of
+this statement. The user could be looking for both types of books (which will show every book), or books that are both
+loaned and available (which will show none). To prevent such meaningless confusion, there is a need for only 1 such
+flag to be accepted in the `BookPredicate`.
+
+* **Alternative 1: Hard code a priority for loan status flags and accept the highest one**
+** Pros: Easy to implement
+** Cons: Does not make it clear for the user why an unintended display is shown
+
+* **Alternative 2 (Currently Used): Raise an exception whenever there are more than 1 loan status flags**
+** Pros: Helps user clarify misconception of using more than 1 loan status flag
+** Cons: Slightly more complicated code where the output `ArgumentMultimap`
+
+===== Aspect: Limiting the Number of Books to Display
+As users generally do not want to be flooded with information when using the find command, a display limit `[NUMBER]` is used. Users
+can ask for a limited number of books to display. However, the `FilteredList` JavaFx class that is used to implement the list of
+filtered books does not have an API that sets a hard limit on the number of books to show. A work-around has to be made.
+
+* **Alternative 1: Create an new class that extends the JavaFx `FilteredList` class**
+** Pros: Does not require a change in other parts of the code
+** Cons: Hard to implement. Need to know the ins and outs of FilteredList
+
+* **Alternative 2 (Currently Used): Create a counter variable in `BookPredicate` that decrements after every passed test**
+** Pros: Easy to implement.
+** Cons: Not the most cleanest way of implementation
 
 //tag::registerBorrower[]
 === Register borrower feature
