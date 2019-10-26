@@ -131,10 +131,6 @@ public class GameTimer implements Runnable {
         cancelled = true;
         timer.cancel();
 
-        // Show Time is Up.
-        timerDisplayCallBack.updateTimerDisplay("Time's up!",
-                timeLeft, totalTimeGiven);
-
         // Makes a call-back to the mainWindow to execute a 'skip' command
         try {
             mainWindowExecuteCallBack.execute("skip");

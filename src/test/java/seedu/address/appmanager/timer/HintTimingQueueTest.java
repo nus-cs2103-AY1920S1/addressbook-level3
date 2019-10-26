@@ -10,7 +10,7 @@ import java.util.Queue;
 
 import org.junit.jupiter.api.Test;
 
-
+import seedu.address.model.appsettings.DifficultyEnum;
 
 class HintTimingQueueTest {
 
@@ -42,7 +42,7 @@ class HintTimingQueueTest {
     @Test
     void pollNextTimeToUpdate() {
         HintTimingQueue testQueue = new HintTimingQueue(7, 5000);
-        long expectedDelta = (long) (8000 * 0.75) / (7 - 1);
+        long expectedDelta = (long) (DifficultyEnum.EASY.getTimeAllowedPerQuestion() * 0.75) / (7 - 1);
         Queue<Long> expectedTimings = new LinkedList<>();
         for (int i = 0; i < 7; i++) {
             long currentTiming = (long) (5000 * 0.75) - (i * expectedDelta);

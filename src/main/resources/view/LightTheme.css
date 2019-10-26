@@ -199,11 +199,24 @@
     -fx-background-color: transparent;
     -fx-font-family: "monospace";
     -fx-font-size: 11.7pt;
-    -fx-text-fill: #bd0700;
+    -fx-text-fill: indigo;
 }
 
 .hint-display .text {
     -fx-underline: true;
+}
+
+.hint-label {
+    -fx-font-family: "monospace";
+    -fx-font-size: 20pt;
+    -fx-text-fill: maroon;
+}
+
+.question-label {
+    -fx-font-family: "Times New Roman";
+    -fx-underline: true;
+    -fx-font-size: 24pt;
+    -fx-text-fill: black;
 }
 
 .result-display .label {
@@ -399,13 +412,22 @@
     -fx-background-radius: 0;
 }
 
-.progress-bar > .track {
-    -fx-box-border: #be0000;
-    -fx-control-inner-background: #383838;
+#progress-bar-alert > .track {
+    -fx-box-border: red;
+    -fx-control-inner-background: #c7c7c7;
 }
 
-.progress-bar {
-    -fx-accent: #02ee00;
+#progress-bar-alert {
+    -fx-accent: crimson;
+}
+
+#progress-bar-normal > .track {
+    -fx-box-border: red;
+    -fx-control-inner-background: #c7c7c7;
+}
+
+#progress-bar-normal {
+    -fx-accent: forestgreen;
 }
 
 /*combo box*/
@@ -459,4 +481,22 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#timer-alert-style .content {
+    -fx-background-color: transparent, #c7c7c7, transparent, #c7c7c7;
+    -fx-background-radius: 0;
+}
+
+#timer-alert-style {
+    -fx-text-fill: darkred;
+}
+
+#timer-normal-style .content {
+    -fx-background-color: transparent, #c7c7c7, transparent, #c7c7c7;
+    -fx-background-radius: 0;
+}
+
+#timer-normal-style {
+    -fx-text-fill: black;
 }

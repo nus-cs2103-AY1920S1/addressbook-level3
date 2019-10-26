@@ -172,7 +172,7 @@ public class ModularDisplay {
      */
     public void updateQuestion(String question, StackPane paneToDisplay) {
         questionLabel.updateQuestionLabel(question);
-        hintLabel.updateHintLabel("No Hints Yet");
+        hintLabel.updateHintLabel("No Hints To Display");
         paneToDisplay.getChildren().clear();
         paneToDisplay.getChildren().add(createQuestionHints().getRoot());
     }

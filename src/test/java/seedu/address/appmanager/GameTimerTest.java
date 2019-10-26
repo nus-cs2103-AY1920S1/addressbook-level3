@@ -1,5 +1,6 @@
 package seedu.address.appmanager;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -32,24 +33,38 @@ public class GameTimerTest {
 
     @Test
     public void run() {
-        AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
-        AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
-        dummyTimer = new GameTimer("Dummy Message",
-                10, dummyMainCallBack, dummyTimerCallBack);
-        dummyTimer.run();
-        // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
-
         Platform.runLater(() -> {
+            AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
+            AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
+            dummyTimer = new GameTimer("Dummy Message",
+                    10, dummyMainCallBack, dummyTimerCallBack);
+            dummyTimer.run();
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            Platform.runLater(() -> {
+                assertTrue(mainWindowStub.isExecutedFromGameTimer);
+                assertTrue(timerDisplayStub.isUpdatedFromGameTimer);
+            });
         });
 
+        // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
+    }
+
+    @Test
+    public void run_durationIsZero() {
         Platform.runLater(() -> {
-            assertTrue(mainWindowStub.isExecutedFromGameTimer);
-            assertTrue(timerDisplayStub.isUpdatedFromGameTimer);
+            AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
+            AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
+            dummyTimer = new GameTimer("Dummy Message",
+                    0, dummyMainCallBack, dummyTimerCallBack);
+            dummyTimer.run();
+            Platform.runLater(() -> {
+                assertFalse(mainWindowStub.isExecutedFromGameTimer);
+                assertFalse(timerDisplayStub.isUpdatedFromGameTimer);
+            });
         });
     }
 

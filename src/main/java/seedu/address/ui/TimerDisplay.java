@@ -26,13 +26,13 @@ public class TimerDisplay extends UiPart<Region> {
     }
 
     public void setAlertTextColour() {
-        timerText.setStyle("-fx-text-fill: #FF69B4;");
-        progressBar.setStyle("-fx-accent: red");
+        timerText.setId("timer-alert-style");
+        progressBar.setId("progress-bar-alert");
     }
 
     public void setNormalTextColour() {
-        timerText.setStyle("-fx-text-fill: #ADFF2F;");
-        progressBar.setStyle("-fx-accent: lightgreen");
+        timerText.setId("timer-normal-style");
+        progressBar.setId("progress-bar-normal");
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
