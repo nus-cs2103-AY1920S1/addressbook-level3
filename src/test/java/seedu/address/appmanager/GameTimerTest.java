@@ -1,5 +1,6 @@
 package seedu.address.appmanager;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,21 @@ public class GameTimerTest {
         });
 
         // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
+    }
+
+    @Test
+    public void run_durationIsZero() {
+        Platform.runLater(() -> {
+            AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
+            AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
+            dummyTimer = new GameTimer("Dummy Message",
+                    0, dummyMainCallBack, dummyTimerCallBack);
+            dummyTimer.run();
+            Platform.runLater(() -> {
+                assertFalse(mainWindowStub.isExecutedFromGameTimer);
+                assertFalse(timerDisplayStub.isUpdatedFromGameTimer);
+            });
+        });
     }
 
 
