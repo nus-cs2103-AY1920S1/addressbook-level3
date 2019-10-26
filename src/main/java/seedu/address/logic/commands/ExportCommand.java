@@ -4,7 +4,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCUMENT_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT_PATH;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -16,7 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
-import seedu.address.model.export.DocumentPath;
+import seedu.address.model.export.ExportPath;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
@@ -27,29 +27,29 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your flashcards into a document file, "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your flashcards into a file, "
             + "for easy sharing or use as a cheat sheet.\n"
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_DOCUMENT_PATH + "FILE_PATH\n"
+            + PREFIX_EXPORT_PATH + "FILE_PATH\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CATEGORY + "CS2105 "
-            + PREFIX_DOCUMENT_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
+            + PREFIX_EXPORT_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
     public static final String MESSAGE_EXPORT_SUCCESS = "Export was successful! You can find your file at "
             + "the following path:\n%s";
 
     private final Category category;
-    private final DocumentPath documentPath;
+    private final ExportPath exportPath;
 
     /**
-     * Creates a new ExportCommand with the given Category and DocumentPath.
+     * Creates a new ExportCommand with the given Category and ExportPath.
      * @param category The Category from which the FlashCards will be exported
-     * @param documentPath The DocumentPath to which the FlashCards will be exported
+     * @param exportPath The ExportPath to which the FlashCards will be exported
      */
-    public ExportCommand(Category category, DocumentPath documentPath) {
+    public ExportCommand(Category category, ExportPath exportPath) {
         this.category = category;
-        this.documentPath = documentPath;
+        this.exportPath = exportPath;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ExportCommand extends Command {
         requireNonNull(model);
 
         try {
-            this.documentPath.export(
+            this.exportPath.export(
                     getFlashCardsByCategory(model, category)
             );
         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class ExportCommand extends Command {
         return new CommandResult(
                 String.format(
                         MESSAGE_EXPORT_SUCCESS,
-                        documentPath.toAbsolutePathString()
+                        exportPath.toAbsolutePathString()
                 )
         );
     }
@@ -77,7 +77,7 @@ public class ExportCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ExportCommand // instanceof handles nulls
                 && category.equals(((ExportCommand) other).category)
-                && documentPath.equals(((ExportCommand) other).documentPath)); // state check
+                && exportPath.equals(((ExportCommand) other).exportPath)); // state check
     }
 
     /**
