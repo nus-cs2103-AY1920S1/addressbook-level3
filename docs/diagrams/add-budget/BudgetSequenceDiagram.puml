@@ -59,7 +59,6 @@ deactivate ModelManager
 
 LogicManager <-- BudgetCommand : CommandResult
 deactivate BudgetCommand
-destroy BudgetCommand
 
 [<-- LogicManager : CommandResult
 deactivate LogicManager

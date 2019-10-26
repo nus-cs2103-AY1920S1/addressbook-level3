@@ -68,7 +68,8 @@ public class AddExpenseCommand extends ScrollingCommand implements Undoable {
         // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
         // handle JavaFX initialization
         if (model.isInView(toAdd) && transactionListPanel != null) {
-            transactionListPanel.getTransactionListView().scrollTo(toAdd);
+            int addIndex = model.getFilteredTransactionList().size() - 1;
+            transactionListPanel.getTransactionListView().scrollTo(addIndex);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
