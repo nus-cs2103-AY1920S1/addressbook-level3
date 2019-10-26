@@ -113,6 +113,8 @@ public interface Model {
 
     void updateLoan(Loan existingLoan, Loan returnedLoan);
 
+    int payFine(int amountInCents);
+
     // ================================================================ BorrowerRecords
 
     /**

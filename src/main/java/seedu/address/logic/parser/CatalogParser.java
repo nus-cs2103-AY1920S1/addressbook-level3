@@ -17,6 +17,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InfoCommand;
 import seedu.address.logic.commands.LoanCommand;
+import seedu.address.logic.commands.PayCommand;
 import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.RenewCommand;
 import seedu.address.logic.commands.ReturnCommand;
@@ -95,6 +96,9 @@ public class CatalogParser {
 
         case SetCommand.COMMAND_WORD:
             return new SetCommandParser().parse(arguments);
+
+        case PayCommand.COMMAND_WORD:
+            return new PayCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

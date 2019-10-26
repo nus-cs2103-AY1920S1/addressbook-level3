@@ -77,6 +77,19 @@ public class LoanList implements Iterable<Loan> {
         return new LoanList(newList);
     }
 
+    /**
+     * Adds up all the remaining fine of the loans.
+     *
+     * @return Total remaining fine amount in cents.
+     */
+    public int calculateOutstandingFineAmount() {
+        int total = 0;
+        for (Loan loan : loanList) {
+            total += loan.getRemainingFineAmount();
+        }
+        return total;
+    }
+
     @Override
     public Iterator<Loan> iterator() {
         return loanList.iterator();

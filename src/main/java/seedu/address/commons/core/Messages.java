@@ -35,4 +35,6 @@ public class Messages {
             "%1$s has already been renewed the maximum number of times!";
     public static final String MESSAGE_BOOK_IS_OVERDUE = "%1$s is already overdue and cannot be renewed!";
 
+    // Fine messages
+    public static final String MESSAGE_NO_OUTSTANDING_FINE = "No outstanding fines!";
 }

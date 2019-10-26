@@ -54,9 +54,11 @@ public class LoanCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
+
         if (!model.hasBook(this.toLoan)) {
             throw new CommandException(MESSAGE_NO_SUCH_BOOK);
         }

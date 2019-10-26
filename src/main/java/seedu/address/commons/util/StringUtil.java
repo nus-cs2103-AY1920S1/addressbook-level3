@@ -65,4 +65,27 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code s} represents a non-zero dollar amount with at most 2 decimal places,
+     * e.g. 12.20, 5, 0.01.
+     * Will return false for any other non-null String input, e.g., "-2.00", "0".
+     *
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isValidDollarAmount(String s) {
+        requireNonNull(s);
+
+        String[] dollarsAndCents = s.split("\\."); // split by the dot '.'
+        if (dollarsAndCents.length > 1 && dollarsAndCents[1].length() > 2) {
+            return false;
+        }
+
+        try {
+            double value = Double.parseDouble(s);
+            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Double.parseDouble(String)
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

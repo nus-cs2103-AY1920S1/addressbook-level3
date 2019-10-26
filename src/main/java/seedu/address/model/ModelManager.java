@@ -25,6 +25,7 @@ import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.model.exceptions.NotInServeModeException;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanIdGenerator;
+import seedu.address.model.loan.LoanList;
 
 /**
  * Represents the in-memory model of the Library data.
@@ -163,6 +164,61 @@ public class ModelManager implements Model {
     public void updateLoan(Loan existingLoan, Loan updatedLoan) {
         requireAllNonNull(existingLoan, updatedLoan);
         loanRecords.updateLoan(existingLoan, updatedLoan);
+    }
+
+    /**
+     * Pays the outstanding fines of the servingBorrower.
+     *
+     * @param amountInCents Amount borrower is paying in cents.
+     * @return Leftover amount in cents, i.e., change to be given.
+     */
+    @Override
+    public int payFine(int amountInCents) {
+        Borrower serving = getServingBorrower();
+        LoanList updatedReturnedLoanList = new LoanList();
+
+        int change = payLoansFine(serving.getReturnedLoanList(), updatedReturnedLoanList, amountInCents);
+
+        Borrower updatedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getCurrentLoanList(), updatedReturnedLoanList);
+        borrowerRecords.setBorrower(serving, updatedBorrower);
+
+        setServingBorrower(updatedBorrower);
+
+        return change;
+    }
+
+    /**
+     * Private helper method to help iterate through each Loan in the returnedLoanList and then to update each Loan
+     * object with the maximum possible amount paid.
+     * Returns the leftover amount, i.e., the change.
+     */
+    private int payLoansFine(LoanList origReturnedLoanList, LoanList updatedReturnedLoanList, int amountInCents) {
+        int payingAmount = amountInCents;
+        for (Loan loan : origReturnedLoanList) {
+            int remainingFineAmount = loan.getRemainingFineAmount();
+            if (payingAmount == 0 || remainingFineAmount == 0) { // no payingAmount left or no remainingFine to pay
+                updatedReturnedLoanList.add(loan); // just add to new copy
+            } else {
+                Loan updatedLoan;
+                if (payingAmount >= remainingFineAmount) { // can fully pay off this fine
+                    updatedLoan = new Loan(loan.getLoanId(), loan.getBookSerialNumber(), loan.getBorrowerId(),
+                            loan.getStartDate(), loan.getDueDate(), loan.getReturnDate(), loan.getRenewCount(),
+                            0, loan.getPaidFineAmount() + loan.getRemainingFineAmount());
+                    payingAmount -= remainingFineAmount;
+                } else {
+                    updatedLoan = new Loan(loan.getLoanId(), loan.getBookSerialNumber(), loan.getBorrowerId(),
+                            loan.getStartDate(), loan.getDueDate(), loan.getReturnDate(), loan.getRenewCount(),
+                            loan.getRemainingFineAmount() - payingAmount,
+                            loan.getPaidFineAmount() + payingAmount);
+                    payingAmount = 0;
+                }
+                updatedReturnedLoanList.add(updatedLoan);
+                updateLoan(loan, updatedLoan);
+            }
+        }
+
+        return payingAmount;
     }
 
     //=========== Catalog ===============================================================================

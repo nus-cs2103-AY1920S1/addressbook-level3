@@ -116,6 +116,22 @@ public class Borrower {
     }
 
     /**
+     * Gets the total outstanding fine amount from Borrower's returnedLoanList.
+     *
+     * @return Total remaining fine amount in cents/
+     */
+    public int getOutstandingFineAmount() {
+        return returnedLoanList.calculateOutstandingFineAmount();
+    }
+
+    /**
+     * Returns true if Borrower has unpaid fines.
+     */
+    public boolean hasOutstandingFine() {
+        return getOutstandingFineAmount() > 0;
+    }
+
+    /**
      * Returns true if both borrowers have the same borrower_id.
      * This defines a weaker notion of equality between two persons.
      */

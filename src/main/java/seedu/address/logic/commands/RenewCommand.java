@@ -55,6 +55,7 @@ public class RenewCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
