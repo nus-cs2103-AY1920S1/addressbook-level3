@@ -50,7 +50,8 @@ public class EditScheduleCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "2019.12.12 "
             + PREFIX_TIME + "12.12 "
-            + PREFIX_VENUE + "NUS";
+            + PREFIX_VENUE + "NUS "
+            + PREFIX_ALLOW;
 
     public static final String MESSAGE_EDIT_SCHEDULE_SUCCESS = "Edited Schedule: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

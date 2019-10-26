@@ -42,7 +42,8 @@ public class AddScheduleCommand extends Command {
             + PREFIX_DATE + "2019.12.12 "
             + PREFIX_TIME + "17.30 "
             + PREFIX_VENUE + "Changi Airport T3 "
-            + PREFIX_TAG + "freebie";
+            + PREFIX_TAG + "freebie "
+            + PREFIX_ALLOW;
 
     public static final String MESSAGE_SUCCESS = "New schedule added: %1$s";
     public static final String MESSAGE_DUPLICATE_SCHEDULE = "This schedule already exists in SML.";
