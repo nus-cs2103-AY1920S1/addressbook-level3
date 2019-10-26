@@ -35,6 +35,16 @@ public class Event {
     }
 
     /**
+     * Creates a type of event with the performances initialised already.
+     * @param name of this event.
+     * @param performances to be included in this event.
+     */
+    public Event(String name, HashMap<Person, List<Record>> performances) {
+        this.name = name.toLowerCase();
+        this.performances = performances;
+    }
+
+    /**
      * Returns true if both events have the same name.
      */
     public boolean isSameEvent(Event otherEvent) {
