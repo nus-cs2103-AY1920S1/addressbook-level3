@@ -226,6 +226,7 @@ Format: `loan list [p/<person ...>] [o|i] [s/<w|x|p>]`
 * Adding ‘o’ argument filters list to out loans only.
 * Adding ‘i’ argument filters list to in loans only.
 * Add `s/w` to sort the list by date, `s/x` to sort by amount, or `s/p` to sort by person.
+** Adding `s/x` when the list is already sorted by amount will reverse the order of sorting (e.g. descending to ascending). This works for all available sorts.
 ****
 
 ==== Edit loan: `loan edit`

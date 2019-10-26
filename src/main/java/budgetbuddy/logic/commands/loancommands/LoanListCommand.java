@@ -32,6 +32,7 @@ public class LoanListCommand extends Command {
             + "Example: "
             + String.format("%s 1 2 o %s%s", COMMAND_WORD, PREFIX_SORT, SORT_ARG_AMOUNT);
 
+    public static final String MESSAGE_SUCCESS = "Loans listed.";
     public static final String MESSAGE_SUCCESS_PERSON = "Loans listed by person in alphabetical order.";
     public static final String MESSAGE_SUCCESS_AMOUNT = "Loans listed by amount.";
     public static final String MESSAGE_SUCESS_DATE = "Loans listed by date.";
@@ -48,10 +49,11 @@ public class LoanListCommand extends Command {
     public CommandResult execute(Model model) {
         requireAllNonNull(model, model.getLoansManager());
 
-        String resultMessage = MESSAGE_SUCESS_DATE;
+        String resultMessage = MESSAGE_SUCCESS;
 
-        Comparator<Loan> sorter = LoansManager.DATE_SORTER;
         if (optionalSortBy.isPresent()) {
+            Comparator<Loan> sorter;
+
             switch (optionalSortBy.get()) {
             case PERSON:
                 sorter = LoansManager.PERSON_SORTER;
@@ -66,9 +68,9 @@ public class LoanListCommand extends Command {
                 resultMessage = MESSAGE_SUCESS_DATE;
                 break;
             }
-        }
 
-        model.getLoansManager().sortLoans(sorter);
+            model.getLoansManager().sortLoans(sorter);
+        }
 
         return new CommandResult(
                 model.getLoansManager().getLoans().isEmpty() ? MESSAGE_NO_LOANS : resultMessage,

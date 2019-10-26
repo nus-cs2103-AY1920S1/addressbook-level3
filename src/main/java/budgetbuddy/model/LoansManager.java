@@ -71,8 +71,8 @@ public class LoansManager {
      * Also sets the loan manager to use the given {@code sorter} for sorting.
      */
     public void sortLoans(Comparator<Loan> sorter) {
-        internalList.sort(sorter);
-        this.sorter = sorter;
+        this.sorter = this.sorter.equals(sorter) ? sorter.reversed() : sorter;
+        internalList.sort(this.sorter);
     }
 
     /**
