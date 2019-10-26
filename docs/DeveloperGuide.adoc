@@ -104,7 +104,8 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+Structure of the Logic Component
+
 image::LogicClassDiagram.png[]
 
 *API* :
@@ -449,19 +450,19 @@ image::HealthRecordsClassDiagram.png[]
 
 Each Health Record object consist of a Type, Timestamp and Value. The current implementation stores 6 key areas:
 
-2. Weight
-3. Height
-4. Calories
-5. Glucose
-6. Blood Pressure
-7. Menstrual Cycle (for Females)
+1. Weight
+2. Height
+3. Calories
+4. Glucose
+5. Blood Pressure
+6. Menstrual Cycle (for Females)
 
 [NOTE]
 The types available are stored in a list named `TYPE_UTIL`. This means that the validity check of `Type` Object will be checked against `TYPE_UTIL` list. If type does not exist, the record will fail to construct.
 
 In future implementations (possibly in v2.0), the `TYPE_UTIL` list will accommodate more record types defined by the user. This means that there will not be a restriction imposed in health types that can be recorded. User can create a new health type to start health tracking (eg. Sodium level).
 
-===== `add health` Command
+==== `add health` Command
 `add health t/[type] [inputs]` is parsed in the `addHealthCommandParser`. The inputs will first be initialised to its respective objects with underlying validation checks (eg. `Type` object will call for `isValidType()` method to check against `TYPE_UTIL` List). A `Record` object will then be created with the three valid object components.
 
 The sequence diagram below illustrates a sample run of program where `add health` command has been successfully parsed.
