@@ -10,7 +10,7 @@ import seedu.address.logic.util.ModeEnum;
 
 class ParserManagerTest {
 
-    ParserManager parserManager;
+    private ParserManager parserManager;
 
     @BeforeEach
     void setUp() {
