@@ -47,7 +47,7 @@ public class ParserUtil {
     public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
         String[] indexes = oneBasedIndexes.trim().split("\\s+");
         List<Index> listOfIndexes = new ArrayList<>();
-        for(String indexString: indexes) {
+        for (String indexString: indexes) {
             Index parsedIndex = parseIndex(indexString);
             listOfIndexes.add(parsedIndex);
         }

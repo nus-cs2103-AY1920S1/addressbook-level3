@@ -11,6 +11,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AttendanceCommandParser implements Parser<AttendanceCommand> {
 
+    /**
+     * Parses the input arguments and returns an AttendanceCommand object.
+     * @param userInput Parsed user arguments.
+     * @return AttendanceCommand with index.
+     * @throws ParseException Thrown when command format is invalid.
+     */
     @Override
     public AttendanceCommand parse(String userInput) throws ParseException {
         try {

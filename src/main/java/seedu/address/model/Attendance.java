@@ -38,17 +38,14 @@ public class Attendance {
         int total = 0;
         double result;
         for (Training training: trainings) {
-
             if (!training.hasPerson(person)) {
                 continue;
             }
-
-            if(training.hasPersonAttended(person)) {
+            if (training.hasPersonAttended(person)) {
                 attended++;
             }
             total++;
         }
-
         if (total == 0) { // Has not had the opportunity to go for any trainings yet
             return "No training records";
         } else {

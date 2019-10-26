@@ -8,8 +8,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.logic.commands.TrainingCommandAbsent;
@@ -18,9 +18,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.date.AthletickDate;
 
 /**
- * Parses input arguments and creates a new TrainingCommand object
+ * Parses input arguments and creates a new TrainingCommand object.
  */
 public class TrainingCommandParser implements Parser<TrainingCommand> {
+
+    /**
+     * Parses the input arguments and returns a TrainingCommand object.
+     * @param args Parsed user arguments.
+     * @return TrainingCommandPresent or TrainingCommandAbsent.
+     * @throws ParseException Thrown when indexes are not present or unrecognised arguments found.
+     */
     @Override
     public TrainingCommand parse(String args) throws ParseException {
         List<Index> indexList;
@@ -44,7 +51,7 @@ public class TrainingCommandParser implements Parser<TrainingCommand> {
         }
 
         indexList = ParserUtil.parseIndexes(argMultimap.getValue(PREFIX_INDEXES).get());
-        if(arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             date = new AthletickDate(argMultimap.getValue(PREFIX_DATE).get());
         } else {
             DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
