@@ -8,17 +8,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Faculty {
 
-    private final String faculty;
-
     public static final String MESSAGE_CONSTRAINTS =
             "Faculty should only contain characters, there "
-                    + "should not be special characters and it should not be blank";
+                + "should not be special characters and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    private final String faculty;
     /**
      * Constructs a {@code Phone}.
      *

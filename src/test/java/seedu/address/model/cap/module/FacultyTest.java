@@ -1,4 +1,4 @@
-package seedu.address.model.cap.module;;
+package seedu.address.model.cap.module;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,6 +21,7 @@ public class FacultyTest {
         assertThrows(IllegalArgumentException.class, () -> new Faculty(invalidFaculty));
     }
 
+
     @Test
     public void isValidFaculty() {
         // null Faculty
@@ -30,16 +31,15 @@ public class FacultyTest {
         assertFalse(Faculty.isValidFaculty("")); // empty string
         assertFalse(Faculty.isValidFaculty(" ")); // spaces only
 
-        // missing parts
-        assertFalse(Faculty.isValidFaculty("busine"));
-        assertFalse(Faculty.isValidFaculty("Life Long Learning"));
-        assertFalse(Faculty.isValidFaculty("nus"));
-
         // invalid parts
         assertFalse(Faculty.isValidFaculty("asfafef"));
-        assertFalse(Faculty.isValidFaculty("nus business sch"));
         assertFalse(Faculty.isValidFaculty("fass"));
         assertFalse(Faculty.isValidFaculty(" law"));
+
+        // missing parts
+        assertFalse(Faculty.isValidFaculty("busine")); // missing s
+        assertFalse(Faculty.isValidFaculty("LifeLongLearning")); // missing spaces
+        assertFalse(Faculty.isValidFaculty("nus")); // missing spaces
 
         // valid Faculty
         assertTrue(Faculty.isValidFaculty("computing"));
