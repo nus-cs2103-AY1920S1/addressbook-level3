@@ -17,11 +17,14 @@ public class AppealListPanel extends UiPart<Region> {
     private static final String FXML = "ItemListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AppealListPanel.class);
 
+    private final ObservableList<Appeal> appealList;
+
     @FXML
     private ListView<Appeal> itemListView;
 
     public AppealListPanel(ObservableList<Appeal> appealList) {
         super(FXML);
+        this.appealList = appealList;
         itemListView.setItems(appealList);
         itemListView.setCellFactory(listView -> new AppealListViewCell());
     }
@@ -37,6 +40,8 @@ public class AppealListPanel extends UiPart<Region> {
             if (empty || appeal == null) {
                 setGraphic(null);
                 setText(null);
+            } else if (appealList.size() == 1) {
+                setGraphic(new ExpandedAppealCard(appeal).getRoot());
             } else {
                 setGraphic(new AppealCard(appeal, getIndex() + 1).getRoot());
             }

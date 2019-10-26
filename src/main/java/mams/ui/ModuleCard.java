@@ -34,8 +34,6 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private ProgressBar quotaBar;
 
-    // TODO add more fields for module display card
-
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
