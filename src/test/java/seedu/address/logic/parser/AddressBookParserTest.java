@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OFF;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -26,6 +28,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.SuggestionCommand;
+import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -131,7 +134,43 @@ public class AddressBookParserTest {
 
 
     @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() {
+    public void parseCommand_originalSuggestionOn_switchOff() throws Exception {
+        AddressBookParser parser = new AddressBookParser();
+        String switchOffCommand = SuggestionSwitchCommand.COMMAND_WORD + " " + PREFIX_OFF;
+        assertTrue(parser.parseCommand(switchOffCommand) instanceof SuggestionSwitchCommand);
+        String invalidCommand = "asdf";
+        assertThrows(ParseException.class, () -> parser.parseCommand(invalidCommand));
+    }
+
+    @Test
+    public void parseCommand_originalSuggestionOff_switchOff() throws Exception {
+        AddressBookParser parser = new AddressBookParser(false);
+        String switchOffCommand = SuggestionSwitchCommand.COMMAND_WORD + " " + PREFIX_OFF;
+        assertTrue(parser.parseCommand(switchOffCommand) instanceof SuggestionSwitchCommand);
+        String invalidCommand = "asdf";
+        assertThrows(ParseException.class, () -> parser.parseCommand(invalidCommand));
+    }
+
+    @Test
+    public void parseCommand_originalSuggestionOn_switchOn() throws Exception {
+        AddressBookParser parser = new AddressBookParser();
+        String switchOnCommand = SuggestionSwitchCommand.COMMAND_WORD + " " + PREFIX_ON;
+        assertTrue(parser.parseCommand(switchOnCommand) instanceof SuggestionSwitchCommand);
+        String invalidCommand = "asdf";
+        assertTrue(parser.parseCommand(invalidCommand) instanceof  SuggestionCommand);
+    }
+
+    @Test
+    public void parseCommand_originalSuggestionOff_switchOn() throws Exception {
+        AddressBookParser parser = new AddressBookParser(false);
+        String switchOnCommand = SuggestionSwitchCommand.COMMAND_WORD + " " + PREFIX_ON;
+        assertTrue(parser.parseCommand(switchOnCommand) instanceof SuggestionSwitchCommand);
+        String invalidCommand = "asdf";
+        assertTrue(parser.parseCommand(invalidCommand) instanceof  SuggestionCommand);
+    }
+
+    @Test
+    public void parseCommandWithoutSuggestions_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));
     }
@@ -141,6 +180,12 @@ public class AddressBookParserTest {
         AddressBookParser parserWithoutSuggestions = new AddressBookParser(false);
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, (
             ) -> parserWithoutSuggestions.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommandWithSuggestions_emptyString_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(""));
     }
 
     @Test
