@@ -18,19 +18,19 @@ import seedu.weme.model.meme.Meme;
  */
 public class ImportGridPanel extends UiPart<Region> {
     private static final String FXML = "ImportGridPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(MemeGridPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ImportGridPanel.class);
 
     @FXML
-    private GridView<Meme> memeGridView;
+    private GridView<Meme> importGridView;
 
     public ImportGridPanel(ObservableList<Meme> memeList) {
         super(FXML);
-        memeGridView.setItems(memeList);
-        memeGridView.setCellFactory(listView -> new MemeGridViewCell());
+        importGridView.setItems(memeList);
+        importGridView.setCellFactory(listView -> new MemeGridViewCell());
     }
 
     /**
-     * Custom {@code GridCell} that displays the graphics of a {@code Meme} using a {@code MemeCard}.
+     * Custom {@code GridCell} that displays the graphics of a {@code Meme} using a {@code ImportMemeCard}.
      */
     class MemeGridViewCell extends GridCell<Meme> {
         @Override

@@ -37,7 +37,6 @@
       </children>
     </VBox>
     <Region VBox.vgrow="ALWAYS"/>
-    <Region VBox.vgrow="ALWAYS"/>
     <VBox fx:id="statisticsTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
       <padding>
         <Insets top="5" right="5" bottom="5" left="5"/>
@@ -77,6 +76,20 @@
           </image>
         </ImageView>
         <Label text="Import"/>
+      </children>
+    </VBox>
+    <Region VBox.vgrow="ALWAYS"/>
+    <VBox fx:id="preferencesTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <children>
+        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/preferences_tab.png"/>
+          </image>
+        </ImageView>
+        <Label text="Preferences"/>
       </children>
     </VBox>
   </children>

@@ -40,6 +40,12 @@ public interface Model {
     GuiSettings getGuiSettings();
 
     /**
+     * Returns the user's preferences for Weme.
+     */
+    ObservableMap<String, String> getObservableUserPreferences();
+
+
+    /**
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);

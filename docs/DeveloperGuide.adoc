@@ -551,13 +551,13 @@ image:MemesTabScreenshot.png[]
 .Screenshot of Weme in the *Templates* tab
 image:TemplatesTabScreenshot.png[]
 
-* *Archive* tab
-** Archive (showing archived entries)
 * *Statistics* tab
 ** Statistics (showing Weme statistics)
 * *Storage* tab
 ** Import (for importing `Meme`s and `Templates`)
 ** Export (for exporting `Meme`s and `Templates`)
+* *Settings* tab
+** Settings (showing current user preferences)
 
 `ModelContext`,
 
