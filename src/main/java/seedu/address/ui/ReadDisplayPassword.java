@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Logic;
 import seedu.address.model.password.Password;
 
 /**
@@ -16,6 +18,7 @@ import seedu.address.model.password.Password;
  */
 public class ReadDisplayPassword extends UiPart<Region> {
     private static final String FXML = "ReadDisplayPassword.fxml";
+    private Logic logic;
 
     @FXML
     private Label description;
@@ -32,6 +35,10 @@ public class ReadDisplayPassword extends UiPart<Region> {
     @FXML
     private Label lastAccessed;
 
+
+    public void setLogic(Logic logic) {
+        this.logic = logic;
+    }
 
     public ReadDisplayPassword() {
         super(FXML);

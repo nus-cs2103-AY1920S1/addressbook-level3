@@ -42,7 +42,6 @@ public class ReadPasswordCommand extends Command {
         }
 
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(MESSAGE_SUCCESS, passwordToRead);
-
+        return new CommandResult("Results are shown on the right panel", passwordToRead, targetIndex);
     }
 }

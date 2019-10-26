@@ -24,7 +24,7 @@ public class GoToCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(String.format(MESSAGE_GOTO_ACKNOWLEDGEMENT, mode), false, false,
-                true, mode, false);
+                true, mode);
     }
 
 }

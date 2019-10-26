@@ -23,7 +23,7 @@ public class DeleteNoteCommandParser implements Parser<DeleteNoteCommand> {
             return new DeleteNoteCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteNoteCommand.MESSAGE_USAGE), pe);
         }
     }
 

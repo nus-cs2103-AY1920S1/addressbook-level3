@@ -41,9 +41,7 @@ public class ReadNoteCommand extends Command {
         }
 
         Note noteToRead = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_READ_NOTE_SUCCESS, noteToRead.getTitle())
-                + "//" + noteToRead.getContent() + "//" + targetIndex.getOneBased(), false, false ,
-                false, null, true);
+        return new CommandResult("Note opened on the right panel.", noteToRead, targetIndex );
     }
     @Override
     public boolean equals(Object other) {
