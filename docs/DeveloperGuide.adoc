@@ -201,7 +201,8 @@ through all the stored data and generate the statistics data whenever it is quer
 ** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of other features such as the command which does CRUD to Employees/Events which will be slower with the need to generate the statistical data and store it in the JSON file storage.
 // end::statistics[]
 
-=== Auto allocation feature
+// tag::calvin[]
+=== Automated allocation of Employees to Events feature
 ==== Implementation
 
 The `AutoAllocateCommand` has an auto-allocation mechanism which is facilitated by methods in `Event`.
@@ -214,11 +215,11 @@ The `AutoAllocateCommand` takes in three arguments:
 Additionally, the `AutoAllocateCommand` uses the following operations:
 
 * `Event#isAvailableForEvent()` -- Checks if an employee is available for the event.
-* `Event#allocateEmployee()` -- Checks if an employee is available for the event.
 * `AutoAllocateCommand#createAvailableEmployeeListForEvent()` -- Creates a list of employees available for the event,
 filtered by the tags specified by user.
 * `AutoAllocateCommand#getManpowerNeededByEvent()` -- Calculates the number of employees currently required
 by the event.
+* `AutoAllocateCommand#createEventAfterManpowerAllocation()` -- Creates a new event with a updated manpower list.
 
 Given below is an example usage scenario and how the auto allocation mechanism behaves at each step.
 
@@ -247,10 +248,10 @@ demand (number of employees required by event, generated in step 3).
 [NOTE]
 If demand exceeds supply, an exception will be thrown to the user. If the supply exeeds demand, employees will be randomly selected instead.
 
-**Step 6**. The command calls `Event#allocateEmployee()` to allocate the chosen employees to the event.
-
+**Step 6**. The command calls `Event#createEventAfterManpowerAllocation()` to create a new event with a updated
+manpower list.
 [NOTE]
-For storage purposes, only the `Employee#EmployeeId` is allocated to the event.
+For storage purposes, only the `Employee#EmployeeId` is saved in the event's manpower list.
 
 **Step 7**. Done.
 
@@ -273,23 +274,55 @@ image::AutoAllocateActivityDiagram.png[]
 ===== Aspect: Storage of employees associated with event after successful command
 
 * **Alternative 1 (current choice):** Saves only the `Employee#EmployeeId` associated with the event.
-** Pros: Easy to implement. Will use less memory.
-** Cons: Future accesses require more time.
-* **Alternative 2:** Saves all fields of `Employee` associated with the event.
+
+* **Alternative 2:**
 ** Pros: Easy retrieval in the future.
 ** Cons: Changes in `Employee` attributes have to be reflected in the event. This meant that `EditCommand` and
 `DeleteCommand` for `Employee` have to be heavily modified.
 
-===== Aspect: Allocation of manpower when demand exceeds supply.
+===== Aspect: How to update the changes in the manpower list of an event after allocation of employee.
 
 * **Alternative 1 (current choice):** Throws exception
-** Pros: Easy to implement.
+** Pros: Law of Demeter.
 ** Cons:
 * **Alternative 2:** Allocate the current available employees
 ** Pros:
 ** Cons: Testability issues.
-// end::allocate[]
 
+
+[width="100%", options="header" cols="1, 4, 4"]
+|========================================================================================
+|Feature      |Alternative 1 | Alternative 2
+|Storage of employees associated with event after successful command
+|Saves only the `Employee#EmployeeId` associated with the event.
+
+*Pros*: Easy to implement. Will use less memory.
+
+*Cons*: Future accesses require more time.
+
+I decided to proceed with this option because it creates less dependencies.
+
+|Saves all fields of `Employee` associated with the event.
+
+*Pros*: Easy retrieval in the future.
+
+*Cons*: Changes in `Employee` attributes have to be reflected in the event. This meant that `EditCommand` and
+`DeleteCommand` for `Employee` have to be heavily modified.
+
+| How to update the changes in the manpower list of an event after allocation of employee.
+| Directly modifies the `EventManpowerAllocatedList` of the specified event
+
+*Pros*: Easy to implement.
+*Cons*: May cause unwanted behaviours if testing is not done properly.
+
+| Create a new event with a newly created and updated manpower list.
+*Pros*: Defensive programming.
+*Cons*: Harder to implement.
+
+I decided to proceed with this option because it complies with the Law of Demeter
+which states that objects should not navigate internal structures of other objects.
+|========================================================================================
+// end::calvin[]
 // tag::test[]
 === Setting Date & Time to Events
 ==== Implementation
