@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +24,6 @@ public class RedoCommandTest {
     }
     @Test
     public void execute_undoneCommandsStackIsEmpty_showsFailureMessage() {
-        assertCommandSuccess(new UndoCommand(), model, RedoCommand.MESSAGE_FAILURE, expectedModel);
+        assertCommandFailure(new UndoCommand(), model, RedoCommand.MESSAGE_FAILURE);
     }
 }
