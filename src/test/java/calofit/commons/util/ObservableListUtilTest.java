@@ -31,7 +31,6 @@ class ObservableListUtilTest {
     abstract static class ObservableListBaseTest {
 
         private ObservableList<Integer> sourceList;
-        private Function<Integer, Integer> baseFunc;
 
         private ObservableList<? extends Integer> mappedList;
 
@@ -43,6 +42,10 @@ class ObservableListUtilTest {
         private ArgumentCaptor<Integer> argCaptor;
         @Captor
         private ArgumentCaptor<ListChangeListener.Change<Integer>> changeCaptor;
+
+        private int square(int x) {
+            return x * x;
+        }
 
         /**
          * Allows subclass to construct tested object, from source list and mapping function.
@@ -60,10 +63,9 @@ class ObservableListUtilTest {
         void setUp() {
             MockitoAnnotations.initMocks(this);
 
-            baseFunc = x -> x * x;
             sourceList = FXCollections.observableArrayList(1, 2, 3, 4, 5);
 
-            mapFunc = mock(Function.class, AdditionalAnswers.delegatesTo(baseFunc));
+            mapFunc = mock(Function.class, AdditionalAnswers.answer(this::square));
 
             mappedList = makeMappedList(sourceList, mapFunc);
             mappedList.addListener(listener);
@@ -78,7 +80,7 @@ class ObservableListUtilTest {
 
         @Test
         void testMapping() {
-            List<Integer> expected = sourceList.stream().map(mapFunc).collect(Collectors.toList());
+            List<Integer> expected = sourceList.stream().map(this::square).collect(Collectors.toList());
             assertEquals(expected, mappedList);
         }
 
