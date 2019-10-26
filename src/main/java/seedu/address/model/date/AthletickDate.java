@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Represents date used in attendance and performance recording.
  */
-public class TrainingDate {
+public class AthletickDate {
 
     private static final String WRONG_DATE_FORMAT = "Invalid date specified.";
 
@@ -18,14 +18,14 @@ public class TrainingDate {
     private int month;
     private int year;
 
-    public TrainingDate(String date) throws ParseException {
+    public AthletickDate(String date) throws ParseException {
         requireNonNull(date);
         processDate(date);
     }
 
     /**
-     * Parses {@code date} and extracts the day, month and year.
-     * @param date Date input by user.
+     * Parses {@code date} and extracts the day, month and year
+     * @param date Date input by user
      * @throws ParseException if {@code date} specified by user is invalid.
      */
     private void processDate(String date) throws ParseException {

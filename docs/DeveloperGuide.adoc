@@ -153,6 +153,78 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Training & Attendance feature
+
+To facilitate management of training sessions, the `Model` stores the `Attendance` of training sessions.
+
+image::attendance_class_diagram.png[]
+
+==== Attendance
+
+The attendance of players is managed using an `Attendance` class.
+`Attendance` contains a list of training sessions as it is used to calculate the attendance rate of an individual by looking at all trainings.
+Whenever a training is added, the model adds this training to the `Attendance` using a `TrainingCommand`.
+
+==== Training
+
+The Training class contains a date, as well as a HashMap.
+The date in the training class represents the date of training session and the HashMap is used to check the attendance of a Person.
+
+We used a `DateTime` class to represent a date of training.
+This class is shared across both the `Ui` and backend, allowing us to port training data into the `view calendar` function.
+
+The HashMap uses `Person` objects as keys and a boolean as it’s value.
+This is used to check whether a `Person` has attended a training session, indicated by the boolean value attached to a `Person` key.
+If a `Person` attended a training session on that day, the value associated with the key will be true, and false if he did not attend.
+There were a few design considerations we had in mind for checking attendance of a `Person` but we ultimately decided that using a HashMap was the best solution due to the following requirements:
+
+* Our application allows us to check for the attendance rate of a `Person`. As such, we needed to track both trainings attended and trainings missed.
+* As a person could be added into the team after some trainings have taken place,
+using trainings attended / total trainings would not give an accurate reflection of a `Person` 's training attendance.
+
+Also, our `select` function shows attendance rate of a `Person` and a HashMap provides the fastest access time to check whether a `Person` attended a training session.
+
+=== Filter feature
+
+The filter command enables filtering of athletes based on their tags.
+Currently, only filtering by one tag is supported.
+Filtering by multiple tags will be available by `v1.2`.
+
+==== Implementation
+
+Filter makes use of a `TagMatchesPredicate` class to determine if the athlete has tags matching the user input.
+Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
+
+image::filter_sequence_diagram.png[]
+
+Once filtering by multiple tags is implemented, the parsing of tag from `AddressBookParser` to `FilterCommandParser` will involve splitting them by spaces and storing the tag queries in a list.
+Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
+
+However, since currently only filtering by one tag is supported,
+the parsing of tag simply involves trimming the tag of white spaces.
+
+Finally, the list shown to the user is updated through `Model#updateFilteredPersonsList()`.
+
+==== Design Considerations
+
+===== Aspect: How a tag match is determined
+
+* **Alternative 1 (current choice):** Case-insensitive.
+** Pros: More user-friendly.
+** Cons: Requires converting tags to lower-case on the back-end.
+* **Alternative 2:** Case-sensitive.
+** Pros: Allows for more accurate filtering.
+** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
+
+===== Aspect: How matches for multiple tags are determined
+
+* **Alternative 1:** Exclusive matching.
+** Pros: Allows for more accurate filtering.
+** Cons: Users get fewer filter results.
+* **Alternative 2:** Optional matching.
+** Pros: Allows for more flexible searching.
+** Cons: Users may get results that they are not interested in.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -235,10 +307,81 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Select feature
+==== Implementation
+The select feature is facilitated by `SelectCommand` class. It extends `Command` and parses the arguments using
+`SelectCommandParser`. It implements the one operation:
 
-_{Explain here how the data encryption feature will be implemented}_
+* `CommandResult#execute()` - Executes the selectCommand which returns the person selected to be displayed in the UI.
+
+Other operations that were implemented to aid the `SelectCommand` feature are:
+
+* `Model#selectPerson()` -- Returns the person that was stored.
+* `Model#storePerson(Person)` -- Stores the person that was selected.
+* `Logic#getPerson()` -- Retrieves the person that was selected to display their personal information in the UI.
+
+These operations are exposed in the Model interface as `Model#selectPerson()` and `Model#storePerson
+(Person)` and in the Logic interface as `Logic#getPerson()`.
+
+An example usage scenario is given below which elaborates how the select command works at each step.
+
+Step 1. The user executes the `select 3` command to display the personal information of the 3rd person in the address
+book. When the command is executed, the person selected at the specified index will be stored in ModelManager as
+`selectedPerson` using the operation `Model#storePerson(Person)`.
+//image
+
+Step 2. After the command has been executed, the selected person is retrieved in the MainWindow class. It checks
+whether a person has been selected and displays the selected person's personal information.
+//snippet and image
+
+The implementation was done this way because the Ui component interacts with both the Logic and Model component.
+Firstly, the Ui component takes in the input from the user and allows the Logic component to parse the argument.
+After the argument has been parsed, the person is stored in the Model component which houses most of the data of the
+app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected person.
+
+==== Design Consideration
+===== Aspect: In what way is the personal information of the selected person going to be displayed
+* Alternative 1 (current choice): Displaying it in a feature box.
+** Pros: Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
+** Cons: Aesthetic is not as good compared to the other alternatives.
+* Alternative 2: Displaying it in a tab form.
+** Pros: Looks more organised compared to the other alternatives
+** Cons: Not as intuitive to use as mouse has to be used to switch around tabs.
+* Alternative 3: Displaying via a pop-up.
+** Pros: Looks neater and organised.
+** Cons: Increase the use of mouse to close the window and may be distracting to user.
+
+==== Aspect: How to select a person
+* Alternative 1 (current choice): Choosing by the index number.
+** Pros: Intuitive to use and can be used with other commands such as `FindCommand` and `FilterCommand` to narrow
+down the list of people.
+** Cons: Additional step of filtering before selecting a person.
+* Alternative 2: Choosing by name.
+** Pros: Can omit the filtering step and select the person directly.
+** Cons: There may be 2 people with the same name and thus result in an error.
+
+=== Adding/editing photo feature
+==== Implementation
+The sub feature of `AddCommand` and `EditCommand` allows the inclusion of photo for a person. The sub feature is
+facilitated by `Photo`.
+
+This sub feature is similar to the other features such as `Name` and `Phone` which has a prefix `i/` followed by the
+file name (e.g. `i/default.png`). Prior to adding the photo of a person, the image file that is going to be used has to
+be in the `\src\main\resources\images` directory. `Photo` takes in the file name as a `String` and retrieves the
+photo to be added or edited from the directory that was mentioned previously.
+
+*File name restriction*
+The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`. This
+is done to keep the file name simple.
+
+==== Design Consideration
+===== Aspect: Regular expression for the file name
+* Alternative 1 (current choice): To use alphanumerics only.
+** Pros: Keeps it simple without the confusion of special characters.
+** Cons:
+* Alternative 2: Alphanumerics and special characters.
+** Pros
+** Cons
 
 // end::dataencryption[]
 
@@ -319,8 +462,10 @@ _{More to be added}_
 [discrete]
 === System: Athletick
 
-=== Use case: UC1 - Marking attendance of players
-=== Actor: User
+[discrete]
+=== UC1 - Marking attendance of players
+
+Actor: User
 
 *MSS*
 
@@ -346,8 +491,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC2 - Delete person
-=== Actor: User
+=== UC2 - Delete person
+
+Actor: User
 
 *MSS*
 
@@ -373,8 +519,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC3 - Key in Performance of a Player
-=== Actor: User
+=== UC3 - Key in Performance of a Player
+Actor: User
 
 *MSS*
 
@@ -408,8 +554,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC4 - View a player’s profile
-=== Actor: User
+=== UC4 - View a player’s profile
+
+Actor: User
 
 *MSS*
 
@@ -436,8 +583,9 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC5 - Add a person
-=== Actor: User
+=== UC5 - Add a person
+
+Actor: User
 
 *MSS*
 
@@ -448,7 +596,6 @@ Use case ends.
 
 *Extensions*
 
-[none]
 * 1a. Details are invalid (eg. not all fields are filled up)
 +
 [none]
@@ -466,8 +613,9 @@ Use case ends.
 [discrete]
 
 [discrete]
-=== Use case: UC6 - Undo a command
-=== Actor: User
+=== UC6 - Undo a command
+
+Actor: User
 
 *MSS*
 
@@ -478,8 +626,6 @@ Use case ends.
 
 *Extensions*
 
-
-[none]
 * 1a. There are no tasks to be undone.
 +
 [none]
@@ -491,26 +637,13 @@ Use case ends
 +
 [none]
 ** 1b1. Athletick shows the most recent command that can be undone and undo
-
-[none]
-* 1a. There are no tasks to be undone.
-+
-[none]
-** Athletick shows an error message
-+
-Use case ends.
-
-* 1b. The most recent command cannot be undone
-+
-[none]
-** 1b1. Athletick shows the most recent command that can be undone and undo
 +
 Use case ends.
 
 [discrete]
+=== UC7 - Redo a command
 
-=== Use Case: UC7 - Redo a command
-=== Actor: User
+Actor: User
 
 *MSS*
 
@@ -529,16 +662,12 @@ Use case ends.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
