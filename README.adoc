@@ -10,7 +10,7 @@ image::images/title.png[width="600"]
 endif::[]
 
 https://travis-ci.com/AY1920S1-CS2103-F09-3/main[image:https://travis-ci.com/AY1920S1-CS2103-F09-3/main.svg?branch=master[Build Status]]
-https://coveralls.io/github/AY1920S1-CS2103-F09-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-F09-3/main/badge.svg?branch=master[Coverage]]
+https://coveralls.io/github/AY1920S1-CS2103-F09-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-F09-3/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
