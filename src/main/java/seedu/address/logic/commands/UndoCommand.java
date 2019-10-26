@@ -9,8 +9,8 @@ import seedu.address.model.history.HistoryManager;
  */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
-    private static final String MESSAGE_SUCCESS = "Undo Command Success";
-    private static final String MESSAGE_FAILURE = "Undo Command Failure:"
+    public static final String MESSAGE_SUCCESS = "Undo Command Success";
+    public static final String MESSAGE_FAILURE = "Undo Command Failure:"
         + " No available commands to be undone. "
         + " Commands that can be undone is as follows: add, delete, edit, clear and training.";
     @Override
