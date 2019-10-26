@@ -1,7 +1,6 @@
 package seedu.weme.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.weme.model.ModelContext.CONTEXT_ARCHIVE;
 import static seedu.weme.model.ModelContext.CONTEXT_EXPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_IMPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
@@ -49,7 +48,6 @@ public class ParserUtil {
         case CONTEXT_EXPORT:
             return EXPORT_PARSER;
         case CONTEXT_TEMPLATES:
-        case CONTEXT_ARCHIVE:
         case CONTEXT_STATISTICS:
             // TODO: This is a temporary placeholder until all tabs have been implemented
             return new WemeParser() {
@@ -70,8 +68,6 @@ public class ParserUtil {
             return CONTEXT_MEMES;
         } else if (trimmedContext.equals(CONTEXT_TEMPLATES.getContextName())) {
             return CONTEXT_TEMPLATES;
-        } else if (trimmedContext.equals(CONTEXT_ARCHIVE.getContextName())) {
-            return CONTEXT_ARCHIVE;
         } else if (trimmedContext.equals(CONTEXT_STATISTICS.getContextName())) {
             return CONTEXT_STATISTICS;
         } else if (trimmedContext.equals(CONTEXT_EXPORT.getContextName())) {

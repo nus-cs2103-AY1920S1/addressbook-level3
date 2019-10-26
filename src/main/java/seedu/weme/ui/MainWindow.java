@@ -40,7 +40,6 @@ public class MainWindow extends UiPart<Stage> {
     // App content for different tabs
     private StackPane memesPanel;
     private StackPane templatesPanel;
-    private StackPane archivePanel;
     private StackPane statisticsPanel;
     private StackPane exportPanel;
     private StackPane importPanel;
@@ -148,7 +147,6 @@ public class MainWindow extends UiPart<Stage> {
     private void fillAppContent() {
         memesPanel = new StackPane();
         templatesPanel = new StackPane();
-        archivePanel = new StackPane();
         statisticsPanel = new StackPane();
         exportPanel = new StackPane();
         importPanel = new StackPane();
@@ -192,9 +190,6 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case CONTEXT_TEMPLATES:
             appContentPlaceholder.getChildren().add(templatesPanel);
-            break;
-        case CONTEXT_ARCHIVE:
-            appContentPlaceholder.getChildren().add(archivePanel);
             break;
         case CONTEXT_STATISTICS:
             appContentPlaceholder.getChildren().add(statisticsPanel);

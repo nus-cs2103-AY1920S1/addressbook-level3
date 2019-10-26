@@ -24,8 +24,6 @@ public class TabBar extends UiPart<Region> {
     @FXML
     private VBox templatesTab;
     @FXML
-    private VBox archiveTab;
-    @FXML
     private VBox statisticsTab;
     @FXML
     private VBox exportTab;
@@ -58,8 +56,6 @@ public class TabBar extends UiPart<Region> {
             return memesTab;
         case CONTEXT_TEMPLATES:
             return templatesTab;
-        case CONTEXT_ARCHIVE:
-            return archiveTab;
         case CONTEXT_STATISTICS:
             return statisticsTab;
         case CONTEXT_EXPORT:

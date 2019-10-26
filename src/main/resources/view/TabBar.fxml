@@ -37,19 +37,6 @@
       </children>
     </VBox>
     <Region VBox.vgrow="ALWAYS"/>
-    <VBox fx:id="archiveTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
-      <padding>
-        <Insets top="5" right="5" bottom="5" left="5"/>
-      </padding>
-      <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
-          <image>
-            <Image url="@../images/archive_tab.png"/>
-          </image>
-        </ImageView>
-        <Label text="Archive"/>
-      </children>
-    </VBox>
     <Region VBox.vgrow="ALWAYS"/>
     <VBox fx:id="statisticsTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
       <padding>
