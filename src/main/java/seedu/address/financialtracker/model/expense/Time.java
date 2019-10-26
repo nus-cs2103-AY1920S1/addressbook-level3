@@ -1,19 +1,21 @@
-package seedu.address.itinerary.model.event;
+package seedu.address.financialtracker.model.expense;
+
+import java.text.SimpleDateFormat;
 
 /**
- * Time attribute for the event in the itinerary.
+ * Time added for the expense
  */
 public class Time {
     public static final String MESSAGE_CONSTRAINTS =
             "Time should only contain numerals and be written in the 24hrs format.\n"
-            + "Valid formats: 0000, 0900, 1700, 2359 ✓\n"
-            + "Invalid formats: 00:00, 900, 9999 ✗";
+                    + "Valid formats: 1947, 2359, 0000\n"
+                    + "Invalid formats: 07:48, 900, 2401, etc.";
 
     public static final String VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
-    public final String time;
+    public final String value;
 
     public Time(String time) {
-        this.time = formatTime(time);
+        this.value = formatTime(time);
     }
 
     /**
@@ -44,15 +46,22 @@ public class Time {
         return hour + ":" + minutes + " " + zone;
     }
 
+    public static Time getCurrentTime() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("HHmm");//dd/MM/yyyy
+        java.util.Date now = new java.util.Date();
+        String value = sdfDate.format(now);
+        return new Time(value);
+    }
+
     @Override
     public String toString() {
-        return time;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Time // instanceof handles nulls
-                && time.equals(((Time) other).time)); // state check
+                && value.equals(((Time) other).value)); // state check
     }
 }

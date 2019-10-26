@@ -1,23 +1,25 @@
-package seedu.address.itinerary.model.event;
+package seedu.address.financialtracker.model.expense;
+
+import java.text.SimpleDateFormat;
 
 /**
- * Date of the event in the itinerary.
+ * Date of an expense.
  */
 public class Date {
     public static final String MESSAGE_CONSTRAINTS =
             "Date should only contain numerals and be written in the DDMMYYYY format.\n"
-            + "Valid formats: 13071997, 11092001, 10101010 ✓\n"
-            + "Invalid formats: 13-07-1997, 11/09/2001, 12312011 ✗";
+                    + "Valid formats: 25102019\n"
+                    + "Invalid formats: 25/10/2019 or 25-10-2019 or others..";
 
     /*
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])(1[0-2]|0[1-9])[0-9]{4}$";
-    public final String date;
+    public final String value;
 
     public Date(String date) {
-        this.date = formatDate(date);
+        this.value = formatDate(date);
     }
 
     /**
@@ -39,15 +41,22 @@ public class Date {
         return day + "/" + month + "/" + year;
     }
 
+    public static Date getCurrentDate() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("ddMMyyyy");
+        java.util.Date now = new java.util.Date();
+        String value = sdfDate.format(now);
+        return new Date(value);
+    }
+
     @Override
     public String toString() {
-        return date;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date)); // state check
+                && value.equals(((Date) other).value)); // state check
     }
 }
