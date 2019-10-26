@@ -57,6 +57,7 @@ public class TypicalTransactions {
             .withId(9).withAmount(44.0).build();
 
     //Transactions for reimbursements
+    //general
     public static final Transaction ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(10)
             .withAmount(-20.0)
@@ -78,6 +79,7 @@ public class TypicalTransactions {
             .withAmount(-50.0)
             .withDate("26-Oct-2019")
             .build();
+
 
     /**
      * Returns an {@code TransactionList} with all the typical transactions.

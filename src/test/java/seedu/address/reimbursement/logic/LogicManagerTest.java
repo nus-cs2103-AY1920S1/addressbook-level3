@@ -5,8 +5,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +14,8 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.reimbursement.storage.StorageManager;
-import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalReimbursements;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
 
 public class LogicManagerTest {
 
@@ -35,8 +30,9 @@ public class LogicManagerTest {
 
     private Logic logic;
 
-    public LogicManagerTest() throws Exception {
+    public LogicManagerTest() {
         try {
+
             reimbursementModel = new ModelManager(TypicalReimbursements.getTypicalReimbursements());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
@@ -44,7 +40,8 @@ public class LogicManagerTest {
             tFile = File.createTempFile("testingLogic", "tempTransaction.txt");
             transactionStorage =
                     new seedu.address.transaction.storage.StorageManager(tFile, personModel);
-            transactionModel = new seedu.address.transaction.model.ModelManager(TypicalReimbursements.getTypicalTransactions());
+            transactionModel =
+                    new seedu.address.transaction.model.ModelManager(TypicalReimbursements.getTypicalTransactions());
             logic =
                     new LogicManager(reimbursementModel, reimbursementStorage, transactionModel, transactionStorage,
                             personModel);

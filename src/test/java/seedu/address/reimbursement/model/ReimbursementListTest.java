@@ -109,6 +109,7 @@ public class ReimbursementListTest {
 
         assertEquals(reimbursementAlice.toString() + System.lineSeparator() + reimbursementBob.toString(),
                 list.toString());
+
     }
 
 }

@@ -3,6 +3,7 @@ package seedu.address.reimbursement.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.comparators.SortByAmount;
@@ -36,9 +37,21 @@ public class ReimbursementList {
         }
     }
 
-
     public ReimbursementList(ArrayList<Reimbursement> reimbursementList) {
+        assert checkNoSamePerson(reimbursementList) == true : "The reimbursements can't contain the same person.";
         list = reimbursementList;
+    }
+
+    private boolean checkNoSamePerson(ArrayList<Reimbursement> reimbursementArrayList) {
+        HashSet<Person> set = new HashSet<>();
+        for (Reimbursement rmb : reimbursementArrayList) {
+            if (!set.contains(rmb.getPerson())) {
+                set.add(rmb.getPerson());
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -168,7 +181,7 @@ public class ReimbursementList {
         String output = "";
         for (int i = 0; i < list.size(); i++) {
             Reimbursement reimbursement = list.get(i);
-            if(i != 0) {
+            if (i != 0) {
                 output = output + System.lineSeparator();
             }
             output = output + reimbursement.toString();

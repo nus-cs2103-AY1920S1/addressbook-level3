@@ -7,8 +7,6 @@ import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.transaction.model.Transaction;
 
 public class ReimbursementBuilder {
-    public static final Transaction DEFAULT_TRANSACTION = TypicalTransactions.ALICE_TRANSACTION_10;
-
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     public static final LocalDate DEFAULT_DEADLINE = TypicalDeadlines.DEC_DEADLINE;
 
@@ -17,7 +15,11 @@ public class ReimbursementBuilder {
 
 
     public ReimbursementBuilder() {
-        this.transaction = DEFAULT_TRANSACTION;
+        this.transaction = new TransactionBuilder(TypicalPersons.ALICE)
+                .withId(10)
+                .withAmount(-20.0)
+                .withDate("14-Feb-2019")
+                .build();
         this.deadline = DEFAULT_DEADLINE;
     }
 

@@ -14,6 +14,7 @@ import seedu.address.testutil.ReimbursementBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalDeadlines;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Transaction;
 
 public class ModelManagerTest {
@@ -90,6 +91,7 @@ public class ModelManagerTest {
 
     @Test
     public void done_reimbursement() {
+
         try {
             modelManager.doneReimbursement(TypicalPersons.AMY);
         } catch (Exception e) {

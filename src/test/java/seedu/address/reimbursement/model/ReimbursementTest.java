@@ -52,7 +52,7 @@ public class ReimbursementTest {
     @Test
     public void merge() {
         Reimbursement reimbursement = new ReimbursementBuilder().build();
-        Reimbursement mergedReimbursement = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
+        Reimbursement mergedReimbursement = new ReimbursementBuilder().build();
         double totalAmount = reimbursement.getAmount() + mergedReimbursement.getAmount();
         reimbursement.merge(mergedReimbursement);
         assertEquals(totalAmount, reimbursement.getAmount());
@@ -72,6 +72,7 @@ public class ReimbursementTest {
     public void done() {
         Reimbursement reimbursement = new ReimbursementBuilder().build();
         reimbursement.done();
+
         ArrayList<Transaction> list = reimbursement.getList();
         for (Transaction trans : list) {
             assertTrue(trans.getStatus());

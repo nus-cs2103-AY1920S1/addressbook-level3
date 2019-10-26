@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.TypicalReimbursements;
+import seedu.address.testutil.TypicalTransactions;
 
 
 public class StorageManagerTest {
@@ -27,7 +28,7 @@ public class StorageManagerTest {
 
 
     @Test
-    public void fileReadSave() throws Exception {
+    public void file_read_save() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly writing and reading to the
          * text file.
@@ -35,13 +36,7 @@ public class StorageManagerTest {
         ReimbursementList original = TypicalReimbursements.getTypicalReimbursements();
         storageManager.writeFile(original);
         ReimbursementList retrieved = storageManager.getReimbursementFromFile(TypicalReimbursements.getTypicalTransactions());
-
         ReimbursementList newlist = new ReimbursementList(TypicalReimbursements.getTypicalTransactions());
-
-        System.out.println(newlist.toString());
-        System.out.println(TypicalReimbursements.getTypicalTransactions().get(0).toString());
-        System.out.println();
-        System.out.println(TypicalReimbursements.getTypicalReimbursements().toString());
 
         assertEquals(original.toString(), retrieved.toString());
     }

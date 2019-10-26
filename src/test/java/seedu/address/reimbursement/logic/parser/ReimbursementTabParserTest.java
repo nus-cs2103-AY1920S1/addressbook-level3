@@ -18,6 +18,7 @@ import seedu.address.reimbursement.logic.commands.SortAmountCommand;
 import seedu.address.reimbursement.logic.commands.SortDeadlineCommand;
 import seedu.address.reimbursement.logic.commands.SortNameCommand;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTransactions;
 
 public class ReimbursementTabParserTest {
     private static final ReimbursementTabParser parser = new ReimbursementTabParser();
