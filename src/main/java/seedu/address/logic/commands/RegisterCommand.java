@@ -33,7 +33,7 @@ public class RegisterCommand extends Command {
     private final Borrower toAdd;
 
     /**
-     * Creates an RegisterCommand to add the specified {@code Borrower}
+     * Creates a RegisterCommand to add the specified {@code Borrower}
      */
     public RegisterCommand(Borrower borrower) {
         requireNonNull(borrower);
