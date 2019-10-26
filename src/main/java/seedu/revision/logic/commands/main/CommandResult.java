@@ -20,6 +20,9 @@ public class CommandResult {
     /** The quiz will start. */
     private final boolean start;
 
+    /** The restore window will open. */
+    private final boolean showRestore;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -28,6 +31,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.start = false;
+        this.showRestore = false;
     }
 
     /**
@@ -38,6 +42,18 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.start = start;
+        this.showRestore = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean start, boolean restore) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.start = start;
+        this.showRestore = restore;
     }
 
     /**
@@ -63,6 +79,8 @@ public class CommandResult {
     public boolean isStart() {
         return start;
     }
+
+    public boolean isShowRestore() { return showRestore; }
 
     @Override
     public boolean equals(Object other) {

@@ -69,6 +69,18 @@ public class MainWindow extends Window {
         primaryStage.hide();
     }
 
+    /**
+     * Opens the restore window.
+     */
+    @FXML
+    public void handleRestore() {
+        if (!restoreWindow.isShowing()) {
+            restoreWindow.show();
+        } else {
+            restoreWindow.focus();
+        }
+    }
+
     public AnswerableListPanel getAnswerableListPanel() {
         return answerableListPanel;
     }
@@ -95,6 +107,10 @@ public class MainWindow extends Window {
 
             if (commandResult.isStart()) {
                 handleStart();
+            }
+
+            if (commandResult.isShowRestore()) {
+                handleRestore();
             }
 
             return commandResult;

@@ -31,6 +31,7 @@ public abstract class Window extends UiPart<Stage> {
     protected AnswerableListPanel answerableListPanel;
     protected ResultDisplay resultDisplay;
     protected HelpWindow helpWindow;
+    protected RestoreWindow restoreWindow;
 
     @FXML
     protected StackPane commandBoxPlaceholder;
@@ -57,6 +58,7 @@ public abstract class Window extends UiPart<Stage> {
         this.quizLogic = quizLogic;
         setAccelerators();
         helpWindow = new HelpWindow();
+        restoreWindow = new RestoreWindow();
         setWindowDefaultSize(this.mainLogic.getGuiSettings());
     }
 
