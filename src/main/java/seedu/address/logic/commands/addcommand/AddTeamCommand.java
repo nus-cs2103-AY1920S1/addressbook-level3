@@ -26,13 +26,11 @@ public class AddTeamCommand extends AddCommand {
             + CliSyntax.PREFIX_NAME + "NAME "
             + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT_NAME "
             + CliSyntax.PREFIX_PROJECT_NAME + "PROJECT_NAME(what the team wish to call their project) "
-            + CliSyntax.PREFIX_PROJECT_TYPE + "PROJECT_TYPE"
             + CliSyntax.PREFIX_LOCATION + "TABLE_NUMBER \n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "Justice League "
-            + CliSyntax.PREFIX_SUBJECT_NAME + "Software Engineering "
+            + CliSyntax.PREFIX_SUBJECT_NAME + "Social "
             + CliSyntax.PREFIX_PROJECT_NAME + "Catwoman Dating App "
-            + CliSyntax.PREFIX_PROJECT_TYPE + "Public welfare "
             + CliSyntax.PREFIX_LOCATION + "1 ";
 
     private Team team;

@@ -37,11 +37,9 @@ public class EditTeamCommand extends EditCommand {
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT_NAME] "
             + "[" + CliSyntax.PREFIX_PROJECT_NAME + "PROJECT_NAME] "
-            + "[" + CliSyntax.PREFIX_PROJECT_TYPE + "PROJECT_TYPE] "
             + "[" + CliSyntax.PREFIX_LOCATION + "TABLE_NUMBER] \n"
             + "Example: " + COMMAND_WORD + " T-1 "
-            + CliSyntax.PREFIX_PROJECT_NAME + "Saving Gotham "
-            + CliSyntax.PREFIX_PROJECT_TYPE + "Public welfare";
+            + CliSyntax.PREFIX_PROJECT_NAME + "Saving Gotham ";
 
     private EditTeamDescriptor editTeamDescriptor;
 
