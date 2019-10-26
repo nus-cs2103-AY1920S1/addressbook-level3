@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -127,7 +126,8 @@ public class AutoAllocateCommand extends Command {
         }
 
         Collections.shuffle(availableEmployeeList);
-        Event newEventForAllocation = createEventAfterManpowerAllocation(eventToAllocate, availableEmployeeList, manpowerCountToAdd);
+        Event newEventForAllocation = createEventAfterManpowerAllocation(eventToAllocate,
+                availableEmployeeList, manpowerCountToAdd);
 
         model.setEvent(eventToAllocate, newEventForAllocation);
 
