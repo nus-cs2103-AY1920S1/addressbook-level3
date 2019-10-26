@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_MINUTES;
@@ -35,7 +36,7 @@ import seedu.address.model.person.Person;
  */
 public class EditAppointmentCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "edit-appt";
+    public static final String COMMAND_WORD = "appt-edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the appointment identified "
             + "by the index number used in the displayed appointment list. "
@@ -43,6 +44,7 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_APPOINTMENT_START_DATE_AND_TIME + "APPOINTMENT_START_DATE_AND_TIME] "
             + "[" + PREFIX_APPOINTMENT_END_DATE_AND_TIME + "APPOINTMENT_END_DATE_AND_TIME] "
+            + "[" + PREFIX_PATIENT_INDEX + "APPOINTMENT_END_DATE_AND_TIME] "
             + "[" + PREFIX_RECUR_YEARS + "YEARS] "
             + "[" + PREFIX_RECUR_MONTHS + "MONTHS] "
             + "[" + PREFIX_RECUR_WEEKS + "WEEKS] "
@@ -108,13 +110,24 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
                                                                       .orElse(appointmentToEdit.getStartDateTime());
         EndDateTime updatedEndDateTime = editAppointmentDescriptor.getEndDateTime()
                                                                   .orElse(appointmentToEdit.getEndDateTime());
-        RecurringDateTime updatedFrequency = editAppointmentDescriptor.getFrequency()
-                                                                              .orElse(appointmentToEdit.getFrequency());
-        Person updatedPatient = editAppointmentDescriptor.getPatient().orElse(appointmentToEdit.getPatient());
+
+        Long updatedYears = editAppointmentDescriptor.getYears().orElse(appointmentToEdit.getFrequency().getYears());
+        Long updatedMonths = editAppointmentDescriptor.getMonths().orElse(appointmentToEdit.getFrequency().getMonths());
+        Long updatedWeeks = editAppointmentDescriptor.getWeeks().orElse(appointmentToEdit.getFrequency().getWeeks());
+        Long updatedDays = editAppointmentDescriptor.getDays().orElse(appointmentToEdit.getFrequency().getDays());
+        Long updatedHours = editAppointmentDescriptor.getHours().orElse(appointmentToEdit.getFrequency().getHours());
+        Long updatedMinutes = editAppointmentDescriptor.getMinutes().orElse(appointmentToEdit.getFrequency()
+                                                                                             .getMinutes());
+        Long[] editedAppointmentFrequency = {updatedYears, updatedMonths, updatedWeeks, updatedDays, updatedHours,
+                                             updatedMinutes};
+        RecurringDateTime updatedFrequency = new RecurringDateTime(editedAppointmentFrequency);
+
+        Index updatedPatientIndex = editAppointmentDescriptor.getPatientIndex()
+                                                             .orElse(appointmentToEdit.getPatientIndex());
         String updatedDescription = editAppointmentDescriptor.getDescription()
                                                              .orElse(appointmentToEdit.getDescription());
 
-        return new Appointment(updatedStartDateTime, updatedEndDateTime, updatedFrequency, updatedPatient,
+        return new Appointment(updatedStartDateTime, updatedEndDateTime, updatedFrequency, updatedPatientIndex,
                 updatedDescription);
     }
 
@@ -143,8 +156,15 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
     public static class EditAppointmentDescriptor {
         private StartDateTime startDateTime;
         private EndDateTime endDateTime;
-        private RecurringDateTime frequency;
-        private Person patient;
+
+        private Long years;
+        private Long months;
+        private Long weeks;
+        private Long days;
+        private Long hours;
+        private Long minutes;
+
+        private Index patientIndex;
         private String description;
 
         public EditAppointmentDescriptor() {}
@@ -155,8 +175,13 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
         public EditAppointmentDescriptor(EditAppointmentDescriptor toCopy) {
             setStartDateTime(toCopy.startDateTime);
             setEndDateTime(toCopy.endDateTime);
-            setFrequency(toCopy.frequency);
-            setPatient(toCopy.patient);
+            setYears(toCopy.years);
+            setMonths(toCopy.months);
+            setWeeks(toCopy.weeks);
+            setDays(toCopy.days);
+            setHours(toCopy.hours);
+            setMinutes(toCopy.minutes);
+            setPatientIndex(toCopy.patientIndex);
             setDescription(toCopy.description);
         }
 
@@ -164,7 +189,8 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(startDateTime, endDateTime, frequency, patient, description);
+            return CollectionUtil.isAnyNonNull(startDateTime, endDateTime, years, months, weeks, days, hours, minutes,
+                                                patientIndex, description);
         }
 
         public void setStartDateTime(StartDateTime startDateTime) {
@@ -183,20 +209,60 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
             return Optional.ofNullable(endDateTime);
         }
 
-        public void setFrequency(RecurringDateTime frequency) {
-            this.frequency = frequency;
+        public void setYears(Long years) {
+            this.years = years;
         }
 
-        public Optional<RecurringDateTime> getFrequency() {
-            return Optional.ofNullable(frequency);
+        public Optional<Long> getYears() {
+            return Optional.ofNullable(years);
         }
 
-        public void setPatient(Person patient) {
-            this.patient = patient;
+        public void setMonths(Long months) {
+            this.months = months;
         }
 
-        public Optional<Person> getPatient() {
-            return Optional.ofNullable(patient);
+        public Optional<Long> getMonths() {
+            return Optional.ofNullable(months);
+        }
+
+        public void setWeeks(Long weeks) {
+            this.weeks = weeks;
+        }
+
+        public Optional<Long> getWeeks() {
+            return Optional.ofNullable(weeks);
+        }
+
+        public void setDays(Long days) {
+            this.days = days;
+        }
+
+        public Optional<Long> getDays() {
+            return Optional.ofNullable(days);
+        }
+
+        public void setHours(Long hours) {
+            this.hours = hours;
+        }
+
+        public Optional<Long> getHours() {
+            return Optional.ofNullable(hours);
+        }
+
+        public void setMinutes(Long minutes) {
+            this.minutes = minutes;
+        }
+
+        public Optional<Long> getMinutes() {
+            return Optional.ofNullable(minutes);
+        }
+
+        public void setPatientIndex(Index patientIndex) {
+            this.patientIndex = patientIndex;
+        }
+
+        public Optional<Index> getPatientIndex() {
+            return Optional.ofNullable(patientIndex);
         }
 
         public void setDescription(String description) {
@@ -224,8 +290,13 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
 
             return getStartDateTime().equals(e.getStartDateTime())
                     && getEndDateTime().equals(e.getEndDateTime())
-                    && getFrequency().equals(e.getFrequency())
-                    && getPatient().equals(e.getPatient())
+                    && getYears().equals(e.getYears())
+                    && getMonths().equals(e.getMonths())
+                    && getWeeks().equals(e.getWeeks())
+                    && getDays().equals(e.getDays())
+                    && getHours().equals(e.getHours())
+                    && getMinutes().equals(e.getMinutes())
+                    && getPatientIndex().equals(e.getPatientIndex())
                     && getDescription().equals(e.getDescription());
         }
     }

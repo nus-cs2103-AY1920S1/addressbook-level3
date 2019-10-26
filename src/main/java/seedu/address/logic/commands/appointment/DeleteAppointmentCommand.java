@@ -18,7 +18,7 @@ import seedu.address.model.appointment.Appointment;
  */
 public class DeleteAppointmentCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "delete-appt";
+    public static final String COMMAND_WORD = "appt-delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the appointment identified by the index number used in the displayed appointment list.\n"

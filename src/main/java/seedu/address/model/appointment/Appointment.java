@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.RecurringDateTime;
 import seedu.address.model.datetime.StartDateTime;
@@ -22,17 +23,17 @@ public class Appointment {
     private final RecurringDateTime frequency;
 
     // Data fields
-    private final Person patient;
+    private final Index patientIndex;
+    private Person patient;
     private final String description;
-    // private final List<Medicine> medicinePackingList;
 
     public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, RecurringDateTime frequency,
-                       Person patient, String description) {
-        requireAllNonNull(startDateTime, endDateTime, frequency, patient, description);
+                       Index patientIndex, String description) {
+        requireAllNonNull(startDateTime, endDateTime, frequency, patientIndex, description);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.frequency = frequency;
-        this.patient = patient;
+        this.patientIndex = patientIndex;
         this.description = description;
     }
 
@@ -48,8 +49,16 @@ public class Appointment {
         return frequency;
     }
 
+    public Index getPatientIndex() {
+        return patientIndex;
+    }
+
     public Person getPatient() {
         return patient;
+    }
+
+    public void setPatient(Person patient) {
+        this.patient = patient;
     }
 
     public String getDescription() {

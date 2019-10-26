@@ -24,7 +24,7 @@ import seedu.address.model.appointment.Appointment;
  */
 public class AddAppointmentCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "add-appt";
+    public static final String COMMAND_WORD = "appt-add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an appointment to the appointment list with a patient identified by the index number used in the"
@@ -51,7 +51,7 @@ public class AddAppointmentCommand extends Command implements MutatorCommand {
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
 
-    private final Appointment toAdd;
+    private Appointment toAdd;
 
     /**
      * Creates an AddAppointmentCommand to add the specified {@code Appointment}
@@ -64,6 +64,8 @@ public class AddAppointmentCommand extends Command implements MutatorCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        toAdd.setPatient(model.getPersonByIndex(toAdd.getPatientIndex()));
 
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);

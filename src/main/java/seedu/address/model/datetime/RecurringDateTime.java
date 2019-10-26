@@ -1,5 +1,7 @@
 package seedu.address.model.datetime;
 
+import static java.util.Objects.isNull;
+
 import static seedu.address.commons.util.CollectionUtil.collectionToString;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -31,12 +33,36 @@ public class RecurringDateTime {
      */
     public RecurringDateTime(Long[] freqArray) {
         requireAllNonNull(Arrays.asList(freqArray));
-        this.years = freqArray[0];
+        this.years = isNull(freqArray[0]) ? 0 : freqArray[0];
         this.months = freqArray[1];
         this.weeks = freqArray[2];
         this.days = freqArray[3];
         this.hours = freqArray[4];
         this.minutes = freqArray[5];
+    }
+
+    public Long getYears() {
+        return years;
+    }
+
+    public Long getMonths() {
+        return months;
+    }
+
+    public Long getWeeks() {
+        return weeks;
+    }
+
+    public Long getDays() {
+        return days;
+    }
+
+    public Long getHours() {
+        return hours;
+    }
+
+    public Long getMinutes() {
+        return minutes;
     }
 
     /**
@@ -60,11 +86,14 @@ public class RecurringDateTime {
     }
 
     /**
-     *
+     * @return Long, which is 0 if string passed in is null
      */
-    public static RecurringDateTime frequencyStringToRecurringDateTime(String freq) {
-        Long[] freqLongArray = frequencyStringToLong(freq);
-        return new RecurringDateTime(freqLongArray);
+    public static Long getSingleFrequencyAsLong(String freq) {
+        if (isNull(freq) || freq.equals("")) {
+            return Long.parseLong("0");
+        } else {
+            return Long.parseLong(freq);
+        }
     }
 
     /**
