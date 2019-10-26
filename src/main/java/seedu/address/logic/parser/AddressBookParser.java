@@ -93,7 +93,7 @@ public class AddressBookParser {
             return new CheckoutCommandParser().parse(arguments);
 
         case GenerateSlotCommand.COMMAND_WORD:
-            return new GenerateSlotParser().parse(arguments);
+            return new GenerateSlotCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

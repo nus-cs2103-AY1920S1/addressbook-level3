@@ -47,10 +47,6 @@ public class WeekTime implements Comparable<WeekTime> {
         return this.time.compareTo(weekTime.time);
     }
 
-    public int getHourDifference(WeekTime weekTime) {
-        return (this.getDay().getValue() - weekTime.getDay().getValue()) * 24 + this.getTime().getHour() - weekTime.getTime().getHour();
-    }
-
     public boolean isAfter(WeekTime weekTime) {
         return this.compareTo(weekTime) > 0;
     }
@@ -62,5 +58,16 @@ public class WeekTime implements Comparable<WeekTime> {
     @Override
     public String toString() {
         return this.day.toString() + " " + this.time.toString();
+    }
+
+    public Duration minus(WeekTime other) {
+        int diffInMinutes = this.getDay().getValue() * (24 * 60) + this.getTime().getHour() * 60 + this.getTime().getMinute()
+                - other.getDay().getValue() * (24 * 60) - other.getTime().getHour() * 60 - other.getTime().getMinute();
+        int days = diffInMinutes / (24 * 60);
+        diffInMinutes = diffInMinutes % (24 * 60);
+        int hours = diffInMinutes / 60;
+        int minutes = diffInMinutes % 60;
+
+        return new Duration(days, hours, minutes);
     }
 }

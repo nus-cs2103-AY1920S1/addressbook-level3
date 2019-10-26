@@ -23,8 +23,8 @@ public class TimeRange implements Comparable<TimeRange> {
         this(new WeekTime(dayStart, timeStart), new WeekTime(dayEnd, timeEnd));
     }
 
-    public int getDurationInHours() {
-        return end.getHourDifference(start);
+    public Duration getDuration() {
+        return end.minus(start);
     }
 
     public WeekTime getStart() {
@@ -60,11 +60,15 @@ public class TimeRange implements Comparable<TimeRange> {
      */
     @Override
     public int compareTo(TimeRange other) {
-        return this.start.getHourDifference(other.start);
+        return this.start.compareTo(other.start);
     }
 
     public boolean overlap(TimeRange timeRange) {
         return this.start.compareTo(timeRange.end) < 0 && this.end.compareTo(timeRange.start) > 0;
+    }
+
+    public boolean overlapInclusive(TimeRange other) {
+        return this.overlap(other) || this.getEnd().equals(other.getStart()) || this.getStart().equals(other.getEnd());
     }
 
     private static boolean rangeIsValid(WeekTime start, WeekTime end) {

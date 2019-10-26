@@ -1,9 +1,7 @@
 package seedu.address.model.timetable;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -13,22 +11,18 @@ public class TimeTable {
 
     /**
      * Takes in a formatted string of timings.
-     * @param timetable Newline separated TIMEOFWEEK HHMM timings for a timetable
+     * @param timeRanges List of TimeRange to populate the timetable.
      */
-    public TimeTable(String timetable) throws IllegalValueException {
-        timeRanges = new ArrayList<>();
-        // for (String line : timetable.split("\n")) {
-        //     timeRanges.add(ParserUtil.parseTimeRange(line));
-        // }
-        // TODO: THIS IS A VERY VERY UGLY HACK. CHANGE THIS WHEN WE MIGRATE TO STORING TIMETABLE IN MEMBER SO THAT WE DON'T HAVE TO PARSE IT FROM COMMAND LINE
-        String[] splitted = timetable.split(" ");
-        for (int i = 0; i < splitted.length; i += 4) {
-            timeRanges.add(ParserUtil.parseTimeRange(splitted[i] + " " + splitted[1 + i] + " " + splitted[2 + i] + " " + splitted[3 + i]));
-        }
+    public TimeTable(List<TimeRange> timeRanges) throws IllegalValueException {
+        this.timeRanges = timeRanges;
     }
 
     public List<TimeRange> getTimeRanges() {
         return timeRanges;
+    }
+
+    public boolean isAvailable(TimeRange timeRange) {
+        return this.timeRanges.stream().noneMatch(tr -> tr.overlap(timeRange));
     }
 
     @Override
