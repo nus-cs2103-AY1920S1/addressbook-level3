@@ -29,7 +29,7 @@ public class ModuleCode {
     public ModuleCode(String code) {
         requireNonNull(code);
         checkArgument(isValidName(code), MESSAGE_CONSTRAINTS);
-        moduleCode = code;
+        moduleCode = code.toUpperCase();
     }
 
     /**
@@ -42,6 +42,10 @@ public class ModuleCode {
 
     @Override
     public String toString() {
+        return moduleCode;
+    }
+
+    public String getModuleCode() {
         return moduleCode;
     }
 

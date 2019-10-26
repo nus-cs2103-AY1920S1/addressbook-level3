@@ -98,7 +98,6 @@ public class LogicCapManager implements Logic {
         if (model.getModuleCount() != 0) {
             for (Module module : model.getFilteredModuleList()) {
                 letterGrade = module.getGrade().getGrade();
-                System.out.println(letterGrade);
                 modularCredit = (double) module.getCredit().getCredit();
                 numerator += gradeConverter.convertToGradePoint(letterGrade) * modularCredit;
                 denominator += modularCredit;
