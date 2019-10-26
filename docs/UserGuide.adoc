@@ -302,12 +302,12 @@ This removes the custom property from all exercises.
 [TIP]
 `FULL_NAME` denotes the name of the previously defined custom property.
 
-Format: `custom r/FULL_NAME`
+Format: `custom rm/FULL_NAME`
 
 Example:
 
-* `custom r/Ratings`
-* `custom r/Remark`
+* `custom rm/Ratings`
+* `custom rm/Remark`
 
 === Scheduling exercises: `schedule`
 

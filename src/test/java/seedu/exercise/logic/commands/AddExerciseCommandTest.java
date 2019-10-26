@@ -235,6 +235,11 @@ public class AddExerciseCommandTest {
         }
 
         @Override
+        public void removeCustomProperty(String fullName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredRegimeList(Predicate<Regime> predicate) {
             throw new AssertionError("This method should not be called.");
         }

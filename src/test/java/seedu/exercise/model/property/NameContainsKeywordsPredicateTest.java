@@ -1,4 +1,4 @@
-package seedu.exercise.model.resource;
+package seedu.exercise.model.property;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
 import seedu.exercise.testutil.exercise.ExerciseBuilder;
 
 public class NameContainsKeywordsPredicateTest {

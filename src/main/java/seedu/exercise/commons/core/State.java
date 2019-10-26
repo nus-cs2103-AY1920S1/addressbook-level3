@@ -9,5 +9,5 @@ import seedu.exercise.MainApp;
  */
 public enum State {
     IN_CONFLICT,
-    NORMAL;
+    NORMAL
 }

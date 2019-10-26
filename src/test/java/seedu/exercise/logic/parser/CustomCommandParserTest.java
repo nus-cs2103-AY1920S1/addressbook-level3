@@ -27,6 +27,7 @@ import static seedu.exercise.testutil.TypicalCustomProperties.RATING;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.exercise.logic.commands.CustomAddCommand;
 import seedu.exercise.logic.commands.CustomCommand;
 import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.testutil.CustomPropertyBuilder;
@@ -42,22 +43,22 @@ class CustomCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + PREFIX_NAME_DESC_RATING
                         + FULL_NAME_DESC_RATING + PARAMETER_TYPE_DESC_RATING,
-                new CustomCommand(expectedCustomProperty));
+                new CustomAddCommand(expectedCustomProperty));
 
         // multiple short names - last short name accepted
         assertParseSuccess(parser, PREFIX_NAME_DESC_ENDDATE + PREFIX_NAME_DESC_RATING
                         + FULL_NAME_DESC_RATING + PARAMETER_TYPE_DESC_RATING,
-                new CustomCommand(expectedCustomProperty));
+                new CustomAddCommand(expectedCustomProperty));
 
         // multiple full names - last full name accepted
         assertParseSuccess(parser, PREFIX_NAME_DESC_RATING + FULL_NAME_DESC_ENDDATE
                         + FULL_NAME_DESC_RATING + PARAMETER_TYPE_DESC_RATING,
-                new CustomCommand(expectedCustomProperty));
+                new CustomAddCommand(expectedCustomProperty));
 
         // multiple parameter types - last parameter type accepted
         assertParseSuccess(parser, PREFIX_NAME_DESC_RATING + FULL_NAME_DESC_RATING
                         + PARAMETER_TYPE_DESC_ENDDATE + PARAMETER_TYPE_DESC_RATING,
-                new CustomCommand(expectedCustomProperty));
+                new CustomAddCommand(expectedCustomProperty));
     }
 
     @Test

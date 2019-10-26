@@ -1,5 +1,6 @@
 package seedu.exercise.model.property;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.ValidationRegex.ONLY_ALPHABETS_AND_SPACE;
 import static seedu.exercise.commons.core.ValidationRegex.ONLY_NUMBERS;
 
@@ -28,6 +29,7 @@ public enum ParameterType {
      * @return true if and only if the given string is a valid parameter type
      */
     public static boolean isValidParameterType(String string) {
+        requireNonNull(string);
         return string.equals(TEXT.parameterName)
             || string.equals(DATE.parameterName)
             || string.equals(NUMBER.parameterName);

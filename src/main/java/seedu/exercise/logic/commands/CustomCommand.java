@@ -1,70 +1,16 @@
 package seedu.exercise.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CUSTOM_NAME;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_FULL_NAME;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_PARAMETER_TYPE;
-
-import seedu.exercise.logic.commands.exceptions.CommandException;
-import seedu.exercise.logic.parser.Prefix;
-import seedu.exercise.model.Model;
-import seedu.exercise.model.property.CustomProperty;
+import static seedu.exercise.logic.commands.CustomAddCommand.MESSAGE_USAGE_CUSTOM_ADD;
+import static seedu.exercise.logic.commands.CustomRemoveCommand.MESSAGE_USAGE_CUSTOM_REMOVE;
 
 /**
- * Adds a custom property for the exercises.
+ * Represents a CustomCommand with hidden internal logic and the ability to be executed.
  */
-public class CustomCommand extends Command {
-
+public abstract class CustomCommand extends Command {
     public static final String COMMAND_WORD = "custom";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a custom property for the exercises.\n"
-        + "Parameters: "
-        + PREFIX_CUSTOM_NAME + "PREFIX NAME "
-        + PREFIX_FULL_NAME + "FULL NAME "
-        + PREFIX_PARAMETER_TYPE + "PARAMETER TYPE\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_CUSTOM_NAME + "a "
-        + PREFIX_FULL_NAME + "Ratings "
-        + PREFIX_PARAMETER_TYPE + "Number";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add or remove a custom property for exercises\n"
+        + "ADD: " + MESSAGE_USAGE_CUSTOM_ADD + "\n"
+        + "REMOVE: " + MESSAGE_USAGE_CUSTOM_REMOVE;
 
-    public static final String MESSAGE_SUCCESS = "New custom property added: %1$s";
-    public static final String MESSAGE_DUPLICATE_FULL_NAME = "This full name has been used for an "
-        + "existing property";
-    public static final String MESSAGE_DUPLICATE_PREFIX_NAME = "This prefix name has been used for an "
-        + "existing property";
-
-    private final CustomProperty toAdd;
-
-    /**
-     * Creates a CustomCommand to add the specified {@code CustomProperty}.
-     */
-    public CustomCommand(CustomProperty customProperty) {
-        requireNonNull(customProperty);
-        toAdd = customProperty;
-    }
-
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
-        String fullName = toAdd.getFullName();
-        if (model.isFullNameUsed(fullName)) {
-            throw new CommandException(MESSAGE_DUPLICATE_FULL_NAME);
-        }
-
-        Prefix prefix = toAdd.getPrefix();
-        if (model.isPrefixUsed(prefix)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PREFIX_NAME);
-        }
-
-        model.addCustomProperty(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof CustomCommand // instanceof handles nulls
-            && toAdd.equals(((CustomCommand) other).toAdd));
-    }
 }

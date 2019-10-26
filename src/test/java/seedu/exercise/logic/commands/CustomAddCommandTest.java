@@ -9,8 +9,8 @@ import static seedu.exercise.logic.commands.CommandTestUtil.VALID_PARAMETER_TYPE
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_PREFIX_NAME_RATING;
 import static seedu.exercise.logic.commands.CommandTestUtil.VALID_PREFIX_NAME_REMARK;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.logic.commands.CustomCommand.MESSAGE_DUPLICATE_FULL_NAME;
-import static seedu.exercise.logic.commands.CustomCommand.MESSAGE_DUPLICATE_PREFIX_NAME;
+import static seedu.exercise.logic.commands.CustomAddCommand.MESSAGE_DUPLICATE_FULL_NAME;
+import static seedu.exercise.logic.commands.CustomAddCommand.MESSAGE_DUPLICATE_PREFIX_NAME;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.TypicalCustomProperties.RATING;
@@ -27,8 +27,7 @@ import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.testutil.CustomPropertyBuilder;
 
-class CustomCommandTest {
-
+class CustomAddCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
@@ -36,13 +35,13 @@ class CustomCommandTest {
     @Test
     public void execute_customCommandCreated_success() {
         CustomProperty customPropertyToBeCreated = RATING;
-        CustomCommand customCommand = new CustomCommand(customPropertyToBeCreated);
-        String expectedMessage = String.format(CustomCommand.MESSAGE_SUCCESS, customPropertyToBeCreated);
+        CustomAddCommand customAddCommand = new CustomAddCommand(customPropertyToBeCreated);
+        String expectedMessage = String.format(CustomAddCommand.MESSAGE_SUCCESS, customPropertyToBeCreated);
         Model expectedModel = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
                 new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
                 new UserPrefs(), getDefaultPropertyBook());
         expectedModel.getPropertyBook().addCustomProperty(customPropertyToBeCreated);
-        assertCommandSuccess(customCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(customAddCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -55,9 +54,9 @@ class CustomCommandTest {
                 new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
                 new UserPrefs(), getDefaultPropertyBook());
         model1.getPropertyBook().addCustomProperty(rating);
-        CustomCommand customCommand = new CustomCommand(duplicateShortName);
+        CustomAddCommand customAddCommand = new CustomAddCommand(duplicateShortName);
         assertThrows(CommandException.class,
-                MESSAGE_DUPLICATE_PREFIX_NAME, () -> customCommand.execute(model1));
+                MESSAGE_DUPLICATE_PREFIX_NAME, () -> customAddCommand.execute(model1));
     }
 
     @Test
@@ -70,21 +69,21 @@ class CustomCommandTest {
                 new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
                 new UserPrefs(), getDefaultPropertyBook());
         model1.getPropertyBook().addCustomProperty(rating);
-        CustomCommand customCommand = new CustomCommand(duplicateFullName);
+        CustomAddCommand customAddCommand = new CustomAddCommand(duplicateFullName);
         assertThrows(CommandException.class,
-                MESSAGE_DUPLICATE_FULL_NAME, () -> customCommand.execute(model1));
+                MESSAGE_DUPLICATE_FULL_NAME, () -> customAddCommand.execute(model1));
     }
 
     @Test
     public void testEquals() {
-        CustomCommand ratingCustomPropertyCommand = new CustomCommand(RATING);
-        CustomCommand remarkCustomPropertyCommand = new CustomCommand(REMARK);
+        CustomAddCommand ratingCustomPropertyCommand = new CustomAddCommand(RATING);
+        CustomAddCommand remarkCustomPropertyCommand = new CustomAddCommand(REMARK);
 
         // same object -> returns true
         assertTrue(ratingCustomPropertyCommand.equals(ratingCustomPropertyCommand));
 
         // same values -> returns true
-        CustomCommand ratingCustomPropertyCommandCopy = new CustomCommand(RATING);
+        CustomCommand ratingCustomPropertyCommandCopy = new CustomAddCommand(RATING);
         assertTrue(ratingCustomPropertyCommand.equals(ratingCustomPropertyCommandCopy));
 
         // different types -> returns false

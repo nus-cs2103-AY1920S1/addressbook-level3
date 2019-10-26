@@ -18,6 +18,7 @@ import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.property.Name;
+import seedu.exercise.model.property.ParameterType;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
 
@@ -60,7 +61,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_null_throwsNullPointerException() {
+    public void parseName_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
@@ -83,7 +84,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseCalories_null_throwsNullPointerException() {
+    public void parseCalories_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCalories(null));
     }
 
@@ -106,7 +107,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseQuantity_null_throwsNullPointerException() {
+    public void parseQuantity_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseQuantity(null));
     }
 
@@ -129,7 +130,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDate_null_throwsNullPointerException() {
+    public void parseDate_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
     }
 
@@ -152,7 +153,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseUnit_null_throwsNullPointerException() {
+    public void parseUnit_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseUnit(null));
     }
 
@@ -175,7 +176,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseMuscle_null_throwsNullPointerException() {
+    public void parseMuscle_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseMuscle(null));
     }
 
@@ -198,7 +199,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseMuscles_null_throwsNullPointerException() {
+    public void parseMuscles_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseMuscles(null));
     }
 
@@ -220,5 +221,102 @@ public class ParserUtilTest {
             new HashSet<Muscle>(Arrays.asList(new Muscle(VALID_MUSCLE_1), new Muscle(VALID_MUSCLE_2)));
 
         assertEquals(expectedMuscleSet, actualMuscleSet);
+    }
+
+    @Test
+    public void parseFullName_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFullName(null));
+    }
+
+    @Test
+    public void parseFullName_invalidFullName_throwsParseException() {
+        // Contain punctuation -> invalid
+        assertThrows(ParseException.class, () -> ParserUtil.parseFullName("Inv@lid"));
+
+        // Contain number -> invalid
+        assertThrows(ParseException.class, () -> ParserUtil.parseFullName("1nval1d"));
+    }
+
+    @Test
+    public void parseFullName_validFullName_returnsFormattedFullName() throws Exception {
+        // Single letter -> valid
+        String singleLetter = "g";
+        assertEquals("G", ParserUtil.parseFullName(singleLetter));
+
+        // Randomly stylised string with whitespaces -> valid
+        String longName = "ThIs iS a     VaLid    NaME     with lOTs of SPACEs";
+        assertEquals("This Is A Valid Name With Lots Of Spaces", ParserUtil.parseFullName(longName));
+
+        // Correctly stylised string with whitespaces in front -> valid
+        String shortName = "   Short";
+        assertEquals("Short", ParserUtil.parseFullName(shortName));
+    }
+
+    @Test
+    public void parsePrefixName_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePrefixName(null));
+    }
+
+    @Test
+    public void parsePrefixName_invalidPrefixName_throwsParseException() {
+        // EP: Contains number
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrefixName("33"));
+
+        // EP: Contains punctuation
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrefixName("?!"));
+
+        // EP: Contains whitespace
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrefixName("h i"));
+
+        // EP: Mix of punctuation, numbers and alphabets
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrefixName("invalid1234?!"));
+    }
+
+    @Test
+    public void parsePrefixName_validPrefixName_returnsPrefix() throws Exception {
+        // Single letter -> valid
+        String singleLetter = "r";
+        Prefix expectedPrefix1 = new Prefix("r/");
+        assertEquals(expectedPrefix1, ParserUtil.parsePrefixName(singleLetter));
+
+        // Multiple letters with no space -> valid
+        String multipleLetters = "rrrmd";
+        Prefix expectedPrefix2 = new Prefix("rrrmd/");
+        assertEquals(expectedPrefix2, ParserUtil.parsePrefixName(multipleLetters));
+
+        // Randomly stylised letters with no space -> valid
+        String randomlyStylised = "RmRDRd";
+        Prefix expectedPrefix3 = new Prefix("RmRDRd/");
+        assertEquals(expectedPrefix3, ParserUtil.parsePrefixName(randomlyStylised));
+    }
+
+    @Test
+    public void parseParameterType_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseParameterType(null));
+    }
+
+    @Test
+    public void parseParameterType_invalidParameterType_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseParameterType(" "));
+        assertThrows(ParseException.class, () -> ParserUtil.parseParameterType("gG"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseParameterType("123"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseParameterType("?!"));
+    }
+
+    @Test
+    public void parseParameterType_validParameterType_returnsParameterType() throws Exception {
+        // String "Number" -> valid
+        assertEquals(ParameterType.NUMBER, ParserUtil.parseParameterType("Number"));
+
+        // String "Date" -> valid
+        assertEquals(ParameterType.DATE, ParserUtil.parseParameterType("Date"));
+
+        // String "Text" -> valid
+        assertEquals(ParameterType.TEXT, ParserUtil.parseParameterType("Text"));
+    }
+
+    @Test
+    public void parseCustomProperties_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCustomProperties(null));
     }
 }
