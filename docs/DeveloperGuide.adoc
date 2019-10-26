@@ -583,6 +583,8 @@ Additionally, it implements the following operations:
 * `CommandHistory#peekPreviousCmd()` -- Get the previous command in command history.
 * `CommandHistory#hasCommand()` -- Check whether any command is executed.
 
+.Sequence diagram of CommandHistory class
+image::CommandHistoryClassDiagram.png[]
 
 The following sequence diagram shows how the storing operation works:
 
@@ -647,7 +649,7 @@ it will return the last command to the user rather than attempting to get the ne
 The following sequence diagram shows how the Up(`&uarr;`)key works:
 
 .Interactions between components of CommandBox and CommandHistory for the Up(`&uarr;`)key
-image::StoreSequenceDiagram.png[]
+image::UpkeySequenceDiagram.png[]
 
 The Down(`&darr;`) key does the opposite — it calls CommandHistory#peekPreviousCmd(),
 which shifts the statePointer once to the left,
