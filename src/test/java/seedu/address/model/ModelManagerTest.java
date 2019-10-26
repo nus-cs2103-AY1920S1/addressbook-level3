@@ -14,7 +14,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 import static seedu.address.testutil.TypicalPhones.IPHONEXR;
 import static seedu.address.testutil.TypicalSchedules.CBD_SCHEDULE;
-import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
+import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -212,7 +212,7 @@ public class ModelManagerTest {
         DataBook<Phone> phoneBook = new PhoneBookBuilder().withPhone(IPHONEONE).withPhone(IPHONEXR).build();
         DataBook<Order> orderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
         DataBook<Schedule> scheduleBook = new ScheduleBookBuilder().withSchedule(CBD_SCHEDULE)
-                .withSchedule(SCHEDULEONE).build();
+                .withSchedule(MONDAY_SCHEDULE).build();
 
         DataBook<Order> archivedOrderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
 

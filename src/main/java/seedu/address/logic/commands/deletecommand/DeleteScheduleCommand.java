@@ -31,6 +31,7 @@ public class DeleteScheduleCommand extends Command {
     private final Index targetIndex;
 
     public DeleteScheduleCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

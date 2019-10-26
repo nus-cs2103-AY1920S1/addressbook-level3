@@ -410,7 +410,7 @@ public class ParserUtil {
 
         String[] timeArr = time.split("\\.");
         if (timeArr.length != 2) {
-            throw new ParseException(MESSAGE_INVALID_TIME);
+            throw new ParseException(Messages.TIME_MESSAGE_CONSTRAINTS);
         }
         int[] input = new int[3];
 
