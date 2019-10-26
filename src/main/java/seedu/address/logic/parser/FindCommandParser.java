@@ -27,6 +27,8 @@ import seedu.address.model.genre.Genre;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
+    private static final int MAX_LOANSTATE_FLAGS = 1;
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -119,7 +121,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<Flag> loanStates = flagSet.stream()
                 .filter(flag -> flag == Flag.AVAILABLE || flag == Flag.OVERDUE || flag == Flag.LOANED)
                 .collect(Collectors.toList());
-        if (loanStates.size() > 1) {
+        if (loanStates.size() > MAX_LOANSTATE_FLAGS) {
             throw new ParseException(Messages.MESSAGE_LOANSTATE_CONSTRAINTS);
         } else {
             return Optional.of(loanStates.get(0));
