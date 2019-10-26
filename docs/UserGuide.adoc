@@ -220,12 +220,12 @@ Format: `loan out|in p/<person's name> x/<amount> [w/<date>] [d/<description>]`
 
 Displays a list of all loans, sorted alphabetically by person first, then by newest for each person's loans.
 
-Format: `loan list [p/<person ...>] [o|i] [s/<a|p>]`
+Format: `loan list [p/<person ...>] [o|i] [s/<w|x|p>]`
 ****
 * Adding a person's name filters the list to that/those person(s)'s loans only.
 * Adding ‘o’ argument filters list to out loans only.
 * Adding ‘i’ argument filters list to in loans only.
-* Add `s/a` to sort the list by amount, or `s/p` to sort by person.
+* Add `s/w` to sort the list by date, `s/x` to sort by amount, or `s/p` to sort by person.
 ****
 
 ==== Edit loan: `loan edit`
