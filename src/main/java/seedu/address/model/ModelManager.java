@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.history.HistoryManager;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.training.Training;
 
 /**
@@ -24,7 +27,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final Attendance attendance;
     private final FilteredList<Person> filteredPersons;
+    private ReadOnlyAddressBook readOnlyAddressBook;
     private Person selectedPerson;
+    private HistoryManager history = new HistoryManager();
 
 
     /**
@@ -91,6 +96,33 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
+    }
+    
+    @Override
+    public ReadOnlyAddressBook getAddressBookDeepCopy() {
+        UniquePersonList persons = addressBook.getPersons();
+        AddressBook deepCopy = new AddressBook();
+        deepCopy.getPersons().setPersons(persons);
+        return deepCopy;
+    }
+    
+    @Override
+    public void undo() {
+        Command undoneCommand = HistoryManager.commands.pop();
+        ReadOnlyAddressBook undoneAddressBooks = HistoryManager.addressBooks.pop();
+        HistoryManager.undoneCommands.push(undoneCommand);
+        HistoryManager.undoneAddressBooks.push(undoneAddressBooks);
+        ReadOnlyAddressBook afterUndoneState = HistoryManager.addressBooks.peek();
+        addressBook.resetData(afterUndoneState);
+    }
+    
+    @Override
+    public void redo() {
+        Command redoneCommand = HistoryManager.undoneCommands.pop();
+        ReadOnlyAddressBook redoneAddressBook = HistoryManager.undoneAddressBooks.pop();
+        HistoryManager.commands.push(redoneCommand);
+        HistoryManager.addressBooks.push(redoneAddressBook);
+        addressBook.resetData(redoneAddressBook);
     }
 
     @Override
