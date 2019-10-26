@@ -26,7 +26,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void constructorFromTransaction() {
+    public void constructor_transaction_success() {
         Reimbursement reimbursement = new ReimbursementBuilder().build();
         Person person = TypicalPersons.ALICE;
         assertEquals(person, reimbursement.getPerson());

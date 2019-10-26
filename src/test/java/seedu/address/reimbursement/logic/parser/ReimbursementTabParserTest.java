@@ -24,7 +24,7 @@ public class ReimbursementTabParserTest {
     private Model personModel = new ModelManager();
 
     @Test
-    public void parser() {
+    public void parser_invalidCommand_exceptionThrown() {
         assertThrows(Exception.class, () -> parser.parseCommand("command", personModel));
     }
 

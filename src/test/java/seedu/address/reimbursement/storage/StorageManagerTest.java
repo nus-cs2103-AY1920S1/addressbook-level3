@@ -27,7 +27,7 @@ public class StorageManagerTest {
 
 
     @Test
-    public void file_read_save() throws Exception {
+    public void fileReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly writing and reading to the
          * text file.

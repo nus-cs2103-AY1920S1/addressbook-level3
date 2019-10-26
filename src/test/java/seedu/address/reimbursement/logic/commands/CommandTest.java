@@ -28,7 +28,7 @@ import seedu.address.transaction.model.Transaction;
 public class CommandTest {
 
     @Test
-    public void execute_backCommand() {
+    public void execute_backCommand_success() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -44,7 +44,7 @@ public class CommandTest {
     }
 
     @Test
-    public void execute_exitCommand() {
+    public void execute_exitCommand_success() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -60,7 +60,7 @@ public class CommandTest {
     }
 
     @Test
-    public void execute_sortAmountCommand() {
+    public void execute_sortAmountCommand_success() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -76,7 +76,7 @@ public class CommandTest {
     }
 
     @Test
-    public void execute_sortDeadlineCommand() {
+    public void execute_sortDeadlineCommand_success() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -92,7 +92,7 @@ public class CommandTest {
     }
 
     @Test
-    public void execute_sortNameCommand() {
+    public void execute_sortNameCommand_success() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -109,7 +109,7 @@ public class CommandTest {
 
 
     @Test
-    public void execute_deadlineCommand() {
+    public void execute_deadlineCommand_success() {
         Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
         ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice));
@@ -133,7 +133,7 @@ public class CommandTest {
     }
 
     @Test
-    public void execute_doneCommand() {
+    public void execute_doneCommand_success() {
 
         Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
@@ -157,7 +157,7 @@ public class CommandTest {
     }
 
     @Test
-    public void execute_findCommand() {
+    public void execute_findCommand_success() {
         Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
         ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice));

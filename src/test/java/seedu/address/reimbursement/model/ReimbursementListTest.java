@@ -20,13 +20,13 @@ import seedu.address.transaction.util.TransactionList;
 
 public class ReimbursementListTest {
     @Test
-    public void defaultConstructor() {
+    public void constructor_empty_success() {
         ReimbursementList reimbursementList = new ReimbursementList();
         assertEquals(new ArrayList<Reimbursement>(), reimbursementList.getList());
     }
 
     @Test
-    public void constructorFromTransactionList() {
+    public void constructor_transactionList_success() {
         TransactionList transList = new TransactionList();
         transList.add(TypicalTransactions.ALICE_TRANSACTION_10);
         transList.add(TypicalTransactions.ALICE_TRANSACTION_12);

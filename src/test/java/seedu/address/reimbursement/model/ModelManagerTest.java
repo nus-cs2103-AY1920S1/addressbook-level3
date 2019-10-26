@@ -38,14 +38,14 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager(listAliceAmy);
 
     @Test
-    public void updateReimbursementList_transactionListChange() {
+    public void updateReimbursementList_transactionListChange_success() {
         assertEquals(listAliceAmy, modelManager.getReimbursementList());
         modelManager.updateReimbursementList(listAliceBob);
         assertEquals(listAliceBob, modelManager.getReimbursementList());
     }
 
     @Test
-    public void updateReimbursementList_personChange() {
+    public void updateReimbursementList_personChange_success() {
         modelManager.updateReimbursementList(TypicalPersons.AMY, TypicalPersons.BOB);
         assertEquals(listAliceAmy, modelManager.getReimbursementList());
     }
