@@ -16,11 +16,14 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.List;
+import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.typee.commons.core.LogsCenter;
+import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.Location;
 import com.typee.model.person.Person;
@@ -33,7 +36,8 @@ public class PdfUtil {
 
     private static final String FOLDER_PATH = "reports/";
     private static Properties doc_prop;
-    private final static Logger logger = LogsCenter.getLogger(PdfUtil.class);
+    private static final Logger logger = LogsCenter.getLogger(PdfUtil.class);
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-YY_HH:mm");
 
     /**
      * Generates a {@code Report} in .pdf format and opens the file.
@@ -45,11 +49,14 @@ public class PdfUtil {
 
         document = addIntroductionPar(document);
         document.add(createAttendeesTable(engagement.getDescription(), engagement.getLocation(),
-                engagement.getStartTime(), engagement.getEndTime()));
+                engagement.getAttendees(), engagement.getStartTime(), engagement.getEndTime()));
         addConclusion(document, report.getFrom());
         document.close();
     }
 
+    /**
+     * Initialise and instantiates the {@code PdfWriter}.
+     */
     private static Document initDoc(Engagement engagement, Person to) throws IOException, DocumentException {
         String fileName = FOLDER_PATH + generateFileName(engagement);
         Document doc = new Document();
@@ -70,6 +77,9 @@ public class PdfUtil {
         return doc;
     }
 
+    /**
+     * Adds a company logo image in the beginning of the document
+     */
     private static void addCompanyLogo(Document doc) throws IOException, DocumentException {
         Image logo = Image.getInstance(PdfUtil.class.getClassLoader()
                 .getResource("images/company_logo_sample.png"));
@@ -81,6 +91,9 @@ public class PdfUtil {
         doc.add(logo);
     }
 
+    /**
+     * Adds the conclusion and footer paragraph of the document.
+     */
     private static void addConclusion(Document doc, Person from) throws DocumentException {
         Paragraph par = new Paragraph(doc_prop.getProperty("document.conclusion") + "\n"
                 + from + "\n"
@@ -88,10 +101,16 @@ public class PdfUtil {
                 + doc_prop.getProperty("document.sender.contact") + "\n"
                 + doc_prop.getProperty("document.company.address") + "\n"
                 + doc_prop.getProperty("document.company.name"));
-        par.setSpacingBefore(100);
+        par.setSpacingBefore(70);
+        par.setSpacingAfter(30);
+
         doc.add(par);
+        doc.add(new Paragraph(doc_prop.getProperty("document.footer")));
     }
 
+    /**
+     * Adds first introduction paragraph of the document.
+     */
     private static Document addIntroductionPar(Document doc) throws DocumentException {
         Paragraph par = new Paragraph(doc_prop.getProperty("appointment.introduction"));
         par.setSpacingAfter(10);
@@ -103,16 +122,19 @@ public class PdfUtil {
      * Returns a {@code PdfPTable} for Engagement Information
      */
     private static Paragraph createAttendeesTable(String desc, Location venue,
+                                                  AttendeeList attendeeList,
                                                   LocalDateTime startTime, LocalDateTime endTime) {
         PdfPTable table = new PdfPTable(2);
+        table.getDefaultCell().setPadding(10);
+
         PdfPCell cell1 = new PdfPCell(new Paragraph("Engagement Description:"));
         PdfPCell cellDesc = new PdfPCell(new Paragraph(desc));
         PdfPCell cell2 = new PdfPCell(new Paragraph("Venue:"));
         PdfPCell cellVenue = new PdfPCell(new Paragraph(venue.toString()));
         PdfPCell cell3 = new PdfPCell(new Paragraph("Time:"));
-        PdfPCell cellTime = new PdfPCell(new Paragraph(startTime.toString()
-                + " - " + endTime.toString()));
-        PdfPCell cellAttendees = new PdfPCell(new Paragraph("Attendees"));
+        PdfPCell cellTime = new PdfPCell(new Paragraph(startTime.format(dateFormat)
+                + " - " + endTime.format(dateFormat)));
+        PdfPCell cell4 = new PdfPCell(new Paragraph("Attendees"));
 
         table.addCell(cell1);
         table.addCell(cellDesc);
@@ -120,6 +142,14 @@ public class PdfUtil {
         table.addCell(cellVenue);
         table.addCell(cell3);
         table.addCell(cellTime);
+        table.addCell(cell4);
+
+        PdfPCell cellAttendees = new PdfPCell();
+        List orderedAttendeesList = new List();
+        for (Person person : attendeeList.getAttendees()) {
+            orderedAttendeesList.add(new ListItem(person.getName().fullName));
+        }
+        cellAttendees.addElement(orderedAttendeesList);
         table.addCell(cellAttendees);
         
         Paragraph par = new Paragraph();
@@ -132,10 +162,13 @@ public class PdfUtil {
      * Returns a {@code String} of report file name with date followed by description.
      */
     private static String generateFileName(Engagement engagement) {
-        String startTime = engagement.getStartTime().format(DateTimeFormatter.ofPattern("dd-MM-YY_HH:mm"));
+        String startTime = engagement.getStartTime().format(dateFormat);
         return startTime + "_" + engagement.getDescription() + ".pdf";
     }
 
+    /**
+     * Checks if document is already being generated (not implemented yet).
+     */
     private boolean checkIfDocumentExists(String fileName) {
         return false;
     }
