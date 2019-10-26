@@ -17,7 +17,16 @@ endif::[]
 By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
-Njoy
+Njoy is a teacher assistant designed to manage teacher's daily tasks such as generating
+quizzes, managing classes and viewing grades reports.
+
+This documentation serves as an introduction to the architecture and implementation of Njoy,
+and is made for developers who wish to maintain, modify or understand the software development
+behind our application. We adopted the top-down approach; we will first look into high-level architectures
+before exploring implementation details of each feature.
+
+We encourage you to traverse the full path from the high level design to the implementation details
+of the feature you are interested for the most complete understanding.
 
 == Setting up
 
@@ -28,10 +37,11 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Njoy's Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of Njoy.
+Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -409,6 +419,54 @@ The following is a detailed explanation of the operations `QuizGetQuestionsAndAn
 
 * ** Alternatives Considered: **
 ** To be done
+
+[[Feature-Statistics]]
+=== Statistics feature
+
+The slideshow feature allows users of Njoy to generate statistics reports using external files as input data.
+
+Current File Compatibilities: Excel(.xlsx)
+
+A generic data parser of external files is used to generate HashMap of student’s data as specified by the input file. This processed data is passed to a Statistics Model which performs statistical analysis before passing back to the UI for rendering.
+
+(Insert class diagram image)
+
+The following is an example usage scenario where the Actor/User asks Njoy for a statistics report.
+
+*Step 1*. Actor/User inputs a statistics command with data path as specified in user guide. ‘MainWindow#executeCommand(String commandText)’ passes the user input to the ‘LogicManager’.
+
+*Step 2*. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the ‘StatisticsCommandParser’ for retrieving data from the external file. All data file parsers implements the ‘DataParser’ interface.
+
+*Step 3*. Suppose the data was successfully retrieved, Statistics object is generated for data processing and passed into ‘StatisticsAddCommand’.
+
+*Step 4*. Execution of this command results in the processed data being passed to the ‘ModelManager’ using ‘StatisticsAddCommand#execute’.
+
+*Step 5*. The success result of the Statistics command is shown on the GUI and the execution call has returned no ‘MainWindow#executeCommand(String commandText)’. It
+recognises the command was a valid Statistics command and opens window to show the processed data.
+
+[NOTE]
+If the input file is not formatted as specified in the user guide, a ‘ParseException’ would be thrown to show error message as the result. No new window is opened.
+
+=== Design Considerations
+
+===== Rendering UI
+
+* ** Current Implementation: **
+* **Alternative 1 (current choice):** Opens a new window for the report generated.
+** Pros: More space to work with, able to generate more comprehensive report that is easier to view.
+** Cons: Data widgets are no longer stateful, they are newly created every time new report is requested.
+* **Alternative 2:** Render data for current state of the model on the original application.
+** Pros: Stateful, no need to recreate the widget every time there is new input data.
+** Cons: Lack of space, hard to render other UI elements such as the timetable.
+
+===== Aspect: [Proposed] Storing of generated data reports.
+* ** [Proposed] Alternative 1 (preferred choice):** Generate a pdf report every time user requests for the report.
+** Pros: Available for printing, portable.
+** Cons: Can be difficult to implement, need good understanding of API.
+* **Alternative 2:** Render a report from a stored library of reports when requested.
+** Pros: Easy to use, no need to input long file path every time.
+** Cons: User most likely have data stored in respective educational database system. Report generation is not computationally intensive and thus offers little performance advantage for effort.
+// end::Statistics Feature[]
 
 // tag::undoredo[]
 ////
