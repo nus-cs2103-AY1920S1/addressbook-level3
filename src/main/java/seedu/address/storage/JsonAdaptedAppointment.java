@@ -10,7 +10,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.RecurringDateTime;
 import seedu.address.model.datetime.StartDateTime;
-import seedu.address.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Appointment}.

@@ -29,7 +29,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.RecurringDateTime;
 import seedu.address.model.datetime.StartDateTime;
-import seedu.address.model.person.Person;
 
 /**
  * Edits the details of an existing appointment in the appointment book.

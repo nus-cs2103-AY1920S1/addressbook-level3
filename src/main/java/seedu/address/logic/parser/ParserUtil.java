@@ -218,7 +218,7 @@ public class ParserUtil {
     public static Long parseFrequency(String frequency) throws ParseException {
         String trimmedFrequency = frequency.trim();
         if (!RecurringDateTime.isValidFrequency(trimmedFrequency)) {
-            throw new ParseException(EndDateTime.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RecurringDateTime.MESSAGE_CONSTRAINTS);
         }
 
         return RecurringDateTime.getSingleFrequencyAsLong(trimmedFrequency);
