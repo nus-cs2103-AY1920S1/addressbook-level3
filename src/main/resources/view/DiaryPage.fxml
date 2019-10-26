@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -16,34 +17,37 @@
     </stylesheets>
     <top>
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-        <Menu mnemonicParsing="false" text="Financial Tracker">
+        <Menu mnemonicParsing="false" text="My Travel Diary">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
         </Menu>
     </MenuBar>
     </top>
-<center>
-    <VBox fx:id="entries" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-        <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-        </padding>
-        <StackPane fx:id="diaryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-    </VBox>
-</center>
-
-<bottom>
-    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-        <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-        </padding>
-    </StackPane>
-</bottom>
-
-    <right>
-
-    <StackPane fx:id="commandBoxPlaceholder" prefHeight="32.0" prefWidth="339.0" styleClass="pane-with-border">
-        <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-        </padding>
-    </StackPane>
-    </right>
+   <center>
+      <VBox alignment="CENTER_RIGHT" prefHeight="368.0" prefWidth="233.0" BorderPane.alignment="CENTER">
+         <children>
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="624.0" minHeight="100" prefHeight="624.0" prefWidth="152.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+          </StackPane>
+      
+                            <StackPane fx:id="commandBoxPlaceholder" prefHeight="32.0" prefWidth="125.0" styleClass="pane-with-border">
+              <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+          </StackPane>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <ScrollPane prefHeight="485.0" prefWidth="386.0" BorderPane.alignment="CENTER">
+         <content>
+           <StackPane fx:id="diaryListPanelPlaceholder" prefHeight="522.0" prefWidth="385.0" />
+         </content>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </ScrollPane>
+   </left>
 </BorderPane>
