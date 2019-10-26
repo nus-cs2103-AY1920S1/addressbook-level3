@@ -1,11 +1,23 @@
 package seedu.address.diaryfeature.model.exceptions;
 
+/**
+ *
+ */
 public class TitleException extends Exception {
-    final String ERROR_MESSAGE = "Title can't be empty bub! Have a proper title, make your memories recognisable!!!";
+    private final String ERROR_MESSAGE =
+            "Title can't be empty bub! Have a proper title, make your memories recognisable!!!";
 
+    /**
+     *
+     */
     public TitleException() {
         super();
     }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

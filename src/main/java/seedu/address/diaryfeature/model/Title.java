@@ -29,7 +29,7 @@ public class Title {
         //(after the trim in parser) is 0, which means an empty string,
         //then nothing is left and
         //this is a faulty title
-        if(title.equalsIgnoreCase("")) {
+        if (title.equalsIgnoreCase("")) {
             Logger.getLogger("Title is empty");
             throw new TitleException();
         }

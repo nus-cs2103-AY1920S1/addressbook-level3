@@ -1,24 +1,28 @@
 package seedu.address.diaryfeature.model;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 
 
 public class DiaryEntryListTest {
 
-    DiaryEntryList tester = new DiaryEntryList();
+    private DiaryEntryList tester;
 
 
     @Test
-    public void test_DiaryEntryList_Fill_Method() {
+    public void test_diaryEntryList_Fill_Method() {
+        tester = new DiaryEntryList();
         tester.loadSampleData();
-        assertEquals(2,tester.getSize());
+        assertEquals(2, tester.getSize());
     }
 
     @Test
-    public void test_DiaryEntryList_Delete_Method() {
+    public void test_diaryEntryList_Delete_Method() {
+        tester = new DiaryEntryList();
         tester.loadSampleData();
         tester.deleteDiaryEntry(1);
-        assertEquals(1,tester.getSize());
+        assertEquals(1, tester.getSize());
     }
 }

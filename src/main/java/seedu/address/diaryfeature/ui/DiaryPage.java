@@ -1,6 +1,5 @@
 package seedu.address.diaryfeature.ui;
 
-
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;

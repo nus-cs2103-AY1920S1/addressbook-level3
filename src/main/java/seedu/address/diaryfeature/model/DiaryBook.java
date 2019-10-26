@@ -1,6 +1,5 @@
 package seedu.address.diaryfeature.model;
 
-
 import javafx.collections.ObservableList;
 
 
@@ -15,14 +14,13 @@ public class DiaryBook {
 
     public DiaryBook() {
         entries = new DiaryEntryList();
-        if(entries.isEmpty()) {
+        if (entries.isEmpty()) {
             entries.loadSampleData();
         }
         //This is a current, temp version
         //to ensure that my diary list has something
         //when we start
-
-        }
+    }
 
     /**
      * Adds a person to the address book.

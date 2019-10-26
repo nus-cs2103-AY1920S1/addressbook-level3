@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 import seedu.address.diaryfeature.logic.commands.AddCommand;
 import seedu.address.diaryfeature.logic.commands.ErrorCommand;
 import seedu.address.diaryfeature.model.DiaryEntry;
-import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.diaryfeature.model.Title;
 import seedu.address.diaryfeature.model.exceptions.TitleException;
 import seedu.address.logic.commands.Command;
@@ -32,7 +31,7 @@ public class AddCommandParser implements Parser<Command> {
      */
     public Command parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE,PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {

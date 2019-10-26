@@ -37,13 +37,12 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static Title parseTitle(String title) throws TitleException  {
-            requireNonNull(title);
-            String trimmedTitle = title.trim();
-            Title formed = new Title(trimmedTitle);
-            return formed;
+    public static Title parseTitle(String title) throws TitleException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        Title formed = new Title(trimmedTitle);
+        return formed;
     }
-
 
     /**
      * Parses a {@code String name} into a {@code Name}.

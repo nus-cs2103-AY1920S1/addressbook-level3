@@ -48,7 +48,7 @@ public class DiaryBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case GoToCommand.COMMAND_WORD:
-                return new GoToParser().parse(arguments);
+            return new GoToParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

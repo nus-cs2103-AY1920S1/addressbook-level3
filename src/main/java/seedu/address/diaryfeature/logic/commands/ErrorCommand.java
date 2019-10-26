@@ -1,6 +1,5 @@
 package seedu.address.diaryfeature.logic.commands;
 
-
 import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;

@@ -6,10 +6,10 @@ import java.util.Date;
 import java.util.Objects;
 
 
-    /**
-     * Represents a DiaryEntry
-     * Guarantees: details are present and not null, field values are validated, immutable.
-     */
+/**
+ * Represents a DiaryEntry
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class DiaryEntry {
 
     // Identity fields
@@ -35,7 +35,9 @@ public class DiaryEntry {
         return DateFormatter.convertToStringPrint(date);
     }
 
-    public Date getDate() { return date;}
+    public Date getDate() {
+        return date;
+    }
 
 
 

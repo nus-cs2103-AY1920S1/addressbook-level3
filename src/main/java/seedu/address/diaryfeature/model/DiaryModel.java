@@ -1,6 +1,5 @@
 package seedu.address.diaryfeature.model;
 
-
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -25,11 +24,21 @@ public class DiaryModel {
         filteredDiaryBook = new FilteredList<>(this.diaryBook.getDiaryEntryList());
     }
 
-
+    /**
+     *
+     * @param target
+     * @return
+     */
     public DiaryEntry deleteDiaryEntry(int target) {
 
         return diaryBook.deleteDiaryEntry(target);
     }
+
+    /**
+     *
+     * @param diaryEntry
+     * @return
+     */
 
     public DiaryEntry addDiaryEntry (DiaryEntry diaryEntry) {
 

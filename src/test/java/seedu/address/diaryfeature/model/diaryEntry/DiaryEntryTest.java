@@ -1,18 +1,21 @@
 package seedu.address.diaryfeature.model.diaryEntry;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 
-import seedu.address.diaryfeature.model.Title;
+import org.junit.jupiter.api.Test;
+
 import seedu.address.diaryfeature.model.DateFormatter;
 import seedu.address.diaryfeature.model.DiaryEntry;
+import seedu.address.diaryfeature.model.Title;
 import seedu.address.diaryfeature.model.exceptions.TitleException;
+
 
 
 public class DiaryEntryTest {
     private final String TITLE_SAMPLE = "Title";
-    private final String DATE_SAMPLE_AS_STRING =  "12/12/1212 1212";
+    private final String DATE_SAMPLE_AS_STRING = "12/12/1212 1212";
 
     @Test
     public void DiaryEntryConstructor() {
@@ -22,7 +25,7 @@ public class DiaryEntryTest {
         } catch (TitleException | ParseException ex) {
             //Note that this is always correct
         }
-        assertEquals("Title: Title Date: Wed, 12 Dec 1212 12:12:00 SGT",tester.toString());
+        assertEquals("Title: Title Date: Wed, 12 Dec 1212 12:12:00 SGT", tester.toString());
     }
 
 }

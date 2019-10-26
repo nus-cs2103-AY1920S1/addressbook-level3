@@ -24,7 +24,7 @@ public class DeleteCommandParser implements Parser<Command> {
         Index index;
         try {
             index = ParserUtil.parseIndex(args);
-            if(index.getOneBased() < 1) {
+            if (index.getOneBased() < 1) {
                 throw new IndexException("You can't delete something less than 0!!!");
             }
         } catch (ParseException pe) {
