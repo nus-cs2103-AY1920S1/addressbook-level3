@@ -13,50 +13,38 @@ import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
  */
 public class StatusManager {
 
-    private final UniqueDeliverymanList deliverymen;
     private final UniqueStatusList statuses;
 
-    private ObservableList<Deliveryman> availableMen = FXCollections.observableArrayList();
-    private ObservableList<Deliveryman> unavailableMen = FXCollections.observableArrayList();
-    private ObservableList<Deliveryman> deliveringMen = FXCollections.observableArrayList();
+    private final ObservableList<Deliveryman> availableMen = FXCollections.observableArrayList();
+    private final ObservableList<Deliveryman> unavailableMen = FXCollections.observableArrayList();
+    private final ObservableList<Deliveryman> deliveringMen = FXCollections.observableArrayList();
 
-    public StatusManager(UniqueDeliverymanList deliverymenList) {
-        deliverymen = deliverymenList;
+    {
         statuses = new UniqueStatusList();
-        initDeliverymenList(deliverymenList);
-        initStatusLists();
-    }
-
-    // ====== Methods to initialise all the lists when app is opened ==============================================
-    /**
-     * Initialise the deliverymen list when app is re-opened.
-     */
-    public void initDeliverymenList(UniqueDeliverymanList deliverymenList) {
-        for (Deliveryman man: deliverymenList) {
-            deliverymen.add(man);
-        }
     }
 
     /**
-     * Initialise all the statuses of every deliveryman when app is re-opened.
+     * Initialise all the status lists of every deliveryman when app is re-opened.
+     * Can only be called by higher-level classes that uses this class (ie. DeliverymenDatabase)
      */
-    public void initStatusLists() {
-        for (Deliveryman man: deliverymen) {
+    public void initStatusLists(UniqueDeliverymanList deliverymenList) {
+        for (Deliveryman man : deliverymenList) {
             switch (man.getStatus().getDescription()) {
-            case "AVAILABLE":
-                availableMen.add(man);
-                break;
-            case "UNAVAILABLE":
-                availableMen.add(man);
-                break;
-            case "DELIVERING":
-                deliveringMen.add(man);
-                break;
-            default:
-                return;
+                case "AVAILABLE":
+                    availableMen.add(man);
+                    break;
+                case "UNAVAILABLE":
+                    availableMen.add(man);
+                    break;
+                case "DELIVERING":
+                    deliveringMen.add(man);
+                    break;
+                default:
+                    return;
             }
         }
     }
+
     public void addAvailableMan(Deliveryman deliveryman) {
         availableMen.add(deliveryman);
     }

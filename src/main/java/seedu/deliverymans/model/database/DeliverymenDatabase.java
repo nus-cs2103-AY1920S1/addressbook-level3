@@ -23,7 +23,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     {
         deliverymen = new UniqueDeliverymanList();
-        statusManager = new StatusManager(deliverymen);
+        statusManager = new StatusManager();
     }
 
     public DeliverymenDatabase() {}
@@ -34,7 +34,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public DeliverymenDatabase(ReadOnlyDeliverymenDatabase toBeCopied) {
         this();
         resetData(toBeCopied);
-        initStatusManager();
+        statusManager.initStatusLists(deliverymen);
     }
 
     /**
@@ -52,27 +52,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         requireNonNull(newData);
 
         setDeliverymen(newData.getDeliverymenList());
-    }
-
-    /**
-     * Updates the status manager with new data as well.
-     */
-    public void initStatusManager() {
-        for (Deliveryman man: deliverymen) {
-            switch (man.getStatus().getDescription()) {
-            case "AVAILABLE":
-                statusManager.addAvailableMan(man);
-                break;
-            case "UNAVAILABLE":
-                statusManager.addAvailableMan(man);
-                break;
-            case "DELIVERING":
-                statusManager.addDeliveringMan(man);
-                break;
-            default:
-                return;
-            }
-        }
     }
 
     // ========== Basic functions related to deliverymen ==========================================================
