@@ -7,35 +7,33 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddMemberToTaskCommand;
-import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
-import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
+import seedu.address.logic.commands.FireCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.member.MemberId;
 
 /**
  * Parses input arguments and creates a new RemoveMemberFromTask parser object
  */
-public class RemoveMemberFromTaskParser implements Parser<RemoveMemberFromTaskCommand> {
+public class FireCommandParser implements Parser<FireCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteMemberCommand
      * and returns a DeleteMemberCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public RemoveMemberFromTaskCommand parse(String args) throws ParseException {
+    public FireCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK_INDEX, PREFIX_MEMBER_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RemoveMemberFromTaskCommand.MESSAGE_USAGE));
+                    FireCommand.MESSAGE_USAGE));
         }
 
         MemberId id = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
 
-        return new RemoveMemberFromTaskCommand(index, id);
+        return new FireCommand(index, id);
     }
 
     /**

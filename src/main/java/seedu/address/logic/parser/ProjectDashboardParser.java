@@ -8,9 +8,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMemberCommand;
-import seedu.address.logic.commands.AddMemberToTaskCommand;
 import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.commands.AddTaskToMemberCommand;
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteInventoryCommand;
@@ -24,6 +23,7 @@ import seedu.address.logic.commands.EditMemberCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
+import seedu.address.logic.commands.FireCommand;
 import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -31,8 +31,6 @@ import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
-import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
-import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -102,17 +100,12 @@ public class ProjectDashboardParser {
         case ListMemberCommand.COMMAND_WORD:
             return new ListMemberCommand();
         // ASSOCIATION
-        case AddTaskToMemberCommand.COMMAND_WORD:
-            return new AddTaskToMemberParser().parse(arguments);
+        case AssignCommand.COMMAND_WORD:
+            return new AssignCommandParser().parse(arguments);
 
-        case AddMemberToTaskCommand.COMMAND_WORD:
-            return new AddMemberToTaskParser().parse(arguments);
+        case FireCommand.COMMAND_WORD:
+            return new FireCommandParser().parse(arguments);
 
-        case RemoveTaskFromMemberCommand.COMMAND_WORD:
-            return new RemoveTaskFromMemberParser().parse(arguments);
-
-        case RemoveMemberFromTaskCommand.COMMAND_WORD:
-            return new RemoveMemberFromTaskParser().parse(arguments);
         // INVENTORY
         case ListInventoryCommand.COMMAND_WORD:
             return new ListInventoryCommand();

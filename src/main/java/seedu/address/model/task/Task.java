@@ -41,6 +41,11 @@ public class Task {
         requireAllNonNull(name, tags);
         this.name = name;
         this.taskStatus = taskStatus;
+
+        if (taskStatus.equals(TaskStatus.DOING)) {
+            timeStart = Instant.now();
+        }
+
         this.tags.addAll(tags);
     }
 
@@ -100,6 +105,8 @@ public class Task {
         String timeTaken = " ";
         if (timeEnd == null) {
             timeTaken = " Task has yet to be completed ";
+        } else if (timeStart == null) {
+            timeTaken = " Task inputted was done from time of input.";
         } else {
             Duration timeElasped = Duration.between(timeStart, timeEnd);
             timeTaken = timeElasped.toHours() + " hours";
