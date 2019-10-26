@@ -21,6 +21,7 @@ import java.util.List;
 
 import organice.commons.core.index.Index;
 import organice.logic.commands.exceptions.CommandException;
+import organice.logic.parser.MatchCommandParser;
 import organice.model.AddressBook;
 import organice.model.Model;
 import organice.model.person.NameContainsKeywordsPredicate;
@@ -46,6 +47,7 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_DONOR_JOHN = "T1312123P";
     public static final String VALID_NRIC_PATIENT_BOB = "G2222222B";
     public static final String VALID_NRIC_PATIENT_IRENE = "S1111112A";
+    public static final String VALID_NRIC_DONOR_IRENE_DONOR = "S9876543G";
 
     public static final String VALID_TYPE_DOCTOR_AMY = "doctor";
     public static final String VALID_TYPE_DONOR_JOHN = "donor";
@@ -60,12 +62,15 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_PATIENT_BOB = "medium";
 
     public static final String VALID_BLOOD_TYPE_DONOR_JOHN = "A";
-    public static final String VALID_BLOOD_TYPE_PATIENT_BOB = "B+";
+    public static final String VALID_BLOOD_TYPE_PATIENT_BOB = "B";
     public static final String VALID_BLOOD_TYPE_PATIENT_IRENE = "O";
 
     public static final String VALID_TISSUE_TYPE_DONOR_JOHN = "1,2,3,4,5,6";
     public static final String VALID_TISSUE_TYPE_PATIENT_BOB = "7,8,9,10,11,12";
     public static final String VALID_TISSUE_TYPE_PATIENT_IRENE = "1,4,7,10,11,12";
+
+    public static final String COMPATIBLE_TISSUE_TYPE_IRENE = "1,4,5,6,10,11";
+    public static final String INCOMPATIBLE_TISSUE_TYPE_IRENE = "9,1,2,3,5,6";
 
     public static final String VALID_ORGAN_DONOR_JOHN = "kidney";
     public static final String VALID_ORGAN_PATIENT_BOB = "kidney";
@@ -144,6 +149,9 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_MATCHCOMMAND_ALL = " " + PREFIX_NRIC + MatchCommandParser.ALL;
+    public static final String INVALID_MATCHCOMMAND_ALL = " " + PREFIX_NRIC + "al";
 
     public static final EditCommand.EditPersonDescriptor DESC_DOCTOR_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_PATIENT_BOB;

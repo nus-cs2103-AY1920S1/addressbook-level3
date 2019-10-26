@@ -108,5 +108,4 @@ public class Patient extends Person {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(type, nric, name, phone, age, bloodType, tissueType, organ, doctorInCharge);
     }
-
 }

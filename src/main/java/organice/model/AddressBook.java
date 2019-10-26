@@ -6,8 +6,10 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import organice.model.person.Nric;
+import organice.model.person.Patient;
 import organice.model.person.Person;
 import organice.model.person.UniquePersonList;
+import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -76,6 +78,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a patient with the specified Nric exists in ORGANice.
+     */
+    public boolean hasPatient(Nric patient) {
+        requireNonNull(patient);
+        return persons.containsPatient(patient);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -101,6 +111,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Retrieves the {@code Patient} with the specified {@code Nric}.
+     * {@code Nric} must exist in ORGANice.
+     */
+    public Patient getPatient(Nric patientNric) throws PersonNotFoundException {
+        return persons.getPatient(patientNric);
     }
 
     //// util methods

@@ -7,15 +7,21 @@ import static organice.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static organice.testutil.Assert.assertThrows;
 import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
 import static organice.testutil.TypicalPersons.DOCTOR_BENSON;
+import static organice.testutil.TypicalPersons.DONOR_IRENE_DONOR;
+import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import organice.commons.core.GuiSettings;
+import organice.model.person.MatchedDonor;
+import organice.model.person.MatchedPatient;
 import organice.model.person.NameContainsKeywordsPredicate;
+import organice.model.person.Person;
 import organice.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -107,6 +113,63 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void addMatchedDonor_success() {
+        MatchedDonor matchedDonor = new MatchedDonor(DONOR_IRENE_DONOR);
+        modelManager.addMatchedDonor(matchedDonor);
+
+        List<Person> listOfMatches = modelManager.getMatchList();
+        assertEquals(1, listOfMatches.size());
+    }
+
+    @Test
+    public void addMatchedPatient_success() {
+        MatchedPatient matchedPatient = new MatchedPatient(PATIENT_IRENE);
+        modelManager.addMatchedPatient(matchedPatient);
+
+        List<Person> listOfMatches = modelManager.getMatchList();
+        assertEquals(1, listOfMatches.size());
+
+    }
+
+    @Test
+    public void matchDonors() {
+        modelManager.addPerson(PATIENT_IRENE);
+        modelManager.addPerson(DONOR_IRENE_DONOR);
+
+        MatchedDonor matchedDonor = new MatchedDonor(DONOR_IRENE_DONOR);
+
+        modelManager.matchDonors(PATIENT_IRENE);
+        List<Person> listOfMatches = modelManager.getMatchList();
+        MatchedDonor matchedDonorAfterMatching = (MatchedDonor) listOfMatches.get(0);
+
+        assertEquals(matchedDonor, matchedDonorAfterMatching);
+    }
+
+    @Test
+    public void matchAllPatients() {
+        modelManager.addPerson(PATIENT_IRENE);
+        modelManager.addPerson(DONOR_IRENE_DONOR);
+
+        MatchedPatient matchedPatient = new MatchedPatient(PATIENT_IRENE);
+
+        modelManager.matchAllPatients();
+        List<Person> listOfMatches = modelManager.getMatchList();
+        MatchedPatient matchedPatientAfterMatching = (MatchedPatient) listOfMatches.get(0);
+
+        assertEquals(matchedPatient, matchedPatientAfterMatching);
+    }
+
+    @Test
+    public void removeMatches() {
+        MatchedDonor matchedDonor = new MatchedDonor(DONOR_IRENE_DONOR);
+        modelManager.addMatchedDonor(matchedDonor);
+
+        modelManager.removeMatches();
+        List<Person> listOfMatches = modelManager.getMatchList();
+        assertEquals(0, listOfMatches.size());
     }
 
     @Test
