@@ -9,7 +9,6 @@ import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 
 /**
  * API of the Logic component
@@ -27,7 +26,7 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the list of loans.
      */
-    SortedList<Loan> getSortedLoanList();
+    ObservableList<Loan> getLoanList();
 
     /**
      * Returns an unmodifiable view of the list of debtors.
