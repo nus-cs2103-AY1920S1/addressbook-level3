@@ -81,7 +81,7 @@ public class AddRepeaterCommand extends Command {
         int endYear = toAdd.getEndDate().getYear().yearNumber;
 
         while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
-            if (!toAdd.getMonthStartOffset().isEmpty()) {
+            if (!toAdd.getMonthStartOffset().isIgnored()) {
                 Transaction transaction = new Transaction(
                         toAdd.getDescription(),
                         toAdd.getAmount(),
@@ -95,7 +95,7 @@ public class AddRepeaterCommand extends Command {
                 model.addTransaction(transaction);
             }
 
-            if (!toAdd.getMonthEndOffset().isEmpty()) {
+            if (!toAdd.getMonthEndOffset().isIgnored()) {
                 int daysInMonth;
                 if ((new Month(String.valueOf(currentMonth))).has30Days()) {
                     daysInMonth = 30;
