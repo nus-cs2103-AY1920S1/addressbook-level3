@@ -55,11 +55,12 @@ public class PerformanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (!model.hasEvent(new Event(event))) {
+        Event createdEvent = new Event(event);
+
+        if (!model.hasEvent(createdEvent)) {
             throw new CommandException(String.format(Event.MESSAGE_CONSTRAINTS, event));
         }
 
-        Event createdEvent = new Event(event);
         Person athlete = lastShownList.get(index.getZeroBased());
         Record record = createRecord();
         String response = createdEvent.addPerformance(athlete, record);

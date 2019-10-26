@@ -142,6 +142,15 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String event} into a {@code Event}
+     */
+    public static String parseEvent(String event) {
+        requireNonNull(event);
+        String trimmedEvent = event.trim().toLowerCase();
+        return trimmedEvent;
+    }
+
+    /**
      * Parses {@code String date} into a {@code String}
      */
     public static String parseDate(String date) {
