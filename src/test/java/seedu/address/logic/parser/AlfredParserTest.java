@@ -84,7 +84,6 @@ public class AlfredParserTest {
         assertEquals(new DeleteMentorCommand(INDEX_FIRST_MENTOR), deleteMentorCommand);
     }
 
-    @Disabled
     @Test
     public void parseCommand_edit() throws Exception {
         Mentor mentor = new MentorBuilder().build();
@@ -93,8 +92,11 @@ public class AlfredParserTest {
                 .parseCommand(EditMentorCommand.COMMAND_WORD + " mentor " + mentor.getId().toString()
                 + " " + MentorUtil.getEditMentorDescriptorDetails(mentorDescriptor));
 
-        assertEquals(new EditMentorCommand(INDEX_FIRST_MENTOR, mentorDescriptor), command);
+        System.out.println(EditMentorCommand.COMMAND_WORD + " mentor " + mentor.getId().toString()
+                + " " + MentorUtil.getEditMentorDescriptorDetails(mentorDescriptor));
+        System.out.println(mentor.toString());
 
+        assertEquals(new EditMentorCommand(INDEX_FIRST_MENTOR, mentorDescriptor), command);
     }
 
     @Test
