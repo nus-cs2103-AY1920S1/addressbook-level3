@@ -65,8 +65,8 @@ public class PayCommand extends Command {
                 model.getServingBorrower().getOutstandingFineAmount());
         String changeInDollars = FineUtil.centsToDollarString(change);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, amountPaidInDollars, servingBorrower,
-                outstandingFineInDollars, changeInDollars));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, amountPaidInDollars,
+                model.getServingBorrower(), outstandingFineInDollars, changeInDollars));
     }
 
     @Override

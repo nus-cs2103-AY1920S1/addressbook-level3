@@ -103,6 +103,7 @@ public class CommandTestUtil {
     public static final String VALID_RENEW_PERIOD_2_DESC = " " + PREFIX_RENEW_PERIOD + VALID_RENEW_PERIOD_2;
     public static final String VALID_FINE_INCREMENT_2_DESC = " " + PREFIX_FINE_INCREMENT + VALID_FINE_INCREMENT_2;
 
+    public static final int VALID_CENT_AMOUNT = 120;
 
 
     public static final EditCommand.EditBookDescriptor DESC_BOOK_1;
