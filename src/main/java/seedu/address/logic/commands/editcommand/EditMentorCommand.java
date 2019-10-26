@@ -101,7 +101,7 @@ public class EditMentorCommand extends EditCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.logic.commands.EditCommand)) {
+        if (!(other instanceof EditMentorCommand)) {
             return false;
         }
 

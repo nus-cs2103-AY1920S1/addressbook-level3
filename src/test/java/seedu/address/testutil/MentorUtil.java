@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
 
 import seedu.address.logic.commands.addcommand.AddMentorCommand;
 import seedu.address.logic.commands.editcommand.EditMentorCommand;
+import seedu.address.logic.commands.editcommand.EditMentorCommand.EditMentorDescriptor;
 import seedu.address.model.entity.Mentor;
 
 /**
@@ -39,7 +40,7 @@ public class MentorUtil {
     /**
      * Returns the part of command string for the given {@code EditMentorDescriptor}'s details.
      */
-    public static String getEditMentorDescriptorDetails(EditMentorCommand.EditMentorDescriptor descriptor) {
+    public static String getEditMentorDescriptorDetails(EditMentorDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

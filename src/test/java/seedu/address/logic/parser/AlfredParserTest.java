@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MENTOR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TEAM;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PARTICIPANT;
+import static seedu.address.testutil.TypicalIds.ID_FIRST_MENTOR;
 
 import java.util.Arrays;
 import java.util.List;
@@ -86,17 +87,14 @@ public class AlfredParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
+        // Checking if parse mentor command is called appropriately.
         Mentor mentor = new MentorBuilder().build();
         EditMentorDescriptor mentorDescriptor = new EditMentorDescriptorBuilder(mentor).build();
-        EditCommand command = (EditMentorCommand) parser
+        EditMentorCommand command = (EditMentorCommand) parser
                 .parseCommand(EditMentorCommand.COMMAND_WORD + " mentor " + mentor.getId().toString()
                 + " " + MentorUtil.getEditMentorDescriptorDetails(mentorDescriptor));
 
-        System.out.println(EditMentorCommand.COMMAND_WORD + " mentor " + mentor.getId().toString()
-                + " " + MentorUtil.getEditMentorDescriptorDetails(mentorDescriptor));
-        System.out.println(mentor.toString());
-
-        assertEquals(new EditMentorCommand(INDEX_FIRST_MENTOR, mentorDescriptor), command);
+        assertEquals(new EditMentorCommand(ID_FIRST_MENTOR, mentorDescriptor), command);
     }
 
     @Test
