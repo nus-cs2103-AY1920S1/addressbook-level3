@@ -1,6 +1,9 @@
 package budgetbuddy.model.rule.expression;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import budgetbuddy.logic.rules.RuleProcessingUtil;
 
@@ -10,16 +13,16 @@ import budgetbuddy.logic.rules.RuleProcessingUtil;
  */
 public enum Operator {
     // Predicate operators
-    LESS_THAN("<", RuleProcessingUtil.TYPE_AMOUNT),
-    MORE_THAN(">", RuleProcessingUtil.TYPE_AMOUNT),
-    LESS_EQUAL("<=", RuleProcessingUtil.TYPE_AMOUNT),
-    MORE_EQUAL(">=", RuleProcessingUtil.TYPE_AMOUNT),
-    EQUAL_TO("=", RuleProcessingUtil.TYPE_AMOUNT),
-    CONTAINS("contains", RuleProcessingUtil.TYPE_DESC),
+    LESS_THAN("<", RuleProcessingUtil.TYPE_NUMBER),
+    MORE_THAN(">", RuleProcessingUtil.TYPE_NUMBER),
+    LESS_EQUAL("<=", RuleProcessingUtil.TYPE_NUMBER),
+    MORE_EQUAL(">=", RuleProcessingUtil.TYPE_NUMBER),
+    EQUAL_TO("=", RuleProcessingUtil.TYPE_NUMBER),
+    CONTAINS("contains", RuleProcessingUtil.TYPE_STRING, RuleProcessingUtil.TYPE_NUMBER),
 
     // Action operators
-    SET_CATEGORY("setcategory", RuleProcessingUtil.TYPE_CATEGORY),
-    SET_DESC("setdesc", RuleProcessingUtil.TYPE_DESC);
+    SET_CATEGORY("setcategory", RuleProcessingUtil.TYPE_STRING),
+    SET_DESC("setdesc", RuleProcessingUtil.TYPE_STRING);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Operators should be valid for their expression and not be blank\n"
@@ -30,11 +33,11 @@ public enum Operator {
                     .orElse("");
 
     private final String representation;
-    private final String expectedType;
+    private final Set<String> expectedTypes = new HashSet<>();
 
-    Operator(String representation, String expectedType) {
+    Operator(String representation, String... expectedType) {
         this.representation = representation;
-        this.expectedType = expectedType;
+        this.expectedTypes.addAll(Arrays.asList(expectedType));
     }
 
     /**
@@ -58,10 +61,10 @@ public enum Operator {
     }
 
     /**
-     * Returns the type that this operator expects from its arguments.
+     * Returns the set of types that this operator expect from its arguments.
      */
-    public String getExpectedType() {
-        return expectedType;
+    public Set<String> getExpectedTypes() {
+        return Collections.unmodifiableSet(expectedTypes);
     }
 
     @Override

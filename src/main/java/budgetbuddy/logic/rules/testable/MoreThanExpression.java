@@ -26,6 +26,6 @@ public class MoreThanExpression extends TestableExpression {
         requireNonNull(txn);
         long left = (long) RuleProcessingUtil.extractAttribute(attribute, txn);
         long right = Long.parseLong(value.toString());
-        return left > right;
+        return left >= 0 && left > right;
     }
 }

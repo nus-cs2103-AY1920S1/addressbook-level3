@@ -9,8 +9,9 @@ import budgetbuddy.logic.rules.RuleProcessingUtil;
  * Guarantees: immutable; is valid as declared in {@link #isValidAttribute(String)}
  */
 public enum Attribute {
-    DESCRIPTION("description", RuleProcessingUtil.TYPE_DESC),
-    AMOUNT("amount", RuleProcessingUtil.TYPE_AMOUNT),
+    DESCRIPTION("desc", RuleProcessingUtil.TYPE_STRING),
+    OUT_AMOUNT("outamt", RuleProcessingUtil.TYPE_NUMBER),
+    IN_AMOUNT("inamt", RuleProcessingUtil.TYPE_NUMBER),
     DATE("date", RuleProcessingUtil.TYPE_DATE);
 
     public static final String MESSAGE_CONSTRAINTS =

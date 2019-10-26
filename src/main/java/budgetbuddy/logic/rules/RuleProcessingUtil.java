@@ -34,10 +34,9 @@ import budgetbuddy.model.transaction.Transaction;
  * Contains utility methods and constants used for processing rules.
  */
 public class RuleProcessingUtil {
-    public static final String TYPE_DESC = "DESCRIPTION";
-    public static final String TYPE_AMOUNT = "AMOUNT";
+    public static final String TYPE_STRING = "STRING";
+    public static final String TYPE_NUMBER = "NUMBER";
     public static final String TYPE_DATE = "DATE";
-    public static final String TYPE_CATEGORY = "CATEGORY";
     private static final HashMap<Operator, BiFunction<Attribute, Value, TestableExpression>> testableMap;
     private static final HashMap<Operator, Function<Value, PerformableExpression>> performableMap;
 
@@ -68,9 +67,12 @@ public class RuleProcessingUtil {
         switch (attribute) {
         case DESCRIPTION:
             return txn.getDescription();
-        case AMOUNT:
-            long sign = txn.getDirection().equals(Direction.IN) ? 1 : -1;
-            return sign * txn.getAmount().toLong();
+        case IN_AMOUNT:
+            return (txn.getDirection().equals(Direction.IN) ? 1 : -1)
+                    * (txn.getAmount().toLong() / 100);
+        case OUT_AMOUNT:
+            return (txn.getDirection().equals(Direction.OUT) ? 1 : -1)
+                    * (txn.getAmount().toLong() / 100);
         case DATE:
             return txn.getDate();
         default:
@@ -126,11 +128,10 @@ public class RuleProcessingUtil {
      */
     public static boolean isValueParsable(String typeName, Value value) {
         switch (typeName) {
-        case TYPE_DESC:
-        case TYPE_CATEGORY:
+        case TYPE_STRING:
             // don't have to handle since value already stored as string
             break;
-        case TYPE_AMOUNT:
+        case TYPE_NUMBER:
             try {
                 Long.parseLong(value.toString());
                 break;
