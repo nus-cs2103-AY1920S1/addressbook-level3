@@ -33,7 +33,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String EDIT_MESSAGE = "edit [index] [type]/[details]";
     private static final String DONE_MESSAGE = "done [index]";
     private static final String LIST_MESSAGE = "list";
-    private static final String SORT_MESSAGE = "sort by/[alphabetical | chronological | completion]";
+    private static final String SORT_MESSAGE = "sort by/[title | location | chronological | completion]";
     private static final String REDO_MESSAGE = "redo";
     private static final String UNDO_MESSAGE = "undo";
     private static final String SEARCH_MESSAGE = "search by/[title | date | time | location] [keyword]";

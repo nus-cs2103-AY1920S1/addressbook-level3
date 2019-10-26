@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.itinerary.commands.SortCommand;
 import seedu.address.itinerary.model.event.Date;
 import seedu.address.itinerary.model.event.Description;
 import seedu.address.itinerary.model.event.Location;
@@ -116,5 +117,15 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    public static String parseType(String type) throws ParseException {
+        String trimmedType = type.trim();
+        if (type.equals("title") || type.equals("chronological") || type.equals("completion")
+            || type.equals("location")) {
+            return trimmedType;
+        } else {
+            throw new ParseException(SortCommand.MESSAGE_FAIL);
+        }
     }
 }
