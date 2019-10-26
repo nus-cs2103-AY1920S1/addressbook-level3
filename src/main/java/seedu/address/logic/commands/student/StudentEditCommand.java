@@ -5,6 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -16,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a student edit command.
@@ -23,24 +25,29 @@ import seedu.address.model.student.Student;
 public class StudentEditCommand extends StudentCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing student\n"
-            + "Full example : student 1 student/newname --> changes student in index 1 to new student with newname\n\n";
-
-    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+            + "Full example : student 1 name/newname --> changes student in index 1 to new student with newname\n\n";
+    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "%1$s has been changed to %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student storage.";
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;
 
     /**
-     * Creates a StudentEditCommand object.
-     *
-     * @param index to edit.
+     * Creates a student edit command.
+     * @param index Index of the student to be edited.
+     * @param editStudentDescriptor Object used to edit the student which was specified.
      */
-    public StudentEditCommand(Index index, EditStudentDescriptor editPersonDescriptor) {
+    public StudentEditCommand(Index index, EditStudentDescriptor editStudentDescriptor) {
         this.index = index;
-        this.editStudentDescriptor = editPersonDescriptor;
+        this.editStudentDescriptor = editStudentDescriptor;
     }
 
+    /**
+     * Executes the student edit command.
+     * @param model {@code Model} which the command should operate on.
+     * @return Command result if the command was executed succesfully.
+     * @throws CommandException if the command was not input in the correct format/index is out of bounds
+     * /a student with the edited name already exists in the student list.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -59,7 +66,7 @@ public class StudentEditCommand extends StudentCommand {
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(generateSuccessMessage(editedStudent), CommandResultType.SHOW_STUDENT);
+        return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS,studentToEdit, editedStudent));
     }
 
 
@@ -71,18 +78,10 @@ public class StudentEditCommand extends StudentCommand {
         assert studentToEdit != null;
 
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
-
-        return new Student(updatedName);
+        Set<Tag> tags = studentToEdit.getTags();
+        return new Student(updatedName,tags);
     }
 
-    /**
-     * Generates a command execution success message.
-     *
-     * @param student that has been added.
-     */
-    private String generateSuccessMessage(Student student) {
-        return "Edited student: " + student;
-    }
 
     @Override
     public boolean equals(Object other) {

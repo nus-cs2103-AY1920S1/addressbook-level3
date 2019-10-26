@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -86,14 +87,29 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.set(index, editedStudent);
     }
 
+    /**
+     * Adds student to student list, with the specified index.
+     * @param index Index that was specified.
+     * @param student Student to be added.
+     */
     public void setStudent(Index index, Student student) {
         internalList.set(index.getZeroBased(), student);
     }
 
+    /**
+     * Removes student with a specified index.
+     * @param index Index that was specified.
+     * @return Student that was removed.
+     */
     public Student remove(Index index) {
         return internalList.remove(index.getZeroBased());
     }
 
+    /**
+     * Removes student with a specified index.
+     * @param index Index(in int) that was specified.
+     * @return Student that was removed.
+     */
     public Student remove(int index) {
         return internalList.remove(index);
     }
@@ -110,6 +126,10 @@ public class UniqueStudentList implements Iterable<Student> {
         }
     }
 
+    /**
+     * Replaces the current list of student with a new list of students.
+     * @param replacement New list of students.
+     */
     public void setStudents(UniqueStudentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -128,10 +148,25 @@ public class UniqueStudentList implements Iterable<Student> {
         internalList.setAll(students);
     }
 
-    public Student getStudent(Index index) {
-        return internalList.get(index.getZeroBased());
+    /**
+     * Gets the index of a specific student in the student list.
+     * @param student Student who's index we want.
+     * @return Index of the student in the student list if present, else return Optional.Empty()
+     */
+    public Optional<Index> getIndex(Student student){
+        requireNonNull(student);
+        for (int i = 0; i < internalList.size(); i++) {
+            if (student.equals(internalList.get(i))) {
+                return Optional.of(Index.fromZeroBased(i));
+            }
+        }
+        return Optional.empty();
     }
 
+    /**
+     * Gets the list of students in string form.
+     * @return List of students in string form.
+     */
     public String getStudentList() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < internalList.size(); i++) {

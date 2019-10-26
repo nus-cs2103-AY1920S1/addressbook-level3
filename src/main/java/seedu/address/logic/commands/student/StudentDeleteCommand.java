@@ -33,6 +33,13 @@ public class StudentDeleteCommand extends StudentCommand {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the delete student command.
+     * @param model {@code Model} which the command should operate on.
+     * @return a command result if the command is executed successfully.
+     * @throws CommandException if the command is not in the proper format/the index specified is
+     * outside the range of the student list.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -47,12 +54,4 @@ public class StudentDeleteCommand extends StudentCommand {
         return new CommandResult(generateSuccessMessage(studentToDelete), CommandResultType.SHOW_STUDENT);
     }
 
-    /**
-     * Generates a command execution success message.
-     *
-     * @param student that has been added.
-     */
-    private String generateSuccessMessage(Student student) {
-        return "Deleted student: " + student;
-    }
 }

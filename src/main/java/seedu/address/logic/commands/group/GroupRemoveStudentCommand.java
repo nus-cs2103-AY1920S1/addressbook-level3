@@ -21,9 +21,9 @@ public class GroupRemoveStudentCommand extends GroupCommand {
     private final int groupIndexNumber;
 
     /**
-     * Creates a QuizRemoveQuestionCommand instance with the appropriate attributes.
-     * @param groupId The identifier of the quiz.
-     * @param groupIndexNumber The question number of the quiz to be removed.
+     * Creates a GroupRemoveStudentCommand instance with the appropriate attributes.
+     * @param groupId The identifier of the group.
+     * @param groupIndexNumber The student number of the group to be removed.
      */
     public GroupRemoveStudentCommand(String groupId, int groupIndexNumber) {
         this.groupId = groupId;

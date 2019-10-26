@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -82,7 +83,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyStudentRecord getSampleStudents() {
         StudentRecord studentRecord = new StudentRecord();
-        Student student = new Student(new seedu.address.model.student.Name("SampleStudent"));
+        Set<Tag> studentTags = new HashSet<>();
+        Student student = new Student(new seedu.address.model.student.Name("SampleStudent"),studentTags);
         studentRecord.addStudent(student);
         return studentRecord;
     }
