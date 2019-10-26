@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -26,6 +27,7 @@ public interface Model {
 
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
+    Predicate<Notes> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -154,12 +156,14 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Reminder> getFilteredReminderList();
 
+    /** Returns an unmodifiable view of the filtered notes list */
+    ObservableList<Notes> getFilteredNotesList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEarningsList(Predicate<Earnings> predicate);
-
 
     void saveCommand(String command);
 
@@ -198,4 +202,9 @@ public interface Model {
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
 
+    boolean hasNotes(Notes note);
+
+    void addNotes(Notes note);
+
+    void updateFilteredNotesList(Predicate<Notes> predicate);
 }

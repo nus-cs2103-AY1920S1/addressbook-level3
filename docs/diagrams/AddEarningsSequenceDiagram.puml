@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddEarningsCommandParser" as AddEarningsCommandParser LOGIC_COLOR
+participant "ae:AddEarningsCommand" as AddEarningsCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add_earnings d/....")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("add_earnings d/....")
+activate AddressBookParser
+
+create AddEarningsCommandParser
+AddressBookParser -> AddEarningsCommandParser
+activate AddEarningsCommandParser
+
+AddEarningsCommandParser --> AddressBookParser
+deactivate AddEarningsCommandParser
+
+AddressBookParser -> AddEarningsCommandParser : parse("d/...")
+activate AddEarningsCommandParser
+
+create AddEarningsCommand
+AddEarningsCommandParser -> AddEarningsCommand
+activate AddEarningsCommand
+
+AddEarningsCommand --> AddEarningsCommandParser : ae
+deactivate AddEarningsCommand
+
+AddEarningsCommandParser --> AddressBookParser : ae
+deactivate AddEarningsCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddEarningsCommandParser -[hidden]-> AddressBookParser
+destroy AddEarningsCommandParser
+
+AddressBookParser --> LogicManager : ae
+deactivate AddressBookParser
+
+LogicManager -> AddEarningsCommand : execute()
+activate AddEarningsCommand
+
+AddEarningsCommand -> Model : hasEarnings(earnings)
+activate Model
+Model --> AddEarningsCommand
+deactivate Model
+
+AddEarningsCommand -> Model : addEarnings(earnings)
+activate Model
+Model --> AddEarningsCommand
+deactivate Model
+
+create CommandResult
+AddEarningsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddEarningsCommand
+deactivate CommandResult
+
+AddEarningsCommand --> LogicManager : result
+deactivate AddEarningsCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

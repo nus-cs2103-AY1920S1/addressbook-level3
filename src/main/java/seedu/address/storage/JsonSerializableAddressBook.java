@@ -15,6 +15,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.storage.commands.JsonAdaptedCommand;
@@ -30,11 +31,13 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_COMMAND = "Commands list contains duplicate command(s).";
     public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
+    public static final String MESSAGE_DUPLICATE_NOTE = "Notes list contains duplicate note(s)";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedEarnings> earning = new ArrayList<>();
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedCommand> commands = new ArrayList<>();
+    private final List<JsonAdaptedNote> notes = new ArrayList<>();
 
 
     /**
@@ -44,11 +47,13 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
                                        @JsonProperty("earning") List<JsonAdaptedEarnings> earning,
                                        @JsonProperty("commands") List<JsonAdaptedCommand> commands,
-                                        @JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
+                                        @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
+                                       @JsonProperty("notes") List<JsonAdaptedNote> notes) {
         this.persons.addAll(persons);
         this.earning.addAll(earning);
         this.commands.addAll(commands);
         this.tasks.addAll(tasks);
+        this.notes.addAll(notes);
 
     }
 
@@ -62,6 +67,7 @@ class JsonSerializableAddressBook {
         earning.addAll(source.getEarningsList().stream().map(JsonAdaptedEarnings::new).collect(Collectors.toList()));
         commands.addAll(source.getCommandsList().stream().map(JsonAdaptedCommand::new).collect(Collectors.toList()));
         tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
+        notes.addAll(source.getNotesList().stream().map(JsonAdaptedNote::new).collect(Collectors.toList()));
 
     }
 
@@ -101,6 +107,15 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
             }
             addressBook.addTask(task);
+
+        }
+
+        for (JsonAdaptedNote jsonAdaptedNotes : notes) {
+            Notes notes = jsonAdaptedNotes.toModelType();
+            if (addressBook.hasNotes(notes)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TASK);
+            }
+            addressBook.addNotes(notes);
 
         }
         return addressBook;

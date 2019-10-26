@@ -2,13 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
-import seedu.address.logic.commands.calendar.FindTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksBasedOnDateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.task.TaskContainsDatePredicate;
-import seedu.address.model.task.TaskContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new ListTasksBasedOnDateCommand object

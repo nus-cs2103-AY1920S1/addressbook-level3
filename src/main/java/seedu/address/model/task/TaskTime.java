@@ -7,8 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-
 /**
  * Represents a Task's time in the calendar.
  * Guarantees: immutable; is valid as declared in {@link #isValidTaskTime(String)}
@@ -94,7 +92,7 @@ public class TaskTime implements Comparable<TaskTime> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             Date thisStarting = simpleDateFormat.parse(starting);
             Date otherStarting = simpleDateFormat.parse(o.starting);
-            return thisStarting.compareTo(otherStarting) ;
+            return thisStarting.compareTo(otherStarting);
         } catch (ParseException ex) {
             return 0;
         }

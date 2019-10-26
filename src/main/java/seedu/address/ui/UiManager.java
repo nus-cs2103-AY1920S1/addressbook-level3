@@ -1,16 +1,11 @@
 package seedu.address.ui;
 
-import java.time.YearMonth;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
@@ -98,6 +93,22 @@ public class UiManager implements Ui {
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
     }
+
+    /**
+     * To change tab to notepad tab/
+     */
+    public static void startNotes() {
+        logger.info("Changing to Notes...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillNotes();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));

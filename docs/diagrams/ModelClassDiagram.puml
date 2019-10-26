@@ -17,16 +17,13 @@ Class ReadOnlyUserPrefs
 
 Package Person {
 Class Person
-Class Address
-Class Email
+Class Attendance
+Class ClassId
+Class Result
+Class Participation
 Class Name
-Class Phone
+Class Picture
 Class UniquePersonList
-}
-
-Package Tag {
-Class Tag
-}
 }
 
 Class HiddenOutside #FFFFFF
@@ -42,15 +39,13 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList o--> "*" Person
+Person *--> Attendance
+Person *--> ClassId
+Person *--> Result
+Person *--> Participation
 Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Person *--> Picture
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
 
 ModelManager -->"1" Person : filtered list
 @enduml

@@ -1,13 +1,11 @@
 package seedu.address.logic.commands.calendar;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.task.TaskContainsDatePredicate;
-import seedu.address.model.task.TaskContainsKeywordsPredicate;
 
 /**
  * Lists all tasks in the address book on a certain date to the user.
