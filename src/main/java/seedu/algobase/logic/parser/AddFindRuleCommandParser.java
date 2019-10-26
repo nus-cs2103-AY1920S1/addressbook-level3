@@ -1,6 +1,7 @@
 package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_DIFFICULTY_RANGE;
 import static seedu.algobase.commons.util.CollectionUtil.isAnyNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.isArrayOfLength;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
@@ -106,6 +107,10 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
             } catch (NumberFormatException | NullPointerException nfe) {
                 throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFindRuleCommand.MESSAGE_USAGE), nfe);
+            } catch (IllegalArgumentException ire) {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_DIFFICULTY_RANGE, DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS),
+                        ire);
             }
         } else {
             difficultyIsInRangePredicate = null;
@@ -123,7 +128,8 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         if (!isAnyNonNull(nameContainsKeywordsPredicate, authorMatchesKeywordPredicate,
             descriptionContainsKeywordsPredicate, sourceMatchesKeywordPredicate,
             difficultyIsInRangePredicate, tagIncludesKeywordsPredicate)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFindRuleCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddFindRuleCommand.MESSAGE_NO_CONSTRAINTS));
         }
 
         ProblemSearchRule findRule = new ProblemSearchRule(name,

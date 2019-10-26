@@ -9,7 +9,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
  */
 public class Difficulty implements Comparable<Difficulty> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric.";
+    public static final String MESSAGE_CONSTRAINTS = "Difficulty should be numeric and between (0, 5].";
     public static final double DIFFICULTY_LOWER_BOUND = 0.0;
     public static final double DIFFICULTY_UPPER_BOUND = 5.0;
     public static final double DEFAULT_DIFFICULTY_VALUE = DIFFICULTY_LOWER_BOUND;

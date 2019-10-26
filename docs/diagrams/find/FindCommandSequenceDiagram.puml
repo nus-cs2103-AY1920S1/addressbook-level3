@@ -30,13 +30,20 @@ activate FindCommandParser
     activate FindCommand
         FindCommand --> FindCommandParser
     deactivate FindCommand
+    [<-- FindCommandParser : FindCommand
 deactivate FindCommandParser
 end box
 
 box "Model" MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 FindCommand -> Model : update
+[-> FindCommand : executed by LogicManager
+activate FindCommand
 activate Model
+Model --> FindCommand
 deactivate Model
+ref over FindCommand: Create CommandResult
+[<-- FindCommand : CommandResult
+deactivate FindCommand
 end box
 @enduml

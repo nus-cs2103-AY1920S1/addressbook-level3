@@ -1,5 +1,7 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
+import static seedu.algobase.commons.util.AppUtil.checkArgument;
+
 import java.util.function.Predicate;
 
 import seedu.algobase.model.problem.Difficulty;
@@ -17,11 +19,14 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
                 return true;
             }
         };
+    public static final String MESSAGE_CONSTRAINTS = "Both the lower and upper bound for a valid difficulty range "
+        + "should be between (0,5] and lower bound should be no greater than upper bound";
     private static final double DEFAULT_BOUND = -1.0;
     private final double lowerBound;
     private final double upperBound;
 
     public DifficultyIsInRangePredicate(double lowerBound, double upperBound) {
+        checkArgument(isValidDifficultyRange(lowerBound, upperBound), MESSAGE_CONSTRAINTS);
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
     }
@@ -29,6 +34,12 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
     private DifficultyIsInRangePredicate() {
         this.lowerBound = DEFAULT_BOUND;
         this.upperBound = DEFAULT_BOUND;
+    }
+
+    private static boolean isValidDifficultyRange(double lowerBound, double upperBound) {
+        return lowerBound > Difficulty.DIFFICULTY_LOWER_BOUND
+                && upperBound <= Difficulty.DIFFICULTY_UPPER_BOUND
+                && lowerBound <= upperBound;
     }
 
     public double getLowerBound() {
