@@ -22,8 +22,8 @@ public class TypicalQuestions {
             .withStatus(Status.PASSED)
             .withDifficulty(Difficulty.EASY)
             .withTopics(Topic.OTHERS)
-            .withTestCases(new TestCase("1 2", "3"),
-                    new TestCase("100 2", "102"))
+            .withTestCases(new TestCase("1 2", "3\n"),
+                    new TestCase("100 2", "102\n"))
             .withUserProgram(new UserProgram("Adder",
                     "public class Adder { public static void main(String[] args) { } }"))
             .build();

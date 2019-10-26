@@ -133,6 +133,19 @@ public class StandardQuestionBankTest {
         this.standardQuestionBank.setQuestions(mockQuestions);
 
         List<Question> originalBankList = new ArrayList<>(questionObservableList);
+        Question questionToRemove = originalBankList.get(1);
+        originalBankList.remove(questionToRemove);
+        this.standardQuestionBank.removeQuestion(questionToRemove);
+        assertTrue(this.matchListData(questionObservableList, originalBankList));
+    }
+
+    @Test
+    void removeQuestionByIndex() {
+        ObservableList<Question> questionObservableList = standardQuestionBank.getReadOnlyQuestionListObservable();
+        List<Question> mockQuestions = this.getMockQuestionData();
+        this.standardQuestionBank.setQuestions(mockQuestions);
+
+        List<Question> originalBankList = new ArrayList<>(questionObservableList);
         this.standardQuestionBank.removeQuestion(1);
         originalBankList.remove(1);
         assertTrue(this.matchListData(questionObservableList, originalBankList));

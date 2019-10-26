@@ -56,6 +56,12 @@ public interface QuestionBank {
     void removeQuestion(int id);
 
     /**
+     * Removes the question given.
+     * @param oldQuestion the question to be removed
+     */
+    void removeQuestion(Question oldQuestion);
+
+    /**
      * Deletes all the questions in the question bank.
      */
     void resetQuestions();

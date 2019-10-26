@@ -75,6 +75,11 @@ public class StandardQuestionBank implements QuestionBank {
     }
 
     @Override
+    public void removeQuestion(Question oldQuestion) {
+        this.questionList.remove(oldQuestion);
+    }
+
+    @Override
     public void resetQuestions() {
         this.questionList.clear();
     }

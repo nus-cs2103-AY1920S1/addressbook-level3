@@ -38,7 +38,7 @@ public class SubmitCommand implements Command {
 
         // Save the user's program first
         Question question = currentlyAttemptingQuestion.get();
-        Question questionWithNewProgram = question.withNewUserProgram(userProgram);
+        Question questionWithNewProgram = question.withNewStatus(Status.ATTEMPTED).withNewUserProgram(userProgram);
         this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
 
         // Submit the user's program
@@ -46,9 +46,9 @@ public class SubmitCommand implements Command {
         try {
             resultsOptional = this.programSubmissionLogic.submitUserProgram(userProgram);
         } catch (IncorrectCanonicalNameException e) {
-            return new CommandResult("Main class needed as entry point.", false, false);
+            throw new CommandException("Main class needed as entry point.");
         } catch (EmptyUserProgramException e) {
-            return new CommandResult("Program must not be empty.", false, false);
+            throw new CommandException("Program must not be empty.");
         }
 
         if (resultsOptional.isEmpty()) {
