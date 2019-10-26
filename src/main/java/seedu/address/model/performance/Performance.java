@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 public class Performance {
 
-    private static ArrayList<Event> events = new ArrayList<>();
+    private static ArrayList<Event> events;
 
+    public Performance() {
+        this.events = new ArrayList<>();
+    }
     /**
      * Retrieves a list of all events.
      * @return List of all events.
@@ -19,6 +22,13 @@ public class Performance {
      */
     public static void addEvent(Event event) {
         events.add(event);
+    }
+
+    /**
+     * Returns true if this event is in Athletick.
+     */
+    public boolean hasEvent(Event event) {
+        return events.contains(event);
     }
 
     /**

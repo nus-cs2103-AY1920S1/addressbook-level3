@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.performance.Event;
-import seedu.address.model.performance.Performance;
 
 /**
  * Adds an event for the performance recording.
@@ -17,25 +16,26 @@ public class EventCommand extends Command {
     public static final String MESSAGE_CREATE_EVENT_SUCCESS = "Event Created: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "%1$s event already exists in Athletick.";
 
-    private final String name;
+    private final Event toAdd;
 
     /**
      * Creates an EventCommand to add the specified event.
-     * @param name of the event.
      */
-    public EventCommand(String name) {
-        requireNonNull(name);
-        this.name = name;
+    public EventCommand(Event event) {
+        requireNonNull(event);
+        toAdd = event;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (Performance.doesEventExist(name)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_EVENT, name));
+        if (model.hasEvent(toAdd)) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_EVENT, toAdd.getName()));
         }
-        Performance.addEvent(new Event(name));
-        return new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, name));
+
+        model.addEvent(toAdd);
+
+        return new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, toAdd.getName()));
     }
 }
