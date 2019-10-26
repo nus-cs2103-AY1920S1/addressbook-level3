@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.scene.Scene;
@@ -12,8 +14,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 //@@author LeonardTay748
 /**
