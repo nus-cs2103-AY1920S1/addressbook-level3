@@ -9,12 +9,15 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -67,6 +70,41 @@ public class AddScheduleCommandTest {
 
         assertThrows(CommandException.class, AddScheduleCommand.MESSAGE_DUPLICATE_SCHEDULE, ()
             -> addScheduleCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_clashingScheduleWithNoAllow_throwsCommandException() throws CommandException {
+        ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
+        AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
+        addScheduleCommand.execute(modelStub);
+
+        Calendar newCalendar = (Calendar) VALID_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.MINUTE, 30);
+        Schedule clash = new ScheduleBuilder().withCalendar(newCalendar).build();
+        Index newIndex = Index.fromOneBased(2);
+        AddScheduleCommand newAddScheduleCommand = new AddScheduleCommand(clash, newIndex, false);
+        String conflict = "\nHere are the list of conflicting schedules:\n" + VALID_SCHEDULE.getCalendarString()
+                + ": Order 1\n";
+
+        assertThrows(CommandException.class, Messages.MESSAGE_SCHEDULE_CONFLICT + conflict, ()
+            -> newAddScheduleCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_clashingScheduleWithAllow_addSuccessful() throws Exception {
+        ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
+        AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
+        addScheduleCommand.execute(modelStub);
+
+        Calendar newCalendar = (Calendar) VALID_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.MINUTE, 10);
+        Schedule clash = new ScheduleBuilder().withCalendar(newCalendar).build();
+        Index newIndex = Index.fromOneBased(2);
+        AddScheduleCommand newAddScheduleCommand = new AddScheduleCommand(clash, newIndex, VALID_ALLOW);
+
+        assertEquals(String.format(AddScheduleCommand.MESSAGE_SUCCESS, clash),
+                newAddScheduleCommand.execute(modelStub).getFeedbackToUser());
+
     }
 
     @Test
@@ -135,14 +173,15 @@ public class AddScheduleCommandTest {
     }
 
     /**
-     * A Model stub that always accept the schedule being added.
+     * A Model stub that always accept the schedule being added unless there are clashes.
      */
     private class ModelStubAcceptingScheduleAdded extends ModelStub {
         final ArrayList<Schedule> schedulesAdded = new ArrayList<>();
         final ObservableList<Order> filteredOrderList = FXCollections.observableArrayList();
 
         public ModelStubAcceptingScheduleAdded() {
-            filteredOrderList.add(VALID_ORDER);
+            filteredOrderList.add(new OrderBuilder().build());
+            filteredOrderList.add(new OrderBuilder().build());
         }
 
         @Override
@@ -169,13 +208,27 @@ public class AddScheduleCommandTest {
 
         @Override
         public void setOrder(Order target, Order order) {
-            filteredOrderList.remove(target);
-            filteredOrderList.add(order);
+            requireNonNull(target);
+            requireNonNull(order);
+            filteredOrderList.set(filteredOrderList.indexOf(target), order);
         }
 
         @Override
         public List<Schedule> getConflictingSchedules(Schedule schedule) {
-            return new ArrayList<>();
+            requireNonNull(schedule);
+
+            Calendar startTime = schedule.getCalendar();
+            Calendar earliestUnconflictedStartTime = (Calendar) startTime.clone();
+            earliestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, -1);
+            Calendar latestUnconflictedStartTime = (Calendar) startTime.clone();
+            latestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, 1);
+
+            List<Schedule> conflicts = schedulesAdded.stream()
+                    .filter(x -> x.getCalendar().after(earliestUnconflictedStartTime))
+                    .filter(x -> x.getCalendar().before(latestUnconflictedStartTime))
+                    .sorted(Comparator.comparing(Schedule::getCalendar))
+                    .collect(Collectors.toList());
+            return conflicts;
         }
     }
 
