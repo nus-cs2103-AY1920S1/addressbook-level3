@@ -21,6 +21,7 @@ public class GroupGetStudentsCommand extends GroupCommand {
 
     /**
      * Creates a GroupGetStudentsCommand instance with the appropriate attributes.
+     *
      * @param groupId The identifier of the group.
      */
     public GroupGetStudentsCommand(String groupId) {
@@ -29,6 +30,7 @@ public class GroupGetStudentsCommand extends GroupCommand {
 
     /**
      * Executes the user command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return The result of the command.
      * @throws CommandException
@@ -36,7 +38,7 @@ public class GroupGetStudentsCommand extends GroupCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST,groupId)); //group doesn't exist
+            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         ListOfGroups.setCurrentlyQueriedGroup(groupId);
         return new CommandResult("Starting group view.", CommandResultType.SHOW_GROUP);
@@ -44,6 +46,7 @@ public class GroupGetStudentsCommand extends GroupCommand {
 
     /**
      * Generates a command execution success message.
+     *
      * @param message The relevant message from the model.
      * @return The String representation of a success message.
      */

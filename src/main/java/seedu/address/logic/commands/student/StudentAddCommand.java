@@ -50,7 +50,7 @@ public class StudentAddCommand extends StudentCommand {
      * @param student that has been added.
      */
     private String generateSuccessMessage(Student student) {
-        return "Added student: " + student;
+        return "Added " + student;
     }
 
     @Override

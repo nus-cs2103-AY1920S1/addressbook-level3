@@ -13,13 +13,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.group.GroupAddStudentCommand;
 import seedu.address.logic.commands.group.GroupCommand;
 import seedu.address.logic.commands.group.GroupCreateManuallyCommand;
 import seedu.address.logic.commands.group.GroupGetStudentsCommand;
 import seedu.address.logic.commands.group.GroupRemoveStudentCommand;
-import seedu.address.logic.commands.question.QuestionDeleteCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

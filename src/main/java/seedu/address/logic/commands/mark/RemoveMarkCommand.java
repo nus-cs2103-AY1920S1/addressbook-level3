@@ -1,5 +1,10 @@
 package seedu.address.logic.commands.mark;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
@@ -7,13 +12,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Student;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-public class RemoveMarkCommand extends MarkCommand{
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes mark from a marked student that already exists in the student list\n"
+/**
+ * Represents a Remove Mark Command.
+ */
+public class RemoveMarkCommand extends MarkCommand {
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Removes mark from a marked student that already exists in the student list\n"
             + "Parameters:\n"
             + "unmark \n"
             + "index/[STUDENT_INDEX]\n"
@@ -36,12 +40,14 @@ public class RemoveMarkCommand extends MarkCommand{
 
     /**
      * Executes the add student command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return a command result if the command is executed successfully.
      * @throws CommandException if the student does not exist in the student list/is already unmarked.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {requireNonNull(model);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Student> lastShownList = model.getFilteredStudentList();
 
         if (toUnmark.getZeroBased() >= lastShownList.size()) {
@@ -49,7 +55,7 @@ public class RemoveMarkCommand extends MarkCommand{
         }
         Student studentToBeUnmarked = lastShownList.get(toUnmark.getZeroBased());
         if (!(studentToBeUnmarked.getIsMarked())) {
-            throw new CommandException(String.format(MESSAGE_STUDENT_ALREADY_UNMARKED,toUnmark.getOneBased()));
+            throw new CommandException(String.format(MESSAGE_STUDENT_ALREADY_UNMARKED, toUnmark.getOneBased()));
         }
         studentToBeUnmarked.setUnmarked();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toUnmark.getOneBased()));

@@ -70,7 +70,7 @@ public class SampleDataUtil {
     public static ReadOnlyStudentRecord getSampleStudents() {
         StudentRecord studentRecord = new StudentRecord();
         Set<Tag> studentTags = new HashSet<>();
-        Student student = new Student(new seedu.address.model.student.Name("SampleStudent"),studentTags);
+        Student student = new Student(new seedu.address.model.student.Name("SampleStudent"), studentTags);
         studentRecord.addStudent(student);
         return studentRecord;
     }

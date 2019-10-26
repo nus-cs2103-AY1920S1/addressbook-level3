@@ -1,18 +1,22 @@
 package seedu.address.logic.parser.mark;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.mark.AddMarkCommand;
-import seedu.address.logic.commands.mark.MarkCommand;
-import seedu.address.logic.commands.mark.RemoveMarkCommand;
-import seedu.address.logic.parser.*;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.*;
 
+import java.util.stream.Stream;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.mark.AddMarkCommand;
+import seedu.address.logic.commands.mark.MarkCommand;
+import seedu.address.logic.commands.mark.RemoveMarkCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.CliSyntax;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a parser for mark commands.
@@ -36,6 +40,12 @@ public class MarkCommandParser implements Parser<MarkCommand> {
         }
     }
 
+    /**
+     * Marks a student.
+     * @param argMultimap Arugments Multimap.
+     * @return Adds mark to a student.
+     * @throws ParseException If the input is in a wrong format.
+     */
     private AddMarkCommand markCommand(ArgumentMultimap argMultimap) throws ParseException {
         Index index;
         try {
@@ -50,6 +60,12 @@ public class MarkCommandParser implements Parser<MarkCommand> {
         return new AddMarkCommand(index);
     }
 
+    /**
+     * Unmarks a student.
+     * @param argMultimap Arugments Multimap.
+     * @return Removes mark from a student.
+     * @throws ParseException If the input is in a wrong format.
+     */
     private RemoveMarkCommand unmarkCommand(ArgumentMultimap argMultimap) throws ParseException {
         Index index;
         try {

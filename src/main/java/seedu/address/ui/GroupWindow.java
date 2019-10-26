@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,21 +14,22 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.student.Student;
 
-import java.util.logging.Logger;
-
+/**
+ * Represents the window to display a group of students.
+ */
 public class GroupWindow extends UiPart<Stage> {
     private static final String FXML = "GroupWindow.fxml";
     private static final Logger logger = LogsCenter.getLogger(GroupWindow.class);
 
     @FXML
-    private Label groupID;
+    private Label groupId;
     @FXML
     private ListView<Student> studentListView;
 
     public GroupWindow(Stage root) {
-        super(FXML,root);
+        super(FXML, root);
         //root.setFullScreen(true);
-        groupID.setText(ListOfGroups.getCurrentlyQueriedGroup());
+        groupId.setText(ListOfGroups.getCurrentlyQueriedGroup());
         // Set keyboard listener
         root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent keyEvent) -> {
             if (keyEvent.getCode() == KeyCode.ESCAPE) {

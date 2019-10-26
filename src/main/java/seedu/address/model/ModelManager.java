@@ -76,7 +76,7 @@ public class ModelManager implements Model {
                 savedQuizzes, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
-            "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+                "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.groupList = new ListOfGroups();
@@ -202,7 +202,7 @@ public class ModelManager implements Model {
     @Override
     public void setStudentWithIndex(Index index, Student student) {
         requireAllNonNull(index, student);
-        studentRecord.setStudentWithIndex(index,student);
+        studentRecord.setStudentWithIndex(index, student);
     }
 
     @Override
@@ -232,28 +232,31 @@ public class ModelManager implements Model {
 
     /**
      * Mark a student who is struggling academically.
+     *
      * @param student Student who is struggling with academics.
      */
-    public void markStudent(Student student){
+    public void markStudent(Student student) {
         student.setMarked();
     }
 
     /**
      * Unmark a student who has been wrongly marked/has made significant improvements and
      * no longer needs to be monitored.
+     *
      * @param student
      */
-    public void unmarkStudent(Student student){
+    public void unmarkStudent(Student student) {
         student.setUnmarked();
     }
 
-    public boolean getIsMarked(Student student){
+    public boolean getIsMarked(Student student) {
         return student.getIsMarked();
     }
     //region Students
 
     /**
      * Checks if the student list has a particular student.
+     *
      * @param student Student to be checked.
      * @return true if the student is present in the list of students.
      */
@@ -265,6 +268,7 @@ public class ModelManager implements Model {
 
     /**
      * Gets the student record in read only format.
+     *
      * @return Read only version of the student record.
      */
     @Override
@@ -274,6 +278,7 @@ public class ModelManager implements Model {
 
     /**
      * Deletes a student in the student list.
+     *
      * @param target Student to be deleted.
      */
     @Override
@@ -283,6 +288,7 @@ public class ModelManager implements Model {
 
     /**
      * Adds student to student list.
+     *
      * @param student Student to be added.
      */
     @Override
@@ -293,7 +299,8 @@ public class ModelManager implements Model {
 
     /**
      * Edits a student that is currently in the student list to a new student.
-     * @param target Student to be edited.
+     *
+     * @param target        Student to be edited.
      * @param editedStudent New student.
      */
     @Override
@@ -304,6 +311,7 @@ public class ModelManager implements Model {
 
     /**
      * Gets string representation of the student list.
+     *
      * @return String representation of the student list.
      */
     @Override
@@ -313,6 +321,7 @@ public class ModelManager implements Model {
     //endregion
 
     //region Group
+
     /**
      * Creates a group manually.
      */
@@ -379,8 +388,8 @@ public class ModelManager implements Model {
      * @return Observable list of students in the currently queried group.
      */
     public ObservableList<Student> getObservableListStudentsFromGroup() {
-        String groupID = ListOfGroups.getCurrentlyQueriedGroup();
-        int groupIndex = groupList.getGroupIndex(groupID);
+        String groupId = ListOfGroups.getCurrentlyQueriedGroup();
+        int groupIndex = groupList.getGroupIndex(groupId);
         ObservableList<Student> studentList = null;
         if (groupIndex != -1) {
             Group group = groupList.getGroup(groupIndex);
@@ -391,9 +400,10 @@ public class ModelManager implements Model {
 
     /**
      * Check if group exists.
+     *
      * @param groupId ID of the specified group.
      */
-    public boolean checkGroupExists(String groupId){
+    public boolean checkGroupExists(String groupId) {
         boolean groupExists = false;
         ArrayList<Group> groupArrayList = groupList.getGroupList();
         for (Group group : groupArrayList) {
@@ -670,7 +680,9 @@ public class ModelManager implements Model {
     @Override
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
-    };
+    }
+
+    ;
     //endregion
 
     @Override
@@ -688,8 +700,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }

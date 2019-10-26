@@ -1,5 +1,11 @@
 package seedu.address.logic.commands.tag;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -11,12 +17,9 @@ import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Represents a Tag Command.
+ */
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
@@ -62,10 +65,11 @@ public class TagCommand extends Command {
 
     /**
      * Executes the tag command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return command result if the command was executed succesfully
      * @throws CommandException if the input was in the wrong format/the tag already exists with the
-     * student/the student to be tagged was given an invalid index.
+     *                          student/the student to be tagged was given an invalid index.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -107,7 +111,7 @@ public class TagCommand extends Command {
      * with the new tags from {@code tagSet} appended without duplicates.
      */
     private Student createTaggedStudent(Student studentToTag,
-                                                Set<Tag> tagSet) throws CommandException {
+                                        Set<Tag> tagSet) throws CommandException {
         assert studentToTag != null;
 
         Name name = studentToTag.getName();
@@ -129,7 +133,7 @@ public class TagCommand extends Command {
             throw new CommandException(MESSAGE_NO_NEW_TAGS);
         }
 
-        return new Student(name,updatedTags);
+        return new Student(name, updatedTags);
 
     }
 }

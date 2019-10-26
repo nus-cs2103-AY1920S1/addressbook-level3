@@ -1,6 +1,5 @@
 package seedu.address.model.group;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -8,8 +7,8 @@ import java.util.ArrayList;
  */
 public class ListOfGroups {
 
-    private ArrayList<Group> groups;
     private static String currentlyQueriedGroup;
+    private ArrayList<Group> groups;
 
     /**
      * Creates a ListOfGroups instance with the appropriate attributes.
@@ -22,7 +21,7 @@ public class ListOfGroups {
      * Sets the currently queried group
      */
     public static void setCurrentlyQueriedGroup(String queriedGroup) {
-         currentlyQueriedGroup = queriedGroup;
+        currentlyQueriedGroup = queriedGroup;
     }
 
     /**
@@ -36,6 +35,7 @@ public class ListOfGroups {
 
     /**
      * Adds a group to the list of groups.
+     *
      * @param group The group to be added to the list of groups.
      */
     public void addGroup(Group group) {
@@ -44,6 +44,7 @@ public class ListOfGroups {
 
     /**
      * Removes a group from the list of groups.
+     *
      * @param groupId The group to be removed from the list of groups.
      */
     public void removeGroup(String groupId) {
@@ -56,6 +57,7 @@ public class ListOfGroups {
 
     /**
      * Returns the groupIndex of a group if found, else -1.
+     *
      * @param groupId The identifier of the group.
      * @return The groupIndex of the group.
      */
@@ -71,6 +73,7 @@ public class ListOfGroups {
 
     /**
      * Returns a group from the list of groups.
+     *
      * @param groupIndex The group index.
      * @return The group from the list of groups.
      */
@@ -80,6 +83,7 @@ public class ListOfGroups {
 
     /**
      * Returns array list of groups.
+     *
      * @return array list of groups.
      */
     public ArrayList<Group> getGroupList() {

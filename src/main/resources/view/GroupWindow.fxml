@@ -30,7 +30,7 @@
                 <children>
                     <HBox alignment="CENTER">
                         <children>
-                            <Label fx:id="groupID" textAlignment="LEFT"
+                            <Label fx:id="groupId" textAlignment="LEFT"
                                    textFill="#00000076">
                                 <font>
                                     <Font name="System Italic" size="11.0"/>

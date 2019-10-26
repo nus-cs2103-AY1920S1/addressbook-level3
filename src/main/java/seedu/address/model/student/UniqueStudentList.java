@@ -89,7 +89,8 @@ public class UniqueStudentList implements Iterable<Student> {
 
     /**
      * Adds student to student list, with the specified index.
-     * @param index Index that was specified.
+     *
+     * @param index   Index that was specified.
      * @param student Student to be added.
      */
     public void setStudent(Index index, Student student) {
@@ -98,6 +99,7 @@ public class UniqueStudentList implements Iterable<Student> {
 
     /**
      * Removes student with a specified index.
+     *
      * @param index Index that was specified.
      * @return Student that was removed.
      */
@@ -107,6 +109,7 @@ public class UniqueStudentList implements Iterable<Student> {
 
     /**
      * Removes student with a specified index.
+     *
      * @param index Index(in int) that was specified.
      * @return Student that was removed.
      */
@@ -128,6 +131,7 @@ public class UniqueStudentList implements Iterable<Student> {
 
     /**
      * Replaces the current list of student with a new list of students.
+     *
      * @param replacement New list of students.
      */
     public void setStudents(UniqueStudentList replacement) {
@@ -150,10 +154,11 @@ public class UniqueStudentList implements Iterable<Student> {
 
     /**
      * Gets the index of a specific student in the student list.
+     *
      * @param student Student who's index we want.
      * @return Index of the student in the student list if present, else return Optional.Empty()
      */
-    public Optional<Index> getIndex(Student student){
+    public Optional<Index> getIndex(Student student) {
         requireNonNull(student);
         for (int i = 0; i < internalList.size(); i++) {
             if (student.equals(internalList.get(i))) {
@@ -165,6 +170,7 @@ public class UniqueStudentList implements Iterable<Student> {
 
     /**
      * Gets the list of students in string form.
+     *
      * @return List of students in string form.
      */
     public String getStudentList() {

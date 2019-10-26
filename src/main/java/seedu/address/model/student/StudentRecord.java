@@ -99,6 +99,7 @@ public class StudentRecord implements ReadOnlyStudentRecord {
 
     /**
      * Gets an unmodifiable, observable list of all the students.
+     *
      * @return A list of all the students.
      */
     @Override
@@ -108,6 +109,7 @@ public class StudentRecord implements ReadOnlyStudentRecord {
 
     /**
      * Gets a list of all the students.
+     *
      * @return A list of all the students.
      */
     public String getStudentSummary() {
@@ -116,6 +118,7 @@ public class StudentRecord implements ReadOnlyStudentRecord {
 
     /**
      * Gets the index of a student in the list if present.
+     *
      * @param student Student who's index we want to find out.
      * @return Index of the student if present, else Optional.Empty().
      */
@@ -126,12 +129,13 @@ public class StudentRecord implements ReadOnlyStudentRecord {
 
     /**
      * Adds the student with a specific index to the student list.
-     * @param index Index of student that is specified.
+     *
+     * @param index   Index of student that is specified.
      * @param student Student to be added.
      */
     public void setStudentWithIndex(Index index, Student student) {
-        requireAllNonNull(index,student);
-        students.setStudent(index,student);
+        requireAllNonNull(index, student);
+        students.setStudent(index, student);
     }
 
     @Override

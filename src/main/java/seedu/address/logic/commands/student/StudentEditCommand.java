@@ -33,7 +33,8 @@ public class StudentEditCommand extends StudentCommand {
 
     /**
      * Creates a student edit command.
-     * @param index Index of the student to be edited.
+     *
+     * @param index                 Index of the student to be edited.
      * @param editStudentDescriptor Object used to edit the student which was specified.
      */
     public StudentEditCommand(Index index, EditStudentDescriptor editStudentDescriptor) {
@@ -43,10 +44,11 @@ public class StudentEditCommand extends StudentCommand {
 
     /**
      * Executes the student edit command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return Command result if the command was executed succesfully.
      * @throws CommandException if the command was not input in the correct format/index is out of bounds
-     * /a student with the edited name already exists in the student list.
+     *                          /a student with the edited name already exists in the student list.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -66,16 +68,17 @@ public class StudentEditCommand extends StudentCommand {
 
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(generateSuccessMessage(editedStudent), CommandResultType.SHOW_STUDENT);
+        return new CommandResult(generateSuccessMessage(studentToEdit, editedStudent), CommandResultType.SHOW_STUDENT);
     }
 
     /**
      * Generates a command execution success message.
      *
-     * @param student that has been added.
+     * @param studentToEdit student to be edited.
+     * @param editedStudent students new details.
      */
-    private String generateSuccessMessage(Student student) {
-        return "Edited student: " + student;
+    private String generateSuccessMessage(Student studentToEdit, Student editedStudent) {
+        return "Edited student: " + studentToEdit + " to " + editedStudent;
     }
 
 
@@ -88,7 +91,7 @@ public class StudentEditCommand extends StudentCommand {
 
         Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
         Set<Tag> tags = studentToEdit.getTags();
-        return new Student(updatedName,tags);
+        return new Student(updatedName, tags);
     }
 
 
@@ -117,7 +120,8 @@ public class StudentEditCommand extends StudentCommand {
     public static class EditStudentDescriptor {
         private Name name;
 
-        public EditStudentDescriptor() {}
+        public EditStudentDescriptor() {
+        }
 
         /**
          * Copy constructor.
