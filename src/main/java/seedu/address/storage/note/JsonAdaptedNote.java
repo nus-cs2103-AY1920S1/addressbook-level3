@@ -11,7 +11,7 @@ import seedu.address.model.note.Note;
  */
 public class JsonAdaptedNote {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note has illegal format. Please Refer to User Guide.";
 
     private final String note;
     private final String description;
@@ -26,7 +26,7 @@ public class JsonAdaptedNote {
     }
 
     /**
-     * Converts a given {@code Student} into this class for Jackson use.
+     * Converts a given {@code source} into this class for Jackson use.
      */
     public JsonAdaptedNote(Note source) {
         note = source.getNote();
@@ -40,7 +40,7 @@ public class JsonAdaptedNote {
      */
     public Note toModelType() throws IllegalValueException {
         if (note == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "note/{note title}"));
+            throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
         return new Note(note, description);
     }

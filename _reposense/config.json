@@ -1,0 +1,15 @@
+{
+  "ignoreGlobList": [],
+  "formats": ["html", "css"],
+  "ignoreCommitList": [],
+  "authors":
+  [
+    {
+      "githubId": "jeongyh99",
+      "emails": ["jeong.yuhan@dhs.sg", "jDotYH@gmail.com"],
+      "displayName": "jeongyh99",
+      "authorNames": ["jeongyh99"],
+      "ignoreGlobList": []
+    }
+  ]
+}

@@ -1,13 +1,19 @@
 package seedu.address.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.commons.math3.util.Pair;
+
 import javafx.collections.ObservableList;
+import jfxtras.icalendarfx.components.VEvent;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
@@ -23,12 +29,16 @@ import seedu.address.model.student.Student;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     //region PREFERENCES & SETTINGS
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -52,6 +62,7 @@ public interface Model {
     //endregion
 
     //region AddressBook
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -67,32 +78,34 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
     //endregion
 
     //region Person
+
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address
+     * book.
      */
     boolean hasPerson(Person person);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given person. The person must exist in the address book.
      */
     void deletePerson(Person target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given person. {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist
+     * in the address book. The person identity of {@code editedPerson} must not be the same as
+     * another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
 
@@ -101,12 +114,25 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
     //endregion
 
+    //region StudentRecord
+    Path getStudentRecordFilePath();
+
+    void setStudentRecordFilePath(Path studentRecordFilePath);
+
+    void setStudentRecord(ReadOnlyStudentRecord studentRecord);
+
+    ReadOnlyStudentRecord getStudentRecord();
+
+    //endregion
+
     //region SavedQuestions
+
     /**
      * Returns the user prefs' questions file path.
      */
@@ -122,79 +148,45 @@ public interface Model {
      */
     void setSavedQuestions(ReadOnlyQuestions savedQuestions);
 
-    /** Returns the saved questions */
+    /**
+     * Returns the list of slideshow questions
+     */
+    ObservableList<Question> getSlideshowQuestions();
+
+    /**
+     * Returns the saved questions
+     */
     ReadOnlyQuestions getSavedQuestions();
 
     //endregion
 
-    //region Mark
-    void markStudent(Student student);
-    void unmarkStudent(Student student);
-    boolean getIsMarked(Student student);
     //region Students
-
-    /**
-     * Gets the record of students in read only format.
-     */
-    ReadOnlyStudentRecord getStudentRecord();
-
-    /**
-     * Checks if the list already contains specified student.
-     */
     boolean hasStudent(Student student);
 
-    /**
-     * Deletes specified student from the list of students.
-     */
     void deleteStudent(Student target);
 
-    /**
-     * Adds a specified student to the list of students.
-     */
     void addStudent(Student student);
 
-    /**
-     * Gets the index of a specified student.
-     */
-    Optional<Index> getIndexFromStudentList(Student student);
-
-    /**
-     * Adds a student to the list with a specific index.
-     */
-    void setStudentWithIndex(Index index, Student student);
-
-    /**
-     * Edits a student in the student list to become a new student that was specified.
-     */
     void setStudent(Student target, Student editedStudent);
 
-    /**
-     * Gets the filtered student list.
-     */
     ObservableList<Student> getFilteredStudentList();
 
-    /**
-     * Updates the filtered student list.
-     */
     void updateFilteredStudentList(Predicate<Student> predicate);
 
-    /**
-     * Gets the list of students in string format.
-     */
     String getStudentSummary();
     //endregion
 
     //region Group
+
     /**
      * Creates a group manually.
      */
     void createGroupManually(String groupId, ArrayList<Integer> studentNumbers);
 
     /**
-     * Adds a student to a group.
-     * {@code groupId} Must already exist in the list of groups.
-     * {@code studentNumber} Must already exist in the list of students.
-     * {@code groupIndexNumber} Must already exist in the quiz.
+     * Adds a student to a group. {@code groupId} Must already exist in the list of groups. {@code
+     * studentNumber} Must already exist in the list of students. {@code groupIndexNumber} Must
+     * already exist in the quiz.
      */
     boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber);
 
@@ -210,9 +202,9 @@ public interface Model {
     //endregion
 
     //region Questions
+
     /**
-     * Adds the given question.
-     * {@code question} must not exist in the question list.
+     * Adds the given question. {@code question} must not exist in the question list.
      */
     void addQuestion(Question question);
 
@@ -220,6 +212,11 @@ public interface Model {
      * Returns the question that has been deleted based on the index.
      */
     Question deleteQuestion(Index index);
+
+    /**
+     * Returns the list of questions stored.
+     */
+    ObservableList<Question> getAllQuestions();
 
     /**
      * Returns the question based on its Index.
@@ -232,6 +229,13 @@ public interface Model {
     void setQuestion(Index index, Question question);
 
     /**
+     * Sets slideshow questions based on the list of question indexes passed in.
+     *
+     * @param questionsIndexes list of question indexes.
+     */
+    void setSlideshowQuestions(List<Index> questionsIndexes);
+
+    /**
      * Returns the questions summary.
      *
      * @return Summary of questions list.
@@ -241,6 +245,7 @@ public interface Model {
     //endregion
 
     //region Quizzes
+
     /**
      * Creates a quiz manually.
      */
@@ -252,22 +257,26 @@ public interface Model {
     void createQuizAutomatically(String quizId, int numQuestions, String type);
 
     /**
-     * Adds a question to a quiz.
-     * {@code quizId} Must already exist in the quiz bank.
-     * {@code questionNumber} Must already exist in the question bank.
-     * {@code quizQuestionNumber} Must already exist in the quiz.
+     * Adds a question to a quiz. {@code quizId} Must already exist in the quiz bank. {@code
+     * questionNumber} Must already exist in the question bank. {@code quizQuestionNumber} Must
+     * already exist in the quiz.
      */
     boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber);
 
     /**
      * Removes a question from a quiz.
      */
-    void removeQuizQuestion(String quizId, int questionNumber);
+    boolean removeQuizQuestion(String quizId, int questionNumber);
 
     /**
      * Returns a quiz's questions and answers, for testing purposes.
      */
     String getQuestionsAndAnswers(String quizId);
+
+    /**
+     * Exports a quiz to a html file.
+     */
+    boolean exportQuiz(String quizId) throws IOException;
 
     //endregion
 
@@ -293,6 +302,7 @@ public interface Model {
     //endregion
 
     //region NotesRecord
+
     /**
      * Returns the user prefs' notes record file path.
      */
@@ -308,48 +318,87 @@ public interface Model {
      */
     void setNotesRecord(ReadOnlyNotesRecord notesRecord);
 
-    /** Returns the NotesRecord */
+    /**
+     * Returns the NotesRecord
+     */
     ReadOnlyNotesRecord getNotesRecord();
     //endregion
 
     //region Notes
+
     /**
      * Returns true if a note with the same identity as {@code note} exists in the notes record.
      */
     boolean hasNote(Note note);
 
     /**
-     * Deletes the given note.
-     * The note must exist in the notes record.
+     * Deletes the given note. The note must exist in the notes record.
      */
     void deleteNote(Note target);
 
     /**
-     * Adds the given note.
-     * {@code note} must not already exist in the notes record.
+     * Adds the given note. {@code note} must not already exist in the notes record.
      */
     void addNote(Note note);
 
     /**
-     * Replaces the given note {@code target} with {@code editedNote}.
-     * {@code target} must exist in the notes record.
-     * The note title of {@code editedNote} must not be the same as another existing note in the notes record.
+     * Replaces the given note {@code target} with {@code editedNote}. {@code target} must exist in
+     * the notes record. The note title of {@code editedNote} must not be the same as another
+     * existing note in the notes record.
      */
     void setNote(Note target, Note editedNote);
 
-    /** Returns an unmodifiable view of the filtered notes list */
+    /**
+     * Returns an unmodifiable view of the filtered notes list.
+     */
     ObservableList<Note> getFilteredNotesList();
 
     /**
      * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNotesList(Predicate<Note> predicate);
     //endregion
 
+    //region EventRecord
+    void setEventRecord(Path eventRecordFilePath);
+    void setEventRecord(ReadOnlyEvents events);
+    Path getEventRecordFilePath();
+    ReadOnlyEvents getEventRecord();
+    //endregion
+
+    //region VEvents
+    boolean hasVEvent(VEvent vEvent);
+    void deleteVEvent(VEvent vEvent);
+    void addVEvent(VEvent vEvent);
+    void setVEvent(VEvent target, VEvent editedVEvent);
+    void setVEvent(Index index, VEvent editedVEvent);
+    String getVEventSummary();
+    VEvent getVEvent(Index index);
+    List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);
+    ObservableList<VEvent> getVEventList();
+    Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
+    //endregion
+
     //region Statistics
+
+    /**
+     * Returns the ReadOnlyStatisticsRecord in the Model.
+     */
     ReadOnlyStatisticsRecord getStatisticsRecord();
+
+    /**
+     * Returns the one-item list of Statistics list in StatisticsRecord.
+     */
     ObservableList<Statistics> getProcessedStatistics();
+
+    /**
+     * Sets the Statistics item in StatisticsRecord to be {@code statistic}
+     *
+     * @param statistics Statistic object to place in StatisticsRecord.
+     */
     void addStatistics(Statistics statistics);
+
     //endregion
 }
