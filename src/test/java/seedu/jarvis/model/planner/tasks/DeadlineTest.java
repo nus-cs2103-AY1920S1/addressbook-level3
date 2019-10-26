@@ -10,8 +10,9 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 
 
 class DeadlineTest {
@@ -107,5 +108,35 @@ class DeadlineTest {
         Deadline d = new Deadline("homework", due);
 
         assertEquals(expected, d.getTaskDes());
+    }
+
+    @Test
+    void markAsDone() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        d.markAsDone();
+
+        assertEquals(Status.DONE, d.getStatus());
+    }
+
+    @Test
+    void markAsNotDone() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        d.markAsDone();
+        assertEquals(Status.DONE, d.getStatus());
+
+        d.markAsNotDone();
+        assertEquals(Status.NOT_DONE, d.getStatus());
+    }
+
+    @Test
+    void getStatus() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        assertEquals(Status.NOT_DONE, d.getStatus());
     }
 }

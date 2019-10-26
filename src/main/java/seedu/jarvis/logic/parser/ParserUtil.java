@@ -1,11 +1,11 @@
 package seedu.jarvis.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.model.planner.Frequency.FREQ_DAILY;
-import static seedu.jarvis.model.planner.Frequency.FREQ_MONTHLY;
-import static seedu.jarvis.model.planner.Frequency.FREQ_WEEKLY;
-import static seedu.jarvis.model.planner.Priority.PRIORITY_HIGH;
-import static seedu.jarvis.model.planner.Priority.PRIORITY_MED;
+import static seedu.jarvis.model.planner.enums.Frequency.FREQ_DAILY;
+import static seedu.jarvis.model.planner.enums.Frequency.FREQ_MONTHLY;
+import static seedu.jarvis.model.planner.enums.Frequency.FREQ_WEEKLY;
+import static seedu.jarvis.model.planner.enums.Priority.PRIORITY_HIGH;
+import static seedu.jarvis.model.planner.enums.Priority.PRIORITY_MED;
 import static seedu.jarvis.model.planner.tasks.Task.DEADLINE;
 import static seedu.jarvis.model.planner.tasks.Task.EVENT;
 import static seedu.jarvis.model.planner.tasks.Task.TODO;
@@ -24,8 +24,8 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
 import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;

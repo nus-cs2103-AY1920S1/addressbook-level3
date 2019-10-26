@@ -7,6 +7,7 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
@@ -19,7 +20,7 @@ class DeleteTaskCommandTest {
 
     @Test
     void getCommandWord() throws ParseException {
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("2"));
+        DeleteTaskCommand command = new DeleteTaskCommand(parseIndex("2"));
         String actualCommand = command.getCommandWord();
 
         assertEquals("delete-task", actualCommand);
@@ -27,14 +28,14 @@ class DeleteTaskCommandTest {
 
     @Test
     void getTargetIndex() throws ParseException {
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("2"));
-        assertEquals(ParserUtil.parseIndex("2"), command.getTargetIndex());
+        DeleteTaskCommand command = new DeleteTaskCommand(parseIndex("2"));
+        assertEquals(parseIndex("2"), command.getTargetIndex());
 
     }
 
     @Test
     void hasInverseExecution() throws ParseException {
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("2"));
+        DeleteTaskCommand command = new DeleteTaskCommand(parseIndex("2"));
         assertTrue(command.hasInverseExecution());
     }
 
@@ -43,14 +44,14 @@ class DeleteTaskCommandTest {
         Model planner = new ModelManager();
         Task t = new Todo("borrow book");
         planner.addTask(t);
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex(("1")));
+        DeleteTaskCommand command = new DeleteTaskCommand(parseIndex(("1")));
         assertDoesNotThrow(() -> command.execute(planner));
     }
 
     @Test
-    void execute_invalidIndex_success() throws ParseException {
+    void execute_invalidIndex_throwsException() throws ParseException {
         Model planner = new ModelManager();
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex(("1")));
+        DeleteTaskCommand command = new DeleteTaskCommand(parseIndex(("1")));
         assertThrows(CommandException.class, () -> command.execute(planner));
     }
 
@@ -63,7 +64,7 @@ class DeleteTaskCommandTest {
         model.addTask(toDelete);
         expected.addTask(toDelete);
 
-        DeleteTaskCommand command = new DeleteTaskCommand(ParserUtil.parseIndex("1"), toDelete);
+        DeleteTaskCommand command = new DeleteTaskCommand(parseIndex("1"), toDelete);
         command.execute(model);
 
         command.executeInverse(model);
@@ -74,11 +75,15 @@ class DeleteTaskCommandTest {
 
     @Test
     void testEquals_success() throws ParseException {
-        DeleteTaskCommand commandOne = new DeleteTaskCommand(ParserUtil.parseIndex("1"));
-        DeleteTaskCommand commandTwo = new DeleteTaskCommand(ParserUtil.parseIndex("1"));
+        DeleteTaskCommand commandOne = new DeleteTaskCommand(parseIndex("1"));
+        DeleteTaskCommand commandTwo = new DeleteTaskCommand(parseIndex("1"));
 
         assertEquals(commandOne, commandTwo);
 
 
+    }
+
+    private Index parseIndex(String index) throws ParseException {
+        return ParserUtil.parseIndex(index);
     }
 }
