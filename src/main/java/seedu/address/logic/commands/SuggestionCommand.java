@@ -12,9 +12,9 @@ public class SuggestionCommand extends Command {
 
     public static final String MESSAGE = "%1$s is not recognised.\nDid you mean: ";
 
-    public String originalCommand;
-    public String suggestedCommand;
-    public String arguments;
+    private String originalCommand;
+    private String suggestedCommand;
+    private String arguments;
 
     public SuggestionCommand(String originalCommand, String suggestedCommand, String arguments) {
         requireNonNull(originalCommand);
@@ -39,6 +39,10 @@ public class SuggestionCommand extends Command {
         return message.toString();
     }
 
+    /**
+     * Generates the suggested command.
+     * @return Suggested command.
+     */
     private String generateSuggestedCommand() {
         StringBuilder message = new StringBuilder();
         if (arguments.length() == 0) {
