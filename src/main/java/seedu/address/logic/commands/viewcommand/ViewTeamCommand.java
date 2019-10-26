@@ -16,7 +16,7 @@ import seedu.address.model.entity.Team;
 public class ViewTeamCommand extends ViewCommand {
 
     public static final String COMMAND_WORD = "view team";
-    public static final String MESSAGE_SUCCESS = "Showing team with ID: %s"; // %s -> Id
+    public static final String MESSAGE_SUCCESS = "Showed specified team";
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX =
             "The team index provided is invalid";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " team"
@@ -39,8 +39,7 @@ public class ViewTeamCommand extends ViewCommand {
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         }
-        model.viewEntity(teamToView);
-        this.displayDetailedEntity(teamToView);
+        viewEntity(teamToView);
 
         return new CommandResult(MESSAGE_SUCCESS, CommandType.T.T);
     }

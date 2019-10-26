@@ -12,7 +12,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.Command;
-import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
@@ -154,9 +153,6 @@ public interface Model {
     List<Team> findTeam(Predicate<Team> predicate);
 
     List<Mentor> findMentor(Predicate<Mentor> predicate);
-
-    /* View Command */
-    void viewEntity(Entity entity);
 
     /**
      * Replaces address book data with the data in {@code addressBook}.

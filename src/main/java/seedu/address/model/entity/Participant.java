@@ -141,10 +141,4 @@ public class Participant extends Entity {
                                            this.phone.copy());
         return copy;
     }
-
-    @Override
-    public PrefixType getPrefix() {
-        return PrefixType.P;
-    }
-
 }

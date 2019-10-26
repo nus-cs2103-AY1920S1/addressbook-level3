@@ -3,7 +3,6 @@ package seedu.address.commons;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
@@ -52,9 +51,4 @@ public class Predicates {
     public static <T> Predicate<T> predicateReducer(List<Predicate<T>> predicates) {
         return predicates.stream().reduce(predicate -> true, Predicate::and);
     }
-
-    public static Predicate<Entity> viewSpecifiedEntity(Entity entityToView) {
-        return (entity) -> entity.equals(entityToView);
-    }
-
 }

@@ -1,4 +1,4 @@
-package seedu.address.ui.entitylistpanel;
+package seedu.address.ui;
 
 import java.util.logging.Logger;
 
@@ -14,51 +14,49 @@ import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
-import seedu.address.ui.EntityCard;
-import seedu.address.ui.UiPart;
 
 /**
  * Panel containing the list of persons.
  */
 public class EntityListPanel extends UiPart<Region> {
-    private static final String FXML = "EntityListPanel.fxml";
+    private static final String FXML = "ListPanel.fxml";
     private PrefixType prefix;
     private final Logger logger = LogsCenter.getLogger(EntityListPanel.class);
 
     @FXML
-    private ListView<Entity> entityListView;
+    private ListView<Entity> listView;
     @FXML
     private VBox panelContainer;
 
-    //TODO: clarify
-    //Not sure whether these generics is advisable, please advise
     public EntityListPanel(ObservableList<? extends Entity> entityList) {
         super(FXML);
-        entityList.stream().forEach(item -> entityListView.getItems().add((Entity) item));
-        logger.info("Size of EntityList is: " + entityListView.getItems().size());
-        logger.info("Size of EntityListView is: " + entityListView.getItems().size());
+        entityList.stream().forEach(item -> listView.getItems().add((Entity) item));
+        logger.info("Size of EntityList is: " + listView.getItems().size());
+        logger.info("Size of EntityListView is: " + listView.getItems().size());
         if (!entityList.isEmpty()) {
             Entity firstItem = entityList.get(0);
             if (firstItem instanceof Participant) {
                 prefix = PrefixType.P;
-                entityListView.setCellFactory(listView -> new ParticipantListViewCell());
+                listView.setCellFactory(listView -> new ParticipantListViewCell());
 
 
             } else if (firstItem instanceof Team) {
                 prefix = PrefixType.T;
-                entityListView.setCellFactory(listView -> new TeamListViewCell());
+                listView.setCellFactory(listView -> new TeamListViewCell());
 
             } else if (firstItem instanceof Mentor) {
                 prefix = PrefixType.M;
-                entityListView.setCellFactory(listView -> new MentorListViewCell());
+                listView.setCellFactory(listView -> new MentorListViewCell());
 
             }
             logger.info("EntityListView has prefix type: " + this.prefix);
         }
+
+
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Mentor} using an {@code EntityCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class MentorListViewCell extends ListCell<Entity> {
         @Override
@@ -78,7 +76,7 @@ public class EntityListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Participant} using an {@code EntityCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class ParticipantListViewCell extends ListCell<Entity> {
         @Override
@@ -98,7 +96,7 @@ public class EntityListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Team} using an {@code EntityCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class TeamListViewCell extends ListCell<Entity> {
         @Override
@@ -116,5 +114,5 @@ public class EntityListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
+

@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import seedu.address.commons.Predicates;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredException;
@@ -101,9 +100,9 @@ public class ModelManager implements Model {
             } else {
                 this.participantList = storageParticipantList.get();
                 int largestIdUsed = participantList.list().stream()
-                        .map(participant -> participant.getId().getNumber())
+                        .map(participant -> ((Entity) participant).getId().getNumber())
                         .max(Integer::compare).orElse(0);
-                ParticipantList.setLastUsedId(largestIdUsed);
+                participantList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
             logger.warning("Initialising new ParticipantList. "
@@ -118,9 +117,9 @@ public class ModelManager implements Model {
             } else {
                 this.mentorList = storageMentorList.get();
                 int largestIdUsed = mentorList.list().stream()
-                        .map(mentor -> mentor.getId().getNumber())
+                        .map(mentor -> ((Entity) mentor).getId().getNumber())
                         .max(Integer::compare).orElse(0);
-                MentorList.setLastUsedId(largestIdUsed);
+                mentorList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
             logger.warning("Initialising new MentorList. "
@@ -135,9 +134,9 @@ public class ModelManager implements Model {
             } else {
                 this.teamList = storageTeamList.get();
                 int largestIdUsed = teamList.list().stream()
-                        .map(team -> team.getId().getNumber())
+                        .map(team -> ((Entity) team).getId().getNumber())
                         .max(Integer::compare).orElse(0);
-                TeamList.setLastUsedId(largestIdUsed);
+                teamList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
             logger.warning("Initialising new TeamList. "
@@ -692,30 +691,6 @@ public class ModelManager implements Model {
         this.filteredMentorList.setPredicate(predicate);
         return this.mentorList.getSpecificTypedList().stream()
                 .filter(predicate).collect(Collectors.toList());
-    }
-
-    /**
-     * Sets the predicate to show detailed information of {@code entity}.
-     *
-     * @param entity {@code Entity} to view.
-     */
-    public void viewEntity(Entity entity) {
-        PrefixType entityType = entity.getPrefix();
-        Predicate<Entity> predicate = Predicates.viewSpecifiedEntity(entity);
-        switch (entityType) {
-        case M:
-            this.filteredMentorList.setPredicate(predicate);
-            return;
-        case P:
-            this.filteredParticipantList.setPredicate(predicate);
-            return;
-        case T:
-            this.filteredTeamList.setPredicate(predicate);
-            return;
-        default:
-            // should never reach here
-            throw new RuntimeException();
-        }
     }
 
     //=========== AddressBook ================================================================================

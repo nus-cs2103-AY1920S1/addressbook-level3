@@ -375,9 +375,4 @@ public class Team extends Entity {
                              this.location.copy());
         return copy;
     }
-
-    @Override
-    public PrefixType getPrefix() {
-        return PrefixType.T;
-    }
 }
