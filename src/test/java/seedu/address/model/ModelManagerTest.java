@@ -99,6 +99,7 @@ public class ModelManagerTest {
                 new ProjectDashboardBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
         ProjectDashboard differentProjectDashboard = new ProjectDashboard();
         UserPrefs userPrefs = new UserPrefs();
+        UserSettings userSettings = new UserSettings();
 
         // same values -> returns true
         modelManager = new ModelManager(projectDashboard, userPrefs, userSettings);
