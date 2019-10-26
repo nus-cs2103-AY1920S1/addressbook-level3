@@ -70,6 +70,9 @@ public class StringUtilTest {
         assertFalse(StringUtil.isValidDollarAmount("-1.001"));
         assertFalse(StringUtil.isValidDollarAmount("-80.540"));
 
+        // EP: numbers when converted to cents is larger than Integer.MAX_VALUE
+        assertFalse(StringUtil.isValidDollarAmount(Long.toString(Long.MAX_VALUE / 1000)));
+
         // EP: signed numbers
         assertFalse(StringUtil.isValidDollarAmount("-1"));
         assertFalse(StringUtil.isValidDollarAmount("-1.00"));

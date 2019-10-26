@@ -219,6 +219,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public int payFine(int amountInCents) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getBorrowerRecordsFilePath() {
             throw new AssertionError("This method should not be called.");
         }

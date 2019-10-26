@@ -48,7 +48,7 @@ public class PayCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.isServeMode()) {
+        if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
 
@@ -67,5 +67,19 @@ public class PayCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, amountPaidInDollars, servingBorrower,
                 outstandingFineInDollars, changeInDollars));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof PayCommand)) {
+            return false;
+        }
+
+        PayCommand otherPayCommand = (PayCommand) o;
+        return this.amountInCents == otherPayCommand.amountInCents;
     }
 }

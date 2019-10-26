@@ -83,6 +83,9 @@ public class StringUtil {
 
         try {
             double value = Double.parseDouble(s);
+            if (value * 100.0 > (double) Integer.MAX_VALUE) { // value in cents is greater than max int value
+                return false;
+            }
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Double.parseDouble(String)
         } catch (NumberFormatException nfe) {
             return false;
