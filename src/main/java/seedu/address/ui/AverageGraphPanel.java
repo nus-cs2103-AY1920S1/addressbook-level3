@@ -1,84 +1,44 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.record.RecordType;
-import seedu.address.model.statistics.AverageType;
 
 /**
- * Represents a panel of an average graph.
+ * Represents a panel of an average graph and its legend.
  */
 public class AverageGraphPanel extends UiPart<Region> {
     private static final String FXML = "AverageGraph.fxml";
-    private static final String TITLE = "%1$s average of %2$s";
+
+    private final AverageGraph averageGraph;
+
+    private final LegendBox legendBox;
 
     private final Logger logger = LogsCenter.getLogger(AverageGraphPanel.class);
 
     @FXML
-    private LineChart<String, Double> lineChart;
+    private ScrollPane lineChartScrollPane;
 
-    public AverageGraphPanel(Map<LocalDate, Double> averageMap, AverageType averageType, RecordType recordType) {
+    @FXML
+    private VBox vBox;
+
+    public AverageGraphPanel(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
+                             SimpleStringProperty recordType) {
         super(FXML);
 
-        lineChart.setLegendVisible(false);
+        this.averageGraph = new AverageGraph(averageMap, averageType, recordType);
+        this.legendBox = new LegendBox(recordType);
 
-        String recordLabel = getRecordLabel(recordType);
-        lineChart.setTitle(String.format(TITLE, averageType.toString(), recordLabel));
-
-        String xAxisLabel = getXAxisLabel(averageType);
-        lineChart.getXAxis().setLabel(xAxisLabel);
-
-        String yAxisLabel = getYAxisLabel(recordType);
-        lineChart.getYAxis().setLabel(yAxisLabel);
-
-        XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
-        for (Map.Entry<LocalDate, Double> entry : averageMap.entrySet()) {
-            LocalDate date = entry.getKey();
-            Double average = entry.getValue();
-            dataSeries.getData().add(new XYChart.Data<String, Double>(date.toString(), average));
-        }
-        lineChart.getData().add(dataSeries);
+        vBox.getChildren().add(averageGraph.getAverageGraph());
+        vBox.getChildren().add(legendBox.getRoot());
+        lineChartScrollPane.setContent(vBox);
     }
 
-    private String getRecordLabel(RecordType recordType) {
-        switch (recordType) {
-        case BMI:
-            return "weight";
-        case BLOODSUGAR:
-            return "blood sugar";
-        default:
-            return "";
-        }
-    }
-
-    private String getYAxisLabel(RecordType recordType) {
-        switch (recordType) {
-        case BMI:
-            return "Weight (kg)";
-        case BLOODSUGAR:
-            return "Bloodsugar (mmol/L)";
-        default:
-            return "";
-        }
-    }
-
-    private String getXAxisLabel(AverageType averageType) {
-        switch (averageType) {
-        case DAILY:
-            return "Day";
-        case MONTHLY:
-            return "Month";
-        case WEEKLY:
-            return "Week";
-        default:
-            return "";
-        }
-    }
 }

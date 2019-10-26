@@ -1,0 +1,108 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":Parser" as AddressBookParser LOGIC_COLOR
+participant "r:Reminder" as Reminder LOGIC_COLOR
+participant "rc:ReminderCommand" as ReminderCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+participant ":Calendar" as Calendar MODEL_COLOR
+participant ":Scheduler" as Scheduler MODEL_COLOR
+participant "ra:ReminderAdder" as ReminderAdder MODEL_COLOR
+end box
+
+[-> LogicManager : execute(reminder)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(reminder)
+activate AddressBookParser
+
+create Reminder
+AddressBookParser -> Reminder
+activate Reminder
+Reminder --> AddressBookParser
+deactivate Reminder
+
+create ReminderCommand
+AddressBookParser -> ReminderCommand : ReminderCommand(r)
+activate ReminderCommand
+
+ReminderCommand --> AddressBookParser
+deactivate ReminderCommand
+
+AddressBookParser --> LogicManager : rc
+deactivate AddressBookParser
+
+LogicManager -> ReminderCommand : execute(m)
+activate ReminderCommand
+
+ReminderCommand -> Model : addCalendarEntry(r)
+activate Model
+
+Model -> Calendar : addCalendarEntry(r)
+activate Calendar
+
+Calendar --> Model
+deactivate Calendar
+
+Model --> ReminderCommand
+deactivate Model
+
+ReminderCommand -> Model : schedule()
+activate Model
+
+Model -> Calendar : schedule()
+activate Calendar
+
+Calendar -> Scheduler : schedule()
+activate Scheduler
+
+create ReminderAdder
+Scheduler -> ReminderAdder : ReminderAdder(r,m)
+activate ReminderAdder
+
+ReminderAdder --> Scheduler
+deactivate ReminderAdder
+
+Scheduler --> Calendar
+deactivate Scheduler
+
+Calendar --> Model
+deactivate Calendar
+
+Model --> ReminderCommand
+deactivate Model
+
+ReminderCommand --> LogicManager : result
+deactivate ReminderCommand
+
+ReminderCommand -[hidden]-> LogicManager : result
+destroy ReminderCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+[-> ReminderAdder : run()
+activate ReminderAdder
+
+ReminderAdder -> Model : addPastReminder(r)
+activate Model
+
+Model -> Calendar: addPastReminder(r)
+activate Calendar
+Calendar --> Model
+deactivate Calendar
+
+Model --> ReminderAdder
+deactivate Model
+
+deactivate ReminderAdder
+Model -[Hidden]-> ReminderAdder
+
+[<-- ReminderAdder
+destroy ReminderAdder
+@enduml

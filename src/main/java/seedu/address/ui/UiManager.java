@@ -31,31 +31,6 @@ public class UiManager implements Ui {
         this.logic = logic;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        logger.info("Starting UI...");
-
-        //Set the application icon.
-        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
-
-        try {
-            mainWindow = new MainWindow(primaryStage, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts(BACKGROUND_PATH);
-        } catch (Throwable e) {
-            logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
-        }
-    }
-
-    private Image getImage(String imagePath) {
-        return new Image(MainApp.class.getResourceAsStream(imagePath));
-    }
-
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
-    }
-
     /**
      * Shows an alert dialog on {@code owner} with the given parameters. This method only returns after the user has
      * closed the alert dialog.
@@ -70,6 +45,31 @@ public class UiManager implements Ui {
         alert.setContentText(contentText);
         alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
         alert.showAndWait();
+    }
+
+    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        logger.info("Starting UI...");
+
+        //Set the application icon.
+        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+
+        try {
+            mainWindow = new MainWindow(primaryStage, logic, BACKGROUND_PATH);
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillInnerParts();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    private Image getImage(String imagePath) {
+        return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
     /**

@@ -2,21 +2,25 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
+import seedu.address.model.calendar.Reminder;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageType;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.UniqueFoodList;
 
 /**
  * The API of the Model component.
@@ -97,6 +101,9 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
+
+    //==================Food List====================
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
@@ -104,17 +111,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /**
-     * Replaces food list data with the data in {@code newFoodList}.
-     */
-    void setFoodList(UniqueFoodList newFoodList);
-
     boolean hasFood(Food food);
-
-    /**
-     * Deletes the given food. The food must exist in the recommendations.
-     */
-    void deleteFood(Food food);
 
     /**
      * Adds the given food. {@code food} must not already exist in the recommendations.
@@ -132,6 +129,11 @@ public interface Model {
     ObservableList<Food> getFoodList();
 
     /**
+     * Replaces food list data with the data in {@code newFoodList}.
+     */
+    void setFoodList(UniqueFoodList newFoodList);
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Food> getFilterFoodList();
@@ -145,10 +147,6 @@ public interface Model {
 
 
     //==================RECORD====================
-    /**
-     * Replaces record list data with the data in {@code newRecordList}.
-     */
-    void setRecordList(UniqueRecordList newRecordList);
 
     boolean hasRecord(Record record);
 
@@ -173,6 +171,11 @@ public interface Model {
     ObservableList<Record> getRecordList();
 
     /**
+     * Replaces record list data with the data in {@code newRecordList}.
+     */
+    void setRecordList(UniqueRecordList newRecordList);
+
+    /**
      * Returns an unmodifiable view of the filtered record list
      */
     ObservableList<Record> getFilterRecordList();
@@ -189,25 +192,15 @@ public interface Model {
     /**
      * Returns the last average type calculated.
      */
-    AverageType getAverageType();
+    SimpleStringProperty getAverageType();
 
     /**
      * Returns the last record type whose average is calculated.
      */
-    RecordType getRecordType();
+    SimpleStringProperty getRecordType();
 
     /**
-     * Sets the average type being calculated currently.
-     */
-    void setAverageType(AverageType averageType);
-
-    /**
-     * Sets the record type whose average is being calculated currently.
-     */
-    void setRecordType(RecordType recordType);
-
-    /**
-     * Calculate average values of a record type.
+     * Calculates average values of a record type.
      */
     void calculateAverageMap(AverageType averageType, RecordType recordType, int count);
 
@@ -220,22 +213,25 @@ public interface Model {
 
     /**
      * Returns whether or not a user biography already exists.
+     *
      * @return
      */
-    public boolean bioExists();
-
-    /** Returns the UserList */
-    ReadOnlyUserList getUserList();
+    boolean bioExists();
 
     /**
-     * Returns the user prefs' user list file path.
+     * Returns the UserList
      */
-    Path getUserListFilePath();
+    ReadOnlyUserList getUserList();
 
     /**
      * Replaces user list data with the data in {@code userList}.
      */
     void setUserList(ReadOnlyUserList userList);
+
+    /**
+     * Returns the user prefs' user list file path.
+     */
+    Path getUserListFilePath();
 
     /**
      * Sets the user prefs' user list file path.
@@ -253,9 +249,8 @@ public interface Model {
     void addUser(User user);
 
     /**
-     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the address
-     * book. The user identity of {@code editedUser} must not be the same as another existing user in the address
-     * book.
+     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the address book.
+     * The user identity of {@code editedUser} must not be the same as another existing user in the address book.
      */
     void setUser(User target, User editedUser);
 
@@ -292,6 +287,12 @@ public interface Model {
     void addCalendarEntry(CalendarEntry calendarEntry);
 
     /**
+     * Adds a list reminders to the calendar. Only {@code Reminders} that don't already exist in the list will be
+     * added.
+     */
+    void addPastReminders(List<Reminder> reminders);
+
+    /**
      * Replaces the given calendarEntry {@code target} with {@code editedCalendarEntry}. {@code target} must exist in
      * the calendar. The calendarEntry identity of {@code editedCalendarEntry} must not be the same as another existing
      * calendar entry in the calendar.
@@ -303,7 +304,27 @@ public interface Model {
      */
     ObservableList<CalendarEntry> getFilteredCalendarEntryList();
 
+    /**
+     * Returns an unmodifiable view of the past reminder list
+     */
+    ObservableList<CalendarEntry> getPastReminderList();
+
+    /**
+     * Reschedule upcoming reminders.
+     */
+    void schedule();
+
+    /**
+     * Stop all upcoming reminders.
+     */
+    void stopAllReminders();
+
     //=========== Aesthetics =============================================================
+
+    /**
+     * Returns the font colour to be set for this app.
+     */
+    Colour getFontColour();
 
     /**
      * Sets the font colour of this application and saves it to the user preferences file.
@@ -311,8 +332,13 @@ public interface Model {
     void setFontColour(Colour fontColour);
 
     /**
-     * Returns the font colour to be set for this app.
+     * Returns the background to be set for this app.
      */
-    Colour getFontColour();
+    Background getBackground();
+
+    /**
+     * Sets the background of this application and saves it to the user preferences file.
+     */
+    void setBackground(Background background);
 
 }

@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.FoodTypeIsWantedPredicate;
 import seedu.address.ui.DisplayPaneType;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodTypeIsWantedPredicate;
 
 /**
  * Recommends suitable food or meals for diabetic patients.
@@ -17,14 +17,14 @@ public class RecmFoodCommand extends Command {
 
     public static final String COMMAND_WORD = "recmf";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets a list of food recommendations."
-            + "Recommendations can be filtered by keywords and flags:\n"
-            + "-nsv: breakfast recommendations\n"
-            + "-sv: lunch recommendations\n"
-            + "-f: fruit recommendations\n"
-            + "-p: protein recommendations\n"
-            + "-s: snack recommendations\n"
-            + "-m: meal recommendations\n"
-            + "Usage:" + COMMAND_WORD + "[-FLAG]... [FOOD_NAME]";
+        + "Recommendations can be filtered by keywords and flags:\n"
+        + "-nsv: breakfast recommendations\n"
+        + "-sv: lunch recommendations\n"
+        + "-f: fruit recommendations\n"
+        + "-p: protein recommendations\n"
+        + "-s: snack recommendations\n"
+        + "-m: meal recommendations\n"
+        + "Usage:" + COMMAND_WORD + "[-FLAG]... [fn/FOOD_NAME]";
 
     private final FoodTypeIsWantedPredicate typePredicate;
     private final Predicate<Food> namePredicate;
@@ -55,6 +55,6 @@ public class RecmFoodCommand extends Command {
             return false;
         }
         return typePredicate.equals(((RecmFoodCommand) other).typePredicate)
-                && namePredicate.equals(namePredicate);
+            && namePredicate.equals(namePredicate);
     }
 }

@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a User's gender in the user's biography data.
- * Guarantees: immutable; is valid as declared in {@link #isValidGender(String)}
+ * Represents a User's gender in the user's biography data. Guarantees: immutable; is valid as declared in {@link
+ * #isValidGender(String)}
  */
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only contain alphanumeric characters and spaces.";
+        "Gender should only contain alphanumeric characters and spaces.";
 
     public static final String VALIDATION_REGEX = "^$|[\\p{Alnum}][\\p{Alnum} ]*";
 
@@ -43,8 +43,8 @@ public class Gender {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Gender // instanceof handles nulls
-                && gender.equals(((Gender) other).gender)); // state check
+            || (other instanceof Gender // instanceof handles nulls
+            && gender.equals(((Gender) other).gender)); // state check
     }
 
     @Override

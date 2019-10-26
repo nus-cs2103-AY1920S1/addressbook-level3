@@ -6,7 +6,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -18,7 +17,7 @@ public class DateTime {
     public static final String VALIDATION_PATTERN_STRING = "yyyy-MM-dd HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VALIDATION_PATTERN_STRING);
     public static final String MESSAGE_CONSTRAINTS = "DateTime should be in the format: yyyy-MM-dd HH:mm and it "
-            + "should contain valid number";
+        + "should contain valid number";
 
     private LocalDate date;
     private LocalTime time;
@@ -81,11 +80,45 @@ public class DateTime {
 
     /**
      * Returns true if time are same.
+     *
      * @param dateTime the dateTime to be compared with.
      * @return true if time are same.
      */
     public boolean isSameTime(DateTime dateTime) {
         return this.time.equals(dateTime.getTime());
+    }
+
+    /**
+     * Returns true if current date time is before the given date time.
+     */
+    public boolean isBeforeDateTime(DateTime dateTime) {
+        return LocalDateTime.of(date, time).isBefore(LocalDateTime.of(dateTime.date, dateTime.time));
+    }
+
+    /**
+     * Returns true if current time is between the given time.
+     */
+    public boolean isBetweenTime(DateTime startingDateTime, DateTime endingDateTime) {
+        return (time.isAfter(startingDateTime.getTime()) || time.equals(startingDateTime.getTime()))
+            && (time.isBefore(endingDateTime.getTime()) || time.equals(endingDateTime.getTime()));
+    }
+
+    /**
+     * Returns true if current date and time is between the given date and time.
+     */
+    public boolean isBetweenDateTime(DateTime startingDateTime, DateTime endingDateTime) {
+        LocalDateTime thisDateTime = toLocalDateTime();
+        LocalDateTime starting = startingDateTime.toLocalDateTime();
+        LocalDateTime ending = endingDateTime.toLocalDateTime();
+        return (thisDateTime.isAfter(starting) || thisDateTime.equals(starting))
+            && (thisDateTime.isBefore(ending) || thisDateTime.equals(ending));
+    }
+
+    /**
+     * Returns a LocalDateTime object representing the dateTime object.
+     */
+    public LocalDateTime toLocalDateTime() {
+        return LocalDateTime.of(date, time);
     }
 
     /**
@@ -115,4 +148,5 @@ public class DateTime {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.of(date, time).format(formatter);
     }
+
 }

@@ -11,7 +11,9 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user in a separate window. */
+    /**
+     * Help information should be shown to the user in a separate window.
+     */
     private final boolean showHelp;
 
     /**
@@ -19,13 +21,15 @@ public class CommandResult {
      */
     private final boolean exit;
 
-    /** Bio information should be shown to the user in the same window. */
+    /**
+     * Bio information should be shown to the user in the same window.
+     */
     private boolean showBio = false;
     private boolean showAchvm = false;
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields. Fields of showing bio and achievements
-     * are false by default.
+     * Constructs a {@code CommandResult} with the specified fields. Fields of showing bio and achievements are false by
+     * default.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -44,8 +48,8 @@ public class CommandResult {
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, and other fields set to their
+     * default value.
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false, false);
@@ -84,10 +88,10 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && showBio == otherCommandResult.showBio
-                && showAchvm == otherCommandResult.showAchvm
-                && exit == otherCommandResult.exit;
+            && showHelp == otherCommandResult.showHelp
+            && showBio == otherCommandResult.showBio
+            && showAchvm == otherCommandResult.showAchvm
+            && exit == otherCommandResult.exit;
     }
 
     @Override

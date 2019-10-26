@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.ReadOnlyData;
 import seedu.address.model.record.exceptions.DuplicateRecordException;
 import seedu.address.model.record.exceptions.RecordNotFoundException;
 
@@ -22,7 +23,7 @@ import seedu.address.model.record.exceptions.RecordNotFoundException;
  *
  * @see Record#isSameRecord(Record)
  */
-public class UniqueRecordList implements Iterable<Record> {
+public class UniqueRecordList implements Iterable<Record>, ReadOnlyData {
 
     private final ObservableList<Record> internalList = FXCollections.observableArrayList();
     private final ObservableList<Record> internalUnmodifiableList =

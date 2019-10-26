@@ -57,4 +57,17 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Returns whether or not there are any prefix-value mappings in this instance of ArgumentMultimap.
+     */
+    public boolean isEmpty() {
+        return argMultimap.size() <= 1;
+    }
+
+    @Override
+    public String toString() {
+        return argMultimap.toString();
+    }
+
 }

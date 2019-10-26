@@ -69,7 +69,7 @@ dependencies {
 
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'SugarMummy.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -151,6 +151,14 @@ allprojects {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
         }
     }
+}
+
+task extrachecks(type: Exec) {
+    commandLine 'bash', './config/travis/run-checks.sh'
+}
+
+tasks.check {
+    dependsOn extrachecks
 }
 
 // Copies stylesheets into the directory containing generated HTML files as

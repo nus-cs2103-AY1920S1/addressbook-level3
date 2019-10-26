@@ -26,6 +26,14 @@ import seedu.address.model.record.Weight;
 public class AddCommandParser implements Parser<AddCommand> {
 
     /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
+     * ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
      * Parses the given {@code String} of arguments in the context of the AddCommand and returns an AddCommand object
      * for execution.
      *
@@ -33,8 +41,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME, PREFIX_BLOODSUGAR_CONCENTRATION,
-                    PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
+            ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME, PREFIX_BLOODSUGAR_CONCENTRATION,
+                PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_RECORDTYPE, PREFIX_DATETIME)
             || !argMultimap.getPreamble().isEmpty()) {
@@ -44,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         RecordType rt = ParserUtil.parseRecordType(argMultimap.getValue(PREFIX_RECORDTYPE).get());
         DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
 
-        switch(rt) {
+        switch (rt) {
         case BLOODSUGAR:
             if (!arePrefixesPresent(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -69,14 +77,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
-     * ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

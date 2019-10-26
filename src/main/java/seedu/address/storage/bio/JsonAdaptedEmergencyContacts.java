@@ -34,7 +34,8 @@ class JsonAdaptedEmergencyContacts {
     }
 
     /**
-     * Converts this Jackson-friendly adapted emergency contact object into the model's {@code Phone} object.
+     * Converts this Jackson-friendly adapted emergency contact object into the sugarmummy.recmfood.model's {@code
+     * Phone} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted emergency contact.
      */

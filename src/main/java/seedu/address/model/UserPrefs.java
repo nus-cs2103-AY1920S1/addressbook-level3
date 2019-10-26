@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 
 /**
@@ -81,9 +82,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return new Colour(this.guiSettings.getFontColour());
     }
 
+    @Override
     public void setFontColour(Colour fontColour) {
         requireNonNull(fontColour);
         this.guiSettings.setFontColour(fontColour);
+    }
+
+    @Override
+    public Background getBackground() {
+        return this.guiSettings.getBackground();
+    }
+
+    @Override
+    public void setBackground(Background background) {
+        requireNonNull(background);
+        this.guiSettings.setBackground(background);
     }
 
     //=========== Food Map =============================================================
@@ -95,8 +108,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     //=========== Records =============================================================
 
+    public void setFoodListFilePath(Path foodListFilePath) {
+        this.foodListFilePath = foodListFilePath;
+    }
+
     public Path getRecordListFilePath() {
         return recordListFilePath;
+    }
+
+    public void setRecordListFilePath(Path recordListFilePath) {
+        this.recordListFilePath = recordListFilePath;
     }
 
     public Path getEventListFilePath() {
@@ -105,14 +126,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getReminderListFilePath() {
         return reminderListFilePath;
-    }
-
-    public void setFoodListFilePath(Path foodListFilePath) {
-        this.foodListFilePath = foodListFilePath;
-    }
-
-    public void setRecordListFilePath(Path recordListFilePath) {
-        this.recordListFilePath = recordListFilePath;
     }
 
     @Override
@@ -127,7 +140,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+            && addressBookFilePath.equals(o.addressBookFilePath);
     }
 
     @Override

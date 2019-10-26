@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":Ui" as Ui UI_COLOR
+participant ":AverageGraphPanel" as AverageGraphPanel UI_COLOR
+participant ":MainDisplayPane" as MainDisplayPane UI_COLOR
+
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+[-> Ui : switchToMainDisplayPane(displayPaneType, newPaneIsToBeCreated)
+activate Ui
+
+Ui -> MainDisplayPane : get(paneToDisplay, newPaneIsToBeCreated)
+activate MainDisplayPane
+
+MainDisplayPane --> Ui
+
+MainDisplayPane -> Logic : getAverageMap()
+activate Logic
+Logic --> MainDisplayPane : AverageMap
+
+MainDisplayPane -> Logic : logic.getAverageType()
+Logic --> MainDisplayPane : AverageType
+
+MainDisplayPane -> Logic : logic.getRecordType())
+Logic --> MainDisplayPane : RecordType
+deactivate Logic
+
+MainDisplayPane --> Ui
+deactivate MainDisplayPane
+
+create AverageGraphPanel
+Ui -> AverageGraphPanel : AverageGraphPanel(averageMap, averageType, RecordType)
+activate AverageGraphPanel
+
+AverageGraphPanel --> Ui
+deactivate AverageGraphPanel
+
+[<--Ui
+deactivate Ui
+@enduml

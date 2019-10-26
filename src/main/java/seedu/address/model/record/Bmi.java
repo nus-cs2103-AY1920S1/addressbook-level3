@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.DateTime;
 
 /**
- * Represents a Bmi record in the record book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Bmi record in the record book. Guarantees: details are present and not null, field values are validated,
+ * immutable.
  */
 public class Bmi extends Record {
     public static final String MESSAGE_CONSTRAINTS = "Bmi can take any positive values,"

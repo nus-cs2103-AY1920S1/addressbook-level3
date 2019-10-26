@@ -17,12 +17,20 @@ public class Event extends CalendarEntry {
         autoReminder = Optional.empty();
     }
 
+    public Optional<DateTime> getEndingDateTime() {
+        return endingDateTime;
+    }
+
     public void setEndingDateTime(Optional<DateTime> endingDateTime) {
         this.endingDateTime = endingDateTime;
     }
 
     public void setEndingDateTime(DateTime endingDateTime) {
         this.endingDateTime = Optional.ofNullable(endingDateTime);
+    }
+
+    public Optional<Reminder> getAutoReminder() {
+        return autoReminder;
     }
 
     public void setAutoReminder(Optional<Reminder> autoReminder) {
@@ -33,17 +41,9 @@ public class Event extends CalendarEntry {
         this.autoReminder = Optional.ofNullable(reminder);
     }
 
-    public Optional<DateTime> getEndingDateTime() {
-        return endingDateTime;
-    }
-
-    public Optional<Reminder> getAutoReminder() {
-        return autoReminder;
-    }
-
     /**
-     * Returns true if both events have the same description, date and time;
-     * This defines a weaker notion of equality between two events.
+     * Returns true if both events have the same description, date and time; This defines a weaker notion of equality
+     * between two events.
      */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
@@ -51,15 +51,20 @@ public class Event extends CalendarEntry {
         }
 
         return otherEvent != null
-                && otherEvent.getDescription().equals(getDescription())
-                && otherEvent.getDateTime().equals(getDateTime());
+            && otherEvent.getDescription().equals(getDescription())
+            && otherEvent.getDateTime().equals(getDateTime());
     }
 
 
     @Override
     public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
         return calendarEntry instanceof Event
-                && isSameEvent((Event) calendarEntry);
+            && isSameEvent((Event) calendarEntry);
+    }
+
+    @Override
+    public boolean isBetween(DateTime start, DateTime end) {
+        return getDateTime().isBetweenDateTime(start, end);
     }
 
     /**
@@ -77,20 +82,20 @@ public class Event extends CalendarEntry {
 
         Event otherEvent = (Event) other;
         return otherEvent.getDescription().equals(getDescription())
-                && otherEvent.getDateTime().equals(getDateTime())
-                && otherEvent.getEndingDateTime().equals(getEndingDateTime())
-                && otherEvent.getAutoReminder().equals(getAutoReminder());
+            && otherEvent.getDateTime().equals(getDateTime())
+            && otherEvent.getEndingDateTime().equals(getEndingDateTime())
+            && otherEvent.getAutoReminder().equals(getAutoReminder());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Event")
-                .append(" Description: ")
-                .append(getDescription())
-                .append(" From: ")
-                .append(getDateTime())
-                .append(getEndingTimeString());
+            .append(" Description: ")
+            .append(getDescription())
+            .append(" From: ")
+            .append(getDateTime())
+            .append(getEndingTimeString());
         return builder.toString();
     }
 

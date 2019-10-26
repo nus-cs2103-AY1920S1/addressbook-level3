@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -13,7 +16,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyUserList;
-import seedu.address.storage.UserListStorage;
+import sugarmummy.storage.UserListStorage;
 
 /**
  * A class to access UserList data stored as a json file on the hard disk.
@@ -23,6 +26,7 @@ public class JsonUserListStorage implements UserListStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonUserListStorage.class);
 
     private Path filePath;
+    private List<Map<String, String>> listOfFieldsContainingInvalidReferences = new ArrayList<>();
 
     public JsonUserListStorage(Path filePath) {
         this.filePath = filePath;
@@ -47,10 +51,13 @@ public class JsonUserListStorage implements UserListStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableUserList> jsonUserList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableUserList.class);
+            filePath, JsonSerializableUserList.class);
         if (!jsonUserList.isPresent()) {
             return Optional.empty();
         }
+
+        listOfFieldsContainingInvalidReferences = JsonSerializableUserList
+            .getListOfFieldsContainingInvalidReferences();
 
         try {
             return Optional.of(jsonUserList.get().toModelType());
@@ -78,4 +85,8 @@ public class JsonUserListStorage implements UserListStorage {
         JsonUtil.saveJsonFile(new JsonSerializableUserList(userList), filePath);
     }
 
+    @Override
+    public List<Map<String, String>> getListOfFieldsContainingInvalidReferences() {
+        return listOfFieldsContainingInvalidReferences;
+    }
 }

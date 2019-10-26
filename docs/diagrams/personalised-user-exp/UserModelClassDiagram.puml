@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+enum BioFieldName <<enumeration>>
+
+UniqueUserList o-right-> User
+
+User *--> Name
+User *--> ProfileDesc
+User *--> DisplayPicPath
+User *--> Gender
+User *--> DateOfBirth
+User *--> Phone
+User *--> MedicalCondition
+User *--> Address
+User *--> Goal
+User *--> OtherBioInfo
+
+Phone -down-|> ListableField
+MedicalCondition -down-|> ListableField
+Goal -down-|> ListableField
+
+enum BioFieldName {
+
+LABEL_NAME
+LABEL_DP_PATH
+LABEL_PROFILE
+LABEL_NRIC
+LABEL_GENDER
+LABEL_DATE_OF_BIRTH
+LABEL_CONTACT_NUMBER
+LABEL_EMERGENCY_CONTACT_NUMBER
+LABEL_MEDICAL_CONDITION
+LABEL_ADDRESS
+LABEL_GOALS
+LABEL_OTHER_BIO_INFO
+
+}
+show BioFieldName fields
+@enduml

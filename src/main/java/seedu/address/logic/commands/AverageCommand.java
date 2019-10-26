@@ -18,9 +18,9 @@ public class AverageCommand extends Command {
     public static final String COMMAND_WORD = "average";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows daily/weekly/monthly average of different "
-            + "record types.\n"
-            + "Parameters: a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
-            + "Example: " + COMMAND_WORD + " a/daily rt/bloodsugar n/5";
+        + "record types.\n"
+        + "Parameters: a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
+        + "Example: " + COMMAND_WORD + " a/daily rt/bloodsugar n/5";
 
     public static final String MESSAGE_INVALID_COUNT = "n/COUNT";
 
@@ -53,8 +53,8 @@ public class AverageCommand extends Command {
         StringJoiner result = new StringJoiner(System.lineSeparator());
 
         model.getAverageMap().entrySet().stream()
-                .limit(count)
-                .forEach(ele -> result.add("average for " + this.recordType + " "
+            .limit(count)
+            .forEach(ele -> result.add("average for " + this.recordType + " "
                 + ele.getKey() + " is " + ele.getValue()));
 
         if (result.toString().isEmpty()) {
@@ -72,14 +72,9 @@ public class AverageCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AverageCommand // instanceof handles nulls
-                && averageType.equals(((AverageCommand) other).averageType) // state check
-                && recordType.equals(((AverageCommand) other).recordType)
-                && count == ((AverageCommand) other).count);
-    }
-
-    @Override
-    public boolean getnewPaneIsToBeCreated() {
-        return true;
+            || (other instanceof AverageCommand // instanceof handles nulls
+            && averageType.equals(((AverageCommand) other).averageType) // state check
+            && recordType.equals(((AverageCommand) other).recordType)
+            && count == ((AverageCommand) other).count);
     }
 }

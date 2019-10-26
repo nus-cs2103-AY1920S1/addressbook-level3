@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.sgm.model.food.Calorie;
-import seedu.sgm.model.food.Fat;
-import seedu.sgm.model.food.Food;
-import seedu.sgm.model.food.FoodName;
-import seedu.sgm.model.food.FoodType;
-import seedu.sgm.model.food.Gi;
-import seedu.sgm.model.food.Sugar;
+import seedu.address.model.food.Calorie;
+import seedu.address.model.food.Fat;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.FoodName;
+import seedu.address.model.food.FoodType;
+import seedu.address.model.food.Gi;
+import seedu.address.model.food.Sugar;
 
 /**
  * This is a utility class to help with building Food objects.
