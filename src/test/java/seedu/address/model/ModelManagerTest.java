@@ -2,8 +2,10 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalObjects.ALICE;
+import static seedu.address.testutil.TypicalObjects.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +13,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.testutil.FinSecBuilder;
 
 public class ModelManagerTest {
 
@@ -77,7 +80,7 @@ public class ModelManagerTest {
     }
 
     //    @Test
-    //    public void hasPerson_personInAddressBook_returnsTrue() {
+    //    public void hasContact_contactInAddressBook_returnsTrue() {
     //        modelManager.addContact(ALICE);
     //        assertTrue(modelManager.hasContact(ALICE));
     //    }
@@ -87,40 +90,42 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredContactList().remove(0));
     }
 
-    //    @Test
-    //    public void equals() {
-    //        FinSec finSec = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-    //        FinSec differentFinSec = new FinSec();
-    //        UserPrefs userPrefs = new UserPrefs();
-    //
-    //        // same values -> returns true
-    //        modelManager = new ModelManager(finSec, userPrefs);
-    //        ModelManager modelManagerCopy = new ModelManager(finSec, userPrefs);
-    //        assertTrue(modelManager.equals(modelManagerCopy));
-    //
-    //        // same object -> returns true
-    //        assertTrue(modelManager.equals(modelManager));
-    //
-    //        // null -> returns false
-    //        assertFalse(modelManager.equals(null));
-    //
-    //        // different types -> returns false
-    //        assertFalse(modelManager.equals(5));
-    //
-    //        // different finSec -> returns false
-    //        assertFalse(modelManager.equals(new ModelManager(differentFinSec, userPrefs)));
-    //
-    //        // different filteredList -> returns false
-    //        String[] keywords = ALICE.getName().fullName.split("\\s+");
-    //        modelManager.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-    //        assertFalse(modelManager.equals(new ModelManager(finSec, userPrefs)));
-    //
-    //        // resets modelManager to initial state for upcoming tests
-    //        modelManager.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
-    //
-    //        // different userPrefs -> returns false
-    //        UserPrefs differentUserPrefs = new UserPrefs();
-    //        differentUserPrefs.setFinSecFilePath(Paths.get("differentFilePath"));
-    //        assertFalse(modelManager.equals(new ModelManager(finSec, differentUserPrefs)));
-    //    }
+    @Test
+    public void equals() {
+        FinSec finSec = new FinSecBuilder().withContact(ALICE).withContact(BENSON).build();
+        FinSec differentFinSec = new FinSec();
+        UserPrefs userPrefs = new UserPrefs();
+
+        // same values -> returns true
+        modelManager = new ModelManager(finSec, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(finSec, userPrefs);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
+        // same object -> returns true
+        assertTrue(modelManager.equals(modelManager));
+
+        // null -> returns false
+        assertFalse(modelManager.equals(null));
+
+        // different types -> returns false
+        assertFalse(modelManager.equals(5));
+
+        assertFalse(modelManager.equals(""));
+
+        // different finSec -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentFinSec, userPrefs)));
+
+        //        // different filteredList -> returns false
+        //        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        //        modelManager.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        //        assertFalse(modelManager.equals(new ModelManager(finSec, userPrefs)));
+
+        //        // resets modelManager to initial state for upcoming tests
+        //        modelManager.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // different userPrefs -> returns false
+        UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setFinSecFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(finSec, differentUserPrefs)));
+    }
 }

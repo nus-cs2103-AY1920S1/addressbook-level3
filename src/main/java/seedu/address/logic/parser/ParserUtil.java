@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.ViewException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.View;
@@ -57,7 +58,7 @@ public class ParserUtil {
      * @return Trimmed view command
      * @throws ParseException If the command cannot be parsed.
      */
-    public static View parseView(String view) throws ParseException {
+    public static View parseView(String view) throws ParseException, ViewException {
         String trimmedView = view.trim();
         if (checkView(trimmedView)) {
             return new View(view, viewIndex);

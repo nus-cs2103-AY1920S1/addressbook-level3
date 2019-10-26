@@ -1,16 +1,16 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
-import static seedu.address.testutil.Views.FIRST_VIEW;
-import static seedu.address.testutil.Views.SECOND_VIEW;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.testutil.Views;
 
 
 /**
@@ -50,14 +50,14 @@ class GotoCommandTest {
 
     @Test
     public void equals() {
-        GotoCommand gotoFirstCommand = new GotoCommand(FIRST_VIEW);
-        GotoCommand gotoSecondCommand = new GotoCommand(SECOND_VIEW);
+        GotoCommand gotoFirstCommand = new GotoCommand(Views.getFirstView());
+        GotoCommand gotoSecondCommand = new GotoCommand(Views.getSecondView());
         // same object -> returns true
         assertTrue(gotoFirstCommand.equals(gotoFirstCommand));
 
         // same values -> returns true
-        GotoCommand gotoFirstCommandCopy = new GotoCommand(FIRST_VIEW);
-        assertTrue(gotoFirstCommand.equals(gotoFirstCommandCopy));
+        GotoCommand gotoFirstCommandCopy = new GotoCommand(Views.getFirstView());
+        assertEquals(gotoFirstCommand, gotoFirstCommandCopy);
 
         // different types -> returns false
         assertFalse(gotoFirstCommand.equals(1));
