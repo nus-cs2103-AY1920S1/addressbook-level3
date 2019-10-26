@@ -7,7 +7,9 @@ box UI #Lightgreen
     participant ":MainWindow" as MainWindow UI_COLOR
     participant ":ResultDisplay" as ResultDisplay UI_COLOR
 end box
-participant ":Logic" as Logic LOGIC_COLOR
+box Logic #Lightblue
+    participant ":Logic" as Logic LOGIC_COLOR
+end box
 
 User -> CommandBox: handleCommandEntered()
 activate CommandBox
