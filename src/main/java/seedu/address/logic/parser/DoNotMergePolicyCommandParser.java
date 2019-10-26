@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -34,6 +33,8 @@ public class DoNotMergePolicyCommandParser implements Parser<DoNotMergePolicyCom
     /**
      * Parses the given {@code String} of arguments in the context of the DoNotMergePolicyCommand
      * and returns a DoNotMergePolicyCommand object for execution.
+     * All arguments are expected to be valid at this point and parse exceptions should not be thrown.
+     *
      * @throws seedu.address.logic.parser.exceptions.ParseException if the user input does not
      * conform the expected format
      */
@@ -42,11 +43,10 @@ public class DoNotMergePolicyCommandParser implements Parser<DoNotMergePolicyCom
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
                         PREFIX_PRICE, PREFIX_START_AGE, PREFIX_END_AGE, PREFIX_CRITERIA, PREFIX_TAG);
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
-                PREFIX_PRICE) || areAnyPrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
-        }
+
+        assert(arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_COVERAGE,
+                PREFIX_PRICE) || !areAnyPrefixesPresent(argMultimap, PREFIX_CRITERIA, PREFIX_TAG)
+                || argMultimap.getPreamble().isEmpty());
 
         PolicyName name = ParserUtil.parsePolicyName(argMultimap.getValue(PREFIX_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
