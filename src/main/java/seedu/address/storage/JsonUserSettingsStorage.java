@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyUserSettings;
 import seedu.address.model.UserSettings;
@@ -78,6 +79,7 @@ public class JsonUserSettingsStorage implements UserSettingsStorage {
     @Override
     public void saveUserSettings(ReadOnlyUserSettings userSettings, Path filePath) throws IOException {
         requireAllNonNull(userSettings, filePath);
+        FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(userSettings, filePath);
 
     }
