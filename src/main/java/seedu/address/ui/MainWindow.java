@@ -34,6 +34,8 @@ public class MainWindow extends UiPart<Stage> {
     private FeedPostListPanel feedPostListPanel;
     private HelpWindow helpWindow;
 
+    private CommandBox commandBox;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -86,7 +88,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -145,6 +147,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Display pending command generated from to-do in commandbox.
+     */
+    private void handleSaveTodo(String pendingCommand) {
+        String[] resTokens = pendingCommand.split(":");
+        commandBox = new CommandBox(this::executeCommand, resTokens[1]);
+        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
+    }
+
     public EateryListPanel getEateryListPanel() {
         return eateryListPanel;
     }
@@ -166,6 +177,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.wantToSave()) {
+                handleSaveTodo(commandResult.getFeedbackToUser());
             }
 
             fillDataParts();

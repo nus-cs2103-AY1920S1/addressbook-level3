@@ -20,6 +20,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.ReviewCommand;
+import seedu.address.logic.commands.SaveTodoCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -87,6 +88,9 @@ public class AddressBookParser {
 
         case ReviewCommand.COMMAND_WORD:
             return new ReviewCommandParser().parse(arguments);
+
+        case SaveTodoCommand.COMMAND_WORD:
+            return new SaveTodoCommandParser().parse(arguments);
 
         case AddFeedCommand.COMMAND_WORD:
             return new AddFeedCommandParser().parse(arguments);

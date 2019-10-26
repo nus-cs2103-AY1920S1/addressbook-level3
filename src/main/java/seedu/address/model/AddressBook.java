@@ -121,14 +121,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void toggle() {
         isMainMode = !isMainMode;
-
-        if (isMainMode) {
-            logger.info("================Main Mode=============");
-            logger.info(eateries.toString());
-        } else {
-            logger.info("================Todo Mode=============");
-            logger.info(todo.toString());
-        }
     }
 
     public boolean isMainMode() {

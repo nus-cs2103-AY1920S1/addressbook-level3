@@ -28,6 +28,14 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+    public CommandBox(CommandExecutor commandExecutor, String pending) {
+        super(FXML);
+        this.commandExecutor = commandExecutor;
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.setText(pending);
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+    }
+
     /**
      * Handles the Enter button pressed event.
      */
@@ -74,4 +82,7 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
+    public String getContent() {
+        return commandTextField.getText();
+    }
 }
