@@ -23,7 +23,8 @@ public class ReadPasswordCommand extends Command {
             + "Parameters: INDEX (must be positive integer)"
             + "Some example ...";
 
-//    public static final String MESSAGE_SUCCESS = "%1$s";
+    public static final String MESSAGE_SUCCESS = "Results are shown on the right panel. \n"
+            + "Use copy command to copy password/username/website";
 
     private final Index targetIndex;
 
@@ -41,7 +42,7 @@ public class ReadPasswordCommand extends Command {
         }
 
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult("Results are shown on the right panel", passwordToRead);
+        return new CommandResult(MESSAGE_SUCCESS, passwordToRead);
 
     }
 }

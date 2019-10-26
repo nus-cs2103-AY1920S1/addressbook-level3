@@ -28,8 +28,6 @@ public class PasswordCard extends UiPart<Region> {
     @FXML
     private Label username;
     @FXML
-    private Label passwordValue;
-    @FXML
     private FlowPane tags;
 
     public PasswordCard(Password password, int displayedIndex) {
@@ -38,7 +36,6 @@ public class PasswordCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(password.getDescription().value);
         username.setText(password.getUsername().value);
-        passwordValue.setText(password.getPasswordValue().toString());
         password.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

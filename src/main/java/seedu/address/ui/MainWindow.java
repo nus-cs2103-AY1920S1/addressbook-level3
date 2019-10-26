@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -71,7 +72,20 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane modeListPanelPlaceholder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private VBox modeList;
+
+    @FXML
+    private VBox objectList;
+
+    @FXML
+    private VBox readList;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -87,6 +101,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         editObjectWindow = new EditObjectWindow();
+        readList.setVisible(false);
     }
 
     public Stage getPrimaryStage() {
@@ -141,11 +156,22 @@ public class MainWindow extends UiPart<Stage> {
         fillInnerPartsWithMode();
     }
 
+    /**
+     * Fills up the placeholder of this placeholder
+     * @param object
+     */
     void fillReadParts(Object object) {
-        readDisplayPassword = new ReadDisplayPassword();
-        readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
-        readDisplayPassword.setFeedbackToUser((Password) object);
-
+        switch (logic.getMode()) {
+        case PASSWORD:
+            readDisplayPassword = new ReadDisplayPassword();
+            readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
+            readDisplayPassword.setFeedbackToUser((Password) object);
+            break;
+        case NOTE:
+            //TODO: something
+            break;
+        default:
+        }
     }
 
     /**
@@ -261,6 +287,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException,
                                                                 ParseException, DictionaryException {
+        readList.setVisible(false);
+        readList.setMinWidth(0);
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -286,6 +314,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleShowWindow();
             }
             if (commandResult.isRead()) {
+                readList.setVisible(true);
+                readList.setMinWidth(340);
                 fillReadParts(commandResult.getObject());
             }
             return commandResult;

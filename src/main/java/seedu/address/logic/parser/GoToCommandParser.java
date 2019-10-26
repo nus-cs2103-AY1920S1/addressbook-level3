@@ -27,8 +27,6 @@ public class GoToCommandParser implements Parser<GoToCommand> {
             return new GoToCommand(Mode.NOTE);
         case "card":
             return new GoToCommand(Mode.CARD);
-        case "address":
-            return new GoToCommand(Mode.ADDRESS);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE));
         }

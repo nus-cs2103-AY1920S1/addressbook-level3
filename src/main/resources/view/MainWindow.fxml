@@ -47,22 +47,26 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
+
         <HBox>
-          <VBox fx:id="modeList" styleClass="pane-with-border" minWidth="150" prefWidth="150" VBox.vgrow="ALWAYS">
+          <VBox fx:id="modeList" styleClass="pane-with-border" minWidth="100" prefWidth="100" VBox.vgrow="ALWAYS"
+          HBox.hgrow="NEVER">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="modeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="objectList" styleClass="pane-with-border" minWidth="250" prefWidth="250" VBox.vgrow="ALWAYS">
+          <VBox fx:id="objectList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
+          HBox.hgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="objectListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="readList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+          <VBox fx:id="readList" styleClass="pane-with-border" minWidth="0" prefWidth="0" maxWidth="0" VBox.vgrow="ALWAYS"
+          HBox.hgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>

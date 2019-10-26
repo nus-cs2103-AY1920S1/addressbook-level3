@@ -81,8 +81,6 @@ public class LogicManager implements Logic {
             return noteBookParser.parseCommand(commandText);
         case PASSWORD:
             return passwordBookParser.parseCommand(commandText);
-        case ADDRESS:
-            return addressBookParser.parseCommand(commandText);
         default:
             return addressBookParser.parseCommand(commandText);
         }
@@ -106,7 +104,7 @@ public class LogicManager implements Logic {
             case PASSWORD:
                 storage.savePasswordBook(model.getPasswordBook());
                 break;
-            case ADDRESS:
+            default:
                 storage.saveAddressBook(model.getAddressBook());
                 break;
             }

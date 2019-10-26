@@ -54,7 +54,7 @@ public class CommandResult {
 
     public CommandResult(String feedbackToUser, Object object) {
         this(feedbackToUser, false, false, false,
-                null, false,true, object);
+                null, false, true, object);
     }
 
     /**
