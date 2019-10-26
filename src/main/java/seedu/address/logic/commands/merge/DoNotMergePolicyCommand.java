@@ -2,8 +2,6 @@ package seedu.address.logic.commands.merge;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException;
@@ -21,7 +19,6 @@ public class DoNotMergePolicyCommand extends Command {
 
     private final Policy inputPolicy;
     private Policy originalPolicy;
-    private ArrayList<String[]> differentFields = new ArrayList<>();
 
 
     /**
