@@ -30,7 +30,8 @@ public class Deadline extends Task {
 
     /**
      * Checks if this task is equal to another task
-     * Condition for equality: same type of task && same description && same due date
+     * Condition for equality: same type of task, same description, same due date,
+     * and same status
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
@@ -44,8 +45,9 @@ public class Deadline extends Task {
         boolean isSameDes = taskDes.equals(((Task) other).taskDes);
         Deadline dOther = (Deadline) other;
         boolean isSameDate = deadline.compareTo(dOther.getDueDate()) == 0;
+        boolean isSameStatus = status.equals(((Deadline) other).getStatus());
 
-        return isSameDes && isSameDate;
+        return isSameDes && isSameDate && isSameDate;
     }
 
 

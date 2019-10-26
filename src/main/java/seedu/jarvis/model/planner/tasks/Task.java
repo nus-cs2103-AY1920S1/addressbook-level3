@@ -109,6 +109,14 @@ public abstract class Task {
     }
 
     /**
+     * Marks a {@code Task} as not done
+     */
+    //TODO test
+    public void markAsNotDone() {
+        status = Status.NOT_DONE;
+    }
+
+    /**
      * Retrives the status of the object
      * @return DONE or NOT_DONE
      */

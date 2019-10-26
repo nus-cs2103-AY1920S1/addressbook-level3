@@ -88,6 +88,13 @@ public class DoneTaskCommand extends Command {
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        TaskList tasks = model.getTasks();
+
+        if (targetIndex.getZeroBased() >= tasks.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
     }
 }
