@@ -1,0 +1,13 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+show members
+
+class Budget {
+    <color:#white>period:Calendar
+    <color:#white>value:BudgetValue
+}
+
+@enduml

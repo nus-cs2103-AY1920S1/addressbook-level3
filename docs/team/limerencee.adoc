@@ -5,23 +5,34 @@
 
 == 1. Introduction
 === 1.1 Purpose
-This portfolio serves as a showcase of my roles and contributions to the team project THRIFT. This project was part of
+This portfolio serves as a showcase of my roles and contributions to the team project `**THRIFT**`. This project was part of
 the requirements of a year two software engineering module that I have taken as an undergraduate in NUS.
 
-=== 1.2 Project: THRIFT
-THRIFT is a finance tracking desktop application that was morphed from the original AddressBook-Level3 desktop
+=== 1.2 Project: `**THRIFT**`
+`**THRIFT**` is a finance tracking desktop application that was morphed from the original AddressBook-Level3 desktop
 application. In the original project, the application acts as a contacts list where the user could add contacts into
-their personalized list. My team and I have since morphed the application to better suit our purposes, which allow
+their personalized list. My team and I have since transformed the application to better suit our purpose, allowing
 users to easily track their incoming and outgoing transactions.
 
 === 1.3 Background
-In this project, I was the team lead and was primarily in charge of spearing the direction of the THRIFT application.
+In this project, I was the team lead and was primarily in charge of spearing the direction of the `**THRIFT**`.
 This meant that managing project milestones, deadlines and delegating work to different team members were part of my
 responsibilities.
 
-My team members took on the roles of ___
+My team members took on the roles of "User Experience Developer", "Process Analyst", "Quality Assurance Manager" and "Software Architect".
+We all had important and major roles to play in order to ensure `**THRIFT**` is successful.
 
 === 1.4 Legend
+There are various text styles used in this portfolio and their usages are explained below:
+[horizontal]
+*add_expense n/Laksa v/4*:: Bold text indicates user input.
+
+_/src/java/thrift/logic/Logic.java_:: Italic text indicates that it is a file path.
+
+`currentMonth`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable name.
+
+`**THRIFT**`:: Bold text with mark-up indicates a class/package name.
+
 
 == 2. Summary of Contributions
 

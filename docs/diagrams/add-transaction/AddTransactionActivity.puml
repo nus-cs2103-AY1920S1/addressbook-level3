@@ -2,9 +2,10 @@
 start
 :User executes add transaction command;
 
-if (Check input validity with AddTransactionCommandParser) then ([Invalid, throws ParseException])
-else
-    if (Check input type) then ([Transaction is an Expense])
+if () then ([Invalid input])
+    :Throw ParseException;
+else ([Valid input])
+    if () then ([Transaction is an Expense])
         :Initialize AddExpenseCommandParser;
         :Initialize Expense;
         :Initialize AddExpenseCommand;

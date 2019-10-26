@@ -1,0 +1,67 @@
+@startuml
+
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ThriftParser" as ThriftParser LOGIC_COLOR
+participant ":BudgetCommandParser" as BudgetCommandParser LOGIC_COLOR
+participant ":BudgetCommand" as BudgetCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+
+participant ":Budget" as Budget MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("budget v/1500 d/10/2019")
+activate LogicManager
+
+LogicManager -> ThriftParser : parseCommand("budget v/1500 d/10/2019")
+activate ThriftParser
+
+create BudgetCommandParser
+ThriftParser -> BudgetCommandParser
+activate BudgetCommandParser
+ThriftParser <-- BudgetCommandParser
+deactivate BudgetCommandParser
+
+ThriftParser -> BudgetCommandParser : parse("v/1500,\nd/10/2019")
+activate BudgetCommandParser
+create Budget
+BudgetCommandParser -> Budget : Budget("10/2019", "1500")
+activate Budget
+BudgetCommandParser <-- Budget : b
+deactivate Budget
+
+create BudgetCommand
+BudgetCommandParser -> BudgetCommand : BudgetCommand(b)
+activate BudgetCommand
+BudgetCommandParser <-- BudgetCommand : bCommand
+deactivate BudgetCommand
+
+ThriftParser <-- BudgetCommandParser : bCommand
+deactivate BudgetCommandParser
+destroy BudgetCommandParser
+
+LogicManager <-- ThriftParser : bCommand
+deactivate ThriftParser
+
+LogicManager -> BudgetCommand : execute()
+activate BudgetCommand
+
+BudgetCommand -> ModelManager : setBudget(b)
+activate ModelManager
+
+BudgetCommand <-- ModelManager
+deactivate ModelManager
+
+LogicManager <-- BudgetCommand : CommandResult
+deactivate BudgetCommand
+destroy BudgetCommand
+
+[<-- LogicManager : CommandResult
+deactivate LogicManager
+
+@enduml

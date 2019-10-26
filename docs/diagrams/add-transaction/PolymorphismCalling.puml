@@ -2,9 +2,12 @@
 
 !include ../style.puml
 
-box
+box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ThriftParser" as ThriftParser LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
 participant ":AddTransactionCommandParser" as AddTransactionCommandParser MODEL_COLOR
 end box
 

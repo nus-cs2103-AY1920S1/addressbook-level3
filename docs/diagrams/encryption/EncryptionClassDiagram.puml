@@ -1,0 +1,36 @@
+@startuml
+!include ../style.puml
+!define KEYSTORE_COLOR #6AB441
+!define KEYSTORE_COLOR_T1 #DCFF81
+
+skinparam arrowThickness 1.1
+
+package Storage STORAGE_COLOR_T1 {
+    skinparam arrowColor STORAGE_COLOR
+    skinparam classBackgroundColor STORAGE_COLOR
+
+    Interface Storage <<Interface>>
+    Interface ThriftStorage <<Interface>>
+
+    Class StorageManager
+}
+
+package Model MODEL_COLOR_T1 {
+    Class Thrift MODEL_COLOR
+}
+
+package Logic LOGIC_COLOR_T1 {
+    Class LogicManager LOGIC_COLOR
+}
+
+package Keystore KEYSTORE_COLOR_T1 {
+    Class KeystoreManager KEYSTORE_COLOR
+}
+
+StorageManager .left.|> Storage
+StorageManager o--> ThriftStorage
+LogicManager -[LOGIC_COLOR]- KeystoreManager
+KeystoreManager -[KEYSTORE_COLOR]- StorageManager
+Thrift -left[MODEL_COLOR]- LogicManager
+
+@enduml
