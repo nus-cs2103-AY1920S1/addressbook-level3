@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.address.logic.commands.CommandResult;
@@ -21,8 +22,8 @@ public class ImportCommand extends HomeCommand {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Import the word bank selected from a folder.\n"
-            + "Example: " + COMMAND_WORD + " "
+            + " w/WORDBANK f/FILEPATH\n"
+            + "Eg: " + COMMAND_WORD + " "
             + PREFIX_WORD + "sample "
             + PREFIX_FILEPATH + "~/downloads";
 
@@ -39,9 +40,10 @@ public class ImportCommand extends HomeCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+//        Path wordBankPath = Paths.get(this.directory.toString(), wordBankName);
 
         return new ImportCommandResult(String.format(MESSAGE_IMPORT_CARD_SUCCESS, wordBankName, directory),
-                directory.toPath());
+                this.directory.toPath(), wordBankName);
     }
 
     @Override

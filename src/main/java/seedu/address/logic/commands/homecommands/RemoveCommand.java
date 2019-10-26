@@ -17,8 +17,8 @@ public class RemoveCommand extends HomeCommand {
     public static final String COMMAND_WORD = "remove";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the word bank identified by the input.\n"
-            + "Example: " + COMMAND_WORD + " sample";
+            + " WORDBANK\n"
+            + "Eg: " + COMMAND_WORD + " sample";
 
     private static final String MESSAGE_REMOVE_CARD_SUCCESS = "Removed word bank: %1$s";
 
@@ -31,12 +31,12 @@ public class RemoveCommand extends HomeCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName);
+        WordBank wb = model.getWordBankFromName(wordBankName);
         if (wb == null) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
         }
 
-        model.removeWordBank();
+        model.updateWordBank(wordBankName);
         return new RemoveCommandResult(String.format(MESSAGE_REMOVE_CARD_SUCCESS, wordBankName), wordBankName);
     }
 

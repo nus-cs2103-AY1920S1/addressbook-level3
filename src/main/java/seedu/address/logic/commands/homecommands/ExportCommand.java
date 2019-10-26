@@ -21,8 +21,8 @@ public class ExportCommand extends HomeCommand {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Export the word bank selected to a folder.\n"
-            + "Example: " + COMMAND_WORD + " "
+            + " w/BANKNAME f/FILEPATH\n"
+            + "Eg: " + COMMAND_WORD + " "
             + PREFIX_WORD + "sample "
             + PREFIX_FILEPATH + "~/downloads";
 

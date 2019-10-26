@@ -218,11 +218,13 @@ public class ModelManager implements Model {
         return wordBank;
     }
 
-    public void removeWordBank() {
-        hasBank = false;
-        this.wordBank = SampleDataUtil.getSampleWordBank();
+    @Override
+    public void updateWordBank(String name) {
+        if (wordBank.getName().equals(name)) {
+            hasBank = false;
+            this.wordBank = SampleDataUtil.getSampleWordBank();
+        }
     }
-
 
     @Override
     public boolean hasCard(Card card) {

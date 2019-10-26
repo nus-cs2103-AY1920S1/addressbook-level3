@@ -202,10 +202,12 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Creates the word bank specified by the file path, add to internal list, and then add to storage.
      *
      * @param filePath cannot be null.
+     * @param wordBankName cannot be null.
      */
     @Override
-    public void importWordBank(Path filePath) {
-        WordBank wb = (WordBank) jsonToWordBank(filePath).get();
+    public void importWordBank(Path filePath, String wordBankName) {
+        Path finalPath = Paths.get(filePath.toString(), wordBankName + ".json");
+        WordBank wb = (WordBank) jsonToWordBank(finalPath).get();
         addWordBank(wb);
         saveWordBank(wb);
     }

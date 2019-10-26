@@ -14,15 +14,15 @@ public class CreateCommand extends HomeCommand {
 
     public static final String COMMAND_WORD = "create";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a word bank."
-            + "Parameters: "
-            + "word bank name.\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "sample wordbank";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + " WORDBANK.\n"
+            + "Eg: " + COMMAND_WORD + " "
+            + "my bank";
 
     public static final String MESSAGE_SUCCESS = "New word bank added: %1$s";
 
     private final String wordBankName;
+
     /**
      * Creates a CreateCommand to add the specified {@code Card}
      */

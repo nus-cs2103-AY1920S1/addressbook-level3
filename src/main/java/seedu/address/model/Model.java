@@ -61,9 +61,9 @@ public interface Model {
     void setWordBank(ReadOnlyWordBank wordBank);
 
     /**
-     * Set the word bank to empty.
+     * Set the word bank to default if the removed.
      */
-    void removeWordBank();
+    void updateWordBank(String name);
 
     /**
      * Returns the active word bank statistics. Null if no active.

@@ -10,12 +10,15 @@ import java.nio.file.Path;
  */
 public class ImportCommandResult extends HomeCommandResult {
 
-    public ImportCommandResult(String feedback, Path filePath) {
+    private String wordBankName;
+
+    public ImportCommandResult(String feedback, Path filePath, String wordBankName) {
         super(feedback, filePath);
+        this.wordBankName = wordBankName;
     }
 
     @Override
     public void updateStorage(Storage storage) {
-        storage.importWordBank(filePath);
+        storage.importWordBank(filePath, wordBankName);
     }
 }

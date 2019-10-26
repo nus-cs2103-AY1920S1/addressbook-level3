@@ -88,31 +88,6 @@ public class LogicManager implements Logic, UiLogicHelper {
                 cardCommandResult.updateStorage(storage, (WordBank) model.getWordBank());
             }
 
-//            ReadOnlyWordBank wb = model.getWordBank();
-//
-//            if (!wb.getName().equals("Empty wordbank")) {
-//                storage.saveWordBank(wb);
-//            }
-//            if (command instanceof CreateCommand) {
-//                storage.addWordBank(wb);
-//            }
-//            if (command instanceof RemoveCommand) {
-//                storage.removeWordBank(((RemoveCommand) command).getWordBankName());
-//            }
-//            if (command instanceof ExportCommand) {
-//                File dir = ((ExportCommand) command).getDirectory();
-//                Path filePath = Paths.get(dir.toString());
-//                storage.saveWordBank(((ExportCommand) command).getWordBank(), filePath);
-//            }
-//            if (command instanceof ImportCommand) {
-//                File dir = ((ImportCommand) command).getDirectory();
-//                String wordBankName = ((ImportCommand) command).getWordBankName() + ".json";
-//                Path filePath = Paths.get(dir.toString(), wordBankName);
-//                WordBank wordBank = (WordBank) storage.jsonToWordBank(filePath).get();
-//                storage.saveWordBank(wordBank);
-//                model.getWordBankList().addBank(wordBank);
-//            }
-
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
