@@ -12,6 +12,11 @@ public interface CoursePlannerModel {
     void lookUpCourse(Course course);
 
     /**
+     * Checks if the user can this course.
+     */
+    void checkCourse(String val);
+
+    /**
      * Adds a course into the list.
      */
     void addCourse(Course course);
@@ -35,6 +40,16 @@ public interface CoursePlannerModel {
      * Returns an unmodifiable list.
      */
     ObservableList<Course> getUnfilteredCourseList();
+
+    /**
+     * Returns the text displayed to the user in the Course Planner.
+     */
+    String getDisplayText();
+
+    /**
+     * Returns the text displayed to the user in the Course Planner by the line character limit.
+     */
+    String getDisplayText(int lineCharacterLimit);
 
     /**
      * Gets this Model's course planner
