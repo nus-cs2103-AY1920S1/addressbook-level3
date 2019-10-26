@@ -12,6 +12,7 @@ import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.Storage;
 
 /**
@@ -65,11 +66,11 @@ public class AddCommand extends Command {
 
         if (hasNoUrl) {
             Url urlToAdd = model.getCurrentUrl();
+            // Throw exception when there is no internet connection
             if (urlToAdd == null) {
                 throw new CommandException(MESSAGE_MISSING_URL);
             }
-            toAdd = new Bookmark(toAdd.getName(), urlToAdd, toAdd.getRemark(), toAdd.getFolder(),
-                    toAdd.getTags(), toAdd.getCachedCopies());
+            toAdd = new BookmarkBuilder(toAdd).withUrl(urlToAdd.value).build();
         }
 
         if (model.hasBookmark(toAdd)) {
