@@ -97,10 +97,20 @@ public class AddExpenseCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        //@Override
-        //public ObservableList<Budget> getFilteredBudgetList() {
-        //    throw new AssertionError("This method should not be called.");
-        //}
+        @Override
+        public ObservableList<Budget> getFilteredBudgetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBudgetList(Predicate<? super Budget> budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Predicate<? super Budget> getFilteredBudgetPredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -254,6 +264,11 @@ public class AddExpenseCommandTest {
 
         @Override
         public void switchBudgetTo(Description targetDescription) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 

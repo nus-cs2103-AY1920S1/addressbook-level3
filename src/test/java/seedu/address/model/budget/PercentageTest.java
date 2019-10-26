@@ -14,12 +14,6 @@ public class PercentageTest {
     private static final Percentage SAMPLE_THRESHOLD = new Percentage(50);
 
     @Test
-    public void constructor_upperInvalidInput_throwsIllegalArgumentException() {
-        int upperInvalidInput = 101;
-        assertThrows(IllegalArgumentException.class, () -> new Percentage(upperInvalidInput));
-    }
-
-    @Test
     public void constructor_lowerInvalidInput_throwsIllegalArgumentException() {
         int lowerInvalidInput = -1;
         assertThrows(IllegalArgumentException.class, () -> new Percentage(lowerInvalidInput));
@@ -29,7 +23,6 @@ public class PercentageTest {
     public void isValidPercentage() {
         // invalid percentage
         assertFalse(Percentage.isValidPercentage(-1)); // negative
-        assertFalse(Percentage.isValidPercentage(101)); // larger than 100
 
         // valid percentage
         assertTrue(Percentage.isValidPercentage(0)); // smallest non-negative number
@@ -41,12 +34,6 @@ public class PercentageTest {
     public void calculate_validInput_successful() {
         Percentage percentage = Percentage.calculate(57.50, 200);
         assertEquals(new Percentage(29), percentage);
-    }
-
-    @Test
-    public void calculate_numLargerThanDen_returnsFullPercentage() {
-        Percentage percentage = Percentage.calculate(300, 200);
-        assertEquals(new Percentage(100), percentage);
     }
 
     @Test

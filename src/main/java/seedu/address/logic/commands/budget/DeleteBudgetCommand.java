@@ -13,6 +13,9 @@ import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
 import seedu.address.ui.budget.BudgetListPanel;
 
+/**
+ * Deletes a budget identified using it's displayed index from the MooLah.
+ */
 public class DeleteBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "deletebudget";
 

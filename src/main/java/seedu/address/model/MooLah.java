@@ -89,27 +89,21 @@ public class MooLah implements ReadOnlyMooLah {
         setBudgets(newData.getBudgetList());
         setEvents(newData.getEventList());
         resetBudgetExpenseLists();
-        //resetBudgetPrimaryStatus(newData);
     }
 
+    /**
+     * Update expense list of all budgets as a result of UndoCommand on expenses.
+     */
     private void resetBudgetExpenseLists() {
         for (Budget b : budgets) {
             b.clearExpenses();
         }
         for (Expense e : expenses) {
             Budget b = budgets.getBudgetWithName(e.getBudgetName());
-            b.addExpense(e);
-        }
-    }
-
-    private void resetBudgetPrimaryStatus(ReadOnlyMooLah newData) {
-        for (Budget b : newData.getBudgetList()) {
-            if (budgets.hasBudgetWithName(b.getDescription())) {
-                Budget budget = budgets.getBudgetWithName(b.getDescription());
-                budget.setIsPrimary(b.isPrimary());
+            if (b != null) {
+                b.addExpense(e);
             }
         }
-
     }
 
     //=========== Expense-level operations =============================================================
@@ -129,9 +123,9 @@ public class MooLah implements ReadOnlyMooLah {
      */
     public void addExpense(Expense p) {
         //if (budgets.isEmpty()) {
-          //  Budget defaultBudget = Budget.createDefaultBudget();
-           // defaultBudget.setPrimary();
-           // budgets.add(defaultBudget);
+        //  Budget defaultBudget = Budget.createDefaultBudget();
+        // defaultBudget.setPrimary();
+        // budgets.add(defaultBudget);
         //}
         Budget primaryBudget = budgets.getPrimaryBudget();
         if (p.getBudgetName() == null) {
@@ -233,6 +227,10 @@ public class MooLah implements ReadOnlyMooLah {
         budgets.setBudget(target, editedBudget);
     }
 
+    /**
+     * Removes Budget {@code key} from this {@code MooLah}.
+     * {@code key} must exist in the MooLah.
+     */
     public void removeBudget(Budget key) {
         budgets.remove(key);
         for (Expense expense : expenses) {

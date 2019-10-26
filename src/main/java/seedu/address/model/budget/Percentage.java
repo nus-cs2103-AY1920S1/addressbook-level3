@@ -33,12 +33,7 @@ public class Percentage {
     public static Percentage calculate(double num, double den) throws IllegalArgumentException {
         if (num * den < 0) {
             throw new IllegalArgumentException("Numerator and denominator must have same sign");
-        }
-        //else if (num > den) {
-            //throw new IllegalArgumentException("Numerator cannot be larger than denominator");
-          //  return new Percentage(100);
-//        }
-        else {
+        } else {
             return new Percentage((int) Math.round(num / den * 100));
         }
     }

@@ -69,9 +69,10 @@ public class UniqueBudgetListTest {
         uniqueBudgetList.add(SCHOOL);
         List<Budget> budgetList = Collections.singletonList(OUTSIDE_SCHOOL);
         uniqueBudgetList.setBudgets(budgetList);
-        UniqueBudgetList expectedUniqueBudgetList = new UniqueBudgetList();
-        expectedUniqueBudgetList.add(OUTSIDE_SCHOOL);
-        assertEquals(expectedUniqueBudgetList, uniqueBudgetList);
+        //UniqueBudgetList expectedUniqueBudgetList = new UniqueBudgetList();
+        //expectedUniqueBudgetList.add(OUTSIDE_SCHOOL);
+        assertTrue(uniqueBudgetList.hasBudgetWithName(OUTSIDE_SCHOOL.getDescription()));
+        assertFalse(uniqueBudgetList.hasBudgetWithName(SCHOOL.getDescription()));
     }
 
     @Test

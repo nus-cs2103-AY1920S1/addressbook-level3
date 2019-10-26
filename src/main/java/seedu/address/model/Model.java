@@ -176,8 +176,6 @@ public interface Model {
 
     void switchBudgetTo(Description description);
 
-    void setBudget(Budget target, Budget editedBudget);
-
     void deleteBudget(Budget target);
 
     /** Returns an unmodifiable view of the filtered expense list */

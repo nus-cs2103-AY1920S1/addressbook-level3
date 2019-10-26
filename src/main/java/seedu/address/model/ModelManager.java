@@ -87,9 +87,9 @@ public class ModelManager implements Model {
         }
 
         if (model.getFilteredBudgetPredicate() != null) {
-          updateFilteredBudgetList(model.getFilteredBudgetPredicate());
+            updateFilteredBudgetList(model.getFilteredBudgetPredicate());
         } else {
-          updateFilteredBudgetList(model.PREDICATE_SHOW_ALL_BUDGETS);
+            updateFilteredBudgetList(model.PREDICATE_SHOW_ALL_BUDGETS);
         }
     }
 
@@ -284,11 +284,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setBudget(Budget target, Budget editedBudget) {
-        mooLah.setBudget(target, editedBudget);
-    }
-
-    @Override
     public void deleteBudget(Budget target) {
         mooLah.removeBudget(target);
     }
@@ -390,18 +385,18 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Budget> getFilteredBudgetList() {
-    return filteredBudgets;
+        return filteredBudgets;
     }
 
     @Override
     public void updateFilteredBudgetList(Predicate<? super Budget> predicate) {
-      requireNonNull(predicate);
-      filteredBudgets.setPredicate(predicate);
-      }
+        requireNonNull(predicate);
+        filteredBudgets.setPredicate(predicate);
+    }
 
     @Override
     public Predicate<? super Budget> getFilteredBudgetPredicate() {
-       return filteredBudgets.getPredicate();
+        return filteredBudgets.getPredicate();
     }
 
     @Override

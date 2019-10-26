@@ -99,6 +99,27 @@ public class AddBudgetCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        @Override
+        public ObservableList<Budget> getFilteredBudgetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBudgetList(Predicate<? super Budget> budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Predicate<? super Budget> getFilteredBudgetPredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void notifyAboutTranspiredEvents(List<Event> events) {
             throw new AssertionError("This method should not be called.");

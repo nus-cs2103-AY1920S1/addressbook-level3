@@ -5,20 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.expense.EditCommand;
 import seedu.address.model.budget.exceptions.BudgetNotFoundException;
 import seedu.address.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
-import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Price;
-import seedu.address.model.expense.Timestamp;
 
 /**
  * A list of budgets that enforces uniqueness between its elements and does not allow nulls.
@@ -37,7 +30,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
     private final ObservableList<Budget> internalList = FXCollections.observableArrayList();
     private final ObservableList<Budget> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    //private Budget primaryBudget = null;
 
     /**
      * Returns true if the list contains an equivalent budget as the given argument.
@@ -60,7 +52,9 @@ public class UniqueBudgetList implements Iterable<Budget> {
         setPrimary(toAdd);
     }
 
-
+    /**
+     * Adds a budget to MooLah when reconstructing MooLah from json storage file.
+     */
     public void addBudgetFromStorage(Budget toAdd) {
         if (contains(toAdd)) {
             throw new DuplicateBudgetException();
@@ -88,22 +82,19 @@ public class UniqueBudgetList implements Iterable<Budget> {
 
     public void setPrimary(Budget budget) {
         requireAllNonNull(budget);
-        if (internalList.size() > 1) {
-            for (Budget b : internalList) {
-                if (b.isPrimary()) {
-                    Budget b1 = Budget.deepCopy(b);
-                    b1.setNotPrimary();
-                    ;
-                    setBudget(b, b1);
-                    //b.setNotPrimary();
-                }
+        if (budget.isPrimary()) {
+            return;
+        }
+        for (Budget b : internalList) {
+            if (b.isPrimary()) {
+                Budget b1 = Budget.deepCopy(b);
+                b1.setNotPrimary();
+                setBudget(b, b1);
             }
         }
         Budget b1 = Budget.deepCopy(budget);
         b1.setPrimary();
         setBudget(budget, b1);
-        //budget.setPrimary();
-        //primaryBudget = budget;
     }
 
     public Budget getPrimaryBudget() {
@@ -138,6 +129,9 @@ public class UniqueBudgetList implements Iterable<Budget> {
         return getBudgetWithName(new Description("default budget"));
     }
 
+    /**
+     * Removes a budget from this unique budget list.
+     */
     public void remove(Budget toRemove) {
         requireNonNull(toRemove);
         if (toRemove.isSameBudget(getDefaultBudget())) {

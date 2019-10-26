@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
@@ -265,6 +264,11 @@ public class Budget {
         return currentPeriodExpenses;
     }
 
+    /**
+     * Makes a deep copy of a budget.
+     * @param other The budget to be deep copied.
+     * @return A deep copy of the budget, with identical attributes.
+     */
     public static Budget deepCopy(Budget other) {
         Budget budget = new Budget(other.getDescription(), other.getAmount(), other.getStartDate(),
                 other.getEndDate(), other.getPeriod(), other.getExpenses(), other.isPrimary(),

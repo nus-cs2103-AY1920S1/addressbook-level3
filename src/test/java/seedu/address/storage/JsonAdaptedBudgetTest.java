@@ -33,7 +33,7 @@ public class JsonAdaptedBudgetTest {
     private static final String INVALID_START_DATE = "blah";
     private static final String INVALID_END_DATE = "bleh";
     private static final String INVALID_PERIOD = "dfa";
-    private static final String INVALID_PROPORTION_USED = "125%";
+    private static final String INVALID_PROPORTION_USED = "-2%";
 
     @Test
     public void toModelType_validBudgetDetails_returnsBudget() throws Exception {
