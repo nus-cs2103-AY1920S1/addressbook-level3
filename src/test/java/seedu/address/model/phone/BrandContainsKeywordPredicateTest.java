@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.phone.predicates.BrandContainsKeywordsPredicate;
 import seedu.address.testutil.PhoneBuilder;
 
@@ -18,12 +19,11 @@ public class BrandContainsKeywordPredicateTest {
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("one");
         List<String> secondPredicateKeywordList = Arrays.asList("one", "two");
-
-        BrandContainsKeywordsPredicate  firstPred =
+        BrandContainsKeywordsPredicate firstPred =
                 new BrandContainsKeywordsPredicate(firstPredicateKeywordList);
-        BrandContainsKeywordsPredicate  firstPredCopy =
+        BrandContainsKeywordsPredicate firstPredCopy =
                 new BrandContainsKeywordsPredicate(firstPredicateKeywordList);
-        BrandContainsKeywordsPredicate  secondPred =
+        BrandContainsKeywordsPredicate secondPred =
                 new BrandContainsKeywordsPredicate(secondPredicateKeywordList);
 
         //same obj
