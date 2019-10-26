@@ -89,7 +89,7 @@ public class RecurringDateTime {
      * @return Long, which is 0 if string passed in is null
      */
     public static Long getSingleFrequencyAsLong(String freq) {
-        if (isNull(freq) || freq.equals("")) {
+        if (isNull(freq) || "".equals(freq)) {
             return Long.parseLong("0");
         } else {
             return Long.parseLong(freq);
