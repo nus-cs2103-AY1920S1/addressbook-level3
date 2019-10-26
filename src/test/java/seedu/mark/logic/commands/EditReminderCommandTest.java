@@ -1,26 +1,24 @@
 package seedu.mark.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
+import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_REMINDER;
+
 import org.junit.jupiter.api.Test;
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
-import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.Mark;
 import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
-import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
-import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 import seedu.mark.testutil.ReminderBuilder;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.mark.logic.commands.CommandTestUtil.*;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
-import static seedu.mark.testutil.TypicalIndexes.*;
 
 class EditReminderCommandTest {
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
