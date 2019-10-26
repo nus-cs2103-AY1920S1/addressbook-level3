@@ -1,5 +1,7 @@
 package com.dukeacademy.logic.commands.attempt;
 
+import java.util.logging.Logger;
+
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
@@ -8,8 +10,6 @@ import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
-
-import java.util.logging.Logger;
 
 /**
  * Command for attempting a question. This command loads the selected question into the registered
@@ -42,7 +42,7 @@ public class AttemptCommand implements Command {
             String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
             return new CommandResult(feedback, false, false);
         } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("Index entered out of range for current list of questions.");
+            throw new CommandException("Index " + (index + 1) + " entered out of range for current list of questions.");
         }
     }
 }

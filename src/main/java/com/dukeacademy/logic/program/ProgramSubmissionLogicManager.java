@@ -162,6 +162,9 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
         return this.submissionChannel.getProgram();
     }
 
+    /**
+     * Verifies that the logic instance is not closed before each method is done.
+     */
     private void verifyNotClosed() {
         if (this.isClosed) {
             logger.warning("ProgramSubmissionLogicManager closed, any method calls will throw exception");

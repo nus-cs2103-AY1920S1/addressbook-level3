@@ -1,5 +1,15 @@
 package com.dukeacademy.logic.commands.exit;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.IntStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
@@ -9,16 +19,8 @@ import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 import com.dukeacademy.testutil.TypicalQuestions;
+
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ExitCommandTest {
     @TempDir
