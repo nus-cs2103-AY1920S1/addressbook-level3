@@ -15,7 +15,8 @@ import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
 
 /**
- * Represents a Question in the question bank.
+ * Represents a Question in the question bank. Each newly created question is tagged with a UUID. This UUID is not
+ * saved to storage and is not exposed to external classes. However, it is used to determine the equality of questions.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Question {

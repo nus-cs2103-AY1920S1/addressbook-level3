@@ -25,7 +25,8 @@ public interface CompilerEnvironment {
      * @throws IncorrectCanonicalNameException if the canonical name derived from the program does not
      * match its source code.
      */
-    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException, IncorrectCanonicalNameException;
+    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException,
+            IncorrectCanonicalNameException;
 
     /**
      * Returns the file corresponding to the canonical name provided

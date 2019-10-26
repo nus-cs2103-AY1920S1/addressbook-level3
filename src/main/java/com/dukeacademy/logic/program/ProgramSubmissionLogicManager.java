@@ -48,9 +48,9 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     /**
      * Constructor.
      *
-     * @param outputDirectoryPath The path to the directory in which all generated Java and Class files are to be saved.
+     * @param outputDirectoryPath The path to the directory in which all generated Java and Class files are to be saved
      * @throws LogicCreationException if the directory is invalid or the components of the Logic instance fails to be
-     *                                created.
+     *                                created
      */
     public ProgramSubmissionLogicManager(String outputDirectoryPath) throws LogicCreationException {
         if (!new File(outputDirectoryPath).isDirectory()) {
@@ -73,7 +73,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     /**
-     * Clears any files created by the Logic instance in the output directory.
+     * Clears any files created by the Logic instance in the output directory
      */
     public void closeProgramSubmissionLogicManager() {
         this.verifyNotClosed();

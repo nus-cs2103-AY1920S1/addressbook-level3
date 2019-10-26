@@ -1,16 +1,16 @@
 package com.dukeacademy.model.program;
 
-import com.dukeacademy.model.question.entities.TestCase;
-import com.dukeacademy.testexecutor.models.CompileError;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import com.dukeacademy.testexecutor.models.CompileError;
 
 class TestResultTest {
     private List<TestCaseResult> resultsSetA = List.of(new TestCaseResult[] {

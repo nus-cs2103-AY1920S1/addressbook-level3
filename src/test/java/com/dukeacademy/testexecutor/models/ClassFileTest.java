@@ -21,7 +21,7 @@ class ClassFileTest {
      * @throws IOException
      */
     @Test
-    public void testClassFileConstructor_FileExists() throws IOException {
+    public void testClassFileConstructorFileExists() throws IOException {
         String basePath = tempFolder.toString();
 
         tempFolder.resolve("Foo.class").toFile().createNewFile();
@@ -57,7 +57,7 @@ class ClassFileTest {
      * Instance creation should fail if the class does not exist. A FileNotFoundException should be thrown.
      */
     @Test
-    public void testClassFileConstructor_FileDoesNotExists() throws IOException {
+    public void testClassFileConstructorFileDoesNotExists() throws IOException {
         String basePath = tempFolder.toString();
 
         assertThrows(FileNotFoundException.class, () -> new ClassFile("Foo", basePath));
@@ -79,7 +79,7 @@ class ClassFileTest {
     }
 
     @Test
-    public void testClassFileConstructor_NullArguments() {
+    public void testClassFileConstructorNullArguments() {
         String basePath = tempFolder.toString();
         assertThrows(NullPointerException.class, () -> new ClassFile(null, basePath));
         assertThrows(NullPointerException.class, () -> new ClassFile("Foo", null));

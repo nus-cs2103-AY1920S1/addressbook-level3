@@ -40,7 +40,7 @@ public class StandardCompiler implements Compiler {
     public ClassFile compileJavaFile(JavaFile javaFile) throws CompilerException, CompilerFileContentException {
         try {
             String content = Files.readString(javaFile.getFile().toPath());
-            if (content.equals("")) {
+            if ("".equals(content)) {
                 throw new EmptyJavaFileException();
             }
         } catch (IOException e) {

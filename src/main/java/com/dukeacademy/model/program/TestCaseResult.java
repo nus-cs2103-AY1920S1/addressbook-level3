@@ -68,12 +68,12 @@ public class TestCaseResult {
     @Override
     public boolean equals(Object object) {
         if (object instanceof TestCaseResult) {
-           TestCaseResult other = (TestCaseResult) object;
-           return other.isSuccessful == this.isSuccessful
-                   && other.input.equals(this.input)
-                   && other.expectedOutput.equals(this.expectedOutput)
-                   && other.getActualOutput().equals(this.getActualOutput())
-                   && other.getRuntimeError().equals(this.getRuntimeError());
+            TestCaseResult other = (TestCaseResult) object;
+            return other.isSuccessful == this.isSuccessful
+                    && other.input.equals(this.input)
+                    && other.expectedOutput.equals(this.expectedOutput)
+                    && other.getActualOutput().equals(this.getActualOutput())
+                    && other.getRuntimeError().equals(this.getRuntimeError());
         } else {
             return false;
         }

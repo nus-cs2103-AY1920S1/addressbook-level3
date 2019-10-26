@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.ClosedEnvironmentException;
 import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
 import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
@@ -57,7 +58,12 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException, IncorrectCanonicalNameException {
+    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException,
+            IncorrectCanonicalNameException {
+        if (this.isClosed) {
+            throw new ClosedEnvironmentException();
+        }
+
         // Create empty Java file
         String canonicalName = program.getCanonicalName();
         File file = this.createEmptyJavaFile(canonicalName);
@@ -78,6 +84,10 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
     @Override
     public JavaFile getJavaFile(String canonicalName) throws FileNotFoundException {
+        if (this.isClosed) {
+            throw new ClosedEnvironmentException();
+        }
+
         // Search and return JavaFile in list of created files
         Optional<JavaFile> file = this.createdFiles.stream()
                 .filter(javaFile -> javaFile.getCanonicalName().equals(canonicalName))
@@ -88,6 +98,10 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
     @Override
     public void clearEnvironment() throws ClearEnvironmentException {
+        if (this.isClosed) {
+            throw new ClosedEnvironmentException();
+        }
+
         try {
             logger.info("Clearing files and folder at : " + locationPath);
             // Traverse and delete created files and directories excluding the root folder
@@ -111,6 +125,10 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
     @Override
     public void close() {
+        if (this.isClosed) {
+            throw new ClosedEnvironmentException();
+        }
+
         try {
             logger.info("Clearing files and folder at : " + locationPath);
             // Traverse and delete created files and directories including the root folder

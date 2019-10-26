@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.dukeacademy.testexecutor.compiler.exceptions.EmptyJavaFileException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -18,26 +16,29 @@ import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.compiler.exceptions.CompilerException;
 import com.dukeacademy.testexecutor.compiler.exceptions.CompilerFileContentException;
 import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 class StandardCompilerTest {
     @TempDir
     public Path tempFolder;
 
-    private UserProgram validProgram = new UserProgram("ValidTest", "public class ValidTest {\n"
-            + "\tpublic static void main(String args[]) {"
-            + "\t\tSystem.out.println(\"Hello world\");"
-            + "\t}"
-            + "\n}");
+    private UserProgram validProgram = new UserProgram("ValidTest",
+            "public class ValidTest {\n"
+                    + "\tpublic static void main(String args[]) {"
+                    + "\t\tSystem.out.println(\"Hello world\");"
+                    + "\t}"
+                    + "\n}");
 
-    private UserProgram nestedProgram = new UserProgram("ValidTest1", "public class ValidTest1 {\n"
-            + "\tclass NestedClass {\n"
-            + "\t\tprivate int x = 0;\n"
-            + "\t}\n"
-            + "\tpublic static void main(String args[]) {"
-            + "\t\tSystem.out.println(\"Hello world\");"
-            + "\t}"
-            + "\n}");
+    private UserProgram nestedProgram = new UserProgram("ValidTest1",
+            "public class ValidTest1 {\n"
+                    + "\tclass NestedClass {\n"
+                    + "\t\tprivate int x = 0;\n"
+                    + "\t}\n"
+                    + "\tpublic static void main(String args[]) {"
+                    + "\t\tSystem.out.println(\"Hello world\");"
+                    + "\t}"
+                    + "\n}");
 
     private UserProgram compileErrorProgram = new UserProgram("FooBar",
             "public class FooBar {\n\t"
@@ -75,7 +76,8 @@ class StandardCompilerTest {
     }
 
     @Test
-    public void testCompileProgram_invalid() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
+    public void testCompileProgram_invalid() throws IOException, JavaFileCreationException,
+            IncorrectCanonicalNameException {
         Path testFolder = tempFolder.resolve("compileInvalid_test");
         testFolder.toFile().mkdirs();
         StandardCompiler compiler = new StandardCompiler();
@@ -87,7 +89,8 @@ class StandardCompilerTest {
     /**
      * Creates a Java file within a folder for the test. Note that this method only works for non-packaged classes.
      */
-    private JavaFile createJavaFile(UserProgram program, Path folder) throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
+    private JavaFile createJavaFile(UserProgram program, Path folder) throws IOException, JavaFileCreationException,
+            IncorrectCanonicalNameException {
         Path filePath = folder.resolve(program.getCanonicalName() + ".java");
         File javaFile = filePath.toFile();
         if (!javaFile.createNewFile()) {

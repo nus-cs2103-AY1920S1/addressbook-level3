@@ -1,6 +1,9 @@
 package com.dukeacademy.testexecutor.environment.exceptions;
 
-public class ClearEnvironmentException  extends Exception {
+/**
+ * Exception thrown when the CompilerEnvironment fails to delete its containing files and folders.
+ */
+public class ClearEnvironmentException extends Exception {
     public ClearEnvironmentException(String message) {
         super(message);
     }

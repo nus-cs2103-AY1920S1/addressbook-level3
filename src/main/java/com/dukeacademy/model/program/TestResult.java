@@ -1,12 +1,12 @@
 package com.dukeacademy.model.program;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.dukeacademy.testexecutor.models.CompileError;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the results of running a user's solution against the specified test cases
@@ -30,6 +30,10 @@ public class TestResult {
         this.compileError = Optional.of(compileError);
     }
 
+    /**
+     * Returns if the test result was successful.
+     * @return true if the test was successful
+     */
     public boolean isSuccessful() {
         if (this.compileError.isPresent()) {
             return false;

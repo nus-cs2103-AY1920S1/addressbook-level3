@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.dukeacademy.testexecutor.exceptions.ProgramOutputException;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import com.dukeacademy.testexecutor.exceptions.ProgramOutputException;
 
 class ProgramOutputTest {
 

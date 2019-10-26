@@ -5,27 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 
-import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
-import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
+import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.ClosedEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
 import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
-class
-StandardCompilerEnvironmentTest {
+class StandardCompilerEnvironmentTest {
     @TempDir
     public Path tempFolder;
 
@@ -49,7 +45,8 @@ StandardCompilerEnvironmentTest {
      * the correct canonical name and classpath.
      */
     @Test
-    public void testCreateJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException, IncorrectCanonicalNameException {
+    public void testCreateJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
+            IncorrectCanonicalNameException {
         Path environmentPath = tempFolder.resolve("createJavaFile_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
@@ -84,7 +81,8 @@ StandardCompilerEnvironmentTest {
      * Created Java files should be returned with the correct attribute values.
      */
     @Test
-    public void testGetJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException, IncorrectCanonicalNameException {
+    public void testGetJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
+            IncorrectCanonicalNameException {
         Path environmentPath = tempFolder.resolve("getJavaFile_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
@@ -115,6 +113,12 @@ StandardCompilerEnvironmentTest {
         assertTrue(environmentPath.toFile().exists());
         environment.close();
         assertFalse(environmentPath.toFile().exists());
+
+        assertThrows(ClosedEnvironmentException.class, () -> environment
+                .createJavaFile(new UserProgram("", "")));
+        assertThrows(ClosedEnvironmentException.class, () -> environment.getJavaFile(""));
+        assertThrows(ClosedEnvironmentException.class, environment::clearEnvironment);
+        assertThrows(ClosedEnvironmentException.class, environment::close);
     }
 
     /**

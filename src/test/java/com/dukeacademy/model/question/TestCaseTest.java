@@ -19,7 +19,7 @@ class TestCaseTest {
     }
 
     @Test
-    public void testConstructor_NullArguments() {
+    public void testConstructorNullArguments() {
         assertThrows(NullPointerException.class, () -> new TestCase(null, null));
         assertThrows(NullPointerException.class, () -> new TestCase("1", null));
         assertThrows(NullPointerException.class, () -> new TestCase(null, "1"));

@@ -10,10 +10,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 
 class JavaFileTest {
     @TempDir
@@ -27,7 +28,8 @@ class JavaFileTest {
      * @throws IOException
      */
     @Test
-    public void testJavaFileConstructor_FileExists() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
+    public void testJavaFileConstructorFileExists() throws IOException, JavaFileCreationException,
+            IncorrectCanonicalNameException {
         String basePath = tempFolder.toString();
 
         Path filePath = tempFolder.resolve("Foo.java");
@@ -45,7 +47,8 @@ class JavaFileTest {
     }
 
     @Test
-    public void testJavaFileConstructorAndGetters() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
+    public void testJavaFileConstructorAndGetters() throws IOException, JavaFileCreationException,
+            IncorrectCanonicalNameException {
         String basePath = tempFolder.toString();
 
         Path filePath = tempFolder.resolve("Foo.java");
@@ -68,15 +71,15 @@ class JavaFileTest {
     }
 
     @Test
-    public void testJavaFileConstructor_MismatchedCanonicalName() {
-
+    public void testJavaFileConstructorMismatchedCanonicalName() {
+        // TODO
     }
 
     /**
      * Instance creation should fail if the class does not exist. A FileNotFoundException should be thrown.
      */
     @Test
-    public void testJavaFileConstructor_FileDoesNotExists() throws IOException {
+    public void testJavaFileConstructorFileDoesNotExists() throws IOException {
         String basePath = tempFolder.toString();
 
         assertThrows(FileNotFoundException.class, () -> new JavaFile("Foo", basePath));
@@ -98,7 +101,7 @@ class JavaFileTest {
     }
 
     @Test
-    public void testJavaFileConstructor_NullArguments() {
+    public void testJavaFileConstructorNullArguments() {
         String basePath = tempFolder.toString();
         assertThrows(NullPointerException.class, () -> new JavaFile(null, basePath));
         assertThrows(NullPointerException.class, () -> new JavaFile("Foo", null));

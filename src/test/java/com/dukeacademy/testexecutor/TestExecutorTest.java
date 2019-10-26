@@ -15,13 +15,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import com.dukeacademy.testexecutor.compiler.Compiler;
-import com.dukeacademy.testexecutor.compiler.StandardCompiler;
-import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
-import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
-import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
-import com.dukeacademy.testexecutor.executor.ProgramExecutor;
-import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,9 +24,16 @@ import com.dukeacademy.model.program.TestCaseResult;
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.TestCase;
+import com.dukeacademy.testexecutor.compiler.Compiler;
+import com.dukeacademy.testexecutor.compiler.StandardCompiler;
+import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
+import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
+import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
 import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
+import com.dukeacademy.testexecutor.executor.ProgramExecutor;
+import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 
 class TestExecutorTest {
     @TempDir

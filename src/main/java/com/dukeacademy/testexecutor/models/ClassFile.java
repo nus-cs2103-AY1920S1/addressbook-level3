@@ -1,10 +1,10 @@
 package com.dukeacademy.testexecutor.models;
 
+import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
-
-import static com.dukeacademy.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Class file in the user's file system. It contains the file's canonical name and classpath. Canonical

@@ -1,16 +1,16 @@
 package com.dukeacademy.testexecutor.models;
 
-import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.testexecutor.TestExecutorUtils;
-import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+
+import com.dukeacademy.commons.core.LogsCenter;
+import com.dukeacademy.testexecutor.TestExecutorUtils;
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 
 /**
  * Represents a Java file in the application. The canonical name refers to the name of the class you would
@@ -54,6 +54,12 @@ public class JavaFile {
         return new File(this.getAbsolutePath());
     }
 
+    /**
+     * Checks if the canonical name of the JavaFile matches its contents. This is done by reading the contents
+     * of the actual existing Java file.
+     * @return true if the contents matches the canonical name
+     * @throws JavaFileCreationException if the file cannot be read
+     */
     private boolean checkContentsValid() throws JavaFileCreationException {
         try {
             String contents = Files.readString(Paths.get(this.getAbsolutePath()));

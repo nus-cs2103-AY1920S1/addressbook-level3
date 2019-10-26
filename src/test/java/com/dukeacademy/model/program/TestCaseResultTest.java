@@ -1,16 +1,16 @@
 package com.dukeacademy.model.program;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 class TestCaseResultTest {
     @Test
-    void testStaticConstructorAndGetter_SuccessfulResult() {
-        TestCaseResult testCase = TestCaseResult.getSuccessfulTestCaseResult("1",  "2");
+    void testStaticConstructorAndGetterSuccessfulResult() {
+        TestCaseResult testCase = TestCaseResult.getSuccessfulTestCaseResult("1", "2");
         assertTrue(testCase.isSuccessful());
         assertFalse(testCase.getRuntimeError().isPresent());
         assertEquals("1", testCase.getInput());
@@ -20,8 +20,8 @@ class TestCaseResultTest {
     }
 
     @Test
-    void testStaticConstructorAndGetter_FailedResult() {
-        TestCaseResult testCase = TestCaseResult.getFailedTestCaseResult("1",  "2", "3");
+    void testStaticConstructorAndGetterFailedResult() {
+        TestCaseResult testCase = TestCaseResult.getFailedTestCaseResult("1", "2", "3");
         assertFalse(testCase.isSuccessful());
         assertFalse(testCase.getRuntimeError().isPresent());
         assertEquals("1", testCase.getInput());
@@ -31,9 +31,9 @@ class TestCaseResultTest {
     }
 
     @Test
-    void testStaticConstructorAndGetter_ErroredResult() {
+    void testStaticConstructorAndGetterErroredResult() {
         String error = "This is an error!";
-        TestCaseResult testCase = TestCaseResult.getErroredTestCaseResult("1",  "2", error);
+        TestCaseResult testCase = TestCaseResult.getErroredTestCaseResult("1", "2", error);
         assertFalse(testCase.isSuccessful());
         assertTrue(testCase.getRuntimeError().isPresent());
         assertEquals(error, testCase.getRuntimeError().get().getErrorMessage());

@@ -10,11 +10,24 @@ public class TestExecutorUtils {
      * Checks if a given program matches the canonical name. I.e. it has the correct package and class declarations
      * to match the canonical name. E.g. dukeacademy.testexecutor.TestExecutorUtils should have the package statement
      * "package dukeacademy.testexecutor" and the class "TestExecutorUtils" declared as an outer class.
-     * @param canonicalName
-     * @param program
-     * @return
+     * @param canonicalName the canonical name to be checked
+     * @param program the program to be checked
+     * @return true of they match
      */
     public static boolean checkCanonicalNameMatchesProgram(String canonicalName, String program) {
+        boolean packageStatementMatch = checkPackageMatch(canonicalName, program);
+        boolean containsMatchingClass = checkContainsMatchingClass(canonicalName, program);
+
+        return packageStatementMatch && containsMatchingClass;
+    }
+
+    /**
+     * Checks if a program's package statement matches the given canonical name.
+     * @param canonicalName the canonical name to be checked
+     * @param program the program to be checked
+     * @return true if they match
+     */
+    private static boolean checkPackageMatch(String canonicalName, String program) {
         String[] canonicalNameSplit = canonicalName.split("\\.");
         String packageStatement = program.split(";")[0];
 
@@ -33,6 +46,17 @@ public class TestExecutorUtils {
             }
         }
 
+        return true;
+    }
+
+    /**
+     * Checks if the program contains an outer class that matches the one in the canonical name.
+     * @param canonicalName the canonical name to be checked
+     * @param program the program to be checked
+     * @return true if a matching class is found
+     */
+    private static boolean checkContainsMatchingClass(String canonicalName, String program) {
+        String[] canonicalNameSplit = canonicalName.split("\\.");
         String className = canonicalNameSplit[canonicalNameSplit.length - 1];
 
         String[] programSplit = program.split("class " + className);
@@ -59,7 +83,7 @@ public class TestExecutorUtils {
                 }
             }
 
-            if (valid && braceStack.size() == 0) {
+            if (valid) {
                 return true;
             }
         }
