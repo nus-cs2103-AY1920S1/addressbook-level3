@@ -172,29 +172,29 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `HistoryManager` will be initialized with the initial engagement list state, and the `versionPointer` pointing to that single engagement list state.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[width="450", align="center"]
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the engagement list. The `delete` command calls `Model#saveEngagementList()`, causing the modified state of the engagement list after the `delete 5` command executes to be saved in the `historyList`, and the `versionPointer` is shifted to the newly inserted engagement list state.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[width="450", align="center"]
 
 Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#saveEngagementList()`, causing another modified engagement list state to be saved into the `historyList`.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width="450", align="center"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#saveEngagementList()`, so the engagement list state will not be saved into the `historyList`.
 
 Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoEngagementList()`, which will shift the `versionPointer` once to the left, pointing it to the previous engagement list state, and restores the engagement list to that state.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[width="450", align="center"]
 
 [NOTE]
 If the `versionPointer` is at index 0, pointing to the initial engagement list state, then there are no previous engagement list states to restore. The `undo` command uses `Model#hasNoUndoableCommand()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width="750", align="center"]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -205,15 +205,15 @@ If the `versionPointer` is at index `historyList.size() - 1`, pointing to the la
 
 Step 5. The user then decides to execute the command `sort start_ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[width="450", align="center"]
 
 Step 6. The user executes `clear`, which calls `Model#saveEngagementList()`. Since the `versionPointer` is not pointing at the end of the `historyList`, all engagement list states after the `versionPointer` will be purged. We designed it this way because it no longer makes sense to redo the `add d/meeting ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[width="450", align="center"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::CommitActivityDiagram.png[width="190", align="center"]
 
 ==== Design Considerations
 
@@ -235,6 +235,8 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Sort Feature
 
 === Tab Switch Feature
 Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. System UI structure is generally divided into 2 parts;
