@@ -4,15 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+
+import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.ui.UiManager;
@@ -29,6 +33,8 @@ public class ModelManager implements Model {
     private final FilteredList<Claim> filteredClaims;
     private final FilteredList<Income> filteredIncomes;
     private final FilteredList<AutocorrectSuggestion> filteredSuggestions;
+    private final FilteredList<CommandItem> filteredCommands;
+    private Stack<String> savedCommand;
 
     /**
      * Initializes a ModelManager with the given finSec and userPrefs.
@@ -45,6 +51,8 @@ public class ModelManager implements Model {
         filteredClaims = new FilteredList<>(this.finSec.getClaimList());
         filteredIncomes = new FilteredList<>(this.finSec.getIncomeList());
         filteredSuggestions = new FilteredList<>(this.finSec.getAutocorrectSuggestionList());
+        filteredCommands = new FilteredList<>(this.finSec.getCommandsList());
+        savedCommand = new Stack<String>();
     }
 
     public ModelManager() {
@@ -168,7 +176,7 @@ public class ModelManager implements Model {
         return finSec.hasContact(claim.getName(), claim.getPhone());
     }
 
-    //=========== Suggestions ================================================================================
+    //=========== Suggestions ============================================================================
     @Override
     public boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
         return finSec.hasAutocorrectSuggestion(suggestion);
@@ -188,6 +196,42 @@ public class ModelManager implements Model {
     @Override
     public void setAutocorrectSuggestion(AutocorrectSuggestion target, AutocorrectSuggestion editedSuggestion) {
         finSec.setAutocorrectSuggestion(target, editedSuggestion);
+    }
+
+    //=========== Commands ===============================================================================
+
+    @Override
+    public boolean hasCommand(CommandItem command) {
+        requireAllNonNull(command);
+        return finSec.hasCommand(command);
+    }
+
+    @Override
+    public void deleteCommand(CommandItem target) {
+        finSec.removeCommand(target);
+    }
+
+    @Override
+    public void addCommand(CommandItem command) {
+        finSec.addCommand(command);
+        updateFilteredCommandsList(PREDICATE_SHOW_ALL_COMMANDS);
+    }
+
+    @Override
+    public void setCommand(CommandItem target, CommandItem editedCommand) {
+        requireAllNonNull(target, editedCommand);
+
+        finSec.setCommand(target, editedCommand);
+    }
+
+    @Override
+    public void saveCommand(String command) {
+        this.savedCommand.push(command);
+    }
+
+    @Override
+    public String getSavedCommand() {
+        return this.savedCommand.peek();
     }
 
     //=========== Incomes ================================================================================
@@ -288,7 +332,7 @@ public class ModelManager implements Model {
         UiManager.startWithIncomes();
     }
 
-    //=========== Filtered suggestions list accessors =============================================================
+    //=========== Filtered suggestions list accessors =========================================================
     /**
      * Returns an unmodifiable view of the list of {@code Income} backed by the internal list of
      * {@code versionedAddressBook}
@@ -302,5 +346,18 @@ public class ModelManager implements Model {
     public void updateFilteredAutocorrectSuggestionList(Predicate<AutocorrectSuggestion> predicate) {
         filteredSuggestions.setPredicate(predicate);
     }
+
+    //=========== Filtered commands list accesors =============================================================
+
+    @Override
+    public ObservableList<CommandItem> getFilteredCommandsList() {
+        return filteredCommands;
+    }
+
+    @Override
+    public void updateFilteredCommandsList(Predicate<CommandItem> predicate) {
+        filteredCommands.setPredicate(predicate);
+    }
+
 
 }

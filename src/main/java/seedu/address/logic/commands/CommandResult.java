@@ -26,11 +26,28 @@ public class CommandResult {
     /** The contact pop-up should appear*/
     private boolean showContact;
 
+    /** User wants to create a shortcut **/
+    private boolean createShortCut;
+
     /** Claim object */
     private Claim claim;
 
     /** Contact object */
     private Contact contact;
+
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean createShortCut,
+                         boolean showClaim, boolean showContact) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.createShortCut = createShortCut;
+        this.showClaim = showClaim;
+        this.showContact = showContact;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -96,6 +113,10 @@ public class CommandResult {
 
     public boolean isContact() {
         return showContact;
+    }
+
+    public boolean isCreateShortCut() {
+        return createShortCut;
     }
 
     /**

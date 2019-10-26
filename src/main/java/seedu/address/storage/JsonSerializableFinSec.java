@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.EditIncomeCommand.MESSAGE_DUPLICATE_I
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -16,6 +17,7 @@ import seedu.address.model.FinSec;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 
@@ -27,11 +29,13 @@ import seedu.address.model.income.Income;
 class JsonSerializableFinSec {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_COMMAND = "Commands list contains duplicate command(s).";
 
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedContact> contacts = new ArrayList<>();
     private final List<JsonAdaptedClaim> claims = new ArrayList<>();
     private final List<JsonAdaptedAutocorrectSuggestion> suggestions = new ArrayList<>();
+    private final List<JsonAdaptedCommandItem> commands = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableFinSec} with the given views.
@@ -40,11 +44,13 @@ class JsonSerializableFinSec {
     public JsonSerializableFinSec(@JsonProperty("contacts") List<JsonAdaptedContact> contacts,
                                   @JsonProperty("incomes") List<JsonAdaptedIncome> incomes,
                                   @JsonProperty("claims") List<JsonAdaptedClaim> claims,
-                                  @JsonProperty("suggestions") List<JsonAdaptedAutocorrectSuggestion> suggestions) {
+                                  @JsonProperty("suggestions") List<JsonAdaptedAutocorrectSuggestion> suggestions,
+                                  @JsonProperty("commands") List<JsonAdaptedCommandItem> commands) {
         this.contacts.addAll(contacts);
         this.claims.addAll(claims);
         this.incomes.addAll(incomes);
         this.suggestions.addAll(suggestions);
+        this.commands.addAll(commands);
     }
 
     /**
@@ -59,6 +65,8 @@ class JsonSerializableFinSec {
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         suggestions.addAll(source.getAutocorrectSuggestionList().stream()
                                         .map(JsonAdaptedAutocorrectSuggestion::new).collect(Collectors.toList()));
+        commands.addAll(source.getCommandsList().stream()
+                                        .map(JsonAdaptedCommandItem::new).collect(Collectors.toList()));
     }
 
     /**
@@ -95,6 +103,13 @@ class JsonSerializableFinSec {
             AutocorrectSuggestion suggestion = jsonAdaptedAutocorrectSuggestion.toModelType();
 
             finSec.addAutocorrectSuggestion(suggestion);
+        }
+        for (JsonAdaptedCommandItem jsonAdaptedCommandItem : commands) {
+            CommandItem command = jsonAdaptedCommandItem.toModelType();
+            if (finSec.hasCommand(command)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_COMMAND);
+            }
+            finSec.addCommand(command);
         }
         return finSec;
     }

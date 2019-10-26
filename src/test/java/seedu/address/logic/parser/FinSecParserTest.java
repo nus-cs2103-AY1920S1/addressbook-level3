@@ -3,27 +3,19 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddContactCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditContactCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -39,11 +31,6 @@ public class FinSecParserTest {
         assertEquals(new AddContactCommand(contact), command);
     }
 
-    @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
-    }
 
     @Test
     public void parseCommand_delete() throws Exception {
@@ -66,7 +53,7 @@ public class FinSecParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
-
+    /*
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
@@ -74,6 +61,7 @@ public class FinSecParserTest {
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
+    */
 
     @Test
     public void parseCommand_help() throws Exception {
@@ -87,8 +75,10 @@ public class FinSecParserTest {
             -> parser.parseCommand(""));
     }
 
+    /*
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
+    */
 }

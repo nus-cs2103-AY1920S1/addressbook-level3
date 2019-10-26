@@ -5,10 +5,12 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.NoShortCutCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.FinSecParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -16,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.storage.Storage;
@@ -35,9 +38,9 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        finSecParser = new FinSecParser();
+        finSecParser = new FinSecParser(getFilteredCommandsList());
         //set the suggestions list
-        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
+        SuggestionsStorage.setSuggestionList(getFilteredAutocorrectSuggestionList());
     }
 
     @Override
@@ -50,6 +53,30 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveFinSec(model.getFinSec());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        return commandResult;
+    }
+
+    /**
+     * Execution method for unknown inputs from user.
+     */
+    public CommandResult executeUnknownInput(String commandText) throws CommandException, IOException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        CommandResult commandResult;
+        if (commandText.equals("n")) {
+            commandResult = new NoShortCutCommand().execute(model);
+        } else {
+            Command command = finSecParser.checkCommand(commandText, model.getSavedCommand());
+            commandResult = command.execute(model);
+        }
+
+        try {
+            storage.saveFinSec(model.getFinSec());
+            //storage.saveCalendar(model.getCalendar());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -88,6 +115,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList() {
         return model.getFilteredAutocorrectSuggestionList();
+    }
+
+    @Override
+    public ObservableList<CommandItem> getFilteredCommandsList() {
+        return model.getFilteredCommandsList();
     }
 
     @Override

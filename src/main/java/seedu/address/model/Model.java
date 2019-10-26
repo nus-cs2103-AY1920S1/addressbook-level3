@@ -1,14 +1,17 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.ui.IndividualClaimWindow;
@@ -29,6 +32,11 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<AutocorrectSuggestion> PREDICATE_SHOW_ALL_AUTOCORRECTSUGGESTIONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<CommandItem> PREDICATE_SHOW_ALL_COMMANDS = unused -> true;
+
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -200,6 +208,18 @@ public interface Model {
 
     void setAutocorrectSuggestion(AutocorrectSuggestion target, AutocorrectSuggestion editedSuggestion);
 
+    boolean hasCommand(CommandItem command);
+
+    void deleteCommand(CommandItem command);
+
+    void addCommand(CommandItem command);
+
+    void setCommand(CommandItem command, CommandItem editedCommand);
+
+    void saveCommand(String command);
+
+    String getSavedCommand();
+
 
 
     /** Returns an unmodifiable view of the filtered contact list */
@@ -232,5 +252,9 @@ public interface Model {
     ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList();
 
     void updateFilteredAutocorrectSuggestionList(Predicate<AutocorrectSuggestion> predicate);
+
+    ObservableList<CommandItem> getFilteredCommandsList();
+
+    void updateFilteredCommandsList(Predicate<CommandItem> predicate);
 
 }

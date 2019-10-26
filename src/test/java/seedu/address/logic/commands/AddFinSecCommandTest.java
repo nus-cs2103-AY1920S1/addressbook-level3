@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -21,6 +22,7 @@ import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.testutil.ContactBuilder;
@@ -276,6 +278,44 @@ public class AddFinSecCommandTest {
         }
 
         @Override
+        public void addCommand(CommandItem command) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public boolean hasCommand(CommandItem command) {
+            return false;
+        }
+
+        @Override
+        public void deleteCommand(CommandItem command) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void setCommand(CommandItem command, CommandItem editedCommand) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public void saveCommand(String command) {
+            /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+        @Override
+        public String getSavedCommand() {
+            return "test";
+        }
+
+        @Override
         public ObservableList<Income> getFilteredIncomeList() {
             return null;
         }
@@ -310,6 +350,20 @@ public class AddFinSecCommandTest {
             FUNCTION TO BE EDITED
              */
         }
+
+        @Override
+        public ObservableList<CommandItem> getFilteredCommandsList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredCommandsList(Predicate<CommandItem> predicate) {
+             /*
+            FUNCTION TO BE EDITED
+             */
+        }
+
+
     }
 
     /**
