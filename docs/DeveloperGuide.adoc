@@ -116,7 +116,6 @@ The `UI` component:
 [[Design-Logic]]
 === Logic component
 This section will show the structures of the Logic Component of the different tabs.
-
 The diagram below shows a generalised view of the Logic component within each package.
 
 [[fig-LogicClassDiagram]]
@@ -124,7 +123,6 @@ The diagram below shows a generalised view of the Logic component within each pa
 image::LogicClassDiagram.png[]
 
 An outline of how a command is processed through Logic is as follows:
-
 . `Logic` uses the tab's `Parser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (e.g. adding a person, transaction).
@@ -132,14 +130,6 @@ An outline of how a command is processed through Logic is as follows:
 
 Further details on the implementation of the Parser and Command can be found below in <<RTLogic, Section 2.3.1. Home and Reimbursement Tab>>,
 <<ICLogic, Section 2.3.2. Inventory and Cashier Tab>> and <<PLogic, Section 2.3.3. Members Tab>> below.
-
-[[GeneralLogicSD]]
-Given below is a general Sequence Diagram depicting interactions within the `Logic` component.
-
-.Interactions Inside the Logic Component for a Command
-image::GeneralSequenceDiagram.png[]
-
-More detailed Sequence Diagram's for commands in each Tab can be found in <<Implementation>>
 
 [[RTLogic]]
 ==== Home and Reimbursement Tab
@@ -184,12 +174,12 @@ To be filled in by the respective members :)
 [[PLogic]]
 ==== Members Tab
 This section will show the general structure of the Logic Component of the Members Tab.
-This is integrated from the existing `AddressBook`.
+This is integrated from the
+existing `AddressBook`.
 Given below is a general Class Diagram showing the structure of the Logic Component for these 2 tabs.
 
 .Structure of Logic Component for Members Tab.
 image::LogicForAB.png[]
-
 
 [[Design-Model]]
 === Model component
@@ -316,6 +306,7 @@ filtered transaction list. If the prior input is a Find Command and the list at 
 a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
 To view the full transaction list, the user would be required to input the
 Back Command where `BackCommand` calls `resetPredicate()`.
+<<<<<<< HEAD
 
 The `BackCommand` is not initialised by a parser but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
@@ -324,6 +315,16 @@ The following detailed sequence diagram shows how the back command works:
 
 image::HomeTabBackCommandSequenceDiagram.png[]
 
+=======
+
+The `BackCommand` is not initialised by a parser but initialised by the `TransactionTabParser` instead.
+The following detailed sequence diagram shows how the back command works:
+
+.Sequence Diagram of Back Command in Home Tab (transaction package)
+
+image::HomeTabBackCommandSequenceDiagram.png[]
+
+>>>>>>> upstream/master
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
 respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
