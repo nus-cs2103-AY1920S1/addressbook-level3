@@ -37,7 +37,7 @@ public class ReminderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         model.addReminder(0, description, days);

@@ -43,6 +43,37 @@ public class Reminder {
     }
 
     /**
+     * Decrements the days a reminder has left
+     */
+    public void cascadeDay(int days) {
+        HashMap<String, Integer> cascadeReminders = new HashMap<>();
+        HashMap<String, Integer> cascadeFollowups = new HashMap<>();
+        Iterator it = reminders.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            String key = pair.getKey().toString();
+            int value = Integer.parseInt(pair.getValue().toString()) - days;
+            if (value >= 0) {
+                cascadeReminders.put(key, value);
+            }
+            it.remove();
+        }
+        reminders = cascadeReminders;
+
+        it = followup.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            String key = pair.getKey().toString();
+            int value = Integer.parseInt(pair.getValue().toString()) - days;
+            if (value >= 0) {
+                cascadeFollowups.put(key, value);
+            }
+            it.remove();
+        }
+        followup = cascadeFollowups;
+    }
+
+    /**
      * Outputs the Reminders and Follow-Up to readable String
      */
     public String outputReminders() {

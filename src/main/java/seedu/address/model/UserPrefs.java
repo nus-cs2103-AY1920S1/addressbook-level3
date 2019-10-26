@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -45,8 +46,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setAliasTable(newUserPrefs.getAliasTable());
-        setReminders(newUserPrefs.getReminders());
         lastUpdate = newUserPrefs.getLastUpdate();
+        setReminders(newUserPrefs.getReminders());
     }
 
     public AliasTable getAliasTable() {
@@ -65,6 +66,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setReminders(Reminder reminders) {
         requireNonNull(reminders);
         this.reminders = reminders;
+        if (LocalDate.now().compareTo(lastUpdate) < 0) {
+            reminders.cascadeDay((int)Duration.between(LocalDate.now(), lastUpdate).toDays());
+        }
+        lastUpdate = LocalDate.now();
     }
 
     public GuiSettings getGuiSettings() {
