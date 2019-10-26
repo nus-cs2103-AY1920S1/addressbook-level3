@@ -42,10 +42,14 @@ class AddMentorCommandParserTest {
 
     private AddMentorCommandParser parser = new AddMentorCommandParser();
 
-    @Disabled
     @Test
     void parse_allFieldsPresent_success() {
         Mentor expectedMentor = new MentorBuilder(BOB).build();
+        Mentor expectedMentor2 = new MentorBuilder(BOB).withId(2).build();
+        Mentor expectedMentor3 = new MentorBuilder(BOB).withId(3).build();
+        Mentor expectedMentor4 = new MentorBuilder(BOB).withId(4).build();
+        Mentor expectedMentor5 = new MentorBuilder(BOB).withId(5).build();
+        Mentor expectedMentor6 = new MentorBuilder(BOB).withId(6).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -53,23 +57,23 @@ class AddMentorCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor));
+                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor2));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor));
+                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor3));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor));
+                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor4));
 
         // multiple subjects - last subject accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + SUBJECT_DESC_AMY
-                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor));
+                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor5));
 
         // multiple organizations - last organization accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ORGANIZATION_DESC_AMY
-                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor));
+                + SUBJECT_DESC_BOB + ORGANIZATION_DESC_BOB, new AddMentorCommand(expectedMentor6));
     }
 
     @Test

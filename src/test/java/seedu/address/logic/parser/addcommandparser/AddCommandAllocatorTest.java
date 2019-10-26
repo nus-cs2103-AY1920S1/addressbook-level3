@@ -34,7 +34,6 @@ class AddCommandAllocatorTest {
 
     private AddCommandAllocator addCommandAllocator = new AddCommandAllocator();
 
-    @Disabled
     @Test
     void allocate_correctUserInput_success() {
         Mentor expectedMentor = new MentorBuilder(BOB).build();

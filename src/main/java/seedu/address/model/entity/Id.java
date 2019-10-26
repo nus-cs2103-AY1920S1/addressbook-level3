@@ -95,7 +95,7 @@ public class Id {
         }
 
         Id otherId = ((Id) other);
-        return otherId.getPrefix() == this.getPrefix()
+        return otherId.getPrefix().equals(this.getPrefix())
                 && otherId.getNumber() == this.getNumber();
     }
 

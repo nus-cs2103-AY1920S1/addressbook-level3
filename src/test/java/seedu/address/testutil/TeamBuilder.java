@@ -67,7 +67,7 @@ public class TeamBuilder {
      * Sets the {@code Id} of the {@code Team} that we are building.
      */
     public TeamBuilder withId(int id) {
-        this.id = new Id(PrefixType.P, id);
+        this.id = new Id(PrefixType.T, id);
         return this;
     }
 
