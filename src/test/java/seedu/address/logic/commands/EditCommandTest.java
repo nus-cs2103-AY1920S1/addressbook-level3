@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.KeyboardFlashCards;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new KeyboardFlashCards(model.getKeyboardFlashCards()), new UserPrefs());
         expectedModel.setFlashCard(model.getFilteredFlashCardList().get(0), editedFlashCard);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new KeyboardFlashCards(model.getKeyboardFlashCards()), new UserPrefs());
         expectedModel.setFlashCard(lastFlashCard, editedFlashCard);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new KeyboardFlashCards(model.getKeyboardFlashCards()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -96,7 +96,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashCard);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new KeyboardFlashCards(model.getKeyboardFlashCards()), new UserPrefs());
         expectedModel.setFlashCard(model.getFilteredFlashCardList().get(0), editedFlashCard);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -117,7 +117,7 @@ public class EditCommandTest {
 
         // edit flashCard in filtered list into a duplicate in address book
         FlashCard flashCardInList =
-                model.getAddressBook().getFlashcardList().get(INDEX_SECOND_FLASHCARD.getZeroBased());
+                model.getKeyboardFlashCards().getFlashcardList().get(INDEX_SECOND_FLASHCARD.getZeroBased());
         EditCommand editCommand =
                 new EditCommand(INDEX_FIRST_FLASHCARD,
                 new EditFlashCardDescriptorBuilder(flashCardInList).build());
@@ -144,7 +144,7 @@ public class EditCommandTest {
         showFlashCardAtIndex(model, INDEX_FIRST_FLASHCARD);
         Index outOfBoundIndex = INDEX_SECOND_FLASHCARD;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getFlashcardList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getKeyboardFlashCards().getFlashcardList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditFlashCardDescriptorBuilder().withQuestion(VALID_QUESTION_2).build());

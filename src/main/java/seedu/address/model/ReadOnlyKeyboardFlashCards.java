@@ -8,7 +8,7 @@ import seedu.address.model.flashcard.FlashCard;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyKeyboardFlashCards {
 
     /**
      * Returns an unmodifiable view of the flashcard list.

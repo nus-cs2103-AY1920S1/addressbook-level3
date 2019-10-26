@@ -35,9 +35,9 @@ import seedu.address.testutil.EditFlashCardDescriptorBuilder;
 import seedu.address.testutil.FlashCardBuilder;
 import seedu.address.testutil.FlashCardUtil;
 
-public class AddressBookParserTest {
+public class KeyboardFlashCardsParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final KeyboardFlashCardsParser parser = new KeyboardFlashCardsParser();
 
     @Test
     public void parseCommand_add() throws Exception {

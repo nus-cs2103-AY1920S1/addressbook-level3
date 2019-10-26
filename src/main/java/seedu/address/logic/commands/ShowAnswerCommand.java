@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 
 //@@author keiteo
@@ -13,17 +13,17 @@ public class ShowAnswerCommand extends Command {
 
     public static final String COMMAND_WORD = "ans";
 
-    private final AddressBookParser addressBookParser;
+    private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
-    public ShowAnswerCommand(AddressBookParser addressBookParser) {
-        this.addressBookParser = addressBookParser;
+    public ShowAnswerCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String answer = model.getTestAnswer();
-        addressBookParser.setAwaitingAnswer(false);
+        keyboardFlashCardsParser.setAwaitingAnswer(false);
         return new CommandResult(answer);
     }
 

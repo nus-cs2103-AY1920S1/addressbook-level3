@@ -4,8 +4,8 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniqueFlashCardList
-AddressBook *-right-> "1" UniqueCategoryList
+KeyboardFlashCards *-right-> "1" UniqueFlashCardList
+KeyboardFlashCards *-right-> "1" UniqueCategoryList
 UniqueCategoryList -[hidden]down- UniqueFlashCardList
 UniqueCategoryList -[hidden]down- UniqueFlashCardList
 

@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.KeyboardFlashCards;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyKeyboardFlashCards;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
@@ -138,12 +138,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getKeyboardFlashCardsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setKeyboardFlashCardsFilePath(Path keyboardFlashCardsFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -153,12 +153,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setKeyboardFlashCards(ReadOnlyKeyboardFlashCards newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyKeyboardFlashCards getKeyboardFlashCards() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -307,8 +307,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyKeyboardFlashCards getKeyboardFlashCards() {
+            return new KeyboardFlashCards();
         }
     }
 }

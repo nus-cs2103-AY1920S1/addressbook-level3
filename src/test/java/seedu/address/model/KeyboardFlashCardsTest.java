@@ -24,25 +24,25 @@ import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
 import seedu.address.testutil.FlashCardBuilder;
 
-public class AddressBookTest {
+public class KeyboardFlashCardsTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final KeyboardFlashCards keyboardFlashCards = new KeyboardFlashCards();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getFlashcardList());
+        assertEquals(Collections.emptyList(), keyboardFlashCards.getFlashcardList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> keyboardFlashCards.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        KeyboardFlashCards newData = getTypicalAddressBook();
+        keyboardFlashCards.resetData(newData);
+        assertEquals(newData, keyboardFlashCards);
     }
 
     @Test
@@ -54,50 +54,50 @@ public class AddressBookTest {
                         .withCatgeories(VALID_CATEGORY_HISTORY)
                         .build();
         List<FlashCard> newFlashCards = Arrays.asList(STORE_AND_FORWARD, editedCard);
-        AddressBookStub newData = new AddressBookStub(newFlashCards);
+        KeyboardFlashCardsStub newData = new KeyboardFlashCardsStub(newFlashCards);
 
-        assertThrows(DuplicateFlashCardException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateFlashCardException.class, () -> keyboardFlashCards.resetData(newData));
     }
 
     @Test
     public void hasFlashCard_nullFlashCard_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasFlashcard(null));
+        assertThrows(NullPointerException.class, () -> keyboardFlashCards.hasFlashcard(null));
     }
 
     @Test
     public void hasFlashCard_flashCardNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasFlashcard(STORE_AND_FORWARD));
+        assertFalse(keyboardFlashCards.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test
     public void hasFlashCard_flashCardInAddressBook_returnsTrue() {
-        addressBook.addFlashcard(STORE_AND_FORWARD);
-        assertTrue(addressBook.hasFlashcard(STORE_AND_FORWARD));
+        keyboardFlashCards.addFlashcard(STORE_AND_FORWARD);
+        assertTrue(keyboardFlashCards.hasFlashcard(STORE_AND_FORWARD));
     }
 
     @Test
     public void hasFlashCard_flashCardWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addFlashcard(STORE_AND_FORWARD);
+        keyboardFlashCards.addFlashcard(STORE_AND_FORWARD);
         FlashCard editedAlice =
                 new FlashCardBuilder(STORE_AND_FORWARD)
                         .withRating(VALID_RATING_2)
                         .withCatgeories(VALID_CATEGORY_HISTORY)
                 .build();
-        assertTrue(addressBook.hasFlashcard(editedAlice));
+        assertTrue(keyboardFlashCards.hasFlashcard(editedAlice));
     }
 
     @Test
     public void getFlashCardList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getFlashcardList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> keyboardFlashCards.getFlashcardList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose flashCards list can violate interface constraints.
+     * A stub ReadOnlyKeyboardFlashCards whose flashCards list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class KeyboardFlashCardsStub implements ReadOnlyKeyboardFlashCards {
         private final ObservableList<FlashCard> flashCards = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<FlashCard> flashCards) {
+        KeyboardFlashCardsStub(Collection<FlashCard> flashCards) {
             this.flashCards.setAll(flashCards);
         }
 

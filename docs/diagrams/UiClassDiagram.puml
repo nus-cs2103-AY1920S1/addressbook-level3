@@ -3,6 +3,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
+skinparam linetype ortho
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
@@ -19,13 +20,6 @@ Class CategoryListPanel
 Class CategoryPanel
 Class DeadlineListPanel
 Class DeadlinePanel
-
-Package Calendar {
-Class CalendarPane
-Class CalendarWindow
-Class FullCalendarView
-}
-
 }
 
 package Model <<Rectangle>> {
@@ -65,15 +59,10 @@ CategoryPanel --|> UiPart
 CategoryListPanel --|> UiPart
 DeadlinePanel -down-|> UiPart
 DeadlineListPanel -down-|> UiPart
-CalendarWindow --|> UiPart
-
 
 FlashCardPanel ..> Model
 UiManager -right-> Logic
 MainWindow -right-> Logic
-
-CalendarWindow *-down-> CalendarPane
-CalendarWindow -left-> FullCalendarView
 
 FlashCardListPanel -[hidden]left- ResultDisplay
 DeadlineListPanel -[hidden]left- FlashCardListPanel
@@ -81,6 +70,5 @@ CategoryListPanel -[hidden]left- DeadlineListPanel
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-Ui -[hidden]-> Calendar
 MainWindow -[hidden]-|> UiPart
 @enduml

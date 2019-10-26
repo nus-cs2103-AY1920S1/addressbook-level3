@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.KeyboardFlashCards;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
@@ -91,10 +91,10 @@ public class TypicalFlashCards {
     private TypicalFlashCards() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical flashcards.
+     * Returns an {@code KeyboardFlashCards} with all the typical flashcards.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static KeyboardFlashCards getTypicalAddressBook() {
+        KeyboardFlashCards ab = new KeyboardFlashCards();
         for (FlashCard flashCard : getTypicalFlashCards()) {
             ab.addFlashcard(flashCard);
         }

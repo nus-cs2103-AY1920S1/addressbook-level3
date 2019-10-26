@@ -44,20 +44,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getKeyboardFlashCardsFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setKeyboardFlashCardsFilePath(Path keyboardFlashCardsFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code keyboardFlashCards}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setKeyboardFlashCards(ReadOnlyKeyboardFlashCards keyboardFlashCards);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the KeyboardFlashCards */
+    ReadOnlyKeyboardFlashCards getKeyboardFlashCards();
 
     /**
      * Returns true if a flashCard with the same identity as {@code flashCard} exists in the address book.

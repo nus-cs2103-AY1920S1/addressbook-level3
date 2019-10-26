@@ -17,7 +17,7 @@ import seedu.address.model.flashcard.UniqueFlashCardList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameFlashCard comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class KeyboardFlashCards implements ReadOnlyKeyboardFlashCards {
 
     private final UniqueFlashCardList flashCards;
     private final UniqueDeadlineList deadlines;
@@ -38,12 +38,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         stats = new int[3]; //good,hard,easy
     }
 
-    public AddressBook() {}
+    public KeyboardFlashCards() {}
 
     /**
-     * Creates an AddressBook using the Flashcards in the {@code toBeCopied}
+     * Creates an KeyboardFlashCards using the Flashcards in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public KeyboardFlashCards(ReadOnlyKeyboardFlashCards toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -69,9 +69,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code KeyboardFlashCards} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyKeyboardFlashCards newData) {
         requireNonNull(newData);
 
         setFlashCards(newData.getFlashcardList());
@@ -126,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code KeyboardFlashCards}.
      * {@code key} must exist in the address book.
      */
     public void removeFlashCard(FlashCard key) {
@@ -164,8 +164,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && flashCards.equals(((AddressBook) other).flashCards));
+                || (other instanceof KeyboardFlashCards // instanceof handles nulls
+                && flashCards.equals(((KeyboardFlashCards) other).flashCards));
     }
 
     @Override

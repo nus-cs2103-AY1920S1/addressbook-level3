@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.KeyboardFlashCards;
+import seedu.address.model.ReadOnlyKeyboardFlashCards;
 import seedu.address.model.category.Category;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.FlashCard;
@@ -13,7 +13,7 @@ import seedu.address.model.flashcard.Question;
 import seedu.address.model.flashcard.Rating;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code KeyboardFlashCards} with sample data.
  */
 public class SampleDataUtil {
     public static FlashCard[] getSampleFlashcards() {
@@ -36,8 +36,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyKeyboardFlashCards getSampleAddressBook() {
+        KeyboardFlashCards sampleAb = new KeyboardFlashCards();
         for (FlashCard sampleFlashCard : getSampleFlashcards()) {
             sampleAb.addFlashcard(sampleFlashCard);
         }

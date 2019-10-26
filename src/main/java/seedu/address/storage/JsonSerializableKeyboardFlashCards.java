@@ -9,16 +9,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.KeyboardFlashCards;
+import seedu.address.model.ReadOnlyKeyboardFlashCards;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable KeyboardFlashCards that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableKeyboardFlashCards {
 
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "Flashcards list contains duplicate flashCard(s).";
     public static final String MESSAGE_DUPLICATE_DEADLINE = "Deadlines list contains duplicate Deadline(s).";
@@ -27,18 +27,18 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedDeadline> deadlines = new ArrayList<>();
 
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards,
-                                       @JsonProperty("deadlines") List<JsonAdaptedDeadline> deadlines) {
+    public JsonSerializableKeyboardFlashCards(@JsonProperty("flashcards") List<JsonAdaptedFlashcard> flashcards,
+                                              @JsonProperty("deadlines") List<JsonAdaptedDeadline> deadlines) {
         this.flashcards.addAll(flashcards);
         this.deadlines.addAll(deadlines);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyKeyboardFlashCards} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableKeyboardFlashCards}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableKeyboardFlashCards(ReadOnlyKeyboardFlashCards source) {
         flashcards.addAll(
                 source.getFlashcardList()
                         .stream()
@@ -53,27 +53,27 @@ class JsonSerializableAddressBook {
 
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code KeyboardFlashCards} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public KeyboardFlashCards toModelType() throws IllegalValueException {
+        KeyboardFlashCards keyboardFlashCards = new KeyboardFlashCards();
         for (JsonAdaptedFlashcard jsonAdaptedFlashcard : flashcards) {
             FlashCard flashCard = jsonAdaptedFlashcard.toModelType();
-            if (addressBook.hasFlashcard(flashCard)) {
+            if (keyboardFlashCards.hasFlashcard(flashCard)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_FLASHCARD);
             }
-            addressBook.addFlashcard(flashCard);
+            keyboardFlashCards.addFlashcard(flashCard);
         }
 
         for (JsonAdaptedDeadline jsonAdaptedDeadline : deadlines) {
             Deadline deadline = jsonAdaptedDeadline.toModelType();
-            if (addressBook.hasDeadline(deadline)) {
+            if (keyboardFlashCards.hasDeadline(deadline)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_DEADLINE);
             }
-            addressBook.addDeadline(deadline);
+            keyboardFlashCards.addDeadline(deadline);
         }
-        return addressBook;
+        return keyboardFlashCards;
     }
 }
