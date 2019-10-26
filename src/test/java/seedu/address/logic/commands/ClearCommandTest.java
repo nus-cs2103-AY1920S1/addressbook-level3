@@ -22,8 +22,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyProjectDashboard_success() {
-        Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+        Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
+        Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
         expectedModel.setProjectDashboard(new ProjectDashboard());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

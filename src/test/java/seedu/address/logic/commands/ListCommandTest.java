@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
-        expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
+        model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
+        expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
     }
 
     @Test

@@ -7,8 +7,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class GetStatisticsCommandTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
+    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
 
 
 }

@@ -19,7 +19,7 @@ import seedu.address.model.inventory.Inventory;
 
 public class DeleteInventoryCommandTest {
 
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -29,7 +29,7 @@ public class DeleteInventoryCommandTest {
         String expectedMessage = String.format(DeleteInventoryCommand.MESSAGE_DELETE_INVENTORY_SUCCESS,
                                                     inventoryToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
         expectedModel.deleteInventory(inventoryToDelete);
 
         assertCommandSuccess(deleteInventoryCommand, model, expectedMessage, expectedModel);

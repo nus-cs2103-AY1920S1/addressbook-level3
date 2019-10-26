@@ -19,11 +19,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
-import seedu.address.model.member.MemberNameContainsKeywordsPredicateTest;
 
 public class FindMemberCommandTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
+    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
 
     @Test
     public void equals() {

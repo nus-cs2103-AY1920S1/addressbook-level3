@@ -3,20 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.INVENTORY_DESC_TOY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INVENTORY_NAME_SPORTS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INVENTORY_PRICE_SPORTS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_NAME_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INVENTORY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INVENTORY;
 import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -26,16 +19,13 @@ import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
 import seedu.address.model.member.MemberId;
-import seedu.address.model.task.Task;
-import seedu.address.testutil.EditTaskDescriptorBuilder;
 import seedu.address.testutil.InventoryBuilder;
-import seedu.address.testutil.TaskBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditInventoryCommandTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
 
     private static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_BALL =
                                 new EditInventoryCommand.EditInventoryDescriptor();
@@ -54,7 +44,7 @@ public class EditInventoryCommandTest {
 
         String expectedMessage = String.format(EditInventoryCommand.MESSAGE_EDIT_INVENTORY_SUCCESS, editedInventory);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
         expectedModel.setInventory(model.getFilteredInventoriesList().get(0), editedInventory);
 
         assertCommandSuccess(editInventoryCommand, model, expectedMessage, expectedModel);
@@ -93,7 +83,7 @@ public class EditInventoryCommandTest {
 
         String expectedMessage = String.format(EditInventoryCommand.MESSAGE_EDIT_INVENTORY_SUCCESS, editedInventory);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
 
         assertCommandSuccess(editInventoryCommand, model, expectedMessage, expectedModel);
     }

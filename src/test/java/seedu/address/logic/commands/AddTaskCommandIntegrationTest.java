@@ -22,7 +22,7 @@ public class AddTaskCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+        model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
     }
 
     // TODO @ambhinav Test fails with "Operation would result in duplicate tasks"
@@ -30,7 +30,7 @@ public class AddTaskCommandIntegrationTest {
     public void execute_newTask_success() {
         Task validTask = new TaskBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), userSettings);
         expectedModel.addTask(validTask);
 
         assertCommandSuccess(new AddTaskCommand(validTask), model,

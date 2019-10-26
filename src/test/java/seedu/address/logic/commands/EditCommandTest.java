@@ -31,7 +31,7 @@ import seedu.address.testutil.TaskBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), userSettings);
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -41,7 +41,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
         expectedModel.setTask(model.getFilteredTasksList().get(0), editedTask);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -62,7 +62,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
         expectedModel.setTask(lastTask, editedTask);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -75,7 +75,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -91,7 +91,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask);
 
-        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ProjectDashboard(model.getProjectDashboard()), new UserPrefs(), userSettings);
         expectedModel.setTask(model.getFilteredTasksList().get(0), editedTask);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
