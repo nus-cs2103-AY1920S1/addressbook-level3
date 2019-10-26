@@ -1,10 +1,14 @@
 package seedu.address.diaryfeature.model.util;
 
 
-import seedu.address.diaryfeature.model.diaryEntry.Date;
-import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
-import seedu.address.diaryfeature.model.diaryEntry.Title;
 
+
+import java.text.ParseException;
+
+import seedu.address.diaryfeature.model.DateFormatter;
+import seedu.address.diaryfeature.model.DiaryEntry;
+import seedu.address.diaryfeature.model.Title;
+import seedu.address.diaryfeature.model.exceptions.TitleException;
 
 
 /**
@@ -13,23 +17,15 @@ import seedu.address.diaryfeature.model.diaryEntry.Title;
 public class SampleDataUtil {
 
     public static DiaryEntry[] getSampleDiaryEntry() {
-        return new DiaryEntry[] {
-            new DiaryEntry(new Title("Temp"), new Date("hee hee")),
-                new DiaryEntry(new Title("Temp 2"), new Date("wawa wawa"))
-        };
-    }
-
-    /*
-
-    public static ReadOnlyDiaryBook getSampleDiaryBook() {
-        DiaryBook sampleAb = new AddressBook();
-        for (DiaryEntry samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        try {
+            return new DiaryEntry[]{
+                    new DiaryEntry(new Title("Temp"), DateFormatter.convertToDate("25/10/2019 1200")),
+                    new DiaryEntry(new Title("Temp 2"), DateFormatter.convertToDate("31/12/2019 1400"))
+            };
+        } catch (TitleException | ParseException ex) {
+            return null;
         }
-        return sampleAb;
+
+
     }
-
-     */
-
-
 }

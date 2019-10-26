@@ -1,4 +1,4 @@
-package seedu.address.diaryfeature.model.diaryEntry;
+package seedu.address.diaryfeature.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

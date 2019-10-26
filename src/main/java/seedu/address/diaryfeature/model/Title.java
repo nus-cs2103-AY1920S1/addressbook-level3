@@ -1,10 +1,10 @@
-package seedu.address.diaryfeature.model.diaryEntry;
+package seedu.address.diaryfeature.model;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.logging.Logger;
 
-import seedu.address.diaryfeature.model.diaryEntry.exceptions.TitleException;
+import seedu.address.diaryfeature.model.exceptions.TitleException;
 
 /**
  * Represents the title in a Diary Entry

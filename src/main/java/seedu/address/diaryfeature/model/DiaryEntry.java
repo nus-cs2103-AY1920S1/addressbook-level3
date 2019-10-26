@@ -1,4 +1,4 @@
-package seedu.address.diaryfeature.model.diaryEntry;
+package seedu.address.diaryfeature.model;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 

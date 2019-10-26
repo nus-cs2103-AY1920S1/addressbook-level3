@@ -1,13 +1,13 @@
-package seedu.address.diaryfeature.model.diaryEntry.diaryEntry;
+package seedu.address.diaryfeature.model.diaryEntry;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 
-import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
-import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
-import seedu.address.diaryfeature.model.diaryEntry.Title;
-import seedu.address.diaryfeature.model.diaryEntry.exceptions.TitleException;
+import seedu.address.diaryfeature.model.Title;
+import seedu.address.diaryfeature.model.DateFormatter;
+import seedu.address.diaryfeature.model.DiaryEntry;
+import seedu.address.diaryfeature.model.exceptions.TitleException;
 
 
 public class DiaryEntryTest {

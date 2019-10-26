@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.diaryfeature.model.DiaryEntry;
 
 /**
  * An UI component that displays information of a {@code Person}.

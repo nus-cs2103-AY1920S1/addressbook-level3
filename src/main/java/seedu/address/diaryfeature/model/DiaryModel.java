@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
 /**
  * Represents the in-memory model of the address book data.
