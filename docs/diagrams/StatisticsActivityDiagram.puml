@@ -11,4 +11,5 @@ repeat while () is  ([number of predicate < 3])
 :Displays all statistics ;
 
 stop
+
 @enduml
