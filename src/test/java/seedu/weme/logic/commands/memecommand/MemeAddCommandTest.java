@@ -278,17 +278,17 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void undoWeme() {
+        public String undoWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoWeme() {
+        public String redoWeme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitWeme() {
+        public void commitWeme(String feedback) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -411,7 +411,7 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void commitWeme() {
+        public void commitWeme(String feedback) {
             // called by {@code MemeAddCommand#execute()}
         }
 

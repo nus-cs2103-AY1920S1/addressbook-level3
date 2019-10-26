@@ -25,15 +25,15 @@ public class UndoCommandTest {
 
         UndoCommand undoCommand = new UndoCommand();
 
-        expectedModel.undoWeme();
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, expectedModel.undoWeme());
 
         // multiple undo states
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
 
-        expectedModel.undoWeme();
+        expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, expectedModel.undoWeme());
 
         // single undo states
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
 
         // no undo states
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);

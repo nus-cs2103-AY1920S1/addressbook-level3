@@ -10,6 +10,7 @@ public class VersionedWeme extends Weme {
 
     private final List<ReadOnlyWeme> versionedWemeStates;
     private int stateIndex = 0;
+    private final List<String> feedbackList = new ArrayList<>(); // Feedback for undo redo command
 
     public VersionedWeme(ReadOnlyWeme initialState) {
         super(initialState);
@@ -35,33 +36,40 @@ public class VersionedWeme extends Weme {
     /**
      * Saves the current state to the end of the state list.
      * Wipes previously undone states.
+     * @param feedback the feedback of the last executed command
      */
-    public void commit() {
+    public void commit(String feedback) {
         versionedWemeStates.subList(stateIndex + 1, versionedWemeStates.size()).clear();
+        feedbackList.subList(stateIndex, feedbackList.size()).clear();
         versionedWemeStates.add(new Weme(this));
+        feedbackList.add(feedback);
         stateIndex++;
     }
 
     /**
      * Restores Weme to its previous state.
+     * @return the feedback to the user of the command just undone
      */
-    public void undo() {
+    public String undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         stateIndex--;
         resetData(versionedWemeStates.get(stateIndex));
+        return feedbackList.get(stateIndex);
     }
 
     /**
      * Restores Weme to its previously undone state.
+     * @return the feedback to the user of the command just redone
      */
-    public void redo() {
+    public String redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         stateIndex++;
         resetData(versionedWemeStates.get(stateIndex));
+        return feedbackList.get(stateIndex - 1);
     }
 
     @Override
@@ -78,7 +86,8 @@ public class VersionedWeme extends Weme {
 
         return super.equals(otherWeme)
                 && versionedWemeStates.equals(otherWeme.versionedWemeStates)
-                && stateIndex == otherWeme.stateIndex;
+                && stateIndex == otherWeme.stateIndex
+                && feedbackList.equals(otherWeme.feedbackList);
     }
 
     /**

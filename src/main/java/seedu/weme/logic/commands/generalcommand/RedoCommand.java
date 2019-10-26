@@ -15,7 +15,7 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_SUCCESS = "Redo success.";
+    public static final String MESSAGE_SUCCESS = "Redid the following command:\n%s";
     public static final String MESSAGE_FAILURE = "No commands to redo.";
 
     @Override
@@ -26,8 +26,8 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoWeme();
+        String feedback = model.redoWeme();
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, feedback));
     }
 }

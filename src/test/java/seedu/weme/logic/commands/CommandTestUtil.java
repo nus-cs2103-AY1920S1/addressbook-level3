@@ -2,6 +2,7 @@ package seedu.weme.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.weme.logic.commands.memecommand.MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
@@ -153,7 +154,8 @@ public class CommandTestUtil {
 
         Meme firstMeme = model.getFilteredMemeList().get(0);
         model.deleteMeme(firstMeme);
-        model.commitWeme();
+        String feedback = String.format(MESSAGE_DELETE_MEME_SUCCESS, firstMeme);
+        model.commitWeme(feedback);
 
         assertTrue(initialSize - 1 == model.getFilteredMemeList().size());
     }

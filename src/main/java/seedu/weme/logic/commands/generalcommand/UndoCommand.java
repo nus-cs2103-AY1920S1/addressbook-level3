@@ -15,7 +15,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_SUCCESS = "Undo success.";
+    public static final String MESSAGE_SUCCESS = "Undid the following command:\n%s";
     public static final String MESSAGE_FAILURE = "No commands to undo.";
 
     @Override
@@ -26,8 +26,8 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoWeme();
+        String feedback = model.undoWeme();
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, feedback));
     }
 }

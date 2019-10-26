@@ -60,8 +60,10 @@ public class TemplateAddCommand extends Command {
         }
 
         model.addTemplate(copiedTemplate);
-        model.commitWeme();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, copiedTemplate));
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, copiedTemplate));
+        model.commitWeme(result.getFeedbackToUser());
+
+        return result;
     }
 
     @Override

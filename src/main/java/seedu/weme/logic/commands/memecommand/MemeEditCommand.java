@@ -77,9 +77,11 @@ public class MemeEditCommand extends Command {
 
         model.setMeme(memeToEdit, editedMeme);
         model.addMemeToRecord(editedMeme);
-        model.commitWeme();
+        CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
+        model.commitWeme(result.getFeedbackToUser());
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
-        return new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
+
+        return result;
     }
 
     /**

@@ -64,8 +64,10 @@ public class MemeAddCommand extends Command {
         }
 
         model.addMeme(copiedMeme);
-        model.commitWeme();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, copiedMeme));
+        CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, copiedMeme));
+        model.commitWeme(result.getFeedbackToUser());
+
+        return result;
     }
 
     @Override

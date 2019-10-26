@@ -47,7 +47,6 @@ public class UnstageCommand extends Command {
 
         Meme memeToUnstage = stagedMemeList.get(targetIndex.getZeroBased());
         model.unstageMeme(memeToUnstage);
-        model.commitWeme();
         return new CommandResult(String.format(MESSAGE_SUCCESS, memeToUnstage));
     }
 

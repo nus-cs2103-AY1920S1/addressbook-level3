@@ -29,15 +29,15 @@ public class RedoCommandTest {
 
         RedoCommand redoCommand = new RedoCommand();
 
-        expectedModel.redoWeme();
+        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, expectedModel.redoWeme());
 
         // multiple redo states
-        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(redoCommand, model, expectedMessage, expectedModel);
 
-        expectedModel.redoWeme();
+        expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, expectedModel.redoWeme());
 
         // single redo state
-        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(redoCommand, model, expectedMessage, expectedModel);
 
         // no redo state
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);

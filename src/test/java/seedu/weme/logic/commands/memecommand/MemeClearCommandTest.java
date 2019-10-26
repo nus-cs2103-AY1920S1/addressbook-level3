@@ -16,7 +16,7 @@ public class MemeClearCommandTest {
     public void execute_emptyWeme_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitWeme();
+        expectedModel.commitWeme(MemeClearCommand.MESSAGE_SUCCESS);
 
         CommandTestUtil.assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS,
                 expectedModel);
@@ -27,7 +27,7 @@ public class MemeClearCommandTest {
         Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
         expectedModel.clearMemes();
-        expectedModel.commitWeme();
+        expectedModel.commitWeme(MemeClearCommand.MESSAGE_SUCCESS);
 
         assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
