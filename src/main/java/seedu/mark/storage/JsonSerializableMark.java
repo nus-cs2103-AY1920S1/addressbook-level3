@@ -20,7 +20,7 @@ import seedu.mark.model.folderstructure.FolderStructure;
  * An Immutable Mark that is serializable to JSON format.
  */
 @JsonRootName(value = "mark")
-class JsonSerializableMark {
+public class JsonSerializableMark {
 
     public static final String MESSAGE_DUPLICATE_BOOKMARK = "Bookmark list contains duplicate bookmark(s).";
     public static final String MESSAGE_DUPLICATE_FOLDER = "There are duplicate folder(s).";

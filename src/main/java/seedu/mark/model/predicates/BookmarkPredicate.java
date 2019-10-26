@@ -84,7 +84,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(nameKeywords);
         isEmpty = false;
 
-        Set<String> newNameKeywords = new HashSet<>(nameKeywords);
+        Set<String> newNameKeywords = new HashSet<>(this.nameKeywords);
         newNameKeywords.addAll(nameKeywords);
         return new BookmarkPredicate(newNameKeywords,
                 this.notNameKeywords, this.urlKeywords,
@@ -104,7 +104,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(notNameKeywords);
         isEmpty = false;
 
-        Set<String> newNotNameKeywords = new HashSet<>(notNameKeywords);
+        Set<String> newNotNameKeywords = new HashSet<>(this.notNameKeywords);
         newNotNameKeywords.addAll(notNameKeywords);
         return new BookmarkPredicate(this.nameKeywords,
                 newNotNameKeywords, this.urlKeywords,
@@ -123,7 +123,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(urlKeywords);
         isEmpty = false;
 
-        Set<String> newUrlKeywords = new HashSet<>(urlKeywords);
+        Set<String> newUrlKeywords = new HashSet<>(this.urlKeywords);
         newUrlKeywords.addAll(urlKeywords);
         return new BookmarkPredicate(this.nameKeywords,
                 this.notNameKeywords, newUrlKeywords,
@@ -143,7 +143,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(notUrlKeywords);
         isEmpty = false;
 
-        Set<String> newNotUrlKeywords = new HashSet<>(notUrlKeywords);
+        Set<String> newNotUrlKeywords = new HashSet<>(this.notUrlKeywords);
         newNotUrlKeywords.addAll(notUrlKeywords);
         return new BookmarkPredicate(this.nameKeywords,
                 this.notNameKeywords, this.urlKeywords,
@@ -154,7 +154,10 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookmarkPredicate // instanceof handles nulls
-                && nameKeywords.equals(((BookmarkPredicate) other).nameKeywords)); // state check
+                && nameKeywords.equals(((BookmarkPredicate) other).nameKeywords)
+                && notNameKeywords.equals(((BookmarkPredicate) other).notNameKeywords)
+                && urlKeywords.equals(((BookmarkPredicate) other).urlKeywords)
+                && notUrlKeywords.equals((((BookmarkPredicate) other).notUrlKeywords))); // state check
     }
 
 }

@@ -11,7 +11,7 @@ import seedu.mark.model.predicates.BookmarkPredicate;
 /**
  * Jackson-friendly version of {@link BookmarkPredicate}.
  */
-class JsonAdaptedBookmarkPredicate {
+public class JsonAdaptedBookmarkPredicate {
 
     private final List<String> nameKeywords = new ArrayList<>();
     private final List<String> notNameKeywords = new ArrayList<>();

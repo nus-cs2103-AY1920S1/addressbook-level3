@@ -9,7 +9,7 @@ import seedu.mark.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link SelectiveBookmarkTagger}.
  */
-class JsonAdaptedSelectiveBookmarkTagger {
+public class JsonAdaptedSelectiveBookmarkTagger {
 
     private final String tag;
     private final JsonAdaptedBookmarkPredicate predicate;
