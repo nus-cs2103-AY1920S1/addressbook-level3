@@ -28,7 +28,7 @@ public class CalendarCommandParserTest {
 
     @Test
     public void parse_invalidArgs2_throwsParseException() {
-        assertParseFailure(parser, "string", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "test", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 CalendarCommand.MESSAGE_USAGE));
     }
 

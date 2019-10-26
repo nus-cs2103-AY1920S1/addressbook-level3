@@ -16,20 +16,17 @@ public class ViewCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "      ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "      ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidArgs1_throwsParseException() {
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1", Feature.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_invalidArgs2_throwsParseException() {
-        assertParseFailure(parser, "string", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "string", Feature.MESSAGE_CONSTRAINTS);
     }
 
     @Test

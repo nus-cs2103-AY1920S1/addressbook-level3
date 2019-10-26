@@ -37,4 +37,11 @@ public class Feature {
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof Feature
+                && name.equals(((Feature) other).name));
+    }
 }

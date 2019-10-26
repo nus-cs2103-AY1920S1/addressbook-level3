@@ -1,5 +1,7 @@
 package seedu.address.model.date;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents date used in attendance and performance recording.
  */
@@ -16,6 +18,7 @@ public class AthletickDate {
     private String mth;
 
     public AthletickDate(int day, int month, int year, int type, String mth) {
+        requireNonNull(mth);
         this.day = day;
         this.month = month;
         this.year = year;

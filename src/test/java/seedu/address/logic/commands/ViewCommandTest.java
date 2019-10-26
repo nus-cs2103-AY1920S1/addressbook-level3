@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -31,10 +32,7 @@ public class ViewCommandTest {
 
     @Test
     public void execute_invalidFeature_failure() {
-        Feature feature = new FeatureBuilder().withName("test").build();
-        ViewCommand viewCommand = new ViewCommand(feature);
-        String expectedMessage = viewCommand.MESSAGE_SUCCESS_1;
-
-        assertCommandFailure(viewCommand, model, viewCommand.MESSAGE_INVALID_FEATURE);
+        assertThrows(IllegalArgumentException.class, (
+                ) -> new FeatureBuilder().withName("test").build());
     }
 }

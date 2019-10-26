@@ -17,17 +17,6 @@ public class AthletickDateTest {
     }
 
     @Test
-    public void constructor_invalidTrainingDate_throwsParseException() {
-        assertThrows(ParseException.class, () -> new AthletickDate(0, 0, 0, 0, "test"));
-    }
-
-    @Test
-    public void constructor_validTrainingDate_success() throws ParseException {
-        AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
-        assertTrue(true);
-    }
-
-    @Test
     public void getDay() throws ParseException {
         AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
         int day = td.getDay();
