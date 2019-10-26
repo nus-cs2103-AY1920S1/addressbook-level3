@@ -215,4 +215,33 @@ public class ParserUtil {
         }
         return new FineIncrement(trimmedFineIncrement);
     }
+
+    /**
+     * Parses {@code flag} into {@code Flag}.
+     * Leading and trailing whitespaces will be trimmed, and flag will be converted to UPPERCASE
+     *
+     * @throws ParseException if the flag is invalid (case-insensitive)
+     */
+    public static Flag parseFlag(String flag) throws ParseException {
+        requireNonNull(flag);
+        String trimmedFlag = flag.trim();
+        String uppercaseFlag = trimmedFlag.toUpperCase();
+        try {
+            return Flag.valueOf(uppercaseFlag);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Flag.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses {@code Collection<String> flags} into a {@code Set<Flag>}.
+     */
+    public static Set<Flag> parseFlags(Collection<String> flags) throws ParseException {
+        requireNonNull(flags);
+        final Set<Flag> flagSet = new HashSet<>();
+        for (String flagName : flags) {
+            flagSet.add(parseFlag(flagName));
+        }
+        return flagSet;
+    }
 }

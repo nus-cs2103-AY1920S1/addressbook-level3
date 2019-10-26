@@ -48,8 +48,8 @@ BorrowerId -- SerialNumber
 Class LocalDate
 }
 
-Package Tag {
-Class Tag
+Package Genre {
+Class Genre
 }
 }
 
@@ -72,7 +72,7 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 Catalog *--> "1" UniqueBookList
 UniqueBookList o--> "*" Book
-Book *--> "*" Tag
+Book *--> "*" Genre
 Book *--> "1" Title
 Book *--> "1" Author
 Book *--> "1" SerialNumber
