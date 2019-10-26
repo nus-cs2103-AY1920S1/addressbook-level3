@@ -17,6 +17,8 @@ import thrift.logic.commands.CloneCommand;
 import thrift.logic.commands.Command;
 import thrift.logic.commands.CommandResult;
 import thrift.logic.commands.DeleteCommand;
+import thrift.logic.commands.FindCommand;
+import thrift.logic.commands.ListCommand;
 import thrift.logic.commands.NonScrollingCommand;
 import thrift.logic.commands.RedoCommand;
 import thrift.logic.commands.ScrollingCommand;
@@ -31,6 +33,7 @@ import thrift.model.ReadOnlyThrift;
 import thrift.model.transaction.Transaction;
 import thrift.storage.Storage;
 import thrift.ui.BalanceBar;
+import thrift.ui.FilteredBar;
 import thrift.ui.TransactionListPanel;
 
 /**
@@ -51,11 +54,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText, TransactionListPanel transactionListPanel, BalanceBar balanceBar)
-            throws CommandException, ParseException {
+    public CommandResult execute(String commandText, TransactionListPanel transactionListPanel, BalanceBar balanceBar,
+            FilteredBar filteredBar) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = thriftParser.parseCommand(commandText);
-        CommandResult commandResult = processParsedCommand(command, commandText, transactionListPanel, balanceBar);
+        CommandResult commandResult = processParsedCommand(command, commandText, transactionListPanel, balanceBar,
+                filteredBar);
         try {
             storage.saveThrift(model.getThrift());
         } catch (IOException ioe) {
@@ -72,11 +76,12 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult processParsedCommand(Command command, String commandText,
-                                               TransactionListPanel transactionListPanel,
-                                               BalanceBar balanceBar) throws CommandException {
+                                              TransactionListPanel transactionListPanel,
+                                              BalanceBar balanceBar, FilteredBar filteredBar) throws CommandException {
         requireAllNonNull(command, commandText);
         CommandResult commandResult = parseScrollable(command, transactionListPanel);
         parseRefreshable(command, balanceBar);
+        parseFilterable(commandText, command, filteredBar);
         parseUndoable(command, commandText);
         return commandResult;
     }
@@ -99,8 +104,54 @@ public class LogicManager implements Logic {
         requireNonNull(command);
         if (isRefreshingFilteredList(command)) {
             model.updateBalanceForCurrentMonth();
+            model.updateExpenseForCurrentMonth();
+            model.updateIncomeForCurrentMonth();
             updateBalanceBar(balanceBar);
         }
+    }
+
+    @Override
+    public void parseFilterable(String input, Command command, FilteredBar filteredBar) {
+        requireAllNonNull(input, command);
+        try {
+            String arguments = thriftParser.getArguments(input).trim();
+            if (command instanceof ListCommand) {
+                if (arguments.equals("")) {
+                    filteredBar.setFiltered("All");
+                } else {
+                    String monthYear = model.getCurrentMonthYear();
+                    filteredBar.setFiltered(monthYear);
+                }
+            } else if (command instanceof FindCommand) {
+                String filteredString = formatFindCommandArguments(arguments);
+                filteredBar.setFiltered(filteredString);
+            }
+        } catch (ParseException e) {
+            logger.severe("Unable to parse the user input at LogicManager#parseFilterable");
+        }
+    }
+
+    /**
+     * Formats arguments for find command into human-readable format. <br>
+     * Note: arguments should not be empty.
+     *
+     * @param arguments is the arguments to find command.
+     * @return a human-readable string for find command.
+     */
+    private String formatFindCommandArguments(String arguments) {
+        assert !arguments.equals("");
+        String[] keywords = arguments.split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < keywords.length; i++) {
+            if (i == keywords.length - 2) {
+                sb.append("\"").append(keywords[i]).append("\"").append(" or ");
+            } else if (i == keywords.length - 1) {
+                sb.append("\"").append(keywords[i]).append("\"");
+            } else {
+                sb.append("\"").append(keywords[i]).append("\"").append(", ");
+            }
+        }
+        return sb.toString();
     }
 
     @Override
@@ -117,6 +168,8 @@ public class LogicManager implements Logic {
         balanceBar.setMonthYear(getCurrentMonthYear());
         balanceBar.setMonthBudget(getCurrentMonthBudget());
         balanceBar.setMonthBalance(getCurrentMonthBalance());
+        balanceBar.setMonthExpense(getCurrentMonthExpense());
+        balanceBar.setMonthIncome(getCurrentMonthIncome());
     }
 
     @Override
@@ -149,6 +202,26 @@ public class LogicManager implements Logic {
     @Override
     public double getCurrentMonthBalance() {
         return model.getBalance();
+    }
+
+    @Override
+    public double getCurrentMonthExpense() {
+        return model.getExpense();
+    }
+
+    @Override
+    public void computeInitialMonthExpense() {
+        model.updateExpenseForCurrentMonth();
+    }
+
+    @Override
+    public double getCurrentMonthIncome() {
+        return model.getIncome();
+    }
+
+    @Override
+    public void computeInitialMonthIncome() {
+        model.updateIncomeForCurrentMonth();
     }
 
     @Override

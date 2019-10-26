@@ -134,13 +134,6 @@ public interface Model {
      */
     void setTransactionWithIndex(Index actualIndex, Transaction updatedTransaction);
 
-    /**
-     * Gets the last transaction from thrift's transaction list
-     *
-     * @return the last transaction from thrift's transaction list
-     */
-    Transaction getLastTransactionFromThrift();
-
     /** Returns the current month and year in MMM yyyy format. */
     String getCurrentMonthYear();
 
@@ -169,6 +162,26 @@ public interface Model {
      * Returns the balance held by the model to update the GUI with.
      */
     double getBalance();
+
+    /**
+     * Updates the expense tracked by the model by summing values from the {@code Transaction} in the filteredList.
+     */
+    void updateExpenseForCurrentMonth();
+
+    /**
+     * Returns the expense held by the model to update the GUI with.
+     */
+    double getExpense();
+
+    /**
+     * Updates the income tracked by the model by summing values from the {@code Transaction} in the filteredList.
+     */
+    void updateIncomeForCurrentMonth();
+
+    /**
+     * Returns the income held by the model to update the GUI with.
+     */
+    double getIncome();
 
     /**
      * Returns if {@code transaction} is currently in {@code FilteredList<Transaction>}.

@@ -1,20 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<HBox styleClass="balance-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <HBox styleClass="balance-bar-fill">
-    <Pane minWidth="10"></Pane>
-    <Label fx:id="monthYearLabel" />
-  </HBox>
-  <Pane styleClass="balance-bar-fill" HBox.hgrow="ALWAYS"></Pane>
-  <Pane styleClass="balance-bar-ribbon" minWidth="20"></Pane>
-  <Pane minWidth="10"></Pane>
-  <Label fx:id="monthBudgetLabel" />
-  <Label fx:id="monthBudgetValueLabel" />
-  <Label fx:id="monthBalanceLabel" />
-  <Label fx:id="monthBalanceValueLabel" />
-  <Pane minWidth="20"></Pane>
-</HBox>
+<!--  <HBox styleClass="balance-bar-fill">-->
+<!--    <Pane minWidth="100"></Pane>-->
+<!--    <Label fx:id="monthYearLabel" />-->
+<!--  </HBox>-->
+<!--  <Pane styleClass="balance-bar-fill" HBox.hgrow="ALWAYS"></Pane>-->
+<!--  <Pane styleClass="balance-bar-ribbon" minWidth="20"></Pane>-->
+<!--  <Pane minWidth="10"></Pane>-->
+<!--  <Label fx:id="monthBudgetLabel" />-->
+<!--  <Label fx:id="monthBudgetValueLabel" />-->
+<!--  <Label fx:id="monthBalanceLabel" />-->
+<!--  <Label fx:id="monthBalanceValueLabel" />-->
+<!--  <Pane minWidth="20"></Pane>-->
+
+<VBox prefHeight="141.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+
+      <HBox alignment="CENTER" minHeight="100.0" prefWidth="400.0" styleClass="balance-bar">
+         <HBox prefHeight="100.0" prefWidth="350.0" styleClass="card-color">
+            <children>
+               <VBox id="income-side-card-color" prefHeight="200.0" prefWidth="5.0" />
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="50.0">
+                  <children>
+                     <ImageView fitHeight="33.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <!--Icon made by Freepik from www.flaticon.com-->
+                           <Image url="@img/profit-chart.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </VBox>
+               <VBox id="incomeText" alignment="CENTER_RIGHT" prefHeight="120.0" prefWidth="255.0">
+                  <children>
+                     <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="280.0" styleClass="balance-text" text="Income" />
+                     <Label fx:id="monthIncomeValueLabel" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="280.0" text="\$1000.00" />
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+         <HBox prefHeight="100.0" prefWidth="350.0" styleClass="card-color">
+            <children>
+               <VBox id="expense-side-card-color" prefHeight="200.0" prefWidth="5.0" />
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="50.0">
+                  <children>
+                     <ImageView fitHeight="34.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <!--Icon made by Freepik from www.flaticon.com-->
+                           <Image url="@img/loss-chart.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </VBox>
+               <VBox id="expenseText" alignment="CENTER_RIGHT" prefHeight="120.0" prefWidth="252.0">
+                  <children>
+                     <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="280.0" styleClass="balance-text" text="Expense" />
+                     <Label fx:id="monthExpenseValueLabel" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="248.0" text="\$1000.00" />
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+         <HBox prefHeight="100.0" prefWidth="350.0" styleClass="card-color">
+            <children>
+               <VBox id="balance-side-card-color" prefHeight="200.0" prefWidth="5.0" />
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="50.0">
+                  <children>
+                     <ImageView fitHeight="65.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <!--Icon made by bqlqn from www.flaticon.com-->
+                           <Image url="@img/wallet.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </VBox>
+               <VBox id="balanceText" alignment="CENTER_RIGHT" prefHeight="120.0" prefWidth="250.0">
+                  <children>
+                     <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="280.0" styleClass="balance-text" text="Balance" />
+                     <Label fx:id="monthBalanceValueLabel" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="280.0" text="\$1000.00" />
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+      </HBox>
+      <HBox id="monthlySetting" prefWidth="980.0" styleClass="monthlySetting">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="504.0">
+               <children>
+                  <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <!--Icon made by Freepik from www.flaticon.com-->
+                        <Image url="@img/calendar.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="18.0" prefWidth="400.0" text="October 2019" fx:id="monthYearLabel"/>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="459.0">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <!--Icon made by Freepik from www.flaticon.com-->
+                        <Image url="@img/coin-stack.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="18.0" text="Budget: $0.00" fx:id="monthBudgetValueLabel"/>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

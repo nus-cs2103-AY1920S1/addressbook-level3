@@ -224,11 +224,6 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public Transaction getLastTransactionFromThrift() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -260,6 +255,26 @@ public class AddIncomeCommandTest {
 
         @Override
         public double getBalance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateExpenseForCurrentMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public double getExpense() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateIncomeForCurrentMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public double getIncome() {
             throw new AssertionError("This method should not be called.");
         }
 

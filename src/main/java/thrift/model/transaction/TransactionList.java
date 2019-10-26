@@ -118,16 +118,6 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Retrieve the last transaction.
-     *
-     * @return the last transaction
-     */
-    public Transaction getLast() {
-        return internalList.get(internalList.size() - 1);
-    }
-
-
-    /**
      * Returns an Optional that contains the {@link Index} of the {@code transaction}.
      *
      * @param transaction is the transaction that you are interested in its index in the full transaction list.

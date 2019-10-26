@@ -36,6 +36,8 @@ public class ModelManager implements Model {
     private final PastUndoableCommands pastUndoableCommands;
     private final Calendar currentMonthYear;
     private double balance;
+    private double expense;
+    private double income;
 
     /** {@code Predicate} that always show the current month transactions */
     private Predicate<Transaction> predicateShowCurrentMonthTransactions;
@@ -55,6 +57,7 @@ public class ModelManager implements Model {
         this.pastUndoableCommands = pastUndoableCommands;
         currentMonthYear = Calendar.getInstance();
         balance = 0;
+        expense = 0;
         predicateShowCurrentMonthTransactions = new TransactionIsInMonthYearPredicate(currentMonthYear);
     }
 
@@ -196,11 +199,6 @@ public class ModelManager implements Model {
         updateBalanceForCurrentMonth();
     }
 
-    @Override
-    public Transaction getLastTransactionFromThrift() {
-        return thrift.getLastTransaction();
-    }
-
     //=========== Filtered Transaction List Accessors =============================================================
     /**
      * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
@@ -252,6 +250,56 @@ public class ModelManager implements Model {
     @Override
     public double getBalance() {
         return balance;
+    }
+
+    @Override
+    public void updateExpenseForCurrentMonth() {
+        //If transaction does not belong to current displayed month and not an expense, don't update the expense.
+        logger.info("Original expense: " + expense);
+        expense = thrift.getTransactionList().stream()
+                .filter(t -> {
+                    Calendar temp = Calendar.getInstance();
+                    temp.setTime(t.getDate().getDate());
+                    if (temp.get(Calendar.MONTH) != currentMonthYear.get(Calendar.MONTH)
+                            || temp.get(Calendar.YEAR) != currentMonthYear.get(Calendar.YEAR)
+                            || t instanceof Income) {
+                        return false;
+                    }
+                    return true;
+                })
+                .mapToDouble(t -> t.getValue().getMonetaryValue())
+                .sum();
+        logger.info("Updated expense: " + expense);
+    }
+
+    @Override
+    public double getExpense() {
+        return expense;
+    }
+
+    @Override
+    public void updateIncomeForCurrentMonth() {
+        //If transaction does not belong to current displayed month and not an income, don't update the income.
+        logger.info("Original income: " + income);
+        income = thrift.getTransactionList().stream()
+                .filter(t -> {
+                    Calendar temp = Calendar.getInstance();
+                    temp.setTime(t.getDate().getDate());
+                    if (temp.get(Calendar.MONTH) != currentMonthYear.get(Calendar.MONTH)
+                            || temp.get(Calendar.YEAR) != currentMonthYear.get(Calendar.YEAR)
+                            || t instanceof Expense) {
+                        return false;
+                    }
+                    return true;
+                })
+                .mapToDouble(t -> t.getValue().getMonetaryValue())
+                .sum();
+        logger.info("Updated income: " + income);
+    }
+
+    @Override
+    public double getIncome() {
+        return income;
     }
 
     @Override

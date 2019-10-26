@@ -12,6 +12,7 @@ import thrift.model.Model;
 import thrift.model.ReadOnlyThrift;
 import thrift.model.transaction.Transaction;
 import thrift.ui.BalanceBar;
+import thrift.ui.FilteredBar;
 import thrift.ui.TransactionListPanel;
 
 /**
@@ -24,12 +25,13 @@ public interface Logic {
      * @param commandText The command as entered by the user.
      * @param transactionListPanel The TransactionListPanel to be manipulated by execution of certain commands.
      * @param balanceBar The BalanceBar that displays the current month, budget and balance.
+     * @param filteredBar The FilteredBar that displays the meaning of the list.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText, TransactionListPanel transactionListPanel, BalanceBar balanceBar)
-            throws CommandException, ParseException;
+    CommandResult execute(String commandText, TransactionListPanel transactionListPanel, BalanceBar balanceBar,
+            FilteredBar filteredBar) throws CommandException, ParseException;
 
     /**
      * Returns the Thrift.
@@ -46,11 +48,12 @@ public interface Logic {
      * @param commandText raw user input for the command.
      * @param transactionListPanel transaction list pane that houses the transactions displayed to the user.
      * @param balanceBar GUI object that displays the current balance, budget and month to the user.
+     * @param filteredBar GUI object that displays the meaning of the list.
      * @return {@code CommandResult} object that is created as a result from executing the command.
      * @throws CommandException if the command encounters any runtime errors.
      */
     CommandResult processParsedCommand(Command command, String commandText, TransactionListPanel transactionListPanel,
-                                       BalanceBar balanceBar) throws CommandException;
+                                       BalanceBar balanceBar, FilteredBar filteredBar) throws CommandException;
 
     /**
      * Takes the given command and executes it, checking if the command requires scrolling the
@@ -71,6 +74,15 @@ public interface Logic {
      * @param balanceBar GUI object that displays the current balance, budget and month to the user.
      */
     void parseRefreshable(Command command, BalanceBar balanceBar);
+
+    /**
+     * Checks if the given command requires to update {@code filteredBar}.
+     *
+     * @param input user input to the command box.
+     * @param command processed command that is ready to execute.
+     * @param filteredBar GUI object that displays the meaning of the list.
+     */
+    void parseFilterable(String input, Command command, FilteredBar filteredBar);
 
     /**
      * Checks if the given command requires to be record-kept for possible undo/redo in the future.
@@ -94,6 +106,18 @@ public interface Logic {
 
     /** Returns the current month's balance. */
     double getCurrentMonthBalance();
+
+    /** Returns the current month's expense. */
+    double getCurrentMonthExpense();
+
+    /** Computes the current month's initial expense. */
+    void computeInitialMonthExpense();
+
+    /** Returns the current month's income. */
+    double getCurrentMonthIncome();
+
+    /** Computes the current month's initial income. */
+    void computeInitialMonthIncome();
 
     /** Returns an unmodifiable view of the filtered list of transactions. */
     ObservableList<Transaction> getFilteredTransactionList();

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import thrift.logic.commands.CommandResult;
-import thrift.logic.commands.ListCommand;
+import thrift.logic.commands.HelpCommand;
 import thrift.logic.commands.exceptions.CommandException;
 import thrift.logic.parser.exceptions.ParseException;
 import thrift.model.Model;
@@ -60,15 +60,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String helpCommand = HelpCommand.COMMAND_WORD;
+        assertCommandSuccess(helpCommand, HelpCommand.SHOWING_HELP_MESSAGE, model);
     }
 
     @Test
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTransactionList().remove(0));
     }
-
 
     /**
      * Executes the command and confirms that
@@ -79,7 +78,7 @@ public class LogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
             Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = logic.execute(inputCommand, null, null);
+        CommandResult result = logic.execute(inputCommand, null, null, null);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
@@ -119,7 +118,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand, null, null));
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand, null,
+                null, null));
         assertEquals(expectedModel, model);
     }
 

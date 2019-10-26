@@ -48,7 +48,7 @@ public class ExpenseTransactionCard extends UiPart<Region> {
         expenseDescription.setText(transaction.getDescription().toString());
         expenseValue.setText("-$" + transaction.getValue().toString());
         expenseDate.setText(transaction.getDate().toString());
-        expenseRemark.setText(transaction.getRemark().toString());
+        expenseRemark.setText("Remarks: " + transaction.getRemark().toString());
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

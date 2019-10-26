@@ -35,10 +35,13 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private BalanceBar balanceBar;
+    private FilteredBar filteredBar;
 
     private String monthYear;
     private double budget;
     private double balance;
+    private double expense;
+    private double income;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -54,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane balancebarPlaceholder;
+
+    @FXML
+    private StackPane filteredbarPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -127,8 +133,15 @@ public class MainWindow extends UiPart<Stage> {
         monthYear = logic.getCurrentMonthYear();
         budget = logic.getCurrentMonthBudget();
         balance = logic.getCurrentMonthBalance();
-        balanceBar = new BalanceBar(monthYear, budget, balance);
+        logic.computeInitialMonthExpense();
+        logic.computeInitialMonthIncome();
+        expense = logic.getCurrentMonthExpense();
+        income = logic.getCurrentMonthIncome();
+        balanceBar = new BalanceBar(monthYear, budget, balance, expense, income);
         balancebarPlaceholder.getChildren().add(balanceBar.getRoot());
+
+        filteredBar = new FilteredBar(monthYear);
+        filteredbarPlaceholder.getChildren().add(filteredBar.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getThriftFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -186,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText, transactionListPanel, balanceBar);
+            CommandResult commandResult = logic.execute(commandText, transactionListPanel, balanceBar, filteredBar);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

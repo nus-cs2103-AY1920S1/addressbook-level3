@@ -45,10 +45,11 @@ public class IncomeTransactionCard extends UiPart<Region> {
         super(FXML);
         this.transaction = transaction;
         id.setText(displayedIndex + ". ");
+
         incomeDescription.setText(transaction.getDescription().toString());
         incomeValue.setText("$" + transaction.getValue().toString());
         incomeDate.setText(transaction.getDate().toString());
-        incomeRemark.setText(transaction.getRemark().toString());
+        incomeRemark.setText("Remarks: " + transaction.getRemark().toString());
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

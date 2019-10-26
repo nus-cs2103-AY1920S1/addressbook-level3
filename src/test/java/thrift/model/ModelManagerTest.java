@@ -4,18 +4,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
+import static thrift.model.transaction.TransactionDate.DATE_FORMATTER;
 import static thrift.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
 import thrift.commons.core.GuiSettings;
 import thrift.logic.commands.AddExpenseCommand;
+import thrift.model.transaction.Description;
 import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
 import thrift.model.transaction.Expense;
+import thrift.model.transaction.Income;
+import thrift.model.transaction.Remark;
+import thrift.model.transaction.TransactionDate;
+import thrift.model.transaction.Value;
 import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.ThriftBuilder;
 import thrift.testutil.TypicalTransactions;
@@ -85,6 +93,30 @@ public class ModelManagerTest {
         AddExpenseCommand addExpenseCommand = new AddExpenseCommand(expense);
         modelManager.keepTrackCommands(addExpenseCommand);
         assertEquals(addExpenseCommand, modelManager.getPreviousUndoableCommand());
+    }
+
+    @Test
+    public void updateExpenseForCurrentMonth_withTransactionForCurrentMonth_success() {
+        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+        Expense newExpense = new Expense(new Description("mcspicy"), new Value("5"), new Remark(""),
+                new TransactionDate(DATE_FORMATTER.format(new Date())), new HashSet<>());
+        model.addExpense(newExpense);
+        model.updateExpenseForCurrentMonth();
+        double expense = model.getExpense();
+        assertEquals(5.00, expense);
+    }
+
+    @Test
+    public void updateIncomeForCurrentMonth_withTransactionForCurrentMonth_success() {
+        Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
+                new PastUndoableCommands());
+        Income newIncome = new Income(new Description("allowance"), new Value("500"), new Remark(""),
+                new TransactionDate(DATE_FORMATTER.format(new Date())), new HashSet<>());
+        model.addIncome(newIncome);
+        model.updateIncomeForCurrentMonth();
+        double income = model.getIncome();
+        assertEquals(500.00, income);
     }
 
     @Test
