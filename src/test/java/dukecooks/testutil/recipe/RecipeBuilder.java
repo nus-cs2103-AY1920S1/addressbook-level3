@@ -3,13 +3,13 @@ package dukecooks.testutil.recipe;
 import java.util.HashSet;
 import java.util.Set;
 
-import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.model.util.SampleRecipeDataUtil;
 
 /**
@@ -24,7 +24,7 @@ public class RecipeBuilder {
     public static final String DEFAULT_FATS = "12";
     public static final String DEFAULT_PROTEIN = "11";
 
-    private Name name;
+    private RecipeName name;
     private Set<Ingredient> ingredients;
     private Calories calories;
     private Carbs carbs;
@@ -32,7 +32,7 @@ public class RecipeBuilder {
     private Protein protein;
 
     public RecipeBuilder() {
-        name = new Name(DEFAULT_NAME);
+        name = new RecipeName(DEFAULT_NAME);
         calories = new Calories(DEFAULT_CALORIES);
         carbs = new Carbs(DEFAULT_CARBS);
         fats = new Fats(DEFAULT_FATS);
@@ -54,10 +54,10 @@ public class RecipeBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Recipe} that we are building.
+     * Sets the {@code RecipeName} of the {@code Recipe} that we are building.
      */
     public RecipeBuilder withName(String name) {
-        this.name = new Name(name);
+        this.name = new RecipeName(name);
         return this;
     }
 

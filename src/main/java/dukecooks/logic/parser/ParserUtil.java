@@ -28,6 +28,7 @@ import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
+import dukecooks.model.recipe.components.RecipeName;
 
 
 /**
@@ -63,6 +64,23 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+
+
+    /**
+     * Parses a {@code String name} into a {@code RecipeName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static RecipeName parseRecipeName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!RecipeName.isValidName(trimmedName)) {
+            throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
+        }
+        return new RecipeName(trimmedName);
     }
 
     /**

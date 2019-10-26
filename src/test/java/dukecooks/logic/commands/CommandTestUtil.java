@@ -163,12 +163,12 @@ public class CommandTestUtil {
                 .withMedicalHistories(VALID_HISTORY_DENGUE, VALID_HISTORY_STROKE).build();
         DESC_AMY_DIARY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_AMY_DIARY).build();
         DESC_BOB_DIARY = new EditDiaryDescriptorBuilder().withName(VALID_NAME_BOB_DIARY).build();
-        DESC_FISH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
+        DESC_FISH = new EditRecipeDescriptorBuilder().withRecipeName(VALID_NAME_FISH)
                 .withIngredientsToAdd(VALID_INGREDIENT_FISH)
                 .withCalories(VALID_CALORIES_FISH).withCarbs(VALID_CARBS_FISH)
                 .withFats(VALID_FATS_FISH).withProtein(VALID_PROTEIN_FISH)
                 .build();
-        DESC_BURGER = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BURGER)
+        DESC_BURGER = new EditRecipeDescriptorBuilder().withRecipeName(VALID_NAME_BURGER)
                 .withIngredientsToAdd(VALID_INGREDIENT_BURGER, VALID_INGREDIENT_FISH)
                 .withCalories(VALID_CALORIES_BURGER).withCarbs(VALID_CARBS_BURGER)
                 .withFats(VALID_FATS_BURGER).withProtein(VALID_PROTEIN_BURGER)
