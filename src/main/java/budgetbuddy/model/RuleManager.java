@@ -6,7 +6,6 @@ import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.rule.Rule;
-import budgetbuddy.model.rule.exceptions.DuplicateRuleException;
 import budgetbuddy.model.rule.exceptions.RuleNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,7 +62,6 @@ public class RuleManager {
      * Returns true if the list contains an equivalent rule as the given argument.
      */
     public boolean hasRule(Rule toCheck) {
-        requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
 
@@ -72,11 +70,7 @@ public class RuleManager {
      * The rule must not already exist in the rule manager.
      */
     public void addRule(Rule toAdd) {
-        requireNonNull(toAdd);
-        if (hasRule(toAdd)) {
-            throw new DuplicateRuleException();
-        }
-        internalList.add(toAdd);
+        internalList.add(0, toAdd);
     }
 
     /**
