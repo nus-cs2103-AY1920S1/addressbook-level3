@@ -65,6 +65,7 @@ public class StartQuizWindow extends Window {
         answerableIterator = filteredAnswerableList.iterator();
         currentAnswerable = answerableIterator.next();
 
+
         answersGridPane = new AnswersGridPane(currentAnswerable);
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 

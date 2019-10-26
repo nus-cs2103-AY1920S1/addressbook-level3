@@ -10,7 +10,7 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
-import seedu.revision.logic.parser.main.AddressBookParser;
+import seedu.revision.logic.parser.main.MainParser;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
@@ -26,12 +26,12 @@ public class MainLogicManager implements MainLogic {
 
     protected final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final MainParser mainParser;
 
     public MainLogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        mainParser = new MainParser();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MainLogicManager implements MainLogic {
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = mainParser.parseCommand(commandText);
         //Executes the Command and stores the result
         commandResult = command.execute(model);
 

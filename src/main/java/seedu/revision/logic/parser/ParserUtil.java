@@ -25,8 +25,6 @@ import seedu.revision.model.quiz.Mode;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MCQ_VALIDATION_REGEX = ".*";
-
 
 
     /**
@@ -35,28 +33,28 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code answer} is invalid.
      */
-    public static Answer parseAnswer(String answer, String type ) throws ParseException {
+    private static Answer parseAnswer(String answer, String type ) throws ParseException {
         requireNonNull(answer);
         String trimmedAnswer = answer.trim();
         boolean answerIsValid;
 
         switch (type) {
         case "tf":
-            answerIsValid = Answer.isValidAnswer(trimmedAnswer, "(?i)(true | false)");
+            answerIsValid = Answer.isValidAnswer(trimmedAnswer, TfAnswer.VALIDATION_REGEX);
             if (!answerIsValid) {
                 throw new ParseException(TfAnswer.MESSAGE_CONSTRAINTS);
             } else {
                 return new TfAnswer(trimmedAnswer);
             }
         case "saq":
-            answerIsValid = Answer.isValidAnswer(trimmedAnswer, ".*");
+            answerIsValid = Answer.isValidAnswer(trimmedAnswer, SaqAnswer.VALIDATION_REGEX);
             if (!answerIsValid) {
                 throw new ParseException(SaqAnswer.MESSAGE_CONSTRAINTS);
             } else {
                 return new SaqAnswer(trimmedAnswer);
             }
         case "mcq":
-            answerIsValid = Answer.isValidAnswer(trimmedAnswer, ".*");
+            answerIsValid = Answer.isValidAnswer(trimmedAnswer, McqAnswer.VALIDATION_REGEX);
             if (!answerIsValid) {
                 throw new ParseException(SaqAnswer.MESSAGE_CONSTRAINTS);
             } else {
@@ -66,6 +64,7 @@ public class ParserUtil {
             throw new ParseException(QuestionType.MESSAGE_CONSTRAINTS);
         }
     }
+
 
     /**
      * Parses {@code Collection<String> answers} into a {@code Set<Answer>}.
@@ -82,6 +81,9 @@ public class ParserUtil {
         }
         return answerList;
     }
+
+
+
 
     /**
      * Parses {@code questionType} into an {@code QuestionType} and returns it. Leading and trailing whitespaces will be

@@ -9,6 +9,7 @@ import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.TrueFalse;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +38,8 @@ public class QuizParser {
 
         if (currentAnswerable instanceof Mcq) {
             return new McqInputCommandParser().parse(userInput, currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            return new TfInputCommandParser().parse(userInput, currentAnswerable);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

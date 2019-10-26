@@ -20,6 +20,7 @@ import seedu.revision.logic.parser.ArgumentTokenizer;
 import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.category.Category;
 
 /**
@@ -46,22 +47,30 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
+
         EditCommand.EditAnswerableDescriptor editAnswerableDescriptor = new EditCommand.EditAnswerableDescriptor();
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
-            editAnswerableDescriptor.setQuestion(ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get()));
-        }
-        //TODO: Implement Answerable
-        if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
-            editAnswerableDescriptor.setCorrectAnswerList(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
-        }
-        if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
-            editAnswerableDescriptor.setWrongAnswerList(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
-        }
-        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
-            editAnswerableDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
+            editAnswerableDescriptor.setQuestion(
+                    ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get()));
         }
 
-        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY)).ifPresent(editAnswerableDescriptor::setCategories);
+        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
+            editAnswerableDescriptor.setDifficulty(
+                    ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
+            editAnswerableDescriptor.setCorrectAnswerList(
+                    ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
+        }
+
+        if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
+            editAnswerableDescriptor.setWrongAnswerList(
+                    ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
+        }
+
+        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
+                .ifPresent(editAnswerableDescriptor::setCategories);
 
         if (!editAnswerableDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

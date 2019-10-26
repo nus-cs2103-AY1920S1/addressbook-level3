@@ -2,8 +2,10 @@ package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import seedu.revision.commons.core.index.Index;
 import seedu.revision.commons.util.CollectionUtil;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
@@ -73,12 +76,15 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX);
         }
 
+        //TODO: Implement Answerable
+
         Answerable answerableToEdit = lastShownList.get(index.getZeroBased());
         Answerable editedAnswerable = createEditedAnswerable(answerableToEdit, editAnswerableDescriptor);
 
         if (!answerableToEdit.isSameAnswerable(editedAnswerable) && model.hasAnswerable(editedAnswerable)) {
             throw new CommandException(MESSAGE_DUPLICATE_ANSWERABLE);
         }
+
 
         model.setAnswerable(answerableToEdit, editedAnswerable);
         model.updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
@@ -89,7 +95,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Answerable} with the details of {@code answerableToEdit}
      * edited with {@code editAnswerableDescriptor}.
      */
-    private static Answerable createEditedAnswerable(Answerable answerableToEdit, EditAnswerableDescriptor editAnswerableDescriptor) {
+    private static Answerable createEditedAnswerable(
+            Answerable answerableToEdit, EditAnswerableDescriptor editAnswerableDescriptor) {
         assert answerableToEdit != null;
 
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
@@ -101,6 +108,7 @@ public class EditCommand extends Command {
                 .getCategories());
 
         if (answerableToEdit instanceof Mcq) {
+
             ArrayList<Answer> updatedWrongAnswerList = editAnswerableDescriptor.getWrongAnswerList()
                     .orElse(answerableToEdit.getWrongAnswerList());
             return new Mcq(updatedQuestion, updatedCorrectAnswerList, updatedWrongAnswerList, updatedDifficulty,
