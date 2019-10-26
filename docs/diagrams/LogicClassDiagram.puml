@@ -29,9 +29,9 @@ Class "{abstract}\nCommand" as Command
 
 package Rule {
 Interface Testable <<Interface>>
-Interface Actionable <<Interface>>
+Interface Performable <<Interface>>
 Class "{abstract}\nTestableExpression" as TestableExpression
-Class "{abstract}\nActionableExpression" as ActionableExpression
+Class "{abstract}\nPerformableExpression" as PerformableExpression
 Class TUVExpression
 Class ABCExpression
 }
@@ -65,12 +65,12 @@ XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 TestableExpression .right.|> Testable
-ActionableExpression .right.|> Actionable
+PerformableExpression .right.|> Performable
 TUVExpression -right-|> TestableExpression
-ABCExpression -right-|> ActionableExpression
+ABCExpression -right-|> PerformableExpression
 LogicManager .left.> Testable : tests >
-LogicManager .left.> Actionable : performs >
-ActionableExpression -[hidden]-> TestableExpression
+LogicManager .left.> Performable : performs >
+PerformableExpression -[hidden]-> TestableExpression
 
 LogicManager -up--> ScriptManager
 Command .up.> ScriptManager

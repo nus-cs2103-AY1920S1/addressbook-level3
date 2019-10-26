@@ -1,4 +1,4 @@
-package budgetbuddy.logic.rules.actionable;
+package budgetbuddy.logic.rules.performable;
 
 import budgetbuddy.model.Model;
 import budgetbuddy.model.transaction.Transaction;
@@ -6,9 +6,9 @@ import budgetbuddy.model.transaction.Transaction;
 /**
  * Represents an action with hidden internal logic and the ability to be performed.
  */
-public interface Actionable {
+public interface Performable {
     /**
-     * Executes the action and returns the completion message.
+     * Executes the action.
      */
-    String perform(Model model, Transaction txn);
+    void perform(Model model, Transaction txn);
 }

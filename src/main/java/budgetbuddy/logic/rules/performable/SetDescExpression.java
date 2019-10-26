@@ -1,15 +1,17 @@
-package budgetbuddy.logic.rules.actionable;
+package budgetbuddy.logic.rules.performable;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import budgetbuddy.model.Model;
+import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
  * Represents a set description expression.
  */
-public class SetDescExpression extends ActionableExpression {
+public class SetDescExpression extends PerformableExpression {
+
     /**
      * Constructs a SetDescExpression with the given value.
      *
@@ -20,9 +22,8 @@ public class SetDescExpression extends ActionableExpression {
     }
 
     @Override
-    public String perform(Model model, Transaction txn) {
+    public void perform(Model model, Transaction txn) {
         requireAllNonNull(model, txn);
-        // todo: set description of transaction in model
-        return "";
+        Description desc = new Description(value.toString());
     }
 }
