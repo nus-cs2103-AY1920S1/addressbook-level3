@@ -29,6 +29,9 @@ public class Event {
     private final EventDateTimeMap eventDateTimeMap;
     private final Set<Tag> tags = new HashSet<>();
 
+    /**
+     * Basic Constructor, called for a new Event Creation.
+     */
     public Event(EventName name, EventVenue venue,
                  EventManpowerNeeded manpowerNeeded, EventDate startDate,
                  EventDate endDate, Set<Tag> tags) {
@@ -43,16 +46,17 @@ public class Event {
     }
 
     /**
-     * Constructor with manpower list.
+     * Constructor with ManpowerList and EventDateTimeMap.
      */
     public Event(EventName name, EventVenue venue,
                  EventManpowerNeeded manpowerNeeded, EventDate startDate,
-                 EventDate endDate, EventManpowerAllocatedList manpowerAllocatedList, Set<Tag> tags) {
+                 EventDate endDate, EventManpowerAllocatedList manpowerAllocatedList,
+                 EventDateTimeMap eventDateTimeMap, Set<Tag> tags) {
         this.name = name;
         this.venue = venue;
         this.manpowerNeeded = manpowerNeeded;
         this.manpowerAllocatedList = manpowerAllocatedList;
-        this.eventDateTimeMap = new EventDateTimeMap();
+        this.eventDateTimeMap = eventDateTimeMap;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags.addAll(tags);
