@@ -345,4 +345,11 @@ public class ModelManager implements Model {
     public ObservableList<Reminder> getReminders() {
         return versionedMark.getReminders();
     }
+
+    /**
+     * Sets the reminders in Mark.
+     */
+    public void setReminders() {
+        versionedMark.setReminders();
+    }
 }

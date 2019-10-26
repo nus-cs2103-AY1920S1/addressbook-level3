@@ -9,7 +9,6 @@ import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.*;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
-import seedu.mark.model.tag.Tag;
 import seedu.mark.storage.Storage;
 
 import java.time.LocalDateTime;
@@ -22,7 +21,7 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_TIME;
 
 public class EditReminderCommand extends Command {
 
-    public static final String COMMAND_WORD = "reminder edit";
+    public static final String COMMAND_WORD = "reminder-edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the reminder identified."
             + "by the index number used in the displayed reminder list. "
@@ -57,7 +56,7 @@ public class EditReminderCommand extends Command {
         requireAllNonNull(model, storage);
         List<Reminder> lastShownList = model.getReminders();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size() || index.getOneBased() < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_REMINDER_DISPLAYED_INDEX);
         }
         
@@ -65,8 +64,9 @@ public class EditReminderCommand extends Command {
         Reminder editedReminder = createEditedReminder(reminderToEdit, editReminderDescriptor);
         
         model.editReminder(reminderToEdit, editedReminder);
-        model.saveMark(String.format(MESSAGE_EDIT_REMINDER_SUCCESS, editedReminder));
-        return null;
+        model.saveMark();
+        model.setReminders();
+        return new CommandResult(String.format(MESSAGE_EDIT_REMINDER_SUCCESS, editedReminder));
     }
 
     /**
