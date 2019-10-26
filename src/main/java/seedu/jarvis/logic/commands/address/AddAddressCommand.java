@@ -12,7 +12,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.appstatus.PageType;
 
 /**
  * Adds a person to the address book.
@@ -101,9 +100,8 @@ public class AddAddressCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPageStatus(PageType.HOME_PAGE);
         model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**

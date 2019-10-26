@@ -4,8 +4,8 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
+import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
 
 /**

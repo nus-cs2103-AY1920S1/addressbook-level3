@@ -7,7 +7,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.appstatus.PageType;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * Lists all persons in the address book to the user.
@@ -47,10 +47,10 @@ public class ListAddressCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setPageStatus(PageType.LIST_ADDRESS);
+        model.setViewStatus(ViewType.LIST_ADDRESS);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(MESSAGE_SUCCESS,true);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     /**

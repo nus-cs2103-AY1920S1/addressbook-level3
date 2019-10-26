@@ -29,15 +29,33 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+/*refers to the entire tabpane*/
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-min-width: 500;
+    -fx-pref-width: 500;
+    -fx-min-height: 340;
+    -fx-pref-height: 340;
 }
 
-.tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
+/*refers to each tab itself*/
+.tab {
+    -fx-pref-width: 125;
+
 }
+.tab-label {
+    -fx-min-height: 50;
+    -fx-pref-height: 50;
+}
+
+/*refers to the content of each tab*/
+.tab-content-area {
+    -fx-min-width: 125;
+    -fx-pref-width: 125;
+    -fx-min-height: 340;
+    -fx-min-height: 340;
+}
+
 
 .table-view {
     -fx-base: #1d1d1d;

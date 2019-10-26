@@ -3,22 +3,24 @@ package seedu.jarvis.ui.address;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import seedu.jarvis.logic.Logic;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.ui.MainWindow;
-import seedu.jarvis.ui.template.Page;
+import seedu.jarvis.ui.template.View;
 
-public class PersonListPage extends Page<AnchorPane> {
+/**
+ * View representing the list of persons.
+ */
+public class PersonListView extends View<AnchorPane> {
     private static final String FXML = "PersonListPanel.fxml";
 
     @FXML
     private ListView<Person> personListView;
 
 
-    public PersonListPage(MainWindow mainWindow, Logic logic, Model model) {
+    public PersonListView(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
     }
 

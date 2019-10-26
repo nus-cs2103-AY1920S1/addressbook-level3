@@ -44,7 +44,7 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean doSwitchPage) {
         this(feedbackToUser, false, false, doSwitchPage);
     }
-    
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -57,7 +57,6 @@ public class CommandResult {
         return exit;
     }
 
-    // TODO Testing!!!
     public boolean doSwitchPage() {
         return doSwitchPage;
     }

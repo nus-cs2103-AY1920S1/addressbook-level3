@@ -17,8 +17,6 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.appstatus.PageStatus;
-import seedu.jarvis.model.appstatus.PageType;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
@@ -35,6 +33,8 @@ import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -49,7 +49,7 @@ public class ModelManager implements Model {
     private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
     private final Planner planner;
-    private PageStatus pageStatus;
+    private ViewStatus viewStatus;
 
 
     /**
@@ -70,7 +70,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
         this.coursePlanner = new CoursePlanner(coursePlanner);
-        this.pageStatus = new PageStatus(PageType.HOME_PAGE);
+        this.viewStatus = new ViewStatus(ViewType.HOME_PAGE);
     }
 
     public ModelManager() {
@@ -78,14 +78,14 @@ public class ModelManager implements Model {
                 new UserPrefs(), new Planner(), new CoursePlanner());
     }
 
-    //=========== PageStatus ==================================================================================
+    //=========== ViewStatus ==================================================================================
 
-    public PageStatus getPageStatus() {
-        return pageStatus;
+    public ViewStatus getViewStatus() {
+        return viewStatus;
     }
 
-    public void setPageStatus(PageType pageType) {
-        pageStatus.setPageType(pageType);
+    public void setViewStatus(ViewType viewType) {
+        viewStatus.setViewType(viewType);
     }
 
     //=========== UserPrefs ==================================================================================

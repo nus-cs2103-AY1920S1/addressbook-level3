@@ -1,14 +1,14 @@
 package seedu.jarvis.model;
 
 import seedu.jarvis.model.address.AddressModel;
-import seedu.jarvis.model.appstatus.PageStatus;
-import seedu.jarvis.model.appstatus.PageType;
 import seedu.jarvis.model.cca.CcaTrackerModel;
 import seedu.jarvis.model.course.CoursePlannerModel;
 import seedu.jarvis.model.financetracker.FinanceTrackerModel;
 import seedu.jarvis.model.history.HistoryModel;
 import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.userprefs.UserPrefsModel;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * The API of the {@code Model} component.
@@ -21,9 +21,9 @@ import seedu.jarvis.model.userprefs.UserPrefsModel;
 public interface Model extends AddressModel, UserPrefsModel, HistoryModel, FinanceTrackerModel,
         CcaTrackerModel, PlannerModel, CoursePlannerModel {
 
-    public PageStatus getPageStatus();
+    public ViewStatus getViewStatus();
 
-    public void setPageStatus(PageType pageType);
+    public void setViewStatus(ViewType viewType);
 }
 
 
