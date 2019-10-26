@@ -17,13 +17,15 @@ import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
+import seedu.deliverymans.model.restaurant.Rating;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_RATING = "Rating provided is not a non-zero unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -37,6 +39,23 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code rating} into an {@code Rating} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the specified rating is invalid (not non-zero unsigned integer).
+     */
+    public static Rating parseRating(String rating) throws ParseException {
+        String trimmedRating = rating.trim();
+        if (!StringUtil.isNonNegativeUnsignedInteger(trimmedRating)) {
+            throw new ParseException(MESSAGE_INVALID_RATING);
+        }
+        if (!Rating.isValidRating(trimmedRating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        return new Rating(trimmedRating);
     }
 
     /**

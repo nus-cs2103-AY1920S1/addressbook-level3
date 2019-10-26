@@ -28,7 +28,7 @@ class JsonAdaptedFood {
     private final String name;
     private final String price;
     private final long prepTime;
-    private final List<seedu.deliverymans.storage.JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedFood} with the given {@code foodName}.
@@ -37,7 +37,7 @@ class JsonAdaptedFood {
     public JsonAdaptedFood(@JsonProperty("name") String name,
                            @JsonProperty("price") String price,
                            @JsonProperty("prep") long prepTime,
-                           @JsonProperty("tagged") List<seedu.deliverymans.storage.JsonAdaptedTag> tagged) {
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.price = price;
         this.prepTime = prepTime;
@@ -54,7 +54,7 @@ class JsonAdaptedFood {
         price = source.getPrice().toPlainString();
         prepTime = source.getPrepTime().getSeconds();
         tagged.addAll(source.getTags().stream()
-                .map(seedu.deliverymans.storage.JsonAdaptedTag::new)
+                .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
 

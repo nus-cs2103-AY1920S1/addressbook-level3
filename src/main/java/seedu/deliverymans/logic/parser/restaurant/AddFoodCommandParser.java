@@ -23,7 +23,7 @@ import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddFoodCommand object
  */
 public class AddFoodCommandParser implements Parser<AddFoodCommand> {
     /**
