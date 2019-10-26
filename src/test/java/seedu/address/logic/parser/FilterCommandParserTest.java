@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FilterCommand;
@@ -19,14 +21,14 @@ public class FilterCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsFilterCommand() {
         // no leading and trailing whitespaces
         FilterCommand expectedFilterCommand =
-                new FilterCommand(new TagMatchesPredicate("friend"));
-        assertParseSuccess(parser, "friend", expectedFilterCommand);
+                new FilterCommand(new TagMatchesPredicate(Arrays.asList("captain", "freestyle")));
+        assertParseSuccess(parser, "captain freestyle", expectedFilterCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n friend \n \t", expectedFilterCommand);
+        assertParseSuccess(parser, " \n captain \n \t freestyle  \t", expectedFilterCommand);
     }
 
 }

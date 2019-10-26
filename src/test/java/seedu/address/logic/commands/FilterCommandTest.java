@@ -30,8 +30,10 @@ public class FilterCommandTest {
 
     @Test
     public void equals() {
-        TagMatchesPredicate firstPredicate = new TagMatchesPredicate("first");
-        TagMatchesPredicate secondPredicate = new TagMatchesPredicate("second");
+        TagMatchesPredicate firstPredicate =
+                new TagMatchesPredicate(Collections.singletonList("first"));
+        TagMatchesPredicate secondPredicate =
+                new TagMatchesPredicate(Collections.singletonList("second"));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -66,7 +68,7 @@ public class FilterCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        TagMatchesPredicate predicate = preparePredicate("friends");
+        TagMatchesPredicate predicate = preparePredicate("friends colleagues");
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -74,9 +76,9 @@ public class FilterCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code TagMatchesPredicate}.
      */
     private TagMatchesPredicate preparePredicate(String userInput) {
-        return new TagMatchesPredicate(userInput.trim());
+        return new TagMatchesPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
