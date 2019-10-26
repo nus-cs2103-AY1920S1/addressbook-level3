@@ -74,11 +74,11 @@ public class AutoAllocateCommand extends Command {
      * @param model the full list of employees
      * @param eventToAllocate the specified event to allocate manpower to
      */
-    public List<Employee> createAvailableEmployeeListForEvent(Model model, Event eventToAllocate) {
+    private List<Employee> createAvailableEmployeeListForEvent(Model model, Event eventToAllocate) {
         List<Employee> employeeList = model.getFilteredEmployeeList();
         List<Event> eventList = model.getFilteredEventList();
         List<Employee> availableEmployeeList = employeeList.stream()
-                .filter(employee ->eventToAllocate.isAvailableForEvent(employee, eventList))
+                .filter(employee -> eventToAllocate.isAvailableForEvent(employee, eventList))
                 .filter(employee -> employee.getTags().containsAll(tagList))
                 .collect(Collectors.toList());
 
@@ -89,7 +89,7 @@ public class AutoAllocateCommand extends Command {
      * Calculates the number of employees currently required by the specified event.
      * @param eventToAllocate the specified event to allocate manpower to
      */
-    public Integer getManpowerNeededByEvent(Event eventToAllocate) {
+    private Integer getManpowerNeededByEvent(Event eventToAllocate) {
         return eventToAllocate.getManpowerNeeded().value
                 - eventToAllocate.getCurrentManpowerCount();
     }
@@ -120,7 +120,6 @@ public class AutoAllocateCommand extends Command {
         }
 
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         List<Employee> availableEmployeeList = createAvailableEmployeeListForEvent(model, eventToAllocate);
 
         if (availableEmployeeList.size() < manpowerCountToAdd) {
@@ -128,9 +127,7 @@ public class AutoAllocateCommand extends Command {
         }
 
         Collections.shuffle(availableEmployeeList);
-        Event newEventForAllocation = createEditedEvent(eventToAllocate, availableEmployeeList, manpowerCountToAdd);
-
-
+        Event newEventForAllocation = createEventAfterManpowerAllocation(eventToAllocate, availableEmployeeList, manpowerCountToAdd);
 
         model.setEvent(eventToAllocate, newEventForAllocation);
 
@@ -141,9 +138,11 @@ public class AutoAllocateCommand extends Command {
     /**
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      */
-    private static Event createEditedEvent(Event eventToEdit, List<Employee> availableEmployeeList,
-                                           Integer manpowerCountToAdd) {
+    static Event createEventAfterManpowerAllocation(Event eventToEdit, List<Employee> availableEmployeeList,
+                                   Integer manpowerCountToAdd) {
         assert eventToEdit != null;
+        assert availableEmployeeList != null;
+        assert manpowerCountToAdd != null;
 
         EventName updatedEventName = eventToEdit.getName();
         EventVenue updatedEventVenue = eventToEdit.getVenue();

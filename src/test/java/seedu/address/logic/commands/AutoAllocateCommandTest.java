@@ -7,7 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEventBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -114,10 +117,13 @@ public class AutoAllocateCommandTest {
 
     @Test
     public void execute_fullManpowerCountUnfilteredList_failure() {
-        Event event = initialEventData.getEventList().get(0);
-        for (int i = 0; i < event.getManpowerNeeded().value; i++) {
-            event.getManpowerAllocatedList().allocateEmployee(initialData.getEmployeeList().get(i));
+        Event eventToEdit = initialEventData.getEventList().get(0);
+        List<Employee> availableEmployeeList = new ArrayList<>();
+        for (int i = 0; i < eventToEdit.getManpowerNeeded().value; i++) {
+            availableEmployeeList.add(initialData.getEmployeeList().get(i));
         }
+        Event newEvent = AutoAllocateCommand.createEditedEvent(eventToEdit, availableEmployeeList, 5);
+        model.setEvent(eventToEdit, newEvent);
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 1, tagList);
 

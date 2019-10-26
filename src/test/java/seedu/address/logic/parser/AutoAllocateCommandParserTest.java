@@ -1,21 +1,22 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AutoAllocateCommand;
-import seedu.address.model.tag.Tag;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
+
+import java.util.HashSet;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AutoAllocateCommand;
+import seedu.address.logic.commands.CommandTestUtil;
+import seedu.address.model.tag.Tag;
+
 
 public class AutoAllocateCommandParserTest {
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
@@ -29,7 +30,7 @@ public class AutoAllocateCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, MANPOWER_COUNT_DESC, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CommandTestUtil.MANPOWER_COUNT_DESC, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -56,10 +57,11 @@ public class AutoAllocateCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_MANPOWER_DESC, MESSAGE_INVALID_FORMAT); // invalid name
+        assertParseFailure(parser, "1" + CommandTestUtil.INVALID_MANPOWER_DESC, MESSAGE_INVALID_FORMAT); // invalid name
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
-        assertParseFailure(parser, "1" + INVALID_MANPOWER_DESC + INVALID_TAG_DESC, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, "1" + VALID_MANPOWER_COUNT_TO_ADD + INVALID_TAG_DESC,
+        assertParseFailure(parser, "1" + CommandTestUtil.INVALID_MANPOWER_DESC + INVALID_TAG_DESC,
+                MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1" + CommandTestUtil.VALID_MANPOWER_COUNT_TO_ADD + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
     }
@@ -77,10 +79,10 @@ public class AutoAllocateCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EVENT;
-        String userInput = targetIndex.getOneBased() + MANPOWER_COUNT_DESC;
+        String userInput = targetIndex.getOneBased() + CommandTestUtil.MANPOWER_COUNT_DESC;
 
         AutoAllocateCommand expectedCommand = new AutoAllocateCommand(targetIndex,
-                Integer.valueOf(VALID_MANPOWER_COUNT_TO_ADD), new HashSet<Tag>());
+                Integer.valueOf(CommandTestUtil.VALID_MANPOWER_COUNT_TO_ADD), new HashSet<Tag>());
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -38,20 +38,6 @@ public class EventManpowerAllocatedList {
     }
 
     /**
-     * Allocates an employee to the Manpower List for an Event.
-     * @param employee to be allocated
-     * @return boolean to represent if employee is successfully allocated to event
-     */
-    public boolean allocateEmployee(Employee employee) {
-        String employeeId = employee.getEmployeeId().id;
-        if (manpowerList.contains(employeeId)) {
-            return false;
-        } else {
-            return manpowerList.add(employeeId);
-        }
-    }
-
-    /**
      * Removes employee to the Manpower List for an Event.
      *
      * @param employee to be removed
