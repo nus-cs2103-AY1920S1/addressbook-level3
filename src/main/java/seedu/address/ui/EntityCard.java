@@ -132,7 +132,7 @@ public class EntityCard extends UiPart<Region> {
                 new Label(teamMentor.isEmpty() ? "Mentor not assigned" : teamMentor.get().getName().toString()));
         labels.getChildren().add(new Label(team.getSubject().toString()));
         labels.getChildren().add(new Label(team.getProjectName().toString()));
-        labels.getChildren().add(new Label(team.getProjectType().toString()));
+        //labels.getChildren().add(new Label(team.getProjectType().toString()));
         labels.getChildren().add(new Label(team.getLocation().toString()));
         labels.getChildren().add(new Label("Score: " + team.getScore().toString()));
         this.type = PrefixType.T;

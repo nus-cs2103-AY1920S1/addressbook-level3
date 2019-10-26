@@ -32,7 +32,7 @@ public class EditTeamCommandParser implements Parser<EditTeamCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SUBJECT_NAME, PREFIX_PROJECT_NAME,
-                        PREFIX_PROJECT_TYPE, PREFIX_LOCATION);
+                        PREFIX_LOCATION);
 
         Id id;
 
@@ -54,10 +54,6 @@ public class EditTeamCommandParser implements Parser<EditTeamCommand> {
         }
         if (argMultimap.getValue(PREFIX_PROJECT_NAME).isPresent()) {
             editTeamDescriptor.setName(AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PROJECT_TYPE).isPresent()) {
-            editTeamDescriptor
-            .setProjectType(AlfredParserUtil.parseProjectType(argMultimap.getValue(PREFIX_PROJECT_TYPE).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editTeamDescriptor.setLocation(AlfredParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));

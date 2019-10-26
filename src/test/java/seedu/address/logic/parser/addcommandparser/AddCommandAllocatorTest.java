@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BRUCE;
 import static seedu.address.logic.commands.CommandTestUtil.ORGANIZATION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PROJECT_NAME_DESC_BRUCE;
-import static seedu.address.logic.commands.CommandTestUtil.PROJECT_TYPE_DESC_BRUCE;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_BRUCE;
 import static seedu.address.logic.parser.CommandAllocatorTestUtil.assertAllocatorFailure;
@@ -49,7 +48,7 @@ class AddCommandAllocatorTest {
                 + EMAIL_DESC_BOB, new AddParticipantCommand(expectedParticipant));
 
         assertAllocatorSuccess(addCommandAllocator, "team " + NAME_DESC_BRUCE + LOCATION_DESC_BRUCE
-                + PROJECT_NAME_DESC_BRUCE + PROJECT_TYPE_DESC_BRUCE + SUBJECT_DESC_BRUCE,
+                + PROJECT_NAME_DESC_BRUCE + SUBJECT_DESC_BRUCE,
                 new AddTeamCommand(expectedTeam));
     }
 

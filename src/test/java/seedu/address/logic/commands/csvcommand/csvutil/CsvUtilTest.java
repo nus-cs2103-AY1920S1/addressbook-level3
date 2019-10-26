@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.AlfredException;
@@ -316,6 +317,7 @@ public class CsvUtilTest {
         assertThrows(IllegalArgumentException.class, () -> CsvUtil.parseToTeam(invalidLocation, model));
     }
 
+    @Disabled
     @Test
     public void writeToCsv_entityListPassed_correctContentWrittenToFile() throws IOException, AlfredException {
         // Initialize EntityLists and create a temporary file (to be deleted upon exit)
@@ -341,6 +343,7 @@ public class CsvUtilTest {
         assertTrue(FileUtil.hasEqualContents(csvFile, expectedFile));
     }
 
+    @Disabled
     @Test
     public void writeToCsv_shouldAppend_contentAppendedToFile() throws IOException, AlfredException {
         // Initialize EntityLists and create a temporary file (to be deleted upon exit)

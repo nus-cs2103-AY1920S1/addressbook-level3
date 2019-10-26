@@ -15,7 +15,6 @@ import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
@@ -32,7 +31,7 @@ class JsonAdaptedTeam {
     private final String subject;
     private final int score;
     private final String projectName;
-    private final String projectType;
+    //private final String projectType;
     private final int location;
     private final List<JsonAdaptedParticipant> pList = new ArrayList<>();
     private final String prefixTypeStr;
@@ -54,7 +53,7 @@ class JsonAdaptedTeam {
         this.subject = subject;
         this.score = score;
         this.projectName = projectName;
-        this.projectType = projectType;
+        //this.projectType = projectType;
         this.location = location;
         this.prefixTypeStr = prefixTypeStr;
         this.idNum = idNum;
@@ -75,7 +74,7 @@ class JsonAdaptedTeam {
         subject = source.getSubject().name();
         score = source.getScore().toStorageValue();
         projectName = source.getProjectName().toStorageValue();
-        projectType = source.getProjectType().name();
+        //projectType = source.getProjectType().name();
         location = source.getLocation().toStorageValue();
         mentor = new JsonAdaptedMentor(source.getMentor().orElse(null));
         prefixTypeStr = source.getId().getPrefix().name();
@@ -128,14 +127,14 @@ class JsonAdaptedTeam {
         }
         final Name modelProjectName = new Name(projectName);
 
-        if (projectType == null) {
+        /*if (projectType == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, ProjectType.class.getSimpleName()));
         }
         if (!ProjectType.isValidProjectType(projectType)) {
             throw new IllegalValueException(ProjectType.MESSAGE_CONSTRAINTS);
         }
-        final ProjectType modelProjectType = ProjectType.valueOf(projectType);
+        final ProjectType modelProjectType = ProjectType.valueOf(projectType);*/
 
         if (!Location.isValidLocation(location)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -165,7 +164,7 @@ class JsonAdaptedTeam {
         final Id modelId = new Id(modelPrefixType, modelIdNum);
 
         return new Team(modelId, modelTeamName, modelParticipants, modelMentor,
-                modelSubject, modelScore, modelProjectName, modelProjectType, modelLocation);
+                modelSubject, modelScore, modelProjectName, modelLocation);
     }
 
 }

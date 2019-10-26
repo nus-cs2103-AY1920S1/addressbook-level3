@@ -12,7 +12,6 @@ import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
@@ -28,7 +27,6 @@ public class TeamBuilder {
     public static final String DEFAULT_SUBJECT = "ENVIRONMENTAL";
     public static final int DEFAULT_SCORE = 100;
     public static final String DEFAULT_PROJECT_NAME = "Hackathon Manager";
-    public static final String DEFAULT_PROJECT_TYPE = "PLACEHOLDER";
     public static final int DEFAULT_LOCATION = 1;
 
     private Id id;
@@ -38,7 +36,6 @@ public class TeamBuilder {
     private SubjectName subject;
     private Score score;
     private Name projectName;
-    private ProjectType projectType;
     private Location location;
 
     public TeamBuilder() {
@@ -49,7 +46,6 @@ public class TeamBuilder {
         subject = SubjectName.valueOf(DEFAULT_SUBJECT);
         score = new Score(DEFAULT_SCORE);
         projectName = new Name(DEFAULT_PROJECT_NAME);
-        projectType = ProjectType.valueOf(DEFAULT_PROJECT_TYPE);
         location = new Location(DEFAULT_LOCATION);
     }
 
@@ -64,7 +60,6 @@ public class TeamBuilder {
         subject = teamToCopy.getSubject();
         score = teamToCopy.getScore();
         projectName = teamToCopy.getProjectName();
-        projectType = teamToCopy.getProjectType();
         location = teamToCopy.getLocation();
     }
 
@@ -125,14 +120,6 @@ public class TeamBuilder {
     }
 
     /**
-     * Sets the {@code ProjectType} of the {@code Team} that we are building.
-     */
-    public TeamBuilder withProjectType(String projectType) {
-        this.projectType = ProjectType.valueOf(projectType.toUpperCase());
-        return this;
-    }
-
-    /**
      * Sets the {@code Location} of the {@code Team} that we are building.
      */
     public TeamBuilder withLocation(int location) {
@@ -144,7 +131,7 @@ public class TeamBuilder {
      * This builds a standard {@code Team} object.
      */
     public Team build() {
-        return new Team(id, name, participants, mentor, subject, score, projectName, projectType, location);
+        return new Team(id, name, participants, mentor, subject, score, projectName, location);
     }
 
 }

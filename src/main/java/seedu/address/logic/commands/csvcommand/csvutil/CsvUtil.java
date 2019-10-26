@@ -23,7 +23,6 @@ import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
@@ -168,7 +167,7 @@ public class CsvUtil {
         SubjectName teamSubject = SubjectName.valueOf(data[5].toUpperCase());
         Score teamScore = new Score(Integer.parseInt(data[6])); // NFException subclass of IAException
         Name teamProjectName = new Name(data[7]);
-        ProjectType teamProjectType = ProjectType.valueOf(data[8].toUpperCase());
+        //ProjectType teamProjectType = ProjectType.valueOf(data[8].toUpperCase());
         Location teamLocation = new Location(Integer.parseInt(data[9])); // NFException subclass of IAException
         return new Team(
                 teamId,
@@ -178,7 +177,6 @@ public class CsvUtil {
                 teamSubject,
                 teamScore,
                 teamProjectName,
-                teamProjectType,
                 teamLocation
         );
     }
@@ -381,7 +379,7 @@ public class CsvUtil {
                 .append(team.getSubject().toStorageValue()).append(CSV_SEPARATOR)
                 .append(team.getScore().toStorageValue()).append(CSV_SEPARATOR)
                 .append(team.getProjectName().toStorageValue()).append(CSV_SEPARATOR)
-                .append(team.getProjectType().toStorageValue()).append(CSV_SEPARATOR)
+                //.append(team.getProjectType().toStorageValue()).append(CSV_SEPARATOR)
                 .append(team.getLocation().toStorageValue())
                 .toString();
     }
