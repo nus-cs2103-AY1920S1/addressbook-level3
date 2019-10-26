@@ -22,6 +22,10 @@ public class VersionedWasteList extends WasteList {
      */
     public void commit(ReadOnlyWasteList wasteList) {
         currentStatePointer++;
+        int listSize = wasteListStateList.size();
+        for (int i = currentStatePointer; i < listSize; i++) {
+            wasteListStateList.remove(i);
+        }
         wasteListStateList.add(wasteList);
     }
 

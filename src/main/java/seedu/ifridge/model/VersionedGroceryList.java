@@ -19,7 +19,11 @@ public class VersionedGroceryList extends GroceryList {
      */
     public void commit(ReadOnlyGroceryList groceryList) {
         currentStatePointer++;
-        groceryListStateList.add(groceryList);
+        int listSize = groceryListStateList.size();
+        for (int i = currentStatePointer; i < listSize; i++) {
+            groceryListStateList.remove(i);
+        }
+        groceryListStateList.add(currentStatePointer, groceryList);
     }
 
     /**
