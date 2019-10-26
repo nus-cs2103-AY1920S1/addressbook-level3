@@ -2,7 +2,8 @@ package seedu.address.logic.parser.mark;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_UNMARK;
 
 import java.util.stream.Stream;
 
@@ -42,6 +43,7 @@ public class MarkCommandParser implements Parser<MarkCommand> {
 
     /**
      * Marks a student.
+     *
      * @param argMultimap Arugments Multimap.
      * @return Adds mark to a student.
      * @throws ParseException If the input is in a wrong format.
@@ -62,6 +64,7 @@ public class MarkCommandParser implements Parser<MarkCommand> {
 
     /**
      * Unmarks a student.
+     *
      * @param argMultimap Arugments Multimap.
      * @return Removes mark from a student.
      * @throws ParseException If the input is in a wrong format.

@@ -35,10 +35,11 @@ public class StudentDeleteCommand extends StudentCommand {
 
     /**
      * Executes the delete student command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return a command result if the command is executed successfully.
      * @throws CommandException if the command is not in the proper format/the index specified is
-     * outside the range of the student list.
+     *                          outside the range of the student list.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -60,7 +61,7 @@ public class StudentDeleteCommand extends StudentCommand {
      * @param student that has been added.
      */
     private String generateSuccessMessage(Student student) {
-        return "Removed "+ student;
+        return "Removed " + student;
     }
 
 }

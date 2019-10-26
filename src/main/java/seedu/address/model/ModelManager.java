@@ -682,7 +682,6 @@ public class ModelManager implements Model {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
     }
 
-    ;
     //endregion
 
     @Override

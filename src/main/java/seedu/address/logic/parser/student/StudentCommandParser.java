@@ -74,7 +74,8 @@ public class StudentCommandParser implements Parser<StudentCommand> {
 
     /**
      * Deletes a student from student list.
-     * @param index Index of student to be deleted.
+     *
+     * @param index       Index of student to be deleted.
      * @param argMultimap Arguments Multimap.
      * @return Student delete command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
@@ -101,7 +102,8 @@ public class StudentCommandParser implements Parser<StudentCommand> {
 
     /**
      * Edits student in student list.
-     * @param index Index of student to be edited.
+     *
+     * @param index       Index of student to be edited.
      * @param argMultimap Arguments Multimap.
      * @return Student edit command if the parsing was successful.
      * @throws ParseException -
@@ -114,6 +116,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
 
     /**
      * Add student to student list.
+     *
      * @param argMultimap Arguments Multimap.
      * @return Student add command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.

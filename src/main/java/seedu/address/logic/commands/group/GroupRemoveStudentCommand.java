@@ -22,7 +22,8 @@ public class GroupRemoveStudentCommand extends GroupCommand {
 
     /**
      * Creates a GroupRemoveStudentCommand instance with the appropriate attributes.
-     * @param groupId The identifier of the group.
+     *
+     * @param groupId          The identifier of the group.
      * @param groupIndexNumber The student number of the group to be removed.
      */
     public GroupRemoveStudentCommand(String groupId, int groupIndexNumber) {
@@ -32,6 +33,7 @@ public class GroupRemoveStudentCommand extends GroupCommand {
 
     /**
      * Executes the user command.
+     *
      * @param model {@code Model} which the command should operate on.
      * @return The result of the command.
      * @throws CommandException
@@ -39,7 +41,7 @@ public class GroupRemoveStudentCommand extends GroupCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST,groupId)); //group doesn't exist
+            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         model.removeStudentFromGroup(groupId, groupIndexNumber);
         return new CommandResult(generateSuccessMessage());
@@ -47,6 +49,7 @@ public class GroupRemoveStudentCommand extends GroupCommand {
 
     /**
      * Generates a command execution success message.
+     *
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {

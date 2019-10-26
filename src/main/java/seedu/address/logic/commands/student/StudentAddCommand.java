@@ -17,7 +17,8 @@ public class StudentAddCommand extends StudentCommand {
             + "Parameters:\n"
             + "name/[STUDENT_NAME]\n"
             + "tag/[SUBJECT_THAT_STUDENT_IS_WEAK_IN]"
-            + "Full Example: student name/njoy tag/Chemistry --> creates new student called njoy, with weak subject chemistry\n\n";
+            + "Full Example: student name/njoy tag/Chemistry -->"
+            + "creates new student called njoy, with weak subject chemistry\n\n";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student record";
