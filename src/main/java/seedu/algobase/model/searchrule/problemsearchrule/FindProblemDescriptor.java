@@ -16,11 +16,6 @@ import seedu.algobase.model.problem.Problem;
 /**
  * Stores the details to find the {@code Problem}. Each non-empty field value will replace the
  * corresponding field value of the {@code findProblemPredicate}.
- *
- * Implementation for this class may look similar to {@link ProblemSearchRule}, however
- * as descriptor is used to deal with variable length user input, it can't be made immutable.
- * While the other similar class is a model class that's intended to be serialized and stored
- * in the storage. More explanation can be found in the other class.
  */
 public class FindProblemDescriptor {
     private NameContainsKeywordsPredicate namePredicate;
@@ -31,7 +26,26 @@ public class FindProblemDescriptor {
     private TagIncludesKeywordsPredicate tagPredicate;
 
     public FindProblemDescriptor() {
-        // Default constructor as empty
+        namePredicate = null;
+        authorPredicate = null;
+        descriptionPredicate = null;
+        sourcePredicate = null;
+        difficultyPredicate = null;
+        tagPredicate = null;
+    }
+
+    public FindProblemDescriptor(NameContainsKeywordsPredicate namePredicate,
+                                 AuthorMatchesKeywordPredicate authorPredicate,
+                                 DescriptionContainsKeywordsPredicate descriptionPredicate,
+                                 SourceMatchesKeywordPredicate sourcePredicate,
+                                 DifficultyIsInRangePredicate difficultyPredicate,
+                                 TagIncludesKeywordsPredicate tagPredicate) {
+        this.namePredicate = namePredicate;
+        this.authorPredicate = authorPredicate;
+        this.descriptionPredicate = descriptionPredicate;
+        this.sourcePredicate = sourcePredicate;
+        this.difficultyPredicate = difficultyPredicate;
+        this.tagPredicate = tagPredicate;
     }
 
     /**

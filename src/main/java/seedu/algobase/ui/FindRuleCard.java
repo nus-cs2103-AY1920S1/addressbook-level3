@@ -47,38 +47,38 @@ public class FindRuleCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         ruleName.setText(findRule.getName().name);
 
-        if (findRule.hasDefaultNamePredicate()) {
+        if (findRule.getNamePredicate().isEmpty()) {
             problemName.setText(DEFAULT_PREDICATE);
         } else {
-            problemName.setText(findRule.getNamePredicate().getKeywords().toString());
+            problemName.setText(findRule.getNamePredicate().get().getKeywords().toString());
         }
 
-        if (findRule.hasDefaultAuthorPredicate()) {
+        if (findRule.getAuthorPredicate().isEmpty()) {
             author.setText(DEFAULT_PREDICATE);
         } else {
-            author.setText(findRule.getAuthorPredicate().getKeyword().keyword);
+            author.setText(findRule.getAuthorPredicate().get().getKeyword().keyword);
         }
 
-        if (findRule.hasDefaultDescriptionPredicate()) {
+        if (findRule.getDescriptionPredicate().isEmpty()) {
             description.setText(DEFAULT_PREDICATE);
         } else {
-            description.setText(findRule.getDescriptionPredicate().getKeywords().toString());
+            description.setText(findRule.getDescriptionPredicate().get().getKeywords().toString());
         }
 
-        if (findRule.hasDefaultDifficultyPredicate()) {
+        if (findRule.getDifficultyPredicate().isEmpty()) {
             difficulty.setText(DEFAULT_PREDICATE);
         } else {
-            DifficultyIsInRangePredicate difficultyPredicate = findRule.getDifficultyPredicate();
+            DifficultyIsInRangePredicate difficultyPredicate = findRule.getDifficultyPredicate().get();
             double lowerBound = difficultyPredicate.getLowerBound();
             double upperBound = difficultyPredicate.getUpperBound();
             String difficultyString = String.format("%f - %f", lowerBound, upperBound);
             difficulty.setText(difficultyString);
         }
 
-        if (findRule.hasDefaultSourcePredicate()) {
+        if (findRule.getSourcePredicate().isEmpty()) {
             source.setText(DEFAULT_PREDICATE);
         } else {
-            source.setText(findRule.getSourcePredicate().getKeyword().keyword);
+            source.setText(findRule.getSourcePredicate().get().getKeyword().keyword);
         }
 
     }
