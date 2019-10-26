@@ -2,10 +2,10 @@
 !include style.puml
 
 participant "User" as User USER_COLOR
-participant ":UI" as UI LOGIC_COLOR
+participant ":UI" as UI UI_COLOR
 participant ":Logic" as Logic LOGIC_COLOR
-participant ":Model" as Model LOGIC_COLOR
-participant ":Storage" as Storage LOGIC_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":Storage" as Storage STORAGE_COLOR
 
 User -> UI : add t/Animal Farm a/George
 activate UI
