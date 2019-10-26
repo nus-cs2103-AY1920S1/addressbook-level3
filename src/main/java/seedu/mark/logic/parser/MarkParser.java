@@ -84,6 +84,9 @@ public class MarkParser {
         case EditReminderCommand.COMMAND_WORD:
             return new EditReminderCommandParser().parse(arguments);
 
+        case DeleteReminderCommand.COMMAND_WORD:
+            return new DeleteReminderCommandParser().parse(arguments);
+
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);
 
