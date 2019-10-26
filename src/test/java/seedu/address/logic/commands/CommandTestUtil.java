@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -94,6 +95,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_EVERYDAY = "Bag";
     public static final Index VALID_INDEX_MONDAY = Index.fromOneBased(VALID_S_INDEX_MONDAY);
     public static final Index VALID_INDEX_FRIDAY = Index.fromOneBased(VALID_S_INDEX_FRIDAY);
+    public static final boolean VALID_ALLOW_EVERYDAY = true;
+    public static final boolean VALID_DISALLOW_EVERYDAY = false;
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -133,10 +136,12 @@ public class CommandTestUtil {
     public static final String TAG_DESC_MONDAY = " " + PREFIX_TAG + VALID_TAG_MONDAY;
     public static final String TAG_DESC_FRIDAY = " " + PREFIX_TAG + VALID_TAG_FRIDAY;
     public static final String TAG_DESC_EVERYDAY = " " + PREFIX_TAG + VALID_TAG_EVERYDAY;
+    public static final String ALLOW_DESC_EVERYDAY = " " + PREFIX_ALLOW;
 
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2012.a.1"; // 'a' not allowed in dates
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "20.$"; // '$' not allowed in time
     public static final String INVALID_VENUE_DESC = " " + PREFIX_VENUE; // empty string not allowed for venues
+    public static final String INVALID_INDEX_DESC = " -1";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

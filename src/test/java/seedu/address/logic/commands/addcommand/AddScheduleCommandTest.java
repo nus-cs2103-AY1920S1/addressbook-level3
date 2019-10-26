@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,29 +29,31 @@ import seedu.address.testutil.ScheduleBuilder;
 public class AddScheduleCommandTest {
 
     private static final Index VALID_INDEX = Index.fromOneBased(1);
+    private static final boolean VALID_ALLOW = true;
     private static final Schedule VALID_SCHEDULE = new ScheduleBuilder().build();
     private static final Order VALID_ORDER = new OrderBuilder().build();
 
     @Test
     public void constructor_nullSchedule_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddScheduleCommand(null, VALID_INDEX));
+        assertThrows(NullPointerException.class, () -> new AddScheduleCommand(null, VALID_INDEX, VALID_ALLOW));
     }
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddScheduleCommand(VALID_SCHEDULE, null));
+        assertThrows(NullPointerException.class, () -> new AddScheduleCommand(VALID_SCHEDULE, null, VALID_ALLOW));
     }
 
     @Test
     public void constructor_nullScheduleAndIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddScheduleCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new AddScheduleCommand(null, null, VALID_ALLOW));
     }
 
     @Test
     public void execute_scheduleAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
 
-        CommandResult commandResult = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX).execute(modelStub);
+        CommandResult commandResult = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW)
+                .execute(modelStub);
 
         assertEquals(String.format(AddScheduleCommand.MESSAGE_SUCCESS, VALID_SCHEDULE),
                 commandResult.getFeedbackToUser());
@@ -59,7 +62,7 @@ public class AddScheduleCommandTest {
 
     @Test
     public void execute_duplicateSchedule_throwsCommandException() {
-        AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX);
+        AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
         ModelStub modelStub = new ModelStubWithSchedule(VALID_SCHEDULE, VALID_ORDER);
 
         assertThrows(CommandException.class, AddScheduleCommand.MESSAGE_DUPLICATE_SCHEDULE, ()
@@ -77,14 +80,14 @@ public class AddScheduleCommandTest {
         Schedule scheduleOne = new ScheduleBuilder().withCalendar(calendarOne).build();
         Schedule scheduleTwo = new ScheduleBuilder().withCalendar(calendarTwo).build();
 
-        AddScheduleCommand addScheduleOneCommand = new AddScheduleCommand(scheduleOne, VALID_INDEX);
-        AddScheduleCommand addScheduleTwoCommand = new AddScheduleCommand(scheduleTwo, VALID_INDEX);
+        AddScheduleCommand addScheduleOneCommand = new AddScheduleCommand(scheduleOne, VALID_INDEX, VALID_ALLOW);
+        AddScheduleCommand addScheduleTwoCommand = new AddScheduleCommand(scheduleTwo, VALID_INDEX, VALID_ALLOW);
 
         // same object -> returns true
         assertTrue(addScheduleOneCommand.equals(addScheduleOneCommand));
 
         // same values -> returns true
-        AddScheduleCommand addScheduleOneCommandCopy = new AddScheduleCommand(scheduleOne, VALID_INDEX);
+        AddScheduleCommand addScheduleOneCommandCopy = new AddScheduleCommand(scheduleOne, VALID_INDEX, VALID_ALLOW);
         assertTrue(addScheduleOneCommand.equals(addScheduleOneCommandCopy));
 
         // different types -> returns false
@@ -100,7 +103,6 @@ public class AddScheduleCommandTest {
         scheduleOne = new ScheduleBuilder().withVenue("MRT").build();
         scheduleTwo = new ScheduleBuilder().withVenue("NUS").build();
         assertFalse(addScheduleOneCommand.equals(addScheduleTwoCommand));
-
 
     }
 
@@ -171,6 +173,10 @@ public class AddScheduleCommandTest {
             filteredOrderList.add(order);
         }
 
+        @Override
+        public List<Schedule> getConflictingSchedules(Schedule schedule) {
+            return new ArrayList<>();
+        }
     }
 
 }

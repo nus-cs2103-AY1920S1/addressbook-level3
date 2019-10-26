@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.addcommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.ALLOW_DESC_EVERYDAY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_FRIDAY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_MONDAY;
 import static seedu.address.logic.commands.CommandTestUtil.INDEX_DESC_MONDAY;
@@ -14,7 +15,9 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_EVERYDAY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MONDAY;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_FRIDAY;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_MONDAY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLOW_EVERYDAY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_MONDAY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DISALLOW_EVERYDAY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDEX_MONDAY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_EVERYDAY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MONDAY;
@@ -46,35 +49,50 @@ public class AddScheduleCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + INDEX_DESC_MONDAY + DATE_DESC_MONDAY
-                + TIME_DESC_MONDAY + VENUE_DESC_MONDAY + TAG_DESC_MONDAY,
-                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY));
+                + TIME_DESC_MONDAY + VENUE_DESC_MONDAY + TAG_DESC_MONDAY + ALLOW_DESC_EVERYDAY,
+                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY, VALID_ALLOW_EVERYDAY));
 
         // multiple dates - last date accepted
         assertParseSuccess(parser, INDEX_DESC_MONDAY + DATE_DESC_FRIDAY + DATE_DESC_MONDAY + TIME_DESC_MONDAY
-                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY, new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY));
+                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY + ALLOW_DESC_EVERYDAY,
+                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY, VALID_ALLOW_EVERYDAY));
 
         // multiple time - last time accepted
         assertParseSuccess(parser, INDEX_DESC_MONDAY + DATE_DESC_MONDAY + TIME_DESC_FRIDAY + TIME_DESC_MONDAY
-                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY, new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY));
+                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY + ALLOW_DESC_EVERYDAY,
+                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY, VALID_ALLOW_EVERYDAY));
 
         // multiple venues - last venue accepted
         assertParseSuccess(parser, INDEX_DESC_MONDAY + DATE_DESC_MONDAY + TIME_DESC_MONDAY + VENUE_DESC_FRIDAY
-                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY, new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY));
+                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY + ALLOW_DESC_EVERYDAY,
+                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY, VALID_ALLOW_EVERYDAY));
 
         // multiple tags - all accepted
         Schedule expectedScheduleMultipleTags = new ScheduleBuilder(MONDAY_SCHEDULE)
                 .withTags(VALID_TAG_MONDAY, VALID_TAG_EVERYDAY).build();
         assertParseSuccess(parser, INDEX_DESC_MONDAY + DATE_DESC_MONDAY + TIME_DESC_MONDAY
-                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY + TAG_DESC_EVERYDAY,
-                new AddScheduleCommand(expectedScheduleMultipleTags, VALID_INDEX_MONDAY));
+                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY + TAG_DESC_EVERYDAY + ALLOW_DESC_EVERYDAY,
+                new AddScheduleCommand(expectedScheduleMultipleTags, VALID_INDEX_MONDAY, VALID_ALLOW_EVERYDAY));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Schedule expectedSchedule = new ScheduleBuilder(MONDAY_SCHEDULE).withTags().build();
+        assertParseSuccess(parser, INDEX_DESC_MONDAY + DATE_DESC_MONDAY + TIME_DESC_MONDAY + VENUE_DESC_MONDAY
+                + ALLOW_DESC_EVERYDAY,
+                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY, VALID_ALLOW_EVERYDAY));
+
+        // no -allow
+        expectedSchedule = new ScheduleBuilder(MONDAY_SCHEDULE).build();
+        assertParseSuccess(parser, INDEX_DESC_MONDAY + DATE_DESC_MONDAY + TIME_DESC_MONDAY + VENUE_DESC_MONDAY
+                        + TAG_DESC_MONDAY,
+                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY, VALID_DISALLOW_EVERYDAY));
+
+        // no tags and -allow
+        expectedSchedule = new ScheduleBuilder(MONDAY_SCHEDULE).withTags().build();
         assertParseSuccess(parser, INDEX_DESC_MONDAY + DATE_DESC_MONDAY + TIME_DESC_MONDAY + VENUE_DESC_MONDAY,
-                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY));
+                new AddScheduleCommand(expectedSchedule, VALID_INDEX_MONDAY, VALID_DISALLOW_EVERYDAY));
     }
 
     @Test
@@ -100,6 +118,12 @@ public class AddScheduleCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+
+        // invalid index INVALID_INDEX_DESC
+        assertParseFailure(parser, INVALID_DATE_DESC + DATE_DESC_MONDAY + TIME_DESC_MONDAY
+                + VENUE_DESC_MONDAY + TAG_DESC_MONDAY,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddScheduleCommand.MESSAGE_USAGE));
+
         // invalid date
         assertParseFailure(parser, INDEX_DESC_MONDAY + INVALID_DATE_DESC + TIME_DESC_MONDAY
                 + VENUE_DESC_MONDAY + TAG_DESC_MONDAY, Messages.DATE_MESSAGE_CONSTRAINTS);

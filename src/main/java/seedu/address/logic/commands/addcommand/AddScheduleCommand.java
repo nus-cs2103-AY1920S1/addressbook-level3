@@ -122,6 +122,7 @@ public class AddScheduleCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddScheduleCommand // instanceof handles nulls
                 && orderIndex.equals(((AddScheduleCommand) other).orderIndex)
+                && canClash == ((AddScheduleCommand) other).canClash
                 // not checking ID
                 && toAdd.getCalendar().equals(((AddScheduleCommand) other).toAdd.getCalendar())
                 && toAdd.getVenue().equals(((AddScheduleCommand) other).toAdd.getVenue())
