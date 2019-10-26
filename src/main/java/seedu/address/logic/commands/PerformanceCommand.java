@@ -12,7 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.performance.Event;
-import seedu.address.model.performance.PerformanceEntry;
+import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 
 public class PerformanceCommand extends Command {
@@ -56,14 +56,14 @@ public class PerformanceCommand extends Command {
         }
 
         Person athlete = lastShownList.get(index.getZeroBased());
-        PerformanceEntry performanceEntry = createPerformance(athlete);
-        String response = event.addPerformance(athlete, performanceEntry);
+        Record record = createRecord();
+        String response = event.addPerformance(athlete, record);
         return new CommandResult(String.format(MESSAGE_SUCCESS, response));
 
     }
 
-    private PerformanceEntry createPerformance(Person athlete) {
-        return new PerformanceEntry(date, time);
+    private Record createRecord() {
+        return new Record(date, time);
     }
 
 }

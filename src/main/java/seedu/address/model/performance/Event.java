@@ -16,7 +16,7 @@ public class Event {
     private static ArrayList<Event> events = new ArrayList<>();
 
     private String name;
-    private HashMap<Person, ArrayList<PerformanceEntry>> performances;
+    private HashMap<Person, ArrayList<Record>> performances;
 
     /**
      * Creates a type of event that stores the members and their respective timings (performance) for this event.
@@ -44,24 +44,24 @@ public class Event {
         events.add(newEvent);
     }
 
-    public String addPerformance(Person athlete, PerformanceEntry performanceEntry) {
+    public String addPerformance(Person athlete, Record record) {
         if (!performances.containsKey(athlete)) {
-            ArrayList<PerformanceEntry> initialisedPerformanceEntries = new ArrayList<>();
-            initialisedPerformanceEntries.add(performanceEntry);
+            ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
+            initialisedPerformanceEntries.add(record);
             performances.put(athlete, initialisedPerformanceEntries);
         } else {
             // copying the existing performances
-            ArrayList<PerformanceEntry> currentPerformanceEntries = new ArrayList<>();
+            ArrayList<Record> currentPerformanceEntries = new ArrayList<>();
             currentPerformanceEntries.addAll(performances.get(athlete));
             // adding the new performance
-            currentPerformanceEntries.add(performanceEntry);
+            currentPerformanceEntries.add(record);
             // remove the existing athelete record for this event
             performances.remove(athlete);
             // adding the athlete again with their updated record for this event
             performances.put(athlete, currentPerformanceEntries);
         }
-        return "For " + athlete.getName() + " in the " + name + " event, on " + performanceEntry.getDate()
-                + " with a timing of " + performanceEntry.getTime();
+        return "For " + athlete.getName() + " in the " + name + " event, on " + record.getDate()
+                + " with a timing of " + record.getTime();
     }
 
     /**
