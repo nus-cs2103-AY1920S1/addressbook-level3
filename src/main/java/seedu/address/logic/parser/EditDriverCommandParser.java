@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditDriverCommand;
 import seedu.address.logic.commands.EditDriverCommand.EditDriverDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,10 +33,10 @@ public class EditDriverCommandParser implements Parser<EditDriverCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        Index index;
+        int driverId;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            driverId = ParserUtil.parseId(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDriverCommand.MESSAGE_USAGE),
                     pe);
@@ -62,7 +61,7 @@ public class EditDriverCommandParser implements Parser<EditDriverCommand> {
             throw new ParseException(EditDriverCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditDriverCommand(index, editDriverDescriptor);
+        return new EditDriverCommand(driverId, editDriverDescriptor);
     }
 
     /**

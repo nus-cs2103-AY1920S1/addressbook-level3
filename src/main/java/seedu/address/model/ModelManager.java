@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
@@ -63,7 +64,7 @@ public class ModelManager implements Model {
 
         // temp
         // to test the task commands
-        Customer testCustomer = new Customer(new Name("Alesx Yeoh"), new Phone("87438807"),
+        Customer testCustomer = new Customer(1, new Name("Alesx Yeoh"), new Phone("87438807"),
                 new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
         customerManager.addPerson(testCustomer);
     }
@@ -146,8 +147,12 @@ public class ModelManager implements Model {
 
     // =========== Task Manager ===============================================================================
 
+    /**
+     * Adds task into task list. Records the last unique task id created in {@link IdManager}.
+     */
     public void addTask(Task task) {
         taskManager.addTask(task);
+        IdManager.lastTaskIdPlusOne();
     }
 
     public void deleteTask(Task task) {
@@ -174,6 +179,30 @@ public class ModelManager implements Model {
         return taskManager.getTask(taskId);
     }
 
+    /**
+     * Checks if driver is allocated to any task.
+     */
+    public boolean hasTaskBelongsToDriver(Driver driver) {
+        return taskManager.getList()
+                .stream()
+                .anyMatch(task -> {
+                    if (task.getDriver().isEmpty()) {
+                        return false;
+                    }
+
+                    return task.getDriver().get().equals(driver);
+                });
+    }
+
+    /**
+     * Checks if customer is allocated to any task.
+     */
+    public boolean hasTaskBelongsToCustomer(Customer customer) {
+        return taskManager.getList()
+                .stream()
+                .anyMatch(task -> task.getCustomer().equals(customer));
+    }
+
     // =========== Customer Manager ===========================================================================
     public boolean hasCustomer(Customer customer) {
         return customerManager.hasPerson(customer);
@@ -191,8 +220,13 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
+
+    /**
+     * Adds Customer into customer list. Records the last unique customer id created in {@link IdManager}.
+     */
     public void addCustomer(Customer customer) {
         customerManager.addPerson(customer);
+        IdManager.lastCustomerIdPlusOne();
     }
 
     public void deleteCustomer(Customer customer) {
@@ -206,7 +240,7 @@ public class ModelManager implements Model {
 
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);
-    };
+    }
 
     public void setDriver(Driver driverToEdit, Driver editedDriver) {
         driverManager.setDriver(driverToEdit, editedDriver);
@@ -216,8 +250,12 @@ public class ModelManager implements Model {
         return driverManager.getDriver(driverId);
     }
 
+    /**
+     * Adds Driver into driver list. Records the last unique driver id created in {@link IdManager}.
+     */
     public void addDriver(Driver driver) {
         driverManager.addDriver(driver);
+        IdManager.lastDriverIdPlusOne();
     }
 
     public void deleteDriver(Driver driver) {

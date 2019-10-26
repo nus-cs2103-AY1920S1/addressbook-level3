@@ -118,6 +118,10 @@ public interface Model {
 
     TaskManager getTaskManager();
 
+    boolean hasTaskBelongsToDriver(Driver driver);
+
+    boolean hasTaskBelongsToCustomer(Customer customer);
+
     // customer manager
 
     boolean hasCustomer(Customer customer);

@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,10 +33,10 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        Index index;
+        int customerId;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            customerId = ParserUtil.parseId(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditCustomerCommand.MESSAGE_USAGE), pe);
@@ -62,7 +61,7 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
             throw new ParseException(EditCustomerCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCustomerCommand(index, editCustomerDescriptor);
+        return new EditCustomerCommand(customerId, editCustomerDescriptor);
     }
 
     /**

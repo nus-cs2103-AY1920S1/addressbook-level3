@@ -16,7 +16,6 @@ public class Driver extends Person {
     public static final String MESSAGE_NOT_AVAILABLE = "Driver(ID: %1$s) is not available";
 
     //Identity fields
-    private static int idCount = 1;
     private final int id;
 
     //data fields
@@ -25,21 +24,10 @@ public class Driver extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Driver (Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        super(name, phone, email, address, tags);
-        schedule = new Schedule();
-        id = idCount;
-        idCount++;
-    }
-
     public Driver (int id, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         schedule = new Schedule();
         this.id = id;
-    }
-
-    public int getIdCount() {
-        return idCount;
     }
 
     public Schedule getSchedule() {
@@ -98,7 +86,8 @@ public class Driver extends Person {
         }
 
         Driver otherDriver = (Driver) other;
-        return otherDriver.getName().equals(getName())
+        return otherDriver.getId() == getId()
+                && otherDriver.getName().equals(getName())
                 && otherDriver.getPhone().equals(getPhone())
                 && otherDriver.getEmail().equals(getEmail())
                 && otherDriver.getAddress().equals(getAddress())

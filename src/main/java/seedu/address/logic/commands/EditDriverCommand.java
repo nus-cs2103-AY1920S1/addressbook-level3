@@ -1,21 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DRIVERS;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -49,31 +46,29 @@ public class EditDriverCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DRIVER = "This driver already exists in the address book.";
 
-    private final Index index;
+    private final int driverId;
     private final EditDriverCommand.EditDriverDescriptor editDriverDescriptor;
 
     /**
-     * @param index of the driver in the filtered driver list to edit
+     * @param driverId unique id of the driver.
      * @param editDriverDescriptor details to edit the driver with
      */
-    public EditDriverCommand(Index index, EditDriverCommand.EditDriverDescriptor editDriverDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editDriverDescriptor);
+    public EditDriverCommand(int driverId, EditDriverCommand.EditDriverDescriptor editDriverDescriptor) {
+        requireAllNonNull(driverId, editDriverDescriptor);
 
-        this.index = index;
+        this.driverId = driverId;
         this.editDriverDescriptor = new EditDriverCommand.EditDriverDescriptor(editDriverDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Driver> lastShownList = model.getFilteredDriverList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
+        if (!model.hasDriver(driverId)) {
+            throw new CommandException(Driver.MESSAGE_INVALID_ID);
         }
 
-        Driver driverToEdit = lastShownList.get(index.getZeroBased());
+        Driver driverToEdit = model.getDriver(driverId);
         Driver editedDriver = createEditedDriver(driverToEdit, editDriverDescriptor);
 
         if (!driverToEdit.isSameDriver(editedDriver) && model.hasDriver(editedDriver)) {
@@ -81,7 +76,7 @@ public class EditDriverCommand extends Command {
         }
 
         model.setDriver(driverToEdit, editedDriver);
-        model.updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_DRIVER_SUCCESS, editedDriver));
     }
 
@@ -98,7 +93,7 @@ public class EditDriverCommand extends Command {
         Address updatedAddress = editDriverDescriptor.getAddress().orElse(driverToEdit.getAddress());
         Set<Tag> updatedTags = editDriverDescriptor.getTags().orElse(driverToEdit.getTags());
 
-        return new Driver(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Driver(driverToEdit.getId(), updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -115,7 +110,7 @@ public class EditDriverCommand extends Command {
 
         // state check
         EditDriverCommand e = (EditDriverCommand) other;
-        return index.equals(e.index)
+        return driverId == e.driverId
                 && editDriverDescriptor.equals(e.editDriverDescriptor);
     }
 

@@ -1,21 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -49,31 +46,28 @@ public class EditCustomerCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book.";
 
-    private final Index index;
+    private final int customerId;
     private final EditCustomerCommand.EditCustomerDescriptor editCustomerDescriptor;
 
     /**
-     * @param index of the customer in the filtered customer list to edit
+     * @param customerId Unique id of the customer.
      * @param editCustomerDescriptor details to edit the customer with
      */
-    public EditCustomerCommand(Index index, EditCustomerCommand.EditCustomerDescriptor editCustomerDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editCustomerDescriptor);
-
-        this.index = index;
+    public EditCustomerCommand(int customerId, EditCustomerCommand.EditCustomerDescriptor editCustomerDescriptor) {
+        requireAllNonNull(customerId, editCustomerDescriptor);
+        this.customerId = customerId;
         this.editCustomerDescriptor = new EditCustomerCommand.EditCustomerDescriptor(editCustomerDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Customer> lastShownList = model.getFilteredCustomerList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+        if (!model.hasCustomer(customerId)) {
+            throw new CommandException(Customer.MESSAGE_INVALID_ID);
         }
 
-        Customer customerToEdit = lastShownList.get(index.getZeroBased());
+        Customer customerToEdit = model.getCustomer(customerId);
         Customer editedCustomer = createEditedCustomer(customerToEdit, editCustomerDescriptor);
 
         if (!customerToEdit.isSameCustomer(editedCustomer) && model.hasCustomer(editedCustomer)) {
@@ -81,7 +75,7 @@ public class EditCustomerCommand extends Command {
         }
 
         model.setCustomer(customerToEdit, editedCustomer);
-        model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer));
     }
 
@@ -99,7 +93,8 @@ public class EditCustomerCommand extends Command {
         Address updatedAddress = editCustomerDescriptor.getAddress().orElse(customerToEdit.getAddress());
         Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
 
-        return new Customer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Customer(customerToEdit.getId(), updatedName, updatedPhone, updatedEmail,
+                            updatedAddress, updatedTags);
     }
 
     @Override
@@ -116,7 +111,7 @@ public class EditCustomerCommand extends Command {
 
         // state check
         EditCustomerCommand e = (EditCustomerCommand) other;
-        return index.equals(e.index)
+        return customerId == e.customerId
                 && editCustomerDescriptor.equals(e.editCustomerDescriptor);
     }
 

@@ -116,9 +116,16 @@ public class Task {
     }
 
     public void setDriver(Optional<Driver> driver) {
-        this.driver = driver;
+        if (driver.isPresent()) {
+            setStatus(TaskStatus.ON_GOING);
+        }
 
-        setStatus(TaskStatus.ON_GOING);
+        if (driver.isEmpty()) {
+            setStatus(TaskStatus.INCOMPLETE);
+            setEventTime(Optional.empty());
+        }
+
+        this.driver = driver;
     }
 
     public void setEventTime(Optional<EventTime> eventTime) {

@@ -189,6 +189,16 @@ public class AddCommandTest {
         };
 
         @Override
+        public boolean hasTaskBelongsToDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasTaskBelongsToCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public boolean hasCustomer(Customer customer) {
             throw new AssertionError("This method should not be called.");
         }

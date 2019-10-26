@@ -15,30 +15,14 @@ public class Customer extends Person {
 
     public static final String MESSAGE_INVALID_ID = "Invalid customer ID.";
 
-    private static int idCount = 0;
     private int id;
 
     /**
      * Every field must be present and not null.
-     *
-     * @param name
-     * @param phone
-     * @param email
-     * @param address
-     * @param tags
      */
-    public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        super(name, phone, email, address, tags);
-        id = ++idCount;
-    }
-
     public Customer(int id, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         this.id = id;
-    }
-
-    public int getIdCount() {
-        return idCount;
     }
 
     public int getId() {
