@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 public class DescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "description";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing description of a module";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Describes a particular module.\n"
             + "Parameters: MODULE (must be a valid module code)\n"

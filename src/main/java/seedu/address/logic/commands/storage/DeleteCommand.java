@@ -19,6 +19,8 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "removeplan";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing a study plan";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the study plan identified by the index number used in the displayed study plan list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"

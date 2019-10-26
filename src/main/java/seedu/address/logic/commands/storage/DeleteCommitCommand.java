@@ -17,6 +17,8 @@ public class DeleteCommitCommand extends Command {
 
     public static final String COMMAND_WORD = "deletecommit";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a commit";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the commit identified by the index number used in the displayed commit list.\n"
             + "Parameters: STUDYPLAN_INDEX.COMMIT_INDEX (must be non-negative integers)\n"

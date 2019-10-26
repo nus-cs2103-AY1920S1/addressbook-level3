@@ -13,7 +13,7 @@ import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
  */
 public class ActivateStudyPlanCommand extends Command {
     public static final String COMMAND_WORD = "activate";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Activating study plans";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Activates the study plan with the given index. "
             + "Parameters: "
             + "PLAN_INDEX \n"

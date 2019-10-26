@@ -13,6 +13,7 @@ import seedu.address.model.semester.SemesterName;
  */
 public class NameUeFromSemesterCommand extends Command {
     public static final String COMMAND_WORD = "nameue";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Naming a UE";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Names a UE from the given semester with the given module name. "
             + "This feature is purely for aesthetic purposes and has no functional implications.\n"

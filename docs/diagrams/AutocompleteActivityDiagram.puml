@@ -3,19 +3,23 @@ start
 :User presses TAB;
 
 if () then ([no input])
-    stop
-endif
-if () then ([first word])
+else ([else])
+    if () then ([first word])
     :Use command keywords;
-else ([else])
-    :Use argument keywords;
-endif
-:Find search results based on keywords and input;
-if () then ([only one result])
-else ([else])
+    else ([else])
+    if () then ([first word is help])
+        :Use command keywords;
+    else ([else])
+        :Use argument keywords;
+    endif
+    endif
+    :Find search results based on keywords and input;
+    if () then ([only one result])
+    else ([else])
     :Create a menu;
     :User selects an option in the menu;
+    endif
+    :Set text to that search result;
 endif
-:Set text to that search result;
 stop
 @enduml

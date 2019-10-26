@@ -17,7 +17,7 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
 public class RemoveTagFromModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "removetag";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing a tag from a module";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the specified tag from the specified module "
             + "Parameters: "
             + "MODULE_CODE "

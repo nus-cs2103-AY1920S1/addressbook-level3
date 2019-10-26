@@ -25,7 +25,7 @@ import seedu.address.ui.ResultViewType;
 public class ViewTaggedCommand extends Command {
 
     public static final String COMMAND_WORD = "viewtagged";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing modules with a specified tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all modules attached to specific tags. "
             + "Parameters: "
             + "TAG_NAME... \n"

@@ -491,7 +491,7 @@ the necessary information.
 
 ==== Implementation
 
-image::AutocompleteClassDiagram.png[]
+image::AutocompleteClassDiagram.png[width="600"]
 
 The autocompletion of keywords is facilitated by `Autocomplete`, which inherits from `Textfield`.
 When the `MainWindow` is created, a `CommandBox` is created and added to the GUI.
@@ -503,6 +503,8 @@ which starts the autocomplete process.
 These keywords are represented as `SortedSet<String>`.
 Within each input, the first word will be autocompleted with the set for commands,
 while subsequent words (separated by spaces) will be autocompleted with the set for arguments.
+An exception is the `help` command, in which the subsequent words will be autocompleted with the
+set for commands.
 
 `Autocomplete` is constructed with a `ReadOnlyModulePlanner`.
 It is used to create the keyword sets.
@@ -547,7 +549,7 @@ The autocomplete mechanism behaves similarly for arguments, except the argument 
 
 The following activity diagram shows how the autocomplete works:
 
-image::AutocompleteActivityDiagram.png[]
+image::AutocompleteActivityDiagram.png[width="600"]
 
 ==== Design Considerations
 
@@ -562,6 +564,17 @@ together.
 * **Alternative 2**: Arguments are identified as tags or module codes and  autocompleted based on
 the command.
 ** Pros: User can autocomplete without undesired suggestions.
+** Cons: The command will have to be parsed upon autocomplete call, which will
+take more time and alter the structure of parsing commands.
+
+===== Aspect: How help is implemented
+* **Alternative 1 (current choice)**: Help is treated as a special case.
+
+** Pros: Easy to implement. Help is the only command that takes in commands as arguments.
+** Cons: A hard-coded exception does not make the code extensible.
+
+* **Alternative 2**: Every command is parsed and their keywords identified.
+** Pros: More extensible as help is future commands can take in commands as keywords.
 ** Cons: The command will have to be parsed upon autocomplete call, which will
 take more time and alter the structure of parsing commands.
 

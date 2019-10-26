@@ -17,6 +17,8 @@ public class CreateStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "newplan";
 
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Creating a new study plan";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new studyPlan."
             + "Parameters: "
             + "PLAN_TITLE \n"

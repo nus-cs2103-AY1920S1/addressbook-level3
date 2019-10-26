@@ -13,6 +13,7 @@ import seedu.address.model.semester.SemesterName;
  */
 public class SetCurrentSemesterCommand extends Command {
     public static final String COMMAND_WORD = "setcurrent";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Setting the current semester";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets the given semester as the current one. "
             + "Semesters before the specified semester will be locked and therefore modules cannot"

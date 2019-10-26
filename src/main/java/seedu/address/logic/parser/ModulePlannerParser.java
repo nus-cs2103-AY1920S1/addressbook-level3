@@ -54,6 +54,7 @@ import seedu.address.logic.parser.datamanagement.TagModuleCommandParser;
 import seedu.address.logic.parser.datamanagement.ViewModuleTagsCommandParser;
 import seedu.address.logic.parser.datamanagement.ViewTaggedCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.gui.HelpCommandParser;
 import seedu.address.logic.parser.storage.ActivateStudyPlanParser;
 import seedu.address.logic.parser.storage.CommitStudyPlanEditsParser;
 import seedu.address.logic.parser.storage.CreateStudyPlanCommandParser;
@@ -167,7 +168,7 @@ public class ModulePlannerParser {
             return new UndoCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommandParser().parse(arguments);
 
         case ViewDefaultTagsCommand.COMMAND_WORD:
             return new ViewDefaultTagsCommand();

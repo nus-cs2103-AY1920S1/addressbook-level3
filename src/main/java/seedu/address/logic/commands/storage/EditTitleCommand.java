@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 public class EditTitleCommand extends Command {
 
     public static final String COMMAND_WORD = "title";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Editing the title of the current study plan";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "Edits the title of the current active study plan "
             + "Parameters: "
             + "PLAN_TITLE \n"

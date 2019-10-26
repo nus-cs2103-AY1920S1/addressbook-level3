@@ -14,7 +14,7 @@ import seedu.address.model.tag.UserTag;
 public class DeleteTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deletetag";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Deletes the tag with the specified tag name "
             + "Parameters: "
             + "TAG_NAME \n"

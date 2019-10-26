@@ -14,7 +14,7 @@ import seedu.address.model.tag.UserTag;
 public class RemoveTagFromAllCommand extends Command {
 
     public static final String COMMAND_WORD = "removeall";
-
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing a tag from all modules";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the tag with the specified tag name "
             + "from all modules "
             + "Parameters: "
