@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Student;
@@ -39,8 +40,7 @@ public class StudentAddCommand extends StudentCommand {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
         model.addStudent(toAdd);
-        return new CommandResult(generateSuccessMessage(toAdd), false, false,
-                false, false, false, true);
+        return new CommandResult(generateSuccessMessage(toAdd), CommandResultType.SHOW_STUDENT);
     }
 
     /**

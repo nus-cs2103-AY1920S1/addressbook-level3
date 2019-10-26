@@ -16,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -235,30 +236,32 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            CommandResultType commandResultType = commandResult.getCommandResultType();
+            switch (commandResultType) {
+
+            case SHOW_HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isShowSlideshow()) {
+                break;
+            case SHOW_SLIDESHOW:
                 handleSlideshow();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case EXIT:
                 handleExit();
-            }
-
-            if (commandResult.isScheduleChange()) {
+                break;
+            case SHOW_SCHEDULE:
                 eventSchedulePanel.updateScheduler();
                 handleSchedule();
-            }
-
-            if (commandResult.isShowStatistic()) {
+                break;
+            case SHOW_STATISTIC:
                 handleStats();
+                break;
+            case SHOW_STUDENT:
+                handleStudent();
+                break;
+            default:
+                break;
             }
 
-            if (commandResult.isShowStudent()) {
-                handleStudent();
-            }
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);

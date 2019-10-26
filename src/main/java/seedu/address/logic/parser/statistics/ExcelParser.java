@@ -1,5 +1,11 @@
 package seedu.address.logic.parser.statistics;
 
+import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_FORMAT;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_INPUT;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_FOUND;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_PARSED;
+import static seedu.address.commons.core.Messages.EXCEL_FILE_TYPE_ISSUE;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,12 +27,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * A data parser that parses formatted excel(.xlsx) files containing students score data.
  */
 public class ExcelParser implements DataParser {
-
-    private static final String EXCEL_FILE_NOT_FOUND = "Excel file was not found. Please ensure file path is valid.";
-    private static final String EXCEL_FILE_NOT_PARSED = "Error occurred retrieving file. Please try with another file";
-    private static final String EXCEL_FILE_TYPE_ISSUE = "File path must be of type /'.xlsx/'. Please try again.";
-    private static final String EXCEL_FILE_ILLEGAL_INPUT = "File has illegal input. Please refer to user guide.";
-    private static final String EXCEL_FILE_ILLEGAL_FORMAT = "File has illegal format. PLease refer to user guide.";
 
     private FileInputStream file;
     private HashMap<String, HashMap<String, Double>> data;

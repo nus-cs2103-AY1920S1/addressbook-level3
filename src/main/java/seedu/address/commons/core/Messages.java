@@ -21,5 +21,9 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
 
-    public static final String MESSAGE_FILE_NOT_FOUND = "Error searching excel file. Please ensure file path is valid.";
+    public static final String EXCEL_FILE_NOT_FOUND = "Excel file was not found. Please ensure file path is valid.";
+    public static final String EXCEL_FILE_NOT_PARSED = "Error occurred retrieving file. Please try with another file";
+    public static final String EXCEL_FILE_TYPE_ISSUE = "File path must be of type /'.xlsx/'. Please try again.";
+    public static final String EXCEL_FILE_ILLEGAL_INPUT = "File has illegal input. Please refer to user guide.";
+    public static final String EXCEL_FILE_ILLEGAL_FORMAT = "File has illegal format. PLease refer to user guide.";
 }
