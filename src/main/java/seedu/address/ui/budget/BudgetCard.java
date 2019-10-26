@@ -92,8 +92,8 @@ public class BudgetCard extends UiPart<Region> {
     }
 
     private void updateBudgetCardPeriod() {
-        budgetStart.setText(budget.getStartDate().timestamp.format(DateTimeFormatter.BASIC_ISO_DATE));
-        budgetEnd.setText(budget.getEndDate().timestamp.format(DateTimeFormatter.BASIC_ISO_DATE));
+        budgetStart.setText(budget.getStartDate().fullTimestamp.format(DateTimeFormatter.BASIC_ISO_DATE));
+        budgetEnd.setText(budget.getEndDate().fullTimestamp.format(DateTimeFormatter.BASIC_ISO_DATE));
     }
 
     private void updateBudgetCardDescription() {

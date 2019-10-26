@@ -3,13 +3,23 @@ package seedu.address.model.expense;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoField;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
+import seedu.address.model.Timekeeper;
 
 /**
  * Represents an Expense's timestamp in the MooLah.
@@ -25,7 +35,8 @@ public class Timestamp implements Comparable<Timestamp> {
     public static final String MESSAGE_CONSTRAINTS_DATE =
             "Timestamps must be in the format dd-MM[-yyyy]";
 
-    private static final DateTimeFormatter FORMATTER_WITH_YEAR = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter FORMATTER_WITH_YEAR =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 
     private static final int MONTH_CHANGE = 1;
 
@@ -35,11 +46,14 @@ public class Timestamp implements Comparable<Timestamp> {
                     .parseDefaulting(ChronoField.YEAR, CURRENT_YEAR)
                     .toFormatter(Locale.ENGLISH);
 
-    public final LocalDate timestamp;
+    private static final Pattern DDMM_PATTERN =
+            Pattern.compile("(?<=\\b)(?<dd>[0-9]{1,2})(?<div1>[\\\\\\-\\/])(?<mm>[0-9]{1,2})");
 
-    public Timestamp(LocalDate timestamp) {
-        requireAllNonNull(timestamp);
-        this.timestamp = timestamp;
+    public final LocalDateTime fullTimestamp;
+
+    public Timestamp(LocalDateTime fullTimestamp) {
+        requireAllNonNull(fullTimestamp);
+        this.fullTimestamp = fullTimestamp;
     }
 
 
@@ -53,76 +67,105 @@ public class Timestamp implements Comparable<Timestamp> {
      * if the date given is of the valid format.
      */
     public static Optional<Timestamp> createTimestampIfValid(String rawTimestamp) {
+        Matcher m = DDMM_PATTERN.matcher(rawTimestamp);
+        if (m.find()) {
+            rawTimestamp = m.replaceFirst("$3$2$1");
+        }
+        System.out.println("after catching DDMM: " + rawTimestamp);
         try {
-            return Optional.of(new Timestamp(LocalDate.parse(rawTimestamp, FORMATTER_WITHOUT_YEAR)));
-        } catch (DateTimeParseException e) {
-            try {
-                return Optional.of(new Timestamp(LocalDate.parse(rawTimestamp, FORMATTER_WITH_YEAR)));
-            } catch (DateTimeParseException e1) {
-                return Optional.empty();
-            }
+            Parser parser = new Parser();
+            List<DateGroup> groups = parser.parse(rawTimestamp);
+            DateGroup group = groups.get(0);
+            Date datetime = group.getDates().get(0);
+            LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
+            System.out.println(fullTimestamp);
+            return Optional.of(new Timestamp(fullTimestamp));
+        } catch (IndexOutOfBoundsException e) {
+            return Optional.empty();
         }
     }
 
-    public LocalDate getTimestamp() {
-        return timestamp;
+    /**
+     * Constructs a Timestamp from a raw date String,
+     * only if the date conforms to the format of dd-MM[-yyyy].
+     *
+     * @param rawTimestamp A String inputted by the user in the date field.
+     * @return An Optional Timestamp that will contain a Timestamp
+     * if the date given is of the valid format.
+     */
+    public static Optional<Timestamp> createTimestampFromStorage(String rawTimestamp) {
+        try {
+            Parser parser = new Parser();
+            List<DateGroup> groups = parser.parse(rawTimestamp);
+            DateGroup group = groups.get(0);
+            Date datetime = group.getDates().get(0);
+            LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
+
+            return Optional.of(new Timestamp(fullTimestamp));
+        } catch (IndexOutOfBoundsException e) {
+            return Optional.empty();
+        }
+    }
+
+    public LocalDateTime getFullTimestamp() {
+        return fullTimestamp;
     }
 
     public boolean isBefore(Timestamp other) {
-        return this.timestamp.isBefore(other.timestamp);
+        return this.fullTimestamp.isBefore(other.fullTimestamp);
     }
 
     public boolean isAfter(Timestamp other) {
-        return this.timestamp.isAfter(other.timestamp);
+        return this.fullTimestamp.isAfter(other.fullTimestamp);
     }
 
     public Timestamp createBackwardTimestamp() {
-        return new Timestamp(this.timestamp.minusMonths(MONTH_CHANGE));
+        return new Timestamp(this.fullTimestamp.minusMonths(MONTH_CHANGE));
     }
 
     public Timestamp createForwardTimestamp() {
-        return new Timestamp(this.timestamp.plusMonths(MONTH_CHANGE));
+        return new Timestamp(this.fullTimestamp.plusMonths(MONTH_CHANGE));
     }
 
     public static Timestamp getCurrentTimestamp() {
-        return new Timestamp(LocalDate.now());
+        return new Timestamp(LocalDateTime.now());
     }
 
     public Timestamp plus(Period period) {
-        return new Timestamp(timestamp.plus(period));
+        return new Timestamp(fullTimestamp.plus(period));
     }
 
     public Timestamp plusDays(long numDays) {
-        return new Timestamp(timestamp.plusDays(numDays));
+        return new Timestamp(fullTimestamp.plusDays(numDays));
     }
 
     public boolean isEqual(Timestamp startDate) {
-        return timestamp.isEqual(startDate.getTimestamp());
+        return fullTimestamp.isEqual(startDate.getFullTimestamp());
     }
 
     @Override
     public String toString() {
-        return timestamp.format(FORMATTER_WITH_YEAR);
+        return fullTimestamp.format(FORMATTER_WITH_YEAR);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Timestamp // instanceof handles nulls
-                && timestamp.equals(((Timestamp) other).timestamp)); // state check
+                && fullTimestamp.equals(((Timestamp) other).fullTimestamp)); // state check
     }
 
     @Override
     public int hashCode() {
-        return timestamp.hashCode();
+        return fullTimestamp.hashCode();
     }
 
     @Override
     public int compareTo(Timestamp other) {
-        if (this.timestamp.isBefore(other.timestamp)) {
+        if (this.fullTimestamp.isBefore(other.fullTimestamp)) {
             return -1;
         }
-        if (this.timestamp.isAfter(other.timestamp)) {
+        if (this.fullTimestamp.isAfter(other.fullTimestamp)) {
             return 1;
         }
         return 0;

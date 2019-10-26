@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.testutil.TypicalBudgets.OUTSIDE_SCHOOL;
 import static seedu.address.testutil.TypicalBudgets.SCHOOL;
-import static seedu.address.testutil.TypicalBudgets.SCHOOL_BUDGET_STRING;
+import static seedu.address.testutil.TypicalBudgets.SCHOOL_BUDGET_STRING_ONE;
+import static seedu.address.testutil.TypicalBudgets.SCHOOL_BUDGET_STRING_TWO;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
 import static seedu.address.testutil.TypicalExpenses.CHICKEN_RICE;
 
@@ -54,9 +55,9 @@ public class BudgetTest {
         Timestamp refreshDate = Timestamp.createTimestampIfValid("15-11-2019").get();
         Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
         schoolCopy.refresh(refreshDate);
-        assertEquals(Timestamp.createTimestampIfValid("01-11-2019").get(),
+        assertEquals(Timestamp.createTimestampIfValid("01-11-2019 noon").get(),
                 schoolCopy.getStartDate());
-        assertEquals(Timestamp.createTimestampIfValid("01-12-2019").get(),
+        assertEquals(Timestamp.createTimestampIfValid("01-12-2019 noon").get(),
                 schoolCopy.getEndDate());
     }
 
@@ -202,6 +203,7 @@ public class BudgetTest {
 
     @Test
     public void testStringConversion() {
-        assertEquals(SCHOOL_BUDGET_STRING, SCHOOL.toString());
+        assertTrue(SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_ONE)
+                || SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_TWO));
     }
 }

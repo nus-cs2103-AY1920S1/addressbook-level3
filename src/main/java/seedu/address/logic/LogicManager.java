@@ -15,7 +15,6 @@ import seedu.address.logic.parser.MooLahParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyMooLah;
-import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -30,13 +29,11 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final Timekeeper timekeeper;
     private final MooLahParser mooLahParser;
 
-    public LogicManager(Model model, Storage storage, Timekeeper timekeeper) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.timekeeper = timekeeper;
         mooLahParser = new MooLahParser();
     }
 
@@ -59,16 +56,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public List<Event> getTranspiredEvents() {
-        return timekeeper.getTranspiredEvents();
-    }
-
-    @Override
-    public String displayReminders() {
-        return timekeeper.displayReminders();
-    }
-
-    @Override
     public StringBuilder getBasicStatistics() {
         return model.getStatistic();
     }
@@ -81,6 +68,18 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Expense> getFilteredExpenseList() {
         return model.getFilteredExpenseList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
+    @Override
+    public void deleteTranspiredEvents(List<Event> eventsToBeRemoved) {
+        for (Event event : eventsToBeRemoved) {
+            model.deleteEvent(event);
+        }
     }
 
     //@Override

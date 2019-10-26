@@ -23,7 +23,7 @@ public class TypicalExpenses {
             .withDescription("Alices Birthday")
             .withPrice("20")
             .withCategory("Entertainment")
-            .withTimestamp("01-12-2019")
+            .withTimestamp("01-12 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000001")
             .build();
@@ -31,7 +31,7 @@ public class TypicalExpenses {
             .withDescription("Busan Trip")
             .withPrice("1300")
             .withCategory("Transport")
-            .withTimestamp("02-12")
+            .withTimestamp("02-12 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000002")
             .build();
@@ -39,7 +39,7 @@ public class TypicalExpenses {
             .withDescription("Chicken Rice extra Chicken")
             .withPrice("3.50")
             .withCategory("Food")
-            .withTimestamp("03-12-2019")
+            .withTimestamp("03-12 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000003")
             .build();
@@ -47,7 +47,7 @@ public class TypicalExpenses {
             .withDescription("Whiskey and Coke")
             .withPrice("50")
             .withCategory("Food")
-            .withTimestamp("04-12-2019")
+            .withTimestamp("04-12 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000004")
             .build();
@@ -55,7 +55,7 @@ public class TypicalExpenses {
             .withDescription("Marvel Movie Marathon")
             .withPrice("75")
             .withCategory("Entertainment")
-            .withTimestamp("05-12-2019")
+            .withTimestamp("05-12 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000005")
             .build();
@@ -63,7 +63,7 @@ public class TypicalExpenses {
             .withDescription("Clothes for the New Year")
             .withPrice("88.88")
             .withCategory("Shopping")
-            .withTimestamp("06-12-2019")
+            .withTimestamp("06-12 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000006")
             .build();
@@ -71,7 +71,7 @@ public class TypicalExpenses {
             .withDescription("Groceries for September meal preps")
             .withPrice("125.35")
             .withCategory("Utilities")
-            .withTimestamp("07-12-2019")
+            .withTimestamp("07-12 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000007")
             .build();

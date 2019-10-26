@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,12 +73,18 @@ public class TranspiredEventsWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show(Event event) {
-        logger.fine("Notifying users of transpired events.");
-        currentEvent = event;
-        message.setText(
-                String.format(MESSAGE, Timekeeper.calculateDaysOutdated(event.getTimestamp()), event.toString()));
-        getRoot().show();
-        getRoot().centerOnScreen();
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+                logger.fine("Notifying users of transpired events.");
+                currentEvent = event;
+                message.setText(
+                        String.format(MESSAGE,
+                                Timekeeper.calculateDaysOutdated(event.getTimestamp()), event.toString()));
+                getRoot().show();
+                getRoot().centerOnScreen();
+            }
+        });
+
     }
 
     /**

@@ -48,7 +48,7 @@ class JsonAdaptedEvent {
     public JsonAdaptedEvent(Event source) {
         this.description = source.getDescription().fullDescription;
         this.price = source.getPrice().value;
-        this.rawTimestamp = source.getTimestamp().toString();
+        this.rawTimestamp = source.getTimestamp().fullTimestamp.toString();
         this.category = source.getCategory().getCategoryName();
         this.originalUserInput = source.getOriginalUserInput();
     }
@@ -90,7 +90,7 @@ class JsonAdaptedEvent {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
 
-        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampIfValid(rawTimestamp);
+        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampFromStorage(rawTimestamp);
         if (potentialTimestamp.isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }

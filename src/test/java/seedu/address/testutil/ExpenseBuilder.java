@@ -15,8 +15,8 @@ public class ExpenseBuilder {
     public static final String DEFAULT_DESCRIPTION = "Alices Birthday";
     public static final String DEFAULT_PRICE = "20";
     public static final String DEFAULT_UNIQUE_IDENTIFIER = "Expense@00000000-0000-0000-0000-000000000001";
-    public static final String DEFAULT_CATEGORY = "healthcare";
-    public static final String DEFAULT_TIMESTAMP = "01-12-2019";
+    public static final String DEFAULT_CATEGORY = "Healthcare";
+    public static final String DEFAULT_TIMESTAMP = "2019-12-01T12:00";
     public static final String DEFAULT_BUDGET = "Default Budget";
 
     private Description description;

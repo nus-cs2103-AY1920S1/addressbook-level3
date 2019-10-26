@@ -54,7 +54,7 @@ class JsonAdaptedExpense {
         price = source.getPrice().value;
         category = source.getCategory().getCategoryName();
         uniqueIdentifier = source.getUniqueIdentifier().value;
-        rawTimestamp = source.getTimestamp().toString();
+        rawTimestamp = source.getTimestamp().fullTimestamp.toString();
         budgetName = source.getBudgetName().fullDescription;
     }
 
@@ -106,7 +106,7 @@ class JsonAdaptedExpense {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
 
-        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampIfValid(rawTimestamp);
+        Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampFromStorage(rawTimestamp);
         if (potentialTimestamp.isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }

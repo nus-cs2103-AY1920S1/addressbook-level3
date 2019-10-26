@@ -1,13 +1,16 @@
 package seedu.address.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.logic.Logic;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Reminder;
@@ -17,20 +20,42 @@ import seedu.address.model.expense.Timestamp;
  * Handles all comparisons between system time and the time fields of Expenses, Events and Budgets.
  */
 public class Timekeeper {
-    public static final Timestamp SYSTEM_DATE = new Timestamp(LocalDate.now());
     // public static final Timestamp SYSTEM_DATE = Timestamp.createTimestampIfValid("11-11").get();
     public static final long LOWER_THRESHOLD = 0;
     public static final long UPPER_THRESHOLD = 7;
-    private Model model;
+    private static Timestamp systemTime = new Timestamp(LocalDateTime.now());
+    private Logic logic;
     private ObservableList<Event> events;
     private List<Reminder> reminders = new ArrayList<>();
     private ObservableList<Budget> budgets;
 
-    public Timekeeper(Model model) {
-        this.model = model;
-        events = model.getFilteredEventList();
-        budgets = model.getMooLah().getBudgetList();
-        getReminders();
+    public Timekeeper(Logic logic) {
+        this.logic = logic;
+        events = logic.getFilteredEventList();
+        budgets = logic.getMooLah().getBudgetList();
+    }
+
+    /**
+     * Checks the system's time and updates the app's system time field to it.
+     */
+    public void updateTime() {
+        systemTime = new Timestamp(LocalDateTime.now());
+        refreshBudgets();
+    }
+
+    /**
+     * Converts the Date object returned by Natty into a LocalDateTime object with 0 in both its
+     * seconds and nanoseconds field.
+     *
+     * @param dateToConvert The Date object returned by Natty's parser.
+     * @return The LocalDateTime object to be wrapped in a Timestamp.
+     */
+    public static LocalDateTime convertToLocalDateTime(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+                .withSecond(0)
+                .withNano(0);
     }
 
     /**
@@ -50,31 +75,24 @@ public class Timekeeper {
             }
         }
 
-        for (Event event : eventsToBeRemoved) {
-            model.deleteEvent(event);
-        }
+        logic.deleteTranspiredEvents(eventsToBeRemoved);
 
         return eventsToNotify;
     }
 
     /**
-     * Creates Reminders of upcoming Events.
+     * Creates then formats a list of reminders into a readable format.
+     *
+     * @return The String of reminders.
      */
-    public void getReminders() {
+    public String displayReminders() {
         for (Event event : events) {
             Optional<Reminder> potentialReminder = createReminderIfValid(event);
             if (potentialReminder.isPresent()) {
                 reminders.add(potentialReminder.get());
             }
         }
-    }
 
-    /**
-     * Formats the list of reminders into a readable format.
-     *
-     * @return The String of reminders.
-     */
-    public String displayReminders() {
         StringBuilder remindersMessage = new StringBuilder("These are your upcoming events:");
         for (Reminder reminder: reminders) {
             remindersMessage.append("\n" + reminder.toString());
@@ -89,8 +107,8 @@ public class Timekeeper {
      */
     public void refreshBudgets() {
         for (Budget budget : budgets) {
-            if (budget.expired(SYSTEM_DATE)) {
-                budget.refresh(SYSTEM_DATE);
+            if (budget.expired(systemTime)) {
+                budget.refresh(systemTime);
             }
         }
     }
@@ -115,12 +133,12 @@ public class Timekeeper {
      * @return How many days outdated the given timestamp is. Can be negative.
      */
     public static long calculateDaysOutdated(Timestamp timestamp) {
-        long daysOutdated = -SYSTEM_DATE.getTimestamp().until(timestamp.getTimestamp(), ChronoUnit.DAYS);
+        long daysOutdated = -systemTime.getFullTimestamp().until(timestamp.getFullTimestamp(), ChronoUnit.DAYS);
         return daysOutdated;
     }
 
     private static long calculateDaysRemaining(Timestamp timestamp) {
-        long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp.getTimestamp(), ChronoUnit.DAYS);
+        long daysLeft = systemTime.getFullTimestamp().until(timestamp.getFullTimestamp(), ChronoUnit.DAYS);
         return daysLeft;
     }
 
@@ -135,6 +153,6 @@ public class Timekeeper {
     }
 
     public static boolean isFutureTimestamp(Timestamp timestamp) {
-        return timestamp.isAfter(SYSTEM_DATE);
+        return timestamp.isAfter(systemTime);
     }
 }

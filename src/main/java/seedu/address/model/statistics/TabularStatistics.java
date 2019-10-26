@@ -59,8 +59,8 @@ public class TabularStatistics extends Statistics {
         requireNonNull(secondStartDate);
         requireNonNull(period);
 
-        Timestamp firstEndDate = new Timestamp(firstStartDate.timestamp.plus(period));
-        Timestamp secondEndDate = new Timestamp(secondStartDate.timestamp.plus(period));
+        Timestamp firstEndDate = new Timestamp(firstStartDate.getFullTimestamp().plus(period));
+        Timestamp secondEndDate = new Timestamp(secondStartDate.getFullTimestamp().plus(period));
 
         TabularStatistics statistics = new TabularStatistics(expenses, validCategories,
                 firstStartDate, firstEndDate,
