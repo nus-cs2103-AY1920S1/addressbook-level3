@@ -429,7 +429,8 @@ Current File Compatibilities: Excel(.xlsx)
 
 A generic data parser of external files is used to generate HashMap of student’s data as specified by the input file. This processed data is passed to a Statistics Model which performs statistical analysis before passing back to the UI for rendering.
 
-(Insert class diagram image)
+.Class Diagram for Statistics Feature
+image::DeveloperGuideResources/StatisticsClassDiagram.png[]
 
 The following is an example usage scenario where the Actor/User asks Njoy for a statistics report.
 
