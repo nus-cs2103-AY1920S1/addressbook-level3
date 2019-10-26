@@ -229,7 +229,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public int[] getStats() {
+        public int[] getTestStats() {
             throw new AssertionError("This method should not be called.");
         }
 
