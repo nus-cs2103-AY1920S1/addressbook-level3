@@ -19,10 +19,6 @@ import com.dukeacademy.model.question.QuestionBank;
  * A class to access QuestionBank data stored as a json file on the hard disk.
  */
 public class JsonQuestionBankStorage implements QuestionBankStorage {
-
-    private static final Logger logger = LogsCenter.getLogger(
-        JsonQuestionBankStorage.class);
-
     private Path filePath;
 
     public JsonQuestionBankStorage(Path filePath) {

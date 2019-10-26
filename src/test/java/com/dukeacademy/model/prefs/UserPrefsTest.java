@@ -12,7 +12,7 @@ public class UserPrefsTest {
     public static Path tempFolder;
 
     @Test
-    void constructor() {
+    void testConstructorAndGetters() {
         UserPrefs prefs = new UserPrefs(tempFolder);
         assertEquals(tempFolder, prefs.getAppDirectoryPath());
         assertEquals(tempFolder.resolve("questionBank.json"), prefs.getQuestionBankFilePath());

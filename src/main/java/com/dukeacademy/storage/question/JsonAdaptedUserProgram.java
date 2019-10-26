@@ -8,23 +8,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Json friendly representation of the user program model for read and write by the Jackson library.
  */
 public class JsonAdaptedUserProgram {
-    private final String className;
+    private final String canonicalName;
     private final String sourceCode;
 
     @JsonCreator
-    public JsonAdaptedUserProgram(@JsonProperty("className") String className,
+    public JsonAdaptedUserProgram(@JsonProperty("canonicalName") String canonicalName,
                                   @JsonProperty("sourceCode") String sourceCode) {
-        this.className = className;
+        this.canonicalName = canonicalName;
         this.sourceCode = sourceCode;
     }
 
     public JsonAdaptedUserProgram(UserProgram userProgram) {
-        this.className = userProgram.getCanonicalName();
+        this.canonicalName = userProgram.getCanonicalName();
         this.sourceCode = userProgram.getSourceCode();
     }
 
     public UserProgram toModel() {
-        return new UserProgram(className, sourceCode);
+        return new UserProgram(canonicalName, sourceCode);
     }
 }
 

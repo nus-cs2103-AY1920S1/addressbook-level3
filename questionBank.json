@@ -13,7 +13,7 @@
         "expectedResult": "102"
       }],
     "userProgram" : {
-      "className": "Adder",
+      "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
@@ -30,7 +30,7 @@
         "expectedResult": "False"
       }],
     "userProgram" : {
-      "className": "Sudoku",
+      "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
@@ -47,7 +47,7 @@
         "expectedResult": "False"
       }],
     "userProgram" : {
-      "className": "Palindrome",
+      "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
@@ -64,7 +64,7 @@
         "expectedResult": "1232"
       }],
     "userProgram" : {
-      "className": "NodePairs",
+      "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }, {
@@ -81,7 +81,7 @@
         "expectedResult": "1 2 3 4"
       }],
     "userProgram" : {
-      "className": "Merge",
+      "canonicalName": "Main",
       "sourceCode": "public class Main {\n\tpublic static void main(String[] args) {\n\t}\n}"
     }
   }]
