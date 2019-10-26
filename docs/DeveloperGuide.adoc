@@ -112,13 +112,65 @@ The `UI` component:
 
 [[Design-Logic]]
 === Logic component
+This section will show the structures of the Logic Component of the different tabs.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 The above diagram shows the general design of the Logic component within each package. Further details on the
-implementation of the Parser and Command can be found below in Section 3: Implementation.
+implementation of the Parser and Command can be found below in <<RTLogic, Section 2.3.1. Home and Reimbursement Tab>>,
+<<ICLogic, Section 2.3.2. Inventory and Casheir Tab>> and <<PLogic, Section 2.3.3. Members Tab>> below.
+
+[[RTLogic]]
+==== Home and Reimbursement Tab
+This section will show the general structure of the Logic Component of the Home Tab and Reimbursement Tab.
+Given below is a general Class Diagram showing the structure of the Logic Component for these 2 tabs.
+
+.Structure of Logic Component for Transaction and Reimbursement Tab.
+image::LogicForR&T.png[]
+
+[NOTE]
+The `XYZTabParser` represents the `TransactionTabParser` for the Home Tab and `ReimbursementTabParser` for the Reimbursement
+Tab.
+
+The parsers represented by the `ABCParser` and `XYZParser`:
+`ABCParser`:
+
+* Transaction Tab:
+** `EditCommandParser`
+** `AddCommandParser`
+** `DeleteCommandParser`
+
+* Reimbursement Tab:
+** `FindCommandParser`
+** `DoneCommandParser`
+** `DeadlineCommandParser`
+
+`XYZParser`
+
+* Transaction Tab:
+** `FindCommandParser`
+** `SortCommandParser`
+
+* Reimbursement Tab:
+** `BackCommandParser`
+** `ExitCommandParser`
+
+
+[[ICLogic]]
+==== Inventory and Cashier Tab
+To be filled in by the respective members :)
+
+[[PLogic]]
+==== Members Tab
+This section will show the general structure of the Logic Component of the Members Tab. This is integrated from the
+existing `AddressBook`. Given below is a general Class Diagram showing the structure of the Logic Component for these 2 tabs.
+
+.Structure of Logic Component for Members Tab.
+image::LogicForAB.png[]
+
+Generally, the following steps are taken when a user inputs a command into the `CommandBox`.
 
 . `Logic` uses the tab's `Parser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
