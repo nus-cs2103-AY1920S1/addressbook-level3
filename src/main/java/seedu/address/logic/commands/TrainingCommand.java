@@ -8,7 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
+
 import seedu.address.commons.core.index.Index;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -28,15 +30,15 @@ public class TrainingCommand extends Command {
 
     public static final String TRAINING_ADD_SUCCESS = "Training successfully added.";
 
-    private Date date;
+    private String date;
     private List<Index> indexList;
 
     public TrainingCommand(List<Index> indexList) {
-        this.date = new Date();
+        this.date = new Date().toString();
         this.indexList = indexList;
     }
 
-    public TrainingCommand(Date date, List<Index> indexList) {
+    public TrainingCommand(String date, List<Index> indexList) {
         this.date = date;
         this.indexList = indexList;
     }
@@ -48,6 +50,7 @@ public class TrainingCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         // Check if indexes are valid
+
         for (Index index: indexList) {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -58,6 +61,7 @@ public class TrainingCommand extends Command {
 
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();
         // Set all people in the address book to did not attend
+
         for (Person person: allPeople) {
             trainingAttendance.put(person, false);
         }
