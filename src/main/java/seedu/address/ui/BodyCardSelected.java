@@ -87,7 +87,7 @@ public class BodyCardSelected extends UiPart<Region> {
     }
 
     private void setSelectedBodyDetails(Body newValue) {
-        selectedBodyName.setText(newValue.getName().fullName);
+        selectedBodyName.setText(newValue.getName().toString());
         selectedBodyId.setText(newValue.getIdNum().toString());
         selectedBodySex.setText(newValue.getSex().toString());
         selectedBodyDateOfAdmission.setText(newValue.getDateOfAdmission().toString());
