@@ -3,9 +3,9 @@ package seedu.address.logic.commands.expense;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class EditExpenseDescriptorTest {
         assertFalse(DESC_CHICKEN.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_CHICKEN).withCategory(VALID_TAG_CLAIMABLE).build();
+        editedAmy = new EditExpenseDescriptorBuilder(DESC_CHICKEN).withCategory(VALID_CATEGORY_FOOD).build();
         assertFalse(DESC_CHICKEN.equals(editedAmy));
     }
 }

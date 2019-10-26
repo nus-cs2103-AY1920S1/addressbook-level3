@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.ui.panel.PanelName;
 
 /**
@@ -57,8 +58,9 @@ public class StatsCompareCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        String statsResult = model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, period);
-        return new CommandResult(statsResult, false, false, true, false, PanelName.CURRENT);
+        requireNonNull(model);
+        Statistics statistics = model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, period);
+        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, false, PanelName.CURRENT);
     }
 
     @Override

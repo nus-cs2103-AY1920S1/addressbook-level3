@@ -3,7 +3,7 @@
   "expenses" : [ {
     "description" : "Alices Birthday",
     "price" : "20",
-    "category" : "AnniversaryAndHoliday",
+    "category" : "Entertainment",
     "timestamp" : "01-12-2019",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000001"
@@ -24,7 +24,7 @@
   }, {
     "description" : "Whiskey and Coke",
     "price" : "50",
-    "category" : "AnniversaryAndHoliday",
+    "category" : "Food",
     "timestamp" : "04-12-2019",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000004"
@@ -38,14 +38,14 @@
   }, {
     "description" : "Clothes for the New Year",
     "price" : "88.88",
-    "category" : "AnniversaryAndHoliday",
+    "category" : "Shopping",
     "timestamp" : "06-12-2019",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000006"
   }, {
     "description" : "Groceries for September meal preps",
     "price" : "125.35",
-    "category" : "AnniversaryAndHoliday",
+    "category" : "utilities",
     "timestamp" : "07-12-2019",
     "budgetName" : "Default Budget",
     "uniqueIdentifier" : "Expense@00000000-0000-0000-0000-000000000007"

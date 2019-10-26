@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DISCOUNTED;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public class TypicalExpenses {
     public static final Expense ANNIVERSARY = new ExpenseBuilder()
             .withDescription("Alices Birthday")
             .withPrice("20")
-            .withCategory("AnniversaryAndHoliday")
+            .withCategory("Entertainment")
             .withTimestamp("01-12-2019")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000001")
@@ -46,7 +46,7 @@ public class TypicalExpenses {
     public static final Expense DRINKS = new ExpenseBuilder()
             .withDescription("Whiskey and Coke")
             .withPrice("50")
-            .withCategory("AnniversaryAndHoliday")
+            .withCategory("Food")
             .withTimestamp("04-12-2019")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000004")
@@ -62,6 +62,7 @@ public class TypicalExpenses {
     public static final Expense FASHION = new ExpenseBuilder()
             .withDescription("Clothes for the New Year")
             .withPrice("88.88")
+            .withCategory("Shopping")
             .withTimestamp("06-12-2019")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000006")
@@ -69,6 +70,7 @@ public class TypicalExpenses {
     public static final Expense GROCERIES = new ExpenseBuilder()
             .withDescription("Groceries for September meal preps")
             .withPrice("125.35")
+            .withCategory("Utilities")
             .withTimestamp("07-12-2019")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000007")
@@ -78,7 +80,7 @@ public class TypicalExpenses {
     public static final Expense HALLOWEEN = new ExpenseBuilder()
             .withDescription("HalloweenHorrorNight")
             .withPrice("60")
-            .withCategory("AnniversaryAndHoliday")
+            .withCategory("Entertainment")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000008").build();
     public static final Expense INVESTMENT = new ExpenseBuilder()
             .withDescription("Property investment")
@@ -89,12 +91,12 @@ public class TypicalExpenses {
     public static final Expense CHICKEN = new ExpenseBuilder()
             .withDescription(VALID_DESCRIPTION_CHICKEN)
             .withPrice(VALID_PRICE_CHICKEN)
-            .withCategory(VALID_TAG_DISCOUNTED)
+            .withCategory(VALID_CATEGORY_TRANSPORT)
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-00000000000a").build();
     public static final Expense TRANSPORT = new ExpenseBuilder()
             .withDescription(VALID_DESCRIPTION_TRANSPORT)
             .withPrice(VALID_PRICE_TRANSPORT)
-            .withCategory(VALID_TAG_CLAIMABLE)
+            .withCategory(VALID_CATEGORY_FOOD)
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-00000000000b").build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

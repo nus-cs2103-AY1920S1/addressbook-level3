@@ -3,9 +3,10 @@ package seedu.address.logic.commands.expense;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
+
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
@@ -60,12 +61,12 @@ public class EditCommandTest {
         Expense editedExpense = expenseInList
                 .withDescription(VALID_DESCRIPTION_TRANSPORT)
                 .withPrice(VALID_PRICE_TRANSPORT)
-                .withCategory(VALID_TAG_CLAIMABLE).build();
+                .withCategory(VALID_CATEGORY_FOOD).build();
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_TRANSPORT)
                 .withPrice(VALID_PRICE_TRANSPORT)
-                .withCategory(VALID_TAG_CLAIMABLE).build();
+                .withCategory(VALID_CATEGORY_FOOD).build();
         EditCommand editCommand = new EditCommand(indexLastExpense, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);

@@ -5,6 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.statistics.PieChartStatistics;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.TableEntry;
+import seedu.address.model.statistics.TabularStatistics;
 import seedu.address.ui.panel.PanelName;
 
 /**
@@ -26,45 +30,59 @@ public class CommandResult {
     /** The panel to show the in the application. */
     private PanelName panelName;
 
-    private final boolean statistic;
+    private Statistics statistics;
 
-    private final List<String> names;
+    private List<String> names;
 
-    private final List<Double> percentages;
+    private List<Double> percentages;
 
-    private final String title;
+    private String title;
 
-    //currently used only by basicStats, to be merged later on
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic,
-                         boolean forcePanelChange, PanelName panelName,
-                         List<String> names, List<Double> percentages, String title) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
+    private List<TableEntry> differenceTable;
+
+    public CommandResult(String feedbackToUser, Statistics statistics, boolean showHelp, boolean exit,
+                         boolean forcePanelChange, PanelName panelName) {
+
+        requireNonNull(feedbackToUser);
+
+        this.feedbackToUser = feedbackToUser;
+        this.statistics = statistics;
         this.showHelp = showHelp;
         this.exit = exit;
-        this.statistic = statistic;
-        this.names = names;
-        this.percentages = percentages;
-        this.title = title;
         this.forcePanelChange = forcePanelChange;
         this.panelName = panelName;
 
+        if (statistics == null) {
+            return;
+        } else if (statistics instanceof PieChartStatistics) {
+            PieChartStatistics pieChart = (PieChartStatistics) statistics;
+            this.names = pieChart.getFormattedCategories();
+            this.percentages = pieChart.getFormattedPercentages();
+        } else if (statistics instanceof TabularStatistics) {
+            TabularStatistics table = (TabularStatistics) statistics;
+            this.differenceTable = table.getDifferenceTable();
+        }
+        this.title = statistics.getTitle();
+
+
     }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified fields. Meant for statsCommand
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic,
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                          boolean forcePanelChange, PanelName panelName) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
+        requireNonNull(feedbackToUser);
+
+        this.feedbackToUser = feedbackToUser;
         this.showHelp = showHelp;
         this.exit = exit;
-        this.statistic = statistic;
         this.forcePanelChange = forcePanelChange;
         this.panelName = panelName;
         this.names = null;
         this.percentages = null;
         this.title = null;
-
     }
 
 
@@ -73,7 +91,7 @@ public class CommandResult {
      * {@code panelName}, and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, PanelName panelName) {
-        this(feedbackToUser, false, false, false, true, panelName);
+        this(feedbackToUser, false, false, true, panelName);
     }
 
     /**
@@ -81,18 +99,17 @@ public class CommandResult {
      * and other fields set to their default value. Meant for most MooLah commands
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, PanelName.CURRENT);
+        this(feedbackToUser, false, false, false, PanelName.CURRENT);
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value. Meant for Help and Bye commands.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistic) {
-        this(feedbackToUser, showHelp, exit, statistic, false, PanelName.CURRENT, null, null, null);
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, false, PanelName.CURRENT);
     }
 
-    //idk if this works
 
 
     public String getFeedbackToUser() {
@@ -108,9 +125,12 @@ public class CommandResult {
     }
 
     public boolean isStatistic() {
-        return statistic;
+        return statistics != null;
     }
 
+    public Statistics getStatistics() {
+        return statistics;
+    }
 
     public List<String> getNames() {
         return names;
@@ -122,6 +142,10 @@ public class CommandResult {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<TableEntry> getDifferenceTable() {
+        return differenceTable;
     }
 
     public boolean isViewRequest() {

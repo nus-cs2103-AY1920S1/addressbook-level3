@@ -20,8 +20,8 @@ public class ParserUtilTest {
 
     private static final String VALID_DESCRIPTION = "Johnny Walker";
     private static final String VALID_PRICE = "12.3456";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_CATEGORY_1 = "utilities";
+    //private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -29,7 +29,7 @@ public class ParserUtilTest {
     private static final String VALID_ALIAS_INPUT_1 = "input";
     private static final String INVALID_ALIAS_NAME_1 = "";
     private static final String INVALID_ALIAS_NAME_2 = "@#*j";
-    private static final String INVALID_ALIAS_INPUT_1 = "";
+    //private static final String INVALID_ALIAS_INPUT_1 = "";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -109,14 +109,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseCategory_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Category expectedCategory = new Category(VALID_TAG_1);
-        assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_TAG_1));
+        Category expectedCategory = new Category(VALID_CATEGORY_1);
+        assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_CATEGORY_1));
     }
 
     @Test
     public void parseCategory_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Category expectedCategory = new Category(VALID_TAG_1);
+        String tagWithWhitespace = WHITESPACE + VALID_CATEGORY_1 + WHITESPACE;
+        Category expectedCategory = new Category(VALID_CATEGORY_1);
         assertEquals(expectedCategory, ParserUtil.parseCategory(tagWithWhitespace));
     }
 

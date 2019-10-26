@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -31,6 +33,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Event;
+import seedu.address.model.statistics.PieChartStatistics;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.TabularStatistics;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
@@ -235,8 +240,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void displayStats(CommandResult commandResult) {
-        this.statsWindow = new StatsWindow(commandResult.getNames(),
-                commandResult.getPercentages(), commandResult.getTitle());
+        Statistics currentStats = commandResult.getStatistics();
+        if (currentStats instanceof PieChartStatistics) {
+            this.statsWindow = new StatsWindow(commandResult.getNames(),
+                    commandResult.getPercentages(), commandResult.getTitle());
+        } else if (currentStats instanceof TabularStatistics) {
+            this.statsWindow = new StatsWindow(commandResult.getTitle(), commandResult.getDifferenceTable());
+        }
+        requireNonNull(statsWindow);
         if (!statsWindow.isShowing()) {
             statsWindow.show();
         } else {

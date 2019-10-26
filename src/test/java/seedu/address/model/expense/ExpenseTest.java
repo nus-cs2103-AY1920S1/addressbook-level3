@@ -2,12 +2,13 @@ package seedu.address.model.expense;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DISCOUNTED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIQUE_IDENTIFIER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
@@ -54,14 +55,14 @@ public class ExpenseTest {
 
         // different category -> return true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withCategory(VALID_TAG_CLAIMABLE).build();
+                .withCategory(VALID_CATEGORY_FOOD).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
         //different price, category, and description -> returns true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
                 .withPrice(VALID_PRICE_CHICKEN)
                 .withDescription(VALID_DESCRIPTION_CHICKEN)
-                .withCategory(VALID_TAG_DISCOUNTED).build();
+                .withCategory(VALID_CATEGORY_TRANSPORT).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
         // same everything except different unique identifier -> returns false
@@ -97,7 +98,7 @@ public class ExpenseTest {
         assertFalse(ANNIVERSARY.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_TAG_CLAIMABLE).build();
+        editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_CATEGORY_FOOD).build();
         assertFalse(ANNIVERSARY.equals(editedAlice));
     }
 }

@@ -35,6 +35,8 @@ import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Statistics;
+
 
 
 public class AddBudgetCommandTest {
@@ -304,7 +306,7 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
+        public Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
             throw new AssertionError("This method should not be called.");
         }
 

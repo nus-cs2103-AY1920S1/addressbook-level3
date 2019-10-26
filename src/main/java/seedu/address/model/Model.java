@@ -15,6 +15,7 @@ import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * The API of the Model component.
@@ -215,7 +216,7 @@ public interface Model {
 
     void deleteEvent(Event target);
 
-    String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
+    Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
 
     boolean hasStatistic();
 
