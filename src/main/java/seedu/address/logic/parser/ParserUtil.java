@@ -56,11 +56,9 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code featureName} into a {@code Feature} and returns it. Leading and trailing
-     * whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified feature name is invalid (not calendar / attendance
-     * / performance).
+     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and trailing
+     * whitespaces will be trimmed.
+     * @throws ParseException if the specified date is invalid (not length of 6 or 8).
      */
     public static AthletickDate parseDate(String date) throws ParseException {
         String trimmedDate = date.trim();

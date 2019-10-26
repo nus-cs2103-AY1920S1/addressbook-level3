@@ -6,6 +6,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
 
+/**
+ * Allows user to navigate the date of the calendar and view training and performance details on a
+ * specified date.
+ */
 public class CalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "calendar";

@@ -16,6 +16,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
      * and returns a ViewCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public ViewCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {

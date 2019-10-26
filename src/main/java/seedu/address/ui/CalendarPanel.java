@@ -346,6 +346,9 @@ public class CalendarPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Checks and adds dot indicator to calendar for dates with training or performance entries.
+     */
     private void populateTrainingData() {
         // Get attendance
             // get vbox and add image view aligned to top left
