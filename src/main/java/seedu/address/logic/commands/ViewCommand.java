@@ -20,7 +20,6 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_SUCCESS_1 = "Viewing your calendar";
     public static final String MESSAGE_SUCCESS_2 = "Viewing your team's attendance";
     public static final String MESSAGE_SUCCESS_3 = "Viewing your team's performance";
-
     public static final String MESSAGE_INVALID_FEATURE = "You have provided an invalid feature.";
     private final Feature feature;
 
@@ -41,5 +40,12 @@ public class ViewCommand extends Command {
         default:
             throw new CommandException(MESSAGE_INVALID_FEATURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewCommand // instanceof handles nulls
+                && feature.equals(((ViewCommand) other).feature));
     }
 }

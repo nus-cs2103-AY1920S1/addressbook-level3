@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.feature.Feature;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -52,6 +53,22 @@ public class ParserUtil {
             throw new ParseException(Feature.MESSAGE_CONSTRAINTS);
         }
         return new Feature(featureName);
+    }
+
+    /**
+     * Parses {@code featureName} into a {@code Feature} and returns it. Leading and trailing
+     * whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified feature name is invalid (not calendar / attendance
+     * / performance).
+     */
+    public static AthletickDate parseDate(String date) throws ParseException {
+        String trimmedDate = date.trim();
+        if (trimmedDate.length() == 6 || trimmedDate.length() == 8) {
+            return new AthletickDate(date);
+        } else {
+            throw new ParseException(AthletickDate.MESSAGE_CONSTRAINTS);
+        }
     }
 
     /**

@@ -18,7 +18,7 @@ public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose tags match the specified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who has tags matching the searched "
             + "keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " friends";

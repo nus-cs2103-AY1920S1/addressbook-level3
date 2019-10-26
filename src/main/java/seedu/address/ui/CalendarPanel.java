@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import seedu.address.model.date.AthletickDate;
 
 /**
  * UI component that is displayed when the command to view calendar is issued.
@@ -66,6 +67,16 @@ public class CalendarPanel extends UiPart<Region> {
         initialiseSelectedDate(0);
     }
 
+    public CalendarPanel(AthletickDate date) {
+        super(FXML);
+        setButtonImage();
+        calendar = Calendar.getInstance();
+        retrieveCurrentDate();
+        setCurrentDateTitle();
+        retrieveProvidedDate(date);
+        initialiseProvidedDate();
+    }
+
     private void setButtonImage() {
         ImageView leftArrow = new ImageView(leftIcon);
         leftArrow.setFitHeight(32);
@@ -99,6 +110,12 @@ public class CalendarPanel extends UiPart<Region> {
         currDayAndDate.setText(day + ", " + currMonth + " " + dayOfMonth);
     }
 
+    private void retrieveProvidedDate(AthletickDate date) {
+        month = date.getMonth() - 1;
+        year = date.getYear();
+        calendar.set(year, month, 1);
+    }
+
     /**
      * Sets title of selected date and fills up the calendar grid with the appropriate days in
      * the month.
@@ -108,6 +125,11 @@ public class CalendarPanel extends UiPart<Region> {
      */
     private void initialiseSelectedDate(int monthChange) {
         updateDateVariables(monthChange);
+        setSelectedDateTitle();
+        fillUpDays();
+    }
+
+    private void initialiseProvidedDate() {
         setSelectedDateTitle();
         fillUpDays();
     }
