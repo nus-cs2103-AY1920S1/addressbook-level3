@@ -20,6 +20,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
+import seedu.address.logic.commands.exceptions.DuplicatePolicyWithoutMergeException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Coverage;
