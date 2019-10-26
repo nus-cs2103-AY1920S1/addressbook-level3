@@ -140,7 +140,10 @@ public interface Model {
 
     boolean hasWordBank(String name);
 
-    DifficultyEnum getCurrentGameDifficulty();
+    WordBank getWordBankFromName(String name);
+
+
+        DifficultyEnum getCurrentGameDifficulty();
 
     /**
      * Returns the app settings

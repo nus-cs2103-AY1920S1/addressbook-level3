@@ -8,6 +8,8 @@ import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WORD_BANK_NAME;
+
 /**
  * Selects a word bank.
  */
@@ -23,7 +25,7 @@ public class BankCommand extends HomeCommand {
             + " WORDBANK \n"
             + "Eg: " + COMMAND_WORD + " sample";
 
-    private String name = "";
+    private String name;
 
     public BankCommand(String name) {
         this.name = name;
@@ -31,11 +33,10 @@ public class BankCommand extends HomeCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        WordBankList wbl = model.getWordBankList();
-        if (wbl.getWordBankFromName(this.name).equals("sample")) {
-            throw new CommandException("Work bank does not exist");
+        if (!model.hasWordBank(name)) {
+            throw new CommandException(MESSAGE_INVALID_WORD_BANK_NAME);
         }
-        model.setWordBank(wbl.getWordBankFromName(name));
+        model.setWordBank(model.getWordBankFromName(name));
 
         WordBankStatisticsList wbStatsList = model.getWordBankStatisticsList();
         WordBankStatistics wbStats = wbStatsList.getWordBankStatistics(name);

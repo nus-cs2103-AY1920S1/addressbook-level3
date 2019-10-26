@@ -255,6 +255,11 @@ public class ModelManager implements Model {
         return wordBankList.hasWordBankName(name);
     }
 
+    @Override
+    public WordBank getWordBankFromName(String name) {
+        return wordBankList.getWordBankFromName(name);
+    }
+
     //=========== Filtered Card List Accessors =============================================================
 
     /**
