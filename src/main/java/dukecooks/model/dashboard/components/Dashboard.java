@@ -16,14 +16,16 @@ public class Dashboard {
 
     // Data fields
     private final TaskDate taskDate;
+    private final TaskStatus taskCheck;
 
     /**
      * Every field must be present and not null.
      */
-    public Dashboard(DashboardName dashboardName, TaskDate taskDate) {
-        requireAllNonNull(dashboardName, taskDate);
+    public Dashboard(DashboardName dashboardName, TaskDate taskDate, TaskStatus taskCheck) {
+        requireAllNonNull(dashboardName, taskDate, taskCheck);
         this.dashboardName = dashboardName;
         this.taskDate = taskDate;
+        this.taskCheck = taskCheck;
     }
 
     public DashboardName getDashboardName() {
@@ -32,6 +34,10 @@ public class Dashboard {
 
     public TaskDate getTaskDate() {
         return taskDate;
+    }
+
+    public TaskStatus getTaskStatus() {
+        return taskCheck;
     }
 
     public LocalDate getLocalDate() {
@@ -83,7 +89,8 @@ public class Dashboard {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDashboardName())
-                .append(" Date: ").append(getTaskDate());
+                .append(" Date: ").append(getTaskDate())
+                .append("Status: ").append(getTaskStatus());
         return builder.toString();
     }
 

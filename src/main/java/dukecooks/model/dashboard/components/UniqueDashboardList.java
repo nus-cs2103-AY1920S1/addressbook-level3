@@ -32,7 +32,7 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Sorts the list by date
+     * Sorts the list by date.
      */
     public void sortDashboard(List<Dashboard> l) {
         Comparator<Dashboard> comparator = new Comparator<Dashboard>() {
@@ -42,6 +42,19 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
             }
         };
         Collections.sort(l, comparator);
+    }
+
+    /**
+     * Counts the number of completed task and returns true if 5 new tasks are completed.
+     */
+    public boolean doneFive(List<Dashboard> l) {
+        l.stream().filter(i -> i.getTaskStatus().getNotDoneStatus());
+        int size = l.size();
+        if (size % 5 == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -83,6 +96,21 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
         }
 
         internalList.set(index, editedDashboard);
+        sortDashboard(internalList);
+    }
+
+    /**
+     * Updates the list with the task marked as complete.
+     */
+    public void done(Dashboard key) {
+        requireAllNonNull(key);
+
+        int index = internalList.indexOf(key);
+        if (index == -1) {
+            throw new DashboardNotFoundException();
+        }
+
+        internalList.set(index, key);
         sortDashboard(internalList);
     }
 

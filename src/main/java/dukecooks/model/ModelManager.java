@@ -3,6 +3,7 @@ package dukecooks.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -162,6 +163,27 @@ public class ModelManager implements Model {
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
+    public ModelManager(ReadOnlyDashboard dashboardRecord, ReadOnlyUserPrefs userPrefs) {
+        super();
+        CollectionUtil.requireAllNonNull(dashboardRecord, userPrefs);
+
+        logger.fine("Initializing with Dashboard Record: " + dashboardRecord
+                + "and user prefs " + userPrefs);
+
+        this.dashboard = new DashboardRecords(dashboardRecord);
+        this.userProfile = defaultProfile;
+        this.healthRecords = defaultHealthRecords;
+        this.recipeBook = defaultRecipeBook;
+        this.workoutPlanner = defaultWorkoutPlanner;
+        this.diaryRecords = defaultDiaryRecords;
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+    }
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -445,6 +467,15 @@ public class ModelManager implements Model {
         dashboard.setDashboard(target, editedDashboard);
     }
 
+    @Override
+    public void doneDashboard(Dashboard target) {
+        dashboard.doneDashboard(target);
+    }
+
+    @Override
+    public boolean checkForPrize(List<Dashboard> l) {
+        return dashboard.checkDashboard(l);
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -559,6 +590,12 @@ public class ModelManager implements Model {
         filteredDiaries.setPredicate(predicate);
     }
 
+    //=========== Filtered Dashboard List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Dashboard} backed by the internal list of
+     * {@code versionedDashboard}
+     */
     @Override
     public ObservableList<Dashboard> getFilteredDashboardList() {
         return filteredDashboard;

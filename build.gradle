@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'dukecooks.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -23,6 +23,9 @@ targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    repositories {
+        jcenter()
+    }
 }
 
 checkstyle {
@@ -66,7 +69,10 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
     compile 'org.apache.commons:commons-math3:3.6.1'
+    compileClasspath('org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2')
 }
+
+apply plugin: 'org.asciidoctor.convert'
 
 shadowJar {
     archiveName = 'dukecooks.jar'

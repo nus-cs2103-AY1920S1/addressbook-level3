@@ -7,6 +7,7 @@ import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
+import dukecooks.model.dashboard.components.TaskStatus;
 
 /**
  * Jackson-friendly version of {@link Dashboard}.
@@ -17,14 +18,17 @@ class JsonAdaptedDashboard {
 
     private final String name;
     private final String taskDate;
+    private final String isDone;
 
     /**
      * Constructs a {@code JsonAdaptedDashboard} with the given details.
      */
     @JsonCreator
-    public JsonAdaptedDashboard(@JsonProperty("name") String name, @JsonProperty("taskDate") String taskDate) {
+    public JsonAdaptedDashboard(@JsonProperty("name") String name, @JsonProperty("taskDate") String taskDate,
+                                @JsonProperty("isDone") String isDone) {
         this.name = name;
         this.taskDate = taskDate;
+        this.isDone = isDone;
     }
 
     /**
@@ -33,6 +37,7 @@ class JsonAdaptedDashboard {
     public JsonAdaptedDashboard(Dashboard source) {
         name = source.getDashboardName().fullName;
         taskDate = source.getTaskDate().taskDate;
+        isDone = source.getTaskStatus().taskStatus;
     }
 
     /**
@@ -59,7 +64,13 @@ class JsonAdaptedDashboard {
             throw new IllegalValueException(TaskDate.MESSAGE_CONSTRAINTS);
         }
         final TaskDate modelDate = new TaskDate(taskDate);
-        return new Dashboard(modelName, modelDate);
+
+        if (isDone == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Boolean.class.getSimpleName()));
+        }
+        final TaskStatus modelStatus = new TaskStatus(isDone);
+        return new Dashboard(modelName, modelDate, modelStatus);
     }
 
 }

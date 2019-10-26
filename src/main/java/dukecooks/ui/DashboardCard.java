@@ -31,6 +31,8 @@ public class DashboardCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label taskDate;
+    @FXML
+    private Label taskStatus;
 
     public DashboardCard(Dashboard dashboard, int displayedIndex) {
         super(FXML);
@@ -38,6 +40,7 @@ public class DashboardCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         dashboardName.setText(dashboard.getDashboardName().fullName);
         taskDate.setText(dashboard.getTaskDate().taskDate);
+        taskStatus.setText(dashboard.getTaskStatus().taskStatus);
     }
 
     @Override

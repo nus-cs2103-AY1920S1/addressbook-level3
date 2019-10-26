@@ -67,6 +67,13 @@ public class DashboardRecords implements ReadOnlyDashboard {
     }
 
     /**
+     * Returns true if there is 5 new completed task.
+     */
+    public boolean checkDashboard(List<Dashboard> l) {
+        return dashboards.doneFive(l);
+    }
+
+    /**
      * Adds a dashboard to Duke Cooks.
      * The dashboard must not already exist in Duke Cooks.
      */
@@ -84,6 +91,13 @@ public class DashboardRecords implements ReadOnlyDashboard {
         requireNonNull(editedDashboard);
 
         dashboards.setDashboard(target, editedDashboard);
+    }
+
+    /**
+     * Replaces the given dashboard and updates the task as done.
+     */
+    public void doneDashboard(Dashboard key) {
+        dashboards.done(key);
     }
 
     /**

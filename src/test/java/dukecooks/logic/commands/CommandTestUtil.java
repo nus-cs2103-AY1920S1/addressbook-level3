@@ -27,12 +27,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import dukecooks.commons.core.index.Index;
+import dukecooks.logic.commands.dashboard.EditTaskCommand;
 import dukecooks.logic.commands.diary.EditDiaryCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.commands.exercise.EditExerciseCommand;
 import dukecooks.logic.commands.profile.EditProfileCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
 import dukecooks.model.Model;
+import dukecooks.model.dashboard.DashboardRecords;
+import dukecooks.model.dashboard.components.Dashboard;
+import dukecooks.model.dashboard.components.DashboardNameContainsKeywordsPredicate;
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
@@ -47,6 +51,7 @@ import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsP
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.model.workout.exercise.components.MusclesTrained;
+import dukecooks.testutil.dashboard.EditDashboardDescriptorBuilder;
 import dukecooks.testutil.diary.EditDiaryDescriptorBuilder;
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
 import dukecooks.testutil.profile.EditPersonDescriptorBuilder;
@@ -56,6 +61,17 @@ import dukecooks.testutil.recipe.EditRecipeDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+
+    public static final String VALID_DASHBOARDNAME_YOGA = "Yoga";
+    public static final String VALID_DASHBOARDNAME_RUN = "Run";
+    public static final String VALID_DASHBOARDNAME_WRITE = "Write";
+    public static final String VALID_DASHBOARDNAME_BAKE = "Bake cupcakes";
+    public static final String VALID_TASKDATE1 = "12/12/2019";
+    public static final String VALID_TASKDATE2 = "13/12/2019";
+    public static final String VALID_TASKDATE3 = "14/12/2019";
+    public static final String VALID_TASKSTATUS_COMPLETE = "COMPLETE";
+    public static final String VALID_TASKSTATUS_INCOMPLETE = "NOT COMPLETE";
+
 
     public static final String VALID_NAME_FISH = "Fish and Chips";
     public static final String VALID_NAME_BURGER = "Cheese Burger";
@@ -141,6 +157,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final EditTaskCommand.EditTaskDescriptor DESC_HW;
+    public static final EditTaskCommand.EditTaskDescriptor DESC_PLAY;
     public static final EditExerciseCommand.EditExerciseDescriptor DESC_PUSHUP;
     public static final EditExerciseCommand.EditExerciseDescriptor DESC_SITUP;
     public static final EditRecipeCommand.EditRecipeDescriptor DESC_FISH;
@@ -151,6 +169,10 @@ public class CommandTestUtil {
     public static final EditDiaryCommand.EditDiaryDescriptor DESC_BOB_DIARY;
 
     static {
+        DESC_HW = new EditDashboardDescriptorBuilder().withDashboardName(VALID_DASHBOARDNAME_YOGA)
+                .withTaskDate(VALID_TASKDATE1).build();
+        DESC_PLAY = new EditDashboardDescriptorBuilder().withDashboardName(VALID_DASHBOARDNAME_RUN)
+                .withTaskDate(VALID_TASKDATE2).build();
         DESC_PUSHUP = new EditExerciseDescriptorBuilder().withName(VALID_NAME_PUSHUP)
                 .withDetails(null, null, null, null, null,
                         VALID_SETS_FIVE).build();
@@ -253,6 +275,23 @@ public class CommandTestUtil {
     }
 
     /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - Dashboard Records, filtered dashboard list and selected dashboard in {@code actualModel} remain unchanged
+     */
+    public static void assertDashboardCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        DashboardRecords expectedDashboardRecord = new DashboardRecords(actualModel.getDashboardRecords());
+        List<Dashboard> expectedDashboardList = new ArrayList<>(actualModel.getFilteredDashboardList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedDashboardRecord, actualModel.getDashboardRecords());
+        assertEquals(expectedDashboardList, actualModel.getFilteredDashboardList());
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s Duke Cooks.
      */
@@ -306,5 +345,19 @@ public class CommandTestUtil {
         model.updateFilteredDiaryList(new DiaryNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDiaryList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the dashboard at the given {@code targetIndex} in the
+     * {@code model}'s DukeCooks.
+     */
+    public static void showDashboardAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredDashboardList().size());
+
+        Dashboard dashboard = model.getFilteredDashboardList().get(targetIndex.getZeroBased());
+        final String[] splitName = dashboard.getDashboardName().fullName.split("\\s+");
+        model.updateFilteredDashboardList(new DashboardNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredDashboardList().size());
     }
 }

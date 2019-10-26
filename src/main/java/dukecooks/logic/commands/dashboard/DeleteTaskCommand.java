@@ -41,6 +41,11 @@ public class DeleteTaskCommand extends DeleteCommand {
         }
 
         Dashboard taskToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (taskToDelete.getTaskStatus().getDoneStatus()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_IS_COMPLETE);
+        }
+
         model.deleteDashboard(taskToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
