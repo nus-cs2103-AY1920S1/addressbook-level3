@@ -1,7 +1,6 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.parser.AutotagCommandParser.DEFAULT_PREDICATE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_URL;
@@ -22,6 +21,8 @@ import seedu.mark.model.predicates.UrlContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
 
 public class AutotagCommandParserTest {
+
+    public static final Predicate<Bookmark> DEFAULT_PREDICATE = bookmark -> true;
 
     private static final String VALID_TAG = "myTag";
     private static final String VALID_NAME_1 = "website";

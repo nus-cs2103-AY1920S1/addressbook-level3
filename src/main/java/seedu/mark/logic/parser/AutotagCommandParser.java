@@ -7,22 +7,16 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
-import java.util.function.Predicate;
-
 import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
-import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
-import seedu.mark.model.predicates.UrlContainsKeywordsPredicate;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AutotagCommand object
  */
 public class AutotagCommandParser implements Parser<AutotagCommand> {
-
-    public static final Predicate<Bookmark> DEFAULT_PREDICATE = bookmark -> true;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AutotagCommand
@@ -40,29 +34,22 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
 
         Tag tagToApply = ParserUtil.parseTag(argMultimap.getPreamble());
 
-        boolean hasConditions = false;
-        Predicate<Bookmark> predicate = DEFAULT_PREDICATE;
+        BookmarkPredicate predicate = new BookmarkPredicate();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            hasConditions = true;
-            predicate = predicate.and(new NameContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_NAME)));
+            predicate = predicate.withNameKeywords(argMultimap.getAllValues(PREFIX_NAME));
         }
         if (argMultimap.getValue(PREFIX_URL).isPresent()) {
-            hasConditions = true;
-            predicate = predicate.and(new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_URL)));
+            predicate = predicate.withUrlKeywords(argMultimap.getAllValues(PREFIX_URL));
         }
         if (argMultimap.getValue(PREFIX_NOT_NAME).isPresent()) {
-            hasConditions = true;
-            predicate = predicate.and(
-                    new NameContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_NOT_NAME)).negate());
+            predicate = predicate.withoutNameKeywords(argMultimap.getAllValues(PREFIX_NOT_NAME));
         }
         if (argMultimap.getValue(PREFIX_NOT_URL).isPresent()) {
-            hasConditions = true;
-            predicate = predicate.and(
-                    new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_NOT_URL)).negate());
+            predicate = predicate.withoutUrlKeywords(argMultimap.getAllValues(PREFIX_NOT_URL));
         }
 
-        if (!hasConditions) {
+        if (predicate.isEmpty()) {
             throw new ParseException(AutotagCommand.MESSAGE_NO_CONDITION_SPECIFIED);
         }
 
