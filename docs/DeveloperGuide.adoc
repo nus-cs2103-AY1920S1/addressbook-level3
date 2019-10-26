@@ -16,6 +16,19 @@ endif::[]
 
 By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+
+=== LiBerry
+LiBerry is a desktop app for librarians to *quickly manage their community libraries!*
+LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the
+benefits of a Graphical User Interface (GUI).
+You can type quickly and serve your long line of borrowers in a short amount of time.
+LiBerry can manage all your books and borrowers efficiently and meticulously.
+
+=== Purpose of Developer Guide
+
+=== Legend
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -164,7 +177,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save LiBerry data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -227,6 +240,110 @@ We need to come up with a solution to give us "B00001" in the given example.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 //end::addBook[]
+
+// tag::undo/redo[]
+=== [Proposed] Undo/Redo feature
+==== Proposed Implementation
+
+The undo/redo mechanism is facilitated by `VersionedCatalog`.
+It extends `Catalog` with an undo/redo command history, stored internally as an `commandHistoryList` and `currentCommandPointer`.
+Additionally, it implements the following operations:
+
+* `VersionedCatalog#commit()` -- Saves the current reversible command in its command history.
+* `VersionedCatalog#undo()` -- Restores the previous catalog state using its command history.
+* `VersionedCatalog#redo()` -- Restores a previously undone catalog state using its command history.
+
+These operations are exposed in the `Model` interface as `Model#commitCatalog()`, `Model#undoCatalog()` and `Model#redoCatalog()` respectively.
+
+The undo/redo mechanism only works for commands that implements the `ReversibleCommand` interface.
+The `ReversibleCommand` interface specifies that the commands these two operations:
+
+* `ReversibleCommand#getUndoCommand()` -- Returns a command that undo the `ReversibleCommand`.
+* `ReversibleCommand#getRedoCommand()` -- Returns a command that redo the `ReversibleCommand`.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedCatalog` will be initialized with an empty `commandHistoryList`.
+
+image::UndoRedoState0.png[width=300]
+
+Step 2. The user executes `delete 5` command to delete the 5th book in the catalog. The `delete` command calls `Model#commitCatalog()`, causing the `delete 5` command to be saved in the `catalogHistoryList`, and the `currentCommandPointer` is pointed to the newly inserted command.
+
+image::UndoRedoState1.png[width=300]
+
+Step 3. The user executes `add t/Animal Farm ...` to add a new book.
+The `add` command also calls `Model#commitCatalog()`, causing the add
+command to be saved into the `catalogHistoryList`.
+
+image::UndoRedoState2.png[width=300]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitCatalog()`, so the command will not be saved into the `commandHistoryList`.
+
+Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undoCatalog()`, which will call `ReversibleCommand#getUndoCommand()` to get the command to undo
+the add command. This undo command would then be executed, which will shift the `currentCommandPointer` once to the left,
+pointing it to the previous command,
+
+image::UndoRedoState3.png[width=300]
+
+[NOTE]
+If the `currentCommandPointer` is at index -1, pointing to no command, then there are no previous command to undo. The `undo` command uses `Model#canUndoCatalog()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoCatalog()`, which shifts the `currentCommandPointer` once to the right, pointing to the previously undone Command, and executes that Command.
+
+[NOTE]
+If the `currentCommandPointer` is at index `catalogHistoryList.size() - 1`,
+pointing to the latest command, then there are no undone command to execute.
+The `redo` command uses `Model#canRedoCatalog()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `find t/Animal Farm`.
+Commands that do not modify the catalog, such as `find t/Animal Farm`,
+will usually not call `Model#commitCatalog()`,`Model#undoCatalog()` or
+`Model#redoCatalog()`. Thus, the `catalogHistoryList` remains unchanged.
+
+image::UndoRedoState4.png[width=300]
+
+Step 6. The user executes `clear`, which calls `Model#commitCatalog()`.
+Since the `currentCommandPointer` is not pointing at the end of the `commandHistoryList`,
+all commands after the `currentCommandPointer` will be purged.
+We designed it this way because it no longer makes sense to redo the
+`add t/Animal Farm ...` command. This is the behavior that most modern
+desktop applications follow.
+
+image::UndoRedoState5.png[width=300]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the book being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2:** Saves the entire catalog.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use two stacks to store a list of undoable and redoable commands.
+** Pros: Easy for future developers to understand as there are two separate stacks to keep track of the command to undo and redo.
+** Cons: Additional time required to add and pop from the stack.
+* **Alternative 2:** Use a list to store the commands for undo and redo.
+** Pros: We do not need to maintain a separate stack.
+** Cons: Harder for new developers to understand.
+// end::undo/redo[]
 
 // tag::printLoanSlip[]
 === Generate Loan Slip feature
@@ -378,7 +495,7 @@ The new `Borrower` instance is created by copying the details of the borrower fr
 object being added into its `currentLoanList`. The new borrower object then replaces the old borrower object in the
 `BorrowerRecords` object in the model. These two steps are done through the method call to `Model#servingBorrowerNewLoan(loan)`.
 The new `Book` instance is also created by copying the details of the original book object, and likewise, with this `Loan` object added into it.
-Similarly, the new book object also replaces the old book object in the `Catalog` object in the model through the call to
+Similarly, the new book object replaces the old book object in the `Catalog` object in the model through the call to
 `Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support immutability of the objects.
 
 ===== Returning
@@ -441,7 +558,7 @@ and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whol
 in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
 on their `LoanId` s.
 ** Pros: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
-Also, LoanRecords thus serve as a single source of truth.
+Also, `LoanRecords` thus serve as a single source of truth.
 ** Cons: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
 after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
 also be fast enough as there can be hundreds of thousands of loans.
@@ -451,8 +568,8 @@ also be fast enough as there can be hundreds of thousands of loans.
 * **Alternative 1:** Use a list data structure, such as an `ArrayList` to store the loans in the model component.
 ** Pros: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
 ** Cons: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
-correct associated `Loan` object. These additional time taken adds up when reading the storage files during the starting
-up of the application and can make the application feel laggy and unresponsive at the start.
+correct associated `Loan` object. The additional time taken adds up when reading the storage files during the starting
+up of the application. Thus, it can make the application feel laggy and unresponsive at the start.
 
 * **Alternative 2 (selected choice):** Use a `HashMap` to store the loans, where the key is its `LoanId`.
 ** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
@@ -680,6 +797,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 2a. LiBerry cannot find the ID in its system.
 [none]
 ** 2a1. LiBerry requests for a valid and registered ID.
