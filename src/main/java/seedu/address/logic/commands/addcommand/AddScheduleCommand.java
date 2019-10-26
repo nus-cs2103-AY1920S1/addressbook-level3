@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -84,17 +86,14 @@ public class AddScheduleCommand extends Command {
         // if there are conflicts present and user did not put -allow flag, throw exception
         if (!conflicts.isEmpty() && !canClash) {
             sb.append("\nHere are the list of conflicting schedules:\n");
-            for (Schedule schedule : conflicts) {
-                for (Order order : orderList) {
-                    Optional<Schedule> s = order.getSchedule();
-                    if (s.isPresent() && s.get().isSameAs(schedule)) {
-                        // change to 1-based index
-                        int index = orderList.indexOf(order) + 1;
-                        sb.append(String.format("Order %d: %s\n", index, schedule.getCalendarString()));
-                        break;
-                    }
-                }
-            }
+            conflicts.stream()
+                    .flatMap(x -> orderList.stream()
+                            .filter(y -> y.getSchedule().isPresent())
+                            .filter(y -> y.getSchedule().get().isSameAs(x)))
+                    .sorted(Comparator.comparing(a -> a.getSchedule().get().getCalendar()))
+                    .forEach(y -> sb.append(String.format("%s: Order %d\n", y.getSchedule().get().getCalendarString(),
+                            orderList.indexOf(y) + 1)));
+
             throw new CommandException(Messages.MESSAGE_SCHEDULE_CONFLICT + sb.toString());
         }
 
