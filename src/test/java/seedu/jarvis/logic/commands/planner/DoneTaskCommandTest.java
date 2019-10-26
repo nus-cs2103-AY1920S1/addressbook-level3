@@ -2,6 +2,7 @@ package seedu.jarvis.logic.commands.planner;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -83,6 +84,22 @@ class DoneTaskCommandTest {
         command.executeInverse(model);
 
         assertEquals(expected, model);
+    }
+
+    @Test
+    void equals_true() {
+        DoneTaskCommand one = new DoneTaskCommand(parseIndex("1"));
+        DoneTaskCommand two = new DoneTaskCommand(parseIndex("1"));
+
+        assertEquals(one, two);
+    }
+
+    @Test
+    void equals_differentIndex_false() {
+        DoneTaskCommand one = new DoneTaskCommand(parseIndex("1"));
+        DoneTaskCommand two = new DoneTaskCommand(parseIndex("2"));
+
+        assertNotEquals(one, two);
     }
 
     private Index parseIndex(String index) {
