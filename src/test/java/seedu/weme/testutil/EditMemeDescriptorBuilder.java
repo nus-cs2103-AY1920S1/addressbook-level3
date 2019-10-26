@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.weme.logic.commands.MemeEditCommand;
-import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;

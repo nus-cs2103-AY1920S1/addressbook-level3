@@ -8,7 +8,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.MemeFindCommand;
+import seedu.weme.logic.commands.memecommand.MemeFindCommand;
+import seedu.weme.logic.parser.commandparser.memecommandparser.MemeFindCommandParser;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 
 public class MemeFindCommandParserTest {

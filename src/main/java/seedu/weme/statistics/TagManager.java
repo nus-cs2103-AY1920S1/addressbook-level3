@@ -31,6 +31,19 @@ public class TagManager {
     }
 
     /**
+     * Returns the count of a tag in the memeList.
+     * Returns -1 if the tag is not present in the memeList.
+     */
+    public int getCountOfTag(List<Meme> memeList, Tag tag) {
+        return getTagsWithCountList(memeList)
+                .stream()
+                .filter(t -> t.getTag().equals(tag))
+                .map(t -> t.getCount())
+                .reduce((t1, t2) -> t1)
+                .orElse(-1);
+    }
+
+    /**
      * Returns {@code TagWithCount} in List.
      */
     public List<TagWithCount> getTagsWithCountList(List<Meme> memeList) {

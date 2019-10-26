@@ -7,7 +7,8 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.MemeDeleteCommand;
+import seedu.weme.logic.commands.memecommand.MemeDeleteCommand;
+import seedu.weme.logic.parser.commandparser.memecommandparser.MemeDeleteCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

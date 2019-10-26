@@ -2,9 +2,9 @@ package seedu.weme.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.MemeUtil.isSameMemeImage;
 
@@ -13,6 +13,7 @@ import java.util.List;
 
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.exceptions.CommandException;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.model.Model;
 import seedu.weme.model.Weme;
 import seedu.weme.model.imagePath.ImagePath;

@@ -1,6 +1,6 @@
 package seedu.weme.ui;
 
-import static seedu.weme.logic.parser.ParserUtil.MESSAGE_INVALID_CONTEXT;
+import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_CONTEXT;
 
 import java.util.logging.Logger;
 
@@ -18,8 +18,8 @@ import seedu.weme.logic.Logic;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
-import seedu.weme.logic.prompter.CommandPrompt;
 import seedu.weme.logic.prompter.exceptions.PromptException;
+import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.ModelContext;
 
 /**
@@ -137,6 +137,11 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        try {
+            resultDisplay.setFeedbackToUser(logic.prompt("").toString());
+        } catch (PromptException e) {
+            // Acts as a placeholder.
+        }
 
         TabBar tabBar = new TabBar(logic.getContext());
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());

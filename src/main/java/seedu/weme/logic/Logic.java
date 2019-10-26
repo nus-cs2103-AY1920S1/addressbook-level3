@@ -9,8 +9,8 @@ import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.logic.parser.exceptions.ParseException;
-import seedu.weme.logic.prompter.CommandPrompt;
 import seedu.weme.logic.prompter.exceptions.PromptException;
+import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
@@ -34,7 +34,7 @@ public interface Logic {
      * Prompt the command and return the command prompt.
      * @param commandText The command as entered by the user
      * @return the command prompt
-     * @throws PromptException If and error occurs during analyzing.
+     * @throws PromptException If and error occurs during prompting.
      */
     CommandPrompt prompt(String commandText) throws PromptException;
 

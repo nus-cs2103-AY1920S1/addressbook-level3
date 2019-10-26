@@ -1,6 +1,7 @@
 package seedu.weme.logic.prompter;
 
 import seedu.weme.logic.prompter.exceptions.PromptException;
+import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
 
 /**

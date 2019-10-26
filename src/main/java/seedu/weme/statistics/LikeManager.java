@@ -33,6 +33,9 @@ public class LikeManager {
         this.data = new LikeData();
     }
 
+    /**
+     * Returns the number of likes of a meme.
+     */
     public int getLikesByMeme(Meme meme) {
         String memeRef = meme.getImagePath().toString();
         return data.getLikesByMemeRef(memeRef);

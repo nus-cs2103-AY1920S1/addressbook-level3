@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.exceptions.DuplicateMemeException;
+import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
@@ -130,6 +131,11 @@ public class WemeTest {
 
         public ObservableList<Template> getTemplateList() {
             return templates;
+        }
+
+        @Override
+        public int getCountOfTag(Tag tag) {
+            return stats.getCountOfTag(getMemeList(), tag);
         }
 
         @Override

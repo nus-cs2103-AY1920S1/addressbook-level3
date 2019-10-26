@@ -8,6 +8,7 @@ import java.util.Map;
 import javafx.collections.ObservableMap;
 
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.tag.Tag;
 
 /**
  * Manager class for statistics data for Weme.
@@ -43,6 +44,14 @@ public class StatsManager implements Stats {
     }
 
     /**
+     * Returns the number of likes of a meme.
+     */
+    @Override
+    public int getLikesByMeme(Meme meme) {
+        return likeManager.getLikesByMeme(meme);
+    }
+
+    /**
      * Returns an unmodifiable view of LikeData.
      */
     @Override
@@ -67,6 +76,11 @@ public class StatsManager implements Stats {
     }
 
     //============= Tag Data ====================================
+
+    @Override
+    public int getCountOfTag(List<Meme> memeList, Tag tag) {
+        return tagManager.getCountOfTag(memeList, tag);
+    }
 
     @Override
     public List<TagWithCount> getTagsWithCountList(List<Meme> memeList) {

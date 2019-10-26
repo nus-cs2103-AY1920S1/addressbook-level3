@@ -17,7 +17,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.memecommand.MemeClearCommand;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;

@@ -1,9 +1,9 @@
 package seedu.weme.testutil;
 
 import static seedu.weme.commons.util.FileUtil.MESSAGE_READ_FILE_FAILURE;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_FILEPATH;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,8 +13,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
 import seedu.weme.commons.util.StringUtil;
-import seedu.weme.logic.commands.MemeAddCommand;
-import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.memecommand.MemeAddCommand;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 

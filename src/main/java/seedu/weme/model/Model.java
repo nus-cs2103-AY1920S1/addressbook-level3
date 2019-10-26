@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.TagWithCount;
@@ -243,6 +244,11 @@ public interface Model {
     Stats getStats();
 
     /**
+     * Returns the number of likes of a meme.
+     */
+    int getLikesByMeme(Meme meme);
+
+    /**
      * Returns the like data.
      */
     ObservableMap<String, Integer> getObservableLikeData();
@@ -292,6 +298,12 @@ public interface Model {
      * Add information of a meme to the records.
      */
     void addMemeToRecord(Meme meme);
+
+    /**
+     * Returns the count of a tag in the current meme list.
+     * Returns -1 if the tag is not present in the current meme list.
+     */
+    public int getCountOfTag(Tag tag);
 
     /**
      * Returns a list of tags with counts.
