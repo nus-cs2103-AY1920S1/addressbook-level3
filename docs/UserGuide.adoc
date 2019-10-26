@@ -782,7 +782,7 @@ _{ more coming soon }_
 This glossary aims to provide a definition for the special vocabulary used in this user guide.
 
 [[annotation]] Annotation::
-Notes or highlights that can be made on <<offline-copy, offline copies>> of a bookmark.
+A note or highlight that is made on an <<offline-copy, offline copy>> of a bookmark.
 
 [[bookmark]] Bookmark::
 A saved shortcut to a website. In Mark, a bookmark can contain other information besides the website URL,
@@ -797,7 +797,7 @@ reminders, and a view of the folder hierarchy for bookmarks.
 The structure of folders in Mark. This is displayed in the dashboard tab when the application starts.
 
 [[offline-copy]] Offline copy::
-An offline copy of a bookmarked website that is stored as a HTML file on the computer.
+The copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
 
 [[stray-notes]] Stray notes::
 Annotated notes that are not attached to an existing paragraph are described as stray.
