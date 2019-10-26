@@ -77,10 +77,10 @@ deactivate AutoAllocateCommand
 
 
 
-AutoAllocateCommand -> Event : allocateEmployee()
-activate Event
-Event --> AutoAllocateCommand :
-deactivate Event
+AutoAllocateCommand -> AutoAllocateCommand : createEventAfterManpowerAllocation()
+activate AutoAllocateCommand
+AutoAllocateCommand --> AutoAllocateCommand : result
+deactivate AutoAllocateCommand
 
 AutoAllocateCommand --> LogicManager : result
 deactivate AutoAllocateCommand

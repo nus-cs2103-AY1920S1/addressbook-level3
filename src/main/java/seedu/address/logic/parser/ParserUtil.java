@@ -292,10 +292,16 @@ public class ParserUtil {
         }
 
         String trimmed = manpowerToAllocate.trim();
-        Integer manpowerToAdd = Integer.valueOf(trimmed);
-        if (manpowerToAdd <= 0) {
+        Integer manpowerToAdd;
+        try {
+            manpowerToAdd = Integer.valueOf(trimmed);
+            if (manpowerToAdd <= 0) {
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
             throw new ParseException("Number of employees to allocate must be a positive integer!");
         }
+
         return manpowerToAdd;
     }
 }

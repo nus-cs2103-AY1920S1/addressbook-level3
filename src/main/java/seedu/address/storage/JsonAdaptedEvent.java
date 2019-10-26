@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
@@ -132,14 +133,12 @@ class JsonAdaptedEvent {
         LocalDate newEndDate = LocalDate.parse(endDate, FORMATTER);
         final EventDate modelEndDate = new EventDate(newEndDate);
 
-        //final EventManpowerAllocatedList manpowerAllocatedList = new EventManpowerAllocatedList(manpowerList);
+        final EventManpowerAllocatedList modelManpowerAllocatedList = new EventManpowerAllocatedList(manpowerList);
 
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
         Event modelEvent = new Event(modelName, modelVenue,
-                modelManpowerNeeded, modelStartDate, modelEndDate, modelTags);
-
-        modelEvent.getManpowerAllocatedList().setManpowerAllocatedList(manpowerList);
+                modelManpowerNeeded, modelStartDate, modelEndDate, modelManpowerAllocatedList, modelTags);
 
         return modelEvent;
     }
