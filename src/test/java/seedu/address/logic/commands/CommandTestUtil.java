@@ -241,6 +241,26 @@ public class CommandTestUtil {
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
+    public static void assertExpandPersonCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                      Model expectedModel, Person personInModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, personInModel);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertExpandPolicySuccess(Command command, Model actualModel, String expectedMessage,
+                                                        Model expectedModel, Policy policyInModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, policyInModel);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
     public static void assertListPeopleCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                                       Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false, true,
