@@ -24,7 +24,7 @@ public class ContainsExpression extends TestableExpression {
     @Override
     public boolean test(Transaction txn) {
         requireNonNull(txn);
-        String left = (String) RuleProcessingUtil.extractAttribute(attribute, txn);
+        String left = RuleProcessingUtil.extractAttribute(attribute, txn).toString();
         String right = value.toString();
         return left.contains(right);
     }
