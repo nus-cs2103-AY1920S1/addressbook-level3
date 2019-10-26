@@ -73,6 +73,7 @@ public class Mark implements ReadOnlyMark {
 
         setBookmarks(newData.getBookmarkList());
         setFolderStructure(newData.getFolderStructure().clone());
+        setReminderAssociation(newData.getReminderAssociation());
     }
 
     //// bookmark-level operations
@@ -137,10 +138,10 @@ public class Mark implements ReadOnlyMark {
     /**
      * Replaces the association of reminder association with the specified {@code association}.
      *
-     * @param association the specified association that is used.
+     * @param reminderAssociation the specified association that is used.
      */
-    public void setReminderAssociation(ObservableMap<Bookmark, Reminder> association) {
-        this.reminderAssociation.setAssociation(association);
+    public void setReminderAssociation(ReminderAssociation reminderAssociation) {
+        this.reminderAssociation.setAssociation(reminderAssociation.getAssociation());
     }
 
     /**

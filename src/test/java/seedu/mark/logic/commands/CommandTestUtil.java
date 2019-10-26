@@ -131,6 +131,7 @@ public class CommandTestUtil {
         assertEquals(expectedMark, actualModel.getMark());
         assertEquals(expectedFilteredList, actualModel.getFilteredBookmarkList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the bookmark at the given {@code targetIndex} in the
      * {@code model}'s mark.

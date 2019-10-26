@@ -3,6 +3,7 @@ package seedu.mark.model.reminder;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
+import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,7 +30,18 @@ public class ReminderAssociation {
      * @param association the given association.
      */
     public void setAssociation(ObservableMap<Bookmark, Reminder> association) {
-        this.association = association;
+        this.association.clear();
+        for(Bookmark bookmark : association.keySet()) {
+            this.association.put(bookmark, association.get(bookmark));
+        }
+    }
+
+    /**
+     * Gets the reminder association.
+     *
+     */
+    public ObservableMap<Bookmark, Reminder> getAssociation() {
+        return association;
     }
 
     /**
