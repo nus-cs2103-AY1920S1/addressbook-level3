@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -167,6 +168,21 @@ public class AddCommandTest {
 
         @Override
         public void addTraining(Training training) {
+            throw new AssertionError("This method should not be called.");
+        }
+        
+        @Override
+        public ReadOnlyAddressBook getAddressBookDeepCopy() {
+            throw new AssertionError("This method should not be called.");
+        }
+        
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+    
+        @Override
+        public void redo() {
             throw new AssertionError("This method should not be called.");
         }
 
