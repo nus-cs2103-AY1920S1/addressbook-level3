@@ -46,8 +46,8 @@ public class AddTaskCommand extends Command {
         Set<Task> newTaskList = new HashSet<>();
         newTaskList.addAll(taskToEdit);
         newTaskList.add(task);
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, projectToEdit.getFinance());
-        editedProject.getMembers().addAll(members);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
+                projectToEdit.getMembers(), newTaskList, projectToEdit.getFinance());
 
         if (projectToEdit.hasTask(task)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
@@ -55,8 +55,9 @@ public class AddTaskCommand extends Command {
 
 
         model.setProject(projectToEdit, editedProject);
+        model.setWorkingProject(editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
-        return new CommandResult(String.format(MESSAGE_ADD_TASK_SUCCESS, task));
+        return new CommandResult(String.format(MESSAGE_ADD_TASK_SUCCESS, task), COMMAND_WORD);
     }
 
 

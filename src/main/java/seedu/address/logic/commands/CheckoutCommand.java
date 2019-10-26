@@ -44,6 +44,6 @@ public class CheckoutCommand extends Command {
 
         Project projectToSwitchTo = lastShownList.get(index.getZeroBased());
         model.setWorkingProject(projectToSwitchTo);
-        return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, projectToSwitchTo.toString()));
+        return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, projectToSwitchTo.toString()), COMMAND_WORD);
     }
 }

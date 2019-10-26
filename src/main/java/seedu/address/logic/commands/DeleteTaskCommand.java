@@ -57,12 +57,13 @@ public class DeleteTaskCommand extends Command {
         newTaskList.addAll(taskList);
         Finance finance = projectToEdit.getFinance();
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, finance);
-        editedProject.getMembers().addAll(members);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
+                projectToEdit.getMembers(), newTaskList, finance);
 
         model.setProject(projectToEdit, editedProject);
+        model.setWorkingProject(editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task), COMMAND_WORD);
     }
 
 

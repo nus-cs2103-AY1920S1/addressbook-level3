@@ -7,12 +7,13 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import java.util.logging.Logger;
@@ -30,7 +31,11 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    private State currentState = State.PROJECT_LIST;
+    private boolean onAddressBook = false;
+
     // Independent Ui parts residing in this Ui container
+    private PersonListPanel personListPanel;
     private ProjectListPanel projectListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -40,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private VBox projectList;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -180,6 +188,12 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            String commandWord = commandResult.getCommandWord();
+            State nextState = stateOf(commandWord);
+
+            if (!nextState.equals(currentState)) {
+                changeUiDisplay(nextState);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -196,5 +210,83 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private enum State {
+        ADDRESS_BOOK,
+        PROJECT_LIST
+    }
+
+    private void changeUiDisplay(State nextState) {
+        switch (nextState) {
+        case ADDRESS_BOOK:
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            projectListPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
+            currentState = nextState;
+            break;
+
+        case PROJECT_LIST:
+            projectListPanel = new ProjectListPanel(logic.getFilteredProjectList());
+            projectListPanelPlaceholder.getChildren().add(projectListPanel.getRoot());
+            currentState = nextState;
+            break;
+
+        default:
+            assert false : "Unrecognised state";
+        }
+    }
+
+    private State stateOf(String commandWord) {
+        State state = State.PROJECT_LIST;
+        switch (commandWord) {
+        case AddBudgetCommand.COMMAND_WORD:
+
+        case AddFromContactsCommand.COMMAND_WORD:
+
+        case AddMemberCommand.COMMAND_WORD:
+
+        case AddProjectCommand.COMMAND_WORD:
+
+        case AddProjectMeetingCommand.COMMAND_WORD:
+
+        case AddSpendingCommand.COMMAND_WORD:
+
+        case AddTaskCommand.COMMAND_WORD:
+
+        case CheckoutCommand.COMMAND_WORD:
+
+        case DeleteTaskCommand.COMMAND_WORD:
+
+        case ExitCommand.COMMAND_WORD:
+
+        case GenerateSlotCommand.COMMAND_WORD:
+
+        case ListBudgetCommand.COMMAND_WORD:
+
+        case RemoveMemberCommand.COMMAND_WORD:
+            state = State.PROJECT_LIST;
+            break;
+
+        case AddCommand.COMMAND_WORD:
+
+        case ClearCommand.COMMAND_WORD:
+
+        case DeleteCommand.COMMAND_WORD:
+
+        case EditCommand.COMMAND_WORD:
+
+        case FindCommand.COMMAND_WORD:
+
+        case HelpCommand.COMMAND_WORD:
+
+        case ListCommand.COMMAND_WORD:
+            state = State.ADDRESS_BOOK;
+            break;
+
+        default:
+            assert false : "Unrecognised Command";
+        }
+
+        return state;
     }
 }

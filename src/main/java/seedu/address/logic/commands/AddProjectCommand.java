@@ -39,6 +39,6 @@ public class AddProjectCommand extends Command {
         }
 
         model.addProject(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_WORD);
     }
 }
