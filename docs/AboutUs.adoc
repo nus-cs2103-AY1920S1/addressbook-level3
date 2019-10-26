@@ -13,8 +13,11 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::crazoter.png[width="150", align="left"]
 {empty}[https://github.com/crazoter[github]] [<<crazoter#, portfolio>>]
 
-Role: Team lead +
-Responsibilities: Documentation, Scheduling and tracking
+*Role*: Team lead +
+*Responsibilities*:
+
+ - Project Management Scheduling, Tracking
+ - In charge of Visits Management (including documentation, implementation, testing and milestone management of said feature)
 
 '''
 
@@ -22,8 +25,8 @@ Responsibilities: Documentation, Scheduling and tracking
 image::sandydays.png[width="150", align="left"]
 {empty}[https://github.com/sandydays[github]] [<<sandydays#, portfolio>>]
 
-Role: Developer +
-Responsibilities: In charge of `UI`, Deliverables and deadlines
+*Role:* Developer +
+*Responsibilities:* In charge of Appointment Management (including documentation, implementation, testing and milestone management of said feature)
 
 '''
 
@@ -31,8 +34,8 @@ Responsibilities: In charge of `UI`, Deliverables and deadlines
 image::cheongsiuhong.png[width="150", align="left"]
 {empty}[http://github.com/cheongsiuhong[github]] [<<cheongsiuhong#, portfolio>>]
 
-Role: Developer +
-Responsibilities: In charge of `Storage`, Testing
+*Role:* Developer +
+*Responsibilities:* In charge of import and export features (including documentation, implementation, testing and milestone management of said feature)
 
 '''
 
@@ -40,8 +43,8 @@ Responsibilities: In charge of `Storage`, Testing
 image::francislow.png[width="150", align="left"]
 {empty}[http://github.com/francislow[github]] [<<francislow#, portfolio>>]
 
-Role: Developer +
-Responsibilities: In charge of `UI`, Code quality
+*Role:* Developer +
+*Responsibilities:* In charge of Autocomplete feature (including documentation, implementation, testing and milestone management of said feature)
 
 '''
 
@@ -49,7 +52,7 @@ Responsibilities: In charge of `UI`, Code quality
 image::gabrielchao.png[width="150", align="left"]
 {empty}[http://github.com/gabrielchao[github]] [<<gabrielchao#, portfolio>>]
 
-Role: Developer +
-Responsibilities: In charge of `Storage`, Integration
+*Role:* Developer +
+*Responsibilities:* In charge of `Undo` and `Redo` feature (including documentation, implementation, testing and milestone management of said feature)
 
 '''

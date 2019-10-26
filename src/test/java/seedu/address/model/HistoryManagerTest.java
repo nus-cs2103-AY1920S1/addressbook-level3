@@ -46,7 +46,7 @@ public class HistoryManagerTest {
 
         historyManager.pushRecord(new DummyMutatorCommand("1"), new AddressBook());
         historyManager.pushRecord(targetCommand, targetAddressBook);
-        HistoryRecord record = historyManager.popRecord().get();
+        HistoryRecord record = historyManager.popRecord(new AddressBook()).get();
 
         assertEquals(record.getCommand(), targetCommand);
         assertEquals(record.getCopyOfAddressBook(), targetAddressBook);
@@ -57,12 +57,12 @@ public class HistoryManagerTest {
     public void popRecord_noRecords_emptyOptional() {
         HistoryManager historyManager = new HistoryManager(1);
 
-        assertEquals(historyManager.popRecord(), Optional.empty());
+        assertEquals(historyManager.popRecord(new AddressBook()), Optional.empty());
 
         historyManager.pushRecord(new DummyMutatorCommand("1"), new AddressBook());
-        historyManager.popRecord();
+        historyManager.popRecord(new AddressBook());
 
-        assertEquals(historyManager.popRecord(), Optional.empty());
+        assertEquals(historyManager.popRecord(new AddressBook()), Optional.empty());
     }
 
     @Test
@@ -74,14 +74,14 @@ public class HistoryManagerTest {
         historyManager.pushRecord(targetCommand, new AddressBook());
         historyManager.pushRecord(new DummyMutatorCommand("2"), new AddressBook());
         historyManager.pushRecord(new DummyMutatorCommand("3"), new AddressBook());
-        historyManager.popRecordsTo(historyList.get(1));
+        historyManager.popRecordsTo(historyList.get(1), new AddressBook());
 
         assertEquals(historyList.get(0).getCommand(), targetCommand);
         assertTrue(historyList.size() == 1);
         assertTrue(historyManager.size() == 1);
 
         // Pop to end of history
-        historyManager.popRecordsTo(historyList.get(0));
+        historyManager.popRecordsTo(historyList.get(0), new AddressBook());
 
         assertTrue(historyManager.size() == 0);
     }
@@ -91,11 +91,11 @@ public class HistoryManagerTest {
         HistoryRecord outsideRecord = new HistoryRecord(new DummyMutatorCommand("!!!"), new AddressBook());
         HistoryManager historyManager = new HistoryManager(1);
 
-        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord));
+        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord, new AddressBook()));
 
         historyManager.pushRecord(new DummyMutatorCommand("1"), new AddressBook());
 
-        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord));
+        assertThrows(NoSuchElementException.class, () -> historyManager.popRecordsTo(outsideRecord, new AddressBook()));
         assertTrue(historyManager.size() == 1);
     }
 }

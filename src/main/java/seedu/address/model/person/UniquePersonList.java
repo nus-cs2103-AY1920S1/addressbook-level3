@@ -153,4 +153,11 @@ public class UniquePersonList implements Iterable<Person> {
         }
         return Optional.empty();
     }
+
+    /**
+     * Returns size of the list
+     */
+    public int size() {
+        return internalList.size();
+    }
 }

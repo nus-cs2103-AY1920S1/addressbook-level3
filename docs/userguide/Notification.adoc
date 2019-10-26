@@ -1,0 +1,82 @@
+== Notifications
+====
+*Notifications*
+
+As a community nurse, you will often have deadlines to meet or appointments for home visits. You can schedule the application to notify you for these deadlines/events. This section describes the features that will allow you to manage such notifications.
+====
+
+=== Enabling the Notifications `notif enable`
+
+You can enable notifications for upcoming appointments using `notif enable`.
+
+Format: `notif enable`
+
+=== Disabling the Notifications `notif disable`
+
+You can disable notifications for upcoming appointments using `notif disable`.
+
+Format: `notif disable`
+
+=== Setting the Notification Time ahead of Appointments: `notif apptalert`
+
+By default, the application will prompt a notification 30 minutes before any of your appointments. You can change that using `notif apptalert`.
+
+Format: `notif apptalert m/MINUTES_BEFORE_APPOINTMENT`
+
+****
+ * The application will prompt a notification `MINUTES_BEFORE_APPOINTMENT` minutes before any of your appointments.
+ * `MINUTES_BEFORE_APPOINTMENT` is 30 minutes by default.
+****
+
+=== Listing all Notifications: `notif list`
+
+You can see the list of your notifications using `notif list`.
+
+Format: `notif list`
+
+=== Finding Notification(s): `notif find`
+
+You can find notifications that fit the parameters given using `notif find`.
+
+In the list displayed, each notification will have an *index* number which can then be used for other features that require you to select a notification by *index* e.g. `notif delete`. Take note that a notification will be given the same *index* regardless of other display commands such as `notif find` or if different parameters are used.
+
+Format: `notif find [n/NAME] [b/BODY] [d/DATE(DD-MM-YYYY)] [t/TIME(HH:mm)]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+****
+
+Examples:
+
+
+=== Adding a Notification: `notif add`
+
+You can add your own notifications (that are not attached to any appointments) using `notif add`.
+
+Format: `notif add n/NAME b/BODY d/DATE(DD-MM-YYYY) t/TIME(HH:mm)`
+
+Example: `notif add n/Call Terry b/Remind Terry to take his medicine d/23-03-2019 t/13:00`
+
+// tag::delete[]
+=== Deleting a Notification: `notif delete`
+
+You can delete a notification by *index* using `notif delete`.
+
+Format: `notif delete INDEX`
+
+****
+* Deletes the notification at the specified `INDEX`.
+* The index refers to the index number shown in the list of notifications displayed by `notif list` or `notif find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Notifications that were added because of an appointment can be deleted.
+****
+
+Examples:
+
+* `notif list` +
+`notif delete 2` +
+Deletes the 2nd notification in the notification list.
+
+* `notif delete 1` +
+Deletes the notification which had been assigned the index 1.

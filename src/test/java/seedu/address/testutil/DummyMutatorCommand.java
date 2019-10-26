@@ -9,7 +9,7 @@ import seedu.address.model.Model;
  * Dummy {@link MutatorCommand} for testing history functionality
  */
 public class DummyMutatorCommand extends Command implements MutatorCommand {
-    public static final String RESULT_PREAMBLE = "This is a dummy command with data ";
+    public static final String RESULT_PREAMBLE = "This is a dummy command with data %s";
 
     private String dummyData;
 
@@ -18,6 +18,6 @@ public class DummyMutatorCommand extends Command implements MutatorCommand {
     }
 
     public CommandResult execute(Model model) {
-        return new CommandResult(RESULT_PREAMBLE + dummyData);
+        return new CommandResult(String.format(RESULT_PREAMBLE, dummyData));
     }
 }

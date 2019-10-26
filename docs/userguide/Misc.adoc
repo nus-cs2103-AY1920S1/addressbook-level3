@@ -1,0 +1,7 @@
+
+== Miscellaneous
+=== Viewing help : `help`
+
+Directs you to this page.
+
+Format: `help`

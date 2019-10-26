@@ -1,0 +1,31 @@
+== Data Saving, Undo, Redo
+====
+*Data Saving, Undo, Redo*
+
+As a community nurse, you will often perform commands that modify information managed by the application (e.g. patient data). This section describes the features involving the storage of this data and features involving undo-ing / redo-ing commands.
+====
+
+=== Saving your data
+
+Your data are saved in the hard disk automatically after any command that changes the data.
+
+There is no need to save manually.
+
+=== Undoing a command: `undo`
+
+You can undo the changes of the last executed command that alters data using `undo`.
+
+Up to the last 3(?) commands can be undone.
+
+The command `undo` itself cannot be undone.
+
+Format: `undo`
+
+=== Redoing an undone command: `redo`
+
+You can redo and reapply the changes of the last undone command using `redo`.
+
+Can only be used if the last data altering command is `undo`.
+Up to the last 3(?) undone commands can be redone.
+
+Format: `redo`

@@ -47,24 +47,11 @@ public class VisitTodo {
         return test.matches(VALIDATION_REGEX);
     }
 
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameVisitTodo(VisitTodo otherVisitTodo) {
-        if (otherVisitTodo == this) {
-            return true;
-        }
-
-        return otherVisitTodo != null
-                && otherVisitTodo.getDescription().equals(getDescription());
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof VisitTodo // instanceof handles nulls
-                && description.equals(((VisitTodo) other).description)); // state check
+                && getDescription().equals(((VisitTodo) other).getDescription())); // state check
     }
 
     @Override

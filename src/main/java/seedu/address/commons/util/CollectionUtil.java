@@ -46,7 +46,8 @@ public class CollectionUtil {
                 return false;
             }
         }
-        return true;
+        //If itemBIterator still has stuff, return false. Else true
+        return !itemBIterator.hasNext();
     }
 
     /**
