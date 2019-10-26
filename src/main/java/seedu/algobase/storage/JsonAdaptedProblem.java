@@ -27,6 +27,7 @@ class JsonAdaptedProblem {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Problem's %s field is missing!";
 
+    private final String id;
     private final String name;
     private final String author;
     private final String weblink;
@@ -40,11 +41,16 @@ class JsonAdaptedProblem {
      * Constructs a {@code JsonAdaptedProblem} with the given Problem details.
      */
     @JsonCreator
-    public JsonAdaptedProblem(@JsonProperty("name") String name, @JsonProperty("author") String author,
-                              @JsonProperty("weblink") String weblink, @JsonProperty("description") String description,
+    public JsonAdaptedProblem(@JsonProperty("id") String id,
+                              @JsonProperty("name") String name,
+                              @JsonProperty("author") String author,
+                              @JsonProperty("weblink") String weblink,
+                              @JsonProperty("description") String description,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                               @JsonProperty("difficulty") String difficulty,
-                              @JsonProperty("remark") String remark, @JsonProperty("source") String source) {
+                              @JsonProperty("remark") String remark,
+                              @JsonProperty("source") String source) {
+        this.id = id;
         this.name = name;
         this.author = author;
         this.weblink = weblink;
@@ -61,6 +67,7 @@ class JsonAdaptedProblem {
      * Converts a given {@code Problem} into this class for Jackson use.
      */
     public JsonAdaptedProblem(Problem problem) {
+        id = Long.toString(problem.getId());
         name = problem.getName().fullName;
         author = problem.getAuthor().value;
         weblink = problem.getWebLink().value;
@@ -84,6 +91,7 @@ class JsonAdaptedProblem {
             problemTags.add(tag.toModelType());
         }
 
+        final long modelId = retrieveId(id);
         final Name modelName = retrieveName(name);
         final Author modelAuthor = retrieveAuthor(author);
         final WebLink modelWebLink = retrieveWeblink(weblink);
@@ -93,8 +101,28 @@ class JsonAdaptedProblem {
         final Source modelSource = retrieveSource(source);
         final Set<Tag> modelTags = new HashSet<>(problemTags);
 
-        return new Problem(modelName, modelAuthor, modelWebLink, modelDescription, modelTags, modelDifficulty,
+        return new Problem(modelId, modelName, modelAuthor, modelWebLink, modelDescription, modelTags, modelDifficulty,
                 modelRemark, modelSource);
+    }
+
+    /**
+     * Converts an id in string format to a long number.
+     *
+     * @param id id in String format.
+     * @return id in long format.
+     * @throws IllegalValueException if string format is invalid.
+     */
+    public long retrieveId(String id) throws IllegalValueException {
+        if (id == null) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
+        }
+
+        try {
+            return Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
+        }
     }
 
     /**

@@ -1,0 +1,45 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SwitchTabCommandParser" as SwitchTabCommandParser LOGIC_COLOR
+participant "s:SwitchTabCommand" as SwitchTabCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("switchtab t/display i/1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("switchtab t/display i/1")
+activate AddressBookParser
+
+create SwitchTabCommandParser
+AddressBookParser -> SwitchTabCommandParser
+activate SwitchTabCommandParser
+
+SwitchTabCommandParser --> AddressBookParser
+deactivate SwitchTabCommandParser
+
+AddressBookParser -> SwitchTabCommandParser : parse("t/display i/1")
+activate SwitchTabCommandParser
+
+create SwitchTabCommand
+SwitchTabCommandParser -> SwitchTabCommand : SwitchTabCommand(tabType, index)
+activate SwitchTabCommand
+
+SwitchTabCommand --> SwitchTabCommandParser : s
+deactivate SwitchTabCommand
+
+SwitchTabCommandParser --> AddressBookParser : s
+deactivate SwitchTabCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SwitchTabCommandParser -[hidden]-> AddressBookParser
+destroy SwitchTabCommandParser
+
+AddressBookParser --> LogicManager : s
+deactivate AddressBookParser
+
+deactivate SwitchTabCommand
+
+@enduml

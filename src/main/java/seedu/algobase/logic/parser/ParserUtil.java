@@ -4,7 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,6 @@ import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabType;
-import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
 import seedu.algobase.model.problem.Author;
@@ -36,6 +36,8 @@ import seedu.algobase.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String DATE_CONSTRAINTS = "DateTime format should be 'yyyy-MM-dd'.";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -257,11 +259,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static LocalDateTime parseDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         try {
-            return LocalDateTime.parse(date, Plan.FORMATTER);
+            return LocalDate.parse(date, FORMATTER);
         } catch (DateTimeException ex) {
-            throw new ParseException(Plan.DATE_TIME_CONSTRAINTS);
+            throw new ParseException(DATE_CONSTRAINTS);
         }
     }
 

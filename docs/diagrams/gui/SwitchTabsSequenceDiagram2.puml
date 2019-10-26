@@ -1,0 +1,28 @@
+@startuml
+!include ../style.puml
+
+box UI UI_COLOR_T1
+participant ":DetailsTabPane" as DetailsTabPane UI_COLOR
+participant "tabPane:TabPane" as TabPane UI_COLOR
+participant "sm:SingleSelectionModel<Tab>" as SelectionModel UI_COLOR
+end box
+
+[-> DetailsTabPane : selectTab(1)
+activate DetailsTabPane
+
+DetailsTabPane -> TabPane : getSelectionModel()
+activate TabPane
+
+TabPane --> DetailsTabPane: sm
+deactivate TabPane
+
+DetailsTabPane -> SelectionModel : select(1)
+activate SelectionModel
+
+SelectionModel --> DetailsTabPane
+deactivate SelectionModel
+
+[<-- DetailsTabPane
+deactivate DetailsTabPane
+
+@enduml

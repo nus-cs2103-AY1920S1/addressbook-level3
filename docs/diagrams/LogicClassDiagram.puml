@@ -7,8 +7,11 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package Parser {
+package exceptions {
+Class ParseException
+}
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class AlgoBaseParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -18,7 +21,15 @@ Class Prefix
 }
 
 package Command {
+package exceptions {
+Class CommandException
+}
 Class XYZCommand
+Class ClearCommand
+Class ListCommand
+Class ListPlanCommand
+Class ListTagCommand
+Class ExitCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
@@ -35,9 +46,8 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
-
+LogicManager -->"1" AlgoBaseParser
+AlgoBaseParser .left.> XYZCommandParser: creates >
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
@@ -49,6 +59,16 @@ XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
+AlgoBaseParser .up.> ClearCommand: creates >
+AlgoBaseParser .up.> ListCommand: creates >
+AlgoBaseParser .up.> ListPlanCommand: creates >
+AlgoBaseParser .up.> ListTagCommand: creates >
+AlgoBaseParser .up.> ExitCommand: creates >
+ClearCommand -up-|> Command
+ListCommand -up-|> Command
+ListPlanCommand -up-|> Command
+ListTagCommand -up-|> Command
+ExitCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model

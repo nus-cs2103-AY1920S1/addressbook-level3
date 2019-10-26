@@ -1,8 +1,9 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -17,18 +18,23 @@ public class TagIncludesKeywordsPredicate implements Predicate<Problem> {
                 return true;
             }
         };
-    private final List<String> keywords;
+    private final List<Keyword> keywords;
 
-    public TagIncludesKeywordsPredicate(List<String> keywords) {
+    public TagIncludesKeywordsPredicate(List<Keyword> keywords) {
         this.keywords = keywords;
     }
+
     private TagIncludesKeywordsPredicate() {
         this.keywords = null;
     }
 
+    public List<Keyword> getKeywords() {
+        return keywords;
+    }
+
     @Override
     public boolean test(Problem problem) {
-        return keywords.stream().allMatch(keyword -> problem.getTags().contains(new Tag(keyword)));
+        return keywords.stream().allMatch(keyword -> problem.getTags().contains(new Tag(keyword.toString())));
     }
 
     @Override

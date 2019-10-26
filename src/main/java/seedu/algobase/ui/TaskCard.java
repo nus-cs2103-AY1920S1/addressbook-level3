@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -33,6 +34,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label targetDate;
+    @FXML
     private Label author;
     @FXML
     private Label description;
@@ -51,14 +54,15 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-        name.setText(task.getProblem().getName().fullName);
-        author.setText(task.getProblem().getAuthor().value);
-        description.setText(task.getProblem().getDescription().value);
-        weblink.setText(task.getProblem().getWebLink().value);
-        difficulty.setText(task.getProblem().getDifficulty().toString());
-        remark.setText(task.getProblem().getRemark().value);
-        source.setText(task.getProblem().getSource().value);
-        task.getProblem().getTags().stream()
+        name.setText(task.getName().fullName + task.getStatusIcon());
+        targetDate.setText(task.getTargetDate().format(ParserUtil.FORMATTER));
+        author.setText(task.getAuthor().value);
+        description.setText(task.getDescription().value);
+        weblink.setText(task.getWebLink().value);
+        difficulty.setText(task.getDifficulty().toString());
+        remark.setText(task.getRemark().value);
+        source.setText(task.getSource().value);
+        task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
