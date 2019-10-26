@@ -29,6 +29,7 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
@@ -103,13 +104,19 @@ public class LoanSplitCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSONS);
         }
 
+        Person user = new Person(new Name("You"));
+
         this.personAmountMap = new HashMap<Person, Amount>();
         for (int i = 0; i < persons.size(); i++) {
-            personAmountMap.put(persons.get(i), amounts.get(i));
+            if (optionalUser.isPresent() && optionalUser.get().equals(persons.get(i))) {
+                personAmountMap.put(user, amounts.get(i));
+            } else {
+                personAmountMap.put(persons.get(i), amounts.get(i));
+            }
         }
         this.debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
 
-        this.optionalUser = optionalUser;
+        this.optionalUser = optionalUser.isPresent() ? Optional.of(user) : optionalUser;
         this.optionalDescription = optionalDescription;
         this.optionalDate = optionalDate;
     }
