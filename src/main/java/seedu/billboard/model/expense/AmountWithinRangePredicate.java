@@ -1,5 +1,6 @@
 package seedu.billboard.model.expense;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -28,4 +29,8 @@ public class AmountWithinRangePredicate implements Predicate<Expense> {
                 && upperLimit == ((AmountWithinRangePredicate) other).upperLimit); // state check
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(lowerLimit, upperLimit);
+    }
 }

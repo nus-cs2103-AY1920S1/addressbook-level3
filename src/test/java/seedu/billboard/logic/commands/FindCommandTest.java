@@ -19,7 +19,6 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.expense.MultiArgPredicate;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -81,12 +80,5 @@ public class FindCommandTest {
         expectedModel.updateFilteredExpenses(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(FOOD, GROCERIES, MOVIE), model.getFilteredExpenses());
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
