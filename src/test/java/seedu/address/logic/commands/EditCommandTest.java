@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
@@ -19,6 +20,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.PersonBuilder;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -35,8 +37,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(0).getPolicies(),
-            model.getFilteredPersonList().get(0).getTags()).build();
+        Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(0)).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         // policies and tags should not change.
         descriptor.setPolicies(model.getFilteredPersonList().get(0).getPolicies());
@@ -105,11 +106,10 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_duplicatePersonUnfilteredListWithDifferentFields_throwsCommandException() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
-
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
@@ -149,6 +149,22 @@ public class EditCommandTest {
             new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_executeForMerge_success() {
+        Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(0)).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        // policies and tags should not change.
+        descriptor.setPolicies(model.getFilteredPersonList().get(0).getPolicies());
+        descriptor.setTags(model.getFilteredPersonList().get(0).getTags());
+        EditCommand editCommand = new EditCommand();
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.saveAddressBookState();
+        editCommand.executeForMerge(model.getFilteredPersonList().get(0), descriptor, model);
+        assertEquals(model, expectedModel);
     }
 
     @Test

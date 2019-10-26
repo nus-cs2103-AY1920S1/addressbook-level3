@@ -25,7 +25,7 @@ public class DoNotMergePolicyCommand extends Command {
 
 
     /**
-     * Creates an DoNoMergePolicy to skip the merging of a field in a merging process.
+     * Creates an DoNotMergePolicy to skip the merging of a field in a merging process.
      */
     public DoNotMergePolicyCommand(Policy inputPolicy) {
         requireNonNull(inputPolicy);
