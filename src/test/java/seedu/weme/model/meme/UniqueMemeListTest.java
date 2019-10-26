@@ -6,9 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_JOKER;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_CHARMANDER;
 import static seedu.weme.testutil.Assert.assertThrows;
+import static seedu.weme.testutil.TypicalMemes.CHARMANDER;
 import static seedu.weme.testutil.TypicalMemes.DOGE;
 import static seedu.weme.testutil.TypicalMemes.JOKER;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -126,6 +129,25 @@ public class UniqueMemeListTest {
         UniqueMemeList expectedUniqueMemeList = new UniqueMemeList();
         assertEquals(expectedUniqueMemeList, uniqueMemeList);
     }
+
+    @Test
+    public void empty_pathList() {
+        List<Path> expectedUniqueMemeList = new ArrayList<>();
+        assertEquals(expectedUniqueMemeList, uniqueMemeList.asPathList());
+    }
+
+    @Test
+    public void convert_toPathList() {
+        uniqueMemeList.add(DOGE);
+        uniqueMemeList.add(JOKER);
+        uniqueMemeList.add(CHARMANDER);
+        List<Path> expectedUniqueMemeList = new ArrayList<>();
+        expectedUniqueMemeList.add(DOGE.getImagePath().getFilePath());
+        expectedUniqueMemeList.add(JOKER.getImagePath().getFilePath());
+        expectedUniqueMemeList.add(CHARMANDER.getImagePath().getFilePath());
+        assertEquals(expectedUniqueMemeList, uniqueMemeList.asPathList());
+    }
+
 
     @Test
     public void setMemes_nullUniqueMemeList_throwsNullPointerException() {

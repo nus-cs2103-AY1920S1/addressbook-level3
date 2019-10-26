@@ -44,7 +44,7 @@ class JsonAdaptedMeme {
      * Converts a given {@code Meme} into this class for Jackson use.
      */
     public JsonAdaptedMeme(Meme source) {
-        filePath = source.getFilePath().toString();
+        filePath = source.getImagePath().toString();
         description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

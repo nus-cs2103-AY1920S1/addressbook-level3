@@ -42,7 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane templatesPanel;
     private StackPane archivePanel;
     private StackPane statisticsPanel;
-    private StackPane storagePanel;
+    private StackPane exportPanel;
+    private StackPane importPanel;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -149,7 +150,8 @@ public class MainWindow extends UiPart<Stage> {
         templatesPanel = new StackPane();
         archivePanel = new StackPane();
         statisticsPanel = new StackPane();
-        storagePanel = new StackPane();
+        exportPanel = new StackPane();
+        importPanel = new StackPane();
 
         MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(), logic.getObservableLikeData());
         memesPanel.getChildren().add(memeGridPanel.getRoot());
@@ -158,6 +160,15 @@ public class MainWindow extends UiPart<Stage> {
         templatesPanel.getChildren().add(templateGridPanel.getRoot());
 
         // TODO: Fill in other panels here
+
+        MemeGridPanel exportGridPanel = new MemeGridPanel(
+                logic.getFilteredStagedMemeList(), logic.getObservableLikeData());
+        ImportGridPanel importGridPanel = new ImportGridPanel(
+                logic.getFilteredImportList());
+
+        exportPanel.getChildren().add(exportGridPanel.getRoot());
+        importPanel.getChildren().add(importGridPanel.getRoot());
+
     }
 
     /**
@@ -188,8 +199,11 @@ public class MainWindow extends UiPart<Stage> {
         case CONTEXT_STATISTICS:
             appContentPlaceholder.getChildren().add(statisticsPanel);
             break;
-        case CONTEXT_STORAGE:
-            appContentPlaceholder.getChildren().add(storagePanel);
+        case CONTEXT_EXPORT:
+            appContentPlaceholder.getChildren().add(exportPanel);
+            break;
+        case CONTEXT_IMPORT:
+            appContentPlaceholder.getChildren().add(importPanel);
             break;
         default:
             throw new IllegalArgumentException(MESSAGE_INVALID_CONTEXT);

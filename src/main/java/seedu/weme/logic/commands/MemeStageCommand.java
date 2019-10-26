@@ -2,9 +2,14 @@ package seedu.weme.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX;
+
+import java.util.List;
+
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.exceptions.CommandException;
 import seedu.weme.model.Model;
+import seedu.weme.model.meme.Meme;
 
 
 /**
@@ -20,35 +25,42 @@ public class MemeStageCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_SUCCESS = "New meme staged: %1$s";
+    public static final String MESSAGE_MEME_ALREADY_STAGED = "Meme is already in staging area";
 
-    private final Index toStage;
+    private final Index targetIndex;
 
     /**
-     * Creates an MemeAddCommand to add the specified {@code Meme}
+     * Creates an MemeStageCommand to add the specified {@code Meme} to the staging area.
      */
     public MemeStageCommand(Index index) {
         requireNonNull(index);
-        toStage = index;
+        targetIndex = index;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /*
-        if (model.hasMeme(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_MEME);
+        List<Meme> lastShownList = model.getFilteredMemeList();
+        List<Meme> stageList = model.getFilteredStagedMemeList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
         }
 
-        model.addMeme(toAdd);
-        */
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toStage));
+        Meme memeToStage = lastShownList.get(targetIndex.getZeroBased());
+        if (stageList.contains(memeToStage)) {
+            throw new CommandException(MESSAGE_MEME_ALREADY_STAGED);
+        }
+        model.stageMeme(memeToStage);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, memeToStage));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MemeStageCommand // instanceof handles nulls
-                && toStage.equals(((MemeStageCommand) other).toStage));
+                && targetIndex.equals(((MemeStageCommand) other).targetIndex));
     }
 }

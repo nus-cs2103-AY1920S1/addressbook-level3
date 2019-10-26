@@ -9,6 +9,7 @@ import static seedu.weme.testutil.MemeUtil.isSameMemeImage;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -88,6 +89,26 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public void importMemes() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public List<Path> getExportPathList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void clearExportList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void loadMemes(List<Path> pathList) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
@@ -158,12 +179,32 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public void stageMeme(Meme meme) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unstageMeme(Meme meme) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setMeme(Meme target, Meme editedMeme) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Meme> getFilteredMemeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Meme> getFilteredStagedMemeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Meme> getFilteredImportList() {
             throw new AssertionError("This method should not be called.");
         }
 

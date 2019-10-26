@@ -31,7 +31,7 @@ public class EditMemeDescriptorBuilder {
      */
     public EditMemeDescriptorBuilder(Meme meme) {
         descriptor = new EditMemeDescriptor();
-        descriptor.setFilePath(meme.getFilePath());
+        descriptor.setFilePath(meme.getImagePath());
         descriptor.setDescription(meme.getDescription());
         descriptor.setTags(meme.getTags());
     }

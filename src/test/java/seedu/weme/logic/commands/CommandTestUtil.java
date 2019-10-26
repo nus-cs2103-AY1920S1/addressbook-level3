@@ -136,7 +136,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredMemeList().size());
 
         Meme meme = model.getFilteredMemeList().get(targetIndex.getZeroBased());
-        final ImagePath filePath = meme.getFilePath();
+        final ImagePath filePath = meme.getImagePath();
         model.updateFilteredMemeList(new PathMatchesPathPredicate(filePath));
 
         assertEquals(1, model.getFilteredMemeList().size());

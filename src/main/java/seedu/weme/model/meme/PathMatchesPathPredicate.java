@@ -16,7 +16,7 @@ public class PathMatchesPathPredicate implements Predicate<Meme> {
 
     @Override
     public boolean test(Meme meme) {
-        return path.equals(meme.getFilePath());
+        return path.equals(meme.getImagePath());
     }
 
     @Override

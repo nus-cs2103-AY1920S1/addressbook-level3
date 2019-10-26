@@ -37,7 +37,7 @@ public class LikeManager {
     }
 
     public int getLikesByMeme(Meme meme) {
-        String memeRef = meme.getFilePath().toString();
+        String memeRef = meme.getImagePath().toString();
         return data.getLikesByMemeRef(memeRef);
     }
 
@@ -81,7 +81,7 @@ public class LikeManager {
      * Increments a meme's like count by 1.
      */
     public void incrementMemeLikeCount(Meme meme) {
-        String memeRef = meme.getFilePath().toString();
+        String memeRef = meme.getImagePath().toString();
         data.setLikesByMemeRef(memeRef, INCREMENT);
     }
 
@@ -89,7 +89,7 @@ public class LikeManager {
      * Decrements a meme's like count by 1.
      */
     public void decrementLikesByMeme(Meme meme) {
-        String memeRef = meme.getFilePath().toString();
+        String memeRef = meme.getImagePath().toString();
         data.setLikesByMemeRef(memeRef, DECREMENT);
     }
 
@@ -97,7 +97,7 @@ public class LikeManager {
      * Deletes like data of a meme when it gets deleted.
      */
     public void deleteLikesByMeme(Meme meme) {
-        String memeRef = meme.getFilePath().toString();
+        String memeRef = meme.getImagePath().toString();
         data.deleteLikesByMemeRef(memeRef);
     }
 

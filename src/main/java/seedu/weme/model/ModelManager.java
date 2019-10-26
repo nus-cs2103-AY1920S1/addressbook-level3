@@ -9,6 +9,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -34,6 +35,8 @@ public class ModelManager implements Model {
     private final VersionedWeme versionedWeme;
     private final UserPrefs userPrefs;
     private final FilteredList<Meme> filteredMemes;
+    private final FilteredList<Meme> filteredStagedMemeList;
+    private final FilteredList<Meme> filteredImportMemeList;
     private final FilteredList<Template> filteredTemplates;
 
     // ModelContext determines which parser to use at any point of time.
@@ -51,12 +54,38 @@ public class ModelManager implements Model {
         versionedWeme = new VersionedWeme(weme);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredMemes = new FilteredList<>(versionedWeme.getMemeList());
+        filteredStagedMemeList = new FilteredList<>(versionedWeme.getStagedMemeList());
+        filteredImportMemeList = new FilteredList<>(versionedWeme.getImportList());
         filteredTemplates = new FilteredList<>(versionedWeme.getTemplateList());
     }
 
     public ModelManager() {
         this(new Weme(), new UserPrefs());
     }
+
+    //=========== Export/Import ==============================================================================
+
+    @Override
+    public List<Path> getExportPathList() {
+        return versionedWeme.getExportPathList();
+    }
+
+    @Override
+    public void importMemes() throws IOException {
+        versionedWeme.importMeme(getMemeImagePath());
+        versionedWeme.clearImportList();
+    }
+
+    @Override
+    public void loadMemes(List<Path> pathList) {
+        versionedWeme.loadMemes(pathList);
+    }
+
+    @Override
+    public void clearExportList() {
+        versionedWeme.clearExportList();
+    }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -151,6 +180,17 @@ public class ModelManager implements Model {
         versionedWeme.setMeme(target, editedMeme);
     }
 
+    @Override
+    public void stageMeme(Meme meme) {
+        versionedWeme.stageMeme(meme);
+    }
+
+    @Override
+    public void unstageMeme(Meme meme) {
+        versionedWeme.unstageMeme(meme);
+    }
+
+
     //=========== Filtered Meme/Template List Accessors =============================================================
 
     /**
@@ -160,6 +200,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Meme> getFilteredMemeList() {
         return filteredMemes;
+    }
+
+    @Override
+    public ObservableList<Meme> getFilteredStagedMemeList() {
+        return filteredStagedMemeList;
+    }
+
+    @Override
+    public ObservableList<Meme> getFilteredImportList() {
+        return filteredImportMemeList;
     }
 
     @Override
@@ -246,7 +296,7 @@ public class ModelManager implements Model {
         try {
             Set<File> filesToKeep = new HashSet<>();
             for (Meme meme : versionedWeme.getMemeList()) {
-                File file = meme.getFilePath().getFilePath().toFile();
+                File file = meme.getImagePath().getFilePath().toFile();
                 filesToKeep.add(file);
             }
 

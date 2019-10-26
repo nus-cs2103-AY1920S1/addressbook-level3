@@ -32,7 +32,7 @@ public class MemeBuilder {
      */
     public MemeBuilder(Meme memeToCopy) {
         description = memeToCopy.getDescription();
-        filePath = memeToCopy.getFilePath();
+        filePath = memeToCopy.getImagePath();
         tags = new HashSet<>(memeToCopy.getTags());
     }
 

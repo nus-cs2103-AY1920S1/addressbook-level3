@@ -2,15 +2,20 @@ package seedu.weme.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+
+import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.UniqueMemeList;
 import seedu.weme.model.template.Template;
 import seedu.weme.model.template.UniqueTemplateList;
+import seedu.weme.model.util.ImageUtil;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
@@ -23,6 +28,8 @@ import seedu.weme.statistics.StatsManager;
 public class Weme implements ReadOnlyWeme {
 
     private final UniqueMemeList memes;
+    private final UniqueMemeList exportList;
+    private final UniqueMemeList importList;
     private final UniqueTemplateList templates;
     private final Stats stats;
 
@@ -35,6 +42,8 @@ public class Weme implements ReadOnlyWeme {
      */
     {
         memes = new UniqueMemeList();
+        exportList = new UniqueMemeList();
+        importList = new UniqueMemeList();
         templates = new UniqueTemplateList();
         stats = new StatsManager();
     }
@@ -90,6 +99,58 @@ public class Weme implements ReadOnlyWeme {
     public boolean hasMeme(Meme meme) {
         requireNonNull(meme);
         return memes.contains(meme);
+    }
+
+    /**
+     * Stages a meme to the staging area.
+     *
+     * @param meme meme to stage
+     */
+    public void stageMeme(Meme meme) {
+        exportList.add(meme);
+    }
+
+    /**
+     * Unstages a meme from the staging area.
+     *
+     * @param meme meme to unstage
+     */
+    public void unstageMeme(Meme meme) {
+        exportList.remove(meme);
+    }
+
+    /**
+     * Transfers all memes from importList into storage.
+     */
+    public void importMeme(Path internalImagePath) throws IOException {
+        for (Meme meme : importList) {
+            Meme copiedMeme = ImageUtil.copyMeme(meme, internalImagePath);
+            addMeme(copiedMeme);
+        }
+    }
+
+    public void clearImportList() {
+        importList.clear();
+    }
+
+    public void clearExportList() {
+        exportList.clear();
+    }
+
+    /**
+     * Loads meme from given directory to staging area.
+     *
+     * @param pathList
+     */
+    public void loadMemes(List<Path> pathList) {
+        for (Path path : pathList) {
+            Meme meme = new Meme(new ImagePath(path.toString()));
+            importList.add(meme);
+        }
+    }
+
+    public List<Path> getExportPathList() {
+        return exportList.asPathList();
     }
 
     /**
@@ -160,7 +221,7 @@ public class Weme implements ReadOnlyWeme {
     @Override
     public String toString() {
         return memes.asUnmodifiableObservableList().size() + " memes and "
-            + templates.asUnmodifiableObservableList().size() + " templates";
+                + templates.asUnmodifiableObservableList().size() + " templates";
         // TODO: refine later
     }
 
@@ -170,6 +231,15 @@ public class Weme implements ReadOnlyWeme {
     }
 
     @Override
+    public ObservableList<Meme> getStagedMemeList() {
+        return exportList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Meme> getImportList() {
+        return importList.asUnmodifiableObservableList();
+    }
+
     public ObservableList<Template> getTemplateList() {
         return templates.asUnmodifiableObservableList();
     }

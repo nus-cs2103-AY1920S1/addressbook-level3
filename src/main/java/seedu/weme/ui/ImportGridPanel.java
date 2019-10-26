@@ -5,9 +5,7 @@ import java.util.logging.Logger;
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 
@@ -18,21 +16,17 @@ import seedu.weme.model.meme.Meme;
 /**
  * Panel containing the list of memes.
  */
-public class MemeGridPanel extends UiPart<Region> {
-    private static final String FXML = "MemeGridPanel.fxml";
+public class ImportGridPanel extends UiPart<Region> {
+    private static final String FXML = "ImportGridPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(MemeGridPanel.class);
 
     @FXML
     private GridView<Meme> memeGridView;
 
-    private ObservableMap<String, Integer> likeData;
-
-    public MemeGridPanel(ObservableList<Meme> memeList, ObservableMap<String, Integer> likeData) {
+    public ImportGridPanel(ObservableList<Meme> memeList) {
         super(FXML);
         memeGridView.setItems(memeList);
         memeGridView.setCellFactory(listView -> new MemeGridViewCell());
-        this.likeData = likeData;
-        likeData.addListener((MapChangeListener<String, Integer>) change -> memeGridView.autosize());
     }
 
     /**
@@ -47,8 +41,7 @@ public class MemeGridPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 String filePath = meme.getImagePath().toString();
-                int likes = likeData.getOrDefault(filePath, 0);
-                setGraphic(new MemeCard(meme, getIndex() + 1, likes).getRoot());
+                setGraphic(new ImportMemeCard(meme, getIndex() + 1).getRoot());
             }
         }
     }

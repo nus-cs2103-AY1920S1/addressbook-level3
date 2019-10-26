@@ -38,7 +38,7 @@ public class TemplateCard extends UiPart<Region> {
         super(FXML);
         this.template = template;
         id.setText(displayedIndex + "");
-        display.setImage(new Image(template.getFilePath().toUrl().toString()));
+        display.setImage(new Image(template.getImagePath().toUrl().toString()));
         name.setText(template.getName().toString());
     }
 

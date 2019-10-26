@@ -16,23 +16,23 @@ public class Template {
     private final Name name;
 
     // Data fields
-    private final ImagePath filePath;
+    private final ImagePath imagePath;
 
     /**
      * Every field must be present and not null.
      */
-    public Template(Name name, ImagePath filePath) {
-        requireAllNonNull(filePath, name);
+    public Template(Name name, ImagePath imagePath) {
+        requireAllNonNull(imagePath, name);
         this.name = name;
-        this.filePath = filePath;
+        this.imagePath = imagePath;
     }
 
     public Name getName() {
         return name;
     }
 
-    public ImagePath getFilePath() {
-        return filePath;
+    public ImagePath getImagePath() {
+        return imagePath;
     }
 
     /**
@@ -46,7 +46,7 @@ public class Template {
 
         return otherTemplate != null
             && (otherTemplate.getName().equals(getName())
-            || otherTemplate.getFilePath().equals(getFilePath()));
+            || otherTemplate.getImagePath().equals(getImagePath()));
     }
 
     /**
@@ -65,12 +65,12 @@ public class Template {
 
         Template otherTemplate = (Template) other;
         return otherTemplate.getName().equals(getName())
-            && otherTemplate.getFilePath().equals(getFilePath());
+            && otherTemplate.getImagePath().equals(getImagePath());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, filePath);
+        return Objects.hash(name, imagePath);
     }
 
     @Override

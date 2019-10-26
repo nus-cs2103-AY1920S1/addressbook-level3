@@ -20,7 +20,7 @@ public class JsonAdaptedMemeTest {
     private static final String INVALID_URL = "hello world";
 
     private static final String VALID_DESCRIPTION = JOKER.getDescription().toString();
-    private static final String VALID_URL = JOKER.getFilePath().toString();
+    private static final String VALID_URL = JOKER.getImagePath().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = JOKER.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

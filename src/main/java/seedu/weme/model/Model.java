@@ -1,6 +1,8 @@
 package seedu.weme.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.value.ObservableValue;
@@ -87,6 +89,18 @@ public interface Model {
     boolean hasMeme(Meme meme);
 
     /**
+     * Stages the given meme for export.
+     * The meme must exist in the meme book.
+     */
+    void stageMeme(Meme meme);
+
+    /**
+     * Unstages the given meme for export.
+     * The meme must exist in the meme book.
+     */
+    void unstageMeme(Meme meme);
+
+    /**
      * Deletes the given meme.
      * The meme must exist in Weme.
      */
@@ -99,6 +113,23 @@ public interface Model {
     void addMeme(Meme meme);
 
     /**
+     * Retrieves paths of memes in the staging area.
+     *
+     * @return A List of Path representing memes in staging area.
+     */
+    List<Path> getExportPathList();
+
+    /**
+     * Imports the meme to storage.
+     */
+    void importMemes() throws IOException;
+
+    /**
+     * Loads the memes to import staging area.
+     */
+    void loadMemes(List<Path> pathList);
+
+    /**
      * Replaces the given meme {@code target} with {@code editedMeme}.
      * {@code target} must exist in Weme.
      * The meme identity of {@code editedMeme} must not be the same as another existing meme in Weme.
@@ -107,6 +138,16 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered meme list */
     ObservableList<Meme> getFilteredMemeList();
+
+    /**
+     * Returns an unmodifiable view of the staged meme list.
+     */
+    ObservableList<Meme> getFilteredStagedMemeList();
+
+    /**
+     * Returns an unmodifiable view of the import meme list.
+     */
+    ObservableList<Meme> getFilteredImportList();
 
     /**
      * Updates the filter of the filtered meme list to filter by the given {@code predicate}.
@@ -181,6 +222,11 @@ public interface Model {
      * Deletes stats data by meme.
      */
     void clearMemeStats(Meme memeToDelete);
+
+    /**
+     * Clears the list memes in export tab after exporting.
+     */
+    void clearExportList();
 
 
     /**

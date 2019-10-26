@@ -32,7 +32,7 @@ class JsonAdaptedTemplate {
      */
     public JsonAdaptedTemplate(Template source) {
         name = source.getName().toString();
-        filePath = source.getFilePath().toString();
+        filePath = source.getImagePath().toString();
     }
 
     /**

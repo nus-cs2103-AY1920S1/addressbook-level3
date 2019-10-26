@@ -3,8 +3,10 @@ package seedu.weme.model.meme;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +51,16 @@ public class UniqueMemeList implements Iterable<Meme> {
     }
 
     /**
+     * List representation of the list of Meme paths.
+     */
+    public List<Path> asPathList() {
+        return internalList
+                .stream()
+                .map(meme -> meme.getImagePath().getFilePath())
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Replaces the meme {@code target} in the list with {@code editedMeme}.
      * {@code target} must exist in the list.
      * The meme identity of {@code editedMeme} must not be the same as another existing meme in the list.
@@ -77,6 +89,13 @@ public class UniqueMemeList implements Iterable<Meme> {
         if (!internalList.remove(toRemove)) {
             throw new MemeNotFoundException();
         }
+    }
+
+    /**
+     * Clears all the memes in the import list after successful import
+     */
+    public void clear() {
+        internalList.clear();
     }
 
     public void setMemes(UniqueMemeList replacement) {

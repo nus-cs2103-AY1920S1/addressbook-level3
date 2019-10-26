@@ -35,7 +35,7 @@ public class MemeUtil {
      */
     public static String getMemeDetails(Meme meme) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_FILEPATH + meme.getFilePath().toString() + " ");
+        sb.append(PREFIX_FILEPATH + meme.getImagePath().toString() + " ");
         sb.append(PREFIX_DESCRIPTION + meme.getDescription().value + " ");
         meme.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
@@ -83,8 +83,8 @@ public class MemeUtil {
      * and therefore the same contents.
      */
     public static boolean isSameMemeImage(Meme firstMeme, Meme secondMeme) {
-        return generateSha1Hash(firstMeme.getFilePath().getFilePath())
-                .equals(generateSha1Hash(secondMeme.getFilePath().getFilePath()));
+        return generateSha1Hash(firstMeme.getImagePath().getFilePath())
+                .equals(generateSha1Hash(secondMeme.getImagePath().getFilePath()));
     }
 
 }

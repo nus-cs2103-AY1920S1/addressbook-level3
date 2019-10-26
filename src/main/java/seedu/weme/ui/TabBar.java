@@ -28,7 +28,9 @@ public class TabBar extends UiPart<Region> {
     @FXML
     private VBox statisticsTab;
     @FXML
-    private VBox storageTab;
+    private VBox exportTab;
+    @FXML
+    private VBox importTab;
 
     private ObservableValue<ModelContext> context;
 
@@ -60,8 +62,10 @@ public class TabBar extends UiPart<Region> {
             return archiveTab;
         case CONTEXT_STATISTICS:
             return statisticsTab;
-        case CONTEXT_STORAGE:
-            return storageTab;
+        case CONTEXT_EXPORT:
+            return exportTab;
+        case CONTEXT_IMPORT:
+            return importTab;
         default:
             throw new IllegalArgumentException(MESSAGE_INVALID_CONTEXT);
         }

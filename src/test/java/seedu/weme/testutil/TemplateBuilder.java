@@ -26,7 +26,7 @@ public class TemplateBuilder {
      */
     public TemplateBuilder(Template templateToCopy) {
         name = templateToCopy.getName();
-        filePath = templateToCopy.getFilePath();
+        filePath = templateToCopy.getImagePath();
     }
 
     /**

@@ -65,17 +65,31 @@
       </children>
     </VBox>
     <Region VBox.vgrow="ALWAYS"/>
-    <VBox fx:id="storageTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+    <VBox fx:id="exportTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
       <padding>
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
         <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@../images/storage_tab.png"/>
+            <Image url="@../images/export_tab.png"/>
           </image>
         </ImageView>
-        <Label text="Storage"/>
+        <Label text="Export"/>
+      </children>
+    </VBox>
+    <Region VBox.vgrow="ALWAYS"/>
+    <VBox fx:id="importTab" alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
+      <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+      </padding>
+      <children>
+        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/import_tab.png"/>
+          </image>
+        </ImageView>
+        <Label text="Import"/>
       </children>
     </VBox>
   </children>

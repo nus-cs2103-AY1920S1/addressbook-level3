@@ -2,9 +2,10 @@ package seedu.weme.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.model.ModelContext.CONTEXT_ARCHIVE;
+import static seedu.weme.model.ModelContext.CONTEXT_EXPORT;
+import static seedu.weme.model.ModelContext.CONTEXT_IMPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
 import static seedu.weme.model.ModelContext.CONTEXT_STATISTICS;
-import static seedu.weme.model.ModelContext.CONTEXT_STORAGE;
 import static seedu.weme.model.ModelContext.CONTEXT_TEMPLATES;
 
 import java.util.Collection;
@@ -14,6 +15,7 @@ import java.util.Set;
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.commons.util.StringUtil;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.model.DirectoryPath;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
@@ -27,8 +29,11 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_CONTEXT = "Tab provided is not a valid tab.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_FILEPATH = "File not found or invalid file path given.";
+    public static final String MESSAGE_INVALID_DIRECTORYPATH = "Invalid directory path given.";
 
     public static final MemeParser MEMES_PARSER = new MemeParser();
+    public static final ImportParser IMPORT_PARSER = new ImportParser();
+    public static final ExportParser EXPORT_PARSER = new ExportParser();
 
     /**
      * Returns a Parser depending on the given ModelContext.
@@ -39,10 +44,13 @@ public class ParserUtil {
         switch (modelContext) {
         case CONTEXT_MEMES:
             return MEMES_PARSER;
+        case CONTEXT_IMPORT:
+            return IMPORT_PARSER;
+        case CONTEXT_EXPORT:
+            return EXPORT_PARSER;
         case CONTEXT_TEMPLATES:
         case CONTEXT_ARCHIVE:
         case CONTEXT_STATISTICS:
-        case CONTEXT_STORAGE:
             // TODO: This is a temporary placeholder until all tabs have been implemented
             return new WemeParser() {
             };
@@ -66,8 +74,10 @@ public class ParserUtil {
             return CONTEXT_ARCHIVE;
         } else if (trimmedContext.equals(CONTEXT_STATISTICS.getContextName())) {
             return CONTEXT_STATISTICS;
-        } else if (trimmedContext.equals(CONTEXT_STORAGE.getContextName())) {
-            return CONTEXT_STORAGE;
+        } else if (trimmedContext.equals(CONTEXT_EXPORT.getContextName())) {
+            return CONTEXT_EXPORT;
+        } else if (trimmedContext.equals(CONTEXT_IMPORT.getContextName())) {
+            return CONTEXT_IMPORT;
         }
         throw new ParseException(MESSAGE_INVALID_CONTEXT);
     }
@@ -97,6 +107,20 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_FILEPATH);
         }
         return new ImagePath(trimmedPath);
+    }
+
+    /**
+     * Parses a {@code String input} into a {@code DirectoryPath}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static DirectoryPath parseDirectoryPath(String input) throws ParseException {
+        requireNonNull(input);
+        String trimmedPath = input.trim();
+        if (!DirectoryPath.isValidDirectoryPath(trimmedPath)) {
+            throw new ParseException(MESSAGE_INVALID_DIRECTORYPATH);
+        }
+        return new DirectoryPath(trimmedPath);
     }
 
     /**

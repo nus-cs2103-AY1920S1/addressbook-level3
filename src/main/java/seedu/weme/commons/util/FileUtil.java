@@ -1,13 +1,21 @@
 package seedu.weme.commons.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javafx.scene.image.Image;
+
+import seedu.weme.model.DirectoryPath;
+
 
 /**
  * Writes and reads files
@@ -16,11 +24,100 @@ public class FileUtil {
 
     public static final String MESSAGE_READ_FILE_FAILURE = "Error encountered while reading the file %s";
     public static final String MESSAGE_COPY_FAILURE_SOURCE_DOES_NOT_EXIST = "Copy failed: source file does not exist";
+    public static final String MESSAGE_COPY_FAILURE_INVALID_DIRECTORY = "Copy failed: Invalid Directory Given";
+    public static final String MESSAGE_COPY_FAILURE_INTERNAL_ERROR = "Copy failed: Internal Error Encountered";
+    private static final int INITIAL_FILE_LABEL = 1;
+
 
     private static final String CHARSET = "UTF-8";
 
     public static boolean isFileExists(Path file) {
         return Files.exists(file) && Files.isRegularFile(file);
+    }
+
+    /**
+     * Copies a list of files given by their path to a given directory.
+     * Files are named in the following format: number.extension, where
+     * number starts from 1 and increments. e.g. 1.jpg, 2.jpg ...
+     *
+     * @param pathList list of paths containing files.
+     * @param folderPath directory path to copy to.
+     * @throws IOException error encountered while copying.
+     */
+    public static void copyFiles(List<Path> pathList, Path folderPath) throws IOException {
+        try {
+            int fileLabel = INITIAL_FILE_LABEL;
+            for (Path path : pathList) {
+                String newFilePath;
+                do {
+                    newFilePath = buildFilePath(folderPath, String.valueOf(fileLabel), path);
+                    fileLabel = incrementFileLabel(fileLabel);
+                } while (isFileExists(Paths.get(newFilePath)));
+
+                if (isValidPath(newFilePath)) {
+                    copy(path, Paths.get(newFilePath));
+                } else {
+                    throw new IOException(MESSAGE_COPY_FAILURE_INVALID_DIRECTORY);
+                }
+            }
+        } catch (IOException e) {
+            throw new IOException(MESSAGE_COPY_FAILURE_INTERNAL_ERROR);
+        }
+    }
+
+    /**
+     * Returns a list of valid Image files found in the given directory path.
+     *
+     * @param directoryPath Path containing memes to load.
+     * @return List of loadable paths.
+     */
+    public static List<Path> loadImagePath(DirectoryPath directoryPath) throws IOException {
+        List<Path> imageList = new ArrayList<>();
+        recursiveLoad(imageList, directoryPath);
+        return imageList;
+    }
+
+    /**
+     * Recursively loads all valid image files in a given directory.
+     *
+     * @param imageList
+     * @param directoryPath
+     * @throws IOException
+     */
+    private static void recursiveLoad(List<Path> imageList, DirectoryPath directoryPath) throws IOException {
+        final File folder = toFile(directoryPath);
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                recursiveLoad(imageList, new DirectoryPath(fileEntry.getPath())); // recursive call
+            } else if (isFileExists(fileEntry.toPath())
+                    && isValidImageExtension(fileEntry.toPath())) {
+                imageList.add(Paths.get(fileEntry.getPath()));
+            }
+        }
+    }
+
+
+    /**
+     * Builds a new file path in string representation based on the given parameters
+     *
+     * @param newDirectoryPath New directory path of the file.
+     * @param fileLabel The label of the file.
+     * @param initialPath The initial path of the file.
+     * @return
+     */
+    private static String buildFilePath(Path newDirectoryPath, String fileLabel, Path initialPath) {
+        StringBuilder newFilePath = new StringBuilder();
+        newFilePath
+                .append(newDirectoryPath)
+                .append("/")
+                .append(fileLabel)
+                .append(".")
+                .append(getExtension(initialPath).orElse(""));
+        return newFilePath.toString();
+    }
+
+    private static int incrementFileLabel(int fileLabel) {
+        return fileLabel + 1;
     }
 
     /**
@@ -35,6 +132,15 @@ public class FileUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)}
+     * and {@link Files#exists(Path)}, otherwise returns false.
+     * @param path A string representing the file path. Cannot be null.
+     */
+    public static boolean isValidDirectoryPath(String path) {
+        return Files.isDirectory(Paths.get(path));
     }
 
     /**
@@ -54,9 +160,7 @@ public class FileUtil {
         if (Files.exists(file)) {
             return;
         }
-
         createParentDirsOfFile(file);
-
         Files.createFile(file);
     }
 
@@ -98,7 +202,7 @@ public class FileUtil {
      *
      * @param from the source
      * @param to   the destination
-     * @throws IOException if the copy has
+     * @throws IOException if the source file does not exist.
      */
     public static void copy(Path from, Path to) throws IOException {
         if (isFileExists(from)) {
@@ -119,6 +223,21 @@ public class FileUtil {
     public static void copy(InputStream from, Path to) throws IOException {
         createParentDirsOfFile(to);
         Files.copy(from, to);
+    }
+
+    public static File toFile(DirectoryPath directoryPath) {
+        return new File(directoryPath.toString());
+    }
+
+    /**
+     * Checks if the given filePath represents a valid image file.
+     *
+     * @param filePath Given file path.
+     * @return True if the file is a valid image file path.
+     * @throws IOException Unexpected error encountered from probeContentType().
+     */
+    private static boolean isValidImageExtension(Path filePath) throws IOException {
+        return !(new Image(filePath.toUri().toURL().toString()).isError());
     }
 
     /**
