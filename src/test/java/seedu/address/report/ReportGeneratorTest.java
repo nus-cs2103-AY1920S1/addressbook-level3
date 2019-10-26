@@ -37,4 +37,12 @@ public class ReportGeneratorTest {
         assertFalse(ReportGenerator.generateAll(null));
     }
 
+    @Test
+    public void generateSummary_success() {
+        assertFalse(ReportGenerator.generateSummary(model.getFilteredBodyList()));
+        model.addEntity(ALICE);
+        assertTrue(ReportGenerator.generateSummary(model.getFilteredBodyList()));
+        assertFalse(ReportGenerator.generateSummary(null));
+    }
+
 }
