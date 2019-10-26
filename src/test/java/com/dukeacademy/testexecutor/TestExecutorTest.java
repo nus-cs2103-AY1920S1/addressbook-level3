@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -25,7 +26,6 @@ import com.dukeacademy.testexecutor.compiler.Compiler;
 import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
-import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
 import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
@@ -38,12 +38,12 @@ class TestExecutorTest {
     private TestExecutor executor;
 
     @BeforeEach
-    public void initialize() throws CompilerEnvironmentException {
-        CompilerEnvironment environment = new StandardCompilerEnvironment(tempFolder.resolve("test").toString());
-        Compiler compiler = new StandardCompiler();
-        ProgramExecutor executor = new StandardProgramExecutor();
-
-        this.executor = new TestExecutor(environment, compiler, executor);
+    public void initialize() throws CreateEnvironmentException {
+//        CompilerEnvironment environment = new StandardCompilerEnvironment(tempFolder.resolve("test").toString());
+//        Compiler compiler = new StandardCompiler();
+//        ProgramExecutor executor = new StandardProgramExecutor();
+//
+//        this.executor = new TestExecutor(environment, compiler, executor);
     }
 
     @Test

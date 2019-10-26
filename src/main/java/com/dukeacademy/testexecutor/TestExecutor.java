@@ -10,12 +10,12 @@ import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.testexecutor.compiler.Compiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
-import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.CompilerException;
 import com.dukeacademy.testexecutor.exceptions.CompilerFileContentException;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
 import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
-import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.exceptions.ProgramExecutorException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorExceptionWrapper;
@@ -91,7 +91,7 @@ public class TestExecutor {
             this.environment.clearEnvironment();
             JavaFile javaFile = this.environment.createJavaFile(program);
             return this.compiler.compileJavaFile(javaFile);
-        } catch (CompilerEnvironmentException | CompilerException | JavaFileCreationException e) {
+        } catch (CompilerException | JavaFileCreationException | ClearEnvironmentException e) {
             throw new TestExecutorException(messageTestExecutorFailed, e);
         }
     }

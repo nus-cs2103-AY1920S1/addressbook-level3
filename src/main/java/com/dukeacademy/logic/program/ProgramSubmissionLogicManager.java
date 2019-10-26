@@ -1,6 +1,7 @@
 package com.dukeacademy.logic.program;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ import com.dukeacademy.testexecutor.TestExecutor;
 import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
-import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
 import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
@@ -46,9 +47,10 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
 
     /**
      * Constructor.
+     *
      * @param outputDirectoryPath The path to the directory in which all generated Java and Class files are to be saved.
      * @throws LogicCreationException if the directory is invalid or the components of the Logic instance fails to be
-     * created.
+     *                                created.
      */
     public ProgramSubmissionLogicManager(String outputDirectoryPath) throws LogicCreationException {
         if (!new File(outputDirectoryPath).isDirectory()) {
@@ -56,7 +58,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
         }
 
         try {
-            String compilerEnvironmentPath = Paths.get(outputDirectoryPath).resolve("temp").toString();
+            Path compilerEnvironmentPath = Paths.get(outputDirectoryPath).resolve("temp");
             this.compilerEnvironment = new StandardCompilerEnvironment(compilerEnvironmentPath);
             this.testExecutor = new TestExecutor(this.compilerEnvironment, new StandardCompiler(),
                     new StandardProgramExecutor());
@@ -65,7 +67,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
             this.currentQuestionObservable = new StandardObservable<>();
 
             this.isClosed = false;
-        } catch (CompilerEnvironmentException e) {
+        } catch (CreateEnvironmentException e) {
             throw new LogicCreationException(messageCreationError, e);
         }
     }
@@ -75,15 +77,9 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
      */
     public void closeProgramSubmissionLogicManager() {
         this.verifyNotClosed();
-
-        try {
-            this.compilerEnvironment.close();
-        } catch (CompilerEnvironmentException e) {
-            logger.info(messageCouldNotClearEnvironmentWarning);
-        } finally {
-            this.resultObservable.clearListeners();
-            this.isClosed = true;
-        }
+        this.compilerEnvironment.close();
+        this.resultObservable.clearListeners();
+        this.isClosed = true;
     }
 
     @Override

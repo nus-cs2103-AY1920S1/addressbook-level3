@@ -19,7 +19,7 @@ import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.compiler.StandardCompiler;
 import com.dukeacademy.testexecutor.exceptions.CompilerException;
 import com.dukeacademy.testexecutor.exceptions.CompilerFileContentException;
-import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 class StandardCompilerTest {

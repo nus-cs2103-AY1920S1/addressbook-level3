@@ -12,13 +12,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.model.question.UserProgram;
-import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 /**
@@ -28,47 +30,48 @@ import com.dukeacademy.testexecutor.models.JavaFile;
  */
 public class StandardCompilerEnvironment implements CompilerEnvironment {
     // Standard error messages
-    private static final String messageJavaFileNotFound = "No such file found in the compiler environment";
-    private static final String messageCreateEnvironmentFailed = "Failed to create compiler environment";
-    private static final String messageCreateJavaFileFailed = "Failed to create java file";
-    private static final String messageWriteJavaFileFailed = "Failed to write to java file";
-    private static final String messageClearEnvironmentFailed = "Compiler environment not cleared, "
-            + "remnant files may persist";
-    private static final String messageNoPermissions = "Not permitted to create compiler environment in "
-            + "the following location";
+    private static final String messageUnableToCreateFolder = " Unable to create folder at : ";
+    private static final String messageCreateJavaFileFailed = "Failed to create java file : ";
+    private static final String messageWriteUserProgramFailed = "Write user program failed : ";
+    private static final String messageJavaFileNotFound = "Matching Java file not found : ";
+    private static final String messageClearEnvironmentFailed = "Unable to delete files and folders at : ";
 
     // Logger used to report behavior of the environment
     private final Logger logger = LogsCenter.getLogger(StandardCompilerEnvironment.class);
 
-    // Root path for the location of the environment
+    // Location path at which new files are created and written
     private final Path locationPath;
 
     // List of previous created Java files
     private final List<JavaFile> createdFiles;
 
-    public StandardCompilerEnvironment(String locationPath) throws CompilerEnvironmentException {
-        this.locationPath = Path.of(locationPath);
+    private boolean isClosed;
+
+    public StandardCompilerEnvironment(Path locationPath) throws CreateEnvironmentException {
+        this.locationPath = locationPath;
         this.createdFiles = new ArrayList<>();
         this.createDirectory(this.locationPath);
+
+        this.isClosed = false;
     }
 
     @Override
     public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException {
         // Create empty Java file
         String canonicalName = program.getCanonicalName();
-        File file = this.createEmptyJavaFileInEnvironment(canonicalName);
+        File file = this.createEmptyJavaFile(canonicalName);
 
         // Write program contents to the Java file
-        String sourCode = program.getSourceCode();
-        this.writeProgramToJavaFile(file, sourCode);
+        String sourceCode = program.getSourceCode();
+        this.writeProgramToJavaFile(file, sourceCode);
 
         // Returns the newly created file as application's JavaFile model after adding it to the list of created files
         try {
-            JavaFile javaFile = new JavaFile(canonicalName, this.getLocationPath());
+            JavaFile javaFile = new JavaFile(canonicalName, locationPath.toString());
             this.createdFiles.add(javaFile);
             return javaFile;
         } catch (FileNotFoundException e) {
-            throw new JavaFileCreationException(messageCreateJavaFileFailed);
+            throw new JavaFileCreationException(messageCreateJavaFileFailed + file.toPath(), e);
         }
     }
 
@@ -79,12 +82,13 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
                 .filter(javaFile -> javaFile.getCanonicalName().equals(canonicalName))
                 .findFirst();
 
-        return file.orElseThrow(() -> new FileNotFoundException(messageJavaFileNotFound));
+        return file.orElseThrow(() -> new FileNotFoundException(messageJavaFileNotFound + canonicalName));
     }
 
     @Override
-    public void clearEnvironment() throws CompilerEnvironmentException {
+    public void clearEnvironment() throws ClearEnvironmentException {
         try {
+            logger.info("Clearing files and folder at : " + locationPath);
             // Traverse and delete created files and directories excluding the root folder
             Files.walk(locationPath)
                     .filter(path -> !path.equals(locationPath))
@@ -95,16 +99,19 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             // Discard any references to previously created files
             this.createdFiles.clear();
 
-            String path = locationPath.toString();
-            logger.info("Compiler environment successfully cleared: " + path);
+            assert(Objects.requireNonNull(locationPath.toFile().listFiles()).length == 0);
+
+            logger.info("Environment successfully cleared : " + locationPath);
         } catch (IOException e) {
-            throw new CompilerEnvironmentException(messageClearEnvironmentFailed);
+            logger.warning(messageClearEnvironmentFailed + locationPath);
+            throw new ClearEnvironmentException(messageClearEnvironmentFailed + locationPath, e);
         }
     }
 
     @Override
     public void close() {
         try {
+            logger.info("Clearing files and folder at : " + locationPath);
             // Traverse and delete created files and directories including the root folder
             Files.walk(locationPath)
                     .map(Path::toFile)
@@ -114,46 +121,49 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             // Discard any references to previously created files
             this.createdFiles.clear();
 
-            String path = locationPath.toString();
-            logger.info("Compiler environment successfully closed: " + path);
+            assert(!this.locationPath.toFile().exists());
+
+            logger.info("Environment successfully closed : " + locationPath);
         } catch (IOException e) {
-            logger.info(messageClearEnvironmentFailed);
+            logger.warning(messageClearEnvironmentFailed + locationPath);
+            logger.warning("Environment not closed properly, remnant files may persist at : " + locationPath);
+        } finally {
+            this.isClosed = true;
         }
     }
 
     /**
-     * Returns the root path of the environment as a String
+     * Creates a new directory at the specified path on the user's file system.
+     *
+     * @param directoryPath the path at which to create the directory
+     * @throws CreateEnvironmentException if the directory fails to be created
      */
-    public String getLocationPath() {
-        return this.locationPath.toString();
-    }
-
-    /**
-     * Creates a new directory at the specified path.
-     * @param path the path at which to create the directory.
-     * @throws CompilerEnvironmentException if the directory fails to be created.
-     */
-    private void createDirectory(Path path) throws CompilerEnvironmentException {
+    private void createDirectory(Path directoryPath) throws CreateEnvironmentException {
         try {
-            String directoryPath = path.toString();
-            if (!new File(directoryPath).exists() && !new File(directoryPath).mkdir()) {
-                throw new CompilerEnvironmentException(messageCreateEnvironmentFailed);
+            File directory = directoryPath.toFile();
+            if (!directory.exists() && !directory.mkdirs()) {
+                logger.warning(messageUnableToCreateFolder + directoryPath);
+                throw new CreateEnvironmentException(messageUnableToCreateFolder + directoryPath);
             }
 
-            logger.info("Created root directory for compiler environment: " + directoryPath);
+            assert(directory.exists());
+
+            logger.info("Created new folder at : " + directoryPath);
         } catch (SecurityException e) {
-            throw new CompilerEnvironmentException(messageNoPermissions, e);
+            logger.warning("SecurityException encountered. " + messageUnableToCreateFolder + directoryPath);
+            throw new CreateEnvironmentException(messageUnableToCreateFolder + directoryPath, e);
         }
     }
 
     /**
      * Creates an empty Java file in the environment according to its canonical name together with the
      * corresponding directories. For example, foo.bar.Test would be created as in .../foo/bar/Test.java.
-     * @param canonicalName the canonical name of the class of the Java file.
-     * @return the Java file created.
+     *
+     * @param canonicalName the canonical name of the Java class
+     * @return the Java file created
      * @throws JavaFileCreationException if the file creation fails.
      */
-    private File createEmptyJavaFileInEnvironment(String canonicalName) throws JavaFileCreationException {
+    private File createEmptyJavaFile(String canonicalName) throws JavaFileCreationException {
         // Split the canonical name into individual subpackages and create a corresponding path.
         Path filePath = Arrays.stream(canonicalName.split("\\."))
                 .reduce(this.locationPath, Path::resolve, Path::resolve);
@@ -162,19 +172,21 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
         filePath = filePath.resolveSibling(filePath.getFileName() + ".java");
         File file = filePath.toFile();
 
-        logger.info("Creating temporary Java file: " + file.getPath());
+        logger.info("Creating empty Java file at : " + filePath);
 
         // Create the directories and file
         try {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            throw new JavaFileCreationException(messageCreateJavaFileFailed);
+            logger.warning(messageCreateJavaFileFailed + filePath.toString());
+            throw new JavaFileCreationException(messageCreateJavaFileFailed + filePath, e);
         }
 
         // Verify that the file exists before returning
         if (!file.exists()) {
-            throw new JavaFileCreationException(messageCreateJavaFileFailed);
+            logger.warning(messageCreateJavaFileFailed + filePath.toString());
+            throw new JavaFileCreationException(messageCreateJavaFileFailed + filePath);
         }
 
         logger.info("Java file created: " + file.getPath());
@@ -183,13 +195,14 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     /**
-     * Writes a user's written program into a Java File as it is.
-     * @param javaFile the Java file to write the program to.
-     * @param program the source code of the program as a string.
-     * @throws JavaFileCreationException if the program write fails.
+     * Writes a user program's source code into a java file. If the write fails, the file is deleted.
+     *
+     * @param javaFile the Java file to write the code to
+     * @param program  the source code of the program
+     * @throws JavaFileCreationException if the program write fails
      */
     private void writeProgramToJavaFile(File javaFile, String program) throws JavaFileCreationException {
-        logger.info("Writing source code to file: " + javaFile.getPath());
+        logger.info("Writing user program to file: " + javaFile.getPath());
 
         try {
             // Get an output writer to the file
@@ -201,13 +214,14 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
             fileWriter.close();
 
         } catch (IOException e) {
-            // If file write fails, the environment is cleared of the incomplete file before an exception is thrown
+            // If file write fails, the file is deleted before an exception is thrown
+            logger.warning(messageWriteUserProgramFailed + javaFile.toPath());
             if (!javaFile.delete()) {
-                logger.info("Could not delete Java file after write failed. File may persist on file system.");
+                logger.warning("Unable to delete unwritten file : " + javaFile.toPath());
             }
-            throw new JavaFileCreationException(messageWriteJavaFileFailed);
+            throw new JavaFileCreationException(messageWriteUserProgramFailed + javaFile.toPath(), e);
         }
 
-        logger.info("Source code successfully written to file: " + javaFile.getPath());
+        logger.info("User program successfully written to file: " + javaFile.getPath());
     }
 }

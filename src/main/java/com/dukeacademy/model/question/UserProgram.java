@@ -42,7 +42,7 @@ public class UserProgram {
         }
 
         // Convert the package to an actual path
-        return packageStatement.replace("package", "").trim() + "." + className;
+        return packageStatement.replaceFirst("package", "").trim() + "." + className;
     }
 
 

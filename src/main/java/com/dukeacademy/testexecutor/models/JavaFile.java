@@ -18,7 +18,7 @@ public class JavaFile {
         this.classPath = classPath;
 
         if (!this.getFile().exists()) {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException("No file " + canonicalName + " found at : " + classPath);
         }
     }
 
