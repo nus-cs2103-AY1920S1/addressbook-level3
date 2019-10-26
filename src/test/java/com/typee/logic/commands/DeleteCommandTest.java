@@ -66,7 +66,7 @@ public class DeleteCommandTest {
         CommandTestUtil.showEngagementAtIndex(model, INDEX_FIRST_ENGAGEMENT);
 
         Index outOfBoundIndex = INDEX_SECOND_ENGAGEMENT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of engagement list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getEngagementList().getEngagementList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);

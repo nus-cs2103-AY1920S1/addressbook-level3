@@ -106,7 +106,7 @@ Returns any appointment containing the keywords `meeting`, `presentation`, or `c
 
 === Deleting an appointment : `delete`
 
-Deletes the specified appointment from the address book. +
+Deletes the specified appointment from the engagement list. +
 Format: `delete INDEX`
 
 ****
