@@ -14,7 +14,7 @@ public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new event with the specified name";
     public static final String MESSAGE_CREATE_EVENT_SUCCESS = "Event Created: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in Athletick.";
+    public static final String MESSAGE_DUPLICATE_EVENT = "%1$s event already exists in Athletick.";
 
     private final String name;
 
@@ -32,7 +32,7 @@ public class EventCommand extends Command {
         requireNonNull(model);
 
         if (Performance.doesEventExist(name)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_EVENT, name));
         }
 
         Performance.addEvent(name);
