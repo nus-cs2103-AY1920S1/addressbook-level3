@@ -87,7 +87,6 @@ public class Reminder {
                 while (it.hasNext()) {
                     HashMap.Entry pair = (HashMap.Entry) it.next();
                     sb.append(pair.getKey() + ": for " + pair.getValue() + " days\n");
-                    it.remove();
                 }
             }
         }
@@ -100,7 +99,6 @@ public class Reminder {
                 while (it.hasNext()) {
                     HashMap.Entry pair = (HashMap.Entry) it.next();
                     sb.append(pair.getKey() + ": in " + pair.getValue() + " days\n");
-                    it.remove();
                 }
             }
         }

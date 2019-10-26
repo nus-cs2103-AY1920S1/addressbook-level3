@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
@@ -66,8 +66,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setReminders(Reminder reminders) {
         requireNonNull(reminders);
         this.reminders = reminders;
-        if (LocalDate.now().compareTo(lastUpdate) < 0) {
-            reminders.cascadeDay((int)Duration.between(LocalDate.now(), lastUpdate).toDays());
+        int dateDiff = Period.between(LocalDate.now(), lastUpdate).getDays();
+        if (dateDiff < 0) {
+            this.reminders.cascadeDay(Math.abs(dateDiff));
         }
         lastUpdate = LocalDate.now();
     }
@@ -145,6 +146,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public LocalDate getLastUpdate() {
-        return LocalDate.now();
+        return lastUpdate;
     }
 }
