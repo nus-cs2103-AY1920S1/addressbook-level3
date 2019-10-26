@@ -91,6 +91,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Student> getStudentsInGroup() {return model.getObservableListStudentsFromGroup();}
+
+    @Override
     public ReadOnlyNotesRecord getNotesRecord() {
         return model.getNotesRecord();
     }

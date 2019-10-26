@@ -1,5 +1,6 @@
 package seedu.address.model.group;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 
@@ -67,6 +68,15 @@ public class Group {
      */
     public String getStudentsFormatted() {
         return studentList.getStudentList();
+    }
+
+    /**
+     * Returns the observable list of students
+     *
+     * @return The students in an observable list.
+     */
+    public ObservableList<Student> getObservableListStudents() {
+        return studentList.asUnmodifiableObservableList();
     }
 
 }

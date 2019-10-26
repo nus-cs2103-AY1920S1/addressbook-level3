@@ -38,6 +38,9 @@ public class GroupRemoveStudentCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (!model.checkGroupExists(groupId)) {
+            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST,groupId)); //group doesn't exist
+        }
         model.removeStudentFromGroup(groupId, groupIndexNumber);
         return new CommandResult(generateSuccessMessage());
     }

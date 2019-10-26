@@ -46,6 +46,9 @@ public class GroupAddStudentCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (!model.checkGroupExists(groupId)) {
+            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST,groupId)); //group doesn't exist
+        }
         model.addStudentToGroup(groupId, studentNumber, groupIndexNumber);
         return new CommandResult(generateSuccessMessage());
     }

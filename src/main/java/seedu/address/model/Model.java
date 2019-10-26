@@ -191,6 +191,11 @@ public interface Model {
     void createGroupManually(String groupId, ArrayList<Integer> studentNumbers);
 
     /**
+     * Gets observable list of students from queried group
+     */
+    ObservableList<Student> getObservableListStudentsFromGroup();
+
+    /**
      * Adds a student to a group.
      * {@code groupId} Must already exist in the list of groups.
      * {@code studentNumber} Must already exist in the list of students.
@@ -204,9 +209,9 @@ public interface Model {
     void removeStudentFromGroup(String groupId, int groupIndexNumber);
 
     /**
-     * Returns a students from a group in list view.
+     * Check if group already exists.
      */
-    String getStudentsFromGroup(String groupId);
+    boolean checkGroupExists(String groupId);
     //endregion
 
     //region Questions

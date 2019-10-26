@@ -3,6 +3,7 @@ package seedu.address.logic.commands.group;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.group.ListOfGroups;
 
 /**
  * Represents a get students command, specific to a group.
@@ -33,7 +34,11 @@ public class GroupGetStudentsCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(generateSuccessMessage(model.getStudentsFromGroup(groupId)));
+        if (!model.checkGroupExists(groupId)) {
+            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST,groupId)); //group doesn't exist
+        }
+        ListOfGroups.setCurrentlyQueriedGroup(groupId);
+        return new CommandResult("Starting group view.", false, false, false, true,false);
     }
 
     /**

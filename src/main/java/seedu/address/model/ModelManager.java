@@ -364,6 +364,38 @@ public class ModelManager implements Model {
         }
         return students;
     }
+
+    /**
+     * Returns observable list of students of currently queried group.
+     *
+     * @return Observable list of students in the currently queried group.
+     */
+    public ObservableList<Student> getObservableListStudentsFromGroup() {
+        String groupID = ListOfGroups.getCurrentlyQueriedGroup();
+        int groupIndex = groupList.getGroupIndex(groupID);
+        ObservableList<Student> studentList = null;
+        if (groupIndex != -1) {
+            Group group = groupList.getGroup(groupIndex);
+            studentList = group.getObservableListStudents();
+        }
+        return studentList;
+    }
+
+    /**
+     * Check if group exists.
+     * @param groupId ID of the specified group.
+     */
+    public boolean checkGroupExists(String groupId){
+        boolean groupExists = false;
+        ArrayList<Group> groupArrayList = groupList.getGroupList();
+        for (Group group : groupArrayList) {
+            if (group.getGroupId().equals((groupId))) {
+                groupExists = true;
+                break;
+            }
+        }
+        return groupExists;
+    }
     //endregion
 
     //region Questions

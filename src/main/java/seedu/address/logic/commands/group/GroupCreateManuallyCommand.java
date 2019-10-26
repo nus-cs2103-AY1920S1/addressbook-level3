@@ -53,6 +53,9 @@ public class GroupCreateManuallyCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (!model.checkGroupExists(groupId)) {
+            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST,groupId)); //group doesn't exist
+        }
         model.createGroupManually(groupId, studentNumbers);
         return new CommandResult(generateSuccessMessage());
     }
@@ -67,7 +70,7 @@ public class GroupCreateManuallyCommand extends GroupCommand {
         if (numStudents == 1) {
             return "Created group: " + groupId + " with " + numStudents + " student.";
         } else {
-            return "Created quiz: " + groupId + " with " + studentNumbers.size() + " students.";
+            return "Created group: " + groupId + " with " + studentNumbers.size() + " students.";
         }
     }
 

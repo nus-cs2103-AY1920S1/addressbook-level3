@@ -27,6 +27,11 @@ public class CommandResult {
     private final boolean showStatistic;
 
     /**
+     * Group window will be shown.
+     */
+    private final boolean showGroup;
+
+    /**
      * The application should exit.
      */
     private final boolean exit;
@@ -34,12 +39,14 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean showSlideshow, boolean showStatistic,
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean showSlideshow, boolean showStatistic, boolean showGroup,
         boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.showSlideshow = showSlideshow;
         this.showStatistic = showStatistic;
+        this.showGroup = showGroup;
+
         this.exit = exit;
     }
 
@@ -48,7 +55,7 @@ public class CommandResult {
      * fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false,false);
     }
 
     public String getFeedbackToUser() {
@@ -61,6 +68,10 @@ public class CommandResult {
 
     public boolean isShowSlideshow() {
         return showSlideshow;
+    }
+
+    public boolean isShowGroup(){
+        return showGroup;
     }
 
     public boolean isShowStatistic() {
