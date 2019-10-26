@@ -162,14 +162,16 @@ are stored in a separate `listOfMatches` list.
 
 To facilitate the matching, the following methods were added to `ModelManager`:
 
-* `ModelManager#matchDonors(Patient patient)` -- Matches all Donors in ORGANice with the specified Patient.
-For each Donor that matches the Patient, a `MatchedDonor` objected is created and stored.
-* `ModelManager#matchPatients()` -- Matches all Donors with all Patients.
+* `ModelManager#matchDonors(Patient patient)` -- Matches all donors in ORGANice with the specified Patient.
+For each Donor that matches the patient, a `MatchedDonor` objected is created and stored.
+* `ModelManager#matchPatients()` -- Matches all donors with all patients.
 
 After matching the patients and donors, the `MainWindow` decides which list to display via the `CommandResult#isMatch`
 method.
 
 ==== Design considerations
+This section will explain the reason for having some aspects.
+
 ===== Aspect: Bugs introduced
 This section explains why the current implementation is chosen.
 Previously, the matching feature was implemented by storing match results in the
@@ -215,6 +217,7 @@ Step 6. The user confirms the details of the person and `FormUiManager#setPerson
 Step 7. `FormUiManager` calls the `AddressBookParser#parseCommand()` to add the person and save it in the `Storage` interface.
 
 ==== Design Considerations
+This section will explain the reason for having some aspects.
 
 ===== Aspect: How undo & redo executes
 
@@ -228,6 +231,48 @@ Step 7. `FormUiManager` calls the `AddressBookParser#parseCommand()` to add the 
 // end::formmode[]
 
 // tag::dataencryption[]
+=== Sort feature
+This section describes how the sort feature is implemented.
+
+Sorting is done by using `Comparators` in the `Logic` component.
+
+To facilitate the sorting, the following methods were added:
+
+{More to be added}
+
+Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort/rate)`
+
+.Structure of the Logic Component when executing `sort` command
+
+image::SortSequenceDiagram.png[width=790]
+
+==== Design considerations
+This section will explain the reason for having some aspects.
+
+===== Aspect:
+
+=== Processing feature
+This section describes how the processing feature is implemented.
+
+Processing is done by accessing `Patient` and `Donor` in `ModelManager`, then creating an ArrayList named, `ProcessingList` to store the tasks needed to do.
+
+If the donor and patient pair had never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
+
+If the user made any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
+
+//Todo: additional feature such as add tasks, delete tasks etc
+
+==== Design considerations
+This section will explain the reason for having some aspects.
+
+===== Aspect: Method of storing the `ProcessingList`
+* **Alternative 1 (current choice):** Use ArrayList to store the tasks.
+** Pros: Easy to implement.
+** Cons: It is not the most efficient algorithm and the huge number of `ProcessingList` may take up a huge datafile at the end of the day.
+* **Alternative 2:** Use a new class that works like ArrayList.
+** Pros: Able to implement more specific methods for the ProcessingList.
+** Cons: More methods and test cases needed and it is harder to implement.
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -417,13 +462,6 @@ Steps 1a1-1a2 are repeated until the data entered are correct.
 +
 Use case resumes at step 2.
 +
-Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort/rate)`
-+
-.Structure of the Logic Component when executing `sort` command
-+
-image::SortSequenceDiagram.png[width=790]
-+
-
 _{More to be added}_
 
 [appendix]
