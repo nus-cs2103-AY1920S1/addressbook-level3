@@ -64,7 +64,7 @@ class AddReminderCommandTest {
         assertFalse(addSchoolFeeReminderCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addSchoolFeeReminderCommand.equals(null));
+        assertFalse(addSchoolFeeReminderCommand == null);
 
         // different Spending -> returns false
         assertFalse(addSchoolFeeReminderCommand.equals(addPhoneBillReminderCommand));
@@ -202,7 +202,7 @@ class AddReminderCommandTest {
      * A Model stub that always accept the Spending being added.
      */
     private class ModelStubAcceptingReminderAdded extends ModelStub {
-        final ArrayList<Reminder> remindersAdded = new ArrayList<>();
+        private final List<Reminder> remindersAdded = new ArrayList<>();
 
         @Override
         public boolean hasReminder(Reminder reminder) {

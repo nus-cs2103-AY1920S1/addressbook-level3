@@ -11,6 +11,7 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_DATE;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMINDER_MESSAGE;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import seedu.moneygowhere.logic.commands.ReminderCommand;
 import seedu.moneygowhere.logic.commands.reminder.AddReminderCommand;
 import seedu.moneygowhere.logic.commands.reminder.DeleteReminderCommand;
+import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.testutil.ReminderBuilder;
 
@@ -69,5 +71,11 @@ class ReminderCommandParserTest {
     public void parse_invalidCommandWord_failure() {
         assertParseFailure(parser, INVALID_COMMAND_WORD_DESC + DATE_DESC_VALID + REMINDER_MESSAGE_DESC_VALID,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parseCommand_unknownCommand_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ReminderCommand.MESSAGE_USAGE), () -> parser.parse("unknownCommand"));
     }
 }

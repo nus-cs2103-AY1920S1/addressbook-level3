@@ -64,7 +64,7 @@ public class DeleteReminderCommandTest {
         assertFalse(deleteReminderFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteReminderFirstCommand.equals(null));
+        assertFalse(deleteReminderFirstCommand == null);
 
         // different Spending -> returns false
         assertFalse(deleteReminderFirstCommand.equals(deleteReminderSecondCommand));

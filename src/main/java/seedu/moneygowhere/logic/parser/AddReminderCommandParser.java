@@ -46,11 +46,4 @@ public class AddReminderCommandParser extends ReminderCommandParser {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
-    /**
-     * Returns true if there are parameters for respective command in the given {@code subCommandWords}.
-     */
-    private static boolean isContainingParameters(String[] argumentsArray) {
-        return argumentsArray.length > 1;
-    }
 }
