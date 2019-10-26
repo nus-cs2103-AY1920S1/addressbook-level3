@@ -50,7 +50,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -207,26 +207,26 @@ public class ParserUtilTest {
 
     @Test
     public void parseEventDateTimeMap() throws ParseException {
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseEventDateTimeMap("20102019")); //Only date, no time
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseEventDateTimeMap("20102019-1000-2000")); //Wrong format, should have colon
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseEventDateTimeMap("30102019:1000-2000")); //invalid date
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseEventDateTimeMap("20102019:5000-2000")); //invalid time
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseEventDateTimeMap("20102019:1000-2000;20102019:1000-2000")); //Wrong delimiter
+        assertThrows(ParseException.class, ()
+            -> ParserUtil.parseEventDateTimeMap("20102019")); //Only date, no time
+        assertThrows(ParseException.class, ()
+            -> ParserUtil.parseEventDateTimeMap("20102019-1000-2000")); //Wrong format, should have colon
+        assertThrows(ParseException.class, ()
+            -> ParserUtil.parseEventDateTimeMap("30102019:1000-2000")); //invalid date
+        assertThrows(ParseException.class, ()
+            -> ParserUtil.parseEventDateTimeMap("20102019:5000-2000")); //invalid time
+        assertThrows(ParseException.class, ()
+            -> ParserUtil.parseEventDateTimeMap("20102019:1000-2000;20102019:1000-2000")); //Wrong delimiter
 
-        EventDateTimeMap map_1 = new EventDateTimeMap();
-        EventDate date_1 = new EventDate(LocalDate.of(2019, 10, 20));
-        EventDayTime time_1 = new EventDayTime(LocalTime.of(10, 0), LocalTime.of(20, 0));
-        map_1.mapDateTime(date_1, time_1);
-        assertEquals(ParserUtil.parseEventDateTimeMap("20/10/2019:1000-2000"), map_1);
+        EventDateTimeMap testMap = new EventDateTimeMap();
+        EventDate dateOne = new EventDate(LocalDate.of(2019, 10, 20));
+        EventDayTime timeOne = new EventDayTime(LocalTime.of(10, 0), LocalTime.of(20, 0));
+        testMap.mapDateTime(dateOne, timeOne);
+        assertEquals(ParserUtil.parseEventDateTimeMap("20/10/2019:1000-2000"), testMap);
 
-        EventDate date_2 = new EventDate(LocalDate.of(2019, 10, 21));
-        EventDayTime time_2 = new EventDayTime(LocalTime.of(17, 0), LocalTime.of(21, 0));
-        map_1.mapDateTime(date_2, time_2);
-        assertEquals(ParserUtil.parseEventDateTimeMap("20/10/2019:1000-2000,21/10/2019:1700-2100"), map_1);
+        EventDate dateTwo = new EventDate(LocalDate.of(2019, 10, 21));
+        EventDayTime timeTwo = new EventDayTime(LocalTime.of(17, 0), LocalTime.of(21, 0));
+        testMap.mapDateTime(dateTwo, timeTwo);
+        assertEquals(ParserUtil.parseEventDateTimeMap("20/10/2019:1000-2000,21/10/2019:1700-2100"), testMap);
     }
 }

@@ -7,9 +7,10 @@ import java.util.HashMap;
  * Used to represent the time period that the event is hosted for throughout a single day.
  */
 public class EventDateTimeMap {
-    private final HashMap<EventDate, EventDayTime> dateTimeMap;
     public static final String MESSAGE_CONSTRAINTS =
             "EventDateTimeMap is of the format DDMMYYYY:HHMM-HHMM, delimited by commas";
+    private final HashMap<EventDate, EventDayTime> dateTimeMap;
+
 
     public EventDateTimeMap() {
         this.dateTimeMap = new HashMap<>();
