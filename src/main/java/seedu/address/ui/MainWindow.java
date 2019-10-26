@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -41,12 +42,18 @@ public class MainWindow extends UiPart<Stage> {
     private GroupWindow groupWindow;
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
+    private EventSchedulePanel eventSchedulePanel;
+    private Node studentPanelNode;
+    private Node eventPaneNode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane mainPanelPlaceholder;
 
     @FXML
     private StackPane studentListPanelPlaceholder;
@@ -120,7 +127,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        this.studentPanelNode = studentListPanel.getRoot();
+        mainPanelPlaceholder.getChildren().add(studentPanelNode);
+
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -133,6 +142,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
+        this.eventPaneNode = eventSchedulePanel.getRoot();
+        mainPanelPlaceholder.getChildren().add(eventPaneNode);
     }
 
     /**
@@ -185,6 +198,30 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             groupWindow.focus();
         }
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleSchedule() {
+        studentPanelNode.setVisible(false);
+        studentPanelNode.toBack();
+
+        eventPaneNode.setVisible(true);
+        eventPaneNode.toFront();
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStudent() {
+        eventPaneNode.setVisible(false);
+        eventPaneNode.toBack();
+
+        studentPanelNode.setVisible(true);
+        studentPanelNode.toFront();
     }
 
     /**

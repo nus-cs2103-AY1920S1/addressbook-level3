@@ -217,4 +217,34 @@ public class StorageManager implements Storage {
     }
     //endregion
 
-}
+    //region EventRecord methods
+    @Override
+    public Path getEventRecordFilePath() {
+        return eventStorage.getEventRecordFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyEvents> readEvents() throws DataConversionException, IOException {
+        return readEvents(eventStorage.getEventRecordFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyEvents> readEvents(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read events data from file: " + filePath);
+        return eventStorage.readEvents(filePath);
+    }
+
+    @Override
+    public void saveEvents(ReadOnlyEvents events) throws IOException {
+        saveEvents(events, eventStorage.getEventRecordFilePath());
+    }
+
+    @Override
+    public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
+        logger.fine("Attempting to write to events data file: " + filePath);
+        eventStorage.saveEvents(events, filePath);
+    }
+    //endRegion
+
+]}
