@@ -22,7 +22,7 @@ import seedu.address.storage.diary.photo.JsonAdaptedPhoto;
 /**
  * Jackson-friendly version of {@link DiaryEntry}.
  */
-public class JsonAdaptedDiaryEntry {
+class JsonAdaptedDiaryEntry {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary entry's %s field is missing!";
 
     private final int dayIndex;

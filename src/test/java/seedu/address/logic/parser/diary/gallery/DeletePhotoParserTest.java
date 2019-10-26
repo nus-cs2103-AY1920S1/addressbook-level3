@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.diary;
+package seedu.address.logic.parser.diary.gallery;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.diary.gallery.DeletePhotoCommand;
-import seedu.address.logic.parser.diary.gallery.DeletePhotoParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class DeletePhotoParserTest {

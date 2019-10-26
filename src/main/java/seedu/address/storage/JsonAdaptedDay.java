@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
@@ -150,10 +150,10 @@ public class JsonAdaptedDay {
         }
 
         //No check for TotalBudget (defaults endTime 0)
-        final Optional<Expenditure> modelTotalBudget;
+        final Optional<Budget> modelTotalBudget;
 
         if (totalBudget.isPresent()) {
-            modelTotalBudget = Optional.of(new Expenditure(totalBudget.get()));
+            modelTotalBudget = Optional.of(new Budget(totalBudget.get()));
         } else {
             modelTotalBudget = Optional.empty();
         }

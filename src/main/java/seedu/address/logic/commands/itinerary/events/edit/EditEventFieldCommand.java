@@ -22,10 +22,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.expenditure.DayNumber;
+import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.itinerary.Expenditure;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
+import seedu.address.model.itinerary.day.Day;
+import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.event.Event;
 
 /**
@@ -104,7 +109,7 @@ public class EditEventFieldCommand extends Command {
         private Optional<LocalDateTime> startDate;
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
-        private Optional<Expenditure> totalBudget;
+        private Optional<Budget> totalBudget;
 
         private Optional<Inventory> inventory;
         private Optional<Booking> booking;
@@ -142,7 +147,7 @@ public class EditEventFieldCommand extends Command {
             setStartDate(toCopy.getStartDate());
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
-            setBudget(toCopy.getTotalBudget());
+            setBudget(toCopy.getExpenditure().get().getBudget());
             setInventory(toCopy.getInventory());
             setBooking(toCopy.getBooking());
         }
@@ -187,12 +192,22 @@ public class EditEventFieldCommand extends Command {
          * Requires name, startDate, destination to have been set minimally.
          * Uses the Optional constructor for event to accommodate missing optional fields.
          *
+         * @param model Source {@code Model} instance.
          * @return New {@code Event} created.
          * @throws NullPointerException If any of the fields are empty.
          */
-        public Event buildEvent() {
+        public Event buildEvent(Model model) {
             if (isAllPresent(name, startDate, endDate, destination)) {
-                return new Event(name.get(), startDate.get(), endDate.get(), totalBudget, destination.get());
+                Optional<Expenditure> expenditure = Optional.empty();
+                if (totalBudget.isPresent()) {
+                    DayList list = model.getPageStatus().getTrip().getDayList();
+                    Day day = model.getPageStatus().getDay();
+                    int index = list.internalList.indexOf(day);
+                    Expenditure newExpenditure = new Expenditure(name.get(), totalBudget.get(),
+                            new DayNumber(Integer.toString(index + 1)), false);
+                    expenditure = Optional.of(newExpenditure);
+                }
+                return new Event(name.get(), startDate.get(), endDate.get(), expenditure, destination.get());
             } else {
                 throw new NullPointerException();
             }
@@ -204,17 +219,17 @@ public class EditEventFieldCommand extends Command {
          * WARNING: USING INCOMPLETE CONSTRUCTOR, REFACTOR AFTER IMPLEMENTING BOOKING AND INVENTORY
          *
          * @param event Source {@code Event} instance.
-         * @param event
+         * @param model Source {@code Model} instance.
          * @return Edited {@code Event} instance.
          */
-        public Event buildEvent(Event event) {
+        public Event buildEvent(Event event, Model model) throws ExpenditureNotFoundException {
             Name eventName = event.getName();
             LocalDateTime startDate = event.getStartDate();
             LocalDateTime endDate = event.getEndDate();
             Location destination = event.getDestination();
-            Optional<Expenditure> budget = event.getTotalBudget();
             Optional<Booking> booking = event.getBooking();
             Optional<Inventory> inventory = event.getInventory();
+            Optional<Expenditure> expenditure = event.getExpenditure();
 
             if (this.name.isPresent()) {
                 eventName = this.name.get();
@@ -229,7 +244,14 @@ public class EditEventFieldCommand extends Command {
                 destination = this.destination.get();
             }
             if (this.totalBudget.isPresent()) {
-                budget = this.totalBudget;
+                if (expenditure.isPresent()) {
+                    model.getPageStatus().getTrip().getExpenditureList().remove(expenditure.get());
+                }
+                int index = model.getPageStatus().getTrip().getDayList()
+                        .internalList.indexOf(model.getPageStatus().getDay());
+                Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
+                        new DayNumber(Integer.toString(index)), false);
+                expenditure = Optional.of(newExpenditure);
             }
             if (this.inventory.isPresent()) {
                 inventory = this.inventory;
@@ -238,8 +260,7 @@ public class EditEventFieldCommand extends Command {
                 booking = this.booking;
             }
 
-
-            return new Event(eventName, startDate, endDate, totalBudget, destination);
+            return new Event(eventName, startDate, endDate, expenditure, destination);
         }
 
         /**
@@ -283,15 +304,15 @@ public class EditEventFieldCommand extends Command {
             return destination;
         }
 
-        public void setBudget(Expenditure totalBudget) {
+        public void setBudget(Budget totalBudget) {
             this.totalBudget = Optional.of(totalBudget);
         }
 
-        public void setBudget(Optional<Expenditure> totalBudget) {
+        public void setBudget(Optional<Budget> totalBudget) {
             this.totalBudget = totalBudget;
         }
 
-        public Optional<Expenditure> getBudget() {
+        public Optional<Budget> getBudget() {
             return totalBudget;
         }
 

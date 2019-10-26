@@ -4,8 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Expenditure;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
@@ -21,7 +21,7 @@ public class DayBuilder {
     private LocalDateTime endDate;
     private Description description;
     private Location destination;
-    private Expenditure totalBudget;
+    private Budget totalBudget;
     private EventList eventList;
 
     private DayBuilder() {
@@ -76,7 +76,7 @@ public class DayBuilder {
         return this;
     }
 
-    public DayBuilder setTotalBudget(Expenditure totalBudget) {
+    public DayBuilder setTotalBudget(Budget totalBudget) {
         this.totalBudget = totalBudget;
         return this;
     }

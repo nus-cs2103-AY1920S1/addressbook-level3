@@ -20,6 +20,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_INVENTORY = new Prefix("inv/");
     public static final Prefix PREFIX_BOOKING = new Prefix("bo/");
+    public static final Prefix PREFIX_DAY_NUMBER = new Prefix("dn/");
     public static final Prefix PREFIX_DATA_FILE_PATH = new Prefix("fp/");
     public static final Prefix PREFIX_FILE_CHOOSER = new Prefix("fc/");
 }

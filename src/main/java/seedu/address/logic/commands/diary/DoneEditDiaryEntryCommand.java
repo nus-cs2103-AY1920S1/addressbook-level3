@@ -17,11 +17,11 @@ public class DoneEditDiaryEntryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves the edits to the current diary entry\n";
 
-    public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently editing any entry!\n";
+    private static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently editing any entry!\n";
 
-    public static final String MESSAGE_NO_DIARY_EDIT = "You haven't made any edits to this entry!\n";
+    private static final String MESSAGE_NO_DIARY_EDIT = "You haven't made any edits to this entry!\n";
 
-    public static final String MESSAGE_EDIT_SUCCESS = "Saved your edit! %1$s";
+    private static final String MESSAGE_EDIT_SUCCESS = "Saved your edit! %1$s";
 
     public DoneEditDiaryEntryCommand() {}
 

@@ -11,10 +11,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.parser.bookings.BookingsParser;
 import seedu.address.logic.parser.common.CommonParser;
-import seedu.address.logic.parser.contacts.ContactsParser;
 import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.expense.ExpenseParser;
+import seedu.address.logic.parser.expense.DaysViewParser;
+import seedu.address.logic.parser.expense.ExpenseManagerParser;
+import seedu.address.logic.parser.expense.edit.EditExpenditureParser;
 import seedu.address.logic.parser.inventory.InventoryViewParser;
 import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
 import seedu.address.logic.parser.itinerary.dayview.edit.EditDayParser;
@@ -92,15 +93,18 @@ public class TravelPalParser {
         case EVENT_PAGE:
             return new EventViewParser().parse(commandWord, arguments);
         case PRETRIP_INVENTORY:
-            return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.DAYS);
+            return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.INVENTORY);
         case EXPENSE_MANAGER:
-            return parseNavbarPageCommand(commandWord, arguments, new ExpenseParser(), NavbarCommand.DAYS);
+            return parseNavbarPageCommand(commandWord, arguments, new ExpenseManagerParser(), NavbarCommand.EXPENSE);
+        case EXPENSE_MANAGER_DAYS:
+            return parseNavbarPageCommand(commandWord, arguments, new DaysViewParser(), null);
+        case ADD_EXPENDITURE:
+            return new EditExpenditureParser().parse(commandWord, arguments);
         case DIARY:
             return parseNavbarPageCommand(commandWord, arguments, new DiaryParser(), NavbarCommand.DIARY);
-        case CONTACTS_MANAGER:
-            return parseNavbarPageCommand(commandWord, arguments, new ContactsParser(), NavbarCommand.DAYS);
         case BOOKINGS:
-            return parseNavbarPageCommand(commandWord, arguments, new BookingsParser(), NavbarCommand.DAYS);
+            return parseNavbarPageCommand(commandWord, arguments, new BookingsParser(), NavbarCommand.BOOKINGS);
+        case CONTACTS_MANAGER:
         default:
             throw new ParseException(UNKNOWN_PAGE_MESSAGE);
         }

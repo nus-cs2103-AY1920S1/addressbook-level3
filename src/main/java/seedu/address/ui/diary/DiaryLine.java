@@ -17,9 +17,11 @@ import seedu.address.ui.UiPart;
  * Custom JavaFX component controller representing a single line of items to be displayed in the diary.
  * These items can be a {@link Photo}, or a simple string.
  */
-public class DiaryLine extends UiPart<HBox> {
+class DiaryLine extends UiPart<HBox> {
 
     private static final String FXML = "diary/DiaryLine.fxml";
+
+    private static final double MAX_IMAGE_WIDTH_FACTOR = 0.3;
 
     @FXML
     private Label lineTextLabel;
@@ -39,19 +41,21 @@ public class DiaryLine extends UiPart<HBox> {
                 photos.stream()
                         .map(photo -> {
                             DiaryEntryPhotoCard diaryEntryPhotoCard = new DiaryEntryPhotoCard(photo);
-                            diaryEntryPhotoCard.bindImageViewHeight(photoCardsDisplay.heightProperty());
+                            //diaryEntryPhotoCard.bindImageViewHeight(photoCardsDisplay.heightProperty());
 
                             return diaryEntryPhotoCard.getRoot();
                         })
                         .collect(Collectors.toList()));
         lineTextLabel.setGraphic(photoCardsDisplay);
+        lineTextLabel.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
     }
 
     DiaryLine(String text, Photo photo, boolean placeOnLeft) {
         this(text);
         requireNonNull(photo);
         DiaryEntryPhotoCard diaryEntryPhotoCard = new DiaryEntryPhotoCard(photo);
-        diaryEntryPhotoCard.bindImageViewHeight(photoCardsDisplay.heightProperty());
+        diaryEntryPhotoCard.bindImageViewDimensions(
+                getRoot().widthProperty().multiply(MAX_IMAGE_WIDTH_FACTOR));
         photoCardsDisplay.getChildren().add(diaryEntryPhotoCard.getRoot());
         lineTextLabel.setGraphic(photoCardsDisplay);
         if (placeOnLeft) {

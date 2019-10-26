@@ -47,7 +47,7 @@ public class JsonTravelPalStorage implements TravelPalStorage {
 
         Optional<JsonSerializableTravelPal> jsonSerializableTravelPal = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTravelPal.class);
-        if (!jsonSerializableTravelPal.isPresent()) {
+        if (jsonSerializableTravelPal.isEmpty()) {
             return Optional.empty();
         }
 
