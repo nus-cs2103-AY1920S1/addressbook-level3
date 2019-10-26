@@ -55,7 +55,7 @@ public class NotificationCheckingThread extends Thread {
      * @throws InterruptedException If this thread is interrupted.
      */
     private void notificationCheckingLoop() throws InterruptedException {
-        while(true) {
+        while (true) {
             if (notificationsOn) {
                 checkAndPostNotifications();
 

@@ -1,14 +1,17 @@
 package seedu.address.logic.notification;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
-import seedu.address.model.events.EventSource;
-import seedu.address.ui.systemtray.PopupNotification;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.DateTime;
+import seedu.address.model.ModelManager;
+import seedu.address.model.events.EventSource;
+import seedu.address.ui.systemtray.PopupNotification;
+
 
 public class NotificationCheckerTest {
 

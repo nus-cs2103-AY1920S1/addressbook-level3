@@ -1,25 +1,27 @@
 package seedu.address.logic.notification;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.ModelManager;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.ModelManager;
 
 public class NotificationCheckingThreadTest {
 
     @Test
     void whileRunningThread_requestInterrupt_shouldExitByThrowingInterruptedException() {
-
         assertDoesNotThrow((
-            ) -> {
-                NotificationCheckingThread nct
-                    = new NotificationCheckingThread(new NotificationChecker(new ModelManager()));
+        ) -> {
+            NotificationCheckingThread nct =
+                    new NotificationCheckingThread(new NotificationChecker(new ModelManager()));
 
-                nct.setDaemon(true);
-                nct.start();
+            nct.setDaemon(true);
+            nct.start();
 
-                nct.interrupt();
-            });
+            nct.interrupt();
+        });
     }
 
     @Test
@@ -38,5 +40,4 @@ public class NotificationCheckingThreadTest {
         nct.switchOnNotifications();
         assertTrue(nct.getNotificationsOnStatus());
     }
-
 }

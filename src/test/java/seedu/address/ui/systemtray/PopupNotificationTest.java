@@ -1,10 +1,11 @@
 package seedu.address.ui.systemtray;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PopupNotificationTest {
     @Test

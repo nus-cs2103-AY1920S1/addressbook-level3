@@ -1,8 +1,8 @@
 package seedu.address.ui.systemtray;
 
-import java.util.Objects;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a notification to be posted to the system tray.
