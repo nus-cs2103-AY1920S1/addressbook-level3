@@ -8,6 +8,8 @@ import java.util.HashMap;
  */
 public class EventDateTimeMap {
     private final HashMap<EventDate, EventDayTime> dateTimeMap;
+    public static final String MESSAGE_CONSTRAINTS =
+            "EventDateTimeMap is of the format DDMMYYYY:HHMM-HHMM, delimited by commas";
 
     public EventDateTimeMap() {
         this.dateTimeMap = new HashMap<>();
@@ -19,7 +21,8 @@ public class EventDateTimeMap {
 
     /**
      * Add/Update the Key-Value pair of an EventDate to a EventDayTime
-     * @param date EventDate object representing a Date of an Event
+     *
+     * @param date    EventDate object representing a Date of an Event
      * @param dayTime EventDayTime object representing the time period in a day that the event is hosted
      */
     public void mapDateTime(EventDate date, EventDayTime dayTime) {
@@ -41,8 +44,8 @@ public class EventDateTimeMap {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (EventDate keyEventDate: dateTimeMap.keySet()) {
-            if(sb.length() > 0) {
+        for (EventDate keyEventDate : dateTimeMap.keySet()) {
+            if (sb.length() > 0) {
                 sb.append(","); //delimiter
             }
             sb.append(keyEventDate.toString()); //Event Date

@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,6 +20,9 @@ import seedu.address.model.employee.EmployeeAddress;
 import seedu.address.model.employee.EmployeeEmail;
 import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
+import seedu.address.model.event.EventDayTime;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -45,7 +50,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -198,5 +203,30 @@ public class ParserUtilTest {
     @Test
     public void parseEventName_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseEventName(INVALID_NAME));
+    }
+
+    @Test
+    public void parseEventDateTimeMap() throws ParseException {
+        assertThrows(ParseException.class,
+                () -> ParserUtil.parseEventDateTimeMap("20102019")); //Only date, no time
+        assertThrows(ParseException.class,
+                () -> ParserUtil.parseEventDateTimeMap("20102019-1000-2000")); //Wrong format, should have colon
+        assertThrows(ParseException.class,
+                () -> ParserUtil.parseEventDateTimeMap("30102019:1000-2000")); //invalid date
+        assertThrows(ParseException.class,
+                () -> ParserUtil.parseEventDateTimeMap("20102019:5000-2000")); //invalid time
+        assertThrows(ParseException.class,
+                () -> ParserUtil.parseEventDateTimeMap("20102019:1000-2000;20102019:1000-2000")); //Wrong delimiter
+
+        EventDateTimeMap map_1 = new EventDateTimeMap();
+        EventDate date_1 = new EventDate(LocalDate.of(2019, 10, 20));
+        EventDayTime time_1 = new EventDayTime(LocalTime.of(10, 0), LocalTime.of(20, 0));
+        map_1.mapDateTime(date_1, time_1);
+        assertEquals(ParserUtil.parseEventDateTimeMap("20/10/2019:1000-2000"), map_1);
+
+        EventDate date_2 = new EventDate(LocalDate.of(2019, 10, 21));
+        EventDayTime time_2 = new EventDayTime(LocalTime.of(17, 0), LocalTime.of(21, 0));
+        map_1.mapDateTime(date_2, time_2);
+        assertEquals(ParserUtil.parseEventDateTimeMap("20/10/2019:1000-2000,21/10/2019:1700-2100"), map_1);
     }
 }
