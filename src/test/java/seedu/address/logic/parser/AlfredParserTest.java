@@ -30,11 +30,10 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class AlfredParserTest {
 
     private final AlfredParser parser = new AlfredParser();
 
-    @Disabled
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
