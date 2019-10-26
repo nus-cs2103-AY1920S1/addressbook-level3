@@ -46,10 +46,11 @@ import seedu.address.testutil.TeamUtil;
 
 public class AlfredParserTest {
 
-    private final AlfredParser parser = new AlfredParser();
     private static final String LIST_MENTOR_KEYWORD = "mentors";
     private static final String LIST_PARTICIPANT_KEYWORD = "participants";
     private static final String LIST_TEAM_KEYWORD = "teams";
+
+    private final AlfredParser parser = new AlfredParser();
 
     @Test
     public void parseCommand_add() throws Exception {

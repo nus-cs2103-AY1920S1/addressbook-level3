@@ -8,17 +8,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
 import seedu.address.logic.commands.addcommand.AddTeamCommand;
 import seedu.address.model.entity.Team;
 
+/**
+ * Utility class for a team.
+ */
 public class TeamUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code team}.
      */
     public static String getAddCommand(Team team) {
         return AddTeamCommand.COMMAND_WORD + " " + getPersonDetails(team);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code team}'s details.
      */
     public static String getPersonDetails(Team team) {
         StringBuilder sb = new StringBuilder();

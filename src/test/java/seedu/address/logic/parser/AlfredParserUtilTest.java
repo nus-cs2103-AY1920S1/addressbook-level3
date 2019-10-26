@@ -56,7 +56,7 @@ public class AlfredParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() {
         // The index has a valid format and prefix, but is out of the range of integer.
         assertThrows(ParseException.class, Messages.MESSAGE_INVALID_INDEX, ()
-            -> AlfredParserUtil.parseIndex( "M" + Long.toString(Integer.MAX_VALUE + 1), PrefixType.M));
+            -> AlfredParserUtil.parseIndex("M" + Long.toString(Integer.MAX_VALUE + 1), PrefixType.M));
     }
 
     @Test

@@ -4,28 +4,26 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Set;
 
 import seedu.address.logic.commands.addcommand.AddMentorCommand;
 import seedu.address.logic.commands.editcommand.EditMentorCommand;
 import seedu.address.model.entity.Mentor;
-import seedu.address.model.tag.Tag;
 
+/**
+ * Utility class for a mentor.
+ */
 public class MentorUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code mentor}.
      */
     public static String getAddCommand(Mentor mentor) {
         return AddMentorCommand.COMMAND_WORD + " " + getMentorDetails(mentor);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code mentor}'s details.
      */
     public static String getMentorDetails(Mentor mentor) {
         StringBuilder sb = new StringBuilder();
@@ -39,7 +37,7 @@ public class MentorUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditMentorDescriptor}'s details.
      */
     public static String getEditMentorDescriptorDetails(EditMentorCommand.EditMentorDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
