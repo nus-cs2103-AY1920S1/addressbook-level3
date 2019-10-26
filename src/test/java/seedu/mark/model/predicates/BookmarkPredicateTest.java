@@ -20,7 +20,7 @@ public class BookmarkPredicateTest {
     private static final List<String> KEYWORD_LIST_SINGLE = Collections.singletonList("second");
 
     @Test
-    void equals() {
+    public void equals() {
         BookmarkPredicate firstPredicate = new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE);
 
         // same object -> returns true
@@ -47,7 +47,7 @@ public class BookmarkPredicateTest {
     }
 
     @Test
-    void test() { // TODO: check equivalence partitions
+    public void test() { // TODO: check equivalence partitions
         Bookmark firstBookmark = new BookmarkBuilder().withName("First").withUrl("https://first.example.com").build();
         Bookmark secondBookmark =
                 new BookmarkBuilder().withName("Second").withUrl("https://second.example.com").build();
@@ -78,7 +78,7 @@ public class BookmarkPredicateTest {
     }
 
     @Test
-    void isEmpty() {
+    public void isEmpty() {
         assertTrue(new BookmarkPredicate().isEmpty());
         assertFalse(new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE).isEmpty());
         assertFalse(new BookmarkPredicate().withUrlKeywords(KEYWORD_LIST_MULTIPLE).isEmpty());
@@ -92,7 +92,7 @@ public class BookmarkPredicateTest {
     // correctness of predicate is tested in #test().
 
     @Test
-    void withNameKeywords_noDuplicateKeywords_success() {
+    public void withNameKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withNameKeywords(KEYWORD_LIST_MULTIPLE);
         assertEquals(predicate.getNameKeywords(), new HashSet<>(KEYWORD_LIST_MULTIPLE));
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>());
@@ -101,7 +101,7 @@ public class BookmarkPredicateTest {
     }
 
     @Test
-    void withoutNameKeywords_noDuplicateKeywords_success() {
+    public void withoutNameKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withoutNameKeywords(KEYWORD_LIST_MULTIPLE);
         assertEquals(predicate.getNameKeywords(), new HashSet<>());
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>(KEYWORD_LIST_MULTIPLE));
@@ -110,7 +110,7 @@ public class BookmarkPredicateTest {
     }
 
     @Test
-    void withUrlKeywords_noDuplicateKeywords_success() {
+    public void withUrlKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withUrlKeywords(KEYWORD_LIST_MULTIPLE);
         assertEquals(predicate.getNameKeywords(), new HashSet<>());
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>());
@@ -119,7 +119,7 @@ public class BookmarkPredicateTest {
     }
 
     @Test
-    void withoutUrlKeywords_noDuplicateKeywords_success() {
+    public void withoutUrlKeywords_noDuplicateKeywords_success() {
         BookmarkPredicate predicate = new BookmarkPredicate().withoutUrlKeywords(KEYWORD_LIST_MULTIPLE);
         assertEquals(predicate.getNameKeywords(), new HashSet<>());
         assertEquals(predicate.getNotNameKeywords(), new HashSet<>());

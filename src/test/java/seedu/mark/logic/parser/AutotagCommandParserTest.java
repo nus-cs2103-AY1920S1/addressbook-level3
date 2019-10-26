@@ -10,21 +10,15 @@ import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
-import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.predicates.BookmarkPredicate;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
-import seedu.mark.model.predicates.UrlContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
 
 public class AutotagCommandParserTest {
-
-    public static final Predicate<Bookmark> DEFAULT_PREDICATE = bookmark -> true;
 
     private static final String VALID_TAG = "myTag";
     private static final String VALID_NAME_1 = "website";
@@ -67,10 +61,6 @@ public class AutotagCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         String userInput = VALID_TAG + NAME_DESC_1 + URL_DESC_1;
 
-        NameContainsKeywordsPredicate namePredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList(VALID_NAME_1));
-        UrlContainsKeywordsPredicate urlPredicate =
-                new UrlContainsKeywordsPredicate(Collections.singletonList(VALID_URL_1));
         AutotagCommand expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG),
                 new BookmarkPredicate().withNameKeywords(Collections.singletonList(VALID_NAME_1))
                         .withUrlKeywords(Collections.singletonList(VALID_URL_1))));
