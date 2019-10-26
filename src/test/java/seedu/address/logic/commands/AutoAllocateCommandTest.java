@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.AutoAllocateCommand.MESSAGE_ALLOCATE_SUCCESS;
-import static seedu.address.logic.commands.AutoAllocateCommand.createEventAfterManpowerAllocation;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.allocate.AutoAllocateCommand.MESSAGE_ALLOCATE_SUCCESS;
+import static seedu.address.logic.commands.allocate.AutoAllocateCommand.createEventAfterManpowerAllocation;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
@@ -18,6 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.allocate.AutoAllocateCommand;
+import seedu.address.logic.commands.employee.ClearCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.Model;

@@ -13,8 +13,9 @@ import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AutoAllocateCommand;
 import seedu.address.logic.commands.CommandTestUtil;
+import seedu.address.logic.commands.allocate.AutoAllocateCommand;
+import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.model.tag.Tag;
 
 

@@ -140,8 +140,8 @@ public class AutoAllocateCommand extends Command {
     /**
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      */
-    static Event createEventAfterManpowerAllocation(Event eventToEdit, List<Employee> availableEmployeeList,
-                                   Integer manpowerCountToAdd) {
+    public static Event createEventAfterManpowerAllocation(Event eventToEdit, List<Employee> availableEmployeeList,
+                                                           Integer manpowerCountToAdd) {
         assert eventToEdit != null;
         assert availableEmployeeList != null;
         assert manpowerCountToAdd != null;
