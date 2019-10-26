@@ -44,5 +44,19 @@ public class JsonAdaptedNotifTest {
         expectedMessage = JsonAdaptedNotif.INVALID_DATE_TIME;
         assertThrows(IllegalValueException.class, expectedMessage, notif::toModelType);
     }
+
+    @Test
+    public void toModelType_missingBodyId_throwsIllegalValueException() {
+        JsonAdaptedNotif notif = new JsonAdaptedNotif(null, VALID_DATE_TIME);
+        String expectedMessage = JsonAdaptedNotif.MISSING_BODY_ID;
+        assertThrows(IllegalValueException.class, expectedMessage, notif::toModelType);
+    }
+
+    @Test
+    public void toModelType_missingDateTime_throwsIllegalValueException() {
+        JsonAdaptedNotif notif = new JsonAdaptedNotif(VALID_BODY_ID, null);
+        String expectedMessage = JsonAdaptedNotif.MISSING_DATE;
+        assertThrows(IllegalValueException.class, expectedMessage, notif::toModelType);
+    }
 }
 //@@author
