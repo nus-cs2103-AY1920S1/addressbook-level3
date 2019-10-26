@@ -81,6 +81,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
      */
     public void addSpending(Spending p) {
         spendings.add(p);
+        budget.addSpending(p);
     }
 
     /**
@@ -91,7 +92,8 @@ public class SpendingBook implements ReadOnlySpendingBook {
      */
     public void setSpending(Spending target, Spending editedSpending) {
         requireNonNull(editedSpending);
-
+        budget.deleteSpending(target);
+        budget.addSpending(target);
         spendings.setSpending(target, editedSpending);
     }
 
@@ -101,6 +103,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
      */
     public void removeSpending(Spending key) {
         spendings.remove(key);
+        budget.deleteSpending(key);
     }
 
     //// Reminder-level operations
@@ -148,8 +151,16 @@ public class SpendingBook implements ReadOnlySpendingBook {
      * Replaces the value of budget in the MoneyGoWhere list with {@code budget}.
      */
     public void setBudget(Budget budget) {
-        this.budget.setValue(budget.getValue());
+        this.budget.setBudget(budget);
     }
+
+    /**
+     * Resets the Budget sum to 0.
+     */
+    public void clearBudgetSum() {
+        budget.clearBudgetSum();
+    }
+
 
     //// util methods
 

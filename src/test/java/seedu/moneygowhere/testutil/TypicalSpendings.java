@@ -80,6 +80,6 @@ public class TypicalSpendings {
     }
 
     public static Budget getTypicalBudget() {
-        return new Budget(10000);
+        return new Budget(10000, 772.50);
     }
 }
