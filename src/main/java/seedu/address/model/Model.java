@@ -106,4 +106,6 @@ public interface Model {
     void addEvent(Event event);
 
     boolean hasEvent(Event event);
+
+    ReadOnlyEvents getEventList();
 }

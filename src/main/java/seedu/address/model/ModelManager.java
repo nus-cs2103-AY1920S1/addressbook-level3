@@ -193,4 +193,9 @@ public class ModelManager implements Model {
         return eventList.hasEvent(event);
     }
 
+    @Override
+    public ReadOnlyEvents getEventList() {
+        return eventList;
+    }
+
 }

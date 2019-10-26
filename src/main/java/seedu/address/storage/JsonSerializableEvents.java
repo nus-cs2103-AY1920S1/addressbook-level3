@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.EventList;
 import seedu.address.model.ReadOnlyEvents;
+import seedu.address.model.performance.Event;
 
 public class JsonSerializableEvents {
 
@@ -31,5 +34,23 @@ public class JsonSerializableEvents {
     public JsonSerializableEvents(ReadOnlyEvents source) {
         events.addAll(source.getEvents().stream().map(JsonAdaptedEvent::new).collect(Collectors.toList()));
     }
+
+    /**
+     * Converts this address book into the model's {@code AddressBook} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated.
+     */
+    public EventList toModelType() throws IllegalValueException {
+        EventList eventList = new EventList();
+        for (JsonAdaptedEvent jsonAdaptedEvent : events) {
+            Event event = jsonAdaptedEvent.toModelType();
+            if (eventList.hasEvent(event)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
+            }
+            eventList.addEvent(event);
+        }
+        return eventList;
+    }
+
 
 }
