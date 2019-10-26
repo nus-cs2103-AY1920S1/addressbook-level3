@@ -1,4 +1,4 @@
-package seedu.address.itinerary.Model.Event;
+package seedu.address.itinerary.model.event;
 
 /**
  * A short description complementing the event in the itinerary.

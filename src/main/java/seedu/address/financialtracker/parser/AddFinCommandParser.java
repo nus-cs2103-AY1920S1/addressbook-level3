@@ -9,8 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.financialtracker.commands.AddFinCommand;
 import seedu.address.financialtracker.model.expense.Amount;
+import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.financialtracker.model.expense.Time;
 import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -40,8 +42,10 @@ public class AddFinCommandParser implements Parser<AddFinCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        Date date = Date.getCurrentDate();
+        Time time = Time.getCurrentTime();
 
-        Expense expense = new Expense(amount, description, type);
+        Expense expense = new Expense(date, time, amount, description, type);
 
         return new AddFinCommand(expense);
     }

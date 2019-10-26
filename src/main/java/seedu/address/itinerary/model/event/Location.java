@@ -1,4 +1,4 @@
-package seedu.address.itinerary.Model.Event;
+package seedu.address.itinerary.model.event;
 
 /**
  * Location of the event in the itinerary.
