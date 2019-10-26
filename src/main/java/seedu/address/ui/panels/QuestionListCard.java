@@ -32,9 +32,9 @@ public class QuestionListCard extends PanelComponent<Region> {
         this.question = question;
         id.setText(displayedIndex + ". ");
         questionBody.setText(question.getQuestionBody().body);
-        answer.setText(question.getAnswer().answer);
-        subject.setText(question.getSubject().subject);
-        difficulty.setText(question.getDifficulty().difficulty);
+        answer.setText("A: " + question.getAnswer().answer);
+        subject.setText("S: " + question.getSubject().subject);
+        difficulty.setText("D: " + question.getDifficulty().difficulty);
     }
 
     @Override
