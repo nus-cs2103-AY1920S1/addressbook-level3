@@ -2,6 +2,7 @@ package seedu.address.model.performance;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.model.person.Person;
 
@@ -22,7 +23,7 @@ public class Event {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     private String name;
-    private HashMap<Person, ArrayList<Record>> performances;
+    private HashMap<Person, List<Record>> performances;
 
     /**
      * Creates a type of event that stores the members and their respective timings (performance) for this event.
@@ -54,6 +55,10 @@ public class Event {
 
     public String getName() {
         return name;
+    }
+
+    public HashMap<Person, List<Record>> getPerformances() {
+        return performances;
     }
 
     public String addPerformance(Person athlete, Record record) {
