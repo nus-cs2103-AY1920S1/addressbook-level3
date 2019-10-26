@@ -111,7 +111,9 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
             EmptyUserProgramException {
         this.verifyNotClosed();
 
-        if (userProgram.getSourceCode().equals("")) {
+        logger.info("Submitting user program : " + userProgram);
+
+        if (userProgram.getSourceCode().matches("\\s*")) {
             throw new EmptyUserProgramException();
         }
 
@@ -121,8 +123,10 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
                     .orElseThrow(NoQuestionSetException::new);
             TestResult results = this.testExecutor.runTestCases(testCases, userProgram);
             this.resultObservable.setValue(results);
+            logger.info("Test execution succeeded : " + results);
             return Optional.of(results);
         } catch (TestExecutorException e) {
+            logger.warning("Test execution failed unexpectedly");
             return Optional.empty();
         }
 
@@ -130,13 +134,16 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
 
     @Override
     public void setUserProgramSubmissionChannel(UserProgramChannel channel) {
+        logger.info("UserProgramChannel set : " + channel);
         this.submissionChannel = channel;
     }
 
     @Override
     public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectCanonicalNameException,
             EmptyUserProgramException {
+        logger.info("Submitting user program from registered channel : " + this.submissionChannel);
         if (this.submissionChannel == null) {
+            logger.warning("Submission channel not set up, unable to submit user programs");
             throw new SubmissionChannelNotSetException();
         }
 
@@ -147,14 +154,17 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     @Override
     public UserProgram getUserProgramFromSubmissionChannel() {
         if (this.submissionChannel == null) {
+            logger.warning("Submission channel not set up, unable to get user program");
             throw new SubmissionChannelNotSetException();
         }
 
+        logger.info("Returning user program from registered channel : " + this.submissionChannel);
         return this.submissionChannel.getProgram();
     }
 
     private void verifyNotClosed() {
         if (this.isClosed) {
+            logger.warning("ProgramSubmissionLogicManager closed, any method calls will throw exception");
             throw new SubmissionLogicManagerClosedException();
         }
     }

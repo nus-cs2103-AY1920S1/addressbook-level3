@@ -34,4 +34,9 @@ public class UserProgram {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Canonical name : " + canonicalName + "\nSource code : " + sourceCode;
+    }
 }
