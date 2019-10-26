@@ -78,8 +78,8 @@ public class AddCommandTest {
         seedu.address.cashier.model.ModelManager cashierModel =
                 new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
         seedu.address.cashier.storage.StorageManager cashierManager =
-                new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
-                        FILE_PATH_TRANSACTION, personModel);
+                new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
+                        new File(FILE_PATH_TRANSACTION), personModel);
 
         //For Inventory Storage and Manager
         seedu.address.inventory.model.Model inventoryModel =
@@ -141,8 +141,8 @@ public class AddCommandTest {
         seedu.address.cashier.model.ModelManager cashierModel =
                 new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
         seedu.address.cashier.storage.StorageManager cashierManager =
-                new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
-                        FILE_PATH_TRANSACTION, personModel);
+                new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
+                        new File(FILE_PATH_TRANSACTION), personModel);
 
         //For Inventory Storage and Manager
         seedu.address.inventory.model.Model inventoryModel =

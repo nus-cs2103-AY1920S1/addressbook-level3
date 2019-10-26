@@ -21,21 +21,27 @@ public class StorageManager {
 
     private String filepathToInventory;
     private String filepathToTransaction;
+    private final File iFile;
+    private final File tFile;
     private final seedu.address.person.model.Model personModel;
 
-    public StorageManager(String filepathToInventory, String filepathToTransaction,
-                          seedu.address.person.model.Model personModel) {
-        this.filepathToInventory = filepathToInventory;
-        this.filepathToTransaction = filepathToTransaction;
+    public StorageManager(File iFile, File tFile, seedu.address.person.model.Model personModel) {
+//        this.filepathToInventory = filepathToInventory;
+//        this.filepathToTransaction = filepathToTransaction;
+        this.iFile = iFile;
+        this.tFile = tFile;
         this.personModel = personModel;
     }
 
     public InventoryList getInventoryList() throws Exception {
         ArrayList<Item> itemArrayList = new ArrayList<>();
-        File f = new File(filepathToInventory);
-        f.getParentFile().mkdirs();
-        f.createNewFile();
-        BufferedReader bfr = new BufferedReader(new FileReader(f));
+        iFile.getAbsoluteFile().getParentFile().mkdirs();
+        iFile.createNewFile();
+        BufferedReader bfr = new BufferedReader(new FileReader(iFile));
+//        File f = new File(filepathToInventory);
+//        f.getParentFile().mkdirs();
+//        f.createNewFile();
+//        BufferedReader bfr = new BufferedReader(new FileReader(f));
         String line = null;
         while ((line = bfr.readLine()) != null) {
             Item i = this.readInInventoryFileLine(line);
@@ -70,7 +76,7 @@ public class StorageManager {
      * @throws NoSuchIndexException if the index input is invalid
      */
     public void writeToInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException {
-        FileWriter fw = new FileWriter(this.filepathToInventory);
+        FileWriter fw = new FileWriter(this.iFile);
         String textFileMsg = "";
         for (int i = 0; i < inventoryList.size(); i++) {
             if (i == 0) {
@@ -86,10 +92,13 @@ public class StorageManager {
 
     public TransactionList getTransactionList() throws Exception {
         ArrayList<Transaction> transactionArrayList = new ArrayList<>();
-        File f = new File(filepathToTransaction);
-        f.getParentFile().mkdirs();
-        f.createNewFile();
-        BufferedReader bfr = new BufferedReader(new FileReader(f));
+        tFile.getAbsoluteFile().getParentFile().mkdirs();
+        tFile.createNewFile();
+        BufferedReader bfr = new BufferedReader(new FileReader(tFile));
+//        File f = new File(filepathToTransaction);
+//        f.getParentFile().mkdirs();
+//        f.createNewFile();
+//        BufferedReader bfr = new BufferedReader(new FileReader(f));
         String line = null;
         while ((line = bfr.readLine()) != null) {
             Transaction t = this.readInTransactionFileLine(line, personModel);
@@ -124,7 +133,7 @@ public class StorageManager {
      * @throws Exception if the input is invalid
      */
     public void appendToTransaction(Transaction transaction) throws Exception {
-        FileWriter fw = new FileWriter(this.filepathToTransaction, true);
+        FileWriter fw = new FileWriter(this.tFile, true);
         TransactionList transactionList = getTransactionList();
         String textFileMsg = "";
         if (transactionList.size() == 0) {
