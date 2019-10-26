@@ -40,7 +40,7 @@ public class PerformanceCommandParser implements Parser<PerformanceCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE), pe);
         }
 
-        Event event = ParserUtil.parseEvent(argMultimap.getValue(PREFIX_EVENT).get());
+        String event = argMultimap.getValue(PREFIX_EVENT).get();
         String date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         String timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get());
 

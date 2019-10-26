@@ -30,7 +30,7 @@ public class PerformanceCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Performance record added: %1$s";
 
-    private final Event event;
+    private final String event;
     private final Index index;
     private final String date;
     private final String time;
@@ -38,7 +38,7 @@ public class PerformanceCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public PerformanceCommand(Index index, Event event, String date, String time) {
+    public PerformanceCommand(Index index, String event, String date, String time) {
         this.event = event;
         this.index = index;
         this.date = date;
@@ -55,9 +55,14 @@ public class PerformanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (!model.hasEvent(new Event(event))) {
+            throw new CommandException(String.format(Event.MESSAGE_CONSTRAINTS, event));
+        }
+
+        Event createdEvent = new Event(event);
         Person athlete = lastShownList.get(index.getZeroBased());
         Record record = createRecord();
-        String response = event.addPerformance(athlete, record);
+        String response = createdEvent.addPerformance(athlete, record);
         return new CommandResult(String.format(MESSAGE_SUCCESS, response));
 
     }

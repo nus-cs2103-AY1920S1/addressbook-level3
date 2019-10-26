@@ -10,8 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.feature.Feature;
-import seedu.address.model.performance.Event;
-import seedu.address.model.performance.Performance;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -141,21 +139,6 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
-    }
-
-    /**
-     * Parses {@code String event} into an {@code Event}
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException If the event has not yet been created.
-     */
-    public static Event parseEvent(String event) throws ParseException {
-        requireNonNull(event);
-        String trimmedEvent = event.trim();
-        if (!Performance.doesEventExist(trimmedEvent)) {
-            throw new ParseException(String.format(Event.MESSAGE_CONSTRAINTS, trimmedEvent));
-        }
-        return Performance.retrieveEvent(trimmedEvent);
     }
 
     /**
