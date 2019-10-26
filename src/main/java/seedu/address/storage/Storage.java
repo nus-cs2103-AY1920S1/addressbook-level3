@@ -15,7 +15,7 @@ import seedu.address.model.performance.Event;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, EventStorage {
+public interface Storage extends AddressBookStorage, EventStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

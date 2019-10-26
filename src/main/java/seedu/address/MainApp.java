@@ -62,7 +62,7 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         EventStorage eventStorage = new JsonEventStorage(userPrefs.getEventListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, eventStorage);
+        storage = new StorageManager(addressBookStorage, eventStorage, userPrefsStorage);
 
         initLogging(config);
 
