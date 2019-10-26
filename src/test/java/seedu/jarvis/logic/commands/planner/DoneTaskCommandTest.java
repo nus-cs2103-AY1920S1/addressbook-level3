@@ -102,6 +102,11 @@ class DoneTaskCommandTest {
         assertNotEquals(one, two);
     }
 
+    /**
+     * Creates a new {@code Index} to be used for test cases
+     * @param index {@code String} index to be parsed into {@code Index} object
+     * @return one-based {@code Index} object to be used for {@code DoneTaskCommand}
+     */
     private Index parseIndex(String index) {
         Index i = null;
         try {

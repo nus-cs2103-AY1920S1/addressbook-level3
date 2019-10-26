@@ -2,7 +2,6 @@ package seedu.jarvis.logic.commands.planner;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -22,7 +21,7 @@ public class DoneTaskCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a task as complete."
             + "Parameters: "
-            +  "INDEX"
+            + "INDEX"
             + "\nExample: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "%1$s marked as done.";
@@ -84,7 +83,7 @@ public class DoneTaskCommand extends Command {
         }
         Task task = model.getTask(targetIndex);
 
-        if(task.getStatus() == Status.DONE) {
+        if (task.getStatus() == Status.DONE) {
             throw new CommandException(MESSAGE_TASK_ALREADY_DONE);
         }
 

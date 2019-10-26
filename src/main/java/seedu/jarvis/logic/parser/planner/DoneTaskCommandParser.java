@@ -1,13 +1,16 @@
 package seedu.jarvis.logic.parser.planner;
 
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 
-import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parses input arguments and creates a new DoneTaskCommand object
+ */
 public class DoneTaskCommandParser implements Parser<DoneTaskCommand> {
 
     /**

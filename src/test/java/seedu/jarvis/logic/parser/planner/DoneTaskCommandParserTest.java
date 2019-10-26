@@ -1,14 +1,14 @@
 package seedu.jarvis.logic.parser.planner;
 
-import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
-import seedu.jarvis.logic.parser.ParserUtil;
-import seedu.jarvis.logic.parser.exceptions.ParseException;
-
-import org.junit.jupiter.api.Test;
-
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
+import seedu.jarvis.logic.parser.ParserUtil;
+import seedu.jarvis.logic.parser.exceptions.ParseException;
 
 class DoneTaskCommandParserTest {
 
