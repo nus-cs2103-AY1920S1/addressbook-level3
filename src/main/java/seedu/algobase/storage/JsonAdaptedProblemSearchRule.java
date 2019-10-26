@@ -54,38 +54,39 @@ public class JsonAdaptedProblemSearchRule {
      */
     public JsonAdaptedProblemSearchRule(ProblemSearchRule rule) {
         name = rule.getName().name;
-        if (!rule.hasDefaultNamePredicate()) {
-            this.nameContainsKeywordsPredicate = new JsonAdaptedNameContainsKeywordsPredicate(rule.getNamePredicate());
+        if (rule.getNamePredicate().isPresent()) {
+            this.nameContainsKeywordsPredicate =
+                new JsonAdaptedNameContainsKeywordsPredicate(rule.getNamePredicate().get());
         } else {
             this.nameContainsKeywordsPredicate = null;
         }
-        if (!rule.hasDefaultAuthorPredicate()) {
+        if (rule.getAuthorPredicate().isPresent()) {
             this.authorMatchesKeywordPredicate =
-                new JsonAdaptedAuthorMatchesKeywordPredicate(rule.getAuthorPredicate());
+                new JsonAdaptedAuthorMatchesKeywordPredicate(rule.getAuthorPredicate().get());
         } else {
             this.authorMatchesKeywordPredicate = null;
         }
-        if (!rule.hasDefaultDescriptionPredicate()) {
+        if (rule.getDescriptionPredicate().isPresent()) {
             this.descriptionContainsKeywordsPredicate =
-                new JsonAdaptedDescriptionContainsKeywordsPredicate(rule.getDescriptionPredicate());
+                new JsonAdaptedDescriptionContainsKeywordsPredicate(rule.getDescriptionPredicate().get());
         } else {
             this.descriptionContainsKeywordsPredicate = null;
         }
-        if (!rule.hasDefaultSourcePredicate()) {
+        if (rule.getSourcePredicate().isPresent()) {
             this.sourceMatchesKeywordPredicate =
-                new JsonAdaptedSourceMatchesKeywordPredicate(rule.getSourcePredicate());
+                new JsonAdaptedSourceMatchesKeywordPredicate(rule.getSourcePredicate().get());
         } else {
             this.sourceMatchesKeywordPredicate = null;
         }
-        if (!rule.hasDefaultDifficultyPredicate()) {
+        if (rule.getDifficultyPredicate().isPresent()) {
             this.difficultyIsInRangePredicate =
-                new JsonAdaptedDifficultyIsInRangePredicate(rule.getDifficultyPredicate());
+                new JsonAdaptedDifficultyIsInRangePredicate(rule.getDifficultyPredicate().get());
         } else {
             this.difficultyIsInRangePredicate = null;
         }
-        if (!rule.hasDefaultTagPredicate()) {
+        if (rule.getTagPredicate().isPresent()) {
             this.tagIncludesKeywordsPredicate =
-                new JsonAdaptedTagIncludesKeywordsPredicate(rule.getTagPredicate());
+                new JsonAdaptedTagIncludesKeywordsPredicate(rule.getTagPredicate().get());
         } else {
             this.tagIncludesKeywordsPredicate = null;
         }
