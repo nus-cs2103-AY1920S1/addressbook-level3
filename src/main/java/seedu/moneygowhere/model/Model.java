@@ -2,6 +2,7 @@ package seedu.moneygowhere.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -112,7 +113,16 @@ public interface Model {
     void addReminder(Reminder reminder);
 
     /**
+     * Deletes the given Reminder.
+     * The Reminder must exist in the MoneyGoWhere list.
+     */
+    void deleteReminder(Reminder target);
+
+    /**
      * Returns true if a Reminder with the same identity as {@code Reminder} exists in the Reminder list.
      */
     boolean hasReminder(Reminder reminder);
+
+    /** Returns an unmodifiable view of the filtered Spending list */
+    List<Reminder> getReminderList();
 }

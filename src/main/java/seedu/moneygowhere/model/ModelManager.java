@@ -5,6 +5,7 @@ import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -137,6 +138,11 @@ public class ModelManager implements Model {
     //=========== Reminder related functions =====================================================================
 
     @Override
+    public void deleteReminder(Reminder target) {
+        spendingBook.removeReminder(target);
+    }
+
+    @Override
     public void addReminder(Reminder reminder) {
         spendingBook.addReminder(reminder);
     }
@@ -145,6 +151,11 @@ public class ModelManager implements Model {
     public boolean hasReminder(Reminder reminder) {
         requireNonNull(reminder);
         return spendingBook.hasReminder(reminder);
+    }
+
+    @Override
+    public List<Reminder> getReminderList() {
+        return spendingBook.getReminderList();
     }
 
     //=========== Filtered Spending List Accessors =============================================================
