@@ -15,7 +15,7 @@ import budgetbuddy.model.rule.RuleAction;
 public class ActionExpression extends RuleAction {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expressions should contain exactly two terms in the order <operator> <value> "
+            "Action expressions should contain exactly two terms in the order <operator> <value> "
             + "and should not be blank";
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =

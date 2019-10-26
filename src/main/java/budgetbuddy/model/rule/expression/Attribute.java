@@ -15,7 +15,12 @@ public enum Attribute {
     DATE("date", RuleProcessingUtil.TYPE_DATE);
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Attributes should be alphabetical and should not be blank";
+            "Attributes should be valid and not be blank\n"
+            + "Valid attributes: "
+                    + Arrays.stream(Attribute.values())
+                    .map(op -> op.representation)
+                    .reduce((x, y) -> x + ", " + y)
+                    .orElse("");
 
     private final String representation;
     private final String evaluatedType;

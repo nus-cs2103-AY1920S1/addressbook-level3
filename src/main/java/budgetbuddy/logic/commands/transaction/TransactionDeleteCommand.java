@@ -41,7 +41,7 @@ public class TransactionDeleteCommand extends Command {
         List<Transaction> lastShownList = model.getFilteredTransactions();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());

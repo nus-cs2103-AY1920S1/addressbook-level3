@@ -36,7 +36,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with accounts manager: " + accountsManager + " and user prefs " + userPrefs);
 
         this.loansManager = new LoansManager(loansManager.getLoans());
-        this.ruleManager = new RuleManager(ruleManager);
+        this.ruleManager = new RuleManager(ruleManager.getRules());
         this.accountsManager = new AccountsManager(accountsManager.getAccountsList());
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.accountsManager.getTransactionList());

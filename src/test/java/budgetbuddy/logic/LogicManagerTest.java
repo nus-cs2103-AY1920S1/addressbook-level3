@@ -1,6 +1,6 @@
 package budgetbuddy.logic;
 
-import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_ACCOUNT_DISPLAYED_INDEX;
+import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static budgetbuddy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,7 +50,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "account delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_ACCOUNT_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_DISPLAYED_INDEX);
     }
 
     @Test

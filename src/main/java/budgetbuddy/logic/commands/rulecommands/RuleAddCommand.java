@@ -13,13 +13,13 @@ import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.rule.Rule;
 
 /**
- * Adds a rule to budget buddy.
+ * Adds a rule.
  */
 public class RuleAddCommand extends Command {
 
     public static final String COMMAND_WORD = "rule add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new rule to budget buddy. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new rule. "
             + "Parameters: "
             + PREFIX_PREDICATE + "PREDICATE "
             + PREFIX_ACTION + "ACTION "

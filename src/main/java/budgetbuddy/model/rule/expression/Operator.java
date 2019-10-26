@@ -23,8 +23,12 @@ public enum Operator {
     SET_DESC("setdesc", RuleProcessingUtil.TYPE_DESC);
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Operators are restricted to only the ones already pre-defined "
-            + "and should not be blank";
+            "Operators should be valid for their expression and not be blank\n"
+            + "Valid operators: "
+            + Arrays.stream(Operator.values())
+                    .map(op -> op.representation)
+                    .reduce((x, y) -> x + ", " + y)
+                    .orElse("");
 
     private final String representation;
     private final String expectedType;

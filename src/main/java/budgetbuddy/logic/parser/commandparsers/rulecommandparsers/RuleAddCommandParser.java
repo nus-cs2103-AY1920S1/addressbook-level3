@@ -28,8 +28,8 @@ public class RuleAddCommandParser implements CommandParser<RuleAddCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RuleAddCommand
+     * and returns an RuleAddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public RuleAddCommand parse(String args) throws ParseException {
