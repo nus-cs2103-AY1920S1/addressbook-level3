@@ -122,7 +122,7 @@ public class AppData implements ReadOnlyAppData {
     /**
      * Retrieves {@code title} from the note list. The note must exists.
      *
-     * @param title The note with the same tile to be retrieved.
+     * @param title The note with the same title to be retrieved.
      * @return The note with the same title as specified in input.
      */
     public Note getNote(Note title) {
