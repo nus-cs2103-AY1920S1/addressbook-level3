@@ -52,34 +52,3 @@ DiaryEntryDisplay *--> "*" DiaryLine
 
 DiaryPage -|> PageWithSidebar
 @enduml
-DiaryLine -|> UiPart
-DiaryEntryPhotoCard -|> UiPart
-DiaryGalleryCard -|> UiPart
-DiaryGallery -|> UiPart
-DiaryLine -|> UiPart
-DiaryEntryDisplay -|> UiPart
-DiaryEditBox -|> UiPart
-
-package Ui <<Rectangle>> {
-    Class "{abstract}\nUiPart" as UiPart
-}
-
-
-
-
-
-MainWindow -[hidden]-|> UiPart
-
-PersonListPanel -[hidden]left- HelpWindow
-UiManager .left.|> Ui
-UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-
-PersonListPanel -down-> PersonCard
-MainWindow -left-|> UiPart
-
-HelpWindow -down-|> UiPart
-
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic

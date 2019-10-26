@@ -13,6 +13,7 @@ import seedu.address.logic.parser.bookings.BookingsParser;
 import seedu.address.logic.parser.common.CommonParser;
 import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.expense.DaysViewParser;
 import seedu.address.logic.parser.expense.ExpenseManagerParser;
 import seedu.address.logic.parser.expense.edit.EditExpenditureParser;
 import seedu.address.logic.parser.inventory.InventoryViewParser;
@@ -95,6 +96,8 @@ public class TravelPalParser {
             return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.INVENTORY);
         case EXPENSE_MANAGER:
             return parseNavbarPageCommand(commandWord, arguments, new ExpenseManagerParser(), NavbarCommand.EXPENSE);
+        case EXPENSE_MANAGER_DAYS:
+            return parseNavbarPageCommand(commandWord, arguments, new DaysViewParser(), null);
         case ADD_EXPENDITURE:
             return new EditExpenditureParser().parse(commandWord, arguments);
         case DIARY:

@@ -1,0 +1,24 @@
+@startuml
+!include ../style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Initial State
+
+package States {
+    class PageStatus as "pageStatus:PageStatus"
+    class Day as "day:Day"
+    class EventList as "eventList:EventList"
+    class RemoveMethod as "remove(index)"
+    PageStatus --> Day
+    Day --> EventList
+    EventList --> RemoveMethod
+}
+
+hide Day
+hide EventList
+hide RemoveMethod
+
+class Pointer as "Current State" #FFFFF
+Pointer -up-> PageStatus
+@end

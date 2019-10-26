@@ -48,10 +48,9 @@ class DiaryGalleryCard extends UiPart<AnchorPane> {
      */
     void bindImageViewWidth(ReadOnlyDoubleProperty galleryWidth) {
         double aspectRatio = photo.getImage().getWidth() / photo.getImage().getHeight();
-        photoImageView.fitWidthProperty().addListener(((observable, oldValue, newValue) -> {
-            photoImageView.setFitHeight(newValue.doubleValue() / aspectRatio);
-        }));
         photoImageView.fitWidthProperty().bind(galleryWidth.subtract(BOUND_WIDTH_PADDING * 2));
+        photoImageView.fitHeightProperty()
+                .bind(galleryWidth.subtract(BOUND_WIDTH_PADDING * 2).divide(aspectRatio));
     }
 
     /**

@@ -7,10 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -21,8 +19,8 @@ import seedu.address.ui.UiPart;
 /**
  * Custom JavaFX component controller for displaying the text of a diary entry.
  */
-class DiaryEntryDisplay extends UiPart<VBox> {
-    private static final String FXML = "diary/DiaryTextFlow.fxml";
+class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
+    private static final String FXML = "diary/DiaryEntryDisplay.fxml";
 
     private static final Pattern IMAGE_SEPARATOR_PATTERN = Pattern.compile(
             "(?<pretext>[^<]*)(?<imagetag><images\\s*(?<position>([a-z]*[A-Z]*)*)"
@@ -32,14 +30,11 @@ class DiaryEntryDisplay extends UiPart<VBox> {
     private final Logger logger = LogsCenter.getLogger(DiaryEntryDisplay.class);
     private PhotoList photoList;
 
-    @FXML
-    private ListView<CharSequence> diaryTextLinesList;
-
     DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);
         this.photoList = new PhotoList();
-        diaryTextLinesList.setItems(observableParagraphs);
-        diaryTextLinesList.setCellFactory(listViewCell -> new DiaryTextLineCell());
+        getRoot().setItems(observableParagraphs);
+        getRoot().setCellFactory(listViewCell -> new DiaryTextLineCell());
     }
 
     void setPhotoList(PhotoList photoList) {
@@ -47,7 +42,7 @@ class DiaryEntryDisplay extends UiPart<VBox> {
     }
 
     /**
-     * {@link ListCell} to use for the cell factory of the {@code diaryTextLinesList}.
+     * {@link ListCell} to use for the cell factory of the {@code ListView}.
      */
     private class DiaryTextLineCell extends ListCell<CharSequence> {
         @Override
@@ -82,7 +77,6 @@ class DiaryEntryDisplay extends UiPart<VBox> {
                 }
             }
             setGraphic(diaryLine.getRoot());
-            diaryLine.getRoot().prefWidthProperty().bind(getRoot().widthProperty());
         }
 
         /**

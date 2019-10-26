@@ -3,9 +3,7 @@ package seedu.address.ui.diary;
 import java.util.function.Consumer;
 
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
 
 import seedu.address.ui.UiPart;
 
@@ -13,36 +11,27 @@ import seedu.address.ui.UiPart;
  * Custom JavaFX component controller for the edit box in the diary page.
  * It is backed by a {@link TextArea}.
  */
-class DiaryEditBox extends UiPart<VBox> {
+class DiaryEditBox extends UiPart<TextArea> {
     private static final String FXML = "diary/DiaryEditBox.fxml";
-
-    @FXML
-    private TextArea textEditor;
 
     DiaryEditBox(Consumer<String> textChangeHandler) {
         super(FXML);
-        textEditor.prefWidthProperty().bind(getRoot().widthProperty());
-        textEditor.prefHeightProperty().bind(getRoot().heightProperty());
-        textEditor.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+        getRoot().focusedProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue && !newValue) {
-                textChangeHandler.accept(textEditor.getText());
+                textChangeHandler.accept(getRoot().getText());
             }
         }));
     }
 
-    String getText() {
-        return textEditor.getText();
-    }
-
     ObservableList<CharSequence> getObservableParagraphs() {
-        return textEditor.getParagraphs();
+        return getRoot().getParagraphs();
     }
 
     void setText(String text) {
-        textEditor.setText(text);
+        getRoot().setText(text);
     }
 
     void requestFocus() {
-        textEditor.requestFocus();
+        getRoot().requestFocus();
     }
 }

@@ -20,6 +20,7 @@ import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -176,7 +177,8 @@ public class EditTripFieldCommand extends Command {
         public Trip buildTrip() {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList(), new ExpenditureList(), diary);
+                        destination.get(), totalBudget.get(), new DayList(),
+                        new ExpenditureList(), diary, new InventoryList());
             } else {
                 throw new NullPointerException();
             }
@@ -212,7 +214,7 @@ public class EditTripFieldCommand extends Command {
             }
 
             return new Trip(tripName, startDate, endDate, destination, budget,
-                    trip.getDayList(), trip.getExpenditureList(), diary);
+                    trip.getDayList(), trip.getExpenditureList(), diary, trip.getInventoryList());
         }
 
         /**
