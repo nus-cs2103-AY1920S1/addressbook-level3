@@ -48,6 +48,7 @@ public class EventDateTimeMap {
 
     /**
      * Returns true if the given string represents a valid DateTime Mapping.
+     *
      * @param test
      * @return
      */
@@ -77,8 +78,21 @@ public class EventDateTimeMap {
         dateTimeMap.put(date, dayTime);
     }
 
+
     public void clearMapping() {
         dateTimeMap.clear();
+    }
+
+    public boolean containsDateKey(EventDate date) {
+        return dateTimeMap.containsKey(date);
+    }
+
+    /**
+     * Deletes a Date from the Date-Time Mapping.
+     * @param date EventDate Object
+     */
+    public void deleteDateKey(EventDate date) {
+        dateTimeMap.remove(date);
     }
 
     @Override
