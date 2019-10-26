@@ -210,6 +210,23 @@ public class MainWindow extends UiPart<Stage> {
                 featureBoxPlaceholder.getChildren().add(informationDisplay.getRoot());
             }
 
+            if (!(commandResult.getDate() == null)) {
+                switch (commandResult.getDate().getType()) {
+                case 1:
+                    CalendarDetailPanel calendarDetailPanel = new CalendarDetailPanel();
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(calendarDetailPanel.getRoot());
+                    break;
+                case 2:
+                    CalendarPanel calendarPanel = new CalendarPanel(commandResult.getDate());
+                    featureBoxPlaceholder.getChildren().clear();
+                    featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
+                    break;
+                default:
+                    break;
+                }
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

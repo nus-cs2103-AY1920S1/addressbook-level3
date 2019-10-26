@@ -9,9 +9,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Feature {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Please indicate one of the following features to view: 1) calendar, 2) attendance, "
-                    + "3) performance";
+    public static final String MESSAGE_CONSTRAINTS = "You have provided an invalid feature. "
+            + "Please indicate one of the following features "
+            + "to view: 1) calendar, 2) attendance, "
+            + "3) performance.";
 
     private final String name;
 
@@ -35,5 +36,12 @@ public class Feature {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof Feature
+                && name.equals(((Feature) other).name));
     }
 }

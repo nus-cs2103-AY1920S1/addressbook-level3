@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.feature.Feature;
 import seedu.address.model.person.Person;
 
@@ -15,6 +16,7 @@ public class CommandResult {
     private final String feedbackToUser;
     private Feature feature;
     private Person person;
+    private AthletickDate date;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -57,12 +59,21 @@ public class CommandResult {
         this.person = selectedPerson;
     }
 
+    public CommandResult(String feedbackToUser, AthletickDate date) {
+        this(feedbackToUser, false, false);
+        this.date = date;
+    }
+
     public Feature getFeature() {
         return feature;
     }
 
     public Person getPerson() {
         return person;
+    }
+
+    public AthletickDate getDate() {
+        return date;
     }
 
     public String getFeedbackToUser() {
