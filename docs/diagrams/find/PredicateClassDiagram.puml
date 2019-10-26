@@ -1,0 +1,60 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+left to right direction
+
+interface Predicate {
+	+ boolean test(Problem problem)
+	+ boolean equals(Object other)
+}
+
+class NameContainsKeywordsPredicate {
+	+ {static} NameContainsKeywordsPredicate DEFAULT_NAME_PREDICATE
+	- List<String> keywords
+	+ NameContainsKeywordsPredicate(List<String> keywords)
+	- NameContainsKeywordsPredicate()
+}
+
+class AuthorMatchesKeywordPredicate {
+	+ {static} AuthorMatchesKeywordPredicate DEFAULT_AUTHOR_PREDICATE
+	- String keyword
+	+ AuthorMatchesKeywordPredicate(String keyword)
+	- AuthorMatchesKeywordPredicate()
+}
+class DescriptionContainsKeywordsPredicate {
+	+ {static} DescriptionContainsKeywordsPredicate DEFAULT_DESCRIPTION_PREDICATE
+	- List<String> keywords
+	+ DescriptionContainsKeywordsPredicate(List<String> keywords)
+	- DescriptionContainsKeywordsPredicate()
+}
+class SourceMatchesKeywordPredicate {
+	+ {static} SourceMatchesKeywordPredicate DEFAULT_SOURCE_PREDICATE
+	- String keyword
+	+ SourceMatchesKeywordPredicate(String keyword)
+	- SourceMatchesKeywordPredicate()
+}
+class DifficultyIsInRangePredicate {
+	+ {static} DifficultyIsInRangePredicate DEFAULT_DIFFICULTY_PREDICATE
+	- {static} double DEFAULT_BOUND
+	- double lowerBound
+	- double upperBound
+	+ DifficultyIsInRangePredicate(double lowerBound, double upperBound)
+	- DifficultyIsInRangePredicate()
+}
+class TagIncludesKeywordsPredicate {
+	+ {static} TagIncludesKeywordsPredicate DEFAULT_TAG_PREDICATE
+	- List<String> keywords
+	+ TagIncludesKeywordsPredicate(List<String> keywords)
+	- TagIncludesKeywordsPredicate()
+}
+
+Predicate <|.. NameContainsKeywordsPredicate
+Predicate <|.. AuthorMatchesKeywordPredicate
+Predicate <|.. DescriptionContainsKeywordsPredicate
+Predicate <|.. SourceMatchesKeywordPredicate
+Predicate <|.. DifficultyIsInRangePredicate
+Predicate <|.. TagIncludesKeywordsPredicate
+
+@enduml

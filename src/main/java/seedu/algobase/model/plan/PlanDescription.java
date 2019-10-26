@@ -36,7 +36,16 @@ public class PlanDescription {
     }
 
     /**
-     * Returns true if a given string is a valid weblink.
+     * Checks if a given string is the default description.
+     * @param test a given string to test
+     * @return true if a given string is the default description
+     */
+    public static boolean isDefaultDescription(String test) {
+        return test.equals(DEFAULT_PLAN_DESCRIPTION_STRING);
+    }
+
+    /**
+     * Returns true if a given string is a valid description.
      */
     public static boolean isValidDescription(String test) {
         return test.matches(VALIDATION_REGEX);

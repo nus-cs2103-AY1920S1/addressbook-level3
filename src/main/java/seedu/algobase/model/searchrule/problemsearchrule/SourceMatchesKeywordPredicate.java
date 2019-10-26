@@ -1,6 +1,9 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.function.Predicate;
+
+import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Source;
 
 /**
  * Tests that a {@code Problem}'s {@code Source} matches the given keyword exactly.
@@ -14,18 +17,23 @@ public class SourceMatchesKeywordPredicate implements Predicate<Problem> {
                 return true;
             }
         };
-    private final String keyword;
+    private final Keyword keyword;
 
-    public SourceMatchesKeywordPredicate(String keyword) {
+    public SourceMatchesKeywordPredicate(Keyword keyword) {
         this.keyword = keyword;
     }
+
     private SourceMatchesKeywordPredicate() {
         this.keyword = null;
     }
 
+    public Keyword getKeyword() {
+        return keyword;
+    }
+
     @Override
     public boolean test(Problem problem) {
-        return problem.getSource().equals(new Source(keyword));
+        return problem.getSource().equals(new Source(keyword.toString()));
     }
 
     @Override

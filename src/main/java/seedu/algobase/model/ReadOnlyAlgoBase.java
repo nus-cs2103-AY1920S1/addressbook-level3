@@ -3,6 +3,7 @@ package seedu.algobase.model;
 import javafx.collections.ObservableList;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -27,5 +28,7 @@ public interface ReadOnlyAlgoBase {
      * Returns an unmodifiable view of the current tasks list.
      */
     ObservableList<Task> getCurrentTaskList();
+
+    ObservableList<ProblemSearchRule> getFindRules();
 
 }

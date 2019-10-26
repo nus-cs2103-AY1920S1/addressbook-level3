@@ -1,0 +1,18 @@
+@startuml
+
+start
+
+:User executes an AddTask command;
+
+if () then ([command is valid])
+	:Instantiate an AddTaskCommand with a corresponding predicate;
+	:Execute AddTaskCommand;
+	:Update UI with filtered task list;
+else ([else])
+	:Throw an exception;
+	:Update UI to notify the user;
+endif
+
+stop
+
+@enduml

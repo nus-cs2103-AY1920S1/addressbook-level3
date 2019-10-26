@@ -1,6 +1,9 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.function.Predicate;
+
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Tests that a {@code Problem}'s {@code Author} matches the given keyword exactly.
@@ -13,18 +16,23 @@ public class AuthorMatchesKeywordPredicate implements Predicate<Problem> {
                 return true;
             }
         };
-    private final String keyword;
+    private final Keyword keyword;
 
-    public AuthorMatchesKeywordPredicate(String keyword) {
+    public AuthorMatchesKeywordPredicate(Keyword keyword) {
         this.keyword = keyword;
     }
+
     private AuthorMatchesKeywordPredicate() {
         this.keyword = null;
     }
 
+    public Keyword getKeyword() {
+        return keyword;
+    }
+
     @Override
     public boolean test(Problem problem) {
-        return problem.getAuthor().equals(new Author(keyword));
+        return problem.getAuthor().equals(new Author(keyword.toString()));
     }
 
     @Override

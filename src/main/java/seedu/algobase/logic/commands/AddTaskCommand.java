@@ -1,9 +1,12 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
+import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,13 +30,15 @@ public class AddTaskCommand extends Command {
             + ": Adds a task to a training plan.\n"
             + "Parameters:\n"
             + PREFIX_PLAN + "PLAN_INDEX "
-            + PREFIX_PROBLEM + "PROBLEM_INDEX\n"
+            + PREFIX_PROBLEM + "PROBLEM_INDEX "
+            + PREFIX_DUE_DATE + "DUE_DATE\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "
-            + PREFIX_PROBLEM + "10";
+            + PREFIX_PROBLEM + "10"
+            + PREFIX_DUE_DATE + "2019-12-12";
 
-    public static final String MESSAGE_SUCCESS = "New task %1$s added to plan %2$s";
+    public static final String MESSAGE_SUCCESS = "New Task [%1$s] added to Plan [%2$s]";
 
     private final AddTaskDescriptor addTaskDescriptor;
 
@@ -62,15 +67,23 @@ public class AddTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PROBLEM_DISPLAYED_INDEX);
         }
 
-        Plan plan = lastShownPlanList.get(addTaskDescriptor.planIndex.getZeroBased());
+        Plan planToUpdate = lastShownPlanList.get(addTaskDescriptor.planIndex.getZeroBased());
         Problem problem = lastShownProblemList.get(addTaskDescriptor.problemIndex.getZeroBased());
-        Task task = new Task(problem);
-        Set<Task> taskSet = new HashSet<>(plan.getTasks());
-        taskSet.add(task);
-        Plan updatedPlan = Plan.createUpdatedPlan(plan, taskSet);
-        model.setPlan(plan, updatedPlan);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, task, updatedPlan));
+        Task task;
+        if (addTaskDescriptor.targetDate != null) {
+            task = new Task(problem, addTaskDescriptor.targetDate, false);
+        } else {
+            task = new Task(problem, planToUpdate.getEndDate(), false);
+        }
+
+        Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());
+        taskSet.add(task);
+        Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
+        model.setPlan(planToUpdate, updatedPlan);
+        model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        return new CommandResult(
+            String.format(MESSAGE_SUCCESS, task.getProblem().getName(), updatedPlan.getPlanName()));
     }
 
     @Override
@@ -86,10 +99,12 @@ public class AddTaskCommand extends Command {
     public static class AddTaskDescriptor {
         private Index planIndex;
         private Index problemIndex;
+        private LocalDate targetDate;
 
-        public AddTaskDescriptor(Index planIndex, Index problemIndex) {
+        public AddTaskDescriptor(Index planIndex, Index problemIndex, LocalDate targetDate) {
             this.planIndex = planIndex;
             this.problemIndex = problemIndex;
+            this.targetDate = targetDate;
         }
 
         @Override
@@ -97,7 +112,8 @@ public class AddTaskCommand extends Command {
             return other == this // short circuit if same object
                 || (other instanceof AddTaskDescriptor // instanceof handles nulls
                 && planIndex.equals(((AddTaskDescriptor) other).planIndex)
-                && problemIndex.equals(((AddTaskDescriptor) other).problemIndex));
+                && problemIndex.equals(((AddTaskDescriptor) other).problemIndex)
+                && targetDate.equals(((AddTaskDescriptor) other).targetDate));
         }
     }
 }

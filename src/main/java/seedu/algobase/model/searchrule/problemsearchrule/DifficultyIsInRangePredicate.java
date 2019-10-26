@@ -1,6 +1,9 @@
-package seedu.algobase.model.problem;
+package seedu.algobase.model.searchrule.problemsearchrule;
 
 import java.util.function.Predicate;
+
+import seedu.algobase.model.problem.Difficulty;
+import seedu.algobase.model.problem.Problem;
 
 /**
  * Tests that a {@code Problem}'s {@code Difficulty} is in the range [{@code lowerBound}, {@code upperBound}].
@@ -26,6 +29,14 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
     private DifficultyIsInRangePredicate() {
         this.lowerBound = DEFAULT_BOUND;
         this.upperBound = DEFAULT_BOUND;
+    }
+
+    public double getLowerBound() {
+        return lowerBound;
+    }
+
+    public double getUpperBound() {
+        return upperBound;
     }
 
     @Override
