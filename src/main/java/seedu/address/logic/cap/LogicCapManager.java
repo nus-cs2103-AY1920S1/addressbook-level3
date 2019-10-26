@@ -2,9 +2,15 @@ package seedu.address.logic.cap;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.cap.commands.Command;
@@ -107,6 +113,28 @@ public class LogicCapManager implements Logic {
         if (denominator != 0.0) {
             result = numerator / denominator;
         }
+        return result;
+    }
+
+    public ObservableList<Data> getFilteredGradeCounts() {
+        ObservableList<Data> result = FXCollections.observableArrayList();
+        ObservableList<Module> filteredModules = model.getFilteredModuleList();
+
+        Module module;
+        HashSet<String> set = new HashSet<>();
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < filteredModules.size(); i++) {
+            module = filteredModules.get(i);
+            String grade = module.getGrade().getGrade();
+            list.add(grade);
+            set.add(grade);
+        }
+        System.out.println("getFilteredGradeCounts");
+        for (String grade : set) {
+            result.add(new PieChart.Data(grade, Collections.frequency(list, grade)));
+            System.out.println(grade + " " + Collections.frequency(filteredModules, set));
+        }
+
         return result;
     }
 }
