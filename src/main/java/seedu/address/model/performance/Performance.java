@@ -16,11 +16,9 @@ public class Performance {
 
     /**
      * Adds an event to the event list.
-     * @param name of event added.
      */
-    public static void addEvent(String name) {
-        Event newEvent = new Event(name);
-        events.add(newEvent);
+    public static void addEvent(Event event) {
+        events.add(event);
     }
 
     /**
