@@ -82,29 +82,23 @@ public class CommandBox extends UiPart<Region> {
 
     public void setOnButtonPressedListener() {
         commandTextField.setOnKeyPressed(event -> {
-            int newIndex;
             switch (event.getCode()) {
             case UP:
-                newIndex = (autoCompletePanel.getSelectedIndex() - 1);
-                if (newIndex < 0) {
-                    newIndex = 0;
-                }
-                autoCompletePanel.setSelected(newIndex);
+                autoCompletePanel.setSelected(autoCompletePanel.getSelectedIndex() - 1);
                 commandTextField.positionCaret(commandTextField.getText().length());
                 break;
             case DOWN:
-                newIndex = (autoCompletePanel.getSelectedIndex() + 1);
-                if (newIndex > autoCompletePanel.getTotalItems() - 1) {
-                    newIndex = autoCompletePanel.getTotalItems() - 1;
-                }
-                autoCompletePanel.setSelected(newIndex);
+                autoCompletePanel.setSelected(autoCompletePanel.getSelectedIndex() + 1);
+                commandTextField.positionCaret(commandTextField.getText().length());
                 break;
-            case SHIFT:
+            case RIGHT:
                 try {
-                    commandTextField.setText(autoCompletePanel.getSelected().getSuggestedWord());
+                    commandTextField.setText(autoCompletePanel.getCombinedMatchedWords());
                     commandTextField.positionCaret(commandTextField.getText().length());
+                    autoCompletePanel.updateListView(autoCompletePanel.getCombinedMatchedWords());
+
                 } catch (NullPointerException e) {
-                    logger.info("Nothing is selected thus shift key does not work");
+                    logger.info("Nothing is selected thus right key does not work");
                 }
                 break;
             default:
