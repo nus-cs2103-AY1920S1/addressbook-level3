@@ -47,6 +47,11 @@ public class TypicalCards {
             .withTags("ground", "rock")
             .build();
 
+    public static final Card SINGLE_LETTER_CARD = new CardBuilder().withWord("T")
+            .withMeaning("This word only has a single letter T")
+            .withTags("test")
+            .build();
+
     public static final String KEYWORD_MATCHING_EE = "ee"; // A keyword that matches ee
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

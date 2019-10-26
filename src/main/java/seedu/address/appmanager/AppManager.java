@@ -1,5 +1,7 @@
 package seedu.address.appmanager;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.nio.file.Path;
 
 import javafx.application.Platform;
@@ -41,6 +43,7 @@ public class AppManager {
     private QuestionDisplayCallBack questionDisplayCallBack = null;
 
     public AppManager(Logic logic) {
+        requireAllNonNull(logic);
         this.logic = logic;
     }
 
@@ -174,18 +177,22 @@ public class AppManager {
     }
 
     public void setTimerDisplayCallBack(TimerDisplayCallBack updateTimerDisplay) {
+        requireAllNonNull(updateTimerDisplay);
         this.timerDisplayCallBack = updateTimerDisplay;
     }
 
     public void setHintDisplayCallBack(HintDisplayCallBack updateHintDisplay) {
+        requireAllNonNull(updateHintDisplay);
         this.hintDisplayCallBack = updateHintDisplay;
     }
 
     public void setMainWindowExecuteCallBack(MainWindowExecuteCallBack mainWindowExecuteCallBack) {
+        requireAllNonNull(mainWindowExecuteCallBack);
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
     }
 
     public void setQuestionDisplayCallBack(QuestionDisplayCallBack questionDisplayCallBack) {
+        requireAllNonNull(questionDisplayCallBack);
         this.questionDisplayCallBack = questionDisplayCallBack;
     }
 
@@ -220,6 +227,7 @@ public class AppManager {
      * Call-back functional interface from GameManager to MainWindow to update the QuestionDisplay component
      * of the UI.
      */
+    @FunctionalInterface
     public interface QuestionDisplayCallBack {
         void updateQuestionDisplay(String message);
     }

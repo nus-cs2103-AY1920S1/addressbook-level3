@@ -26,14 +26,13 @@ public class GameTimerTest {
      */
     @Start
     public void start(Stage stage) {
-        mainWindowStub = new MainWindowStub();
-        timerDisplayStub = new TimerDisplayStub();
     }
-
 
     @Test
     public void run() {
         Platform.runLater(() -> {
+            mainWindowStub = new MainWindowStub();
+            timerDisplayStub = new TimerDisplayStub();
             AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
             AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
             dummyTimer = new GameTimer("Dummy Message",
@@ -56,6 +55,8 @@ public class GameTimerTest {
     @Test
     public void run_durationIsZero() {
         Platform.runLater(() -> {
+            mainWindowStub = new MainWindowStub();
+            timerDisplayStub = new TimerDisplayStub();
             AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
             AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
             dummyTimer = new GameTimer("Dummy Message",
@@ -72,6 +73,8 @@ public class GameTimerTest {
     @Test
     public void abortTimer() {
         Platform.runLater(() -> {
+            mainWindowStub = new MainWindowStub();
+            timerDisplayStub = new TimerDisplayStub();
             AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
             AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
             dummyTimer = new GameTimer("Dummy Message",
@@ -94,7 +97,6 @@ public class GameTimerTest {
             this.isUpdatedFromGameTimer = true;
             this.timeLeftEqualsZero = timeLeft == 0 ? true : false;
         }
-
     }
 
     // Stub class for MainWindow component of UI
