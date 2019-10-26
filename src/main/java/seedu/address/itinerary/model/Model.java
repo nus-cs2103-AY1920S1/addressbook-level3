@@ -1,18 +1,15 @@
-package seedu.address.itinerary.Model;
+package seedu.address.itinerary.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.itinerary.Model.Event.Event;
-import seedu.address.itinerary.Model.Exceptions.ItineraryException;
-import seedu.address.itinerary.Model.Itinerary;
-
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.exceptions.ItineraryException;
 
 /**
  * Access the filtered event list of the itinerary.

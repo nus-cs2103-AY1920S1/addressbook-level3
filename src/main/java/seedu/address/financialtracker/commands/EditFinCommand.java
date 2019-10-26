@@ -11,8 +11,10 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Amount;
 import seedu.address.financialtracker.model.expense.Country;
+import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.financialtracker.model.expense.Time;
 import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -84,11 +86,13 @@ public class EditFinCommand extends Command<Model> {
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
 
+        Date updatedDate = editExpenseDescriptor.getDate().orElse(expenseToEdit.getDate());
+        Time updatedTime = editExpenseDescriptor.getTime().orElse(expenseToEdit.getTime());
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Type updatedType = editExpenseDescriptor.getType().orElse(expenseToEdit.getType());
 
-        Expense expense = new Expense(updatedAmount, updatedDescription, updatedType);
+        Expense expense = new Expense(updatedDate, updatedTime,  updatedAmount, updatedDescription, updatedType);
 
         return expense;
     }
@@ -116,6 +120,8 @@ public class EditFinCommand extends Command<Model> {
      * corresponding field value of the expense.
      */
     public static class EditExpenseDescriptor {
+        private Date date;
+        private Time time;
         private Amount amount;
         private Description description;
         private Type type;
@@ -128,6 +134,8 @@ public class EditFinCommand extends Command<Model> {
          * A defensive copy of {@code tags} is used internally.
          */
         EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
+            setDate(toCopy.date);
+            setTime(toCopy.time);
             setAmount(toCopy.amount);
             setDescription(toCopy.description);
             setType(toCopy.type);
@@ -139,6 +147,22 @@ public class EditFinCommand extends Command<Model> {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(amount, description, type) || country;
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public void setTime(Time time) {
+            this.time = time;
+        }
+
+        public Optional<Time> getTime() {
+            return Optional.ofNullable(time);
         }
 
         public void setAmount(Amount amount) {
@@ -185,6 +209,8 @@ public class EditFinCommand extends Command<Model> {
             EditExpenseDescriptor e = (EditExpenseDescriptor) other;
 
             return getAmount().equals(e.getAmount())
+                    && getDate().equals(e.getDate())
+                    && getTime().equals(e.getTime())
                     && getDescription().equals(e.getDescription())
                     && getType().equals(e.getType())
                     && country == e.country;
