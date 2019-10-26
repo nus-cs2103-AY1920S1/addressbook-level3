@@ -16,6 +16,7 @@ import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
@@ -31,7 +32,7 @@ import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
         @JsonSubTypes.Type(value = JsonAdaptedDeadline.class, name = "JsonAdaptedDeadline"),
         @JsonSubTypes.Type(value = JsonAdaptedEvent.class, name = "JsonAdaptedEvent")
 })
-public abstract class JsonAdaptedTask {
+public abstract class JsonAdaptedTask implements JsonAdapter<Task> {
 
     public static final String MESSAGE_INVALID_PRIORITY = "Invalid priority.";
     public static final String MESSAGE_INVALID_FREQUENCY = "Invalid frequency.";

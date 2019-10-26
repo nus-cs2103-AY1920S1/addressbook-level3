@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.testutil.planner.TypicalTasks.TODO;
 
 import org.junit.jupiter.api.Test;
 
@@ -87,5 +88,10 @@ class TodoTest {
         String expected = "homework";
 
         assertEquals(expected, t.getTaskDes());
+    }
+
+    @Test
+    public void adaptToJsonAdaptedTodo() throws Exception {
+        assertEquals(TODO, TODO.adaptToJsonAdaptedTask().toModelType());
     }
 }

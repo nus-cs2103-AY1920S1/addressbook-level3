@@ -6,6 +6,8 @@ import java.util.Set;
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.storage.planner.JsonAdaptedEvent;
+import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Represents an Event task in JARVIS
@@ -60,6 +62,16 @@ public class Event extends Task {
         boolean isSameEndDate = end.compareTo(eOther.getEndDate()) == 0;
 
         return isSameDes && isSameStartDate & isSameEndDate;
+    }
+
+    /**
+     * Gets the {@code JsonAdaptedTask} for this task.
+     *
+     * @return {@code JsonAdaptedTask}.
+     */
+    @Override
+    public JsonAdaptedTask adaptToJsonAdaptedTask() {
+        return new JsonAdaptedEvent(this);
     }
 
     @Override

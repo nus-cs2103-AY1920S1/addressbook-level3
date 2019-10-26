@@ -11,12 +11,13 @@ import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Deadline}.
  */
-public class JsonAdaptedDeadline extends JsonAdaptedTask {
+public class JsonAdaptedDeadline extends JsonAdaptedTask implements JsonAdapter<Task> {
     private final String date;
 
     /**

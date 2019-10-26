@@ -10,11 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * Jackson-friendly version of {@link CcaProgress}.
  */
-public class JsonAdaptedCcaProgress {
+public class JsonAdaptedCcaProgress implements JsonAdapter<CcaProgress> {
     private final List<JsonAdaptedCcaMilestone> ccaProgressList = new ArrayList<>();
     private final JsonAdaptedCcaCurrentProgress ccaCurrentProgress;
 
@@ -54,6 +55,7 @@ public class JsonAdaptedCcaProgress {
      * @return {@code CcaProgress} object.
      * @throws IllegalValueException If there were any data constraints violated in the adapted {@code CcaProgress}.
      */
+    @Override
     public CcaProgress toModelType() throws IllegalValueException {
         CcaProgress ccaProgress = new CcaProgress();
         List<CcaMilestone> milestones = new ArrayList<>();

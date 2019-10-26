@@ -15,6 +15,7 @@ import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
@@ -26,7 +27,7 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  * A {@code HistoryManager} that is serializable to JSON format.
  */
 @JsonRootName(value = "historymanager")
-public class JsonSerializableHistoryManager {
+public class JsonSerializableHistoryManager implements JsonAdapter<HistoryManager> {
 
     public static final String MESSAGE_ERROR_CONVERTING_HISTORY_MANAGER = "Error converting HistoryManager";
     public static final String MESSAGE_INVALID_COMMAND = "Unknown Command";
@@ -120,6 +121,7 @@ public class JsonSerializableHistoryManager {
      * @return {@code HistoryManager} of the Jackson-friendly adapted {@code JsonSerializableHistoryManager}.
      * @throws IllegalValueException if there were any data constraints violated in the adapted {@code HistoryManager}.
      */
+    @Override
     public HistoryManager toModelType() throws IllegalValueException {
         HistoryManager historyManager = new HistoryManager();
         for (JsonAdaptedCommand jsonAdaptedExecutedCommand : executedCommands) {

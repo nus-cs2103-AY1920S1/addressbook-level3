@@ -7,6 +7,7 @@ import java.util.Set;
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Represents a task object in JARVIS
@@ -61,6 +62,13 @@ public abstract class Task {
     public Frequency getFrequency() {
         return frequency;
     }
+
+    /**
+     * Gets the {@code JsonAdaptedTask} for this task.
+     *
+     * @return {@code JsonAdaptedTask}.
+     */
+    public abstract JsonAdaptedTask adaptToJsonAdaptedTask();
 
     public abstract String toString();
 

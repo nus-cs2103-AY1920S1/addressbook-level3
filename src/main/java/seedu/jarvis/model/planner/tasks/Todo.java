@@ -5,6 +5,8 @@ import java.util.Set;
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.storage.planner.JsonAdaptedTask;
+import seedu.jarvis.storage.planner.JsonAdaptedTodo;
 
 /**
  * Represents a Todo task in JARVIS
@@ -17,6 +19,16 @@ public class Todo extends Task {
 
     public Todo(String taskDes) {
         this(taskDes, null, null, null);
+    }
+
+    /**
+     * Gets the {@code JsonAdaptedTask} for this task.
+     *
+     * @return {@code JsonAdaptedTask}.
+     */
+    @Override
+    public JsonAdaptedTask adaptToJsonAdaptedTask() {
+        return new JsonAdaptedTodo(this);
     }
 
     @Override

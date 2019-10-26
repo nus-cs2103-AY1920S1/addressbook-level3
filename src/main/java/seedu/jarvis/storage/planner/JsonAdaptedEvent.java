@@ -11,12 +11,13 @@ import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Event}.
  */
-public class JsonAdaptedEvent extends JsonAdaptedTask {
+public class JsonAdaptedEvent extends JsonAdaptedTask implements JsonAdapter<Task> {
 
     private final String start;
     private final String end;

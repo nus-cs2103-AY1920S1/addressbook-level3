@@ -10,12 +10,13 @@ import seedu.jarvis.model.planner.Frequency;
 import seedu.jarvis.model.planner.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Todo}.
  */
-public class JsonAdaptedTodo extends JsonAdaptedTask {
+public class JsonAdaptedTodo extends JsonAdaptedTask implements JsonAdapter<Task> {
 
     /**
      * Constructs a {@code JsonAdaptedTodo} with the given todo details.

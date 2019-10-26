@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.testutil.planner.TypicalTasks.EVENT;
 
 import java.time.LocalDate;
 
@@ -137,4 +138,8 @@ class EventTest {
         assertEquals(expected, testEvent.getTaskDes());
     }
 
+    @Test
+    public void adaptToJsonAdaptedEvent() throws Exception {
+        assertEquals(EVENT, EVENT.adaptToJsonAdaptedTask().toModelType());
+    }
 }

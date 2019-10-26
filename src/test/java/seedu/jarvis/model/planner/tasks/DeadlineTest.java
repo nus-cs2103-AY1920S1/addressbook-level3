@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.testutil.planner.TypicalTasks.DEADLINE;
 
 import java.time.LocalDate;
 
@@ -107,5 +108,10 @@ class DeadlineTest {
         Deadline d = new Deadline("homework", due);
 
         assertEquals(expected, d.getTaskDes());
+    }
+
+    @Test
+    public void adaptToJsonAdaptedDeadline() throws Exception {
+        assertEquals(DEADLINE, DEADLINE.adaptToJsonAdaptedTask().toModelType());
     }
 }
