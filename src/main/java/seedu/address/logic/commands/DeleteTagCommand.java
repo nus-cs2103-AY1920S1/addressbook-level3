@@ -59,6 +59,17 @@ public class DeleteTagCommand extends Command {
             );
         }
 
+        for (String tag : tags) {
+            if ((tag.length() == 0) || (tag.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+                throw new CommandException(
+                        String.format(
+                                Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                                MESSAGE_USAGE
+                        )
+                );
+            }
+        }
+
         Person personToEdit = lastShownList.get(index.getZeroBased());
         List<Tag> removeTags = new ArrayList<>();
 

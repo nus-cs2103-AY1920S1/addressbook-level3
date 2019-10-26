@@ -61,6 +61,17 @@ public class DeleteCriteriaCommand extends Command {
             );
         }
 
+        for (String criterion : criteria) {
+            if ((criterion.length() == 0) || (criterion.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+                throw new CommandException(
+                        String.format(
+                                Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                                MESSAGE_USAGE
+                        )
+                );
+            }
+        }
+
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
         List<Tag> removeCriteria = new ArrayList<>();
 

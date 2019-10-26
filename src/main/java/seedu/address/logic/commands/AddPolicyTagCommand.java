@@ -54,6 +54,17 @@ public class AddPolicyTagCommand extends Command {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
+        for (String tag : tags) {
+            if ((tag.length() == 0) || (tag.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+                throw new CommandException(
+                        String.format(
+                                Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                                MESSAGE_USAGE
+                        )
+                );
+            }
+        }
+
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
         List<Tag> newTags = new ArrayList<>();
 

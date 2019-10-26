@@ -54,6 +54,17 @@ public class AddCriteriaCommand extends Command {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
+        for (String criterion : criteria) {
+            if ((criterion.length() == 0) || (criterion.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+                throw new CommandException(
+                        String.format(
+                                Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                                MESSAGE_USAGE
+                        )
+                );
+            }
+        }
+
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
         List<Tag> newCriteria = new ArrayList<>();
 
