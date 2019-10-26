@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
