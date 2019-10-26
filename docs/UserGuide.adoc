@@ -451,10 +451,11 @@ Examples:
 
 Expected Output:
 ```
-New person added: John Doe Phone:98765432 Email:johnd@example.com Address:John street, block 123, #01-01 Date of birth: 12th September 1980 Policy: SeniorCare Tags: high_priority
-
-Q9999999J is invalid.
-You might want to contact John Doe: 98765432 johnd@example.com`
+This is not a valid Singapore Identification number.
+NRICs should only contain alphanumeric characters. It should start with S, T, F or G followed by 7 numerical numbers and a checksum letter.
+You might want to contact John Doe
+PHONE: 98765432
+EMAIL: johnd@example.com`
 ```
 
 === Incorrect Contact Number Alert
@@ -468,10 +469,9 @@ Examples:
 
 Expected Output:
 ```
-New person added: John Doe NRIC: S9999999J Email:johnd@example.com Address:John street, block 123, #01-01 Date of birth:s12th September 1980 Policy: SeniorCare Tags: high_priority
-
-48765432 is invalid.
-You might want to contact John Doe: johnd@example.com
+Only Singapore phone numbers are allowed. (e.g. 88887541, +65 98753573, +6565241234
+You might want to contact John Doe
+EMAIL: johnd@example.com
 ```
 
 === Incorrect Email Address Alert
@@ -485,9 +485,14 @@ Examples:
 
 Expected Output:
 ```
-New person added: John Doe NRIC: S9999999J Phone: 98765432 Address:John street, block 123, #01-01 Date of birth: 12th September 1980 Policy: SeniorCare Tags: high_priority
-
-@example.com is invalid. You might want to contact John Doe: 98765432
+Emails should be of the format local-part@domain and adhere to the following constraints:
+1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (!#$%&'*+/=?`{|}~^.-) .
+2. This is followed by a '@' and then a domain name. The domain name must:
+    - be at least 2 characters long
+    - start and end with alphanumeric characters
+    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+You might want to contact John Doe
+PHONE: 98765432
 ```
 
 === Incorrect Command Suggestions
@@ -566,11 +571,6 @@ If `no`,
 ```
 You may edit John Doe’s profile using the edit command. For more information, type help.
 ```
-
-=== Reminders of expiring policies
-
-Displays a list of people whose policies are expiring in the current month on the start up page. This list will be updated every month.
-
 
 === Expanding a profile
 Expands the profile details on the right panel.
