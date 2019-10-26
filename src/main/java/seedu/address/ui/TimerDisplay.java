@@ -10,7 +10,6 @@ import javafx.scene.layout.Region;
  */
 public class TimerDisplay extends UiPart<Region> {
 
-    //Need to make TimerDisplay.fxml
     private static final String FXML = "TimerDisplay.fxml";
 
     @FXML
