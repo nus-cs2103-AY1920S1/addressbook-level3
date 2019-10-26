@@ -1,18 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
-import seedu.address.model.person.Wish;
+
 
 public class AddCategoryCommand extends Command {
 
@@ -23,7 +19,7 @@ public class AddCategoryCommand extends Command {
             + PREFIX_CATEGORY + "CATEGORY TYPE "
             + PREFIX_DESC + "DESCRIPTION "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "Expense "
+            + PREFIX_CATEGORY + "Expense "
             + PREFIX_DESC + "Spicy Food ";
 
     public static final String MESSAGE_SUCCESS = "New category added: %1$s";

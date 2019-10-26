@@ -19,6 +19,12 @@ public class Income extends Entry {
         return this.ENTRY_TYPE;
     }
 
+
+    public Income modifiedCategory(String newName) {
+        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        return new Income(newCategory, super.getDesc(), super.getDate(), super.getAmount(), super.getTags());
+    }
+
     /**
      * Returns true if both incomes have the same data fields.
      * This defines a stronger notion of equality between two entries.
@@ -47,6 +53,7 @@ public class Income extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
+                .append(" | Category: ")
                 .append(getCategory())
                 .append(" Description: ")
                 .append(getDesc())

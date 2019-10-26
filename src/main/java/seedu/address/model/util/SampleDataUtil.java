@@ -36,15 +36,19 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+        addCategories(sampleAb);
         for (Entry sampleEntry : getSampleEntries()) {
             sampleAb.addEntry(sampleEntry);
         }
-        for (Category sampleCategory : getSampleCategories()) {
-            sampleAb.addCategory(sampleCategory);
-        }
+
         return sampleAb;
     }
 
+    public static void addCategories(ReadOnlyAddressBook addressBook) {
+        for (Category sampleCategory : getSampleCategories()) {
+            addressBook.addCategory(sampleCategory);
+        }
+    }
     /**
      * Returns a tag set containing the list of strings given.
      */

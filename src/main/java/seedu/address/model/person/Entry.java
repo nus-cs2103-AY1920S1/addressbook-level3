@@ -68,7 +68,15 @@ public class Entry {
      * Returns true if both entries of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two entries.
      */
+    public Entry modifiedCategory(String newName) {
+        Category newCategory = new Category(newName, category.categoryType);
+        return new Entry(newCategory, this.desc, this.date, this.amt, this.tags);
+    }
 
+    /**
+     * Returns true if both entries of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two entries.
+     */
     public boolean isSameEntry(Entry otherEntry) {
         if (otherEntry == this) {
             return true;

@@ -70,6 +70,12 @@ class JsonAdaptedExpense {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
         }
+
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
+        }
+
         if (!Description.isValidDescription(desc)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }

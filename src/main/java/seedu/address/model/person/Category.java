@@ -53,8 +53,8 @@ public class Category {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && categoryName.equals(((Category) other).categoryName) // state check
-                && categoryType.equals(((Category) other).categoryType)); // state check
+                && categoryName.equalsIgnoreCase(((Category) other).categoryName) // state check
+                && categoryType.equalsIgnoreCase(((Category) other).categoryType)); // state check
     }
 
     @Override

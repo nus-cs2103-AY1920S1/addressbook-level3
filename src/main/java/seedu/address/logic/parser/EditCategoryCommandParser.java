@@ -23,14 +23,14 @@ public class EditCategoryCommandParser implements Parser<EditCategoryCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_CATEGORY, PREFIX_DESC);
 
-        String typeOfCategory = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
-        String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
-        String newCategoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
-
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_CATEGORY, PREFIX_DESC)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCategoryCommand.MESSAGE_USAGE));
         }
+
+        String typeOfCategory = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
+        String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
+        String newCategoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
 
         Category categoryToEdit = new Category(categoryName, typeOfCategory);
 

@@ -1,8 +1,5 @@
 package seedu.address.model.person;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
@@ -13,14 +10,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.CategoryNotFoundException;
 import seedu.address.model.person.exceptions.DuplicateCategoryException;
-import seedu.address.model.person.exceptions.DuplicateEntryException;
-import seedu.address.model.person.exceptions.EntryNotFoundException;
 
 public class CategoryList {
 
     public static final String MESSAGE_CONSTRAINTS_IN_LIST =
             "The category is already in the existing list of categories. ";
 
+    public static final String MESSAGE_CONSTRAINTS_NOT_IN_LIST =
+            "The category is not in the existing list of categories. ";
+
+    public static final String LIST_IS_EMPTY =
+            "Unable to remove category from the category empty list!. ";
     /*
      * The first character of the address must not be a whitespace, otherwise " " (a
      * blank string) becomes a valid input.
@@ -44,6 +44,8 @@ public class CategoryList {
      */
     public boolean isValidAndNotInList(Category category) {
         ObservableList<Category> typeOfCategory = determineWhichList(category.categoryType);
+        System.out.println(category.categoryName);
+        System.out.println(typeOfCategory.stream().anyMatch(t -> t.toString().equalsIgnoreCase(category.categoryName)));
         return !typeOfCategory.stream().anyMatch(t -> t.toString().equalsIgnoreCase(category.categoryName));
     }
 
@@ -56,9 +58,12 @@ public class CategoryList {
     public void setEntries(List<Category> replacementExpenseList, List<Category> replacementIncomeList) {
         requireNonNull(replacementExpenseList);
         requireNonNull(replacementIncomeList);
-        if (!categoriesAreUnique(replacementExpenseList) || !categoriesAreUnique(replacementIncomeList)) {
-            throw new DuplicateCategoryException();
-        }
+//        if (this.getInternalListForIncome().size() != 0 ) {
+//
+//        }
+//        if (!categoriesAreUnique(replacementExpenseList) || !categoriesAreUnique(replacementIncomeList)) {
+//            throw new DuplicateCategoryException();
+//        }
         internalListForOtherEntries.setAll(replacementExpenseList);
         internalListForIncome.setAll(replacementIncomeList);
     }
@@ -109,9 +114,10 @@ public class CategoryList {
      */
     public void remove(Category toRemove) {
         requireNonNull(toRemove);
-        //checks if it is in list
-        checkArgument(!isValidAndNotInList(toRemove));
+        //checks if it is in list. Also works for cases where List has 0 categories.
+        checkArgument(!isValidAndNotInList(toRemove), MESSAGE_CONSTRAINTS_NOT_IN_LIST);
         ObservableList internalList = determineWhichList(toRemove.categoryType);
+
         if (!internalList.remove(toRemove)) {
             throw new CategoryNotFoundException();
         }

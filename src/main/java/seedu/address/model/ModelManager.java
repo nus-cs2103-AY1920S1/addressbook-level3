@@ -61,6 +61,7 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
+        System.out.println(incomeCategoryList.size());
         expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
         filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());

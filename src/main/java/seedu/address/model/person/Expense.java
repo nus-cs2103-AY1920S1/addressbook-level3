@@ -19,6 +19,11 @@ public class Expense extends Entry {
         return this.ENTRYTYPE;
     }
 
+    public Expense modifiedCategory(String newName) {
+        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        return new Expense(newCategory, super.getDesc(), super.getDate(), super.getAmount(), super.getTags());
+    }
+
     /**
      * Returns true if both expenses have the same data fields. This defines a
      * stronger notion of equality between two entries.
@@ -45,6 +50,7 @@ public class Expense extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRYTYPE + ": ")
+                .append(" | Category: ")
                 .append(getCategory())
                 .append(" | Description: ")
                 .append(getDesc())

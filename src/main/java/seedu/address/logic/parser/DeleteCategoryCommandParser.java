@@ -24,7 +24,7 @@ public class DeleteCategoryCommandParser implements Parser<DeleteCategoryCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_DESC)
                     || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCategoryCommand.MESSAGE_USAGE));
         }
 
         String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();

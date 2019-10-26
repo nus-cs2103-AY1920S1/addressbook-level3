@@ -34,16 +34,6 @@ class JsonAdaptedCategory {
         categoryType = source.categoryType;
     }
 
-    @JsonValue
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    @JsonValue
-    public String getCategoryType() {
-        return categoryType;
-    }
-
     /**
      * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
      *

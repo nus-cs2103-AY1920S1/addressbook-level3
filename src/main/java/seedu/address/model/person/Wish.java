@@ -49,6 +49,7 @@ public class Wish extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
+                .append(" | Category: ")
                 .append(getCategory())
                 .append(" Description: ")
                 .append(getDesc())

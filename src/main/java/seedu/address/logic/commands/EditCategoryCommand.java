@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -32,8 +33,8 @@ public class EditCategoryCommand extends Command {
             + "by the name of the Category as well as the type of category whether it is expense or income. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_TYPE + "TYPE OF CATEGORY"
-            + PREFIX_CATEGORY + "CATEGORY NAME"
+            + PREFIX_TYPE + "TYPE OF CATEGORY "
+            + PREFIX_CATEGORY + "CATEGORY NAME "
             + PREFIX_DESC + "NEW NAME FOR CATEGORY "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "Expense "
@@ -66,7 +67,8 @@ public class EditCategoryCommand extends Command {
         if (!model.hasCategory(toEditCategory)) {
             throw new CommandException(String.format(MESSAGE_NONEXISTENT_CATEGORY,toEditCategory.categoryType));
         }
-        List<Category> typeOfCategoryList = model.getCategoryList().
+        System.out.println(editCategoryDescriptor.getCategoryType());
+        ObservableList<Category> typeOfCategoryList = model.getCategoryList().
                 determineWhichList(editCategoryDescriptor.getCategoryType());
         //TODO
         int indexOfEdit = typeOfCategoryList.indexOf(toEditCategory);
@@ -74,7 +76,7 @@ public class EditCategoryCommand extends Command {
         //tbh alr checks
         Category editedCategory = createEditedCategory(categoryToEdit, editCategoryDescriptor);
         //TODO possible if doesn't work properly
-        if (!categoryToEdit.isSameCategory(editedCategory) && model.hasCategory(editedCategory)) {
+        if (!categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
             throw new CommandException(MESSAGE_DUPLICATE_CATEGORY);
         }
 
@@ -127,8 +129,8 @@ public class EditCategoryCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditCategoryDescriptor(EditCategoryDescriptor toCopy) {
-            setCategoryName(categoryName);
-            setCategoryType(categoryType);
+            setCategoryName(toCopy.categoryName);
+            setCategoryType(toCopy.categoryType);
         }
 
         /**
