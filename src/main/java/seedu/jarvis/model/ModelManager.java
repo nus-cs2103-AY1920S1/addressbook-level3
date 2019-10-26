@@ -693,7 +693,7 @@ public class ModelManager implements Model {
     public ObservableList<Task> getFilteredTaskList() {
         return planner.getFilteredTaskList();
     }
-  
+
     /**
      * Marks a {@code Task} at the specified {@code Index} as done
      * @param i {@code Index} of the {@code Task} to be marked as done
