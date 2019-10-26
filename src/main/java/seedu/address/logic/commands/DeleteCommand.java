@@ -25,7 +25,6 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private final Index targetIndex;
-    private final boolean isUndoable = true;
     
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

@@ -52,7 +52,6 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
-    private final boolean isUndoable = true;
     
     
     /**

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.history.HistoryManager;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -109,10 +108,21 @@ public class ModelManager implements Model {
     
     @Override
     public void undo() {
-        Command undoableCommand = HistoryManager.commands.pop();
-        HistoryManager.addressBooks.pop();
-        ReadOnlyAddressBook afterUndoneState = HistoryManager.addressBooks.pop();
+        Command undoneCommand = HistoryManager.commands.pop();
+        ReadOnlyAddressBook undoneAddressBooks = HistoryManager.addressBooks.pop();
+        HistoryManager.undoneCommands.push(undoneCommand);
+        HistoryManager.undoneAddressBooks.push(undoneAddressBooks);
+        ReadOnlyAddressBook afterUndoneState = HistoryManager.addressBooks.peek();
         addressBook.resetData(afterUndoneState);
+    }
+    
+    @Override
+    public void redo() {
+        Command redoneCommand = HistoryManager.undoneCommands.pop();
+        ReadOnlyAddressBook redoneAddressBook = HistoryManager.undoneAddressBooks.pop();
+        HistoryManager.commands.push(redoneCommand);
+        HistoryManager.addressBooks.push(redoneAddressBook);
+        addressBook.resetData(redoneAddressBook);
     }
 
     @Override

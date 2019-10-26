@@ -1,4 +1,4 @@
-package seedu.address.history;
+package seedu.address.model.history;
 
 import java.util.Stack;
 
@@ -8,8 +8,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class HistoryManager {
     public static Stack<Command> commands = new Stack<>();
     public static Stack<ReadOnlyAddressBook> addressBooks = new Stack<>();
-    public Stack<Command> undoableCommands = new Stack<>();
-    public Stack<ReadOnlyAddressBook> undoableAddressBooks = new Stack<>();
+    public static Stack<Command> undoneCommands = new Stack<>();
+    public static Stack<ReadOnlyAddressBook> undoneAddressBooks = new Stack<>();
     
     public HistoryManager() {}
     
@@ -17,7 +17,11 @@ public class HistoryManager {
         return commands.peek();
     }
     
-    public boolean isEmpty() {
+    public boolean isUndoneEmpty() {
         return commands.empty();
+    }
+    
+    public boolean isRedoneEmpty() {
+        return undoneCommands.empty();
     }
 }

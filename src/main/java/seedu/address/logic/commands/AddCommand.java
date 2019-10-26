@@ -37,7 +37,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
-    private final boolean isUndoable = true;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}

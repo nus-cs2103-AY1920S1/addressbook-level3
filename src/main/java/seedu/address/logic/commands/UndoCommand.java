@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.history.HistoryManager;
+import seedu.address.model.history.HistoryManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -15,24 +15,27 @@ public class UndoCommand extends Command{
     @Override
     public CommandResult execute(Model model) throws CommandException {
         HistoryManager history = new HistoryManager();
-        if (history.isEmpty()) {
+        if (history.isUndoneEmpty()) {
             return new CommandResult(MESSAGE_FAILURE);
         }
         while (!history.getLatestCommand().isUndoable()) {
-            if (history.isEmpty()) {
+            System.out.println(history.getLatestCommand());
+            if (history.isUndoneEmpty()) {
                 return new CommandResult(MESSAGE_FAILURE);
+            } else {
+                System.out.println(HistoryManager.commands.pop());
+                System.out.println(HistoryManager.addressBooks.pop());
+                if (history.isUndoneEmpty()) {
+                    return new CommandResult(MESSAGE_FAILURE);
+                }
             }
-            history.undoableCommands.push(HistoryManager.commands.pop());
-            history.undoableAddressBooks.push(HistoryManager.addressBooks.pop());
         }
-        
-        Command undoableCommand = history.getLatestCommand();
         model.undo();
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
     @Override
     public boolean isUndoable() {
-        return true;
+        return false;
     }
 }
