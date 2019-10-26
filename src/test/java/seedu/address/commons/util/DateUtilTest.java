@@ -97,6 +97,15 @@ class DateUtilTest {
     }
 
     @Test
+    public void isDateBeforeToday() {
+        assertTrue(DateUtil.isDateBeforeToday(DateUtil.getTodayMinusDays(1)));
+        assertTrue(DateUtil.isDateBeforeToday(DateUtil.getTodayMinusDays(20)));
+        assertFalse(DateUtil.isDateBeforeToday(DateUtil.getTodayDate()));
+        assertFalse(DateUtil.isDateBeforeToday(DateUtil.getTodayPlusDays(1)));
+        assertFalse(DateUtil.isDateBeforeToday(DateUtil.getTodayPlusDays(999)));
+    }
+
+    @Test
     public void formatDate() {
         assertEquals(DateUtil.formatDate(LocalDate.of(2019, 10, 25)), "25/10/2019");
     }

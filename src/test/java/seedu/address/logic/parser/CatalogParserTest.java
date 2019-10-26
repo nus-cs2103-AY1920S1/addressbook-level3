@@ -31,6 +31,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.LoanCommand;
 import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.RenewCommand;
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.SetCommand;
@@ -148,6 +149,11 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_return() throws Exception {
         assertTrue(parser.parseCommand(ReturnCommand.COMMAND_WORD + " 3") instanceof ReturnCommand);
+    }
+
+    @Test
+    public void parseCommand_renew() throws Exception {
+        assertTrue(parser.parseCommand(RenewCommand.COMMAND_WORD + " 3") instanceof RenewCommand);
     }
 
     @Test

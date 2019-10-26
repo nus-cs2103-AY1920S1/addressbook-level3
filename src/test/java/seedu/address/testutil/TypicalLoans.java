@@ -26,7 +26,7 @@ public class TypicalLoans {
             .withBorrowerId("K0006").withStartDate("2019-09-20").withDueDate("2019-10-20").build();
 
     public static final Loan LOAN_7 = new LoanBuilder().withLoanId("L000007").withSerialNumber("B00007")
-            .withBorrowerId("K0009").withStartDate("2019-10-13").withDueDate("2019-10-27").build();
+            .withBorrowerId("K0009").withStartDate("2090-10-13").withDueDate("2090-10-27").build();
     public static final Loan LOAN_7_RETURNED = new LoanBuilder(LOAN_7).withReturnDate("2019-10-20").build();
 
     // prevents instantiation

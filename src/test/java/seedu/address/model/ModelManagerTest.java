@@ -265,6 +265,31 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void servingBorrowerRenewLoan_inServeMode_success() {
+        Model modelManager = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
+                getTypicalBorrowerRecords(), new UserPrefs());
+
+        modelManager.setServingBorrower(ALICE);
+        modelManager.servingBorrowerNewLoan(LOAN_1);
+
+        Loan renewedLoan = new LoanBuilder(LOAN_1).withDueDate("2019-10-30").withRenewCount(1).build();
+
+        modelManager.servingBorrowerRenewLoan(LOAN_1, renewedLoan);
+        assertTrue(modelManager.getServingBorrower().hasCurrentLoan(renewedLoan));
+    }
+
+    @Test
+    public void servingBorrowerRenewLoan_notInServeMode_throwsNotInServeModeException() {
+        Model modelManager = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
+                getTypicalBorrowerRecords(), new UserPrefs());
+
+        Loan renewedLoan = new LoanBuilder(LOAN_1).withDueDate("2019-10-30").withRenewCount(1).build();
+
+        assertThrows(NotInServeModeException.class, () ->
+                modelManager.servingBorrowerRenewLoan(LOAN_1, renewedLoan));
+    }
+
+    @Test
     public void equals() {
         Catalog catalog = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
         Catalog catalogCopy = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();

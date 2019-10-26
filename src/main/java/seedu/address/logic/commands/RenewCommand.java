@@ -75,7 +75,9 @@ public class RenewCommand extends Command {
             throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER, servingBorrower, bookToBeRenewed));
         }
 
-        if (loanToBeRenewed.getRenewCount() > DEFAULT_MAX_RENEW_COUNT) { // TODO take from userSettings in model instead
+        // TODO take from userSettings in model instead
+        // TODO test this
+        if (loanToBeRenewed.getRenewCount() >= DEFAULT_MAX_RENEW_COUNT) {
             throw new CommandException(String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, bookToBeRenewed));
         }
 
@@ -102,6 +104,21 @@ public class RenewCommand extends Command {
         // update Loan in LoanRecords with extended due date
         model.updateLoan(loanToBeRenewed, renewedLoan);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, renewedBook, servingBorrower, extendedDueDate));
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, renewedBook, servingBorrower, extendedDueDate));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof RenewCommand)) {
+            return false;
+        }
+
+        RenewCommand otherRenewCommand = (RenewCommand) o;
+        return this.index.equals(otherRenewCommand.index);
     }
 }
