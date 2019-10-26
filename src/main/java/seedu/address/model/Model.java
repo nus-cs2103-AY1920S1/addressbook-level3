@@ -175,17 +175,21 @@ public interface Model {
 
     void switchBudgetTo(Description description);
 
+    void setBudget(Budget target, Budget editedBudget);
+
+    void deleteBudget(Budget target);
+
     /** Returns an unmodifiable view of the filtered expense list */
-    //ObservableList<Budget> getFilteredBudgetList();
+    ObservableList<Budget> getFilteredBudgetList();
 
-    //void updateFilteredBudgetList(Predicate<? super Budget> budget);
+    void updateFilteredBudgetList(Predicate<? super Budget> budget);
 
-    //Predicate<? super Budget> getFilteredBudgetPredicate();
+    Predicate<? super Budget> getFilteredBudgetPredicate();
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
-    /** Returns the predicate of the filltred expense list. **/
+    /** Returns the predicate of the filtered expense list. **/
     Predicate<? super Expense> getFilteredExpensePredicate();
 
     /**

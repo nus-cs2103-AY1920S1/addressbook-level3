@@ -45,6 +45,7 @@ public class MooLah implements ReadOnlyMooLah {
     public MooLah() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
+        budgets.add(Budget.createDefaultBudget());
         events = new UniqueEventList();
     }
 
@@ -87,6 +88,28 @@ public class MooLah implements ReadOnlyMooLah {
         setExpenses(newData.getExpenseList());
         setBudgets(newData.getBudgetList());
         setEvents(newData.getEventList());
+        resetBudgetExpenseLists();
+        //resetBudgetPrimaryStatus(newData);
+    }
+
+    private void resetBudgetExpenseLists() {
+        for (Budget b : budgets) {
+            b.clearExpenses();
+        }
+        for (Expense e : expenses) {
+            Budget b = budgets.getBudgetWithName(e.getBudgetName());
+            b.addExpense(e);
+        }
+    }
+
+    private void resetBudgetPrimaryStatus(ReadOnlyMooLah newData) {
+        for (Budget b : newData.getBudgetList()) {
+            if (budgets.hasBudgetWithName(b.getDescription())) {
+                Budget budget = budgets.getBudgetWithName(b.getDescription());
+                budget.setIsPrimary(b.isPrimary());
+            }
+        }
+
     }
 
     //=========== Expense-level operations =============================================================
@@ -105,11 +128,11 @@ public class MooLah implements ReadOnlyMooLah {
      * The expense must not already exist in the MooLah.
      */
     public void addExpense(Expense p) {
-        if (budgets.isEmpty()) {
-            Budget defaultBudget = Budget.createDefaultBudget();
-            defaultBudget.setPrimary();
-            budgets.add(defaultBudget);
-        }
+        //if (budgets.isEmpty()) {
+          //  Budget defaultBudget = Budget.createDefaultBudget();
+           // defaultBudget.setPrimary();
+           // budgets.add(defaultBudget);
+        //}
         Budget primaryBudget = budgets.getPrimaryBudget();
         if (p.getBudgetName() == null) {
             p.setBudget(primaryBudget);
@@ -170,6 +193,10 @@ public class MooLah implements ReadOnlyMooLah {
         budgets.add(budget);
     }
 
+    public void addBudgetFromStorage(Budget budget) {
+        budgets.addBudgetFromStorage(budget);
+    }
+
     /**
      * Checks whether MooLah has a budget with the specified name.
      * @param targetDescription The description (i.e. name) of the budget to check.
@@ -178,6 +205,10 @@ public class MooLah implements ReadOnlyMooLah {
     public boolean hasBudgetWithName(Description targetDescription) {
         requireNonNull(targetDescription);
         return budgets.hasBudgetWithName(targetDescription);
+    }
+
+    public Budget getBudgetWithName(Description d) {
+        return budgets.getBudgetWithName(d);
     }
 
     /**
@@ -196,6 +227,17 @@ public class MooLah implements ReadOnlyMooLah {
     public void switchBudgetTo(Description targetDescription) {
         Budget targetBudget = budgets.getBudgetWithName(targetDescription);
         budgets.setPrimary(targetBudget);
+    }
+
+    void setBudget(Budget target, Budget editedBudget) {
+        budgets.setBudget(target, editedBudget);
+    }
+
+    public void removeBudget(Budget key) {
+        budgets.remove(key);
+        for (Expense expense : expenses) {
+            expense.removeBudget();
+        }
     }
 
     //=========== Event-level operations ================================================================

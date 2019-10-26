@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
@@ -28,6 +29,7 @@ public class Budget {
     private static final Timestamp DEFAULT_BUDGET_START_DATE = new Timestamp(LocalDate.of(2000, 1, 1));
     //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
     private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(999);
+    //private static final boolean DEFAULT_BUDGET_IS_PRIMARY = true;
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
     private final Description description;
@@ -35,7 +37,7 @@ public class Budget {
     private Timestamp startDate;
     private Timestamp endDate;
     private final Period period;
-    private final ObservableList<Expense> expenses;
+    private ObservableList<Expense> expenses;
     private boolean isPrimary;
     private Percentage proportionUsed;
 
@@ -113,10 +115,12 @@ public class Budget {
      * @return Dummy.
      */
     public static Budget createDefaultBudget() {
-        return new Budget(DEFAULT_BUDGET_DESCRIPTION,
+        Budget defaultBudget = new Budget(DEFAULT_BUDGET_DESCRIPTION,
                 DEFAULT_BUDGET_AMOUNT,
                 DEFAULT_BUDGET_START_DATE,
                 DEFAULT_BUDGET_PERIOD);
+        defaultBudget.setPrimary();
+        return defaultBudget;
     }
 
     /**
@@ -125,6 +129,13 @@ public class Budget {
      */
     public void addExpense(Expense e) {
         if (!expenses.contains(e)) {
+            /*
+            ObservableList<Expense> updatedExpenseList = FXCollections.observableArrayList();
+            updatedExpenseList.addAll(expenses);
+            updatedExpenseList.add(e);
+            expenses = updatedExpenseList;
+
+             */
             expenses.add(e);
         }
     }
@@ -191,6 +202,10 @@ public class Budget {
         isPrimary = false;
     }
 
+    public void setIsPrimary(boolean status) {
+        isPrimary = status;
+    }
+
     /**
      * Dummy.
      * @param otherExpense
@@ -204,6 +219,18 @@ public class Budget {
             }
         }
         expenses.remove(toRemove);
+
+        /*
+        ObservableList<Expense> updatedExpenseList = FXCollections.observableArrayList();
+        updatedExpenseList.addAll(expenses);
+        updatedExpenseList.remove(toRemove);
+        expenses = updatedExpenseList;
+
+         */
+    }
+
+    public void clearExpenses() {
+        expenses.clear();
     }
 
     /**
@@ -216,6 +243,16 @@ public class Budget {
             int index = expenses.indexOf(target);
             expenses.set(index, editedExpense);
         }
+        /*
+        ObservableList<Expense> updatedExpenseList = FXCollections.observableArrayList();
+        updatedExpenseList.addAll(expenses);
+        if (updatedExpenseList.contains(target)) {
+            int index = updatedExpenseList.indexOf(target);
+            updatedExpenseList.set(index, editedExpense);
+        }
+        expenses = updatedExpenseList;
+        */
+
     }
 
     public ObservableList<Expense> getCurrentPeriodExpenses() {
@@ -226,6 +263,13 @@ public class Budget {
             }
         });
         return currentPeriodExpenses;
+    }
+
+    public static Budget deepCopy(Budget other) {
+        Budget budget = new Budget(other.getDescription(), other.getAmount(), other.getStartDate(),
+                other.getEndDate(), other.getPeriod(), other.getExpenses(), other.isPrimary(),
+                other.getProportionUsed());
+        return budget;
     }
 
     /**

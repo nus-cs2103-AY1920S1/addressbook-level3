@@ -35,7 +35,7 @@ public class ModelManager implements Model {
     private final ModelHistory modelHistory;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Event> filteredEvents;
-    //private final FilteredList<Budget> filteredBudgets;
+    private final FilteredList<Budget> filteredBudgets;
     private StringBuilder statsBuilder;
 
     /**
@@ -52,7 +52,7 @@ public class ModelManager implements Model {
         this.modelHistory = new ModelHistory(modelHistory);
         filteredEvents = new FilteredList<>(this.mooLah.getEventList());
         filteredExpenses = new FilteredList<>(this.mooLah.getExpenseList());
-        //filteredBudgets = new FilteredList<>(this.mooLah.getBudgetList());
+        filteredBudgets = new FilteredList<>(this.mooLah.getBudgetList());
     }
 
     public ModelManager() {
@@ -86,11 +86,11 @@ public class ModelManager implements Model {
             updateFilteredExpenseList(model.PREDICATE_SHOW_ALL_EXPENSES);
         }
 
-        //if (model.getFilteredBudgetList() != null) {
-        //  updateFilteredBudgetList(model.getFilteredBudgetPredicate());
-        //} else {
-        //  updateFilteredBudgetList(model.PREDICATE_SHOW_ALL_BUDGETS);
-        //}
+        if (model.getFilteredBudgetPredicate() != null) {
+          updateFilteredBudgetList(model.getFilteredBudgetPredicate());
+        } else {
+          updateFilteredBudgetList(model.PREDICATE_SHOW_ALL_BUDGETS);
+        }
     }
 
     //=========== ModelHistory ==================================================================================
@@ -283,6 +283,16 @@ public class ModelManager implements Model {
         mooLah.switchBudgetTo(targetDescription);
     }
 
+    @Override
+    public void setBudget(Budget target, Budget editedBudget) {
+        mooLah.setBudget(target, editedBudget);
+    }
+
+    @Override
+    public void deleteBudget(Budget target) {
+        mooLah.removeBudget(target);
+    }
+
     //=========== Event ================================================================================
 
     @Override
@@ -381,21 +391,21 @@ public class ModelManager implements Model {
      * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
      * {@code versionedMooLah}
      */
-    //@Override
-    //public ObservableList<Budget> getFilteredBudgetList() {
-    //return filteredBudgets;
-    //}
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+    return filteredBudgets;
+    }
 
-    //@Override
-    //public void updateFilteredBudgetList(Predicate<? super Budget> predicate) {
-    //  requireNonNull(predicate);
-    //  filteredBudgets.setPredicate(predicate);
-    //  }
+    @Override
+    public void updateFilteredBudgetList(Predicate<? super Budget> predicate) {
+      requireNonNull(predicate);
+      filteredBudgets.setPredicate(predicate);
+      }
 
-    //@Override
-    //public Predicate<? super Budget> getFilteredBudgetPredicate() {
-    //   return filteredBudgets.getPredicate();
-    //}
+    @Override
+    public Predicate<? super Budget> getFilteredBudgetPredicate() {
+       return filteredBudgets.getPredicate();
+    }
 
     @Override
     public boolean equals(Object obj) {

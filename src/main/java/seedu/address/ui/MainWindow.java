@@ -137,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
 
         singlePanelView = new SinglePanelView();
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList(), true);
-        //budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
+        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
 
         if (logic.getPrimaryBudget() != null) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
-        //singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
+        singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME, expenseListPanel);
 
         singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
@@ -189,6 +189,28 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.enableSyntaxHighlightingForCommand("undo",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("redo",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("listbudgets",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("deletebudget",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("list",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("delete",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("edit",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("view",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("clear",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("find",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("exit",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("help",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("stats",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlighting();
     }

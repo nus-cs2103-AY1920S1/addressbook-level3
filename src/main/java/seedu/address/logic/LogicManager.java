@@ -83,10 +83,10 @@ public class LogicManager implements Logic {
         return model.getFilteredExpenseList();
     }
 
-    //@Override
-    //public ObservableList<Budget> getFilteredBudgetList() {
-    //  return model.getFilteredBudgetList();
-    //}
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+      return model.getFilteredBudgetList();
+    }
 
     @Override
     public Budget getPrimaryBudget() {

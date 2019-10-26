@@ -83,6 +83,7 @@ public class BudgetCard extends UiPart<Region> {
     private void updateBudgetCardProgressBarText() {
         updateBudgetCardTotalAmount(budget.getExpenseSum());
         budgetAllocatedAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, budget.getAmount().getAsDouble()));
+        updateBudgetProportionUsed();
     }
 
 
@@ -101,7 +102,7 @@ public class BudgetCard extends UiPart<Region> {
     }
 
     private void updateBudgetProportionUsed() {
-        proportionUsed.setText("[" + budget.getProportionUsed().toString() + "]");
+        proportionUsed.setText("[" + budget.calculateProportionUsed().toString() + "]");
     }
 
     /**

@@ -5,11 +5,20 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.expense.EditCommand;
+import seedu.address.model.budget.exceptions.BudgetNotFoundException;
+import seedu.address.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Price;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * A list of budgets that enforces uniqueness between its elements and does not allow nulls.
@@ -51,6 +60,18 @@ public class UniqueBudgetList implements Iterable<Budget> {
         setPrimary(toAdd);
     }
 
+
+    public void addBudgetFromStorage(Budget toAdd) {
+        if (contains(toAdd)) {
+            throw new DuplicateBudgetException();
+        }
+        internalList.add(toAdd);
+        if (internalList.size() > 1) {
+            getDefaultBudget().setNotPrimary();
+        }
+    }
+
+
     public void setBudgets(UniqueBudgetList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -67,14 +88,22 @@ public class UniqueBudgetList implements Iterable<Budget> {
 
     public void setPrimary(Budget budget) {
         requireAllNonNull(budget);
-        for (int i = 0; i < internalList.size(); i++) {
-            Budget b = internalList.get(i);
-            if (b.isPrimary()) {
-                b.setNotPrimary();
+        if (internalList.size() > 1) {
+            for (Budget b : internalList) {
+                if (b.isPrimary()) {
+                    Budget b1 = Budget.deepCopy(b);
+                    b1.setNotPrimary();
+                    ;
+                    setBudget(b, b1);
+                    //b.setNotPrimary();
+                }
             }
         }
-        budget.setPrimary();
-        // primaryBudget = budget;
+        Budget b1 = Budget.deepCopy(budget);
+        b1.setPrimary();
+        setBudget(budget, b1);
+        //budget.setPrimary();
+        //primaryBudget = budget;
     }
 
     public Budget getPrimaryBudget() {
@@ -103,6 +132,23 @@ public class UniqueBudgetList implements Iterable<Budget> {
             }
         }
         return targetBudget;
+    }
+
+    private Budget getDefaultBudget() {
+        return getBudgetWithName(new Description("default budget"));
+    }
+
+    public void remove(Budget toRemove) {
+        requireNonNull(toRemove);
+        if (toRemove.isSameBudget(getDefaultBudget())) {
+            throw new DeleteDefaultBudgetException();
+        }
+        if (!internalList.remove(toRemove)) {
+            throw new BudgetNotFoundException();
+        }
+        if (toRemove.isPrimary()) {
+            setPrimary(getDefaultBudget());
+        }
     }
 
     public boolean isEmpty() {
@@ -143,4 +189,61 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
         return true;
     }
+
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+
+        int index = internalList.indexOf(target);
+        internalList.set(index, editedBudget);
+    }
+
+    /*
+    private Budget createEditedBudget(Budget budgetToEdit, EditBudgetDescriptor editBudgetDescriptor) {
+        assert budgetToEdit != null;
+
+        boolean updatedIsPrimary = editBudgetDescriptor.getIsPrimary();
+
+        return new Budget(budgetToEdit.getDescription(), budgetToEdit.getAmount(), budgetToEdit.getStartDate(),
+                budgetToEdit.getEndDate(), budgetToEdit.getPeriod(), budgetToEdit.getExpenses(), updatedIsPrimary,
+                budgetToEdit.getProportionUsed());
+    }
+     */
+
+    /*
+    public static class EditBudgetDescriptor {
+        private boolean isPrimary;
+
+        public EditBudgetDescriptor() {}
+
+        public EditBudgetDescriptor(EditBudgetDescriptor toCopy) {
+            setIsPrimary(toCopy.isPrimary);
+        }
+
+        public void setIsPrimary(boolean isPrimary) {
+            this.isPrimary = isPrimary;
+        }
+
+        public boolean getIsPrimary() {
+            return this.isPrimary;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditCommand.EditExpenseDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditBudgetDescriptor e = (EditBudgetDescriptor) other;
+
+            return getIsPrimary() == e.getIsPrimary();
+        }
+    }
+    */
 }

@@ -33,10 +33,12 @@ public class Percentage {
     public static Percentage calculate(double num, double den) throws IllegalArgumentException {
         if (num * den < 0) {
             throw new IllegalArgumentException("Numerator and denominator must have same sign");
-        } else if (num > den) {
+        }
+        //else if (num > den) {
             //throw new IllegalArgumentException("Numerator cannot be larger than denominator");
-            return new Percentage(100);
-        } else {
+          //  return new Percentage(100);
+//        }
+        else {
             return new Percentage((int) Math.round(num / den * 100));
         }
     }
@@ -49,7 +51,7 @@ public class Percentage {
      * Returns true if a given int is a valid percentage.
      */
     public static boolean isValidPercentage(int input) {
-        return input >= 0 && input <= 100;
+        return input >= 0;
     }
 
     public static int getProportionFromString(String string) {
