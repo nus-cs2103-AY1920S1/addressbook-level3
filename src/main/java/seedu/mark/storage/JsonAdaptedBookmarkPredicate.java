@@ -22,14 +22,14 @@ class JsonAdaptedBookmarkPredicate {
      * Constructs a {@code JsonAdaptedBookmarkPredicate} with the given predicate details.
      */
     @JsonCreator
-    public JsonAdaptedBookmarkPredicate(@JsonProperty("name") List<String> name,
-                                        @JsonProperty("notName") List<String> notName,
-                                        @JsonProperty("url") List<String> url,
-                                        @JsonProperty("notUrl") List<String> notUrl) {
-        this.nameKeywords.addAll(name);
-        this.notNameKeywords.addAll(notName);
-        this.urlKeywords.addAll(url);
-        this.notUrlKeywords.addAll(notUrl);
+    public JsonAdaptedBookmarkPredicate(@JsonProperty("nameKeywords") List<String> nameKeywords,
+                                        @JsonProperty("notNameKeywords") List<String> notNameKeywords,
+                                        @JsonProperty("urlKeywords") List<String> urlKeywords,
+                                        @JsonProperty("notUrlKeywords") List<String> notUrlKeywords) {
+        this.nameKeywords.addAll(nameKeywords);
+        this.notNameKeywords.addAll(notNameKeywords);
+        this.urlKeywords.addAll(urlKeywords);
+        this.notUrlKeywords.addAll(notUrlKeywords);
     }
 
     /**

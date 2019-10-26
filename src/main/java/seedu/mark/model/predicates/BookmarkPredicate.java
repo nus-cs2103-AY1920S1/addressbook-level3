@@ -2,8 +2,9 @@ package seedu.mark.model.predicates;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.mark.model.bookmark.Bookmark;
@@ -13,10 +14,10 @@ import seedu.mark.model.bookmark.Bookmark;
  * in the current predicate.
  */
 public class BookmarkPredicate implements Predicate<Bookmark> {
-    private final List<String> nameKeywords;
-    private final List<String> notNameKeywords;
-    private final List<String> urlKeywords;
-    private final List<String> notUrlKeywords;
+    private final Set<String> nameKeywords;
+    private final Set<String> notNameKeywords;
+    private final Set<String> urlKeywords;
+    private final Set<String> notUrlKeywords;
 
     private final Predicate<Bookmark> predicate;
 
@@ -27,32 +28,32 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
      * {@code predicate#test(Bookmark)} is called.
      */
     public BookmarkPredicate() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), bookmark -> true);
+        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), bookmark -> true);
         this.isEmpty = true;
     }
 
-    private BookmarkPredicate(List<String> nameKeywords, List<String> notNameKeywords,
-                              List<String> urlKeywords, List<String> notUrlKeywords, Predicate<Bookmark> predicate) {
-        this.nameKeywords = nameKeywords;
-        this.notNameKeywords = notNameKeywords;
-        this.urlKeywords = urlKeywords;
-        this.notUrlKeywords = notUrlKeywords;
+    private BookmarkPredicate(Set<String> nameKeywords, Set<String> notNameKeywords,
+                              Set<String> urlKeywords, Set<String> notUrlKeywords, Predicate<Bookmark> predicate) {
+        this.nameKeywords = new HashSet<>(nameKeywords);
+        this.notNameKeywords = new HashSet<>(notNameKeywords);
+        this.urlKeywords = new HashSet<>(urlKeywords);
+        this.notUrlKeywords = new HashSet<>(notUrlKeywords);
         this.predicate = predicate;
     }
 
-    public List<String> getNameKeywords() {
+    public Set<String> getNameKeywords() {
         return nameKeywords;
     }
 
-    public List<String> getNotNameKeywords() {
+    public Set<String> getNotNameKeywords() {
         return notNameKeywords;
     }
 
-    public List<String> getUrlKeywords() {
+    public Set<String> getUrlKeywords() {
         return urlKeywords;
     }
 
-    public List<String> getNotUrlKeywords() {
+    public Set<String> getNotUrlKeywords() {
         return notUrlKeywords;
     }
 
@@ -83,7 +84,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(nameKeywords);
         isEmpty = false;
 
-        List<String> newNameKeywords = new ArrayList<>(nameKeywords);
+        Set<String> newNameKeywords = new HashSet<>(nameKeywords);
         newNameKeywords.addAll(nameKeywords);
         return new BookmarkPredicate(newNameKeywords,
                 this.notNameKeywords, this.urlKeywords,
@@ -103,7 +104,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(notNameKeywords);
         isEmpty = false;
 
-        List<String> newNotNameKeywords = new ArrayList<>(notNameKeywords);
+        Set<String> newNotNameKeywords = new HashSet<>(notNameKeywords);
         newNotNameKeywords.addAll(notNameKeywords);
         return new BookmarkPredicate(this.nameKeywords,
                 newNotNameKeywords, this.urlKeywords,
@@ -122,7 +123,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(urlKeywords);
         isEmpty = false;
 
-        List<String> newUrlKeywords = new ArrayList<>(urlKeywords);
+        Set<String> newUrlKeywords = new HashSet<>(urlKeywords);
         newUrlKeywords.addAll(urlKeywords);
         return new BookmarkPredicate(this.nameKeywords,
                 this.notNameKeywords, newUrlKeywords,
@@ -142,7 +143,7 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         requireNonNull(notUrlKeywords);
         isEmpty = false;
 
-        List<String> newNotUrlKeywords = new ArrayList<>(notUrlKeywords);
+        Set<String> newNotUrlKeywords = new HashSet<>(notUrlKeywords);
         newNotUrlKeywords.addAll(notUrlKeywords);
         return new BookmarkPredicate(this.nameKeywords,
                 this.notNameKeywords, this.urlKeywords,
