@@ -27,6 +27,18 @@ public class TaskSource {
         this.tags = taskSourceBuilder.getTags();
     }
 
+    /**
+     * Copy constructor.
+     * Creates a deep-copy of an TaskSource.
+     * @param taskSource the taskSource to deep-copy.
+     */
+    public TaskSource(TaskSource taskSource) {
+        this.description = taskSource.description;
+        this.dueDate = taskSource.dueDate;
+        this.isCompleted = taskSource.isCompleted;
+        this.tags = taskSource.tags;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object instanceof TaskSource) {
