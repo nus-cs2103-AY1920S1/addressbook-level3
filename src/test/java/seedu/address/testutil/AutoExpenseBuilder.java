@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.AutoExpense;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.tag.Tag;
@@ -20,7 +21,9 @@ public class AutoExpenseBuilder {
     public static final double DEFAULT_AMOUNT = 5.60;
     public static final String DEFAULT_TIME = "2019-09-09";
     public static final String DEFAULT_FREQ = "weekly";
+    public static final String DEFAULT_CATEGORY = "Foods and Drinks";
 
+    private Category category;
     private Description desc;
     private Amount amt;
     private Date date;
@@ -28,6 +31,7 @@ public class AutoExpenseBuilder {
     private Frequency freq;
 
     public AutoExpenseBuilder() {
+        category = new Category(DEFAULT_CATEGORY, "Expense");
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_TIME);
@@ -39,6 +43,7 @@ public class AutoExpenseBuilder {
      * Initializes the AutoExpenseBuilder with the data of {@code AutoExpenseToCopy}.
      */
     public AutoExpenseBuilder(AutoExpense autoExpenseToCopy) {
+        category = autoExpenseToCopy.getCategory();
         desc = autoExpenseToCopy.getDesc();
         amt = autoExpenseToCopy.getAmount();
         date = autoExpenseToCopy.getDate();
@@ -86,7 +91,15 @@ public class AutoExpenseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Category} of the {@code AutoExpense} that we are building.
+     */
+    public AutoExpenseBuilder withCategory(String categoryString) {
+        this.category = new Category(categoryString, "Expense");
+        return this;
+    }
+
     public AutoExpense build() {
-        return new AutoExpense(desc, amt, tags, freq, date);
+        return new AutoExpense(category, desc, amt, tags, freq, date);
     }
 }

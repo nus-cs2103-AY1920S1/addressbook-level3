@@ -1,14 +1,23 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FREQ;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.AutoExpense;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Description;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Frequency;
 
@@ -39,12 +48,13 @@ public class AddAutoExpenseCommandParser implements Parser<AddAutoExpenseCommand
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         Frequency freq = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+        String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
 
         Date date = ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        AutoExpense autoExpense = new AutoExpense(category, desc, amt, tagList, freq, date);
+        AutoExpense autoExpense = new AutoExpense(new Category(categoryName, "Expense"), desc, amt, tagList, freq,
+                date);
         return new AddAutoExpenseCommand(autoExpense);
     }
 

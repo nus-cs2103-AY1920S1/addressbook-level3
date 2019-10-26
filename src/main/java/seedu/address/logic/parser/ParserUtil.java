@@ -19,9 +19,9 @@ import seedu.address.model.person.PanelName;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.Frequency;
 import seedu.address.ui.FontManager;
 import seedu.address.ui.FontName;
-import seedu.address.model.util.Frequency;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser
@@ -72,10 +72,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a time in String to Time.
+     * Parses a date in String to Date.
      *
-     * @param time the time as a String.
-     * @return the specified time as Time.
+     * @param date the date as a String.
+     * @return the specified date as Date.
      */
     public static Date parseDate(String date) {
         requireNonNull(date);

@@ -2,125 +2,97 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESC_CLOTHING_EXPENSE;
-new Frequency(DEFAULT_FREQUENCY);
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEntries.FOOD_EXPENSE;
-import static seedu.address.testutil.TypicalEntries.BOB;
+import static seedu.address.testutil.TypicalAutoExpenses.FOOD_AUTO_EXPENSE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.EntryBuilder;
+import com.github.javafaker.Faker;
+
+import seedu.address.testutil.AutoExpenseBuilder;
 
 public class AutoExpenseTest {
 
+    private static final Faker faker = new Faker();
+
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Entry autoExpense = new EntryBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> autoExpense.getTags().remove(0));
+        AutoExpense autoExpense = new AutoExpenseBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> autoExpense.getTags().remove(VALID_TAG_FOOD));
     }
 
     @Test
     public void isSameAutoExpense() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(FOOD_AUTO_EXPENSE.equals(FOOD_AUTO_EXPENSE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(FOOD_AUTO_EXPENSE.equals(null));
 
-        // different phone and email -> returns false
-        Person editedAlice = new EntryBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        // different desc -> returns false
+        AutoExpense editedFoodAutoExp = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withDesc(faker.lorem().sentence())
+                .build();
+        assertFalse(FOOD_AUTO_EXPENSE.equals(editedFoodAutoExp));
 
-        // different name -> returns false
-        editedAlice = new EntryBuilder(ALICE).withDesc(VALID_DESC_CLOTHING_EXPENSE).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        // // different name -> returns false
+        // editedFoodAutoExp = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withDesc(VALID_DESC_CLOTHING_EXPENSE).build();
+        // assertFalse(FOOD_AUTO_EXPENSE.isSamePerson(editedFoodAutoExp));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new EntryBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_FOOD).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        // // same name, same phone, different attributes -> returns true
+        // editedFoodAutoExp = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withEmail(VALID_EMAIL_BOB)
+        //         .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FOOD).build();
+        // assertTrue(FOOD_AUTO_EXPENSE.isSamePerson(editedFoodAutoExp));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new EntryBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_FOOD).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        // // same name, same email, different attributes -> returns true
+        // editedFoodAutoExp = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withPhone(VALID_PHONE_BOB)
+        //         .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FOOD).build();
+        // assertTrue(FOOD_AUTO_EXPENSE.isSamePerson(editedFoodAutoExp));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new EntryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FOOD).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-    }
+        // // same name, same phone, same email, different attributes -> returns true
+        // editedFoodAutoExp = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withAddress(VALID_ADDRESS_BOB)
+        //         .withTags(VALID_TAG_FOOD).build();
+        // assertTrue(FOOD_AUTO_EXPENSE.isSamePerson(editedFoodAutoExp));
+        // }
 
-    @Test
-    public void isSamePerson() {
-        // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        // @Test
+        // public void equals() {
+        // // same values -> returns true
+        // Person FOOD_AUTO_EXPENSECopy = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).build();
+        // assertTrue(FOOD_AUTO_EXPENSE.equals(FOOD_AUTO_EXPENSECopy));
 
-        // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        // // same object -> returns true
+        // assertTrue(FOOD_AUTO_EXPENSE.equals(FOOD_AUTO_EXPENSE));
 
-        // different phone and email -> returns false
-        Person editedAlice = new EntryBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        // // null -> returns false
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(null));
 
-        // different name -> returns false
-        editedAlice = new EntryBuilder(ALICE).withDesc(VALID_DESC_CLOTHING_EXPENSE).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        // // different type -> returns false
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(5));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new EntryBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_FOOD).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        // // different person -> returns false
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(BOB));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new EntryBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_FOOD).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        // // different name -> returns false
+        // Person editedFOOD_AUTO_EXPENSE = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE)
+        // .withDesc(VALID_DESC_CLOTHING_EXPENSE)
+        //         .build();
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new EntryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FOOD).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
-    }
+        // // different phone -> returns false
+        // editedFOOD_AUTO_EXPENSE = new AutoExpenseBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(editedAlice));
 
-    @Test
-    public void equals() {
-        // same values -> returns true
-        Person aliceCopy = new EntryBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        // // different email -> returns false
+        // editedAlice = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withEmail(VALID_EMAIL_BOB).build();
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(editedAlice));
 
-        // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        // // different address -> returns false
+        // editedAlice = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withAddress(VALID_ADDRESS_BOB).build();
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(editedAlice));
 
-        // null -> returns false
-        assertFalse(ALICE.equals(null));
-
-        // different type -> returns false
-        assertFalse(ALICE.equals(5));
-
-        // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
-
-        // different name -> returns false
-        Person editedAlice = new EntryBuilder(ALICE).withDesc(VALID_DESC_CLOTHING_EXPENSE).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different phone -> returns false
-        editedAlice = new EntryBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new EntryBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different address -> returns false
-        editedAlice = new EntryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new EntryBuilder(ALICE).withTags(VALID_TAG_FOOD).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // // different tags -> returns false
+        // editedAlice = new AutoExpenseBuilder(FOOD_AUTO_EXPENSE).withTags(VALID_TAG_FOOD).build();
+        // assertFalse(FOOD_AUTO_EXPENSE.equals(editedAlice));
     }
 }
