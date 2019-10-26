@@ -13,6 +13,8 @@ import seedu.address.model.claim.ApprovedClaim;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.claim.UniqueClaimsList;
+import seedu.address.model.commanditem.CommandItem;
+import seedu.address.model.commanditem.UniqueCommandItemsList;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Contact;
@@ -30,6 +32,7 @@ public class FinSec implements ReadOnlyFinSec {
     private final UniqueClaimsList claims;
     private final UniqueIncomesList incomes;
     private final UniqueAutocorrectSuggestionList suggestions;
+    private final UniqueCommandItemsList commands;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -43,6 +46,7 @@ public class FinSec implements ReadOnlyFinSec {
         claims = new UniqueClaimsList();
         incomes = new UniqueIncomesList();
         suggestions = new UniqueAutocorrectSuggestionList();
+        commands = new UniqueCommandItemsList();
 
     }
 
@@ -100,6 +104,7 @@ public class FinSec implements ReadOnlyFinSec {
         setClaims(newData.getClaimList());
         setIncomes(newData.getIncomeList());
         setAutocorrectSuggestions(newData.getAutocorrectSuggestionList());
+        setCommands(newData.getCommandsList());
 
     }
 
@@ -313,6 +318,52 @@ public class FinSec implements ReadOnlyFinSec {
     }
     //// util methods
 
+
+    /**
+     * Returns true if a command with the same identity as {@code command} exists in the address book.
+     */
+    public boolean hasCommand(CommandItem command) {
+        requireNonNull(command);
+        return commands.contains(command);
+    }
+
+    /**
+     * Adds a command to the address book.
+     * The command must not already exist in the address book.
+     */
+    public void addCommand(CommandItem e) {
+        commands.add(e);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeCommand(CommandItem key) {
+        commands.remove(key);
+    }
+
+    /**
+     * Replaces the contents of the commands list with {@code commands}.
+     * {@code commands} must not contain duplicate commands.
+     */
+    public void setCommands(List<CommandItem> commands) {
+        this.commands.setCommands(commands);
+    }
+
+    /**
+     * Replaces the given commands {@code target} in the list with {@code editedCommands}.
+     * {@code target} must exist in the address book.
+     * The command identity of {@code editedCommands} must not be the same as
+     * another existing command in the address book.
+     */
+    public void setCommand(CommandItem target, CommandItem editedCommand) {
+        requireNonNull(editedCommand);
+
+        commands.setCommand(target, editedCommand);
+    }
+
+
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";
@@ -337,6 +388,11 @@ public class FinSec implements ReadOnlyFinSec {
     @Override
     public ObservableList<AutocorrectSuggestion> getAutocorrectSuggestionList() {
         return suggestions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<CommandItem> getCommandsList() {
+        return commands.asUnmodifiableObservableList();
     }
 
     /**

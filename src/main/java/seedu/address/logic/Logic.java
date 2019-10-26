@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 
@@ -28,6 +29,8 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
+
+    CommandResult executeUnknownInput(String commandText) throws CommandException, ParseException, IOException;
 
     /**
      * Returns the FinSec.
@@ -47,6 +50,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of incomes */
     ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList();
+
+    /** Returns an unmodifiable view of the filtered list of incomes */
+    ObservableList<CommandItem> getFilteredCommandsList();
 
     /**
      * Returns the user prefs' address book file path.

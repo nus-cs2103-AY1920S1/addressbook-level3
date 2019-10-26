@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private boolean unknownEntry;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -72,6 +73,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        unknownEntry = false;
     }
 
     public Stage getPrimaryStage() {
@@ -217,6 +220,13 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * After unknown entry is handled, it becomes known.
+     */
+    private void handleUnknownEntry() {
+        this.unknownEntry = !this.unknownEntry;
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -228,29 +238,43 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (unknownEntry) {
+                CommandResult commandResult = logic.executeUnknownInput(commandText);
+                if (!commandResult.isCreateShortCut()) {
+                    handleUnknownEntry();
+                }
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                return commandResult;
+            } else {
+                CommandResult commandResult = logic.execute(commandText);
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+                if (commandResult.isShowHelp()) {
+                    handleHelp();
+                }
+
+                if (commandResult.isExit()) {
+                    handleExit();
+                }
+
+                if (commandResult.isClaim()) {
+                    Claim claim = commandResult.giveClaim();
+                    Model.handleClaim(claim);
+                }
+
+                if (commandResult.isContact()) {
+                    Contact contact = commandResult.giveContact();
+                    Model.handleContact(contact);
+                }
+
+                if (commandResult.isCreateShortCut()) {
+                    handleUnknownEntry();
+                }
+
+                return commandResult;
             }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            if (commandResult.isClaim()) {
-                Claim claim = commandResult.giveClaim();
-                Model.handleClaim(claim);
-            }
-
-            if (commandResult.isContact()) {
-                Contact contact = commandResult.giveContact();
-                Model.handleContact(contact);
-            }
-
-            return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

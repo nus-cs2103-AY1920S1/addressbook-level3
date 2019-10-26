@@ -1,9 +1,9 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 
@@ -38,4 +38,11 @@ public interface ReadOnlyFinSec {
      * This list will not contain any duplicate claims.
      */
     ObservableList<AutocorrectSuggestion> getAutocorrectSuggestionList();
+
+    /**
+     * Returns an unmodifiable view of the commands list.
+     * This list will not contain any duplicate commands.
+     */
+    ObservableList<CommandItem> getCommandsList();
+
 }
