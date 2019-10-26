@@ -1,12 +1,18 @@
 @startuml
 !include style.puml
 
-participant ":Logic" as Logic LOGIC_COLOR
-participant ":Storage" as Storage LOGIC_COLOR
-participant ":LoanCommand" as LoanCommand LOGIC_COLOR
-participant ":Model" as Model LOGIC_COLOR
-participant ":Loan" as Loan LOGIC_COLOR
-participant ":LoanSlipUtil" as LoanSlipUtil LOGIC_COLOR
+box Logic #Lightblue
+    participant ":Logic" as Logic LOGIC_COLOR
+    participant ":LoanCommand" as LoanCommand LOGIC_COLOR
+end box
+box Model #Pink
+    participant ":Model" as Model MODEL_COLOR
+    participant ":Loan" as Loan MODEL_COLOR
+    participant ":LoanSlipUtil" as LoanSlipUtil MODEL_COLOR
+end box
+box Storage #Lightyellow
+    participant ":Storage" as Storage STORAGE_COLOR
+end box
 
 activate Logic
 Logic -> LoanCommand : execute(model)
