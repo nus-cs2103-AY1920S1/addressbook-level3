@@ -22,6 +22,9 @@ public class CommandResult {
     private final boolean isGoTo;
     private final Mode modeToGoTo;
     private final boolean showWindow;
+    private final boolean read;
+    private final Object object;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -33,6 +36,25 @@ public class CommandResult {
         this.isGoTo = goTo;
         this.modeToGoTo = modeToGoTo;
         this.showWindow = showWindow;
+        this.read = false;
+        this.object = null;
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean goTo,
+                         Mode modeToGoTo, boolean showWindow, boolean read, Object object) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isGoTo = goTo;
+        this.modeToGoTo = modeToGoTo;
+        this.showWindow = showWindow;
+        this.read = read;
+        this.object = object;
+    }
+
+    public CommandResult(String feedbackToUser, Object object) {
+        this(feedbackToUser, false, false, false,
+                null, false,true, object);
     }
 
     /**
@@ -42,6 +64,9 @@ public class CommandResult {
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false,
                 null, false);
+    }
+    public Object getObject() {
+        return object;
     }
 
     public String getFeedbackToUser() {
@@ -67,6 +92,11 @@ public class CommandResult {
     public boolean isShowWindow() {
         return showWindow;
     }
+
+    public boolean isRead() {
+        return read;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

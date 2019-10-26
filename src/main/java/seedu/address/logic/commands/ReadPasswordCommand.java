@@ -23,7 +23,7 @@ public class ReadPasswordCommand extends Command {
             + "Parameters: INDEX (must be positive integer)"
             + "Some example ...";
 
-    public static final String MESSAGE_SUCCESS = "%1$s";
+//    public static final String MESSAGE_SUCCESS = "%1$s";
 
     private final Index targetIndex;
 
@@ -41,7 +41,7 @@ public class ReadPasswordCommand extends Command {
         }
 
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, passwordToRead.toNonAsterixString()));
+        return new CommandResult("Results are shown on the right panel", passwordToRead);
 
     }
 }

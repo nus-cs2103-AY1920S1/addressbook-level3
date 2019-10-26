@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.password.Password;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private NoteListPanel noteListPanel;
     private PasswordListPanel passwordListPanel;
     private ResultDisplay resultDisplay;
+    private ReadDisplayPassword readDisplayPassword;
     private HelpWindow helpWindow;
     private EditObjectWindow editObjectWindow;
 
@@ -61,6 +63,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane passwordListPanelPlaceholder;
+
+    @FXML
+    private StackPane readListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -134,6 +139,13 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         fillInnerPartsWithMode();
+    }
+
+    void fillReadParts(Object object) {
+        readDisplayPassword = new ReadDisplayPassword();
+        readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
+        readDisplayPassword.setFeedbackToUser((Password) object);
+
     }
 
     /**
@@ -272,6 +284,9 @@ public class MainWindow extends UiPart<Stage> {
                 editObjectWindow.setLogic(logic);
                 editObjectWindow.setIndex(tempFeedBack[2]);
                 handleShowWindow();
+            }
+            if (commandResult.isRead()) {
+                fillReadParts(commandResult.getObject());
             }
             return commandResult;
         } catch (CommandException | ParseException | DictionaryException e) {
