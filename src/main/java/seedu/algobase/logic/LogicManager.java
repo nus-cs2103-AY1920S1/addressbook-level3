@@ -65,13 +65,13 @@ public class LogicManager implements Logic {
         return model.getGuiState();
     }
 
-    @Override
-    public ObservableList<Tag> getFilteredTagList() {
-        return model.getFilteredTagList();
-    }
-
     public ObservableList<Problem> getProcessedProblemList() {
         return model.getFilteredProblemList();
+    }
+
+    @Override
+    public ObservableList<Tag> getProcessedTagList() {
+        return model.getFilteredTagList();
     }
 
     @Override

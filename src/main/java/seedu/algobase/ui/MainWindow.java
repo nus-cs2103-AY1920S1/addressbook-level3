@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private DisplayTabPane displayTabPane;
     private DetailsTabPane detailsTabPane;
     private ProblemListPanel problemListPanel;
+    private TagListPanel tagListPanel;
     private PlanListPanel planListPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
@@ -134,10 +135,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private DisplayTabPane getDisplayTabPane() {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
+        tagListPanel = new TagListPanel(logic.getProcessedTagList());
         planListPanel = new PlanListPanel(logic.getProcessedPlanList());
         taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelType.PROBLEM.getTabName(), problemListPanel);
-        DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName());
+        DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName(), tagListPanel);
         DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);
         DisplayTab taskListPanelTab = new DisplayTab(ModelType.TASK.getTabName(), taskListPanel);
         return new DisplayTabPane(
@@ -186,6 +188,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public ProblemListPanel getProblemListPanel() {
         return problemListPanel;
+    }
+
+    public TagListPanel getTagListPanel() {
+        return tagListPanel;
     }
 
     public PlanListPanel getPlanListPanel() {
