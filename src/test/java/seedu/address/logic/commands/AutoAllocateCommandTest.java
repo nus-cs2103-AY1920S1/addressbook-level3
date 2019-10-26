@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.AutoAllocateCommand.*;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
@@ -47,7 +48,7 @@ public class AutoAllocateCommandTest {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 sampleManpowerCountToAdd, tagList);
 
-        String expectedMessage = String.format(AutoAllocateCommand.MESSAGE_ALLOCATE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
                 initialEventData.getEventList().get(0).getName().eventName, sampleManpowerCountToAdd);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
@@ -63,7 +64,7 @@ public class AutoAllocateCommandTest {
 
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, null,
                 tagList);
-        String expectedMessage = String.format(AutoAllocateCommand.MESSAGE_ALLOCATE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
                 initialEventData.getEventList().get(0).getName().eventName, sampleManpowerNeeded);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
@@ -75,7 +76,7 @@ public class AutoAllocateCommandTest {
     public void execute_onlyManpowerCountToAddSpecifiedUnfilteredList_success() {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, sampleManpowerCountToAdd,
                 tagList);
-        String expectedMessage = String.format(AutoAllocateCommand.MESSAGE_ALLOCATE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
                 initialEventData.getEventList().get(0).getName().eventName, sampleManpowerCountToAdd);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
@@ -88,7 +89,7 @@ public class AutoAllocateCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT, null,
                 tagList);
-        String expectedMessage = String.format(AutoAllocateCommand.MESSAGE_ALLOCATE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ALLOCATE_SUCCESS,
                 initialEventData.getEventList().get(0).getName().eventName, sampleManpowerNeeded);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
@@ -122,7 +123,7 @@ public class AutoAllocateCommandTest {
         for (int i = 0; i < eventToEdit.getManpowerNeeded().value; i++) {
             availableEmployeeList.add(initialData.getEmployeeList().get(i));
         }
-        Event newEvent = AutoAllocateCommand.createEditedEvent(eventToEdit, availableEmployeeList, 5);
+        Event newEvent = createEventAfterManpowerAllocation(eventToEdit, availableEmployeeList, 5);
         model.setEvent(eventToEdit, newEvent);
         AutoAllocateCommand autoAllocateCommand = new AutoAllocateCommand(INDEX_FIRST_EVENT,
                 1, tagList);
