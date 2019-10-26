@@ -1,4 +1,4 @@
-package com.dukeacademy.testexecutor.exceptions;
+package com.dukeacademy.testexecutor.compiler.exceptions;
 
 import com.dukeacademy.testexecutor.models.CompileError;
 

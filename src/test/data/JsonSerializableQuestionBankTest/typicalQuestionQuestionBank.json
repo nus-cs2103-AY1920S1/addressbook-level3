@@ -14,7 +14,7 @@
         "expectedResult": "102"
       }],
     "userProgram" : {
-      "className": "Adder",
+      "canonicalName": "Adder",
       "sourceCode": "public class Adder { public static void main(String[] args) { } }"
     }
   }, {
@@ -31,7 +31,7 @@
         "expectedResult": "False"
       }],
     "userProgram" : {
-      "className": "Sudoku",
+      "canonicalName": "Sudoku",
       "sourceCode": "public class Sudoku { public static void main(String[] args) { } }"
     }
   }, {
@@ -48,7 +48,7 @@
         "expectedResult": "False"
       }],
     "userProgram" : {
-      "className": "Palindrome",
+      "canonicalName": "Palindrome",
       "sourceCode": "public class Palindrome { public static void main(String[] args) { } }"
     }
   }, {
@@ -65,7 +65,7 @@
         "expectedResult": "1232"
       }],
     "userProgram" : {
-      "className": "NodePairs",
+      "canonicalName": "NodePairs",
       "sourceCode": ""
     }
   }, {
@@ -82,7 +82,7 @@
         "expectedResult": "1 2 3 4"
       }],
     "userProgram" : {
-      "className": "Merge",
+      "canonicalName": "Merge",
       "sourceCode": "public class Merge { public static void main(String[] args) { } }"
     }
   }]

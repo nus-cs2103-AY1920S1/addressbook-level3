@@ -10,55 +10,49 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.dukeacademy.testexecutor.exceptions.ProgramExecutorException;
 import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
+import com.dukeacademy.testexecutor.executor.exceptions.ProgramExecutorException;
 import com.dukeacademy.testexecutor.models.ClassFile;
 import com.dukeacademy.testexecutor.models.ProgramInput;
 import com.dukeacademy.testexecutor.models.ProgramOutput;
 
 class StandardProgramExecutorTest {
-    private static StandardProgramExecutor executor;
-
-    private static Path testProgramRootFolder = Paths.get("src", "test", "data", "TestPrograms",
+    private static Path testProgramsFolder = Paths.get("src", "test", "data", "TestPrograms",
             "ProgramExecutor");
-    private static String noInputTestOutput;
-    private static String withInputTestOutput;
-    private static String input;
-
-    @BeforeAll
-    public static void initializeTest() throws IOException {
-        noInputTestOutput = Files.readString(testProgramRootFolder.resolve("NoInputTestResult.txt"));
-        withInputTestOutput = Files.readString(testProgramRootFolder.resolve("WithInputTestResult.txt"));
-        input = Files.readString(testProgramRootFolder.resolve("Input.txt"));
-        executor = new StandardProgramExecutor();
-    }
 
     @Test
-    public void executeProgramNoInput() throws FileNotFoundException, ProgramExecutorException {
-        ClassFile programClassFile = new ClassFile("NoInputTest", testProgramRootFolder.toString());
-        ProgramOutput output = executor.executeProgram(programClassFile);
+    public void testExecuteValidProgramNoInput() throws IOException, ProgramExecutorException {
+        StandardProgramExecutor executor = new StandardProgramExecutor();
+
+        ClassFile program = new ClassFile("NoInputTest", testProgramsFolder.toString());
+        ProgramOutput output = executor.executeProgram(program);
+
+        String expectedOutput = Files.readString(testProgramsFolder.resolve("NoInputTestResult.txt"));
 
         assertFalse(output.getRuntimeError().isPresent());
-        assertEquals(noInputTestOutput, output.getOutput());
+        assertEquals(expectedOutput, output.getOutput());
     }
 
     @Test
-    public void executeProgramWithInput() throws FileNotFoundException, ProgramExecutorException {
-        ClassFile programClassFile = new ClassFile("WithInputTest", testProgramRootFolder.toString());
+    public void testExecuteValidProgramWithInput() throws IOException, ProgramExecutorException {
+        StandardProgramExecutor executor = new StandardProgramExecutor();
 
-        ProgramInput programInput = new ProgramInput(input);
-        ProgramOutput output = executor.executeProgram(programClassFile, programInput);
+        ClassFile program = new ClassFile("WithInputTest", testProgramsFolder.toString());
+        String input = Files.readString(testProgramsFolder.resolve("Input.txt"));
+        ProgramOutput output = executor.executeProgram(program, new ProgramInput(input));
 
+        String expectedOutput = Files.readString(testProgramsFolder.resolve("WithInputTestResult.txt"));
         assertFalse(output.getRuntimeError().isPresent());
-        assertEquals(withInputTestOutput, output.getOutput());
+        assertEquals(expectedOutput, output.getOutput());
     }
 
     @Test
-    public void testForRuntimeError() throws ProgramExecutorException, FileNotFoundException {
-        ClassFile programClassFile = new ClassFile("OutOfBounds", testProgramRootFolder.toString());
+    public void testExecuteProgramRuntimeError() throws ProgramExecutorException, FileNotFoundException {
+        StandardProgramExecutor executor = new StandardProgramExecutor();
+
+        ClassFile programClassFile = new ClassFile("OutOfBounds", testProgramsFolder.toString());
 
         ProgramOutput output = executor.executeProgram(programClassFile);
         assertTrue(output.getRuntimeError().isPresent());

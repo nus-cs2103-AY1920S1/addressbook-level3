@@ -1,4 +1,4 @@
-package com.dukeacademy.testexecutor.exceptions;
+package com.dukeacademy.testexecutor.compiler.exceptions;
 
 /**
  * Exception thrown by compiler.

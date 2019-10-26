@@ -5,126 +5,135 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
-import com.dukeacademy.testexecutor.exceptions.CompilerEnvironmentException;
-import com.dukeacademy.testexecutor.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.ClosedEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 class StandardCompilerEnvironmentTest {
     @TempDir
-    public Path temporaryFolder;
+    public Path tempFolder;
 
-    private StandardCompilerEnvironment compilerEnvironment;
-    private Path environmentPath;
+    /**
+     * A folder should be created at the location path of the environment
+     */
+    @Test
+    public void testConstructor() throws CreateEnvironmentException {
+        Path environmentPath = tempFolder.resolve("constructor_test");
+        new StandardCompilerEnvironment(environmentPath);
+        assertTrue(environmentPath.toFile().exists());
 
-    @BeforeEach
-    public void initializeTest() throws CompilerEnvironmentException {
-        environmentPath = temporaryFolder.resolve("compiler");
-        compilerEnvironment = new StandardCompilerEnvironment(environmentPath.toString());
+        // Tests for nested folders
+        Path nestedEnvironmentPath = tempFolder.resolve("nested").resolve("constructor_test");
+        new StandardCompilerEnvironment(nestedEnvironmentPath);
+        assertTrue(nestedEnvironmentPath.toFile().exists());
     }
 
+    /**
+     * User programs should be successfully written to created Java files. Returned JavaFile instance should also have
+     * the correct canonical name and classpath.
+     */
     @Test
-    public void createJavaFile() throws JavaFileCreationException, IOException {
-        String fileName = "Test";
-        String content = "public class Test {\n}";
-        UserProgram program = new UserProgram(fileName, content);
+    public void testCreateJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
+            IncorrectCanonicalNameException {
+        Path environmentPath = tempFolder.resolve("createJavaFile_test");
+        StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
-        JavaFile createdJavaFile = compilerEnvironment.createJavaFile(program);
-        assertEquals("Test", createdJavaFile.getCanonicalName());
-        assertEquals(environmentPath.toString(), createdJavaFile.getClassPath());
+        String validFileName = "Test";
+        String validContent = "public class Test { }";
 
-        Path javaFilePath = environmentPath.resolve(fileName + ".java");
+        JavaFile validJavaFile = environment.createJavaFile(new UserProgram(validFileName, validContent));
+        JavaFile expectedJavaFile = new JavaFile(validFileName, environmentPath.toString());
+        assertEquals(expectedJavaFile, validJavaFile);
 
-        File javaFile = javaFilePath.toFile();
-        assertTrue(javaFile.exists());
+        // JavaFile class already ensures that the file exists
+        String validJavaFileContent = Files.readString(validJavaFile.getFile().toPath());
+        assertEquals(validContent, validJavaFileContent);
 
-        Optional<String> fileContent = Files.lines(javaFilePath).reduce((x, y) -> x + "\n" + y);
-        assertTrue(fileContent.isPresent());
-        assertEquals(content, fileContent.get());
+        // Tests for packaged files
+        String validPackagedFileName = "packaged.Test";
+        String validPackagedContent = "package packaged;\n\npublic class Test { }";
 
-        String fileName1 = "Test";
-        String content1 = "package foo.bar;\n"
-                + "public class Test {\n}";
+        JavaFile validPackagedJavaFile = environment.createJavaFile(new UserProgram(validPackagedFileName,
+                validPackagedContent));
+        // Package name must be added manually to form canonical name. Note that UserProgram takes the class name
+        // while JavaFile takes the canonical name as arguments for their constructors
+        JavaFile expectedPackagedJavaFile = new JavaFile(validPackagedFileName,
+                environmentPath.toString());
+        assertEquals(expectedPackagedJavaFile, validPackagedJavaFile);
 
-        UserProgram program1 = new UserProgram(fileName1, content1);
-
-        JavaFile createdJavaFile1 = compilerEnvironment.createJavaFile(program1);
-        assertEquals("foo.bar.Test", createdJavaFile1.getCanonicalName());
-        assertEquals(environmentPath.toString(), createdJavaFile1.getClassPath());
-
-        Path javaFilePath1 = environmentPath.resolve("foo").resolve("bar").resolve("Test.java");
-
-        File javaFile1 = javaFilePath1.toFile();
-        assertTrue(javaFile1.exists());
-
-
-        Optional<String> fileContent1 = Files.lines(javaFilePath1).reduce((x, y) -> x + "\n" + y);
-        assertTrue(fileContent1.isPresent());
-        assertEquals(content1, fileContent1.get());
+        String validPackagedFileContent = Files.readString(validPackagedJavaFile.getFile().toPath());
+        assertEquals(validPackagedContent, validPackagedFileContent);
     }
 
+    /**
+     * Created Java files should be returned with the correct attribute values.
+     */
     @Test
-    public void getJavaFile() throws JavaFileCreationException, IOException {
-        String fileName = "Test1";
-        String content = "public class Test1 {\n}";
+    public void testGetJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
+            IncorrectCanonicalNameException {
+        Path environmentPath = tempFolder.resolve("getJavaFile_test");
+        StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
-        UserProgram program = new UserProgram(fileName, content);
+        String validFileName = "Test";
+        String validContent = "public class Test { }";
 
-        compilerEnvironment.createJavaFile(program);
+        environment.createJavaFile(new UserProgram(validFileName, validContent));
+        JavaFile expectedJavaFile = new JavaFile(validFileName, environmentPath.toString());
+        assertEquals(expectedJavaFile, environment.getJavaFile("Test"));
 
-        JavaFile javaFile = compilerEnvironment.getJavaFile(fileName);
-        assertTrue(javaFile.getFile().exists());
-        assertEquals(fileName + ".java", javaFile.getFile().getName());
+        // Tests for packaged files
+        String validPackagedFileName = "packaged.Test";
+        String validPackagedContent = "package packaged;\n\npublic class Test { }";
 
-        Path filePath = environmentPath.resolve(fileName + ".java");
-
-        Optional<String> fileContent = Files.lines(filePath).reduce((x, y) -> x + "\n" + y);
-        assertTrue(fileContent.isPresent());
-        assertEquals(content, fileContent.get());
-
-        assertThrows(FileNotFoundException.class, () -> compilerEnvironment
-                .getJavaFile("this.should.throw.an.error"));
+        environment.createJavaFile(new UserProgram(validPackagedFileName, validPackagedContent));
+        JavaFile expectedPackagedJavaFile = new JavaFile(validPackagedFileName, environmentPath.toString());
+        assertEquals(expectedPackagedJavaFile, environment.getJavaFile(validPackagedFileName));
     }
 
+    /**
+     * After closing, the folder in which the environment was created should be deleted.
+     */
     @Test
-    public void close() throws JavaFileCreationException {
-        String fileName = "Test2";
-        String content = "public class Test2 {\n}";
-        UserProgram program = new UserProgram(fileName, content);
+    public void testClose() throws CreateEnvironmentException {
+        Path environmentPath = tempFolder.resolve("close_test");
+        StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
-        compilerEnvironment.createJavaFile(program);
-
-        compilerEnvironment.close();
-
+        assertTrue(environmentPath.toFile().exists());
+        environment.close();
         assertFalse(environmentPath.toFile().exists());
+
+        assertThrows(ClosedEnvironmentException.class, () -> environment
+                .createJavaFile(new UserProgram("", "")));
+        assertThrows(ClosedEnvironmentException.class, () -> environment.getJavaFile(""));
+        assertThrows(ClosedEnvironmentException.class, environment::clearEnvironment);
+        assertThrows(ClosedEnvironmentException.class, environment::close);
     }
 
+    /**
+     * After clearing, all files previously found in the environment should be deleted.
+     */
     @Test
-    public void clearEnvironment() throws CompilerEnvironmentException, JavaFileCreationException, IOException {
-        String fileName = "Test2";
-        String content = "public class Test2 {\n}";
-        UserProgram program = new UserProgram(fileName, content);
+    public void testClearEnvironment() throws IOException, ClearEnvironmentException, CreateEnvironmentException {
+        Path environmentPath = tempFolder.resolve("clear_test");
+        StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
-        compilerEnvironment.createJavaFile(program);
+        environmentPath.resolve("testfile1").toFile().createNewFile();
+        environmentPath.resolve("testfile2.java").toFile().createNewFile();
+        environmentPath.resolve("testfile3.class").toFile().createNewFile();
 
-        compilerEnvironment.clearEnvironment();
-
-        long remainingFiles = Files.walk(environmentPath)
-                .filter(path -> !path.equals(path))
-                .count();
-
-        assertEquals(0, remainingFiles);
+        environment.clearEnvironment();
+        assertTrue(environmentPath.toFile().listFiles().length == 0);
     }
 }

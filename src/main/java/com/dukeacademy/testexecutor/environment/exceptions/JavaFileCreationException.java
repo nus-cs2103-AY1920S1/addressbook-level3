@@ -1,4 +1,4 @@
-package com.dukeacademy.testexecutor.exceptions;
+package com.dukeacademy.testexecutor.environment.exceptions;
 
 /**
  * Exception thrown by the compiler environment when an error occurs in creating a file.

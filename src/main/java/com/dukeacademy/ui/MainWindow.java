@@ -11,7 +11,8 @@ import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
-import com.dukeacademy.logic.parser.exceptions.ParseException;
+import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
+import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.program.TestCaseResult;
@@ -154,11 +155,11 @@ public class MainWindow extends UiPart<Stage> {
 
         List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
         sampleTestCaseResults.add(
-                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz", "Fizz"));
+                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz"));
         sampleTestCaseResults.add(
                 TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
         sampleTestCaseResults.add(
-                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz", "FizzBuzz"));
+                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz"));
 
         codeResultPanel = new CodeResultPanel(programSubmissionLogic.getTestResultObservable());
         codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
@@ -218,7 +219,8 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, InvalidCommandKeywordException,
+            InvalidCommandArgumentsException {
         try {
             CommandResult commandResult = commandLogic.executeCommand(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -233,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | InvalidCommandArgumentsException | InvalidCommandKeywordException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

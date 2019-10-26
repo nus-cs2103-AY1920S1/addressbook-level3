@@ -8,18 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 
-public class JsonStandardQuestionBankStorageTest {
+public class JsonQuestionBankStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonQuestionBankStorageTest");
-
-    @TempDir
-    public Path testFolder;
 
     @Test
     public void readQuestionBank_nullFilePath_throwsNullPointerException() {

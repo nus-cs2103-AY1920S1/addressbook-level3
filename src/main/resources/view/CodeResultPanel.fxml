@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Accordion id="codeResult" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Accordion id="codeResult" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <panes>
       <TitledPane fx:id="testCasePane1" animated="false" layoutX="10.0" layoutY="10.0" text="Test Case 1" textFill="#63075d">
          <content>

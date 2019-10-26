@@ -16,7 +16,7 @@ public class JsonAdaptedUserProgramTest {
     @Test
     public void toModel() {
         UserProgram program = new JsonAdaptedUserProgram(className, content).toModel();
-        assertEquals(className, program.getClassName());
+        assertEquals(className, program.getCanonicalName());
         assertEquals(content, program.getSourceCode());
     }
 

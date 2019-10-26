@@ -1,4 +1,6 @@
-package com.dukeacademy.observable;
+package com.dukeacademy.testutil;
+
+import com.dukeacademy.observable.Listener;
 
 /**
  * Listener for testing purposes

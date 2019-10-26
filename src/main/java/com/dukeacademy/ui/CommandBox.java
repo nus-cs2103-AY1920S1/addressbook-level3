@@ -2,7 +2,8 @@ package com.dukeacademy.ui;
 
 import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
-import com.dukeacademy.logic.parser.exceptions.ParseException;
+import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
+import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | InvalidCommandArgumentsException | InvalidCommandKeywordException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -71,7 +72,8 @@ public class CommandBox extends UiPart<Region> {
          * Executes the command and returns the result.
          *
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, InvalidCommandArgumentsException,
+                InvalidCommandKeywordException;
     }
 
 }

@@ -37,9 +37,9 @@ import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
 import com.dukeacademy.observable.Observable;
-import com.dukeacademy.observable.TestListener;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
+import com.dukeacademy.testutil.TestListener;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProgramSubmissionLogicManagerTest {
@@ -72,7 +72,7 @@ class ProgramSubmissionLogicManagerTest {
     }
 
     @Test
-    void submitUserProgram() throws IOException, IncorrectClassNameException, EmptyUserProgramException {
+    void submitUserProgram() throws IOException, IncorrectCanonicalNameException, EmptyUserProgramException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);
 
@@ -264,7 +264,7 @@ class ProgramSubmissionLogicManagerTest {
     }
 
     @Test
-    void setAndSubmitUserProgramSubmissionChannelAndGetProgram() throws IOException, IncorrectClassNameException,
+    void setAndSubmitUserProgramSubmissionChannelAndGetProgram() throws IOException, IncorrectCanonicalNameException,
             EmptyUserProgramException {
         TestListener<TestResult> resultListener = new TestListener<>();
         this.programSubmissionLogicManager.getTestResultObservable().addListener(resultListener);

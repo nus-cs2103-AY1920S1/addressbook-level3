@@ -40,6 +40,9 @@ class QuestionsLogicManagerTest {
     private Path emptyQuestionBankPath;
 
 
+    /**
+     * Creates a typical question bank Json file and an empty question bank Json file for testing.
+     */
     @BeforeEach
     void initializeTest() throws IOException {
         typicalQuestionBankPath = tempFolder.resolve("typical.json");
@@ -54,6 +57,9 @@ class QuestionsLogicManagerTest {
         Files.writeString(emptyQuestionBankPath, "{ \"questions\" : []}");
     }
 
+    /**
+     * Deletes the created files.
+     */
     @AfterEach
     void closeTest() throws IOException {
         Files.delete(typicalQuestionBankPath);

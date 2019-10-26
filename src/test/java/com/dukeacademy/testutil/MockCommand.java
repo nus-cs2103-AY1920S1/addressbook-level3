@@ -1,5 +1,7 @@
-package com.dukeacademy.logic.commands;
+package com.dukeacademy.testutil;
 
+import com.dukeacademy.logic.commands.Command;
+import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 

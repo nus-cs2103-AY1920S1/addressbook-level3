@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.dukeacademy.testutil.TestListener;
+
+
 class StandardObservableTest {
     private StandardObservable<String> stringStandardObservable;
     private StandardObservable<Integer> integerStandardObservable;
@@ -53,13 +56,16 @@ class StandardObservableTest {
         TestListener<String> stringTestListener = new TestListener<>();
         TestListener<String> stringTestListener1 = new TestListener<>();
         TestListener<String> stringTestListener2 = new TestListener<>();
+
         stringStandardObservable.addListener(stringTestListener);
         stringStandardObservable.addListener(stringTestListener1);
         stringStandardObservable.addListener(stringTestListener2);
+
         stringStandardObservable.setValue("DukeAcademy");
         assertEquals("DukeAcademy", stringTestListener.getLatestValue());
         assertEquals("DukeAcademy", stringTestListener1.getLatestValue());
         assertEquals("DukeAcademy", stringTestListener2.getLatestValue());
+
         stringStandardObservable.setValue("CS2103T rocks");
         assertEquals("CS2103T rocks", stringTestListener.getLatestValue());
         assertEquals("CS2103T rocks", stringTestListener1.getLatestValue());
@@ -82,18 +88,21 @@ class StandardObservableTest {
         stringStandardObservable.addListener(stringTestListener);
         stringStandardObservable.removeListener(stringTestListener);
         stringStandardObservable.setValue("DukeAcademy");
+
         assertEquals("Hello world!", stringTestListener.getLatestValue());
 
         TestListener<Integer> integerTestListener = new TestListener<>();
         integerStandardObservable.addListener(integerTestListener);
         integerStandardObservable.removeListener(integerTestListener);
         integerStandardObservable.setValue(-100);
+
         assertEquals(100, integerTestListener.getLatestValue());
 
         TestListener<Boolean> booleanTestListener = new TestListener<>();
         booleanStandardObservable.addListener(booleanTestListener);
         booleanStandardObservable.removeListener(booleanTestListener);
         booleanStandardObservable.setValue(true);
+
         assertNull(booleanTestListener.getLatestValue());
     }
 
@@ -102,12 +111,14 @@ class StandardObservableTest {
         TestListener<String> stringTestListener = new TestListener<>();
         TestListener<String> stringTestListener1 = new TestListener<>();
         TestListener<String> stringTestListener2 = new TestListener<>();
+
         stringStandardObservable.addListener(stringTestListener);
         stringStandardObservable.addListener(stringTestListener1);
         stringStandardObservable.addListener(stringTestListener2);
 
         stringStandardObservable.clearListeners();
         stringStandardObservable.setValue("DukeAcademy");
+
         assertEquals("Hello world!", stringTestListener.getLatestValue());
         assertEquals("Hello world!", stringTestListener1.getLatestValue());
         assertEquals("Hello world!", stringTestListener2.getLatestValue());

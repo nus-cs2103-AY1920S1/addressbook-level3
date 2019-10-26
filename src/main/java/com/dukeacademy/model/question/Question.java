@@ -15,7 +15,8 @@ import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
 
 /**
- * Represents a Question in the question bank.
+ * Represents a Question in the question bank. Each newly created question is tagged with a UUID. This UUID is not
+ * saved to storage and is not exposed to external classes. However, it is used to determine the equality of questions.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Question {
@@ -45,7 +46,7 @@ public class Question {
         this.difficulty = difficulty;
         this.topics.addAll(topics);
         this.testCases.addAll(testCases);
-        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
+        this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
     }
 
     public Question(UUID uuid, String title, Status status, Difficulty difficulty, Set<Topic> topics,
@@ -61,7 +62,7 @@ public class Question {
         this.difficulty = difficulty;
         this.topics.addAll(topics);
         this.testCases.addAll(testCases);
-        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
+        this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
     }
 
     public String getTitle() {
@@ -81,7 +82,7 @@ public class Question {
     }
 
     public UserProgram getUserProgram() {
-        return new UserProgram(this.userProgram.getClassName(), this.userProgram.getSourceCode());
+        return new UserProgram(this.userProgram.getCanonicalName(), this.userProgram.getSourceCode());
     }
 
     public List<TestCase> getTestCases() {

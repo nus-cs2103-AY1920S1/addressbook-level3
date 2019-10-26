@@ -1,7 +1,8 @@
 package com.dukeacademy.testexecutor.models;
 
 /**
- * Represents a runtime error encountered when executing a test case against a program.
+ * Represents a runtime error encountered when executing a Java program. The current implementation only contains the
+ * error message.
  */
 public class RuntimeError {
     private final String errorMessage;
@@ -15,9 +16,10 @@ public class RuntimeError {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof RuntimeError) {
-            return ((RuntimeError) o).errorMessage.equals(this.errorMessage);
+    public boolean equals(Object object) {
+        if (object instanceof RuntimeError) {
+            RuntimeError other = (RuntimeError) object;
+            return other.errorMessage.equals(this.errorMessage);
         } else {
             return false;
         }
