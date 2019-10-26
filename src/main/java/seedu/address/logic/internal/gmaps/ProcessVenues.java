@@ -100,9 +100,4 @@ public class ProcessVenues {
             return currLocation;
         }
     }
-
-    public static void main(String[] args) throws ConnectException {
-        ProcessVenues processVenues = new ProcessVenues().process();
-        processVenues.generateImages();
-    }
 }

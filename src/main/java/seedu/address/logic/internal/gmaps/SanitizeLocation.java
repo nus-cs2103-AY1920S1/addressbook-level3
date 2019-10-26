@@ -35,6 +35,7 @@ public class SanitizeLocation {
             System.out.println(fullPath);
             ImageQuery.execute(url, fullPath);
         }
+        System.out.println("generated " + validLocationList.size() + " images");
     }
 
     /**
@@ -54,6 +55,7 @@ public class SanitizeLocation {
     public String sanitize(String locationName) throws TimeBookInvalidLocation {
         String validLocation = "NUS_" + locationName;
         validLocation = validLocation.split("-")[0];
+        validLocation = validLocation.split("/")[0];
         if (!validLocationList.contains(validLocation)) {
             JSONObject apiResponse = Cache.loadPlaces(validLocation);
             String status = GmapsJsonUtils.getStatus(apiResponse);

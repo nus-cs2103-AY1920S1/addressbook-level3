@@ -2,7 +2,6 @@ package seedu.address.websocket.util;
 
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,11 +11,10 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.websocket.CacheFileNames;
 
 /**
  * This class is used to get an image from a api response
@@ -57,18 +55,12 @@ public class ImageQuery {
                     isValid = false;
                     JSONParser parser;
                     parser = new JSONParser();
-                    String name = imageUrl.split("center=")[1].split("&")[0]);
-                    try (Reader reader = new FileReader("/Users/tandeningklement/Desktop/codes/School/CS2103T_tP/main/src/main/resources/ApiResponseCache/GoogleMapsApi/Invalid.json")) {
-                        JSONObject jsonObject = (JSONObject) parser.parse(reader);
-                        jsonObject.put(imageUrl, imageUrl.split("center=")[1].split("&")[0]);
-                        try (FileWriter file = new FileWriter("/Users/tandeningklement/Desktop/codes/School/CS2103T_tP/main/src/main/resources/ApiResponseCache/GoogleMapsApi/Invalid.json")) {
-                            file.write(jsonObject.toJSONString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    String name = imageUrl.split("center=")[1].split("&")[0].split("NUS_")[1];
+                    try {
+                        Reader reader = new FileReader(CacheFileNames.GMAPS_IMAGE_DIR + name + ".png");
+                        System.out.println(name + " not available on gmaps but manually added");
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
+                        System.out.println(name + " not on gmaps and not added");
                         e.printStackTrace();
                     }
                 }
