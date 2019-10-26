@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
@@ -68,6 +69,9 @@ public class ModelManager implements Model {
         filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
         stats = new Statistics(filteredMembers, filteredTasks, filteredMappings);
         stats.doCalculations();
+
+        // temporary measure to load saved clock format on start up
+        DateTimeUtil.switchDisplayFormat(userSettings.getClockFormat().getDisplayFormatter());
     }
 
     public ModelManager() {

@@ -1,15 +1,21 @@
 package seedu.address.model.settings;
 
+import java.time.format.DateTimeFormatter;
+
+import seedu.address.commons.util.DateTimeUtil;
+
 /**
  * Represents the current display format chosen by the user for task deadlines in +Work.
  */
 public enum ClockFormat {
-    TWELVE("12HR"), TWENTY_FOUR("24HR");
+    TWELVE("12HR", DateTimeUtil.getDisplayFormatterTwelveHour()),
+    TWENTY_FOUR("24HR", DateTimeUtil.getDisplayFormatterTwentyFourHour());
 
     public static final String MESSAGE_CONSTRAINTS =
         "Invalid clock format, please enter one of twelve or twenty_four.";
 
     private String displayName;
+    private DateTimeFormatter formatter;
 
     /**
      * Enum constructor to give UI-friendly display names.
@@ -17,8 +23,9 @@ public enum ClockFormat {
      *
      * @param displayName an alternate name for the theme
      */
-    ClockFormat(String displayName) {
+    ClockFormat(String displayName, DateTimeFormatter formatter) {
         this.displayName = displayName;
+        this.formatter = formatter;
     }
 
     ClockFormat() {
@@ -27,5 +34,9 @@ public enum ClockFormat {
 
     public String getDisplayName() {
         return this.displayName;
+    }
+
+    public DateTimeFormatter getDisplayFormatter() {
+        return this.formatter;
     }
 }

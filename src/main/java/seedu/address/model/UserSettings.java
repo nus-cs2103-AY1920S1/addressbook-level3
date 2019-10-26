@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
 
@@ -63,6 +64,7 @@ public class UserSettings implements ReadOnlyUserSettings {
     }
 
     public void setClockFormat(ClockFormat newClockFormat) {
+        DateTimeUtil.switchDisplayFormat(newClockFormat.getDisplayFormatter());
         clockFormat = newClockFormat;
     }
 
