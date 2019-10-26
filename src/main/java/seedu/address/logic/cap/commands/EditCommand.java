@@ -43,7 +43,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_FACULTY + "FACULTY] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]...\n";
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the cap log.";
 

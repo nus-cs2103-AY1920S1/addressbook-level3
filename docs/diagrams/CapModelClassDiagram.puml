@@ -1,0 +1,56 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyAddressBook <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class CapLog
+Class ReadOnlyAddressBook
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+Package Task {
+Class Module
+Class Title
+Class Description
+Class ModuleCode
+Class Credit
+Class Semester
+Class Faculty
+Class Grade
+}
+
+Package Tag {
+Class Tag
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+CapLog .up.|> ReadOnlyCapLog
+
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o--> "1" CapLog
+ModelManager o-left-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+AddressBook *--> "1" UniqueTaskList
+UniqueTaskList o--> "*" Task
+Module *--> Title
+Module *--> ModuleCode
+Module *--> Description
+Module *--> Credit
+Module *--> Semester
+Module *--> Faculty
+Module *--> Grade
+
+ModelManager -->"1" Module : moduleFilteredList
+@enduml

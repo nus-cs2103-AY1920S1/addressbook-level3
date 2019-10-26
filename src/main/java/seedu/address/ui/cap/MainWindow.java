@@ -36,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SemesterListPanel semesterListPanel;
-    //  private SemesterListPanel semesterListPanel1;
+    private InformationPanel informationPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -48,10 +48,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane semesterListPanelPlaceholder;
 
     @FXML
-    private StackPane gradeListPanelPlaceholder;
+    private StackPane moduleListPanelPlaceholder;
 
-    //    @FXML
-    //    private StackPane semesterListPanelPlaceholder1;
+    @FXML
+    private StackPane capPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -120,10 +120,10 @@ public class MainWindow extends UiPart<Stage> {
         semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        gradeListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        //        semesterListPanel1 = new SemesterListPanel(logic.getFilteredSemesterList());
-        //        semesterListPanelPlaceholder1.getChildren().add(semesterListPanel.getRoot());
+        informationPanel = new InformationPanel();
+        capPanelPlaceholder.getChildren().add(informationPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -175,10 +175,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ModuleListPanel getModuleListPanel() {
-        return moduleListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -197,6 +193,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            informationPanel.setCapToUser(logic.getFilteredCapInformation());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

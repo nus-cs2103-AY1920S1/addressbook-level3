@@ -15,6 +15,7 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.util.GradeHash;
 import seedu.address.model.common.Module;
 import seedu.address.storage.cap.Storage;
 
@@ -84,5 +85,29 @@ public class LogicCapManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public double getFilteredCapInformation() {
+        double result = 0.0;
+        String letterGrade;
+        GradeHash gradeConverter = new GradeHash();
+        double numerator = 0.0;
+        double denominator = 0.0;
+        double modularCredit;
+        if (model.getModuleCount() != 0) {
+            for (Module module : model.getFilteredModuleList()) {
+                letterGrade = module.getGrade().getGrade();
+                System.out.println(letterGrade);
+                modularCredit = (double) module.getCredit().getCredit();
+                numerator += gradeConverter.convertToGradePoint(letterGrade) * modularCredit;
+                denominator += modularCredit;
+            }
+        }
+
+        if (denominator != 0.0) {
+            result = numerator / denominator;
+        }
+        return result;
     }
 }
