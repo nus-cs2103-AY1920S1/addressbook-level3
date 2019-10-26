@@ -169,7 +169,18 @@ public class AddCommandTest {
         public void addTraining(Training training) {
             throw new AssertionError("This method should not be called.");
         }
-
+        @Override
+        public ReadOnlyAddressBook getAddressBookDeepCopy() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public Attendance getAttendance() {
             throw new AssertionError("This method should not be called.");

@@ -60,7 +60,10 @@ public class AddCommand extends Command {
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
-
+    @Override
+    public boolean isUndoable() {
+        return true;
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
