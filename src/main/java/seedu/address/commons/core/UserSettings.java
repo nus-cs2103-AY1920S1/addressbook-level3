@@ -12,6 +12,8 @@ public class UserSettings implements Serializable {
     private static final int DEFAULT_RENEW_PERIOD = 14;
     private static final int DEFAULT_FINE_INCREMENT = 10; // Fine increment in cents.
 
+    public static final int DEFAULT_RENEW_COUNT = 1; // TODO integrate this
+
     private final int loanPeriod;
     private final int renewPeriod;
     private final int fineIncrement; //Fine increment in cents.

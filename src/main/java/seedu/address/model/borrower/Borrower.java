@@ -88,6 +88,17 @@ public class Borrower {
     }
 
     /**
+     * Replaces a a Loan object in a new copy of the currentLoanList.
+     *
+     * @param loanToBeRenewed {@code Loan} object to be removed from the currentLoanList.
+     * @param renewedLoan A updated {@code Loan} object replacing the removed one.
+     * @return A new copy of the currentLoanList with the Loan object replaced.
+     */
+    public LoanList getReplacedCurrentLoanList(Loan loanToBeRenewed, Loan renewedLoan) {
+        return currentLoanList.replaceInNewCopy(loanToBeRenewed, renewedLoan);
+    }
+
+    /**
      * Adds a returned Loan object to a new copy of the returnedLoanList.
      *
      * @param returnedLoan {@code Loan} object to be added to returnedLoanList.

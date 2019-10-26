@@ -24,7 +24,7 @@ import seedu.address.model.loan.Loan;
 public class ReturnCommand extends Command {
     public static final String COMMAND_WORD = "return";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loans a book to a borrower.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
             + "Command can only be used in Serve mode.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 ";
@@ -68,19 +68,19 @@ public class ReturnCommand extends Command {
         }
 
         Loan loanToBeReturned = bookToBeReturned.getLoan().get();
-        LocalDate returnDate = DateUtil.getTodayDate();
-        int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
-                * model.getUserSettings().getFineIncrement();
-        Loan returnedLoan = new Loan(loanToBeReturned.getLoanId(), loanToBeReturned.getBookSerialNumber(),
-                loanToBeReturned.getBorrowerId(), loanToBeReturned.getStartDate(), loanToBeReturned.getDueDate(),
-                returnDate, loanToBeReturned.getRenewCount(), fineAmount, 0);
-
         Borrower servingBorrower = model.getServingBorrower();
         // check if servingBorrower has this Book loaned
         if (!servingBorrower.hasCurrentLoan(loanToBeReturned)) {
             throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER,
                     servingBorrower, bookToBeReturned));
         }
+
+        LocalDate returnDate = DateUtil.getTodayDate();
+        int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
+                * model.getUserSettings().getFineIncrement();
+        Loan returnedLoan = new Loan(loanToBeReturned.getLoanId(), loanToBeReturned.getBookSerialNumber(),
+                loanToBeReturned.getBorrowerId(), loanToBeReturned.getStartDate(), loanToBeReturned.getDueDate(),
+                returnDate, loanToBeReturned.getRenewCount(), fineAmount, 0);
 
         Book returnedBook = new Book(bookToBeReturned.getTitle(), bookToBeReturned.getSerialNumber(),
                 bookToBeReturned.getAuthor(), null, bookToBeReturned.getGenres());
@@ -94,7 +94,6 @@ public class ReturnCommand extends Command {
         // update Loan in LoanRecords with returnDate and remainingFineAmount
         model.updateLoan(loanToBeReturned, returnedLoan);
 
-        // TODO: add fine amount here to show users
         return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
                 FineUtil.centsToDollarString(fineAmount)));
     }

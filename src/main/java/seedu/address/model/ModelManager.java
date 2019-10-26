@@ -321,6 +321,7 @@ public class ModelManager implements Model {
 
     /**
      * Adds a new {@code Loan} object to a new copy of servingBorrower and its currentLoanList.
+     * This method is called only when in Serve mode.
      *
      * @param newLoan New {@code Loan} object to be added.
      */
@@ -339,7 +340,10 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Moves
+     * Removes {@code loanToBeReturned} from {@code servingBorrower}'s currentLoanList and
+     * adds {@code returnedLoan} to its returnedLoanList.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeReturned} object in its currentLoanList.
      *
      * @param loanToBeReturned {@code Loan} object in servingBorrower's currentLoanList.
      * @param returnedLoan Updated {@code Loan} object to be added to servingBorrower's returnedLoanList.
@@ -360,6 +364,33 @@ public class ModelManager implements Model {
         borrowerRecords.setBorrower(serving, loanReturnedBorrower);
 
         setServingBorrower(loanReturnedBorrower);
+    }
+
+    /**
+     * Replaces the {@code loanToBeRenewed} in {@code servingBorrower}'s currentLoanList
+     * with {@code renewedLoan}.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeReturned} object in its currentLoanList.
+     *
+     * @param loanToBeRenewed {@code Loan} object in servingBorrower's currentLoanList.
+     * @param renewedLoan Updated {@code Loan} object with dueDate extended.
+     */
+    @Override
+    public void servingBorrowerRenewLoan(Loan loanToBeRenewed, Loan renewedLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+
+        assert serving.hasCurrentLoan(loanToBeRenewed) : "Borrower does not have the loan to be returned.";
+
+        Borrower loanRenewedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getReplacedCurrentLoanList(loanToBeRenewed, renewedLoan),
+                serving.getReturnedLoanList());
+        borrowerRecords.setBorrower(serving, loanRenewedBorrower);
+
+        setServingBorrower(loanRenewedBorrower);
     }
 
     @Override

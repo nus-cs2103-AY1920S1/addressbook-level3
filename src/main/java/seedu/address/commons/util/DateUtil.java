@@ -24,6 +24,7 @@ public class DateUtil {
 
     /**
      * Get the date that is number of days after starting date.
+     * {@code days} must be non-negative.
      *
      * @param startDate Starting date.
      * @param days Number of days from starting date.
@@ -48,6 +49,7 @@ public class DateUtil {
 
     /**
      * Get the date that is number of days after today.
+     * {@code days} must be non-negative.
      *
      * @param days Number of days from today.
      * @return Date that is number of days after today.
@@ -60,6 +62,7 @@ public class DateUtil {
 
     /**
      * Get the number of days between startDate and endDate.
+     * {@code endDate} must be later than {@code startDate}.
      *
      * @param startDate Starting date.
      * @param endDate Ending date.
@@ -86,6 +89,17 @@ public class DateUtil {
         } else {
             return getNumOfDaysBetween(dueDate, returnDate);
         }
+    }
+
+    /**
+     * Returns true if given date is before today's date.
+     *
+     * @param date Given date to be checked.
+     * @return True if given date is before today's date.
+     */
+    public static boolean isDateBeforeToday(LocalDate date) {
+        requireNonNull(date);
+        return date.isBefore(getTodayDate());
     }
 
     /**
