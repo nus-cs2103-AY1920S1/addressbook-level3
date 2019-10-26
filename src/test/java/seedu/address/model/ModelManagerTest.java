@@ -14,8 +14,11 @@ import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.ALICE;
 import static seedu.address.testutil.TypicalBorrowers.BOB;
+import static seedu.address.testutil.TypicalBorrowers.JANNA;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 import static seedu.address.testutil.TypicalLoans.LOAN_1;
+import static seedu.address.testutil.TypicalLoans.LOAN_8;
+import static seedu.address.testutil.TypicalLoans.LOAN_9;
 import static seedu.address.testutil.TypicalLoans.getTypicalLoanRecords;
 
 import java.nio.file.Path;
@@ -287,6 +290,23 @@ public class ModelManagerTest {
 
         assertThrows(NotInServeModeException.class, () ->
                 modelManager.servingBorrowerRenewLoan(LOAN_1, renewedLoan));
+    }
+
+    @Test
+    public void payFine() {
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
+        borrowerRecords.addBorrower(JANNA);
+
+        LoanRecords loanRecords = new LoanRecords();
+        loanRecords.addLoan(LOAN_8);
+        loanRecords.addLoan(LOAN_9);
+
+        Model modelManager = new ModelManager(new Catalog(), loanRecords, borrowerRecords, new UserPrefs());
+        modelManager.setServingBorrower(JANNA);
+
+        modelManager.payFine(500);
+
+        assertEquals(modelManager.getServingBorrower().getOutstandingFineAmount(), 0);
     }
 
     @Test
