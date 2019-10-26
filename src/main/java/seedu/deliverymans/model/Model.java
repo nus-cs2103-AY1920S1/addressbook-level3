@@ -325,6 +325,11 @@ public interface Model {
 
     ObservableList<Deliveryman> getDeliveringMenList();
 
+    /**
+     * Method for order assignment by OrderManager.
+     */
+    Deliveryman getOneAvailableDeliveryman();
+
     //=========== Order Methods =============================================================
 
     /**
