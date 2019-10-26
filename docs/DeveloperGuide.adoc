@@ -229,7 +229,8 @@ If the duplicated/identical deadline exists in the storage, an error will be sho
 
 The following activity diagram summarizes what happens when a user executes a deadline command:
 
-image::DeadlineActivityDiagram.png[]
+image::DeadlineActivityDiagram.png[width=320,height=480]
+
 
 ==== Design Considerations
 ===== Aspect: How to implement Deadline
