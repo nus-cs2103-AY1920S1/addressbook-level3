@@ -28,7 +28,21 @@ import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.statistics.StatisticsCommand;
+import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
+import seedu.address.logic.parser.allocate.DeallocateCommandParser;
+import seedu.address.logic.parser.allocate.ManualAllocateCommandParser;
+import seedu.address.logic.parser.employee.AddCommandParser;
+import seedu.address.logic.parser.employee.DeleteCommandParser;
+import seedu.address.logic.parser.employee.EditCommandParser;
+import seedu.address.logic.parser.employee.FindCommandParser;
+import seedu.address.logic.parser.event.AddEventCommandParser;
+import seedu.address.logic.parser.event.AssignDateCommandParser;
+import seedu.address.logic.parser.event.DeleteEventCommandParser;
+import seedu.address.logic.parser.event.EditEventCommandParser;
+import seedu.address.logic.parser.event.FetchEventCommandParser;
+import seedu.address.logic.parser.event.FindEventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.schedule.DisplayScheduleForDateParser;
 
 /**
  * Parses user input.
