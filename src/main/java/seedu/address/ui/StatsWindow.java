@@ -1,36 +1,80 @@
 package seedu.address.ui;
 
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Model;
+import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
 
 import java.util.logging.Logger;
 
+import static java.util.Objects.requireNonNull;
+
+//@@author LeonardTay748
+/**
+ * Displays Statistics as Bar Chart
+ */
 public class StatsWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(StatsWindow.class);
     private static final String FXML = "StatsWindow.fxml";
+    public final static Stage stage = new Stage();
 
-    /**
-     * Creates a new StatsWindow.
-     * @param root Stage to use as the root of the HelpWindow.
-     */
-    public StatsWindow(Stage root) {
-        super(FXML, root);
-    }
+    public final static String good = "Good";
+    public final static String hard = "Hard";
+    public final static String easy = "Easy";
+
 
     /**
      * Creates a new StatsWindow.
      */
     public StatsWindow() {
-        this(new Stage());
+        super(FXML, stage);
     }
-
 
     /**
      * Shows the stats window.
      */
-    public void show() {
-        logger.fine("Showing help page about the application.");
+    public void show(Model model) {
+        logger.fine("Showing stats page about the application.");
+
+        requireNonNull(model);
+
+        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
+        int numGood = model.getFilteredFlashCardList().size();
+        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("hard"));
+        int numHard = model.getFilteredFlashCardList().size();
+        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
+        int numEasy = model.getFilteredFlashCardList().size();
+
+        int[] stats = model.getStats();
+
+        //stage.setTitle("Statistics");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
+        bc.setTitle("STATISTICS");
+        xAxis.setLabel("Rating");
+        yAxis.setLabel("Number of FlashCards");
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Total");
+        series1.getData().add(new XYChart.Data(good, numGood));
+        series1.getData().add(new XYChart.Data(hard, numHard));
+        series1.getData().add(new XYChart.Data(easy, numEasy));
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Completed in Test");
+        series2.getData().add(new XYChart.Data(good, stats[0]));
+        series2.getData().add(new XYChart.Data(hard, stats[1]));
+        series2.getData().add(new XYChart.Data(easy, stats[2]));
+
+        Scene scene  = new Scene(bc,800,600);
+        bc.getData().addAll(series1, series2);
+        stage.setScene(scene);
         getRoot().show();
         getRoot().centerOnScreen();
     }

@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.ui.calendar.CalendarWindow;
 
 /**
@@ -168,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleStats() {
         if (!statsWindow.isShowing()) {
-            statsWindow.show();
+            statsWindow.show(logic.getModel());
         } else {
             statsWindow.focus();
         }
@@ -187,6 +188,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -219,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
 
             //Todo
             // commandResult.isAdd() {
-            // handleaAdd
+            // handleAdd
 
             //todo
             // commandResult.is start() {

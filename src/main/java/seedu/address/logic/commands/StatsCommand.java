@@ -20,7 +20,7 @@ public class StatsCommand extends Command {
 
     ////////// Should return a CommandResult with the statistics ////////////////
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model)  {
         requireNonNull(model);
 
         int numGood = 0;
@@ -50,39 +50,5 @@ public class StatsCommand extends Command {
 
         return new CommandResult(sb.toString(), false, true, false);
     }
-    /*
-    @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-
-        int numGood = 0;
-        int numHard = 0;
-        int numEasy = 0;
-
-        model.updateFilteredFlashCardList(predicateGood);
-        numGood = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(predicateHard);
-        numHard = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(predicateEasy);
-        numEasy = model.getFilteredFlashCardList().size();
-
-        int[] stats = model.getStats();
-
-        StringBuilder sb = new StringBuilder("STATISTICS" + System.getProperty("line.separator"));
-        sb.append(System.getProperty("line.separator"));
-        sb.append("Total: ");
-        sb.append("Good (" + numGood + ")  ");
-        sb.append("Hard (" + numHard + ")  ");
-        sb.append("Easy (" + numEasy + ")" + System.getProperty("line.separator"));
-        sb.append(System.getProperty("line.separator"));
-        sb.append("Completed in test: " );
-        sb.append("Good (" + stats[0] + ")  ");
-        sb.append("Hard (" + stats[1] + ")  ");
-        sb.append("Easy (" + stats[2] + ")  ");
-
-        return new CommandResult(sb.toString());
-    }
-
-     */
 
 }
