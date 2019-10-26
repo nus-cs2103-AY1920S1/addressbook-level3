@@ -29,6 +29,7 @@ public class CalendarCommand extends Command {
     private final AthletickDate date;
 
     public CalendarCommand(AthletickDate date) {
+        requireNonNull(date);
         this.date = date;
     }
 

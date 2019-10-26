@@ -12,40 +12,53 @@ public class AthletickDateTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AthletickDate(null));
+        assertThrows(NullPointerException.class, () -> new AthletickDate(1, 1, 1, 0,
+                null));
     }
 
     @Test
     public void constructor_invalidTrainingDate_throwsParseException() {
-        String invalidTrainingDate = "";
-        assertThrows(ParseException.class, () -> new AthletickDate(invalidTrainingDate));
+        assertThrows(ParseException.class, () -> new AthletickDate(0, 0, 0, 0, "test"));
     }
 
     @Test
     public void constructor_validTrainingDate_success() throws ParseException {
-        String validTrainingDate = "01012000";
-        AthletickDate td = new AthletickDate(validTrainingDate);
+        AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
         assertTrue(true);
     }
 
     @Test
     public void getDay() throws ParseException {
-        AthletickDate td = new AthletickDate("01012000");
+        AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
         int day = td.getDay();
         assertEquals(1, day);
     }
 
     @Test
     public void getMonth() throws ParseException {
-        AthletickDate td = new AthletickDate("01012000");
+        AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
         int month = td.getMonth();
         assertEquals(1, month);
     }
 
     @Test
     public void getYear() throws ParseException {
-        AthletickDate td = new AthletickDate("01012000");
+        AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
         int year = td.getYear();
-        assertEquals(2000, year);
+        assertEquals(2019, year);
+    }
+
+    @Test
+    public void getType() throws ParseException {
+        AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
+        int type = td.getType();
+        assertEquals(1, type);
+    }
+
+    @Test
+    public void getMth() throws ParseException {
+        AthletickDate td = new AthletickDate(1, 1, 2019, 1, "January");
+        String mth = td.getMth();
+        assertEquals("January", mth);
     }
 }

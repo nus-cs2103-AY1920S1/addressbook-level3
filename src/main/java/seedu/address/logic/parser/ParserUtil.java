@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,8 +42,7 @@ public class ParserUtil {
 
     /**
      * Parses {@code featureName} into a {@code Feature} and returns it. Leading and trailing
-     * whitespaces will be
-     * trimmed.
+     * whitespaces will be trimmed.
      * @throws ParseException if the specified feature name is invalid (not calendar / attendance
      * / performance).
      */
@@ -63,10 +64,36 @@ public class ParserUtil {
     public static AthletickDate parseDate(String date) throws ParseException {
         String trimmedDate = date.trim();
         if (trimmedDate.length() == 6 || trimmedDate.length() == 8) {
-            return new AthletickDate(date);
+            SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");
+            fullDate.setLenient(false);
+            SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
+            monthYear.setLenient(false);
+            try {
+                if (trimmedDate.length() == 8) {
+                    Date d = fullDate.parse(trimmedDate);
+                    int day = Integer.parseInt(new SimpleDateFormat("d").format(d));
+                    int month = Integer.parseInt(new SimpleDateFormat("M").format(d));
+                    int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
+                    int type = 1;
+                    String mth = new SimpleDateFormat("MMMM").format(d);
+                    return new AthletickDate(day, month, year, type, mth);
+                } else if (date.length() == 6) {
+                    Date d2 = monthYear.parse(trimmedDate);
+                    int day = Integer.parseInt("0");
+                    int month = Integer.parseInt(new SimpleDateFormat("M").format(d2));
+                    int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d2));
+                    int type = 2;
+                    String mth = new SimpleDateFormat("MMMM").format(d2);
+                    return new AthletickDate(day, month, year, type, mth);
+                }
+            } catch (java.text.ParseException pe) {
+                throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " " + AthletickDate.MESSAGE_CONSTRAINTS);
+            }
         } else {
             throw new ParseException(AthletickDate.MESSAGE_CONSTRAINTS);
         }
+        // should not reach here
+        return null;
     }
 
     /**
