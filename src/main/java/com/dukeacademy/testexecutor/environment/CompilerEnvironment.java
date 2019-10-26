@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
 import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 /**
@@ -17,8 +18,11 @@ public interface CompilerEnvironment {
      * Creates a Java file within the compiler environment
      * @param program the program to be converted to a Java file
      * @return the file created
+     * @throws JavaFileCreationException if the file creation fails
+     * @throws IncorrectCanonicalNameException if the canonical name derived from the program does not
+     * match its source code.
      */
-    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException;
+    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException, IncorrectCanonicalNameException;
 
     /**
      * Returns the file corresponding to the canonical name provided

@@ -1,24 +1,35 @@
 package com.dukeacademy.testexecutor.models;
 
+import com.dukeacademy.testexecutor.TestExecutorUtils;
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
  * Represents a Java file in the application. The canonical name refers to the name of the class you would
  * use in an import statement e.g. DukeAcademy.model.program.JavaFile. This is needed to execute packaged classes
- * from the root classpath.
+ * from the root classpath. Guarantees that the contents of the JavaFile matches the canonical name at creation.
  */
 public class JavaFile {
     private String canonicalName;
     private String classPath;
 
-    public JavaFile(String canonicalName, String classPath) throws FileNotFoundException {
+    public JavaFile(String canonicalName, String classPath) throws FileNotFoundException,
+            IncorrectCanonicalNameException, JavaFileCreationException {
         this.canonicalName = canonicalName;
         this.classPath = classPath;
 
         if (!this.getFile().exists()) {
-            throw new FileNotFoundException("No Java file found : " + this.toString());
+            throw new FileNotFoundException("No Java file found : " + this);
+        }
+
+        if (!this.checkContentsValid()) {
+            throw new IncorrectCanonicalNameException("Incorrect canonical name : " + this);
         }
     }
 
@@ -36,6 +47,16 @@ public class JavaFile {
 
     public File getFile() {
         return new File(this.getAbsolutePath());
+    }
+
+    private boolean checkContentsValid() throws JavaFileCreationException {
+        try {
+            String contents = Files.readString(Paths.get(this.getAbsolutePath()));
+
+            return TestExecutorUtils.checkCanonicalNameMatchesProgram(canonicalName, contents);
+        } catch (IOException e) {
+            throw new JavaFileCreationException(e.getMessage(), e);
+        }
     }
 
     /**

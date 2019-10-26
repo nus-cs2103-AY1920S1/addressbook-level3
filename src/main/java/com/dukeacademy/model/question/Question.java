@@ -45,7 +45,7 @@ public class Question {
         this.difficulty = difficulty;
         this.topics.addAll(topics);
         this.testCases.addAll(testCases);
-        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
+        this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
     }
 
     public Question(UUID uuid, String title, Status status, Difficulty difficulty, Set<Topic> topics,
@@ -61,7 +61,7 @@ public class Question {
         this.difficulty = difficulty;
         this.topics.addAll(topics);
         this.testCases.addAll(testCases);
-        this.userProgram = new UserProgram(userProgram.getClassName(), userProgram.getSourceCode());
+        this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
     }
 
     public String getTitle() {
@@ -81,7 +81,7 @@ public class Question {
     }
 
     public UserProgram getUserProgram() {
-        return new UserProgram(this.userProgram.getClassName(), this.userProgram.getSourceCode());
+        return new UserProgram(this.userProgram.getCanonicalName(), this.userProgram.getSourceCode());
     }
 
     public List<TestCase> getTestCases() {

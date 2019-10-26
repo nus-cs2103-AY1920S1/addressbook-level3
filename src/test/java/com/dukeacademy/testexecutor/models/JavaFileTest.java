@@ -7,8 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
+import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -16,29 +19,38 @@ class JavaFileTest {
     @TempDir
     public Path tempFolder;
 
+    private String fooProgram = "public class Foo {}";
+    private String insideFooProgram = "package packaged.inside;\n"
+            + "public class Foo {}";
     /**
      * Instance creation should succeed if the class file actually exists.
      * @throws IOException
      */
     @Test
-    public void testJavaFileConstructor_FileExists() throws IOException {
+    public void testJavaFileConstructor_FileExists() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         String basePath = tempFolder.toString();
 
-        tempFolder.resolve("Foo.java").toFile().createNewFile();
+        Path filePath = tempFolder.resolve("Foo.java");
+        filePath.toFile().createNewFile();
+        Files.writeString(filePath, fooProgram);
         new JavaFile("Foo", basePath);
 
         // Tests when the class is packaged
         Path packageFolders = tempFolder.resolve("packaged").resolve("inside");
         packageFolders.toFile().mkdirs();
-        packageFolders.resolve("Foo.java").toFile().createNewFile();
+        Path packagedFilePath = packageFolders.resolve("Foo.java");
+        packagedFilePath.toFile().createNewFile();
+        Files.writeString(packagedFilePath, insideFooProgram);
         new JavaFile("packaged.inside.Foo", basePath);
     }
 
     @Test
-    public void testJavaFileConstructorAndGetters() throws IOException {
+    public void testJavaFileConstructorAndGetters() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         String basePath = tempFolder.toString();
 
-        tempFolder.resolve("Foo.java").toFile().createNewFile();
+        Path filePath = tempFolder.resolve("Foo.java");
+        filePath.toFile().createNewFile();
+        Files.writeString(filePath, fooProgram);
         JavaFile fooFile = new JavaFile("Foo", basePath);
 
         assertEquals("Foo", fooFile.getCanonicalName());
@@ -47,10 +59,17 @@ class JavaFileTest {
         // Tests when the class is packaged
         Path packageFolders = tempFolder.resolve("packaged").resolve("inside");
         packageFolders.toFile().mkdirs();
-        packageFolders.resolve("Foo.java").toFile().createNewFile();
+        Path packagedFilePath = packageFolders.resolve("Foo.java");
+        packagedFilePath.toFile().createNewFile();
+        Files.writeString(packagedFilePath, insideFooProgram);
         JavaFile packagedFooFile = new JavaFile("packaged.inside.Foo", basePath);
         assertEquals("packaged.inside.Foo", packagedFooFile.getCanonicalName());
         assertEquals(basePath, packagedFooFile.getClassPath());
+    }
+
+    @Test
+    public void testJavaFileConstructor_MismatchedCanonicalName() {
+
     }
 
     /**
@@ -86,54 +105,65 @@ class JavaFileTest {
     }
 
     @Test
-    void testGetAbsolutePath() throws IOException {
+    void testGetAbsolutePath() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         String basePath = tempFolder.toString();
 
         Path fooPath = tempFolder.resolve("Foo.java");
         fooPath.toFile().createNewFile();
+        Files.writeString(fooPath, fooProgram);
+
         String fooExpectedAbsolutePath = fooPath.toString();
         String fooActualAbsolutePath = new JavaFile("Foo", basePath).getAbsolutePath();
         assertEquals(fooExpectedAbsolutePath, fooActualAbsolutePath);
 
         // Check absolute path for packaged classes
-        Path barPackageFolders = tempFolder.resolve("packaged").resolve("nested");
-        barPackageFolders.toFile().mkdirs();
-        Path barPath = barPackageFolders.resolve("Bar.java");
-        barPath.toFile().createNewFile();
-        String barExpectedAbsolutePath = barPath.toString();
-        String barActualAbsolutePath = new JavaFile("Bar", barPackageFolders.toString())
+        Path fooPackageFolders = tempFolder.resolve("packaged").resolve("inside");
+        fooPackageFolders.toFile().mkdirs();
+        Path fooInsidePath = fooPackageFolders.resolve("Foo.java");
+        fooInsidePath.toFile().createNewFile();
+        Files.writeString(fooInsidePath, insideFooProgram);
+
+        String fooInsideExpectedPath = fooInsidePath.toString();
+        String fooInsideActualPath = new JavaFile("packaged.inside.Foo", basePath)
                 .getAbsolutePath();
-        assertEquals(barExpectedAbsolutePath, barActualAbsolutePath);
+        assertEquals(fooInsideExpectedPath, fooInsideActualPath);
     }
 
     @Test
-    void testGetFile() throws IOException {
+    void testGetFile() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         String basePath = tempFolder.toString();
 
         Path fooPath = tempFolder.resolve("Foo.java");
         fooPath.toFile().createNewFile();
+        Files.writeString(fooPath, fooProgram);
+
         File expectedFooFile = fooPath.toFile();
         File actualFooFile = new JavaFile("Foo", basePath).getFile();
         assertEquals(expectedFooFile, actualFooFile);
 
         // Check File for packaged classes.
-        Path barPackageFolders = tempFolder.resolve("packaged").resolve("nested");
-        barPackageFolders.toFile().mkdirs();
-        Path barPath = barPackageFolders.resolve("Bar.java");
-        barPath.toFile().createNewFile();
-        File expectedBarFile = barPath.toFile();
-        File actualBarFile = new JavaFile("Bar", barPackageFolders.toString()).getFile();
-        assertEquals(expectedBarFile, actualBarFile);
+        Path fooPackageFolders = tempFolder.resolve("packaged").resolve("inside");
+        fooPackageFolders.toFile().mkdirs();
+        Path insideFooPath = fooPackageFolders.resolve("Foo.java");
+        insideFooPath.toFile().createNewFile();
+        Files.writeString(insideFooPath, insideFooProgram);
+
+        File expectedInsideFooFile = insideFooPath.toFile();
+        File actualInsideFooFile = new JavaFile("packaged.inside.Foo", basePath).getFile();
+        assertEquals(expectedInsideFooFile, actualInsideFooFile);
     }
 
     @Test
-    void testEquals() throws IOException {
+    void testEquals() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         String basePath = tempFolder.toString();
 
         Path fooPath = tempFolder.resolve("Foo.java");
         fooPath.toFile().createNewFile();
+        Files.writeString(fooPath, fooProgram);
+
         Path barPath = tempFolder.resolve("Bar.java");
         barPath.toFile().createNewFile();
+        Files.writeString(barPath, "public class Bar {}");
 
         JavaFile fooFile1 = new JavaFile("Foo", basePath);
         JavaFile fooFile2 = new JavaFile("Foo", basePath);
@@ -143,12 +173,13 @@ class JavaFileTest {
         assertNotEquals(fooFile1, barFile);
 
         // Tests for classes with the same name but different class paths.
-        Path packageFolders = tempFolder.resolve("packaged").resolve("nested");
+        Path packageFolders = tempFolder.resolve("packaged").resolve("inside");
         packageFolders.toFile().mkdirs();
         Path packagedFooPath = packageFolders.resolve("Foo.java");
         packagedFooPath.toFile().createNewFile();
+        Files.writeString(packagedFooPath, insideFooProgram);
 
-        JavaFile packagedFooFile = new JavaFile("Foo", packageFolders.toString());
+        JavaFile packagedFooFile = new JavaFile("packaged.inside.Foo", basePath);
         assertNotEquals(fooFile1, packagedFooFile);
     }
 }

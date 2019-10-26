@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
 import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -48,7 +49,7 @@ StandardCompilerEnvironmentTest {
      * the correct canonical name and classpath.
      */
     @Test
-    public void testCreateJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException {
+    public void testCreateJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException, IncorrectCanonicalNameException {
         Path environmentPath = tempFolder.resolve("createJavaFile_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
@@ -64,14 +65,14 @@ StandardCompilerEnvironmentTest {
         assertEquals(validContent, validJavaFileContent);
 
         // Tests for packaged files
-        String validPackagedFileName = "Test";
+        String validPackagedFileName = "packaged.Test";
         String validPackagedContent = "package packaged;\n\npublic class Test { }";
 
         JavaFile validPackagedJavaFile = environment.createJavaFile(new UserProgram(validPackagedFileName,
                 validPackagedContent));
         // Package name must be added manually to form canonical name. Note that UserProgram takes the class name
         // while JavaFile takes the canonical name as arguments for their constructors
-        JavaFile expectedPackagedJavaFile = new JavaFile("packaged." + validPackagedFileName,
+        JavaFile expectedPackagedJavaFile = new JavaFile(validPackagedFileName,
                 environmentPath.toString());
         assertEquals(expectedPackagedJavaFile, validPackagedJavaFile);
 
@@ -83,7 +84,7 @@ StandardCompilerEnvironmentTest {
      * Created Java files should be returned with the correct attribute values.
      */
     @Test
-    public void testGetJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException {
+    public void testGetJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException, IncorrectCanonicalNameException {
         Path environmentPath = tempFolder.resolve("getJavaFile_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
@@ -95,13 +96,12 @@ StandardCompilerEnvironmentTest {
         assertEquals(expectedJavaFile, environment.getJavaFile("Test"));
 
         // Tests for packaged files
-        String validPackagedFileName = "Test";
+        String validPackagedFileName = "packaged.Test";
         String validPackagedContent = "package packaged;\n\npublic class Test { }";
 
         environment.createJavaFile(new UserProgram(validPackagedFileName, validPackagedContent));
-        String canonicalName = "packaged." + validPackagedFileName;
-        JavaFile expectedPackagedJavaFile = new JavaFile(canonicalName, environmentPath.toString());
-        assertEquals(expectedPackagedJavaFile, environment.getJavaFile(canonicalName));
+        JavaFile expectedPackagedJavaFile = new JavaFile(validPackagedFileName, environmentPath.toString());
+        assertEquals(expectedPackagedJavaFile, environment.getJavaFile(validPackagedFileName));
     }
 
     /**

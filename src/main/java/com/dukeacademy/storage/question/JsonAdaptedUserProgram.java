@@ -19,7 +19,7 @@ public class JsonAdaptedUserProgram {
     }
 
     public JsonAdaptedUserProgram(UserProgram userProgram) {
-        this.className = userProgram.getClassName();
+        this.className = userProgram.getCanonicalName();
         this.sourceCode = userProgram.getSourceCode();
     }
 

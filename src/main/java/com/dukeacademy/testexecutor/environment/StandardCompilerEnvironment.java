@@ -21,6 +21,7 @@ import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.testexecutor.environment.exceptions.ClearEnvironmentException;
 import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
 import com.dukeacademy.testexecutor.environment.exceptions.JavaFileCreationException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 /**
@@ -56,7 +57,7 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
     }
 
     @Override
-    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException {
+    public JavaFile createJavaFile(UserProgram program) throws JavaFileCreationException, IncorrectCanonicalNameException {
         // Create empty Java file
         String canonicalName = program.getCanonicalName();
         File file = this.createEmptyJavaFile(canonicalName);

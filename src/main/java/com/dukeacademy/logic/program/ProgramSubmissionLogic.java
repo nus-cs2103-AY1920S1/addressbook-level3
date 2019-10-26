@@ -7,7 +7,7 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 
 /**
  * Logic interface to handle the submission and evaluation of user program submissions.
@@ -46,7 +46,7 @@ public interface ProgramSubmissionLogic {
      * @param userProgram The user program to be submitted.
      * @return a test result if the program was successfully tested.
      */
-    public Optional<TestResult> submitUserProgram(UserProgram userProgram) throws IncorrectClassNameException,
+    public Optional<TestResult> submitUserProgram(UserProgram userProgram) throws IncorrectCanonicalNameException,
             EmptyUserProgramException;
 
     /**
@@ -60,7 +60,7 @@ public interface ProgramSubmissionLogic {
      * by the logic instance.
      * @return a test result if the program was successfully tested.
      */
-    public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectClassNameException,
+    public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectCanonicalNameException,
             EmptyUserProgramException;
 
     /**

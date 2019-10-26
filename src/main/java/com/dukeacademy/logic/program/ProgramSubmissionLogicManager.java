@@ -24,7 +24,7 @@ import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
 import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
 import com.dukeacademy.testexecutor.environment.exceptions.CreateEnvironmentException;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
 import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 
@@ -107,7 +107,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public Optional<TestResult> submitUserProgram(UserProgram userProgram) throws IncorrectClassNameException,
+    public Optional<TestResult> submitUserProgram(UserProgram userProgram) throws IncorrectCanonicalNameException,
             EmptyUserProgramException {
         this.verifyNotClosed();
 
@@ -134,7 +134,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     @Override
-    public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectClassNameException,
+    public Optional<TestResult> submitUserProgramFromSubmissionChannel() throws IncorrectCanonicalNameException,
             EmptyUserProgramException {
         if (this.submissionChannel == null) {
             throw new SubmissionChannelNotSetException();

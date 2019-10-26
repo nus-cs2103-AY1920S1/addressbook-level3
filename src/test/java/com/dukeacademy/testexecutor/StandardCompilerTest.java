@@ -1,6 +1,5 @@
 package com.dukeacademy.testexecutor;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.dukeacademy.testexecutor.compiler.exceptions.EmptyJavaFileException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -39,21 +39,14 @@ class StandardCompilerTest {
             + "\t}"
             + "\n}");
 
-    private UserProgram nameMismatchProgram = new UserProgram("InvalidTest",
-            "public class FooBar{}");
-
-    private UserProgram invalidProgram = new UserProgram("InvalidTest1", "FooBar");
-
-    private UserProgram compileErrorProgram = new UserProgram("InvalidTest2",
+    private UserProgram compileErrorProgram = new UserProgram("FooBar",
             "public class FooBar {\n\t"
                     + "int a  = \"I am a string!\"\n"
                     + "}");
 
-    private UserProgram emptyProgram = new UserProgram("Empty", "");
-
     @Test
     public void testCompileProgram() throws CompilerException, CompilerFileContentException,
-            IOException, JavaFileCreationException {
+            IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         Path testFolder = tempFolder.resolve("compile_test");
         testFolder.toFile().mkdirs();
         StandardCompiler compiler = new StandardCompiler();
@@ -61,8 +54,8 @@ class StandardCompilerTest {
         JavaFile validJavaFile = this.createJavaFile(validProgram, testFolder);
         compiler.compileJavaFile(validJavaFile);
 
-        Path validJavaFilePath = testFolder.resolve(validProgram.getClassName() + ".java");
-        Path validClassFilePath = testFolder.resolve(validProgram.getClassName() + ".class");
+        Path validJavaFilePath = testFolder.resolve(validProgram.getCanonicalName() + ".java");
+        Path validClassFilePath = testFolder.resolve(validProgram.getCanonicalName() + ".class");
 
         assertTrue(validJavaFilePath.toFile().exists());
         assertTrue(validClassFilePath.toFile().exists());
@@ -71,8 +64,8 @@ class StandardCompilerTest {
         JavaFile validJavaFile1 = this.createJavaFile(nestedProgram, testFolder);
         compiler.compileJavaFile(validJavaFile1);
 
-        Path validJavaFilePath1 = testFolder.resolve(nestedProgram.getClassName() + ".java");
-        Path validClassFilePath1 = testFolder.resolve(nestedProgram.getClassName() + ".class");
+        Path validJavaFilePath1 = testFolder.resolve(nestedProgram.getCanonicalName() + ".java");
+        Path validClassFilePath1 = testFolder.resolve(nestedProgram.getCanonicalName() + ".class");
         // Nested classes should also be generated
         Path validClassFilePath2 = testFolder.resolve("ValidTest1$NestedClass.class");
 
@@ -82,29 +75,20 @@ class StandardCompilerTest {
     }
 
     @Test
-    public void testCompileProgram_invalid() throws IOException, JavaFileCreationException {
+    public void testCompileProgram_invalid() throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         Path testFolder = tempFolder.resolve("compileInvalid_test");
         testFolder.toFile().mkdirs();
         StandardCompiler compiler = new StandardCompiler();
 
-        JavaFile nameMismatchFile = this.createJavaFile(nameMismatchProgram, testFolder);
-        assertThrows(CompilerFileContentException.class, () -> compiler.compileJavaFile(nameMismatchFile));
-
-        JavaFile invalidFile = this.createJavaFile(invalidProgram, testFolder);
-        assertThrows(CompilerFileContentException.class, () -> compiler.compileJavaFile(invalidFile));
-
         JavaFile compileErrorFile = this.createJavaFile(compileErrorProgram, testFolder);
         assertThrows(CompilerFileContentException.class, () -> compiler.compileJavaFile(compileErrorFile));
-
-        JavaFile emptyFile = this.createJavaFile(emptyProgram, testFolder);
-        assertThrows(EmptyJavaFileException.class, () -> compiler.compileJavaFile(emptyFile));
     }
 
     /**
      * Creates a Java file within a folder for the test. Note that this method only works for non-packaged classes.
      */
-    private JavaFile createJavaFile(UserProgram program, Path folder) throws IOException, JavaFileCreationException {
-        Path filePath = folder.resolve(program.getClassName() + ".java");
+    private JavaFile createJavaFile(UserProgram program, Path folder) throws IOException, JavaFileCreationException, IncorrectCanonicalNameException {
+        Path filePath = folder.resolve(program.getCanonicalName() + ".java");
         File javaFile = filePath.toFile();
         if (!javaFile.createNewFile()) {
             throw new JavaFileCreationException("Unable to create file");
@@ -112,6 +96,6 @@ class StandardCompilerTest {
 
         Files.writeString(filePath, program.getSourceCode());
 
-        return new JavaFile(program.getClassName(), folder.toString());
+        return new JavaFile(program.getCanonicalName(), folder.toString());
     }
 }

@@ -12,7 +12,7 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 
 /**
  * Submit command that submits the user's current work from the registered UserProgram channel of the
@@ -45,7 +45,7 @@ public class SubmitCommand implements Command {
         Optional<TestResult> resultsOptional;
         try {
             resultsOptional = this.programSubmissionLogic.submitUserProgram(userProgram);
-        } catch (IncorrectClassNameException e) {
+        } catch (IncorrectCanonicalNameException e) {
             return new CommandResult("Main class needed as entry point.", false, false);
         } catch (EmptyUserProgramException e) {
             return new CommandResult("Program must not be empty.", false, false);

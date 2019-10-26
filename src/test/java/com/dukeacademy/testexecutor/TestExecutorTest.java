@@ -22,15 +22,9 @@ import com.dukeacademy.model.program.TestCaseResult;
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.TestCase;
-import com.dukeacademy.testexecutor.compiler.Compiler;
-import com.dukeacademy.testexecutor.compiler.StandardCompiler;
-import com.dukeacademy.testexecutor.environment.CompilerEnvironment;
-import com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment;
 import com.dukeacademy.testexecutor.exceptions.EmptyUserProgramException;
-import com.dukeacademy.testexecutor.exceptions.IncorrectClassNameException;
+import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.exceptions.TestExecutorException;
-import com.dukeacademy.testexecutor.executor.ProgramExecutor;
-import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 
 class TestExecutorTest {
     @TempDir
@@ -48,7 +42,7 @@ class TestExecutorTest {
 
     @Test
     public void runTestCasesFib() throws IOException, TestExecutorException,
-            IncorrectClassNameException, EmptyUserProgramException {
+            IncorrectCanonicalNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -67,7 +61,7 @@ class TestExecutorTest {
 
     @Test
     public void runTestCasesDuplicates() throws IOException, TestExecutorException,
-            IncorrectClassNameException, EmptyUserProgramException {
+            IncorrectCanonicalNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "duplicates");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -86,7 +80,7 @@ class TestExecutorTest {
 
     @Test
     public void runTestCaseNestedClass() throws IOException, TestExecutorException,
-            IncorrectClassNameException, EmptyUserProgramException {
+            IncorrectCanonicalNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "nested");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -105,7 +99,7 @@ class TestExecutorTest {
 
     @Test
     public void runIncorrectProgram() throws IOException, TestExecutorException,
-            IncorrectClassNameException, EmptyUserProgramException {
+            IncorrectCanonicalNameException, EmptyUserProgramException {
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "incorrect");
         List<TestCase> testCases = this.loadTestCases(rootFolder);
 
@@ -126,7 +120,7 @@ class TestExecutorTest {
     }
 
     @Test
-    public void testCompileError() throws TestExecutorException, IncorrectClassNameException,
+    public void testCompileError() throws TestExecutorException, IncorrectCanonicalNameException,
             EmptyUserProgramException {
         UserProgram program = new UserProgram("CompileError", "public class CompileError {\n"
                 + "Scanner sc;\n"
@@ -150,16 +144,16 @@ class TestExecutorTest {
     @Test
     public void testIncorrectClassNameException() {
         UserProgram invalidProgram = new UserProgram("Main", "public class Man {}");
-        assertThrows(IncorrectClassNameException.class, () -> executor.runTestCases(new ArrayList<>(), invalidProgram));
+        assertThrows(IncorrectCanonicalNameException.class, () -> executor.runTestCases(new ArrayList<>(), invalidProgram));
         UserProgram invalidProgram1 = new UserProgram("Main", "public class Test "
                 + "{ public class Main { } }");
-        assertThrows(IncorrectClassNameException.class, () -> executor
+        assertThrows(IncorrectCanonicalNameException.class, () -> executor
                 .runTestCases(new ArrayList<>(), invalidProgram1));
     }
 
     @Test
     public void testRuntimeError() throws IOException, TestExecutorException,
-            IncorrectClassNameException, EmptyUserProgramException {
+            IncorrectCanonicalNameException, EmptyUserProgramException {
         Path programPath = Paths.get("src", "test", "data",
                 "TestPrograms", "errors", "indexoutofbounds.txt");
         UserProgram program = new UserProgram("Main", Files.readString(programPath));
@@ -234,30 +228,5 @@ class TestExecutorTest {
                             && result.isSuccessful();
                 }).reduce((x, y) -> x && y)
                 .orElse(false);
-    }
-
-
-    @Test
-    void checkClassNameMatch() {
-        String validProgramCode = "class Main { }";
-        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode)));
-
-        String validProgramCode1 = "public class Main {}";
-        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode1)));
-
-        String validProgramCode2 = "class test {} \n public class Main{}";
-        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode2)));
-
-        String validProgramCode3 = "class test { public class Main { } } class Main {}";
-        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode3)));
-
-        String validProgramCode4 = "public class Main { public class Main { } ";
-        assertTrue(executor.checkClassNameMatch(new UserProgram("Main", validProgramCode4)));
-
-        String invalidProgramCode = "public class Man {}";
-        assertFalse(executor.checkClassNameMatch(new UserProgram("Main", invalidProgramCode)));
-
-        String invalidProgramCode1 = "public class Man { public class Main { }}";
-        assertFalse(executor.checkClassNameMatch(new UserProgram("Main", invalidProgramCode1)));
     }
 }
