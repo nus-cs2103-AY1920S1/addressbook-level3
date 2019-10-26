@@ -5,6 +5,10 @@ matrix:
 services:
   - xvfb
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install at-spi2-core
+
 install: true
 
 before_script:
