@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Model getModel(){
+    public Model getModel() {
         return model;
     }
 
