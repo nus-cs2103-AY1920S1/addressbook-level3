@@ -77,6 +77,10 @@ public class EventDateTimeMap {
         dateTimeMap.put(date, dayTime);
     }
 
+    public void clearMapping() {
+        dateTimeMap.clear();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

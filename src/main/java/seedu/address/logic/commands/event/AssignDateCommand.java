@@ -62,7 +62,6 @@ public class AssignDateCommand extends Command {
 
         eventToAssign.assignDateTime(targetEventDate, eventDayTime);
 
-        System.out.println(eventToAssign.getEventDateTimeMap().toString());
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAssign.getName()), false,
                 false, index.getZeroBased());
     }

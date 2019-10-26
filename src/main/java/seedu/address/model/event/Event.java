@@ -129,6 +129,13 @@ public class Event {
     }
 
     /**
+     * Clears all DateTime Mappings associated with the
+     */
+    public void clearDateTimeMapping() {
+        this.eventDateTimeMap.clearMapping();
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

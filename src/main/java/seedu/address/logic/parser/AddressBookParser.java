@@ -18,6 +18,7 @@ import seedu.address.logic.commands.employee.FindCommand;
 import seedu.address.logic.commands.employee.ListCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.AssignDateCommand;
+import seedu.address.logic.commands.event.ClearDateMappingCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.FetchEventCommand;
@@ -37,6 +38,7 @@ import seedu.address.logic.parser.employee.EditCommandParser;
 import seedu.address.logic.parser.employee.FindCommandParser;
 import seedu.address.logic.parser.event.AddEventCommandParser;
 import seedu.address.logic.parser.event.AssignDateCommandParser;
+import seedu.address.logic.parser.event.ClearDateMappingCommandParser;
 import seedu.address.logic.parser.event.DeleteEventCommandParser;
 import seedu.address.logic.parser.event.EditEventCommandParser;
 import seedu.address.logic.parser.event.FetchEventCommandParser;
@@ -133,6 +135,9 @@ public class AddressBookParser {
 
         case AssignDateCommand.COMMAND_WORD:
             return new AssignDateCommandParser().parse(arguments);
+
+        case ClearDateMappingCommand.COMMAND_WORD:
+            return new ClearDateMappingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
