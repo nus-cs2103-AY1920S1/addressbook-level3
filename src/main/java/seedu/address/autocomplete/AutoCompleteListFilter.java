@@ -21,16 +21,27 @@ public class AutoCompleteListFilter {
         ObservableList<AutoCompleteWord> filteredList = FXCollections.observableArrayList();
         // filter based on first 2 correct word
         for (AutoCompleteWord autoCompleteWord : listToBeSuggested) {
-            boolean isRelated = true;
-            if (matchedWords.size() >= 1 && !matchedWords.get(0).getSuggestedWord()
-                    .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(0))) {
-                isRelated = false;
+            boolean isAssociable = true;
+
+            // Checks what if word in list are associable to the correctly matched words
+
+            // Checks for first match word
+            if (matchedWords.size() >= 1) {
+                boolean isAssociableToFirstWord = matchedWords.get(0).getSuggestedWord()
+                        .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(0));
+                if (!isAssociableToFirstWord) {
+                    isAssociable = false;
+                }
             }
-            if (matchedWords.size() >= 2 && !matchedWords.get(1).getSuggestedWord()
-                    .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(1))) {
-                isRelated = false;
+            // Checks for second match word
+            if (matchedWords.size() >= 2) {
+                boolean isAssociableToSecondWord = matchedWords.get(1).getSuggestedWord()
+                        .equals(((AssociableWord) autoCompleteWord).getAssociatedWordList().get(1));
+                if (!isAssociableToSecondWord) {
+                    isAssociable = false;
+                }
             }
-            if (isRelated) {
+            if (isAssociable) {
                 filteredList.add(autoCompleteWord);
             }
         }

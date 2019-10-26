@@ -20,7 +20,7 @@ public class UserinputParserUtil {
     /**
      * Parse first segment of userinput into object and command word
      *
-     * @param firstSegment first segment of userinput
+     * @param firstSegment a string from the start of userinput to the first space
      * @return linkedlist of object word and command word if they exist
      */
     public static LinkedList<String> parseFirstSegment(String firstSegment) {
