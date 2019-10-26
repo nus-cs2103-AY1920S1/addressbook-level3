@@ -138,7 +138,7 @@ public class MainWindow extends UiPart<Stage> {
         TabBar tabBar = new TabBar(logic.getContext());
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMemeBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getWemeFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
     /**

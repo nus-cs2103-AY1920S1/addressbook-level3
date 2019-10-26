@@ -6,5 +6,9 @@
   }, {
     "name" : "",
     "filePath": "src/test/data/templates/is_this_template.jpg"
-  } ]
+  } ],
+  "stats" : {
+    "likeMap" : {}
+  }
+
 }

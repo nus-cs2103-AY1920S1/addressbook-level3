@@ -10,5 +10,9 @@
     "tagged": [ "friends" ],
     "filePath": "https://tinyurl.com/testWeme"
   } ],
-  "templates": []
+  "templates": [],
+  "stats" : {
+    "likeMap" : {}
+  }
+
 }

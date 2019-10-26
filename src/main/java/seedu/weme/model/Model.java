@@ -3,7 +3,7 @@ package seedu.weme.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
@@ -72,36 +72,36 @@ public interface Model {
     void setTemplateImagePath(Path templateImagePath);
 
     /**
-     * Replaces meme book data with the data in {@code memeBook}.
+     * Replaces Weme data with the data in {@code weme}.
      */
-    void setMemeBook(ReadOnlyMemeBook memeBook);
+    void setWeme(ReadOnlyWeme weme);
 
     /**
-     * Returns the MemeBook
+     * Returns Weme
      */
-    ReadOnlyMemeBook getMemeBook();
+    ReadOnlyWeme getWeme();
 
     /**
-     * Returns true if a meme with the same identity as {@code meme} exists in the meme book.
+     * Returns true if a meme with the same identity as {@code meme} exists in Weme.
      */
     boolean hasMeme(Meme meme);
 
     /**
      * Deletes the given meme.
-     * The meme must exist in the meme book.
+     * The meme must exist in Weme.
      */
     void deleteMeme(Meme target);
 
     /**
      * Adds the given meme.
-     * {@code meme} must not already exist in the meme book.
+     * {@code meme} must not already exist in Weme.
      */
     void addMeme(Meme meme);
 
     /**
      * Replaces the given meme {@code target} with {@code editedMeme}.
-     * {@code target} must exist in the meme book.
-     * The meme identity of {@code editedMeme} must not be the same as another existing meme in the meme book.
+     * {@code target} must exist in Weme.
+     * The meme identity of {@code editedMeme} must not be the same as another existing meme in Weme.
      */
     void setMeme(Meme target, Meme editedMeme);
 
@@ -124,34 +124,41 @@ public interface Model {
     void updateFilteredTemplateList(Predicate<Template> predicate);
 
     /**
-     * Returns the context of the model.
+     * Sets the model context.
+     * @param context the context to switch to
      */
-    SimpleObjectProperty<ModelContext> getContext();
+    void setContext(ModelContext context);
+
+    /**
+     * Returns the context of the model.
+     * @return the current context
+     */
+    ObservableValue<ModelContext> getContext();
 
     /**
      * Returns true if model has a previous state to restore.
      */
-    boolean canUndoMemeBook();
+    boolean canUndoWeme();
 
     /**
      * Returns true if model has a undone state to restore.
      */
-    boolean canRedoMemeBook();
+    boolean canRedoWeme();
 
     /**
-     * Restores the model's meme book to its previous state.
+     * Restores the model's Weme to its previous state.
      */
-    void undoMemeBook();
+    void undoWeme();
 
     /**
-     * Restores the mode's meme book to its previously undone state.
+     * Restores the model's Weme to its previously undone state.
      */
-    void redoMemeBook();
+    void redoWeme();
 
     /**
-     * Saves the current meme book state for undo/redo.
+     * Saves the current Weme state for undo/redo.
      */
-    void commitMemeBook();
+    void commitWeme();
 
     /**
      * Returns statistics data.
@@ -177,7 +184,7 @@ public interface Model {
 
 
     /**
-     * Clears the image data folder of any memes that are not referenced in weme.
+     * Clears the image data folder of any memes that are not referenced in Weme.
      */
     void cleanMemeStorage();
 }

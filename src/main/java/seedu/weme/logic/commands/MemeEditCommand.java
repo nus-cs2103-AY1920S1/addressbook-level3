@@ -22,7 +22,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 
 /**
- * Edits the details of an existing meme in the meme book.
+ * Edits the details of an existing meme in Weme.
  */
 public class MemeEditCommand extends Command {
 
@@ -40,7 +40,7 @@ public class MemeEditCommand extends Command {
 
     public static final String MESSAGE_EDIT_MEME_SUCCESS = "Edited Meme: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in weme.";
+    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in Weme.";
 
     private final Index index;
     private final EditMemeDescriptor editMemeDescriptor;
@@ -74,7 +74,7 @@ public class MemeEditCommand extends Command {
         }
 
         model.setMeme(memeToEdit, editedMeme);
-        model.commitMemeBook();
+        model.commitWeme();
         model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
         return new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
     }

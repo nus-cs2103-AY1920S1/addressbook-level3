@@ -3,18 +3,17 @@ package seedu.weme.logic.commands;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.deleteFirstMeme;
-import static seedu.weme.testutil.TypicalMemeBook.getTypicalMemeBook;
+import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
-import seedu.weme.statistics.StatsManager;
 
 public class UndoCommandTest {
-    private final Model model = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
-    private final Model expectedModel = new ModelManager(getTypicalMemeBook(), new UserPrefs(), new StatsManager());
+    private final Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
 
     @Test
     public void execute() {
@@ -26,12 +25,12 @@ public class UndoCommandTest {
 
         UndoCommand undoCommand = new UndoCommand();
 
-        expectedModel.undoMemeBook();
+        expectedModel.undoWeme();
 
         // multiple undo states
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        expectedModel.undoMemeBook();
+        expectedModel.undoWeme();
 
         // single undo states
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
