@@ -37,6 +37,20 @@ public class Eatery {
 
     /**
      * Every field must be present and not null.
+     * Used when adding eatery to To-do list.
+     * Category not needed.
+     */
+    public Eatery(Name name, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, address, tags);
+        this.name = name;
+        this.isOpen = true;
+        this.address = address;
+        this.tags = tags;
+        this.category = new Category("Not Applicable");
+    }
+
+    /**
+     * Every field must be present and not null.
      * Used for editing open or close
      */
     public Eatery(Name name, boolean isOpen, Address address, Category category, Set<Tag> tags) {
