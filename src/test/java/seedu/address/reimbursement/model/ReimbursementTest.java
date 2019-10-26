@@ -1,9 +1,9 @@
 package seedu.address.reimbursement.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalDeadlines.DATE_TIME_FORMATTER;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void constructor_from_transaction() {
+    public void constructorFromTransaction() {
         Reimbursement reimbursement = new ReimbursementBuilder().build();
         Person person = TypicalPersons.ALICE;
         assertEquals(person, reimbursement.getPerson());
@@ -42,7 +42,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void set_person() {
+    public void setPerson() {
         Person person = TypicalPersons.BOB;
         Reimbursement reimbursement = new ReimbursementBuilder().build();
         reimbursement.setPerson(person);
@@ -59,13 +59,13 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void compare_person() {
-        Reimbursement reimbursement_alice_20 = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
-        Reimbursement reimbursement_elle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
-        Reimbursement reimbursement_alice_30 = TypicalReimbursements.ALICE_REIMBURSEMENT_30;
+    public void comparePerson() {
+        Reimbursement reimbursementAlice20 = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
+        Reimbursement reimbursementElle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
+        Reimbursement reimbursementAlice30 = TypicalReimbursements.ALICE_REIMBURSEMENT_30;
 
-        assertTrue(reimbursement_alice_20.comparePerson(reimbursement_alice_30));
-        assertFalse(reimbursement_alice_20.comparePerson(reimbursement_elle));
+        assertTrue(reimbursementAlice20.comparePerson(reimbursementAlice30));
+        assertFalse(reimbursementAlice20.comparePerson(reimbursementElle));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void test_ui_display() {
+    public void setDisplayCol() {
         Reimbursement reimbursement = new ReimbursementBuilder().build();
 
         reimbursement.setIdCol(1);
@@ -98,7 +98,7 @@ public class ReimbursementTest {
     }
 
     @Test
-    public void convert_to_string() {
+    public void reimbursementToString() {
         Reimbursement reimbursementAlice = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
         Reimbursement reimbursementElle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
 
@@ -110,6 +110,5 @@ public class ReimbursementTest {
         String strFromToStringNoDeadline = "Elle Meyer $-100.0" + System.lineSeparator()
                 + "1. food";
         assertEquals(strFromToStringNoDeadline, reimbursementElle.toString());
-
     }
 }

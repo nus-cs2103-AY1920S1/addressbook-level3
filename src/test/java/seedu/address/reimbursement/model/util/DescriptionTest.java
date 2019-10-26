@@ -14,12 +14,12 @@ public class DescriptionTest {
     public static final String CORRECT_STRING = "1. poster printing" + System.lineSeparator() + "2. poster printing";
 
     @Test
-    public void valid_default_constructor() {
+    public void constructor_empty_success() {
         assertEquals("", new Description().toString());
     }
 
     @Test
-    public void valid_constructor_from_transaction() {
+    public void constructor_transaction_success() {
         Transaction transAlice = new TransactionBuilder(TypicalPersons.ALICE).build();
         Transaction transBob = new TransactionBuilder(TypicalPersons.BOB).build();
         ArrayList<Transaction> transList = new ArrayList<>();

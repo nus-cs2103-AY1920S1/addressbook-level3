@@ -1,10 +1,10 @@
 package seedu.address.reimbursement.logic.parser;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
@@ -18,7 +18,6 @@ import seedu.address.reimbursement.logic.commands.SortAmountCommand;
 import seedu.address.reimbursement.logic.commands.SortDeadlineCommand;
 import seedu.address.reimbursement.logic.commands.SortNameCommand;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.testutil.TypicalTransactions;
 
 public class ReimbursementTabParserTest {
     private static final ReimbursementTabParser parser = new ReimbursementTabParser();
@@ -30,7 +29,7 @@ public class ReimbursementTabParserTest {
     }
 
     @Test
-    public void back_command_parser() {
+    public void parser_backCommand() {
         Command command = null;
 
         try {
@@ -42,7 +41,7 @@ public class ReimbursementTabParserTest {
     }
 
     @Test
-    public void deadline_command_parser() {
+    public void parser_deadlineCommand() {
         Command command = null;
 
         assertThrows(Exception.class, () -> parser.parseCommand("deadline", personModel));
@@ -59,7 +58,7 @@ public class ReimbursementTabParserTest {
     }
 
     @Test
-    public void done_command_parser() {
+    public void parser_doneCommand() {
         Command command = null;
 
         assertThrows(Exception.class, () -> parser.parseCommand("done", personModel));
@@ -76,7 +75,7 @@ public class ReimbursementTabParserTest {
     }
 
     @Test
-    public void exit_command_parser() {
+    public void parser_exitCommand() {
         Command command = null;
 
         assertThrows(Exception.class, () -> parser.parseCommand("exit p/name", personModel));
@@ -90,7 +89,7 @@ public class ReimbursementTabParserTest {
     }
 
     @Test
-    public void find_command_parser() {
+    public void parser_findCommand() {
         Command command = null;
 
         assertThrows(Exception.class, () -> parser.parseCommand("find", personModel));
@@ -107,7 +106,7 @@ public class ReimbursementTabParserTest {
     }
 
     @Test
-    public void sort_command_parser() {
+    public void parser_sortCommand() {
         Command command = null;
 
         assertThrows(Exception.class, () -> parser.parseCommand("sort", personModel));

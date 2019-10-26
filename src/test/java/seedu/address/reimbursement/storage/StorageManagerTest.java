@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.TypicalReimbursements;
-import seedu.address.testutil.TypicalTransactions;
 
 
 public class StorageManagerTest {
@@ -35,8 +34,8 @@ public class StorageManagerTest {
          */
         ReimbursementList original = TypicalReimbursements.getTypicalReimbursements();
         storageManager.writeFile(original);
-        ReimbursementList retrieved = storageManager.getReimbursementFromFile(TypicalReimbursements.getTypicalTransactions());
-        ReimbursementList newlist = new ReimbursementList(TypicalReimbursements.getTypicalTransactions());
+        ReimbursementList retrieved =
+                storageManager.getReimbursementFromFile(TypicalReimbursements.getTypicalTransactions());
 
         assertEquals(original.toString(), retrieved.toString());
     }

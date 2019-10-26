@@ -42,6 +42,13 @@ public class ReimbursementList {
         list = reimbursementList;
     }
 
+    /**
+     * Checks whether the arraylist of reimbursements contain the same person to fulfill the requirement for using
+     * constructor.
+     *
+     * @param reimbursementArrayList list of reimbursements.
+     * @return returns true if the list doesn't contain the same person. Otherwise, false.
+     */
     private boolean checkNoSamePerson(ArrayList<Reimbursement> reimbursementArrayList) {
         HashSet<Person> set = new HashSet<>();
         for (Reimbursement rmb : reimbursementArrayList) {

@@ -1,13 +1,13 @@
 package seedu.address.reimbursement.model;
 
-import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.testutil.ReimbursementBuilder;
@@ -20,13 +20,13 @@ import seedu.address.transaction.util.TransactionList;
 
 public class ReimbursementListTest {
     @Test
-    public void default_constructor() {
+    public void defaultConstructor() {
         ReimbursementList reimbursementList = new ReimbursementList();
         assertEquals(new ArrayList<Reimbursement>(), reimbursementList.getList());
     }
 
     @Test
-    public void constructor_from_transaction_list() {
+    public void constructorFromTransactionList() {
         TransactionList transList = new TransactionList();
         transList.add(TypicalTransactions.ALICE_TRANSACTION_10);
         transList.add(TypicalTransactions.ALICE_TRANSACTION_12);
@@ -39,7 +39,7 @@ public class ReimbursementListTest {
     }
 
     @Test
-    public void update_find_done_person_reimbursement() {
+    public void updatePerson() {
         Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Reimbursement reimbursement = new ReimbursementBuilder(transaction).build();
 
@@ -75,14 +75,13 @@ public class ReimbursementListTest {
     }
 
     @Test
-    public void sort_reimbursements_to_string() {
+    public void sortReimbursement() {
         Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Transaction transactionBob = new TransactionBuilder(TypicalPersons.BOB).withAmount(-20).build();
         Reimbursement reimbursementAlice = new ReimbursementBuilder(transactionAlice).build();
         Reimbursement reimbursementBob = new ReimbursementBuilder(transactionBob).build();
 
-        ArrayList<Reimbursement> arrList
-                = new ArrayList<>(Arrays.asList(reimbursementAlice, reimbursementBob));
+        ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice, reimbursementBob));
         ReimbursementList list = new ReimbursementList(arrList);
 
         list.sortByAmount();

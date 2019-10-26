@@ -1,5 +1,6 @@
 package seedu.address.reimbursement.logic;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -7,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.address.person.model.UserPrefs;
 import seedu.address.reimbursement.model.ModelManager;
@@ -51,12 +50,12 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void get_filtered_list() {
+    public void getFilteredList() {
         assertEquals(reimbursementModel.getFilteredReimbursementList(), logic.getFilteredList());
     }
 
     @Test
-    public void update_reimbursement_from_transaction() {
+    public void updateReimbursementFromTransaction() {
 
         assertEquals(reimbursementModel.getReimbursementList(), logic.getFilteredList());
 

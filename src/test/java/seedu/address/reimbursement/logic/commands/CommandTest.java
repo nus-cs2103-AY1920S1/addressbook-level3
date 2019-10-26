@@ -1,7 +1,7 @@
 package seedu.address.reimbursement.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.reimbursement.ui.ReimbursementMessages.BACK_COMMAND;
 import static seedu.address.reimbursement.ui.ReimbursementMessages.MESSAGE_ADD_DEADLINE;
 import static seedu.address.reimbursement.ui.ReimbursementMessages.MESSAGE_DONE_REIMBURSEMENT;
@@ -23,14 +23,12 @@ import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.testutil.TypicalReimbursements;
-import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Transaction;
 
 public class CommandTest {
 
     @Test
-    public void back_command_test() {
+    public void execute_backCommand() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -46,7 +44,7 @@ public class CommandTest {
     }
 
     @Test
-    public void exit_command_test() {
+    public void execute_exitCommand() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -62,7 +60,7 @@ public class CommandTest {
     }
 
     @Test
-    public void sort_amount_command_test() {
+    public void execute_sortAmountCommand() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -78,7 +76,7 @@ public class CommandTest {
     }
 
     @Test
-    public void sort_deadline_command_test() {
+    public void execute_sortDeadlineCommand() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -94,7 +92,7 @@ public class CommandTest {
     }
 
     @Test
-    public void sort_name_command_test() {
+    public void execute_sortNameCommand() {
         Model reimbursementModel = new ModelManager(new ReimbursementList());
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
 
@@ -111,7 +109,7 @@ public class CommandTest {
 
 
     @Test
-    public void deadline_command_test() {
+    public void execute_deadlineCommand() {
         Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
         ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice));
@@ -135,7 +133,7 @@ public class CommandTest {
     }
 
     @Test
-    public void done_command_test() {
+    public void execute_doneCommand() {
 
         Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
@@ -152,14 +150,14 @@ public class CommandTest {
         } catch (Exception e) {
             fail();
         }
-        CommandResult expectedResult
-                = new CommandResult(String.format(MESSAGE_DONE_REIMBURSEMENT, reimbursementAlice.toString()));
+        CommandResult expectedResult =
+                new CommandResult(String.format(MESSAGE_DONE_REIMBURSEMENT, reimbursementAlice.toString()));
 
         assertEquals(expectedResult, commandResult);
     }
 
     @Test
-    public void find_command_test() {
+    public void execute_findCommand() {
         Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
         Reimbursement reimbursementAlice = new Reimbursement(transactionAlice);
         ArrayList<Reimbursement> arrList = new ArrayList<>(Arrays.asList(reimbursementAlice));
@@ -175,9 +173,9 @@ public class CommandTest {
         } catch (Exception e) {
             fail();
         }
-        CommandResult expectedResult
-                = new CommandResult(String.format(MESSAGE_FIND_REIMBURSEMENT,
-                reimbursementAlice.getPerson().getName().toString(), reimbursementAlice.toString()));
+        CommandResult expectedResult =
+                new CommandResult(String.format(MESSAGE_FIND_REIMBURSEMENT,
+                        reimbursementAlice.getPerson().getName().toString(), reimbursementAlice.toString()));
         assertEquals(expectedResult, commandResult);
     }
 }
