@@ -22,6 +22,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.listeners.UserOutputListener;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 import seedu.address.ui.panel.list.ListPanel;
@@ -31,7 +33,7 @@ import seedu.address.ui.panel.log.LogPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
+public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener, TaskListListener {
     public static final int WIDTH_PADDING = 20;
     private static final String FXML = "MainWindow.fxml";
 
@@ -240,9 +242,15 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
-        this.listPanel.onEventListChange(events);
-        this.calendarPanel.onEventListChange(events);
+    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.listPanel.onEventListChange(events, tasks);
+        this.calendarPanel.onEventListChange(events, tasks);
+    }
+
+    @Override
+    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.listPanel.onTaskListChange(events, tasks);
+        this.calendarPanel.onTaskListChange(events, tasks);
     }
 
     @Override

@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 
@@ -17,7 +19,7 @@ import seedu.address.ui.UiPart;
  * An Ui that represents a Panel that contains all the components to make a calendar view. This includes
  * a Timeline, Calendar, and the Details of an event.
  */
-public class CalendarPanel extends UiPart<Region> implements EventListListener {
+public class CalendarPanel extends UiPart<Region> implements EventListListener, TaskListListener {
 
     private static final String FXML = "CalendarPanel.fxml";
 
@@ -91,7 +93,12 @@ public class CalendarPanel extends UiPart<Region> implements EventListListener {
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
-        this.timelineDayView.onEventListChange(events);
+    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.timelineDayView.onEventListChange(events, tasks);
+    }
+
+    @Override
+    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
+        this.timelineDayView.onTaskListChange(events, tasks);
     }
 }

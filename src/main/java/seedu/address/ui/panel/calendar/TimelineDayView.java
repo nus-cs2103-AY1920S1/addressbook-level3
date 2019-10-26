@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.EventCard;
 import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
@@ -20,7 +22,7 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays the feedback to the user.
  */
-public class TimelineDayView extends UiPart<Region> implements EventListListener {
+public class TimelineDayView extends UiPart<Region> implements EventListListener, TaskListListener {
 
     private static final String FXML = "TimelineDayView.fxml";
     private static final Integer SPACING = 62;
@@ -188,7 +190,7 @@ public class TimelineDayView extends UiPart<Region> implements EventListListener
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
+    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
         resetTimeline();
         for (EventSource event : events) {
             if (sameDay(event)) {
@@ -196,4 +198,11 @@ public class TimelineDayView extends UiPart<Region> implements EventListListener
             }
         }
     }
+
+    /* =======================================To be implemented========================================== */
+    @Override
+    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
+
+    }
+
 }
