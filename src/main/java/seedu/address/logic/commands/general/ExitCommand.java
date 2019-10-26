@@ -21,7 +21,7 @@ public class ExitCommand extends Command {
 
     @Override
     protected CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false, false, PanelName.CURRENT);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, null, false, true, false, PanelName.CURRENT);
     }
 
 }

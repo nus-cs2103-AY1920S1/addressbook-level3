@@ -320,13 +320,10 @@ public class ModelManager implements Model {
 
     //=========== Statistics ================================================================================
 
-    //temporary support the compareStats first
     @Override
-    public String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
+    public Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
         ObservableList<Expense> statsExpenses = getFilteredExpenseList();
-        Statistics statistics = Statistics.startStatistics(statsExpenses);
-        this.statsBuilder = statistics.calculateStats(command, date1, date2, period);
-        return statsBuilder.toString();
+        return Statistics.calculateStats(statsExpenses, command, date1, date2, period);
     }
 
     @Override

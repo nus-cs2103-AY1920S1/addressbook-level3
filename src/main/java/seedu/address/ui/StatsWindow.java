@@ -5,13 +5,17 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.statistics.TableEntry;
 
 /**
  * Controller for a stats page
@@ -23,31 +27,25 @@ public class StatsWindow extends UiPart<Stage> {
 
     private static final String FXML = "StatsWindow.fxml";
 
-    @FXML
-    private final ObservableList<PieChart.Data> details = FXCollections.observableArrayList();
-
-    private BorderPane root;
-
-    private PieChart pieChart;
-
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatsWindow(Stage root) {
+    private StatsWindow(Stage root) {
         super(FXML, root);
         root.sizeToScene();
     }
 
     /**
-     * Creates a new StatsWindow
+     * Creates a new StatsWindow meant for PieChartStatistics
      */
-
-    public StatsWindow(List<String> names, List<Double> percentages, String title) {
+    StatsWindow(List<String> names, List<Double> percentages, String title) {
         this(new Stage());
         Stage primaryStage = getRoot();
         primaryStage.setTitle(title);
+
+        ObservableList<PieChart.Data> details = FXCollections.observableArrayList();
 
         for (int i = 0; i < names.size(); i++) {
             String name = names.get(i);
@@ -58,7 +56,7 @@ public class StatsWindow extends UiPart<Stage> {
         BorderPane borderPane = new BorderPane();
         Scene scene = new Scene(borderPane, 600, 500);
 
-        pieChart = new PieChart();
+        PieChart pieChart = new PieChart();
         pieChart.setData(details);
         pieChart.setTitle(title);
         pieChart.setLegendSide(Side.BOTTOM);
@@ -71,6 +69,49 @@ public class StatsWindow extends UiPart<Stage> {
 
         primaryStage.setScene(scene);
     }
+
+
+    /**
+     * Creates a new StatsWindow meant for TabularStatistics
+     */
+    StatsWindow(String title, List<TableEntry> rows) {
+        this(new Stage());
+        Stage primaryStage = getRoot();
+        primaryStage.setTitle(title);
+
+        TableColumn<TableEntry, String> nameColumn = new TableColumn<>("Category");
+        nameColumn.setMinWidth(200);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<TableEntry, String>("name"));
+
+        TableColumn<TableEntry, String> amountColumn = new TableColumn<>("Amount");
+        amountColumn.setMinWidth(200);
+        amountColumn.setCellValueFactory(new PropertyValueFactory<TableEntry, String>("amount"));
+
+        TableColumn<TableEntry, String> frequencyColumn = new TableColumn<>("Frequency");
+        frequencyColumn.setMinWidth(200);
+        frequencyColumn.setCellValueFactory(new PropertyValueFactory<TableEntry, String>("numEntries"));
+
+        TableView<TableEntry> table = new TableView<>();
+        table.setItems(getTableEntries(rows));
+
+
+
+        table.getColumns().addAll(nameColumn, amountColumn, frequencyColumn);
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(table);
+
+        Scene scene = new Scene(vBox);
+        primaryStage.setScene(scene);
+    }
+
+    private ObservableList<TableEntry> getTableEntries(List<TableEntry> rows) {
+        ObservableList<TableEntry> result = FXCollections.observableArrayList();
+        result.addAll(rows);
+        return result;
+    }
+
+
 
     /**
      * Shows the help window.
@@ -90,7 +131,7 @@ public class StatsWindow extends UiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show() {
+    void show() {
         logger.fine("Showing stats page about the application.");
         getRoot().show();
         getRoot().centerOnScreen();
@@ -99,7 +140,7 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Returns true if the stats window is currently being shown.
      */
-    public boolean isShowing() {
+    boolean isShowing() {
         return getRoot().isShowing();
     }
 
@@ -113,7 +154,7 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Focuses on the stats window.
      */
-    public void focus() {
+    void focus() {
         getRoot().requestFocus();
     }
 }

@@ -9,10 +9,10 @@ import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CLAIMABLE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_DISCOUNTED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CLAIMABLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -103,7 +103,7 @@ public class EditCommandParserTest {
         EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_CHICKEN)
                 .withPrice(VALID_PRICE_TRANSPORT)
-                .withCategory(VALID_TAG_CLAIMABLE).build();
+                .withCategory(VALID_CATEGORY_FOOD).build();
 
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -140,7 +140,7 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_CLAIMABLE;
-        descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_TAG_CLAIMABLE).build();
+        descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_FOOD).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

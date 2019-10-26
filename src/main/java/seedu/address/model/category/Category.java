@@ -3,14 +3,26 @@ package seedu.address.model.category;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Represents a Category in the MooLah.
  * Guarantees: immutable; name is valid as declared in {@link #isValidCategoryName(String)}
  */
 public class Category {
 
-    public static final String MESSAGE_CONSTRAINTS = "Category names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Category should only be one of the following: FOOD, TRAVEL, TRANSPORT, SHOPPING, UTILITIES, "
+                    + "HEALTHCARE, ENTERTAINMENT, EDUCATION, OTHERS.";
+
+    private static List<String> validCategories = List.of("FOOD", "TRAVEL", "TRANSPORT", "SHOPPING", "UTILITIES",
+            "HEALTHCARE", "ENTERTAINMENT", "EDUCATION", "OTHERS");
+
+    private static final String VALIDATION_REGEX = "\\p{Alnum}+";
+
     private final String categoryName;
 
     /**
@@ -21,18 +33,30 @@ public class Category {
     public Category(String categoryName) {
         requireNonNull(categoryName);
         checkArgument(isValidCategoryName(categoryName), MESSAGE_CONSTRAINTS);
-        this.categoryName = categoryName;
+        this.categoryName = categoryName.toUpperCase();
     }
 
     public String getCategoryName() {
         return categoryName;
     }
 
+    public static int indexOfInList(Category test) {
+        return validCategories.indexOf(test.categoryName.toUpperCase());
+    }
+
+
     /**
      * Returns true if a given string is a valid category name.
      */
     public static boolean isValidCategoryName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && validCategories.contains(test.toUpperCase());
+    }
+
+    public static List<Category> getValidCategories() {
+        return validCategories
+                .stream()
+                .map(Category::new)
+                .collect(Collectors.toList());
     }
 
     @Override

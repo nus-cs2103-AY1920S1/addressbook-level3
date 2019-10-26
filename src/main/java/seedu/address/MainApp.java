@@ -66,13 +66,11 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        timekeeper = new Timekeeper(model);
+        logic = new LogicManager(model, storage);
 
-        timekeeper.refreshBudgets();
+        timekeeper = new Timekeeper(logic);
 
-        logic = new LogicManager(model, storage, timekeeper);
-
-        ui = new UiManager(logic);
+        ui = new UiManager(logic, timekeeper);
     }
 
     /**

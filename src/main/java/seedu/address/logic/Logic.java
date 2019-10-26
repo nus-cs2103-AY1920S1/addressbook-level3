@@ -26,10 +26,6 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    String displayReminders();
-
-    List<Event> getTranspiredEvents();
-
     StringBuilder getBasicStatistics();
 
     /**
@@ -41,6 +37,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of expenses */
     ObservableList<Expense> getFilteredExpenseList();
+
+    /** Returns an unmodifiable view of the filtered list of events */
+    ObservableList<Event> getFilteredEventList();
 
     /** Returns an unmodifiable view of the filtered list of budgets */
     ObservableList<Budget> getFilteredBudgetList();
@@ -63,4 +62,5 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
 
+    void deleteTranspiredEvents(List<Event> eventsToBeRemoved);
 }

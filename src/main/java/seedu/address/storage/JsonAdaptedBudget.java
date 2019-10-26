@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -69,8 +70,8 @@ class JsonAdaptedBudget {
         requireNonNull(source);
         description = source.getDescription().fullDescription;
         amount = source.getAmount().value;
-        startDate = source.getStartDate().toString();
-        endDate = source.getEndDate().toString();
+        startDate = source.getStartDate().getFullTimestamp().toString();
+        endDate = source.getEndDate().getFullTimestamp().toString();
         period = ParserUtil.formatPeriod(source.getPeriod());
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
@@ -112,20 +113,23 @@ class JsonAdaptedBudget {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
-        if (Timestamp.createTimestampIfValid(startDate).isEmpty()) {
+
+        Optional<Timestamp> potentialStartDate = Timestamp.createTimestampFromStorage(startDate);
+        if (potentialStartDate.isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
-        final Timestamp modelStartDate = Timestamp.createTimestampIfValid(startDate).get();
-
+        final Timestamp modelStartDate = potentialStartDate.get();
 
         if (endDate == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Timestamp.class.getSimpleName()));
         }
-        if (Timestamp.createTimestampIfValid(endDate).isEmpty()) {
+
+        Optional<Timestamp> potentialEndDate = Timestamp.createTimestampFromStorage(endDate);
+        if (potentialEndDate.isEmpty()) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
-        final Timestamp modelEndDate = Timestamp.createTimestampIfValid(endDate).get();
+        final Timestamp modelEndDate = potentialEndDate.get();
 
         if (period == null) {
             throw new IllegalValueException(

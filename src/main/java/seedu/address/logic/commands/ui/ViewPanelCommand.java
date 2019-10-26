@@ -44,7 +44,8 @@ public class ViewPanelCommand extends Command {
 
     @Override
     protected CommandResult execute(Model model) throws CommandException {
-        return new CommandResult("Now Showing: " + panelName.toString(), false, false, false, true, panelName);
+        return new CommandResult("Now Showing: " + panelName.toString(), null, false, false, true, panelName);
+
     }
 
 }

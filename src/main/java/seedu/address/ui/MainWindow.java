@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -13,6 +15,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -30,7 +33,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Timekeeper;
 import seedu.address.model.expense.Event;
+import seedu.address.model.statistics.PieChartStatistics;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.TabularStatistics;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
@@ -51,6 +58,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Timekeeper timekeeper;
+    private Timer timer;
 
     // Panel Manager which manages which panel(extending UiPart Region) is displayed.
     private SinglePanelView singlePanelView;
@@ -75,12 +84,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic, Timekeeper timekeeper, Timer timer) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.timekeeper = timekeeper;
+        this.timer = timer;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -257,8 +268,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void displayStats(CommandResult commandResult) {
-        this.statsWindow = new StatsWindow(commandResult.getNames(),
-                commandResult.getPercentages(), commandResult.getTitle());
+        Statistics currentStats = commandResult.getStatistics();
+        if (currentStats instanceof PieChartStatistics) {
+            this.statsWindow = new StatsWindow(commandResult.getNames(),
+                    commandResult.getPercentages(), commandResult.getTitle());
+        } else if (currentStats instanceof TabularStatistics) {
+            this.statsWindow = new StatsWindow(commandResult.getTitle(), commandResult.getDifferenceTable());
+        }
+        requireNonNull(statsWindow);
         if (!statsWindow.isShowing()) {
             statsWindow.show();
         } else {
@@ -281,6 +298,8 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        timer.cancel();
+        timer.purge();
     }
 
     /**
@@ -329,7 +348,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays Reminders of the user's upcoming Events.
      */
     public void displayReminders() {
-        resultDisplay.setFeedbackToUser(logic.displayReminders());
+        resultDisplay.setFeedbackToUser(timekeeper.displayReminders());
     }
 
     /**
@@ -337,9 +356,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleTranspiredEvents() {
-        List<Event> transpiredEvents = logic.getTranspiredEvents();
+        List<Event> transpiredEvents = timekeeper.getTranspiredEvents();
         for (Event event : transpiredEvents) {
-            new TranspiredEventsWindow(logic).show(event);
+            TranspiredEventsWindow eventWindow = new TranspiredEventsWindow(logic);
+            eventWindow.show(event);
         }
     }
 }

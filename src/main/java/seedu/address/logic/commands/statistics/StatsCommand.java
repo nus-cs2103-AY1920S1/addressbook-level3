@@ -4,12 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import javafx.collections.ObservableList;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.ui.panel.PanelName;
@@ -21,7 +18,7 @@ public class StatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
 
-    public static final String MESSAGE_SUCCESS = "Statistics Calculated!";
+    public static final String MESSAGE_SUCCESS = "Pie Chart calculated!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Calculates statistics between the Start Date and End Date "
@@ -51,19 +48,11 @@ public class StatsCommand extends Command {
         requireNonNull(model);
     }
 
-
-    //Code Quality can be improved after all commands are implemented
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-
-        ObservableList<Expense> statsExpenses = model.getFilteredExpenseList();
-        Statistics statistics = Statistics.startStatistics(statsExpenses);
-        String statsResult = statistics.calculateStats(COMMAND_WORD, startDate, endDate, null).toString();
-
-        return new CommandResult(statsResult, false, false, true, false, PanelName.CURRENT,
-                statistics.getFormattedCategories(), statistics.getFormattedPercentages(),
-                statistics.getTitle());
+        Statistics statistics = model.calculateStatistics(COMMAND_WORD, startDate, endDate, null);
+        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, false, PanelName.CURRENT);
     }
 
     @Override

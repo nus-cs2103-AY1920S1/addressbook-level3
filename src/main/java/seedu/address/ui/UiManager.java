@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -11,6 +13,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.model.Timekeeper;
 
 /**
  * The manager of the UI component.
@@ -22,11 +25,15 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/moolah.png";
 
     private Logic logic;
+    private Timekeeper timekeeper;
+    private Timer timer;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, Timekeeper timekeeper) {
         super();
         this.logic = logic;
+        this.timekeeper = timekeeper;
+        this.timer = new Timer();
     }
 
     @Override
@@ -37,11 +44,25 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, timekeeper, timer);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+
             mainWindow.displayReminders();
-            mainWindow.handleTranspiredEvents();
+
+            long interval = 10000;
+
+            timer.schedule(new TimerTask() {
+                public void run() {
+                    timekeeper.updateTime();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            mainWindow.handleTranspiredEvents();
+                        }
+                    });
+                }
+            }, 0, interval);
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

@@ -93,8 +93,8 @@ public class BudgetCard extends UiPart<Region> {
     }
 
     private void updateBudgetCardPeriod() {
-        budgetStart.setText(budget.getStartDate().timestamp.format(formatter));
-        budgetEnd.setText(budget.getEndDate().timestamp.format(formatter));
+        budgetStart.setText(budget.getStartDate().fullTimestamp.format(formatter));
+        budgetEnd.setText(budget.getEndDate().fullTimestamp.format(formatter));
     }
 
     private void updateBudgetCardDescription() {

@@ -2,7 +2,7 @@ package seedu.address.model.budget;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Budget {
     //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
     private static final Price DEFAULT_BUDGET_AMOUNT = new Price("999999999999999999999");
     //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
-    private static final Timestamp DEFAULT_BUDGET_START_DATE = new Timestamp(LocalDate.of(2000, 1, 1));
+    private static final Timestamp DEFAULT_BUDGET_START_DATE = new Timestamp(LocalDateTime.of(2000, 1, 1, 0, 0));
     //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
     private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(999);
     //private static final boolean DEFAULT_BUDGET_IS_PRIMARY = true;
@@ -182,8 +182,8 @@ public class Budget {
      */
     public void refresh(Timestamp date) {
         assert expired(date) : "Budget is refreshed only when expired";
-        long daysDiff = ChronoUnit.DAYS.between(endDate.getTimestamp(), date.getTimestamp());
-        long periodDays = ChronoUnit.DAYS.between(startDate.getTimestamp(), endDate.getTimestamp());
+        long daysDiff = ChronoUnit.DAYS.between(endDate.getFullTimestamp(), date.getFullTimestamp());
+        long periodDays = ChronoUnit.DAYS.between(startDate.getFullTimestamp(), endDate.getFullTimestamp());
         long cycles = daysDiff / periodDays;
         long offset = cycles * periodDays;
         startDate = endDate.plusDays(offset);

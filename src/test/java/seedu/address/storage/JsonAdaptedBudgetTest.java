@@ -30,8 +30,8 @@ public class JsonAdaptedBudgetTest {
 
     private static final String INVALID_DESCRIPTION = "sch@@l related expenses";
     private static final String INVALID_AMOUNT = "-200";
-    private static final String INVALID_START_DATE = "2019-10-01";
-    private static final String INVALID_END_DATE = "2019-11-01";
+    private static final String INVALID_START_DATE = "blah";
+    private static final String INVALID_END_DATE = "bleh";
     private static final String INVALID_PERIOD = "dfa";
     private static final String INVALID_PROPORTION_USED = "125%";
 

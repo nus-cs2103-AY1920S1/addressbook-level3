@@ -25,13 +25,13 @@ public class SampleDataUtil {
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
             new Expense(new Description("Chickens"), new Price("30"),
-                    getCategory("friends"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+                    getCategory("food"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
             new Expense(new Description("David Li"), new Price("15000"),
-                    getCategory("family"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+                    getCategory("others"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
             new Expense(new Description("Invite only Chicken Event"), new Price("1000"),
-                    getCategory("chickenNetworking"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
+                    getCategory("Food"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier()),
             new Expense(new Description("Chicken Rice extra Chicken"), new Price("15"),
-                    getCategory("nusDeck"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier())
+                    getCategory("Food"), UniqueIdentifierGenerator.generateRandomUniqueIdentifier())
         };
     }
 

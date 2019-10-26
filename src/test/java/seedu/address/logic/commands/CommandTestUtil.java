@@ -34,8 +34,8 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_TRANSPORT = "Taxi to work";
     public static final String VALID_PRICE_CHICKEN = "11111.11";
     public static final String VALID_PRICE_TRANSPORT = "222,22222";
-    public static final String VALID_TAG_CLAIMABLE = "toClaimFromWork";
-    public static final String VALID_TAG_DISCOUNTED = "usedCouponCode";
+    public static final String VALID_CATEGORY_FOOD = "FoOd";
+    public static final String VALID_CATEGORY_TRANSPORT = "transport";
     public static final String VALID_UNIQUE_IDENTIFIER = "Expense@12341234-1234-1234-1234-123412341234";
 
     public static final String VALID_DESCRIPTION_SCHOOL = "school related expenses";
@@ -47,8 +47,8 @@ public class CommandTestUtil {
     public static final String DESCRIPTION_DESC_TRANSPORT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TRANSPORT;
     public static final String PRICE_DESC_CHICKEN = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN;
     public static final String PRICE_DESC_TRANSPORT = " " + PREFIX_PRICE + VALID_PRICE_TRANSPORT;
-    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_CATEGORY + VALID_TAG_CLAIMABLE;
-    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_CATEGORY + VALID_TAG_DISCOUNTED;
+    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_CATEGORY + VALID_CATEGORY_FOOD;
+    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_CATEGORY + VALID_CATEGORY_TRANSPORT;
 
     public static final String DESCRIPTION_DESC_SCHOOL = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SCHOOL;
     public static final String AMOUNT_DESC_SCHOOL = " " + PREFIX_PRICE + VALID_AMOUNT_SCHOOL;
@@ -81,7 +81,7 @@ public class CommandTestUtil {
     static {
         DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHICKEN)
                 .withPrice(VALID_PRICE_CHICKEN)
-                .withCategory(VALID_TAG_DISCOUNTED).build();
+                .withCategory(VALID_CATEGORY_TRANSPORT).build();
     }
 
     /**

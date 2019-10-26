@@ -40,8 +40,8 @@ public class LogicManagerTest {
                 new JsonMooLahStorage(temporaryFolder.resolve("moolah.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(mooLahStorage, userPrefsStorage);
-        Timekeeper timekeeper = new Timekeeper(model);
-        logic = new LogicManager(model, storage, timekeeper);
+        logic = new LogicManager(model, storage);
+        Timekeeper timekeeper = new Timekeeper(logic);
     }
 
     @Test
