@@ -140,7 +140,7 @@ The viewHistory command extends the Command class. It calls methods from the Sta
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewHistory typ/Expense")` API call.
 
 .Interactions Inside the Logic Component for the `viewHistory typ/Expense` Command
-image::ViewHistorySequenceDiagram.png[]
+image::viewHistorySequenceDiagram.png[]
 
 === Toggle Panel Command
 
