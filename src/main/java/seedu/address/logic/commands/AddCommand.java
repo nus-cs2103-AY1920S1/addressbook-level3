@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithMergeException;
 import seedu.address.logic.commands.exceptions.DuplicatePersonWithoutMergeException;
+import seedu.address.logic.commands.merge.MergePersonCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -28,7 +29,7 @@ public class AddCommand extends Command {
         + PREFIX_PHONE + "PHONE "
         + PREFIX_EMAIL + "EMAIL "
         + PREFIX_ADDRESS + "ADDRESS "
-        + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH"
+        + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
         + PREFIX_GENDER + "GENDER\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
@@ -89,6 +90,7 @@ public class AddCommand extends Command {
         exceptionMessage.append(original.toString() + NEW_LINE);
         exceptionMessage.append(String.format(MESSAGE_INPUT_INFORMATION_HEADER, toAdd.toString()) + NEW_LINE);
         exceptionMessage.append(DUPLICATE_PERSON_MERGE_PROMPT);
+        exceptionMessage.append(MergePersonCommand.MERGE_INSTRUCTIONS);
         return exceptionMessage.toString();
     }
 

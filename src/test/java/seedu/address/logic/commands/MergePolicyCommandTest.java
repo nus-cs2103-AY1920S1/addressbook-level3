@@ -35,8 +35,9 @@ public class MergePolicyCommandTest {
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
         CommandResult commandResult = new MergePolicyCommand(inputPolicy).execute(modelStub);
         assertEquals(String.format(MergePolicyCommand.MERGE_COMMAND_PROMPT, Description.DATA_TYPE)
-                + "\n" + MergePolicyCommand.ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
-                + MergePolicyCommand.INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE,
+            + "\n" + MergePolicyCommand.MERGE_ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
+            + MergePolicyCommand.MERGE_INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE
+            + MergePolicyCommand.MERGE_INSTRUCTIONS,
             commandResult.getFeedbackToUser());
     }
 
@@ -48,8 +49,9 @@ public class MergePolicyCommandTest {
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
         CommandResult commandResult = new MergePolicyCommand(inputPolicy).execute(modelStub);
         assertEquals(String.format(MergePolicyCommand.MERGE_COMMAND_PROMPT, Description.DATA_TYPE)
-                + "\n" + MergePolicyCommand.ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
-                + MergePolicyCommand.INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE,
+            + "\n" + MergePolicyCommand.MERGE_ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
+            + MergePolicyCommand.MERGE_INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE
+            + MergePolicyCommand.MERGE_INSTRUCTIONS,
             commandResult.getFeedbackToUser());
     }
 

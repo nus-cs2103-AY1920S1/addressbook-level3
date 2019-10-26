@@ -107,8 +107,9 @@ public class MergePolicyRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Description.DATA_TYPE) + "\n")
-                .append(ORIGINAL_HEADER + originalPolicy.getDescription().description + "\n")
-                .append(INPUT_HEADER + super.getInputPolicy().getDescription().description);
+                .append(MERGE_ORIGINAL_HEADER + originalPolicy.getDescription().description + "\n")
+                .append(MERGE_INPUT_HEADER + super.getInputPolicy().getDescription().description)
+                .append(MERGE_INSTRUCTIONS);
             return mergePrompt.toString();
         }
 
@@ -156,8 +157,9 @@ public class MergePolicyRejectedCommandTest {
         public String getNextMergePrompt() {
             StringBuilder mergePrompt = new StringBuilder();
             mergePrompt.append(String.format(MERGE_COMMAND_PROMPT, Coverage.DATA_TYPE) + "\n")
-                .append(ORIGINAL_HEADER + originalPolicy.getCoverage().coverage + "\n")
-                .append(INPUT_HEADER + super.getInputPolicy().getCoverage().coverage);
+                .append(MERGE_ORIGINAL_HEADER + originalPolicy.getCoverage().coverage + "\n")
+                .append(MERGE_INPUT_HEADER + super.getInputPolicy().getCoverage().coverage)
+                .append(MERGE_INSTRUCTIONS);
             return mergePrompt.toString();
         }
 
