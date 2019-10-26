@@ -8,9 +8,9 @@ import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.logic.commands.recipe.AddRecipeCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
-import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class AddRecipeCommandParserTest {
@@ -74,7 +74,7 @@ public class AddRecipeCommandParserTest {
                 + CommandTestUtil.INGREDIENT_DESC_BURGER
                 + CommandTestUtil.CALORIES_DESC_BURGER + CommandTestUtil.CARBS_DESC_BURGER
                 + CommandTestUtil.FATS_DESC_BURGER
-                + CommandTestUtil.PROTEIN_DESC_BURGER, Name.MESSAGE_CONSTRAINTS);
+                + CommandTestUtil.PROTEIN_DESC_BURGER, RecipeName.MESSAGE_CONSTRAINTS);
 
         // invalid ingredient
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.NAME_DESC_BURGER
@@ -88,7 +88,7 @@ public class AddRecipeCommandParserTest {
                 + CommandTestUtil.INVALID_INGREDIENT_DESC
                 + CommandTestUtil.CALORIES_DESC_BURGER + CommandTestUtil.CARBS_DESC_BURGER
                 + CommandTestUtil.FATS_DESC_BURGER
-                + CommandTestUtil.PROTEIN_DESC_BURGER, Name.MESSAGE_CONSTRAINTS);
+                + CommandTestUtil.PROTEIN_DESC_BURGER, RecipeName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.PREAMBLE_NON_EMPTY

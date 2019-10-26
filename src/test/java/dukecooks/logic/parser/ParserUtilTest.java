@@ -20,6 +20,7 @@ import dukecooks.model.common.Name;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.recipe.components.Ingredient;
+import dukecooks.model.recipe.components.RecipeName;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -94,6 +95,29 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseRecipeName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRecipeName((String) null));
+    }
+
+    @Test
+    public void parseRecipeName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRecipeName(INVALID_NAME));
+    }
+
+    @Test
+    public void parseRecipeName_validValueWithoutWhitespace_returnsName() throws Exception {
+        RecipeName expectedName = new RecipeName(VALID_NAME);
+        assertEquals(expectedName, ParserUtil.parseRecipeName(VALID_NAME));
+    }
+
+    @Test
+    public void parseRecipeName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
+        RecipeName expectedName = new RecipeName(VALID_NAME);
+        assertEquals(expectedName, ParserUtil.parseRecipeName(nameWithWhitespace));
     }
 
     @Test

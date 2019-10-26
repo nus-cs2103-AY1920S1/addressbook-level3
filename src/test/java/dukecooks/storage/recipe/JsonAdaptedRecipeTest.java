@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Protein;
+import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.testutil.Assert;
 
 public class JsonAdaptedRecipeTest {
@@ -45,7 +45,7 @@ public class JsonAdaptedRecipeTest {
         JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(INVALID_NAME, VALID_INGREDIENTS,
                         VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
+        String expectedMessage = RecipeName.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
@@ -54,7 +54,7 @@ public class JsonAdaptedRecipeTest {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(null, VALID_INGREDIENTS,
                 VALID_CALORIES, VALID_CARBS, VALID_FATS, VALID_PROTEIN);
         String expectedMessage = String.format(JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT,
-                Name.class.getSimpleName());
+                RecipeName.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 

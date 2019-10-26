@@ -52,7 +52,7 @@ public class EditRecipeCommandParser implements Parser<EditRecipeCommand> {
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editRecipeDescriptor.setName(ParserUtil.parseRecipeName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
             editRecipeDescriptor.setCalories(ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get()));

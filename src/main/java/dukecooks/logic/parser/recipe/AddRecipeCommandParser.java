@@ -18,13 +18,13 @@ import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.ParserUtil;
 import dukecooks.logic.parser.Prefix;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object
@@ -47,7 +47,7 @@ public class AddRecipeCommandParser implements Parser<AddRecipeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRecipeCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        RecipeName name = ParserUtil.parseRecipeName(argMultimap.getValue(PREFIX_NAME).get());
         Set<Ingredient> ingredientList = ParserUtil.parseIngredients(argMultimap.getAllValues(PREFIX_INGREDIENT));
         Calories calories = ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get());
         Carbs carbs = ParserUtil.parseCarbs(argMultimap.getValue(PREFIX_CARBS).get());

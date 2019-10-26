@@ -21,13 +21,13 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
-import dukecooks.model.common.Name;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 
 /**
  * Edits the details of an existing recipe in Duke Cooks.
@@ -96,7 +96,7 @@ public class EditRecipeCommand extends EditCommand {
     private static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         assert recipeToEdit != null;
 
-        Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
+        RecipeName updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Calories updatedCalories = editRecipeDescriptor.getCalories().orElse(recipeToEdit.getCalories());
         Carbs updatedCarbs = editRecipeDescriptor.getCarbs().orElse(recipeToEdit.getCarbs());
         Fats updatedFats = editRecipeDescriptor.getFats().orElse(recipeToEdit.getFats());
@@ -147,7 +147,7 @@ public class EditRecipeCommand extends EditCommand {
      * corresponding field value of the recipe.
      */
     public static class EditRecipeDescriptor {
-        private Name name;
+        private RecipeName name;
         private Calories calories;
         private Carbs carbs;
         private Fats fats;
@@ -179,7 +179,7 @@ public class EditRecipeCommand extends EditCommand {
                     calories, carbs, fats, protein);
         }
 
-        public void setName(Name name) {
+        public void setName(RecipeName name) {
             this.name = name;
         }
 
@@ -199,7 +199,7 @@ public class EditRecipeCommand extends EditCommand {
             this.protein = protein;
         }
 
-        public Optional<Name> getName() {
+        public Optional<RecipeName> getName() {
             return Optional.ofNullable(name);
         }
 
