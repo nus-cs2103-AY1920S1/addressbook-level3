@@ -123,7 +123,7 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
+    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
         /*
         Ignores the EventList when it is equal to getCurrentState().
         This will be true every undo/redo.
@@ -135,11 +135,11 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
         }
 
         clearFutureHistory();
-        commit(new UndoRedoState(events));
+        commit(new UndoRedoState(events, tasks));
     }
 
     @Override
-    public void onTaskListChange(List<TaskSource> tasks) {
+    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
         /*
         Ignores the TaskList when it is equal to getCurrentState().
         This will be true every undo/redo.
@@ -151,7 +151,7 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
         }
 
         clearFutureHistory();
-        commit(new UndoRedoState(tasks));
+        commit(new UndoRedoState(events, tasks));
     }
 
     @Override

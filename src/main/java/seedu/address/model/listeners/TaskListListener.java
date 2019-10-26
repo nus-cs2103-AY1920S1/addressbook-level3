@@ -2,6 +2,7 @@ package seedu.address.model.listeners;
 
 import java.util.List;
 
+import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 
 /**
@@ -9,6 +10,6 @@ import seedu.address.model.tasks.TaskSource;
  */
 public interface TaskListListener {
 
-    void onTaskListChange(List<TaskSource> tasks);
+    void onTaskListChange(List<EventSource> events, List<TaskSource> tasks);
 }
 
