@@ -19,18 +19,17 @@ By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-ORGANice is a desktop application for hospital administration staff +
-to manage organ transplants.
+This user guide explains how to use ORGANice to manage organ transplants.
+ORGANice is a desktop application for hospital administration staff who prefer
+to use Command Line Interface applications to manage organ transplants.
+
 With ORGANice, you can easily do the following:
 
 * organise information about patients, doctors, and donors
 * find matches between organ donors and patients
 
-
-ORGANice is *optimized for those who prefer to work with a Command Line Interface* (CLI) +
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, +
-ORGANice can get your administration tasks done faster than traditional GUI apps. Interested? +
-Jump to the <<Quick Start>> to get started. Enjoy!
+If you are a hospital administrator and would like to use ORGANice, check out <<Quick Start>>
+to get started.
 
 == Quick Start
 
@@ -40,8 +39,8 @@ Below is a list of things to do to use the application:
 If not, install it link:{javaURL}[here].
 .  Download the latest `organice.jar` link:{repoURL}/releases[here].
 .  Copy the jar file to the folder you want to use as the home folder for your application.
-.  Double-click the file to start the application. The application should appear in a few seconds. The following screenshot +
-is a sample of how the application looks like:
+.  Double-click the file to start the application. The application should appear in a few seconds.
+The following screenshot is a sample of how the application looks like:
 +
 image::Ui.png[width="790"]
 +
@@ -54,12 +53,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-The following section describes the list of features and commands
-in this application. +
- +
+This section describes the list of features and commands
+in this application. Each feature is triggered by a command with a specific format. +
 
-The list below how the format of the commands should be interpreted:
-
+The list below explains how the format of the commands should be interpreted:
 ====
 *Command Format*
 
@@ -76,14 +73,14 @@ is also acceptable.
 ====
 
 
-=== List of Attributes
-
-In this application, a person's data is represented by attributes. Attributes
+In ORGANice, a person's data is represented by attributes. Attributes
 refer to personal particulars such as name, type of person and blood type. +
-
 
 The following list shows the list of attributes that can be specified for
 a person and the criteria for valid inputs:
+
+====
+*List of Attributes*:
 
 * n/**NAME**: the name of the person
 ** Applicable to: patients, doctors, donors
@@ -131,8 +128,11 @@ a person and the criteria for valid inputs:
 * exp/**EXPIRY** - expiry date of a donor's organ
 ** Applicable to: donors
 ** Valid input: a valid date in DD-MMM-YYYY format
+====
+
 
 === Viewing help : `help`
+This command allows the user to access the user guide to ORGANice.
 
 Format: `help`
 
@@ -140,10 +140,14 @@ Format: `help`
 
 Adds a patient, doctor, or donor to ORGANice with the attributes given, depending on what is specified.
 
-There are two ways to add a person:
+There are two methods to add a person:
 
-* Normal Add
-* Add with system prompting
+* Method 1: Normal Add
+* Method 2: Add with system prompting
+
+To understand how to add a person via the 'Normal Add' method, go to <<Normal Add>>.
+To understand how to add a person via the 'Add with system prompting' method, go to <<Add with system prompting>>.
+
 
 ==== Normal Add
 
@@ -162,7 +166,7 @@ After adding a person, ORGANice will display a form which contains the attribute
 the Enter key to confirm the details.
 
 [TIP]
-View <<List of Attributes>> to find out what each attribute mean.
+View the List of Attributes in the beginning of <<Features>> to find out what each attribute mean.
 
 Examples:
 
