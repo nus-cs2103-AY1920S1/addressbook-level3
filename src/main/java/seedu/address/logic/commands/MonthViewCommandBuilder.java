@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Map;
 
 import seedu.address.logic.UiManager;
-import seedu.address.logic.commands.arguments.DayMonthYearArgument;
+import seedu.address.logic.commands.arguments.MonthYearArgument;
 import seedu.address.logic.commands.arguments.list.ArgumentList;
 import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
 import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
@@ -12,21 +12,21 @@ import seedu.address.model.CalendarDate;
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
  */
-class DayViewCommandBuilder extends CommandBuilder {
+class MonthViewCommandBuilder extends CommandBuilder {
 
-    private static final String ARGUMENT_START_DATE_TIME = "START_DATE";
+    private static final String ARGUMENT_MONTH = "MONTH_YEAR";
 
     private CalendarDate start;
     private UiManager uiManager;
 
-    DayViewCommandBuilder(UiManager uiManager) {
+    MonthViewCommandBuilder(UiManager uiManager) {
         this.uiManager = uiManager;
     }
 
     @Override
     RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
-            .addArgument(DayMonthYearArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
+                .addArgument(MonthYearArgument.newBuilder(ARGUMENT_MONTH, o -> this.start = o));
     }
 
     @Override
@@ -44,6 +44,6 @@ class DayViewCommandBuilder extends CommandBuilder {
 
     @Override
     Command commandBuild() {
-        return new DayViewCommand(this);
+        return new MonthViewCommand(this);
     }
 }

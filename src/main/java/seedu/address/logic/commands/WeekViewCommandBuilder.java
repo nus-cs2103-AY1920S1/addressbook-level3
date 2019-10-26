@@ -12,21 +12,21 @@ import seedu.address.model.CalendarDate;
 /**
  * Represents a CommandBuilder responsible for creating {@link AddEventCommand}.
  */
-class DayViewCommandBuilder extends CommandBuilder {
+class WeekViewCommandBuilder extends CommandBuilder {
 
     private static final String ARGUMENT_START_DATE_TIME = "START_DATE";
 
     private CalendarDate start;
     private UiManager uiManager;
 
-    DayViewCommandBuilder(UiManager uiManager) {
+    WeekViewCommandBuilder(UiManager uiManager) {
         this.uiManager = uiManager;
     }
 
     @Override
     RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
-            .addArgument(DayMonthYearArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
+                .addArgument(DayMonthYearArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
     }
 
     @Override
@@ -44,6 +44,6 @@ class DayViewCommandBuilder extends CommandBuilder {
 
     @Override
     Command commandBuild() {
-        return new DayViewCommand(this);
+        return new WeekViewCommand(this);
     }
 }

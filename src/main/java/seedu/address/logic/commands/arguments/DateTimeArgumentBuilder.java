@@ -2,7 +2,7 @@ package seedu.address.logic.commands.arguments;
 
 import java.util.function.Consumer;
 
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 
 /**
  * Represents an ArgumentBuilder responsible for building {@link DateTimeArgument}

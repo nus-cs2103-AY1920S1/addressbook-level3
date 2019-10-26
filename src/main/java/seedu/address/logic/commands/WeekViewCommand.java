@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DAY_VIEW_SUCCESS;
+import static seedu.address.commons.core.Messages.MESSAGE_WEEK_VIEW_SUCCESS;
 
 import java.util.Objects;
 
@@ -11,23 +11,23 @@ import seedu.address.ui.UserOutput;
 /**
  * Represents a Command which adds an EventSource to the Model.
  */
-public class DayViewCommand extends Command {
+public class WeekViewCommand extends Command {
 
     private final CalendarDate calendarDate;
     private final UiManager uiManager;
 
-    DayViewCommand(DayViewCommandBuilder builder) {
+    WeekViewCommand(WeekViewCommandBuilder builder) {
         calendarDate = Objects.requireNonNull(builder.getStart());
         uiManager = Objects.requireNonNull(builder.getUiManager());
     }
 
     public static CommandBuilder newBuilder(UiManager uiManager) {
-        return new DayViewCommandBuilder(uiManager).init();
+        return new WeekViewCommandBuilder(uiManager).init();
     }
 
     @Override
     public UserOutput execute() {
-        uiManager.viewDay(calendarDate);
-        return new UserOutput(String.format(MESSAGE_DAY_VIEW_SUCCESS, calendarDate.toString()));
+        uiManager.viewWeek(calendarDate);
+        return new UserOutput(String.format(MESSAGE_WEEK_VIEW_SUCCESS, calendarDate.toString()));
     }
 }

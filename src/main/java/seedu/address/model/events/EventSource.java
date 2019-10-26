@@ -5,6 +5,8 @@ import static seedu.address.commons.util.IcsUtil.generateUid;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.DateTime;
+
 /**
  * Represents an EventSource in Horo.
  * It is immutable.
@@ -107,4 +109,5 @@ public class EventSource {
         icsStringBuilder.append("\n").append("END:VEVENT");
         return icsStringBuilder.toString();
     }
+
 }

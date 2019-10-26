@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.util.TimeZone;
 
 import seedu.address.ics.IcsException;
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
 
 /**
  * Helper functions for anything Ics related.
