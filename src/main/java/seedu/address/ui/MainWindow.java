@@ -67,7 +67,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        visitWindow = new VisitRecordWindow();
+        visitWindow = new VisitRecordWindow(windowEvent -> {
+            resultDisplay.setFeedbackToUser(visitWindow.getMessage());
+        });
         visitListPanel = new VisitListPanel();
         profilePanel = new ProfileWindow();
     }
@@ -248,6 +250,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isEditVisit()) {
                 visitWindow.setOldReportInfo(commandResult.getIdx(), commandResult.getReportIdx(),
                         commandResult.getOldReport(), logic);
+                if (visitListPanel.isShowing()) {
+                    visitListPanel.hide();
+                }
                 handleShowVisitForm();
             }
 
