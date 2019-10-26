@@ -50,6 +50,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_FILEPATH = new Prefix("file/");
     //END IF STATISTICS PREFIX
 
+    public static final Prefix PREFIX_ADD = new Prefix("add");
+    public static final Prefix PREFIX_EXPORT = new Prefix("export");
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
 
