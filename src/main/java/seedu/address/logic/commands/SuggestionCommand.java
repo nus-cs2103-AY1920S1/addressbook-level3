@@ -17,6 +17,9 @@ public class SuggestionCommand extends Command {
     public String arguments;
 
     public SuggestionCommand(String originalCommand, String suggestedCommand, String arguments) {
+        requireNonNull(originalCommand);
+        requireNonNull(suggestedCommand);
+        requireNonNull(arguments);
         this.originalCommand = originalCommand;
         this.suggestedCommand = suggestedCommand;
         this.arguments = arguments;
@@ -38,8 +41,12 @@ public class SuggestionCommand extends Command {
 
     private String generateSuggestedCommand() {
         StringBuilder message = new StringBuilder();
-        message.append(suggestedCommand + " " + arguments);
-        return message.toString();
+        if (arguments.length() == 0) {
+            return message.append(suggestedCommand).toString();
+        } else {
+            message.append(suggestedCommand + " " + arguments);
+            return message.toString();
+        }
     }
 
     @Override
