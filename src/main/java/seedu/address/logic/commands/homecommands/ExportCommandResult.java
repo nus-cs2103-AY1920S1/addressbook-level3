@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.homecommands;
 
-import seedu.address.storage.Storage;
-
 import java.nio.file.Path;
+
+import seedu.address.storage.Storage;
 
 /**
  * Represents the command result returned by {@code RemoveCommand}.

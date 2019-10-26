@@ -22,8 +22,6 @@ import seedu.address.commons.core.GuiSettings;
 
 public class ModelManagerTest {
 
-
-
     //    @Test
     //    public void constructor() {
     //        assertEquals(new UserPrefs(), modelManager.getUserPrefs());

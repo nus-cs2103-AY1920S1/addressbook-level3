@@ -5,8 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HomeCommand;
@@ -40,7 +38,6 @@ public class ImportCommand extends HomeCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-//        Path wordBankPath = Paths.get(this.directory.toString(), wordBankName);
 
         return new ImportCommandResult(String.format(MESSAGE_IMPORT_CARD_SUCCESS, wordBankName, directory),
                 this.directory.toPath(), wordBankName);

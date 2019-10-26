@@ -119,10 +119,6 @@ public class WordBank implements ReadOnlyWordBank {
         return getName().equals(other.getName());
     }
 
-//    public boolean isSameNameStringCheck(WordBank) {
-//        return getName().equals(other);
-//    }
-
     public String getName() {
         return name;
     }

@@ -46,7 +46,7 @@ public class ExportCommand extends HomeCommand {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
         }
 
-        return new ExportCommandResult(String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directory),
+        return new ExportCommandResult(String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directory.toString()),
                 wordBankName, directory.toPath());
     }
 

@@ -1,10 +1,10 @@
 package seedu.address.storage.wordbanks;
 
-import seedu.address.model.wordbank.WordBank;
-import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
-
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 
 /**
  * Represents a storage for {@link WordBank}.

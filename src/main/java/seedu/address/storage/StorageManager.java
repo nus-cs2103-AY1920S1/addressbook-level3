@@ -10,8 +10,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appsettings.AppSettings;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
@@ -22,7 +22,7 @@ import seedu.address.storage.userprefs.UserPrefsStorage;
 import seedu.address.storage.wordbanks.WordBankListStorage;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Dukemon data in local storage.
  */
 public class StorageManager implements Storage {
 

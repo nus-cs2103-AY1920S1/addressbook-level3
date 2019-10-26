@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.homecommands;
 
+import java.nio.file.Path;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.storage.Storage;
-
-import java.nio.file.Path;
 
 /**
  * Represents the command result returned by a home command.

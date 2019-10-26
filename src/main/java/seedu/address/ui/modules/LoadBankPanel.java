@@ -48,6 +48,11 @@ public class LoadBankPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Accepts the file
+     *
+     * @param event
+     */
     @FXML
     public void handleDragOver(DragEvent event) {
         if (event.getDragboard().hasFiles()) {
@@ -55,6 +60,11 @@ public class LoadBankPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Receives the file
+     *
+     * @param event
+     */
     @FXML
     public void handleDragDropped(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();

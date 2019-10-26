@@ -98,6 +98,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasWordBank(String name) {
+            return false;
+        }
+
+        @Override
+        public WordBank getWordBankFromName(String name) {
+            return null;
+        }
+
+        @Override
         public boolean gameIsOver() {
             return false;
         }
@@ -208,6 +218,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateWordBank(String name) {
+
+        }
+
+        @Override
         public WordBankStatistics getWordBankStatistics() {
             return null;
         }
@@ -269,11 +284,6 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCardList(Predicate<Card> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeWordBank() {
             throw new AssertionError("This method should not be called.");
         }
 

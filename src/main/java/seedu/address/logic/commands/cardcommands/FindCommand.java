@@ -23,12 +23,11 @@ public class FindCommand extends CardCommand {
 
     private final WordContainsKeywordsPredicate predicate;
 
-//    /**
-//     * Creates an edit command to edit the indexed card.
-//     *
-//     * @param index of the card in the filtered card list to edit.
-//     * @param editCardDescriptor details to edit the card with.
-//     */
+    /**
+     * Finds a card using the predicate.
+     *
+     * @param predicate that filters the list.
+     */
     public FindCommand(WordContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }

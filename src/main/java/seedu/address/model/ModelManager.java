@@ -31,8 +31,9 @@ import seedu.address.statistics.WordBankStatistics;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
-    private boolean hasBank = false;
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private boolean hasBank = false;
 
     private WordBank wordBank = SampleDataUtil.getSampleWordBank();
     private final WordBankList wordBankList;
@@ -293,7 +294,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
 
         filteredCards.setPredicate(predicate);
-//        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        //filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
 
     //=========== WordBankStatistics methods =============================================================

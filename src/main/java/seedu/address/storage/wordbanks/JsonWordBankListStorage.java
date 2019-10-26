@@ -158,6 +158,11 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         wbl.addBank(wordBank);
     }
 
+    /**
+     * Deletes a word bank from the storage and from the internal list.
+     *
+     * @param wordBank data. Cannot be null.
+     */
     private void deleteWordBank(WordBank wordBank) {
         Path filePath = Paths.get(wordBanksFilePath.toString(), wordBank.getName() + ".json");
         File toDelete = filePath.toFile();

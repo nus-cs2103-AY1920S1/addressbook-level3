@@ -9,9 +9,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.exceptions.DuplicateWordBankException;
 import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
-import seedu.address.model.wordbank.WordBank;
 
 /**
  * A list of word banks that enforces uniqueness between its elements and does not allow nulls.

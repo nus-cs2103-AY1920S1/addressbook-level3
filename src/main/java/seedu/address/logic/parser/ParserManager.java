@@ -32,10 +32,6 @@ import seedu.address.logic.commands.switches.HomeCommand;
 import seedu.address.logic.commands.switches.OpenCommand;
 import seedu.address.logic.commands.switches.StartCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
-import seedu.address.logic.parser.open.AddCommandParser;
-import seedu.address.logic.parser.open.DeleteCommandParser;
-import seedu.address.logic.parser.open.EditCommandParser;
-import seedu.address.logic.parser.open.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
 import seedu.address.logic.parser.home.BankCommandParser;
@@ -43,6 +39,10 @@ import seedu.address.logic.parser.home.CreateCommandParser;
 import seedu.address.logic.parser.home.ExportCommandParser;
 import seedu.address.logic.parser.home.ImportCommandParser;
 import seedu.address.logic.parser.home.RemoveCommandParser;
+import seedu.address.logic.parser.open.AddCommandParser;
+import seedu.address.logic.parser.open.DeleteCommandParser;
+import seedu.address.logic.parser.open.EditCommandParser;
+import seedu.address.logic.parser.open.FindCommandParser;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
 import seedu.address.logic.parser.settings.HintsCommandParser;
 import seedu.address.logic.parser.settings.ThemeCommandParser;
@@ -66,7 +66,7 @@ public class ParserManager {
     private SpecificModeParser switchParser;
     private SpecificModeParser currentParser;
 
-    public ParserManager () {
+    public ParserManager() {
         this.mode = ModeEnum.HOME;
         this.gameIsOver = true;
         this.switchParser = new SpecificModeParser();
