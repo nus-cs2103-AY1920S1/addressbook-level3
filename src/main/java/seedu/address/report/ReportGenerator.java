@@ -53,7 +53,8 @@ public class ReportGenerator {
                 if (body.getBodyStatus().isEmpty()) {
                     allBodiesTable.addCell(new PdfPCell(new Paragraph("No body status")));
                 } else {
-                    allBodiesTable.addCell(new PdfPCell(new Paragraph(String.format("%s", body.getBodyStatus().get()))));
+                    allBodiesTable.addCell(new PdfPCell(
+                            new Paragraph(String.format("%s", body.getBodyStatus().get()))));
                 }
                 allBodiesTable.addCell(new PdfPCell(new Paragraph(String.format("%s", body.getDateOfAdmission()))));
             }
@@ -112,7 +113,7 @@ public class ReportGenerator {
         document.add(new Paragraph("\n"));
 
         Image logo = Image.getInstance("docs/images/logo.png");
-        logo.setAbsolutePosition(40, 770);  //set logo top left
+        logo.setAbsolutePosition(40, 770); //set logo top left
         //logo.setAbsolutePosition(450, 800); top right
         logo.scaleAbsolute(100, 70);
         document.add(logo);
