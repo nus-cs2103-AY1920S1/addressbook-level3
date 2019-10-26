@@ -82,7 +82,6 @@ public class VisitReport implements Comparable<VisitReport> {
                 && medication.equals(otherReport.medication)
                 && diagnosis.equals(otherReport.diagnosis)
                 && remarks.equals(otherReport.remarks);
-                // state check
     }
 
     @Override
