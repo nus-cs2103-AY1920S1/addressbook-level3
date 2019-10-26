@@ -3,16 +3,21 @@ package budgetbuddy.logic.commands.loancommands;
 import static budgetbuddy.commons.util.CollectionUtil.hasDuplicates;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_USER;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.math3.util.CombinatoricsUtils;
@@ -22,12 +27,17 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.attributes.Description;
+import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.loan.Debtor;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
 /**
  * Splits a group payment among a list of persons.
+ * Optionally adds debts from the resulting list to the loans manager.
  */
 public class LoanSplitCommand extends Command {
 
@@ -35,15 +45,23 @@ public class LoanSplitCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Splits a group payment into a list of who owes who how much.\n"
+                    + "Optionally adds loans from the resulting list to your existing loan list."
                     + "Parameters: "
+                    + "["
+                    + PREFIX_USER + "YOUR_NAME "
+                    + PREFIX_DATE + "DATE "
+                    + PREFIX_DESCRIPTION + "DESCRIPTION] "
                     + PREFIX_PERSON + "PERSON "
                     + PREFIX_AMOUNT + "AMOUNT "
                     + "...\n"
                     + "Example: " + COMMAND_WORD + " "
-                    + PREFIX_PERSON + "Mary Jesus Judas "
-                    + PREFIX_AMOUNT + "10 90 0";
+                    + PREFIX_PERSON + "Mary " + PREFIX_AMOUNT + "10 "
+                    + PREFIX_PERSON + "John " + PREFIX_AMOUNT + "90 "
+                    + PREFIX_PERSON + "Satan " + PREFIX_AMOUNT + "0";
 
     public static final String MESSAGE_SUCCESS = "Loans split.";
+    public static final String MESSAGE_SUCCESS_LOANS_ADDED =
+            "Loans split. Debts that you owe/are owed to you have been added to your loan list.";
 
     public static final String MESSAGE_PERSON_AMOUNT_NUMBERS_MISMATCH =
             "The number of persons does not match the number of payments.";
@@ -52,18 +70,31 @@ public class LoanSplitCommand extends Command {
     public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
     public static final String MESSAGE_ALREADY_SPLIT_EQUALLY = "The amounts have already been split equally.";
 
+    public static final String MESSAGE_USER_NOT_FOUND =
+            "Your name must match (case-sensitive) exactly one of those in the group.";
+
     private HashMap<Person, Amount> personAmountMap;
     private List<DebtorCreditorAmount> debtorCreditorAmountList;
+
+    private Optional<Person> optionalUser;
+    private Optional<Description> optionalDescription;
+    private Optional<Date> optionalDate;
 
     /**
      * Constructs a hash map with a person as the key and the amount they paid as the value.
      * The hash map is used during execution to calculate the splitting of payment.
      * @param persons The list of persons to use in constructing the hash map.
      * @param amounts The list of amounts to be mapped to the list of persons.
+     * @param optionalUser The user as a {@code Person} for identifying the user in {@code persons}.
+     * @param optionalDescription The description to apply to loans added to the user's loan list.
+     * @param optionalDate The date to apply to loans added to the user's loan list.
      * @throws CommandException If the number of persons is not equal to the number of amounts,
      * or if the list of persons contains duplicates.
      */
-    public LoanSplitCommand(List<Person> persons, List<Amount> amounts) throws CommandException {
+    public LoanSplitCommand(List<Person> persons, List<Amount> amounts,
+                            Optional<Person> optionalUser,
+                            Optional<Description> optionalDescription,
+                            Optional<Date> optionalDate) throws CommandException {
         requireAllNonNull(persons, amounts);
 
         if (persons.size() != amounts.size()) {
@@ -77,6 +108,10 @@ public class LoanSplitCommand extends Command {
             personAmountMap.put(persons.get(i), amounts.get(i));
         }
         this.debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
+
+        this.optionalUser = optionalUser;
+        this.optionalDescription = optionalDescription;
+        this.optionalDate = optionalDate;
     }
 
     @Override
@@ -105,8 +140,14 @@ public class LoanSplitCommand extends Command {
         debtorCreditorAmountList.addAll(findSubGroups(participants, sortBalanceIncreasing));
         debtorCreditorAmountList.addAll(calculateSplitList(participants, sortBalanceIncreasing));
 
+        if (optionalUser.isPresent()) {
+            constructUserLoansList(optionalUser.get()).forEach(loan -> model.getLoansManager().addLoan(loan));
+        }
+
         model.getLoansManager().setDebtors(constructDebtorsList());
-        return new CommandResult(MESSAGE_SUCCESS, CommandCategory.LOAN_SPLIT);
+        return new CommandResult(
+                optionalUser.isPresent() ? MESSAGE_SUCCESS_LOANS_ADDED : MESSAGE_SUCCESS,
+                CommandCategory.LOAN_SPLIT);
     }
 
     /**
@@ -183,6 +224,35 @@ public class LoanSplitCommand extends Command {
             }
         }
         return debtorCreditorAmountList;
+    }
+
+    /**
+     * Uses the {@code debtorCreditorAmountList} to find all loans belonging to the given {@code user}.
+     * @return A {@code List} of {@code Loan} objects to be added to the loans manager.
+     * @throws CommandException If the user is not found in {@code personAmountMap}.
+     */
+    private List<Loan> constructUserLoansList(Person user) throws CommandException {
+        requireAllNonNull(personAmountMap, debtorCreditorAmountList, user, optionalDescription);
+
+        if (personAmountMap.keySet().stream().noneMatch(person -> person.equals(user))) {
+            throw new CommandException(MESSAGE_USER_NOT_FOUND);
+        }
+
+        List<Loan> userLoans = new ArrayList<Loan>();
+        debtorCreditorAmountList.forEach(debtorCreditorAmount -> {
+            if (debtorCreditorAmount.debtor.equals(user)) {
+                userLoans.add(new Loan(
+                        debtorCreditorAmount.creditor, Direction.IN, debtorCreditorAmount.amount,
+                        optionalDate.orElse(new Date()), optionalDescription.orElse(new Description("")),
+                        Status.UNPAID));
+            } else if (debtorCreditorAmount.creditor.equals(user)) {
+                userLoans.add(new Loan(
+                        debtorCreditorAmount.debtor, Direction.OUT, debtorCreditorAmount.amount,
+                        optionalDate.orElse(new Date()), optionalDescription.orElse(new Description("")),
+                        Status.UNPAID));
+            }
+        });
+        return userLoans;
     }
 
     /**

@@ -17,10 +17,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PREDICATE = new Prefix("pred/");
     public static final Prefix PREFIX_SORT = new Prefix("s/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
 
     // Loans
     public static final Prefix PREFIX_PERSON = new Prefix("p/");
+    public static final Prefix PREFIX_USER = new Prefix("me/");
 
     // Transactions
     public static final Prefix PREFIX_RECURRENCE = new Prefix("r/");

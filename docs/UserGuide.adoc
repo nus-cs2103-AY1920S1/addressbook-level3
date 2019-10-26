@@ -257,9 +257,16 @@ Format: `loan delete <loan ID ...> <p/person ...>`
 
 ==== Calculate loans: `loan split`
 
-Splits and calculates a group payment, then prints a list of who owes who.
+Splits and calculates a group payment, then displays a list of who owes who how much.
 
-Format: `loan split n/<name ...> x/<amount paid ...>`
+Format: `loan split [me/<your name> w/<date> d/<description>] n/<name> x/<amount paid> ...`
+****
+* Adding the optional `me/` will add all debts from the resulting list to your loan list.
++
+`<your name>` must match one of the names among the other `n/<name>` names.
+* Adding `w/` will set the date of the loans added to your list.
+* Adding `d/` will set the description of the loans added to your list.
+****
 
 === Automating with rules: `rule`
 
