@@ -4,6 +4,7 @@ import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.commons.core.index.Index;
@@ -14,6 +15,7 @@ import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.person.Person;
 
 /**
  * Parses input arguments and creates a new LoanEditCommand object.
@@ -28,9 +30,10 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
     public LoanEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultiMap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_PERSON, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DATE);
 
-        if (argMultiMap.getAllValues(PREFIX_AMOUNT).size() > 1
+        if (argMultiMap.getAllValues(PREFIX_PERSON).size() > 1
+                || argMultiMap.getAllValues(PREFIX_AMOUNT).size() > 1
                 || argMultiMap.getAllValues(PREFIX_DESCRIPTION).size() > 1
                 || argMultiMap.getAllValues(PREFIX_DATE).size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanEditCommand.MESSAGE_USAGE));
@@ -45,6 +48,10 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
         }
 
         LoanEditDescriptor loanEditDescriptor = new LoanEditDescriptor();
+        if (argMultiMap.getValue(PREFIX_PERSON).isPresent()) {
+            loanEditDescriptor.setPerson(
+                    new Person(CommandParserUtil.parseName(argMultiMap.getValue(PREFIX_PERSON).get())));
+        }
         if (argMultiMap.getValue(PREFIX_AMOUNT).isPresent()) {
             loanEditDescriptor.setAmount(
                     CommandParserUtil.parseAmount(argMultiMap.getValue(PREFIX_AMOUNT).get()));

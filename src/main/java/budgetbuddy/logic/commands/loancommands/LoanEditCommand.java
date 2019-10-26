@@ -4,6 +4,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 
 import java.util.Date;
 import java.util.Optional;
@@ -34,11 +35,11 @@ public class LoanEditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a loan.\n"
             + "Parameters: "
             + "<loan number> "
-            + String.format("[%sAMOUNT]", PREFIX_AMOUNT) + " "
-            + String.format("[%sDESCRIPTION]", PREFIX_DESCRIPTION) + " "
-            + String.format("[%sDATE]", PREFIX_DATE) + "\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "1 "
+            + String.format("[%sPERSON] ", PREFIX_PERSON)
+            + String.format("[%sAMOUNT] ", PREFIX_AMOUNT)
+            + String.format("[%sDESCRIPTION] ", PREFIX_DESCRIPTION)
+            + String.format("[%sDATE]\n", PREFIX_DATE)
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "4.30";
 
     public static final String MESSAGE_SUCCESS = "Loan %1$d edited.";
@@ -80,7 +81,7 @@ public class LoanEditCommand extends Command {
     private static Loan createEditedLoan(Loan loanToEdit, LoanEditDescriptor loanEditDescriptor) {
         assert loanToEdit != null;
 
-        Person updatedPerson = loanToEdit.getPerson();
+        Person updatedPerson = loanEditDescriptor.getPerson().orElse(loanToEdit.getPerson());
         Direction updatedDirection = loanEditDescriptor.getDirection().orElse(loanToEdit.getDirection());
         Amount updatedAmount = loanEditDescriptor.getAmount().orElse(loanToEdit.getAmount());
         Date updatedDate = loanEditDescriptor.getDate().orElse(loanToEdit.getDate());
@@ -108,7 +109,7 @@ public class LoanEditCommand extends Command {
 
     /**
      * Stores the details to edit the loan with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the loan.
      */
     public static class LoanEditDescriptor {
         private Person person;
@@ -133,14 +134,10 @@ public class LoanEditCommand extends Command {
          * Returns true if any field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(direction, amount, date, description, status);
+            return CollectionUtil.isAnyNonNull(person, direction, amount, date, description, status);
         }
 
-        /**
-         * A loan's Person field cannot be edited by the user.
-         * This method should never be exposed to any other class beyond ```LoanEditCommand```.
-         */
-        private void setPerson(Person person) {
+        public void setPerson(Person person) {
             this.person = person;
         }
 

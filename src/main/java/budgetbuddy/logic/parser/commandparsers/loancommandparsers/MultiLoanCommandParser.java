@@ -3,7 +3,6 @@ package budgetbuddy.logic.parser.commandparsers.loancommandparsers;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;

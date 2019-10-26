@@ -17,12 +17,12 @@ import budgetbuddy.model.transaction.Amount;
  */
 public class Loan {
 
-    private final Person person;
     private final Direction direction;
     private final Amount amount;
     private final Date date;
     private final Description description;
 
+    private Person person;
     private Status status;
 
     /**
@@ -41,6 +41,10 @@ public class Loan {
 
     public Person getPerson() {
         return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public Direction getDirection() {
