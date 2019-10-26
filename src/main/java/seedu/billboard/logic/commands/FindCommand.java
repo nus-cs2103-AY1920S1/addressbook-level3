@@ -28,7 +28,7 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "book "
             + PREFIX_AMOUNT + "9 "
-            + PREFIX_START_DATE + "25/3/2019 1200";
+            + PREFIX_START_DATE + "25/4/2019 1200";
 
     private final MultiArgPredicate predicate;
 
