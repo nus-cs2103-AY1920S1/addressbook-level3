@@ -234,12 +234,11 @@ You can refer to the example below:
 
 Key the above mentioned into the command box
 
-image::deadline-entry.png[]
+image::deadline-entry.png[][width="600"]
 
 After which, the result box will show the success message. The new deadline will now be shown at the right side-bar.
 
-image::deadline-entered.png[]
-
+image::deadline-entered.png[][width="600"]
 
 === Remove deadline from list: `remove [index]`
 
