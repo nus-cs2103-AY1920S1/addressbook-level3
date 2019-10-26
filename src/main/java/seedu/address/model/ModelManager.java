@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.performance.Event;
-import seedu.address.model.performance.Performance;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 
@@ -25,7 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final Attendance attendance;
-    private final Performance performance;
+    private final EventList eventList;
     private final FilteredList<Person> filteredPersons;
     private Person selectedPerson;
 
@@ -33,7 +32,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, Performance performance, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEvents eventList, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -42,12 +41,12 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.attendance = new Attendance();
-        this.performance = performance;
+        this.eventList = new EventList(eventList);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new Performance(), new UserPrefs());
+        this(new AddressBook(), new EventList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -186,12 +185,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(Event event) {
-        performance.addEvent(event);
+        eventList.addEvent(event);
     }
 
     @Override
     public boolean hasEvent(Event event) {
-        return performance.hasEvent(event);
+        return eventList.hasEvent(event);
     }
 
 }

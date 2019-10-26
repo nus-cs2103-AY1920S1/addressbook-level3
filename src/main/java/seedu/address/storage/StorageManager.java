@@ -2,14 +2,17 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEvents;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.performance.Event;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -18,13 +21,16 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private EventStorage eventStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          EventStorage eventStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.eventStorage = eventStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,4 +80,32 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ Performance methods ==============================
+
+    @Override
+    public Path getEventFilePath() {
+        return eventStorage.getEventFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyEvents> readEvents() throws DataConversionException, IOException {
+        return readEvents(eventStorage.getEventFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyEvents> readEvents(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return eventStorage.readEvents(filePath);
+    }
+
+    @Override
+    public void saveEvents(ReadOnlyEvents events) throws IOException {
+        saveEvents(events, eventStorage.getEventFilePath());
+    }
+
+    @Override
+    public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        eventStorage.saveEvents(events, filePath);
+    }
 }

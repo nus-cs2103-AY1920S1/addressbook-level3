@@ -29,8 +29,20 @@ public class Event {
      * @param name of this event.
      */
     public Event(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.performances = new HashMap<>();
+    }
+
+    /**
+     * Returns true if both events have the same name.
+     */
+    public boolean isSameEvent(Event otherEvent) {
+
+        if (otherEvent == this) {
+            return true;
+        }
+
+        return otherEvent != null && otherEvent.getName().equals(name);
     }
 
     /**
