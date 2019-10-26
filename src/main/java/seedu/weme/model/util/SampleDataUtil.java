@@ -33,15 +33,15 @@ public class SampleDataUtil {
         // sample memes from resources folder
         List<MemeFieldsContainer> memeFields = List.of(
             new MemeFieldsContainer("memes/5642dc30-927c-4e02-805d-831ea16bc68e.png",
-                    "A meme about doge.", "doge"), // doge
+                    "A meme about doge.", "doge", "cute"), // doge
             new MemeFieldsContainer("memes/74b9fc9f-a545-4bbc-98d5-09596a9166a9.jpg",
-                    "A meme about Char and charmander.", "charmander"), // charmander
+                    "A meme about Char and charmander.", "charmander", "cute"), // charmander
             new MemeFieldsContainer("memes/8de6b9f5-32a5-4eab-aebe-f47c2257e7d5.png",
                     "A meme about joker.", "joker"), // joker
             new MemeFieldsContainer("memes/ab6e1ed6-6025-4e84-b5da-8555ef1e0b05.png",
-                    "A meme about toy.", "toy", "jokes"), // toy
+                    "A meme about toy.", "toy", "funny"), // toy
             new MemeFieldsContainer("memes/b3afd215-8746-4113-aa19-1747d3578f41.jpg",
-                    "A meme about a test.", "test") // test
+                    "A meme about a test.", "test", "funny") // test
         );
         return createSampleMemes(memeFields, userPrefs);
     }

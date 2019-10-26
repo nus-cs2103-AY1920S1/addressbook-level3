@@ -22,7 +22,7 @@ public class LikeManager {
 
     private LikeData data;
 
-    public LikeManager(LikeManager data) {
+    public LikeManager(LikeData data) {
         super();
         requireAllNonNull(data);
 

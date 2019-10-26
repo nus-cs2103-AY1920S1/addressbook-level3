@@ -14,6 +14,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
+import seedu.weme.statistics.TagWithCount;
 
 /**
  * The API of the Model component.
@@ -259,6 +260,11 @@ public interface Model {
      * Add information of a meme to the records.
      */
     void addMemeToRecord(Meme meme);
+
+    /**
+     * Returns a list of tags with counts.
+     */
+    List<TagWithCount> getTagsWithCountList();
 
     /**
      * Clears the image data folder of any memes that are not referenced in weme.

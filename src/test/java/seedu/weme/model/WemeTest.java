@@ -24,6 +24,7 @@ import seedu.weme.model.meme.exceptions.DuplicateMemeException;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
+import seedu.weme.statistics.TagWithCount;
 import seedu.weme.testutil.MemeBuilder;
 
 public class WemeTest {
@@ -129,6 +130,11 @@ public class WemeTest {
 
         public ObservableList<Template> getTemplateList() {
             return templates;
+        }
+
+        @Override
+        public List<TagWithCount> getTagsWithCountList() {
+            return stats.getTagsWithCountList(memes);
         }
 
         @Override

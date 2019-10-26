@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane id="StackPane" prefHeight="800" prefWidth="800" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <PieChart id="piechart" fx:id="piechart" />
+  <stylesheets>
+    <URL value="@StatsPanel.css" />
+  </stylesheets>
+</StackPane>

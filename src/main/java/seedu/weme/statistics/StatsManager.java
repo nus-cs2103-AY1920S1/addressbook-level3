@@ -2,6 +2,8 @@ package seedu.weme.statistics;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import javafx.collections.ObservableMap;
 
 import seedu.weme.model.meme.Meme;
@@ -12,12 +14,14 @@ import seedu.weme.model.meme.Meme;
 public class StatsManager implements Stats {
 
     private LikeManager likeManager;
+    private TagManager tagManager;
 
     /**
      * Constructs a {@code StatsManager} without data.
      */
     public StatsManager() {
         this.likeManager = new LikeManager();
+        this.tagManager = new TagManager();
     }
 
     /**
@@ -27,6 +31,8 @@ public class StatsManager implements Stats {
         this();
         resetData(stats);
     }
+
+    //============= Like Data ====================================
 
     @Override
     public LikeData getLikeData() {
@@ -64,6 +70,13 @@ public class StatsManager implements Stats {
     public void deleteLikesByMeme(Meme meme) {
         likeManager.deleteLikesByMeme(meme);
     }
+
+    //============= Tag Data ====================================
+
+    @Override
+    public List<TagWithCount> getTagsWithCountList(List<Meme> memeList) {
+        return tagManager.getTagsWithCountList(memeList);
+    };
 
     /**
      * Resets the existing data of this {@code StatsManager} with {@code newData}.

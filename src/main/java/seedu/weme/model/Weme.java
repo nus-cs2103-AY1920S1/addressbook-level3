@@ -23,6 +23,7 @@ import seedu.weme.model.util.ImageUtil;
 import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
+import seedu.weme.statistics.TagWithCount;
 
 /**
  * Wraps all data at Weme level
@@ -273,6 +274,12 @@ public class Weme implements ReadOnlyWeme {
 
     public void clearMemeStats(Meme meme) {
         stats.deleteLikesByMeme(meme);
+    }
+
+    // ============== Tag Data Methods ===============================
+
+    public List<TagWithCount> getTagsWithCountList() {
+        return stats.getTagsWithCountList(getMemeList());
     }
 
     @Override

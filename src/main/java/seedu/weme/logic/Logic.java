@@ -15,7 +15,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.LikeData;
+import seedu.weme.statistics.Stats;
 
 /**
  * API of the Logic component
@@ -84,8 +84,14 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    LikeData getLikeData();
+    /**
+     * Returns the stats data.
+     */
+    Stats getStats();
 
+    /**
+     * Returns an unmodifiable view of like data.
+     */
     ObservableMap<String, Integer> getObservableLikeData();
 
     /**
