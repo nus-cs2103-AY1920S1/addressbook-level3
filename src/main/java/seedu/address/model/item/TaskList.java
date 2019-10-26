@@ -1,5 +1,7 @@
 package seedu.address.model.item;
 
+import java.util.Comparator;
+
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Task;
 
@@ -7,6 +9,18 @@ import seedu.address.commons.core.item.Task;
  * Object class to store all the items that are task within the program
  */
 public class TaskList extends VisualizeList {
+    public static final Comparator<Item> COMPARATOR = (item1, item2) -> {
+        Task task1 = item1.getTask().get();
+        Task task2 = item2.getTask().get();
+        if (task1.isComplete() && !task2.isComplete()) {
+            return 1;
+        } else if (!task1.isComplete() && task2.isComplete()) {
+            return -1;
+        } else {
+            return item1.getPriority().compareTo(item2.getPriority());
+        }
+    };
+
     public TaskList() {
         super();
     }
@@ -22,17 +36,7 @@ public class TaskList extends VisualizeList {
             tl.add(item);
         }
 
-        tl.list.sort((item1, item2) -> {
-            Task task1 = item1.getTask().get();
-            Task task2 = item2.getTask().get();
-            if (task1.isComplete() && !task2.isComplete()) {
-                return 1;
-            } else if (!task1.isComplete() && task2.isComplete()) {
-                return -1;
-            } else {
-                return item1.getPriority().compareTo(item2.getPriority());
-            }
-        });
+        tl.list.sort(COMPARATOR);
 
         return tl;
     }

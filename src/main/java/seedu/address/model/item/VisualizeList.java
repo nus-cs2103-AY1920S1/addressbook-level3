@@ -23,7 +23,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         if (hasItem(item)) {
             return false;
         } else {
-            return list.add(item);
+            return super.add(item);
         }
     }
 
@@ -35,7 +35,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         if (hasItem(item)) {
             return;
         } else {
-            list.add(targetIndex, item);
+            super.add(targetIndex, item);
         }
     }
 
@@ -45,7 +45,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * @return true if the item is in the list, else return false.
      */
     public boolean hasItem(Item item) {
-        return list.contains(item);
+        return super.contains(item);
     }
 
     @Override
@@ -67,7 +67,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * @return the item that is removed from this operation
      */
     public Item removeItemFromList(int index) {
-        return list.remove(index);
+        return super.remove(index);
     }
 
     /**
@@ -75,7 +75,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
      * @param item the item to be removed from the list
      */
     public Item removeItemFromList(Item item) {
-        list.remove(item);
+        super.remove(item);
         return item;
     }
 
@@ -133,11 +133,11 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
     }
 
     public int indexOf(Item item) {
-        return list.indexOf(item);
+        return super.indexOf(item);
     }
 
     public Item setItem(int index, Item item) {
-        return list.set(index, item);
+        return super.set(index, item);
     }
 
     /**
@@ -178,7 +178,7 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
     public abstract VisualizeList sort();
 
     public void clear() {
-        list.clear();
+        super.clear();
     }
 
 }
