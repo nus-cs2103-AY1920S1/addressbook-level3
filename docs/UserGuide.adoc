@@ -366,6 +366,7 @@ file `mark/data/bookmarks/myBookmarks.json`
 Imports bookmarks from the files `myBookmarks.json`, `nusBookmarks.json`,
 and `youtubeBookmarks.json`.
 
+[[Autotag-Command]]
 === Creating automatic tags: *`autotag`*
 
 Creates a tag that will be automatically applied to bookmarks which match
@@ -402,6 +403,23 @@ in the folder `NUS` but are not tagged with `academic` or `admin`.
 * `*autotag* Luminus u/luminus` +
  Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
 containing `luminus`.
+
+=== Deleting automatic tags: *`autotag-delete`*
+
+Deletes a previously created <<autotag, autotag>>.
+
+Format: `*autotag-delete* TAG_NAME`
+
+****
+* `TAG_NAME` should be the name of an existing autotag.
+****
+
+Example:
+
+* `*autotag-delete* Quiz` +
+ Deletes the autotag that would have tagged bookmarks that match its conditions
+with the tag `Quiz`. No existing tags are removed, but new and edited bookmarks
+will no longer be automatically tagged with `Quiz`.
 
 === Saving offline Readable copies of bookmarked website: *`cache`*
 
@@ -788,6 +806,10 @@ _{ more coming soon }_
 
 == Glossary
 This glossary aims to provide a definition for the special vocabulary used in this user guide.
+
+[[autotag]] Autotag::
+A tag that is automatically applied to bookmarks based on certain conditions. These conditions
+are specified when the autotag is created. Refer to <<Autotag-Command>> for details about how to use autotags.
 
 [[offline]] Offline::
 Refers to files stored locally on the computer.

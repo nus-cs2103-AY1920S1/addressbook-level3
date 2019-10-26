@@ -4,12 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
- * Manages {@code SelectiveBookmarkTagger}s in Mark.
+ * Manages {@link SelectiveBookmarkTagger}s in Mark.
  */
 public class AutotagController {
     private final List<SelectiveBookmarkTagger> taggers;
@@ -24,14 +25,14 @@ public class AutotagController {
     /**
      * Creates a new {@code AutotagController} with the given list of taggers.
      *
-     * @param taggers List of {@code SelectiveBookmarkTagger}s to manage.
+     * @param taggers List of {@link SelectiveBookmarkTagger}s to manage.
      */
     public AutotagController(List<SelectiveBookmarkTagger> taggers) {
         this.taggers = taggers;
     }
 
     /**
-     * Returns a shallow copy of the {@code SelectiveBookmarkTagger} list
+     * Returns a shallow copy of the {@link SelectiveBookmarkTagger} list
      * used by this {@code AutotagController}.
      */
     public List<SelectiveBookmarkTagger> getTaggers() {
@@ -39,7 +40,7 @@ public class AutotagController {
     }
 
     /**
-     * Checks whether the given {@code SelectiveBookmarkTagger} exists in this
+     * Checks whether the given {@link SelectiveBookmarkTagger} exists in this
      * {@code AutotagController}.
      *
      * @param tagger SelectiveBookmarkTagger to be checked.
@@ -52,7 +53,7 @@ public class AutotagController {
     }
 
     /**
-     * Adds a {@code SelectiveBookmarkTagger} to the existing list of taggers
+     * Adds a {@link SelectiveBookmarkTagger} to the existing list of taggers
      * to apply.
      *
      * @param tagger A new SelectiveBookmarkTagger to add.
@@ -63,6 +64,32 @@ public class AutotagController {
     }
 
     /**
+     * Removes the given {@code tagger} from this {@code AutotagController}.
+     *
+     * @param tagger {@link SelectiveBookmarkTagger} to be removed.
+     * @return {@code false} if the tagger is not found.
+     */
+    private boolean removeTagger(SelectiveBookmarkTagger tagger) {
+        return taggers.remove(tagger);
+    }
+
+    /**
+     * Removes the {@link SelectiveBookmarkTagger} with the given
+     * {@code taggerName} from this {@code AutotagController}.
+     *
+     * @param taggerName Name of the tag of the {@link SelectiveBookmarkTagger}
+     *                   to be removed.
+     * @return {@code false} if the tagger is not found.
+     */
+    public boolean removeTagger(String taggerName) {
+        Optional<SelectiveBookmarkTagger> taggerToRemove =
+                taggers.stream().filter(tagger -> taggerName.equals(tagger.getTagToApply().tagName))
+                        .findFirst();
+        // TODO: find a way to use #hasTagger() instead of relying on side effects
+        return taggerToRemove.isPresent() ? removeTagger(taggerToRemove.get()) : false;
+    }
+
+    /**
      * Removes all taggers from this {@code AutotagController}.
      */
     public void removeAllTaggers() {
@@ -70,9 +97,9 @@ public class AutotagController {
     }
 
     /**
-     * Creates a {@code Bookmark} that results from selectively applying all
+     * Creates a {@link Bookmark} that results from selectively applying all
      * of the current controller's {@code taggers} to the given
-     * {@code Bookmark}.
+     * {@link Bookmark}.
      *
      * @param bookmark Bookmark to be tagged
      * @return A tagged Bookmark
@@ -88,7 +115,7 @@ public class AutotagController {
     }
 
     /**
-     * Applies each of the {@code SelectiveBookmarkTagger}s in {@code taggers}
+     * Applies each of the {@link SelectiveBookmarkTagger}s in {@code taggers}
      * to all of the bookmarks in the given list.
      *
      * @param bookmarks List of Bookmarks that each tagger should be applied to.

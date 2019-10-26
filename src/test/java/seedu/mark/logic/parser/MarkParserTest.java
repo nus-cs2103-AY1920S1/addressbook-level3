@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
+import seedu.mark.logic.commands.AutotagDeleteCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
@@ -69,6 +70,14 @@ public class MarkParserTest {
                 AutotagCommand.COMMAND_WORD + " " + VALID_TAG_FRIEND + NAME_DESC_AMY);
         AutotagCommand expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG_FRIEND),
                 new BookmarkPredicate().withNameKeywords(Arrays.asList(VALID_NAME_AMY))));
+        assertEquals(command, expectedCommand);
+    }
+
+    @Test
+    public void parseCommand_autotagDelete() throws Exception {
+        AutotagDeleteCommand command = (AutotagDeleteCommand) parser.parseCommand(
+                AutotagDeleteCommand.COMMAND_WORD + " myTag");
+        AutotagDeleteCommand expectedCommand = new AutotagDeleteCommand("myTag");
         assertEquals(command, expectedCommand);
     }
 
