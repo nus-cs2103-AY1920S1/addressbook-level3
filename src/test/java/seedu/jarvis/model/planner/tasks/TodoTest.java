@@ -100,6 +100,16 @@ class TodoTest {
     }
 
     @Test
+    void markAsNotDone() {
+        Todo t = new Todo("homework");
+        t.markAsDone();
+        assertEquals(Status.DONE, t.getStatus());
+
+        t.markAsNotDone();
+        assertEquals(Status.NOT_DONE, t.getStatus());
+    }
+
+    @Test
     void getStatus() {
         Todo t = new Todo("homework");
 

@@ -59,11 +59,23 @@ class DoneTaskCommandTest {
     }
 
     @Test
+    void execute_taskAlreadyDone_throwsException() {
+        Model planner = new ModelManager();
+        Task t = new Todo("borrow book");
+        t.markAsDone();
+        planner.addTask(t);
+
+        DoneTaskCommand command = new DoneTaskCommand(parseIndex("1"));
+        assertThrows(CommandException.class, () -> command.execute(planner));
+    }
+
+    @Test
     void executeInverse_success() throws CommandException {
         Model model = new ModelManager();
         Model expected = new ModelManager();
         Task toUndo = new Todo("borrow book");
         model.addTask(toUndo);
+        expected.addTask(toUndo);
 
         DoneTaskCommand command = new DoneTaskCommand(parseIndex("1"));
         command.execute(model);

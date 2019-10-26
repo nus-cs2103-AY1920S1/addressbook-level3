@@ -121,6 +121,18 @@ class DeadlineTest {
     }
 
     @Test
+    void markAsNotDone() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        d.markAsDone();
+        assertEquals(Status.DONE, d.getStatus());
+
+        d.markAsNotDone();
+        assertEquals(Status.NOT_DONE, d.getStatus());
+    }
+
+    @Test
     void getStatus() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);

@@ -150,6 +150,19 @@ class EventTest {
     }
 
     @Test
+    void markAsNotDone() {
+        LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
+        LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
+        Event testEvent = new Event("borrow book", start, end);
+
+        testEvent.markAsDone();
+        assertEquals(Status.DONE, testEvent.getStatus());
+
+        testEvent.markAsNotDone();
+        assertEquals(Status.NOT_DONE, testEvent.getStatus());
+    }
+
+    @Test
     void getStatus() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());

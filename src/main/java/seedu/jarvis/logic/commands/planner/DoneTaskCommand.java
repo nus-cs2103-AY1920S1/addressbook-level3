@@ -1,5 +1,8 @@
 package seedu.jarvis.logic.commands.planner;
 
+import static java.util.Objects.requireNonNull;
+
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -7,9 +10,8 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.TaskList;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Updates a {@code Task} from incomplete to complete
@@ -80,6 +82,11 @@ public class DoneTaskCommand extends Command {
         if (targetIndex.getZeroBased() >= tasks.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+        Task task = model.getTask(targetIndex);
+
+        if(task.getStatus() == Status.DONE) {
+            throw new CommandException(MESSAGE_TASK_ALREADY_DONE);
+        }
 
         model.markTaskAsDone(targetIndex);
 
@@ -96,5 +103,29 @@ public class DoneTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
+        Task undone = model.getTask(targetIndex);
+        if (undone.getStatus() == Status.NOT_DONE) {
+            throw new CommandException(MESSAGE_INVERSE_TASK_ALREADY_UNDONE);
+        }
+
+        undone.markAsNotDone();
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_UNDONE, undone));
+
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            //short circuit if same object
+            return true;
+        }
+
+        //instanceof handles nulls
+        if (!(other instanceof DoneTaskCommand)) {
+            return false;
+        }
+
+        return targetIndex.equals(((DoneTaskCommand) other).targetIndex);
     }
 }
