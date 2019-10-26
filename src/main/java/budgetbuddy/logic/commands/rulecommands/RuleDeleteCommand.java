@@ -39,7 +39,7 @@ public class RuleDeleteCommand extends Command {
 
         try {
             ruleManager.deleteRule(targetIndex);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex), CommandCategory.RULE);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()), CommandCategory.RULE);
         } catch (RuleNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
