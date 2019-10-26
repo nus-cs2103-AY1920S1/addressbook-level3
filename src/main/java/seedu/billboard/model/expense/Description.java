@@ -8,8 +8,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Description has no constraints";
+    public static final String MESSAGE_CONSTRAINTS = "Description has no constraints";
 
     public final String description;
 
