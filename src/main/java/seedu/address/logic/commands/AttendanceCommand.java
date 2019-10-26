@@ -54,8 +54,8 @@ public class AttendanceCommand extends Command {
         StringBuilder result = new StringBuilder();
 
         result.append(person.getName().toString());
-        result.append(" ");
-        result.append(attendance.viewPersonAttendance(person));
+        result.append(": ");
+        result.append(attendance.getPersonAttendance(person));
 
         /* This is used for attendance of all, implement later.
 

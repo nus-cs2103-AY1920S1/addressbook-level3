@@ -33,20 +33,28 @@ public class Attendance {
     /**
      * Returns the attendance rate of a given person name
      */
-    public String viewPersonAttendance(Person person) {
+    public String getPersonAttendance(Person person) {
         int attended = 0;
         int total = 0;
         double result;
         for (Training training: trainings) {
-            if (training.hasPerson(person)) {
-                if(training.hasPersonAttended(person)) {
-                    attended++;
-                }
-                total++;
+
+            if (!training.hasPerson(person)) {
+                continue;
             }
+
+            if(training.hasPersonAttended(person)) {
+                attended++;
+            }
+            total++;
         }
-        result = ((double) attended / total);
-        return String.format("%d/%d (%.2f%%)", attended, total, result * 100);
+
+        if (total == 0) { // Has not had the opportunity to go for any trainings yet
+            return "No training records";
+        } else {
+            result = ((double) attended / total);
+            return String.format("%d/%d (%.2f%%)", attended, total, result * 100);
+        }
     }
     /**
      * Prints out the list of athlete with their attendance in the given date
