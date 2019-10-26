@@ -31,12 +31,11 @@ public class AverageGraph {
     private static final String RECORD_TYPE_BMI = "bmi";
     private static final String RECORD_TYPE_BLOODSUGAR = "bloodsugar";
 
-    private static final String WEIGHT = "weight";
+    private static final String BMI = "BMI";
     private static final String BLOODSUGAR = "blood sugar";
 
     // units
     private static final String BLOODSUGAR_UNIT = " (mmol/L)";
-    private static final String WEIGHT_UNIT = " (kg)";
 
     private static final String DAY = "day";
     private static final String WEEK = "week";
@@ -48,7 +47,7 @@ public class AverageGraph {
     private static final XYChart.Data<Number, Number> UNDER_WEIGHT_MARKER = new XYChart.Data<>(0, 18.5);
     private static final XYChart.Data<Number, Number> NORMAL_WEIGHT_MARKER = new XYChart.Data<>(18.5, 25);
     private static final XYChart.Data<Number, Number> OVER_WEIGHT_MARKER = new XYChart.Data<>(25, 30);
-    private static final XYChart.Data<Number, Number> OBESE_WEIGHT_MARKER = new XYChart.Data<>(30, 40);
+    private static final XYChart.Data<Number, Number> OBESE_WEIGHT_MARKER = new XYChart.Data<>(30, Double.MAX_VALUE);
 
     // Horizontal range marker for blood sugar
     private static final XYChart.Data<Number, Number> BEFORE_MEALS = new XYChart.Data<>(4.0, 5.9);
@@ -155,7 +154,7 @@ public class AverageGraph {
     private String getTitleInRecord(SimpleStringProperty recordType) {
         switch (recordType.get().toLowerCase()) {
         case RECORD_TYPE_BMI:
-            return WEIGHT;
+            return BMI;
         case RECORD_TYPE_BLOODSUGAR:
             return BLOODSUGAR;
         default:
@@ -169,7 +168,7 @@ public class AverageGraph {
     private String getYAxisLabel(SimpleStringProperty recordType) {
         switch (recordType.get().toLowerCase()) {
         case RECORD_TYPE_BMI:
-            return WEIGHT + WEIGHT_UNIT;
+            return BMI;
         case RECORD_TYPE_BLOODSUGAR:
             return BLOODSUGAR + BLOODSUGAR_UNIT;
         default:
