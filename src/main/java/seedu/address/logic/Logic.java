@@ -10,10 +10,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
-import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
 
@@ -62,47 +60,28 @@ public interface Logic {
     //endregion
 
     //region Statistics
-
-    /**
-     * Returns the StatisticsRecord.
-     *
-     * @see seedu.address.model.Model#getStatisticsRecord()
-     */
-    ReadOnlyStatisticsRecord getStatisticsRecord();
-
     /**
      * Returns an unmodifiable view of the processed statistics of students
      */
     ObservableList<Statistics> getProcessedStatistics();
-
     //endregion
 
     //region Notes
-
-    /**
-     * Returns the NotesRecord.
-     *
-     * @see seedu.address.model.Model#getNotesRecord()
-     */
-    ReadOnlyNotesRecord getNotesRecord();
-
     /**
      * Returns an unmodifiable view of the filtered list of notes
      */
     ObservableList<Note> getFilteredNotesList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of students
-     */
-
-    ObservableList<Student> getFilteredStudentList();
-
-
-    /**
      * Returns the user prefs' notes record file path.
      */
     Path getNotesRecordFilePath();
     //endregion
+
+    /**
+     * Returns an unmodifiable view of the filtered list of students
+     */
+    ObservableList<Student> getFilteredStudentList();
 
     //region VEvents
     ObservableList<VEvent> getVEventList();

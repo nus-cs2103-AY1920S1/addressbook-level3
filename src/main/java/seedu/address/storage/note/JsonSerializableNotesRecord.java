@@ -13,14 +13,14 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.NotesRecord;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_NOTE;
+
 /**
  * An Immutable notesRecord that is serializable to JSON format.
  */
 
 @JsonRootName(value = "notesRecord")
 public class JsonSerializableNotesRecord {
-
-    public static final String MESSAGE_DUPLICATE_NOTE = "Notes list contains duplicate note(s).";
 
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
 
