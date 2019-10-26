@@ -44,15 +44,31 @@ public class TaskSource {
         if (object instanceof TaskSource) {
             TaskSource t = (TaskSource) object;
             return Objects.equals(this.description, t.description)
-                && Objects.equals(this.dueDate, t.dueDate)
-                && Objects.equals(this.isCompleted, t.isCompleted)
-                && Objects.equals(this.tags, t.tags);
+                    && Objects.equals(this.dueDate, t.dueDate)
+                    && this.isCompleted == t.isCompleted
+                    && Objects.equals(this.tags, t.tags);
         }
         return false;
     }
 
-    public static TaskSourceBuilder newBuilder(String description, DateTime dueDate, boolean isCompleted) {
-        return new TaskSourceBuilder(description, dueDate, isCompleted);
+    public static TaskSourceBuilder newBuilder(String description, DateTime dueDate) {
+        return new TaskSourceBuilder(description, dueDate);
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public DateTime getDueDate() {
+        return this.dueDate;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public Set<String> getTags() {
+        return tags;
     }
 
     /*
