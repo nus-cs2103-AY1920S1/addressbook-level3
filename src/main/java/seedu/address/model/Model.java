@@ -10,8 +10,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -252,7 +252,7 @@ public interface Model {
     /**
      * Returns the current main window display model.
      */
-    DetailWindowDisplay getDetailWindowDisplay();
+    ScheduleWindowDisplay getScheduleWindowDisplay();
 
     /**
      * Returns the current side panel display model.
@@ -262,17 +262,17 @@ public interface Model {
     /**
      * Updates the current main window display.
      */
-    void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay);
+    void updateDetailWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay);
 
     /**
      * Updates the current main window display with a Person's schedule.
      */
-    void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type);
+    void updateDetailWindowDisplay(Name name, LocalDateTime time, ScheduleWindowDisplayType type);
 
     /**
      * Updates the current main window display with a Group's schedule.
      */
-    void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type);
+    void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type);
 
     /**
      * Updates the current side panel display.

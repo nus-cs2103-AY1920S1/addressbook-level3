@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.MonthSchedule;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.person.ScheduleStub;
 import seedu.address.ui.UiPart;
 
@@ -31,10 +31,10 @@ public class GroupDetailsExport extends UiPart<Region> {
     @FXML
     private StackPane groupDetailContainer;
 
-    public GroupDetailsExport(DetailWindowDisplay detailWindowDisplay) {
+    public GroupDetailsExport(ScheduleWindowDisplay scheduleWindowDisplay) {
         super(FXML);
         ScheduleStub stub = new ScheduleStub();
-        List<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(detailWindowDisplay.getMonthSchedules(), 0);
+        List<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(scheduleWindowDisplay.getMonthSchedules(), 0);
         ArrayList<String> names = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -47,7 +47,7 @@ public class GroupDetailsExport extends UiPart<Region> {
 
         ArrayList<String> colors = ColorGenerator.generateColorList(names.size());
         ScheduleExport scheduleView = new ScheduleExport(new ArrayList<WeekSchedule>(schedules), colors);
-        GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
+        GroupDetailCard groupCard = new GroupDetailCard(scheduleWindowDisplay.getGroupDisplay());
         groupDetailCard.getChildren().add(groupCard.getRoot());
         groupMembersList.getChildren().add(new MemberList(names, emails, roles, colors).getRoot());
         groupSchedule.getChildren().add(scheduleView.getScheduleView());

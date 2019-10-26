@@ -1,4 +1,4 @@
-package seedu.address.model.display.detailwindow;
+package seedu.address.model.display.schedulewindow;
 
 import java.util.ArrayList;
 
@@ -7,10 +7,10 @@ import seedu.address.model.display.sidepanel.GroupDisplay;
 /**
  * Main window display model.
  */
-public class DetailWindowDisplay {
+public class ScheduleWindowDisplay {
 
     private ArrayList<MonthSchedule> monthSchedules;
-    private DetailWindowDisplayType detailWindowDisplayType;
+    private ScheduleWindowDisplayType scheduleWindowDisplayType;
     private GroupDisplay groupDisplay;
 
     private ArrayList<FreeSchedule> freeSchedules;
@@ -18,12 +18,12 @@ public class DetailWindowDisplay {
     /**
      * Constructor to display details for groups.
      * @param monthSchedules Month schedule of every member of the group.
-     * @param detailWindowDisplayType The type to be displayed.
+     * @param scheduleWindowDisplayType The type to be displayed.
      * @param groupDisplay Group information to be displayed.
      */
-    public DetailWindowDisplay(ArrayList<MonthSchedule> monthSchedules, DetailWindowDisplayType detailWindowDisplayType,
-                               GroupDisplay groupDisplay) {
-        this.detailWindowDisplayType = detailWindowDisplayType;
+    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules, ScheduleWindowDisplayType scheduleWindowDisplayType,
+                                 GroupDisplay groupDisplay) {
+        this.scheduleWindowDisplayType = scheduleWindowDisplayType;
         this.monthSchedules = monthSchedules;
         this.groupDisplay = groupDisplay;
 
@@ -40,10 +40,10 @@ public class DetailWindowDisplay {
     /**
      * Constructor for viewing individual information
      * @param monthSchedules Contains 1 WeekSchedule Object.
-     * @param detailWindowDisplayType Most likely to be PERSON.
+     * @param scheduleWindowDisplayType Most likely to be PERSON.
      */
-    public DetailWindowDisplay(ArrayList<MonthSchedule> monthSchedules, DetailWindowDisplayType detailWindowDisplayType) {
-        this.detailWindowDisplayType = detailWindowDisplayType;
+    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules, ScheduleWindowDisplayType scheduleWindowDisplayType) {
+        this.scheduleWindowDisplayType = scheduleWindowDisplayType;
         this.monthSchedules = monthSchedules;
         this.groupDisplay = null;
 
@@ -57,24 +57,24 @@ public class DetailWindowDisplay {
         }
     }
 
-    public DetailWindowDisplay() {
+    public ScheduleWindowDisplay() {
         this.monthSchedules = new ArrayList<>();
-        this.detailWindowDisplayType = DetailWindowDisplayType.DEFAULT;
+        this.scheduleWindowDisplayType = ScheduleWindowDisplayType.DEFAULT;
         this.groupDisplay = null;
 
         this.freeSchedules = null;
     }
 
-    public DetailWindowDisplay(DetailWindowDisplayType type) {
+    public ScheduleWindowDisplay(ScheduleWindowDisplayType type) {
         this.monthSchedules = new ArrayList<>();
-        this.detailWindowDisplayType = type;
+        this.scheduleWindowDisplayType = type;
         this.groupDisplay = null;
 
         this.freeSchedules = null;
     }
 
-    public DetailWindowDisplayType getDetailWindowDisplayType() {
-        return detailWindowDisplayType;
+    public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
+        return scheduleWindowDisplayType;
     }
 
     public ArrayList<MonthSchedule> getMonthSchedules() {

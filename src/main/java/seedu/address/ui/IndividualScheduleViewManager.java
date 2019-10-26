@@ -3,11 +3,11 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 
 /**
- * Class to handle schedule views of individuals.
+ * Class to handle schedule views of individuals. Schedule of individuals do not show free time.
  */
 public class IndividualScheduleViewManager implements ScheduleViewManager {
     private MonthSchedule monthSchedule;
@@ -49,5 +49,10 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
     public void toggleNext() {
         this.weekNumber = (weekNumber + 1) % 4;
         initScheduleView();
+    }
+
+    @Override
+    public List<String> getColors() {
+        return List.of(color);
     }
 }

@@ -16,8 +16,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.model.display.detailwindow.DayTimeslot;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.schedulewindow.DayTimeslot;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 
 /**
  * A class to generate a schedule table (ui) from a Schedule object.

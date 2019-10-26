@@ -3,10 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.WeekSchedule;
-
-import java.time.LocalDate;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 
 /**
  * A class to handle the details view of a person or a group.
@@ -21,9 +18,9 @@ public class PersonDetailsView extends UiPart<Region> {
     @FXML
     private StackPane personDetailContainer;
 
-    public PersonDetailsView(DetailWindowDisplay detailWindowDisplay) {
+    public PersonDetailsView(ScheduleWindowDisplay scheduleWindowDisplay) {
         super(FXML);
-        //WeekSchedule schedule = detailWindowDisplay.getMonthSchedules().get(0).getWeekScheduleOf(0);
+        //WeekSchedule schedule = scheduleWindowDisplay.getMonthSchedules().get(0).getWeekScheduleOf(0);
         //ScheduleView sv = new ScheduleView(schedule, LocalDate.now());
         //this.personSchedule.getChildren().add(sv.getRoot());
     }

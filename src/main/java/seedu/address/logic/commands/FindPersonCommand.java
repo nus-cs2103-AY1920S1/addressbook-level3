@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.person.Name;
@@ -46,10 +46,10 @@ public class FindPersonCommand extends Command {
             }
 
             // update main window
-            model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+            model.updateDetailWindowDisplay(person.getName(), LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
             // update side panel display
-            model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+            model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
             return new CommandResult(MESSAGE_SUCCESS + person.details() + s);
         } else {

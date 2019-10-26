@@ -17,10 +17,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
-import seedu.address.model.display.detailwindow.MonthSchedule;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -72,7 +71,7 @@ public class ModelManager implements Model {
     private GmapsModelManager gmapsModelManager;
 
     // UI display
-    private DetailWindowDisplay detailWindowDisplay;
+    private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
     /**
@@ -413,8 +412,8 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public DetailWindowDisplay getDetailWindowDisplay() {
-        return detailWindowDisplay;
+    public ScheduleWindowDisplay getScheduleWindowDisplay() {
+        return scheduleWindowDisplay;
     }
 
     @Override
@@ -423,21 +422,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
-        this.detailWindowDisplay = detailWindowDisplay;
+    public void updateDetailWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay) {
+        this.scheduleWindowDisplay = scheduleWindowDisplay;
     }
 
     @Override
-    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
+    public void updateDetailWindowDisplay(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
         ArrayList<MonthSchedule> monthSchedules = new ArrayList<>();
         MonthSchedule monthSchedule = new MonthSchedule(findPerson(name), time);
         monthSchedules.add(monthSchedule);
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(monthSchedules, type);
-        updateDetailWindowDisplay(detailWindowDisplay);
+        ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(monthSchedules, type);
+        updateDetailWindowDisplay(scheduleWindowDisplay);
     }
 
     @Override
-    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
+    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
         Group group = groupList.findGroup(groupName);
         GroupId groupId = group.getGroupId();
         GroupDisplay groupDisplay = new GroupDisplay(group);
@@ -452,8 +451,8 @@ public class ModelManager implements Model {
             MonthSchedule monthSchedule = new MonthSchedule(person, time, role);
             monthSchedules.add(monthSchedule);
         }
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(monthSchedules, type, groupDisplay);
-        updateDetailWindowDisplay(detailWindowDisplay);
+        ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(monthSchedules, type, groupDisplay);
+        updateDetailWindowDisplay(scheduleWindowDisplay);
     }
 
     @Override

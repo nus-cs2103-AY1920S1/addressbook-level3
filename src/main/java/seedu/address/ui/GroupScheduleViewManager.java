@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.FreeSchedule;
-import seedu.address.model.display.detailwindow.MonthSchedule;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.schedulewindow.FreeSchedule;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.group.GroupName;
 
 /**
@@ -41,13 +41,18 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
         List<WeekSchedule> weekSchedules = MonthSchedule.getWeekSchedulesForWeek(monthSchedules, weekNumber);
         this.scheduleView = new ScheduleView(weekSchedules, colors,
                 groupName.toString(), dateToShow);
-        this.scheduleView.showFreeTime(freeSchedules.get(weekNumber));
+        this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
     }
 
     @Override
     public void toggleNext() {
         this.weekNumber = (weekNumber + 1) % 4;
         initScheduleView();
+    }
+
+    @Override
+    public List<String> getColors() {
+        return colors;
     }
 
     @Override

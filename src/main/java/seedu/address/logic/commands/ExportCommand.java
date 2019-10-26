@@ -8,7 +8,7 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
@@ -51,7 +51,7 @@ public class ExportCommand<T> extends Command {
                 throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((Name) name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+            model.updateDetailWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
                     false, true);
         } else {
@@ -68,7 +68,7 @@ public class ExportCommand<T> extends Command {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((GroupName) name, LocalDateTime.now(), DetailWindowDisplayType.GROUP);
+            model.updateDetailWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get()), false, false,
                     true);
         }
