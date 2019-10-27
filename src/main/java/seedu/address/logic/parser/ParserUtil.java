@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.WindowView;
+import seedu.address.model.account.Username;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.commands.CommandAction;
 import seedu.address.model.commands.CommandObject;
@@ -271,6 +272,21 @@ public class ParserUtil {
             throw new ParseException(Week.MESSAGE_CONSTRAINTS);
         }
         return new Week(trimmedWeek);
+    }
+
+    /**
+     * Parses a {@code String username} into an {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Username.isValidUsername(trimmedUsername)) {
+            throw new ParseException(Username.MESSAGE_CONSTRAINTS);
+        }
+        return new Username(trimmedUsername);
     }
 
     /**

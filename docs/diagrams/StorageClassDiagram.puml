@@ -23,6 +23,7 @@ JsonSerializableAddressBookStorage .right.> JsonAdaptedPerson
 JsonSerializableAddressBookStorage .down.> JsonAdaptedTask
 JsonSerializableAddressBookStorage .down.> JsonAdaptedEarnings
 JsonSerializableAddressBookStorage .left.> JsonAdaptedCommand
-JsonAdaptedPerson .right.> JsonAdaptedTag
 JsonAdaptedTask .down.> JsonAdaptedTaskTime
+JsonSerializableAddressBookStorage .right.> JsonAdaptedNote
+
 @enduml
