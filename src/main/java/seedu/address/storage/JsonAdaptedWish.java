@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
 import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
 
@@ -25,6 +25,7 @@ class JsonAdaptedWish {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Wish's %s field is missing!";
 
+    private final String category;
     private final String desc;
     private final String date;
     private final double amt;
@@ -34,8 +35,10 @@ class JsonAdaptedWish {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedWish(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
-                             @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedWish(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
+                           @JsonProperty("amt") double amt, @JsonProperty("date") String date,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.category = category;
         this.desc = desc;
         this.amt = amt;
         this.date = date;
@@ -49,6 +52,7 @@ class JsonAdaptedWish {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedWish(Wish source) {
+        category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
         date = source.getDate().toString();
@@ -84,10 +88,12 @@ class JsonAdaptedWish {
         /*if (!Date.isValidDate(date)) {
             throw new IllegalValueException((Date.MESSAGE_CONSTRAINTS));
         }*/
-        final Date modelDate = new Date(date);
-
+     
+        final Date modelDate = new Date(time);
+        
+        final Category modelCategory = new Category(category, "Expense");
         final Amount modelAmt = new Amount(amt);
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Wish(modelDesc, modelDate, modelAmt, modelTags);
+        return new Wish(modelCategory, modelDesc, modelDate, modelAmt, modelTags);
     }
 }

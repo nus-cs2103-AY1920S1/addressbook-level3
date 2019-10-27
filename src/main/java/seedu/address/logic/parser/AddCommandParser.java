@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -14,6 +15,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
@@ -34,14 +36,16 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE,
+                                            PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         String type = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
+        String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
@@ -50,16 +54,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         Entry entry;
         switch (type) {
         case "expense":
-            entry = new Expense(desc, date, amt, tagList);
+            entry = new Expense(new Category(categoryName, "Expense"), desc, time, amt, tagList);
             break;
         case "income":
-            entry = new Income(desc, date, amt, tagList);
+            entry = new Income(new Category(categoryName, "Income"), desc, time, amt, tagList);
             break;
         case "wish":
-            entry = new Wish(desc, date, amt, tagList);
+            entry = new Wish(new Category(categoryName, "Expense"), desc, time, amt, tagList);
             break;
         case "budget":
-            entry = new Budget(desc, date, amt, tagList);
+            entry = new Budget(new Category(categoryName, "Expense"), desc, time, amt, tagList);
             break;
         default:
             throw new ParseException("Invalid command");

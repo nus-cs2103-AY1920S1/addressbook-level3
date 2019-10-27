@@ -1,3 +1,4 @@
+
 = guiltTrip() - Developer Guide
 :site-section: DeveloperGuide
 :toc:
@@ -7,12 +8,6 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:warning-caption: :warning:
-endif::[]
-
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -216,7 +211,6 @@ Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
-
 === Target User Profile
 
 Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.

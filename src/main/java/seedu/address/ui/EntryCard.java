@@ -37,6 +37,8 @@ public class EntryCard extends UiPart<Region> {
     @FXML
     private Label amt;
     @FXML
+    private Label category;
+    @FXML
     private FlowPane tags;
 
     public EntryCard(Entry entry, int displayedIndex) {
@@ -45,6 +47,8 @@ public class EntryCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
 
         String descWithType = entry.getDesc().fullDesc;
+        category.setText(entry.getCategory().categoryName);
+  
         desc.setText(descWithType);
         date.setText(entry.getDate().toString());
         amt.setText("$" + entry.getAmount().value);

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
@@ -15,17 +16,19 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class EntryBuilder {
 
+    public static final String DEFAULT_CATEGORY = "FOOD";
     public static final String DEFAULT_DESCRIPTION = "Alice Pauline";
     public static final double DEFAULT_AMOUNT = 5.60;
     public static final String DEFAULT_TIME = "2019-09-09";
 
-
+    private Category cat;
     private Description desc;
     private Amount amt;
     private Date date;
     private Set<Tag> tags;
 
     public EntryBuilder() {
+        cat = new Category(DEFAULT_CATEGORY, "Expense");
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_TIME);
@@ -74,7 +77,7 @@ public class EntryBuilder {
     }
 
     public Entry build() {
-        return new Entry(desc, date, amt, tags);
+        return new Entry(cat, desc, date, amt, tags);
     }
 
 }
