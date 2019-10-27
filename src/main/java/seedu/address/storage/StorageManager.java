@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Attendance;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyEvents;
+import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -20,16 +20,16 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
-    private EventStorage eventStorage;
+    private PerformanceStorage performanceStorage;
     private UserPrefsStorage userPrefsStorage;
     private AttendanceStorage attendanceStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, EventStorage eventStorage,
+    public StorageManager(AddressBookStorage addressBookStorage, PerformanceStorage performanceStorage,
                           AttendanceStorage attendanceStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
-        this.eventStorage = eventStorage;
+        this.performanceStorage = performanceStorage;
         this.attendanceStorage = attendanceStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
@@ -85,29 +85,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getEventFilePath() {
-        return eventStorage.getEventFilePath();
+        return performanceStorage.getEventFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyEvents> readEvents() throws DataConversionException, IOException {
-        return readEvents(eventStorage.getEventFilePath());
+    public Optional<ReadOnlyPerformance> readEvents() throws DataConversionException, IOException {
+        return readEvents(performanceStorage.getEventFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyEvents> readEvents(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyPerformance> readEvents(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return eventStorage.readEvents(filePath);
+        return performanceStorage.readEvents(filePath);
     }
 
     @Override
-    public void saveEvents(ReadOnlyEvents events) throws IOException {
-        saveEvents(events, eventStorage.getEventFilePath());
+    public void saveEvents(ReadOnlyPerformance events) throws IOException {
+        saveEvents(events, performanceStorage.getEventFilePath());
     }
 
     @Override
-    public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
+    public void saveEvents(ReadOnlyPerformance events, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        eventStorage.saveEvents(events, filePath);
+        performanceStorage.saveEvents(events, filePath);
     }
 
     // ================ Attendance methods ==============================
