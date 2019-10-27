@@ -292,7 +292,7 @@ done, a response message is shown as well by our mascot, Leo.
 Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
 amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
 
-==== Delete Feature
+==== Delete Command Feature
 The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
@@ -308,7 +308,6 @@ filtered transaction list. If the prior input is a Find Command and the list at 
 a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
 To view the full transaction list, the user would be required to input the
 Back Command where `BackCommand` calls `resetPredicate()`.
-<<<<<<< HEAD
 
 The `BackCommand` is not initialised by a parser but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
@@ -317,7 +316,7 @@ The following detailed sequence diagram shows how the back command works:
 
 image::HomeTabBackCommandSequenceDiagram.png[]
 
-=======
+==== Back Command Feature
 
 The `BackCommand` is not initialised by a parser but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
@@ -341,7 +340,7 @@ The above activity diagram assumes the index to be within the bounds of the tabl
 be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
 When a successful deletion is done, a response message is shown as well.
 
-==== Sort Feature
+==== Sort Command Feature
 The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
 alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
 
@@ -360,16 +359,10 @@ of the activity diagram shows a filtered list by the Find Command's keywords.
 To view the full transaction list, the user would have to input the
 Back Command that calls `resetPredicate()`.
 
-==== [Proposed] Clear Command
-
-==== [Proposed] Auto-complete feature
-
-
-
 === Members Tab
 This tab will help to keep track of the contact details of members in the club or society for the treasurer.
 
-==== Delete Feature
+==== Delete Command Feature
 The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for deletion by
 the index shown in the `Members Tab`. This tab integrates the existing `AddressBook`.
 
@@ -387,16 +380,11 @@ to any transaction records since every transaction must be linked to a `Person` 
 
 === Reimbursement Tab
 This tab will help to show records of reimbursements
-that treasurer needs to pay to a person.
-
+that the treasurer user needs to pay to a person.
 Each reimbursement record is auto extracted from transactions.
 
 The user can add deadline to a reimbursement, mark a reimbursement,
 find a reimbursement and sort reimbursements.
-
-This is the overall Class Diagram of this tab:
-
-.Class Diagram of Reimbursement Tab (reimbursement package)
 
 image::ReimbursementTabClassDiagram.png[]
 
