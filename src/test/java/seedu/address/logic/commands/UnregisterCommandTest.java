@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalBorrowers.ALICE;
 import static seedu.address.testutil.TypicalBorrowers.ID_FIRST_BORROWER;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
-import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowers;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,11 +32,11 @@ public class UnregisterCommandTest {
     public void execute_validSerialNumber_success() {
         UnregisterCommand command = new UnregisterCommand(ID_FIRST_BORROWER);
 
-        String expectedMessage = String.format(UnregisterCommand.MESSAGE_SUCCESS, getTypicalBorrowers().get(0));
+        String expectedMessage = String.format(UnregisterCommand.MESSAGE_SUCCESS, ALICE);
 
         ModelManager expectedModel = new ModelManager(
                 model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
-        expectedModel.unregisterBorrower(getTypicalBorrowers().get(0));
+        expectedModel.unregisterBorrower(ALICE);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
