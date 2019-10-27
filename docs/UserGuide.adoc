@@ -1,89 +1,161 @@
-MyProject
-User Guide:
-Introduction
-MyProject (MP) is for team leaders who prefer to use a desktop app for managing their projects. MP is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). With MP it is a one-stop app to store and manage your projects and their relevant information, this is especially useful if you are always managing multiple projects across different teams. Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
-Quick Start
-Ensure you have Java 11 or above installed in your Computer.
-Download the latest myproject.jar here.
-Copy the file to the folder you want to use as the home folder for your Address Book.
-Double-click the file to start the app. The GUI should appear in a few seconds.
-Type the command in the command box and press Enter to execute it.
-e.g. typing help and pressing Enter will open the help window.
-Some example commands you can try:
-list : lists all contacts
-exit : exits the app
-Refer to Section 3, “Features” for details of each command.
-Features
+= MyProject User Guide:
+
+== Introduction:
+
+MyProject (MP) is for team leaders who prefer to use a desktop app for managing their projects.
+MP is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+With MP it is a one-stop app to store and manage your projects and their relevant information,
+this is especially useful if you are always managing multiple projects across different teams.
+Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
+
+== Quick Start:
+
+. Ensure you have Java 11 or above installed in your Computer.
+. Download the latest myproject.jar here.
+. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
+. Some example commands you can try:
+.. list : lists all contacts
+.. exit : exits the app
+. Refer to Section 3, “Features” for details of each command.
+
+== Features
 
 
-Viewing help: help
+. *Help*
+.. Viewing help: _help_
+... Shows a list of commands.
+... Format: _help_
 
-Shows a list of commands.
+. *List*
 
-Format: help
-List
-List Projects: listProjects
+.. List Projects: _listProjects_
 
-Shows the list of projects.
+... Shows the list of projects.
 
-Format: listProjects
+... Format:
+_listProjects_
 
-List Members: listMembers
+.. List Members: _listMembers_
 
-Shows the list of members involved with the specified project. If no project is specified, a list of all projects with its corresponding members is shown.
+... Shows the list of members involved with the specified project. If no project is specified, a list of all projects with its corresponding members is shown.
 
-Format: listMembers [pr/PROJECT_NAME]
+... Format:
+__listMembers [pr/PROJECT_NAME]
+__
+. *Add*
 
-List Tasks: listTasks
+.. Add Project: _addProject_
 
-Shows a list of ongoing tasks for the specified project. If no project is specified, a list of all projects with its corresponding ongoing tasks is shown.
-Format: listTasks [pr/PROJECT_NAME]
+... Adds a project to your list of projects
+... Format:
+_addProject pr/PROJECT_NAME [d/PROJECT_DESCRIPTION] [dl/DEADLINE] [m/MEMBERS] [ta/TASKS] [t/TAG]..._
 
-Add
-Add Project: addProject
-Adds a project to your list of projects
-Format: addProject pr/PROJECT_NAME [d/PROJECT_DESCRIPTION] [dl/DEADLINE] [m/MEMBERS] [ta/TASKS] [t/TAG]...
+... Example:
+__addProject pr/GET1031 project dl/October 11 Tuesday 2359 m/John Lim_Mark Tan_David Chan ta/1. Come up with project outline 2.Research on project topic t/NUS
+__
+.. Add Meeting: addMeeting
 
-Examples:
-addProject pr/GET1031 project dl/October 11 Tuesday 2359 m/John Lim_Mark Tan_David Chan ta/1. Come up with project outline 2.Research on project topic t/NUS
+... Adds a meeting to the list of meetings of your current project.
 
-Add meeting: addMeeting
+... Format:
 addMeeting p/PROJECT_NAME [dt/tentative days for a meeting] [m/MEMBERS INVOLVED] [a/AGENDA]...
 
-Adds a meeting for the specified project. After a meeting is added, the program will automatically work out an available meeting time that suits most people.
+... Example:
+__addMeeting p/GET1031 project dl/October 11 - October 17 m/John Lim_Mark Tan_David Chan a/decide on the structure of presentation
+__
+.. Add Member: _addMember_
 
-Examples:
-addMeeting p/GET1031 project dl/October 11 - October 17 m/John Lim_Mark Tan_David Chan a/decide on the structure of presentation
+... Adds a person to addressBook. After a person is added, they can then be linked to a project by editing the project.
 
-Add person to addressBook: addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
+... Format:
+__addMember n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
+__
 
-Adds a person into the addressbook. After a person is added, they can then be linked to a project by editing the project.
+... Example:
+__addMember n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
+__
+.. Add Task: _addTask_
 
-Examples:
-addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
+... Adds an unchecked task to the list of tasks of your current project.
 
-Edit
-3.4.1 Edit project: edit
-Edit the attributes of the project.
-Format: edit INDEX [pr/PROJECT_NAME] [pd/PROJECT_DESCRIPTION] [dl/DEADLINE]...
+... Format:
+__addTask s/DESCRIPTION c/TIME
+__
+... Example:
+__addTask s/Finish GUI c/06/10/2019 1600
+__
 
-    Examples:
-edit 5 pr/OP1 pd/Oral Presentation on Negotiation Techniques dl/25/09/2019 2359
-Storing meeting minutes
-Upload text file that contains the meeting minute for a specific meeting
-Format: attach pr/PROJECT_NAME [i/INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]...
+. *Edit*
+.. Edit project: _edit_
+... Edit the attributes of the project.
+... Format:
+__edit INDEX [s/DESCRIPTION] [n/NAME]
+__
+... Examples:
+__edit 5 pr/OP1 pd/Oral Presentation on Negotiation Techniques dl/25/09/2019 2359
 
-Come up with next meeting date: generateTiming [pr/PROJECT_NAME] [mt/MEETING_INDEX]
-All members will record their free meeting timings in a txt file and input it to the app.
-The app will calculate a time that involves most important people
-Delete
-Deletes the specified person from the address book.
-Format: delete INDEX
-Examples:
-delete 1
-Reminder
-Sends a reminder to all members of the given project.
-Format: sendReminder [pr/PROJECT_NAME]
-Help
-Format: help
-List all commands available and the format
+.. Edit task: _editTask_
+... Edits task with the specified index of the task list of current project. To check off task,
+input d/(i.e. _editTask 1 d/_). Tasks are automatically unchecked if _d/_ is not in the input.
+... Format:
+_editTask INDEX [s/DESCRIPTION] [c/TIME] [d/]_
+... Example:
+_editTask 1 c/05/05/2019 d/_
+
+
+. *Delete*
+.. Delete person: _delete_
+... Deletes specified person from the addressbook.
+... Format:
+_delete INDEX_
+... Example:
+__delete 1
+__
+
+.. Delete task: _deleteTask_
+... Deletes task of specified index from the task list of the current project.
+... Format:
+_deleteTask INDEX_
+... Example:
+_delete 1_
+
+. *Meeting*
+
+.. Store meeting minutes: _attach_
+... Upload text file that contains the meeting minute for a specific meeting.
+... Format:
+__attach [mt/MEETING_INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]...
+__
+
+.. Generate next meeting date: _generate_
+... Come up with next meeting date.
+... Format:
+__generateTiming [mt/MEETING_INDEX]
+__
+
+.. Send reminder: _Reminder_
+... Sends a reminder to all members of the current project.
+... Format: sendReminder
+
+. *Sort*
+
+All sort methods follow this set of index/order pairing. Some indexes are specific to
+certain methods(such as 3 and 4 are specific to sortTask). Refer to each individual method
+to find out which indexes are available.
+
+1 -- Alphabetical order
+
+2 -- Increasing order of time
+
+3 -- Whether tasks are done.
+
+4 -- Whether tasks are done and then by increasing order of time.
+
+.. Sort tasks: _sortTask_
+... Sorts tasks in the task list of current project based on given index.
+... Format:
+_sortTask INDEX(Integer value from 1-4)_
+... Example:
+_sortTask 1_ (Sort tasks by alphabetical order)
