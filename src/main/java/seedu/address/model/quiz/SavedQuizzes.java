@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.SavedQuestions;
 
 /**
@@ -121,6 +122,14 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      */
     public String getQuestionsAndAnswers(String quizId) {
         return QuizManager.getQuestionsAndAnswers(quizId, quizzes);
+    }
+
+    public ObservableList<Question> getObservableListQuestionsFromQuiz() {
+        return QuizManager.getObservableListQuestionsFromQuiz(quizzes);
+    }
+
+    public boolean checkQuizExists(String quizId) {
+        return QuizManager.checkQuizExists(quizId, quizzes);
     }
 
     /**

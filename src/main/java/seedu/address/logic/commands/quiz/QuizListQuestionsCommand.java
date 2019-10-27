@@ -1,26 +1,28 @@
 package seedu.address.logic.commands.quiz;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizBank;
 
 /**
- * Represents a list command, specific to a quiz.
+ * Represents a list questions command, specific to a quiz.
  */
-public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
+public class QuizListQuestionsCommand extends QuizCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the questions & answers for a quiz\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the questions for a quiz\n"
             + "Parameters:\n"
-            + "list quizID/ [QUIZ_ID]\n"
+            + "showQuestions quizID/ [QUIZ_ID]\n"
             + "Example: quizID/ CS2103T Finals\n\n";
 
     private final String quizId;
 
     /**
-     * Creates a QuizGetQuestionsAndAnswersCommand instance with the appropriate attributes.
+     * Creates a QuizListQuestionsCommand instance with the appropriate attributes.
      * @param quizId The identifier of the quiz.
      */
-    public QuizGetQuestionsAndAnswersCommand(String quizId) {
+    public QuizListQuestionsCommand(String quizId) {
         this.quizId = quizId;
     }
 
@@ -32,7 +34,11 @@ public class QuizGetQuestionsAndAnswersCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(generateSuccessMessage(model.getQuestionsAndAnswers(quizId)));
+        if (!model.checkQuizExists(quizId)) {
+            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
+        }
+        QuizBank.setCurrentlyQueriedQuiz(quizId);
+        return new CommandResult("Starting quiz view.", CommandResultType.SHOW_QUIZ_QUESTIONS);
     }
 
     /**

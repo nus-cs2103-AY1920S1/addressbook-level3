@@ -519,6 +519,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getObservableListQuestionsFromQuiz() {
+        return savedQuizzes.getObservableListQuestionsFromQuiz();
+    }
+
+    @Override
+    public boolean checkQuizExists(String quizId) {
+        return savedQuizzes.checkQuizExists(quizId);
+    }
+
+    @Override
     public boolean exportQuiz(String quizId) throws IOException {
         return savedQuizzes.exportQuiz(quizId);
     }

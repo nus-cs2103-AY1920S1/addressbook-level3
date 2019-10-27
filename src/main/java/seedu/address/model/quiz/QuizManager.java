@@ -112,11 +112,8 @@ public class QuizManager {
         Question question = questionBank.getQuestion(Index.fromZeroBased(questionIndex));
 
         int quizIndex = quizBank.getQuizIndex(quizId);
-        if (quizIndex != -1) {
-            Quiz quiz = quizBank.getQuiz(quizIndex);
-            return quiz.addQuestion(quizQuestionNumber, question);
-        }
-        return false;
+        Quiz quiz = quizBank.getQuiz(quizIndex);
+        return quiz.addQuestion(quizQuestionNumber, question);
     }
 
     /**
@@ -128,16 +125,13 @@ public class QuizManager {
      */
     public static boolean removeQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
         int quizIndex = quizBank.getQuizIndex(quizId);
-        if (quizIndex != -1) {
-            Quiz quiz = quizBank.getQuiz(quizIndex);
-            int numQuestions = quiz.getQuestionList().getQuestions().size();
-            if (questionNumber < 0 || questionNumber > numQuestions + 1) {
-                return false;
-            }
-            quiz.removeQuestion(questionNumber);
-            return true;
+        Quiz quiz = quizBank.getQuiz(quizIndex);
+        int numQuestions = quiz.getQuestionList().getQuestions().size();
+        if (questionNumber < 0 || questionNumber > numQuestions + 1) {
+            return false;
         }
-        return false;
+        quiz.removeQuestion(questionNumber);
+        return true;
     }
 
     /**
@@ -156,6 +150,33 @@ public class QuizManager {
             answers = quiz.getFormattedAnswers();
         }
         return questions + answers;
+    }
+
+    /**
+     * Returns an observable list of questions from a quiz.
+     * @param quizBank The quiz bank.
+     * @return The observable list of questions from the quiz.
+     */
+    public static ObservableList<Question> getObservableListQuestionsFromQuiz(QuizBank quizBank) {
+        String quizId = QuizBank.getCurrentlyQueriedQuiz();
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        ObservableList<Question> questionList = null;
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            questionList = quiz.getObservableListQuestions();
+        }
+        return questionList;
+    }
+
+    /**
+     * Returns true if a quiz exists, else false.
+     * @param quizId The identifier of the quiz.
+     * @param quizBank The quiz bank.
+     * @return True if the quiz exists, else false.
+     */
+    public static boolean checkQuizExists(String quizId, QuizBank quizBank) {
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        return quizIndex != -1;
     }
 
     /**
