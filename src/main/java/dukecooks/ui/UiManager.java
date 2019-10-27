@@ -10,7 +10,6 @@ import dukecooks.commons.core.LogsCenter;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.Logic;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -30,12 +29,7 @@ public class UiManager implements Ui {
     private Event event;
 
     private Logic logic;
-    private WorkoutPlannerWindow workoutPlannerWindow;
-    private TempWindow tempWindow;
-    private RecipeBookWindow recipeBookWindow;
-    private DiaryWindow diaryWindow;
-    private DashboardWindow dashboardWindow;
-    private HealthRecordsWindow healthRecordsWindow;
+    private MainWindow mainWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -53,7 +47,7 @@ public class UiManager implements Ui {
         event.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent e) {
-               healthRecordsWindow.handleSwitch();
+               mainWindow.handleSwitch();
             }
         });
 
@@ -61,9 +55,9 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            healthRecordsWindow = new HealthRecordsWindow(primaryStage, logic);
-            healthRecordsWindow.show(); //This should be called before creating other UI parts
-            healthRecordsWindow.fillInnerParts();
+            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillInnerParts();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -75,7 +69,7 @@ public class UiManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(tempWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
         //showAlertDialogAndWait(recipeBookWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 

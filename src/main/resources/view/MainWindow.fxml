@@ -103,7 +103,7 @@
                    </Button>
                      <Group>
                         <children>
-                           <Label alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="150.0" rotate="270.0" style="-fx-background-color: #f08a37#f08a37 #f08a37#f08a37;" text="Dashboard" textFill="#b2afaf" wrapText="true">
+                           <Label fx:id="featureMode" alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="150.0" rotate="270.0" style="-fx-background-color: #f08a37#f08a37 #f08a37#f08a37;" text="Dashboard" textFill="#b2afaf" wrapText="true">
                               <font>
                                  <Font size="11.0" />
                               </font>

@@ -20,7 +20,7 @@ public class Event {
     private Event() {
         //default start up screen
         this.type = "dashboard";
-        this.mode = "1";
+        this.mode = "all";
     }
 
     public static synchronized Event getInstance() {
@@ -54,8 +54,6 @@ public class Event {
         }
 
     }
-
-
 
     @Override
     public boolean equals(Object other) {
