@@ -10,7 +10,7 @@ import cs.f10.t1.nursetraverse.model.PatientBook;
  */
 public class ClearCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD = "pat-clear";
     public static final String MESSAGE_SUCCESS = "Patient book has been cleared!";
 
 

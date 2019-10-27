@@ -22,7 +22,7 @@ import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 public class ExportCommand extends Command {
 
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "app-export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports patients data into a .csv file in /exports.\n"

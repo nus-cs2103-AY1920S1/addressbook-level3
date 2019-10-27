@@ -9,7 +9,7 @@ import cs.f10.t1.nursetraverse.model.Model;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "pat-list";
 
     public static final String MESSAGE_SUCCESS = "Listed all patients";
 

@@ -9,7 +9,7 @@ import cs.f10.t1.nursetraverse.model.Model;
  */
 public class RedoCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "redo";
+    public static final String COMMAND_WORD = "app-redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Redoes the previous data-modifying command if it was an undo.\n"

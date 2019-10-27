@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
  */
 public class HistoryCommand extends Command {
 
-    public static final String COMMAND_WORD = "history";
+    public static final String COMMAND_WORD = "app-history";
 
     public static final String MESSAGE_SUCCESS = "History shown.";
 

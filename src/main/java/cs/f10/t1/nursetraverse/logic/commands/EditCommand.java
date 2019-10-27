@@ -36,7 +36,7 @@ import cs.f10.t1.nursetraverse.model.visittodo.VisitTodo;
  */
 public class EditCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "pat-edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the patient identified "
             + "by the index number used in the displayed patient list. "

@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
  */
 public class UndoCommand extends Command implements MutatorCommand {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "app-undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Undoes the previous data-modifying command. If an index is specified, undoes commands up to"

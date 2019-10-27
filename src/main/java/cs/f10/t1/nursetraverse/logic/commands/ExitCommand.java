@@ -7,7 +7,7 @@ import cs.f10.t1.nursetraverse.model.Model;
  */
 public class ExitCommand extends Command {
 
-    public static final String COMMAND_WORD = "exit";
+    public static final String COMMAND_WORD = "app-exit";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Patient book as requested ...";
 
