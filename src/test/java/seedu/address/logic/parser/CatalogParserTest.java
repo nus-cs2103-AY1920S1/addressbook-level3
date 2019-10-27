@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -30,7 +30,9 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.LoanCommand;
+import seedu.address.logic.commands.PayCommand;
 import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.RenewCommand;
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.SetCommand;
@@ -55,6 +57,9 @@ import seedu.address.testutil.UserSettingsUtil;
 
 public class CatalogParserTest {
 
+    public static final String SPACE_AND_VALID_INDEX = " 3";
+    public static final String SPACE_AND_VALID_DOLLAR_AMOUNT = " $1.23";
+
     private final CatalogParser parser = new CatalogParser();
 
     @Test
@@ -68,7 +73,7 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + SPACE_AND_VALID_INDEX) instanceof ClearCommand);
     }
 
     @Test
@@ -99,7 +104,7 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + SPACE_AND_VALID_INDEX) instanceof ExitCommand);
     }
 
     @Test
@@ -117,7 +122,7 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + SPACE_AND_VALID_INDEX) instanceof HelpCommand);
     }
 
     @Test
@@ -139,19 +144,24 @@ public class CatalogParserTest {
     @Test
     public void parseCommand_serve() throws Exception {
         assertTrue(parser.parseCommand(
-                ServeCommand.COMMAND_WORD + " " + PREFIX_BORROWER_ID + VALID_BORROWER_ID)
+                ServeCommand.COMMAND_WORD + " " + PREFIX_BORROWER_ID + VALID_BORROWER_ID_1)
                 instanceof ServeCommand);
     }
 
     @Test
     public void parseCommand_done() throws Exception {
         assertTrue(parser.parseCommand(DoneCommand.COMMAND_WORD) instanceof DoneCommand);
-        assertTrue(parser.parseCommand(DoneCommand.COMMAND_WORD + " 3") instanceof DoneCommand);
+        assertTrue(parser.parseCommand(DoneCommand.COMMAND_WORD + SPACE_AND_VALID_INDEX) instanceof DoneCommand);
     }
 
     @Test
     public void parseCommand_return() throws Exception {
-        assertTrue(parser.parseCommand(ReturnCommand.COMMAND_WORD + " 3") instanceof ReturnCommand);
+        assertTrue(parser.parseCommand(ReturnCommand.COMMAND_WORD + SPACE_AND_VALID_INDEX) instanceof ReturnCommand);
+    }
+
+    @Test
+    public void parseCommand_renew() throws Exception {
+        assertTrue(parser.parseCommand(RenewCommand.COMMAND_WORD + SPACE_AND_VALID_INDEX) instanceof RenewCommand);
     }
 
     @Test
@@ -161,6 +171,12 @@ public class CatalogParserTest {
         SetCommand command = (SetCommand) parser.parseCommand(SetCommand.COMMAND_WORD + " "
                 + UserSettingsUtil.getSetUserSettingsDescriptorDetails(descriptor));
         assertEquals(new SetCommand(descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_pay() throws Exception {
+        assertTrue(parser.parseCommand(PayCommand.COMMAND_WORD + SPACE_AND_VALID_DOLLAR_AMOUNT)
+                instanceof PayCommand);
     }
 
     @Test

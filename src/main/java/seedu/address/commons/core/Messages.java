@@ -31,5 +31,10 @@ public class Messages {
     public static final String MESSAGE_BOOK_NOT_ON_LOAN = "%1$s is not on loan!";
     public static final String MESSAGE_LOAN_ID_DOES_NOT_EXISTS = "LoanId %s does not exists in LoanRecords!";
     public static final String MESSAGE_NOT_LOANED_BY_BORROWER = "%1$s does not loan %2$s!";
+    public static final String MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE =
+            "%1$s has already been renewed the maximum number of times!";
+    public static final String MESSAGE_BOOK_IS_OVERDUE = "%1$s is already overdue and cannot be renewed!";
 
+    // Fine messages
+    public static final String MESSAGE_NO_OUTSTANDING_FINE = "No outstanding fines!";
 }

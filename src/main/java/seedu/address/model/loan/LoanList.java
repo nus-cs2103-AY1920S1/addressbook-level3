@@ -3,8 +3,6 @@ package seedu.address.model.loan;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-// TODO add more methods
-// will implement remove, etc when i implement my return command
 /**
  * A list of {@code Loan} objects that represents the loans a borrower currently has.
  */
@@ -61,6 +59,35 @@ public class LoanList implements Iterable<Loan> {
         ArrayList<Loan> newList = new ArrayList<>(this.loanList);
         newList.remove(loan);
         return new LoanList(newList);
+    }
+
+    /**
+     * Replaces a {@code Loan} object in a copy of the list.
+     * {@code currentLoanList} should contain {@code loanToBeReplaced}.
+     *
+     * @param loanToBeReplaced {@code Loan} object to be removed.
+     * @param replacingLoan Replacing {@code Loan} object.
+     * @return A new LoanList with the Loan object replaced.
+     */
+    public LoanList replaceInNewCopy(Loan loanToBeReplaced, Loan replacingLoan) {
+        assert loanList.contains(loanToBeReplaced) : "loanList does not contain loanToBeReplaced!";
+
+        ArrayList<Loan> newList = new ArrayList<>(this.loanList);
+        newList.set(newList.indexOf(loanToBeReplaced), replacingLoan);
+        return new LoanList(newList);
+    }
+
+    /**
+     * Adds up all the remaining fine of the loans.
+     *
+     * @return Total remaining fine amount in cents.
+     */
+    public int calculateOutstandingFineAmount() {
+        int total = 0;
+        for (Loan loan : loanList) {
+            total += loan.getRemainingFineAmount();
+        }
+        return total;
     }
 
     @Override

@@ -25,6 +25,7 @@ import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.model.exceptions.NotInServeModeException;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanIdGenerator;
+import seedu.address.model.loan.LoanList;
 
 /**
  * Represents the in-memory model of the Library data.
@@ -42,7 +43,6 @@ public class ModelManager implements Model {
 
     /**
      * Initializes a ModelManager with the given catalog, loan records, borrower records and userPrefs.
-     * TODO change
      */
     public ModelManager(ReadOnlyCatalog catalog,
                         ReadOnlyLoanRecords loanRecords,
@@ -64,7 +64,7 @@ public class ModelManager implements Model {
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
-        this.servingBorrower = Optional.empty(); // TODO
+        this.servingBorrower = Optional.empty();
     }
 
     public ModelManager() {
@@ -152,6 +152,68 @@ public class ModelManager implements Model {
     public void addLoan(Loan loan) {
         requireNonNull(loan);
         loanRecords.addLoan(loan);
+    }
+
+    /**
+     * Replaces an existing {@code Loan} object in LoanRecords with an edited one.
+     *
+     * @param existingLoan Existing {@code Loan} object to be replaced.
+     * @param updatedLoan Updated {@code Loan} object.
+     */
+    @Override
+    public void updateLoan(Loan existingLoan, Loan updatedLoan) {
+        requireAllNonNull(existingLoan, updatedLoan);
+        loanRecords.updateLoan(existingLoan, updatedLoan);
+    }
+
+    /**
+     * Pays the outstanding fines of the servingBorrower.
+     *
+     * @param amountInCents Amount borrower is paying in cents.
+     * @return Leftover amount in cents, i.e., change to be given.
+     */
+    @Override
+    public int payFines(int amountInCents) {
+        Borrower serving = getServingBorrower();
+        LoanList updatedReturnedLoanList = new LoanList();
+
+        int change = payLoansFine(serving.getReturnedLoanList(), updatedReturnedLoanList, amountInCents);
+
+        Borrower updatedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getCurrentLoanList(), updatedReturnedLoanList);
+        borrowerRecords.setBorrower(serving, updatedBorrower);
+
+        setServingBorrower(updatedBorrower);
+
+        return change;
+    }
+
+    /**
+     * Private helper method to help iterate through each Loan in the returnedLoanList and then to update each Loan
+     * object with the maximum possible amount paid.
+     * Returns the leftover amount, i.e., the change.
+     */
+    private int payLoansFine(LoanList origReturnedLoanList, LoanList updatedReturnedLoanList, int amountInCents) {
+        int payingAmount = amountInCents;
+        for (Loan loan : origReturnedLoanList) {
+            int remainingFineAmount = loan.getRemainingFineAmount();
+            if (payingAmount == 0 || remainingFineAmount == 0) { // no payingAmount left or no remainingFine to pay
+                updatedReturnedLoanList.add(loan); // just add to new copy
+            } else {
+                Loan updatedLoan;
+                if (payingAmount >= remainingFineAmount) { // can fully pay off this fine
+                    updatedLoan = loan.payFine(remainingFineAmount);
+                    payingAmount -= remainingFineAmount;
+                } else {
+                    updatedLoan = loan.payFine(payingAmount);
+                    payingAmount = 0;
+                }
+                updatedReturnedLoanList.add(updatedLoan);
+                updateLoan(loan, updatedLoan);
+            }
+        }
+
+        return payingAmount;
     }
 
     //=========== Catalog ===============================================================================
@@ -308,6 +370,12 @@ public class ModelManager implements Model {
         this.servingBorrower = Optional.of(borrower);
     }
 
+    /**
+     * Adds a new {@code Loan} object to a new copy of servingBorrower and its currentLoanList.
+     * This method is called only when in Serve mode.
+     *
+     * @param newLoan New {@code Loan} object to be added.
+     */
     @Override
     public void servingBorrowerNewLoan(Loan newLoan) {
         if (!isServeMode()) {
@@ -322,22 +390,58 @@ public class ModelManager implements Model {
         setServingBorrower(loanAddedBorrower);
     }
 
+    /**
+     * Removes {@code loanToBeReturned} from {@code servingBorrower}'s currentLoanList and
+     * adds {@code returnedLoan} to its returnedLoanList.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeReturned} object in its currentLoanList.
+     *
+     * @param loanToBeReturned {@code Loan} object in servingBorrower's currentLoanList.
+     * @param returnedLoan Updated {@code Loan} object to be added to servingBorrower's returnedLoanList.
+     */
     @Override
-    public void servingBorrowerReturnLoan(Loan returnedLoan) {
+    public void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan) {
         if (!isServeMode()) {
             throw new NotInServeModeException();
         }
 
         Borrower serving = servingBorrower.get();
 
-        assert serving.hasCurrentLoan(returnedLoan) : "Borrower does not have the loan to be returned.";
+        assert serving.hasCurrentLoan(loanToBeReturned) : "Borrower does not have the loan to be returned.";
 
         Borrower loanReturnedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
-                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(returnedLoan),
+                serving.getBorrowerId(), serving.getRemovedCurrentLoanList(loanToBeReturned),
                 serving.getAddedReturnedLoanList(returnedLoan));
         borrowerRecords.setBorrower(serving, loanReturnedBorrower);
 
         setServingBorrower(loanReturnedBorrower);
+    }
+
+    /**
+     * Replaces the {@code loanToBeRenewed} in {@code servingBorrower}'s currentLoanList
+     * with {@code renewedLoan}.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeReturned} object in its currentLoanList.
+     *
+     * @param loanToBeRenewed {@code Loan} object in servingBorrower's currentLoanList.
+     * @param renewedLoan Updated {@code Loan} object with dueDate extended.
+     */
+    @Override
+    public void servingBorrowerRenewLoan(Loan loanToBeRenewed, Loan renewedLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+
+        assert serving.hasCurrentLoan(loanToBeRenewed) : "Borrower does not have the loan to be returned.";
+
+        Borrower loanRenewedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getReplacedCurrentLoanList(loanToBeRenewed, renewedLoan),
+                serving.getReturnedLoanList());
+        borrowerRecords.setBorrower(serving, loanRenewedBorrower);
+
+        setServingBorrower(loanRenewedBorrower);
     }
 
     @Override

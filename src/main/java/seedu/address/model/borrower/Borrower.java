@@ -88,6 +88,17 @@ public class Borrower {
     }
 
     /**
+     * Replaces a a Loan object in a new copy of the currentLoanList.
+     *
+     * @param loanToBeRenewed {@code Loan} object to be removed from the currentLoanList.
+     * @param renewedLoan A updated {@code Loan} object replacing the removed one.
+     * @return A new copy of the currentLoanList with the Loan object replaced.
+     */
+    public LoanList getReplacedCurrentLoanList(Loan loanToBeRenewed, Loan renewedLoan) {
+        return currentLoanList.replaceInNewCopy(loanToBeRenewed, renewedLoan);
+    }
+
+    /**
      * Adds a returned Loan object to a new copy of the returnedLoanList.
      *
      * @param returnedLoan {@code Loan} object to be added to returnedLoanList.
@@ -102,6 +113,22 @@ public class Borrower {
      */
     public boolean hasCurrentLoan(Loan loan) {
         return currentLoanList.contains(loan);
+    }
+
+    /**
+     * Gets the total outstanding fine amount from Borrower's returnedLoanList.
+     *
+     * @return Total remaining fine amount in cents/
+     */
+    public int getOutstandingFineAmount() {
+        return returnedLoanList.calculateOutstandingFineAmount();
+    }
+
+    /**
+     * Returns true if Borrower has unpaid fines.
+     */
+    public boolean hasOutstandingFine() {
+        return getOutstandingFineAmount() > 0;
     }
 
     /**
