@@ -5,12 +5,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.FilenameUtils;
+
 import com.typee.commons.core.LogsCenter;
-import com.typee.commons.util.PdfUtil;
+import com.typee.model.engagement.Engagement;
 import com.typee.ui.UiPart;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -25,14 +29,16 @@ import javafx.scene.text.Text;
 public class ReportWindow extends UiPart<Region> {
     public static final String FXML = "ReportWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private PdfUtil pdfUtil;
+    private final Path filePath = Paths.get(System.getProperty("user.dir") + "/reports");
 
     @FXML
     private TreeView treeViewReports;
 
-    public ReportWindow() {
+    @FXML
+    private Label lblStatus;
+
+    public ReportWindow(ObservableList<Engagement> engagementList) {
         super(FXML);
-        Path filePath = Paths.get(System.getProperty("user.dir") + "/reports");
         logger.info(filePath.toString());
         treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
         treeViewReports.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> handleMouseClicked(event));
@@ -54,16 +60,29 @@ public class ReportWindow extends UiPart<Region> {
         }
     }
 
+    /**
+     * Recursively maps the given directory and only allows .pdf format files in the tree view.
+     */
     private TreeItem<String> getNodesForDirectory(File directory) {
         TreeItem<String> root = new TreeItem<String>(directory.getName());
         for (File f : directory.listFiles()) {
             if (f.isDirectory()) {
                 root.getChildren().add(getNodesForDirectory(f));
-            } else {
+            } else if (FilenameUtils.getExtension(f.getName()).equals("pdf")) {
                 root.getChildren().add(new TreeItem<String>(f.getName()));
             }
         }
         root.setExpanded(true);
         return root;
+    }
+
+    /**
+     * Refreshes the tree view after click.
+     * @param event Mouse Click Event.
+     */
+    @FXML
+    private void refreshTreeView(MouseEvent event) {
+        treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
+        lblStatus.setText("Refreshed Directory");
     }
 }

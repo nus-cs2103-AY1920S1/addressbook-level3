@@ -259,7 +259,7 @@ public class MainWindow extends UiPart<Stage> {
             tabToReturn.setController(new StartWindow());
             break;
         case "Report":
-            tabToReturn.setController(new ReportWindow());
+            tabToReturn.setController(new ReportWindow(logic.getSortedEngagementList()));
             break;
         case "Engagement":
             tabToReturn.setController(new EngagementListPanel(logic.getSortedEngagementList()));
