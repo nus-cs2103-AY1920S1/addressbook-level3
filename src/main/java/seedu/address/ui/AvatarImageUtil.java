@@ -13,7 +13,10 @@ public class AvatarImageUtil {
 
     private AvatarImageUtil() {} // this class should not be initiated
 
+    /**
+     * Returns an image with an id correlated with {@code id}.
+     */
     public static Image get(int id) {
-        return AppUtil.getImage(String.format(AVATAR_PATH, (id % TOTAL_NUM) + 1));
+        return AppUtil.getImage(String.format(AVATAR_PATH, Math.abs((id % TOTAL_NUM)) + 1));
     }
 }
