@@ -99,7 +99,7 @@ public class readDisplayNote extends UiPart<Region> {
             DictionaryException { //TODO:Dictionary Exception unneeded?
         System.out.println(noteContent.getText());
         logic.execute("edit " + index.getOneBased() + " c/"
-                + noteContent.getText().replaceAll("\n", "\n")
+                + noteContent.getText()
                 + " d/" + noteDescription.getText() + " ti/" + noteTitle.getText()
         );
     }

@@ -92,9 +92,9 @@ public class NoteBook implements ReadOnlyNoteBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given note {@code target} in the list with {@code editedNote}.
+     * {@code target} must exist in the note book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the note book.
      */
     public void setNote(Note target, Note editedNote) {
         requireNonNull(editedNote);
