@@ -47,11 +47,11 @@ public class Incident {
     private CallerNumber callerNumber;
 
     /** Enum to track incident status. */
-    // incomplete draft - not all fields filled AND not submitted.
-    // complete draft - all fields filled AND not submitted.
-    // submitted report - all fields filled AND submitted.
     private enum Status {
-        INCOMPLETE_DRAFT, COMPLETE_DRAFT, SUBMITTED_REPORT
+        INCOMPLETE_DRAFT, // incomplete draft - not all fields filled AND not submitted.
+        COMPLETE_DRAFT, // complete draft - all fields filled AND not submitted.
+        SUBMITTED_REPORT // submitted report - all fields filled AND submitted.
+
     }
 
     // TODO delete this field once all constructors accept status as attribute.
@@ -75,20 +75,8 @@ public class Incident {
         this.callerNumber = null;
     }
 
-    // load past incident cases
-    public Incident(IncidentId id, District location, IncidentDateTime incidentDateTime, String operator) {
-        // TODO: figure out importing rest of person class
-        this.operator = new Person(new Name(operator), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends"), new Username("user1"), new Password("pass123"));
-        this.incidentDateTime = incidentDateTime;
-        this.id = id;
-        this.description = new Description("Fluff description for search testing arson fire fires");
-        this.location = location;
-        this.callerNumber = new CallerNumber("98989898");
-    }
-
     // constructor used by edit command.
-    // TODO change to accommodate 'Status'. i.e. only 'FINAL' reports can be edited.
+    // TODO this constructor is redundant, update it to use the constructor below.
     public Incident(IncidentId id, District district, IncidentDateTime incidentDateTime,
                     CallerNumber callerNumber, Description desc) {
 
@@ -103,7 +91,8 @@ public class Incident {
     }
 
     /**
-     * Constructor for generating an incident draft according to 'fill' command i.e. all fields filled.
+     * Constructor for generating an incident draft with all fields filled.
+     * // TODO add vehicle field
      */
     public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
                     CallerNumber callerNumber, Description description) {
@@ -113,6 +102,7 @@ public class Incident {
         this.id = incidentId;
         this.callerNumber = callerNumber;
         this.description = description;
+        // this.vehicle = TODO
     }
 
     public IncidentDateTime getDateTime() {
@@ -147,6 +137,10 @@ public class Incident {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    public void setStatusAsIncomplete() {
+        this.status = Status.INCOMPLETE_DRAFT;
     }
 
     public void setStatusAsComplete() {

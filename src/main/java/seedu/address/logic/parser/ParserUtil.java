@@ -202,7 +202,7 @@ public class ParserUtil {
     public static IncidentDateTime parseDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
-        if (!IncidentDateTime.isValidIncidentDateTime(dateTime)) {
+        if (!IncidentDateTime.isValidIncidentDateTimeFormat(dateTime)) {
             throw new ParseException(IncidentDateTime.MESSAGE_CONSTRAINTS);
         }
         return new IncidentDateTime(dateTime);
