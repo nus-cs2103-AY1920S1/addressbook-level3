@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.ActivityBook;
+import seedu.address.model.Context;
 import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -49,6 +50,7 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
+        expectedModel.setContext(new Context(validActivity));
         expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
@@ -57,7 +59,6 @@ public class ActivityCommandIntegrationTest {
 
     @Test
     public void execute_newActivityWithMultipleMatches_success() {
-        Person person = TypicalPersons.ALICE;
         String stringTitle = "Test Activity";
         Title title = new Title(stringTitle);
         Activity validActivity = new ActivityBuilder().withTitle(stringTitle).build();
@@ -77,6 +78,7 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
+        expectedModel.setContext(new Context(validActivity));
         expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
         assertCommandSuccess(new ActivityCommand(title, participants), model,
                 successMessage, expectedModel);
@@ -84,7 +86,6 @@ public class ActivityCommandIntegrationTest {
 
     @Test
     public void execute_newActivityWithZeroMatches_success() {
-        Person person = TypicalPersons.ALICE;
         String stringTitle = "Test Activity";
         Title title = new Title(stringTitle);
         Activity validActivity = new ActivityBuilder().withTitle(stringTitle).build();
@@ -104,6 +105,7 @@ public class ActivityCommandIntegrationTest {
         Model expectedModel = new ModelManager(
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addActivity(validActivity);
+        expectedModel.setContext(new Context(validActivity));
         expectedModel.updateFilteredPersonList(x -> validActivity.getParticipantIds().contains(x.getPrimaryKey()));
 
         assertCommandSuccess(new ActivityCommand(title, participants), model,
