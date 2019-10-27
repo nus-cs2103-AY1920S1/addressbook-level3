@@ -9,7 +9,6 @@ import seedu.elisa.commons.core.item.ItemReminderDateTimeComparator;
  * A data structure to hold Items with Reminders that have not yet been prompted to the user.
  */
 public class FutureRemindersList extends ArrayList<Item> {
-
     @Override
     public boolean add(Item item) {
         boolean result = super.add(item);
