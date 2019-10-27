@@ -39,6 +39,15 @@ public class Deliveryman {
         deliveryHistory = null;
     }
 
+    public Deliveryman(Name name, Phone phone, Set<Tag> tags, StatusTag status) {
+        requireAllNonNull(name, phone);
+        this.name = name;
+        this.phone = phone;
+        this.tags.addAll(tags);
+        this.status = status; // editing field will affect status
+        deliveryHistory = null;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

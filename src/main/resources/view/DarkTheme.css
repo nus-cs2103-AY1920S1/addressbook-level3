@@ -350,3 +350,14 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#statusTag {
+    -fx-text-fill: green;
+    -fx-padding: 1 3 1 3;
+    -fx-background-color: white;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+
