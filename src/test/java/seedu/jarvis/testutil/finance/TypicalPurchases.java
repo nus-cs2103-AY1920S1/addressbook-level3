@@ -13,11 +13,13 @@ public class TypicalPurchases {
     public static final Purchase LUNCH_JAPANESE = new PurchaseBuilder()
             .withDescription("Lunch at Deck Japanese stall")
             .withMoneySpent("4.50")
+            .withDateOfPurchase("29/11/2019")
             .build();
 
     public static final Purchase DINNER_REEDZ = new PurchaseBuilder()
             .withDescription("Dinner at Reedz Cafe")
             .withMoneySpent("5.90")
+            .withDateOfPurchase("29/11/2019")
             .build();
 
     public static List<Purchase> getTypicalPurchases() {
