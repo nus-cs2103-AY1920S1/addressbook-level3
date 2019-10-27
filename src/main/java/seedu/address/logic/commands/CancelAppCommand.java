@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
@@ -23,24 +25,37 @@ public class CancelAppCommand extends ReversibleCommand {
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
 
     private final Event toDelete;
+    private final List<Event> eventList;
+
 
     public CancelAppCommand(Event toDelete) {
         requireNonNull(toDelete);
         this.toDelete = toDelete;
+        this.eventList = null;
+    }
+
+    public CancelAppCommand(List<Event> eventList) {
+        requireNonNull(eventList);
+        this.toDelete = null;
+        this.eventList = eventList;
     }
 
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (eventList == null) {
+            deleteOneEvent(model);
+            model.updateFilteredEventList(toDelete.getPersonId());
+            return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
 
-        if (!model.hasExactAppointment(toDelete)) {
+        if (!model.hasExactEvent(toDelete)) {
             throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, toDelete));
         }
 
 
-        model.deleteAppointment(toDelete);
-        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toDelete.getPersonId()));
+        model.deleteEvent(toDelete);
+        model.updateFilteredEventList(toDelete.getPersonId());
         return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
     }
 

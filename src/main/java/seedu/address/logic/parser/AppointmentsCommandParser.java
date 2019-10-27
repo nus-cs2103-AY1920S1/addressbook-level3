@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -27,6 +25,7 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
      */
     public AppointmentsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
+        model.updateFilteredEventList();
 
         if (args.trim().isEmpty()) {
             return new AppointmentsCommand();
@@ -41,9 +40,4 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
         }
 
     }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

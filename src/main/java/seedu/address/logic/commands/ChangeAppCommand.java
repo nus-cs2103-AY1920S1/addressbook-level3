@@ -12,14 +12,13 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
- * Acknowledge a person to the address book.
+ * Chnageing the timing of the appointment.
  */
 public class ChangeAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "changeappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": change the appointment date "
-            + "by the index number used in the displayed patient's list. "
-            + "Existing date will be overwritten by the input date.\n"
+            + "by the index number used in the displayed patient's list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_START + "PREFIX_EVENT "
             + PREFIX_END + "PREFIX_EVENT \n"
@@ -28,7 +27,7 @@ public class ChangeAppCommand extends ReversibleCommand {
             + PREFIX_END + "01/11/19 1900";
 
     public static final String MESSAGE_SUCCESS = "this appointmeent's timing has been changed: %1$s";
-    public static final String MESSAGE_TIMING_NOTNEW = "please a new timing for the appointment to chaneg.";
+    public static final String MESSAGE_TIMING_EXIST = "please give a new valid timing for the appointment to change.";
 
     private final Event eventToEdit;
     private final Event editedEvent;

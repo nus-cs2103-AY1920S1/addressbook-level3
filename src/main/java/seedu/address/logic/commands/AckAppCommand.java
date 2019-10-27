@@ -6,9 +6,9 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import seedu.address.model.events.Event;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+
 
 /**
  * Acknowledge a person to the address book.
@@ -23,6 +23,7 @@ public class AckAppCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 001A";
 
     public static final String MESSAGE_SUCCESS = "this appointmeent has been acked: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "this appointmeent has been unacked: %1$s";
     public static final String MESSAGE_DUPLICATE_ACKED = "the upcoming appointment has been acked already.";
 
     private final Event eventToEdit;

@@ -54,6 +54,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             int idx = index.getZeroBased();
+
             if (idx >= lastShownList.size()) {
                 throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
             }
@@ -61,15 +62,14 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
             String endString = argMultimap.getValue(PREFIX_END).get();
             Timing timing = ParserUtil.parseTiming(startString, endString);
 
-            Event source = lastShownList.get(idx);
-            Event dest = new Appointment(source.getPersonId(), timing, new Status());
+            Event eventToEdit = lastShownList.get(idx);
+            Event editedEvent = new Appointment(eventToEdit.getPersonId(), timing, new Status());
 
-            return new ReversibleActionPairCommand(new ChangeAppCommand(source, dest),
-                    new ChangeAppCommand(dest, source));
+            return new ReversibleActionPairCommand(new ChangeAppCommand(eventToEdit, editedEvent),
+                    new ChangeAppCommand(editedEvent, eventToEdit));
 
         } catch (ParseException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeAppCommand.MESSAGE_USAGE), e);
+            throw new ParseException(e.getMessage());
         }
     }
 
