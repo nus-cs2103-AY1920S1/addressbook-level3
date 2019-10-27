@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -49,8 +50,18 @@ public class FileCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(file.getFileName().value);
         path.setText("Location:\t\t" + file.getFilePath().value);
-        encryptedAt.setText("Encrypted: \t" + DateUtil.formatDateForDisplay(file.getEncryptedAt().value));
-        modifiedAt.setText("Last edited:\t" + DateUtil.formatDateForDisplay(file.getModifiedAt().value));
+        Date fileEncryptedAt = file.getEncryptedAt().value;
+        if (fileEncryptedAt.equals(new Date(0))) {
+            encryptedAt.setText("Encrypted:\tUnknown");
+        } else {
+            encryptedAt.setText("Encrypted: \t" + DateUtil.formatDateForDisplay(fileEncryptedAt));
+        }
+        Date fileModifiedAt = file.getModifiedAt().value;
+        if (fileModifiedAt.equals(new Date(0))) {
+            modifiedAt.setText("Last edited:\tUnknown");
+        } else {
+            modifiedAt.setText("Last edited:\t" + DateUtil.formatDateForDisplay(fileModifiedAt));
+        }
         file.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

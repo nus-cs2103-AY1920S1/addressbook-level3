@@ -64,15 +64,7 @@ public class AddFileCommand extends Command {
             if (!EncryptionUtil.isFileEncrypted(realFilePath)) {
                 throw new CommandException(MESSAGE_FILE_NOT_ENCRYPTED);
             }
-            toAdd.setModifiedAt(
-                    new ModifiedAt(
-                            new Date(
-                                    Files.getLastModifiedTime(
-                                            Path.of(realFilePath)
-                                    ).toMillis()
-                            )
-                    )
-            );
+            toAdd.setModifiedAt(new ModifiedAt(new Date(0)));
             toAdd.setEncryptedAt(new EncryptedAt(new Date(0)));
             new File(realFilePath).renameTo(new File(toAdd.getEncryptedPath()));
         } catch (IOException e) {
