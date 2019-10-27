@@ -27,7 +27,7 @@ public class CalendarModelManager implements CalendarModel {
     private final CalendarAddressBook calendarAddressBook;
     private final CalendarUserPrefs userPrefs;
     private FilteredList<Task> filteredTasks;
-    private FilteredList<Task> filteredTasksByTimeAdded;
+    private FilteredList<Task> filteredTasksByTitle;
     private FilteredList<Task> filteredTasksByDeadline;
 
     private boolean isDeadlineSorted = false;
@@ -44,10 +44,8 @@ public class CalendarModelManager implements CalendarModel {
         this.calendarAddressBook = new CalendarAddressBook(addressBook);
         this.userPrefs = new CalendarUserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
-
-        filteredTasksByTimeAdded = new FilteredList<>(this.calendarAddressBook.getPersonList());
-
-        filteredTasksByDeadline = new FilteredList<>(getSortedListByTime());
+        filteredTasksByTitle = getFilteredListByTitle();
+        filteredTasksByDeadline = getFilteredListByTime();
     }
 
     public CalendarModelManager() {
@@ -110,29 +108,20 @@ public class CalendarModelManager implements CalendarModel {
     @Override
     public void deleteTask(Task target) {
         calendarAddressBook.removeTask(target);
+        updateLists();
     }
 
     @Override
     public void addTask(Task task) {
         calendarAddressBook.addTask(task);
-        calendarAddressBook.setTasks(filteredTasks);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
+        updateLists();
     }
 
     @Override
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
-
         calendarAddressBook.setTask(target, editedTask);
-
-        if (isDeadlineSorted) {
-            filteredTasksByDeadline = new FilteredList<>(getSortedListByTime());
-            filteredTasks = filteredTasksByDeadline;
-            calendarAddressBook.setTasks(filteredTasks);
-        }
-
-
-
+        updateLists();
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -150,7 +139,7 @@ public class CalendarModelManager implements CalendarModel {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
-        filteredTasksByTimeAdded.setPredicate(predicate);
+        filteredTasksByTitle.setPredicate(predicate);
         filteredTasksByDeadline.setPredicate(predicate);
     }
 
@@ -178,17 +167,17 @@ public class CalendarModelManager implements CalendarModel {
         if (sortType.equals("deadline")) {
             isDeadlineSorted = true;
             filteredTasks = filteredTasksByDeadline;
-        } else if (sortType.equals("timeadded")) {
+        } else if (sortType.equals("title")) {
             isDeadlineSorted = false;
-            filteredTasks = filteredTasksByTimeAdded;
+            filteredTasks = filteredTasksByTitle;
         }
         calendarAddressBook.setTasks(filteredTasks);
 
         updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
-    private SortedList<Task> getSortedListByTime() {
-        return new SortedList<>(this.calendarAddressBook.getPersonList(),
+    private FilteredList<Task> getFilteredListByTime() {
+        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
             new Comparator<Task>() {
                 @Override
                 public int compare(Task x, Task y) {
@@ -202,7 +191,32 @@ public class CalendarModelManager implements CalendarModel {
                         return 0;
                     }
                 }
-            });
+            }));
+    }
+
+    private FilteredList<Task> getFilteredListByTitle() {
+        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
+            new Comparator<Task>() {
+                @Override
+                public int compare(Task x, Task y) {
+                    return x.getTaskTitle().toString().compareTo(y.getTaskTitle().toString());
+                }
+            }));
+    }
+
+    /**
+     * Update lists
+     */
+    private void updateLists() {
+        filteredTasksByDeadline = getFilteredListByTime();
+        filteredTasksByTitle = getFilteredListByTitle();
+        if (isDeadlineSorted) {
+            filteredTasks = filteredTasksByDeadline;
+        } else {
+            filteredTasks = filteredTasksByTitle;
+        }
+        calendarAddressBook.setTasks(filteredTasks);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
 }

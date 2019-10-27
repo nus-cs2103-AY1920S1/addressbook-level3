@@ -12,7 +12,6 @@ import seedu.address.logic.calendar.commands.Command;
 import seedu.address.logic.calendar.commands.DeleteCommand;
 import seedu.address.logic.calendar.commands.EditCommand;
 import seedu.address.logic.calendar.commands.ExitCommand;
-import seedu.address.logic.calendar.commands.FindCommand;
 import seedu.address.logic.calendar.commands.HelpCommand;
 import seedu.address.logic.calendar.commands.ListCommand;
 import seedu.address.logic.calendar.commands.SortCommand;
@@ -61,8 +60,8 @@ public class AddressBookParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        //case FindCommand.COMMAND_WORD:
+        //    return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
