@@ -13,7 +13,7 @@ class IncidentDateTimeTest {
     private static final String VALID_DATETIME = "Dec 20, 2016, 2:30:40 PM";
 
     @Test
-    public void toString_validDateTime_success() {
+    public void constructor_validDateTime_success() {
         IncidentDateTime validDateTime = new IncidentDateTime("Dec 20, 2016, 2:30:40 PM");
         assertEquals(VALID_DATETIME, validDateTime.toString());
     }

@@ -97,7 +97,7 @@ public class TypicalEntities {
         im.addIncident(new Incident(BOB, new District(3), secondValidDateTime,
                 new IncidentId(secondValidDateTime.getMonth(), secondValidDateTime.getYear()),
                 new CallerNumber("90878965"),
-                new Description("Pickpocket spotted at the pasar malam in District 3")));;
+                new Description("Pickpocket spotted at the pasar malam in District 3")));
 
         return im;
     }
