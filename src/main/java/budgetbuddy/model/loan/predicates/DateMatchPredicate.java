@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import budgetbuddy.model.loan.Loan;
 
+/**
+ * A predicate to check equality between a given date and the date of a given loan.
+ */
 public class DateMatchPredicate implements Predicate<Loan> {
     private final Date date;
 

@@ -28,9 +28,9 @@ import java.util.function.Predicate;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
-import budgetbuddy.model.loan.LoanSorters.SortBy;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.LoanSorters.SortBy;
 
 /**
  * Lists loans.

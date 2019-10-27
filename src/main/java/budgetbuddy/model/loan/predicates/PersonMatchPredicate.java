@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.person.Person;
 
+/**
+ * A predicate to check equality between a given person and the person of a given loan.
+ */
 public class PersonMatchPredicate implements Predicate<Loan> {
     private final Person person;
 

@@ -4,10 +4,16 @@ import java.util.function.Predicate;
 
 import budgetbuddy.model.attributes.Direction;
 
+/**
+ * A container class to hold filters for the loan list.
+ */
 public class LoanFilters {
 
     public static final Predicate<Loan> FILTER_ALL = loan -> true;
 
+    /**
+     * Returns a predicate that checks if a loan's direction is equal to the given direction.
+     */
     public static Predicate<Loan> getDirectionPredicate(Direction direction) {
         switch (direction) {
         case IN:
@@ -20,6 +26,9 @@ public class LoanFilters {
         }
     }
 
+    /**
+     * Returns a predicate that checks if a loan's status is equal to the given status.
+     */
     public static Predicate<Loan> getStatusPredicate(Status status) {
         switch (status) {
         case PAID:

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;

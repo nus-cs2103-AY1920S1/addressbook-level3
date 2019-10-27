@@ -4,11 +4,9 @@ import static budgetbuddy.model.loan.LoanFilters.FILTER_ALL;
 import static budgetbuddy.model.loan.LoanSorters.DATE_NEWEST;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.loan.Debtor;
@@ -25,16 +23,6 @@ import javafx.collections.transformation.SortedList;
  * Maintains a list of loans.
  */
 public class LoansManager {
-
-    public enum SortBy {
-        PERSON, AMOUNT, DATE;
-
-        public static boolean contains(String toTest) {
-            return Arrays.stream(SortBy.values())
-                    .map(SortBy::toString)
-                    .anyMatch(sortByStr -> sortByStr.equals(toTest));
-        }
-    }
 
     private final ObservableList<Loan> internalList = FXCollections.observableArrayList();
     private final ObservableList<Loan> internalUnmodifiableList =

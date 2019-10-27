@@ -7,7 +7,6 @@ import budgetbuddy.model.loan.Loan;
 import budgetbuddy.ui.card.LoanCard;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -18,7 +17,7 @@ import javafx.scene.control.ListView;
 public class LoanPanel extends ListPanel {
     private static final String FXML = "LoanPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(LoanPanel.class);
-    
+
     @FXML
     private ListView<Loan> loanListView;
 

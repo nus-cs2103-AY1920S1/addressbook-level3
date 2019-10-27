@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.loan.Loan;
 
+/**
+ * A predicate to check equality between a given description and the description of a given loan.
+ */
 public class DescriptionMatchPredicate implements Predicate<Loan> {
     private final Description description;
 
