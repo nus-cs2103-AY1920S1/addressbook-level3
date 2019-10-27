@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
                 while (c.next()) {
                     for (Item newItem : c.getAddedSubList()) {
                         Platform.runLater(() -> {
-                            resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
+                            resultDisplay.setReminderToUser(newItem.getReminderMessage());
                         });
                     }
                 }
