@@ -12,6 +12,11 @@ import java.util.stream.IntStream;
 public class DateUtil {
     private static int FIRST_DAY_OF_MONTH = 1;
 
+    /* The following is used for day-related purposes. */
+    public static DayOfWeek toDayOfWeek(int dayAsInt) {
+        return DayOfWeekUtil.of(dayAsInt);
+    }
+
     /* The following is used for year-related purposes. */
     public static int getNumericalVal(DayOfWeek dayOfWeek) {
         return dayOfWeek.getNumericalVal();

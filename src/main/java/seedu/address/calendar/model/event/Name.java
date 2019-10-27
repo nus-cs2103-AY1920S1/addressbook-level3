@@ -18,4 +18,22 @@ public class Name {
     public String toString() {
         return name;
     }
+
+    /**
+     * Todo: note that it is not case sensitive
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof Name)) {
+            return false;
+        }
+
+        Name otherName = (Name) obj;
+        String otherNameStr = otherName.name;
+        return this.name.equalsIgnoreCase(otherNameStr);
+    }
 }

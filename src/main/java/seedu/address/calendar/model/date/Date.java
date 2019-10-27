@@ -4,6 +4,8 @@ import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.util.IntervalPart;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -119,6 +121,40 @@ public class Date implements IntervalPart<Date> {
         return true;
     }
 
+    public Date getPreviousDate() {
+        GregorianCalendar javaDate = toJavaDate();
+        javaDate.add(Calendar.DAY_OF_MONTH, -1);
+        return fromJavaDate(javaDate);
+    }
+
+    public Date getNextDate() {
+        GregorianCalendar javaDate = toJavaDate();
+        javaDate.add(Calendar.DAY_OF_MONTH, 1);
+        return fromJavaDate(javaDate);
+    }
+
+    private GregorianCalendar toJavaDate() {
+        int dayOfMonth = day.getDayOfMonth();
+        int monthInt = month.getNumericalVal() - 1;
+        int yearInt = year.getNumericalValue();
+
+        return new GregorianCalendar(yearInt, monthInt, dayOfMonth);
+    }
+
+    private Date fromJavaDate(GregorianCalendar javaDate) {
+        int yearInt = javaDate.get(Calendar.YEAR);
+        int monthInt = javaDate.get(Calendar.MONTH);
+        int dayOfMonth = javaDate.get(Calendar.DAY_OF_MONTH);
+        int dayOfWeekInt = javaDate.get(Calendar.DAY_OF_WEEK) - 2;
+
+        Year year = new Year(yearInt);
+        MonthOfYear monthOfYear = DateUtil.convertJavaMonth(monthInt);
+        DayOfWeek dayOfWeek = DateUtil.toDayOfWeek(dayOfWeekInt);
+        Day day = new Day(dayOfWeek, dayOfMonth);
+
+        return new Date(day, monthOfYear, year);
+    }
+
     public int compareTo(Date otherDate) {
         Year otherYear = otherDate.year;
         int compareYear = year.compareTo(otherYear);
@@ -152,6 +188,30 @@ public class Date implements IntervalPart<Date> {
 
     @Override
     public int compareTo(IntervalPart o) {
-        return 0;
+        if (!(o instanceof Date)) {
+            assert false : "Unable to compare different types of interval part";
+        }
+        return compareTo((Date) o);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof Date)) {
+            return false;
+        }
+
+        Date otherDate = (Date) obj;
+        Year otherYear = otherDate.year;
+        boolean isSameYear = year.equals(otherYear);
+
+        MonthOfYear otherMonth = otherDate.month;
+        boolean isSameMonth = month.equals(otherMonth);
+
+        Day otherDay = otherDate.day;
+        boolean isSameDay = day.equals(otherDay);
+
+        return isSameYear && isSameMonth && isSameDay;
     }
 }

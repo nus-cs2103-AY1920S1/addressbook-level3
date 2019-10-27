@@ -23,6 +23,7 @@ public class CalendarLogic {
     public CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         Command command = new CalendarParser().parseCommand(commandText);
         CommandResult commandResult = command.execute(calendar);
+        // todo: add in a flag --> don't always save calendar unnecessarily
         calendarStorage.saveCalendar(calendar.getCalendar());
         return commandResult;
     }

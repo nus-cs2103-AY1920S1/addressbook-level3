@@ -15,6 +15,7 @@ public class Year implements Comparable<Year> {
         return new Year(year);
     }
 
+    @Override
     public int compareTo(Year otherYear) {
         return year - otherYear.year;
     }
@@ -22,5 +23,18 @@ public class Year implements Comparable<Year> {
     @Override
     public String toString() {
         return String.format("%04d", year);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else if (!(obj instanceof Year)) {
+            return false;
+        }
+
+        Year otherYear = (Year) obj;
+        boolean isSameYear = this.year == otherYear.year;
+        return isSameYear;
     }
 }

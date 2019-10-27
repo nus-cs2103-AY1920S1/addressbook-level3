@@ -5,7 +5,7 @@ import seedu.address.calendar.model.util.Interval;
 
 import java.util.Optional;
 
-public abstract class Event implements Interval<Date, Event> {
+public abstract class Event extends Interval<Date, Event> {
     protected Date startDate;
     protected Date endDate = null; // todo: update
     protected Name name;
@@ -13,6 +13,7 @@ public abstract class Event implements Interval<Date, Event> {
     protected EventType eventType;
 
     public Event(Name name, Date startDate, Optional<Info> info, EventType eventType) {
+        super(startDate, startDate); // todo: update
         this.startDate = startDate;
         this.name = name;
         this.info = info;
@@ -36,46 +37,5 @@ public abstract class Event implements Interval<Date, Event> {
     public String getInfoStr() {
         return info.map(i -> i.asString())
                 .orElse("");
-    }
-
-    @Override
-    public boolean isEndsAfter(Date date) {
-        // todo: change to endDate
-        return endDate.compareTo(date) > 0;
-    }
-
-    @Override
-    public boolean isStartsAfter(Date date) {
-        return startDate.compareTo(date) > 0;
-    }
-
-    @Override
-    public boolean contains(Date date) {
-        boolean isStartBeforeOrAt = startDate.compareTo(date) <= 0;
-        boolean isEndsAfterOrAt = endDate.compareTo(date) >= 0;
-        return isStartBeforeOrAt && isEndsAfterOrAt;
-    }
-
-    @Override
-    public Date getStart() {
-        return startDate;
-    }
-
-    @Override
-    public Date getEnd() {
-        return endDate;
-    }
-
-    @Override
-    public int compareTo(Interval<Date, Event> other) {
-        Date otherStartDate = other.getStart();
-        int startCompare = startDate.compareTo(otherStartDate);
-        if (startCompare != 0) {
-            return startCompare;
-        }
-
-        Date otherEndDate = other.getEnd();
-        int endCompare = endDate.compareTo(otherEndDate);
-        return endCompare;
     }
 }
