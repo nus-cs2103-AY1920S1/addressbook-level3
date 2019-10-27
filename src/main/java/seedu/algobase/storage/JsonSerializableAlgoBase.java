@@ -27,6 +27,7 @@ class JsonSerializableAlgoBase {
     private final List<JsonAdaptedProblem> problems = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedPlan> plans = new ArrayList<>();
+    private final List<JsonAdaptedTab> tabs = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAlgoBase} with the given problems.

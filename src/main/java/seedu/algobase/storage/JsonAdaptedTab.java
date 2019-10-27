@@ -2,12 +2,16 @@ package seedu.algobase.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabData;
 
+/**
+ * Jackson-friendly version of {@link TabData}.
+ */
 public class JsonAdaptedTab {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tab Data's %s field is missing!";

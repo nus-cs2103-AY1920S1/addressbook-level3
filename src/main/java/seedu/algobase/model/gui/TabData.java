@@ -26,4 +26,18 @@ public class TabData {
     public Index getModelIndex() {
         return modelIndex;
     }
+
+    /**
+     * Returns true if both problems of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two problems.
+     */
+    public boolean isSameTabData(TabData otherTabData) {
+        if (otherTabData == this) {
+            return true;
+        }
+
+        return otherTabData != null
+            && otherTabData.getModelType() == getModelType() && otherTabData.getModelIndex().equals(modelIndex);
+    }
+
 }
