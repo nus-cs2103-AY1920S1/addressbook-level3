@@ -76,7 +76,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     }
 
     /**
-     * Checks if the archiveWrapper has an archive with hte given archiveName.
+     * Checks if the archiveWrapper has an archive with the given archiveName.
      */
     public boolean hasArchive(String archiveName) {
         requireNonNull(archiveName);
