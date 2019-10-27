@@ -12,18 +12,18 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyEvents;
+import seedu.address.model.ReadOnlyPerformance;
 
 /**
  * A class to access EventList data stored as a json file on the hard disk.
  */
-public class JsonEventStorage implements EventStorage {
+public class JsonPerformanceStorage implements PerformanceStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonEventStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonPerformanceStorage.class);
 
     private Path filePath;
 
-    public JsonEventStorage(Path filePath) {
+    public JsonPerformanceStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -32,7 +32,7 @@ public class JsonEventStorage implements EventStorage {
     }
 
     @Override
-    public Optional<ReadOnlyEvents> readEvents() throws DataConversionException {
+    public Optional<ReadOnlyPerformance> readEvents() throws DataConversionException {
         return readEvents(filePath);
     }
 
@@ -43,10 +43,10 @@ public class JsonEventStorage implements EventStorage {
      * @throws DataConversionException if the file is not in the correct format.
      */
     @Override
-    public Optional<ReadOnlyEvents> readEvents(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyPerformance> readEvents(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
-        Optional<JsonSerializableEvents> jsonEventList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableEvents.class);
+        Optional<JsonSerializablePerformance> jsonEventList = JsonUtil.readJsonFile(
+                filePath, JsonSerializablePerformance.class);
         if (!jsonEventList.isPresent()) {
             return Optional.empty();
         }
@@ -60,16 +60,16 @@ public class JsonEventStorage implements EventStorage {
     }
 
     @Override
-    public void saveEvents(ReadOnlyEvents events) throws IOException {
+    public void saveEvents(ReadOnlyPerformance events) throws IOException {
         saveEvents(events, filePath);
     }
 
     @Override
-    public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
+    public void saveEvents(ReadOnlyPerformance events, Path filePath) throws IOException {
         requireNonNull(events);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableEvents(events), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializablePerformance(events), filePath);
     }
 }

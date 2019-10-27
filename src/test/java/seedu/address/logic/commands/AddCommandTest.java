@@ -9,6 +9,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,8 +22,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyEvents;
+import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.date.AthletickDate;
+import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
@@ -200,13 +204,23 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyEvents getEventList() {
+        public ReadOnlyPerformance getPerformance() {
             return null;
         }
 
         @Override
         public String addRecord(String eventName, Person person, Record record) {
             return null;
+        }
+
+        @Override
+        public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
+            return null;
+        }
+
+        @Override
+        public boolean hasPerformanceOn(AthletickDate date) {
+            return false;
         }
     }
 

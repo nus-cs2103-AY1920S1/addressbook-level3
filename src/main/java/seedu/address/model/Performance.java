@@ -2,9 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.date.AthletickDate;
+import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.performance.UniqueEventList;
@@ -13,7 +16,7 @@ import seedu.address.model.person.Person;
 /**
  * Wraps Performance-related data at an EventList level.
  */
-public class EventList implements ReadOnlyEvents {
+public class Performance implements ReadOnlyPerformance {
 
     private final UniqueEventList events;
 
@@ -28,12 +31,12 @@ public class EventList implements ReadOnlyEvents {
         events = new UniqueEventList();
     }
 
-    public EventList() {}
+    public Performance() {}
 
     /**
-     * Creates an EventList using the Events in the {@code toBeCopied}
+     * Creates a Performance using the Events in the {@code toBeCopied}
      */
-    public EventList(ReadOnlyEvents toBeCopied) {
+    public Performance(ReadOnlyPerformance toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -51,13 +54,29 @@ public class EventList implements ReadOnlyEvents {
     /**
      * Resets the existing data of this {@code EventList} with {@code newData}.
      */
-    public void resetData(ReadOnlyEvents newData) {
+    public void resetData(ReadOnlyPerformance newData) {
         requireNonNull(newData);
 
-        setEvents(newData.getEvents());
+        setEvents(newData.getPerformance());
     }
 
     //// event-level operations
+
+    /**
+     * Retrieves Calendar-compatible records for all events.
+     */
+    public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
+        requireNonNull(date);
+        return events.getCalendarCompatiblePerformance(date);
+    }
+
+    /**
+     * Checks if there are any recorded performances on a specified date.
+     */
+    public boolean hasPerformanceOn(AthletickDate date) {
+        requireNonNull(date);
+        return events.hasPerformanceOn(date);
+    }
 
     /**
      * Returns true if an event with the same name as {@code event} exists in the events list.
@@ -92,15 +111,15 @@ public class EventList implements ReadOnlyEvents {
     }
 
     @Override
-    public ObservableList<Event> getEvents() {
+    public ObservableList<Event> getPerformance() {
         return events.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventList // instanceof handles nulls
-                && events.equals(((EventList) other).events));
+                || (other instanceof Performance // instanceof handles nulls
+                && events.equals(((Performance) other).events));
     }
 
     @Override

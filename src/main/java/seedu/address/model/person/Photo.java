@@ -22,8 +22,8 @@ public class Photo {
     public final Image photo;
 
     public Photo() {
-        value = "/images/default.png";
-        photo = new Image(this.getClass().getResourceAsStream(value));
+        value = "default.png";
+        photo = new Image(this.getClass().getResourceAsStream(IMAGE_DIRECTORY + value));
     }
 
     public Photo(String image) {

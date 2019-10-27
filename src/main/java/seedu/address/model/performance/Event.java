@@ -3,7 +3,9 @@ package seedu.address.model.performance;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,7 +16,7 @@ public class Event {
     public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
 
-    public static final String INVALID_NAME_MESSAGE_CONSTRAINTS = "Evnt name should not begin with a space.\n";
+    public static final String INVALID_NAME_MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -23,7 +25,7 @@ public class Event {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     private String name;
-    private HashMap<Person, List<Record>> performances;
+    private HashMap<Person, List<Record>> records;
 
     /**
      * Creates a type of event that stores the members and their respective timings (performance) for this event.
@@ -31,17 +33,17 @@ public class Event {
      */
     public Event(String name) {
         this.name = name.toLowerCase();
-        this.performances = new HashMap<>();
+        this.records = new HashMap<>();
     }
 
     /**
      * Creates a type of event with the performances initialised already.
      * @param name of this event.
-     * @param performances to be included in this event.
+     * @param records to be included in this event.
      */
-    public Event(String name, HashMap<Person, List<Record>> performances) {
+    public Event(String name, HashMap<Person, List<Record>> records) {
         this.name = name.toLowerCase();
-        this.performances = performances;
+        this.records = records;
     }
 
     /**
@@ -67,8 +69,46 @@ public class Event {
         return name;
     }
 
-    public HashMap<Person, List<Record>> getPerformances() {
-        return performances;
+    public HashMap<Person, List<Record>> getRecords() {
+        return records;
+    }
+
+    /**
+     * Retrieves a list of Calendar-compatible records for the Calendar.
+     * @param date of Calendar-compatible records.
+     */
+    public List<CalendarCompatibleRecord> getCalendarCompatibleRecords(AthletickDate date) {
+        List<CalendarCompatibleRecord> ccrList = new ArrayList<>();
+        records.forEach((person, recordList) -> {
+            String timing = null;
+            for (Record record : recordList) {
+                if (record.getDate().equals(date)) {
+                    timing = record.getTiming();
+                }
+            }
+            if (timing == null) {
+                timing = "This person does not have a performance record for " + name + " event on " + date.toString();
+            }
+            CalendarCompatibleRecord ccr = new CalendarCompatibleRecord(person, timing);
+            ccrList.add(ccr);
+        });
+        return ccrList;
+    }
+
+    /**
+     * Checks if this event has a recorded performance on the given date.
+     */
+    public boolean hasPerformanceOn(AthletickDate date) {
+        AtomicBoolean answer = new AtomicBoolean(false);
+        records.forEach((person, recordList) -> {
+            for (Record record : recordList) {
+                if (record.getDate().equals(date)) {
+                    answer.set(true);
+                    break;
+                }
+            }
+        });
+        return false;
     }
 
     /**
@@ -76,20 +116,20 @@ public class Event {
      * @return Details of performance.
      */
     public String addPerformance(Person athlete, Record record) {
-        if (!performances.containsKey(athlete)) {
+        if (!records.containsKey(athlete)) {
             ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
             initialisedPerformanceEntries.add(record);
-            performances.put(athlete, initialisedPerformanceEntries);
+            records.put(athlete, initialisedPerformanceEntries);
         } else {
             // copying the existing performances
             ArrayList<Record> currentPerformanceEntries = new ArrayList<>();
-            currentPerformanceEntries.addAll(performances.get(athlete));
+            currentPerformanceEntries.addAll(records.get(athlete));
             // adding the new performance
             currentPerformanceEntries.add(record);
             // remove the existing athelete record for this event
-            performances.remove(athlete);
+            records.remove(athlete);
             // adding the athlete again with their updated record for this event
-            performances.put(athlete, currentPerformanceEntries);
+            records.put(athlete, currentPerformanceEntries);
         }
         return "For " + athlete.getName() + " in the " + name + " event, on " + record.getDate().toString()
                 + " with a timing of " + record.getTiming();

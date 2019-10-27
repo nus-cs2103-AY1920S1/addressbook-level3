@@ -205,7 +205,8 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
             if (!(commandResult.getPerson() == null)) {
-                InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson());
+                InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson(),
+                                                                               logic.getPersonAttendance());
                 featureBoxPlaceholder.getChildren().clear();
                 featureBoxPlaceholder.getChildren().add(informationDisplay.getRoot());
             }

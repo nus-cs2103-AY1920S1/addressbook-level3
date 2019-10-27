@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,7 +16,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.TrainingCommand;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
+import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
@@ -30,7 +34,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final Attendance attendance;
-    private final EventList eventList;
+    private final Performance performance;
     private final FilteredList<Person> filteredPersons;
     private ReadOnlyAddressBook readOnlyAddressBook;
     private Person selectedPerson;
@@ -40,7 +44,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEvents eventList,
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyPerformance performance,
                         Attendance attendance, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -49,13 +53,13 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.eventList = new EventList(eventList);
+        this.performance = new Performance(performance);
         this.attendance = attendance;
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new EventList(), new Attendance(), new UserPrefs());
+        this(new AddressBook(), new Performance(), new Attendance(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -230,22 +234,32 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(Event event) {
-        eventList.addEvent(event);
+        performance.addEvent(event);
     }
 
     @Override
     public boolean hasEvent(Event event) {
-        return eventList.hasEvent(event);
+        return performance.hasEvent(event);
     }
 
     @Override
-    public ReadOnlyEvents getEventList() {
-        return eventList;
+    public ReadOnlyPerformance getPerformance() {
+        return performance;
     }
 
     @Override
     public String addRecord(String eventName, Person person, Record record) {
-        return eventList.addRecord(eventName, person, record);
+        return performance.addRecord(eventName, person, record);
+    }
+
+    @Override
+    public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
+        return performance.getCalendarCompatiblePerformance(date);
+    }
+
+    @Override
+    public boolean hasPerformanceOn(AthletickDate date) {
+        return performance.hasPerformanceOn(date);
     }
 
 }
