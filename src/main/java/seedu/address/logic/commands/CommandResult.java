@@ -109,7 +109,7 @@ public class CommandResult {
     public boolean isRegister() {
         return userRegister;
     }
-  
+
     public boolean isTasks() {
         return showTasks;
     }
