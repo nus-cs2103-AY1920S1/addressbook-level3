@@ -28,7 +28,9 @@ public class InviteCommand extends Command {
             + "[" + PREFIX_PARTICIPANT + "PARTICIPANT]...\n"
             + "Example: invite p/Ben p/David";
 
-    public static final String MESSAGE_RESULT = "\n%s\n%s";
+    public static final String MESSAGE_RESULT = "%s\n%s";
+
+    public static final String MESSAGE_RESULT_NONE_SUCCESS = "%s";
 
     public static final String MESSAGE_SUCCESS_INVITE = "Invited \"%s\" into the activity.";
 
@@ -119,7 +121,15 @@ public class InviteCommand extends Command {
 
         model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
 
-        return new CommandResult(String.format(MESSAGE_RESULT, successMessage, warningMessage));
+        String result;
+
+        if (successMessage.toString().equals("")) {
+            result = String.format(MESSAGE_RESULT_NONE_SUCCESS, warningMessage);
+        } else {
+            result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
+        }
+
+        return new CommandResult(result);
     }
 
     @Override
