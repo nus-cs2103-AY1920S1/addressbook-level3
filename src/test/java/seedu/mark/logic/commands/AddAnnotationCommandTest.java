@@ -35,9 +35,6 @@ import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 
 class AddAnnotationCommandTest {
-    private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
-    private Storage storage = new StorageStub();
-
     private Index index = Index.fromOneBased(1);
     private ParagraphIdentifier pid = new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.EXIST);
 

@@ -47,7 +47,7 @@ public class DeleteAnnotationCommand extends AnnotationCommand {
             //+ "A cache has been created for you. Kindly press Enter to confirm to add the annotation to this cache."
             + "Download a cache using the " + CacheCommand.COMMAND_WORD + " command to start annotating.";
     //TODO: change msg to more informative one (what content, to which paragraph, which colour, which bkmark version
-    public static final String MESSAGE_NOTHING_TO_DELETE = "There is no annotation is delete from this paragraph.";
+    public static final String MESSAGE_NOTHING_TO_DELETE = "There is no annotation to delete from this paragraph.";
     public static final String MESSAGE_DEFAULT = "Successfully kept your note and highlight.";
 
 
