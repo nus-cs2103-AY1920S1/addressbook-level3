@@ -54,7 +54,7 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <CheckBox fx:id="watched" mnemonicParsing="false" text="Watched" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+         <CheckBox fx:id="watched" styleClass="check-box" mnemonicParsing="false" text="Watched" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
             <GridPane.margin>
                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </GridPane.margin>

@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -51,6 +52,20 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane contentPanelPlaceholder;
+
+    @FXML
+    private Button watchlistButton;
+
+    @FXML
+    private Button watchedButton;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private Button statisticsButton;
+
+    private Button currentButton;
 
     public MainWindow(Stage primaryStage, Logic logic, Statistics statistics) {
         super(FXML, primaryStage);
@@ -122,6 +137,11 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        watchlistButton.getStyleClass().removeAll("button");
+        watchlistButton.getStyleClass().add("button-current");
+
+        currentButton = watchlistButton;
     }
 
     /**
@@ -206,6 +226,8 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
+        move(currentButton, watchlistButton);
+        currentButton = watchlistButton;
     }
 
     /**
@@ -215,6 +237,8 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
+        move(currentButton, watchedButton);
+        currentButton = watchedButton;
     }
 
     /**
@@ -224,6 +248,8 @@ public class MainWindow extends UiPart<Stage> {
     public void goToSearch() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
+        move(currentButton, searchButton);
+        currentButton = searchButton;
     }
 
     /**
@@ -233,5 +259,14 @@ public class MainWindow extends UiPart<Stage> {
     public void goToStatistics() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        move(currentButton, statisticsButton);
+        currentButton = statisticsButton;
+    }
+
+    public void move(Button a, Button b) {
+        a.getStyleClass().removeAll("button-current");
+        a.getStyleClass().add("button");
+        b.getStyleClass().removeAll("button");
+        b.getStyleClass().add("button-current");
     }
 }
