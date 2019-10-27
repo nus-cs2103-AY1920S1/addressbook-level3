@@ -256,6 +256,21 @@ public class AddCommandTest {
         public void deleteTask(Task target) {
 
         }
+
+        @Override
+        public void addReminder(Reminder reminder) {
+
+        }
+
+        @Override
+        public void updateFilteredReminderList(Predicate<Reminder> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCalendarList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

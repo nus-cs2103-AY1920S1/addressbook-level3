@@ -9,7 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.task.Task;
+import seedu.address.model.reminder.Reminder;
 
 
 /**
@@ -30,21 +30,21 @@ public class AddReminderCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
-    private final Task toAdd;
+    private final Reminder toAdd;
 
     /**
      * Creates an AddTaskCommand to add the specified {@code Task}
      */
-    public AddReminderCommand(Task task) {
-        requireNonNull(task);
-        toAdd = task;
+    public AddReminderCommand(Reminder reminder) {
+        requireNonNull(reminder);
+        toAdd = reminder;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addTask(toAdd);
+        model.addReminder(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

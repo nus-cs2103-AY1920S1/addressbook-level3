@@ -258,6 +258,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     //// util methods
 
+
+    /**
+     * Adds a reminder to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addReminder(Reminder r) {
+        reminder.add(r);
+    }
+
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";

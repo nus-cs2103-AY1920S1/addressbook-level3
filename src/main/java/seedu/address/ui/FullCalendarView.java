@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -9,22 +14,18 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.ui.AnchorPaneNode;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.logging.Logger;
-
-
+/**
+ * Constructor for the entire calendar view
+ */
 public class FullCalendarView extends UiPart<Region> {
 
+    private static final String FXML = "fullCalendar.fxml";
+    private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
     private ArrayList<AnchorPaneNode> allCalendarDays = new ArrayList<>(35);
     private VBox view;
     private Text calendarTitle;
     private YearMonth currentYearMonth;
-    private static final String FXML = "fullCalendar.fxml";
-    private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     /**
      * Create a calendar view
@@ -41,15 +42,21 @@ public class FullCalendarView extends UiPart<Region> {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
                 AnchorPaneNode ap = new AnchorPaneNode();
-                ap.setPrefSize(200,200);
-                calendar.add(ap,j,i);
+                ap.setPrefSize(200, 200);
+                calendar.add(ap, j, i);
                 allCalendarDays.add(ap);
             }
         }
         // Days of the week labels
-        Text[] dayNames = new Text[]{ new Text("Sunday"), new Text("Monday"), new Text("Tuesday"),
-                new Text("Wednesday"), new Text("Thursday"), new Text("Friday"),
-                new Text("Saturday") };
+        Text[] dayNames = new Text[]{ new
+                Text("Sunday"), new
+                Text("Monday"), new
+                Text("Tuesday"), new
+                Text("Wednesday"), new
+                Text("Thursday"), new
+                Text("Friday"), new
+                Text("Saturday")
+        };
         GridPane dayLabels = new GridPane();
         dayLabels.setPrefWidth(600);
         Integer col = 0;
@@ -84,7 +91,7 @@ public class FullCalendarView extends UiPart<Region> {
         // Get the date we want to start with on the calendar
         LocalDate calendarDate = LocalDate.of(yearMonth.getYear(), yearMonth.getMonthValue(), 1);
         // Dial back the day until it is SUNDAY (unless the month starts on a sunday)
-        while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY") ) {
+        while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY")) {
             calendarDate = calendarDate.minusDays(1);
         }
         // Populate the calendar with day numbers

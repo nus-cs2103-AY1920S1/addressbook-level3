@@ -242,10 +242,6 @@ public class ModelManager implements Model {
         return filteredCommands;
     }
 
-    public ObservableList<Reminder> getFilteredReminderList() {
-        return filteredReminder;
-    }
-
     @Override
     public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
         requireNonNull(predicate);
@@ -299,6 +295,25 @@ public class ModelManager implements Model {
         return (addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons));
+    }
+
+    //=========== Filtered Reminder List Accessors =============================================================
+
+    @Override
+    public void addReminder(Reminder reminder) {
+        addressBook.addReminder(reminder);
+        updateFilteredReminderList(PREDICATE_SHOW_ALL_REMINDERS);
+    }
+
+    @Override
+    public void updateFilteredReminderList(Predicate<Reminder> predicate) {
+        requireNonNull(predicate);
+        filteredReminder.setPredicate(predicate);
+        UiManager.startTasks();
+    }
+
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return filteredReminder;
     }
 
 }

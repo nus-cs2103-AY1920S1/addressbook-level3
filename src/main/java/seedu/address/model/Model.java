@@ -26,6 +26,8 @@ public interface Model {
 
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
+    Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -201,5 +203,17 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate);
+
+    /**
+     * Updates the filter of the filtered reminder list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredReminderList(Predicate<Reminder> predicate);
+
+    /**
+     * Adds the given reminder.
+     * {@code reminder} must not already exist in the address book.
+     */
+    void addReminder(Reminder reminder);
 
 }
