@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.PerformanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.date.AthletickDate;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -41,7 +42,7 @@ public class PerformanceCommandParser implements Parser<PerformanceCommand> {
         }
 
         String event = ParserUtil.parseEvent(argMultimap.getValue(PREFIX_EVENT).get());
-        String date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        AthletickDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         String timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get());
 
         return new PerformanceCommand(index, event, date, timing);

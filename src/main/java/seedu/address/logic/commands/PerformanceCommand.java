@@ -11,6 +11,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
@@ -35,13 +36,13 @@ public class PerformanceCommand extends Command {
 
     private final String event;
     private final Index index;
-    private final String date;
+    private final AthletickDate date;
     private final String time;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public PerformanceCommand(Index index, String event, String date, String time) {
+    public PerformanceCommand(Index index, String event, AthletickDate date, String time) {
         this.event = event;
         this.index = index;
         this.date = date;

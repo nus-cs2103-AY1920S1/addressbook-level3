@@ -91,7 +91,7 @@ public class Event {
             // adding the athlete again with their updated record for this event
             performances.put(athlete, currentPerformanceEntries);
         }
-        return "For " + athlete.getName() + " in the " + name + " event, on " + record.getDate()
+        return "For " + athlete.getName() + " in the " + name + " event, on " + record.getDate().toString()
                 + " with a timing of " + record.getTiming();
     }
 

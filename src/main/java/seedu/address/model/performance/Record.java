@@ -1,11 +1,13 @@
 package seedu.address.model.performance;
 
+import seedu.address.model.date.AthletickDate;
+
 /**
  * Under each event, each member will have a PerformanceEntry that contains their performance timing and the date
  * that they took
  */
 public class Record {
-    private String date;
+    private AthletickDate date;
     private String timing;
 
     /**
@@ -13,7 +15,7 @@ public class Record {
      * @param date this entry was taken.
      * @param timing of this entry.
      */
-    public Record(String date, String timing) {
+    public Record(AthletickDate date, String timing) {
         this.date = date;
         this.timing = timing;
     }
@@ -26,7 +28,8 @@ public class Record {
         return timing;
     }
 
-    public String getDate() {
+    public AthletickDate getDate() {
         return date;
     }
+
 }

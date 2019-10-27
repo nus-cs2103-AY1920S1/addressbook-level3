@@ -193,16 +193,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String date} into a {@code String}
-     */
-    public static String parseDate(String date) {
-        requireNonNull(date);
-        String trimmedDate = date.trim();
-        // currently assume all date formats are correct before using date class that Shawn implemented
-        return trimmedDate;
-    }
-
-    /**
      * Parses {@code String timing} into a {@code String}
      */
     public static String parseTiming(String timing) {
