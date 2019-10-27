@@ -1,127 +1,193 @@
-/*package seedu.address.logic.commands.addcommand;
+package seedu.address.logic.commands.addcommand;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
-import static seedu.address.testutil.TypicalCustomers.getTypicalCustomerBook;
-import static seedu.address.testutil.TypicalPhones.getTypicalPhoneBook;
-import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
+import static seedu.address.testutil.TypicalCustomers.ALICE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PHONE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PHONE;
+import static seedu.address.testutil.TypicalPhones.IPHONEXR;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.OrderBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Price;
+import seedu.address.model.phone.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CustomerBookBuilder;
-import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.ModelStub;
-import seedu.address.testutil.TypicalCustomers;
-import seedu.address.testutil.TypicalIndexes;
+import seedu.address.testutil.OrderBuilder;
 
 public class AddOrderCommandTest {
 
-    private Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-            getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+    private static final Index VALID_CUSTOMER_INDEX = INDEX_FIRST_CUSTOMER;
+    private static final Index VALID_PHONE_INDEX = INDEX_FIRST_PHONE;
+    private static final Price VALID_PRICE = new Price("$1000");
+    private static final Set<Tag> VALID_TAG_SET = new HashSet<>();
 
     @Test
-    public void constructor_nullOrder_throwsNullPointerException() {
+    public void constructor_nullCustomerIndex_throwsNullPointerException() {
         assertThrows(NullPointerException.class, ()
-                -> new AddOrderCommand(null, null, null, null));
+            -> new AddOrderCommand(null, VALID_PHONE_INDEX, VALID_PRICE, VALID_TAG_SET));
+    }
+
+    @Test
+    public void constructor_nullPhoneIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+            -> new AddOrderCommand(VALID_CUSTOMER_INDEX, null, VALID_PRICE, VALID_TAG_SET));
+    }
+
+    @Test
+    public void constructor_nullPrice_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+            -> new AddOrderCommand(VALID_CUSTOMER_INDEX, VALID_PHONE_INDEX, null, VALID_TAG_SET));
+    }
+
+    @Test
+    public void constructor_nullTags_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+            -> new AddOrderCommand(VALID_CUSTOMER_INDEX, VALID_PHONE_INDEX, VALID_PRICE, null));
     }
 
     @Test
     public void execute_orderAcceptedByModel_addSuccessful() throws Exception {
-        Order editedOrder = new OrderBuilder().build();
 
-        Index customerIndex = TypicalIndexes.INDEX_FIRST_CUSTOMER;
-        Index phoneIndex = TypicalIndexes.INDEX_FIRST_PHONE;
-        Price price = new Price("$1212");
-        Set<Tag> tagSet = new HashSet<Tag>();
+        ModelStubAcceptingOrderAdded modelStub = new ModelStubAcceptingOrderAdded();
 
-        AddOrderCommand addOrderCommand = new AddOrderCommand(customerIndex, phoneIndex, price, tagSet);
+        CommandResult commandResult =
+                new AddOrderCommand(VALID_CUSTOMER_INDEX, VALID_PHONE_INDEX, VALID_PRICE, VALID_TAG_SET)
+                        .execute(modelStub);
+        Order order = modelStub.ordersAdded.get(0);
 
-        String expectedMessage = String.format(AddOrderCommand.MESSAGE_SUCCESS, );
+        Order copyOrder = new OrderBuilder(order).build();
 
-        Model expectedModel = new ModelManager(new CustomerBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        assertEquals(String.format(AddOrderCommand.MESSAGE_SUCCESS, copyOrder),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(copyOrder), modelStub.ordersAdded);
+    }
 
+    @Test
+    public void execute_duplicateOrder_throwsCommandException() {
+        AddOrderCommand addOrderCommand =
+                new AddOrderCommand(VALID_CUSTOMER_INDEX, VALID_PHONE_INDEX, VALID_PRICE, VALID_TAG_SET);
+        ModelStub modelStub = new ModelStubWithOrder(new OrderBuilder().withCustomer(ALICE).withPhone(IPHONEXR)
+                .withPrice(VALID_PRICE.toString()).withTags().build());
 
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel)
+        assertThrows(CommandException.class, AddOrderCommand.MESSAGE_DUPLICATE_ORDER, ()
+            -> addOrderCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
 
-        Phone iphone11 = new PhoneBuilder().withName("iPhone 11").build();
-        Phone iphone11pro = new PhoneBuilder().withName("iPhone 11 Pro").build();
-        AddPhoneCommand addiPhone11Command = new AddPhoneCommand(iphone11);
-        AddPhoneCommand addiPhone11ProCommand = new AddPhoneCommand(iphone11pro);
+        Price priceOne = new Price("$900");
+        Price priceTwo = new Price("$1234");
+
+        AddOrderCommand addOrderCommandOne = new AddOrderCommand(INDEX_FIRST_CUSTOMER, INDEX_FIRST_PHONE, priceOne,
+                VALID_TAG_SET);
 
         // same object -> returns true
-        assertTrue(addiPhone11Command.equals(addiPhone11Command));
+        assertTrue(addOrderCommandOne.equals(addOrderCommandOne));
 
-        // same values -> returns true
-        AddPhoneCommand addiPhone11CommandCopy = new AddPhoneCommand(iphone11);
-        assertTrue(addiPhone11Command.equals(addiPhone11CommandCopy));
+        // same attributes -> returns true
+        AddOrderCommand addOrderCommandOneCopy = new AddOrderCommand(INDEX_FIRST_CUSTOMER, INDEX_FIRST_PHONE, priceOne,
+                VALID_TAG_SET);
+        assertTrue(addOrderCommandOne.equals(addOrderCommandOneCopy));
 
         // different types -> returns false
-        assertFalse(addiPhone11Command.equals(1));
+        assertFalse(addOrderCommandOne.equals(1));
 
         // null -> returns false
-        assertFalse(addiPhone11Command.equals(null));
+        assertFalse(addOrderCommandOne.equals(null));
 
-        // different person -> returns false
-        assertFalse(addiPhone11Command.equals(addiPhone11ProCommand));
+        // different customer index -> returns false
+        AddOrderCommand addOrderCommandTwo = new AddOrderCommand(INDEX_SECOND_CUSTOMER, INDEX_FIRST_PHONE, priceOne,
+                VALID_TAG_SET);
+        assertFalse(addOrderCommandOne.equals(addOrderCommandTwo));
+
+        // different phone index -> returns false
+        addOrderCommandTwo = new AddOrderCommand(INDEX_FIRST_CUSTOMER, INDEX_SECOND_PHONE, priceOne,
+                VALID_TAG_SET);
+        assertFalse(addOrderCommandOne.equals(addOrderCommandTwo));
+
+        // different price -> returns false
+        addOrderCommandTwo = new AddOrderCommand(INDEX_FIRST_CUSTOMER, INDEX_FIRST_PHONE, priceTwo,
+                VALID_TAG_SET);
+        assertFalse(addOrderCommandOne.equals(addOrderCommandTwo));
     }
 
     /**
      * A Model stub that contains a single order.
-
+     */
     private class ModelStubWithOrder extends ModelStub {
         private final Order order;
+        private final ObservableList<Customer> filteredCustomerList = FXCollections.observableArrayList();
+        private final ObservableList<Phone> filteredPhoneList = FXCollections.observableArrayList();
 
         ModelStubWithOrder(Order order) {
             requireNonNull(order);
             this.order = order;
+            filteredCustomerList.add(ALICE);
+            filteredPhoneList.add(IPHONEXR);
+        }
+
+        @Override
+        public void addOrder(Order order) {
         }
 
         @Override
         public boolean hasOrder(Order order) {
             requireNonNull(order);
-            return this.order.isSameOrder(order);
+            return this.order.isSameAs(order);
+        }
+
+        @Override
+        public ObservableList<Phone> getFilteredPhoneList() {
+            return filteredPhoneList;
+        }
+
+
+        @Override
+        public ObservableList<Customer> getFilteredCustomerList() {
+            return filteredCustomerList;
         }
 
     }
 
     /**
      * A Model stub that always accept the order being added.
-
+    */
     private class ModelStubAcceptingOrderAdded extends ModelStub {
         final ArrayList<Order> ordersAdded = new ArrayList<>();
+        final ObservableList<Customer> filteredCustomerList = FXCollections.observableArrayList();
+        final ObservableList<Phone> filteredPhoneList = FXCollections.observableArrayList();
+
+        public ModelStubAcceptingOrderAdded() {
+            filteredCustomerList.add(ALICE);
+            filteredPhoneList.add(IPHONEXR);
+        }
 
         @Override
         public boolean hasOrder(Order order) {
             requireNonNull(order);
-            return ordersAdded.stream().anyMatch(order::isSameOrder);
+            return ordersAdded.stream().anyMatch(order::isSameAs);
         }
 
         @Override
@@ -132,13 +198,19 @@ public class AddOrderCommandTest {
 
         @Override
         public ReadOnlyDataBook<Order> getOrderBook() {
-            return new OrderBook();
+            return new DataBook<Order>();
         }
 
         @Override
-        public ReadOnlyDataBook<Customer> getCustomerBook() {
-            return new CustomerBookBuilder().withCustomer(TypicalCustomers.ALICE).build();
+        public ObservableList<Phone> getFilteredPhoneList() {
+            return filteredPhoneList;
+        }
+
+
+        @Override
+        public ObservableList<Customer> getFilteredCustomerList() {
+            return filteredCustomerList;
         }
     }
 
-}*/
+}

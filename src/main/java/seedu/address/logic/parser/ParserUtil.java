@@ -410,7 +410,7 @@ public class ParserUtil {
 
         String[] timeArr = time.split("\\.");
         if (timeArr.length != 2) {
-            throw new ParseException(MESSAGE_INVALID_TIME);
+            throw new ParseException(Messages.TIME_MESSAGE_CONSTRAINTS);
         }
         int[] input = new int[3];
 
@@ -421,7 +421,7 @@ public class ParserUtil {
             }
             localTime = LocalTime.of(input[0], input[1]);
         } catch (NumberFormatException | DateTimeException e) {
-            throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
+            throw new ParseException(Messages.TIME_MESSAGE_CONSTRAINTS);
         }
 
         return new Calendar.Builder().setTimeOfDay(input[0], input[1], 0).build();
