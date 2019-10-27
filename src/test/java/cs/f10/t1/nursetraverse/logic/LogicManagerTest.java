@@ -13,6 +13,7 @@ import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.logic.commands.AddCommand;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil;
+import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
@@ -54,7 +55,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = DeleteCommand.COMMAND_WORD + " 9";
         assertCommandException(deleteCommand, Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
     }
 
