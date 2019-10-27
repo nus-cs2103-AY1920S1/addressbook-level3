@@ -22,8 +22,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.model.archive.Archive;
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.exceptions.ExpenseNotFoundException;
 import seedu.billboard.testutil.Assert;
+import seedu.billboard.testutil.ExpenseBuilder;
 
 public class ArchiveWrapperTest {
 
@@ -93,8 +95,18 @@ public class ArchiveWrapperTest {
 
     // add tests =============================================================================
     @Test
-    public void addArchive_nullExpense_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> archiveWrapper.addArchive(null));
+    public void addArchive_nullArchive_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper.addArchive(null));
+    }
+
+    @Test
+    public void addArchive_validArchive_success() {
+        Expense taxes = new ExpenseBuilder().withArchiveName(VALID_ARCHIVE_TAXES).build();
+        archiveWrapper.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>(Arrays.asList(taxes))));
+        ArchiveWrapper expectedAW = new ArchiveWrapper(new ArrayList<>(
+                Arrays.asList(IPHONE11, GUCCI_SLIDES, KPOP_LIGHT_STICK, FOOTBALL, taxes)));
+
+        assertEquals(expectedAW, archiveWrapper);
     }
 
     @Test
