@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -155,6 +156,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyWeme getWeme() {
         return versionedWeme;
+    }
+
+    @Override
+    public void clearMemes() {
+        versionedWeme.setMemes(new ArrayList<>());
     }
 
     @Override

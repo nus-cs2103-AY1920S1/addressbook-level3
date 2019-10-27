@@ -172,6 +172,11 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public void clearMemes() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasMeme(Meme meme) {
             throw new AssertionError("This method should not be called.");
         }
