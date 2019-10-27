@@ -2,7 +2,7 @@ package dukecooks.logic.parser.diary;
 
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_NUMBER;
+import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Stream;
 
@@ -27,15 +27,14 @@ public class DeletePageCommandParser implements Parser<DeletePageCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePageCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME, PREFIX_PAGE_NUMBER);
+                ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DIARY_NAME, PREFIX_PAGE_NUMBER)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePageCommand.MESSAGE_USAGE));
-        }
+        Index index;
+
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PAGE_NUMBER).get());
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
             DiaryName diaryName = ParserUtil.parseDiaryName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
             return new DeletePageCommand(index, diaryName);
         } catch (ParseException pe) {
