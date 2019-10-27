@@ -16,45 +16,41 @@ public class TypicalCards {
 
     public static final Card ABRA = new CardBuilder().withWord("Abra")
             .withMeaning("It sleeps eighteen hours a day, but employs telekinesis even while sleeping.")
-            .withTags("psychic").build();
+            .withTags("psychic").withId("abrajfbeoudnjcp").build();
     public static final Card BUTTERFREE = new CardBuilder().withWord("Butterfree")
             .withMeaning("Its wings are covered with poisonous dust. If you see one flapping its wings, "
                     + "be careful not to inhale any of the dust.")
-            .withTags("bug", "flying").build();
+            .withTags("bug", "flying").withId("butterfreejdfbo").build();
     public static final Card CHARIZARD = new CardBuilder().withWord("Charizard")
             .withMeaning("It flies around the sky in search of powerful opponents. It breathes fire of such "
                     + "great heat that it melts anything. However, it never turns its fiery breath on any opponent "
                     + "weaker than itself.")
-            .withTags("fire", "flying")
+            .withTags("fire", "flying").withId("charizardaiudan")
             .build();
     public static final Card DITTO = new CardBuilder().withWord("Ditto")
             .withMeaning("Its transformation ability is perfect. However, if it is made to laugh, it can't "
                     + "maintain its disguise.")
-            .withTags("normal").build();
+            .withTags("normal").withId("dittonfjsdodc").build();
     public static final Card EEVEE = new CardBuilder().withWord("Eevee")
             .withMeaning("Possessing an unbalanced and unstable genetic makeup, it conceals many possible "
                     + "evolutions")
-            .withTags("normal")
+            .withTags("normal").withId("eeveeouhvdsn")
             .build();
     public static final Card FLAREON = new CardBuilder().withWord("Flareon")
             .withMeaning("It fluffs out its fur collar to cool down its body temperature, which can reach "
                     + "1,650 degrees.")
-            .withTags("fire")
+            .withTags("fire").withId("flareonaedjlcs")
             .build();
     public static final Card GEODUDE = new CardBuilder().withWord("Geodude")
             .withMeaning("At rest, it looks just like a rock. Carelessly stepping on it will make it swing "
                     + "its fists angrily.")
-            .withTags("ground", "rock")
+            .withTags("ground", "rock").withId("geodudejnfslohl")
             .build();
 
     public static final Card SINGLE_LETTER_CARD = new CardBuilder().withWord("T")
             .withMeaning("This word only has a single letter T")
             .withTags("test")
             .build();
-
-    public static final String KEYWORD_MATCHING_EE = "ee"; // A keyword that matches ee
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalCards() {} // prevents instantiation
 

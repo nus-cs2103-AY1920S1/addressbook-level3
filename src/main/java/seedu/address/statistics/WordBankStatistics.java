@@ -43,8 +43,10 @@ public class WordBankStatistics {
 
     /**
      * Updates this word bank statistics to include {@code gameStats} of the difficulty {@code difficultyEnum}.
+     * This method does not check the validity of the {@code gameStats).
      */
     public void update(GameStatistics gameStats, DifficultyEnum difficultyEnum) {
+        assert gameStats.getTitle().equals(getWordBankName());
         ++gamesPlayed;
         if (gameStats.isAllCorrect()) {
             // update fastestClear if necessary
@@ -169,7 +171,15 @@ public class WordBankStatistics {
         if (!(obj instanceof WordBankStatistics)) {
             return false;
         }
-        return this.wordBankName.equals(((WordBankStatistics) obj).wordBankName);
+        WordBankStatistics other = (WordBankStatistics) obj;
+        return getWordBankName().equals(other.getWordBankName())
+                && getGamesPlayed() == other.getGamesPlayed()
+                && getFastestClear().equals(other.getFastestClear())
+                && getCardStats().equals(other.getCardStats())
+                && getScoreStats().equals(other.getScoreStats())
+                && isReceivedBadgeEasy() == other.isReceivedBadgeEasy()
+                && isReceivedBadgeNormal() == other.isReceivedBadgeNormal()
+                && isReceivedBadgeHard() == other.isReceivedBadgeHard();
     }
 
     @Override
@@ -186,6 +196,9 @@ public class WordBankStatistics {
                 .append(cardStats)
                 .append("\n")
                 .append(scoreStats)
-                .append("\n").toString();
+                .append("\n")
+                .append(isReceivedBadgeEasy())
+                .append(isReceivedBadgeNormal())
+                .append(isReceivedBadgeHard()).toString();
     }
 }

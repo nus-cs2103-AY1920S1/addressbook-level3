@@ -17,15 +17,18 @@ public class CardBuilder {
     public static final String DEFAULT_WORD = "Pikachu";
     public static final String DEFAULT_MEANING = "This forest-dwelling Pokémon stores electricity in its cheeks, "
             + "so you'll feel a tingly shock if you touch it.";
+    public static final String DEFAULT_ID = "pikachubdeans";
 
     private Word word;
     private Meaning meaning;
     private Set<Tag> tags;
+    private String id;
 
     public CardBuilder() {
         word = new Word(DEFAULT_WORD);
         meaning = new Meaning(DEFAULT_MEANING);
         tags = new HashSet<>();
+        id = DEFAULT_ID;
     }
 
     /**
@@ -35,6 +38,7 @@ public class CardBuilder {
         word = cardToCopy.getWord();
         meaning = cardToCopy.getMeaning();
         tags = new HashSet<>(cardToCopy.getTags());
+        id = cardToCopy.getId();
     }
 
     /**
@@ -61,8 +65,16 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code id} of the {@code Card} that we are building.
+     */
+    public CardBuilder withId(String id) {
+        this.id = id;
+        return this;
+    }
+
     public Card build() {
-        return new Card(word, meaning, tags, "sample-id");
+        return new Card(word, meaning, tags, id);
     }
 
 }
