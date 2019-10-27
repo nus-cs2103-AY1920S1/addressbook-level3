@@ -2,24 +2,15 @@ package seedu.address.cashier.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_DESCRIPTION_STORYBOOK;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_INDEX_1;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_QUANTITY_1;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_QUANTITY_2;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_DESCRIPTION_STORYBOOK;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_INDEX_1;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTITY_1;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTITY_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.commands.AddCommand;
 import seedu.address.cashier.logic.commands.CheckoutCommand;
 import seedu.address.cashier.logic.commands.ClearCommand;
 import seedu.address.cashier.logic.commands.DeleteCommand;
-import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.cashier.logic.commands.SetCashierCommand;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.model.Model;
@@ -36,14 +27,14 @@ public class CashierTabParserTest {
                     TypicalTransactions.getTypicalTransactionList());
     private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    @Test
+    /*@Test
     public void parseCommand_add() throws Exception {
         model.clearSalesList();
         AddCommand addCommand = (AddCommand) parser.parseCommand(AddCommand.COMMAND_WORD
                 + DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_1, model, personModel);
         assertEquals(new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_1), addCommand);
         model.clearSalesList();
-    }
+    }*/
 
     @Test
     public void parseCommand_delete() throws Exception {
@@ -52,7 +43,7 @@ public class CashierTabParserTest {
         assertEquals(new DeleteCommand(1), command);
     }
 
-    @Test
+    /*@Test
     public void parseCommand_edit() throws Exception {
         model.clearSalesList();
         model.addItem(TypicalItem.STORYBOOK);
@@ -60,7 +51,7 @@ public class CashierTabParserTest {
                 + DESC_QUANTITY_2, model, personModel);
         assertEquals(new EditCommand(VALID_INDEX_1, VALID_QUANTITY_2), editCommand);
         model.clearSalesList();
-    }
+    }*/
 
     @Test
     public void parseCommand_clear() throws Exception {
