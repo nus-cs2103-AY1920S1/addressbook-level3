@@ -124,7 +124,8 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
     }
 
     /**
-     *
+     * Creates and returns a {@code Long[]} with the details of {@code appointmentToEdit}'s frequency
+     * edited with {@code editAppointmentDescriptor}'s frequency.
      */
     public static Long[] updateFrequency(Appointment appointmentToEdit,
                                   EditAppointmentDescriptor editAppointmentDescriptor) {
@@ -136,7 +137,7 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
         Long updatedMinutes = editAppointmentDescriptor.getMinutes().orElse(appointmentToEdit.getFrequency()
                 .getMinutes());
         Long[] editedAppointmentFrequency = {updatedYears, updatedMonths, updatedWeeks, updatedDays, updatedHours,
-                updatedMinutes};
+                                            updatedMinutes};
         return editedAppointmentFrequency;
     }
 
