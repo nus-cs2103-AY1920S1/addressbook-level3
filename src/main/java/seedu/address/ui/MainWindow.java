@@ -29,6 +29,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private LoginWindow loginWindow;
     private boolean unknown;
 
     // Independent Ui parts residing in this Ui container
@@ -50,7 +51,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
-    //private StackPane earningsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -378,5 +378,17 @@ public class MainWindow extends UiPart<Stage> {
             reminderBox.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public void hide() {
+        primaryStage.hide();
+    }
+
+    /**
+     * Shows the login window.
+     */
+    public void showLogin() {
+        loginWindow = new LoginWindow(new Stage(), logic);
+        loginWindow.show();
     }
 }

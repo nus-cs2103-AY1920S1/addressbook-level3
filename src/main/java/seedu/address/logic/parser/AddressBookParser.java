@@ -23,7 +23,9 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEarningsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UnknownCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
@@ -124,6 +126,7 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
 
         if (commandList.containsKey(commandWord)) {
+
             switch (commandList.get(commandWord)) {
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);
@@ -172,6 +175,12 @@ public class AddressBookParser {
             case UpdateEarningsCommand.COMMAND_WORD:
                 return new UpdateEarningsCommandParser().parse(arguments);
 
+            case LoginCommand.COMMAND_WORD:
+                return new LoginCommandParser().parse(arguments);
+
+            case RegisterAccountCommand.COMMAND_WORD:
+                return new RegisterAccountCommandParser().parse(arguments);
+
             case DeleteEarningsCommand.COMMAND_WORD:
                 return new DeleteEarningsCommandParser().parse(arguments);
 
@@ -201,4 +210,39 @@ public class AddressBookParser {
 
     }
 
+    /**
+     * Parses user input into command for execution
+     * before user logs in.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public Command parseCommandWithoutLoggingIn(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        switch (commandWord) {
+
+        case LoginCommand.COMMAND_WORD:
+            return new LoginCommandParser().parse(arguments);
+
+        case RegisterAccountCommand.COMMAND_WORD:
+            return new RegisterAccountCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
+        }
+    }
 }

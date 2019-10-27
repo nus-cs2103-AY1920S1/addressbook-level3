@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+//import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
@@ -259,6 +260,19 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean userHasLoggedIn() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void isLoggedIn() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /*@Override
+        public ReadOnlyCalendar getCalendar() {
+        }*/
+
         public void setTask(Task target, Task editedTask) {
 
         }

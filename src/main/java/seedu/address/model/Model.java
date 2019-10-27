@@ -165,6 +165,10 @@ public interface Model {
      */
     void updateFilteredEarningsList(Predicate<Earnings> predicate);
 
+    boolean userHasLoggedIn();
+
+    void isLoggedIn();
+
     void saveCommand(String command);
 
     String getSavedCommand();

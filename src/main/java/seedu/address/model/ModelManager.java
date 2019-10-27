@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.account.Account;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.note.Notes;
@@ -25,10 +26,13 @@ import seedu.address.ui.UiManager;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static boolean loggedIn = false;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private Account account;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Earnings> filteredEarnings;
     private final FilteredList<CommandObject> filteredCommands;
@@ -59,7 +63,17 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
 
+    /*public ModelManager(Account acc) {
+        this(new AddressBook(), new UserPrefs());
+        this.account = acc;
+    }*/
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Account acc) {
+        this(addressBook, userPrefs);
+        this.account = acc;
+        loggedIn = true;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -301,6 +315,20 @@ public class ModelManager implements Model {
         return (addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons));
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+
+    public void isLoggedIn() {
+        loggedIn = !loggedIn;
+    }
+
+    @Override
+    public boolean userHasLoggedIn() {
+        return loggedIn;
     }
 
     @Override
