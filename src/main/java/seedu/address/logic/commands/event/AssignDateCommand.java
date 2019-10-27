@@ -82,13 +82,16 @@ public class AssignDateCommand extends Command {
                     targetEventDate.get(), eventDayTime, eventToAssign.getName()), false,
                     false, index.getZeroBased());
         } else { //Empty, assign for all dates
-            eventToAssign.getStartDate().datesUntil(eventToAssign.getEndDate())
+            EventDate startDate = eventToAssign.getStartDate();
+            EventDate endDate = eventToAssign.getEndDate();
+
+            startDate.datesUntil(endDate)
                     .forEach(eventDate -> {
                         eventToAssign.assignDateTime(eventDate, eventDayTime);
                     });
 
             return new CommandResult(String.format(MESSAGE_SUCCESS_ALL,
-                    "StartDate", "EndDate", eventToAssign.getName(), eventDayTime));
+                    startDate, endDate, eventToAssign.getName(), eventDayTime));
         }
 
     }
