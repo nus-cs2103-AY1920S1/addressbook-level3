@@ -12,6 +12,7 @@ import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.rules.JsonRuleStorage;
+import budgetbuddy.storage.scripts.FlatfileScriptsStorage;
 
 public class StorageManagerTest {
 
@@ -24,8 +25,9 @@ public class StorageManagerTest {
     public void setUp() {
         JsonLoansStorage loansStorage = new JsonLoansStorage(getTempFilePath("loans"));
         JsonRuleStorage ruleStorage = new JsonRuleStorage(getTempFilePath("rules"));
+        FlatfileScriptsStorage scriptsStorage = new FlatfileScriptsStorage(getTempFilePath("scripts"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(loansStorage, ruleStorage, userPrefsStorage);
+        storageManager = new StorageManager(loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

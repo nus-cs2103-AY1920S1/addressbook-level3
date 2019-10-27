@@ -12,11 +12,12 @@ import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.rules.RuleStorage;
+import budgetbuddy.storage.scripts.ScriptsStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends LoansStorage, RuleStorage, UserPrefsStorage {
+public interface Storage extends LoansStorage, RuleStorage, ScriptsStorage, UserPrefsStorage {
 
 
     void save(Model model) throws IOException;

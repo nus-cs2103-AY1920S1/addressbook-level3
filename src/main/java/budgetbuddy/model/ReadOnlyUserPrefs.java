@@ -14,4 +14,6 @@ public interface ReadOnlyUserPrefs {
     Path getLoansFilePath();
 
     Path getRuleFilePath();
+
+    Path getScriptsPath();
 }

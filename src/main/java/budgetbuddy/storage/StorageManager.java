@@ -11,9 +11,11 @@ import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.RuleManager;
+import budgetbuddy.model.ScriptLibrary;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.rules.RuleStorage;
+import budgetbuddy.storage.scripts.ScriptsStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -23,14 +25,16 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private LoansStorage loansStorage;
     private RuleStorage ruleStorage;
+    private ScriptsStorage scriptsStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(LoansStorage loansStorage, RuleStorage ruleStorage,
-                          UserPrefsStorage userPrefsStorage) {
+                          ScriptsStorage scriptsStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.loansStorage = loansStorage;
         this.ruleStorage = ruleStorage;
+        this.scriptsStorage = scriptsStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -38,6 +42,7 @@ public class StorageManager implements Storage {
     public void save(Model model) throws IOException {
         saveLoans(model.getLoansManager());
         saveRules(model.getRuleManager());
+        saveScripts(model.getScriptLibrary());
     }
 
     // ================ UserPrefs methods ==============================
@@ -113,5 +118,20 @@ public class StorageManager implements Storage {
     public void saveRules(RuleManager ruleManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         ruleStorage.saveRules(ruleManager, filePath);
+    }
+
+    @Override
+    public Path getScriptsPath() {
+        return scriptsStorage.getScriptsPath();
+    }
+
+    @Override
+    public ScriptLibrary readScripts(Path scriptsPath) throws IOException {
+        return scriptsStorage.readScripts(scriptsPath);
+    }
+
+    @Override
+    public void saveScripts(ScriptLibrary scripts, Path scriptsPath) throws IOException {
+        scriptsStorage.saveScripts(scripts, scriptsPath);
     }
 }

@@ -2,7 +2,6 @@ package budgetbuddy;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -20,6 +19,8 @@ import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.RuleManager;
+import budgetbuddy.model.ScriptLibrary;
+import budgetbuddy.model.ScriptLibraryManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.util.SampleDataUtil;
 import budgetbuddy.storage.JsonUserPrefsStorage;
@@ -30,6 +31,8 @@ import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.rules.JsonRuleStorage;
 import budgetbuddy.storage.rules.RuleStorage;
+import budgetbuddy.storage.scripts.FlatfileScriptsStorage;
+import budgetbuddy.storage.scripts.ScriptsStorage;
 import budgetbuddy.ui.Ui;
 import budgetbuddy.ui.UiManager;
 import javafx.application.Application;
@@ -62,8 +65,9 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         LoansStorage loansStorage = new JsonLoansStorage(userPrefs.getLoansFilePath());
         RuleStorage ruleStorage = new JsonRuleStorage(userPrefs.getRuleFilePath());
+        ScriptsStorage scriptsStorage = new FlatfileScriptsStorage(userPrefs.getScriptsPath());
 
-        storage = new StorageManager(loansStorage, ruleStorage, userPrefsStorage);
+        storage = new StorageManager(loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -81,9 +85,9 @@ public class MainApp extends Application {
         AccountsManager accountsManager = new AccountsManager();
         LoansManager loansManager = initLoansManager(storage);
         RuleManager ruleManager = initRuleManager(storage);
+        ScriptLibrary scriptLibrary = initScriptLibrary(storage);
 
-        // TODO: scripts storage
-        return new ModelManager(loansManager, ruleManager, accountsManager, Collections.emptyList(), userPrefs);
+        return new ModelManager(loansManager, ruleManager, accountsManager, scriptLibrary, userPrefs);
     }
 
     /**
@@ -127,6 +131,23 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from rule file. Will be starting with an empty RuleManager.");
             return new RuleManager();
+        }
+    }
+
+    /**
+     * Loads and returns a script library from storage.
+     *
+     * Returns an empty script library if an error occurs.
+     *
+     * @param storage the storage
+     * @return the script library
+     */
+    private ScriptLibrary initScriptLibrary(Storage storage) {
+        try {
+            return storage.readScripts();
+        } catch (IOException e) {
+            logger.warning("Problem while reading scripts. Starting with empty script library.");
+            return new ScriptLibraryManager();
         }
     }
 

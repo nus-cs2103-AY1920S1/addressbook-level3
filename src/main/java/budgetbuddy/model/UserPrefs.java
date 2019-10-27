@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path loansFilePath = Paths.get("data", "loans.json");
     private Path ruleFilePath = Paths.get("data", "rules.json");
+    private Path scriptsPath = Paths.get("data", "scripts");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setLoansFilePath(newUserPrefs.getLoansFilePath());
         setRuleFilePath(newUserPrefs.getRuleFilePath());
+        setScriptsPath(newUserPrefs.getScriptsPath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -68,6 +70,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     @Override
+    public Path getScriptsPath() {
+        return scriptsPath;
+    }
+
+    public void setScriptsPath(Path scriptsPath) {
+        requireNonNull(scriptsPath);
+        this.scriptsPath = scriptsPath;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -80,12 +92,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && loansFilePath.equals(o.loansFilePath)
-                && ruleFilePath.equals(o.ruleFilePath);
+                && ruleFilePath.equals(o.ruleFilePath)
+                && scriptsPath.equals(o.scriptsPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, loansFilePath, ruleFilePath);
+        return Objects.hash(guiSettings, loansFilePath, ruleFilePath, scriptsPath);
     }
 
     @Override
@@ -94,6 +107,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLoans data file location : " + loansFilePath);
         sb.append("\nRule data file location : " + ruleFilePath);
+        sb.append("\nScripts location : " + scriptsPath);
         return sb.toString();
     }
 

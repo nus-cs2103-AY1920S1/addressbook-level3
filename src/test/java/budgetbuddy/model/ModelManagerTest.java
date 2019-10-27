@@ -58,12 +58,13 @@ public class ModelManagerTest {
         LoansManager loansManager = new LoansManager();
         RuleManager ruleManager = new RuleManager();
         AccountsManager accountsManager = new AccountsManager();
+        ScriptLibrary scriptLibrary = new ScriptLibraryManager();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(loansManager, ruleManager, accountsManager, userPrefs);
+        modelManager = new ModelManager(loansManager, ruleManager, accountsManager, scriptLibrary, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(loansManager, ruleManager, accountsManager,
-                userPrefs);
+                scriptLibrary, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -79,6 +80,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setRuleFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(loansManager, ruleManager, accountsManager,
-                differentUserPrefs)));
+                scriptLibrary, differentUserPrefs)));
     }
 }

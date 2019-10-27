@@ -17,11 +17,13 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
+import budgetbuddy.model.ScriptLibraryManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.JsonUserPrefsStorage;
 import budgetbuddy.storage.StorageManager;
 import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.rules.JsonRuleStorage;
+import budgetbuddy.storage.scripts.FlatfileScriptsStorage;
 
 public class LogicManagerTest {
     // TODO
@@ -39,8 +41,10 @@ public class LogicManagerTest {
                 new JsonLoansStorage(temporaryFolder.resolve("loans.json"));
         JsonRuleStorage ruleStorage =
                 new JsonRuleStorage(temporaryFolder.resolve("rules.json"));
+        FlatfileScriptsStorage scriptsStorage =
+                new FlatfileScriptsStorage(temporaryFolder.resolve("scripts"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(loansStorage, ruleStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -123,7 +127,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getLoansManager(), model.getRuleManager(),
-                model.getAccountsManager(), new UserPrefs());
+                model.getAccountsManager(), new ScriptLibraryManager(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
