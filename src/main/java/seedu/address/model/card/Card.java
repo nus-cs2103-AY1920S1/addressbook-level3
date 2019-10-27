@@ -18,17 +18,19 @@ public class Card {
     private final Description description;
     private final CardNumber cardNumber;
     private final Cvc cvc;
+    private final ExpiryDate expiryDate;
 
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Card(Description description, CardNumber cardNumber, Cvc cvc, Set<Tag> tags) {
-        requireAllNonNull(description, cardNumber, cvc, tags);
+    public Card(Description description, CardNumber cardNumber, Cvc cvc, ExpiryDate expiryDate, Set<Tag> tags) {
+        requireAllNonNull(description, cardNumber, cvc, expiryDate, tags);
         this.description = description;
         this.cardNumber = cardNumber;
         this.cvc = cvc;
+        this.expiryDate = expiryDate;
         this.tags.addAll(tags);
     }
 
@@ -36,6 +38,7 @@ public class Card {
         requireAllNonNull(description);
         this.description = description;
         this.cardNumber = null;
+        this.expiryDate = null;
         this.cvc = null;
     }
 
@@ -49,6 +52,10 @@ public class Card {
 
     public Cvc getCvc() {
         return cvc;
+    }
+
+    public ExpiryDate getExpiryDate() {
+        return expiryDate;
     }
 
     /**
@@ -86,6 +93,8 @@ public class Card {
                 .append(getNonEncryptedCardNumber())
                 .append(" CVC: ")
                 .append(getNonEncryptedCvc())
+                .append(" Expiry: ")
+                .append(getExpiryDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -106,7 +115,8 @@ public class Card {
 
         Card otherCard = (Card) other;
         return otherCard.getNonEncryptedCardNumber().equals(getNonEncryptedCardNumber())
-                && otherCard.getNonEncryptedCvc().equals(getNonEncryptedCvc());
+                && otherCard.getNonEncryptedCvc().equals(getNonEncryptedCvc())
+                && otherCard.getExpiryDate().equals(getExpiryDate());
     }
 
     /**
@@ -126,7 +136,7 @@ public class Card {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, cardNumber, cvc, tags);
+        return Objects.hash(description, cardNumber, cvc, expiryDate, tags);
     }
 
     @Override
@@ -137,6 +147,8 @@ public class Card {
                 .append(getCardNumber())
                 .append(" CVC: ")
                 .append(getCvc())
+                .append(" Expiry: ")
+                .append(getExpiryDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

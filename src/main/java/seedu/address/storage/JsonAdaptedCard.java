@@ -14,6 +14,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.CardNumber;
 import seedu.address.model.card.Cvc;
 import seedu.address.model.card.Description;
+import seedu.address.model.card.ExpiryDate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,6 +27,7 @@ class JsonAdaptedCard {
     private final String description;
     private final String cardNumber;
     private final String cvc;
+    private final String expiryDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -35,10 +37,12 @@ class JsonAdaptedCard {
     public JsonAdaptedCard(@JsonProperty("description") String description,
                            @JsonProperty("cardNumber") String cardNumber,
                            @JsonProperty("cvc") String cvc,
+                           @JsonProperty("expiryDate") String expiryDate,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.cardNumber = cardNumber;
         this.cvc = cvc;
+        this.expiryDate = expiryDate;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -51,6 +55,7 @@ class JsonAdaptedCard {
         description = source.getDescription().value;
         cardNumber = source.getCardNumber().value;
         cvc = source.getCvc().value;
+        expiryDate = source.getExpiryDate().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -93,8 +98,17 @@ class JsonAdaptedCard {
         }
         final Cvc modelCvc = new Cvc(cvc);
 
+        if (expiryDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ExpiryDate.class.getSimpleName()));
+        }
+        if (!ExpiryDate.isValidExpiryDate(expiryDate)) {
+            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
+
         final Set<Tag> modelTags = new HashSet<>(cardTags);
-        return new Card(modelDescription, modelCardNumber, modelCvc, modelTags);
+        return new Card(modelDescription, modelCardNumber, modelCvc, modelExpiryDate, modelTags);
     }
 
 }

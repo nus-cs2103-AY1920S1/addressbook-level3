@@ -13,6 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CARDNUMBER = new Prefix("c/");
     public static final Prefix PREFIX_CVC = new Prefix("v/");
+    public static final Prefix PREFIX_EXPIRYDATE = new Prefix("e/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_TITLE = new Prefix("ti/");
     public static final Prefix PREFIX_CONTENT = new Prefix("c/");
