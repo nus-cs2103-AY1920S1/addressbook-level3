@@ -17,18 +17,23 @@ public class SecondaryCommand {
 
     private static ArrayList<String> commandList = new ArrayList<String>(
             Arrays.asList("help",
-                    "add_person",
-                    "delete",
-                    "edit_person",
-                    "exit",
-                    "find",
-                    "list",
+                    "add_contact",
                     "add_claim",
                     "add_income",
+                    "delete_contact",
+                    "delete_income",
+                    //"delete_claim",
+                    "edit_contact",
                     "edit_claim",
                     "edit_income",
+                    "exit",
+                    "find",
+                    "check",
                     "goto",
-                    "sort"));
+                    "reject",
+                    "budget",
+                    "clear",
+                    "approve"));
 
     public final String value;
 
