@@ -255,14 +255,14 @@ Examples:
 ==== Adding a plan: `addplan`
 
 Generates a new plan. +
-Format: `add n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]...`
+Format: `add n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]`
 
 * Plans cannot have duplicate names.
-* `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd HH:mm:ss`
+* `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
 
 Examples:
 
-* `addplan n/CS2040 d/past year questions in practical exams s/2019-01-01 00:00:00 e/3019-12-12 12:12:12`
+* `addplan n/CS2040 d/past year questions in practical exams s/2019-01-01 e/3019-12-12`
 
 ==== Deleting a plan : `deleteplan`
 
@@ -278,14 +278,14 @@ Examples:
 * `listplan` +
 `deleteplan 2` +
 Deletes the 2nd problem in the displayed list.
-* `findplan n/CS` +
+* `findplan n/CS2040` +
 `delete 1` +
 Deletes the 1st problem in the results of the `findplan` command (will be introduced in the next section).
 
 ==== Editing a plan : `editplan`
 
 Edits an existing plan. +
-Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]...`
+Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]`
 
 * Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -295,8 +295,8 @@ Examples:
 
 * `edit 1 d/past year questions of sit-in labs +
 Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
-* `edit 2 s/2019-08-13 10:00:00` +
-Edits the starting date of the 2nd plan to be `2019-08-13 10:00:00`.
+* `edit 2 s/2019-08-13` +
+Edits the starting date of the 2nd plan to be `2019-08-13`.
 
 ==== Listing all plans : `listplan`
 
@@ -374,6 +374,7 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [s/RANGE_START] [e/RANGE_END]...`
 ** is considered as a match only when the problem's description includes all words in the constraint.
 * Start and end range
 ** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
+** both `RANGE_START` and `RANGE_END` should be specified.
 
 === Tabs
 

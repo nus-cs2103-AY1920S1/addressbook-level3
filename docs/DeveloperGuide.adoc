@@ -144,6 +144,9 @@ image::design/model/TaskPackageDiagram.png[width="30%"]
 .Structure of the ProblemSearchRule Package
 image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
+.Structure of the PlanSearchRule Package
+image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
+
 //@@author
 
 //@@author jiayushe
@@ -587,6 +590,12 @@ Updating the UI synchronously
 
 // end::switchTab[]
 //@@author
+
+//@@author Seris370
+
+=== Training Plan Feature
+
+//@@author Seris370
 
 == Documentation
 

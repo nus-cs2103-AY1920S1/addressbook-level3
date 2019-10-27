@@ -1,0 +1,41 @@
+@startuml
+!include ../../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+left to right direction
+
+interface Predicate {
+	+ boolean test(Plan plan)
+	+ boolean equals(Object other)
+}
+
+package PlanSearchRule {
+
+    class FindPlanDescriptor
+    class PlanNameContainsKeywordsPredicate
+    class PlanDescriptionContainsKeywordsPredicate
+    class TimeRangePredicate
+
+    class TimeRange
+    class Keyword
+
+    note right of Keyword
+    An abstraction used in
+    PlanNameContainsKeywordsPredicate and
+    PlanDescriptionContainsKeywordsPredicate
+    to make sure every keyword is a valid String.
+    end note
+}
+
+Predicate <|.. PlanNameContainsKeywordsPredicate
+Predicate <|.. PlanDescriptionContainsKeywordsPredicate
+Predicate <|.. TimeRangePredicate
+
+PlanNameContainsKeywordsPredicate <--* FindPlanDescriptor
+PlanDescriptionContainsKeywordsPredicate <--* FindPlanDescriptor
+TimeRangePredicate <--* FindPlanDescriptor
+
+TimeRange <-down- TimeRangePredicate
+
+@enduml
