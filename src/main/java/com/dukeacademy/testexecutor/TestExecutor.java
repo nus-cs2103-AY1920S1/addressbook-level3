@@ -1,8 +1,10 @@
 package com.dukeacademy.testexecutor;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.model.program.TestCaseResult;
 import com.dukeacademy.model.program.TestResult;
 import com.dukeacademy.model.question.UserProgram;
@@ -31,6 +33,7 @@ import com.dukeacademy.testexecutor.models.ProgramOutput;
 public class TestExecutor {
     private static final String messageTestExecutorFailed = "Test executor failed unexpectedly.";
 
+    private final Logger logger;
     private CompilerEnvironment environment;
     private Compiler compiler;
     private ProgramExecutor executor;
@@ -39,6 +42,7 @@ public class TestExecutor {
         this.environment = environment;
         this.compiler = compiler;
         this.executor = executor;
+        this.logger = LogsCenter.getLogger(TestExecutor.class);
     }
 
     /**
@@ -57,21 +61,27 @@ public class TestExecutor {
      */
     public TestResult runTestCases(List<TestCase> testCases, UserProgram program) throws TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {
+        logger.info("TestCases received : " + testCases.toString().replaceAll("\n", ""));
+        logger.info("User program received : " + program);
 
-        if (program.getSourceCode().equals("")) {
+        if (program.getSourceCode().matches("\\s*")) {
+            logger.warning("Empty user program received, tests will not be run");
             throw new EmptyUserProgramException();
         }
 
         try {
             ClassFile classFile = this.compileProgram(program);
+            logger.info("Compilation succeeded, proceeding to run test cases...");
 
             try {
                 List<TestCaseResult> results = testCases.parallelStream()
                         .map(testCase -> this.runIndividualTestCase(classFile, testCase))
                         .collect(Collectors.toList());
 
+                logger.info("Test execution completed. Test cases ran : " + results.size());
                 return new TestResult(results);
             } catch (TestExecutorExceptionWrapper e) {
+                logger.warning("Test execution failed unexpectedly. Aborting operation...");
                 throw new TestExecutorException(e.getMessage());
             }
         } catch (CompilerFileContentException e) {
@@ -91,11 +101,13 @@ public class TestExecutor {
      */
     private ClassFile compileProgram(UserProgram program) throws TestExecutorException, CompilerFileContentException,
             IncorrectCanonicalNameException {
+        logger.info("Compiling program...");
         try {
             this.environment.clearEnvironment();
             JavaFile javaFile = this.environment.createJavaFile(program);
             return this.compiler.compileJavaFile(javaFile);
         } catch (CompilerException | JavaFileCreationException | ClearEnvironmentException e) {
+            logger.warning("Compilation failed...");
             throw new TestExecutorException(messageTestExecutorFailed, e);
         }
     }
@@ -111,6 +123,7 @@ public class TestExecutor {
     private TestCaseResult runIndividualTestCase(ClassFile program, TestCase testCase)
             throws TestExecutorExceptionWrapper {
         try {
+            logger.info("Running test case : " + testCase);
             ProgramInput input = new ProgramInput(testCase.getInput());
             ProgramOutput output = this.executor.executeProgram(program, input);
             return getTestCaseResultFromProgramOutput(testCase, output);

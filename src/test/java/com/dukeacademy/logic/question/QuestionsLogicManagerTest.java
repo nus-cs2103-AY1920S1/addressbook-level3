@@ -211,7 +211,7 @@ class QuestionsLogicManagerTest {
     }
 
     @Test
-    void deleteQuestion() throws IOException, DataConversionException {
+    void deleteQuestionByIndex() throws IOException, DataConversionException {
         // Load typical questions
         QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
         QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);

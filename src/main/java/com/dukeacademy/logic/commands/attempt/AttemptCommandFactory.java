@@ -29,7 +29,7 @@ public class AttemptCommandFactory implements CommandFactory {
             int index = Integer.parseInt(commandArguments.strip());
             return new AttemptCommand(index, questionsLogic, programSubmissionLogic);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandArgumentsException("Invalid index entered.");
+            throw new InvalidCommandArgumentsException("Index should be a valid number.");
         }
     }
 }

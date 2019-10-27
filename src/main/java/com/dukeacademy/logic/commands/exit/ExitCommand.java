@@ -10,6 +10,7 @@ import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
+import com.dukeacademy.model.question.entities.Status;
 
 /**
  * Exit command used to exit the application. Any unsaved work is automatically saved before the application is exited.
@@ -37,7 +38,7 @@ public class ExitCommand implements Command {
 
             logger.info(loggerMessage);
 
-            Question newQuestion = oldQuestion.withNewUserProgram(latestUserProgram);
+            Question newQuestion = oldQuestion.withNewUserProgram(latestUserProgram).withNewStatus(Status.ATTEMPTED);
             saveQuestion(oldQuestion, newQuestion);
         } else {
             logger.info("No question attempt found. Skipping program save.");

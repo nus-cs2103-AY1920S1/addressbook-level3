@@ -65,4 +65,12 @@ public class TestResult {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Test result:\n"
+                + "Successful : " + this.isSuccessful() + "\n"
+                + "Compile error : " + this.getCompileError().isPresent() + "\n"
+                + "Test cases run : " + this.getResults().size();
+    }
 }

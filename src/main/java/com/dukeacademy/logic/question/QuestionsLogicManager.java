@@ -87,8 +87,8 @@ public class QuestionsLogicManager implements QuestionsLogic {
 
     @Override
     public void setQuestion(int index, Question newQuestion) {
-        this.questionBank.replaceQuestion(index, newQuestion);
-        this.saveQuestionBankToStorage(this.questionBank);
+        Question oldQuestion = filteredList.get(index);
+        this.replaceQuestion(oldQuestion, newQuestion);
     }
 
     @Override
@@ -99,7 +99,8 @@ public class QuestionsLogicManager implements QuestionsLogic {
 
     @Override
     public void deleteQuestion(int index) {
-        this.questionBank.removeQuestion(index);
+        Question questionToDelete = filteredList.get(index);
+        this.questionBank.removeQuestion(questionToDelete);
         this.saveQuestionBankToStorage(this.questionBank);
     }
 

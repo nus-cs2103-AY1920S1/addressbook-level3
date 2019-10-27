@@ -26,7 +26,7 @@ public class SubmitCommandFactory implements CommandFactory {
 
     @Override
     public Command getCommand(String commandArguments) throws InvalidCommandArgumentsException {
-        if (!"".equals(commandArguments)) {
+        if (!commandArguments.matches("\\s*")) {
             throw new InvalidCommandArgumentsException("Exit command does not take any arguments");
         }
 

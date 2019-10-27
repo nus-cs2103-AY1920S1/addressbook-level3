@@ -7,11 +7,11 @@
     "topics" : ["OTHERS"],
     "testCases" : [ {
         "input": "1 2",
-        "expectedResult": "3"
+        "expectedResult": "3\n"
       },
       {
         "input": "100 2",
-        "expectedResult": "102"
+        "expectedResult": "102\n"
       }],
     "userProgram" : {
       "canonicalName": "Adder",
