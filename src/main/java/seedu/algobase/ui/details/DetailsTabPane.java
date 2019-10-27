@@ -111,6 +111,7 @@ public class DetailsTabPane extends UiPart<Region> {
             public void onChanged(Change<? extends TabData> change) {
                 clearTabs();
                 addTabsToTabPane(change.getList());
+                tabsPlaceholder.requestLayout();
                 selectLastTab();
             }
         });
