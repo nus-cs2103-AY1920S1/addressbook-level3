@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.testutil.TypicalLoans.LOAN_7;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class TypicalBorrowers {
 
     public static final BorrowerId ID_FIRST_BORROWER = new BorrowerId("K0001");
     public static final BorrowerId ID_SECOND_BORROWER = new BorrowerId("K0002");
+
+    public static final String ID_DESC_FIRST_BORROWER = " " + PREFIX_BORROWER_ID + "K0001";
 
     public static final Borrower ALICE = new BorrowerBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
