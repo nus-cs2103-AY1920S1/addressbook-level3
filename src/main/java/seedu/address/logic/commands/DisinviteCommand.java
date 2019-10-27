@@ -90,7 +90,7 @@ public class DisinviteCommand extends Command{
             findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
             assert findResult != null : "List of people should not be null.";
 
-            if (findResult.size() != 1) { //not in activity or duplicate    
+            if (findResult.size() != 1) { //not in activity or duplicate
                 String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
                 warningMessage.append(warning).append("\n");
                 continue;
