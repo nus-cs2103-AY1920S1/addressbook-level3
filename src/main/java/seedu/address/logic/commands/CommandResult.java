@@ -37,9 +37,14 @@ public class CommandResult {
     private final boolean popUp;
 
     /**
-     * The application should show next week's schedule
+     * The application should show next week's schedule.
      */
     private final boolean toggleNextWeek;
+
+    /**
+     * The application should go back home page.
+     */
+    private final boolean home;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -52,6 +57,7 @@ public class CommandResult {
         this.scroll = false;
         this.popUp = false;
         this.toggleNextWeek = false;
+        this.home = false;
     }
 
     /**
@@ -65,6 +71,7 @@ public class CommandResult {
         this.scroll = false;
         this.popUp = false;
         this.toggleNextWeek = false;
+        this.home = false;
     }
 
     /**
@@ -78,6 +85,7 @@ public class CommandResult {
         this.scroll = scroll;
         this.popUp = false;
         this.toggleNextWeek = false;
+        this.home = false;
     }
 
     /**
@@ -92,6 +100,7 @@ public class CommandResult {
         this.scroll = scroll;
         this.popUp = popUp;
         this.toggleNextWeek = false;
+        this.home = false;
     }
 
     /**
@@ -106,6 +115,22 @@ public class CommandResult {
         this.scroll = scroll;
         this.popUp = popUp;
         this.toggleNextWeek = toggleNextWeek;
+        this.home = false;
+    }
+
+    /**
+     * Constructs an alternative CommandResult that would affect the UI.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean export,
+                         boolean scroll, boolean popUp, boolean toggleNextWeek, boolean home) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.export = export;
+        this.scroll = scroll;
+        this.popUp = popUp;
+        this.toggleNextWeek = toggleNextWeek;
+        this.home = home;
     }
 
 
@@ -143,6 +168,10 @@ public class CommandResult {
 
     public boolean isToggleNextWeek() {
         return toggleNextWeek;
+    }
+
+    public boolean isHome() {
+        return home;
     }
 
     @Override

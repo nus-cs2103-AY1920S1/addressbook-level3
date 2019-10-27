@@ -136,9 +136,11 @@ public class AddressBookParser {
         case PopupCommand.COMMAND_WORD:
             return new PopupCommand();
 
-        case ToggleNextWeekCommand
-            .COMMAND_WORD:
+        case ToggleNextWeekCommand.COMMAND_WORD:
             return new ToggleNextWeekCommand();
+
+        case HomeCommand.COMMAND_WORD:
+            return new HomeCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

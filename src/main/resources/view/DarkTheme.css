@@ -355,6 +355,17 @@
     -fx-padding: 8 1 8 1;
 }
 
+#calendar {
+    -fx-background-color: transparent;
+}
+
+#calendarContainer {
+    -fx-background-color: linear-gradient(to top, #222831, #312228);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: lightblue;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -387,6 +398,28 @@
     -fx-text-fill: white;
 }
 
+#dateHeader {
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 25;
+}
+
+#dateNumber {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+}
+
+#dateNumberSelected {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-style: hidden hidden solid hidden;
+}
+
+#dateNumberSelected .label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+}
+
 #dayLabelContainer {
     -fx-background-color: #222831;
     -fx-border-width: 2;
@@ -398,7 +431,16 @@
 }
 
 #defaultStartViewContainer {
-    -fx-background-color: #393E46;
+    -fx-background-color: linear-gradient(to top, #393E46, #3b3946);
+}
+
+#defaultStartViewContainer #defaultTitle {
+    -fx-font-size: 35;
+    -fx-font-family: "Segoe UI";
+}
+
+#defaultStartViewContainer .label {
+    -fx-text-fill: white;
 }
 
 #filterField, #personListPanel, #personWebpage {
@@ -527,6 +569,12 @@
     -fx-background-color: #222831;
 }
 
+#scheduleDisplayContainer {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-background-color: #393E46 !important;
+}
+
 #suggestions-list {
     -fx-background-color: transparent;
 }
@@ -535,4 +583,26 @@
 }
 #suggestions-list .list-cell:empty {
     visibility: hidden;
+}
+
+#upcomingScheduleHeader {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 25;
+    -fx-border-width: 2;
+    -fx-border-color: lightblue;
+    -fx-border-style: hidden hidden solid hidden;
+}
+
+#upcomingScheduleContainer {
+    -fx-background: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: transparent;
+}
+
+#upcomingScheduleWrapper {
+    -fx-border-color: lightblue;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: #312228;
 }

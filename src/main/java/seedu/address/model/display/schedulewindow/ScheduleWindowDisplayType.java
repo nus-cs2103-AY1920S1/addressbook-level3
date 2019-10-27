@@ -7,5 +7,6 @@ public enum ScheduleWindowDisplayType {
     GROUP,
     PERSON,
     DEFAULT,
+    HOME,
     NONE
 }

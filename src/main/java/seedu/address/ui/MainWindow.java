@@ -1,14 +1,18 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,12 +20,19 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.export.VisualExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
+import seedu.address.model.person.ScheduleStub;
+import seedu.address.model.person.schedule.Event;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
-import seedu.address.ui.util.*;
+import seedu.address.ui.util.ColorGenerator;
+import seedu.address.ui.util.DefaultStartView;
+import seedu.address.ui.util.LocationPopup;
+import seedu.address.ui.util.LocationsView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -46,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private SidePanelDisplayType currentSidePanelDisplay;
 
+    //Stubs
+    private List<Event> eventStubs = new ScheduleStub().eventStubs();
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -58,8 +72,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
+    //@FXML
+    //private StackPane statusbarPlaceholder;
 
     @FXML
     private StackPane detailsViewPlaceholder;
@@ -132,8 +146,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox;
         if (logic instanceof SuggestionLogic) {
@@ -148,7 +162,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
-        detailsViewPlaceholder.getChildren().add(new DefaultStartView(400, 400).getRoot());
+        detailsViewPlaceholder.getChildren().add(new DefaultStartView(eventStubs).getRoot());
     }
 
     /**
@@ -252,32 +266,36 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleExport(ScheduleWindowDisplay scheduleWindowDisplay) {
         ScheduleWindowDisplayType type = scheduleWindowDisplay.getScheduleWindowDisplayType();
-        /*
+        StackPane stackPane = new StackPane();
+        HBox exportContainer = new HBox();
+        ScheduleView scheduleView = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay).getScheduleView();
         if (type.equals(ScheduleWindowDisplayType.PERSON)) {
             MonthSchedule ms = scheduleWindowDisplay.getMonthSchedules().get(0);
-            ScheduleView personScheduleView = new IndividualScheduleViewManager(ms, ms.getPersonDisplay(),
-                    ColorGenerator.generateColorList(1).get(0)).getScheduleView();
-            StackPane stackPane = new StackPane();
-            HBox exportContainer = new HBox();
-            exportContainer.getChildren().add(personScheduleView.getRoot());
+            exportContainer.getChildren().addAll(new PersonDetailCard(ms.getPersonDisplay()).getRoot(),
+                    scheduleView.getRoot());
             stackPane.getChildren().add(exportContainer);
             Scene scene = new Scene(stackPane);
+            scene.getStylesheets().add("/view/DarkTheme.css");
             try {
                 VisualExporter.exportTo(stackPane, "png", "./export.png");
             } catch (IOException e) {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
         } else {
-            GroupDetailsExport groupDetailsView = new GroupDetailsExport(scheduleWindowDisplay);
-            StackPane stackPane = new StackPane();
-            stackPane.getChildren().add(groupDetailsView.getRoot());
+            int size = scheduleWindowDisplay.getMonthSchedules().size();
+            GroupInformation groupInformation = new GroupInformation(scheduleWindowDisplay,
+                    ColorGenerator.generateColorList(size));
+            exportContainer.getChildren().addAll(groupInformation.getRoot(),
+                    scheduleView.getRoot());
+            stackPane.getChildren().add(exportContainer);
             Scene scene = new Scene(stackPane);
+            scene.getStylesheets().add("/view/DarkTheme.css");
             try {
                 VisualExporter.exportTo(stackPane, "png", "./export.png");
             } catch (IOException e) {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
-        }*/
+        }
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -317,6 +335,10 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case DEFAULT:
                 handleTabSwitch();
+                break;
+            case HOME:
+                handleChangeOnDetailsView(new DefaultStartView(eventStubs).getRoot());
+                handleChangeToTabsPanel();
                 break;
             default:
                 //Nothing to show
