@@ -14,6 +14,7 @@ import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
+import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
@@ -110,14 +111,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasDishName(Dish dish) {
-        requireNonNull(dish);
-        return dishDatabase.hasDishName(dish);
+    public Dish getDish(Dish dish) {
+        return dishDatabase.getDish(dish);
     }
 
     @Override
-    public Dish getDishByName(Dish dish) {
-        return dishDatabase.getDishByName(dish);
+    public boolean hasDishName(Name dishName) {
+        requireNonNull(dishName);
+        return dishDatabase.hasDishName(dishName);
+    }
+
+    @Override
+    public Dish getDishByName(Name dishName) {
+        return dishDatabase.getDishByName(dishName);
     }
 
     @Override
@@ -181,12 +187,26 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return dishDatabase.equals(other.dishDatabase)
                 && userPrefs.equals(other.userPrefs)
+                // && mealLog.equals(other.mealLog);
                 && filteredDishes.equals(other.filteredDishes);
+
     }
 
     @Override
     public void addMeal(Meal meal) {
         this.mealLog.addMeal(meal);
+    }
+
+    @Override
+    public void removeMeal(Meal meal) {
+        mealLog.removeMeal(meal);
+    }
+
+    @Override
+    public void setMeal(Meal target, Meal editedMeal) {
+        CollectionUtil.requireAllNonNull(target, editedMeal);
+
+        mealLog.setMeal(target, editedMeal);
     }
 
     @Override

@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import calofit.commons.util.CollectionUtil;
+import calofit.model.dish.exceptions.DishNotFoundException;
 import calofit.model.meal.exceptions.DuplicateMealException;
 
 /**
@@ -24,7 +25,13 @@ public class MealLog implements ReadOnlyMealLog {
     private ObservableList<Meal> todayMeals = observableMeals.filtered(MealLog::isMealToday);
     private ObservableList<Meal> currentMonthMeals = observableMeals.filtered(MealLog::isMealThisMonth);
 
-    public MealLog() {};
+    public MealLog() {}
+
+    public MealLog (MealLog toBeCopied) {
+        for (int i = 0; i < toBeCopied.observableMeals.size(); i++) {
+            this.observableMeals.add(toBeCopied.observableMeals.get(i));
+        }
+    }
 
     public MealLog(ReadOnlyMealLog toBeCopied) {
         this();
@@ -110,10 +117,23 @@ public class MealLog implements ReadOnlyMealLog {
     /**
      * Remove a meal from the meal log.
      * @param meal Meal to remove
-     * @return True if meal was in log and got removed, false otherwise.
      */
-    public boolean removeMeal(Meal meal) {
-        return observableMeals.remove(meal);
+    public void removeMeal(Meal meal) {
+        requireNonNull(meal);
+        if (!observableMeals.remove(meal)) {
+            throw new DishNotFoundException();
+        }
+    }
+
+    public void setMeal(Meal target, Meal editedMeal) {
+        CollectionUtil.requireAllNonNull(target, editedMeal);
+
+        int index = observableMeals.indexOf(target);
+        if (index == -1) {
+            throw new DishNotFoundException();
+        }
+
+        observableMeals.set(index, editedMeal);
     }
 
     /**

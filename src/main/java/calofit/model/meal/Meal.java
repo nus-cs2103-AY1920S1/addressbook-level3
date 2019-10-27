@@ -80,6 +80,11 @@ public class Meal implements Comparable<Meal> {
         return timestamp.compareTo(meal.timestamp);
     }
 
+    @Override
+    public String toString() {
+        return this.dish.getName().toString() + " " + this.dish.getCalories().toString() + "cal";
+    }
+
     /**
      * Returns true if both meals of the same name have the same timestamp.
      */
