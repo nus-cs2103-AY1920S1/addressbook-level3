@@ -15,12 +15,9 @@ public class CalendarCommand extends Command {
     public static final String COMMAND_WORD = "calendar";
 
     public static final String MESSAGE_USAGE = "calendar" + ": Jumps to a specified date."
-            + " Specify month and year to view calendar for that month. Specify day, month and "
-            + "year to view details for that date.\n"
-            + "Parameters: MMYYYY / DDMMYYYY\n"
-            + "Examples:\n"
-            + "calendar 062019\n"
-            + "calendar 09062019";
+            + " 1) Specify month and year to view calendar for that month.\nParameters: MMYYYY\n"
+            + "Example: calendar 062019\n2) Specify day, month and year to view details for that"
+            + " date.\nParameters: DDMMYYYY\nExample: calendar 09062019";
 
     public static final String MESSAGE_SUCCESS_1 = "Viewing details for: ";
     public static final String MESSAGE_SUCCESS_2 = "Viewing calendar for: ";
@@ -40,10 +37,10 @@ public class CalendarCommand extends Command {
         case 1:
             String resultMsg =
                     MESSAGE_SUCCESS_1 + date.getDay() + " " + date.getMth() + " " + date.getYear();
-            return new CommandResult(resultMsg, date);
+            return new CommandResult(resultMsg, date, model);
         case 2:
             String resultMsg2 = MESSAGE_SUCCESS_2 + date.getMth() + " " + date.getYear();
-            return new CommandResult(resultMsg2, date);
+            return new CommandResult(resultMsg2, date, model);
         default:
             throw new CommandException(MESSAGE_INVALID_DATE);
         }

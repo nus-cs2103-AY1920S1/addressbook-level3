@@ -46,6 +46,10 @@ public class AthletickDate {
         return mth;
     }
 
+    public void setType(int type) {
+        this.type = type;
+    }
+
     /**
      * Retrieves the suffix of this day.
      */
