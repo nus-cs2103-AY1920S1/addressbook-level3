@@ -2,15 +2,20 @@ package tagline.logic.parser.group;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
+import tagline.commons.core.Messages;
 import tagline.commons.core.index.Index;
 import tagline.commons.util.StringUtil;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.group.GroupDescription;
 import tagline.model.group.GroupName;
+import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.group.MemberId;
 
 /**
@@ -46,6 +51,49 @@ public class GroupParserUtil {
             throw new ParseException(GroupName.MESSAGE_CONSTRAINTS);
         }
         return new GroupName(trimmedName);
+    }
+
+    /**
+     * Parses {@code Collection<String> nameSet} into a {@code Set<GroupName>}.
+     */
+    public static Set<GroupName> parseGroupNames(Collection<String> names) throws ParseException {
+        requireNonNull(names);
+        final Set<GroupName> nameSet = new HashSet<>();
+        for (String id : names) {
+            nameSet.add(parseGroupName(id));
+        }
+        return nameSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> groupNames} into a {@code Set<GroupName>} if {@code groupNames} is non-empty.
+     * If {@code groupNames} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<GroupName>} containing zero groupNames.
+     */
+    public static Optional<Set<GroupName>> parseGroupNamesForSearch(Collection<String> groupNames)
+        throws ParseException {
+        assert groupNames != null;
+
+        if (groupNames.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> nameSet = groupNames.size() == 1 && groupNames.contains("")
+                ? Collections.emptySet() : groupNames;
+        return Optional.of(GroupParserUtil.parseGroupNames(nameSet));
+    }
+
+    /**
+     * Parses {@code targetGroupName} into a {@code GroupNameEqualsKeywordPredicate} if {@code targetGroupName}
+     * is tested to be a valid {@code GroupName}, predicate contains only one element to check for
+     */
+    public static GroupNameEqualsKeywordPredicate stringsToGroupNamePredicate(String targetGroupName)
+        throws ParseException {
+
+        Optional<Set<GroupName>> optNameSet = GroupParserUtil.parseGroupNamesForSearch(Arrays.asList(targetGroupName));
+        if (optNameSet.isEmpty()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_GROUP_NAME + ": " + targetGroupName);
+        }
+        return new GroupNameEqualsKeywordPredicate(optNameSet.get());
     }
 
     /**
@@ -89,4 +137,21 @@ public class GroupParserUtil {
         }
         return memberSet;
     }
+
+    /**
+     * Parses {@code Collection<String> memberIds} into a {@code Set<MemberId>} if {@code memberIds} is non-empty.
+     * If {@code memberIds} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<MemberId>} containing zero memberIds.
+     */
+    public static Optional<Set<MemberId>> parseMemberIdsForEdit(Collection<String> memberIds) throws ParseException {
+        assert memberIds != null;
+
+        if (memberIds.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet = memberIds.size() == 1 && memberIds.contains("")
+                ? Collections.emptySet() : memberIds;
+        return Optional.of(GroupParserUtil.parseMemberIds(tagSet));
+    }
+
 }

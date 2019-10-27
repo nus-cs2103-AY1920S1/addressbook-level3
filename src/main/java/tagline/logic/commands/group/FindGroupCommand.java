@@ -2,8 +2,8 @@ package tagline.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
 
-import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 
@@ -20,11 +20,14 @@ public class FindGroupCommand extends GroupCommand {
 
     public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword";
     //public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword: %1$s";
+    public static final String MESSAGE_UI = "UI: now displaying all Contacts in requested group";
+    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Displaying group: %n%s%n" + MESSAGE_UI;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
+            + ": Shows all contacts whose is in Group matching exactly"
+            + "the specified keywords (case-insensitive) and displays them as a list.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " exo";
 
     private final GroupNameEqualsKeywordPredicate predicate;
 
@@ -44,7 +47,7 @@ public class FindGroupCommand extends GroupCommand {
         model.setGroup(targetGroup, verifiedGroup);
 
         return new CommandResult(
-            String.format(Messages.MESSAGE_GROUP_MEMBERS_OVERVIEW, model.getFilteredContactList().size()));
+                String.format(MESSAGE_KEYWORD_SUCCESS, verifiedGroup), ViewType.CONTACT);
     }
 
     @Override

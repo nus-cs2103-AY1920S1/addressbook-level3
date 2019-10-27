@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_CONTACTID;
 import static tagline.model.group.GroupModel.PREDICATE_SHOW_ALL_GROUPS;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
@@ -21,12 +23,12 @@ import tagline.model.group.MemberId;
 /**
  * Edits the details of an existing group in the address book.
  */
-public class AddMemberToGroupCommand extends EditGroupCommand {
+public class RemoveMemberFromGroupCommand extends EditGroupCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "remove";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
-            + ": Add a contact to the group identified "
+            + ": Remove a contact to the group identified "
             + "by the group name and the contact ID number displayed in the contact list.\n "
             + "Parameters: GROUP_NAME (one word, cannot contain space) "
             + "[" + PREFIX_CONTACTID + " CONTACT_ID]...\n"
@@ -34,9 +36,9 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
             + PREFIX_CONTACTID + " 47337 ";
 
     public static final String MESSAGE_UI = "UI: now displaying all contacts in found group";
-    public static final String MESSAGE_ADD_MEMBER_SUCCESS = "Add member to group%n"
-            + "Now displaying group:%n%s%n" + MESSAGE_UI;
-    public static final String MESSAGE_NOT_ADDED = "At least one contactID to add must be provided.";
+    public static final String MESSAGE_REMOVE_MEMBER_SUCCESS = "Remove contact from group%n"
+        + "Now displaying group:%n%s%n" + MESSAGE_UI;
+    public static final String MESSAGE_NOT_REMOVED = "At least one contactID to be removed must be provided.";
 
     //private final Group group;
     private final GroupNameEqualsKeywordPredicate predicate;
@@ -47,7 +49,9 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
      * @param editGroupDescriptor details to edit the group with
      */
 
-    public AddMemberToGroupCommand(GroupNameEqualsKeywordPredicate predicate, EditGroupDescriptor editGroupDescriptor) {
+    public RemoveMemberFromGroupCommand(GroupNameEqualsKeywordPredicate predicate,
+        EditGroupDescriptor editGroupDescriptor) {
+
         requireNonNull(predicate);
         requireNonNull(editGroupDescriptor);
 
@@ -65,30 +69,30 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
         Optional<Set<MemberId>> optMembers = editGroupDescriptor.getMemberIds();
         //assert optMembers.isPresent();
 
-        Set<MemberId> notFound = new HashSet<>();
+        Set<MemberId> membersNotFound = new HashSet<>();
         if (optMembers.isPresent()) {
-            notFound = GroupCommand.memberIdDoesntExistInContactModel(model, optMembers.get());
+            membersNotFound = GroupCommand.memberIdDoesntExistInContactModel(model, optMembers.get());
         }
 
-        // adds all user-input contactIds as members of this Group checks deferred
-        Group editedGroup = createEditedGroup(groupToEdit, editGroupDescriptor);
+        // removes all user-input contactIds as members of this Group checks deferred
+        Group editedGroup = createRemovedMemberGroup(groupToEdit, editGroupDescriptor);
 
         // check to ensure Group members are ContactIds that can be found in Model
         // this Group should only have contactId of contacts found in ContactList after calling setGroup
         Group verifiedGroup = GroupCommand.verifyGroupWithModel(model, editedGroup);
+
         model.setGroup(groupToEdit, verifiedGroup);
 
         model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
-        // i cannot use PREDICATE_SHOW_ALL_GROUP here because it would now display the contacts in the group
-        return new CommandResult(String.format(MESSAGE_ADD_MEMBER_SUCCESS + GroupCommand.notFoundString(notFound),
-            verifiedGroup), ViewType.CONTACT);
+        return new CommandResult(String.format(MESSAGE_REMOVE_MEMBER_SUCCESS
+               + GroupCommand.notFoundString(membersNotFound), verifiedGroup), ViewType.CONTACT);
     }
 
     /**
      * Creates and returns a {@code Group} with the details of {@code groupToEdit}
      * edited with {@code editGroupDescriptor}.
      */
-    private static Group createEditedGroup(Group groupToEdit, EditGroupDescriptor editGroupDescriptor) {
+    private static Group createRemovedMemberGroup(Group groupToEdit, EditGroupDescriptor editGroupDescriptor) {
         assert groupToEdit != null;
 
         GroupName updatedGroupName = editGroupDescriptor.getGroupName().orElse(groupToEdit.getGroupName());
@@ -96,11 +100,27 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
             .orElse(groupToEdit.getGroupDescription());
         Set<MemberId> updatedMemberIds = new HashSet<>();
         if (editGroupDescriptor.getMemberIds().isPresent()) {
-            updatedMemberIds.addAll(editGroupDescriptor.getMemberIds().get());
+            updatedMemberIds.addAll(groupToEdit.getMemberIds().stream()
+                .filter(member -> !editGroupDescriptor.getMemberIds().get().contains(member))
+                .collect(Collectors.toSet())
+            );
+        } else {
+            // if no memberIds found in editGroupDescriptor, do not remove any groups
+            updatedMemberIds.addAll(groupToEdit.getMemberIds());
         }
-        updatedMemberIds.addAll(groupToEdit.getMemberIds());
 
         return new Group(updatedGroupName, updatedGroupDescription, updatedMemberIds);
+    }
+
+    /**
+     * Checks and returns a set of {@code MemberId} which cannot be found as members of {@code Group}
+     */
+    private static Set<MemberId> notFound(Group group, Collection<MemberId> toRemove) {
+        return toRemove.stream()
+            .filter(target -> !group.getMemberIds().stream()
+                .map(members -> members.value)
+                .anyMatch(members -> members.equalsIgnoreCase(target.value)))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -111,14 +131,13 @@ public class AddMemberToGroupCommand extends EditGroupCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddMemberToGroupCommand)) {
+        if (!(other instanceof RemoveMemberFromGroupCommand)) {
             return false;
         }
 
         // state check
-        AddMemberToGroupCommand e = (AddMemberToGroupCommand) other;
+        RemoveMemberFromGroupCommand e = (RemoveMemberFromGroupCommand) other;
         return predicate.equals(e.predicate)
                 && editGroupDescriptor.equals(e.editGroupDescriptor);
     }
-
 }

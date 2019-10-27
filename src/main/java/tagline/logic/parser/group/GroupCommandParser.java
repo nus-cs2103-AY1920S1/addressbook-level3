@@ -10,7 +10,10 @@ import tagline.logic.commands.Command;
 import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.group.AddMemberToGroupCommand;
 import tagline.logic.commands.group.CreateGroupCommand;
+import tagline.logic.commands.group.DeleteGroupCommand;
 import tagline.logic.commands.group.FindGroupCommand;
+import tagline.logic.commands.group.ListGroupCommand;
+import tagline.logic.commands.group.RemoveMemberFromGroupCommand;
 import tagline.logic.parser.exceptions.ParseException;
 
 /**
@@ -48,14 +51,14 @@ public class GroupCommandParser {
         case FindGroupCommand.COMMAND_WORD:
             return new FindGroupParser().parse(arguments);
 
-        //case DeleteGroupCommand.COMMAND_WORD:
-        //    return new DeleteGroupParser().parse(arguments);
+        case RemoveMemberFromGroupCommand.COMMAND_WORD:
+            return new RemoveMemberFromGroupParser().parse(arguments);
 
-        //case EditGroupCommand.COMMAND_WORD:
-        //    return new EditGroupParser().parse(arguments);
+        case DeleteGroupCommand.COMMAND_WORD:
+            return new DeleteGroupParser().parse(arguments);
 
-        //case ListGroupCommand.COMMAND_WORD:
-        //    return new ListGroupParser().parse(arguments);
+        case ListGroupCommand.COMMAND_WORD:
+            return new ListGroupParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

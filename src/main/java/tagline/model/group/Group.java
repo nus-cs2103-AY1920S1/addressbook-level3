@@ -61,6 +61,43 @@ public class Group {
     }
 
     /**
+     * Returns a short version of the Group omitting Description
+     * @return
+     */
+    public String toShortString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getGroupName());
+        addMembersToStringBuilder(builder);
+        builder.append("\n");
+        return builder.toString();
+    }
+
+    /**
+     * Adds memberIds to {@code StringBuilder} if there are members in the group, otherwise
+     * adds "None" to prompt that members are missing.
+     */
+    private void addMembersToStringBuilder(StringBuilder builder) {
+        builder.append(" Members: ");
+        if (getMemberIds().size() <= 0) {
+            builder.append("None");
+        } else {
+            getMemberIds().forEach(builder::append);
+        }
+    }
+
+    /**
+     * Adds description to {@code StringBuilder} if there {@code GroupDescription} does not contain an empty string,
+     * otherwise does not include " Description: " header to make formatting neater.
+     */
+    private void addGroupDescriptionToStringBuilder(StringBuilder builder) {
+        if (getGroupDescription().value.length() <= 0) {
+        } else {
+            builder.append(" Description: ")
+                    .append(getGroupDescription());
+        }
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -89,11 +126,9 @@ public class Group {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getGroupName())
-                .append(" Description: ")
-                .append(getGroupDescription())
-                .append(" Members: ");
-        getMemberIds().forEach(builder::append);
+        builder.append(getGroupName());
+        addGroupDescriptionToStringBuilder(builder);
+        addMembersToStringBuilder(builder);
         return builder.toString();
     }
 }
