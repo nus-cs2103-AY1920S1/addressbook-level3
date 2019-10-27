@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.finance.commands.BorrowCommand;
 import seedu.address.logic.finance.commands.Command;
+import seedu.address.logic.finance.commands.DeleteCommand;
 import seedu.address.logic.finance.commands.ExitCommand;
 import seedu.address.logic.finance.commands.HelpCommand;
 import seedu.address.logic.finance.commands.IncomeCommand;
@@ -55,6 +56,9 @@ public class FinanceLogParser {
 
         case LendCommand.COMMAND_WORD:
             return new LendCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

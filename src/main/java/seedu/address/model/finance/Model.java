@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.finance.logentry.LogEntry;
 
-
 /**
  * The API of the Model component.
  */
