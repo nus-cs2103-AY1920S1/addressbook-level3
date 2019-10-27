@@ -36,7 +36,12 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
         this.upperBound = DEFAULT_BOUND;
     }
 
-    private static boolean isValidDifficultyRange(double lowerBound, double upperBound) {
+    /**
+     * Returns true if the given lower bound and upper bound is a valid difficulty range.
+     * @param lowerBound to be tested
+     * @param upperBound to be tested
+     */
+    public static boolean isValidDifficultyRange(double lowerBound, double upperBound) {
         return lowerBound > Difficulty.DIFFICULTY_LOWER_BOUND
                 && upperBound <= Difficulty.DIFFICULTY_UPPER_BOUND
                 && lowerBound <= upperBound;
