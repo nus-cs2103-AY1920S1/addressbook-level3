@@ -14,7 +14,7 @@ import seedu.address.model.appointment.Appointment;
 public class AppointmentListPanel extends UiPart<Region> {
     private static final String FXML = "AppointmentListPanel.fxml";
 
-    @javafx.fxml.FXML
+    @FXML
     private ListView<Appointment> appointmentListView;
 
     public AppointmentListPanel(FilteredList<Appointment> appointmentList) {

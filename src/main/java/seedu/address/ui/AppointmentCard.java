@@ -24,7 +24,7 @@ public class AppointmentCard extends UiPart<Region> {
 
     public final Appointment appointment;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
     private Label id;

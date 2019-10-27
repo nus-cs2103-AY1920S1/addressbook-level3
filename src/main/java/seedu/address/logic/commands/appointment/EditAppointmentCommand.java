@@ -100,6 +100,7 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
     /**
      * Creates and returns a {@code Appointment} with the details of {@code appointmentToEdit}
      * edited with {@code editAppointmentDescriptor}.
+     * {@code appointmentToEdit} is supposed to be non-null (i.e. it exists in the appointment book already).
      */
     private static Appointment createEditedAppointment(Appointment appointmentToEdit,
                                                        EditAppointmentDescriptor editAppointmentDescriptor) {
@@ -110,15 +111,7 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
         EndDateTime updatedEndDateTime = editAppointmentDescriptor.getEndDateTime()
                                                                   .orElse(appointmentToEdit.getEndDateTime());
 
-        Long updatedYears = editAppointmentDescriptor.getYears().orElse(appointmentToEdit.getFrequency().getYears());
-        Long updatedMonths = editAppointmentDescriptor.getMonths().orElse(appointmentToEdit.getFrequency().getMonths());
-        Long updatedWeeks = editAppointmentDescriptor.getWeeks().orElse(appointmentToEdit.getFrequency().getWeeks());
-        Long updatedDays = editAppointmentDescriptor.getDays().orElse(appointmentToEdit.getFrequency().getDays());
-        Long updatedHours = editAppointmentDescriptor.getHours().orElse(appointmentToEdit.getFrequency().getHours());
-        Long updatedMinutes = editAppointmentDescriptor.getMinutes().orElse(appointmentToEdit.getFrequency()
-                                                                                             .getMinutes());
-        Long[] editedAppointmentFrequency = {updatedYears, updatedMonths, updatedWeeks, updatedDays, updatedHours,
-                                             updatedMinutes};
+        Long[] editedAppointmentFrequency = updateFrequency(appointmentToEdit, editAppointmentDescriptor);
         RecurringDateTime updatedFrequency = new RecurringDateTime(editedAppointmentFrequency);
 
         Index updatedPatientIndex = editAppointmentDescriptor.getPatientIndex()
@@ -128,6 +121,23 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
 
         return new Appointment(updatedStartDateTime, updatedEndDateTime, updatedFrequency, updatedPatientIndex,
                 updatedDescription);
+    }
+
+    /**
+     *
+     */
+    public static Long[] updateFrequency(Appointment appointmentToEdit,
+                                  EditAppointmentDescriptor editAppointmentDescriptor) {
+        Long updatedYears = editAppointmentDescriptor.getYears().orElse(appointmentToEdit.getFrequency().getYears());
+        Long updatedMonths = editAppointmentDescriptor.getMonths().orElse(appointmentToEdit.getFrequency().getMonths());
+        Long updatedWeeks = editAppointmentDescriptor.getWeeks().orElse(appointmentToEdit.getFrequency().getWeeks());
+        Long updatedDays = editAppointmentDescriptor.getDays().orElse(appointmentToEdit.getFrequency().getDays());
+        Long updatedHours = editAppointmentDescriptor.getHours().orElse(appointmentToEdit.getFrequency().getHours());
+        Long updatedMinutes = editAppointmentDescriptor.getMinutes().orElse(appointmentToEdit.getFrequency()
+                .getMinutes());
+        Long[] editedAppointmentFrequency = {updatedYears, updatedMonths, updatedWeeks, updatedDays, updatedHours,
+                updatedMinutes};
+        return editedAppointmentFrequency;
     }
 
     @Override
