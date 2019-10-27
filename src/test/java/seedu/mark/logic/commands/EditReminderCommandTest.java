@@ -1,15 +1,16 @@
 package seedu.mark.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
-import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_REMINDER;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.model.Mark;
@@ -18,6 +19,7 @@ import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.storage.StorageStub;
+import seedu.mark.testutil.EditReminderDescriptorBuilder;
 import seedu.mark.testutil.ReminderBuilder;
 
 class EditReminderCommandTest {
@@ -26,7 +28,8 @@ class EditReminderCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Reminder editedReminder = new ReminderBuilder().build();
-        EditReminderCommand.EditReminderDescriptor descriptor = new EditReminderDescriptorBuilder(editedReminder).build();
+        EditReminderCommand.EditReminderDescriptor descriptor =
+                new EditReminderDescriptorBuilder(editedReminder).build();
         EditReminderCommand editReminderCommand = new EditReminderCommand(INDEX_FIRST_REMINDER, descriptor);
 
         Reminder toBeEditReminder = model.getReminders().get(0);
@@ -66,7 +69,8 @@ class EditReminderCommandTest {
 
     @Test
     public void execute_noFieldSpecified_success() {
-        EditReminderCommand editReminderCommand = new EditReminderCommand(INDEX_FIRST_REMINDER, new EditReminderCommand.EditReminderDescriptor());
+        EditReminderCommand editReminderCommand =
+                new EditReminderCommand(INDEX_FIRST_REMINDER, new EditReminderCommand.EditReminderDescriptor());
         Reminder editedReminder = model.getReminders().get(INDEX_FIRST_REMINDER.getZeroBased());
 
         String expectedMessage = String.format(EditReminderCommand.MESSAGE_EDIT_REMINDER_SUCCESS, editedReminder);
@@ -84,28 +88,29 @@ class EditReminderCommandTest {
                 .withNote(VALID_NOTE_OPEN).build();
         EditReminderCommand editReminderCommand = new EditReminderCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editReminderCommand, model, new StorageStub(), Messages.MESSAGE_INVALID_REMINDER_DISPLAYED_INDEX);
+        assertCommandFailure(editReminderCommand,
+                model, new StorageStub(), Messages.MESSAGE_INVALID_REMINDER_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        EditReminderCommand.EditReminderDescriptor desc_Open =
+        EditReminderCommand.EditReminderDescriptor descOpen =
                 new EditReminderDescriptorBuilder()
                         .withNote("OPEN")
                         .build();
-        EditReminderCommand.EditReminderDescriptor desc_Read =
+        EditReminderCommand.EditReminderDescriptor descRead =
                 new EditReminderDescriptorBuilder().withNote("READ").build();
 
         final EditReminderCommand standardCommand =
-                new EditReminderCommand(INDEX_FIRST_REMINDER, desc_Open);
+                new EditReminderCommand(INDEX_FIRST_REMINDER, descOpen);
 
         // same values -> returns true
         //TODO: Check what's go wrong here
-//        EditReminderCommand.EditReminderDescriptor copyDescriptor =
-//                new EditReminderCommand.EditReminderDescriptor(desc_Open);
-//        EditReminderCommand commandWithSameValues =
-//                new EditReminderCommand(INDEX_FIRST_REMINDER, copyDescriptor);
-//        assertTrue(standardCommand.equals(commandWithSameValues));
+        //EditReminderCommand.EditReminderDescriptor copyDescriptor =
+        //        new EditReminderCommand.EditReminderDescriptor(desc_Open);
+        //EditReminderCommand commandWithSameValues =
+        //        new EditReminderCommand(INDEX_FIRST_REMINDER, copyDescriptor);
+        //assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
@@ -117,9 +122,9 @@ class EditReminderCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditReminderCommand(INDEX_SECOND_REMINDER, desc_Open)));
+        assertFalse(standardCommand.equals(new EditReminderCommand(INDEX_SECOND_REMINDER, descOpen)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditReminderCommand(INDEX_FIRST_REMINDER, desc_Read)));
+        assertFalse(standardCommand.equals(new EditReminderCommand(INDEX_FIRST_REMINDER, descRead)));
     }
 }

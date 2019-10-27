@@ -11,13 +11,14 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
 import static seedu.mark.testutil.TypicalReminders.OPEN;
 import static seedu.mark.testutil.TypicalReminders.READ;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import seedu.mark.model.Mark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
-import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.reminder.ReminderAssociation;
 
 /**

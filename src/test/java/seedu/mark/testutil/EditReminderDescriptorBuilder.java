@@ -1,4 +1,4 @@
-package seedu.mark.logic.commands;
+package seedu.mark.testutil;
 
 import seedu.mark.logic.commands.EditReminderCommand.EditReminderDescriptor;
 import seedu.mark.logic.parser.ParserUtil;
@@ -6,6 +6,9 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 
+/**
+ * A utility class to help with building EditReminderDescriptor objects.
+ */
 public class EditReminderDescriptorBuilder {
 
     private EditReminderDescriptor descriptor;
@@ -45,7 +48,7 @@ public class EditReminderDescriptorBuilder {
 
 
 
-    public EditReminderCommand.EditReminderDescriptor build() {
+    public EditReminderDescriptor build() {
         return descriptor;
     }
 }
