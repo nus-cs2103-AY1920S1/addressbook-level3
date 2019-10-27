@@ -26,6 +26,13 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
+task hooks(type: Copy) {
+    from "./config/hooks/"
+    into "./.git/hooks/"
+    fileMode 0777
+}
+build.dependsOn hooks
+
 checkstyle {
     toolVersion = '8.1'
 }
@@ -189,4 +196,4 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
-defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+defaultTasks 'hooks', 'clean', 'test', 'coverage', 'asciidoctor'

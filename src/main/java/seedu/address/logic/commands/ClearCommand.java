@@ -6,13 +6,13 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Clears all contacts from SplitWiser.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
 
+    public static final String MESSAGE_SUCCESS = "All contacts have been cleared!";
 
     @Override
     public CommandResult execute(Model model) {

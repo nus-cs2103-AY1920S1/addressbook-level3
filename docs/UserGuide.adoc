@@ -77,6 +77,10 @@ Format: `main`
 
 Switches the current view to list all contacts or activities. +
 
+****
+* Argument values supplied with parameters are ignored for this command.
+****
+
 Format: `list c/` for contacts *OR* `list a/` for activities
 
 === View a contact or activity : `view`
@@ -110,17 +114,24 @@ Creates a new contact with name John Doe and mobile number 98765432.
 === Create new activity: `activity`
 
 Creates a new activity with a title, contacts (optional) and no expenses.
-
-The user creating the activity will be included automatically, and additional contacts can be specified - any contacts not found in the list of contacts will prompt the user to create them. Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
-
-Each activity will be assigned an activity ID automatically. +
+****
+* The user creating the activity will be included automatically.
+* Additional contacts to add to the activity can be specified by using `p/` prefix.
+** Keyword matching is used to find contacts to add to the activity. Refer to <<Finding contacts or activities: `find`>> for more details.
+** For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.
+* Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
+* Each activity will be assigned an activity ID automatically. +
+****
 
 Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
 
 Examples:
 
-* `activity n/Chalet p/John Doe` +
+* `activity t/Chalet p/John Doe` +
 Creates a new activity with title 'Chalet' and the user and John Doe as participants.
+
+* `activity t/Breakfast p/David Li p/Bernice Yu` +
+Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
 
 === Add contacts to an activity: `invite`
 
@@ -146,25 +157,26 @@ Removes John Doe and Mary from the current activity. If any one of them are invo
 
 === Add expenses to an activity : `expense`
 
-Creates a new expense with a contact, amount and optional description, and adds it to the currently viewed activity.
+Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. +
 
-If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if `activity n/ACTIVITY_NAME` was called). The expense and contact will then be added to the activity. +
+If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
-Multiple expenses can be added at once. If a description is provided, all created expenses will share the same description.
+If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if `activity t/ACTIVITY_NAME` was called). The expense and contact(s) will then be added to the activity. +
 
-Format: `expense (p/PERSON e/AMOUNT_PAID) ... [d/DESCRIPTION]`
+Format: `expense (p/PERSON e/AMOUNT_PAID) [p/PERSON ...] [d/DESCRIPTION]`
 
 ****
-* At least one expense must be provided.
-* Expenses must be entered in pairs of `p/PERSON` followed by `e/AMOUNT_PAID`
+* Exactly one expense amount must be provided.
 ****
 
 Examples:
 
 * `expense p/John Doe e/100` +
-Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, no expense will be created.
-* `expense p/Mary e/100 p/Joseph e/40 d/Drinks` +
-Adds 2 expenses ($100 by Mary and $40 by Joseph), both named `Drinks`. If no activity is currently viewed, an activity titled `Drinks` will be created to contain the 2 expenses. Mary and Joseph will also be added to the activity.
+Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe John a portion of the $100. +
+If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense.
+* `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
+Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
+Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
 
 === Edit an existing contact or activity : `edit`
 

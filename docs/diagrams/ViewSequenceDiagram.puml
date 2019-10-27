@@ -1,0 +1,139 @@
+@startuml
+
+!include style.puml
+
+actor "User"
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant "rd:ResultDisplay" as ResultDisplay UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "lcp:ListCommandParser" as ListCommandParser LOGIC_COLOR
+participant "lc:ListCommand" as ListCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "Context" as ContextFactory MODEL_COLOR
+participant "ct:Context" as Context MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant "flp:FilteredList" as FilteredList MODEL_COLOR
+end box
+
+User -> MainWindow : executeCommand(\n"list a/")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("list a/")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(\n"list a/")
+activate AddressBookParser
+
+create ListCommandParser
+AddressBookParser -> ListCommandParser : ListCommandParser()
+activate ListCommandParser
+
+ListCommandParser --> AddressBookParser : lcp
+deactivate ListCommandParser
+
+AddressBookParser -> ListCommandParser : parse("a/")
+activate ListCommandParser
+
+ListCommandParser -> ListCommandParser : onePrefixPresent(argMultimap,\nPREFIX_CONTACT, PREFIX_ACTIVITY)
+activate ListCommandParser
+
+ListCommandParser --> ListCommandParser : true
+deactivate ListCommandParser
+
+create ListCommand
+ListCommandParser -> ListCommand : ListCommand(ACTIVITY)
+activate ListCommand
+
+ListCommand --> ListCommandParser : lc
+deactivate ListCommand
+
+ListCommandParser --> AddressBookParser : lc
+deactivate ListCommandParser
+
+ListCommandParser -[hidden]-> AddressBookParser
+destroy ListCommandParser
+
+AddressBookParser --> LogicManager : lc
+deactivate AddressBookParser
+
+LogicManager -> ListCommand : execute()
+activate ListCommand
+
+ListCommand -> ContextFactory : Context.newListActivityContext()
+activate ContextFactory
+
+create Context
+ContextFactory -> Context : Context(LIST_ACTIVITY)
+activate Context
+
+Context --> ContextFactory : ct
+deactivate Context
+
+ContextFactory --> ListCommand : ct
+deactivate ContextFactory
+
+ListCommand -> Model : setContext(ct)
+activate Model
+
+Model --> ListCommand
+deactivate Model
+
+ListCommand -> Model : updatedFilteredActivityList(PREDICATE_SHOW_ALL_ENTRIES)
+activate Model
+
+Model -> FilteredList : setPredicate(\nPREDICATE_SHOW\n_ALL_ENTRIES)
+activate FilteredList
+
+FilteredList --> Model
+deactivate FilteredList
+
+Model --> ListCommand
+deactivate Model
+
+create CommandResult
+ListCommand -> CommandResult : CommandResult(...,\nLIST_ACTIVITY)
+activate CommandResult
+
+CommandResult --> ListCommand : cr
+deactivate CommandResult
+
+ListCommand --> LogicManager : cr
+deactivate ListCommand
+
+ListCommand -[hidden]-> LogicManager
+destroy ListCommand
+
+LogicManager --> MainWindow : cr
+deactivate LogicManager
+
+MainWindow -> ResultDisplay : setFeedbackToUser(...)
+activate ResultDisplay
+
+ResultDisplay --> MainWindow
+deactivate ResultDisplay
+
+MainWindow -> CommandResult : getUpdatedContext()
+activate CommandResult
+
+CommandResult --> MainWindow : Optional<LIST_ACTIVITY>
+deactivate CommandResult
+
+MainWindow -> MainWindow : contextSwitch(LIST_ACTIVITY)
+activate MainWindow
+
+MainWindow --> MainWindow
+deactivate MainWindow
+
+MainWindow --> User : cr
+deactivate MainWindow
+
+@enduml

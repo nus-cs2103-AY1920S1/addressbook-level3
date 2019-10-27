@@ -13,16 +13,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.activity.Title;
 
 /**
- * Parses input arguments and creates a new {@code RemarkCommand} object
+ * Parses input arguments and creates a new {@code ActivityCommand} object
  */
 public class ActivityCommandParser implements Parser<ActivityCommand> {
+
     /**
-     * Parses the given {@code String} of arguments in the context of the {@code ActivityCommand}
-     * and returns a {@code ActivityCommand} object for execution.
+     * Parses the given {@code String} of arguments in the context of an {@code ActivityCommand}
+     * and returns an {@code ActivityCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format,
      *                        or has missing compulsory arguments.
      */
-
     public ActivityCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_PARTICIPANT);
