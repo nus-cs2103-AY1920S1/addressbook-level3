@@ -25,6 +25,9 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
     private final List<JsonAdaptedInstallment> installments = new ArrayList<>();
     private final List<JsonAdaptedPurchase> purchases = new ArrayList<>();
 
+    /**
+     * Constructs a {@code JsonSerializableFinanceTracker} with the given finances.
+     */
     @JsonCreator
     public JsonSerializableFinanceTracker(@JsonProperty("installments") List<JsonAdaptedInstallment> installments,
                                           @JsonProperty("purchases") List<JsonAdaptedPurchase> purchases) {
@@ -32,6 +35,11 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
         this.purchases.addAll(purchases);
     }
 
+    /**
+     * Converts a given {@code FinanceTracker} into this class for Jackson use.
+     *
+     * @param financeTracker Future changes to this will not affect the created {@code JsonSerializableFinanceTracker}.
+     */
     public JsonSerializableFinanceTracker(FinanceTracker financeTracker) {
         installments.addAll(financeTracker.getInstallmentList()
                 .stream()
@@ -43,6 +51,11 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * Converts this {@code JsonAdaptedFinanceTracker} into the model's {@code FinanceTracker} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated.
+     */
     @Override
     public FinanceTracker toModelType() throws IllegalValueException {
         FinanceTracker financeTracker = new FinanceTracker();
