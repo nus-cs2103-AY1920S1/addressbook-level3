@@ -2,12 +2,10 @@ package dukecooks.logic.commands.health;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.logging.Logger;
-
+import dukecooks.commons.core.Event;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.model.Model;
-import dukecooks.commons.core.Event;
 
 /**
  * Adds a record to Duke Cooks.

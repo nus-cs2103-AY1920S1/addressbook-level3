@@ -45,10 +45,10 @@ public class UiManager implements Ui {
 
         //initialize event listener - This is responsible for firing #handleSwitch.
         event.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-               mainWindow.handleSwitch();
-            }
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    mainWindow.handleSwitch();
+                }
         });
 
         //Set the application icon.

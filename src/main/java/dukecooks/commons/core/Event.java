@@ -10,12 +10,13 @@ import java.util.logging.Logger;
  * There should only be one instance present throughout.
  */
 public class Event {
-    private static final Logger logger = LogsCenter.getLogger(Object.class);
-    private PropertyChangeSupport changes = new PropertyChangeSupport(this);
-    private static String type;
-    private static String mode;
-
     private static Event event;
+
+    private static String mode;
+    private static String type;
+    private static final Logger logger = LogsCenter.getLogger(Object.class);
+
+    private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
     private Event() {
         //default start up screen
