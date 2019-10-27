@@ -389,7 +389,8 @@ The user can add deadline to a reimbursement, mark a reimbursement,
 find a reimbursement and sort reimbursements.
 
 ==== Deadline Command feature
-This command requires access to the `Model` of the
+This command is used to add a deadline date to a reimbursement for a person.
+Deadline command requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Deadline field should be provided in a valid date format. The
 person's name inputted has to match a person's name already existing in the `Reimbursement` which is shown in our Reimbursement
@@ -398,25 +399,58 @@ Tab.
 The following sequence diagram shows the execution of deadline command:
 
 .Sequence Diagram of Deadline Command in Reimbursement Tab (deadline package)
+image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
 
-image::ReimbursementDeadlineCommandSD.png[]
-
-As shown, when a user wants to add a deadline to a reimbursement by specifying
+As shown, a user needs to add a deadline to a reimbursement by specifying
 the person's name and providing a date.
 The `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline date information.
-This `DeadlineCommand` is returned back to `LogicManager` and is executed by calling `addDeadline` method in
+This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and is executed by calling `addDeadline` method in
 `ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
 After that, the deadline is saved into a `.txt` file.
 
 .Activity Diagram of Deadline Command in Reimbursement Tab (reimbursement package)
-image::ReimbursementTabActivityDiagramDeadlineCommand.png[]
+image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[]
 
-As shown by the above activity diagram, when a user inputs a person who doesn't exist in any
+As shown by the above activity diagram, when a user inputs a person who does not exist in any
 reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
 Otherwise, when the execution is successful,
 a response informs the user that deadline is successfully added to the reimbursement.
 
 ==== Done Command feature
+This command is used to mark a reimbursement that has been done.
+Done command requires access to `Model` of the
+person package which the `AddressBook` implementation is contained in.
+Person field should be provided and the person's name should exist in reimbursement list.
+
+[[ReimbursementDoneCommandSD]]
+.Sequence Diagram of Done Command in Reimbursement Tab (deadline package)
+image::Reimbursement/ReimbursementDoneCommandSD.png[]
+
+A user needs to mark a reimbursement as done by specifying the person's name for the specific reimbursement.
+The `DeadlineCommandParser` creates a `DoneCommand` with person's information.
+As shown in the above figure, `DoneCommand` is returned back to `LogicManager`
+and it is executed by calling `doneReimbursement` method in
+`ModelManager`. After the operations, that reimbursement is deleted from reimbursement list
+and the status of transactions that consist of this reimbursement is updated to `True`.
+Then the updated reimbursement list is displayed and this new list without that deleted reimbursement is saved.
+
+The following figure shows how transactions' status is updated. Firstly, the reimbursement
+which contains the person's name updates status of all transactions that made up of the reimbursement.
+Then `LogicManager` gets the updated transaction list and passes this list to `StorageManager`
+of transaction tab to save it.
+
+[[ReimbursementUpdateTransactionsSD]]
+.Sequence Diagram of updating transactions in Reimbursement Tab (deadline package)
+image::Reimbursement/ReimbursementUpdateTransactionsSD.png[]
+
+<<ReimbursementTabActivityDiagramDoneCommand, Figure 23>> shows the steps needed for done command.
+The person's name is checked whether it exists in reimbursement list.
+If not, our app informs the user that command is incorrect. If command is valid, the reimbursement
+containing the provided person's name is deleted from reimbursement list and will not be displayed.
+
+[[ReimbursementTabActivityDiagramDoneCommand]]
+.Activity Diagram of Done Command in Reimbursement Tab (reimbursement package)
+image::Reimbursement/ReimbursementTabActivityDiagramDoneCommand.png[]
 
 ==== Find Command feature
 
