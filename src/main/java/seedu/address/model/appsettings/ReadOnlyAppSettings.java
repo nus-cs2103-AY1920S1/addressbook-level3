@@ -15,4 +15,6 @@ public interface ReadOnlyAppSettings {
 
     boolean getHintsEnabled();
 
+    int getAvatarId();
+
 }

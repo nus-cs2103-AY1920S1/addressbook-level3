@@ -29,12 +29,16 @@ public class SettingsPanel extends UiPart<Region> {
     @FXML
     private HBox hintsOptions;
 
+    @FXML
+    private HBox avatarId;
+
     public SettingsPanel(AppSettings currentSettings) {
         super(FXML);
+        this.appSettings = currentSettings;
         addOptions(difficultyOptions, "EASY", "MEDIUM", "HARD");
         addOptions(themeOptions, "DARK", "LIGHT");
         addOptions(hintsOptions, "ON", "OFF");
-        this.appSettings = currentSettings;
+        setOption(avatarId, currentSettings.getAvatarId() + "");
         updateSettings();
     }
 
@@ -52,6 +56,19 @@ public class SettingsPanel extends UiPart<Region> {
             options.add(option);
         }
         field.getChildren().addAll(options);
+    }
+
+    /**
+     * For settings that have a range of values to choose from.
+     *
+     * @param name The name to set the option to.
+     * @param field The settings field to set the options in.
+     */
+    private void setOption(HBox field, String name) {
+        field.getChildren().clear();
+        Label newOption = new Label(name);
+        newOption.getStyleClass().add(HIGHLIGHTED);
+        field.getChildren().add(newOption);
     }
 
     /**
@@ -95,5 +112,8 @@ public class SettingsPanel extends UiPart<Region> {
         highlightChoice(difficultyOptions, appSettings.getDefaultDifficulty().toString());
         highlightChoice(themeOptions, appSettings.getDefaultTheme().toString());
         highlightChoice(hintsOptions, (appSettings.getHintsEnabled() ? "ON" : "OFF"));
+
+        int avatarId = appSettings.getAvatarId();
+        setOption(this.avatarId, avatarId == 0 ? "RANDOM" : avatarId + "");
     }
 }

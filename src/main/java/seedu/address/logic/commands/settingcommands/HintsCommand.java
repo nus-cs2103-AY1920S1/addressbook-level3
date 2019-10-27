@@ -12,8 +12,7 @@ public class HintsCommand extends SettingsCommand {
 
     public static final String COMMAND_WORD = "hints";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enables or disables hints."
-            + "Parameters: HINTS [on/off]\n"
+    public static final String MESSAGE_USAGE = "Parameters: hints [on/off]\n"
             + "Example: " + COMMAND_WORD + " on";
 
     private final boolean hintsEnabled;

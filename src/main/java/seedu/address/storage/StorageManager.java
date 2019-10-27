@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -72,6 +73,10 @@ public class StorageManager implements Storage {
         return wordBankListStorage.getWordBankList();
     }
 
+    @Override
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return wordBankListStorage.getFilteredWordBankList();
+    }
 
     @Override
     public void createWordBank(String wordBankName) {
@@ -96,6 +101,11 @@ public class StorageManager implements Storage {
     @Override
     public void updateWordBank(WordBank wordBank) {
         wordBankListStorage.updateWordBank(wordBank);
+    }
+
+
+    public Path getWordBanksFilePath() {
+        return wordBankListStorage.getWordBanksFilePath();
     }
 
     // ================ WordBankStatistics methods ==============================

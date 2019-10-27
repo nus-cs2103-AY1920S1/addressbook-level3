@@ -58,7 +58,7 @@ public class WordBankList implements ReadOnlyWordBankList {
     }
 
     @Override
-    public ObservableList<WordBank> getWordBankList() {
+    public ObservableList<WordBank> getFilteredWordBankList() {
         return wordBankList.asUnmodifiableObservableList();
     }
 
