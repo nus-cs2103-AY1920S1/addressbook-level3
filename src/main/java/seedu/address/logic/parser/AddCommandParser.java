@@ -50,6 +50,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+//@@ author shaoyi1997
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -184,3 +185,4 @@ public class AddCommandParser implements Parser<AddCommand> {
                                                         PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
     }
 }
+//@@ author shaoyi1997
