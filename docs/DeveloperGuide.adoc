@@ -197,7 +197,7 @@ For the UI package to have access to this information, it exposes its functional
 
 * `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
 * `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
-* `List<ModeEnu#getModes()` -- Retrieves the possible modes the user can transition to from current mode
+* `List<ModeEnum#getModes()` -- Retrieves the possible modes the user can transition to from current mode
 
 These operations are implemented in `SpecificModeParser` aided by `ClassUtil` to handle instantiation of Parser and Command objects.
 
@@ -281,7 +281,24 @@ image::CommitActivityDiagram.png[]
 * `theme [DARK/LIGHT]` to change the theme of the app. Currently only supporting dark and light themes.
 
 This feature provides the user an interface to make their own changes to the state of the machine. The settings set by the user will also be saved to a `.json` file under `data/appsettings.json`.
-// end::settings[]
+
+The activity diagram below summarizes what happens in the execution of a settings command:
+
+.Activity diagram of the execution of a settings command.
+image::SettingsActivityDiagram.png[]
+
+[NOTE]
+Take note that "mode" as defined in our project is the state in which the application is able to take commands specific to that mode.
+
+Given below is a step by step walk-through of what happens when a user executes a difficulty command while in settings mode:
+
+1. Let us assume that the current difficulty of the application is "EASY". The object diagram below shows the current state of `AppSettings`.
+2. When the user enters `difficulty hard`, the command gets passed into Ui first, which executes `AppManager#execute()`, which passes straight to `LogicManager#execute()` without any logic conditions to determine its execution path.
+3. At `LogicManager#execute()` however, the command gets passed into a parser manager which filters out the `DifficultyCommand` as a non-switch command and it creates a `DifficultyCommand` to be executed.
+4. Upon execution of the `DifficultyCommand`, the state of the model is changed such that the `DifficultyEnum` in `AppSettings` is now set to `HARD`.
+5. Since the main function of the `difficulty` command is accomplished and all that is left is to update the ui, the `CommandResult` that is produced by the execution of the command goes back to `Ui` without much problem.
+6. Assuming that there were no errors thrown during the execution of the `difficulty` command, the execution calls `updateModularDisplay` in `UpdateUi`. In here, the `ModeEnum.SETTINGS` is registered and it updates the settings display to properly reflect the change in difficulty.
+
 
 
 // end::settings[]

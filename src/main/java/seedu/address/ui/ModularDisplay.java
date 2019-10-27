@@ -62,7 +62,7 @@ public class ModularDisplay {
      *
      * @param paneToDisplay The view to change.
      */
-    public void swapToLoadDisplay(StackPane paneToDisplay) {
+    public void swapToHomeDisplay(StackPane paneToDisplay) {
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
 
@@ -82,7 +82,7 @@ public class ModularDisplay {
      *
      * @param paneToDisplay The view to change.
      */
-    public void swapToBankDisplay(StackPane paneToDisplay) {
+    public void swapToOpenDisplay(StackPane paneToDisplay) {
         bankLabelPanel = new BankLabelPanel(appManager.getSelectedWbName());
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
