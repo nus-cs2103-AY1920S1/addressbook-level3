@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 /**
  * UI component representing the text field for user to enter commands.
  */
-public class CommandTextField extends TextField implements UiComponent<TextField> {
+public class CommandTextField extends TextField {
     private State state;
 
     /**

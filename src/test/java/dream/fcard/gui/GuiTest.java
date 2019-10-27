@@ -29,12 +29,12 @@ public class GuiTest {
 
     /** Verify that a node can be appended to the scrollable pane. */
     public static void displayInScrollablePane() {
-
+        // todo
     }
 
     /** Verify that a node can replace currently existing nodes in the scrollable pane. */
     public static void replaceInScrollablePane() {
-
+        // todo
     }
 
     /** Verify that the GUI can display an error message. */
@@ -61,4 +61,6 @@ public class GuiTest {
         Deck deck = new Deck(cards, "Test");
         Gui.renderDeck(deck);
     }
+
+    // todo: test MCQ card display
 }

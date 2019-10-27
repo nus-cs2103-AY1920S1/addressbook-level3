@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  * UI component containing all content in the application window, excluding the title bar and
  * command text field.
  */
-public class ScrollablePane extends ScrollPane implements UiComponent<ScrollPane> {
+public class ScrollablePane extends ScrollPane {
     private VBox paneContents;
 
     /**

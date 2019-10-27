@@ -11,7 +11,7 @@ import javafx.scene.text.TextFlow;
 /**
  * UI component representing an individual FlashCard to be displayed in the application.
  */
-public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
+public class FlashCardDisplay extends HBox {
 
     private static double maxWidth = GuiSettings.getMinWidth() - 2 * GuiSettings.getPadding();
     private static double textMaxWidth = GuiSettings.getMinWidth() - 4 * GuiSettings.getPadding();

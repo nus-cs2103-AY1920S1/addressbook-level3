@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 /**
  * UI component representing the placeholder for the command text field.
  */
-public class CommandBar extends VBox implements UiComponent<VBox> {
+public class CommandBar extends VBox {
     /**
      * Creates a new instance of CommandBar.
      */
