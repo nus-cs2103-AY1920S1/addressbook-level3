@@ -97,4 +97,13 @@ public class LogicManager implements Logic {
     public Path getFeedListFilePath() {
         return model.getFeedListFilePath();
     }
+
+    @Override
+    public void saveFeedList() {
+        try {
+            storage.saveFeedList(model.getFeedList());
+        } catch (IOException ioe) {
+            logger.warning(FILE_OPS_ERROR_MESSAGE + ioe);
+        }
+    }
 }
