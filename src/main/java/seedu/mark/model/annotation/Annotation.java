@@ -80,7 +80,7 @@ public class Annotation {
     @Override
     public String toString() {
         if (hasNote()) {
-            return colour.toString() + " highlight with note " + note.toString();
+            return colour.toString() + " highlight with note \"" + note.toString() + "\"";
         }
         return colour.toString() + "highlight";
     }

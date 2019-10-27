@@ -42,6 +42,7 @@ public class EditAnnotationCommand extends AnnotationCommand {
             + PREFIX_NOTE + "edited note content "
             + PREFIX_HIGHLIGHT + "orange";
     public static final String MESSAGE_TARGET_NO_PHANTOM = "You cannot move an annotation to a phantom paragraph.";
+    public static final String MESSAGE_PHANTOM_CANNOT_HIGHLIGHT = "You cannot change highlight of a phantom paragraph.";
     public static final String MESSAGE_NOTHING_TO_EDIT = "Paragraph %1$s has no annotations to edit.";
     public static final String MESSAGE_SUCCESS = "Annotation at paragraph %1$s successfully modified:\n%2$s";
     public static final String MESSAGE_MOVED_TO = "This has been moved to paragraph %s";
@@ -69,7 +70,7 @@ public class EditAnnotationCommand extends AnnotationCommand {
         OfflineDocument doc = getRequiredDoc(model);
         Paragraph originalP, newP = null;
 
-        if (newPid.isStray()) {
+        if (newPid != null && newPid.isStray()) {
             throw new CommandException(MESSAGE_TARGET_NO_PHANTOM);
         }
 
@@ -80,6 +81,10 @@ public class EditAnnotationCommand extends AnnotationCommand {
             }
         } catch (IllegalValueException e) {
             throw new CommandException(EditAnnotationCommand.COMMAND_WORD + ": " + e.getMessage());
+        }
+
+        if (newNote == null && newPid == null && getPid().isStray()) {
+            throw new CommandException(MESSAGE_PHANTOM_CANNOT_HIGHLIGHT);
         }
 
         if (!originalP.hasAnnotation()) {
@@ -97,7 +102,16 @@ public class EditAnnotationCommand extends AnnotationCommand {
 
         if (newP != null) {
             newP.addAnnotation(newAnnotation);
-            originalP.removeAnnotation();
+            if (originalP.isTrueParagraph()) {
+                originalP.removeAnnotation();
+            } else {
+                try {
+                    doc.removePhantom(getPid());
+                } catch (IllegalValueException e) {
+                    assert false : "should not get here since it is already checked";
+                    throw new CommandException(e.getMessage());
+                }
+            }
         }
 
         model.updateDocument(doc);

@@ -11,6 +11,7 @@ import seedu.mark.commons.core.index.Index;
 /**
  * Represents a paragraph that does not exist in the original website.
  * This paragraph adopts stray notes for the time that they remain stray.
+ * Any highlight of a phantom paragraph is not reflected in Gui.
  */
 public class PhantomParagraph extends Paragraph {
 
