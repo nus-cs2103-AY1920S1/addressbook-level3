@@ -4,13 +4,18 @@ package dream.fcard.gui;
 import dream.fcard.MainApp;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.core.commons.util.StringUtil;
+import dream.fcard.gui.components.CommandTextField;
+import dream.fcard.gui.components.CommandTextFieldPlaceholder;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.gui.components.ScrollablePane;
+import dream.fcard.gui.components.TitleBar;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import java.util.logging.Logger;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +33,14 @@ public class Gui {
     private static State applicationState;
 
     private static final Logger logger = LogsCenter.getLogger(Gui.class);
+
+    // UI components residing in the application's MainWindow
+    private static Stage applicationPrimaryStage;
+    // containers
+    private static VBox window = new VBox();
+    private static TitleBar titleBar = new TitleBar();
+    private static ScrollablePane scrollablePane = new ScrollablePane();
+    private static CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
 
     private Gui() {
         // empty constructor
@@ -64,12 +77,16 @@ public class Gui {
     public static void start(Stage primaryStage) {
         logger.info("Starting UI...");
 
+        // set the application primary stage
+        applicationPrimaryStage = primaryStage;
+
         // set the application icon
         primaryStage.getIcons().add(getImage(GuiSettings.getApplicationIcon()));
 
         try {
             // instantiate MainWindow object and set main window to it
             applicationMainWindow = new MainWindow(primaryStage, applicationState);
+            Gui.onStartup();
             // todo: might make sense to call mainWindow's methods rather than putting everything in its constructor
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -81,7 +98,52 @@ public class Gui {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
+    // Methods related to setting up GUI components upon application startup
+    /**
+     * Initialises components of the main window and shows the main window upon startup.
+     */
+    private static void onStartup() {
+        initializeStage();
 
+        // set up initial UI components
+        setupCommandTextField();
+        titleBar.setTitle("Welcome!");
+
+        // add UI components to scene
+        setupScene();
+
+        // finally, display main window
+        applicationPrimaryStage.show();
+    }
+
+    /**
+     * Initialises the stage by setting its size and title.
+     */
+    private static void initializeStage() {
+        applicationPrimaryStage.setTitle("FlashCard Pro"); // set title of application window
+        applicationPrimaryStage.setMinHeight(GuiSettings.getMinHeight());
+        applicationPrimaryStage.setMinWidth(GuiSettings.getMinWidth());
+    }
+
+    /**
+     * Set up the command text field with the given state and add to its placeholder.
+     */
+    private static void setupCommandTextField() {
+        CommandTextField commandTextField = new CommandTextField(applicationState);
+        commandTextFieldPlaceholder.add(commandTextField);
+    }
+
+    /**
+     * Add the UI components to main window, and display the scene.
+     */
+    private static void setupScene() {
+        // add children to window
+        window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder);
+
+        // display window
+        Scene scene = new Scene(window, 400, 400);
+        applicationPrimaryStage.setScene(scene);
+    }
 
     /**
      * Renders the front of the given FlashCard in the GUI.

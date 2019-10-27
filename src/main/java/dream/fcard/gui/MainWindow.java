@@ -26,13 +26,6 @@ public class MainWindow {
     private CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
 
     /**
-     * Temporary no-argument constructor, called in Gui. To be refactored.
-     */
-    public MainWindow() {
-        // empty constructor body
-    }
-
-    /**
      * Creates and displays a main window for the application. Called by Gui when application
      * is started.
      *
@@ -42,7 +35,7 @@ public class MainWindow {
     public MainWindow(Stage primaryStage, State state) {
         this.primaryStage = primaryStage;
         this.state = state;
-        onStartup();
+        //onStartup();
         //testUiComponents();
     }
 
