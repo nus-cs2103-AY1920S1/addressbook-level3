@@ -11,6 +11,11 @@ import javafx.scene.image.Image;
  * A container for App specific utility functions
  */
 public class AppUtil {
+    private static final ThreadLocal<SimpleDateFormat> dateFormat = ThreadLocal.withInitial(() -> {
+        SimpleDateFormat format = new SimpleDateFormat("d/M/yy");
+        format.setLenient(false);
+        return format;
+    });
 
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
@@ -22,9 +27,7 @@ public class AppUtil {
      * The primary purpose of this method is to standardise date display across the app.
      */
     public static SimpleDateFormat getDateFormat() {
-        SimpleDateFormat format = new SimpleDateFormat("d/M/yy");
-        format.setLenient(false);
-        return format;
+        return dateFormat.get();
     }
 
     /**
