@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.ExpenseReminder;
 
 /**
  * Side panel for budgets.
@@ -14,9 +14,9 @@ public class ReminderPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
 
     @FXML
-    private ListView<Entry> reminderListView;
+    private ListView<ExpenseReminder> reminderListView;
 
-    public ReminderPanel(ObservableList<Entry> remindersList) {
+    public ReminderPanel(ObservableList<ExpenseReminder> remindersList) {
         super(FXML);
         reminderListView.setItems(remindersList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
@@ -25,9 +25,9 @@ public class ReminderPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class ReminderListViewCell extends ListCell<Entry> {
+    class ReminderListViewCell extends ListCell<ExpenseReminder> {
         @Override
-        protected void updateItem(Entry entry, boolean empty) {
+        protected void updateItem(ExpenseReminder entry, boolean empty) {
             super.updateItem(entry, empty);
 
             if (empty || entry == null) {
@@ -35,7 +35,7 @@ public class ReminderPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
+                setGraphic(new ExpenseReminderCard(entry, getIndex() + 1).getRoot());
             }
         }
     }

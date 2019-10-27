@@ -145,6 +145,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Income> getFilteredIncomes();
 
+    /** Returns an unmodifiable view of filtered expense and income list */
+    ObservableList<Entry> getFilteredExpensesAndIncomes();
+
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();
 
@@ -157,7 +160,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expense reminder list */
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
-    ObservableList<WishReminder> getFiltereWishReminders();
+    ObservableList<WishReminder> getFilteredWishReminders();
     /**
      * Updates the filter of the filtered entry list to filter by the given
      * {@code predicate}.

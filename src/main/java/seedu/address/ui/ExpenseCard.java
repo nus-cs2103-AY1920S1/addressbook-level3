@@ -8,13 +8,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class EntryCard extends UiPart<Region> {
+public class ExpenseCard extends UiPart<Region> {
 
-    private static final String FXML = "EntryListCard.fxml";
+    private static final String FXML = "ExpenseCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +25,7 @@ public class EntryCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Entry entry;
+    public final Expense expense;
 
     @FXML
     private HBox cardPane;
@@ -39,22 +40,22 @@ public class EntryCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public EntryCard(Entry entry, int displayedIndex) {
+    public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
-        this.entry = entry;
+        this.expense = expense;
         id.setText(displayedIndex + ". ");
 
-        String descWithType = entry.getDesc().fullDesc;
+        String descWithType = expense.getDesc().fullDesc;
         desc.setText(descWithType);
-        date.setText(entry.getDate().toString());
-        amt.setText("$" + entry.getAmount().value);
+        date.setText(expense.getDate().toString());
+        amt.setText("$" + expense.getAmount().value);
 
-        entry.getTags().stream()
+        expense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-        @Override
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
@@ -62,13 +63,13 @@ public class EntryCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EntryCard)) {
+        if (!(other instanceof ExpenseCard)) {
             return false;
         }
 
         // state check
-        EntryCard card = (EntryCard) other;
+        ExpenseCard card = (ExpenseCard) other;
         return id.getText().equals(card.id.getText())
-                && entry.equals(card.entry);
+                && expense.equals(card.expense);
     }
 }

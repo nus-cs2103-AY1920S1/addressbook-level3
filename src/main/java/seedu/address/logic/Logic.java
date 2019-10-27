@@ -8,7 +8,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.ExpenseReminder;
+import seedu.address.model.person.Reminder;
 import seedu.address.model.person.Wish;
 
 /**
@@ -34,7 +37,13 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Entry> getFilteredEntryList();
 
+    ObservableList<Entry> getFilteredExpenseAndIncomeList();
+
     ObservableList<Wish> getFilteredWishList();
+
+    ObservableList<Budget> getFilteredBudgetList();
+
+    ObservableList<ExpenseReminder> getFilteredExpenseReminderList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

@@ -130,8 +130,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
-        entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
+        entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -143,13 +142,14 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredEntryList());
+        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredWishList());
         wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
 
-        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
+        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
 
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
+        // TODO: add wish reminders to the panel as well
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredExpenseReminderList());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 

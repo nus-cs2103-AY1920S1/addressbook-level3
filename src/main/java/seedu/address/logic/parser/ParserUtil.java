@@ -67,12 +67,12 @@ public class ParserUtil {
 
     /**
      * Parses a time in String to Time.
-     * @param time the time as a String.
+     * @param date the time as a String.
      * @return the specified time as Time.
      */
-    public static Date parseTime(String time) {
-        requireNonNull(time);
-        return new Date(time);
+    public static Date parseDate(String date) {
+        requireNonNull(date);
+        return new Date(date);
     }
 
     /**

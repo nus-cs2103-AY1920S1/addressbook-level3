@@ -15,7 +15,6 @@ public class ExpenseReminder extends Reminder {
         currSum = tracker.getAmount();
     }
 
-
     public long getSum() {
         return currSum;
     }
@@ -29,7 +28,7 @@ public class ExpenseReminder extends Reminder {
     }
 
     /**
-     *checks status of reminder. i.e. should reminder trigger.
+     * Checks status of reminder. i.e. should reminder trigger.
      */
     public void updateStatus() {
         currSum = tracker.getAmount();

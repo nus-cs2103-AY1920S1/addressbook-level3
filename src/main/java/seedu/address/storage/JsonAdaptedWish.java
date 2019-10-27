@@ -26,7 +26,7 @@ class JsonAdaptedWish {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Wish's %s field is missing!";
 
     private final String desc;
-    private final String time;
+    private final String date;
     private final double amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -35,10 +35,10 @@ class JsonAdaptedWish {
      */
     @JsonCreator
     public JsonAdaptedWish(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
-                             @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.desc = desc;
         this.amt = amt;
-        this.time = time;
+        this.date = date;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -51,7 +51,7 @@ class JsonAdaptedWish {
     public JsonAdaptedWish(Wish source) {
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
-        time = source.getDate().toString();
+        date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -77,8 +77,15 @@ class JsonAdaptedWish {
         }
         final Description modelDesc = new Description(desc);
 
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+        }
+        /*if (!Date.isValidDate(date)) {
+            throw new IllegalValueException((Date.MESSAGE_CONSTRAINTS));
+        }*/
+        final Date modelDate = new Date(date);
 
-        final Date modelDate = new Date(time);
         final Amount modelAmt = new Amount(amt);
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         return new Wish(modelDesc, modelDate, modelAmt, modelTags);

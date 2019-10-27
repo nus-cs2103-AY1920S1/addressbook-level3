@@ -1,20 +1,17 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.ExpenseReminder;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Reminder}.
  */
-public class EntryCard extends UiPart<Region> {
+public class ExpenseReminderCard extends UiPart<Region> {
 
-    private static final String FXML = "EntryListCard.fxml";
+    private static final String FXML = "ExpenseReminderListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +21,7 @@ public class EntryCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Entry entry;
+    public final ExpenseReminder expenseReminder;
 
     @FXML
     private HBox cardPane;
@@ -33,28 +30,28 @@ public class EntryCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label date;
-    @FXML
     private Label amt;
-    @FXML
-    private FlowPane tags;
 
-    public EntryCard(Entry entry, int displayedIndex) {
+    public ExpenseReminderCard(ExpenseReminder expenseReminder, int displayedIndex) {
         super(FXML);
-        this.entry = entry;
+        this.expenseReminder = expenseReminder;
         id.setText(displayedIndex + ". ");
 
-        String descWithType = entry.getDesc().fullDesc;
+        desc.setText(expenseReminder.getMessage());
+        amt.setText(expenseReminder.getSum() + " / " + expenseReminder.getQuota());
+
+        /*String type = reminder.getType().toLowerCase();
+        String descWithType = "[" + type + "] " + entry.getDesc().fullDesc;
         desc.setText(descWithType);
         date.setText(entry.getDate().toString());
         amt.setText("$" + entry.getAmount().value);
 
         entry.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));*/
     }
 
-        @Override
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
@@ -62,13 +59,13 @@ public class EntryCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EntryCard)) {
+        if (!(other instanceof ExpenseReminderCard)) {
             return false;
         }
 
         // state check
-        EntryCard card = (EntryCard) other;
+        ExpenseReminderCard card = (ExpenseReminderCard) other;
         return id.getText().equals(card.id.getText())
-                && entry.equals(card.entry);
+                && expenseReminder.equals(card.expenseReminder);
     }
 }

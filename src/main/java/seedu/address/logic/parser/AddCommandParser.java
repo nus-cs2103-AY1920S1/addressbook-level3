@@ -43,26 +43,26 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         String type = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
-        Date time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE).get());
+        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Entry entry;
         switch (type) {
         case "expense":
-            entry = new Expense(desc, time, amt, tagList);
+            entry = new Expense(desc, date, amt, tagList);
             break;
         case "income":
-            entry = new Income(desc, time, amt, tagList);
+            entry = new Income(desc, date, amt, tagList);
             break;
         case "wish":
-            entry = new Wish(desc, time, amt, tagList);
+            entry = new Wish(desc, date, amt, tagList);
             break;
         case "budget":
-            entry = new Budget(desc, time, amt, tagList);
+            entry = new Budget(desc, date, amt, tagList);
             break;
         default:
-            throw new ParseException("invalid command");
+            throw new ParseException("Invalid command");
         }
 
         return new AddCommand(entry);

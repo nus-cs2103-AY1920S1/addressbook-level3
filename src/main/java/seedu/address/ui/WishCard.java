@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.Wish;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class EntryCard extends UiPart<Region> {
+public class WishCard extends UiPart<Region> {
 
-    private static final String FXML = "EntryListCard.fxml";
+    private static final String FXML = "WishListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class EntryCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Entry entry;
+    public final Wish wish;
 
     @FXML
     private HBox cardPane;
@@ -39,22 +39,22 @@ public class EntryCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public EntryCard(Entry entry, int displayedIndex) {
+    public WishCard(Wish wish, int displayedIndex) {
         super(FXML);
-        this.entry = entry;
+        this.wish = wish;
         id.setText(displayedIndex + ". ");
 
-        String descWithType = entry.getDesc().fullDesc;
+        String descWithType = wish.getDesc().fullDesc;
         desc.setText(descWithType);
-        date.setText(entry.getDate().toString());
-        amt.setText("$" + entry.getAmount().value);
+        date.setText(wish.getDate().toString());
+        amt.setText("$" + wish.getAmount().value);
 
-        entry.getTags().stream()
+        wish.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-        @Override
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
@@ -67,8 +67,9 @@ public class EntryCard extends UiPart<Region> {
         }
 
         // state check
-        EntryCard card = (EntryCard) other;
+        WishCard card = (WishCard) other;
         return id.getText().equals(card.id.getText())
-                && entry.equals(card.entry);
+                && wish.equals(card.wish);
     }
 }
+

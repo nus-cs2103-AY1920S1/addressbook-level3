@@ -296,6 +296,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Entry> getFilteredExpensesAndIncomes() {
+        ObservableList<Entry> list = new FilteredList<>(filteredEntries,
+                entry -> entry instanceof Expense || entry instanceof Income);
+        /*for (Income income : filteredIncomes) {
+            list.add(income);
+        }*/
+        return list;
+    }
+
+    @Override
     public ObservableList<Wish> getFilteredWishes() {
         return filteredWishes;
     }
@@ -304,17 +314,19 @@ public class ModelManager implements Model {
     public ObservableList<Budget> getFilteredBudgets() {
         return filteredBudgets;
     }
+
     @Override
     public ObservableList<AutoExpense> getFilteredAutoExpenses() {
         return filteredAutoExpenses;
     }
 
+    @Override
     public ObservableList<ExpenseReminder> getFilteredExpenseReminders() {
         return filteredExpenseReminders;
     }
 
-
-    public ObservableList<WishReminder> getFiltereWishReminders() {
+    @Override
+    public ObservableList<WishReminder> getFilteredWishReminders() {
         return filteredWishReminders;
     }
 
