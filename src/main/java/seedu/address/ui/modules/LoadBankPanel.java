@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -73,8 +72,7 @@ public class LoadBankPanel extends UiPart<Region> {
     public void handleDragDropped(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();
         File firstFile = files.get(0);
-        if (firstFile.exists() &&
-                getExtension(firstFile).equals("json")) {
+        if (firstFile.exists() && getExtension(firstFile).equals("json")) {
             Path p = firstFile.toPath();
             String childString = p.getFileName().toString();
 
@@ -83,14 +81,14 @@ public class LoadBankPanel extends UiPart<Region> {
         }
     }
 
-    private String getExtension(File file){
+    private String getExtension(File file) {
         String fileName = file.toString();
         String extension = "";
 
         int i = fileName.lastIndexOf('.');
-        if (i > 0 && i < fileName.length() - 1) //if the name is not empty
+        if (i > 0 && i < fileName.length() - 1) { //if the name is not empty
             return fileName.substring(i + 1).toLowerCase();
-
+        }
         return extension;
     }
 }

@@ -72,10 +72,11 @@ public class AppManager {
 
     /**
      * Processes the input command commandText by passing it through the GameManager's main logic.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     public CommandResult execute(String commandText) throws ParseException, CommandException {
         CommandResult commandResult = logic.execute(commandText);
@@ -130,7 +131,9 @@ public class AppManager {
         return logic;
     }
 
-    public Storage getStorage() {return logic.getStorage(); }
+    public Storage getStorage() {
+        return logic.getStorage();
+    }
 
     public ReadOnlyWordBank getActiveWordBank() {
         return logic.getActiveWordBank();
