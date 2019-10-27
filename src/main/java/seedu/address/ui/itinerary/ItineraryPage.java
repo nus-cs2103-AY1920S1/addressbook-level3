@@ -1,6 +1,5 @@
 package seedu.address.ui.itinerary;
 
-import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;

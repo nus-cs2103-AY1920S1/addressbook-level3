@@ -33,7 +33,7 @@ public class Event {
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
                  Expenditure expenditure, Inventory inventory, Location destination) {
-        requireAllNonNull(name, startDate, endDate, booking, expenditure, inventory);
+        requireAllNonNull(name, startDate, endDate);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -115,8 +115,8 @@ public class Event {
             return true;
         }
         return otherEvent != null
-                && otherEvent.getBooking().equals(getBooking())
-                && (otherEvent.getEndDate().equals(getEndDate()) || otherEvent.getStartDate().equals(getStartDate()));
+                && otherEvent.getName().equals(getName())
+                && (otherEvent.getEndDate().equals(getEndDate()) && otherEvent.getStartDate().equals(getStartDate()));
 
     }
 
@@ -133,5 +133,24 @@ public class Event {
                 && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherTrip = (Event) other;
+        return otherTrip.getName().equals(getName())
+                && otherTrip.getStartDate().equals(getStartDate())
+                && otherTrip.getEndDate().equals(getEndDate())
+                && otherTrip.getDestination().equals(getDestination())
+                && otherTrip.getBooking().equals(getBooking())
+                && otherTrip.getExpenditure().equals(getExpenditure())
+                && otherTrip.getInventory().equals(getInventory());
+    }
 
 }

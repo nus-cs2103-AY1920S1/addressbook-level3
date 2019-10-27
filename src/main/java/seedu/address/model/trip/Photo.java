@@ -1,18 +1,15 @@
 package seedu.address.model.trip;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.AppUtil.getAbsoluteImage;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 
 import javafx.scene.image.Image;
 
 import seedu.address.commons.util.AppUtil;
-import seedu.address.logic.parser.ParserDateUtil;
 
 /**
  * Abstraction of a photo in trip containing the path to an image.

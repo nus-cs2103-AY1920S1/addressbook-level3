@@ -132,11 +132,11 @@ public class Day {
 
     @Override
     public String toString() {
-        return "Name: " + name +
-                ", Start Date:" + startDate +
-                ", End Date: " + endDate +
-                ", Destination: " + destination +
-                ", TotalBudget: " + totalBudget +
-                ", Description: " + description;
+        return "Name: " + name
+                + ", Start Date:" + startDate
+                + ", End Date: " + endDate
+                + ", Destination: " + destination
+                + ", TotalBudget: " + totalBudget
+                + ", Description: " + description;
     }
 }

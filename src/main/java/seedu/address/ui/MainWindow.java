@@ -54,6 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     protected Stage primaryStage;
     protected Logic logic;
     protected Model model;
+    protected Page<? extends Node> currentPage;
 
     private CommandUpdater commandUpdater;
 
@@ -146,6 +147,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.doSwitchPage()) {
                 handleSwitch();
+            }
+
+            if (commandResult.doChangeUi()) {
+                handleChange(commandResult.getCommandWord());
             }
 
             commandUpdater.executeUpdateCallback();
@@ -250,6 +255,7 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
 
+        currentPage = newPage;
         switchContent(newPage);
         this.commandUpdater = newPage::fillPage;
     }
@@ -287,6 +293,14 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         timeline.play();
+    }
+
+    /**
+     * Executes the change in the UI within the same page.
+     * @param commandWord The command word used to execute this change.
+     */
+    private void handleChange(String commandWord) throws CommandException {
+        currentPage.changeUi(commandWord.toUpperCase());
     }
 
     /**

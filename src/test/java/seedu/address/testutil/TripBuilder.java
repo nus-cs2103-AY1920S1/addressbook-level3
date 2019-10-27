@@ -10,6 +10,7 @@ import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 
 /**
@@ -25,6 +26,7 @@ public class TripBuilder {
     private DayList dayList;
     private ExpenditureList expenditureList;
     private Diary diary;
+    private Photo photo;
 
     private TripBuilder() {
         dayList = new DayList();
@@ -48,6 +50,7 @@ public class TripBuilder {
                 .setEndDate(trip.getEndDate())
                 .setLocation(trip.getDestination())
                 .setTotalBudget(trip.getBudget());
+
         //.setDayList(trip.getDayList());
     }
 
@@ -81,6 +84,10 @@ public class TripBuilder {
         return this;
     }
 
+    public TripBuilder setPhoto(Photo photo) {
+        this.photo = photo;
+        return this;
+    }
     public TripBuilder setExpenditureList(ExpenditureList expenditureList) {
         this.expenditureList = expenditureList;
         return this;
@@ -90,7 +97,7 @@ public class TripBuilder {
      * Terminal method to construct new {@link Trip}.
      */
     public Trip build() {
-        return new Trip(name, startDate, endDate, destination, totalBudget, dayList, expenditureList, diary, );
+        return new Trip(name, startDate, endDate, destination, totalBudget, dayList, expenditureList, diary, photo);
     }
 
 }

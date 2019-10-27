@@ -52,7 +52,8 @@ public class Trip {
      * Constructs a trip with optional fields
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary, Optional<Photo> photo) {
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList,
+                Diary diary, Optional<Photo> photo) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -172,7 +173,7 @@ public class Trip {
                 .append(" Total Budget: ")
                 .append(totalBudget.toString())
                 .append(" Image Path: ")
-                .append(photo==null?"default image" : photo.getImageFilePath());
+                .append(photo == null ? "default image" : photo.getImageFilePath());
 
         return builder.toString();
     }

@@ -1,10 +1,6 @@
 package seedu.address.storage;
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -3,6 +3,7 @@ package seedu.address.ui.template;
 import javafx.scene.Node;
 
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
@@ -31,4 +32,11 @@ public abstract class Page<T extends Node> extends UiPart<T> {
      * The callback function {@code CommandUpdater} to run after executing a command successfully.
      */
     public abstract void fillPage();
+
+    /**
+     * Default method to change certain contents of the ui
+     */
+    public void changeUi(String commandWord) throws CommandException {
+
+    };
 }

@@ -4,18 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.util.FileUtil.isFileExists;
 import static seedu.address.commons.util.FileUtil.isValidPath;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 
-import seedu.address.logic.parser.ArgumentMultimap;
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.regex.Pattern;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.trip.Photo;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.regex.Pattern;
 
 /**
  * Collection of methods for parsing trip's abstractions.

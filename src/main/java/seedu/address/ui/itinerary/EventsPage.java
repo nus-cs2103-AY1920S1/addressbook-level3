@@ -1,25 +1,21 @@
 package seedu.address.ui.itinerary;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.common.EnterPrefsCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.itinerary.events.EnterCreateEventCommand;
+import seedu.address.logic.commands.itinerary.events.ShowEventDetailsCommand;
+import seedu.address.logic.parser.itinerary.eventview.EventViewCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
@@ -66,15 +62,8 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
         eventListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                int index = eventListView.getSelectionModel().getSelectedIndex();
-                if (events.get(index).getExpenditure().isPresent()) {
-                    totalBudgetLabel.setText("Total Budget: "
-                            + events.get(index).getExpenditure().get().getBudget()
-                            .toString());
-                } else {
-                    totalBudgetLabel.setText("Total Budget: 0");
-                }
-                nameLabel.setText(events.get(index).getName().toString());
+                mainWindow.executeGuiCommand(ShowEventDetailsCommand.COMMAND_WORD
+                        + " " + (eventListView.getSelectionModel().getSelectedIndex() + 1));
             }
         });
     }
@@ -98,6 +87,33 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
         }
     }
 
+    @Override
+    public void changeUi(String commandWord) throws CommandException {
+        EventViewCommand eventViewCommand = EventViewCommand.valueOf(commandWord);
+        switch (eventViewCommand) {
+        case SHOW:
+            handleShowEventDetails();
+            break;
+        default:
+            throw new CommandException("Events Page does not support this method");
+        }
+    }
+
+    /**
+     * Handles the UI changes by the {@link ShowEventDetailsCommand}.
+     */
+    private void handleShowEventDetails() {
+        // ShowEventDetailsCommand sets event in PageStatus as the event with details to show
+        Event event = model.getPageStatus().getEvent();
+        if (event.getExpenditure().isPresent()) {
+            totalBudgetLabel.setText("Total Budget: "
+                    + event.getExpenditure().get().getBudget()
+                    .toString());
+        } else {
+            totalBudgetLabel.setText("Total Budget: 0");
+        }
+        nameLabel.setText(event.getName().toString());
+    }
 
     @FXML
     private void handleAddEvent() {

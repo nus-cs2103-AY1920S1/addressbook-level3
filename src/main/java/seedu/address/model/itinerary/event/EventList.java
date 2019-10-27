@@ -47,10 +47,6 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             throw new EventNotFoundException();
         }
 
-        if (target.isClashingWith(edited) && contains(edited)) {
-            throw new ClashingEventException();
-        }
-
         internalList.set(index, edited);
         internalList.sort(Comparator.comparing(Event::getStartDate));
     }
@@ -97,5 +93,12 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EventList // instanceof handles nulls
+                && internalList.equals(((EventList) other).internalList));
     }
 }
