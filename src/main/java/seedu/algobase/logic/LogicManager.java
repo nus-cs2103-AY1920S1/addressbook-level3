@@ -19,6 +19,7 @@ import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 import seedu.algobase.storage.Storage;
@@ -88,6 +89,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getProcessedTaskList() {
         return model.getCurrentTaskList();
+    }
+
+    @Override
+    public ObservableList<ProblemSearchRule> getProcessedFindRuleList() {
+        return model.getFilteredFindRuleList();
     }
 
     @Override

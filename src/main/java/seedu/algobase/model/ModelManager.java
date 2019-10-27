@@ -18,6 +18,7 @@ import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -31,11 +32,12 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final GuiState guiState;
     private final FilteredList<Problem> filteredProblems;
-    private final FilteredList<Tag> filteredTags;
     private final SortedList<Problem> sortedProblems;
+    private final FilteredList<Tag> filteredTags;
     private final FilteredList<Plan> filteredPlans;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<CommandHistory> filteredCommandHistories;
+    private final FilteredList<ProblemSearchRule> filteredFindRules;
 
     /**
      * Initializes a ModelManager with the given algoBase and userPrefs.
@@ -54,6 +56,7 @@ public class ModelManager implements Model {
         sortedProblems = new SortedList<>(filteredProblems);
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
         filteredTasks = new FilteredList<>(this.algoBase.getCurrentTaskList());
+        filteredFindRules = new FilteredList<>(this.algoBase.getFindRules());
         filteredCommandHistories = new FilteredList<>(this.algoBase.getCommandHistoryList());
     }
 
@@ -312,6 +315,37 @@ public class ModelManager implements Model {
     }
 
 
+    //========== Find Rules =============================================================
+
+    @Override
+    public boolean hasFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        return algoBase.hasFindRule(rule);
+    }
+
+    @Override
+    public void addFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        algoBase.addFindRule(rule);
+    }
+
+    @Override
+    public void deleteFindRule(ProblemSearchRule rule) {
+        requireNonNull(rule);
+        algoBase.removeFindRule(rule);
+    }
+
+    @Override
+    public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
+        requireAllNonNull(target, editedRule);
+        algoBase.setFindRule(target, editedRule);
+    }
+
+    @Override
+    public ObservableList<ProblemSearchRule> getFilteredFindRuleList() {
+        return filteredFindRules;
+    }
+
     //========== Util ===================================================================
 
     @Override
@@ -329,7 +363,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return algoBase.equals(other.algoBase)
-                && userPrefs.equals(other.userPrefs)
-                && filteredProblems.equals(other.filteredProblems);
+            && userPrefs.equals(other.userPrefs)
+            && filteredProblems.equals(other.filteredProblems);
     }
 }

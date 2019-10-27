@@ -1,9 +1,17 @@
 @startuml
-box "Logic" #LightBlue
+!include ../style.puml
+box "Logic" LOGIC_COLOR_T1
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AlgoBaseParser" as AlgoBaseParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant ":FindProblemDescriptor" as FindProblemDescriptor LOGIC_COLOR
+participant ":NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate LOGIC_COLOR
+participant ":FindCommand" as FindCommand LOGIC_COLOR
+
 [-> LogicManager: execute(commandText)
 
 activate LogicManager
-	LogicManager -> AlgoBaseParser: parseCommand(commandText)
 	activate AlgoBaseParser
 		AlgoBaseParser -> FindCommandParser: parse(arguments)
 		activate FindCommandParser
@@ -35,8 +43,13 @@ activate LogicManager
 		LogicManager -> FindCommand : execute(model)
 		activate FindCommand
 end box
-box "Model" #Pink
+
+box "Model" MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CommandResult" as CommandResult MODEL_COLOR
 			FindCommand -> Model : updateFilteredProblemList(predicate)
+			activate Model
+			deactivate Model
 			create CommandResult
 			FindCommand -> CommandResult
 			activate CommandResult

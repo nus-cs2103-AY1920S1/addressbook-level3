@@ -14,6 +14,7 @@ import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -179,6 +180,31 @@ public class DefaultModelStub implements Model {
 
     @Override
     public ObservableList<Task> getCurrentTaskList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasFindRule(ProblemSearchRule rule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addFindRule(ProblemSearchRule rule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteFindRule(ProblemSearchRule rule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<ProblemSearchRule> getFilteredFindRuleList() {
         throw new AssertionError("This method should not be called.");
     }
 
