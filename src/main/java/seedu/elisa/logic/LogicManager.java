@@ -44,67 +44,11 @@ public class LogicManager implements Logic {
         autoRescheduleManager = AutoRescheduleManager.getInstance();
         autoRescheduleManager.initStorageEvents(model.getEventList(), model);
 
-        //Create new thread class to check
-        /*
-        class CheckerThread extends Thread {
-
-            ScheduledExecutorService
-            //Schedule a check on future list every 5 seconds
-            //If future.first.time <= now
-            // A new collection <- future.remove until future.first.time > now
-            // ActiveRemindersListProperty.add(A new collection)
-            //
-        }
-        */
-        //Spawn new thread
-        //new CheckerThread().start();
-        //Run checker
-        Runnable checkTask = new Runnable() {
-            public void run() {
-
-                ArrayList<Item> futureReminders = model.getFutureRemindersList();
-                ArrayList<Item> activeReminders = new ArrayList<Item>(0);
-                Reminder reminder = null;
-                Item item;
-
-                logger.info("----------------[LOGIC MANAGER]["
-                        + "Checking for pending reminders" + "]");
-
-                if (futureReminders.size() > 0) {
-                    logger.info("----------------[LOGIC MANAGER]["
-                            + "There are pending reminders\n" + futureReminders.toString() + "]");
-                    //TODO: Check if Optional is present before .get()
-                    Item reminderItem = futureReminders.get(0);
-                    while (reminderItem.getReminder().isEmpty() && futureReminders.size() > 0) {
-                        futureReminders.remove(0);
-                    }
-                    reminder = reminderItem.getReminder().get();
-
-                    while (reminder != null && reminder.getDateTime().isBefore(LocalDateTime.now())) {
-                        logger.info("----------------[LOGIC MANAGER]["
-                                + "Transferring reminder from futureReminders to activeReminders" + "]");
-                        item = futureReminders.remove(0);
-                        activeReminders.add(item);
-                        if (futureReminders.size() > 0) {
-                            reminder = futureReminders.get(0).getReminder().get();
-                        } else {
-                            reminder = null;
-                        }
-                    }
-
-                    model.getActiveReminderListProperty().addReminders(activeReminders);
-                }
-            }
-        };
-
+        Runnable checkTask = new CheckTaskRunnable(model);
         checker = new ScheduledThreadPoolExecutor(1);
-        //TODO: Think about initial delay in relation to time for app to start up
-        checker.scheduleAtFixedRate(checkTask, 0, 15, TimeUnit.SECONDS);
+        checker.scheduleAtFixedRate(checkTask, 0, 5, TimeUnit.SECONDS);
     }
 
-    /*
-     * Bryan Reminder
-     */
     public final ListPropertyBase<Item> getActiveRemindersListProperty() {
         return model.getActiveReminderListProperty();
     }
