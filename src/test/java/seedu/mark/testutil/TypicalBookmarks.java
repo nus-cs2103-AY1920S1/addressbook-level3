@@ -18,6 +18,7 @@ import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
@@ -59,7 +60,8 @@ public class TypicalBookmarks {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalBookmarks() {} // prevents instantiation
+    private TypicalBookmarks() {
+    } // prevents instantiation
 
     /**
      * Returns a {@code Mark} instance with all the typical bookmarks.

@@ -1,4 +1,4 @@
-package seedu.mark.testutil;
+package seedu.mark.model.bookmark.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
