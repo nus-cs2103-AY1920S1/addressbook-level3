@@ -135,6 +135,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String outputReminders() {
+        return userPrefs.outputReminders();
+    }
+
+    @Override
     public void addAlias(String alias, String aliasTo) {
         userPrefs.addAlias(alias, aliasTo);
     }

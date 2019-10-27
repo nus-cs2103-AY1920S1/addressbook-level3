@@ -37,12 +37,46 @@ public class Reminder {
         if (type == 0) {
             reminders.put(description, days);
         } else {
-            reminders.put(description, days);
+            followup.put(description, days);
         }
         return this;
     }
 
-    public String getReminders() {
+    /**
+     * Decrements the days a reminder has left
+     */
+    public void cascadeDay(int days) {
+        HashMap<String, Integer> cascadeReminders = new HashMap<>();
+        HashMap<String, Integer> cascadeFollowups = new HashMap<>();
+        Iterator it = reminders.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            String key = pair.getKey().toString();
+            int value = Integer.parseInt(pair.getValue().toString()) - days;
+            if (value >= 0) {
+                cascadeReminders.put(key, value);
+            }
+            it.remove();
+        }
+        reminders = cascadeReminders;
+
+        it = followup.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            String key = pair.getKey().toString();
+            int value = Integer.parseInt(pair.getValue().toString()) - days;
+            if (value >= 0) {
+                cascadeFollowups.put(key, value);
+            }
+            it.remove();
+        }
+        followup = cascadeFollowups;
+    }
+
+    /**
+     * Outputs the Reminders and Follow-Up to readable String
+     */
+    public String outputReminders() {
         StringBuilder sb = new StringBuilder();
         sb.append("Reminders:\n");
         if (reminders.size() < 1) {
@@ -53,7 +87,6 @@ public class Reminder {
                 while (it.hasNext()) {
                     HashMap.Entry pair = (HashMap.Entry) it.next();
                     sb.append(pair.getKey() + ": for " + pair.getValue() + " days\n");
-                    it.remove();
                 }
             }
         }
@@ -66,7 +99,6 @@ public class Reminder {
                 while (it.hasNext()) {
                     HashMap.Entry pair = (HashMap.Entry) it.next();
                     sb.append(pair.getKey() + ": in " + pair.getValue() + " days\n");
-                    it.remove();
                 }
             }
         }
