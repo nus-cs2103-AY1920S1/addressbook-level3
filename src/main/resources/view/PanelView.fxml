@@ -3,4 +3,4 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<StackPane fx:id="panelPlaceholder" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<StackPane fx:id="panelPlaceholder" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" />
