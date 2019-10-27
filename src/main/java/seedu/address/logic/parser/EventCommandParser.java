@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_DURATION;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EventCommand;
+import seedu.address.logic.commands.calendar.EventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;

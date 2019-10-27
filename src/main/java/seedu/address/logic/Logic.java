@@ -48,7 +48,7 @@ public interface Logic {
      * Returns a boolean indicating whether a new pane is to be created, regardless of whether an existing one already
      * exists.
      */
-    boolean getnewPaneIsToBeCreated();
+    boolean getNewPaneIsToBeCreated();
 
     /**
      * Returns the AddressBook.
@@ -176,5 +176,4 @@ public interface Logic {
      * Returns the background to be set for this app.
      */
     Background getBackground();
-
 }

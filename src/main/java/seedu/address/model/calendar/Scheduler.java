@@ -23,7 +23,7 @@ import seedu.address.model.DateTime;
  * A class representing a scheduler.
  */
 public class Scheduler {
-    private static int threads = 10;
+    private static int threads = 5;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(threads);
     private LocalDateTime currentDeadline;
     private LocalDateTime currentStartingDateTime;

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
+import seedu.address.model.YearMonth;
 import seedu.address.model.bio.User;
 
 /**
@@ -33,6 +34,7 @@ public class MainDisplayPane {
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
+        assert !displayPaneType.equals(DisplayPaneType.CALENDAR_MONTH);
         switch (displayPaneType) {
         case BIO:
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
@@ -65,6 +67,15 @@ public class MainDisplayPane {
         default:
             return null;
         }
+    }
+
+    /**
+     * Returns a calendar pane representing the Main Display Pane observed by the user.
+     */
+    public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated, YearMonth yearMonth) {
+        return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth,
+                logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
+
     }
 
     /**
