@@ -3,7 +3,7 @@ package seedu.elisa.commons.core.item;
 import java.util.Comparator;
 
 /**
- * A comparator between to compare the datetime between the Reminders of two Items.
+ * A comparator to compare the datetime between the Reminders of two Items.
  */
 public class ItemReminderDateTimeComparator implements Comparator<Item> {
     @Override
