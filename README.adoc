@@ -3,7 +3,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-W12-2/main[image:https://img.shields.io/travis/AY1920S1-CS2103T-W12-2/main/master.svg?logo=travis-ci&logoColor=white&cacheSeconds=0[Build Status]]
 https://ci.appveyor.com/project/lightz96/main[image:https://img.shields.io/appveyor/ci/lightz96/main/master.svg?logo=Appveyor&cacheSeconds=0[Build Status]]
-https://coveralls.io/github/AY1920S1-CS2103T-W12-2/main?branch=master[image:https://img.shields.io/coveralls/github/AY1920S1-CS2103T-W12-2/main.svg?cacheSeconds=0[Coverage Status]]
+https://coveralls.io/github/AY1920S1-CS2103T-W12-2/main?branch=master[image:https://img.shields.io/coveralls/github/AY1920S1-CS2103T-W12-2/main?color=success&cacheSeconds=0[Coverage Status]]
 https://app.netlify.com/sites/thrift/deploys[image:https://img.shields.io/netlify/fbb1dc07-179d-412c-a5cc-52c34f58a42c?logo=netlify&cacheSeconds=0[Netlify Status]]
 link:https://github.com/AY1920S1-CS2103T-W12-2/main/blob/master/LICENSE[image:https://img.shields.io/badge/license-MIT-blue.svg[MIT License]]
 
@@ -30,5 +30,6 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Icons used in the GUI are made by Freepik and bqlqn from https://www.flaticon.com[Flaticon].
 
 == Licence : link:LICENSE[MIT]

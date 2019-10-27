@@ -7,19 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<!--  <HBox styleClass="balance-bar-fill">-->
-<!--    <Pane minWidth="100"></Pane>-->
-<!--    <Label fx:id="monthYearLabel" />-->
-<!--  </HBox>-->
-<!--  <Pane styleClass="balance-bar-fill" HBox.hgrow="ALWAYS"></Pane>-->
-<!--  <Pane styleClass="balance-bar-ribbon" minWidth="20"></Pane>-->
-<!--  <Pane minWidth="10"></Pane>-->
-<!--  <Label fx:id="monthBudgetLabel" />-->
-<!--  <Label fx:id="monthBudgetValueLabel" />-->
-<!--  <Label fx:id="monthBalanceLabel" />-->
-<!--  <Label fx:id="monthBalanceValueLabel" />-->
-<!--  <Pane minWidth="20"></Pane>-->
-
 <VBox prefHeight="141.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
