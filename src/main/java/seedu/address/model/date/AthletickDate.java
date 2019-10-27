@@ -2,8 +2,6 @@ package seedu.address.model.date;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
-
 /**
  * Represents date used in attendance and performance recording.
  */
@@ -61,6 +59,13 @@ public class AthletickDate {
         } else {
             return "th";
         }
+    }
+
+    /**
+     * Retrieves the date in the format before it was parsed - for Json use.
+     */
+    public String getUnparsed() {
+        return String.format("%02d", day) + String.format("%02d", month) + year;
     }
 
     @Override

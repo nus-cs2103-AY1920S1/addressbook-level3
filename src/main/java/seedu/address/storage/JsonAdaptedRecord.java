@@ -31,7 +31,7 @@ public class JsonAdaptedRecord {
      * Converts a given {@code Record} into this class for Jackson use.
      */
     public JsonAdaptedRecord(Record source) {
-        date = source.getDate().toString();
+        date = source.getDate().getUnparsed();
         timing = source.getTiming();
     }
 
