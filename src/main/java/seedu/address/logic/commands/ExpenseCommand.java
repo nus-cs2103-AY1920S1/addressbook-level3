@@ -41,8 +41,8 @@ public class ExpenseCommand extends Command {
             + PREFIX_EXPENSE + "10.0 "
             + PREFIX_DESCRIPTION + "Bubble tea";
 
-    public static final String MESSAGE_SUCCESS = "%d expense(s) successfully created as follows:\n%s\n";
-    public static final String MESSAGE_EXPENSE = "%s paid %s.\n  Description: %s\n";
+    public static final String MESSAGE_SUCCESS =
+            "Expense of %s by %s successfully created.\n  Description: %s\n  People involved: %s";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Participant search term \"%s\" has no unique search result in the current context!";
     public static final String MESSAGE_MISSING_DESCRIPTION =
@@ -74,48 +74,58 @@ public class ExpenseCommand extends Command {
                 throw new CommandException(MESSAGE_MISSING_DESCRIPTION);
             }
             activity = new Activity(new Title(description));
-            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ENTRIES);
+            searchScope = model.getAddressBook().getPersonList();
         } else {
             activity = model.getContext().getActivity().get();
             // TODO: Use the new view thingy in Activity class.
-            model.updateFilteredPersonList(x -> activity.getParticipantIds().contains(x.getPrimaryKey()));
+            searchScope = model.getAddressBook().getPersonList().stream()
+                    .filter(x -> activity.getParticipantIds().contains(x.getPrimaryKey()))
+                    .collect(Collectors.toList());
         }
-
-        searchScope = model.getFilteredPersonList();
 
         // This loop adds expenses one by one using keyword matching.
         // For each participant argument passed through, the argument is broken up into keywords
         // which are then used to search through the searchScope (context dependent).
         // Expenses will only be added if every keyword string has a unique match.
         StringBuilder successMessage = new StringBuilder();
-        List<String> keywords;
-        List<Person> findResult;
-        int payingId = -1;
-        int[] involvedArr = new int[persons.size() - 1];
-        for (int i = 0; i < persons.size(); i++) {
-            keywords = Arrays.asList(persons.get(i).split(" "));
-            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
-            findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+        Person payingPerson = searchPerson(persons.get(0), searchScope);
+        int payingId = payingPerson.getPrimaryKey();
+        int[] involvedArr;
 
-            if (findResult.size() != 1) {
-                throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, persons.get(i)));
+        // Contextual behaviour
+        if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
+            if (!activity.hasPerson(payingPerson.getPrimaryKey())) {
+                activity.invite(payingPerson.getPrimaryKey());
             }
+        }
 
-            Person person = findResult.get(0);
+        if (persons.size() > 1) {
+            involvedArr = new int[persons.size() - 1];
+            for (int i = 1; i < persons.size(); i++) {
+                Person person = searchPerson(persons.get(i), searchScope);
 
-            if (i == 0) {
-                payingId = person.getPrimaryKey();
-            } else {
                 involvedArr[i - 1] = person.getPrimaryKey();
-            }
+                successMessage.append(person.getName() + "\n");
 
-            successMessage.append(String.format(MESSAGE_EXPENSE, person.getName(), amount, description));
-
-            // Contextual behaviour
-            if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
-                if (!activity.hasPerson(person.getPrimaryKey())) {
-                    activity.invite(person.getPrimaryKey());
+                // Contextual behaviour
+                if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
+                    if (!activity.hasPerson(person.getPrimaryKey())) {
+                        activity.invite(person.getPrimaryKey());
+                    }
                 }
+            }
+        } else {
+            // Contextual behaviour
+            if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
+                involvedArr = searchScope.stream()
+                        .filter(x -> x.getPrimaryKey() != payingId)
+                        .mapToInt(x -> x.getPrimaryKey())
+                        .toArray();
+                searchScope.stream()
+                        .filter(x -> x.getPrimaryKey() != payingId)
+                        .forEach(x -> successMessage.append(x.getName() + "\n"));
+            } else {
+                involvedArr = new int[0];
             }
         }
 
@@ -130,7 +140,27 @@ public class ExpenseCommand extends Command {
             model.addActivity(activity);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, persons.size(), successMessage.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                payingPerson.getName(), amount, description, successMessage.toString()));
+    }
+
+    /**
+     * Searches for a {@code Person} object from a given list of people using a search string.
+     * @param str The search string
+     * @param searchScope The {@code Person} list to search from
+     * @return The search result as a {@code Person} object
+     * @throws CommandException if the search result is not unique
+     */
+    public Person searchPerson(String str, List<Person> searchScope) throws CommandException {
+        List<String> keywords = Arrays.asList(str.split(" "));
+        NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+        List<Person> findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+
+        if (findResult.size() != 1) {
+            throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, str));
+        }
+
+        return findResult.get(0);
     }
 
     @Override
