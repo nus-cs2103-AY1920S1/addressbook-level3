@@ -1,12 +1,12 @@
-package seedu.address.cashier.logic;
+package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
 import static seedu.address.cashier.commands.CommandTestUtil.DESC_PRICE_PAID;
 import static seedu.address.cashier.commands.CommandTestUtil.INVALID_PRICE_PAID_1;
 import static seedu.address.cashier.commands.CommandTestUtil.INVALID_PRICE_PAID_2;
 import static seedu.address.cashier.commands.CommandTestUtil.VALID_PRICE_PAID;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserFailure;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOUNT;
 import static seedu.address.cashier.ui.CashierMessages.NO_CASHIER;
 import static seedu.address.testutil.TypicalItem.FISH_BURGER;
@@ -16,7 +16,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.CheckoutCommand;
-import seedu.address.cashier.logic.parser.CheckoutCommandParser;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.PersonBuilder;

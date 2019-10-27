@@ -1,15 +1,14 @@
-package seedu.address.cashier.logic;
+package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserFailure;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.DeleteCommand;
-import seedu.address.cashier.logic.parser.DeleteCommandParser;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;

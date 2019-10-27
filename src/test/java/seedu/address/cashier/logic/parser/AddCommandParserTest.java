@@ -17,8 +17,8 @@ import static seedu.address.cashier.commands.CommandTestUtil.VALID_DESCRIPTION_F
 import static seedu.address.cashier.commands.CommandTestUtil.VALID_DESCRIPTION_STORYBOOK;
 import static seedu.address.cashier.commands.CommandTestUtil.VALID_QUANTITY_1;
 import static seedu.address.cashier.commands.CommandTestUtil.VALID_QUANTITY_2;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserFailure;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_POSITIVE;

@@ -1,12 +1,11 @@
-package seedu.address.cashier.logic;
+package seedu.address.cashier.logic.parser;
 
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.ClearCommand;
-import seedu.address.cashier.logic.parser.ClearCommandParser;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;

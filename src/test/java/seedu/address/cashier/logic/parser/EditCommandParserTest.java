@@ -1,4 +1,4 @@
-package seedu.address.cashier.logic;
+package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
 import static seedu.address.cashier.commands.CommandTestUtil.DESC_DESCRIPTION_STORYBOOK;
@@ -17,8 +17,8 @@ import static seedu.address.cashier.commands.CommandTestUtil.INVALID_QUANTITY_2;
 import static seedu.address.cashier.commands.CommandTestUtil.VALID_INDEX_1;
 import static seedu.address.cashier.commands.CommandTestUtil.VALID_INDEX_2;
 import static seedu.address.cashier.commands.CommandTestUtil.VALID_QUANTITY_2;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserFailure;
-import static seedu.address.cashier.logic.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.INDEX_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_EDITCOMMAND_FORMAT;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
@@ -30,7 +30,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.EditCommand;
-import seedu.address.cashier.logic.parser.EditCommandParser;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;

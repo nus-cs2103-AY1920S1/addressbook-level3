@@ -1,9 +1,8 @@
-package seedu.address.cashier.logic;
+package seedu.address.cashier.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.address.cashier.logic.commands.Command;
-import seedu.address.cashier.logic.parser.Parser;
 import seedu.address.person.model.Model;
 
 

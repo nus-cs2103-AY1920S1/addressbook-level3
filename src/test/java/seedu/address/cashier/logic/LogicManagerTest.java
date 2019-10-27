@@ -23,17 +23,25 @@ import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
 public class LogicManagerTest {
-    private File iFile;
-    private File tFile;
+
     private Model model;
-    private seedu.address.person.model.Model personModel;
-    private Storage storage;
+    //private Storage storage;
+    //private seedu.address.person.model.Model personModel;
     //private seedu.address.transaction.storage.Storage transactionStorage;
-    private seedu.address.transaction.model.Model transactionModel;
-    private seedu.address.inventory.model.Model inventoryModel;
+    //private seedu.address.transaction.model.Model transactionModel;
+    //private seedu.address.inventory.model.Model inventoryModel;
     private Logic logic;
 
     LogicManagerTest() throws Exception {
+        File iFile;
+        File tFile;
+        //Model model;
+        Storage storage;
+        seedu.address.person.model.Model personModel;
+        seedu.address.transaction.model.Model transactionModel;
+        seedu.address.inventory.model.Model inventoryModel;
+        //Logic logic;
+
         try {
             model = new ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
@@ -119,8 +127,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new seedu.address.cashier.model.ModelManager(
-                model.getInventoryList(), model.getTransactionList());
+        Model expectedModel = new ModelManager(model.getInventoryList(), model.getTransactionList());
         System.out.println("expected msg: " + expectedMessage);
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
