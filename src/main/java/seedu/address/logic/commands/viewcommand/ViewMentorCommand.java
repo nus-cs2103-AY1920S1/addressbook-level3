@@ -16,7 +16,7 @@ import seedu.address.model.entity.Mentor;
 public class ViewMentorCommand extends ViewCommand {
 
     public static final String COMMAND_WORD = "view mentor";
-    public static final String MESSAGE_SUCCESS = "Showed specified mentor";
+    public static final String MESSAGE_SUCCESS = "Showing mentor with ID: %s"; // %s -> Id
     public static final String MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX = "The mentor index provided is invalid";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " mentor"
             + ": shows details of the mentor with specified ID. \n"
@@ -38,9 +38,10 @@ public class ViewMentorCommand extends ViewCommand {
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX);
         }
-        viewEntity(mentorToView);
+        model.viewEntity(mentorToView);
+        this.displayDetailedEntity(mentorToView);
 
-        return new CommandResult(MESSAGE_SUCCESS, CommandType.M);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, this.id), CommandType.M);
     }
 
     @Override

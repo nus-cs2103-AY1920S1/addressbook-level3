@@ -6,8 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALFRED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BRUCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_NAME_ALFRED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_NAME_BRUCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_TYPE_ALFRED;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_TYPE_BRUCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_ALFRED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_BRUCE;
 
@@ -23,7 +21,6 @@ import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
@@ -40,7 +37,6 @@ public class TypicalTeams {
                                           SubjectName.ENVIRONMENTAL,
                                           new Score(1),
                                           new Name("Project Alpha"),
-                                          ProjectType.PLACEHOLDER,
                                           new Location(1));
 
     public static final Team A_UPDATED = new Team(new Id(PrefixType.T, 1),
@@ -50,7 +46,6 @@ public class TypicalTeams {
             SubjectName.ENVIRONMENTAL,
             new Score(1),
             new Name("Project Alpha"),
-            ProjectType.PLACEHOLDER,
             new Location(2));
 
     public static final Team A_SIMILAR = new Team(new Id(PrefixType.T, 2),
@@ -60,7 +55,6 @@ public class TypicalTeams {
             SubjectName.EDUCATION,
             new Score(2),
             new Name("Project Alpha"),
-            ProjectType.PLACEHOLDER,
             new Location(2));
 
     public static final Team B = new Team(new Id(PrefixType.T, 2),
@@ -70,7 +64,6 @@ public class TypicalTeams {
                                           SubjectName.EDUCATION,
                                           new Score(2),
                                           new Name("Project Beta"),
-                                          ProjectType.PLACEHOLDER,
                                          new Location(2));
 
     public static final Team C = new Team(new Id(PrefixType.T, 3),
@@ -80,7 +73,6 @@ public class TypicalTeams {
                                           SubjectName.HEALTH,
                                           new Score(3),
                                           new Name("Project Gamma"),
-                                          ProjectType.PLACEHOLDER,
                                           new Location(3));
 
     //With empty Optional<Mentor>
@@ -91,7 +83,6 @@ public class TypicalTeams {
                                           SubjectName.HEALTH,
                                           new Score(5),
                                           new Name("Project Delta"),
-                                          ProjectType.PLACEHOLDER,
                                           new Location(4));
 
     //With empty ParticipantList
@@ -102,18 +93,15 @@ public class TypicalTeams {
                                           SubjectName.HEALTH,
                                           new Score(5),
                                           new Name("Project Epsilon"),
-                                          ProjectType.PLACEHOLDER,
                                           new Location(5));
 
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Team ALFRED = new TeamBuilder().withName(VALID_NAME_ALFRED).withLocation(VALID_LOCATION_ALFRED)
-            .withProjectName(VALID_PROJECT_NAME_ALFRED).withProjectType(VALID_PROJECT_TYPE_ALFRED)
-            .withSubject(VALID_SUBJECT_ALFRED).build();
+            .withProjectName(VALID_PROJECT_NAME_ALFRED).withSubject(VALID_SUBJECT_ALFRED).build();
 
     public static final Team BRUCE = new TeamBuilder().withName(VALID_NAME_BRUCE).withLocation(VALID_LOCATION_BRUCE)
-            .withProjectName(VALID_PROJECT_NAME_BRUCE).withProjectType(VALID_PROJECT_TYPE_BRUCE)
-            .withSubject(VALID_SUBJECT_BRUCE).build();
+            .withProjectName(VALID_PROJECT_NAME_BRUCE).withSubject(VALID_SUBJECT_BRUCE).build();
 
     /**
      * Retrieves a List of Typical Teams.

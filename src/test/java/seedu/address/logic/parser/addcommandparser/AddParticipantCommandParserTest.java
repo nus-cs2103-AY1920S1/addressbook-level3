@@ -19,7 +19,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalParticipants.BOB;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.addcommand.AddParticipantCommand;
@@ -27,32 +26,37 @@ import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
+import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.testutil.ParticipantBuilder;
 
 class AddParticipantCommandParserTest {
 
     private AddParticipantCommandParser parser = new AddParticipantCommandParser();
 
-    @Disabled
     @Test
     void parse_allFieldsPresent_success() {
-        Participant expectedParticipant = new ParticipantBuilder(BOB).build();
+        ParticipantList.setLastUsedId(0);
+        // Expected participants with different IDs as IDs increment with each added participant.
+        Participant expectedParticipant1 = new ParticipantBuilder(BOB).build();
+        Participant expectedParticipant2 = new ParticipantBuilder(BOB).withId(2).build();
+        Participant expectedParticipant3 = new ParticipantBuilder(BOB).withId(3).build();
+        Participant expectedParticipant4 = new ParticipantBuilder(BOB).withId(4).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-                new AddParticipantCommand(expectedParticipant));
+                new AddParticipantCommand(expectedParticipant1));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-                new AddParticipantCommand(expectedParticipant));
+                new AddParticipantCommand(expectedParticipant2));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-                new AddParticipantCommand(expectedParticipant));
+                new AddParticipantCommand(expectedParticipant3));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB,
-                new AddParticipantCommand(expectedParticipant));
+                new AddParticipantCommand(expectedParticipant4));
     }
 
     @Test

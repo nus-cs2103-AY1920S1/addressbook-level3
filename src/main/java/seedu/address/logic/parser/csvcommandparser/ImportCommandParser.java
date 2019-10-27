@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
+import java.util.List;
+
 import seedu.address.logic.commands.csvcommand.ImportCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -26,11 +28,19 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
 
-        String fileName = argMultimap.getValue(PREFIX_FILE_PATH).orElse("");
-        if (fileName.isEmpty() || !fileName.toLowerCase().endsWith(".csv")) {
+        List<String> fileNames = argMultimap.getAllValues(PREFIX_FILE_PATH);
+        if (fileNames.isEmpty() || fileNames.size() > 2 || this.areInvalid(fileNames)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
 
-        return new ImportCommand(fileName);
+        if (fileNames.size() == 1) {
+            return new ImportCommand(fileNames.get(0));
+        }
+        return new ImportCommand(fileNames.get(0), fileNames.get(1));
     }
+
+    private boolean areInvalid(List<String> fileNames) {
+        return fileNames.stream().anyMatch(fileName -> !fileName.toLowerCase().endsWith(".csv"));
+    }
+
 }

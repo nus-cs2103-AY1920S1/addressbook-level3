@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.editcommand.EditTeamCommand.EditTeamDescriptor;
 import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
@@ -32,7 +31,6 @@ public class EditTeamDescriptorBuilder {
         descriptor.setSubject(team.getSubject());
         descriptor.setScore(team.getScore());
         descriptor.setProjectName(team.getProjectName());
-        descriptor.setProjectType(team.getProjectType());
         descriptor.setLocation(team.getLocation());
     }
 
@@ -65,14 +63,6 @@ public class EditTeamDescriptorBuilder {
      */
     public EditTeamDescriptorBuilder withProjectName(String projectName) {
         descriptor.setProjectName(new Name(projectName));
-        return this;
-    }
-
-    /**
-     * Sets the {@code ProjectType} of the {@code EditTeamDescriptor} that we are building.
-     */
-    public EditTeamDescriptorBuilder withProjectType(String projectType) {
-        descriptor.setProjectType(ProjectType.valueOf(projectType.toUpperCase()));
         return this;
     }
 

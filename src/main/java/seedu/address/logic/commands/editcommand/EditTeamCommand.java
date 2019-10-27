@@ -17,7 +17,6 @@ import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
@@ -38,11 +37,9 @@ public class EditTeamCommand extends EditCommand {
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_SUBJECT_NAME + "SUBJECT_NAME] "
             + "[" + CliSyntax.PREFIX_PROJECT_NAME + "PROJECT_NAME] "
-            + "[" + CliSyntax.PREFIX_PROJECT_TYPE + "PROJECT_TYPE] "
             + "[" + CliSyntax.PREFIX_LOCATION + "TABLE_NUMBER] \n"
             + "Example: " + COMMAND_WORD + " T-1 "
-            + CliSyntax.PREFIX_PROJECT_NAME + "Saving Gotham "
-            + CliSyntax.PREFIX_PROJECT_TYPE + "Public welfare";
+            + CliSyntax.PREFIX_PROJECT_NAME + "Saving Gotham";
 
     private EditTeamDescriptor editTeamDescriptor;
 
@@ -74,6 +71,24 @@ public class EditTeamCommand extends EditCommand {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditTeamCommand)) {
+            return false;
+        }
+
+        // state check
+        EditTeamCommand e = (EditTeamCommand) other;
+        return id.equals(e.id)
+                && editTeamDescriptor.equals(e.editTeamDescriptor);
+    }
+
     /**
      * Creates and returns a new {@code Team} with the details {@code teamToEdit}
      * edited with {@code editTeamDescriptor}.
@@ -92,7 +107,6 @@ public class EditTeamCommand extends EditCommand {
         SubjectName updatedSubject = editTeamDescriptor.getSubject().orElse(teamToEdit.getSubject());
         Score updatedScore = editTeamDescriptor.getScore().orElse(teamToEdit.getScore());
         Name updatedProjectName = editTeamDescriptor.getProjectName().orElse(teamToEdit.getProjectName());
-        ProjectType updatedProjectType = editTeamDescriptor.getProjectType().orElse(teamToEdit.getProjectType());
         Location updatedLocation = editTeamDescriptor.getLocation().orElse(teamToEdit.getLocation());
 
         // ID, NAME, PARTICIPANTS, MENTOR (OPTIONAL), SUBJECT, SCORE, PROJECT_NAME, PROJECT_TYPE, LOCATION
@@ -104,7 +118,6 @@ public class EditTeamCommand extends EditCommand {
                 updatedSubject,
                 updatedScore,
                 updatedProjectName,
-                updatedProjectType,
                 updatedLocation
         );
     }
@@ -120,7 +133,6 @@ public class EditTeamCommand extends EditCommand {
         private SubjectName subject;
         private Score score;
         private Name projectName;
-        private ProjectType projectType;
         private Location location;
 
         public EditTeamDescriptor() {}
@@ -130,7 +142,6 @@ public class EditTeamCommand extends EditCommand {
             this.setSubject(toCopy.subject);
             this.setScore(toCopy.score);
             this.setProjectName(toCopy.projectName);
-            this.setProjectType(toCopy.projectType);
             this.setLocation(toCopy.location);
         }
 
@@ -144,7 +155,6 @@ public class EditTeamCommand extends EditCommand {
                             this.subject,
                             this.score,
                             this.projectName,
-                            this.projectType,
                             this.location
                     );
         }
@@ -163,10 +173,6 @@ public class EditTeamCommand extends EditCommand {
             return Optional.ofNullable(projectName);
         }
 
-        public Optional<ProjectType> getProjectType() {
-            return Optional.ofNullable(projectType);
-        }
-
         public Optional<Location> getLocation() {
             return Optional.ofNullable(location);
         }
@@ -183,10 +189,6 @@ public class EditTeamCommand extends EditCommand {
 
         public void setProjectName(Name projectName) {
             this.projectName = projectName;
-        }
-
-        public void setProjectType(ProjectType projectType) {
-            this.projectType = projectType;
         }
 
         public void setLocation(Location location) {
@@ -211,7 +213,6 @@ public class EditTeamCommand extends EditCommand {
                     && getSubject().equals(e.getSubject())
                     && getScore().equals(e.getScore())
                     && getProjectName().equals(e.getProjectName())
-                    && getProjectType().equals(e.getProjectType())
                     && getLocation().equals(e.getLocation());
         }
     }

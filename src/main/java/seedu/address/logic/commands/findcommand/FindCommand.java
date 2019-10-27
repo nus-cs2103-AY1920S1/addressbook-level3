@@ -2,9 +2,8 @@ package seedu.address.logic.commands.findcommand;
 
 import java.util.List;
 
+import seedu.address.commons.util.PrefixUtil;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.PrefixType;
 
@@ -12,15 +11,17 @@ import seedu.address.model.entity.PrefixType;
  * Abstract class for the find commands.
  */
 public abstract class FindCommand extends Command {
+
     public static final String COMMAND_WORD = "find";
+    public static final String HEADER_MENTOR = "Found Mentors";
+    public static final String HEADER_PARTICIPANT = "Found Participants";
+    public static final String HEADER_TEAM = "Found Teams";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds entity according to search terms.\n"
             + "Find command must specify the entity being found "
             + "and its corresponding fields "
             + "Format: find [entity] [entity fields] \n"
             + "Example: find team n/Teamnamehere";
-
-    public abstract CommandResult execute(Model model);
 
     /**
      * Lists the results of the found values.
@@ -29,20 +30,7 @@ public abstract class FindCommand extends Command {
      * @param type
      */
     public void listResults(List<? extends Entity> results, PrefixType type) {
-        String header;
-        switch(type) {
-        case P:
-            header = "Found Participants";
-            break;
-        case T:
-            header = "Found Teams";
-            break;
-        case M:
-            header = "Found Mentors";
-            break;
-        default:
-            header = "";
-        }
+        String header = PrefixUtil.getStringBasedOnPrefixType(type, HEADER_MENTOR, HEADER_PARTICIPANT, HEADER_TEAM);
 
         header += String.format(" (%d results found)", results.size());
         System.out.println(header);

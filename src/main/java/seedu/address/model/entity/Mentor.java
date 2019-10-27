@@ -185,4 +185,10 @@ public class Mentor extends Entity {
                                  this.subject);
         return copy;
     }
+
+    @Override
+    public PrefixType getPrefix() {
+        return PrefixType.M;
+    }
+
 }

@@ -30,7 +30,7 @@ public class ExportTeamCommand extends ExportCommand {
             FileUtil.createIfMissing(this.csvFilePath);
             CsvUtil.writeToCsv(csvFile, model.getTeamList());
         } catch (IOException ioe) {
-            throw new CommandException(String.format(MESSAGE_IO_EXCEPTION, ioe.toString()));
+            throw new CommandException(MESSAGE_IO_EXCEPTION);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.csvFilePath.toString()));
     }

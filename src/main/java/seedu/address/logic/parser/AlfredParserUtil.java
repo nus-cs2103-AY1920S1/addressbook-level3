@@ -17,7 +17,6 @@ import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.SubjectName;
 
 /**
@@ -179,27 +178,6 @@ public class AlfredParserUtil {
             }
         }
         throw new ParseException(SubjectName.MESSAGE_CONSTRAINTS);
-    }
-
-    /**
-     * Parses a {@code String} into a {@code ProjectType}.
-     *
-     * @param type
-     * @return ProjectType
-     * @throws ParseException if the {@code String} is invalid.
-     */
-    public static ProjectType parseProjectType(String type) throws ParseException {
-        requireNonNull(type);
-        String trimmedType = type.trim();
-        if (!ProjectType.isValidProjectType(trimmedType)) {
-            throw new ParseException(ProjectType.MESSAGE_CONSTRAINTS);
-        }
-        /*for (ProjectType projectType : ProjectType.values()) {
-            if (projectType.toString().equals(trimmedType)){
-                return projectType;
-            }
-        }*/
-        return ProjectType.PLACEHOLDER;
     }
 
     /**

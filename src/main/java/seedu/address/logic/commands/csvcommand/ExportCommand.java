@@ -22,7 +22,8 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export"; // or any other suggestions
     public static final String MESSAGE_SUCCESS = "Exported all data to %s"; // %s -> file name
-    public static final String MESSAGE_IO_EXCEPTION = "An IOException was caught: %s"; // %s -> exception message
+    public static final String MESSAGE_IO_EXCEPTION =
+            "Something went wrong while accessing your file! Please try again...";
     public static final String MESSAGE_INVALID_PATH_EXCEPTION =
             "Invalid file path: %s - Exported all data to %s"; // %s -> this.csvFilePath
     public static final String MESSAGE_EMPTY_DATA = "No data to export. File was not created.";
@@ -65,7 +66,7 @@ public class ExportCommand extends Command {
             FileUtil.createIfMissing(this.csvFilePath);
             CsvUtil.writeToCsv(csvFile, model);
         } catch (IOException ioe) {
-            throw new CommandException(String.format(MESSAGE_IO_EXCEPTION, ioe.toString()));
+            throw new CommandException(MESSAGE_IO_EXCEPTION);
         }
         return new CommandResult(this.messageSuccess);
     }

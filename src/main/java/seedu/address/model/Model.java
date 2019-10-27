@@ -11,6 +11,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
@@ -142,6 +143,14 @@ public interface Model {
     List<Team> findTeam(Predicate<Team> predicate);
 
     List<Mentor> findMentor(Predicate<Mentor> predicate);
+
+    /* View command */
+    /**
+     * Sets the predicate to show detailed information of {@code entity}.
+     *
+     * @param entity {@code Entity} to view.
+     */
+    void viewEntity(Entity entity);
 
     /**
      * Updates the history of entity states with the current state (after execution of Command c)

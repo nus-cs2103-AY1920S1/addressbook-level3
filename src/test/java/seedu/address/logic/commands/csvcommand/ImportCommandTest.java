@@ -104,9 +104,9 @@ public class ImportCommandTest {
         String expected = String.join(
                 "\n",
                 ImportCommand.MESSAGE_PARTIAL_SUCCESS,
-                new Error(2, "T,1,Team A,[P-1],,ENVIRONMENTAL,1,Project Alpha,PLACEHOLDER,1",
+                new Error(2, "T,1,Team A,[P-1],,ENVIRONMENTAL,1,Project Alpha,1",
                         String.format(CsvUtil.MESSAGE_MISSING_PARTICIPANT, "P-1")).toString(),
-                new Error(3, "T,2,Team B,,M-3,ENVIRONMENTAL,1,Project Alpha,PLACEHOLDER,1",
+                new Error(3, "T,2,Team B,,M-3,ENVIRONMENTAL,1,Project Alpha,1",
                         String.format(CsvUtil.MESSAGE_MISSING_MENTOR, "M-3")).toString(),
                 ImportCommand.MESSAGE_INVALID_FORMAT
         );

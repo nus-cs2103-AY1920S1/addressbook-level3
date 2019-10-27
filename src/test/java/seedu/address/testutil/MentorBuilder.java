@@ -54,7 +54,7 @@ public class MentorBuilder {
      * Sets the {@code Id} of the {@code Mentor} that we are building.
      */
     public MentorBuilder withId(int id) {
-        this.id = new Id(PrefixType.P, id);
+        this.id = new Id(PrefixType.M, id);
         return this;
     }
 

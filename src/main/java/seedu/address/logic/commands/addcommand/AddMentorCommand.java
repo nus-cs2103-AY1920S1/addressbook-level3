@@ -74,8 +74,13 @@ public class AddMentorCommand extends AddCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddMentorCommand // instanceof handles nulls
-                && mentor.equals(((AddMentorCommand) other).mentor));
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof AddMentorCommand)) {
+            return false;
+        }
+        AddMentorCommand addMentorCommand = (AddMentorCommand) other;
+        return this.mentor.equals(addMentorCommand.mentor);
     }
 }

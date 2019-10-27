@@ -23,7 +23,6 @@ import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.PrefixType;
-import seedu.address.model.entity.ProjectType;
 import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
@@ -45,7 +44,7 @@ public class CsvUtil {
     public static final String HEADER_MENTOR = "EntityType,ID,Name,Phone,Email,Organization,SubjectName";
     public static final String HEADER_PARTICIPANT = "EntityType,ID,Name,Phone,Email";
     public static final String HEADER_TEAM =
-            "EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,ProjectType,Location";
+            "EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location";
 
     public static final String ASSERTION_FAILED_NOT_CSV = "File given is not a CSV file.";
     public static final String MESSAGE_INVALID_ENTITY = "Entity given is invalid";
@@ -140,7 +139,7 @@ public class CsvUtil {
     /**
      * Parses given line of data (split by commas) into relevant fields of a {@code Team}.
      * <b>Precondition: </b> {@code data} contains attribute data as {@code String}s in the order of
-     * {@code EntityType(T), ID, Name, Participants, Mentor, SubjectName, Score, ProjectName, ProjectType, Location}.
+     * {@code EntityType(T), ID, Name, Participants, Mentor, SubjectName, Score, ProjectName, Location}.
      * {@code ID, Participants} and {@code Mentor} may be left empty. If {@code ID} is left empty, Alfred will
      * generate a valid ID for the team. If {@code Participants} and {@code Mentor} are left empty, the team
      * will not have connections to any {@code Participant}s and {@code Mentor}.
@@ -154,8 +153,8 @@ public class CsvUtil {
      *                                  is nonexistent.
      */
     public static Team parseToTeam(String[] data, Model model) throws MissingEntityException {
-        // EntityType (T), ID, Name, Participants, Mentor, SubjectName, Score, ProjectName, ProjectType, Location
-        if (data.length != 10) {
+        // EntityType (T), ID, Name, Participants, Mentor, SubjectName, Score, ProjectName, Location
+        if (data.length != 9) {
             throw new IllegalArgumentException();
         }
         if (!data[0].toUpperCase().equals("T")) {
@@ -168,8 +167,7 @@ public class CsvUtil {
         SubjectName teamSubject = SubjectName.valueOf(data[5].toUpperCase());
         Score teamScore = new Score(Integer.parseInt(data[6])); // NFException subclass of IAException
         Name teamProjectName = new Name(data[7]);
-        ProjectType teamProjectType = ProjectType.valueOf(data[8].toUpperCase());
-        Location teamLocation = new Location(Integer.parseInt(data[9])); // NFException subclass of IAException
+        Location teamLocation = new Location(Integer.parseInt(data[8])); // NFException subclass of IAException
         return new Team(
                 teamId,
                 teamName,
@@ -178,7 +176,6 @@ public class CsvUtil {
                 teamSubject,
                 teamScore,
                 teamProjectName,
-                teamProjectType,
                 teamLocation
         );
     }
@@ -301,6 +298,18 @@ public class CsvUtil {
         csvWriter.close();
     }
 
+    /**
+     * Writes {@code toWrite} into {@code csvFile}.
+     */
+    public static void writeToCsv(File csvFile, boolean shouldAppend, String... toWrite) throws IOException {
+        assert csvFile.toString().toLowerCase().endsWith(".csv") : ASSERTION_FAILED_NOT_CSV;
+        BufferedWriter csvWriter = new BufferedWriter(new FileWriter(csvFile, shouldAppend));
+        for (String s : toWrite) {
+            csvWriter.write(s);
+        }
+        csvWriter.close();
+    }
+
     private static String getHeader(PrefixType prefixType) {
         switch (prefixType) {
         case M:
@@ -381,7 +390,6 @@ public class CsvUtil {
                 .append(team.getSubject().toStorageValue()).append(CSV_SEPARATOR)
                 .append(team.getScore().toStorageValue()).append(CSV_SEPARATOR)
                 .append(team.getProjectName().toStorageValue()).append(CSV_SEPARATOR)
-                .append(team.getProjectType().toStorageValue()).append(CSV_SEPARATOR)
                 .append(team.getLocation().toStorageValue())
                 .toString();
     }
