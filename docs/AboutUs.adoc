@@ -31,7 +31,7 @@ Responsibilities: Meme Creation
 '''
 
 === Bill Chee
-image::LivingOnEdge.png[width="150", align="left"]
+image::livingonedge.png[width="150", align="left"]
 {empty}[http://github.com/LivingOnEdge[github]] [<<LivingOnEdge#, portfolio>>]
 
 Role: Developer +
