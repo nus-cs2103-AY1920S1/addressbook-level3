@@ -165,4 +165,6 @@ public interface Model {
     void setBorrower(Borrower borrowerToEdit, Borrower editedBorrower);
 
     boolean hasDuplicatedBorrower(Borrower editedBorrower);
+
+    void unregisterBorrower(Borrower toUnregister);
 }
