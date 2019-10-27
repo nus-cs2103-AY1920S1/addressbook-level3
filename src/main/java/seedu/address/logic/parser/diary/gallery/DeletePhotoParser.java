@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.diary.gallery;
 
+import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
@@ -15,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class DeletePhotoParser implements Parser<DeletePhotoCommand> {
     @Override
     public DeletePhotoCommand parse(String userInput) throws ParseException {
+        requireNonNull(userInput);
         try {
             Index index = ParserUtil.parseIndex(userInput);
             return new DeletePhotoCommand(index);

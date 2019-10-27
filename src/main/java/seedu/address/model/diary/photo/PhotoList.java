@@ -14,7 +14,7 @@ import seedu.address.commons.core.index.Index;
  * It is backed by an {@code ObservableList}.
  */
 public class PhotoList {
-    private ObservableList<Photo> photos;
+    private final ObservableList<Photo> photos;
 
     public PhotoList() {
         this.photos = FXCollections.observableArrayList();

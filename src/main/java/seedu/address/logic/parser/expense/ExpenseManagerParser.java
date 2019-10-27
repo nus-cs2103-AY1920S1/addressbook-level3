@@ -36,6 +36,8 @@ public class ExpenseManagerParser implements PageParser {
             return new DeleteExpenditureParser().parse(arguments);
         case EDIT:
             return new EnterEditExpenditureParser().parse(arguments);
+        case SHOWDAYS:
+            return new EnterDaysViewParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

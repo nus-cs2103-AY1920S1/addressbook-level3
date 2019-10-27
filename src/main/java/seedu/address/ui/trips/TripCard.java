@@ -32,8 +32,8 @@ public class TripCard extends UiPart<GridPane> {
     @FXML
     private ImageView tripImageView;
 
-    private Trip trip;
-    private Index displayedIndex;
+    private final Trip trip;
+    private final Index displayedIndex;
 
     public TripCard(Trip trip, Index displayedIndex) {
         super(FXML);

@@ -22,11 +22,11 @@ public class CreateDiaryEntryCommand extends Command {
             + "Parameters: INDEX (must be a positive integer, and the entry must not already exist) "
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_ENTRY_EXISTS = "There is already an entry for this day! %1$s";
+    private static final String MESSAGE_ENTRY_EXISTS = "There is already an entry for this day! %1$s";
 
-    public static final String MESSAGE_CREATE_SUCCESS = "Created a new diary entry!";
+    private static final String MESSAGE_CREATE_SUCCESS = "Created a new diary entry!";
 
-    private Index dayIndex;
+    private final Index dayIndex;
 
     public CreateDiaryEntryCommand(Index dayIndex) {
         requireNonNull(dayIndex);

@@ -3,12 +3,14 @@ package seedu.address.model.expenditure;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.exceptions.ExpenditureNotRemovableException;
 import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
@@ -28,6 +30,7 @@ public class ExpenditureList implements Iterable<Expenditure> {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameExpenditure);
     }
+
     /**
      * Adds an expenditure to the list.
      * The expenditure must not already exist in the list.
@@ -38,6 +41,26 @@ public class ExpenditureList implements Iterable<Expenditure> {
             throw new DuplicateExpenditureException();
         }
         internalList.add(toAdd);
+        sort();
+    }
+
+    /**
+     * Sort the expenditures in the list.
+     * Expenditures not assigned a day come first, followed by other expenditures in increasing order of day number.
+     */
+    public void sort() {
+        Collections.sort(internalList, (e1, e2) -> {
+            if (e1.getDayNumber().isPresent() && e2.getDayNumber().isPresent()) {
+                return Integer.parseInt(e1.getDayNumber().get().toString())
+                        - Integer.parseInt(e2.getDayNumber().get().toString());
+            } else if (e1.getDayNumber().isPresent()) {
+                return Integer.parseInt(e1.getDayNumber().get().toString());
+            } else if (e1.getDayNumber().isPresent()) {
+                return Integer.parseInt(e2.getDayNumber().get().toString());
+            } else {
+                return 0;
+            }
+        });
     }
 
 
@@ -56,6 +79,7 @@ public class ExpenditureList implements Iterable<Expenditure> {
             throw new DuplicateExpenditureException();
         }
         internalList.set(index, edited);
+        sort();
     }
 
     public void set(List<Expenditure> occurrences) {
@@ -64,6 +88,7 @@ public class ExpenditureList implements Iterable<Expenditure> {
             throw new DuplicateExpenditureException();
         }
         internalList.setAll(occurrences);
+        sort();
     }
 
     /**
@@ -85,6 +110,22 @@ public class ExpenditureList implements Iterable<Expenditure> {
     public void remove(Index index) {
         requireNonNull(index);
         internalList.remove(index.getZeroBased());
+    }
+
+    /**
+     * Removes the equivalent expenditure from the list.
+     * The expenditure must exist in the list.
+     */
+    public void removeByUser(Expenditure toRemove) throws ExpenditureNotFoundException,
+            ExpenditureNotRemovableException {
+        requireNonNull(toRemove);
+        if (toRemove.getRemovability()) {
+            if (!internalList.remove(toRemove)) {
+                throw new ExpenditureNotFoundException();
+            }
+        } else {
+            throw new ExpenditureNotRemovableException();
+        }
     }
 
     /**

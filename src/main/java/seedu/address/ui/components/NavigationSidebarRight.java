@@ -16,7 +16,7 @@ public class NavigationSidebarRight extends UiPart<VBox> {
 
     private static final String FXML = "components/SidebarRight.fxml";
 
-    private MainWindow mainWindow;
+    private final MainWindow mainWindow;
 
     public NavigationSidebarRight(MainWindow mainWindow) {
         super(FXML);

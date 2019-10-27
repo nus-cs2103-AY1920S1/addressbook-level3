@@ -15,7 +15,7 @@ import seedu.address.ui.UiPart;
  */
 public class CommandBox extends UiPart<Region> {
 
-    public static final String ERROR_STYLE_CLASS = "error";
+    private static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "components/CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
@@ -28,6 +28,13 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+    }
+
+    /**
+     * Sets the keyboard focus of the application back to the {@code commandTextField}.
+     */
+    public void requestFocus() {
+        commandTextField.requestFocus();
     }
 
     /**

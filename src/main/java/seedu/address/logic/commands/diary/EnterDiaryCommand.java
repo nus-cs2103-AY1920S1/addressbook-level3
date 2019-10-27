@@ -19,7 +19,7 @@ public class EnterDiaryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the diary page\n";
 
-    public static final String MESSAGE_ENTER_DIARY_SUCCESS = " Welcome to your diary!";
+    private static final String MESSAGE_ENTER_DIARY_SUCCESS = " Welcome to your diary!";
 
     public EnterDiaryCommand() { }
 
