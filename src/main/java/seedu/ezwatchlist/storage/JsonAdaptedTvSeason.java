@@ -48,17 +48,14 @@ class JsonAdaptedTvSeason {
                 .collect(Collectors.toList()));
     }
 
-    @JsonValue
     public int getSeasonNumber() {
         return seasonNumber;
     }
 
-    @JsonValue
     public int getTotalNumOfEpisodes() {
         return totalNumOfEpisodes;
     }
 
-    @JsonValue
     public List<JsonAdaptedEpisode> getEpisodes() {
         return episodes;
     }

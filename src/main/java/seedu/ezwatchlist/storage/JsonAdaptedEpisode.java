@@ -33,12 +33,10 @@ class JsonAdaptedEpisode {
         episodeNum = source.getEpisodeNum();
     }
 
-    @JsonValue
     public String getEpisodeName() {
         return episodeName;
     }
 
-    @JsonValue
     public int getEpisodeNum() {
         return episodeNum;
     }
