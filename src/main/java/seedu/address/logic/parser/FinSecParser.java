@@ -93,6 +93,7 @@ public class FinSecParser {
         FinSecParser.commandList.put(DeleteIncomeCommand.COMMAND_WORD, DeleteIncomeCommand.COMMAND_WORD);
         FinSecParser.commandList.put(ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD);
         FinSecParser.commandList.put(HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
+        FinSecParser.commandList.put(BudgetCommand.COMMAND_WORD, BudgetCommand.COMMAND_WORD);
     }
     /**
      * Parses user input into command for execution.
