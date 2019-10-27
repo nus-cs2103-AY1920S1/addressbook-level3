@@ -378,7 +378,7 @@ The tag feature supports the following operations:
 
 * Adding tags to an expense
 * Removing tags from an expense
-* Filtering expenses by tag
+* Filtering expenses by tags
 * Listing all existing tags
 
 These actions are facilitated by the `UniqueTagList` and `TagCountManager` classes:
@@ -399,7 +399,7 @@ These operations are exposed in the `Model` interface as:
 
 * `Model#retrieveTags(List<String>)`
 * `Model#incrementCount(Set<Tag>)`
-* `Model#decreaseCount(Set<Tag>)` -- `TagCountManager#removeZeroCount()` and `UniqueTagList#removeAll(List<Tag>)` is called in this method as well to remove tags that does not have any expense tagged to it from `UniqueTagList` and `TagCountManager`.
+* `Model#decreaseCount(Set<Tag>)` -- `TagCountManager#removeZeroCount()` and `UniqueTagList#removeAll(List<Tag>)` is called in this method as well to remove tags not tagged to any expense from `UniqueTagList` and `TagCountManager`.
 * `Model#getTagNames()`
 
 Given below is an example usage scenario and how the adding tag mechanism behaves at each step.
@@ -414,20 +414,24 @@ a list of `String` consisting of `test1` and `test2`. They are then used to crea
 
 Step 3.
 `LogicManager` executes the `AddTagCommand`. During execution, `AddTagCommand` calls `Model#retrieveTags(Set<String>)` on the list consisting of `test1` and `test2` which returns a set of `Tag`.
-`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The 1st `Expense` is edited and updated in the `Model` using `Model#setExpense(Expense, Expense)` and is then shown on the UI.
+`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The 1st `Expense` is edited and updated in the `Model` using `Model#setExpense(Expense, Expense)` and is then shown on the GUI.
 
 [NOTE]
 Duplicate tags in an `Expense` is not allowed.
-If the user tries to add existing `Tag` to an `Expense`, it will not be added, and `Model#incrementCount` will not be called.
+If the user tries to add an existing `Tag` to an `Expense`, it will not be added, and `Model#incrementCount` will not be called.
 If the user tries to add duplicate `Tag`, i.e enter 2 of the same `Tag`, it will only be added once and number of expense under that `Tag` will only increment by 1.
 
 The following sequence diagram shows how the adding tag operation works.
 
 image::AddTagSequenceDiagram.png[]
+Figure 21. Sequence diagram of executing AddTagCommand.
 
 The following activity diagram summarizes what happens when a user enters a command to add tags to an expense.
 
+NOTE: The lifeline for `TagCommandParser` and `AddTagCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 image::AddTagActivityDiagram.png[]
+Figure 22. Activity diagram of executing AddTagCommand.
 
 ==== Design Considerations
 
