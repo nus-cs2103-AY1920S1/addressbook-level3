@@ -14,7 +14,7 @@ public interface ReadOnlyWordBankList {
      * This list will not contain any duplicate word banks.
      * Every word bank can be specified by its unique name.
      */
-    ObservableList<WordBank> getWordBankList();
+    ObservableList<WordBank> getFilteredWordBankList();
 
     /**
      * Retrieves a word bank from its unique name.

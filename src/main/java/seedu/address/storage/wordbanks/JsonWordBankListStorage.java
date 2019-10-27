@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -238,4 +239,25 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     public void updateWordBank(WordBank wordBank) {
         saveWordBank(wordBank);
     }
+
+    /**
+     * Returns an observable list of word banks.
+     *
+     * @return observable list of word banks
+     */
+    @Override
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return readOnlyWordBankList.getFilteredWordBankList();
+    }
+
+    /**
+     * Retrieves the file path of word banks.
+     *
+     * @return word bank file path.
+     */
+    @Override
+    public Path getWordBanksFilePath() {
+        return wordBanksFilePath;
+    }
+
 }
