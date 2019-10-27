@@ -2,6 +2,8 @@ package seedu.address.model.quiz;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
 
@@ -72,6 +74,17 @@ public class Quiz {
      */
     public void setQuestionList(QuestionList questionList) {
         this.questionList = questionList;
+    }
+
+    public ObservableList<Question> getObservableListQuestions() {
+        ArrayList<Question> questions = questionList.getQuestions();
+        ObservableList<Question> questionObservableList = FXCollections.observableArrayList();
+
+        for(Question question : questions) {
+            questionObservableList.add(question);
+        }
+
+        return questionObservableList;
     }
 
     /**

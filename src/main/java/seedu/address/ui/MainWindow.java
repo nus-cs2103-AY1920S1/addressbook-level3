@@ -20,6 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.question.Question;
 import seedu.address.model.student.Student;
 
 /**
@@ -41,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private QuizWindow quizWindow;
     private GroupWindow groupWindow;
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
@@ -188,6 +190,51 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the quiz window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuizQuestions() {
+        quizWindow = new QuizWindow();
+        ObservableList<Question> questions = logic.getQuestionsInQuiz();
+        quizWindow.setQuestionsInQuiz(questions);
+        if (!quizWindow.isShowing()) {
+            quizWindow.show();
+        } else {
+            quizWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the quiz window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuizAnswers() {
+        quizWindow = new QuizWindow();
+        ObservableList<Question> questions = logic.getQuestionsInQuiz();
+        quizWindow.setAnswersInQuiz(questions);
+        if (!quizWindow.isShowing()) {
+            quizWindow.show();
+        } else {
+            quizWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the quiz window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuizAll() {
+        quizWindow = new QuizWindow();
+        ObservableList<Question> questions = logic.getQuestionsInQuiz();
+        quizWindow.setQuestionsAndAnswersInQuiz(questions);
+        if (!quizWindow.isShowing()) {
+            quizWindow.show();
+        } else {
+            quizWindow.focus();
+        }
+    }
+
+    /**
      * Opens the slideshow window or focuses on it if it's already opened.
      */
     @FXML
@@ -286,6 +333,15 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case SHOW_STATISTIC:
                 handleStats();
+                break;
+            case SHOW_QUIZ_QUESTIONS:
+                handleQuizQuestions();
+                break;
+            case SHOW_QUIZ_ANSWERS:
+                handleQuizAnswers();
+                break;
+            case SHOW_QUIZ_ALL:
+                handleQuizAll();
                 break;
             case SHOW_GROUP:
                 handleGroup();

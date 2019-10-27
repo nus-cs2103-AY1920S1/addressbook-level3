@@ -158,6 +158,22 @@ public class QuizManager {
         return questions + answers;
     }
 
+    public static ObservableList<Question> getObservableListQuestionsFromQuiz(QuizBank quizBank) {
+        String quizId = QuizBank.getCurrentlyQueriedQuiz();
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        ObservableList<Question> questionList = null;
+        if (quizIndex != -1) {
+            Quiz quiz = quizBank.getQuiz(quizIndex);
+            questionList = quiz.getObservableListQuestions();
+        }
+        return questionList;
+    }
+
+    public static boolean checkQuizExists(String quizId, QuizBank quizBank) {
+        int quizIndex = quizBank.getQuizIndex(quizId);
+        return quizIndex != 1;
+    }
+
     /**
      * Exports a quiz to a html file.
      * @param quizId The identifier of the quiz.

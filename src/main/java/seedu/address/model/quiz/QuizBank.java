@@ -16,6 +16,7 @@ public class QuizBank implements Iterable<Quiz> {
     private final ObservableList<Quiz> quizzes = FXCollections.observableArrayList();
     private final ObservableList<Quiz> quizzesUnmodifiableList =
             FXCollections.unmodifiableObservableList(quizzes);
+    private static String currentlyQueriedQuiz;
 
     /**
      * Replaces the contents of this list with {@code Quizzes}. {@code Quizzes} must not contain
@@ -70,6 +71,21 @@ public class QuizBank implements Iterable<Quiz> {
      */
     public Quiz getQuiz(int quizIndex) {
         return quizzes.get(quizIndex);
+    }
+
+    /**
+     * Sets the currently queried quiz.
+     */
+    public static void setCurrentlyQueriedQuiz(String queriedQuiz) {
+        currentlyQueriedQuiz = queriedQuiz;
+    }
+
+    /**
+     * Gets the currently queried quiz.
+     * @return the currently queried quiz.
+     */
+    public static String getCurrentlyQueriedQuiz() {
+        return currentlyQueriedQuiz;
     }
 
     /**

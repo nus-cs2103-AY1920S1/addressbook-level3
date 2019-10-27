@@ -89,6 +89,21 @@ public interface Logic {
      */
     ObservableList<Student> getStudentsInGroup();
 
+    /**
+     * Returns an unmodifiable view of the questions in queried quiz.
+     */
+    ObservableList<Question> getQuestionsInQuiz();
+
+    /**
+     * Returns an unmodifiable view of the answers in queried quiz.
+     */
+    ObservableList<Question> getAnswersInQuiz();
+
+    /**
+     * Returns an unmodifiable view of the questions and answers in queried quiz.
+     */
+    ObservableList<Question> getQuestionsAndAnswersInQuiz();
+
     //region VEvents
     ObservableList<VEvent> getVEventList();
     //endregion
