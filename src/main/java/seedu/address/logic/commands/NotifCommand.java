@@ -97,7 +97,6 @@ public class NotifCommand extends Command {
                 up.setUpdateFromNotif(true);
                 try {
                     up.execute(model);
-
                     NotifWindow notifWindow = new NotifWindow();
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);

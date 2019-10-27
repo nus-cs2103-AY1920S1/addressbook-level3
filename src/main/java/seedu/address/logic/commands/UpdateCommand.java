@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
+import static seedu.address.logic.commands.AddCommand.NOTIF_PERIOD;
+import static seedu.address.logic.commands.AddCommand.NOTIF_TIME_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
@@ -157,6 +159,7 @@ public class UpdateCommand extends UndoableCommand {
             }
         }
 
+        //@@author arjavibahety
         try {
             this.originalEntityDescriptor = saveOriginalFields(entity);
             if (originalEntityDescriptor instanceof UpdateBodyDescriptor) {
@@ -170,11 +173,18 @@ public class UpdateCommand extends UndoableCommand {
                 if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
                         && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE)))
                         || (originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
-                        && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED)))) {
+                        && (!updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
+                            && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))))) {
                     handleRemovingNotifs(model, originalBodyDescriptor, updateBodyDescriptor);
                 }
 
+                if (!originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
+                        && updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))) {
+                    addNotificationsForBody(model);
+                }
+
             }
+            //@@author
 
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
@@ -260,6 +270,12 @@ public class UpdateCommand extends UndoableCommand {
             model.deleteNotif(notif);
         }
         model.setEntity(entity, updateEntityDescriptor.apply(entity));
+    }
+
+    private void addNotificationsForBody(Model model) throws CommandException {
+        Body body = (Body) entity;
+        NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
+        notifCommand.execute(model);
     }
     //@@author
 
