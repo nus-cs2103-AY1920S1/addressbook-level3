@@ -2,6 +2,7 @@ package seedu.address.model.activity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -227,6 +228,73 @@ public class ActivityTest {
         assertEquals(matrix, a.getTransferMatrix());
     }
 
+    @Test
+    public void activity_disinvitePersons_success() {
+        Activity a = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .addPerson(TypicalPersons.ELLE)
+            .addPerson(TypicalPersons.GEORGE)
+            .build();
+
+        Activity b = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .addPerson(TypicalPersons.ELLE)
+            .addPerson(TypicalPersons.GEORGE)
+            .build();
+
+        b.disinvite(TypicalPersons.ELLE.getPrimaryKey());
+        b.disinvite(TypicalPersons.GEORGE, TypicalPersons.BOB);
+        b.disinvite(TypicalPersons.BOB, TypicalPersons.ALICE);
+        a.disinvite(TypicalPersons.GEORGE.getPrimaryKey(),
+                TypicalPersons.ELLE.getPrimaryKey());
+        a.disinvite(TypicalPersons.BOB, TypicalPersons.ALICE);
+
+        assertEquals(a, b);
+    }
+
+    @Test
+    public void disinviteRandomPersonsStatusChecked() {
+        int aid = TypicalPersons.ALICE.getPrimaryKey();
+        int bid = TypicalPersons.BOB.getPrimaryKey();
+        int eid = TypicalPersons.ELLE.getPrimaryKey();
+        Amount its = new Amount(3);
+        Amount bout = new Amount(6);
+        Amount tree = new Amount(9);
+        Expense one = new Expense(aid, its, "testing", bid, eid);
+        Expense two = new Expense(bid, bout, "testing", aid, eid);
+        Expense three = new Expense(eid, tree, "testing", aid, bid);
+
+        Activity a = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .addPerson(TypicalPersons.ELLE)
+            .addPerson(TypicalPersons.GEORGE)
+            .build();
+
+        Activity b = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .addPerson(TypicalPersons.ELLE)
+            .addPerson(TypicalPersons.GEORGE)
+            .build();
+
+        a.addExpense(one, two, three);
+        b.addExpense(one, two, three);
+        a.disinvite(aid, bid);
+        a.disinvite(eid);
+
+        assertEquals(a, b); // as though nothing happened
+
+        a.disinvite(TypicalPersons.GEORGE);
+        assertNotEquals(a, b);
+    }
+    @Test
     public void getParticipantIds() {
         Activity lunch = TypicalActivities.LUNCH;
         ArrayList<Integer> expectedIds = new ArrayList<Integer>();
