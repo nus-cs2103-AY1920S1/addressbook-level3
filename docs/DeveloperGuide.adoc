@@ -178,7 +178,7 @@ To be filled in by the respective members :)
 This section will show the general structure of the Logic Component of the Members Tab.
 This is integrated from the
 existing `AddressBook`.
-Given below is a general Class Diagram showing the structure of the Logic Component for these 2 tabs.
+Given below is a general Class Diagram showing the structure of the Logic Component for this tab.
 
 .Structure of Logic Component for Members Tab.
 image::LogicForAB.png[]
