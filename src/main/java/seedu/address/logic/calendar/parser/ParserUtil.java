@@ -63,7 +63,8 @@ public class ParserUtil {
      */
     public static String parseSortType(String sortType) throws ParseException {
         String trimmedSortType = sortType.trim();
-        if (!trimmedSortType.equals("deadline") && !trimmedSortType.equals("title")) {
+        if (!trimmedSortType.equals("deadline") && !trimmedSortType.equals("title")
+            && !trimmedSortType.equals("time")) {
             throw new ParseException(MESSAGE_INVALID_SORT_TYPE);
         }
         return trimmedSortType;
