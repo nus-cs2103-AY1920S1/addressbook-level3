@@ -33,7 +33,7 @@ public class JsEditorApplication extends Application {
 
     }
     /**
-     * The boilerplate Java code for the user when the editor is first loaded.
+     * The boilerplate JavaScript code for the user when the editor is first loaded.
      * @return basic class code
      */
     private String boilerPlate() {
