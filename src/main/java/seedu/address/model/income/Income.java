@@ -13,9 +13,6 @@ import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 
-
-
-
 /**
  * Represents an Income in the Financial Planner.
  */
@@ -118,15 +115,15 @@ public class Income {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getDescription())
                 .append(" Amount: ")
                 .append(getAmount())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Name: ")
                 .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Description: ")
-                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -50,7 +50,7 @@ public class EditIncomeCommandParser implements Parser<EditIncomeCommand> {
             editIncomeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_CASH).isPresent()) {
-            editIncomeDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_CASH).get()));
+            editIncomeDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_CASH).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editIncomeDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));

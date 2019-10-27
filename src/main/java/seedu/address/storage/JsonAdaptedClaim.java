@@ -43,7 +43,7 @@ class JsonAdaptedClaim {
 
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedPerson} with the given contact details.
      */
     @JsonCreator
     public JsonAdaptedClaim(@JsonProperty("id") String id, @JsonProperty("description") String description,

@@ -2,10 +2,15 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -18,6 +23,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinSec;
 import seedu.address.model.Model;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.testutil.EditIncomeDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -33,6 +39,14 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DESCRIPTION_SHIRTSALES = "Shirt sales";
+    public static final String VALID_DESCRIPTION_FUNDRAISING = "Annual fundraising";
+    public static final String VALID_AMOUNT_SHIRTSALES = "100.10";
+    public static final String VALID_AMOUNT_FUNDRAISING = "10000";
+    public static final String VALID_DATE_SHIRTSALES = "11-11-2019";
+    public static final String VALID_DATE_FUNDRAISING = "01-01-2019";
+
+
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -42,17 +56,31 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String DESCRIPTION_DESC_SHIRTSALES = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SHIRTSALES;
+    public static final String DESCRIPTION_DESC_FUNDRAISING = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FUNDRAISING;
+    public static final String AMOUNT_DESC_SHIRTSALES = " " + PREFIX_CASH + VALID_DESCRIPTION_SHIRTSALES;
+    public static final String AMOUNT_DESC_FUNDRAISING = " " + PREFIX_CASH + VALID_DESCRIPTION_FUNDRAISING;
+    public static final String DATE_DESC_SHIRTSALES = " " + PREFIX_DATE + VALID_DESCRIPTION_SHIRTSALES;
+    public static final String DATE_DESC_FUNDRAISING = " " + PREFIX_DATE + VALID_DESCRIPTION_FUNDRAISING;
+
+
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "Sal3szz!!"; //'3' not allowed
+    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_CASH + "100.333"; // > 2 decimal places not allowed
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "111-13-2019"; // invalid dates not allowed
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditContactCommand.EditPersonDescriptor DESC_AMY;
     public static final EditContactCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditIncomeCommand.EditIncomeDescriptor DESC_SHIRTSALES;
+    public static final EditIncomeCommand.EditIncomeDescriptor DESC_FUNDRAISING;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -60,6 +88,13 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_SHIRTSALES = new EditIncomeDescriptorBuilder().withDescription(VALID_DESCRIPTION_SHIRTSALES)
+                .withAmount(VALID_AMOUNT_SHIRTSALES).withDate(VALID_DATE_SHIRTSALES).withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_AMY).build();
+
+        DESC_FUNDRAISING = new EditIncomeDescriptorBuilder().withDescription(VALID_DESCRIPTION_FUNDRAISING)
+                .withAmount(VALID_AMOUNT_FUNDRAISING).withDate(VALID_DATE_FUNDRAISING).withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).build();
     }
 
     /**
