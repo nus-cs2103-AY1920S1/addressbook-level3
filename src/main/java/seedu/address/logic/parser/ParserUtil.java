@@ -21,6 +21,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.VehicleNumber;
+import seedu.address.model.vehicle.VehicleType;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -151,6 +153,32 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(District.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses a {@code String vType} into a {@code VehicleType}.
+     * Assumes no invalid vehicle type as of now.
+     * @param vType
+     * @return VehicleType
+     * @throws ParseException
+     */
+    public static VehicleType parseVType(String vType) throws ParseException {
+        requireNonNull(vType);
+        String trimmedVType = vType.trim();
+        return new VehicleType(trimmedVType);
+    }
+
+    /**
+     * Parses a {@code String vNum} into a {@code VehicleNumber}.
+     * Assumes no invalid vehicle number as of now.
+     * @param vNum
+     * @return VehicleNumber
+     * @throws ParseException
+     */
+    public static VehicleNumber parseVNum(String vNum) throws ParseException {
+        requireNonNull(vNum);
+        String trimmedVNum = vNum.trim();
+        return new VehicleNumber(trimmedVNum);
     }
 
     /**

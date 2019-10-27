@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import java.util.Date;
-
 import seedu.address.model.person.Person;
 
 /**
@@ -10,5 +8,5 @@ import seedu.address.model.person.Person;
 public interface ReadOnlySession {
     Person getLoggedInPerson();
 
-    Date getLoginTime();
+    String getLoginTime();
 }

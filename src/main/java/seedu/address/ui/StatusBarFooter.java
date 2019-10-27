@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,7 +27,8 @@ public class StatusBarFooter extends UiPart<Region> {
         sessionDetails.setText("Not Logged In");
     }
 
-    public void setLoginDetails(Person person, Date time) {
+    //@@author madanalogy
+    public void setLoginDetails(Person person, String time) {
         if (person != null) {
             sessionDetails.setText("Logged in as " + person.getUsername()
                     + " on " + time);

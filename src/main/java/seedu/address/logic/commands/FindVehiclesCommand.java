@@ -10,6 +10,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.vehicle.DistrictKeywordsPredicate;
+import seedu.address.model.vehicle.VNumKeywordsPredicate;
+import seedu.address.model.vehicle.VTypeKeywordsPredicate;
 import seedu.address.model.vehicle.Vehicle;
 
 /**
@@ -21,7 +23,7 @@ public class FindVehiclesCommand extends Command {
     public static final String COMMAND_WORD = "find-v";
 
     /**
-     * Searches by district now. TODO: search by number and type
+     * Searches by district now. TODO: unfilteres search (vehicles) & search by number (\vnum) and type (\vtype)
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for vehicles by district "
             + "in the same district as entered by user. \n"
@@ -48,6 +50,22 @@ public class FindVehiclesCommand extends Command {
      */
     public FindVehiclesCommand(DistrictKeywordsPredicate districtKeywordsPredicate) {
         this.predicate = districtKeywordsPredicate;
+    }
+
+    /**
+     * Used only when simply listing nearby vehicles.
+     * @param vTypeKeywordsPredicate
+     */
+    public FindVehiclesCommand(VTypeKeywordsPredicate vTypeKeywordsPredicate) {
+        this.predicate = vTypeKeywordsPredicate;
+    }
+
+    /**
+     * Used only when simply listing nearby vehicles.
+     * @param vNumKeywordsPredicate
+     */
+    public FindVehiclesCommand(VNumKeywordsPredicate vNumKeywordsPredicate) {
+        this.predicate = vNumKeywordsPredicate;
     }
 
     /**

@@ -26,4 +26,6 @@ public class CliSyntax {
     public static final Prefix SEARCH_PREFIX_DESCRIPTION = new Prefix("desc/");
     public static final Prefix SEARCH_PREFIX_OPERATOR = new Prefix("op/");
     public static final Prefix SEARCH_PREFIX_DISTRICT = new Prefix("ds/");
+    public static final Prefix SEARCH_PREFIX_VTYPE = new Prefix("vtype/");
+    public static final Prefix SEARCH_PREFIX_VNUM = new Prefix("vnum/");
 }

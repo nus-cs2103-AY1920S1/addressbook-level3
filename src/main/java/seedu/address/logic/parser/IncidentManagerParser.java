@@ -7,14 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
+// import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FillCommand;
 import seedu.address.logic.commands.FindIncidentsCommand;
-import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.FindVehiclesCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListIncidentsCommand;
@@ -25,6 +25,7 @@ import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.SubmitCommand;
 import seedu.address.logic.commands.SwapCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -63,11 +64,11 @@ public class IncidentManagerParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        /* case ClearCommand.COMMAND_WORD:
+            return new ClearCommand(); */
 
-        case FindPersonCommand.COMMAND_WORD:
-            return new FindPersonCommandParser().parse(arguments);
+        case FindPersonsCommand.COMMAND_WORD:
+            return new FindPersonsCommandParser().parse(arguments);
 
         case FindIncidentsCommand.COMMAND_WORD:
             return new FindIncidentsCommandParser().parse(arguments);
@@ -76,7 +77,11 @@ public class IncidentManagerParser {
             return new FindVehiclesCommandParser().parse(arguments);
 
         case ListPersonsCommand.COMMAND_WORD:
-            return new ListPersonsCommand();
+            if (arguments.isEmpty()) {
+                return new ListPersonsCommand();
+            } else {
+                return new ListPersonsCommandParser().parse(arguments);
+            }
 
         case ListIncidentsCommand.COMMAND_WORD:
             return new ListIncidentsCommand();
@@ -98,6 +103,9 @@ public class IncidentManagerParser {
 
         case SwapCommand.COMMAND_WORD:
             return new SwapCommand();
+
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommandParser().parse(arguments);
 
         case SubmitCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {

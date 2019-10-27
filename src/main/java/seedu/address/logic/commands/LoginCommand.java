@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.LoginCredentialsPredicate;
 
+//@@author madanalogy
 /**
  * Logs a user into the incident management system with a valid username and password.
  */

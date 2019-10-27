@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
-import java.util.Date;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -37,7 +36,7 @@ public interface Logic {
     Person getLoggedInPerson();
 
     /** Returns the login time */
-    Date getLoginTime();
+    String getLoginTime();
 
     /** Returns true if currently in person view mode */
     boolean isPersonView();

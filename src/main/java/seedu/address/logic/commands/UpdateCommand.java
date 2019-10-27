@@ -28,17 +28,19 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
 
+//@@author madanalogy
 /**
- * Updates the details of an existing person in the address book.
+ * Updates the details of an existing person in the incident manager
  */
 public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates your account with new values.\n"
+            + "Admins can update the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX (if Admin) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -52,6 +54,8 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_ADMIN_REVOKE = "You cannot remove yourself as an admin.\n"
+            + "Please include t/admin in your update.";
 
     private final Index index;
     private final UpdatePersonDescriptor updatePersonDescriptor;
@@ -61,7 +65,7 @@ public class UpdateCommand extends Command {
      * @param updatePersonDescriptor details to update the person with
      */
     public UpdateCommand(Index index, UpdatePersonDescriptor updatePersonDescriptor) {
-        requireNonNull(index);
+        //requireNonNull(index);
         requireNonNull(updatePersonDescriptor);
 
         this.index = index;
@@ -71,22 +75,46 @@ public class UpdateCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // Access Control check for tag addition and index update
+        if (Person.isNotAdmin(model.getLoggedInPerson())
+                && (index != null || updatePersonDescriptor.getTags().isPresent())) {
+            throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
         }
 
-        Person personToUpdate = lastShownList.get(index.getZeroBased());
+        // Different target person depending on presence of index
+        Person personToUpdate;
+        if (index != null) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            personToUpdate = lastShownList.get(index.getZeroBased());
+        } else {
+            personToUpdate = model.getLoggedInPerson();
+        }
         Person updatedPerson = createUpdatedPerson(personToUpdate, updatePersonDescriptor);
 
         if (!personToUpdate.isSamePerson(updatedPerson) && model.hasPerson(updatedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        // Admins cannot remove themselves as admins, updates status bar if username changed
+        boolean changeStatus = false;
+        if (personToUpdate.equals(model.getLoggedInPerson())) {
+            if (!Person.isNotAdmin(model.getLoggedInPerson()) && Person.isNotAdmin(updatedPerson)) {
+                throw new CommandException(MESSAGE_ADMIN_REVOKE);
+            }
+            changeStatus = updatePersonDescriptor.getUsername().isPresent();
+            model.setSession(updatedPerson);
+        }
+
         model.setPerson(personToUpdate, updatedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson));
+        return new CommandResult(String.format(MESSAGE_UPDATE_PERSON_SUCCESS, updatedPerson),
+                changeStatus, false, changeStatus);
     }
 
     /**
