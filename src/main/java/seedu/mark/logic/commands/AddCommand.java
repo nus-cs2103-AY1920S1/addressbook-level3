@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.core.Messages.MESSAGE_FOLDER_NOT_FOUND;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -75,6 +76,10 @@ public class AddCommand extends Command {
 
         if (model.hasBookmark(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKMARK);
+        }
+
+        if (!model.hasFolder(toAdd.getFolder())) {
+            throw new CommandException(String.format(MESSAGE_FOLDER_NOT_FOUND, toAdd.getFolder()));
         }
 
         model.addBookmark(toAdd);

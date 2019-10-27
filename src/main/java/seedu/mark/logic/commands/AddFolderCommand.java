@@ -26,6 +26,8 @@ public class AddFolderCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New folder added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOLDER = "This folder already exists in Mark";
     public static final String MESSAGE_PARENT_FOLDER_NOT_FOUND = "The parent folder %s doesn't exist in Mark";
+    public static final String MESSAGE_READDING_ROOT_FOLDER = "The " + Folder.DEFAULT_FOLDER_NAME
+            + " folder is the root folder for all folders, choose another name";
 
     private final Folder folder;
     private final Folder parentFolder;
@@ -44,6 +46,11 @@ public class AddFolderCommand extends Command {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireAllNonNull(model, storage);
+
+        // special case of duplicate folder, provide better error message for user
+        if (folder.equals(Folder.ROOT_FOLDER)) {
+            throw new CommandException(MESSAGE_READDING_ROOT_FOLDER);
+        }
 
         if (model.hasFolder(folder)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOLDER);
