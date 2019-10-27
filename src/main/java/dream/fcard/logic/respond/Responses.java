@@ -220,7 +220,7 @@ enum Responses {
         return true; // capture is valid, end checking other commands
     }),
 
-    EDIT("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[edit]|[remove]+){1}((\\s)+"
+    EDIT_DECK_EDIT_CARD("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[edit]+){1}((\\s)+"
             + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
             + "(back/[\\S\\s]+))?(\\s)*", (
             commandInput, programState) -> {
@@ -275,11 +275,37 @@ enum Responses {
                     index = splitUserFields[1].trim();
                 }
 
-                //System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
+                System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
+
 
 
 
                 return true; // capture is valid, end checking other commands
+            }),
+
+    EDIT_DECK_REMOVE_CARD("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[remove]+){1}((\\s)+"
+            + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
+            + "(back/[\\S\\s]+))?(\\s)*", (
+            commandInput, programState) -> {
+                System.out.println("Current command is EDIT");
+                LogsCenter.getLogger(Responses.class).info("Current command is EDIT");
+
+                System.out.println(commandInput);
+
+                String userFields = commandInput.replaceFirst("edit(\\s)+deck/", "");
+                String[] splitUserFields = userFields.split(" action/");
+
+                String deckName = splitUserFields[0].trim();
+
+                splitUserFields = splitUserFields[1].split(" index/");
+                String action = splitUserFields[0].trim();
+
+                String index = splitUserFields[1].trim();
+
+                System.out.println(deckName + "." + action + "." + index + ".");
+
+
+        return true; // capture is valid, end checking other commands
             }),
 
     UNKNOWN(".*", (commandInput, programState) -> {
