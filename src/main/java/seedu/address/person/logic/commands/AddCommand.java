@@ -48,8 +48,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                 seedu.address.reimbursement.logic.Logic reimbursementLogic,
-                                 seedu.address.cashier.logic.Logic cashierLogic) throws CommandException {
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {

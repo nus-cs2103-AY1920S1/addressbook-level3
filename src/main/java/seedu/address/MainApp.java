@@ -137,7 +137,7 @@ public class MainApp extends Application {
         overviewLogic = new seedu.address.overview.logic.LogicManager(overviewModel, overviewStorage, transactionLogic,
                 inventoryLogic);
 
-        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic, cashierLogic, inventoryLogic);
+        logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic);
 
         //no config for ui yet
         /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
