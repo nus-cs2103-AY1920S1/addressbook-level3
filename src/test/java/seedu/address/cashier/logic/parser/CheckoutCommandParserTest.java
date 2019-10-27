@@ -50,6 +50,7 @@ public class CheckoutCommandParserTest {
 
     @Test
     public void parse_invalidAmountPresent_failure() {
+        model.clearSalesList();
         model.setCashier(new PersonBuilder().build());
 
         /*// with no sales item, negative price paid
