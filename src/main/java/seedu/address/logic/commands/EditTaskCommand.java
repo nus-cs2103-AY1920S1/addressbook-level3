@@ -2,8 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
+import static seedu.address.model.util.SortingOrder.CURRENT_SORTING_ORDER_FOR_TASK;
+
 
 import java.util.*;
 
@@ -16,6 +17,7 @@ import seedu.address.model.project.Description;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
 import seedu.address.model.project.Time;
+import seedu.address.model.util.SortingOrder;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -56,8 +58,13 @@ public class EditTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.isCheckedOut()) {
+            throw new CommandException(model.checkoutConstrain());
+        }
+
         Project projectToEdit = model.getWorkingProject().get();
-        Set<Task> taskSet = projectToEdit.getTasks();
+        List<Task> taskSet = projectToEdit.getTasks();
         ArrayList<Task> taskList = new ArrayList<>();
         taskList.addAll(taskSet);
 
@@ -68,10 +75,9 @@ public class EditTaskCommand extends Command {
         Task taskToEdit = taskList.remove(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
         taskList.add(index.getZeroBased(), editedTask);
-        Set<Task> newTaskList = new HashSet<>();
-        newTaskList.addAll(taskList);
+        Collections.sort(taskList, CURRENT_SORTING_ORDER_FOR_TASK);
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, projectToEdit.getFinance());
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), taskList, projectToEdit.getFinance());
 
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);

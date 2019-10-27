@@ -7,7 +7,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.project.Project;
-import seedu.address.model.project.Task;
+import seedu.address.model.util.SortingOrder;
+
+import static seedu.address.model.util.SortingOrder.CURRENT_SORTING_ORDER_FOR_TASK;
+
+
 
 import java.util.Comparator;
 
@@ -57,7 +61,7 @@ public class ProjectCard extends UiPart<Region> {
         memberTitle.setText("Members:");
         project.getMembers().forEach(member -> members.getChildren().add(new Label(member)));
         project.getTasks().stream()
-                .sorted(Comparator.comparing(task -> task.getTime().getDate()))
+                .sorted(CURRENT_SORTING_ORDER_FOR_TASK)
                 .forEach(task -> tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString())));
         taskTitle.setText("Tasks: ");
         tasks.setOrientation(Orientation.VERTICAL);

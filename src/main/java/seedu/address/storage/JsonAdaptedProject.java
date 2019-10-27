@@ -92,7 +92,7 @@ class JsonAdaptedProject {
         }
 
 
-        final Set<Task> modelTasks = new HashSet<>(taskList);
+        final List<Task> modelTasks = new ArrayList<>(taskList);
 
         //need to convert the List<JsonAdaptedMeeting> to List<Meeting> then put it in the Set<Meeting> and set it to the given project.
         final List<Meeting> meetings = new ArrayList<>();

@@ -4,6 +4,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
+import static seedu.address.model.util.SortingOrder.CURRENT_SORTING_ORDER_FOR_TASK;
+import seedu.address.model.util.SortingOrder;
 
 import java.util.*;
 
@@ -38,15 +40,18 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
+        if (!model.isCheckedOut()) {
+            throw new CommandException(model.checkoutConstrain());
+        }
+
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMembers();
         ArrayList<Task> taskArrayList = new ArrayList<>();
-        Set<Task> taskToEdit = projectToEdit.getTasks();
+        List<Task> taskToEdit = projectToEdit.getTasks();
         taskArrayList.addAll(taskToEdit);
-        Set<Task> newTaskList = new HashSet<>();
         taskArrayList.add(task);
-        newTaskList.addAll(taskArrayList);
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), newTaskList, projectToEdit.getFinance());
+        Collections.sort(taskArrayList, CURRENT_SORTING_ORDER_FOR_TASK);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), taskArrayList, projectToEdit.getFinance());
         editedProject.getMembers().addAll(members);
 
         if (projectToEdit.hasTask(task)) {
