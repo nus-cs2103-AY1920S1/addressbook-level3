@@ -1,7 +1,9 @@
 package thrift.storage;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -42,6 +44,12 @@ public class JsonCurrencyMappingsStorage implements CurrencyMappingsStorage {
                 (HashMap<String, Double>) JsonUtil.readJsonFile(mappingsFilePath, HashMap.class).get();
         return Optional.of(hashmap);
     }
+
+    @Override
+    public void saveCurrencyMappings(Map<String, Double> currencyMappings) throws IOException {
+        JsonUtil.saveJsonFile(currencyMappings, filePath);
+    }
+
 
 
 }

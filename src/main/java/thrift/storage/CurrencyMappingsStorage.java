@@ -3,6 +3,7 @@ package thrift.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import thrift.commons.exceptions.DataConversionException;
@@ -26,4 +27,10 @@ public interface CurrencyMappingsStorage {
      */
     Optional<HashMap<String, Double>> readCurrencyMappings() throws DataConversionException, IOException;
 
+    /**
+     * Saves the given currency mappings to the storage.
+     * @param currencyMappings cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void saveCurrencyMappings(Map<String, Double> currencyMappings) throws IOException;
 }

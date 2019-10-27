@@ -3,6 +3,7 @@ package thrift;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -153,6 +154,7 @@ public class MainApp extends Application {
         Path currencyMappingsFilePath = storage.getCurrencyMappingsFilePath();
         logger.info("Using currency file : " + currencyMappingsFilePath);
 
+
         try {
             HashMap<String, Double> currencyMappings = storage.readCurrencyMappings().get();
             CurrencyUtil.setCurrencyMap(currencyMappings);
@@ -162,6 +164,14 @@ public class MainApp extends Application {
                     + "Using default currency mappings");
         } catch (IOException | NoSuchElementException e) {
             logger.warning("Problem while reading from the file. Using default currency mappings");
+        }
+
+        // Update the file in case it disappeared during usage or a valid one never existed to begin with
+        Map<String, Double> loadedCurrencyMappings = CurrencyUtil.getCurrencyMap();
+        try {
+            storage.saveCurrencyMappings(loadedCurrencyMappings);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
 
     }

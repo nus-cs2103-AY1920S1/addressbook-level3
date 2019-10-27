@@ -3,6 +3,7 @@ package thrift.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -88,5 +89,10 @@ public class StorageManager implements Storage {
     @Override
     public Optional<HashMap<String, Double>> readCurrencyMappings() throws DataConversionException, IOException {
         return currencyMappingsStorage.readCurrencyMappings();
+    }
+
+    @Override
+    public void saveCurrencyMappings(Map<String, Double> currencyMappings) throws IOException {
+        currencyMappingsStorage.saveCurrencyMappings(currencyMappings);
     }
 }
