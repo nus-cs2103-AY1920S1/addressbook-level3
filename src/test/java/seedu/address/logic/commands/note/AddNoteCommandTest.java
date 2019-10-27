@@ -297,6 +297,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }

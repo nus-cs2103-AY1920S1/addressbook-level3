@@ -1,4 +1,4 @@
-= StudyBuddy - User Guide
+= StudyBuddyPro - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,7 +19,7 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-StudyBuddy Level 1 is for students in the School of Computing at NUS
+StudyBuddy Pro specifically caters to students in the School of Computing at NUS
 that prefer to use a desktop app to help their studies.
 StudyBuddy is also optimized for those who prefer to work with
 a Command Line Interface (CLI) while still having the benefits of a
@@ -29,8 +29,22 @@ manage their studies efficiently and faster than traditional GUI apps.
 
 == Quick Start
 
-<NOT IN DRAFT>
+To begin, download the latest version of `StudyBuddy` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here]
+and double-click the downloaded jar file. If double-clicking does not work, please follow the instructions below.
 
+=== Running the jar file
+
+==== For cross-platform users
+* Open your PC's terminal/command prompt
+* Type java -jar StudyBuddyPro.jar
+
+==== For Windows users
+* Open your PC's terminal/command prompt
+* Type java -jar StudyBuddyPro-Win.jar
+
+==== For Mac users
+* Open your PC's terminal/command prompt
+* Type java -jar StudyBuddyPro-Mac.jar
 
 == Command Format / Rules
 
@@ -38,12 +52,12 @@ Things noted here are standardization of the User Guide.
 These points are absolute, unless stated otherwise in the specific section(s).
 
 ****
-* All commands are written in ENGLISH with no weird symbols.
+* All commands are written in ENGLISH with only alphanumeric characters.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.
 E.g. `add <t/TITLE>` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
-* Items in square brackets are optional.
+* Items indicated in square brackets are optional.
 E.g `t/TITLE [t/TAG]` can be used as `t/Midterm note t/exam` or as `t/Midterm`.
 
 * Items with `...`​ after them can be used multiple times including zero times.
@@ -51,17 +65,17 @@ E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 
 * All flashcards, notes, cheatsheets objects will be given a unique `id` on creation.
 
-* All flashcards, notes, cheatsheets objects can have a maximum of 5 `TAG` each.
+* All flashcards, notes, cheatsheets objects can have a maximum of 10 `TAG` each.
 
 * All `MODULE` parameters are a `TAG`.
 
 * In EDITING (`edit`):
-    ** All optional fields provided, except `t/TAG`, will overwrite their relevant fields.
-    ** `t/TAG` optional field, will be added to the flashcard, if they do not already exist.
+** All optional fields provided, except `t/TAG`, will overwrite their relevant fields.
+** `t/TAG` optional field, will be added to the flashcard, if they do not already exist.
 
 * In DELETING (`delete`), Confirmation reply of `y` or `n` has to be given, else no objects is deleted.
-    ** `y` indicates `YES` and notes will be deleted.
-    ** `n` indicates `NO` and notes will not be deleted.
+** `y` indicates `YES` and notes will be deleted.
+** `n` indicates `NO` and notes will not be deleted.
 
 * Any indexes (`id`) must be positive integer (e.g. 1, 2, 3, ...).
 The indexes refers to the index number shown in the displayed list of objects (e.g. flashcards, notes, cheatsheets, tags).
@@ -76,82 +90,100 @@ E.g. 'cs2103t' will match 'CS2103T'
 
 == Global Commands
 
-=== Getting into FiveFlash function: `ff`
+Global commands in StudyBuddyPro, are commands that can be called regardless of which mode the user is currently in.
 
-Brings the user to the FiveFlash section, regardless of where the user is.
+=== Entering the various modes of StudyBuddyPro
 
-    Format: ff
+Upon startup, you will be prompted to enter one of the modes before you can proceed.
 
-=== Getting into FiveNotes function: `fn`
+==== Getting into Flashcard mode: `fc`
 
-Brings the user to the FiveNotes section, regardless of where the user is.
-
-    Format: fn
-
-=== Getting into FiveCheat function: `fc`
-
-Brings the user to the FiveCheat section, regardless of where the user is.
+Brings the user to the Flashcard section, regardless of where the user is.
 
     Format: fc
 
-=== Listing tags: `tag list`
+==== Getting into Notes function: `notes`
 
-Lists all the tags available in the application.
+Brings the user to the Notes section, regardless of where the user is.
 
-    Format: tag list
+    Format: notes
 
-=== Editing tags: `tag edit`
+==== Getting into CheatSheet function: `cs`
 
-Replaces the existing tag with <TAG_ID> with <NEW_TAG_NAME> in the application.
+Brings the user to the CheatSheet section, regardless of where the user is.
 
-    Format: tag edit id/TAG_ID n/NEW_TAG_NAME
-
-=== Deleting tags: `tag delete`
-
-Deletes all tags from the application.
-
-    Format: tag delete [-c]
-
-* If `-c` is flagged, all contents tagged to the all tags are deleted.
+    Format: cs
 
 === Viewing Help: `help`
 
 Views the help session of all the functionality.
 
-    Format: help [-fc] [-fn] [-ff]
+    Format: help
 
-* Only ONE of the optional fields can be provided in one command. E.g.
-    ** Correct commands: "help", "help -fc", "help -fn", "help -ff"
-    ** Wrong commands: "help -fc -fn", "help -fc -fn -ff"
-* If `fc` flagged, returns the help section of the 'FiveCheat' feature.
-* If `fn` flagged, returns the help section of the 'FiveNotes' feature.
-* If `ff` flagged, returns the help section of the 'FiveFlash' feature.
+A pop-up dialog box will display a URL link to a help document.
 
-== FiveFlash
+=== Listing all StudyBuddy items by their tag : `filterall [tag/CS2100]`
 
-=== Creating flashcards: `new`
+Lists all StudyBuddy items with matching tags in the application.
 
-1. Creates a new flashcard from user input question <QUESTION> and answer <ANSWER>.
+    Example usage: filterall tag/CS2100
 
-   Format: new q/QUESTION a/ANSWER t/TITLE m/MODULE [h/HINT] [tag/TAG]...
+    Expected output:
+        List the whole StudyBuddy by tag(s) :
+    CS2100
+    Flashcard: 6.
+        Question: What is 101 Binary in its Decimal form?
+        Answer: 5
+        Title: BinaryQn
+        Tags: [cs2100]
+    CheatSheet: 7.
+        Title: cs2100 stuff
+        Tags: [cs2100]
+        Contents: [ 1. Pipelining is a process where.. ]
+            [ 2. Question: What is 101 Binary in its Decimal form?; Answer: 5 ]
+    Note: 5.
+        Title: Pipelining Defition
+        Content: Pipelining is a process where..
+        Tags: [cs2100]
 
-2. Creates a new flashcard from file input <FILE_NAME> and answer <ANSWER>.
+The user is also able to specify a multiple number of tags.
+For example,
 
-    Format: new f/<FILE_NAME> a/ANSWER t/TITLE m/MODULE [h/HINT] [tag/TAG]...
+    filterall tag/CS2100 tag/difficult
 
-* File must be in specified directory.
-* File input must be of type jpg.
+will list all items that match at least one of the specified tags.
 
-=== Viewing flashcards: `view`
+== Flashcard Feature
 
-Displays flashcard <FLASHCARD_ID> to user without answer.
+=== Creating a flashcard: `add`
 
-    Format: view id/FLASHCARD_ID [-h] [-a] [-tag]
+* Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
-* `-h`, `-a` or `-tag` can be used after entering view flashcard mode to view flashcard's hint, answer or tags respectively.
-* View page displays flashcard title, module and question by default.
+    Format: add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...
 
-=== Editing flashcards: `edit`
+    Example usage: add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100
+
+    Expected output: New flashcard added:
+        Title: Binary Stuff
+        Question: What is 100 Binary in its Decimal form?
+        Answer: 4
+        Tags: [cs2100]
+
+=== Viewing a flashcard: `view`
+
+Displays flashcard <FLASHCARD_INDEX> to user without answer.
+
+    Format: view (index)
+
+    Example usage: view 6
+
+    Expected output: Viewing flashcard:
+        Title: BinaryQn
+        Question: What is 101 Binary in its Decimal form?
+        Tags: [cs2100]
+
+
+=== Editing a flashcard: `edit`
 
 Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
@@ -163,17 +195,23 @@ Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
 Lists all flashcards.
 
-   Format: list [tag/TAG]...
+   Format: list
 
-* If more than one tag is specified, lists only flashcards which satisfy all specified tags.
+    Expected output: a complete list of all flashcards currently in StudyBuddyPro
 
-=== Deleting flashcards: `delete`
+=== Deleting a flashcard: `delete`
 
-Deletes the flashcard with <FLASHCARD_ID> or flashcard(s) with specified tag(s).
+Deletes the flashcard by <FLASHCARD_INDEX>.
 
-   Format: delete [id/FLASHCARD_ID] [tag/TAG]...
+   Format: delete (index)
 
-* At least one of the optional fields must be specified.
+    Example usage: delete 6
+
+    Expected output: Deleted Flashcard:
+        Question: What is 101 Binary in its Decimal form?
+        Answer: 5
+        Title: BinaryQn
+        Tags: [cs2100]
 
 === Time Trial: `time`
 
@@ -185,15 +223,42 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
 * If more than one tag is specified, selects only flashcards which satisfy all specified tags.
 * Default <TIME> will be 30 seconds, if not specified.
 
-== FiveNotes
+=== Listing by tags: `filter`
 
-=== Creating notes: `new`
+* Filters the flashcard library by the user specified tag(s).
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* Flashcards that match at least one of the specified tags will be displayed.
 
-Creates a notes with empty content, unless specified, under <MODULE> section.
+    Format: filter tag/TAG [tag/TAG]...
 
-    Format: new m/MODULE [t/NOTE_TITLE] [c/NOTE_CONTENT] [tag/TAG]...
+    Example usage: filter tag/difficult
 
-=== Editing notes: `edit`
+    Expeted output: Filter flashcards by tag(s) :
+        [difficult]
+        8. Question: What is 1+1?
+            Title: Basic addition
+            Tags: [difficult]
+        10. Question: What is 2x3?
+            Title: Maths
+            Tags: [difficult][important]
+
+== Notes Feature:
+
+=== Creating a note: `add`
+
+* Adds a note from user input title <TITLE> and content <CONTENT>.
+
+    Format: add t/TITLE c/CONTENT [tag/TAG]...
+
+    Example usage: add t/Pipelining Definition c/Pipelining is a process where tag/CS2100
+
+    Expected output: New note added:
+        Title: Pipelining Definition
+        Content: Pipelining is a process where
+        Tags: [cs2100]
+
+=== Editing a note: `edit`
 
 Edits the specified note's title or content or tag(s).
 
@@ -201,87 +266,136 @@ Edits the specified note's title or content or tag(s).
 
 * At least one of the optional fields must be specified.
 
-=== Deleting notes: `delete`
+=== Deleting a note: `delete`
 
-1. Deletes notes with specified <MODULE> or specified note with <NOTE_ID> or all notes.
+Deletes the note by <NOTE_INDEX>.
 
-   Format: delete [m/MODULE] [id/NOTE_ID] [-a]
+    Format: delete (index)
 
-* At least one of the optional fields must be specified.
-* If `a` is flagged, all notes will be deleted.
+    Example usage: delete 6
 
-2. Deletes specified tag(s) of note with <NOTE_ID>.
+    Expected output: Deleted Note:
+        Title: Pipelining Definition
+        Content: Pipelining is a process where
+        Tags: [cs2100]
 
-    Format: delete id/NOTE_ID [tag/TAG]...
+=== Viewing a note: `view`
 
-* At least one tag must be specified.
+Views the note by <NOTE_INDEX>.
 
-=== Viewing notes: `view`
+    Format: view (index)
 
-Views the note with <NOTE_ID>.
+    Example usage: view 6
 
-    Format: view id/NOTE_ID
+    Expected output: Viewing note:
+        Title: Pipelining Definition
+        Content: Pipelining is a process where..
+        Tags: [cs2100]
 
 === Listing notes: `list`
 
-1. Lists all notes found in the user's notes.
+* Lists all notes found in StudyBuddyPro.
 
-   Format: list [-m] [-t]
+   Format: list
 
-* If `-m` flagged, lists all modules found in notes.
-* If `-t` flagged, lists all titles found in notes.
+   Expected output: a complete list of all notes currently in StudyBuddyPro
 
-2. Lists all notes from <MODULE>.
+=== Listing by tags: `filter`
 
-   Format: list m/MODULE [-t]
+* Filters the note library by the user specified tag(s).
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* Notes that match at least one of the specified tags will be displayed.
 
-* If `-t` flagged, lists all titles found in notes.
+    Format: filter tag/TAG [tag/TAG]...
 
-== FiveCheat
+    Example usage: filter tag/difficult
 
-=== Creating cheatsheets: `new`
+    Expeted output: Filter notes by tag(s) :
+        [difficult]
+        2. Title: Tough Math
+            Content: 1 + 2 is 3.
+            Tags: [difficult]
+        4. Title: MA1521 Chapter 5
+            Content: dy/dx = 0 is turning point of bellcurve.
+            Tags: [difficult][MA1521]
 
-Creates a new cheatsheet with <TITLE> and <MODULE>.
+== CheatSheet Feature:
 
-   Format: new t/TITLE m/MODULE [tag/TAG]...
+=== Creating a cheatSheet: `add`
 
-=== Editing cheatsheets: `edit`
+* Adds a cheatSheet from user input title <TITLE> and content <CONTENT>.
+* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the cheatsheet.
 
-Edits cheatsheet's content with <CHEATSHEET_ID>, unless optional fields are specified.
+    Format: add t/TITLE [tag/TAG]...
 
-   Format: edit id/CHEATSHEET_ID [t/TITLE] [m/MODULE] [tag/TAG]...
+    Example usage: add t/CS2100 Midterm CheatSheet tag/cs2100midterm
 
-=== Deleting cheatsheets: `delete`
+    Expected output: New cheatsheet added:
+    Title: CS2100 Midterm CheatSheet
+    Tags: [cs2100midterm]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+        [ 2. 110 in Binary is 6 in Decimal ]
 
-1. Deletes cheatsheets with specified <MODULE> or specified cheatsheet with <CHEATSHEET_ID> or all cheatsheets.
+=== Editing a cheatSheet: `edit`
 
-   Format: delete [m/MODULE] [id/CHEATSHEET_ID] [-a]
+Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
-* At least one of the optional fields must be specified.
-* If `-a` flagged, all cheatsheets will be deleted.
+* The user can specify one of the optional fields to edit.
 
-2. Deletes specified tag(s) of cheatsheet with <CHEATSHEET_ID>.
+    Format: edit (index) [t/TITLE] [tag/TAG]...
 
-    Format: delete id/CHEATSHEET_ID [tag/TAG]...
+    Example usage: edit 8 t/cs2100 final cheatsheet tag/cs2100finals
 
-* At least one tag must be specified.
+    Expected output: Edited Cheatsheet:
+        Title: cs2100 final cheatsheet
+        Tags: [cs2100finals]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
 
-=== Listing cheatsheets: `list`
+=== Deleting a cheatSheet: `delete`
 
-1. Lists all cheatsheets found in the user's notes.
+1. Deletes a cheatSheet by the specified index.
 
-   Format: list [-m] [-t]
+    Format: delete (index)
 
-* If `-m` flagged, lists all modules found in the user's cheatsheets.
-* If `-t` flagged, lists all titles found in the user's cheatsheets.
+    Example usage: delete 8
 
-2. Lists all cheatsheets from <MODULE>.
+    Expected output: Deleted Cheatsheet:  Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
 
-   Format: list m/MODULE [-t]
+=== Listing cheatSheets: `list`
 
-* If `-t` flagged, lists all titles found in the user's cheatsheets.
+* Lists all cheatSheets found in StudyBuddyPro.
 
-== FAQ
+   Format: list
+
+   Expected output: a complete list of all cheatSheets currently in StudyBuddyPro
+
+=== Listing by tags: `filter`
+
+* Filters the cheatSheet library by the user specified tag(s).
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* CheatSheets that match at least one of the specified tags will be displayed.
+
+    Format: filter tag/TAG [tag/TAG]...
+
+    Example usage: filter tag/difficult
+
+    Expeted output: Filter cheatSheets by tag(s) :
+        [difficult]
+        2. Title: Tough Math
+            Tags: [difficult][math]
+            Content: [ 1. Question: What's 1+1; Answer: 2 ]
+                [ 2. Question: what is 100 + 10; Answer: 110 ]
+        7. Title: MA1521 Chapter 5
+            Tags: [difficult]
+            Content: [ 1. dy/dx is a process where mathematicians..]
+                [ 2. Question: what is dy/dx?; Answer: find gradient]
+
+
 
 <NOT INCLUDED IN DRAFT>
 
