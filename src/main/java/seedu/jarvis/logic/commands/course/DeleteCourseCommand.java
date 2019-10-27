@@ -85,8 +85,8 @@ public class DeleteCourseCommand extends Command {
      *
      * @return {@code Index} of the {@code Course} to be deleted.
      */
-    public Index getTargetIndex() {
-        return targetIndex;
+    public Optional<Index> getTargetIndex() {
+        return Optional.ofNullable(targetIndex);
     }
 
     /**
@@ -94,7 +94,7 @@ public class DeleteCourseCommand extends Command {
      *
      * @return {@code Optional} of {@code Course} that was deleted, empty if person has not been deleted.
      */
-    public Optional<Course> getDeleteCourse() {
+    public Optional<Course> getDeletedCourse() {
         return Optional.ofNullable(toDelete);
     }
 
@@ -168,6 +168,6 @@ public class DeleteCourseCommand extends Command {
             return false;
         }
         DeleteCourseCommand other = (DeleteCourseCommand) o;
-        return targetIndex.equals(other.targetIndex) && Objects.equals(toDelete, other.toDelete);
+        return Objects.equals(targetIndex, other.targetIndex) && Objects.equals(toDelete, other.toDelete);
     }
 }

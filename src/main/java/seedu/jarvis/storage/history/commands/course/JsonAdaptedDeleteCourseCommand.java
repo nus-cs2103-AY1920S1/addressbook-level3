@@ -37,8 +37,8 @@ public class JsonAdaptedDeleteCourseCommand implements JsonAdapter<Command> {
      *      * {@code JsonAdaptedDeleteCourseCommand}.
      */
     public JsonAdaptedDeleteCourseCommand(DeleteCourseCommand deleteCourseCommand) {
-        course = deleteCourseCommand.getDeleteCourse().map(JsonAdaptedCourse::new).orElse(null);
-        targetIndex = new JsonAdaptedIndex(deleteCourseCommand.getTargetIndex());
+        course = deleteCourseCommand.getDeletedCourse().map(JsonAdaptedCourse::new).orElse(null);
+        targetIndex = deleteCourseCommand.getTargetIndex().map(JsonAdaptedIndex::new).orElse(null);
     }
 
 
@@ -53,6 +53,6 @@ public class JsonAdaptedDeleteCourseCommand implements JsonAdapter<Command> {
     public Command toModelType() throws IllegalValueException {
         return new DeleteCourseCommand(
                 course != null ? course.toModelType() : null,
-                targetIndex.toModelType());
+                targetIndex != null ? targetIndex.toModelType() : null);
     }
 }
