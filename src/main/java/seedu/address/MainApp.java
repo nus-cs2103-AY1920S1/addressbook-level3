@@ -110,8 +110,8 @@ public class MainApp extends Application {
                 new seedu.address.inventory.model.ModelManager(inventoryStorage);
 
         //For Cashier Storage and Manager
-        cashierStorage = new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
-                FILE_PATH_TRANSACTION, model);
+        cashierStorage = new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
+                new File(FILE_PATH_TRANSACTION), model);
         cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage.getInventoryList(),
                 cashierStorage.getTransactionList());
 

@@ -136,8 +136,7 @@ public class CommandTestUtil {
                             new File("data/test/reimbursement.txt"));
             seedu.address.cashier.storage.StorageManager cashierManager =
                     new seedu.address.cashier.storage.StorageManager(
-                    "data/test/inventory.txt",
-                    "data/test/transaction.txt", personModel);
+                            new File(""), new File(""), personModel);
             seedu.address.inventory.storage.StorageManager inventoryManager =
                     new seedu.address.inventory.storage.StorageManager(new File("data/test/inventory.txt"));
 
@@ -211,7 +210,7 @@ public class CommandTestUtil {
                 new seedu.address.reimbursement.storage.StorageManager(
                         new File("data/test/reimbursement.txt"));
         seedu.address.cashier.storage.StorageManager cashierManager = new seedu.address.cashier.storage.StorageManager(
-                "data/test/inventory.txt", "data/test/transaction.txt", personModel);
+                new File(""), new File(""), personModel);
         seedu.address.inventory.storage.StorageManager inventoryManager =
                 new seedu.address.inventory.storage.StorageManager(new File("data/test/inventory.txt"));
 
