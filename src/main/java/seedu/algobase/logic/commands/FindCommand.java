@@ -57,6 +57,9 @@ public class FindCommand extends Command {
                 String.format(Messages.MESSAGE_PROBLEMS_LISTED_OVERVIEW, model.getFilteredProblemList().size()));
     }
 
+    // Note that we can't actually compare two FindCommands as even if they are created by the
+    // same descriptor, the creation of predicate by chaining .and method will create a predicate
+    // of a new identity.
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

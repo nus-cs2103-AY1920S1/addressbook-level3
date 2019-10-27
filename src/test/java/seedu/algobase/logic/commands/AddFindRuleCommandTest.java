@@ -21,7 +21,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 class AddFindRuleCommandTest {
 
     @Test
-    public void constructor_nullProblemSearchRule__throwsNullPointerException() {
+    public void constructor_nullProblemSearchRule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddFindRuleCommand(null));
     }
 
@@ -32,7 +32,8 @@ class AddFindRuleCommandTest {
 
         CommandResult commandResult = new AddFindRuleCommand(validSearchRule).execute(modelStub);
 
-        assertEquals(String.format(AddFindRuleCommand.MESSAGE_SUCCESS, validSearchRule), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddFindRuleCommand.MESSAGE_SUCCESS, validSearchRule),
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSearchRule), modelStub.findRulesAdded);
     }
 
@@ -42,8 +43,8 @@ class AddFindRuleCommandTest {
         AddFindRuleCommand command = new AddFindRuleCommand(validRule);
         ModelStubWithFindRule modelStubWithFindRule = new ModelStubWithFindRule(validRule);
 
-        assertThrows(CommandException.class, AddFindRuleCommand.MESSAGE_DUPLICATE_FIND_RULE,
-            () -> command.execute(modelStubWithFindRule));
+        assertThrows(CommandException.class, AddFindRuleCommand.MESSAGE_DUPLICATE_FIND_RULE, ()
+            -> command.execute(modelStubWithFindRule));
     }
 
     @Test

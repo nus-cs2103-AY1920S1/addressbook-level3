@@ -33,6 +33,7 @@ import seedu.algobase.model.problem.Problem;
  * A utility class containing a list of {@code Problem} objects to be used in tests.
  */
 public class TypicalProblems {
+
     public static final Problem QUICK_SORT = new ProblemBuilder()
         .withName(VALID_NAME_QUICK_SORT)
         .withDescription(VALID_DESCRIPTION_QUICK_SORT)
