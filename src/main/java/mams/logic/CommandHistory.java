@@ -1,35 +1,35 @@
 package mams.logic;
 
-import static java.util.Objects.requireNonNull;
+import static mams.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /** Class that stores the history of all user inputs into MAMS */
 public class CommandHistory {
-    private final ObservableList<String> inputHistory = FXCollections.observableArrayList();
-    private final ObservableList<String> unmodifiableInputHistory =
-            FXCollections.unmodifiableObservableList(inputHistory);
+    private final ObservableList<InputOutput> inputOutputHistory = FXCollections.observableArrayList();
+    private final ObservableList<InputOutput> unmodifiableInputOutputHistory =
+            FXCollections.unmodifiableObservableList(inputOutputHistory);
 
 
     /**
-     * Adds the entered input text from the user into a list.
+     * Adds the entered input text from the user and the resulting command feedback into a list.
      */
-    public void add(String input) {
-        requireNonNull(input);
-        inputHistory.add(input);
+    public void add(String input, String output) {
+        requireAllNonNull(input, output);
+        inputOutputHistory.add(new InputOutput(input, output));
     }
 
     /**
-     * Returns an unmodifiable view of {@code inputHistory}
+     * Returns an unmodifiable view of {@code inputOutputHistory}
      */
-    public ObservableList<String> getInputHistory() {
-        return unmodifiableInputHistory;
+    public ObservableList<InputOutput> getInputOutputHistory() {
+        return unmodifiableInputOutputHistory;
     }
 
     @Override
     public int hashCode() {
-        return inputHistory.hashCode();
+        return inputOutputHistory.hashCode();
     }
 
     @Override
@@ -46,6 +46,16 @@ public class CommandHistory {
 
         // state check
         CommandHistory other = (CommandHistory) obj;
-        return inputHistory.equals(other.inputHistory);
+        return inputOutputHistory.equals(other.inputOutputHistory);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (InputOutput inputOutput : unmodifiableInputOutputHistory) {
+            sb.append(inputOutput);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

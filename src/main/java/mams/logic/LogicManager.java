@@ -36,7 +36,6 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.mamsParser = new MamsParser();
         this.commandHistory = new CommandHistory();
-
     }
 
     @Override
@@ -44,20 +43,20 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
+        String feedback;
 
         try {
             Command command = mamsParser.parseCommand(commandText);
             commandResult = command.execute(model);
-        } finally {
-            commandHistory.add(commandText);
-        }
-
-        try {
             storage.saveMams(model.getMams());
+            commandHistory.add(commandText, commandResult.getFeedbackToUser());
+        } catch (CommandException | ParseException e) {
+            commandHistory.add(commandText, e.getMessage());
+            throw e; // after getting message, rethrow. stacktrace is not lost
         } catch (IOException ioe) {
+            commandHistory.add(commandText, ioe.getMessage());
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
         return commandResult;
     }
 
@@ -82,8 +81,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<String> getCommandHistory() {
-        return commandHistory.getInputHistory();
+    public ObservableList<InputOutput> getCommandHistory() {
+        return commandHistory.getInputOutputHistory();
     }
 
     @Override

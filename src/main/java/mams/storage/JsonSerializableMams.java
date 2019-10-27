@@ -79,6 +79,7 @@ class JsonSerializableMams {
             }
             mams.addStudent(student);
         }
+
         for (JsonAdaptedAppeal jsonAdaptedAppeal: appeals) {
             Appeal appeal = jsonAdaptedAppeal.toModelType();
             if (mams.hasAppeal((appeal))) {

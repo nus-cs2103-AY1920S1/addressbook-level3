@@ -29,14 +29,14 @@ public class CommandHistoryTest {
     public void addTest1() {
         this.commandHistory.add(VALID_COMMAND_1);
         this.commandHistory.add(VALID_COMMAND_2);
-        assertEquals(Arrays.asList(VALID_COMMAND_1, VALID_COMMAND_2), this.commandHistory.getInputHistory());
+        assertEquals(Arrays.asList(VALID_COMMAND_1, VALID_COMMAND_2), this.commandHistory.getInputOutputHistory());
     }
 
     @Test
     public void addTest2() {
         this.commandHistory.add(INVALID_COMMAND_1);
         this.commandHistory.add(INVALID_COMMAND_2);
-        assertEquals(Arrays.asList(INVALID_COMMAND_1, INVALID_COMMAND_2), this.commandHistory.getInputHistory());
+        assertEquals(Arrays.asList(INVALID_COMMAND_1, INVALID_COMMAND_2), this.commandHistory.getInputOutputHistory());
     }
 
     @Test

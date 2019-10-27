@@ -12,15 +12,15 @@ import java.util.NoSuchElementException;
  * In contrast, {@code ListElementPointer}'s behaviour: when making alternating calls of
  * {@code next()} and {@code previous()}, the next and previous elements are returned respectively.
  */
-public class ListElementPointer {
-    private List<String> list;
+public class ListElementPointer<T> {
+    private List<T> list;
     private int index;
 
     /**
      * Constructs {@code ListElementPointer} which is backed by a defensive copy of {@code list}.
      * The cursor points to the last element in {@code list}.
      */
-    public ListElementPointer(List<String> list) {
+    public ListElementPointer(List<T> list) {
         this.list = new ArrayList<>(list);
         index = this.list.size() - 1;
     }
@@ -28,7 +28,7 @@ public class ListElementPointer {
     /**
      * Appends {@code element} to the end of the list.
      */
-    public void add(String element) {
+    public void add(T element) {
         list.add(element);
     }
 
@@ -63,7 +63,7 @@ public class ListElementPointer {
      * Returns the next element in the list and advances the cursor position.
      * @throws NoSuchElementException if there is no more next element in the list.
      */
-    public String next() {
+    public T next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
@@ -74,7 +74,7 @@ public class ListElementPointer {
      * Returns the previous element in the list and moves the cursor position backwards.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
-    public String previous() {
+    public T previous() {
         if (!hasPrevious()) {
             throw new NoSuchElementException();
         }
@@ -85,7 +85,7 @@ public class ListElementPointer {
      * Returns the current element in the list.
      * @throws NoSuchElementException if the list is empty.
      */
-    public String current() {
+    public T current() {
         if (!hasCurrent()) {
             throw new NoSuchElementException();
         }
