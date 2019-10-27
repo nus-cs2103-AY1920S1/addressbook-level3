@@ -58,7 +58,17 @@ public class RemoveMarkCommand extends MarkCommand {
             throw new CommandException(String.format(MESSAGE_STUDENT_ALREADY_UNMARKED, toUnmark.getOneBased()));
         }
         studentToBeUnmarked.setUnmarked();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toUnmark.getOneBased()));
+        return new CommandResult(generateSuccessMessage(MESSAGE_SUCCESS, toUnmark.getOneBased()));
+    }
+
+    /**
+     * Generates a command execution success message.
+     *
+     * @param MESSAGE_SUCCESS Success message
+     * @param index of student to mark
+     */
+    private String generateSuccessMessage(String MESSAGE_SUCCESS, int index) {
+        return String.format(MESSAGE_SUCCESS,index);
     }
 
     @Override
