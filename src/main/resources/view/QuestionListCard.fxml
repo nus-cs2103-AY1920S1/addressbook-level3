@@ -57,7 +57,7 @@
                      <Insets />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionALabel" style="-fx-background-color: #FF675E#FF675E;" styleClass="cell_small_label" text="A" textFill="WHITE">
+               <Label fx:id="optionALabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="A" textFill="WHITE">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>
@@ -65,7 +65,7 @@
                      <Insets left="10.0" />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionBLabel" style="-fx-background-color: #FF675E#FF675E;" styleClass="cell_small_label" text="B" textFill="WHITE">
+               <Label fx:id="optionBLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="B" textFill="WHITE">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>
@@ -73,7 +73,7 @@
                      <Insets left="10.0" />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionCLabel" style="-fx-background-color: #FF675E#FF675E;" styleClass="cell_small_label" text="C" textFill="WHITE">
+               <Label fx:id="optionCLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="C" textFill="WHITE">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>
@@ -81,7 +81,7 @@
                      <Insets left="10.0" />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionDLabel" style="-fx-background-color: #FF675E#FF675E;" styleClass="cell_small_label" text="D" textFill="WHITE">
+               <Label fx:id="optionDLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="D" textFill="WHITE">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>

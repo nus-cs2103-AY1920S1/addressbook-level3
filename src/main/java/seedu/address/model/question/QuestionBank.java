@@ -152,17 +152,8 @@ public class QuestionBank implements Iterable<Question> {
      * @return Summary of questions.
      */
     public String getQuestionsSummary() {
-        String summary = "There are currently " + questions.size() + " questions saved.\n"
-            + "Here is the list of questions:\n";
-
-        for (int i = 0; i < questions.size(); i++) {
-            summary += (i + 1) + ". " + "\"" + questions.get(i) + "\"";
-
-            if ((i + 1) != questions.size()) {
-                summary += "\n";
-            }
-        }
-
+        String summary = "Below is the list of questions.\n"
+            + "There are currently " + questions.size() + " questions saved.\n";
         return summary;
     }
 
