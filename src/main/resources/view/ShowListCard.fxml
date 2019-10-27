@@ -59,6 +59,7 @@
                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </GridPane.margin>
          </CheckBox>
+          <Label fx:id="lastWatched" styleClass="cell_small_label" text="\$lastWatched" wrapText ="true" />
       </children>
    </GridPane>
    <padding>

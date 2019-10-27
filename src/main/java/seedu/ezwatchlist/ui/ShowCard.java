@@ -51,6 +51,8 @@ public class ShowCard extends UiPart<Region> {
     @FXML
     private Label runningTime;
     @FXML
+    private Label lastWatched;
+    @FXML
     private HBox actors;
     @FXML
     private CheckBox watched;
@@ -79,6 +81,8 @@ public class ShowCard extends UiPart<Region> {
         //sets the checkbox selected value to be equal to the watched value of the show
         watched.setSelected(show.isWatched().value);
         watched.selectedProperty().addListener(new NonChangeableCheckBox());
+
+        setLastWatched();
     }
 
     @Override
@@ -101,6 +105,19 @@ public class ShowCard extends UiPart<Region> {
 
     public void setMainWindow(MainWindow mainWindow){
         this.mainWindow = mainWindow;
+    }
+
+    private void setLastWatched() {
+        if (show.getType().equals("Tv Show")) {
+            if (show.getLastWatchedSeasonNum() == 0) {
+                lastWatched.setText("Not started watching");
+            } else {
+                lastWatched.setText("Last Watched: \nSeason " + show.getLastWatchedSeasonNum()
+                        + " Episode " + show.getLastWatchedSeasonEpisode());
+            }
+        } else {
+            lastWatched.setText("");
+        }
     }
 
     /**

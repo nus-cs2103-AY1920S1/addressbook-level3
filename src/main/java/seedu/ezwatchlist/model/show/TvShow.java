@@ -44,7 +44,7 @@ public class TvShow extends Show {
         int seasonNum = 0;
         int episodeNum = 0;
         while (episodeNum < numOfEpisodesWatched) {
-            episodeNum += tvSeasons.get(seasonNum + 1).getTotalNumOfEpisodes();
+            episodeNum += tvSeasons.get(seasonNum).getTotalNumOfEpisodes();
             seasonNum++;
         }
         return seasonNum;
@@ -57,6 +57,7 @@ public class TvShow extends Show {
             cumulativeNumberOfEpisodes += tvSeasons.get(seasonNum).getTotalNumOfEpisodes();
         }
         int episodeNum = numOfEpisodesWatched - cumulativeNumberOfEpisodes;
+
         if (lastWatchedSeasonNum > 0 && episodeNum == 0) {
             episodeNum = tvSeasons.get(lastWatchedSeasonNum).getTotalNumOfEpisodes();
         }
