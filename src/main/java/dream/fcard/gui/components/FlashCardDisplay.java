@@ -26,7 +26,7 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
         super();
 
         // set up dimensions
-        this.setPrefHeight(200);
+        this.setPrefHeight(180);
         this.setMaxWidth(maxWidth);
         this.setPadding(new Insets(GuiSettings.getPadding()));
 

@@ -40,6 +40,8 @@ public class GuiSettings {
     private static Font flashCardTextStyle = Font.font("Montserrat", FontWeight.NORMAL,
         FontPosture.REGULAR, 18);
     private static Font commandTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
+        FontPosture.REGULAR, 16);
+    private static Font statusTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
         FontPosture.REGULAR, 12);
     private static Font subtitleTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
         FontPosture.REGULAR, 18);
@@ -192,6 +194,16 @@ public class GuiSettings {
     /** Set the command text style of the application. */
     public static void setCommandTextStyle(Font commandTextStyle) {
         GuiSettings.commandTextStyle = commandTextStyle;
+    }
+
+    /** Get the status text style of the application. */
+    public static Font getStatusTextStyle() {
+        return statusTextStyle;
+    }
+
+    /** Set the status text style of the application. */
+    public static void setStatusTextStyle(Font statusTextStyle) {
+        GuiSettings.statusTextStyle = statusTextStyle;
     }
 
     /** Get the subtitle text style of the application. */

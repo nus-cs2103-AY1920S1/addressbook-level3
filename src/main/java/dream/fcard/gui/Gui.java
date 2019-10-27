@@ -8,6 +8,7 @@ import dream.fcard.gui.components.CommandTextField;
 import dream.fcard.gui.components.CommandTextFieldPlaceholder;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.gui.components.ScrollablePane;
+import dream.fcard.gui.components.StatusBar;
 import dream.fcard.gui.components.TitleBar;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
@@ -40,6 +41,7 @@ public class Gui {
     private static ScrollablePane scrollablePane = new ScrollablePane();
     private static CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
     private static CommandTextField commandTextField = new CommandTextField();
+    private static StatusBar statusBar = new StatusBar();
 
     private Gui() {
         // empty constructor
@@ -100,6 +102,7 @@ public class Gui {
         // set up initial UI components
         setupCommandTextField();
         setTitle("Welcome!");
+        setStatus("No command entered yet...");
 
         // add UI components to scene
         setupScene();
@@ -130,7 +133,8 @@ public class Gui {
      */
     private static void setupScene() {
         // add children to window
-        window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder);
+        window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder,
+            statusBar);
 
         // display window
         Scene scene = new Scene(window, 400, 400);
@@ -140,10 +144,19 @@ public class Gui {
     /**
      * Sets the title in the title bar of the application window.
      * Useful when the application changes state, e.g. displaying a different deck.
-     * @param title The title to be set in the application window.
+     * @param title The title to be set in the title bar.
      */
     public static void setTitle(String title) {
-        titleBar.setTitle(title);
+        titleBar.setText(title);
+    }
+
+    /**
+     * Sets the status in the status bar of the application window.
+     * Useful for providing feedback to the user, e.g. when a command is entered.
+     * @param status The status to be set in the status bar.
+     */
+    public static void setStatus(String status) {
+        statusBar.setText(status);
     }
 
     /**
