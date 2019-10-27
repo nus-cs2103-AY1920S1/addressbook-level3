@@ -11,8 +11,6 @@ import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.model.UserPrefs;
-import seedu.address.stubs.InventoryModelStubAcceptingItemAdded;
-import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
@@ -23,12 +21,6 @@ public class DeleteCommandTest {
 
     private seedu.address.person.model.Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    private TransactionModelStubAcceptingTransactionAdded modelStubWithTransaction =
-            new TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
-
-    private InventoryModelStubAcceptingItemAdded inventoryModelStubAcceptingItemAdded =
-            new InventoryModelStubAcceptingItemAdded(TypicalItem.getTypicalItems());
 
     @Test
     public void execute_validIndex_successful() throws NoSuchIndexException {

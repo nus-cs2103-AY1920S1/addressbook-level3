@@ -17,13 +17,16 @@ import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
 public class StorageManagerTest {
-    private File iFile;
-    private File tFile;
+    //private File iFile;
+    //private File tFile;
     private StorageManager storageManager;
-    private Model model;
+    //private Model model;
 
     public StorageManagerTest() {
         try {
+            Model model;
+            File iFile;
+            File tFile;
             iFile = File.createTempFile("testing", "tempInventory.txt");
             tFile = File.createTempFile("testing", "tempTransaction.txt");
             iFile.deleteOnExit();
