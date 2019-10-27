@@ -323,7 +323,11 @@ public class ModelManager implements Model {
 
 
     public void isLoggedIn() {
-        loggedIn = !loggedIn;
+        loggedIn = true;
+    }
+
+    public void isLoggedOut() {
+        loggedIn = false;
     }
 
     @Override

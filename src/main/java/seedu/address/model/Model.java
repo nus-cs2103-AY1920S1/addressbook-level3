@@ -169,6 +169,8 @@ public interface Model {
 
     void isLoggedIn();
 
+    void isLoggedOut();
+
     void saveCommand(String command);
 
     String getSavedCommand();

@@ -25,6 +25,7 @@ import seedu.address.logic.commands.FindEarningsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UnknownCommand;
@@ -96,6 +97,7 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
     }
 
     /**
@@ -201,11 +203,15 @@ public class AddressBookParser {
             case AddNotesCommand.COMMAND_WORD:
                 return new AddNotesCommandParser().parse(arguments);
 
+            case LogoutCommand.COMMAND_WORD:
+                return new LogoutCommand();
+
             case DeleteNotesCommand.COMMAND_WORD:
                 return new DeleteNotesCommandParser().parse(arguments);
 
             case EditNotesCommand.COMMAND_WORD:
                 return new EditNotesCommandParser().parse(arguments);
+
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
