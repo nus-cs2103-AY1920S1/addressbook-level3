@@ -40,13 +40,22 @@ public class ScrollablePane extends ScrollPane implements UiComponent<ScrollPane
 
     /**
      * Adds a given Node to the scrollable pane.
-     * Expected behaviour: remove and replace anything currently in the scrollable pane.
+     * Expected behaviour: append the given Node to what is currently displayed.
      * @param node Node to be added to the scrollable pane
      */
     public void add(Node node) {
-        // remove anything currently in the viewport. todo: rethink this behaviour
+        this.paneContents.getChildren().add(node);
+    }
+
+    /**
+     * Replaces all Nodes currently in the scrollable pane with the current Node.
+     * Expected behaviour: remove and replace anything currently in the scrollable pane.
+     * @param node Node to be added to the scrollable pane
+     */
+    public void replace(Node node) {
+        // remove anything currently in the viewport
         this.paneContents.getChildren().clear();
         // add the node to the scrollable pane
-        this.paneContents.getChildren().add(node);
+        this.add(node);
     }
 }

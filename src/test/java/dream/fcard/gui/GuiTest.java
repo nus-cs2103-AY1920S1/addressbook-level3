@@ -20,4 +20,12 @@ public class GuiTest {
                 + "fringilla ac dolor. Donec a porttitor tellus, vitae ullamcorper risus.");
         Gui.renderFront(flashCardForTesting);
     }
+
+    public static void Gui_addNodeToScrollablePane() {
+
+    }
+
+    public static void Gui_replaceNodesInScrollablePane() {
+
+    }
 }

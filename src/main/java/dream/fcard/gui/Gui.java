@@ -83,17 +83,7 @@ public class Gui {
      * Temporary method for testing display of various UI components.
      */
     private static void testUiComponents() {
-        String longStringForTesting = "Lorem ipsum dolor sit amet, "
-            + "consectetur adipscing elit. Aliquam lacinia, nunc quis dictum consectetur, "
-            + "erat nulla molestie turpis, quis finibus justo ipsum a justo. Cras quis ullamcorper "
-            + "nulla. Duis nec volutpat nibh. Praesent ut justo vestibulum, lacinia tortor mattis, "
-            + "euismod eros. Maecenas viverra erat ac eros consequat feugiat. Praesent vehicula non "
-            + "turpis tempor elementum. Suspendisse ac lacus congue, blandit nisl eget, suscipit "
-            + "eros. Donec aliquet, tellus eu consectetur ornare, odio ipsum lacinia ipsum, id "
-            + "ullamcorper magna nibh quis nulla. Nulla sagittis, quam vel condimentum commodo, "
-            + "arcu ligula lobortis erat, non consequat tortor mi non libero. Etiam orci purus, "
-            + "maximus sed suscipit ut, consectetur sed arcu.";
-        FrontBackCard flashCardForTesting = new FrontBackCard(longStringForTesting,
+        FrontBackCard flashCardForTesting = new FrontBackCard("Lorem ipsum dolor sit amet.",
             "Praesent ut est justo. Cras urna risus, ultricies posuere pharetra in, "
                 + "fringilla ac dolor. Donec a porttitor tellus, vitae ullamcorper risus.");
         Gui.renderFront(flashCardForTesting);
@@ -146,12 +136,6 @@ public class Gui {
         applicationPrimaryStage.setScene(scene);
     }
 
-    /** Temporary method to render a FlashCardDisplay object without accessing FlashCard class. */
-    static void renderCard(String cardText) {
-        FlashCardDisplay node = new FlashCardDisplay(cardText);
-        displayInScrollablePane(node);
-    }
-
     /** Sets the title in the title bar of the application window. */
     public static void setTitle(String title) {
         titleBar.setTitle(title);
@@ -162,12 +146,7 @@ public class Gui {
      * @param flashCard The FlashCard to be rendered.
      */
     public static void renderFront(FlashCard flashCard) {
-        // todo: use functional interfaces, from renderCard?
-        // get text to be rendered
-        String cardText = flashCard.getFront();
-
-        // generate Node representing flashCard's contents
-        FlashCardDisplay node = new FlashCardDisplay(cardText);
+        FlashCardDisplay node = GuiHelper.renderFront(flashCard);
 
         // display the Node in the Gui
         displayInScrollablePane(node);
@@ -178,12 +157,7 @@ public class Gui {
      * @param flashCard The FlashCard to be rendered.
      */
     public static void renderBack(FlashCard flashCard) {
-        // todo: use functional interfaces, from renderCard?
-        // get text to be rendered
-        String cardText = flashCard.getBack();
-
-        // generate Node representing flashCard's contents
-        FlashCardDisplay node = new FlashCardDisplay(cardText);
+        FlashCardDisplay node = GuiHelper.renderBack(flashCard);
 
         // display the Node in the Gui
         displayInScrollablePane(node);
@@ -194,10 +168,15 @@ public class Gui {
      * @param node The Node to be displayed in the scrollable pane of the GUI.
      */
     public static void displayInScrollablePane(Node node) {
-        // remove anything currently in the display area
-        //windowContents.getChildren().clear();
-
         // show the Node in the display area
-        Gui.scrollablePane.add(node);
+        scrollablePane.add(node);
+    }
+
+    /**
+     * Replaces all Nodes currently in the scrollable pane of the GUI with the current Node.
+     * @param node The Node to be displayed in the scrollable pane of the GUI.
+     */
+    public static void replaceInScrollablePane(Node node) {
+        scrollablePane.replace(node);
     }
 }
