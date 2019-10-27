@@ -1,10 +1,10 @@
 package dukecooks.logic.commands.diary;
 
+import static java.util.Objects.requireNonNull;
+
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Lists all diaries in the Duke Cooks to the user.

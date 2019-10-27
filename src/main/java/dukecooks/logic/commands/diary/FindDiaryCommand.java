@@ -1,12 +1,12 @@
 package dukecooks.logic.commands.diary;
 
+import static java.util.Objects.requireNonNull;
+
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.FindCommand;
 import dukecooks.model.Model;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all diaries in Duke Cooks whose name contains any of the argument keywords.
