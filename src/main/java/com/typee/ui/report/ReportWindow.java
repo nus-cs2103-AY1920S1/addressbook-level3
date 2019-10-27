@@ -1,10 +1,12 @@
 package com.typee.ui.report;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.FilenameUtils;
@@ -69,7 +71,7 @@ public class ReportWindow extends UiPart<Region> {
                     if (new File(name).isFile()) {
                         Desktop.getDesktop().open(new File(name));
                     }
-                } catch(IOException e) {
+                } catch (IOException e) {
                     logger.severe(e.getMessage());
                 }
             }
@@ -101,16 +103,20 @@ public class ReportWindow extends UiPart<Region> {
     @FXML
     private void refreshTreeView(MouseEvent event) {
         refreshFileTreeView();
-        lblStatus.setText("Refreshed Directory");
+        lblStatus.setText("Refreshed Directory: " + DateTimeFormatter.ofPattern("HH:MM:ss")
+                .format((LocalDateTime.now())));
     }
 
+    /**
+     * Deletes document by GUI.
+     */
     @FXML
     private void deleteDocument(MouseEvent event) {
         TreeItem<String> selectedItem = (TreeItem) treeViewReports.getSelectionModel().getSelectedItem();
-        String name = selectedItem.getValue();
         boolean isFileDeleted = false;
 
-        if (validateSelectedTreeItem(name)) {
+        if (validateSelectedTreeItem(selectedItem)) {
+            String name = selectedItem.getValue();
             logger.info("selected item: " + name + " is valid.");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + name + "?");
             alert.showAndWait();
@@ -120,20 +126,29 @@ public class ReportWindow extends UiPart<Region> {
         }
 
         if (isFileDeleted) {
+            String name = selectedItem.getValue();
             int i = name.split("/").length;
             String fileNameOnly = name.split("/")[i - 1];
-            lblStatus.setText("File: " + fileNameOnly + " deleted.");
             refreshFileTreeView();
+            lblStatus.setText("File: " + fileNameOnly + " deleted.");
         }
     }
 
-    private boolean validateSelectedTreeItem(String item) {
-        if (item == "" || item == null || new File(item).isDirectory()) {
+    /**
+     * Validates if the selected item is valid for deletion.
+     */
+    private boolean validateSelectedTreeItem(TreeItem<String> selectedItem) {
+        if (selectedItem == null) {
+            return false;
+        } else if (new File(selectedItem.getValue()).isDirectory()) {
             return false;
         }
         return true;
     }
 
+    /**
+     * Validates the selected node valid for refresh
+     */
     private boolean isSelectedItemValid(Node node) {
         if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
             return true;
@@ -141,6 +156,9 @@ public class ReportWindow extends UiPart<Region> {
         return false;
     }
 
+    /**
+     * Refreshes the tree view report and clears the status label text.
+     */
     private void refreshFileTreeView() {
         lblStatus.setText("");
         treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
