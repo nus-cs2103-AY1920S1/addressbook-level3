@@ -1,35 +1,39 @@
 package seedu.address.commons.util;
 
-import seedu.address.logic.commands.GeneratePasswordCommand;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
+/**
+ * A class for generating random passwords.
+ */
 public class GeneratorUtil {
-    public static final String MESSAGE_CONSTRAINTS_LENGTH = "Length of password should be positive and at least of length 4.";
-    public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "Please input \"true\" or \"false\" when customizing password generation configuration.";
+    public static final String MESSAGE_CONSTRAINTS_LENGTH = "Length of password should be positive "
+            + "and at least of length 4.";
+    public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "Please input \"true\" or \"false\" "
+            + "when customizing password generation configuration.";
 
     private static String[] lowAlpha = new String[] {
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-            "u", "v", "w", "x", "y", "z"};
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+        "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+        "u", "v", "w", "x", "y", "z"};
     private static String[] highAlpha = new String[] {
-            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z"};
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+        "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+        "U", "V", "W", "X", "Y", "Z"};
     private static String[] specialChars = new String[] {
-            "~", "`", "!", "@", "#", "$", "%", "^", "&", "*",
-            "(", ")", "-", "_", "+", "=", "[", "{", "]", "}",
-            "|", "\\", "'", "\"", ";", ":", "?", "/", ".", ">",
-            "<", ","};
+        "~", "`", "!", "@", "#", "$", "%", "^", "&", "*",
+        "(", ")", "-", "_", "+", "=", "[", "{", "]", "}",
+        "|", "\\", "'", "\"", ";", ":", "?", "/", ".", ">",
+        "<", ","};
     private static String[] numbers = new String[] {
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
     /**
      * Generates random password value based on user input.
      * @return a random password value string
      */
-    public static String generateRandomPassword(int length, boolean lower, boolean upper, boolean num, boolean special) {
+    public static String generateRandomPassword(int length, boolean lower,
+                                                boolean upper, boolean num, boolean special) {
         ArrayList<String[]> characterSet = setCharacterSet(lower, upper, special, num);
         SecureRandom randomNumGen = new SecureRandom();
         StringBuilder password = new StringBuilder();

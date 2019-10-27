@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LENGTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER;
 
 import seedu.address.commons.util.ClipboardUtil;
 import seedu.address.commons.util.GeneratorUtil;

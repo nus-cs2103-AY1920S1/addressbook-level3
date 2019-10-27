@@ -10,7 +10,6 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.GeneratorUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.GeneratePasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.CardNumber;
 import seedu.address.model.card.Cvc;
@@ -301,22 +300,34 @@ public class ParserUtil {
         return new PasswordValue(trimmedPasswordValue);
     }
 
-    public static int parseLength(String s) throws ParseException {
+    /**
+     * Parses a string length into an integer length.
+     * Checks that length requirements are met.
+     *
+     * @throws ParseException if the given length is invalid.
+     */
+    public static int parseLength(String length) throws ParseException {
         try {
-            int length =  Integer.parseInt(s);
-            if (length <= 3) {
+            int lengthNum = Integer.parseInt(length);
+            if (lengthNum <= 3) {
                 throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
             }
-            return length;
+            return lengthNum;
         } catch (NumberFormatException e) {
             throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
         }
     }
 
-    public static boolean parseBool(String s) throws ParseException {
-        if (!(s.equals("true") || s.equals("false"))) {
+    /**
+     * Parses a string bool into an Boolean value.
+     * Checks that string bool is valid argument.
+     *
+     * @throws ParseException if the given length is invalid.
+     */
+    public static boolean parseBool(String bool) throws ParseException {
+        if (!(bool.equals("true") || bool.equals("false"))) {
             throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_BOOLEAN);
         }
-        return Boolean.valueOf(s);
+        return Boolean.valueOf(bool);
     }
 }

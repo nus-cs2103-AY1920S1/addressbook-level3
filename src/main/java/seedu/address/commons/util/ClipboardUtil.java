@@ -1,11 +1,14 @@
 package seedu.address.commons.util;
 
-import java.awt.*;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 
+/**
+ * A class for handling user clipboard.
+ */
 public class ClipboardUtil {
     /**
      * Copies generated password to user clipboard

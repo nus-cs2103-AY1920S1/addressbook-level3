@@ -9,11 +9,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPPER;
 
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.GeneratePasswordCommand;
 import seedu.address.logic.commands.GeneratePasswordCommand.PasswordGeneratorDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new GeneratePasswordCommand object
@@ -27,8 +27,9 @@ public class GeneratePasswordCommandParser implements Parser {
                 ArgumentTokenizer.tokenize(userInput, PREFIX_LENGTH, PREFIX_LOWER,
                                                     PREFIX_UPPER, PREFIX_NUM, PREFIX_SPECIAL);
         if (!anyPrefixesPresent(argMultimap, PREFIX_LENGTH, PREFIX_LOWER, PREFIX_UPPER, PREFIX_NUM, PREFIX_SPECIAL)
-        && !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GeneratePasswordCommand.MESSAGE_USAGE));
+            && !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                                                            GeneratePasswordCommand.MESSAGE_USAGE));
         }
 
         //returns default settings password generation settings if all empty

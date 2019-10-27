@@ -5,8 +5,8 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.password.Password;
-import seedu.address.model.password.analyser.result.SimilarityResult;
 import seedu.address.model.password.analyser.match.SimilarityMatch;
+import seedu.address.model.password.analyser.result.SimilarityResult;
 
 /**
  * Represents analyser object that analyses passwords in password book for similar passwords.
