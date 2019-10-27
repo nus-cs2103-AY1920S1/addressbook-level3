@@ -74,9 +74,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     //========== Problem ================================================================
 
-    /**
-     * Returns the {@code Problem} with the same id in the algobase.
-     */
+    @Override
     public Problem findProblemById(Id problemId) throws IllegalValueException {
         requireNonNull(problemId);
         Iterator<Problem> iterator = problems.iterator();
@@ -138,6 +136,20 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     //========== Tag ====================================================================
+
+    @Override
+    public Tag findTagById(Id tagId) throws IllegalValueException {
+        requireNonNull(tagId);
+        Iterator<Tag> iterator = tags.iterator();
+        while (iterator.hasNext()) {
+            Tag tag = iterator.next();
+            if (tag.getId().equals(tagId)) {
+                return tag;
+            }
+        }
+        throw new IllegalValueException("No tag found");
+    }
+
     /**
      * Replaces the contents of the Tag list with {@code tags}.
      * {@code tags} must not contain duplicate tags.
@@ -186,6 +198,19 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     //========== Plan ===================================================================
+
+    @Override
+    public Plan findPlanById(Id planId) throws IllegalValueException {
+        requireNonNull(planId);
+        Iterator<Plan> iterator = plans.iterator();
+        while (iterator.hasNext()) {
+            Plan plan = iterator.next();
+            if (plan.getId().equals(planId)) {
+                return plan;
+            }
+        }
+        throw new IllegalValueException("No plan found");
+    }
 
     /**
      * Replaces the contents of the Plan list with {@code plans}.

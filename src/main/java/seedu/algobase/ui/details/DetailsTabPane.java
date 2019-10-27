@@ -1,6 +1,7 @@
 package seedu.algobase.ui.details;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -8,12 +9,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.logic.Logic;
+import seedu.algobase.model.Id;
+import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.TabManager;
 import seedu.algobase.model.plan.Plan;
@@ -28,9 +31,7 @@ public class DetailsTabPane extends UiPart<Region> {
 
     private static final String FXML = "DetailsTabPane.fxml";
 
-    private final ObservableList<Problem> problems;
-    private final ObservableList<Plan> plans;
-    private final ObservableList<Tag> tags;
+    private final ReadOnlyAlgoBase algoBase;
     private final TabManager tabManager;
 
     @FXML
@@ -38,9 +39,7 @@ public class DetailsTabPane extends UiPart<Region> {
 
     public DetailsTabPane(Logic logic) {
         super(FXML);
-        this.problems = logic.getProcessedProblemList();
-        this.plans = logic.getProcessedPlanList();
-        this.tags = logic.getFilteredTagList();
+        this.algoBase = logic.getAlgoBase();
         this.tabManager = logic.getGuiState().getTabManager();
 
         addTabsToTabPane(tabManager.getTabsDataList());
@@ -59,7 +58,7 @@ public class DetailsTabPane extends UiPart<Region> {
         tabsData.stream()
             .map(this::convertTabDataToDetailsTab)
             .collect(Collectors.toList())
-            .forEach(this::addTabToTabPane);
+            .forEach((tabData) -> tabData.ifPresent(this::addTabToTabPane));
     }
 
     /**
@@ -119,20 +118,24 @@ public class DetailsTabPane extends UiPart<Region> {
      *
      * @param tabData The TabData to be converted.
      */
-    private DetailsTab convertTabDataToDetailsTab(TabData tabData) throws IllegalArgumentException {
-        int zeroBasedIndex = tabData.getModelIndex().getZeroBased();
-        switch (tabData.getModelType()) {
-        case PROBLEM:
-            Problem problem = problems.get(zeroBasedIndex);
-            return new DetailsTab(problem.getName().fullName, new ProblemDetails(problem));
-        case PLAN:
-            Plan plan = plans.get(zeroBasedIndex);
-            return new DetailsTab(plan.getPlanName().fullName);
-        case TAG:
-            Tag tag = tags.get(zeroBasedIndex);
-            return new DetailsTab(tag.getName());
-        default:
-            throw new IllegalArgumentException("Model does not exist");
+    private Optional<DetailsTab> convertTabDataToDetailsTab(TabData tabData) throws IllegalArgumentException {
+        Id modelId = tabData.getModelId();
+        try {
+            switch (tabData.getModelType()) {
+            case PROBLEM:
+                Problem problem = algoBase.findProblemById(modelId);
+                return Optional.of(new DetailsTab(problem.getName().fullName, new ProblemDetails(problem)));
+            case PLAN:
+                Plan plan = algoBase.findPlanById(modelId);
+                return Optional.of(new DetailsTab(plan.getPlanName().fullName));
+            case TAG:
+                Tag tag = algoBase.findTagById(modelId);
+                return Optional.of(new DetailsTab(tag.getName()));
+            default:
+                throw new IllegalArgumentException("Model does not exist");
+            }
+        } catch (IllegalValueException e) {
+            return Optional.empty();
         }
     }
 

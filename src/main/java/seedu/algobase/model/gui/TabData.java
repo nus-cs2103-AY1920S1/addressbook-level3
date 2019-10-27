@@ -2,7 +2,7 @@ package seedu.algobase.model.gui;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 
 /**
@@ -10,12 +10,12 @@ import seedu.algobase.model.ModelType;
  */
 public class TabData {
     private final ModelType modelType;
-    private final Index modelIndex;
+    private final Id modelId;
 
-    public TabData(ModelType modelType, Index modelIndex) {
-        requireAllNonNull(modelType, modelIndex);
+    public TabData(ModelType modelType, Id modelId) {
+        requireAllNonNull(modelType, modelId);
 
-        this.modelIndex = modelIndex;
+        this.modelId = modelId;
         this.modelType = modelType;
     }
 
@@ -23,8 +23,8 @@ public class TabData {
         return modelType;
     }
 
-    public Index getModelIndex() {
-        return modelIndex;
+    public Id getModelId() {
+        return modelId;
     }
 
     /**
@@ -37,7 +37,7 @@ public class TabData {
         }
 
         return otherTabData != null
-            && otherTabData.getModelType() == getModelType() && otherTabData.getModelIndex().equals(modelIndex);
+            && otherTabData.getModelType() == getModelType() && otherTabData.getModelId().equals(modelId);
     }
 
 }

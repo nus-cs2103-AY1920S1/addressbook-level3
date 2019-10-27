@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.gui.TabData;
@@ -80,8 +81,8 @@ class SwitchTabCommandTest {
         @Override
         public GuiState getGuiState() {
             GuiState guiState = new GuiState();
-            TabData tabData1 = new TabData(ModelType.PROBLEM, Index.fromOneBased(1));
-            TabData tabData2 = new TabData(ModelType.PROBLEM, Index.fromOneBased(2));
+            TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId(1));
+            TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId(2));
             guiState.getTabManager().addTab(tabData1, tabData2);
             return guiState;
         }

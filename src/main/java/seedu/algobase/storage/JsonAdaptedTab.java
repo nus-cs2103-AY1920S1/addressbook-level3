@@ -3,9 +3,9 @@ package seedu.algobase.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.AlgoBase;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabData;
 
@@ -17,16 +17,16 @@ public class JsonAdaptedTab {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tab Data's %s field is missing!";
 
     private final String modelType;
-    private final int modelIndex;
+    private final String modelId;
 
     /**
      * Constructs a {@code JsonAdaptedTab} with the given TabData.
      */
     @JsonCreator
     public JsonAdaptedTab(@JsonProperty("name") String modelType,
-                           @JsonProperty("index") int modelIndex) {
+                           @JsonProperty("index") String modelId) {
         this.modelType = modelType;
-        this.modelIndex = modelIndex;
+        this.modelId = modelId;
     }
 
     /**
@@ -34,7 +34,7 @@ public class JsonAdaptedTab {
      */
     public JsonAdaptedTab(TabData tabData) {
         modelType = tabData.getModelType().toString();
-        modelIndex = tabData.getModelIndex().getZeroBased();
+        modelId = tabData.getModelId().toString();
     }
 
     /**
@@ -45,7 +45,7 @@ public class JsonAdaptedTab {
     public TabData toModelType(AlgoBase algoBase) throws IllegalValueException {
 
         ModelType modelType = retrieveModelType(this.modelType);
-        Index modelIndex = retrieveModelIndex(this.modelIndex);
+        Id modelIndex = retrieveModelId(this.modelId);
 
         return new TabData(modelType, modelIndex);
     }
@@ -71,13 +71,13 @@ public class JsonAdaptedTab {
     }
 
     /**
-     * Converts a model index in string format to an Index Object.
+     * Converts a model id in string format to an Id Object.
      *
-     * @param modelIndex model index in integer format.
+     * @param modelId model id in integer format.
      * @return the corresponding Index Object.
      * @throws IllegalValueException if string format is invalid.
      */
-    public Index retrieveModelIndex(int modelIndex) throws IllegalValueException {
-        return Index.fromZeroBased(modelIndex);
+    public Id retrieveModelId(String modelId) throws IllegalValueException {
+        return Id.generateId(Long.parseLong(modelId));
     }
 }

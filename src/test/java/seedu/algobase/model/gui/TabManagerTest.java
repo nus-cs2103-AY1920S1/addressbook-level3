@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 
 public class TabManagerTest {
@@ -42,8 +43,8 @@ public class TabManagerTest {
     @Test
     public void setDetailsTabPaneIndex_indexWithinRange_success() {
         TabManager tabManager = new TabManager();
-        TabData tabData1 = new TabData(ModelType.PROBLEM, Index.fromOneBased(1));
-        TabData tabData2 = new TabData(ModelType.PROBLEM, Index.fromOneBased(2));
+        TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId(100000000));
+        TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId(100000001));
         tabManager.addTab(tabData1, tabData2);
         Index[] testValues = new Index[] { OLD_VALUE };
 

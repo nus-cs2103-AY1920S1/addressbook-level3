@@ -7,6 +7,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_MODEL_TYPE;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabData;
@@ -41,32 +42,33 @@ public class OpenTabCommand extends Command {
     }
 
     /**
-     * Checks if an AlgoBase Tab is valid.
+     * Retrieves an Id for a model of modelType at a given index.
      *
-     * @param model The models that the tab will be checked against for validity.
-     * @param tabData The tabs to be checked.
-     * @throws IndexOutOfBoundsException if the tab index does not exist within the models.
-     * @throws IllegalArgumentException if the model does not exist.
+     * @param model
+     * @param modelType
+     * @param modelIndex
+     * @return
+     * @throws IndexOutOfBoundsException
+     * @throws IllegalArgumentException
      */
-    private boolean isValidTabData(Model model, TabData tabData)
+    private Id retrieveId(Model model, ModelType modelType, Index modelIndex)
         throws IndexOutOfBoundsException, IllegalArgumentException {
-        Index tabIndex = tabData.getModelIndex();
-        switch (tabData.getModelType()) {
+        switch (modelType) {
         case PROBLEM:
-            if (!isWithinListRange(tabIndex, model.getFilteredProblemList())) {
+            if (!isWithinListRange(modelIndex, model.getFilteredProblemList())) {
                 throw new IndexOutOfBoundsException("Index does not exist within list!");
             }
-            return true;
+            return model.getFilteredProblemList().get(modelIndex.getZeroBased()).getId();
         case PLAN:
-            if (!isWithinListRange(tabIndex, model.getFilteredPlanList())) {
+            if (!isWithinListRange(modelIndex, model.getFilteredPlanList())) {
                 throw new IndexOutOfBoundsException("Index does not exist within list!");
             }
-            return true;
+            return model.getFilteredPlanList().get(modelIndex.getZeroBased()).getId();
         case TAG:
-            if (!isWithinListRange(tabIndex, model.getFilteredTagList())) {
+            if (!isWithinListRange(modelIndex, model.getFilteredTagList())) {
                 throw new IndexOutOfBoundsException("Index does not exist within list!");
             }
-            return true;
+            return model.getFilteredTagList().get(modelIndex.getZeroBased()).getId();
         default:
             throw new IllegalArgumentException("Unknown model");
         }
@@ -75,8 +77,8 @@ public class OpenTabCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         try {
-            TabData tabData = new TabData(modelType, index);
-            isValidTabData(model, tabData);
+            Id modelId = retrieveId(model, modelType, index);
+            TabData tabData = new TabData(modelType, modelId);
             model.getGuiState().getTabManager().addTab(tabData);
             return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
         } catch (IndexOutOfBoundsException exception) {
