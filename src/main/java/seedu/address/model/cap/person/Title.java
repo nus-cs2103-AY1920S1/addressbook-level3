@@ -25,6 +25,10 @@ public class Title {
         return title;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

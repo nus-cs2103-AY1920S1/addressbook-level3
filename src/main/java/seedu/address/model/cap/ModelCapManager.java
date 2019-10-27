@@ -119,6 +119,10 @@ public class ModelCapManager implements Model {
         return filteredSemesters;
     }
 
+    public int getModuleCount() {
+        return filteredModules.size();
+    }
+
     @Override
     public void updateFilteredSemesterList(Predicate<Semester> predicate) {
         requireNonNull(predicate);
@@ -179,5 +183,4 @@ public class ModelCapManager implements Model {
                 && capUserPrefs.equals(other.capUserPrefs)
                 && filteredModules.equals(other.filteredModules);
     }
-
 }

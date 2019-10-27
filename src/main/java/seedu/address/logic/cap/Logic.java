@@ -50,4 +50,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    double getFilteredCapInformation();
 }

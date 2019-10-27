@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ModuleCode {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "ModuleCode should only contain alphanumeric characters, there "
+                + "should not be spaces and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -28,7 +29,7 @@ public class ModuleCode {
     public ModuleCode(String code) {
         requireNonNull(code);
         checkArgument(isValidName(code), MESSAGE_CONSTRAINTS);
-        moduleCode = code;
+        moduleCode = code.toUpperCase();
     }
 
     /**
@@ -41,6 +42,10 @@ public class ModuleCode {
 
     @Override
     public String toString() {
+        return moduleCode;
+    }
+
+    public String getModuleCode() {
         return moduleCode;
     }
 

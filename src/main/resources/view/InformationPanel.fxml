@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox>
+    <Label contentDisplay="CENTER" styleClass="result-display" text="CAP:">
+      <padding>
+         <Insets bottom="1.0" left="5.0" right="5.0" top="1.0" />
+      </padding>
+      <font>
+         <Font name="AdobeGothicStd-Bold" size="13.0" />
+      </font>
+    </Label>
+
+    <StackPane prefHeight="8.0" prefWidth="38.0" styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="1.0" />
+        </padding>
+        <Label fx:id="infoDisplay" styleClass="result-display" StackPane.alignment="TOP_LEFT" />
+    </StackPane>
+</VBox>

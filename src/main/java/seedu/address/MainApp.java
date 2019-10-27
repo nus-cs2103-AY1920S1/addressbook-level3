@@ -171,7 +171,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         primary = primaryStage;
 
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Modulo " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

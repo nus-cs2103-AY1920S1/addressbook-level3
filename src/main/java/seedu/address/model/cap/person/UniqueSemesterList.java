@@ -43,10 +43,9 @@ public class UniqueSemesterList implements Iterable<Semester> {
      */
     public void add(Semester toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateModuleException();
+        if (!contains(toAdd)) {
+            internalList.add(toAdd);
         }
-        internalList.add(toAdd);
     }
 
     /**

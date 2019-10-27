@@ -121,4 +121,9 @@ public interface Model {
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
 
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    int getModuleCount();
 }
