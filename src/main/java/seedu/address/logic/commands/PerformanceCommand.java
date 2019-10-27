@@ -32,24 +32,24 @@ public class PerformanceCommand extends Command {
             + PREFIX_DATE + "02102019 "
             + PREFIX_TIMING + "30s";
 
-    private final String event;
     private final Index index;
+    private final String event;
     private final AthletickDate date;
     private final String time;
+
+    /**
+     * Creates a PerformanceCommand to add the record under the event.
+     */
+    public PerformanceCommand(Index index, String event, AthletickDate date, String time) {
+        this.index = index;
+        this.event = event;
+        this.date = date;
+        this.time = time;
+    }
 
     public static final String getSuccessMessage(Person p, String e, AthletickDate d, String t) {
         return "Performance record added for " + p.getName().fullName + " under " + e + " event, on "
             + d.toString() + " with a timing of " + t;
-    }
-
-    /**
-     * Creates an AddCommand to add the specified {@code Person}
-     */
-    public PerformanceCommand(Index index, String event, AthletickDate date, String time) {
-        this.event = event;
-        this.index = index;
-        this.date = date;
-        this.time = time;
     }
 
     @Override

@@ -113,7 +113,6 @@ public class Event {
 
     /**
      * Adds a player's performance to this event.
-     * @return Details of performance.
      */
     public void addPerformance(Person athlete, Record record) {
         if (!records.containsKey(athlete)) {

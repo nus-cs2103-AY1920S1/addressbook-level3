@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPerformance.EVENT_ONE;
 import static seedu.address.testutil.TypicalPerformance.EVENT_TWO;
+
 import org.junit.jupiter.api.Test;
 
 public class EventTest {

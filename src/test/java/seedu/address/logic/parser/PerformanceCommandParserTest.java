@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.EVENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.TIMING_DESC;
@@ -10,8 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMING;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.commands.CommandTestUtil.EVENT_DESC;
-
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +19,8 @@ import seedu.address.model.date.AthletickDate;
 
 public class PerformanceCommandParserTest {
 
-    private static final String MESSAGE_INVALID_FORMAT = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE);
+    private static final String MESSAGE_INVALID_FORMAT =
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE);
 
     private PerformanceCommandParser parser = new PerformanceCommandParser();
 
@@ -54,10 +54,12 @@ public class PerformanceCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid date
-        assertParseFailure(parser, VALID_INDEX + EVENT_DESC + INVALID_DATE_DESC + TIMING_DESC, AthletickDate.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+            VALID_INDEX + EVENT_DESC + INVALID_DATE_DESC + TIMING_DESC, AthletickDate.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_INDEX + VALID_EVENT + DATE_DESC + TIMING_DESC, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser,
+            PREAMBLE_NON_EMPTY + VALID_INDEX + VALID_EVENT + DATE_DESC + TIMING_DESC, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
