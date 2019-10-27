@@ -76,5 +76,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_NUM_QUESTIONS = new Prefix("numQuestions/");
     public static final Prefix PREFIX_QUESTION_NUMBER = new Prefix("questionNumber/");
     public static final Prefix PREFIX_QUIZ_QUESTION_NUMBER = new Prefix("quizQuestionNumber/");
+    public static final Prefix PREFIX_SHOW_QUESTIONS = new Prefix("showQuestions");
+    public static final Prefix PREFIX_SHOW_ANSWERS = new Prefix("showAnswers");
 
 }

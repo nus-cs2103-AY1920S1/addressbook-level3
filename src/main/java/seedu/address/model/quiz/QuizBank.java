@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
  */
 public class QuizBank implements Iterable<Quiz> {
 
+    private static String currentlyQueriedQuiz;
+
     private final ObservableList<Quiz> quizzes = FXCollections.observableArrayList();
     private final ObservableList<Quiz> quizzesUnmodifiableList =
             FXCollections.unmodifiableObservableList(quizzes);
@@ -70,6 +72,21 @@ public class QuizBank implements Iterable<Quiz> {
      */
     public Quiz getQuiz(int quizIndex) {
         return quizzes.get(quizIndex);
+    }
+
+    /**
+     * Sets the currently queried quiz.
+     */
+    public static void setCurrentlyQueriedQuiz(String queriedQuiz) {
+        currentlyQueriedQuiz = queriedQuiz;
+    }
+
+    /**
+     * Gets the currently queried quiz.
+     * @return the currently queried quiz.
+     */
+    public static String getCurrentlyQueriedQuiz() {
+        return currentlyQueriedQuiz;
     }
 
     /**

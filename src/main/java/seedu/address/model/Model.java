@@ -326,6 +326,16 @@ public interface Model {
     String getQuestionsAndAnswers(String quizId);
 
     /**
+     * Check if quiz already exists.
+     */
+    boolean checkQuizExists(String quizId);
+
+    /**
+     * Gets observable list of questions from queried quiz.
+     */
+    ObservableList<Question> getObservableListQuestionsFromQuiz();
+
+    /**
      * Exports a quiz to a html file.
      */
     boolean exportQuiz(String quizId) throws IOException;
