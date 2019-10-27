@@ -471,7 +471,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyNotesRecord getNotesRecord() {
+    public ReadOnlyNotesRecord  getNotesRecord() {
         return notesRecord;
     }
     //endregion
