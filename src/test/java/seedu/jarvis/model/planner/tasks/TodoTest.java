@@ -95,7 +95,7 @@ class TodoTest {
     public void adaptToJsonAdaptedTodo() throws Exception {
         assertEquals(TODO, TODO.adaptToJsonAdaptedTask().toModelType());
     }
-     
+
     @Test
     void markAsDone() {
         Todo t = new Todo("homework");

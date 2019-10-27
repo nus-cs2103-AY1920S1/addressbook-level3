@@ -13,8 +13,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
@@ -34,22 +35,22 @@ import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 })
 public abstract class JsonAdaptedTask implements JsonAdapter<Task> {
 
-    public static final String MESSAGE_INVALID_PRIORITY = "Invalid priority.";
-    public static final String MESSAGE_INVALID_FREQUENCY = "Invalid frequency.";
-    public static final String MESSAGE_INVALID_PRIORITY_AND_FREQUENCY = "Invalid priority and frequency";
+    public static final String MESSAGE_INVALID_ATTRIBUTES = "Invalid attributes.";
 
     protected final String description;
     protected final String priority;
     protected final String frequency;
+    protected final String status;
     protected final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("description") String description, @JsonProperty("priority") String priority,
-                           @JsonProperty("frequency") String frequency,
+                           @JsonProperty("frequency") String frequency, @JsonProperty("status") String status,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.description = description;
         this.priority = priority;
         this.frequency = frequency;
+        this.status = status;
         this.tags.addAll(tags);
     }
 
@@ -57,6 +58,7 @@ public abstract class JsonAdaptedTask implements JsonAdapter<Task> {
         description = task.getTaskDescription();
         priority = task.getPriority() != null ? task.getPriority().name() : null;
         frequency = task.getFrequency() != null ? task.getFrequency().name() : null;
+        status = task.getStatus() != null ? task.getStatus().name() : null;
         tags.addAll(task.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -105,22 +107,33 @@ public abstract class JsonAdaptedTask implements JsonAdapter<Task> {
     }
 
     /**
-     * Checks for the validity of {@code priority} and {@code frequency} which returns void if both are valid, if not,
-     * an {@code IllegalValueException} is thrown with the appropriate message.
+     * Checks if the {@code String} {@code status} is either null or a valid {@code Status} constant.
      *
-     * @throws IllegalValueException If either {@code priority} or {@code frequency} are not valid enum constants.
+     * @return If {@code String} {@code status} is either null or a valid {@code Status} constant.
      */
-    protected void checkPriorityAndFrequency() throws IllegalValueException {
-        if (!isValidPriority() && !isValidFrequency()) {
-            throw new IllegalValueException(MESSAGE_INVALID_PRIORITY_AND_FREQUENCY);
+    protected boolean isValidStatus() {
+        if (status == null) {
+            return true;
         }
 
-        if (!isValidPriority()) {
-            throw new IllegalValueException(MESSAGE_INVALID_PRIORITY);
+        try {
+            Status.valueOf(status);
+            return true;
+        } catch (IllegalArgumentException iae) {
+            return false;
         }
+    }
 
-        if (!isValidFrequency()) {
-            throw new IllegalValueException(MESSAGE_INVALID_FREQUENCY);
+    /**
+     * Checks for the validity of {@code priority}, {@code frequency} and {@code status} which returns void if both are
+     * valid, if not, an {@code IllegalValueException} is thrown with the appropriate message.
+     *
+     * @throws IllegalValueException If either {@code priority}, {@code frequency} or {@code status} are not valid enum
+     * constants.
+     */
+    protected void validateAttributes() throws IllegalValueException {
+        if (!isValidFrequency() && !isValidPriority() && !isValidStatus()) {
+            throw new IllegalValueException(MESSAGE_INVALID_ATTRIBUTES);
         }
     }
 

@@ -115,7 +115,7 @@ class DeadlineTest {
     public void adaptToJsonAdaptedDeadline() throws Exception {
         assertEquals(DEADLINE, DEADLINE.adaptToJsonAdaptedTask().toModelType());
     }
-  
+
     @Test
     void markAsDone() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());

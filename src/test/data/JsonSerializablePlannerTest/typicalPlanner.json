@@ -5,12 +5,14 @@
     "description" : "Revise CS2103T",
     "priority" : null,
     "frequency" : null,
+    "status" : "NOT_DONE",
     "tags" : [ ]
   }, {
     "type" : "JsonAdaptedDeadline",
     "description" : "V1.4",
     "priority" : null,
     "frequency" : null,
+    "status" : "NOT_DONE",
     "tags" : [ ],
     "date" : "11/11/2019"
   }, {
@@ -18,6 +20,7 @@
     "description" : "CS2103T Finals",
     "priority" : null,
     "frequency" : null,
+    "status" : "NOT_DONE",
     "tags" : [ ],
     "start" : "29/11/2019",
     "end" : "29/11/2019"

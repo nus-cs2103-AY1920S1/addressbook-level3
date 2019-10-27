@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 import seedu.jarvis.storage.JsonAdapter;
@@ -25,9 +26,9 @@ public class JsonAdaptedTodo extends JsonAdaptedTask implements JsonAdapter<Task
      */
     @JsonCreator
     public JsonAdaptedTodo(@JsonProperty("description") String description, @JsonProperty("priority") String priority,
-                           @JsonProperty("frequency") String frequency,
+                           @JsonProperty("frequency") String frequency, @JsonProperty("status") String status,
                            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
-        super(description, priority, frequency, tags);
+        super(description, priority, frequency, status, tags);
     }
 
     /**
@@ -47,11 +48,12 @@ public class JsonAdaptedTodo extends JsonAdaptedTask implements JsonAdapter<Task
      */
     @Override
     public Task toModelType() throws IllegalValueException {
-        checkPriorityAndFrequency();
+        validateAttributes();
         return new Todo(
                 description,
                 priority != null ? Priority.valueOf(priority) : null,
                 frequency != null ? Frequency.valueOf(frequency) : null,
+                status != null ? Status.valueOf(status) : null,
                 adaptToTags(tags));
     }
 

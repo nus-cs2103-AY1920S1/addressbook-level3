@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.tag.Tag;
-import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -23,22 +22,23 @@ public abstract class Task {
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     protected String taskDes;
-    protected Priority priority = null;
-    protected Frequency frequency = null;
-    protected Status status = Status.NOT_DONE;
+    protected Priority priority;
+    protected Frequency frequency;
+    protected Status status;
     protected Set<Tag> tags = new HashSet<>();
 
-    public Task(String taskDes, Priority priority, Frequency frequency, Set<Tag> tags) {
+    public Task(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags) {
         this.taskDes = taskDes;
         this.priority = priority;
         this.frequency = frequency;
+        this.status = Status.NOT_DONE;
         if (tags != null) {
             this.tags.addAll(tags);
         }
     }
 
     public Task(String taskDes) {
-        this(taskDes, null, null, null);
+        this(taskDes, null, null, Status.NOT_DONE, new HashSet<>());
     }
 
 

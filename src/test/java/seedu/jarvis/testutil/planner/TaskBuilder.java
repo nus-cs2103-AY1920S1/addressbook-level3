@@ -5,8 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -23,6 +24,7 @@ public class TaskBuilder {
     private String description;
     private Priority priority;
     private Frequency frequency;
+    private Status status;
     private Set<Tag> tags;
 
     private LocalDate deadline;
@@ -32,6 +34,7 @@ public class TaskBuilder {
 
     public TaskBuilder() {
         description = DEFAULT_DESCRIPTION;
+        status = Status.NOT_DONE;
         tags = new HashSet<>();
     }
 
@@ -42,6 +45,7 @@ public class TaskBuilder {
         description = task.getTaskDescription();
         priority = task.getPriority();
         frequency = task.getFrequency();
+        status = task.getStatus();
         tags = new HashSet<>(task.getTags());
 
         if (task instanceof Deadline) {
@@ -87,6 +91,14 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code Status} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withStatus(String status) {
+        this.status = Status.valueOf(status);
+        return this;
+    }
+
+    /**
      * Sets the {@code deadline} of the {@code Task} that we are building.
      */
     public TaskBuilder withDeadline(String date) {
@@ -114,20 +126,20 @@ public class TaskBuilder {
      * Builds a {@code Todo}.
      */
     public Todo buildTodo() {
-        return new Todo(description, priority, frequency, tags);
+        return new Todo(description, priority, frequency, status, tags);
     }
 
     /**
      * Builds a {@code Deadline}.
      */
     public Deadline buildDeadline() {
-        return new Deadline(description, priority, frequency, tags, deadline);
+        return new Deadline(description, priority, frequency, status, tags, deadline);
     }
 
     /**
      * Builds a {@code Event}.
      */
     public Event buildEvent() {
-        return new Event(description, priority, frequency, tags, start, end);
+        return new Event(description, priority, frequency, status, tags, start, end);
     }
 }
