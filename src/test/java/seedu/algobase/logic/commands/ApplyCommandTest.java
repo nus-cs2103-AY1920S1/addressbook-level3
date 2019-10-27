@@ -8,6 +8,8 @@ import static seedu.algobase.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.algobase.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.algobase.testutil.TypicalProblemSearchRules.getTypicalAlgoBase;
 
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.Messages;
@@ -15,25 +17,23 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 
-/**
- * Contains integration tests (interaction with the Model) and unit tests for
- * {@code DeleteFindRuleCommand}.
- */
-class DeleteFindRuleCommandTest {
+class ApplyCommandTest {
 
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
 
     @Test
     public void execute_validIndex_success() {
-        ProblemSearchRule ruleToDelete = model.getFilteredFindRuleList().get(INDEX_FIRST.getZeroBased());
-        DeleteFindRuleCommand command = new DeleteFindRuleCommand(INDEX_FIRST);
+        ProblemSearchRule ruleToApply = model.getFilteredFindRuleList().get(INDEX_FIRST.getZeroBased());
+        ApplyCommand command = new ApplyCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteFindRuleCommand.MESSAGE_SUCCESS, ruleToDelete);
+        String expectedMessage = String.format(ApplyCommand.MESSAGE_SUCCESS, ruleToApply);
 
         ModelManager expectedModel = new ModelManager(model.getAlgoBase(), new UserPrefs());
-        expectedModel.deleteFindRule(ruleToDelete);
+        Predicate<Problem> findProblemPredicate = ruleToApply.getFindProblemPredicate();
+        expectedModel.updateFilteredProblemList(findProblemPredicate);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
@@ -41,31 +41,30 @@ class DeleteFindRuleCommandTest {
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFindRuleList().size() + 1);
-        DeleteFindRuleCommand command = new DeleteFindRuleCommand(outOfBoundIndex);
+        ApplyCommand command = new ApplyCommand(outOfBoundIndex);
 
         assertCommandFailure(command, model, Messages.MESSAGE_INVALID_FIND_RULE_DISPLAYED_INDEX);
     }
 
-
     @Test
     void equals() {
-        DeleteFindRuleCommand deleteFirstCommand = new DeleteFindRuleCommand(INDEX_FIRST);
-        DeleteFindRuleCommand deleteSecondCommand = new DeleteFindRuleCommand(INDEX_SECOND);
+        ApplyCommand applyFirstCommand = new ApplyCommand(INDEX_FIRST);
+        ApplyCommand applySecondCommand = new ApplyCommand(INDEX_SECOND);
 
         // same object -> returns true
-        assertEquals(deleteFirstCommand, deleteFirstCommand);
+        assertEquals(applyFirstCommand, applyFirstCommand);
 
         // same values -> returns true
-        DeleteFindRuleCommand deleteFirstCommandCopy = new DeleteFindRuleCommand(INDEX_FIRST);
-        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
+        ApplyCommand applyFirstCommandCopy = new ApplyCommand(INDEX_FIRST);
+        assertEquals(applyFirstCommand, applyFirstCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, deleteFirstCommand);
+        assertNotEquals(1, applyFirstCommand);
 
         // null -> returns false
-        assertNotEquals(null, deleteFirstCommand);
+        assertNotEquals(null, applyFirstCommand);
 
         // different person -> returns false
-        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
+        assertNotEquals(applyFirstCommand, applySecondCommand);
     }
 }

@@ -1,10 +1,15 @@
 package seedu.algobase.testutil;
 
+import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
+import static seedu.algobase.testutil.TypicalProblems.getTypicalProblems;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.algobase.model.AlgoBase;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
@@ -71,21 +76,37 @@ public class TypicalProblemSearchRules {
         new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword("tags")))
     );
 
+    public static final ProblemSearchRule QUICK_SORT_PREDICATE = new ProblemSearchRule(
+        new Name("Quick sort predicate"),
+        new NameContainsKeywordsPredicate(Arrays.stream(QUICK_SORT.getName().fullName.split(" "))
+            .map(Keyword::new)
+            .collect(Collectors.toList())),
+        null,
+        null,
+        null,
+        null,
+        null
+    );
+
     public static final String INVALID_KEYWORD = "";
     public static final JsonAdaptedKeyword INVALID_ADAPTED_KEYWORD = new JsonAdaptedKeyword(INVALID_KEYWORD);
 
     /**
-     * Returns an {@code AlgoBase} with all typical find rules.
+     * Returns an {@code AlgoBase} with all typical find rules and problems.
      */
     public static AlgoBase getTypicalAlgoBase() {
         AlgoBase algoBase = new AlgoBase();
         for (ProblemSearchRule rule : getTypicalFindRules()) {
             algoBase.addFindRule(rule);
         }
+        for (Problem problem : getTypicalProblems()) {
+            algoBase.addProblem(problem);
+        }
         return algoBase;
     }
 
     public static List<ProblemSearchRule> getTypicalFindRules() {
-        return new ArrayList<>(Arrays.asList(MEDIUM_DIFFICULTY, NAME_SEQUENCES, ALL_PREDICATE));
+        // Please always keep QUICK_SORT_PREDICATE as the first predicate.
+        return new ArrayList<>(Arrays.asList(QUICK_SORT_PREDICATE, MEDIUM_DIFFICULTY, NAME_SEQUENCES, ALL_PREDICATE));
     }
 }
