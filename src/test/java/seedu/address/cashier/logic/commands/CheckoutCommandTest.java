@@ -1,14 +1,13 @@
-package seedu.address.cashier.commands;
+package seedu.address.cashier.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.cashier.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.cashier.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.commands.CheckoutCommand;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;

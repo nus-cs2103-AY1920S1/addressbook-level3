@@ -1,4 +1,4 @@
-package seedu.address.cashier.commands;
+package seedu.address.cashier.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -16,8 +16,6 @@ import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.ArrayList;
 
-import seedu.address.cashier.logic.commands.Command;
-import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;

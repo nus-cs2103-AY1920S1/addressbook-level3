@@ -1,8 +1,8 @@
-package seedu.address.cashier.commands;
+package seedu.address.cashier.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.cashier.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADDED_ITEM;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
@@ -12,8 +12,6 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.commands.AddCommand;
-import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
