@@ -6,6 +6,7 @@ import dukecooks.commons.core.LogsCenter;
 import dukecooks.model.health.components.Record;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -18,13 +19,43 @@ public class RecordListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(RecordListPanel.class);
 
     @FXML
+    private Label title;
+
+    @FXML
+    private ListView<Record> sidePanel;
+
+    @FXML
     private ListView<Record> recordListView;
 
     public RecordListPanel(ObservableList<Record> recordList) {
         super(FXML);
         recordListView.setItems(recordList);
         recordListView.setCellFactory(listView -> new RecordListViewCell());
+
+        sidePanel.setItems(recordList);
+        sidePanel.setCellFactory(listView -> new RecordListViewCell());
     }
+
+    private void hidePanels() {
+        sidePanel.setVisible(false);
+        recordListView.setVisible(false);
+    }
+
+    private void showPanels(boolean isShowSidePanel, boolean isShowListView) {
+        sidePanel.setVisible(isShowSidePanel);
+        recordListView.setVisible(isShowListView);
+    }
+
+    @FXML
+    void handleSwitch(String type) {
+        switch (type) {
+        case "all":
+            showPanels(false, true);
+            break;
+        }
+    }
+
+
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordCard}.

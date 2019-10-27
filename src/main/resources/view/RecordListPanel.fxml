@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <ListView fx:id="recordListView" VBox.vgrow="ALWAYS" />
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="title" text="Health Records" textFill="#797373">
+         <font>
+            <Font name="Devanagari Sangam MN" size="36.0" />
+         </font>
+      </Label>
+      <SplitPane dividerPositions="0.5">
+         <items>
+            <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <ListView fx:id="sidePanel" maxHeight="1.7976931348623157E308" />
+               </children></VBox>
+            <VBox>
+              <ListView fx:id="recordListView" VBox.vgrow="ALWAYS" />
+            </VBox>
+         </items>
+      </SplitPane>
+   </children>
 </VBox>

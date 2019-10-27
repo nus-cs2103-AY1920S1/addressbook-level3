@@ -2,6 +2,7 @@ package dukecooks.ui;
 
 import java.util.logging.Logger;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.Logic;
@@ -33,10 +34,15 @@ public class HealthRecordsWindow extends UiPart<Stage> {
     private UiManager uiManager;
 
     // Independent Ui parts residing in this Ui container
+    private DashboardListPanel dashboardListPanel;
+    private RecipeListPanel recipeListPanel;
     private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
+    private ExerciseListPanel exerciseListPanel;
+    private DiaryListPanel diaryListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private Event event;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -130,8 +136,10 @@ public class HealthRecordsWindow extends UiPart<Stage> {
      * with health records tab view.
      */
     void fillInnerParts() {
-        recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
-        versatilePanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+        initializePanels();
+
+        //default start up screen - dashboard page
+        versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -141,6 +149,17 @@ public class HealthRecordsWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Initializes all Panels
+     */
+    void initializePanels() {
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
+        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
+        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
     }
 
     /**
@@ -181,6 +200,51 @@ public class HealthRecordsWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Handles mode view switches of the application.
+     */
+    @FXML
+    void handleSwitch() {
+        event = Event.getInstance();
+        String mode = event.getMode();
+        String type = event.getType();
+
+        logger.info("IM HEREEE" + mode);
+        logger.info("IM HEREEE" + type);
+
+        //reset panel
+        versatilePanelPlaceholder.getChildren().clear();
+
+        //TODO NOTE: Do your internal page switches in individual panels - rmb to parse type as param
+
+        switch (mode) {
+        case "dashboard":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
+            break;
+        case "recipe":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+            break;
+        case "health":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+            recordListPanel.handleSwitch(type);
+            break;
+        case "exercise":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
+            break;
+        case "diary":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
+            break;
+        default:
+            //TODO: PLEASE EDIT THIS ERROR MESSAGE TO SOMETHING USEFUL!
+            throw new AssertionError("There should exist a valid event for UiManager!");
+        }
     }
 
     /**
