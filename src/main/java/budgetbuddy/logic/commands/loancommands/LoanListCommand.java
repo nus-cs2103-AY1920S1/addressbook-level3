@@ -15,9 +15,6 @@ import static budgetbuddy.logic.parser.CliSyntax.SORT_ARG_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.SORT_ARG_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.SORT_ARG_PERSON;
 import static budgetbuddy.model.loan.LoanFilters.FILTER_ALL;
-import static budgetbuddy.model.loan.LoanSorters.AMOUNT_ASC;
-import static budgetbuddy.model.loan.LoanSorters.DATE_NEWEST;
-import static budgetbuddy.model.loan.LoanSorters.PERSON;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,7 +27,6 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.LoanSorters.SortBy;
 
 /**
  * Lists loans.
@@ -60,11 +56,11 @@ public class LoanListCommand extends Command {
     public static final String MESSAGE_NO_LOANS =
             "No loans found in your list. Nobody owes anybody money... for now.";
 
-    private Optional<SortBy> optionalSortBy;
+    private Optional<Comparator<Loan>> optionalSorter;
     private List<Predicate<Loan>> filters;
 
-    public LoanListCommand(Optional<SortBy> optionalSortBy, List<Predicate<Loan>> filters) {
-        this.optionalSortBy = optionalSortBy;
+    public LoanListCommand(Optional<Comparator<Loan>> optionalSorter, List<Predicate<Loan>> filters) {
+        this.optionalSorter = optionalSorter;
         this.filters = new ArrayList<Predicate<Loan>>();
         this.filters.addAll(filters);
     }
@@ -79,9 +75,8 @@ public class LoanListCommand extends Command {
 
         String resultMessage = MESSAGE_SUCCESS;
 
-        if (optionalSortBy.isPresent()) {
-            Comparator<Loan> sorter = getSorter();
-            model.getLoansManager().sortLoans(sorter);
+        if (optionalSorter.isPresent()) {
+            model.getLoansManager().sortLoans(optionalSorter.get());
             resultMessage += " " + MESSAGE_SORTED;
         }
 
@@ -91,17 +86,5 @@ public class LoanListCommand extends Command {
         }
 
         return new CommandResult(resultMessage, CommandCategory.LOAN);
-    }
-
-    private Comparator<Loan> getSorter() {
-        assert optionalSortBy.isPresent();
-        switch (optionalSortBy.get()) {
-        case PERSON:
-            return PERSON;
-        case AMOUNT:
-            return AMOUNT_ASC;
-        default:
-            return DATE_NEWEST;
-        }
     }
 }

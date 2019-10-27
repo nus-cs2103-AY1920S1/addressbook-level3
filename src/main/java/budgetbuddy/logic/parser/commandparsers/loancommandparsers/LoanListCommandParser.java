@@ -17,6 +17,7 @@ import static budgetbuddy.model.loan.LoanFilters.getDirectionPredicate;
 import static budgetbuddy.model.loan.LoanFilters.getStatusPredicate;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -31,7 +32,7 @@ import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.loan.LoanSorters.SortBy;
+import budgetbuddy.model.loan.LoanSorters;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.predicates.AmountMatchPredicate;
 import budgetbuddy.model.loan.predicates.DateMatchPredicate;
@@ -60,7 +61,7 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
         }
 
-        Optional<SortBy> optionalSortBy = argMultimap.getValue(PREFIX_SORT).isPresent()
+        Optional<Comparator<Loan>> optionalSorter = argMultimap.getValue(PREFIX_SORT).isPresent()
                 ? parseSortArg(argMultimap.getValue(PREFIX_SORT))
                 : Optional.empty();
 
@@ -88,26 +89,26 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
             filters.add(new DescriptionMatchPredicate(CommandParserUtil.parseDescription(descriptionStr)));
         }
 
-        return new LoanListCommand(optionalSortBy, filters);
+        return new LoanListCommand(optionalSorter, filters);
     }
 
     /**
-     * Parses an optional sort argument into a {@code SortBy}.
-     * @return The parsed {@code SortBy} enumeration.
-     * @throws ParseException If the given argument does not correspond to a {@code SortBy} value.
+     * Parses an optional sort argument into a comparator for loans.
+     * @return The parsed comparator.
+     * @throws ParseException If the given argument does not correspond to a comparator in {@code LoanSorters}.
      */
-    private Optional<SortBy> parseSortArg(Optional<String> optionalSortArg) throws ParseException {
+    private Optional<Comparator<Loan>> parseSortArg(Optional<String> optionalSortArg) throws ParseException {
         if (optionalSortArg.isEmpty()) {
             return Optional.empty();
         }
 
         switch (optionalSortArg.get()) {
         case SORT_ARG_AMOUNT:
-            return Optional.of(SortBy.AMOUNT);
+            return Optional.of(LoanSorters.AMOUNT_ASC);
         case SORT_ARG_PERSON:
-            return Optional.of(SortBy.PERSON);
+            return Optional.of(LoanSorters.PERSON);
         case SORT_ARG_DATE:
-            return Optional.of(SortBy.DATE);
+            return Optional.of(LoanSorters.DATE_NEWEST);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
         }
