@@ -38,7 +38,8 @@ public class DisinviteCommand extends Command{
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Unable to disinvite \"%s\" as he/she has no unique search result in the current activity.";
 
-    public static final String MESSAGE_DUPLICATE_ENTRY = "\"%s\" has duplicate entries, the first one will be added.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "\"%s\" has duplicate entries, the first one will be removed" +
+            "if he/she is not involved in any expenses.";
 
     public static final String MESSAGE_SUCCESS_INVITE = "Disinvited \"%s\" into the activity.";
 
@@ -97,7 +98,7 @@ public class DisinviteCommand extends Command{
             }
 
             Person personToDisinvite = findResult.get(0);
-            Integer idOfPersonToDisinvite = personToDisinvite.getPrimaryKey();
+            Integer idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
 
             if (idsToRemove.contains(idOfPersonToDisinvite)) {
                 String warning = String.format(MESSAGE_DUPLICATE_ENTRY, name);
@@ -106,7 +107,7 @@ public class DisinviteCommand extends Command{
             }
 
             idsToRemove.add(idOfPersonToDisinvite);
-            successMessage.append(String.format(MESSAGE_SUCCESS_INVITE, personToDisinvite.getName()) + "\n");
+//            successMessage.append(String.format(MESSAGE_SUCCESS_INVITE, personToDisinvite.getName()) + "\n");
 
 
 
