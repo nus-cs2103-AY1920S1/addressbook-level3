@@ -4,7 +4,7 @@ import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,7 @@ public class ImportCommandParserTest {
     public void parse_validArgs_returnsImportCommand() {
         // no leading and trailing whitespaces
         ImportCommand expectedImportCommand =
-                new ImportCommand(Paths.get("data", "bookmarks", "myBookmarks.json"));
+                new ImportCommand(Path.of("data", "bookmarks", "myBookmarks.json"));
         assertParseSuccess(parser, "myBookmarks", expectedImportCommand);
 
         // leading and trailing whitespaces

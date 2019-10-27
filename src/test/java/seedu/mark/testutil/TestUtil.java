@@ -3,7 +3,6 @@ package seedu.mark.testutil;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.model.Model;
@@ -17,7 +16,7 @@ public class TestUtil {
     /**
      * Folder used for temp files created during testing. Ignored by Git.
      */
-    private static final Path SANDBOX_FOLDER = Paths.get("src", "test", "data", "sandbox");
+    private static final Path SANDBOX_FOLDER = Path.of("src", "test", "data", "sandbox");
 
     /**
      * Appends {@code fileName} to the sandbox folder path and returns the resulting path.
