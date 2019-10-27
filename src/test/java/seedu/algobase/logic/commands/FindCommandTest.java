@@ -157,6 +157,10 @@ class FindCommandTest {
         // same object -> returns true
         assertEquals(findFirstCommand, findFirstCommand);
 
+        // same values -> returns true
+        FindCommand findFirstCommandCopy = new FindCommand(firstDescriptor);
+        assertEquals(findFirstCommand, findFirstCommandCopy);
+
         // different types -> returns false
         assertNotEquals(1, findFirstCommand);
 

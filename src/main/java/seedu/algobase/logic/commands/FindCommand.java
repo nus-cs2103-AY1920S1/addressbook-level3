@@ -43,9 +43,12 @@ public class FindCommand extends Command {
      */
     private static final Predicate<Problem> ALWAYS_TRUE_PROBLEM_PREDICATE = problem -> true;
     private final Predicate<Problem> predicate;
+    private final FindProblemDescriptor descriptor;
 
     public FindCommand(FindProblemDescriptor findProblemDescriptor) {
         requireNonNull(findProblemDescriptor);
+        // Creates a defensive copy of the original descriptor.
+        this.descriptor = new FindProblemDescriptor(findProblemDescriptor);
         this.predicate = findProblemDescriptor.getFindProblemPredicate();
     }
 
@@ -57,14 +60,11 @@ public class FindCommand extends Command {
                 String.format(Messages.MESSAGE_PROBLEMS_LISTED_OVERVIEW, model.getFilteredProblemList().size()));
     }
 
-    // Note that we can't actually compare two FindCommands as even if they are created by the
-    // same descriptor, the creation of predicate by chaining .and method will create a predicate
-    // of a new identity.
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && descriptor.equals(((FindCommand) other).descriptor)); // state check
     }
 
 }
