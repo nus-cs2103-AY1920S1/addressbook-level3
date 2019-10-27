@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.TrackableState;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Name;
@@ -12,7 +13,7 @@ import seedu.address.model.entity.Name;
 /**
  * Edits an {@link Entity} in Alfred.
  */
-public abstract class EditCommand extends Command {
+public abstract class EditCommand extends Command implements TrackableState {
 
     /* Possible Fields */
 

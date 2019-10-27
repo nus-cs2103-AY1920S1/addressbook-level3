@@ -55,7 +55,7 @@ public class ModelManager implements Model {
     // TODO: Remove the null values which are a placeholder due to the multiple constructors.
     // Also will have to change the relevant attributes to final.
     private AlfredStorage storage = null;
-    private ModelHistoryManager history = null;
+    private ModelHistory history = null;
     private AddressBook addressBook = null;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons = null;
@@ -819,9 +819,29 @@ public class ModelManager implements Model {
 
     /**
      * Gets a String detailing the previously executed commands that can be undone by the user.
-     * @return String representing the previously executed commands that can be undone by the user.
      */
-    public ArrayList<CommandRecord> getCommandHistory() throws AlfredModelHistoryException {
+    public String getCommandHistoryString() {
+        return this.history.getCommandHistoryString();
+    }
+
+    /**
+     * Returns a List of Strings describing the commands that can be undone.
+     */
+    public List<String> getUndoCommandHistory() {
+        return this.history.getUndoCommandHistory();
+    }
+
+    /**
+     * Returns a List of Strings describing the commands that can be redone.
+     */
+    public List<String> getRedoCommandHistory() {
+        return this.history.getRedoCommandHistory();
+    }
+
+    /**
+     * Returns a List of CommandRecords describing the commands that can be undone/redone
+     */
+    public ArrayList<CommandRecord> getCommandHistory() {
         return this.history.getCommandHistory();
     }
 }

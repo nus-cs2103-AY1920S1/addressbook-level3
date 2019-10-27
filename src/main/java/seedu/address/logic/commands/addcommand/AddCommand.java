@@ -1,12 +1,13 @@
 package seedu.address.logic.commands.addcommand;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.TrackableState;
 import seedu.address.model.entity.Entity;
 
 /**
  * Adds an {@link Entity} to Alfred.
  */
-public abstract class AddCommand extends Command {
+public abstract class AddCommand extends Command implements TrackableState {
 
     public static final String COMMAND_WORD = "add";
 

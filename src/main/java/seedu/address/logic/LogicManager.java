@@ -2,12 +2,12 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -73,7 +73,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ArrayList<CommandRecord> getCommandHistory() throws AlfredModelHistoryException {
+    public ArrayList<CommandRecord> getCommandHistory() {
         return model.getCommandHistory();
     }
 
@@ -106,5 +106,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public List<String> getUndoCommandHistory() {
+        return model.getUndoCommandHistory();
+    }
+
+    @Override
+    public List<String> getRedoCommandHistory() {
+        return model.getRedoCommandHistory();
     }
 }

@@ -24,7 +24,7 @@ public class CommandResult {
     private final boolean exit;
 
     /**
-     * Prefix to indicate the commandType ot Entity the command direclty affects.
+     * Prefix to indicate the CommandType of Entity the command directly affects.
      */
     private final CommandType commandType;
 

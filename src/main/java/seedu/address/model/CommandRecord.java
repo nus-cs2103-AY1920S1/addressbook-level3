@@ -1,21 +1,19 @@
 package seedu.address.model;
 
-import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.ui.EntityCard;
 
 /**
- * Represents a Previous, Current or Future Command in History.
+ * Represents a record of a previously executed command in ModelHistory.
  */
 public class CommandRecord {
     /**
      * Represents the CommandType of a CommandRecord.
-     * As the user uses the undo or redo command,
-     * the commandtype will represent whether it
-     * is a future command for redo, past command for undo,
-     * end command so that user can no longer undo,
-     * or current command user is at.
+     * Indicates whether the CommandRecord represents a Command
+     * that can be undone (UNDO), redone (REDO), is the current
+     * command (CURR), or is a sentinel for the endpoints (END).
+     * The user will not be able to undo/redo beyond the endpoints.
      */
-    public enum CommandType { PAST, CURR, FUTURE, END };
+    public enum CommandType { UNDO, CURR, REDO, END };
 
     private Integer index;
     private String commandString;
@@ -27,16 +25,23 @@ public class CommandRecord {
         this.commandType = commandType;
     }
 
-    public CommandRecord(CommandType commandType) throws AlfredModelHistoryException {
-        if (commandType.equals(CommandType.END)) {
-            this.commandString = "*: Initialised State. Cannot undo.";
-            this.index = null;
-            this.commandType = CommandType.END;
-        } else {
-            throw new AlfredModelHistoryException("Previous commands cannot be properly initialised");
-        }
+    public static CommandRecord getUndoEndPoint() {
+        return new CommandRecord(null,
+                   "=============<< Cannot Undo Beyond This Point >>=============",
+                                 CommandType.END);
     }
 
+    public static CommandRecord getRedoEndPoint() {
+        return new CommandRecord(null,
+                   "=============<< Cannot Redo Beyond This Point >>=============",
+                                 CommandType.END);
+    }
+
+    public static CommandRecord getCurrentStatePoint() {
+        return new CommandRecord(null,
+                   "=====================<< Current State >>=====================",
+                                 CommandType.CURR);
+    }
 
     public String getCommandString() {
         return this.commandString;
@@ -68,6 +73,4 @@ public class CommandRecord {
                 && commandString.equals(commandRecord.getCommandString())
                 && commandType.equals(commandRecord.getCommandType());
     }
-
-
 }

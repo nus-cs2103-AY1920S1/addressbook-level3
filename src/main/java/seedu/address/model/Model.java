@@ -210,5 +210,21 @@ public interface Model {
      * Gets a String detailing the previously executed commands that can be undone by the user.
      * @return String representing the previously executed commands that can be undone by the user.
      */
-    ArrayList<CommandRecord> getCommandHistory() throws AlfredModelHistoryException;
+    String getCommandHistoryString();
+
+    /**
+     * Returns a List of Strings describing the commands that can be undone.
+     */
+    List<String> getUndoCommandHistory();
+
+    /**
+     * Returns a List of Strings describing the commands that can be redone.
+     */
+    List<String> getRedoCommandHistory();
+
+    /**
+     * Returns a List of CommandsRecords describing the commands that can be undone/redone
+     * @throws AlfredModelHistoryException
+     */
+    ArrayList<CommandRecord> getCommandHistory();
 }
