@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PHONE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
 
 /**
@@ -28,6 +27,7 @@ public class DeletePhoneCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePhoneCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeletePhoneCommand.MESSAGE_USAGE));
     }
 }

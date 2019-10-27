@@ -31,9 +31,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.address.model.customer.Email;
-import seedu.address.model.customer.CustomerName;
 import seedu.address.model.customer.ContactNumber;
+import seedu.address.model.customer.CustomerName;
+import seedu.address.model.customer.Email;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 
@@ -75,10 +75,14 @@ public class EditCustomerCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_CUSTOMER_NAME_DESC, CustomerName.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_CONTACT_NUMBER_DESC, ContactNumber.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_CUSTOMER_NAME_DESC,
+                CustomerName.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_CONTACT_NUMBER_DESC,
+                ContactNumber.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC,
+                Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC,
+                Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid contact followed by valid email
         assertParseFailure(parser, "1" + INVALID_CONTACT_NUMBER_DESC + EMAIL_DESC_ALICE,
@@ -92,13 +96,16 @@ public class EditCustomerCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Customer} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_REGULAR + TAG_DESC_RICH + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_REGULAR + TAG_EMPTY + TAG_DESC_RICH, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_REGULAR + TAG_DESC_RICH, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_REGULAR + TAG_DESC_RICH + TAG_EMPTY,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_REGULAR + TAG_EMPTY + TAG_DESC_RICH,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_REGULAR + TAG_DESC_RICH,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_CUSTOMER_NAME_DESC + INVALID_EMAIL_DESC + VALID_CONTACT_NUMBER_ALICE,
-                CustomerName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_CUSTOMER_NAME_DESC + INVALID_EMAIL_DESC
+                        + VALID_CONTACT_NUMBER_ALICE, CustomerName.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -133,7 +140,8 @@ public class EditCustomerCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_CUSTOMER;
         String userInput = targetIndex.getOneBased() + NAME_DESC_ALICE;
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withCustomerName(VALID_NAME_ALICE).build();
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder()
+                .withCustomerName(VALID_NAME_ALICE).build();
         EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -163,7 +171,8 @@ public class EditCustomerCommandParserTest {
                 + TAG_DESC_REGULAR + CONTACT_NUMBER_DESC_BEN + EMAIL_DESC_BEN + TAG_DESC_REGULAR
                 + CONTACT_NUMBER_DESC_BEN + EMAIL_DESC_BEN + TAG_DESC_RICH;
 
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withContactNumber(VALID_CONTACT_NUMBER_BEN)
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder()
+                .withContactNumber(VALID_CONTACT_NUMBER_BEN)
                 .withEmail(VALID_EMAIL_BEN).withTags(VALID_TAG_REGULAR, VALID_TAG_RICH)
                 .build();
         EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
@@ -176,7 +185,8 @@ public class EditCustomerCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_CUSTOMER;
         String userInput = targetIndex.getOneBased() + INVALID_CONTACT_NUMBER_DESC + CONTACT_NUMBER_DESC_BEN;
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withContactNumber(VALID_CONTACT_NUMBER_BEN).build();
+        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder()
+                .withContactNumber(VALID_CONTACT_NUMBER_BEN).build();
         EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

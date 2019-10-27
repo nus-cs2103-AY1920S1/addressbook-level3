@@ -58,12 +58,10 @@ import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Colour;
 import seedu.address.model.phone.Cost;
 import seedu.address.model.phone.IdentityNumber;
-import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.PhoneName;
 import seedu.address.model.phone.SerialNumber;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
-import seedu.address.testutil.PhoneBuilder;
 
 public class EditPhoneCommandParserTest {
 
@@ -103,8 +101,10 @@ public class EditPhoneCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_SERIAL_NUM_DESC, SerialNumber.MESSAGE_CONSTRAINTS); // invalid serial number
-        assertParseFailure(parser, "1" + INVALID_IDENTITY_NUM_DESC, IdentityNumber.MESSAGE_CONSTRAINTS); // invalid identity number
+        assertParseFailure(parser, "1" + INVALID_SERIAL_NUM_DESC,
+                SerialNumber.MESSAGE_CONSTRAINTS); // invalid serial number
+        assertParseFailure(parser, "1" + INVALID_IDENTITY_NUM_DESC,
+                IdentityNumber.MESSAGE_CONSTRAINTS); // invalid identity number
         assertParseFailure(parser, "1" + INVALID_PHONE_NAME_DESC, PhoneName.MESSAGE_CONSTRAINTS); // invalid phone name
         assertParseFailure(parser, "1" + INVALID_BRAND_DESC, Brand.MESSAGE_CONSTRAINTS); // invalid brand
         assertParseFailure(parser, "1" + INVALID_CAPACITY_DESC, Capacity.MESSAGE_CONSTRAINTS); // invalid capacity
@@ -122,9 +122,12 @@ public class EditPhoneCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Phone} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_NEW + TAG_DESC_BESTSELLER + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_NEW + TAG_EMPTY + TAG_DESC_BESTSELLER, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_NEW + TAG_DESC_BESTSELLER, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_NEW + TAG_DESC_BESTSELLER + TAG_EMPTY,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_NEW + TAG_EMPTY + TAG_DESC_BESTSELLER,
+                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_NEW + TAG_DESC_BESTSELLER,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_SERIAL_NUM_DESC + INVALID_BRAND_DESC + INVALID_CAPACITY_DESC,
@@ -171,7 +174,8 @@ public class EditPhoneCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PHONE;
         String userInput = targetIndex.getOneBased() + PHONE_NAME_DESC_IPHONE;
-        EditPhoneDescriptor descriptor = new EditPhoneDescriptorBuilder().withPhoneName(VALID_PHONE_NAME_IPHONE).build();
+        EditPhoneDescriptor descriptor = new EditPhoneDescriptorBuilder()
+                .withPhoneName(VALID_PHONE_NAME_IPHONE).build();
         EditPhoneCommand expectedCommand = new EditPhoneCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
