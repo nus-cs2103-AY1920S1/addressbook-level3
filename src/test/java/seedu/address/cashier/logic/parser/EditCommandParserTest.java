@@ -127,7 +127,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_indexFieldsSpecified_success() {
-        model.addItem(TypicalItem.FISH_BURGER);
+        model.addItem(TypicalItem.STORYBOOK);
         String userInput = DESC_INDEX_1 + DESC_QUANTITY_2;
 
         EditCommand expectedCommand = new EditCommand(VALID_INDEX_1, VALID_QUANTITY_2);
@@ -171,8 +171,8 @@ public class EditCommandParserTest {
         model.addItem(TypicalItem.STORYBOOK);
 
         // repeat quantity
-        String userInput = DESC_INDEX_1 + DESC_QUANTITY_1 + DESC_QUANTITY_2;
-        EditCommand expectedCommand = new EditCommand(VALID_INDEX_1, VALID_QUANTITY_2);
+        String userInput = DESC_INDEX_2 + DESC_QUANTITY_1 + DESC_QUANTITY_2;
+        EditCommand expectedCommand = new EditCommand(VALID_INDEX_2, VALID_QUANTITY_2);
         assertCommandParserSuccess(parser, userInput, expectedCommand, model, personModel);
 
         // repeat index
@@ -181,8 +181,8 @@ public class EditCommandParserTest {
         assertCommandParserSuccess(parser, userInput, expectedCommand, model, personModel);
 
         // repeat description
-        userInput = DESC_DESCRIPTION_STORYBOOK + DESC_DESCRIPTION_FISH_BURGER + DESC_QUANTITY_2;
-        expectedCommand = new EditCommand(VALID_INDEX_1, VALID_QUANTITY_2);
+        userInput = DESC_DESCRIPTION_FISH_BURGER + DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_2;
+        expectedCommand = new EditCommand(VALID_INDEX_2, VALID_QUANTITY_2);
         assertCommandParserSuccess(parser, userInput, expectedCommand, model, personModel);
         model.clearSalesList();
     }

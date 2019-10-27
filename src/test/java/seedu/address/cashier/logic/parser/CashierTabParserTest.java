@@ -38,6 +38,7 @@ public class CashierTabParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
+        model.clearSalesList();
         AddCommand addCommand = (AddCommand) parser.parseCommand(AddCommand.COMMAND_WORD
                 + DESC_DESCRIPTION_FISH_BURGER + DESC_QUANTITY_1, model, personModel);
         assertEquals(new AddCommand(VALID_DESCRIPTION_FISH_BURGER, VALID_QUANTITY_1), addCommand);
@@ -52,10 +53,12 @@ public class CashierTabParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
+        model.clearSalesList();
         model.addItem(TypicalItem.FISH_BURGER);
         EditCommand editCommand = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + DESC_INDEX_1
                 + DESC_QUANTITY_2, model, personModel);
         assertEquals(new EditCommand(VALID_INDEX_1, VALID_QUANTITY_2), editCommand);
+        model.clearSalesList();
     }
 
     @Test

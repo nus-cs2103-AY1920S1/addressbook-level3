@@ -410,7 +410,7 @@ public class ModelManager implements Model {
      */
     @Override
     public Transaction checkoutAsTransaction(double amount, Person person) throws NoItemToCheckoutException {
-        if (amount <= 0 && salesList.size() == 0) {
+        if (salesList.size() <= 0) {
             throw new NoItemToCheckoutException(NO_ITEM_TO_CHECKOUT);
         }
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),

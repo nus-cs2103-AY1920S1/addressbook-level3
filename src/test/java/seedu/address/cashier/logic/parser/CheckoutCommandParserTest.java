@@ -2,7 +2,6 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_PRICE_PAID;
-import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_PRICE_PAID_1;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_PRICE_PAID_2;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_PRICE_PAID;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
@@ -53,16 +52,16 @@ public class CheckoutCommandParserTest {
     public void parse_invalidAmountPresent_failure() {
         model.setCashier(new PersonBuilder().build());
 
-        // with no sales item, negative price paid
-        double totalAmount = 0;
-        String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
-        assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);
+//        // with no sales item, negative price paid
+//        double totalAmount = 0;
+//        String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
+//        assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);
 
         // with sales item added, insufficient price paid
         model.addItem(FISH_BURGER);
         model.addItem(STORYBOOK);
-        totalAmount = FISH_BURGER.getSubtotal() + STORYBOOK.getSubtotal();
-        message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
+        double totalAmount = FISH_BURGER.getSubtotal() + STORYBOOK.getSubtotal();
+        String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
         assertCommandParserFailure(parser, INVALID_PRICE_PAID_2, message, model, personModel);
         model.clearSalesList();
     }

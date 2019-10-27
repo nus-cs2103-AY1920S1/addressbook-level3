@@ -48,7 +48,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() throws NoSuchIndexException {
-
+        model.clearSalesList();
         // whitespace only preamble
         assertCommandParserSuccess(parser, PREAMBLE_WHITESPACE + DESC_DESCRIPTION_STORYBOOK
                         + DESC_QUANTITY_1,
@@ -72,7 +72,7 @@ public class AddCommandParserTest {
         assertCommandParserSuccess(parser, DESC_CATEGORY_1 + DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_1
                         + DESC_QUANTITY_2,
                 new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_2), model, personModel);
-
+        model.clearSalesList();
     }
 
     @Test
