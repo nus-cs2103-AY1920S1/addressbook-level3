@@ -10,7 +10,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.model.Context;
+import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.NameContainsAllKeywordsPredicate;
@@ -63,7 +63,7 @@ public class InviteCommand extends Command {
             throw new CommandException(MESSAGE_NO_ONE_TO_INVITE);
         }
 
-        if (model.getContext().getType() != Context.Type.VIEW_ACTIVITY) {
+        if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
             throw new CommandException(MESSAGE_NO_VIEWED_ACTIVITY);
         }
 
@@ -117,7 +117,7 @@ public class InviteCommand extends Command {
             activityToInviteTo.invite(id);
         }
 
-        activityToInviteTo.updateContextAndView(model);
+        model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
 
         return new CommandResult(String.format(MESSAGE_RESULT, successMessage, warningMessage));
     }
