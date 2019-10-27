@@ -2,9 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.date.AthletickDate;
+import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.performance.UniqueEventList;
@@ -58,6 +61,22 @@ public class EventList implements ReadOnlyEvents {
     }
 
     //// event-level operations
+
+    /**
+     * Retrieves Calendar-compatible records for all events.
+     */
+    public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
+        requireNonNull(date);
+        return events.getCalendarCompatiblePerformance(date);
+    }
+
+    /**
+     * Checks if there are any recorded performances on a specified date.
+     */
+    public boolean hasPerformanceOn(AthletickDate date) {
+        requireNonNull(date);
+        return events.hasPerformanceOn(date);
+    }
 
     /**
      * Returns true if an event with the same name as {@code event} exists in the events list.
