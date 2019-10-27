@@ -55,6 +55,8 @@ public abstract class Question {
         this.answer = answer;
     }
 
+    public abstract Question duplicate();
+
     @Override
     public String toString() {
         return question

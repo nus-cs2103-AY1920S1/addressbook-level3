@@ -37,13 +37,16 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        boolean isSuccess = model.removeQuizQuestion(quizId, quizQuestionNumber);
-        if (isSuccess) {
-            return new CommandResult(generateSuccessMessage());
+        if (!model.checkQuizExists(quizId)) {
+            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {
-            return new CommandResult(generateFailureMessage());
+            boolean isSuccess = model.removeQuizQuestion(quizId, quizQuestionNumber);
+            if (isSuccess) {
+                return new CommandResult(generateSuccessMessage());
+            } else {
+                return new CommandResult(generateFailureMessage());
+            }
         }
-
     }
 
     /**
@@ -59,7 +62,7 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
      * @return The String representation of a failure message.
      */
     private String generateFailureMessage() {
-        return "There is no quiz with the ID of " + quizId + ".";
+        return "You are deleting a question which does not exist! Congratulations!";
     }
 
     @Override

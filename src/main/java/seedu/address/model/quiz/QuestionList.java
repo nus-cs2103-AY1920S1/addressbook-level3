@@ -40,7 +40,19 @@ public class QuestionList {
      * @return True if the question is not a repeat, else false.
      */
     public boolean addQuestion(int questionNumber, Question question) {
+        if (questionNumber <= 0) {
+            return false;
+        }
+
+        int listSize = questions.size();
         int questionIndex = questionNumber - 1;
+
+        if (questionNumber > listSize) {
+            if (!isRepeated(question)) {
+                questions.add(question);
+                return true;
+            }
+        }
         if (!isRepeated(question)) {
             questions.add(questionIndex, question);
             return true;

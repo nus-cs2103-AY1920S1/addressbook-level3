@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FIND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTIONA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTIONB;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.question.QuestionAddCommand;
 import seedu.address.logic.commands.question.QuestionCommand;
 import seedu.address.logic.commands.question.QuestionDeleteCommand;
 import seedu.address.logic.commands.question.QuestionEditCommand;
+import seedu.address.logic.commands.question.QuestionFindCommand;
 import seedu.address.logic.commands.question.QuestionListCommand;
 import seedu.address.logic.commands.question.QuestionSlideshowCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -47,7 +49,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer
             .tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE, PREFIX_LIST,
                 PREFIX_OPTIONA, PREFIX_OPTIONB, PREFIX_OPTIONC, PREFIX_OPTIOND,
-                PREFIX_DELETE, PREFIX_SLIDESHOW);
+                PREFIX_DELETE, PREFIX_FIND, PREFIX_SLIDESHOW);
 
         boolean isEdit = false;
         Index index = Index.fromZeroBased(0);
@@ -79,7 +81,9 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
 
             return new QuestionSlideshowCommand(argMultimap.getValue(PREFIX_SLIDESHOW).orElse(""));
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
-            return deleteCommand(index, argMultimap);
+            return deleteCommand(argMultimap);
+        } else if (argMultimap.getValue(PREFIX_FIND).isPresent()) { // Find command
+            return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
         } else if (isEdit) { // Edit command
             return editCommand(index, argMultimap);
         } else { // Create command
@@ -155,30 +159,31 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
     /**
      * Performs validation and return the QuestionDeleteCommand object.
      *
-     * @param index       of question in the list.
      * @param argMultimap for tokenized input.
      * @return QuestionDeleteCommand object.
      * @throws ParseException
      */
-    private QuestionDeleteCommand deleteCommand(Index index, ArgumentMultimap argMultimap)
+    private QuestionDeleteCommand deleteCommand(ArgumentMultimap argMultimap)
         throws ParseException {
-        try {
-            int indexToDelete = Integer
-                .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0"));
+        Index indexToDelete;
 
-            if (indexToDelete <= 0) {
+        try {
+            indexToDelete = Index.fromOneBased(Integer
+                .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0")));
+
+            if (indexToDelete.getZeroBased() <= 0) {
                 throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         QuestionDeleteCommand.MESSAGE_USAGE));
             }
-            index.fromOneBased(indexToDelete);
+
         } catch (NumberFormatException e) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     QuestionDeleteCommand.MESSAGE_USAGE));
         }
 
-        return new QuestionDeleteCommand(index);
+        return new QuestionDeleteCommand(indexToDelete);
     }
 
     /**

@@ -50,6 +50,9 @@ public class QuizCreateManuallyCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (model.checkQuizExists(quizId)) {
+            return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
+        }
         model.createQuizManually(quizId, questionNumbers);
         return new CommandResult(generateSuccessMessage());
     }
