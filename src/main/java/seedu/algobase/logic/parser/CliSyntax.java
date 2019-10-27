@@ -27,6 +27,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_DUE_DATE = new Prefix("due/");
     public static final Prefix PREFIX_START_DATE = new Prefix("start/");
     public static final Prefix PREFIX_END_DATE = new Prefix("end/");
+    /* Storage */
+    public static final Prefix PREFIX_FORMAT = new Prefix("format/");
+    public static final Prefix PREFIX_PATH = new Prefix("path/");
     /* UI */
     public static final Prefix PREFIX_TAB_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_TAB_INDEX = new Prefix("i/");

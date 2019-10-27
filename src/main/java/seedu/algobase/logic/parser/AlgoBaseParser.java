@@ -26,6 +26,7 @@ import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.EditTagCommand;
 import seedu.algobase.logic.commands.EditTaskCommand;
 import seedu.algobase.logic.commands.ExitCommand;
+import seedu.algobase.logic.commands.ExportCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
@@ -148,7 +149,11 @@ public class AlgoBaseParser {
         case RewindCommand.COMMAND_WORD:
             return new RewindCommandParser().parse(arguments);
 
-        // Tab
+        // Storage
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
+
+        // UI
         case SwitchTabCommand.COMMAND_WORD:
             return new SwitchTabCommandParser().parse(arguments);
 

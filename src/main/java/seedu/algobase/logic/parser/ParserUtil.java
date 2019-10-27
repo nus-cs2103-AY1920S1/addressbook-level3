@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.StringUtil;
+import seedu.algobase.logic.commands.ExportCommand.Format;
 import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchTabCommand;
@@ -304,7 +305,6 @@ public class ParserUtil {
         }
     }
 
-
     /** Parses a {@code String modelType} into an {@code ModelType}.
      *
      * @throws ParseException if the given {@code string modelType} is invalid.
@@ -456,4 +456,16 @@ public class ParserUtil {
         return new TagIncludesKeywordsPredicate(keywords);
     }
 
+    /** Parses a {@code String format} into an {@code Format}.
+     *
+     * @throws ParseException if the given {@code string format} is invalid.
+     */
+    public static Format parseExportFormat(String format) throws ParseException {
+        try {
+            return Format.valueOf(format.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.toString());
+        }
+    }
+    
 }

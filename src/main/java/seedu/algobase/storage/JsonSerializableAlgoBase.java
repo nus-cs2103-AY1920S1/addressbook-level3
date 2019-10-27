@@ -20,7 +20,7 @@ import seedu.algobase.model.tag.Tag;
  * An Immutable AlgoBase that is serializable to JSON format.
  */
 @JsonRootName(value = "algobase")
-class JsonSerializableAlgoBase {
+public class JsonSerializableAlgoBase {
 
     public static final String MESSAGE_DUPLICATE_PROBLEM = "Problems list contains duplicate Problem(s).";
     public static final String MESSAGE_DUPLICATE_TAG = "Tags list contains duplicate Tag(s).";

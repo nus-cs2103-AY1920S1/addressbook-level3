@@ -28,6 +28,7 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PLAN)
             || !arePrefixesPresent(argMultimap, PREFIX_TASK)
+            || !arePrefixesPresent(argMultimap, PREFIX_DUE_DATE)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTaskCommand.MESSAGE_USAGE));
         }
