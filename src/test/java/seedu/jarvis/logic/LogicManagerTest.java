@@ -31,6 +31,7 @@ import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
+import seedu.jarvis.storage.finance.JsonFinanceTrackerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.planner.JsonPlannerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
@@ -57,8 +58,10 @@ public class LogicManagerTest {
         JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(
                 temporaryFolder.resolve("courseplanner.json"));
         JsonPlannerStorage plannerStorage = new JsonPlannerStorage(temporaryFolder.resolve("planner.json"));
+        JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(
+                temporaryFolder.resolve("financetracker.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage, coursePlannerStorage, plannerStorage);
+                ccaTrackerStorage, coursePlannerStorage, plannerStorage, financeTrackerStorage);
         model = new ModelManager();
         logic = new LogicManager(model, storage);
     }
@@ -114,8 +117,10 @@ public class LogicManagerTest {
         JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(
                 temporaryFolder.resolve("ioExceptionCoursePlanner.json"));
         JsonPlannerStorage plannerStorage = new JsonPlannerStorage(temporaryFolder.resolve("ioExceptionPlanner.json"));
+        JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(
+                temporaryFolder.resolve("ioExceptionFinanceTracker.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage, coursePlannerStorage, plannerStorage);
+                ccaTrackerStorage, coursePlannerStorage, plannerStorage, financeTrackerStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
