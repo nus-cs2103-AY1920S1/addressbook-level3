@@ -1,19 +1,18 @@
-package seedu.address.model.password.analyser.analysis;
+package seedu.address.model.password.analyser.result;
 
 import java.util.List;
 
 import seedu.address.model.password.Password;
-import seedu.address.model.password.analyser.match.DictionaryMatch;
 import seedu.address.model.password.analyser.match.Match;
+import seedu.address.model.password.analyser.match.SequenceMatch;
 
 /**
- * Represents a result produced from dictionary analyser.
+ * Represents a result produced from sequence analyser.
  */
-public class DictionaryResult extends BaseResult {
-    private List<DictionaryMatch> matches;
+public class SequenceResult extends BaseResult {
+    private List<SequenceMatch> matches;
 
-
-    public DictionaryResult(Password password, String description, List<DictionaryMatch> matches) {
+    public SequenceResult(Password password, String description, List<SequenceMatch> matches) {
         super(password, description);
         this.matches = matches;
     }
@@ -22,7 +21,7 @@ public class DictionaryResult extends BaseResult {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            report.append("No passwords were found to have contained common passwords");
+            report.append("No passwords were found to have contained common sequences");
             return report.toString();
         }
         for (Match m : matches) {

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Converts a leet password into list of unleet possibilities.
+ * A class for converting a leet password into list of unleet possibilities.
  */
 public class LeetUtil {
     private static Map<Character, Character[]> defaultLeetTable = new HashMap<>();

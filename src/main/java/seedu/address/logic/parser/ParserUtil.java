@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.GeneratorUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.CardNumber;
@@ -297,5 +298,36 @@ public class ParserUtil {
             throw new ParseException(PasswordValue.MESSAGE_CONSTRAINTS);
         }
         return new PasswordValue(trimmedPasswordValue);
+    }
+
+    /**
+     * Parses a string length into an integer length.
+     * Checks that length requirements are met.
+     *
+     * @throws ParseException if the given length is invalid.
+     */
+    public static int parseLength(String length) throws ParseException {
+        try {
+            int lengthNum = Integer.parseInt(length);
+            if (lengthNum <= 3) {
+                throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+            }
+            return lengthNum;
+        } catch (NumberFormatException e) {
+            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+        }
+    }
+
+    /**
+     * Parses a string bool into an Boolean value.
+     * Checks that string bool is valid argument.
+     *
+     * @throws ParseException if the given length is invalid.
+     */
+    public static boolean parseBool(String bool) throws ParseException {
+        if (!(bool.equals("true") || bool.equals("false"))) {
+            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_BOOLEAN);
+        }
+        return Boolean.valueOf(bool);
     }
 }

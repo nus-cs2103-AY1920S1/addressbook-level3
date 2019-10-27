@@ -1,4 +1,4 @@
-package seedu.address.model.password.analyser.analysis;
+package seedu.address.model.password.analyser.result;
 
 import seedu.address.model.password.Password;
 
