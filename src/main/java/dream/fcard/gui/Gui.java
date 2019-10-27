@@ -1,11 +1,12 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import java.util.logging.Logger;
 import dream.fcard.MainApp;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.core.commons.util.StringUtil;
-import dream.fcard.gui.components.CommandTextField;
 import dream.fcard.gui.components.CommandBar;
+import dream.fcard.gui.components.CommandTextField;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.gui.components.StatusBar;
@@ -14,7 +15,6 @@ import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
-import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

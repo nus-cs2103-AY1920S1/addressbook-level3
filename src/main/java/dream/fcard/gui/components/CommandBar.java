@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
  */
 public class CommandBar extends VBox implements UiComponent<VBox> {
     /**
-     * Creates a new instance of CommandBar().
+     * Creates a new instance of CommandBar.
      */
     public CommandBar() {
         super();

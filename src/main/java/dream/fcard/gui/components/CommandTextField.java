@@ -13,9 +13,9 @@ public class CommandTextField extends TextField implements UiComponent<TextField
     private State state;
 
     /**
-     * Creates a new instance of CommandTextField with the given State.
+     * Creates a new instance of CommandTextField.
      */
-    public CommandTextField(){
+    public CommandTextField() {
         // create text field
         super();
 

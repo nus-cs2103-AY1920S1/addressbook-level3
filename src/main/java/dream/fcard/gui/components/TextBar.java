@@ -7,8 +7,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
+/**
+ * Class which TitleBar and StatusBar inherit from.
+ */
 public class TextBar extends HBox {
-    Text text;
+    protected Text text;
 
     /**
      * Creates a new instance of TitleBar. Called when MainWindow initialises its components.

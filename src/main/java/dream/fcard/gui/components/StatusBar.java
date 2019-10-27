@@ -5,6 +5,9 @@ import javafx.geometry.Insets;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/**
+ * UI component representing status bar in the application window.
+ */
 public class StatusBar extends TextBar {
     /**
      * Creates a new instance of StatusBar.
