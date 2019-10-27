@@ -326,7 +326,6 @@ The following detailed sequence diagram shows how the back command works:
 
 image::HomeTabBackCommandSequenceDiagram.png[]
 
->>>>>>> upstream/master
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
 respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
