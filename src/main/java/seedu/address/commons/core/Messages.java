@@ -15,5 +15,4 @@ public class Messages {
     public static final String MESSAGE_USERNAME_ERROR = "Username is invalid. Please try again.";
     public static final String MESSAGE_PASSWORD_ERROR = "Password is invalid. Please try again.";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
-  
 }
