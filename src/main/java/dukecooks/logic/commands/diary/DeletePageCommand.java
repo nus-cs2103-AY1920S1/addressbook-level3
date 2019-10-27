@@ -1,7 +1,6 @@
 package dukecooks.logic.commands.diary;
 
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_NUMBER;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -27,19 +26,19 @@ public class DeletePageCommand extends DeleteCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the page identified by the index number in the specified diary.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PAGE_NUMBER + " 1 "
+            + "Example: " + COMMAND_WORD + ""
+            + " page 1 "
             + PREFIX_DIARY_NAME + "[DiaryName]";
 
-    public static final String MESSAGE_DELETE_PAGE_SUCCESS = "Deleted Page: %1$s";
-    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DiaryRecords";
+    public static final String MESSAGE_DELETE_PAGE_SUCCESS = "You have deleted a page with title: %1$s";
+    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists!";
 
     private final Index targetIndex;
-    private final DiaryName targetDiaryDiaryName;
+    private final DiaryName targetDiaryName;
 
     public DeletePageCommand(Index targetIndex, DiaryName targetDiaryDiaryName) {
         this.targetIndex = targetIndex;
-        this.targetDiaryDiaryName = targetDiaryDiaryName;
+        this.targetDiaryName = targetDiaryDiaryName;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class DeletePageCommand extends DeleteCommand {
         requireNonNull(model);
         List<Diary> lastShownList = model.getFilteredDiaryList();
 
-        Diary targetDiary = new Diary(targetDiaryDiaryName);
+        Diary targetDiary = new Diary(targetDiaryName);
 
         // check if diary exists
         if (!lastShownList.contains(targetDiary)) {

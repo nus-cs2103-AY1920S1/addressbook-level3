@@ -20,8 +20,8 @@ public class AddDiaryCommand extends AddCommand {
             + "Parameters: "
             + CliSyntax.PREFIX_DIARY_NAME + "NAME ";
 
-    public static final String MESSAGE_SUCCESS = "New diary added: %1$s";
-    public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in Duke Cooks";
+    public static final String MESSAGE_SUCCESS = "You have added a new diary with name: %1$s";
+    public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in Duke Cooks!";
 
     private final Diary toAdd;
 

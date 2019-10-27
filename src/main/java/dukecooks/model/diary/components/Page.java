@@ -53,8 +53,7 @@ public class Page {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Title:")
-                .append(getTitle());
+        builder.append(getTitle());
         return builder.toString();
     }
 }

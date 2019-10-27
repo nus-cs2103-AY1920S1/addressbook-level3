@@ -28,12 +28,12 @@ public class AddPageCommand extends AddCommand {
             + PREFIX_DIARY_NAME + "DIARY NAME"
             + PREFIX_PAGE_TITLE + "PAGE TITLE";
 
-    public static final String MESSAGE_SUCCESS = "New page added to diary: %1$s";
-    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DiaryRecords";
-    public static final String MESSAGE_DUPLICATE_PAGE = "This page already exists in this diary";
+    public static final String MESSAGE_SUCCESS = "You have added a new page with title: %1$s";
+    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists!";
+    public static final String MESSAGE_DUPLICATE_PAGE = "This page already exists in this diary!";
 
     private final Page pageToAdd;
-    private final DiaryName specifiedDiaryDiaryName;
+    private final DiaryName specifiedDiaryName;
 
     /**
      * Creates an AddPageCommand to add the specified {@code Page} to specified Diary
@@ -41,14 +41,14 @@ public class AddPageCommand extends AddCommand {
     public AddPageCommand(Page pageToAdd, DiaryName specifiedDiaryDiaryName) {
         requireAllNonNull(pageToAdd, specifiedDiaryDiaryName);
         this.pageToAdd = pageToAdd;
-        this.specifiedDiaryDiaryName = specifiedDiaryDiaryName;
+        this.specifiedDiaryName = specifiedDiaryDiaryName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model);
         List<Diary> lastShownList = model.getFilteredDiaryList();
-        Diary wantedDiary = new Diary(specifiedDiaryDiaryName);
+        Diary wantedDiary = new Diary(specifiedDiaryName);
 
         // check if diary exists
         if (!lastShownList.contains(wantedDiary)) {
