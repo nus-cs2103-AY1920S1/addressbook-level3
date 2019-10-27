@@ -24,7 +24,7 @@ public class PerformanceCommand extends Command {
             + PREFIX_DATE + "DATE "
             + PREFIX_TIMING + "TIME\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT + "50m freestyle "
+            + PREFIX_EVENT + "freestyle 50m "
             + PREFIX_DATE + "02102019 "
             + PREFIX_TIMING + "30s";
 
@@ -63,7 +63,7 @@ public class PerformanceCommand extends Command {
 
         Person athlete = lastShownList.get(index.getZeroBased());
         Record record = createRecord();
-        String response = model.addRecord(createdEvent, athlete, record);
+        String response = model.addRecord(event, athlete, record);
         return new CommandResult(String.format(MESSAGE_SUCCESS, response));
 
     }
