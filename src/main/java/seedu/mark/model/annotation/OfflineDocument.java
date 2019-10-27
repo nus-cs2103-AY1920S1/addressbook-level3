@@ -33,6 +33,7 @@ public class OfflineDocument {
     public static final String MESSAGE_ASSERT_NOT_PHANTOM = "Cannot add annotation to phantom paragraphs.";
     public static final String MESSAGE_ASSERT_PHANTOM_HAS_NOTE = "Annotation given does not have a note; "
             + "no phantom paragraph can have no note";
+    public static final String MESSAGE_ASSERT_IS_PHANTOM = "Cannot delete a non phantom paragraph";
 
     public final Logger logger = LogsCenter.getLogger(OfflineDocument.class);
 
@@ -183,7 +184,7 @@ public class OfflineDocument {
      * @throws IllegalValueException if {@code pid} is invalid.
      */
     public void removePhantom(ParagraphIdentifier pid) throws IllegalValueException {
-        assert pid.isStray() : "Cannot delete a non phantom paragraph";
+        assert pid.isStray() : MESSAGE_ASSERT_IS_PHANTOM;
         if (!hasParagraph(pid)) {
             throw new IllegalValueException(MESSAGE_INVALID_PID);
         }

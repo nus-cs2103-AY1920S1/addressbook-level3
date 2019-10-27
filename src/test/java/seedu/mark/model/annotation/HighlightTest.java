@@ -30,7 +30,7 @@ class HighlightTest {
 
     @Test
     public void strToHighlight_nullArg_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, Highlight.MESSAGE_INVALID_COLOUR, () ->
+        assertThrows(NullPointerException.class, () ->
                 Highlight.strToHighlight(null));
     }
 

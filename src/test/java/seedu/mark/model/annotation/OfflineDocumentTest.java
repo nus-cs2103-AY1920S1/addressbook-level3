@@ -77,7 +77,7 @@ class OfflineDocumentTest {
     public void removePhantom_pidInvalid_throwsIllegalValueException() {
         assertThrows(IllegalValueException.class, OfflineDocument.MESSAGE_INVALID_PID, () ->
                 cleandoc.removePhantom(ParagraphIdentifier.makeStrayId(Index.fromOneBased(1))));
-        assertThrows(AssertionError.class, OfflineDocument.MESSAGE_INVALID_PID, () ->
+        assertThrows(AssertionError.class, OfflineDocument.MESSAGE_ASSERT_IS_PHANTOM, () ->
                 cleandoc.removePhantom(pid));
     }
 

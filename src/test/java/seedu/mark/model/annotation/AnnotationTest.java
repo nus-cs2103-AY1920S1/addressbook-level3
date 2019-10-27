@@ -11,8 +11,8 @@ public class AnnotationTest {
 
     @Test
     public void hasNote_success() {
-        assertEquals(true, new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE));
-        assertEquals(false, new Annotation(Highlight.YELLOW));
+        assertEquals(true, new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE).hasNote());
+        assertEquals(false, new Annotation(Highlight.YELLOW).hasNote());
     }
 
     @Test

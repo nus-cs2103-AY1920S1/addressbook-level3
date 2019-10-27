@@ -114,6 +114,7 @@ public class TrueParagraph extends Paragraph {
         }
         return this.id.equals(((TrueParagraph) o).id)
                 && this.content.equals(((TrueParagraph) o).content)
-                && this.annotation.equals(((TrueParagraph) o).annotation);
+                && (this.annotation == ((TrueParagraph) o).annotation
+                || this.annotation.equals(((TrueParagraph) o).annotation));
     }
 }

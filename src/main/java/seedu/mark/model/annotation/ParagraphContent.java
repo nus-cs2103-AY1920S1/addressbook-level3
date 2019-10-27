@@ -24,4 +24,15 @@ public class ParagraphContent {
     public String toString() {
         return content;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof ParagraphContent)) {
+            return false;
+        }
+        return this.content.equals(((ParagraphContent) other).content);
+    }
 }
