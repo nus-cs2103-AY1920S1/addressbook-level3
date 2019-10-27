@@ -1,25 +1,50 @@
 package budgetbuddy.logic.parser.commandparsers.loancommandparsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_LOAN_IN;
+import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_LOAN_OUT;
+import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_LOAN_PAID;
+import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_LOAN_UNPAID;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_SORT;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_ARG_AMOUNT;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_ARG_DATE;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_ARG_PERSON;
+import static budgetbuddy.model.loan.LoanFilters.getDirectionPredicate;
+import static budgetbuddy.model.loan.LoanFilters.getStatusPredicate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import budgetbuddy.logic.commands.loancommands.LoanListCommand;
 import budgetbuddy.logic.parser.ArgumentMultimap;
 import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
+import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.LoansManager.SortBy;
+import budgetbuddy.model.attributes.Direction;
+import budgetbuddy.model.loan.predicates.AmountMatchPredicate;
+import budgetbuddy.model.loan.predicates.DateMatchPredicate;
+import budgetbuddy.model.loan.predicates.DescriptionMatchPredicate;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.predicates.PersonMatchPredicate;
+import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.person.Person;
 
 /**
  * Parses the <code>list</code> command.
  */
 public class LoanListCommandParser implements CommandParser<LoanListCommand> {
 
-    public static final String SORT_ARG_DATE = "w";
-    public static final String SORT_ARG_PERSON = "p";
-    public static final String SORT_ARG_AMOUNT = "x";
+    private static final Pattern DIRECTION_STATUS_PATTERN = Pattern.compile("(out|in|paid|unpaid)");
 
     @Override
     public String name() {
@@ -28,16 +53,42 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
 
     @Override
     public LoanListCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SORT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_SORT, PREFIX_PERSON, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_DESCRIPTION);
 
         if (argMultimap.getAllValues(PREFIX_SORT).size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
         }
 
-        Optional<String> optionalSortArg = argMultimap.getValue(PREFIX_SORT);
-        Optional<SortBy> optionalSortBy = parseSortArg(optionalSortArg);
+        Optional<SortBy> optionalSortBy = argMultimap.getValue(PREFIX_SORT).isPresent()
+                ? parseSortArg(argMultimap.getValue(PREFIX_SORT))
+                : Optional.empty();
 
-        return new LoanListCommand(optionalSortBy);
+        List<Predicate<Loan>> filters = new ArrayList<Predicate<Loan>>();
+
+        if (!argMultimap.getPreamble().isBlank()) {
+            String[] preambleArr = argMultimap.getPreamble().split("\\s+");
+            if (preambleArr.length <= 2) {
+                filters.addAll(parseDirectionStatusFilters(preambleArr));
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
+            }
+        }
+
+        for (String personStr : argMultimap.getAllValues(PREFIX_PERSON)) {
+            filters.add(new PersonMatchPredicate(new Person(CommandParserUtil.parseName(personStr))));
+        }
+        for (String amountStr : argMultimap.getAllValues(PREFIX_AMOUNT)) {
+            filters.add(new AmountMatchPredicate(CommandParserUtil.parseAmount(amountStr)));
+        }
+        for (String dateStr : argMultimap.getAllValues(PREFIX_DATE)) {
+            filters.add(new DateMatchPredicate(CommandParserUtil.parseDate(dateStr)));
+        }
+        for (String descriptionStr : argMultimap.getAllValues(PREFIX_DESCRIPTION)) {
+            filters.add(new DescriptionMatchPredicate(CommandParserUtil.parseDescription(descriptionStr)));
+        }
+
+        return new LoanListCommand(optionalSortBy, filters);
     }
 
     private Optional<SortBy> parseSortArg(Optional<String> optionalSortArg) throws ParseException {
@@ -55,5 +106,34 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
         }
+    }
+
+    private List<Predicate<Loan>> parseDirectionStatusFilters(String[] preambleArr) throws ParseException {
+        List<Predicate<Loan>> filters = new ArrayList<Predicate<Loan>>();
+
+        Matcher directionStatusMatcher;
+        for (String filterStr : preambleArr) {
+            directionStatusMatcher = DIRECTION_STATUS_PATTERN.matcher(filterStr);
+            if (!directionStatusMatcher.matches()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
+            }
+
+            switch (directionStatusMatcher.group()) {
+            case KEYWORD_LOAN_IN:
+                filters.add(getDirectionPredicate(Direction.IN));
+                break;
+            case KEYWORD_LOAN_OUT:
+                filters.add(getDirectionPredicate(Direction.OUT));
+                break;
+            case KEYWORD_LOAN_PAID:
+                filters.add(getStatusPredicate(Status.PAID));
+                break;
+            case KEYWORD_LOAN_UNPAID:
+                filters.add(getStatusPredicate(Status.UNPAID));
+                break;
+            }
+        }
+
+        return filters;
     }
 }

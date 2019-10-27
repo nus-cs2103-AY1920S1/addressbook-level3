@@ -121,7 +121,7 @@ public class MainWindow extends UiPart<Stage> {
         ruleListPanel = new RulePanel(logic.getRuleList());
         panelMap.put(CommandCategory.RULE, ruleListPanel);
 
-        loanListPanel = new LoanPanel(logic.getLoanList());
+        loanListPanel = new LoanPanel(logic.getFilteredLoanList());
         panelMap.put(CommandCategory.LOAN, loanListPanel);
         loanSplitPanel = new LoanSplitPanel(logic.getSortedDebtorList());
         panelMap.put(CommandCategory.LOAN_SPLIT, loanSplitPanel);

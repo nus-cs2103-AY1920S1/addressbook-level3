@@ -26,7 +26,7 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the list of loans.
      */
-    ObservableList<Loan> getLoanList();
+    ObservableList<Loan> getFilteredLoanList();
 
     /**
      * Returns an unmodifiable view of the list of debtors.

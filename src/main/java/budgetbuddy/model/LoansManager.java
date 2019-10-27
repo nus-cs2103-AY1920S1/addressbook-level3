@@ -1,10 +1,13 @@
 package budgetbuddy.model;
 
+import static budgetbuddy.model.loan.LoanFilters.FILTER_ALL;
+import static budgetbuddy.model.loan.LoanSorters.DATE_NEWEST;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import budgetbuddy.commons.core.index.Index;
@@ -12,10 +15,10 @@ import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
-import budgetbuddy.model.person.Person;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 /**
@@ -33,13 +36,6 @@ public class LoansManager {
         }
     }
 
-    public static final Comparator<Loan> DATE_SORTER =
-            Comparator.comparing(Loan::getDate).reversed();
-    public static final Comparator<Loan> PERSON_SORTER =
-            Comparator.comparing(loan -> loan.getPerson().getName().toString());
-    public static final Comparator<Loan> AMOUNT_SORTER =
-            Comparator.comparingLong(loan -> loan.getAmount().toLong());
-
     private final ObservableList<Loan> internalList = FXCollections.observableArrayList();
     private final ObservableList<Loan> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -50,6 +46,8 @@ public class LoansManager {
     private final ObservableList<Debtor> debtors = FXCollections.observableArrayList();
     private final ObservableList<Debtor> unmodifiableDebtors =
             FXCollections.unmodifiableObservableList(debtors);
+    private final FilteredList<Loan> filteredLoans = new FilteredList<Loan>(internalUnmodifiableList);
+
     private Comparator<Loan> sorter;
 
     public LoansManager() {}
@@ -61,7 +59,16 @@ public class LoansManager {
     public LoansManager(List<Loan> loans) {
         requireNonNull(loans);
         this.internalList.setAll(loans);
-        this.sorter = DATE_SORTER;
+        this.sorter = DATE_NEWEST;
+    }
+
+    /**
+     * Updates the predicate of {@code filteredLoans} with the given predicate.
+     * @param predicate
+     */
+    public void updateFilteredList(Predicate<Loan> predicate) {
+        requireNonNull(predicate);
+        filteredLoans.setPredicate(predicate);
     }
 
     //========================================= Loan Methods ===========================================
@@ -83,13 +90,10 @@ public class LoansManager {
     }
 
     /**
-     * Returns a filtered list of loans belonging to the given person.
-     * @param person The person to filter the list by.
+     * Returns the filtered list of loans.
      */
-    public List<Loan> getFilteredLoans(Person person) {
-        return getLoans().stream()
-                .filter(loan -> loan.getPerson().isSamePerson(person))
-                .collect(Collectors.toList());
+    public ObservableList<Loan> getFilteredLoans() {
+        return filteredLoans;
     }
 
     /**
@@ -125,6 +129,7 @@ public class LoansManager {
     public void addLoan(Loan toAdd) {
         internalList.add(0, toAdd);
         internalList.sort(sorter);
+        updateFilteredList(FILTER_ALL);
     }
 
     /**
