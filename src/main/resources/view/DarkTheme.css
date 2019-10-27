@@ -380,6 +380,7 @@
 
 #lbl {
     -fx-text-fill: white;
+    -fx-font-size: 10pt;
 }
 
 .tree-cell {

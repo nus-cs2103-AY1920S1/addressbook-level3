@@ -16,15 +16,15 @@ import com.typee.ui.UiPart;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
@@ -61,12 +61,14 @@ public class ReportWindow extends UiPart<Region> {
         }
         if (isDoubleClick) {
             Node node = event.getPickResult().getIntersectedNode();
-            if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+            if (isSelectedItemValid(node)) {
                 String name = (String) ((TreeItem) treeViewReports
                         .getSelectionModel().getSelectedItem()).getValue();
                 logger.info("Node click: " + name);;
                 try {
-                    Desktop.getDesktop().open(new File(name));
+                    if (new File(name).isFile()) {
+                        Desktop.getDesktop().open(new File(name));
+                    }
                 } catch(IOException e) {
                     logger.severe(e.getMessage());
                 }
@@ -98,7 +100,49 @@ public class ReportWindow extends UiPart<Region> {
      */
     @FXML
     private void refreshTreeView(MouseEvent event) {
-        treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
+        refreshFileTreeView();
         lblStatus.setText("Refreshed Directory");
+    }
+
+    @FXML
+    private void deleteDocument(MouseEvent event) {
+        TreeItem<String> selectedItem = (TreeItem) treeViewReports.getSelectionModel().getSelectedItem();
+        String name = selectedItem.getValue();
+        boolean isFileDeleted = false;
+
+        if (validateSelectedTreeItem(name)) {
+            logger.info("selected item: " + name + " is valid.");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + name + "?");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                isFileDeleted = new File(name).delete();
+            }
+        }
+
+        if (isFileDeleted) {
+            int i = name.split("/").length;
+            String fileNameOnly = name.split("/")[i - 1];
+            lblStatus.setText("File: " + fileNameOnly + " deleted.");
+            refreshFileTreeView();
+        }
+    }
+
+    private boolean validateSelectedTreeItem(String item) {
+        if (item == "" || item == null || new File(item).isDirectory()) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isSelectedItemValid(Node node) {
+        if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void refreshFileTreeView() {
+        lblStatus.setText("");
+        treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
     }
 }
