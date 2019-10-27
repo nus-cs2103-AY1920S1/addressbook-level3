@@ -66,6 +66,8 @@ public class UseGroceryCommand extends Command {
         GroceryItem usedGroceryItem = createdUsedGroceryItem(groceryItemToUse, useGroceryItemDescriptor);
 
         model.setGroceryItem(groceryItemToUse, usedGroceryItem);
+        model.commitGroceryList();
+        model.commitWasteList();
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         return new CommandResult(String.format(MESSAGE_USE_GROCERY_ITEM_SUCCESS, usedGroceryItem));
     }

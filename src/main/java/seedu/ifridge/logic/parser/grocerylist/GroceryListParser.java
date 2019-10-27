@@ -16,7 +16,9 @@ import seedu.ifridge.logic.commands.grocerylist.AddGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.DeleteGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.EditGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.ListGroceryCommand;
+import seedu.ifridge.logic.commands.grocerylist.RedoGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.ReminderCommand;
+import seedu.ifridge.logic.commands.grocerylist.UndoGroceryCommand;
 import seedu.ifridge.logic.parser.defaults.ListDefaultCommandParser;
 import seedu.ifridge.logic.parser.defaults.ReminderDefaultCommandParser;
 import seedu.ifridge.logic.parser.defaults.SortDefaultCommandParser;
@@ -75,6 +77,12 @@ public class GroceryListParser {
 
         case ListDefaultCommand.COMMAND_WORD:
             return new ListDefaultCommandParser().parse(arguments);
+
+        case UndoGroceryCommand.COMMAND_WORD:
+            return new UndoGroceryCommand();
+
+        case RedoGroceryCommand.COMMAND_WORD:
+            return new RedoGroceryCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

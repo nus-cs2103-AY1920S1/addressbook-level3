@@ -43,6 +43,8 @@ public class ModelManager implements Model {
     private FilteredList<GroceryItem> filteredBoughtItems;
     private WasteReport wasteReport;
     private UniqueTemplateItems shownTemplate;
+    private VersionedGroceryList versionedGroceryList;
+    private VersionedWasteList versionedWasteList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,7 +55,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList, shoppingList);
 
-        logger.fine("Initializing with address book: " + groceryList + " and user prefs " + userPrefs
+        logger.fine("Initializing with grocery list: " + groceryList + " and user prefs " + userPrefs
             + " and template list " + templateList + " and shopping list " + shoppingList);
 
         WasteList.initialiseWasteArchive();
@@ -72,7 +74,10 @@ public class ModelManager implements Model {
         filteredShoppingItems = new FilteredList<ShoppingItem>(this.shoppingList.getShoppingList());
         filteredBoughtItems = new FilteredList<GroceryItem>(this.boughtList.getGroceryList());
         filteredShownTemplate = new FilteredList<TemplateItem>(this.shownTemplate.getTemplate());
-
+        versionedGroceryList = new VersionedGroceryList();
+        versionedGroceryList.add(groceryList);
+        versionedWasteList = new VersionedWasteList(wasteList.getWasteMonth());
+        versionedWasteList.add(wasteList);
     }
 
     public ModelManager() {
@@ -208,6 +213,31 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedGroceryItem);
 
         groceryList.setGroceryItem(target, editedGroceryItem);
+    }
+
+    @Override
+    public void commitGroceryList() {
+        versionedGroceryList.commit(new GroceryList(groceryList));
+    }
+
+    @Override
+    public ReadOnlyGroceryList undoGroceryList() {
+        return versionedGroceryList.undo();
+    }
+
+    @Override
+    public ReadOnlyGroceryList redoGroceryList() {
+        return versionedGroceryList.redo();
+    }
+
+    @Override
+    public boolean canUndoGroceryList() {
+        return versionedGroceryList.getCurrentStatePointer() > 0;
+    }
+
+    @Override
+    public boolean canRedoGroceryList() {
+        return versionedGroceryList.getCurrentStatePointer() < versionedGroceryList.getListSize() - 1;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -347,6 +377,21 @@ public class ModelManager implements Model {
     public void addWasteItem(GroceryItem food) {
         wasteList.addWasteItem(food);
         updateFilteredWasteItemList(WasteMonth.getCurrentWasteMonth());
+    }
+
+    @Override
+    public void commitWasteList() {
+        versionedWasteList.commit(new WasteList(wasteList, wasteList.getWasteMonth()));
+    }
+
+    @Override
+    public ReadOnlyWasteList undoWasteList() {
+        return versionedWasteList.undo();
+    }
+
+    @Override
+    public ReadOnlyWasteList redoWasteList() {
+        return versionedWasteList.redo();
     }
 
     //=========== Filtered Waste List Accessors =============================================================

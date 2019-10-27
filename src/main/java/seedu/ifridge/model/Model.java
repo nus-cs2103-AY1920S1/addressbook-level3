@@ -109,6 +109,16 @@ public interface Model {
      */
     void updateFilteredGroceryItemList(Predicate<GroceryItem> predicate);
 
+    void commitGroceryList();
+
+    ReadOnlyGroceryList undoGroceryList();
+
+    ReadOnlyGroceryList redoGroceryList();
+
+    boolean canUndoGroceryList();
+
+    boolean canRedoGroceryList();
+
     //=========== TemplateList ==================================================================================
     /**
      * Returns the user prefs' template list file path.
@@ -218,6 +228,12 @@ public interface Model {
     void setWasteReport(WasteReport wasteReport);
 
     WasteReport getWasteReport();
+
+    void commitWasteList();
+
+    ReadOnlyWasteList undoWasteList();
+
+    ReadOnlyWasteList redoWasteList();
 
     //=========== ShoppingList ==================================================================================
     /**

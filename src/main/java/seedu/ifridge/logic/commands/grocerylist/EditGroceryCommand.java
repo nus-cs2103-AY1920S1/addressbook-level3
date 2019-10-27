@@ -72,6 +72,8 @@ public class EditGroceryCommand extends Command {
         GroceryItem editedGroceryItem = createdEditedGroceryItem(groceryItemToEdit, editGroceryItemDescriptor);
 
         model.setGroceryItem(groceryItemToEdit, editedGroceryItem);
+        model.commitGroceryList();
+        model.commitWasteList();
         model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedGroceryItem));
     }
