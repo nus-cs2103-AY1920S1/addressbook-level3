@@ -10,6 +10,7 @@ import seedu.address.logic.calendar.commands.AddCommand;
 import seedu.address.logic.calendar.commands.ClearCommand;
 import seedu.address.logic.calendar.commands.Command;
 import seedu.address.logic.calendar.commands.DeleteCommand;
+import seedu.address.logic.calendar.commands.DeleteWeekCommand;
 import seedu.address.logic.calendar.commands.EditCommand;
 import seedu.address.logic.calendar.commands.ExitCommand;
 import seedu.address.logic.calendar.commands.GoCommand;
@@ -78,6 +79,9 @@ public class AddressBookParser {
 
         case GoCommand.COMMAND_WORD:
             return new GoCommandParser().parse(arguments);
+
+        case DeleteWeekCommand.COMMAND_WORD:
+            return new DeleteWeekCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
