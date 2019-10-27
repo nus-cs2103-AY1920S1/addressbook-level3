@@ -9,7 +9,6 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -17,7 +16,6 @@ import seedu.address.model.Model;
 @SuppressWarnings("unchecked")
 public class ClassUtil {
 
-    private Model model;
     private List<ClassPair> classPairs;
 
     public ClassUtil () {
