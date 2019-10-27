@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -38,6 +39,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private EventPanel eventPanel;
     private ItineraryParser itineraryParser;
     private Model model;
+    private TagDropdown tagDropdown;
 
     @FXML
     private Scene itineraryScene;
@@ -78,8 +80,11 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        tagDropdown = new TagDropdown();
+        commandBoxPlaceholder.getChildren().add(tagDropdown.getRoot());
     }
 
     public PageType getPageType() {
@@ -113,6 +118,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            //update tagging dropDown menu
+            tagDropdown.updateDropdownText();
             Command command = itineraryParser.parseCommand(commandText);
             model.addAction(commandText);
             CommandResult commandResult = command.execute(model);
