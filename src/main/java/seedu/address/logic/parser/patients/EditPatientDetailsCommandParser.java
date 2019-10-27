@@ -100,7 +100,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
 
         if (argMultimap.getValue(PREFIX_ID).isPresent()) {
             editPersonDescriptor.setReferenceId(
-                ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get()));
+                ParserUtil.parseStaffReferenceId(argMultimap.getValue(PREFIX_ID).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
