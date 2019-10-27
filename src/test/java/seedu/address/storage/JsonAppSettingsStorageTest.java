@@ -90,7 +90,7 @@ public class JsonAppSettingsStorageTest {
     //        UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
     //        assertEquals(expected, actual);
     //    }
-    
+
     /**
      * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filepath.
      */
