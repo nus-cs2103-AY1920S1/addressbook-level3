@@ -289,7 +289,7 @@ public class ParserUtil {
         }
         return new Username(trimmedUsername);
     }
-  
+
     /**
      * Parses a {@code String code} into an {@code ModuleCode}.
      * @param code String of module code.
