@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalEvents.getTypicalEventList;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import seedu.address.testutil.AthletickDateBuilder;
 
 public class CalendarCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(),
             new UserPrefs());
 
     @Test
