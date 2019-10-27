@@ -187,7 +187,7 @@ public class EditTripFieldCommand extends Command {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 return new Trip(name.get(), startDate.get(), endDate.get(),
                         destination.get(), totalBudget.get(), new DayList(),
-                        new ExpenditureList(), diary, new InventoryList(), photo);
+                        new ExpenditureList(), diary, new InventoryList(), photo.get());
             } else {
                 throw new NullPointerException();
             }
@@ -227,7 +227,7 @@ public class EditTripFieldCommand extends Command {
             }
 
             return new Trip(tripName, startDate, endDate, destination, budget,
-                    trip.getDayList(), trip.getExpenditureList(), diary, trip.getInventoryList(), photo);
+                    trip.getDayList(), trip.getExpenditureList(), diary, trip.getInventoryList(), photo.get());
         }
 
         /**

@@ -47,6 +47,7 @@ public class Trip {
         this.tripId = new TripId();
         this.diary = diary;
         this.photo = photo;
+        this.inventoryList = inventoryList;
     }
 
     /**
@@ -54,7 +55,7 @@ public class Trip {
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
                 Budget totalBudget, DayList dayList, ExpenditureList expenditureList,
-                Diary diary, Optional<Photo> photo) {
+                Diary diary, InventoryList inventoryList, Optional<Photo> photo) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
