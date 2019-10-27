@@ -311,13 +311,13 @@ class QuestionsLogicManagerTest {
             topics.add(Topic.TREE);
             topics.add(Topic.DYNAMIC_PROGRAMMING);
 
-            return new Question(name, Status.NEW, Difficulty.HARD, topics, testCases, userProgram);
+            return new Question(name, Status.NEW, Difficulty.HARD, topics, testCases, userProgram, true);
         } else {
             Set<Topic> topics = new HashSet<>();
             topics.add(Topic.LINKED_LIST);
             topics.add(Topic.RECURSION);
 
-            return new Question(name, Status.ATTEMPTED, Difficulty.EASY, topics, testCases, userProgram);
+            return new Question(name, Status.ATTEMPTED, Difficulty.EASY, topics, testCases, userProgram, false);
         }
     }
 }

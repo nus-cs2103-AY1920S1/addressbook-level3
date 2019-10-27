@@ -18,6 +18,7 @@ public class QuestionBuilder {
     private String title;
     private Status status;
     private Difficulty difficulty;
+    private boolean isBookmarked;
     private Set<Topic> topics = new HashSet<>();
     private List<TestCase> testCases = new ArrayList<>();
     private UserProgram userProgram = new UserProgram("Main", "");
@@ -49,6 +50,16 @@ public class QuestionBuilder {
      */
     public QuestionBuilder withDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+        return this;
+    }
+
+    /**
+     * Returns a new builder with the isBookmarked boolean added.
+     * @param isBookmarked the isBookmarked boolean to be added.
+     * @return a new builder.
+     */
+    public QuestionBuilder withIsBookmarked(boolean isBookmarked) {
+        this.isBookmarked = isBookmarked;
         return this;
     }
 
@@ -99,6 +110,6 @@ public class QuestionBuilder {
             throw new IllegalArgumentException("Difficulty cannot be null.");
         }
 
-        return new Question(title, status, difficulty, topics, testCases, userProgram);
+        return new Question(title, status, difficulty, topics, testCases, userProgram, isBookmarked);
     }
 }

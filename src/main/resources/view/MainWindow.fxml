@@ -65,7 +65,7 @@
                      </VBox>
                      <VBox prefHeight="200.0" prefWidth="100.0">
                         <children>
-                           <AnchorPane fx:id="profilePlaceholder" prefHeight="200.0" prefWidth="200.0" />
+                           <AnchorPane fx:id="homePagePlaceholder" prefHeight="200.0" prefWidth="200.0" />
                         </children>
                      </VBox>
                   </children>

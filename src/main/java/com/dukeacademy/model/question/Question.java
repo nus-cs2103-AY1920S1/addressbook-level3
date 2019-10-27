@@ -29,12 +29,34 @@ public class Question {
     private final Set<Topic> topics = new HashSet<>();
     private final List<TestCase> testCases = new ArrayList<>();
     private final UserProgram userProgram;
+    private final boolean isBookmarked;
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Question(UUID uuid, String title, Status status, Difficulty difficulty, Set<Topic> topics,
+                    List<TestCase> testCases, UserProgram userProgram, boolean isBookmarked) {
+        requireAllNonNull(title, status, difficulty, topics, testCases, userProgram);
+        if (!Question.checkValidTitle(title)) {
+            throw new IllegalArgumentException();
+        }
+
+        this.uuid = uuid;
+        this.title = title;
+        this.status = status;
+        this.difficulty = difficulty;
+        this.topics.addAll(topics);
+        this.testCases.addAll(testCases);
+        this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
+        this.isBookmarked = isBookmarked;
+    }
+
 
     /**
      * Every field must be present and not null.
      */
     public Question(String title, Status status, Difficulty difficulty, Set<Topic> topics,
-                    List<TestCase> testCases, UserProgram userProgram) {
+                    List<TestCase> testCases, UserProgram userProgram, boolean isBookmarked) {
         requireAllNonNull(title, status, difficulty, topics, testCases, userProgram);
         if (!Question.checkValidTitle(title)) {
             throw new IllegalArgumentException();
@@ -47,22 +69,7 @@ public class Question {
         this.topics.addAll(topics);
         this.testCases.addAll(testCases);
         this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
-    }
-
-    public Question(UUID uuid, String title, Status status, Difficulty difficulty, Set<Topic> topics,
-                    List<TestCase> testCases, UserProgram userProgram) {
-        requireAllNonNull(uuid, title, status, difficulty, topics, testCases, userProgram);
-        if (!Question.checkValidTitle(title)) {
-            throw new IllegalArgumentException();
-        }
-
-        this.uuid = uuid;
-        this.title = title;
-        this.status = status;
-        this.difficulty = difficulty;
-        this.topics.addAll(topics);
-        this.testCases.addAll(testCases);
-        this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
+        this.isBookmarked = isBookmarked;
     }
 
     public String getTitle() {
@@ -89,6 +96,10 @@ public class Question {
         return new ArrayList<>(this.testCases);
     }
 
+    public boolean isBookmarked() {
+        return isBookmarked;
+    }
+
     /**
      * Creates a new instance of the same question with a new status. This new instance has the same uuid as the
      * previous instance.
@@ -98,7 +109,7 @@ public class Question {
      */
     public Question withNewStatus(Status status) {
         return new Question(this.uuid, this.title, status, this.difficulty, this.topics,
-                this.testCases, this.userProgram);
+                this.testCases, this.userProgram, this.isBookmarked);
     }
 
     /**
@@ -110,7 +121,7 @@ public class Question {
      */
     public Question withNewUserProgram(UserProgram userProgram) {
         return new Question(this.uuid, this.title, this.status, this.difficulty, this.topics,
-                this.testCases, userProgram);
+                this.testCases, userProgram, this.isBookmarked);
     }
 
     @Override
@@ -121,7 +132,8 @@ public class Question {
                 .append(getStatus())
                 .append(" Difficulty: ")
                 .append(getDifficulty())
-                .append(" Topics: ");
+                .append(" Topics: ")
+                .append(isBookmarked());
         this.getTopics().forEach(builder::append);
         return builder.toString();
     }
@@ -147,7 +159,8 @@ public class Question {
                 && other.getDifficulty().equals(this.difficulty)
                 && other.getTopics().equals(this.topics)
                 && other.getTestCases().equals(this.testCases)
-                && other.getUserProgram().equals(this.userProgram);
+                && other.getUserProgram().equals(this.userProgram)
+                && other.isBookmarked() == this.isBookmarked();
     }
 
     @Override

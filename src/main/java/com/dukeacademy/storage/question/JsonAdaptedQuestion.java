@@ -24,9 +24,11 @@ public class JsonAdaptedQuestion {
     private final String title;
     private final String status;
     private final String difficulty;
+    private final boolean isBookmarked;
     private final List<String> topics = new ArrayList<>();
     private final List<JsonAdaptedTestCase> testCases = new ArrayList<>();
     private JsonAdaptedUserProgram userProgram;
+
 
 
     /**
@@ -35,12 +37,15 @@ public class JsonAdaptedQuestion {
     @JsonCreator
     public JsonAdaptedQuestion(@JsonProperty("title") String title, @JsonProperty("status") String status,
                                @JsonProperty("difficulty") String difficulty,
+                               @JsonProperty("isBookmarked") boolean isBookmarked,
                                @JsonProperty("topics") List<String> topics,
                                @JsonProperty("testCases") List<JsonAdaptedTestCase> testCases,
                                @JsonProperty("userProgram") JsonAdaptedUserProgram userProgram) {
         this.title = title;
         this.status = status;
         this.difficulty = difficulty;
+        this.isBookmarked = isBookmarked;
+
         if (topics != null) {
             this.topics.addAll(topics);
         }
@@ -57,6 +62,7 @@ public class JsonAdaptedQuestion {
         this.title = source.getTitle();
         this.status = source.getStatus().toString();
         this.difficulty = source.getDifficulty().toString();
+        this.isBookmarked = source.isBookmarked();
         this.topics.addAll(source.getTopics().stream().map(Objects::toString).collect(Collectors.toList()));
         this.testCases.addAll(source.getTestCases().stream()
                 .map(JsonAdaptedTestCase::new)
@@ -87,13 +93,14 @@ public class JsonAdaptedQuestion {
 
         final Status status = Status.valueOf(this.status);
         final Difficulty difficulty = Difficulty.valueOf(this.difficulty);
+        final boolean isBookmarked = this.isBookmarked;
         final Set<Topic> newTopicsSet = this.topics.stream().map(Topic::valueOf).collect(Collectors.toSet());
         final List<TestCase> newTestCaseList = this.testCases.stream()
                 .map(JsonAdaptedTestCase::toModel)
                 .collect(Collectors.toList());
         final UserProgram newUserProgram = this.userProgram.toModel();
 
-        return new Question(title, status, difficulty, newTopicsSet, newTestCaseList, newUserProgram);
+        return new Question(title, status, difficulty, newTopicsSet, newTestCaseList, newUserProgram, isBookmarked);
     }
 
 }

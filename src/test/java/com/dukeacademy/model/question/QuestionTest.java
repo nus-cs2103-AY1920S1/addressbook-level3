@@ -25,6 +25,7 @@ public class QuestionTest {
     private final Set<Topic> validTopics = new HashSet<>();
     private final List<TestCase> validTestCases = new ArrayList<>();
     private final UserProgram validUserProgram = new UserProgram("Test", "");
+    private final boolean validIsBookmarked = false;
 
     @BeforeEach
     void populateTopicsAndTestCases() {
@@ -39,20 +40,20 @@ public class QuestionTest {
     @Test
     void constructor() {
         assertThrows(NullPointerException.class, () -> new Question(null, validStatus, validDifficulty,
-                validTopics, validTestCases, validUserProgram));
+                validTopics, validTestCases, validUserProgram, validIsBookmarked));
         assertThrows(NullPointerException.class, () -> new Question(validTitle, null, validDifficulty,
-                validTopics, validTestCases, validUserProgram));
+                validTopics, validTestCases, validUserProgram, validIsBookmarked));
         assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, null,
-                validTopics, validTestCases, validUserProgram));
+                validTopics, validTestCases, validUserProgram, validIsBookmarked));
         assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty,
-                null, validTestCases, validUserProgram));
+                null, validTestCases, validUserProgram, validIsBookmarked));
         assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty,
-                validTopics, null, validUserProgram));
+                validTopics, null, validUserProgram, validIsBookmarked));
         assertThrows(NullPointerException.class, () -> new Question(validTitle, validStatus, validDifficulty,
-                validTopics, validTestCases, null));
+                validTopics, validTestCases, null, validIsBookmarked));
 
         Question validQuestion = new Question(validTitle, validStatus, validDifficulty, validTopics,
-                validTestCases, validUserProgram);
+                validTestCases, validUserProgram, validIsBookmarked);
         assertEquals(validTitle, validQuestion.getTitle());
         assertEquals(validStatus, validQuestion.getStatus());
         assertEquals(validDifficulty, validQuestion.getDifficulty());
@@ -72,7 +73,7 @@ public class QuestionTest {
     @Test
     void withNewStatus() {
         Question question = new Question(validTitle, validStatus, validDifficulty,
-                validTopics, validTestCases, validUserProgram);
+                validTopics, validTestCases, validUserProgram, validIsBookmarked);
         Question newQuestion = question.withNewStatus(Status.PASSED);
         assertEquals(newQuestion.getStatus(), Status.PASSED);
         assertEquals(question, newQuestion);
@@ -82,7 +83,7 @@ public class QuestionTest {
     @Test
     void withNewUserProgram() {
         Question question = new Question(validTitle, validStatus, validDifficulty,
-                validTopics, validTestCases, validUserProgram);
+                validTopics, validTestCases, validUserProgram, validIsBookmarked);
         UserProgram program = new UserProgram("Test", "Test test test test test");
         Question newQuestion = question.withNewUserProgram(program);
         assertEquals(newQuestion.getUserProgram(), program);

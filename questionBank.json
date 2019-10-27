@@ -1,8 +1,9 @@
 {
   "questions" : [ {
     "title" : "Two Number Adder",
-    "status" : "NEW",
+    "status" : "ATTEMPTED",
     "difficulty" : "EASY",
+    "isBookmarked" : false,
     "topics" : ["OTHERS"],
     "testCases" : [ {
       "input": "1 2",
@@ -18,8 +19,9 @@
     }
   }, {
     "title" : "Valid Sudoku",
-    "status" : "NEW",
+    "status" : "ATTEMPTED",
     "difficulty" : "MEDIUM",
+    "isBookmarked" : false,
     "topics" : ["OTHERS", "ARRAY", "DYNAMIC_PROGRAMMING"],
     "testCases" : [ {
       "input": "1 2 3 4 5 6 7 8 9",
@@ -35,8 +37,9 @@
     }
   }, {
     "title" : "Palindrome Number",
-    "status" : "NEW",
+    "status" : "PASSED",
     "difficulty" : "EASY",
+    "isBookmarked" : true,
     "topics" : ["OTHERS", "RECURSION"],
     "testCases" : [ {
       "input": "12321",
@@ -54,6 +57,7 @@
     "title" : "Swap nodes in pairs",
     "status" : "NEW",
     "difficulty" : "MEDIUM",
+    "isBookmarked" : false,
     "topics" : ["GRAPH", "DYNAMIC_PROGRAMMING"],
     "testCases" : [ {
       "input": "5 12 33 23",
@@ -71,6 +75,7 @@
     "title" : "Merge k Sorted Lists",
     "status" : "NEW",
     "difficulty" : "HARD",
+    "isBookmarked" : true,
     "topics" : ["SORTING", "LINKED_LIST"],
     "testCases" : [ {
       "input": "3 5 3 4 1 99 0 21 34 123 3 21 3 1",
