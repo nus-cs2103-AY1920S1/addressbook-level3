@@ -34,6 +34,4 @@ class ListCommandParserTest {
         assertThrows(ParseException.class, () -> parser.parse(INCORRECT_INPUT));
         assertThrows(ParseException.class, () -> parser.parse(EMPTY_INPUT));
     }
-
-
 }

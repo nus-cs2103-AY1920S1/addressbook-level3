@@ -52,7 +52,8 @@ public class EditTeamCommandParser implements Parser<EditTeamCommand> {
             .setSubject(AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PROJECT_NAME).isPresent()) {
-            editTeamDescriptor.setProjectName(AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get()));
+            editTeamDescriptor.setProjectName(AlfredParserUtil
+                    .parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editTeamDescriptor.setLocation(AlfredParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));

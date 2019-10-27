@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
 
 import seedu.address.logic.commands.addcommand.AddMentorCommand;
-import seedu.address.logic.commands.editcommand.EditMentorCommand;
 import seedu.address.logic.commands.editcommand.EditMentorCommand.EditMentorDescriptor;
 import seedu.address.model.entity.Mentor;
 
