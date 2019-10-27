@@ -20,7 +20,8 @@ public interface Model {
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    Predicate<EncryptedFile> PREDICATE_SHOW_ALL_FILES = unused -> true;
+
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
