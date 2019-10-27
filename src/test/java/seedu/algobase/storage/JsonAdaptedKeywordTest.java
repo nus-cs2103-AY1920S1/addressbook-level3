@@ -1,6 +1,5 @@
 package seedu.algobase.storage;
 
-
 import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalProblemSearchRules.INVALID_KEYWORD;
 

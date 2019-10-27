@@ -42,13 +42,13 @@ class JsonAdaptedProblemSearchRuleTest {
         new JsonAdaptedTagIncludesKeywordsPredicate(ALL_PREDICATE.getTagPredicate().get());
 
     @Test
-    public void toModelType_validPartialDetails_one_returnsProblemSearchRule() throws IllegalValueException {
+    public void toModelType_validPartialDetailsOne_returnsProblemSearchRule() throws IllegalValueException {
         JsonAdaptedProblemSearchRule adaptedProblemSearchRule = new JsonAdaptedProblemSearchRule(MEDIUM_DIFFICULTY);
         assertEquals(MEDIUM_DIFFICULTY, adaptedProblemSearchRule.toModelType());
     }
 
     @Test
-    public void toModelType_validPartialDetails_two_returnsProblemSearchRule() throws IllegalValueException {
+    public void toModelType_validPartialDetailsTwo_returnsProblemSearchRule() throws IllegalValueException {
         JsonAdaptedProblemSearchRule adaptedProblemSearchRule = new JsonAdaptedProblemSearchRule(NAME_SEQUENCES);
         assertEquals(NAME_SEQUENCES, adaptedProblemSearchRule.toModelType());
     }
