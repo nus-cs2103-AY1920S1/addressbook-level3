@@ -21,6 +21,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHOTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
@@ -42,6 +43,7 @@ import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -132,7 +134,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         String designation = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_DESIGNATION).orElse(""));
         String employmentStatus = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_EMPLOYMENT_STATUS)
             .orElse(""));
-        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation);
+        Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).orElse(""));
+
+        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, photo);
     }
 
     /**
@@ -178,11 +182,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     private static ArgumentMultimap tokenize(String args) {
         return ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
-                        PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
+                        PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH, PREFIX_PHOTO,
                                 PREFIX_BODY_DETAILS, PREFIX_NRIC, PREFIX_RELATIONSHIP, PREFIX_RELIGION,
                                         PREFIX_NAME_NOK, PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION,
                                                 PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
                                                         PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
     }
 }
-//@@ author shaoyi1997
+//@@ author

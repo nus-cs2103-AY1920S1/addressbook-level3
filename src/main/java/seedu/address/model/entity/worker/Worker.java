@@ -30,9 +30,10 @@ public class Worker implements Entity {
     private Optional<Date> dateOfBirth;
     private Optional<PhoneNumber> phone;
     private Optional<String> employmentStatus;
+    private Optional<Photo> photo;
 
     public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  String designation) {
+                  String designation, Photo photo) {
         this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         this.name = name;
         this.sex = sex;
@@ -41,6 +42,7 @@ public class Worker implements Entity {
         this.employmentStatus = Optional.ofNullable(employmentStatus);
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
         this.designation = Optional.ofNullable(designation);
+        this.photo = Optional.ofNullable(photo);
     }
 
     public Worker(Name name, Sex sex, Date dateJoined) {
@@ -51,6 +53,7 @@ public class Worker implements Entity {
         this.designation = Optional.empty();
         this.phone = Optional.empty();
         this.dateOfBirth = Optional.empty();
+        this.photo = Optional.empty();
     }
 
     /**
@@ -104,6 +107,10 @@ public class Worker implements Entity {
         return employmentStatus;
     }
 
+    public Optional<Photo> getPhoto() {
+        return photo;
+    }
+
     public void setPhone(PhoneNumber phone) {
         this.phone = Optional.ofNullable(phone);
     }
@@ -126,6 +133,10 @@ public class Worker implements Entity {
 
     public void setEmploymentStatus(String employmentStatus) {
         this.employmentStatus = Optional.ofNullable(employmentStatus);
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = Optional.ofNullable(photo);
     }
 
     /**
@@ -171,7 +182,8 @@ public class Worker implements Entity {
             && otherPerson.getPhone().equals(getPhone())
             && otherPerson.getDateJoined().equals(getDateJoined())
             && otherPerson.getDateOfBirth().equals(getDateOfBirth())
-            && otherPerson.getDesignation().equals(getDesignation());
+            && otherPerson.getDesignation().equals(getDesignation())
+            && otherPerson.getPhoto().equals(getPhoto());
     }
 
     @Override

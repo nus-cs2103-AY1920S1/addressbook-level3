@@ -19,6 +19,7 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
 import seedu.address.model.entity.fridge.FridgeStatus;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -155,6 +156,7 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //@@ author shaoyi1997
     /**
      * Parses {@code String date} into a {@code Date date}.
      *
@@ -231,7 +233,6 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String id} into an {@code IdentificationNumber}.
-     *
      */
     public static List<String> parseOrgansForDonation(String stringOfOrgans) {
         requireNonNull(stringOfOrgans);
@@ -281,4 +282,21 @@ public class ParserUtil {
         }
         return field;
     }
+
+    /**
+     * Parses a {@code String pathToPhoto} into a {@code Photo}.
+     */
+    public static Photo parsePhoto(String pathToPhoto) throws ParseException {
+        requireNonNull(pathToPhoto);
+        if (pathToPhoto.isEmpty()) {
+            return null;
+        }
+        String trimmedPath = pathToPhoto.trim();
+        if (Photo.isValidPhoto(trimmedPath)) {
+            return new Photo(trimmedPath);
+        } else {
+            throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
+        }
+    }
+    //@@ author
 }
