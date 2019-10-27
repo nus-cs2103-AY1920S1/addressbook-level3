@@ -3,8 +3,8 @@ package seedu.address.model.cap.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Person's address in the address book.
@@ -12,13 +12,12 @@ import java.util.regex.Matcher;
  */
 public class Title {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Faculty should only contain characters, there "
-                    + "should not be special characters and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Faculty should only contain characters,"
+            + " there " + "should not be special characters and it should not be blank";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String title;
 
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     /**
      * Constructs an {@code Address}.
      *
@@ -66,13 +65,19 @@ public class Title {
             Matcher m = p.matcher(test);
             Boolean noSpecialCharacter = !m.find();
 
-            Boolean noNumber = !isNumeric(test.substring(0,1));
+            Boolean noNumber = !isNumeric(test.substring(0, 1));
             return noNumber && noSpecialCharacter;
         } catch (IllegalArgumentException e) {
             return false;
         }
     }
 
+    /**
+     * This method checks if a string is in fact a number.
+     *
+     * @param strNum the string that will be tested upon.
+     * @return boolean value of whether the string is a number.
+     */
     public static boolean isNumeric(String strNum) {
         try {
             double d = Double.parseDouble(strNum);
@@ -81,5 +86,4 @@ public class Title {
         }
         return true;
     }
-
 }
