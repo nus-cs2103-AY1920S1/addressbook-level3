@@ -1,7 +1,6 @@
 package seedu.jarvis.testutil.finance;
 
 import seedu.jarvis.model.finance.purchase.Purchase;
-import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 /**
  * A utility class containing a list of {@code Purchase} objects to be used in tests.

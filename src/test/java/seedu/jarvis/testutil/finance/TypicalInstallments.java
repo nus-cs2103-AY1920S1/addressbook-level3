@@ -1,7 +1,6 @@
 package seedu.jarvis.testutil.finance;
 
 import seedu.jarvis.model.finance.installment.Installment;
-import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**
  * A utility class containing a list of {@code Installment} objects to be used in tests.

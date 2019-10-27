@@ -3,7 +3,6 @@ package seedu.jarvis.storage.finance;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
