@@ -42,7 +42,6 @@
             <VBox alignment="CENTER" styleClass="pane-with-border">
                <children>
                   <Label fx:id="resultLabel" contentDisplay="CENTER" style="-fx-font-size: 11; -fx-text-fill: #a8a8a8;" text="Command Result" textFill="#a8a8a8" />
-      
               <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" VBox.vgrow="NEVER">
                 <padding>
                   <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
@@ -52,8 +51,6 @@
             </VBox>
             <HBox>
                <children>
-      
-      
               <VBox fx:id="mainPanel" styleClass="pane-with-border">
                 <padding>
                   <Insets bottom="20.0" left="15.0" right="15.0" top="15.0" />
