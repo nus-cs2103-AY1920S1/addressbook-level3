@@ -175,7 +175,7 @@ enum Responses {
 
                 LogsCenter.getLogger(Responses.class).info("DECK_CREATE_MCQ_CARD: command execution successful");
                 return true; // capture is valid, end checking other commands
-             }),
+            }),
 
     // create frontbackcard
     DECK_CREATE_REG_CARD("(?i)^(create)?(\\s)+"
