@@ -22,13 +22,12 @@ public class ClaimPlotter {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private String currentDateString = currentLocalDate.format(formatter);
     private Date currentDate = new Date(currentDateString);
-    private XYSeries claimSeries;
+    private XYSeries claimSeries = new XYSeries("Claim");
     private int currentMonthNumber = currentDate.date.getMonthValue();
     private int currentYearNumber = currentDate.date.getYear();
 
-    ClaimPlotter(List<Claim> claimList, XYSeries claimSeries) {
+    ClaimPlotter(List<Claim> claimList) {
         this.claimList = claimList;
-        this.claimSeries = claimSeries;
     }
 
     /**
