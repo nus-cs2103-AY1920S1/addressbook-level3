@@ -49,8 +49,8 @@ public class Billboard implements ReadOnlyBillboard {
 
     public Billboard(ExpenseList expenses, UniqueTagList tags, TagCountManager count) {
         setExpenses(expenses.asUnmodifiableObservableList());
-        this.tags.setTagList(tags.getTagList());
-        this.count.setCountMap(count.getCountMap());
+        setUniqueTagList(tags.getTagList());
+        setCountManager(count.getCountMap());
     }
 
     //// list overwrite operations
@@ -106,7 +106,7 @@ public class Billboard implements ReadOnlyBillboard {
 
     public void setBillboard(Billboard billboard) {
         setExpenses(billboard.getExpenses());
-        tags.setTagList(billboard.getTags().getTagList());
+        setUniqueTagList(billboard.getTags().getTagList());
         setCountManager(billboard.getCountManager());
     }
 

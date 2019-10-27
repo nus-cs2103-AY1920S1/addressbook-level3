@@ -23,7 +23,7 @@ public class RemoveTagCommand extends TagCommand {
     public static final String COMMAND_WORD = "rm";
 
     public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Removes tags from the expense identified "
+            + ": Removes tag(s) from the expense identified "
             + "by the index number used in the last expense listing. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "[TAG]\n"
@@ -36,8 +36,8 @@ public class RemoveTagCommand extends TagCommand {
     private List<String> tagNames;
 
     /**
-     * Creates an RemoveTagCommand to remove tags from the specified {@code Expense}
-     * @param index                 of the expense in the filtered expense list to edit
+     * Creates a RemoveTagCommand to remove tags from the specified {@code Expense}
+     * @param index             of the expense in the filtered expense list to edit
      * @param tagNames          tags to be removed from expense.
      */
     public RemoveTagCommand(Index index, List<String> tagNames) {
@@ -57,8 +57,8 @@ public class RemoveTagCommand extends TagCommand {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
 
         Set<Tag> currentTags = expenseToEdit.getTags();
-        Set<Tag> tagsToRemove = getExistingTags(currentTags, tagNames);
-        Set<Tag> editedTags = getRemainingTags(currentTags, tagsToRemove);
+        Set<Tag> tagsToRemove = removeNotInExpense(currentTags, tagNames);
+        Set<Tag> editedTags = getEditedTags(currentTags, tagsToRemove);
         model.decreaseCount(tagsToRemove);
 
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
@@ -71,16 +71,16 @@ public class RemoveTagCommand extends TagCommand {
     }
 
     /**
-     * Checks and returns a set consisting of tags whose names exist in the set given in argument.
-     * @param current to check names against
-     * @param names of tags to be removed.
-     * @return set consisting of tags whose names exist in set.
+     * Checks and returns a set consisting of tags whose names exist in the existing tags set.
+     * @param existingTags  in the expense
+     * @param inputNames    of tags input by user.
+     * @return unmodifiable set consisting of tags whose names exist in existing set of tags.
      */
-    private Set<Tag> getExistingTags(Set<Tag> current, List<String> names) {
-        requireAllNonNull(current, names);
+    private Set<Tag> removeNotInExpense(Set<Tag> existingTags, List<String> inputNames) {
+        requireAllNonNull(existingTags, inputNames);
         Set<Tag> toReturn = new HashSet<>();
-        for (Tag tag : current) {
-            if (names.contains(tag.tagName)) {
+        for (Tag tag : existingTags) {
+            if (inputNames.contains(tag.tagName)) {
                 toReturn.add(tag);
             }
         }
@@ -88,14 +88,15 @@ public class RemoveTagCommand extends TagCommand {
     }
 
     /**
-     * Removes all elements of a set from another set.
-     * @param current set which elements will be removed from.
-     * @param toRemove set whose elements are to be removed.
-     * @return set consisting of remaining elements.
+     * Removes tags from existing set of tags in expense.
+     * Tags in set to be removed must exist in existing tags set.
+     * @param existingTags      in expense.
+     * @param toRemove          tag set to be removed.
+     * @return unmodifiable set consisting of remaining elements.
      */
-    private Set<Tag> getRemainingTags(Set<Tag> current, Set<Tag> toRemove) {
-        requireAllNonNull(current, toRemove);
-        Set<Tag> toReturn = new HashSet<>(current);
+    private Set<Tag> getEditedTags(Set<Tag> existingTags, Set<Tag> toRemove) {
+        requireAllNonNull(existingTags, toRemove);
+        Set<Tag> toReturn = new HashSet<>(existingTags);
         toReturn.removeAll(toRemove);
         return Collections.unmodifiableSet(toReturn);
     }
