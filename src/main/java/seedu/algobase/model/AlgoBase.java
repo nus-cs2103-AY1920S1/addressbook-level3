@@ -77,12 +77,12 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     /**
      * Returns the {@code Problem} with the same id in the algobase.
      */
-    public Problem findProblemById(long problemId) throws IllegalValueException {
+    public Problem findProblemById(Id problemId) throws IllegalValueException {
         requireNonNull(problemId);
         Iterator<Problem> iterator = problems.iterator();
         while (iterator.hasNext()) {
             Problem problem = iterator.next();
-            if (problem.getId() == problemId) {
+            if (problem.getId().equals(problemId)) {
                 return problem;
             }
         }

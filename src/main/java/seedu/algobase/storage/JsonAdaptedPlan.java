@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.AlgoBase;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
@@ -57,7 +58,7 @@ class JsonAdaptedPlan {
      * Converts a given {@code Plan} into this class for Jackson use.
      */
     public JsonAdaptedPlan(Plan plan) {
-        id = Long.toString(plan.getId());
+        id = plan.getId().toString();
         name = plan.getPlanName().fullName;
         description = plan.getPlanDescription().value;
         startDate = plan.getStartDate().format(ParserUtil.FORMATTER);
@@ -78,7 +79,7 @@ class JsonAdaptedPlan {
             tasks.add(task.toModelType(algoBase));
         }
 
-        final long modelId = retrieveId(id);
+        final Id modelId = retrieveId(id);
         final PlanName modelName = retrieveName(name);
         final PlanDescription modelDescription = retrieveDescription(description);
         final LocalDate modelStartDate = retrieveDate(startDate);
@@ -96,14 +97,14 @@ class JsonAdaptedPlan {
      * @return id in long format.
      * @throws IllegalValueException if string format is invalid.
      */
-    public long retrieveId(String id) throws IllegalValueException {
+    public Id retrieveId(String id) throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
 
         try {
-            return Long.parseLong(id);
+            return Id.generateId(Long.parseLong(id));
         } catch (NumberFormatException e) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
