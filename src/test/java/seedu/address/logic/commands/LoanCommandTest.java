@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_ON_LOAN;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
-import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -14,6 +13,7 @@ import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_7_ON_LOAN;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
+import static seedu.address.testutil.UserSettingsBuilder.DEFAULT_LOAN_PERIOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -63,10 +63,12 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         }
-        String expectedMessage = String.format(LoanCommand.MESSAGE_SUCCESS, updatedLoanedOutBook, HOON);
+        String expectedMessage = String.format(LoanCommand.MESSAGE_SUCCESS, updatedLoanedOutBook,
+                model.getServingBorrower());
         assertEquals(actualMessage, expectedMessage);
         LoanList updatedHistory = new LoanList();
         updatedHistory.add(loan);
+        assertTrue(model.getServingBorrower().hasCurrentLoan(loan));
         assertEquals(updatedLoanedOutBook.getLoanHistory(), updatedHistory);
     }
 

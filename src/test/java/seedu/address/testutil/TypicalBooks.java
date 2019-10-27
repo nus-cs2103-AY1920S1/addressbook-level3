@@ -36,11 +36,11 @@ public class TypicalBooks {
      * Returns a {@code Catalog} with all the typical books.
      */
     public static Catalog getTypicalCatalog() {
-        Catalog ab = new Catalog();
+        Catalog catalog = new Catalog();
         for (Book book : getTypicalBooks()) {
-            ab.addBook(book);
+            catalog.addBook(book);
         }
-        return ab;
+        return catalog;
     }
 
     public static List<Book> getTypicalBooks() {

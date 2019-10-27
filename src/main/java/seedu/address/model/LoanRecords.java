@@ -89,6 +89,17 @@ public class LoanRecords implements ReadOnlyLoanRecords {
         return loansMap.size();
     }
 
+    /**
+     * Replaces an existing {@code Loan} object in the loansMap with an edited one.
+     *
+     * @param existingLoan Existing {@code Loan} object to be replaced.
+     * @param updatedLoan Updated {@code Loan} object.
+     */
+    public void updateLoan(Loan existingLoan, Loan updatedLoan) {
+        loansMap.remove(existingLoan.getLoanId());
+        addLoan(updatedLoan);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

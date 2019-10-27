@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalLoans.LOAN_1;
 import static seedu.address.testutil.TypicalLoans.LOAN_2;
+import static seedu.address.testutil.TypicalLoans.LOAN_3;
+import static seedu.address.testutil.TypicalLoans.LOAN_4;
+import static seedu.address.testutil.TypicalLoans.LOAN_8;
+import static seedu.address.testutil.TypicalLoans.LOAN_9;
 import static seedu.address.testutil.TypicalLoans.getTypicalLoans;
 
 import java.util.List;
@@ -50,6 +54,7 @@ class LoanListTest {
         loanList1.add(LOAN_1);
         LoanList loanList2 = loanList1.addToNewCopy(LOAN_2);
         loanList1.add(LOAN_2);
+
         assertEquals(loanList1, loanList2);
         assertNotSame(loanList1, loanList2);
     }
@@ -60,7 +65,32 @@ class LoanListTest {
         loanList1.add(LOAN_1);
         loanList1.add(LOAN_2);
         LoanList loanList2 = loanList1.removeFromNewCopy(LOAN_2);
+
         assertEquals(loanList2.size(), 1);
         assertNotEquals(loanList1, loanList2);
+    }
+
+    @Test
+    public void replaceInNewCopy() {
+        LoanList loanList1 = new LoanList();
+        loanList1.add(LOAN_1);
+        loanList1.add(LOAN_2);
+        loanList1.add(LOAN_3);
+        LoanList loanList2 = loanList1.replaceInNewCopy(LOAN_2, LOAN_4);
+
+        assertTrue(loanList2.contains(LOAN_4));
+        assertFalse(loanList2.contains(LOAN_2));
+        assertTrue(loanList1.contains(LOAN_2));
+        assertFalse(loanList1.contains(LOAN_4));
+    }
+
+    @Test
+    public void calculateOutstandingFineAmount() {
+        LoanList loanList = new LoanList();
+        loanList.add(LOAN_8);
+        loanList.add(LOAN_9);
+
+        assertEquals(loanList.calculateOutstandingFineAmount(),
+                LOAN_8.getRemainingFineAmount() + LOAN_9.getRemainingFineAmount());
     }
 }

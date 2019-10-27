@@ -11,13 +11,15 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditBorrowerCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InfoCommand;
 import seedu.address.logic.commands.LoanCommand;
+import seedu.address.logic.commands.PayCommand;
 import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.RenewCommand;
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.SetCommand;
@@ -54,7 +56,7 @@ public class CatalogParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditBorrowerCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
@@ -90,8 +92,14 @@ public class CatalogParser {
         case ReturnCommand.COMMAND_WORD:
             return new ReturnCommandParser().parse(arguments);
 
+        case RenewCommand.COMMAND_WORD:
+            return new RenewCommandParser().parse(arguments);
+
         case SetCommand.COMMAND_WORD:
             return new SetCommandParser().parse(arguments);
+
+        case PayCommand.COMMAND_WORD:
+            return new PayCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
