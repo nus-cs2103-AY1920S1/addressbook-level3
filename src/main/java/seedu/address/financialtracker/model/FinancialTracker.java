@@ -3,7 +3,10 @@ package seedu.address.financialtracker.model;
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
+import seedu.address.financialtracker.model.expense.Amount;
+import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 public class FinancialTracker {

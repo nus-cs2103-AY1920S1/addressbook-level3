@@ -1,6 +1,7 @@
 package seedu.address.itinerary.commands;
 
 import javafx.collections.transformation.SortedList;
+
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.logic.commands.CommandResult;

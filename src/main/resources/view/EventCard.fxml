@@ -35,6 +35,7 @@
                   <Font name="Chalkboard" size="18.0" />
                </font>
             </Label>
+            <Region prefHeight="20.0" prefWidth="20.0" />
             <Label fx:id="tag" text="\\$tag">
                <HBox.margin>
                   <Insets top="3.0" />

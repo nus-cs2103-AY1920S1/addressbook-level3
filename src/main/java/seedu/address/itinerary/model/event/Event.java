@@ -97,13 +97,13 @@ public class Event {
 
         @Override
         public int compare(Event e1, Event e2) {
-            int d1 = formatTime(e1.getDate().toString(), e1.getTime().toString());
-            int d2 = formatTime(e2.getDate().toString(), e2.getTime().toString());
+            long d1 = formatTime(e1.getDate().toString(), e1.getTime().toString());
+            long d2 = formatTime(e2.getDate().toString(), e2.getTime().toString());
 
-            return d1 - d2;
+            return (int) (d1 - d2);
         }
 
-        private int formatTime(String date, String time) {
+        private long formatTime(String date, String time) {
             String result = date.substring(6) + date.substring(3, 5) + date.substring(0, 2);
             String zone = time.substring(6);
             if (zone.equals("a.m.")) {
@@ -117,7 +117,7 @@ public class Event {
                 int changeTime = Integer.parseInt(time.substring(0, 2)) + 12;
                 result = result + changeTime + time.substring(3, 5);
             }
-            return Integer.parseInt(result);
+            return Long.parseLong(result);
         }
     }.thenComparing(Object::toString);
 
@@ -162,27 +162,4 @@ public class Event {
             return index1 - index2;
         }
     }.thenComparing(Object::toString);
-
-    /**
-     * Returns true if both expense have the same data fields.
-     * This defines a stronger notion of equality between two expenses.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Event)) {
-            return false;
-        }
-
-        Event otherEvent = (Event) other;
-        return otherEvent.title.title.equals(this.title.title)
-                && otherEvent.date.date.equals(this.date.date)
-                && otherEvent.time.time.equals(this.time.time)
-                && otherEvent.location.location.equals(this.location.location)
-                && otherEvent.desc.desc.equals(this.desc.desc)
-                && otherEvent.tag.tag.equals(this.tag.tag);
-    }
 }

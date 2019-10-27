@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+
+import org.controlsfx.control.textfield.TextFields;
+
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -42,6 +45,21 @@ public class CommandBox extends UiPart<Region> {
         this.history = history;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        String[] possibleSuggestions = {
+                // For basic command
+                "greet", "summary", "goto", "goto calendar", "goto financial_tracker", "goto diary",
+                "goto main", "goto achievements", "exit", "list", "help", "redo", "undo", "wish"
+                // For the add command
+                , "add", "add title/", "add title/ date/ time/ l/ d/"
+                // For the edit, done and delete command
+                , "delete", "delete [index]", "edit", "edit [index]", "done", "done [index]"
+                // For the sort event
+                , "sort", "sort by/", "by/", "title", "location", "completion", "priority", "chronological"
+                // For the search event
+                , "search", "search title/", "search title/ date/ time/ l/ d/ tag/"
+        };
+
+        TextFields.bindAutoCompletion(commandTextField, possibleSuggestions);
         historySnapshot = new ListElementPointer(history);
     }
 

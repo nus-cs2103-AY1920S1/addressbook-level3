@@ -2,10 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,20 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="itineraryPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <MenuBar fx:id="menuBar" prefHeight="17.0" prefWidth="440.0" BorderPane.alignment="CENTER">
-         <Menu mnemonicParsing="false" text="Itinerary">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-         </Menu>
-      </MenuBar>
-   </top>
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
    <bottom>
-   
-                                    <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER" />
+
+      <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
       <VBox BorderPane.alignment="CENTER">
@@ -34,21 +20,21 @@
             <URL value="@DarkTheme.css" />
             <URL value="@Extensions.css" />
          </stylesheets>
-      
-                                             <VBox fx:id="eventList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+
+         <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" prefHeight="32.0" styleClass="pane-with-border">
+            <padding>
+               <Insets bottom="5" left="10" right="10" top="5" />
+            </padding>
+         </StackPane>
+
+         <VBox fx:id="eventList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <padding>
                <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
             <StackPane fx:id="eventPlaceHolder" VBox.vgrow="ALWAYS" />
          </VBox>
-      
-                                       <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-            <padding>
-               <Insets bottom="5" left="10" right="10" top="5" />
-            </padding>
-         </StackPane>
-      
-                                                <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" prefHeight="32.0" styleClass="pane-with-border">
+
+         <StackPane id="resultDisplay" fx:id="resultDisplayPlaceholder" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
             <padding>
                <Insets bottom="5" left="10" right="10" top="5" />
             </padding>
@@ -56,83 +42,22 @@
       </VBox>
    </center>
    <left>
-      <VBox prefHeight="650.0" prefWidth="200.0" style="-fx-background-color: darkslategrey; -fx-alignment: center;" BorderPane.alignment="CENTER">
+      <VBox id="leftPane" fx:id="leftPane" prefHeight="650.0" prefWidth="238.0" stylesheets="@TravezyTheme.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="189.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/travezylogo.png" />
                </image>
                <VBox.margin>
-                  <Insets bottom="30.0" />
+                  <Insets />
                </VBox.margin>
             </ImageView>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" text="Address" textFill="WHITE">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/phone.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Finances">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/finance.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Calendar">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/calendar_emoji.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Diary">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/diary.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Itinerary">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/itinerary.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Achievements">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/achievement.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
+            <Label id="leftPaneFeature" alignment="CENTER" prefHeight="57.0" prefWidth="220.0" text="ITINERARY" />
          </children>
       </VBox>
    </left>
+   <stylesheets>
+      <URL value="@TravezyTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
 </BorderPane>
