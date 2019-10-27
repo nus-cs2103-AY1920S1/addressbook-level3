@@ -79,6 +79,20 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         return root.indexOf((Identical) o, root.relativePosition);
     }
 
+    public int indexOfUpperBound(Object o) {
+        if (root == null || !(o instanceof Identical)) {
+            return -1;
+        }
+        return root.indexOfUpperBound((Identical) o, root.relativePosition);
+    }
+
+    public int indexOfLowerBound(Object o) {
+        if (root == null || !(o instanceof Identical)) {
+            return -1;
+        }
+        return root.indexOfLowerBound((Identical) o, root.relativePosition);
+    }
+
     @Override
     public boolean contains(Object o) {
         return indexOf(o) >= 0;
@@ -107,7 +121,7 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         }
         size++;
         return true;
-    }
+}
 
     @Override
     public boolean addAll(final Collection<? extends E> c) {
@@ -267,6 +281,51 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
                     return -1;
                 }
                 return right.indexOf(element, index + right.relativePosition);
+            }
+
+            return index;
+        }
+
+        /**
+         * Locate the index which is the upper bound of the specified object.
+         */
+        int indexOfUpperBound(Identical<E> element, final int index) {
+            if (value == null) {
+                return -1;
+            }
+
+            int cmp = value.compareTo(element);
+            if (cmp > 0) {
+                if (getRightSubTree() == null) {
+                    return index;
+                }
+                return right.indexOfUpperBound(element, index + right.relativePosition);
+            } else if (cmp < 0) {
+                if (getLeftSubTree() == null) {
+                    return index;
+                }
+                return left.indexOfUpperBound(element, index + left.relativePosition);
+            }
+
+            return index;
+        }
+
+        public int indexOfLowerBound(Identical<E> element, final int index) {
+            if (value == null) {
+                return -1;
+            }
+
+            int cmp = value.compareTo(element);
+            if (cmp > 0) {
+                if (getLeftSubTree() == null) {
+                    return index;
+                }
+                return left.indexOfUpperBound(element, index + left.relativePosition);
+            } else if (cmp < 0) {
+                if (getRightSubTree() == null) {
+                    return index;
+                }
+                return right.indexOfUpperBound(element, index + right.relativePosition);
             }
 
             return index;

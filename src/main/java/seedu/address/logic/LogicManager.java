@@ -71,6 +71,8 @@ public class LogicManager implements Logic {
             if (!(command instanceof NonActionableCommand)) {
                 storage.savePatientAddressBook(model.getPatientAddressBook());
                 storage.savePatientAppointmentBook(model.getAppointmentBook());
+                storage.saveStaffAddressBook(model.getStaffAddressBook());
+                storage.saveStaffDutyRosterBook(model.getDutyShiftBook());
             }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe.getMessage(), ioe);
