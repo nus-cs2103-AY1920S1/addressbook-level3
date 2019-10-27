@@ -79,6 +79,9 @@ public class Annotation {
 
     @Override
     public String toString() {
-        return colour.toString() + " :: " + note.toString();
+        if (hasNote()) {
+            return colour.toString() + " highlight with note " + note.toString();
+        }
+        return colour.toString() + "highlight";
     }
 }

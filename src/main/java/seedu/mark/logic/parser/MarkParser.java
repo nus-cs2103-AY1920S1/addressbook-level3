@@ -16,6 +16,7 @@ import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteAnnotationCommand;
 import seedu.mark.logic.commands.DeleteCommand;
+import seedu.mark.logic.commands.EditAnnotationCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.ExportCommand;
@@ -65,6 +66,7 @@ public class MarkParser {
             return new EditCommandParser().parse(arguments);
 
         case FavoriteCommand.COMMAND_WORD:
+            //Fallthrough
         case FavoriteCommand.COMMAND_ALIAS:
             return new FavoriteCommandParser().parse(arguments);
 
@@ -124,6 +126,9 @@ public class MarkParser {
 
         case DeleteAnnotationCommand.COMMAND_WORD:
             return new DeleteAnnotationCommandParser().parse(arguments);
+
+        case EditAnnotationCommand.COMMAND_WORD:
+            return new EditAnnotationCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.mark.testutil.Assert.assertThrows;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
 
@@ -18,10 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
-import seedu.mark.model.Model;
-import seedu.mark.model.ModelManager;
 import seedu.mark.model.ModelStub;
-import seedu.mark.model.UserPrefs;
 import seedu.mark.model.annotation.Annotation;
 import seedu.mark.model.annotation.AnnotationNote;
 import seedu.mark.model.annotation.Highlight;
@@ -30,7 +26,6 @@ import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
-import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageStub;
 import seedu.mark.testutil.BookmarkBuilder;
 

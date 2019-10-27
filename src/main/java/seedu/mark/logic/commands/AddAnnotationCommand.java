@@ -25,8 +25,6 @@ public class AddAnnotationCommand extends AnnotationCommand {
 
     public static final String COMMAND_WORD = "annotate";
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Paragraph identifiers should coincide with the paragraph labels on the left of each paragraph.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Annotates the cache of the bookmark identified by the index used in the displayed bookmark list.\n"
             + "Parameters: INDEX (must be a positive integer)"
@@ -58,6 +56,10 @@ public class AddAnnotationCommand extends AnnotationCommand {
         this.highlight = highlight;
     }
 
+    /**
+     * Executes the {@code AddAnnotationCommand} and returns an {@code OfflineCommandResult}.
+     * @throws CommandException if bookmark index, cache, pid is invalid or paragraph is phantom.
+     */
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         OfflineDocument doc = getRequiredDoc(model);

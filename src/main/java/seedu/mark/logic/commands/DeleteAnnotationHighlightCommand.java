@@ -28,6 +28,10 @@ public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
     }
 
 
+    /**
+     * Executes the {@code DeleteAnnotationHighlightCommand} and returns an {@code OfflineCommandResult}.
+     * @throws CommandException if bookmark index, cache, pid is invalid, paragraph is phantom or has nothing to delete.
+     */
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         OfflineDocument doc = getRequiredDoc(model);

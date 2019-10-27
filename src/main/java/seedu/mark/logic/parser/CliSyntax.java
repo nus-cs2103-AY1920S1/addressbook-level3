@@ -17,5 +17,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_TIME = new Prefix("t/");
+    public static final Prefix PREFIX_TO_NEW_PARAGRAPH = new Prefix("to/");
     public static final Prefix PREFIX_URL = new Prefix("u/");
 }

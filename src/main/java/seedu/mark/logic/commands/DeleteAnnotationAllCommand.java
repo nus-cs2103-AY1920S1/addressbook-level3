@@ -31,6 +31,10 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
     }
 
 
+    /**
+     * Executes the {@code DeleteAnnotationAllCommand} and returns an {@code OfflineCommandResult}.
+     * @throws CommandException if bookmark index, cache, pid is invalid or paragraph has no annotations to delete.
+     */
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         OfflineDocument doc = getRequiredDoc(model);

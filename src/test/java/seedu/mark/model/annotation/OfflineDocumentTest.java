@@ -22,7 +22,7 @@ class OfflineDocumentTest {
     private HashMap<Annotation, ParagraphIdentifier> ans;
 
     @BeforeEach
-    public void OfflineDocumentTest() throws Exception {
+    public void constructOfflineDocumentTest() throws Exception {
         cleandoc = new OfflineDocument(OFFLINE_DOC_EXAMPLE);
         assertEquals(true, cleandoc.hasParagraph(pid));
         assertEquals(false, cleandoc.hasParagraph(pidInvalid));
@@ -107,7 +107,6 @@ class OfflineDocumentTest {
 
     @Test
     public void updateStrayIndex_checkBeforeAfterStrayParagraphs() throws Exception {
-        ParagraphIdentifier s1 = ParagraphIdentifier.makeStrayId(Index.fromOneBased(1));
         ParagraphIdentifier s2 = ParagraphIdentifier.makeStrayId(Index.fromOneBased(2));
         ParagraphIdentifier s3 = ParagraphIdentifier.makeStrayId(Index.fromOneBased(3));
         Annotation an1 = new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE);

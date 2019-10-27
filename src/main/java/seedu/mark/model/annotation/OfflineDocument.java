@@ -187,7 +187,7 @@ public class OfflineDocument {
         if (!hasParagraph(pid)) {
             throw new IllegalValueException(MESSAGE_INVALID_PID);
         }
-        Paragraph p = this.paragraphs.remove(pid);
+        this.paragraphs.remove(pid);
     }
 
     /**

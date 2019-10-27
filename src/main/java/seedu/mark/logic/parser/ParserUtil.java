@@ -12,6 +12,7 @@ import java.util.Set;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
 import seedu.mark.logic.commands.AddAnnotationCommand;
+import seedu.mark.logic.commands.AnnotationCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Folder;
@@ -193,7 +194,7 @@ public class ParserUtil {
     public static ParagraphIdentifier parseParagraphIdentifier(String pidString) throws ParseException {
         requireNonNull(pidString);
         if (pidString.trim().length() < 1) {
-            throw new ParseException(AddAnnotationCommand.MESSAGE_CONSTRAINTS);
+            throw new ParseException(AnnotationCommand.MESSAGE_CONSTRAINTS);
         }
 
         ParagraphIdentifier.ParagraphType t;
@@ -209,14 +210,14 @@ public class ParserUtil {
             t = ParagraphIdentifier.ParagraphType.EXIST;
             break;
         default:
-            throw new ParseException(AddAnnotationCommand.MESSAGE_CONSTRAINTS);
+            throw new ParseException(AnnotationCommand.MESSAGE_CONSTRAINTS);
         }
 
         Index idx;
         try {
             idx = ParserUtil.parseIndex(pidString.substring(1));
         } catch (ParseException pe) {
-            throw new ParseException(AddAnnotationCommand.MESSAGE_CONSTRAINTS);
+            throw new ParseException(AnnotationCommand.MESSAGE_CONSTRAINTS);
         }
 
         return new ParagraphIdentifier(idx, t);
