@@ -23,8 +23,7 @@ public abstract class Engagement {
     /**
      * Constructs an engagement.
      *
-     * @param start start time of the engagement.
-     * @param end end time of the engagement.
+     * @param timeSlot time slot of the engagement.
      * @param attendees list of people attending.
      * @param location location of the engagement.
      * @param description description of the engagement.
@@ -42,8 +41,7 @@ public abstract class Engagement {
     /**
      * Returns a {@code Meeting}, {@code Interview}, or {@code Appointment} with the given fields.
      * @param type type of engagement.
-     * @param start start time.
-     * @param end end time.
+     * @param timeSlot time slot.
      * @param attendees list of people attending.
      * @param location location of engagement.
      * @param description description of the engagement.
@@ -67,8 +65,7 @@ public abstract class Engagement {
     /**
      * Returns a {@code Meeting}, {@code Interview}, or {@code Appointment} with the given fields.
      * @param type type of engagement.
-     * @param start start time.
-     * @param end end time.
+     * @param timeSlot {@code TimeSlot} of the engagement.
      * @param attendees list of people attending.
      * @param location location of engagement.
      * @param description description of the engagement.

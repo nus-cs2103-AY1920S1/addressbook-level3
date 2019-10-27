@@ -1,7 +1,5 @@
 package com.typee.storage;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.typee.commons.exceptions.IllegalValueException;
@@ -157,6 +155,11 @@ class JsonAdaptedEngagement {
         return EngagementType.of(engagementType);
     }
 
+    /**
+     * Returns the {@code TimeSlot} of an {@code Engagement} following validation.
+     * @return the {@code TimeSlot}
+     * @throws IllegalValueException if the times are invalid.
+     */
     private TimeSlot validateAndGetTimeSlot() throws IllegalValueException {
         if (timeSlot == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

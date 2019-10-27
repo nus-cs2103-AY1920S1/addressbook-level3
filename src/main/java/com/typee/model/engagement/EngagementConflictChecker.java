@@ -23,8 +23,8 @@ public class EngagementConflictChecker {
     /**
      * Checks if two engagements have a time overlap.
      *
-     * @param firstEngagement first {@code Engagement}.
-     * @param secondEngagement second {@code Engagement}.
+     * @param firstTimeSlot first {@code TimeSlot}.
+     * @param secondTimeSlot second {@code TimeSlot}.
      * @return true if the times overlap.
      */
     private static boolean haveTimeOverlap(TimeSlot firstTimeSlot, TimeSlot secondTimeSlot) {

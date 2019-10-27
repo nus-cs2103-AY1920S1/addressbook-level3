@@ -1,7 +1,5 @@
 package com.typee.model.engagement;
 
-import java.time.LocalDateTime;
-
 /**
  * Represents an {@code Appointment}.
  */
