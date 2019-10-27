@@ -2,7 +2,7 @@ package seedu.jarvis.model.planner;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.model.planner.Priority.isValidPriority;
+import static seedu.jarvis.model.planner.enums.Priority.isValidPriority;
 
 import org.junit.jupiter.api.Test;
 

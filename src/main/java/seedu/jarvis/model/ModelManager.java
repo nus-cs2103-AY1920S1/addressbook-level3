@@ -694,12 +694,25 @@ public class ModelManager implements Model {
         return planner.getFilteredTaskList();
     }
 
+    /**
+     * Marks a {@code Task} at the specified {@code Index} as done
+     * @param i {@code Index} of the {@code Task} to be marked as done
+     */
+    @Override
+    public void markTaskAsDone(Index i) {
+        planner.markTaskAsDone(i);
+    }
 
     //=========== Course Planner ========================================================
 
     @Override
     public void lookUpCourse(Course course) {
         coursePlanner.lookUpCourse(course);
+    }
+
+    @Override
+    public void checkCourse(String val) {
+        coursePlanner.checkCourse(val);
     }
 
     @Override
@@ -725,6 +738,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Course> getUnfilteredCourseList() {
         return coursePlanner.getCourseList();
+    }
+
+    @Override
+    public String getDisplayText() {
+        return coursePlanner.getText();
+    }
+
+    @Override
+    public String getDisplayText(int lineCharacterLimit) {
+        return coursePlanner.getText(lineCharacterLimit);
     }
 
     @Override

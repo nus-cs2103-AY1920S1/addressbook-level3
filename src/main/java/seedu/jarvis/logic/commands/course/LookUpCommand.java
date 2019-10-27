@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.course;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 
 import seedu.jarvis.logic.commands.Command;
@@ -54,7 +55,7 @@ public class LookUpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, toShow);
         model.lookUpCourse(toShow);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toShow));
     }

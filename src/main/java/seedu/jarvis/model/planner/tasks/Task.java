@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
@@ -21,8 +23,9 @@ public abstract class Task {
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     protected String taskDes;
-    protected Priority priority;
-    protected Frequency frequency;
+    protected Priority priority = null;
+    protected Frequency frequency = null;
+    protected Status status = Status.NOT_DONE;
     protected Set<Tag> tags = new HashSet<>();
 
     public Task(String taskDes, Priority priority, Frequency frequency, Set<Tag> tags) {
@@ -139,5 +142,27 @@ public abstract class Task {
         String tags = this.tags.isEmpty() ? "" : "\nTags: " + getTags();
 
         return priority + frequency + tags;
+    }
+
+    /**
+     * Marks a {@code Task} as done
+     */
+    public void markAsDone() {
+        status = Status.DONE;
+    }
+
+    /**
+     * Marks a {@code Task} as not done
+     */
+    public void markAsNotDone() {
+        status = Status.NOT_DONE;
+    }
+
+    /**
+     * Retrives the status of the object
+     * @return DONE or NOT_DONE
+     */
+    public Status getStatus() {
+        return status;
     }
 }

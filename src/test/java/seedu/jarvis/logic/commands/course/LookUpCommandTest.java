@@ -1,6 +1,8 @@
 package seedu.jarvis.logic.commands.course;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jarvis.logic.commands.course.LookUpCommand.MESSAGE_SUCCESS;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 import static seedu.jarvis.testutil.course.TypicalCourses.MA1521;
@@ -38,7 +40,6 @@ public class LookUpCommandTest {
      */
     @Test
     public void hasInverseExecution() {
-        LookUpCommand luc = new LookUpCommand(MA1521);
         assertFalse(luc.hasInverseExecution());
     }
 
@@ -48,8 +49,14 @@ public class LookUpCommandTest {
      */
     @Test
     public void inverseExecute_throwsCommandException() {
-        LookUpCommand luc = new LookUpCommand(MA1521);
         assertThrows(CommandException.class,
             LookUpCommand.MESSAGE_NO_INVERSE, () -> luc.executeInverse(model));
+    }
+
+    @Test
+    public void execute_success() {
+        expectedModel.lookUpCourse(MA1521);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, MA1521);
+        assertCommandSuccess(luc, model, expectedMessage, expectedModel);
     }
 }
