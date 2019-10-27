@@ -193,14 +193,19 @@ public interface Model {
      */
     void setHintsEnabled(boolean enabled);
 
+    /**
+     * Returns if hints are enabled or not.
+     */
+    boolean getHintsEnabled();
+
+    void setAvatarId(int avatarId);
+
+    int getAvatarId();
+
     long getTimeAllowedPerQuestion();
 
     FormattedHint getHintFormatFromCurrentGame();
 
     int getHintFormatSizeFromCurrentGame();
 
-    /**
-     * Returns if hints are enabled or not.
-     */
-    boolean getHintsEnabled();
 }

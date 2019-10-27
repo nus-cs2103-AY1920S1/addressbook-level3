@@ -17,7 +17,7 @@ public class ThemeCommandParser implements Parser<ThemeCommand> {
         String trimmedArgs = userInput.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, "usage is theme <dark/light>"));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ThemeCommand.MESSAGE_USAGE));
         }
         ThemeEnum theme;
         switch (trimmedArgs.toUpperCase()) {
