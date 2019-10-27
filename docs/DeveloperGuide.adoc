@@ -404,15 +404,15 @@ These operations are exposed in the `Model` interface as:
 
 Given below is an example usage scenario and how the adding tag mechanism behaves at each step.
 
-Step 1.
+* **Step 1:**
 The user launches the application. The `Model` is initialized with saved data. All tags are loaded into `UniqueTagList` and `TagCountManager`.
 
-Step 2.
+* **Step 2:**
 User enters the command `tag add 1 t/test t/test2` to add tags to the 1st `Expense` in Billboard. `BillboardParser` parses the command, creating a `TagCommandParser`.
 The `TagCommandParser` then parses `add 1 t/test t/test2` and creates an `AddTagCommandParser`. Subsequently, the `AddTagCommandParser` parses `1 t/test1 t/test2` into `Index` 1 and
 a list of `String` consisting of `test1` and `test2`. They are then used to create `AddTagCommand` which is returned to `LogicManager`.
 
-Step 3.
+* **Step 3:**
 `LogicManager` executes the `AddTagCommand`. During execution, `AddTagCommand` calls `Model#retrieveTags(Set<String>)` on the list consisting of `test1` and `test2` which returns a set of `Tag`.
 `Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The 1st `Expense` is edited and updated in the `Model` using `Model#setExpense(Expense, Expense)` and is then shown on the GUI.
 
