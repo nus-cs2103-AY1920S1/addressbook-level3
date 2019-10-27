@@ -464,6 +464,12 @@
     -fx-border-color: black;
 }
 
+#customLineChart {
+    -fx-min-height: 300;
+    -fx-legend-visible: false;
+}
+
+/*
 #vBox {
     -fx-background-color: white !important;
     -fx-background: white !important;
@@ -520,3 +526,4 @@
     -fx-background-color: white !important;
     -fx-text-fill: black !important;
 }
+*/
