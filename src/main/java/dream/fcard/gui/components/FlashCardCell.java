@@ -26,6 +26,7 @@ public class FlashCardCell extends VBox {
 
         this.setPadding(new Insets(GuiSettings.getPadding()));
 
+        // todo: show the index to the left of the card, rather than above it
         cardIndex = new Text(String.valueOf(index));
 
         // temporarily, show only the front of the flashcard
@@ -33,7 +34,7 @@ public class FlashCardCell extends VBox {
         flashCardDisplay = new FlashCardDisplay(flashCard.getFront());
 
         // let flashCardDisplay take up the maximum horizontal space in the row
-        HBox.setHgrow(flashCardDisplay, Priority.ALWAYS);
+        //HBox.setHgrow(flashCardDisplay, Priority.ALWAYS);
 
         // add both elements to the FlashCardCell
         this.getChildren().addAll(cardIndex, flashCardDisplay);

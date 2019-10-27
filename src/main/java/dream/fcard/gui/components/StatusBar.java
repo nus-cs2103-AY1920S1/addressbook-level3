@@ -38,4 +38,9 @@ public class StatusBar extends TextBar {
         // add label to titleBar
         this.getChildren().add(text);
     }
+
+    public void setErrorMessage(String errorMessage) {
+        this.setText(errorMessage);
+        this.text.setFill(Color.web(GuiSettings.getErrorTextColour()));
+    }
 }

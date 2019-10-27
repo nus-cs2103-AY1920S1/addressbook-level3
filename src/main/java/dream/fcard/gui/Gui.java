@@ -16,7 +16,6 @@ import dream.fcard.gui.components.TitleBar;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.cards.FrontBackCard;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -89,10 +88,7 @@ public class Gui {
      * Temporary method for testing display of various UI components.
      */
     private static void testUiComponents() {
-        FrontBackCard flashCardForTesting = new FrontBackCard("Lorem ipsum dolor sit amet.",
-            "Praesent ut est justo. Cras urna risus, ultricies posuere pharetra in, "
-                + "fringilla ac dolor. Donec a porttitor tellus, vitae ullamcorper risus.");
-        Gui.renderFront(flashCardForTesting);
+
     }
 
     // Methods related to setting up GUI components upon application startup
@@ -105,7 +101,7 @@ public class Gui {
         // set up initial UI components
         setupCommandTextField();
         setTitle("Welcome!");
-        setStatus("No command entered yet...");
+        showStatus("No command entered yet...");
 
         // add UI components to scene
         setupScene();
@@ -154,12 +150,22 @@ public class Gui {
     }
 
     /**
-     * Sets the status in the status bar of the application window.
+     * Shows a given status in the status bar of the application window.
      * Useful for providing feedback to the user, e.g. when a command is entered.
-     * @param status The status to be set in the status bar.
+     * @param status The status to be shown in the status bar.
      */
-    public static void setStatus(String status) {
+    public static void showStatus(String status) {
         statusBar.setText(status);
+    }
+
+    /**
+     * Shows a given error in the status bar of the application window.
+     * Useful for informing the user when an error has occurred, e.g. when they enter an
+     * unrecognised command.
+     * @param errorMessage The error message to be shown in the status bar.
+     */
+    public static void showError(String errorMessage) {
+        statusBar.setErrorMessage(errorMessage);
     }
 
     /**
@@ -189,8 +195,8 @@ public class Gui {
      * @param deck The deck of FlashCards to be rendered.
      */
     public static void renderDeck(Deck deck) {
+        setTitle(deck.getName());
         DeckListView node = GuiHelper.renderDeck(deck);
-        // todo
 
         // display the Node in the Gui
         replaceInScrollablePane(node);

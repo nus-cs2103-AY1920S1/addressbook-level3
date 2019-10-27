@@ -49,7 +49,6 @@ public class GuiHelper {
      * @return The DeckListView object to be displayed in the GUI.
      */
     public static DeckListView renderDeck(Deck deck) {
-        //t todo
         return new DeckListView(deck);
     }
 
