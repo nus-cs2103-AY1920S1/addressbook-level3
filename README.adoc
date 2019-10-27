@@ -1,7 +1,7 @@
 == Duke Academy
 :site-section: ReadMe
 :stylesDir: stylesheets
-Data structure Practice App for your outstanding school results
+All in one Java programming platform to practise on Data Structures and Algorithms
 
 https://travis-ci.org/AY1920S1-CS2103T-F14-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-1/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F14-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-1/main/badge.svg?branch=master[Coverage Status]]
