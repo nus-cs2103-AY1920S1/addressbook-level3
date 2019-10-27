@@ -113,5 +113,5 @@ public interface Model {
 
     ReadOnlyEvents getEventList();
 
-    String addRecord(Event event, Person person, Record record);
+    String addRecord(String eventName, Person person, Record record) ;
 }

@@ -72,7 +72,7 @@ public class EventList implements ReadOnlyEvents {
         events.add(e);
     }
 
-    public String addRecord(Event e, Person p, Record r) {
+    public String addRecord(String e, Person p, Record r) {
         return events.getEvent(e).addPerformance(p, r);
     }
 

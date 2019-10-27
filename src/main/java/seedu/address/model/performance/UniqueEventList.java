@@ -36,9 +36,13 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.add(toAdd);
     }
 
-    public Event getEvent(Event event) {
-        requireNonNull(event);
-        return internalList.get(1);
+    public Event getEvent(String eventName) {
+        for (Event event : internalList) {
+            if (event.getName().equals(eventName)) {
+                return event;
+            }
+        }
+        return null;
     }
 
     /**

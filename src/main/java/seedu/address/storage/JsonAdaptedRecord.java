@@ -49,7 +49,7 @@ public class JsonAdaptedRecord {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "timing"));
         }
 
-        final String modelTiming = date;
+        final String modelTiming = timing;
 
         return new Record(modelDate, modelTiming);
     }

@@ -244,8 +244,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String addRecord(Event event, Person person, Record record) {
-        return eventList.addRecord(event, person, record);
+    public String addRecord(String eventName, Person person, Record record) {
+        return eventList.addRecord(eventName, person, record);
     }
 
 }
