@@ -14,9 +14,6 @@ public class AvatarImageUtil {
     private AvatarImageUtil() {} // this class should not be initiated
 
     public static Image get(int id) {
-        if (id == 0) {
-            throw new IllegalArgumentException("id must be between 1-" + TOTAL_NUM + " inclusive");
-        }
-        return AppUtil.getImage(String.format(AVATAR_PATH, id));
+        return AppUtil.getImage(String.format(AVATAR_PATH, (id % 151) + 1));
     }
 }

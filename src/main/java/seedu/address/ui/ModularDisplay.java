@@ -71,8 +71,7 @@ public class ModularDisplay {
         twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
                 globalStats,
                 wbStatsList.getMostPlayedWordBankStatistics(),
-                new Random().nextInt(AvatarImageUtil.TOTAL_NUM) + 1).getRoot());
-        // todo avatar should depend on user prefs
+                new Random().nextInt()).getRoot());
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
