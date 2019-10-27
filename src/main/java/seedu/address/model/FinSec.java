@@ -336,8 +336,8 @@ public class FinSec implements ReadOnlyFinSec {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code FinSec}.
+     * {@code key} must exist in the finsec.
      */
     public void removeCommand(CommandItem key) {
         commands.remove(key);

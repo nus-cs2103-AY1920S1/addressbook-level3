@@ -33,7 +33,7 @@ class JsonAdaptedIncome {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedPerson} with the given contact details.
      */
     @JsonCreator
     public JsonAdaptedIncome(@JsonProperty("description") String description,
@@ -68,9 +68,9 @@ class JsonAdaptedIncome {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Income} object.
+     * Converts this Jackson-friendly adapted contact object into the model's {@code Income} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public Income toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();

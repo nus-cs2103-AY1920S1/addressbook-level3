@@ -30,7 +30,7 @@ import seedu.address.model.income.Income;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing claim in the claim list.
+ * Edits the details of an existing income in the income list.
  */
 public class EditIncomeCommand extends Command {
 
@@ -60,8 +60,8 @@ public class EditIncomeCommand extends Command {
     private final EditIncomeDescriptor editIncomeDescriptor;
 
     /**
-     * @param index of the claim in the filtered claim list to edit
-     * @param editIncomeDescriptor details to edit the claim with
+     * @param index of the income in the filtered income list to edit
+     * @param editIncomeDescriptor details to edit the income with
      */
     public EditIncomeCommand(Index index, EditIncomeDescriptor editIncomeDescriptor) {
         requireNonNull(index);
@@ -93,8 +93,8 @@ public class EditIncomeCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Claim} with the details of {@code claimToEdit}
-     * edited with {@code editClaimDescriptor}.
+     * Creates and returns a {@code Income} with the details of {@code incomeToEdit}
+     * edited with {@code editIncomeDescriptor}.
      */
     private static Income createEditedIncome(Income incomeToEdit, EditIncomeDescriptor editIncomeDescriptor) {
         assert incomeToEdit != null;
@@ -128,7 +128,7 @@ public class EditIncomeCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the income witb. Each non-empty field value will replace the
+     * Stores the details to edit the income with. Each non-empty field value will replace the
      * corresponding field value of the income.
      */
     public static class EditIncomeDescriptor {
@@ -235,6 +235,7 @@ public class EditIncomeCommand extends Command {
 
             return getDescription().equals(e.getDescription())
                     && getAmount().equals(e.getAmount())
+                    && getDate().equals(e.getDate())
                     && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getTags().equals(e.getTags());

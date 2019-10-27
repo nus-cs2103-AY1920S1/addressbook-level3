@@ -13,9 +13,9 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for FinSec.
+ * A utility class for Contact.
  */
-public class PersonUtil {
+public class ContactUtil {
 
     /**
      * Returns an add command string for adding the {@code contact}.

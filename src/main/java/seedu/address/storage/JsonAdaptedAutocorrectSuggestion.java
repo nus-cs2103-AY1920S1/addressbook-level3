@@ -28,7 +28,7 @@ public class JsonAdaptedAutocorrectSuggestion {
     /**
      * Converts this Jackson-friendly adapted AutocorrectSuggestion object into the model's
      * {@code AutocorrectSuggestion} object.
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public AutocorrectSuggestion toModelType() {
         return new AutocorrectSuggestion(word);

@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,8 +15,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.UniqueContactsList;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.contact.exceptions.PersonNotFoundException;
 import seedu.address.testutil.ContactBuilder;

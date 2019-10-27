@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.ViewException;
@@ -13,6 +14,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.View;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
+import seedu.address.model.commanditem.CommandItem;
+import seedu.address.model.commanditem.CommandTask;
+import seedu.address.model.commanditem.CommandWord;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
@@ -29,6 +33,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     public static final String MESSAGE_INVALID_VIEW = "View is not recognised.";
+
+    public static final String MESSAGE_INVALID_SHORTCUT = "Shortcut is not recognised.";
 
     private static int viewIndex;
     /**
@@ -140,6 +146,23 @@ public class ParserUtil {
             throw new ParseException(SecondaryCommand.MESSAGE_CONSTRAINTS);
         }
         return new SecondaryCommand(trimmedCommand);
+    }
+
+    /**
+     * Parses a {@code String shortcut} into an {@code CommandItem}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given shortcut does not exist.
+     */
+    public static CommandItem parseShortcut(String shortcut) throws ParseException {
+        requireNonNull(shortcut);
+        String trimmedShortcut = shortcut.trim();
+        TreeMap<String, String> commands = FinSecParser.getCommandList();
+        if (!commands.containsKey(trimmedShortcut)) {
+            throw new ParseException(MESSAGE_INVALID_SHORTCUT);
+        } else {
+            return new CommandItem(new CommandWord(trimmedShortcut), new CommandTask(commands.get(trimmedShortcut)));
+        }
     }
 
     /**
