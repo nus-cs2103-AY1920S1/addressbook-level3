@@ -86,9 +86,7 @@ the command `delete 1` in the Transactions tab.
 image::ArchitectureSequenceDiagram.png[]
 
 A command input by the user is received by the Ui, and based upon which tab the user is currently on, forwarded to
-the respective Logic.
-
-Further details of the interactions between Logic, Model and Storage are given below.
+the respective Logic. Further details of the interactions between Logic, Model and Storage are given below.
 
 [[Design-Ui]]
 === UI component
@@ -123,10 +121,16 @@ The diagram below shows a generalised view of the Logic component within each pa
 image::LogicClassDiagram.png[]
 
 An outline of how a command is processed through Logic is as follows:
+
 . `Logic` uses the tab's `Parser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` (not depicted).
+
+A general sequence diagram depicting the above outline is shown below:
+
+.Structure of the Logic Component
+image::GeneralSequenceDiagram.png[]
 
 Further details on the implementation of the Parser and Command can be found below in <<RTLogic, Section 2.3.1. Home and Reimbursement Tab>>,
 <<ICLogic, Section 2.3.2. Inventory and Cashier Tab>> and <<PLogic, Section 2.3.3. Members Tab>> below.
