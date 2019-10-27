@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.gamecommands;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GameCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,33 +19,29 @@ public class GuessCommand extends GameCommand {
             + "the specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_GAME_OVER = "GAME OVER!";
 
     private final Guess inputGuess;
 
     public GuessCommand(Guess inputGuess) {
+        requireAllNonNull(inputGuess);
         this.inputGuess = inputGuess;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (model.gameIsOver()) {
+            throw new CommandException(MESSAGE_NO_ACTIVE_GAME);
+        }
+
         Game game = model.getGame();
         String msg = "";
-        /*
-        if (game.isOver()) {
-            String exceptionText = ("The Game has ended."
-                    + "\n"
-                    + "Type 'start' to try again!");
-        }*/
-
-        if (model.gameIsOver()) {
-            return new CommandResult(MESSAGE_NO_ACTIVE_GAME);
-        }
 
         Card guessedCard = game.getCurrCard();
         game.moveToNextCard();
 
         if (game.isOver()) {
-            msg = "GAME OVER!";
+            msg = MESSAGE_GAME_OVER;
         } else {
             msg = game.getCurrQuestion();
         }

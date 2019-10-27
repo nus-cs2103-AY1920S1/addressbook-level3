@@ -1,5 +1,11 @@
 package seedu.address.appmanager;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.testutil.TypicalCards.SINGLE_LETTER_CARD;
+
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -7,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -23,9 +30,9 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
-
 
 class AppManagerTest {
 
@@ -50,6 +57,14 @@ class AppManagerTest {
 
     @Test
     void getLogic() {
+        LogicStub logicStub = new LogicStub();
+        dummyAppManager = new AppManager(logicStub);
+        assertTrue(dummyAppManager.getLogic().equals(logicStub));
+    }
+
+    @Test
+    void constructor_nullLogic_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AppManager(null));
     }
 
     @Test
@@ -66,6 +81,17 @@ class AppManagerTest {
 
     @Test
     void initGameStatistics() {
+        GameStatisticsBuilder tempStatisticsBuilder = new GameStatisticsBuilder("dummyStatistics");
+        dummyAppManager.initGameStatistics("dummyStatistics");
+        try {
+            final Field field = dummyAppManager.getClass().getDeclaredField("gameStatisticsBuilder");
+            field.setAccessible(true);
+            GameStatisticsBuilder newlyInitializedBuilder = (GameStatisticsBuilder) field.get(dummyAppManager);
+            assertTrue(tempStatisticsBuilder.getTitle()
+                    .equals(newlyInitializedBuilder.getTitle()));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            fail();
+        }
     }
 
     @Test
@@ -98,18 +124,78 @@ class AppManagerTest {
 
     @Test
     void setTimerDisplayCallBack() {
+        TimerDisplayStub timerDisplayStub = new TimerDisplayStub();
+        AppManager.TimerDisplayCallBack dummyCallBack = timerDisplayStub::updateTimerDisplay;
+        dummyAppManager.setTimerDisplayCallBack(dummyCallBack);
+        try {
+            final Field field = dummyAppManager.getClass().getDeclaredField("timerDisplayCallBack");
+            field.setAccessible(true);
+            assertTrue(dummyCallBack.equals(field.get(dummyAppManager)));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void setTimerDisplayCallBack_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> dummyAppManager.setTimerDisplayCallBack(null));
     }
 
     @Test
     void setHintDisplayCallBack() {
+        HintDisplayStub hintDisplayStub = new HintDisplayStub();
+        AppManager.HintDisplayCallBack dummyCallBack = hintDisplayStub::updateHintDisplay;
+        dummyAppManager.setHintDisplayCallBack(dummyCallBack);
+        try {
+            final Field field = dummyAppManager.getClass().getDeclaredField("hintDisplayCallBack");
+            field.setAccessible(true);
+            assertTrue(dummyCallBack.equals(field.get(dummyAppManager)));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void setHintDisplayCallBack_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> dummyAppManager.setHintDisplayCallBack(null));
     }
 
     @Test
     void setMainWindowExecuteCallBack() {
+        MainWindowStub mainWindowStub = new MainWindowStub();
+        AppManager.MainWindowExecuteCallBack dummyCallBack = mainWindowStub::execute;
+        dummyAppManager.setMainWindowExecuteCallBack(dummyCallBack);
+        try {
+            final Field field = dummyAppManager.getClass().getDeclaredField("mainWindowExecuteCallBack");
+            field.setAccessible(true);
+            assertTrue(dummyCallBack.equals(field.get(dummyAppManager)));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void setMainWindowExecuteCallBack_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> dummyAppManager.setMainWindowExecuteCallBack(null));
     }
 
     @Test
     void setQuestionDisplayCallBack() {
+        QuestionDisplayStub questionDisplayStub = new QuestionDisplayStub();
+        AppManager.QuestionDisplayCallBack dummyCallBack = questionDisplayStub::updateQuestionDisplay;
+        dummyAppManager.setQuestionDisplayCallBack(dummyCallBack);
+        try {
+            final Field field = dummyAppManager.getClass().getDeclaredField("questionDisplayCallBack");
+            field.setAccessible(true);
+            assertTrue(dummyCallBack.equals(field.get(dummyAppManager)));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void setQuestionDisplayCallBack_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> dummyAppManager.setQuestionDisplayCallBack(null));
     }
 
     private class LogicStub implements Logic {
@@ -196,7 +282,7 @@ class AppManagerTest {
 
         @Override
         public FormattedHint getHintFormatFromCurrentGame() {
-            return null;
+            return SINGLE_LETTER_CARD.clone().getHint();
         }
 
         @Override
@@ -232,6 +318,41 @@ class AppManagerTest {
         @Override
         public Model getModel() {
             return null;
+        }
+    }
+
+    private class HintDisplayStub {
+        private boolean isUpdatedFromGameTimer = false;
+
+        void updateHintDisplay(String message) {
+            this.isUpdatedFromGameTimer = true;
+        }
+    }
+
+    // Stub class for TimerDisplay component of UI
+    private class TimerDisplayStub {
+        private boolean isUpdatedFromGameTimer = false;
+
+        void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
+            this.isUpdatedFromGameTimer = true;
+        }
+    }
+
+    // Stub class for MainWindow component of UI
+    private class MainWindowStub {
+        private boolean isExecutedFromGameTimer = false;
+
+        CommandResult execute(String commandText) {
+            isExecutedFromGameTimer = true;
+            return null;
+        }
+    }
+
+    private class QuestionDisplayStub {
+        private boolean isExecutedFromAppManager = false;
+
+        void updateQuestionDisplay(String message) {
+            isExecutedFromAppManager = true;
         }
     }
 }
