@@ -10,13 +10,13 @@ import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.event.Date;
 import seedu.address.itinerary.model.event.Description;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.event.Location;
 import seedu.address.itinerary.model.event.Time;
 import seedu.address.itinerary.model.event.Title;
+import seedu.address.itinerary.model.Model;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 

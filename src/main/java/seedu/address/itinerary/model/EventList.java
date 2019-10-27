@@ -1,12 +1,12 @@
 package seedu.address.itinerary.model;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
-import seedu.address.commons.util.CollectionUtil;
 
 /**
  * An event list for tracking events on itinerary.

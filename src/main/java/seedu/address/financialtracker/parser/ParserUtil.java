@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.financialtracker.model.expense.Amount;
-import seedu.address.financialtracker.model.expense.Country;
+import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
+import seedu.address.financialtracker.model.expense.Time;
+import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
 
@@ -39,9 +41,9 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static Amount parseAmount(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedAmount = name.trim();
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
         if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
@@ -56,21 +58,55 @@ public class ParserUtil {
      */
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
-        String trimmedPhone = description.trim();
-        if (!Description.isValidDescription(trimmedPhone)) {
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Description(trimmedPhone);
+        return new Description(trimmedDescription);
     }
 
-    public static PageType parsePageType(String pageType) throws ParseException {
-        requireNonNull(pageType);
-        String trimmedPageType = pageType.trim();
-        try {
-            PageType requestedPage = PageType.valueOf(trimmedPageType.toUpperCase());
-            return requestedPage;
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(PageType.MESSAGE_CONSTRAINTS);
+    /**
+     * Parses a {@code String type} into a {@code Type}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
         }
+        return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Date}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Type.isValidType(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code Time}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Type.isValidType(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
     }
 }

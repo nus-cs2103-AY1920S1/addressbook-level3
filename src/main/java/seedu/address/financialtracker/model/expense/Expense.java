@@ -1,14 +1,46 @@
 package seedu.address.financialtracker.model.expense;
 
+import seedu.address.financialtracker.ui.CountriesDropdown;
+
 public class Expense {
 
+    private Date date;
+    private Time time;
     private Amount amount;
     private Description desc;
     private Country country;
+    private Type type;
 
-    public Expense(Amount amount, Description desc) {
+    /**
+     * Instantiate an expense object. Can only be used when the UI is working properly.
+     */
+    public Expense(Date date, Time time, Amount amount, Description desc, Type type) {
+        this.date = date;
+        this.time = time;
         this.amount = amount;
         this.desc = desc;
+        this.type = type;
+        this.country = new Country(CountriesDropdown.getDropdownText());
+    }
+
+    /**
+     * Another constructor used to directly construct with the country field.
+     */
+    public Expense(Date date, Time time, Amount amount, Description desc, Type type, Country country) {
+        this.date = date;
+        this.time = time;
+        this.amount = amount;
+        this.desc = desc;
+        this.type = type;
+        this.country = country;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Time getTime() {
+        return time;
     }
 
     public Amount getAmount() {
@@ -19,12 +51,12 @@ public class Expense {
         return country;
     }
 
-    public Description getDesc() {
+    public Description getDescription() {
         return desc;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public Type getType() {
+        return type;
     }
 
     /**
@@ -42,8 +74,11 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.amount.equals(this.amount)
-                && otherExpense.desc.equals(this.desc)
-                && otherExpense.country.equals(this.country);
+        return otherExpense.amount.value.equals(this.amount.value)
+                && otherExpense.date.value.equals(this.date.value)
+                && otherExpense.time.value.equals(this.time.value)
+                && otherExpense.desc.value.equals(this.desc.value)
+                && otherExpense.type.value.equals(this.type.value)
+                && otherExpense.country.value.equals(this.country.value);
     }
 }

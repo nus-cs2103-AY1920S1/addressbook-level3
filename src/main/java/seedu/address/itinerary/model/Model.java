@@ -1,16 +1,15 @@
 package seedu.address.itinerary.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
-import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Access the filtered event list of the itinerary.
@@ -54,7 +53,7 @@ public class Model {
      * Filter out the events in the event list base on the predicate.
      * @param predicate the condition use to filter out the events.
      */
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public void  updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }
