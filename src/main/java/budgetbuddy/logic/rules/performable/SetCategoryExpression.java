@@ -25,6 +25,7 @@ public class SetCategoryExpression extends PerformableExpression {
     public void perform(Model model, Transaction txn) {
         requireAllNonNull(model, txn);
         Category toSet = new Category(value.toString());
+        // TODO: Set category
         System.out.println("ADDED CATEGORY!!! " + toSet.toString());
     }
 }
