@@ -60,6 +60,9 @@ Format: `add n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [sr
 
 * `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
 
+[NOTE]
+Don't provide extreme values like `5.00000...01` as difficulty range as computers can't store decimals exactly and some round-off error is unavoidable.
+
 [TIP]
 A problem can have any number of tags (including 0)
 
@@ -149,7 +152,13 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND
 ** Tags are considered equal only when the tag strings are exactly matched.
 * Difficulty
 ** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
-** Note that you should provide both bounds. If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+
+[TIP]
+If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+
+[NOTE]
+When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `add` command).
+
 
 Examples:
 
