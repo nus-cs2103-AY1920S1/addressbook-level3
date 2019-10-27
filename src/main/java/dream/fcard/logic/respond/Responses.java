@@ -168,14 +168,14 @@ enum Responses {
             + "(back/[\\S\\s]+){1}(\\s)*"
             + "((choice/[\\S\\s]+)(\\s)*)+" , (commandInput, programState) -> {
 
-        System.out.println("Current command is DECK_CREATE_MCQ_CARD");
-        LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_MCQ_CARD");
+            System.out.println("Current command is DECK_CREATE_MCQ_CARD");
+            LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_MCQ_CARD");
 
-        //System.out.println(commandInput);
+            //System.out.println(commandInput);
 
-        LogsCenter.getLogger(Responses.class).info("DECK_CREATE_MCQ_CARD: command execution successful");
-        return true; // capture is valid, end checking other commands
-    }),
+            LogsCenter.getLogger(Responses.class).info("DECK_CREATE_MCQ_CARD: command execution successful");
+            return true; // capture is valid, end checking other commands
+        }),
 
     // create frontbackcard
     DECK_CREATE_REG_CARD("(?i)^(create)?(\\s)+"
