@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.util.Date;
 
+import seedu.address.commons.exceptions.TargetFileExistException;
 import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -34,6 +35,8 @@ public class EncryptFileCommand extends Command {
     public static final String MESSAGE_DUPLICATE_FILE = "This file is already in the list.";
     public static final String MESSAGE_ENCRYPTED_FILE = "This file is already encrypted.\n"
             + "Use add command to add encrypted files to the list.";
+    public static final String MESSAGE_TARGET_FILE_EXISTS = "File decryption failed. "
+            + "Target file already exists.\nRename %1$s and try again.";
 
     private final EncryptedFile toAdd;
     private final String password;
@@ -74,6 +77,8 @@ public class EncryptFileCommand extends Command {
             toAdd.setEncryptedAt(new EncryptedAt(new Date()));
         } catch (IOException | GeneralSecurityException e) {
             throw new CommandException(MESSAGE_FAILURE);
+        } catch (TargetFileExistException e) {
+            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, e.getMessage()));
         }
         model.addFile(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

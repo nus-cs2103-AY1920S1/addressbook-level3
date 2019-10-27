@@ -16,6 +16,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 
+import seedu.address.commons.exceptions.TargetFileExistException;
+
 /**
  * A class for handling encryption and decryption.
  */
@@ -111,11 +113,14 @@ public class EncryptionUtil {
      * @throws IOException if the encryption fails.
      */
     public static void encryptFile(String source, String target, String password)
-            throws IOException, GeneralSecurityException {
+            throws IOException, TargetFileExistException, GeneralSecurityException {
+        Path newPath = Paths.get(target);
+        if (Files.exists(newPath)) {
+            throw new TargetFileExistException(target);
+        }
         Path oldPath = Paths.get(source);
         byte[] fileData = Files.readAllBytes(oldPath);
         byte[] processedData = encryptBytes(fileData, password);
-        Path newPath = Paths.get(target);
         Files.write(newPath, SIGNATURE.getBytes());
         Files.write(newPath, processedData, StandardOpenOption.APPEND);
         Files.deleteIfExists(oldPath);
@@ -129,14 +134,17 @@ public class EncryptionUtil {
      * @throws IOException if the decryption fails.
      */
     public static void decryptFile(String source, String target, String password)
-            throws IOException, GeneralSecurityException {
+            throws IOException, TargetFileExistException, GeneralSecurityException {
+        Path newPath = Paths.get(target);
+        if (Files.exists(newPath)) {
+            throw new TargetFileExistException(target);
+        }
         Path oldPath = Paths.get(source);
         byte[] fileData = new byte[(int) Files.size(oldPath) - SIGNATURE.length()];
         InputStream inStream = new FileInputStream(new File(source));
         inStream.skip(SIGNATURE.length());
         inStream.read(fileData, 0, fileData.length);
         byte[] processedData = decryptBytes(fileData, password);
-        Path newPath = Paths.get(target);
         Files.write(newPath, processedData);
         Files.deleteIfExists(oldPath);
     }
