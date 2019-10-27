@@ -30,26 +30,13 @@ public class CcaCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    //    @FXML
-    //    private Label phone;
-    //    @FXML
-    //    private Label address;
-    //    @FXML
-    //    private Label email;
-    //    @FXML
-    //    private FlowPane tags;
+
 
     public CcaCard(Cca cca, int displayedIndex) {
         super(FXML);
         this.cca = cca;
         id.setText(displayedIndex + ". ");
         name.setText(cca.getName().fullName);
-    //        phone.setText(cca.getPhone().value);
-    //        address.setText(cca.getAddress().value);
-    //        email.setText(cca.getEmail().value);
-    //        cca.getTags().stream()
-    //                .sorted(Comparator.comparing(tag -> tag.tagName))
-    //                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

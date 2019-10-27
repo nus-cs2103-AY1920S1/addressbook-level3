@@ -25,6 +25,8 @@ import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -375,6 +377,16 @@ public class ModelStub implements Model {
 
     @Override
     public CoursePlanner getCoursePlanner() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ViewStatus getViewStatus() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setViewStatus(ViewType viewType) {
         throw new AssertionError("This method should not be called.");
     }
 }

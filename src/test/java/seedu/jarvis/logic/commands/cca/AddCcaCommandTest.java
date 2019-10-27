@@ -6,14 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaList;
+import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.cca.CcaBuilder;
+
 
 /**
  * AddCcaCommandTest basically checks just 3 scenarios - adding null, adding a new {@code Cca} and adding
@@ -94,6 +100,8 @@ public class AddCcaCommandTest {
      */
     private class ModelStubAcceptingCcaAdded extends ModelStub {
         private final CcaList ccaList = new CcaList();
+        private final CcaTracker ccaTracker = new CcaTracker(ccaList);
+        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
 
         @Override
         public boolean containsCca(Cca cca) {
@@ -106,5 +114,15 @@ public class AddCcaCommandTest {
             requireNonNull(cca);
             ccaList.addCca(cca);
         }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
+        }
+
+        @Override
+        public void updateFilteredCcaList(Predicate<Cca> predicate) {
+            ccaTracker.updateFilteredCcaList(predicate);
+        };
     }
 }

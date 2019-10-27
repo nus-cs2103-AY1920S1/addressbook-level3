@@ -11,7 +11,7 @@ import seedu.jarvis.ui.MainWindow;
 import seedu.jarvis.ui.template.View;
 
 /**
- * View representing the list of persons.
+ * A View representing the list of {@code Person}.
  */
 public class PersonListView extends View<AnchorPane> {
     private static final String FXML = "PersonListPanel.fxml";

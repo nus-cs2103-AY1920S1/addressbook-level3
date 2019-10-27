@@ -10,6 +10,9 @@ import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.ui.MainWindow;
 import seedu.jarvis.ui.template.View;
 
+/**
+ * A View representing the list of {@code Cca}.
+ */
 public class CcaListView extends View<AnchorPane> {
     private static final String FXML = "CcaListView.fxml";
 
