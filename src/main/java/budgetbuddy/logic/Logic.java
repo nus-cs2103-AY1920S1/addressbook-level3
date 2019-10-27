@@ -9,6 +9,7 @@ import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * API of the Logic component

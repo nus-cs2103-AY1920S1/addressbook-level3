@@ -18,6 +18,7 @@ import budgetbuddy.model.rule.Rule;
 import budgetbuddy.storage.Storage;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * The main LogicManager of the app.
