@@ -17,13 +17,13 @@ public class QuizCommand extends Command {
     public static final String COMMAND_WORD = "quiz";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": View the flashcard identified by the index number used in the displayed flashcard list.\n"
+        + ": Quiz the flashcard identified by the index number used in the displayed flashcard list.\n"
         + "Only the choices with the flashcard will be shown but the answer will not.\n"
+        + "The quiz command should be preceded by a flip command to answer the flashcard. \n"
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INVALID_FLASHCARD_INDEX = "The index you entered is invalid!";
-    public static final String MESSAGE_DELETE_FLASHCARD_SUCCESS = "The flashcard is shown below.";
     private final Index targetIndex;
 
     public QuizCommand(Index targetIndex) {

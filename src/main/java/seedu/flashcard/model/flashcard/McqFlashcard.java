@@ -14,8 +14,21 @@ public class McqFlashcard extends Flashcard {
 
     private final List<Choice> choices = new ArrayList<>();
 
+    /**
+     * This is the initializer when user is creating a new flashcard
+     */
     public McqFlashcard(Question question, List<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
         super(question, definitions, tags, answer);
+        this.choices.addAll(choices);
+    }
+
+    /**
+     * This initializer should only be accessed by the storage package, because this initializer ensures the
+     * flashcard scores can be reloaded
+     */
+    public McqFlashcard(Question question, List<Choice> choices, Definition definitions,
+                        Set<Tag> tags, Answer answer, Score score) {
+        super(question, definitions, tags, answer, score);
         this.choices.addAll(choices);
     }
 

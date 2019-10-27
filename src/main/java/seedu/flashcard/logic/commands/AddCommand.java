@@ -27,8 +27,8 @@ public class AddCommand extends Command {
             + PREFIX_QUESTION + "Refactor "
             + PREFIX_CHOICE + "Make the codes be in a neater style without changing its functions. "
             + PREFIX_CHOICE + "Test for for bugs in the system "
-            + PREFIX_CHOICE + "Change a mathematical formula"
-            + PREFIX_DEFINITION + "a"
+            + PREFIX_CHOICE + "Change a mathematical formula "
+            + PREFIX_DEFINITION + "a "
             + PREFIX_TAG + "Software Engineering ";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added.";

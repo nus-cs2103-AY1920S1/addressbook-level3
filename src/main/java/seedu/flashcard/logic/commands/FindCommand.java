@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.flashcard.commons.core.Messages;
 import seedu.flashcard.model.Model;
-import seedu.flashcard.model.flashcard.QuestionContainsKeywordsPredicate;
+import seedu.flashcard.model.flashcard.FlashcardContainsKeywordsPredicate;
 
 /**
  * Command to find a flashcard based on some keywords in its questions or answer.
@@ -18,9 +18,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " compact complete search";
 
-    private final QuestionContainsKeywordsPredicate predicate;
+    private final FlashcardContainsKeywordsPredicate predicate;
 
-    public FindCommand(QuestionContainsKeywordsPredicate predicate) {
+    public FindCommand(FlashcardContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
