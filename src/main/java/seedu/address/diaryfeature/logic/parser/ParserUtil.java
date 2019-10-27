@@ -7,6 +7,8 @@ import java.util.Date;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
+import seedu.address.diaryfeature.model.diaryEntry.Memory;
+import seedu.address.diaryfeature.model.diaryEntry.Place;
 import seedu.address.diaryfeature.model.diaryEntry.Title;
 import seedu.address.diaryfeature.model.exceptions.TitleException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -55,6 +57,33 @@ public class ParserUtil {
         Date requiredDate = DateFormatter.convertToDate(trimmedDate);
         return requiredDate;
     }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+    public static Place parsePlace(String place)  {
+        requireNonNull(place);
+        String trimmedPlace = place.trim();
+        return new Place(trimmedPlace);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+    public static Memory parseMemory(String memory)  {
+        requireNonNull(memory);
+        String trimmedMemory = memory.trim();
+        return new Memory(trimmedMemory);
+    }
+
+
+
+
+
 
 
 
