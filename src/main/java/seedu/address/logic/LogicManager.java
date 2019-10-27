@@ -15,11 +15,9 @@ import seedu.address.logic.parser.AlfredParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CommandRecord;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
-import seedu.address.model.person.Person;
 
 /**
  * The main LogicManager of the app.
@@ -48,16 +46,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<Participant> getFilteredParticipantList() {
         return model.getFilteredParticipantList();
     }
@@ -77,11 +65,7 @@ public class LogicManager implements Logic {
         return model.getCommandHistory();
     }
 
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
-    //TODO: May update he three methods below to get Alfred file path instead
+    //TODO: May update the three methods below to get Alfred file path instead
     @Override
     public Path getParticipantListFilePath() {
         return model.getParticipantListFilePath();

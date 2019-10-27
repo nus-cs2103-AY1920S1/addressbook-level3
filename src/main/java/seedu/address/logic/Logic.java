@@ -11,11 +11,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CommandRecord;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
-import seedu.address.model.person.Person;
 
 /**
  * API of the Logic component
@@ -30,32 +28,17 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, AlfredModelHistoryException;
 
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
-    /** Returns an unmodifiable view of the filtered list of Teams */
+    /** Returns an unmodifiable view of the filtered list of Participants */
     ObservableList<Participant> getFilteredParticipantList();
 
     /** Returns an unmodifiable view of the filtered list of Teams */
     ObservableList<Team> getFilteredTeamList();
 
-    /** Returns an unmodifiable view of the filtered list of Teams */
+    /** Returns an unmodifiable view of the filtered list of Mentors */
     ObservableList<Mentor> getFilteredMentorList();
 
     /** Returns the Record of all Commands entered by User */
     ArrayList<CommandRecord> getCommandHistory();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
 
     /**
      * Returns the user prefs' ParticipantList file path.
