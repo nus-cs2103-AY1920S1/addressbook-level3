@@ -1,11 +1,11 @@
 package seedu.jarvis.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.model.planner.Frequency.FREQ_DAILY;
-import static seedu.jarvis.model.planner.Frequency.FREQ_MONTHLY;
-import static seedu.jarvis.model.planner.Frequency.FREQ_WEEKLY;
-import static seedu.jarvis.model.planner.Priority.PRIORITY_HIGH;
-import static seedu.jarvis.model.planner.Priority.PRIORITY_MED;
+import static seedu.jarvis.model.planner.enums.Frequency.FREQ_DAILY;
+import static seedu.jarvis.model.planner.enums.Frequency.FREQ_MONTHLY;
+import static seedu.jarvis.model.planner.enums.Frequency.FREQ_WEEKLY;
+import static seedu.jarvis.model.planner.enums.Priority.PRIORITY_HIGH;
+import static seedu.jarvis.model.planner.enums.Priority.PRIORITY_MED;
 import static seedu.jarvis.model.planner.tasks.Task.DEADLINE;
 import static seedu.jarvis.model.planner.tasks.Task.EVENT;
 import static seedu.jarvis.model.planner.tasks.Task.TODO;
@@ -17,17 +17,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -115,59 +113,6 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
-    }
-
-    /**
-     * Parses a {@code String description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code description} is invalid.
-     */
-    public static InstallmentDescription parseDescription(String description) throws ParseException {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-        if (!InstallmentDescription.isValidDescription(trimmedDescription)) {
-            throw new ParseException(InstallmentDescription.MESSAGE_CONSTRAINTS);
-        }
-        return new InstallmentDescription(trimmedDescription);
-    }
-
-    /**
-     * Parses a {@code String description}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code money} is invalid.
-     */
-    public static InstallmentMoneyPaid parseMoneySpent(String money) throws ParseException {
-        requireNonNull(money);
-        String trimmedMoney = money.trim();
-        if (!InstallmentMoneyPaid.isValidAmount(trimmedMoney)) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
-        return new InstallmentMoneyPaid(trimmedMoney);
-    }
-
-    /**
-     * Parses a {@code String description}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static String parsePurchaseDes(String description) {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-        return trimmedDescription;
-    }
-
-    /**
-     * Parses a {@code String moneySpent}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static double parsePurchaseAmount(String moneySpent) throws ParseException {
-        requireNonNull(moneySpent);
-        String trimmedMoney = moneySpent.trim();
-        if (Double.parseDouble(moneySpent) < 0) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
-        return Double.parseDouble(trimmedMoney);
     }
 
     /**

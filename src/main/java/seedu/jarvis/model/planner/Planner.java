@@ -2,20 +2,28 @@ package seedu.jarvis.model.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
+
 
 /**
  * Represents the planner feature in JARVIS
  */
 public class Planner {
-    protected TaskList taskList;
+    private TaskList taskList;
+    private FilteredList<Task> filteredTaskList;
 
     /**
      * Constructs an empty planner
      */
     public Planner() {
         this.taskList = new TaskList();
+        filteredTaskList = new FilteredList<>(getTasks(), PlannerModel.PREDICATE_SHOW_ALL_TASKS);
     }
 
     /**
@@ -33,8 +41,17 @@ public class Planner {
      * Retrieves all the tasks in the planner
      * @return a list of tasks stored in the planner
      */
-    public TaskList getTasks() {
+    public TaskList getTaskList() {
         return taskList;
+    }
+
+    /**
+     * Returns the task list {@code TaskList}.
+     *
+     * @return the task list.
+     */
+    public ObservableList<Task> getTasks() {
+        return FXCollections.observableList(taskList.getTasks());
     }
 
     /**
@@ -66,14 +83,13 @@ public class Planner {
     }
 
     /**
-     * Resets all commands in {@code executedCommands} and {@code inverselyExecutedCommands} to the commands in the
-     * given {@code Planner}.
+     * Resets all tasks to the tasks in the given {@code Planner}.
      *
      * @param planner {@code Planner} to take reference from.
      */
     public void resetData(Planner planner) {
         requireNonNull(planner);
-        this.taskList = new TaskList(planner.getTasks().getTasks());
+        this.taskList = new TaskList(planner.getTaskList().getTasks());
     }
 
     /**
@@ -93,8 +109,8 @@ public class Planner {
             return false;
         }
 
-        other = (Planner) other;
-        return taskList.equals(((Planner) other).getTasks());
+        //state check
+        return taskList.equals(((Planner) other).getTaskList());
     }
 
     /**
@@ -131,5 +147,33 @@ public class Planner {
      */
     public int size() {
         return taskList.size();
+    }
+
+    /**
+     * Updates the {@code filteredTaskList} according to the given {@code Predicate}
+     *
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredTaskList}
+     */
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTaskList.addAll(taskList.getTasks());
+        filteredTaskList.setPredicate(predicate);
+
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
+     * of {@code Planner}
+     */
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTaskList;
+    }
+
+    /**
+     * Marks a {@code Task} at the specified {@code Index} as done
+     * @param i {@code Index} of the {@code Task} to be marked as done
+     */
+    public void markTaskAsDone(Index i) {
+        taskList.markTaskAsDone(i);
     }
 }

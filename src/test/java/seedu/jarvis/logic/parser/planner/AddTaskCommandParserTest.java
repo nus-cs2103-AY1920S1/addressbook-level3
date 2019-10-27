@@ -8,12 +8,12 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.ParserUtil;
-import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -27,8 +27,8 @@ class AddTaskCommandParserTest {
         String userInput = " t/todo des/borrow book f/weekly p/high #school";
 
         Task expectedTask = new Todo("borrow book");
-        expectedTask.addFrequency(Frequency.WEEKLY);
-        expectedTask.addPriority(Priority.HIGH);
+        expectedTask.setFrequency(Frequency.WEEKLY);
+        expectedTask.setPriority(Priority.HIGH);
         expectedTask.addTag(new Tag("school"));
 
         Command expectedCommand = new AddTaskCommand(expectedTask);

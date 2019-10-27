@@ -10,12 +10,11 @@ import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
-import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.installment.InstallmentDescription;
+import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 
 /**
  * Parses input arguments and creates a new SetInstallmentCommand object
@@ -25,6 +24,7 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
     /**
      * Parses the given {@code String} of arguments in the context of the SetInstallmentCommand
      * and returns an SetInstallmentCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
@@ -37,12 +37,12 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
                     SetInstallmentCommand.MESSAGE_USAGE));
         }
 
-        InstallmentDescription description = ParserUtil
-                .parseDescription(argMultimap
+        InstallmentDescription description = FinanceParserUtil
+                .parseInstallmentDescription(argMultimap
                         .getValue(PREFIX_DESCRIPTION)
                         .get());
-        InstallmentMoneyPaid subscriptionFee = ParserUtil
-                .parseMoneySpent(argMultimap
+        InstallmentMoneyPaid subscriptionFee = FinanceParserUtil
+                .parseInstallmentMoneySpent(argMultimap
                         .getValue(PREFIX_MONEY)
                         .get());
 

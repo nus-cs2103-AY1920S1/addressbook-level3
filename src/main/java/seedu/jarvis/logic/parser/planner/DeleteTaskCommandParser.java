@@ -17,7 +17,7 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteTaskCommand
      * and returns a DeleteTaskCommand object for execution.
-     * @param userInput the arguments to be
+     * @param userInput the arguments to be parsed
      * @return DeleteTaskCommand Object
      * @throws ParseException if the user input does not conform to the expected format
      */

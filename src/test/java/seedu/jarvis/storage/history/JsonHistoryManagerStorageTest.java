@@ -24,10 +24,31 @@ public class JsonHistoryManagerStorageTest {
     @TempDir
     public Path testFolder;
 
+    @Test
+    public void readHistoryManager_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readHistoryManager(null));
+    }
+
+    @Test
+    public void read_missingFile_emptyResult() throws Exception {
+        assertFalse(readHistoryManager("NonExistentFile.json").isPresent());
+    }
+
+    @Test
+    public void read_notJsonFormat_exceptionThrown() {
+        assertThrows(DataConversionException.class, () -> readHistoryManager("notJsonFormatHistoryManager.json"));
+    }
+
+    @Test
+    public void saveHistoryManager_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveHistoryManager(new HistoryManager(), null));
+    }
+
+
     /**
      * Saves {@code historyManager} at the specified {@code filePath}.
      */
-    private void saveAddressBook(HistoryManager historyManager, String filePath) {
+    private void saveHistoryManager(HistoryManager historyManager, String filePath) {
         try {
             new JsonHistoryManagerStorage(Paths.get(filePath))
                     .saveHistoryManager(historyManager, addToTestDataPathIfNotNull(filePath));
@@ -49,26 +70,6 @@ public class JsonHistoryManagerStorageTest {
      */
     private Path addToTestDataPathIfNotNull(String filePath) {
         return filePath != null ? TEST_DATA_FOLDER.resolve(filePath) : null;
-    }
-
-    @Test
-    public void readHistoryManager_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readHistoryManager(null));
-    }
-
-    @Test
-    public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readHistoryManager("NonExistentFile.json").isPresent());
-    }
-
-    @Test
-    public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readHistoryManager("notJsonFormatHistoryManager.json"));
-    }
-
-    @Test
-    public void saveHistoryManager_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new HistoryManager(), null));
     }
 
 }

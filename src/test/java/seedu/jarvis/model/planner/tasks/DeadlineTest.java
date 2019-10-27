@@ -4,14 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.testutil.planner.TypicalTasks.DEADLINE;
 
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 
 
 class DeadlineTest {
@@ -20,7 +22,7 @@ class DeadlineTest {
     void addPriority_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
-        d.addPriority(Priority.HIGH);
+        d.setPriority(Priority.HIGH);
         assertNotNull(d.priority);
     }
 
@@ -28,7 +30,7 @@ class DeadlineTest {
     void addFrequency_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
-        d.addFrequency(Frequency.MONTHLY);
+        d.setFrequency(Frequency.MONTHLY);
         assertNotNull(d.frequency);
     }
 
@@ -79,8 +81,8 @@ class DeadlineTest {
     void toString_withAllAttributesPresent() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
         Deadline d = new Deadline("homework", due);
-        d.addPriority(Priority.LOW);
-        d.addFrequency(Frequency.MONTHLY);
+        d.setPriority(Priority.LOW);
+        d.setFrequency(Frequency.MONTHLY);
         d.addTag(new Tag("school"));
         d.addTag(new Tag("cs"));
 
@@ -98,5 +100,49 @@ class DeadlineTest {
         String expected = "Deadline: homework by 2019-10-10";
 
         assertEquals(expected, d.toString());
+    }
+
+    @Test
+    void getTaskDes_success() {
+        String expected = "homework";
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        assertEquals(expected, d.getTaskDes());
+    }
+
+    @Test
+    public void adaptToJsonAdaptedDeadline() throws Exception {
+        assertEquals(DEADLINE, DEADLINE.adaptToJsonAdaptedTask().toModelType());
+    }
+
+    @Test
+    void markAsDone() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        d.markAsDone();
+
+        assertEquals(Status.DONE, d.getStatus());
+    }
+
+    @Test
+    void markAsNotDone() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        d.markAsDone();
+        assertEquals(Status.DONE, d.getStatus());
+
+        d.markAsNotDone();
+        assertEquals(Status.NOT_DONE, d.getStatus());
+    }
+
+    @Test
+    void getStatus() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        assertEquals(Status.NOT_DONE, d.getStatus());
     }
 }

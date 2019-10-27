@@ -1,12 +1,20 @@
 package seedu.jarvis.model.planner;
 
+import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.planner.tasks.Task;
+
 
 /**
  * The API of the PlannerModel component
  */
 public interface PlannerModel {
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
 
     /**
      * Retrieves the tasks stored in the planner
@@ -76,4 +84,23 @@ public interface PlannerModel {
      * @return the size of the planner
      */
     int size();
+
+    /**
+     * Updates the {@code filteredTaskList} according to the given {@code Predicate}
+     *
+     * @param predicate {@code Predicate} to be applied to filter {@code filteredTaskList}
+     */
+    void updateFilteredTaskList(Predicate<Task> predicate);
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
+     * of {@code Planner}
+     */
+    ObservableList<Task> getFilteredTaskList();
+
+    /**
+     * Marks a {@code Task} at the specified {@code Index} as done
+     * @param i {@code Index} of the {@code Task} to be marked as done
+     */
+    void markTaskAsDone(Index i);
 }

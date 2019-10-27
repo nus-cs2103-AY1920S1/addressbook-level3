@@ -1,6 +1,15 @@
 package seedu.jarvis.model.planner.tasks;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.storage.planner.JsonAdaptedDeadline;
+import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Represents a Deadline task in JARVIS
@@ -9,9 +18,14 @@ public class Deadline extends Task {
 
     private LocalDate deadline;
 
-    public Deadline(String taskDes, LocalDate deadline) {
-        super(taskDes);
+    public Deadline(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags,
+                    LocalDate deadline) {
+        super(taskDes, priority, frequency, status, tags);
         this.deadline = deadline;
+    }
+
+    public Deadline(String taskDes, LocalDate deadline) {
+        this(taskDes, null, null, Status.NOT_DONE, new HashSet<>(), deadline);
     }
 
     /**
@@ -22,6 +36,16 @@ public class Deadline extends Task {
         return deadline;
     }
 
+    /**
+     * Gets the {@code JsonAdaptedTask} for this task.
+     *
+     * @return {@code JsonAdaptedTask}.
+     */
+    @Override
+    public JsonAdaptedTask adaptToJsonAdaptedTask() {
+        return new JsonAdaptedDeadline(this);
+    }
+
     @Override
     public String toString() {
         return "Deadline: " + this.taskDes + " by " + this.deadline
@@ -30,7 +54,8 @@ public class Deadline extends Task {
 
     /**
      * Checks if this task is equal to another task
-     * Condition for equality: same type of task && same description && same due date
+     * Condition for equality: same type of task, same description, same due date,
+     * and same status
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
@@ -44,8 +69,9 @@ public class Deadline extends Task {
         boolean isSameDes = taskDes.equals(((Task) other).taskDes);
         Deadline dOther = (Deadline) other;
         boolean isSameDate = deadline.compareTo(dOther.getDueDate()) == 0;
+        boolean isSameStatus = status.equals(((Deadline) other).getStatus());
 
-        return isSameDes && isSameDate;
+        return isSameDes && isSameDate && isSameDate;
     }
 
 

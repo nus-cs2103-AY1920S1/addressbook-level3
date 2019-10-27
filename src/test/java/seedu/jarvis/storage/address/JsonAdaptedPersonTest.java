@@ -16,6 +16,7 @@ import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
+import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

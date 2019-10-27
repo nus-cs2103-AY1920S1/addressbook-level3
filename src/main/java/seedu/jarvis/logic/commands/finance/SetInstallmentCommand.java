@@ -8,7 +8,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.finance.installment.Installment;
 
 /**
  * Adds a purchase to the finance tracker.
@@ -26,9 +26,10 @@ public class SetInstallmentCommand extends Command {
             + PREFIX_MONEY + "13.50 ";
 
     public static final String MESSAGE_SUCCESS = "New installment added: %1$s";
+    public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This purchase already exists in the finance tracker";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Installment: %1$s";
-    public static final String MESSAGE_INVERSE_PAYMENT_NOT_FOUND = "Installment already deleted: %1$s";
+    public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -65,21 +66,46 @@ public class SetInstallmentCommand extends Command {
     }
 
     /**
-     * Adds {@code Installment} to the finance tracker.
+     * Adds {@code Installment} to the finance tracker, if the installment does not already exist in the
+     * finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} that purchase was added successfully.
+     * @exception CommandException if there is already an {@code Installment} matching the installment to be
+     * added to the finance tracker.
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasInstallment(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_INSTALLMENT);
+        }
+
         model.addInstallment(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Deletes {@code Installment} from the finance tracker that was added by this command's execution
+     * if the installment is still in the finance tracker
+     *
+     * @param model {@code Model} which the command should inversely operate on.
+     * @return {@code CommandResult} that installment was removed if installment was in the finance tracker,
+     * else {@code CommandResult} that the installment was already not in the finance tracker
+     * @throws CommandException If installment to be removed is not found in the finance tracker
+     */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (!model.hasInstallment(toAdd)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND, toAdd));
+        }
+
+        model.deleteInstallment(toAdd);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, toAdd));
     }
 
     @Override

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="363px" preserveAspectRatio="none" style="width:652px;height:363px;" version="1.1" viewBox="0 0 652 363" width="652px" zoomAndPan="magnify"><defs/><g><!--cluster CoursePlanner--><rect fill="#FFFFFF" height="328" style="stroke: #000000; stroke-width: 1.5;" width="619" x="22" y="24"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="105" x="279" y="40.5332">CoursePlanner</text><!--class CoursePlanner--><rect fill="#9D0012" height="23.7988" id="CoursePlanner" style="stroke: #FFFFFF; stroke-width: 1.0;" width="90" x="354" y="60"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="84" x="357" y="76.2559">CoursePlanner</text><!--class UniqueCourseList--><rect fill="#9D0012" height="23.7988" id="UniqueCourseList" style="stroke: #FFFFFF; stroke-width: 1.0;" width="107" x="284.5" y="144"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="287.5" y="160.2559">UniqueCourseList</text><!--class Course--><rect fill="#9D0012" height="23.7988" id="Course" style="stroke: #FFFFFF; stroke-width: 1.0;" width="50" x="313" y="228"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="41" x="317.5" y="244.2559">Course</text><!--class CourseText--><rect fill="#9D0012" height="23.7988" id="CourseText" style="stroke: #FFFFFF; stroke-width: 1.0;" width="69" x="426.5" y="144"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="429.5" y="160.2559">CourseText</text><!--class Title--><rect fill="#9D0012" height="23.7988" id="Title" style="stroke: #FFFFFF; stroke-width: 1.0;" width="50" x="228" y="228"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="23" x="241.5" y="244.2559">Title</text><!--class CourseCode--><rect fill="#9D0012" height="23.7988" id="CourseCode" style="stroke: #FFFFFF; stroke-width: 1.0;" width="77" x="38.5" y="312"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="71" x="41.5" y="328.2559">CourseCode</text><!--class CourseCredit--><rect fill="#9D0012" height="23.7988" id="CourseCredit" style="stroke: #FFFFFF; stroke-width: 1.0;" width="80" x="151" y="312"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="74" x="154" y="328.2559">CourseCredit</text><!--class Faculty--><rect fill="#9D0012" height="23.7988" id="Faculty" style="stroke: #FFFFFF; stroke-width: 1.0;" width="50" x="266" y="312"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="38" x="272" y="328.2559">Faculty</text><!--class Description--><rect fill="#9D0012" height="23.7988" id="Description" style="stroke: #FFFFFF; stroke-width: 1.0;" width="69" x="351.5" y="312"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="354.5" y="328.2559">Description</text><!--class PrereqTree--><rect fill="#9D0012" height="23.7988" id="PrereqTree" style="stroke: #FFFFFF; stroke-width: 1.0;" width="68" x="456" y="312"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="459" y="328.2559">PrereqTree</text><!--class Preclusion--><rect fill="#9D0012" height="23.7988" id="Preclusion" style="stroke: #FFFFFF; stroke-width: 1.0;" width="65" x="559.5" y="312"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="59" x="562.5" y="328.2559">Preclusion</text><!--class FulfillRequirements--><rect fill="#9D0012" height="23.7988" id="FulfillRequirements" style="stroke: #FFFFFF; stroke-width: 1.0;" width="114" x="398" y="228"/><text fill="#FFFFFF" font-family="Arial" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="401" y="244.2559">FulfillRequirements</text><!--link Title to Course--><path d="M291.461,240 C294.127,240 300.786,240 300.786,240 " fill="none" id="Title-Course" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="312.786,240,306.786,236,300.786,240,306.786,244,312.786,240" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="278.234,240,287.234,244,283.234,240,287.234,236,278.234,240" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="283.234" x2="291.234" y1="240" y2="240"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="285.9563" y="235.4194">1</text><!--link Course to CourseCode--><path d="M301.5258,252.4602 C301.5258,252.4602 175.333,292.1062 124.756,307.9963 " fill="none" id="Course-CourseCode" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="112.229,311.9318,122.0141,313.0509,116.9992,310.4334,119.6167,305.4185,112.229,311.9318" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="116.9992" x2="124.6315" y1="310.4334" y2="308.0352"/><polygon fill="#9D0012" points="312.974,248.863,306.0509,246.8455,301.5258,252.4602,308.449,254.4776,312.974,248.863" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="118.3176" y="301.2628">1</text><!--link Course to CourseCredit--><path d="M307.6949,257.9043 C307.6949,257.9043 247.504,291.4807 222.661,305.3389 " fill="none" id="Course-CourseCredit" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="210.98,311.8544,220.7885,310.9634,215.3466,309.4187,216.8913,303.9768,210.98,311.8544" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="215.3466" x2="222.3335" y1="309.4187" y2="305.5214"/><polygon fill="#9D0012" points="318.175,252.059,310.9865,251.4883,307.6949,257.9043,314.8834,258.475,318.175,252.059" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="210.778" y="301.1535">1</text><!--link Course to Faculty--><path d="M325.6938,262.4702 C325.6938,262.4702 310.49,288.9961 303.874,300.539 " fill="none" id="Course-Faculty" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="297.388,311.8544,305.3336,306.0348,299.8742,307.5163,298.3927,302.0569,297.388,311.8544" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="299.8742" x2="303.853" y1="307.5163" y2="300.5757"/><polygon fill="#9D0012" points="331.661,252.059,325.207,255.2755,325.6938,262.4702,332.1478,259.2537,331.661,252.059" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="291.5793" y="301.1535">1</text><!--link Course to Description--><path d="M350.5347,262.4154 C350.5347,262.4154 366.095,288.9961 372.852,300.539 " fill="none" id="Course-Description" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="379.476,311.8544,378.3812,302.0666,376.95,307.5394,371.4772,306.1082,379.476,311.8544" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="376.95" x2="372.9085" y1="307.5394" y2="300.6353"/><polygon fill="#9D0012" points="344.473,252.059,344.0517,259.2578,350.5347,262.4154,350.956,255.2167,344.473,252.059" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="368.3411" y="301.1535">1</text><!--link Course to PrereqTree--><path d="M369.06,257.7568 C369.06,257.7568 431.713,291.5557 457.557,305.4979 " fill="none" id="Course-PrereqTree" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="469.34,311.8544,463.3186,304.0607,464.9396,309.4803,459.52,311.1013,469.34,311.8544" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="464.9396" x2="457.8985" y1="309.4803" y2="305.6822"/><polygon fill="#9D0012" points="358.499,252.059,361.8802,258.4283,369.06,257.7568,365.6788,251.3876,358.499,252.059" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="22" x="434.2802" y="301.1535">0..1</text><!--link Course to Preclusion--><path d="M374.7029,252.8478 C374.7029,252.8478 497.846,292.604 546.612,308.3472 " fill="none" id="Course-Preclusion" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="559.277,312.436,551.9413,305.8642,554.5189,310.8998,549.4833,313.4773,559.277,312.436" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="554.5189" x2="546.906" y1="310.8998" y2="308.4421"/><polygon fill="#9D0012" points="363.283,249.162,367.7644,254.8115,374.7029,252.8478,370.2216,247.1982,363.283,249.162" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="22" x="529.4888" y="306.4955">0..1</text><!--link Course to FulfillRequirements--><path d="M375.137,240 C375.137,240 381.855,240 384.688,240 " fill="none" id="Course-FulfillRequirements" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="397.944,240,388.944,236,392.944,240,388.944,244,397.944,240" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="392.944" x2="384.944" y1="240" y2="240"/><polygon fill="#9D0012" points="363.137,240,369.137,244,375.137,240,369.137,236,363.137,240" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="22" x="368.075" y="236.6021">0..1</text><!--link UniqueCourseList to Course--><path d="M338,180.059 C338,180.059 338,204.037 338,214.535 " fill="none" id="UniqueCourseList-Course" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="338,227.854,342,218.854,338,222.854,334,218.854,338,227.854" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="338" x2="338" y1="222.854" y2="214.854"/><polygon fill="#FFFFFF" points="338,168.059,334,174.059,338,180.059,342,174.059,338,168.059" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="5" x="331.9688" y="217.1529">*</text><!--link CoursePlanner to UniqueCourseList--><path d="M383.6115,93.6877 C383.6115,93.6877 362.994,121.402 354.058,133.413 " fill="none" id="CoursePlanner-UniqueCourseList" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="346.291,143.854,354.8725,139.021,349.2756,139.8425,348.4541,134.2456,346.291,143.854" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="349.2756" x2="354.0505" y1="139.8425" y2="133.424"/><polygon fill="#9D0012" points="390.773,84.059,383.9827,86.4862,383.6115,93.6877,390.4018,91.2605,390.773,84.059" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="341.2673" y="133.1529">1</text><!--link CoursePlanner to CourseText--><path d="M414.6003,93.6301 C414.6003,93.6301 435.597,121.402 444.678,133.413 " fill="none" id="CoursePlanner-CourseText" style="stroke: #9D0012; stroke-width: 1.1;"/><polygon fill="#9D0012" points="452.573,143.854,450.3361,134.2625,449.5576,139.8656,443.9546,139.0871,452.573,143.854" style="stroke: #9D0012; stroke-width: 1.1;"/><line style="stroke: #9D0012; stroke-width: 1.1;" x1="449.5576" x2="444.7325" y1="139.8656" y2="133.485"/><polygon fill="#9D0012" points="407.362,84.059,407.7908,91.2573,414.6003,93.6301,414.1715,86.4318,407.362,84.059" style="stroke: #9D0012; stroke-width: 1.1;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="7" x="440.6531" y="133.1529">1</text><!--
+@startuml
+
+
+
+
+
+
+
+
+skinparam BackgroundColor #FFFFFFF
+
+skinparam Shadowing false
+
+skinparam Class {
+    FontColor #FFFFFF
+    BorderThickness 1
+    BorderColor #FFFFFF
+    StereotypeFontColor #FFFFFF
+    FontName Arial
+}
+
+skinparam Actor {
+    BorderColor #000000
+    Color #000000
+    FontName Arial
+}
+
+skinparam Sequence {
+    MessageAlign center
+    BoxFontSize 15
+    BoxPadding 0
+    BoxFontColor #FFFFFF
+    FontName Arial
+}
+
+skinparam Participant {
+    FontColor #FFFFFFF
+    Padding 20
+}
+
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam Shadowing false
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+
+hide footbox
+hide members
+hide circle
+skinparam arrowThickness 1.1
+skinparam arrowColor #9D0012
+skinparam classBackgroundColor #9D0012
+
+Package CoursePlanner <<Rectangle>> {
+    Class CoursePlanner
+    Class UniqueCourseList
+    Class Course
+    Class CourseText
+
+    Class Title
+    Class CourseCode
+    Class CourseCredit
+    Class Faculty
+    Class Description
+    Class PrereqTree
+    Class Preclusion
+    Class FulfillRequirements
+}
+
+Course *-left-> "1" Title
+Course *- -> "1" CourseCode
+Course *- -> "1" CourseCredit
+Course *- -> "1" Faculty
+Course *- -> "1" Description
+Course *- -> "0..1" PrereqTree
+Course *- -> "0..1" Preclusion
+Course *-right-> "0..1" FulfillRequirements
+UniqueCourseList o- -> "*" Course
+CoursePlanner *- -> "1" UniqueCourseList
+CoursePlanner *- -> "1" CourseText
+@enduml
+
+PlantUML version 1.2019.06(Sat May 25 01:10:25 SGT 2019)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 11.0.4+10-LTS
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: Cp1252
+Language: en
+Country: GB
+--></g></svg>

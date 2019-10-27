@@ -4,26 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.jarvis.testutil.planner.TypicalTasks.TODO;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.address.tag.Tag;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
 
 class TodoTest {
 
     @Test
     void addPriority() {
         Todo t = new Todo("homework");
-        t.addPriority(Priority.HIGH);
+        t.setPriority(Priority.HIGH);
         assertNotNull(t.priority);
     }
 
     @Test
     void addFrequency() {
         Todo t = new Todo("homework");
-        t.addFrequency(Frequency.DAILY);
+        t.setFrequency(Frequency.DAILY);
         assertNotNull(t.frequency);
     }
 
@@ -61,8 +63,8 @@ class TodoTest {
     @Test
     void toString_withAllAttributesPresent() {
         Todo t = new Todo("homework");
-        t.addFrequency(Frequency.DAILY);
-        t.addPriority(Priority.HIGH);
+        t.setFrequency(Frequency.DAILY);
+        t.setPriority(Priority.HIGH);
         t.addTag(new Tag("help"));
 
         String expected = "Todo: homework\nPriority: HIGH\nFrequency: DAILY"
@@ -79,5 +81,44 @@ class TodoTest {
         String expected = "Todo: homework";
 
         assertEquals(expected, t.toString());
+    }
+
+    @Test
+    void getTaskDes_success() {
+        Todo t = new Todo("homework");
+        String expected = "homework";
+
+        assertEquals(expected, t.getTaskDes());
+    }
+
+    @Test
+    public void adaptToJsonAdaptedTodo() throws Exception {
+        assertEquals(TODO, TODO.adaptToJsonAdaptedTask().toModelType());
+    }
+
+    @Test
+    void markAsDone() {
+        Todo t = new Todo("homework");
+
+        t.markAsDone();
+
+        assertEquals(Status.DONE, t.getStatus());
+    }
+
+    @Test
+    void markAsNotDone() {
+        Todo t = new Todo("homework");
+        t.markAsDone();
+        assertEquals(Status.DONE, t.getStatus());
+
+        t.markAsNotDone();
+        assertEquals(Status.NOT_DONE, t.getStatus());
+    }
+
+    @Test
+    void getStatus() {
+        Todo t = new Todo("homework");
+
+        assertEquals(Status.NOT_DONE, t.getStatus());
     }
 }

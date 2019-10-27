@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -27,7 +29,7 @@ class PlannerTest {
         planner.addTask(new Todo("borrow book"));
         planner.addTask(new Todo("read book"));
 
-        assertTrue(expected.equals(planner.getTasks()));
+        assertTrue(expected.equals(planner.getTaskList()));
 
     }
 
@@ -35,14 +37,14 @@ class PlannerTest {
     void addTask_task() {
         Planner planner = new Planner();
         planner.addTask(new Todo("read book"));
-        assertNotNull(planner.getTasks().getTasks());
+        assertNotNull(planner.getTaskList().getTasks());
     }
 
     @Test
     void addTask_taskAndIndex() {
         Planner planner = new Planner();
         planner.addTask(0, new Todo("read book"));
-        assertNotNull(planner.getTasks().getTasks());
+        assertNotNull(planner.getTaskList().getTasks());
     }
 
     @Test
@@ -124,5 +126,32 @@ class PlannerTest {
         testPlanner.addTask(new Todo("study"));
 
         assertEquals(3, testPlanner.size());
+    }
+
+    @Test
+    void getFilteredTaskList() {
+        Planner planner = new Planner();
+        planner.addTask(new Todo("borrow book"));
+        planner.addTask(new Todo("read book"));
+
+        TaskDesContainsKeywordsPredicate predicate = new TaskDesContainsKeywordsPredicate(
+                                                            Arrays.asList("borrow"));
+
+        //planner.updateFilteredTaskList(predicate);
+
+        //assertEquals(1, planner.getFilteredTaskList().size());
+    }
+
+    @Test
+    void markTaskAsDone() throws ParseException {
+        Planner planner = new Planner();
+        planner.addTask(new Todo("borrow book"));
+        planner.addTask(new Todo("read book"));
+
+        planner.markTaskAsDone(ParserUtil.parseIndex("1"));
+        Task check = planner.getTask(ParserUtil.parseIndex("1"));
+
+        assertEquals("borrow book", check.getTaskDes());
+        assertEquals(Status.DONE, check.getStatus());
     }
 }

@@ -12,13 +12,11 @@ import javafx.collections.ObservableList;
  */
 public class CoursePlanner {
     private UniqueCourseList uniqueCourseList;
-
-    /** String to render to display */
-    private String showString;
+    private CourseDisplayText courseDisplayText;
 
     public CoursePlanner() {
         uniqueCourseList = new UniqueCourseList();
-        showString = "";
+        courseDisplayText = new CourseDisplayText();
     }
 
     public CoursePlanner(CoursePlanner coursePlanner) {
@@ -32,27 +30,39 @@ public class CoursePlanner {
     public void resetData(CoursePlanner newData) {
         requireNonNull(newData);
         setUniqueCourseList(newData.getCourseList());
-        setShowString(newData.getShowString());
+        setCourseDisplayText(newData.getText());
     }
 
     public UniqueCourseList getUniqueCourseList() {
         return uniqueCourseList;
     }
 
-    public String getShowString() {
-        return showString;
+    public ObservableList<Course> getCourseList() {
+        return uniqueCourseList.asUnmodifiableObservableList();
+    }
+
+    public CourseDisplayText getCourseDisplayText() {
+        return courseDisplayText;
+    }
+
+    public String getText() {
+        return courseDisplayText.get();
+    }
+
+    public String getText(int lineCharacterLimit) {
+        return courseDisplayText.get(lineCharacterLimit);
     }
 
     public void setUniqueCourseList(List<Course> courses) {
-        this.uniqueCourseList.setCourses(courses);
+        uniqueCourseList.setCourses(courses);
     }
 
-    public void setShowString(String showString) {
-        this.showString = showString;
+    public void setCourses(List<Course> courses) {
+        uniqueCourseList.setCourses(courses);
     }
 
-    public void lookUpCourse(Course course) {
-        showString = course.toDisplayableString();
+    public void setCourseDisplayText(String text) {
+        courseDisplayText.setValue(text);
     }
 
     public boolean hasCourse(Course course) {
@@ -71,12 +81,12 @@ public class CoursePlanner {
         uniqueCourseList.remove(course);
     }
 
-    public void setCourses(List<Course> courses) {
-        uniqueCourseList.setCourses(courses);
+    public void lookUpCourse(Course course) {
+        courseDisplayText.setValue(course);
     }
 
-    public ObservableList<Course> getCourseList() {
-        return uniqueCourseList.asUnmodifiableObservableList();
+    public void checkCourse(String toShow) {
+        courseDisplayText.setValue(toShow);
     }
 
     @Override
@@ -84,18 +94,16 @@ public class CoursePlanner {
         if (this == o) {
             return true;
         }
-
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         CoursePlanner that = (CoursePlanner) o;
         return Objects.equals(uniqueCourseList, that.uniqueCourseList)
-                && Objects.equals(showString, that.showString);
+            && Objects.equals(courseDisplayText, that.courseDisplayText);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uniqueCourseList, showString);
+        return Objects.hash(uniqueCourseList, courseDisplayText);
     }
 }

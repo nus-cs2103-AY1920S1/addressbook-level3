@@ -26,6 +26,7 @@ import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescript
 import seedu.jarvis.logic.commands.address.FindAddressCommand;
 import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.course.AddCourseCommand;
+import seedu.jarvis.logic.commands.course.CheckCommand;
 import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
@@ -127,6 +128,13 @@ public class JarvisParserTest {
         assertThrows(ParseException.class, () -> parser.parseCommand(LookUpCommand.COMMAND_WORD));
         assertTrue(parser.parseCommand(LookUpCommand.COMMAND_WORD + " " + PREFIX_COURSE + "CS3230")
                 instanceof LookUpCommand);
+    }
+
+    @Test
+    public void parseCommand_check() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(CheckCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(CheckCommand.COMMAND_WORD + " " + PREFIX_COURSE + "CS3230")
+            instanceof CheckCommand);
     }
 
     @Test

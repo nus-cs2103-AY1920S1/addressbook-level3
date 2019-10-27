@@ -10,56 +10,58 @@ participant ":DataNode" as DataNode
 participant ":AndOrOperationMapper" as AndOrOperationMapper
 end box
 
-[-> AndOrTree : buildTree(rootData, jsonString)
-    AndOrTree -> AndOrTree : buildTreeHelper(jsonNode, currNode)
-        alt isObject
-            AndOrTree -> AndOrNode : createNode(null, type)
-                AndOrNode -> AndOrOperationMapper : ofType(type)
-                    return nodeType
+[-> AndOrTree : buildTree(rootData, jsonString, function)
+    AndOrTree -> AndOrTree : buildTreeHelper(jsonNode, currNode, function)
+        loop hasChildren
+            alt isObject
+                AndOrTree -> AndOrNode : createNode(null, type)
+                    AndOrNode -> AndOrOperationMapper : ofType(type)
+                        return nodeType
 
-                alt nodeType == AND
-                    create AndNode
-                    AndOrNode -> AndNode : AndNode(null)
-                        return newNode
-                else nodeType == OR
-                    create OrNode
-                    AndOrNode -> OrNode : OrNode(null)
-                        return newNode
-                end
-                return
-
-            AndOrTree -> AndOrNode : currNode.insertChild(newNode)
-                |||
-                return
-
-            loop for child in jsonNode
-                AndOrTree -> AndOrTree : buildTreeHelper(child, newNode)
-                return
-                |||
-            end
-
-        else isArray
-
-            loop for child in array
-                AndOrTree -> AndOrTree : buildTreeHelper(child, currNode)
-                    return
-                |||
-            end
-
-        else else
-
-            AndOrTree -> AndOrNode : createNode(data)
-                AndOrNode -> AndOrOperationMapper : ofType(type)
-                    return nodeType
-                create DataNode
-                AndOrNode -> DataNode : DataNode(data)
+                    alt nodeType == AND
+                        create AndNode
+                        AndOrNode -> AndNode : AndNode(null)
+                            return newNode
+                    else nodeType == OR
+                        create OrNode
+                        AndOrNode -> OrNode : OrNode(null)
+                            return newNode
+                    end
                     return newNode
-                return newNode
 
-            AndOrTree -> AndOrNode : currNode.insert(newNode)
-                |||
-                return
+                AndOrTree -> AndOrNode : currNode.insertChild(newNode)
+                    |||
+                    return
 
+                loop for child in jsonNode
+                    AndOrTree -> AndOrTree : buildTreeHelper(child, newNode)
+                    return
+                    |||
+                end
+
+            else isArray
+
+                loop for child in array
+                    AndOrTree -> AndOrTree : buildTreeHelper(child, currNode)
+                        return
+                    |||
+                end
+
+            else else
+
+                AndOrTree -> AndOrNode : createNode(data)
+                    AndOrNode -> AndOrOperationMapper : ofType(type)
+                        return nodeType
+                    create DataNode
+                    AndOrNode -> DataNode : DataNode(data)
+                        return newNode
+                    return newNode
+
+                AndOrTree -> AndOrNode : currNode.insert(newNode)
+                    |||
+                    return
+
+            end
         end
         return
 [<--AndOrTree : tree

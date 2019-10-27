@@ -6,6 +6,7 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package FinanceTracker <<Rectangle>> {
     Class FinanceTracker
+    Class MonthlyLimit
     Class PurchaseList
     Class InstallmentList
     Class Purchase
@@ -14,10 +15,12 @@ Package FinanceTracker <<Rectangle>> {
     Class Installment
     Class InstallmentDescription
     Class InstallmentMoneyPaid
+    Class MonthlyLimit
 }
 
 FinanceTracker *--> "1" PurchaseList
 FinanceTracker *--> "1" InstallmentList
+FinanceTracker *--> "0...1" MonthlyLimit
 
 PurchaseList o--> "*" Purchase
 Purchase *--> "1" PurchaseDescription

@@ -21,7 +21,7 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
-import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.finance.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
@@ -31,8 +31,16 @@ import seedu.jarvis.storage.Storage;
 import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.address.AddressBookStorage;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
+import seedu.jarvis.storage.cca.CcaTrackerStorage;
+import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
+import seedu.jarvis.storage.course.CoursePlannerStorage;
+import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
+import seedu.jarvis.storage.finance.FinanceTrackerStorage;
+import seedu.jarvis.storage.finance.JsonFinanceTrackerStorage;
 import seedu.jarvis.storage.history.HistoryManagerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
+import seedu.jarvis.storage.planner.JsonPlannerStorage;
+import seedu.jarvis.storage.planner.PlannerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 import seedu.jarvis.ui.Ui;
@@ -66,7 +74,13 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         HistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(
                 userPrefs.getHistoryManagerFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage);
+        CcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(userPrefs.getCcaTrackerFilePath());
+        CoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(userPrefs.getCoursePlannerFilePath());
+        PlannerStorage plannerStorage = new JsonPlannerStorage(userPrefs.getPlannerFilePath());
+        FinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(userPrefs.getFinanceTrackerPath());
+
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage, ccaTrackerStorage,
+                coursePlannerStorage, plannerStorage, financeTrackerStorage);
 
         initLogging(config);
 
@@ -86,8 +100,12 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyAddressBook addressBook = readAddressBook(storage);
         HistoryManager historyManager = readHistoryManager(storage);
-        return new ModelManager(new CcaTracker(), historyManager, new FinanceTracker(), addressBook,
-                userPrefs, new Planner(), new CoursePlanner());
+        CcaTracker ccaTracker = readCcaTracker(storage);
+        CoursePlanner coursePlanner = readCoursePlanner(storage);
+        Planner planner = readPlanner(storage);
+        FinanceTracker financeTracker = readFinanceTracker(storage);
+        return new ModelManager(ccaTracker, historyManager, financeTracker, addressBook,
+                userPrefs, planner, coursePlanner);
     }
 
     /**
@@ -121,6 +139,54 @@ public class MainApp extends Application {
             return storage.readHistoryManager().orElseGet(HistoryManager::new);
         } catch (DataConversionException | IOException e) {
             return new HistoryManager();
+        }
+    }
+
+    /**
+     * Gets the {@code CcaTracker} from storage.
+     * An empty {@code CcaTracker} is used if errors occur when reading {@code Storage}'s Cca Tracker.
+     */
+    private CcaTracker readCcaTracker(Storage storage) {
+        try {
+            return storage.readCcaTracker().orElseGet(CcaTracker::new);
+        } catch (DataConversionException | IOException e) {
+            return new CcaTracker();
+        }
+    }
+
+    /**
+     * Gets the {@code CoursePlanner} from storage.
+     * An empty {@code CoursePlanner} is used if errors occur when reading {@code Storage}'s course planner.
+     */
+    private CoursePlanner readCoursePlanner(Storage storage) {
+        try {
+            return storage.readCoursePlanner().orElseGet(CoursePlanner::new);
+        } catch (DataConversionException | IOException e) {
+            return new CoursePlanner();
+        }
+    }
+
+    /**
+     * Gets the {@code Planner} from storage.
+     * An empty {@code Planner} is used if errors occur when reading {@code Storage}'s planner.
+     */
+    private Planner readPlanner(Storage storage) {
+        try {
+            return storage.readPlanner().orElseGet(Planner::new);
+        } catch (DataConversionException | IOException e) {
+            return new Planner();
+        }
+    }
+
+    /**
+     * Gets the {@code FinanceTracker} from storage.
+     * An empty {@code FinanceTracker} is used if errors occur when reading {@code Storage}'s planner.
+     */
+    private FinanceTracker readFinanceTracker(Storage storage) {
+        try {
+            return storage.readFinanceTracker().orElseGet(FinanceTracker::new);
+        } catch (DataConversionException | IOException e) {
+            return new FinanceTracker();
         }
     }
 

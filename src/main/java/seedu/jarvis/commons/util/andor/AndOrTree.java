@@ -1,5 +1,7 @@
 package seedu.jarvis.commons.util.andor;
 
+import static java.util.Objects.isNull;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.function.Function;
@@ -92,8 +94,10 @@ public class AndOrTree<T> {
     private static <R> void handleLeaf(JsonNode node, AndOrNode<R> curr,
                                        Function<? super String, ? extends R> function) {
         R data = function.apply(node.asText());
-        AndOrNode<R> newNode = AndOrNode.createNode(data);
-        curr.insert(newNode);
+        if (!isNull(data)) {
+            AndOrNode<R> newNode = AndOrNode.createNode(data);
+            curr.insert(newNode);
+        }
     }
 
     /**
@@ -129,5 +133,17 @@ public class AndOrTree<T> {
             return true;
         }
         return root.getChildren().get(0).fulfills(collection);
+    }
+
+    /**
+     * Returns a {@code String} representing the tree structure of this object.
+     *
+     * @return a {@code String}
+     */
+    public String toString() {
+        if (root.getChildren().size() <= 0) {
+            return "";
+        }
+        return root.toTreeString();
     }
 }

@@ -1,7 +1,11 @@
 package seedu.jarvis.storage;
 
 import seedu.jarvis.storage.address.AddressBookStorage;
+import seedu.jarvis.storage.cca.CcaTrackerStorage;
+import seedu.jarvis.storage.course.CoursePlannerStorage;
+import seedu.jarvis.storage.finance.FinanceTrackerStorage;
 import seedu.jarvis.storage.history.HistoryManagerStorage;
+import seedu.jarvis.storage.planner.PlannerStorage;
 import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 
 /**
@@ -11,4 +15,5 @@ import seedu.jarvis.storage.userprefs.UserPrefsStorage;
  * {@code UserPrefsStorage} is the API for User Preferences and GUI settings.
  * {@code HistoryManagerStorage} is the API for undoing and redoing commands.
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, HistoryManagerStorage {}
+public interface Storage extends AddressBookStorage, UserPrefsStorage, HistoryManagerStorage, CcaTrackerStorage,
+        CoursePlannerStorage, PlannerStorage, FinanceTrackerStorage {}

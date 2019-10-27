@@ -42,15 +42,15 @@ public class EditInstallmentCommandParser implements Parser<EditInstallmentComma
                 new EditInstallmentCommand.EditInstallmentDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editInstallmentDescriptor
-                    .setDescription(ParserUtil
-                            .parseDescription(argMultimap
+                    .setDescription(FinanceParserUtil
+                            .parseInstallmentDescription(argMultimap
                                     .getValue(PREFIX_DESCRIPTION)
                                     .get()));
         }
         if (argMultimap.getValue(PREFIX_MONEY).isPresent()) {
             editInstallmentDescriptor
-                    .setMoneyPaid(ParserUtil
-                            .parseMoneySpent(argMultimap
+                    .setMoneyPaid(FinanceParserUtil
+                            .parseInstallmentMoneySpent(argMultimap
                                     .getValue(PREFIX_MONEY)
                                     .get()));
         }

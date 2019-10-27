@@ -8,6 +8,7 @@ Package CoursePlanner <<Rectangle>> {
     Class CoursePlanner
     Class UniqueCourseList
     Class Course
+    Class CourseText
 
     Class Title
     Class CourseCode
@@ -19,14 +20,15 @@ Package CoursePlanner <<Rectangle>> {
     Class FulfillRequirements
 }
 
-Course *--> "1" Title
+Course *-left-> "1" Title
 Course *--> "1" CourseCode
 Course *--> "1" CourseCredit
 Course *--> "1" Faculty
 Course *--> "1" Description
 Course *--> "0..1" PrereqTree
 Course *--> "0..1" Preclusion
-Course *--> "0..1" FulfillRequirements
+Course *-right-> "0..1" FulfillRequirements
 UniqueCourseList o--> "*" Course
 CoursePlanner *--> "1" UniqueCourseList
+CoursePlanner *--> "1" CourseText
 @enduml

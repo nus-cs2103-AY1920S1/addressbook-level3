@@ -3,7 +3,7 @@ package seedu.jarvis.model;
 import seedu.jarvis.model.address.AddressModel;
 import seedu.jarvis.model.cca.CcaTrackerModel;
 import seedu.jarvis.model.course.CoursePlannerModel;
-import seedu.jarvis.model.financetracker.FinanceTrackerModel;
+import seedu.jarvis.model.finance.FinanceTrackerModel;
 import seedu.jarvis.model.history.HistoryModel;
 import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.userprefs.UserPrefsModel;

@@ -15,6 +15,7 @@ import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
@@ -26,10 +27,11 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  * A {@code HistoryManager} that is serializable to JSON format.
  */
 @JsonRootName(value = "historymanager")
-public class JsonSerializableHistoryManager {
+public class JsonSerializableHistoryManager implements JsonAdapter<HistoryManager> {
 
     public static final String MESSAGE_ERROR_CONVERTING_HISTORY_MANAGER = "Error converting HistoryManager";
-    public static final String MESSAGE_INVALID_COMMAND = "Invalid Command";
+    public static final String MESSAGE_INVALID_COMMAND = "Unknown Command";
+    public static final String MESSAGE_COMMAND_MISMATCH = "Error mapping command";
 
     private final List<JsonAdaptedCommand> executedCommands = new ArrayList<>();
     private final List<JsonAdaptedCommand> inverselyExecutedCommands = new ArrayList<>();
@@ -79,10 +81,10 @@ public class JsonSerializableHistoryManager {
         this.executedCommands.clear();
         this.inverselyExecutedCommands.clear();
         for (Command command : executedCommands) {
-            this.executedCommands.add(convertToJsonAdaptedCommand(command));
+            this.executedCommands.add(adaptToJsonAdaptedCommand(command));
         }
         for (Command command : inverselyExecutedCommands) {
-            this.inverselyExecutedCommands.add(convertToJsonAdaptedCommand(command));
+            this.inverselyExecutedCommands.add(adaptToJsonAdaptedCommand(command));
         }
     }
 
@@ -94,18 +96,22 @@ public class JsonSerializableHistoryManager {
      * @throws InvalidCommandToJsonException If there was an error in converting any commands into Jackson-Friendly
      * objects.
      */
-    private JsonAdaptedCommand convertToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
-        switch (command.getCommandWord()) {
-        case AddAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedAddAddressCommand(command);
-        case ClearAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedClearAddressCommand(command);
-        case DeleteAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedDeleteAddressCommand(command);
-        case EditAddressCommand.COMMAND_WORD:
-            return new JsonAdaptedEditAddressCommand(command);
-        default:
-            throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
+    private JsonAdaptedCommand adaptToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
+        try {
+            switch (command.getCommandWord()) {
+            case AddAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedAddAddressCommand((AddAddressCommand) command);
+            case ClearAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedClearAddressCommand((ClearAddressCommand) command);
+            case DeleteAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedDeleteAddressCommand((DeleteAddressCommand) command);
+            case EditAddressCommand.COMMAND_WORD:
+                return new JsonAdaptedEditAddressCommand((EditAddressCommand) command);
+            default:
+                throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
+            }
+        } catch (ClassCastException cce) {
+            throw new InvalidCommandToJsonException(MESSAGE_COMMAND_MISMATCH);
         }
     }
 
@@ -115,6 +121,7 @@ public class JsonSerializableHistoryManager {
      * @return {@code HistoryManager} of the Jackson-friendly adapted {@code JsonSerializableHistoryManager}.
      * @throws IllegalValueException if there were any data constraints violated in the adapted {@code HistoryManager}.
      */
+    @Override
     public HistoryManager toModelType() throws IllegalValueException {
         HistoryManager historyManager = new HistoryManager();
         for (JsonAdaptedCommand jsonAdaptedExecutedCommand : executedCommands) {

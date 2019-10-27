@@ -1,6 +1,7 @@
 package seedu.jarvis.testutil;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -17,9 +18,10 @@ import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.FinanceTracker;
+import seedu.jarvis.model.finance.MonthlyLimit;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
@@ -200,9 +202,24 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void addPurchase(int zeroBasedIndex, Purchase newPurchase) {
+        throw new AssertionError("This method should not be called.");
+    }
+
 
     @Override
     public Purchase deletePurchase(int itemNumber) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Purchase deletePurchase(Purchase purchase) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasPurchase(Purchase purchase) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -212,7 +229,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addInstallment(int zeroBasedIndex, Installment installment) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Installment deleteInstallment(int instalNumber) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Installment deleteInstallment(Installment installment) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -227,7 +254,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setMonthlyLimit(double value) {
+    public void setMonthlyLimit(MonthlyLimit limit) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Optional<MonthlyLimit> getMonthlyLimit() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -344,7 +376,27 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void markTaskAsDone(Index i) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void lookUpCourse(Course code) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void checkCourse(String val) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -370,6 +422,16 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Course> getUnfilteredCourseList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getDisplayText() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getDisplayText(int lineCharacterLimit) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -6,15 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
-import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
  * Jackson-friendly version of {@link DeleteAddressCommand}.
  */
-public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
+public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
     public static final String MESSAGE_INVALID_COMMAND = "This command is not a DeleteAddressCommand.";
     private final JsonAdaptedIndex targetIndex;
     private final JsonAdaptedPerson deletedPerson;
@@ -34,17 +34,12 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand {
     }
 
     /**
-     * Converts a given {@code Command} into this class for Jackson use.
-     * {@code Command} should be a {@code DeleteAddressCommand}.
+     * Converts a given {@code DeleteAddressCommand} into this class for Jackson use.
      *
-     * @param command {@code Command} to be used to construct the {@code JsonAdaptedDeleteAddressCommand}.
-     * @throws InvalidCommandToJsonException If {@code Command} is not a {@code DeleteAddressCommand}.
+     * @param deleteAddressCommand {@code DeleteAddressCommand} to be used to construct the
+     * {@code JsonAdaptedDeleteAddressCommand}.
      */
-    public JsonAdaptedDeleteAddressCommand(Command command) throws InvalidCommandToJsonException {
-        if (!(command instanceof DeleteAddressCommand)) {
-            throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
-        }
-        DeleteAddressCommand deleteAddressCommand = (DeleteAddressCommand) command;
+    public JsonAdaptedDeleteAddressCommand(DeleteAddressCommand deleteAddressCommand) {
         targetIndex = new JsonAdaptedIndex(deleteAddressCommand.getTargetIndex());
         deletedPerson = deleteAddressCommand.getDeletedPerson().map(JsonAdaptedPerson::new).orElse(null);
     }

@@ -15,4 +15,12 @@ public interface ReadOnlyUserPrefs {
 
     Path getHistoryManagerFilePath();
 
+    Path getCcaTrackerFilePath();
+
+    Path getCoursePlannerFilePath();
+
+    Path getPlannerFilePath();
+
+    Path getFinanceTrackerPath();
+
 }

@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.jarvis.model.financetracker.InstallmentList;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.installment.InstallmentDescription;
+import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**
@@ -68,20 +67,35 @@ public class InstallmentListTest {
     }
 
     @Test
-    public void editInstallment_normalInputs_editedCorrectly() {
+    public void deleteInstallment_deleteCorrectInstance_deletedCorrectly() {
+        installmentList.addInstallment(new InstallmentBuilder().build());
+        Installment deletedInstallment = installmentList.deleteInstallment(new InstallmentBuilder().build());
+        assertEquals(deletedInstallment, new InstallmentBuilder().build());
+        assertEquals(3, installmentList.getNumInstallments());
+    }
+
+    @Test
+    public void deleteInstallment_deleteFirstInstance_deletedCorrectly() {
+        Installment deletedInstallment = installmentList.deleteInstallment(new InstallmentStub());
+        assertEquals(2, installmentList.getNumInstallments());
+        assertEquals(deletedInstallment, new InstallmentStub());
+    }
+
+    @Test
+    public void setInstallment_normalInputs_editedCorrectly() {
         Installment installment = installmentList.getInstallment(1);
         Installment editedInstallment = new InstallmentBuilder()
-                .withDescription(new InstallmentDescription("Spotify"))
-                .withMoneySpent(new InstallmentMoneyPaid("9.50"))
+                .withDescription("Spotify")
+                .withMoneySpent("9.50")
                 .build();
         installmentList.setInstallment(installment, editedInstallment);
         assertEquals(installmentList.getInstallment(1), editedInstallment);
     }
 
     @Test
-    public void editInstallment_nonExistentInstallment_throwsError() {
+    public void setInstallment_nonExistentInstallment_throwsError() {
         Installment installment = new InstallmentBuilder()
-                .withDescription(new InstallmentDescription("something"))
+                .withDescription("something")
                 .build();
 
         assertThrows(RuntimeException.class, (
