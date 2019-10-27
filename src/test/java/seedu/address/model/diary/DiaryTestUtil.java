@@ -70,7 +70,7 @@ public interface DiaryTestUtil {
             FXCollections.observableArrayList(TEST_ENTRY_4, TEST_ENTRY_1, TEST_ENTRY_3, TEST_ENTRY_2);
 
     Collection<DiaryEntry> TEST_DIARY_ENTRIES_UNIQUE =
-                    FXCollections.observableArrayList(TEST_ENTRY_1, TEST_ENTRY_2, TEST_ENTRY_3, TEST_ENTRY_4);
+            FXCollections.observableArrayList(TEST_ENTRY_1, TEST_ENTRY_2, TEST_ENTRY_3, TEST_ENTRY_4);
 
     Collection<DiaryEntry> TEST_DIARY_ENTRIES_DUPLICATES = FXCollections.observableArrayList(
             TEST_ENTRY_1, TEST_ENTRY_2_COPY,
@@ -79,16 +79,12 @@ public interface DiaryTestUtil {
             TEST_ENTRY_4, TEST_ENTRY_4_COPY);
 
     String TEST_DIARY_ENTRIES_UNIQUE_TO_STRING = "Diary Entries: "
-                    + TEST_ENTRY_1_TO_STRING + "\n"
-                    + TEST_ENTRY_2_TO_STRING + "\n"
-                    + TEST_ENTRY_3_TO_STRING + "\n"
-                    + TEST_ENTRY_4_TO_STRING + "\n";
-    
-    Index ABSENT_DAY_INDEX = Index.fromOneBased(2);
+            + TEST_ENTRY_1_TO_STRING + "\n"
+            + TEST_ENTRY_2_TO_STRING + "\n"
+            + TEST_ENTRY_3_TO_STRING + "\n"
+            + TEST_ENTRY_4_TO_STRING + "\n";
 
-    int MIN_RANDOM_ASCII_CHAR = 32;
-    int MAX_RANDOM_ASCII_CHAR = 126;
-    double GENERATE_TEXT_BREAK_CHANCE = 0.05;
+    Index ABSENT_DAY_INDEX = Index.fromOneBased(2);
 
     /**
      * Generates a string of random characters, affected by the constants {@code MIN_RANDOM_ASCII_CHAR},
@@ -97,19 +93,23 @@ public interface DiaryTestUtil {
      * @return The randomly generated string.
      */
     static String generateRandomText() {
+        int minRandomAsciiChar = 32;
+        int maxRandomAsciiChar = 126;
+        double generateTextBreakChance = 0.05;
+
         StringBuilder diaryLineText = new StringBuilder();
         double rand;
 
         for (int i = 0; i < 100; i++) {
             rand = Math.random();
-            if (rand <= GENERATE_TEXT_BREAK_CHANCE) {
+            if (rand <= generateTextBreakChance) {
                 break;
             }
-            rand -= GENERATE_TEXT_BREAK_CHANCE;
-            rand /= (1.0 - GENERATE_TEXT_BREAK_CHANCE);
+            rand -= generateTextBreakChance;
+            rand /= (1.0 - generateTextBreakChance);
 
-            diaryLineText.append(
-                    ((int) (rand * (MAX_RANDOM_ASCII_CHAR - MIN_RANDOM_ASCII_CHAR))) + MIN_RANDOM_ASCII_CHAR);
+            diaryLineText.append(((int) (rand * (maxRandomAsciiChar - minRandomAsciiChar)))
+                    + minRandomAsciiChar);
         }
 
         return diaryLineText.toString();

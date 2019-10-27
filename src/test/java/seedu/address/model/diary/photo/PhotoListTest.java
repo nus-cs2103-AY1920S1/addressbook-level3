@@ -14,7 +14,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.diary.DiaryTestUtil;
 
 /**
  * Unit test of {@link PhotoList} using {@link PhotoStub}.

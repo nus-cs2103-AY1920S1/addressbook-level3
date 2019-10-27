@@ -1,6 +1,5 @@
 package seedu.address.model.diary;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,13 +16,14 @@ import static seedu.address.model.diary.DiaryTestUtil.TEST_ENTRY_5_INDEX;
 
 import java.util.Optional;
 
-import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.transformation.SortedList;
 
 import seedu.address.testutil.Assert;
 
 /**
- * Integration tests of {@link DiaryEntryList} with {@link DiaryEntry}.
+ * Mix of unit and integration tests of {@link DiaryEntryList} with {@link DiaryEntry}.
  */
 public class DiaryEntryListTest {
 

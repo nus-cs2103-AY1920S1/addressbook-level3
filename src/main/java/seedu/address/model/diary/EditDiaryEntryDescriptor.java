@@ -1,7 +1,6 @@
 package seedu.address.model.diary;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.model.diary.DiaryEntry.MAX_DIARY_TEXT_DISPLAY_LENGTH;
 
 import seedu.address.commons.core.index.Index;
