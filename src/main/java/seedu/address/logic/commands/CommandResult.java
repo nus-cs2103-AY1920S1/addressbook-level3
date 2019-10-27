@@ -12,94 +12,33 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /**
-     * Help information should be shown to the user.
+     * Represents the type of Command entered.
      */
-    private final boolean showHelp;
-
-    /**
-     * Slideshow window will open for the user.
-     */
-    private final boolean showSlideshow;
-
-    /**
-     * Statistics will be updated.
-     */
-    private final boolean showStatistic;
-
-    /**
-     * The application should exit.
-     */
-    private final boolean exit;
-
-    /**
-     * The application should update and show the schedule view.
-     */
-    private final boolean scheduleChange;
-
-    /**
-     * The application should show the student view.
-     */
-    private final boolean showStudent;
-
-    /**
-     * The application should show the question view.
-     */
-    private final boolean showQuestion;
+    private CommandResultType commandResultType;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean showSlideshow, boolean showStatistic,
-        boolean exit, boolean scheduleChange, boolean showStudent, boolean showQuestion) {
+    public CommandResult(String feedbackToUser) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.showSlideshow = showSlideshow;
-        this.showStatistic = showStatistic;
-        this.exit = exit;
-        this.scheduleChange = scheduleChange;
-        this.showStudent = showStudent;
-        this.showQuestion = showQuestion;
+        this.commandResultType = CommandResultType.OTHER;
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, and other
-     * fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false,
-                false, false, false);
+    public CommandResult(String feedbackToUser, CommandResultType commandResultType) {
+        this.feedbackToUser = feedbackToUser;
+        this.commandResultType = commandResultType;
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public CommandResultType getCommandResultType() {
+        return commandResultType;
     }
 
-    public boolean isShowSlideshow() {
-        return showSlideshow;
-    }
-
-    public boolean isShowStatistic() {
-        return showStatistic;
-    }
-
-    public boolean isExit() {
-        return exit;
-    }
-
-    public boolean isScheduleChange() {
-        return scheduleChange;
-    }
-
-    public boolean isShowStudent() {
-        return showStudent;
-    }
-
-    public boolean isShowQuestion() {
-        return showQuestion;
+    public void setResultType(CommandResultType resultType) {
+        this.commandResultType = resultType;
     }
 
     @Override
@@ -115,18 +54,12 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-            && showHelp == otherCommandResult.showHelp
-            && showSlideshow == otherCommandResult.showSlideshow
-            && exit == otherCommandResult.exit
-            && scheduleChange == otherCommandResult.scheduleChange
-            && showStatistic == otherCommandResult.showStatistic
-            && showStudent == otherCommandResult.showStudent
-            && showQuestion == otherCommandResult.showQuestion;
+            && commandResultType == otherCommandResult.commandResultType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, showSlideshow, exit, scheduleChange, showStatistic, showStudent, showQuestion);
+        return Objects.hash(feedbackToUser, commandResultType);
     }
 
 }

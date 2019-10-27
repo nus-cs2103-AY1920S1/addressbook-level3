@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_NOTE;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,10 +17,10 @@ public class NoteAddCommand extends NoteCommand {
             + "Parameters:\n"
             + "note/{Note Title}\n"
             + "desc/{Description}\n"
+            + "ALL fields are required\n"
             + "Example: note note/Tuesday desc/Grade 6A prelim papers.\n";
 
     public static final String MESSAGE_SUCCESS = "New Note added: %1$s";
-    public static final String MESSAGE_DUPLICATE_NOTE = "This note already exists in the notes record";
 
     private final Note toAdd;
 

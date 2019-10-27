@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.apache.commons.math3.util.Pair;
@@ -110,7 +111,7 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered list of persons
      */
     ObservableList<Person> getFilteredPersonList();
 
@@ -120,17 +121,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-    //endregion
-
-    //region StudentRecord
-    Path getStudentRecordFilePath();
-
-    void setStudentRecordFilePath(Path studentRecordFilePath);
-
-    void setStudentRecord(ReadOnlyStudentRecord studentRecord);
-
-    ReadOnlyStudentRecord getStudentRecord();
-
     //endregion
 
     //region SavedQuestions
@@ -162,19 +152,63 @@ public interface Model {
 
     //endregion
 
+
+    //region Mark
+    void markStudent(Student student);
+
+    void unmarkStudent(Student student);
+
+    boolean getIsMarked(Student student);
     //region Students
+
+    /**
+     * Gets the record of students in read only format.
+     */
+    ReadOnlyStudentRecord getStudentRecord();
+
+    /**
+     * Checks if the list already contains specified student.
+     */
     boolean hasStudent(Student student);
 
+    /**
+     * Deletes specified student from the list of students.
+     */
     void deleteStudent(Student target);
 
+    /**
+     * Adds a specified student to the list of students.
+     */
     void addStudent(Student student);
 
+    /**
+     * Gets the index of a specified student.
+     */
+    Optional<Index> getIndexFromStudentList(Student student);
+
+    /**
+     * Adds a student to the list with a specific index.
+     */
+    void setStudentWithIndex(Index index, Student student);
+
+    /**
+     * Edits a student in the student list to become a new student that was specified.
+     */
     void setStudent(Student target, Student editedStudent);
 
+    /**
+     * Gets the filtered student list.
+     */
     ObservableList<Student> getFilteredStudentList();
 
+    /**
+     * Updates the filtered student list.
+     */
     void updateFilteredStudentList(Predicate<Student> predicate);
 
+    /**
+     * Gets the list of students in string format.
+     */
     String getStudentSummary();
     //endregion
 
@@ -186,9 +220,15 @@ public interface Model {
     void createGroupManually(String groupId, ArrayList<Integer> studentNumbers);
 
     /**
-     * Adds a student to a group. {@code groupId} Must already exist in the list of groups. {@code
-     * studentNumber} Must already exist in the list of students. {@code groupIndexNumber} Must
-     * already exist in the quiz.
+     * Gets observable list of students from queried group
+     */
+    ObservableList<Student> getObservableListStudentsFromGroup();
+
+    /**
+     * Adds a student to a group.
+     * {@code groupId} Must already exist in the list of groups.
+     * {@code studentNumber} Must already exist in the list of students.
+     * {@code groupIndexNumber} Must already exist in the quiz.
      */
     boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber);
 
@@ -198,9 +238,9 @@ public interface Model {
     void removeStudentFromGroup(String groupId, int groupIndexNumber);
 
     /**
-     * Returns a students from a group in list view.
+     * Check if group already exists.
      */
-    String getStudentsFromGroup(String groupId);
+    boolean checkGroupExists(String groupId);
     //endregion
 
     //region Questions
@@ -283,6 +323,7 @@ public interface Model {
     //endregion
 
     //region SavedQuizzes
+
     /**
      * Returns the user prefs' quizzes file path.
      */
@@ -298,7 +339,9 @@ public interface Model {
      */
     void setSavedQuizzes(ReadOnlyQuizzes savedQuizzes);
 
-    /** Returns the saved questions */
+    /**
+     * Returns the saved questions
+     */
     ReadOnlyQuizzes getSavedQuizzes();
 
     //endregion
@@ -351,7 +394,7 @@ public interface Model {
     void setNote(Note target, Note editedNote);
 
     /**
-     * Returns an unmodifiable view of the filtered notes list
+     * Returns an unmodifiable view of the filtered notes list.
      */
     ObservableList<Note> getFilteredNotesList();
 
@@ -365,27 +408,54 @@ public interface Model {
 
     //region EventRecord
     void setEventRecord(Path eventRecordFilePath);
+
     void setEventRecord(ReadOnlyEvents events);
+
     Path getEventRecordFilePath();
+
     ReadOnlyEvents getEventRecord();
     //endregion
 
     //region VEvents
     boolean hasVEvent(VEvent vEvent);
+
     void deleteVEvent(VEvent vEvent);
+
     void addVEvent(VEvent vEvent);
+
     void setVEvent(VEvent target, VEvent editedVEvent);
+
     void setVEvent(Index index, VEvent editedVEvent);
+
     String getVEventSummary();
+
     VEvent getVEvent(Index index);
+
     List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);
+
     ObservableList<VEvent> getVEventList();
+
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
     //endregion
 
     //region Statistics
+
+    /**
+     * Returns the ReadOnlyStatisticsRecord in the Model.
+     */
     ReadOnlyStatisticsRecord getStatisticsRecord();
+
+    /**
+     * Returns the one-item list of Statistics list in StatisticsRecord.
+     */
     ObservableList<Statistics> getProcessedStatistics();
+
+    /**
+     * Sets the Statistics item in StatisticsRecord to be {@code statistic}
+     *
+     * @param statistics Statistic object to place in StatisticsRecord.
+     */
     void addStatistics(Statistics statistics);
+
     //endregion
 }

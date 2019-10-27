@@ -50,7 +50,7 @@
                <Insets bottom="10.0" />
             </VBox.margin>
             </HBox>
-         <FlowPane fx:id="optionFP" visible="false">
+         <FlowPane fx:id="optionFp" visible="false">
             <children>
                <Label styleClass="cell_small_label" text="Options:">
                   <FlowPane.margin>

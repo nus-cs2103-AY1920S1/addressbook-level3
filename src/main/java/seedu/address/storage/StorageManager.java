@@ -36,7 +36,7 @@ public class StorageManager implements Storage {
     private EventStorage eventStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-        StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage,
+                          StudentRecordStorage studentRecordStorage, QuestionStorage questionStorage,
                           QuizStorage quizStorage, NotesRecordStorage notesStorage, EventStorage eventStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
@@ -195,8 +195,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyNotesRecord> readNotesRecord()
-            throws DataConversionException, IOException {
+    public Optional<ReadOnlyNotesRecord> readNotesRecord() throws DataConversionException, IOException {
         return readNotesRecord(notesRecordStorage.getNotesRecordFilePath());
     }
 
@@ -213,15 +212,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveNotesRecord(ReadOnlyNotesRecord notesRecord, Path filePath)
-            throws IOException {
+    public void saveNotesRecord(ReadOnlyNotesRecord notesRecord, Path filePath) throws IOException {
         logger.fine("Attempting to write to student data file: " + filePath);
         notesRecordStorage.saveNotesRecord(notesRecord, filePath);
     }
     //endregion
 
-    // ================ Event methods ==============================
 
+    //region EventRecord methods
     @Override
     public Path getEventRecordFilePath() {
         return eventStorage.getEventRecordFilePath();
@@ -249,5 +247,6 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to events data file: " + filePath);
         eventStorage.saveEvents(events, filePath);
     }
+    //endRegion
 
 }

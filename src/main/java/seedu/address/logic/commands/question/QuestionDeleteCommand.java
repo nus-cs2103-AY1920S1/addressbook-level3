@@ -3,6 +3,7 @@ package seedu.address.logic.commands.question;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.question.Question;
@@ -31,8 +32,7 @@ public class QuestionDeleteCommand extends QuestionCommand {
         if (index.getZeroBased() >= model.getAllQuestions().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
         }
-        return new CommandResult(generateSuccessMessage(model.deleteQuestion(index)), false, false,
-            false, false, false, false, true);
+        return new CommandResult(generateSuccessMessage(model.deleteQuestion(index)), CommandResultType.SHOW_QUESTION);
     }
 
     /**

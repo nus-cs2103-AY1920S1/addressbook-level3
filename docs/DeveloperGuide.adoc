@@ -16,6 +16,9 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MIT`
 
+== Introduction
+Njoy
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.

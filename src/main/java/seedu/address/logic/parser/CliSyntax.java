@@ -12,7 +12,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("ad/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
     // END OF ADDRESS BOOK PREFIX
 
     // EVENT PREFIX
@@ -23,6 +22,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_RECUR = new Prefix("recur/");
     public static final Prefix PREFIX_COLOR = new Prefix("color/");
     public static final Prefix PREFIX_GET_INDEX = new Prefix("indexOf/");
+    public static final Prefix PREFIX_VIEW = new Prefix("view");
     // END OF EVENT PREFIX
 
     // QUESTION PREFIX
@@ -36,14 +36,22 @@ public class CliSyntax {
     public static final Prefix PREFIX_SLIDESHOW = new Prefix("slideshow");
     // END OF QUESTION PREFIX
 
+    // MARK PREFIX
+    public static final Prefix PREFIX_UNMARK = new Prefix("unmark");
+    // END OF MARK PREFIX
+
     // STUDENT PREFIX
-    public static final Prefix PREFIX_STUDENT = new Prefix("student/");
+    public static final Prefix PREFIX_STUDENT = new Prefix("name/");
+    public static final Prefix PREFIX_TAG = new Prefix("tag/");
     // END OF STUDENT PREFIX
 
     // NOTE PREFIX
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("desc/");
     // END OF NOTE PREFIX
+
+    // TAG PREFIX
+    public static final Prefix PREFIX_INDEX = new Prefix("index/");
 
     //START OF STATISTICS PREFIX
     public static final Prefix PREFIX_METHOD = new Prefix("method/");

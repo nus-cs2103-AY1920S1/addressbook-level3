@@ -16,10 +16,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
-import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
@@ -94,18 +92,14 @@ public class LogicManager implements Logic {
         return model.getAllQuestions();
     }
 
-    public ReadOnlyStatisticsRecord getStatisticsRecord() {
-        return model.getStatisticsRecord();
-    }
-
     @Override
     public ObservableList<Statistics> getProcessedStatistics() {
         return model.getProcessedStatistics();
     }
 
     @Override
-    public ReadOnlyNotesRecord getNotesRecord() {
-        return model.getNotesRecord();
+    public ObservableList<Student> getStudentsInGroup() {
+        return model.getObservableListStudentsFromGroup();
     }
 
     @Override

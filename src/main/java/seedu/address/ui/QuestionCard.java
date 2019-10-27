@@ -12,14 +12,16 @@ import seedu.address.model.question.Question;
  * An UI component that displays information of a {@code Question}.
  */
 public class QuestionCard extends UiPart<Region> {
+
     private static final String FXML = "QuestionListCard.fxml";
 
     /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
+     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As
+     * a consequence, UI elements' variable names cannot be set to such keywords or an exception
+     * will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on
+     * AddressBook level 4</a>
      */
 
     public final Question question;
@@ -37,7 +39,7 @@ public class QuestionCard extends UiPart<Region> {
 
     // For MCQ type
     @FXML
-    private FlowPane optionFP;
+    private FlowPane optionFp;
     @FXML
     private Label optionALabel;
     @FXML
@@ -54,19 +56,18 @@ public class QuestionCard extends UiPart<Region> {
         questionLabel.setText(question.getQuestion());
         answerLabel.setText("Answer: " + question.getAnswer());
 
-        if(question instanceof McqQuestion){
-            McqQuestion mcq = (McqQuestion)question;
+        if (question instanceof McqQuestion) {
+            McqQuestion mcq = (McqQuestion) question;
             optionALabel.setText("A) " + mcq.getOptionA());
             optionBLabel.setText("B) " + mcq.getOptionB());
             optionCLabel.setText("C) " + mcq.getOptionC());
             optionDLabel.setText("D) " + mcq.getOptionD());
             typeLabel.setText("MCQ");
 
-            optionFP.setVisible(true);
-        }
-        else{
+            optionFp.setVisible(true);
+        } else {
             typeLabel.setText("Open Ended");
-            optionFP.setManaged(false); // Free occupied space
+            optionFp.setManaged(false); // Free occupied space
         }
     }
 
@@ -85,6 +86,6 @@ public class QuestionCard extends UiPart<Region> {
         // state check
         QuestionCard card = (QuestionCard) other;
         return questionLabel.getText().equals(card.questionLabel.getText())
-                && question.equals(card.question);
+            && question.equals(card.question);
     }
 }

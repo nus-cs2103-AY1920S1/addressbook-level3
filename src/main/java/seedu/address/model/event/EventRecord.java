@@ -63,7 +63,6 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     private List<Event> vEventsToEventsMapper(List<VEvent> vEvents) {
         ArrayList<Event> eventList = new ArrayList<>();
         for (VEvent vEvent : vEvents) {
-            vEvent.setDescription("testDescription");
             eventList.add(EventUtil.vEventToEventMapper(vEvent));
         }
         return eventList;

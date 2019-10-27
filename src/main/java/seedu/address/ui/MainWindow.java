@@ -3,9 +3,10 @@ package seedu.address.ui;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,8 +17,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.student.Student;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -39,9 +42,12 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private GroupWindow groupWindow;
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
     private EventSchedulePanel eventSchedulePanel;
+    private Node studentPanelNode;
+    private Node eventPaneNode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -74,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsReportWindow = new StatsReportWindow();
         slideShowWindow = new SlideshowWindow(new Stage(), logic);
     }
 
@@ -121,7 +128,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        this.studentPanelNode = studentListPanel.getRoot();
+        mainPanelPlaceholder.getChildren().add(studentPanelNode);
 
         questionListPanel = new QuestionListPanel(logic.getAllQuestions());
         mainPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
@@ -167,6 +175,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the group window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleGroup() {
+        groupWindow = new GroupWindow();
+        //get observable list of students in group and put inside.
+        ObservableList<Student> students = logic.getStudentsInGroup();
+        groupWindow.setStudentsInGroup(students);
+        if (!groupWindow.isShowing()) {
+            groupWindow.show();
+        } else {
+            groupWindow.focus();
+        }
+    }
+
+    /**
      * Opens the slideshow window or focuses on it if it's already opened.
      */
     @FXML
@@ -207,7 +231,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStats() {
-        statsReportWindow = new StatsReportWindow();
         StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
         statsReportWindow.setStatsCard(statsCard);
         if (!statsReportWindow.isShowing()) {
@@ -236,10 +259,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /*public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }*/
-
     /**
      * Executes the command and returns the result.
      *
@@ -252,36 +271,37 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            CommandResultType commandResultType = commandResult.getCommandResultType();
+            switch (commandResultType) {
+
+            case SHOW_HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isShowSlideshow()) {
+                break;
+            case SHOW_SLIDESHOW:
                 handleSlideshow();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case EXIT:
                 handleExit();
-            }
-
-            if (commandResult.isScheduleChange()) {
+                break;
+            case SHOW_SCHEDULE:
                 eventSchedulePanel.updateScheduler();
                 handleSchedule();
-            }
-
-            if (commandResult.isShowStatistic()) {
+                break;
+            case SHOW_STATISTIC:
                 handleStats();
-            }
-
-            if (commandResult.isShowStudent()) {
+                break;
+            case SHOW_GROUP:
+                handleGroup();
+                break;
+            case SHOW_STUDENT:
                 handleStudent();
-            }
-
-            if (commandResult.isShowQuestion()) {
+                break;
+            case SHOW_QUESTION:
                 handleQuestion();
+                break;
+            default:
+                break;
             }
-
-
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);

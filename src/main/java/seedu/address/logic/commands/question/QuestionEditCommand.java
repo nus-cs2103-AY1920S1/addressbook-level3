@@ -5,6 +5,7 @@ import java.util.HashMap;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.question.McqQuestion;
@@ -105,8 +106,7 @@ public class QuestionEditCommand extends QuestionCommand {
         }
 
         model.setQuestion(index, questionObj);
-        return new CommandResult(generateSuccessMessage(questionObj), false, false,
-            false, false, false, false, true);
+        return new CommandResult(generateSuccessMessage(questionObj), CommandResultType.SHOW_QUESTION);
     }
 
     /**

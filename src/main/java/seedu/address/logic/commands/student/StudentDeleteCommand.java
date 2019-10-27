@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Student;
@@ -32,6 +33,14 @@ public class StudentDeleteCommand extends StudentCommand {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the delete student command.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return a command result if the command is executed successfully.
+     * @throws CommandException if the command is not in the proper format/the index specified is
+     *                          outside the range of the student list.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -43,8 +52,7 @@ public class StudentDeleteCommand extends StudentCommand {
 
         Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteStudent(studentToDelete);
-        return new CommandResult(generateSuccessMessage(studentToDelete), false, false,
-                false, false, false, true, false);
+        return new CommandResult(generateSuccessMessage(studentToDelete), CommandResultType.SHOW_STUDENT);
     }
 
     /**
@@ -53,6 +61,7 @@ public class StudentDeleteCommand extends StudentCommand {
      * @param student that has been added.
      */
     private String generateSuccessMessage(Student student) {
-        return "Deleted student: " + student;
+        return "Removed " + student;
     }
+
 }
