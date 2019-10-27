@@ -15,6 +15,10 @@ public class AssignmentGrades {
     public static final String MESSAGE_CONSTRAINTS =
             "Marks should only contain numeric characters and spaces, and it should not be blank";
 
+    public static final String SINGLE_ASSIGNMENT_MESSAGE_CONSTRAINTS =
+            "There should be only one mark when editing an individual student's marks, which should only contain "
+                    + "numeric characters, and it should not be blank";
+
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -99,6 +103,17 @@ public class AssignmentGrades {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns true if a given string is a valid AssignmentGrades map.
+     */
+    public static boolean isValidGrade(String mark) {
+        if (!mark.matches(VALIDATION_REGEX)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
