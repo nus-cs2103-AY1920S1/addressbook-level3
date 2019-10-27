@@ -220,11 +220,13 @@ enum Responses {
         return true; // capture is valid, end checking other commands
     }),
 
-    EDIT("(?i)^(edit)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)+(action/[\\w\\p{Punct}]+){1}(\\s)*((\\s)+"
-            + "(index/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+(front/[\\w\\p{Punct}]+){1}(\\s)*)?((\\s)+"
-            + "(back/[\\w\\p{Punct}]+))?(\\s)*", (
+    EDIT("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[\\S]+){1}((\\s)+"
+            + "(index/[\\d]+){1}(\\s)*)?((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
+            + "(back/[\\S\\s]+))?(\\s)*", (
             commandInput, programState) -> {
                 System.out.println("Current command is EDIT");
+                LogsCenter.getLogger(Responses.class).warning("Current command is EDIT");
+
                 return true; // capture is valid, end checking other commands
             }),
 
