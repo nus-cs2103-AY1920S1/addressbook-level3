@@ -1,7 +1,9 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import dream.fcard.gui.components.DeckListView;
 import java.util.logging.Logger;
+
 import dream.fcard.MainApp;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.core.commons.util.StringUtil;
@@ -187,7 +189,20 @@ public class Gui {
      * @param deck The deck of FlashCards to be rendered.
      */
     public static void renderDeck(Deck deck) {
+        DeckListView node = GuiHelper.renderDeck(deck);
         // todo
+
+        // display the Node in the Gui
+        replaceInScrollablePane(node);
+    }
+
+    /**
+     * Renders the statistics of the user in the GUI.
+     * Takes in a Statistics object as parameter.
+     */
+    public static void renderStats() {
+        // can only be done when Statistics class is implemented
+        setTitle("Your Stats");
     }
 
     /**

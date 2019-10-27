@@ -1,7 +1,9 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import dream.fcard.gui.components.DeckListView;
 import dream.fcard.gui.components.FlashCardDisplay;
+import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
 
 /**
@@ -35,5 +37,16 @@ public class GuiHelper {
 
         // generate FlashCardDisplay containing text to be rendered
         return new FlashCardDisplay(cardText);
+    }
+
+    /**
+     * Generates a DeckListView object containing FlashCardCells which correspond to each
+     * FlashCard in the deck, to be displayed in the GUI.
+     * @param deck The Deck to be rendered.
+     * @return The DeckListView object to be displayed in the GUI.
+     */
+    public static DeckListView renderDeck(Deck deck) {
+        //t todo
+        return new DeckListView();
     }
 }
