@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    -fx-background-color: white;
+    background-color: white; /* Used in the default.html file */
 }
 
 .label {
@@ -42,7 +42,7 @@
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: white;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -133,12 +133,12 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: white;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: white;
+     -fx-border-color: white;
      -fx-border-top-width: 1px;
 }
 
@@ -150,7 +150,7 @@
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #a62e21;
 }
 
 .result-display .label {
@@ -193,13 +193,15 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #dedcdc;
+    -fx-border-color: #c7c5c5;
+    -fx-border-width: 1px;
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: grey;
     -fx-opacity: 0.9;
 }
 
@@ -214,10 +216,10 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
+    -fx-border-color: #202332;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #202332;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -267,7 +269,7 @@
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .dialog-pane:header *.header-panel {
@@ -278,7 +280,7 @@
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-fill: white;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .scroll-bar {
@@ -312,6 +314,10 @@
     -fx-border-width: 0;
 }
 
+#title {
+    -fx-font-size: 25px;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -324,8 +330,8 @@
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-font-size: 12pt;
+    -fx-text-fill: black;
 }
 
 #filterField, #recipeListPanel, #recipeWebpage {
@@ -333,7 +339,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent, white, transparent, white;
     -fx-background-radius: 0;
 }
 

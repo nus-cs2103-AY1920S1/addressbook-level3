@@ -1,10 +1,10 @@
 package dukecooks.logic.commands.health;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_TYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_VALUE;
 import static dukecooks.model.Model.PREDICATE_SHOW_ALL_RECORDS;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;

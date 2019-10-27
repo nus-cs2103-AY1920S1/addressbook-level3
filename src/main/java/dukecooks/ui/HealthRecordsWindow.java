@@ -79,6 +79,7 @@ public class HealthRecordsWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Configure the UI
+
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();

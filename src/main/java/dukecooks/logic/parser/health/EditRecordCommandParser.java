@@ -1,10 +1,10 @@
 package dukecooks.logic.parser.health;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_TYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_VALUE;
+import static java.util.Objects.requireNonNull;
 
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.health.EditRecordCommand;
