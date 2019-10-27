@@ -13,6 +13,7 @@ src/main/resources/docs/
 /config.json
 /preferences.json
 /*.log.*
+*.json
 
 # Test sandbox files
 src/test/data/sandbox/

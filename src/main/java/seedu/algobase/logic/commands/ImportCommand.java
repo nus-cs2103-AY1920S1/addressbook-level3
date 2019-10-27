@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PATH;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-import seedu.algobase.commons.util.FileUtil;
+import seedu.algobase.commons.exceptions.DataConversionException;
+import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.JsonUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
@@ -16,14 +18,14 @@ import seedu.algobase.model.Model;
 import seedu.algobase.storage.JsonSerializableAlgoBase;
 
 /**
- * Exports AlgoBase to specified location.
+ * Imports AlgoBase from specified location.
  */
-public class ExportCommand extends Command {
+public class ImportCommand extends Command {
 
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exports AlgoBase to the specified location.\n"
+            + ": Imports AlgoBase from a specified location.\n"
             + "Parameters:\n"
             + PREFIX_FORMAT + "FORMAT "
             + PREFIX_PATH + "PATH\n"
@@ -32,12 +34,12 @@ public class ExportCommand extends Command {
             + PREFIX_FORMAT + "JSON "
             + PREFIX_PATH + "./";
 
-    public static final String MESSAGE_EXPORT_SUCCESS = "AlgoBase data exported to [%1$s].";
+    public static final String MESSAGE_EXPORT_SUCCESS = "AlgoBase data successfully imported from [%1$s].";
 
     private final Format format;
     private final String path;
 
-    public ExportCommand(Format format, String path) {
+    public ImportCommand(Format format, String path) {
         this.format = format;
         this.path = path;
     }
@@ -45,22 +47,25 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Path filePath = Paths.get(path, "algobase.json");
+        Path filePath = Paths.get(path);
+
         try {
-            FileUtil.createIfMissing(filePath);
-            JsonUtil.saveJsonFile(new JsonSerializableAlgoBase(model.getAlgoBase()), filePath);
-        } catch (IOException e) {
-            return new CommandResult("Filepath invalid.");
+            Optional<JsonSerializableAlgoBase> jsonAlgoBase = JsonUtil.readJsonFile(
+                filePath, JsonSerializableAlgoBase.class);
+            model.setAlgoBase(jsonAlgoBase.get().toModelType());
+        } catch (DataConversionException | IllegalValueException | NoSuchElementException e) {
+            return new CommandResult("Invalid data.");
         }
+
         return new CommandResult(String.format(MESSAGE_EXPORT_SUCCESS, filePath));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExportCommand // instanceof handles nulls
-                && format.equals(((ExportCommand) other).format)
-                && path.equals(((ExportCommand) other).path)); // state check
+                || (other instanceof ImportCommand // instanceof handles nulls
+                && format.equals(((ImportCommand) other).format)
+                && path.equals(((ImportCommand) other).path)); // state check
     }
 
 }

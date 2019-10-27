@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.StringUtil;
-import seedu.algobase.logic.commands.ExportCommand.Format;
 import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
 import seedu.algobase.logic.commands.SwitchTabCommand;
@@ -460,7 +460,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code string format} is invalid.
      */
-    public static Format parseExportFormat(String format) throws ParseException {
+    public static Format parseFileFormat(String format) throws ParseException {
         try {
             return Format.valueOf(format.toUpperCase());
         } catch (IllegalArgumentException e) {

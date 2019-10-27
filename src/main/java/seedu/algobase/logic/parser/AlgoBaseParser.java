@@ -30,6 +30,7 @@ import seedu.algobase.logic.commands.ExportCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
+import seedu.algobase.logic.commands.ImportCommand;
 import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.ListTagCommand;
@@ -152,6 +153,9 @@ public class AlgoBaseParser {
         // Storage
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
 
         // UI
         case SwitchTabCommand.COMMAND_WORD:

@@ -80,4 +80,10 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    /**
+     * Enum for supported formats.
+     */
+    public enum Format {
+        JSON
+    }
 }
