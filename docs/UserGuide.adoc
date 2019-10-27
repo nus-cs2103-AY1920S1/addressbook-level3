@@ -311,7 +311,7 @@ Example:
 This clears all the sales item in the table. After clearing, cashier will be reset as well.
 
 [CAUTION]
-This command is irreversible. Please reconsider before executing.
+This command is irreversible. Please use at your own discretion.
 
 Example:
 
