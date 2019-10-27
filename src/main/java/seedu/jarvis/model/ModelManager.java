@@ -586,7 +586,7 @@ public class ModelManager implements Model {
      */
     @Override
     public TaskList getTasks() {
-        return planner.getTasks();
+        return planner.getTaskList();
     }
 
     /**

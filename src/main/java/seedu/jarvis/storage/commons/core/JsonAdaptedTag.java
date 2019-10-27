@@ -1,15 +1,16 @@
-package seedu.jarvis.storage.address;
+package seedu.jarvis.storage.commons.core;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * Jackson-friendly version of {@link Tag}.
  */
-public class JsonAdaptedTag {
+public class JsonAdaptedTag implements JsonAdapter<Tag> {
 
     private final String tagName;
 
@@ -38,6 +39,7 @@ public class JsonAdaptedTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
+    @Override
     public Tag toModelType() throws IllegalValueException {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);

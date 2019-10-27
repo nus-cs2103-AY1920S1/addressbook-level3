@@ -1,6 +1,15 @@
 package seedu.jarvis.model.planner.tasks;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.storage.planner.JsonAdaptedDeadline;
+import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Represents a Deadline task in JARVIS
@@ -9,9 +18,14 @@ public class Deadline extends Task {
 
     private LocalDate deadline;
 
-    public Deadline(String taskDes, LocalDate deadline) {
-        super(taskDes);
+    public Deadline(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags,
+                    LocalDate deadline) {
+        super(taskDes, priority, frequency, status, tags);
         this.deadline = deadline;
+    }
+
+    public Deadline(String taskDes, LocalDate deadline) {
+        this(taskDes, null, null, Status.NOT_DONE, new HashSet<>(), deadline);
     }
 
     /**
@@ -20,6 +34,16 @@ public class Deadline extends Task {
      */
     public LocalDate getDueDate() {
         return deadline;
+    }
+
+    /**
+     * Gets the {@code JsonAdaptedTask} for this task.
+     *
+     * @return {@code JsonAdaptedTask}.
+     */
+    @Override
+    public JsonAdaptedTask adaptToJsonAdaptedTask() {
+        return new JsonAdaptedDeadline(this);
     }
 
     @Override

@@ -11,12 +11,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * An Immutable {@code CcaTracker} that is serializable to JSON format.
  */
 @JsonRootName(value = "ccatracker")
-public class JsonSerializableCcaTracker {
+public class JsonSerializableCcaTracker implements JsonAdapter<CcaTracker> {
 
     public static final String MESSAGE_DUPLICATE_CCA = "CcaList contains duplicate cca(s).";
 
@@ -33,7 +34,7 @@ public class JsonSerializableCcaTracker {
     /**
      * Converts a given {@code CcaTracker} into this class for Jackson use.
      *
-     * @param ccaTracker future changes to this will not affect the created {@code JsonSerializableCcaTracker}.
+     * @param ccaTracker Future changes to this will not affect the created {@code JsonSerializableCcaTracker}.
      */
     public JsonSerializableCcaTracker(CcaTracker ccaTracker) {
         ccas.addAll(ccaTracker.getCcaList().stream().map(JsonAdaptedCca::new).collect(Collectors.toList()));
@@ -44,6 +45,7 @@ public class JsonSerializableCcaTracker {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
+    @Override
     public CcaTracker toModelType() throws IllegalValueException {
         CcaTracker ccaTracker = new CcaTracker();
         for (JsonAdaptedCca jsonAdaptedCca : ccas) {

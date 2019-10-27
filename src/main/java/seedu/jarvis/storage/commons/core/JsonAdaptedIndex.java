@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * Jackson-friendly version of {@link Index}.
  */
-public class JsonAdaptedIndex {
+public class JsonAdaptedIndex implements JsonAdapter<Index> {
     public static final String MESSAGE_INVALID_INDEX = "This index is out of bounds";
     private final int zeroBasedIndex;
 
@@ -43,6 +44,7 @@ public class JsonAdaptedIndex {
      * @return {@code Index} object.
      * @throws IllegalValueException If there were any data constraints violated in the adapted index.
      */
+    @Override
     public Index toModelType() throws IllegalValueException {
         try {
             return Index.fromZeroBased(zeroBasedIndex);

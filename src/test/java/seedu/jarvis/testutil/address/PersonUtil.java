@@ -8,10 +8,10 @@ import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.address.tag.Tag;
 
 /**
  * A utility class for Person.

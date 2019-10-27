@@ -10,6 +10,7 @@ import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.address.AddAddressCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
@@ -22,7 +23,6 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.model.address.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddAddressCommand object

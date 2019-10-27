@@ -12,11 +12,12 @@ import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaName;
 import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.EquipmentList;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * Jackson-friendly version of {@link Cca}.
  */
-public class JsonAdaptedCca {
+public class JsonAdaptedCca implements JsonAdapter<Cca> {
     private final String name;
     private final String ccaType;
     private final List<JsonAdaptedEquipment> equipmentList = new ArrayList<>();
@@ -62,6 +63,7 @@ public class JsonAdaptedCca {
      * @return {@code Cca} of the Jackson-friendly adapted {@code Cca}.
      * @throws IllegalValueException If there were any data constraints violated in the adapted {@code Cca}.
      */
+    @Override
     public Cca toModelType() throws IllegalValueException {
         EquipmentList listOfEquipments = new EquipmentList();
         for (JsonAdaptedEquipment jsonAdaptedEquipment : equipmentList) {

@@ -1,4 +1,4 @@
-package seedu.jarvis.model.address.tag;
+package seedu.jarvis.commons.core.tag;
 
 import static seedu.jarvis.testutil.Assert.assertThrows;
 

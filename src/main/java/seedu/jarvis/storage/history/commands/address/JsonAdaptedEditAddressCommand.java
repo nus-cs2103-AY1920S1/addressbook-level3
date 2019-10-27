@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.address.JsonAdaptedEditPersonDescriptor;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
@@ -14,7 +15,7 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 /**
  * Jackson-friendly version of {@link EditAddressCommand}.
  */
-public class JsonAdaptedEditAddressCommand extends JsonAdaptedCommand {
+public class JsonAdaptedEditAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
     public static final String MESSAGE_INVALID_COMMAND = "This command is not a EditAddressCommand";
     public static final String MESSAGE_INVALID_FIELDS = "Incomplete data on the changes to person";
     private final JsonAdaptedIndex index;

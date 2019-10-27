@@ -1,6 +1,15 @@
 package seedu.jarvis.model.planner.tasks;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
+import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.storage.planner.JsonAdaptedEvent;
+import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Represents an Event task in JARVIS
@@ -10,10 +19,15 @@ public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
-    public Event(String taskDes, LocalDate start, LocalDate end) {
-        super(taskDes);
+    public Event(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags, LocalDate start,
+                 LocalDate end) {
+        super(taskDes, priority, frequency, status, tags);
         this.start = start;
         this.end = end;
+    }
+
+    public Event(String taskDes, LocalDate start, LocalDate end) {
+        this(taskDes, null, null, Status.NOT_DONE, new HashSet<>(), start, end);
     }
 
     /**
@@ -52,6 +66,16 @@ public class Event extends Task {
         boolean isSameStatus = status.equals(((Event) other).getStatus());
 
         return isSameDes && isSameStartDate & isSameEndDate && isSameStatus;
+    }
+
+    /**
+     * Gets the {@code JsonAdaptedTask} for this task.
+     *
+     * @return {@code JsonAdaptedTask}.
+     */
+    @Override
+    public JsonAdaptedTask adaptToJsonAdaptedTask() {
+        return new JsonAdaptedEvent(this);
     }
 
     @Override

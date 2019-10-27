@@ -6,6 +6,7 @@ import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook
 import static seedu.jarvis.testutil.cca.TypicalCcas.getTypicalCcaTracker;
 import static seedu.jarvis.testutil.course.TypicalCourses.getTypicalCoursePlanner;
 import static seedu.jarvis.testutil.history.TypicalCommands.getTypicalHistoryManager;
+import static seedu.jarvis.testutil.planner.TypicalTasks.getTypicalPlanner;
 
 import java.nio.file.Path;
 
@@ -19,11 +20,13 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.history.HistoryManager;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
+import seedu.jarvis.storage.planner.JsonPlannerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
 
 public class StorageManagerTest {
@@ -40,8 +43,9 @@ public class StorageManagerTest {
         JsonHistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(getTempFilePath("hm"));
         JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(getTempFilePath("ct"));
         JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(getTempFilePath("cp"));
+        JsonPlannerStorage plannerStorage = new JsonPlannerStorage(getTempFilePath("p"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage, coursePlannerStorage);
+                ccaTrackerStorage, coursePlannerStorage, plannerStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -117,5 +121,13 @@ public class StorageManagerTest {
     @Test
     public void getCoursePlannerFilePath() {
         assertNotNull(storageManager.getCoursePlannerFilePath());
+    }
+
+    @Test
+    public void plannerReadSave() throws Exception {
+        Planner original = getTypicalPlanner();
+        storageManager.savePlanner(original);
+        Planner retrieved = storageManager.readPlanner().get();
+        assertEquals(original, retrieved);
     }
 }
