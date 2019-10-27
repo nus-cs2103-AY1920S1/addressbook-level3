@@ -3,6 +3,7 @@ package seedu.address.logic.commands.event;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -27,11 +28,13 @@ public class AssignDateCommand extends Command {
             + "Parameters: INDEX on/EVENTDATE time/TIMEPERIOD \n"
             + "Example: " + COMMAND_WORD + " 2 on/18/10/2019 time/0500-2000";
 
-    public static final String MESSAGE_SUCCESS = "[%s:%s] has been successfully assigned to Event: [%s]";
-    private static final String EVENTDATE_INVALID = "Date provided is not within range of the current Event!";
+    public static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
+    public static final String MESSAGE_SUCCESS_ALL =
+            "Dates [%s] to [%s] of Event: [%s] has been successfully assigned with Time: [%s]";
+    private static final String EVENT_DATE_INVALID = "Date provided is not within range of the current Event!";
 
     private final Index index;
-    private final EventDate targetEventDate;
+    private final Optional<EventDate> targetEventDate;
     private final EventDayTime eventDayTime;
 
 
@@ -41,7 +44,17 @@ public class AssignDateCommand extends Command {
     public AssignDateCommand(Index index, EventDate targetEventDate, EventDayTime eventDayTime) {
         requireNonNull(index);
         this.index = index;
-        this.targetEventDate = targetEventDate;
+        this.targetEventDate = Optional.of(targetEventDate);
+        this.eventDayTime = eventDayTime;
+    }
+
+    /**
+     * AutoAssigns a mapping for the full range of dates that the Event is held
+     */
+    public AssignDateCommand(Index index, EventDayTime eventDayTime) {
+        requireNonNull(index);
+        this.index = index;
+        this.targetEventDate = Optional.empty();
         this.eventDayTime = eventDayTime;
     }
 
@@ -55,16 +68,29 @@ public class AssignDateCommand extends Command {
         }
 
         Event eventToAssign = lastShownList.get(index.getZeroBased());
-        EventContainsKeyDatePredicate dateCheck = new EventContainsKeyDatePredicate(targetEventDate.getDate());
-        if (!dateCheck.test(eventToAssign)) { //date provided is out of range of Event
-            throw new CommandException(EVENTDATE_INVALID);
+
+        if (targetEventDate.isPresent()) {
+            EventContainsKeyDatePredicate dateCheck =
+                    new EventContainsKeyDatePredicate(targetEventDate.get().getDate());
+            if (!dateCheck.test(eventToAssign)) { //date provided is out of range of Event
+                throw new CommandException(EVENT_DATE_INVALID);
+            }
+
+            eventToAssign.assignDateTime(targetEventDate.get(), eventDayTime);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS_TARGET,
+                    targetEventDate.get(), eventDayTime, eventToAssign.getName()), false,
+                    false, index.getZeroBased());
+        } else { //Empty, assign for all dates
+            eventToAssign.getStartDate().datesUntil(eventToAssign.getEndDate())
+                    .forEach(eventDate -> {
+                        eventToAssign.assignDateTime(eventDate, eventDayTime);
+                    });
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS_ALL,
+                    "StartDate", "EndDate", eventToAssign.getName(), eventDayTime));
         }
 
-        eventToAssign.assignDateTime(targetEventDate, eventDayTime);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                eventToAssign.getName(), targetEventDate, eventDayTime), false,
-                false, index.getZeroBased());
     }
 
     @Override
