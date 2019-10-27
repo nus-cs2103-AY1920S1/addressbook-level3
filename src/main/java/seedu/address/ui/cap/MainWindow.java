@@ -201,6 +201,8 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             informationPanel.setCapToUser(logic.getFilteredCapInformation());
+            informationPanel.setMcToUser(logic.getFilteredMcInformation());
+
             setGraphDisplay();
 
             return commandResult;

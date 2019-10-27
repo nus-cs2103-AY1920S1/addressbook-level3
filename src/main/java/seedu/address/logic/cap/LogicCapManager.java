@@ -116,6 +116,18 @@ public class LogicCapManager implements Logic {
         return result;
     }
 
+    @Override
+    public double getFilteredMcInformation() {
+        double result = 0.0;
+        if (model.getModuleCount() != 0) {
+            for (Module module : model.getFilteredModuleList()) {
+                result += Integer.valueOf(module.getCredit().getCredit());
+            }
+        }
+
+        return result;
+    }
+
     public ObservableList<Data> getFilteredGradeCounts() {
         ObservableList<Data> result = FXCollections.observableArrayList();
         ObservableList<Module> filteredModules = model.getFilteredModuleList();

@@ -54,5 +54,7 @@ public interface Logic {
 
     double getFilteredCapInformation();
 
+    double getFilteredMcInformation();
+
     ObservableList<Data> getFilteredGradeCounts();
 }

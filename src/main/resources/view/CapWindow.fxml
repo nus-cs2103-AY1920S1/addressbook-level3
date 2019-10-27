@@ -38,7 +38,7 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
@@ -47,7 +47,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <StackPane fx:id="capPanelPlaceholder" maxHeight="50" minHeight="50" prefHeight="50" styleClass="pane-without-border" VBox.vgrow="NEVER">
+                        <StackPane fx:id="capPanelPlaceholder" maxHeight="30" minHeight="30" prefHeight="30" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
                           <padding>
                             <Insets bottom="5" left="10" right="10" top="5" />
                           </padding>
@@ -62,7 +62,7 @@
                        </VBox>
                      </children>
                   </VBox>
-                    <StackPane fx:id="pieChartDisplayPlaceholder" styleClass="pane-with-border">
+                    <StackPane fx:id="pieChartDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" >
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
