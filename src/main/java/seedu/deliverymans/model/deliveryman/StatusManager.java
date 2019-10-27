@@ -1,11 +1,15 @@
 package seedu.deliverymans.model.deliveryman;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
+
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
+import seedu.deliverymans.model.deliveryman.exceptions.DuplicateDeliverymanException;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 /**
@@ -92,6 +96,14 @@ public class StatusManager {
      */
     public ObservableList<Deliveryman> listDeliveringMen() {
         return deliveringMen;
+    }
+
+    /**
+     * Returns true if the list contains an equivalent deliveryman as the given argument.
+     */
+    public boolean contains(Deliveryman toCheck) {
+        requireNonNull(toCheck);
+        return availableMen.stream().anyMatch(toCheck::isSameDeliveryman);
     }
 
     // ========== Methods for Order assignment ===================================================================

@@ -1,6 +1,7 @@
 package seedu.deliverymans.model.database;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.StatusManager;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
+import seedu.deliverymans.model.deliveryman.exceptions.DuplicateDeliverymanException;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 
@@ -127,20 +129,23 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      * Sets the status list in ModelManager to display available deliverymen. For the implementation of lista command.
      */
     public void setAsAvailable() {
-        //statusSortedList = statusManager.listAvailableMen();
         for (Deliveryman man: statusManager.listAvailableMen()) {
+            if (contains(man)) {
+                continue;
+            }
             statusSortedList.add(man);
         }
     }
 
-    // ========== Methods related to Order ====================================================================
-
     /**
-     * Replaces the current status of a deliveryman.
+     * Returns true if the list contains an equivalent deliveryman as the given argument.
      */
-    public void setStatusOf(Deliveryman target, String newStatus) {
-        statusManager.updateStatusOf(target, newStatus);
+    public boolean contains(Deliveryman toCheck) {
+        requireNonNull(toCheck);
+        return statusSortedList.stream().anyMatch(toCheck::isSameDeliveryman);
     }
+
+    // ========== Methods related to Order ====================================================================
 
     /**
      * Retrieves an available deliveryman for OrderManager for the purpose of delivering an order.
@@ -149,6 +154,9 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         return statusManager.getAvailableDeliveryman();
     }
 
+    /**
+     * Switches the deliveryman status from AVAILABLE to UNAVAILABLE, or vice versa.
+     */
     public void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
         statusManager.switchDeliverymanStatus(target);
     }
@@ -176,4 +184,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public int hashCode() {
         return deliverymen.hashCode();
     }
+
+
 }

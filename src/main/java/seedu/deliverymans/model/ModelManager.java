@@ -493,13 +493,6 @@ public class ModelManager implements Model {
         filteredCustomers.setPredicate(predicate);
     }
 
-    /*
-    @Override
-    public void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate) {
-        requireNonNull(predicate);
-        statusSortedDeliverymen.setPredicate(predicate);
-    } */
-
     @Override
     public void updateAvailableDeliverymenList(Predicate<Deliveryman> predicate) {
         requireNonNull(predicate);
