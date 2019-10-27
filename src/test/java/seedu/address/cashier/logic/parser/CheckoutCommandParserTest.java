@@ -45,25 +45,25 @@ public class CheckoutCommandParserTest {
                 new CheckoutCommand(totalAmount, VALID_PRICE_PAID - totalAmount), model, personModel);
         model.clearSalesList();
     }
-    /*
-    @Test
+
+    /*@Test
     public void parse_invalidAmountPresent_failure() {
         model.clearSalesList();
-        model.setCashier(new PersonBuilder().build());*/
+        model.setCashier(new PersonBuilder().build());
 
-        /*// with no sales item, negative price paid
+        with no sales item, negative price paid
         double totalAmount = 0;
         String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
-        assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);*/
+        assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);
 
-        // with sales item added, insufficient price paid
-        /*model.addItem(FISH_BURGER);
+        with sales item added, insufficient price paid
+        model.addItem(FISH_BURGER);
         model.addItem(STORYBOOK);
         double totalAmount = FISH_BURGER.getSubtotal() + STORYBOOK.getSubtotal();
         String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
         assertCommandParserFailure(parser, INVALID_PRICE_PAID_2, message, model, personModel);
         model.clearSalesList();
-    } */
+    }*/
 
     @Test
     public void parse_cashierNotSet_failure() {
