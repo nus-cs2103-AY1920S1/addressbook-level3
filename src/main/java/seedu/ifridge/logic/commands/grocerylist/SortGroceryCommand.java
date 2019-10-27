@@ -1,7 +1,6 @@
 package seedu.ifridge.logic.commands.grocerylist;
 
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_SORT;
-import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 
 import java.text.ParseException;
 import java.util.Comparator;
@@ -44,7 +43,6 @@ public class SortGroceryCommand extends Command {
         GroceryList groceryList = ((GroceryList) model.getGroceryList());
         groceryList.setGroceryList(sortedList);
 
-        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         return new CommandResult(String.format(MESSAGE_SORT_SUCCESS, sortBy));
     }
 
