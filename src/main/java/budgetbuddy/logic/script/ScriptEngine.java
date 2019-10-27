@@ -2,7 +2,6 @@ package budgetbuddy.logic.script;
 
 import javax.script.Bindings;
 import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import budgetbuddy.logic.script.exceptions.ScriptException;
@@ -11,17 +10,17 @@ import budgetbuddy.model.script.Script;
 /**
  * Evaluates scripts.
  */
-public class ScriptManager {
+public class ScriptEngine {
     private final Object scriptEngineLock;
     private final ScriptEnvironmentInitialiser initialiser;
-    private final ScriptEngine scriptEngine;
+    private final javax.script.ScriptEngine scriptEngine;
 
     /**
      * Creates a new ScriptManager with the specified environment initialiser.
      *
      * @param initialiser The environment initialiser.
      */
-    public ScriptManager(ScriptEnvironmentInitialiser initialiser) {
+    public ScriptEngine(ScriptEnvironmentInitialiser initialiser) {
         this.initialiser = initialiser;
         scriptEngineLock = new Object();
         scriptEngine = new ScriptEngineManager().getEngineByName("nashorn");

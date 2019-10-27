@@ -10,7 +10,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.logic.script.ScriptManager;
+import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
@@ -30,13 +30,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandLineParser addressBookParser;
-    private final ScriptManager scriptManager;
+    private final ScriptEngine scriptEngine;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new CommandLineParser();
-        scriptManager = new ScriptManager(engine -> {
+        scriptEngine = new ScriptEngine(engine -> {
             // TODO: This will be pulled out into a separate class in a future PR
             // TODO: Currently, this just brings it to feature-parity
             engine.setVariable("ab", model);
@@ -49,7 +49,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model, scriptManager);
+        commandResult = command.execute(model, scriptEngine);
 
         try {
             storage.save(model);

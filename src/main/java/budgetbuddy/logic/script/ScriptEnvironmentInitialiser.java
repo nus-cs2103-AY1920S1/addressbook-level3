@@ -1,14 +1,14 @@
 package budgetbuddy.logic.script;
 
 /**
- * Represents a function that initialises a {@link ScriptManager}.
+ * Represents a function that initialises a {@link ScriptEngine}.
  */
 @FunctionalInterface
 public interface ScriptEnvironmentInitialiser {
     /**
-     * Initialises the {@link ScriptManager}.
+     * Initialises the {@link ScriptEngine}.
      *
-     * @param engine the {@link ScriptManager} to initialise
+     * @param engine the {@link ScriptEngine} to initialise
      */
-    void initialise(ScriptManager engine);
+    void initialise(ScriptEngine engine);
 }

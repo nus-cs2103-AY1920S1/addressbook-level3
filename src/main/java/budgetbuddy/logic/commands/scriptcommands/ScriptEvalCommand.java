@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
-import budgetbuddy.logic.script.ScriptManager;
+import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.logic.script.exceptions.ScriptException;
 import budgetbuddy.model.Model;
 
@@ -24,10 +24,10 @@ public class ScriptEvalCommand extends ScriptCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, ScriptManager scriptManager) throws CommandException {
-        requireNonNull(scriptManager);
+    public CommandResult execute(Model model, ScriptEngine scriptEngine) throws CommandException {
+        requireNonNull(scriptEngine);
         try {
-            Object result = scriptManager.evaluateScript(script);
+            Object result = scriptEngine.evaluateScript(script);
             if (result == null) {
                 return new CommandResult(MESSAGE_NO_RESULT, null);
             } else {
