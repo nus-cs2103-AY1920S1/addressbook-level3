@@ -28,7 +28,6 @@ import seedu.weme.model.Records;
 import seedu.weme.model.Weme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.TagWithCount;
 import seedu.weme.testutil.MemeBuilder;
@@ -269,11 +268,6 @@ public class MemeAddCommandTest {
 
         @Override
         public Stats getStats() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public LikeData getLikeData() {
             throw new AssertionError("This method should not be called");
         }
 

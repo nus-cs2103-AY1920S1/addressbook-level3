@@ -1,6 +1,7 @@
 package seedu.weme.statistics;
 
-import java.util.HashMap;
+import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Map;
 
 import javafx.collections.FXCollections;
@@ -11,24 +12,29 @@ import javafx.collections.ObservableMap;
  */
 public class LikeData {
 
-    private ObservableMap<String, Integer> likeMap;
+    private final ObservableMap<String, Integer> likeMap =
+            FXCollections.observableHashMap();
+    private final ObservableMap<String, Integer> unmodifiableLikeMap =
+            FXCollections.unmodifiableObservableMap(likeMap);
 
     /**
-     * Constructs an empty like data.
+     * Constructs an empty LikeData
      */
-    public LikeData() {
-        likeMap = FXCollections.observableMap(new HashMap<>());
-    }
+    public LikeData() {}
 
+    /**
+     * Constructs a LikeData filled with the provided likeMap
+     */
     public LikeData(ObservableMap<String, Integer> likeMap) {
-        this();
         setLikeMap(likeMap);
     }
 
     /**
      * Sets the current set of {@code LikeData} with a replacement.
      */
-    public void setLikeMap(ObservableMap<String, Integer> replacement) {
+    public void setLikeMap(Map<String, Integer> replacement) {
+        requireAllNonNull(replacement);
+        likeMap.clear();
         likeMap.putAll(replacement);
     }
 
@@ -49,10 +55,9 @@ public class LikeData {
 
     /**
      * Returns an unmodifiable view of LikeData.
-     * @return
      */
     public ObservableMap<String, Integer> getObservableLikeData() {
-        return likeMap;
+        return unmodifiableLikeMap;
     }
 
     /**
@@ -63,10 +68,4 @@ public class LikeData {
         likeMap.remove(memeRef);
     }
 
-    /**
-     * Returns like data in Map.
-     */
-    public Map<String, Integer> getInMap() {
-        return likeMap;
-    }
 }

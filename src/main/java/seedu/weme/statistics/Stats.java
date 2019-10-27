@@ -1,6 +1,7 @@
 package seedu.weme.statistics;
 
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableMap;
 
@@ -11,19 +12,19 @@ import seedu.weme.model.meme.Meme;
  */
 public interface Stats {
 
+    void resetData(Stats stats);
+
+    Stats getStats();
+
     //============= Like Data ====================================
 
-    LikeData getLikeData();
-
-    void setLikeData(LikeData likeData);
+    void setLikeData(Map<String, Integer> likeData);
 
     ObservableMap<String, Integer> getObservableLikeData();
 
     void incrementMemeLikeCount(Meme meme);
 
     void deleteLikesByMeme(Meme meme);
-
-    void resetData(Stats stats);
 
     //============= Tag Data ====================================
 
