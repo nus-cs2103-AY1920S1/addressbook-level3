@@ -127,7 +127,7 @@ public class DetailsTabPane extends UiPart<Region> {
                 return Optional.of(new DetailsTab(problem.getName().fullName, new ProblemDetails(problem)));
             case PLAN:
                 Plan plan = algoBase.findPlanById(modelId);
-                return Optional.of(new DetailsTab(plan.getPlanName().fullName));
+                return Optional.of(new DetailsTab(plan.getPlanName().fullName, new PlanDetails(plan)));
             case TAG:
                 Tag tag = algoBase.findTagById(modelId);
                 return Optional.of(new DetailsTab(tag.getName()));
