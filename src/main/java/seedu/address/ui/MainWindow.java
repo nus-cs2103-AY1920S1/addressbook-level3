@@ -1,10 +1,12 @@
 package seedu.address.ui;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -169,7 +171,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), deferredDropSelectors);
+        patientListPanel = new PersonListPanel(logic.getFilteredPatientList(), deferredDropSelectors);
+        staffListPanel = new PersonListPanel(logic.getFilteredStaffList(), deferredDropSelectors);
 
         appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList());
         dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList());
@@ -347,7 +350,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void regainOmniPanelSelector() {
         switch (currentOmniPanelTab) {
         case PATIENTS_TAB:
-            personListPanel.regainSelector();
+            patientListPanel.regainSelector();
             break;
         default:
         }

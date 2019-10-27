@@ -415,22 +415,6 @@ public class ModelManager implements Model {
         return res;
     }
 
-    //@Override
-    public void updateToMissedEventList() {
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
-        Date current = new Date();
-        Predicate<Event> byMissed = Event -> (Event.getStatus().isMissed())
-                || (!Event.getStatus().isSettled() && (Event.getEventTiming().getEndTime().getTime().before(current)));
-        filteredAppointments.setPredicate(byMissed);
-    }
-
-    @Override
-    public void updateToSettleEventList() {
-        updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
-        Predicate<Event> bySettled = Event -> (Event.getStatus().isSettled());
-        filteredEvents.setPredicate(bySettled);
-    }
-
     @Override
     public Boolean isMissedList() {
         requireNonNull(filteredAppointments);

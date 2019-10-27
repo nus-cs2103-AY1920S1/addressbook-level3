@@ -1,21 +1,21 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Date;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
-import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.Status;
 import seedu.address.model.events.Timing;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.
@@ -30,28 +30,27 @@ public class AppointmentsCommand extends NonActionableCommand {
             + "Optional parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " 001A";
 
-    private final ReferenceId referenceId;
+    private final Predicate<Event> predicate;
 
-    public AppointmentsCommand(ReferenceId referenceId) {
-        this.referenceId = referenceId;
-    }
-
-    public AppointmentsCommand() {
-        this.referenceId = null;
+    public AppointmentsCommand(Predicate<Event> predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         autoMissEvent(model.getFilteredAppointmentList(), model);
-        if (referenceId == null) {
-            model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
-        } else {
-            model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(referenceId));
-        }
-
+        model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
+        model.updateFilteredAppointmentList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
+                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AppointmentsCommand // instanceof handles nulls
+                && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
     }
 
     /**

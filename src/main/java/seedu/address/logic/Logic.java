@@ -57,7 +57,7 @@ public interface Logic {
      *
      * @param commandText The command as entered by the user.
      */
-    AutoCompleter updateAutoCompleter(String commandText);
+    //AutoCompleter updateAutoCompleter(String commandText);
 
     /**
      * Returns the a resolver class for mapping {@code ReferenceId} to {@code Person}.

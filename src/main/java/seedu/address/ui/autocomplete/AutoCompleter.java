@@ -34,7 +34,9 @@ public class AutoCompleter {
             "update",
             "undo",
             "changeappt",
-            "cancelappt"
+            "cancelappt",
+            "hiredoctor",
+            "resigndoctor"
     };
     private Trie trie = new Trie(SUPPORTED_COMMANDS);
     private String currentQuery;

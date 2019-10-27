@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,6 +29,7 @@ public class ChangeAppCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "this appointmeent's timing has been changed: %1$s";
     public static final String MESSAGE_TIMING_EXIST = "please give a new valid timing for the appointment to change.";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the appointment book.";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -47,7 +49,7 @@ public class ChangeAppCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (model.hasExactAppointment(editedEvent)) {
-            throw new CommandException(MESSAGE_TIMING_NOTNEW);
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
         model.setAppointment(eventToEdit, editedEvent);
         model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
