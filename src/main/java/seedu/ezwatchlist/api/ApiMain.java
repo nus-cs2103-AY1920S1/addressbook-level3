@@ -3,7 +3,6 @@ package seedu.ezwatchlist.api;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 import info.movito.themoviedbapi.TmdbApi;
@@ -180,7 +179,7 @@ public class ApiMain implements ApiInterface {
 
                 //runtime
                 List<Integer> episodeRuntime = series.getEpisodeRuntime();
-                int runTime = episodeRuntime.isEmpty()? 0: getAverageRuntime(episodeRuntime);
+                int runTime = episodeRuntime.isEmpty() ? 0 : getAverageRuntime(episodeRuntime);
                 ArrayList<seedu.ezwatchlist.model.show.TvSeason> seasonsList = new ArrayList<>();
 
                 //seasons

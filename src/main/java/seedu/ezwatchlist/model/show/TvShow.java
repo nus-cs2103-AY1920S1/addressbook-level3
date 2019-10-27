@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model.show;
 import java.util.List;
 import java.util.Set;
 
-import javafx.scene.image.Image;
 import seedu.ezwatchlist.model.actor.Actor;
 
 /**

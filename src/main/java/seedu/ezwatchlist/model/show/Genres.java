@@ -1,8 +1,10 @@
 package seedu.ezwatchlist.model.show;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of genres of the given show.
+ */
 public class Genres {
     private List<String> genres;
 
