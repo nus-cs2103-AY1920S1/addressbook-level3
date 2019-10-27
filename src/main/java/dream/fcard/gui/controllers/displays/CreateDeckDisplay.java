@@ -1,10 +1,10 @@
-package dream.fcard.gui.controllers.Displays;
+package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.CardCreatingWindow;
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.CardCreatingWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -54,8 +54,8 @@ public class CreateDeckDisplay extends AnchorPane {
     public CreateDeckDisplay() {
         try {
             clearMessage.accept(true);
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/" +
-                    "CreateDeckDisplay.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
+                    + "CreateDeckDisplay.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

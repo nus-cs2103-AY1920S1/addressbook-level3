@@ -1,12 +1,11 @@
-package dream.fcard.gui.controllers.Displays;
-
+package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.State;
 import javafx.fxml.FXML;
@@ -16,13 +15,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
-public class MCQOptionsSetter extends ScrollPane {
+/**
+ * A container to display and remember the multiple choice options the user has created.
+ */
+public class McqOptionsSetter extends ScrollPane {
     @FXML
     private VBox optionInputBox;
 
-    private ArrayList<MCQOptionInputRow> rows;
+    private ArrayList<McqOptionInputRow> rows;
     private ToggleGroup rightAnswer = new ToggleGroup();
-    private Consumer<MCQOptionInputRow> deleteRow = row -> {
+    private Consumer<McqOptionInputRow> deleteRow = row -> {
         if (rows.size() > 1) {
             rows.remove(row);
             renderOptions();
@@ -34,9 +36,10 @@ public class MCQOptionsSetter extends ScrollPane {
     };
     private Consumer<Boolean> addNewRow = b -> addNewRow();
 
-    public MCQOptionsSetter() {
+    public McqOptionsSetter() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/MCQOptionsSetter.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
+                    .getResource("/view/Displays/MCQOptionsSetter.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -48,20 +51,27 @@ public class MCQOptionsSetter extends ScrollPane {
         }
     }
 
+    /**
+     * Takes the list of McqOptionInputRow objects and renders them onto the McqOptionsSetter.
+     * Shows the user the options that have currently been created.
+     */
     private void renderOptions() {
         optionInputBox.getChildren().clear();
         for (int i = 0; i < rows.size(); i++) {
-            MCQOptionInputRow row = rows.get(i);
+            McqOptionInputRow row = rows.get(i);
             row.setOptionNumber(i + 1); //switch to 1-indexing
             optionInputBox.getChildren().add(row);
         }
     }
 
+    /**
+     * Adds an empty McqOptionInputRow to the McqOptionsSetter for the user to enter another option.
+     */
     private void addNewRow() {
         @SuppressWarnings("unchecked")
         Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
         clearMessage.accept(true);
-        rows.add(new MCQOptionInputRow(rightAnswer, deleteRow, addNewRow));
+        rows.add(new McqOptionInputRow(rightAnswer, deleteRow, addNewRow));
         renderOptions();
     }
 
@@ -71,7 +81,7 @@ public class MCQOptionsSetter extends ScrollPane {
      */
     public void addNewRow(String text, boolean isCorrectAnswer) {
         addNewRow();
-        MCQOptionInputRow row = rows.get(rows.size()-1);
+        McqOptionInputRow row = rows.get(rows.size() - 1);
         row.setOptionText(text);
         if (isCorrectAnswer) {
             row.setRightAnswerRadio();
@@ -86,9 +96,13 @@ public class MCQOptionsSetter extends ScrollPane {
         rows.remove(0);
     }
 
+    /**
+     * Determines whether the user has entered at least one option.
+     * @return true if there is at least one filled row in the McqOptionInputRow and false otherwise.
+     */
     public boolean hasAtLeastOneNonEmptyOption() {
         boolean hasOptions = false;
-        for (MCQOptionInputRow row : rows) {
+        for (McqOptionInputRow row : rows) {
             if (!row.isBlank()) {
                 hasOptions = true;
             }
@@ -96,6 +110,11 @@ public class MCQOptionsSetter extends ScrollPane {
         return hasOptions;
     }
 
+    /**
+     * Determines whether the user has chosen an option as the right answer.
+     * @return true if the user has toggled a radio button to designate an option as the right answer,
+     * and false otherwise.
+     */
     public boolean hasDesignatedRightAnswer() {
         RadioButton choice = (RadioButton) rightAnswer.getSelectedToggle();
         if (choice == null) {
@@ -110,7 +129,7 @@ public class MCQOptionsSetter extends ScrollPane {
      */
     public int getIndexOfRightAnswer() {
         AtomicInteger integer = new AtomicInteger(1);
-        for (MCQOptionInputRow row : rows) {
+        for (McqOptionInputRow row : rows) {
             if (row.hasRightAnswer()) {
                 return integer.get();
             }

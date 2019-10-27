@@ -1,21 +1,19 @@
-package dream.fcard.gui.controllers.Displays;
+package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.CardEditingWindow;
-import dream.fcard.gui.controllers.Windows.MainWindow;
-import dream.fcard.model.Deck;
-import dream.fcard.model.State;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.exceptions.DeckNotFoundException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+/**
+ * The tile for viewing a question when looking at a deck. Used inside DeckDisplay.
+ */
 public class CardTitle extends HBox {
 
     @FXML
@@ -25,8 +23,8 @@ public class CardTitle extends HBox {
     @FXML
     private Button deleteButton;
 
+    private FlashCard card;
     private int indexInDeck;
-    FlashCard card;
 
     CardTitle(FlashCard card, int index, Consumer<Integer> deleteCard, Consumer<Integer> editCard) {
         try {

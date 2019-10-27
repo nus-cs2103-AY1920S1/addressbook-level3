@@ -1,11 +1,11 @@
-package dream.fcard.gui.controllers.Displays;
+package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.CardEditingWindow;
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.CardEditingWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -20,6 +20,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * The pane to view the questions of a deck and access deck editing functionality.
+ */
 public class DeckDisplay extends AnchorPane {
     @FXML
     private Label deckName;
@@ -85,6 +88,9 @@ public class DeckDisplay extends AnchorPane {
         swapDisplaysInMain.accept(testDisplay);
     }
 
+    /**
+     * Displays the questions of the deck inside DeckDisplay as a list of CardTitles.
+     */
     private void renderQuestions() {
         questionList.getChildren().clear();
         ArrayList<FlashCard> cards = deck.getCards();
@@ -100,6 +106,10 @@ public class DeckDisplay extends AnchorPane {
         }
     }
 
+    /**
+     * Used by CardTitle to trigger a deletion of a card.
+     * @param index the 1-based index of a card.
+     */
     private void deleteCard(int index) {
         if (deck.getCards().size() == 1) {
             displayMessage.accept("Your deck needs at least 1 card!");
@@ -128,9 +138,9 @@ public class DeckDisplay extends AnchorPane {
      * Replace a card with an edited one.
      */
     private void editCard(int index) {
-        FlashCard cardToEdit = deck.getCards().get(index-1);
+        FlashCard cardToEdit = deck.getCards().get(index - 1);
         Consumer<FlashCard> onSave = card -> {
-            deck.getCards().set(index-1, card);
+            deck.getCards().set(index - 1, card);
         };
         Consumer<Boolean> onCancel = b -> renderQuestions();
         CardEditingWindow window = new CardEditingWindow(cardToEdit, onSave, onCancel);

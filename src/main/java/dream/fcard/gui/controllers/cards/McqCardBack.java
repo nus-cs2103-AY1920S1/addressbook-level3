@@ -1,9 +1,9 @@
-package dream.fcard.gui.controllers.Cards;
+package dream.fcard.gui.controllers.cards;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
@@ -13,7 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
-public class MCQCardBack extends AnchorPane {
+/**
+ * The rear view of a multiple choice card.
+ */
+public class McqCardBack extends AnchorPane {
     @FXML
     private Label correctOrWrongLabel;
     @FXML
@@ -22,7 +25,7 @@ public class MCQCardBack extends AnchorPane {
     private Label correctAnswerLabel;
 
 
-    public MCQCardBack(MultipleChoiceCard card, int selectedAnswer, Consumer<Integer> seeFrontOfMcqCard) {
+    public McqCardBack(MultipleChoiceCard card, int selectedAnswer, Consumer<Integer> seeFrontOfMcqCard) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Cards/Back/MCQCardBack.fxml"));
             fxmlLoader.setController(this);
@@ -39,8 +42,8 @@ public class MCQCardBack extends AnchorPane {
     }
 
     private String checkAnswer(MultipleChoiceCard card, int selectedAnswer) throws IndexNotFoundException {
-        boolean isCorrect  = card.evaluate(Integer.toString(selectedAnswer));
-        return isCorrect? "Correct!" : "Wrong...";
+        boolean isCorrect = card.evaluate(Integer.toString(selectedAnswer));
+        return isCorrect ? "Correct!" : "Wrong...";
     }
 
     private void setColourOfLabel() {

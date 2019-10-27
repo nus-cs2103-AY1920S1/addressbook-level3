@@ -1,10 +1,10 @@
-package dream.fcard.gui.controllers.Windows;
+package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Displays.MCQOptionsSetter;
+import dream.fcard.gui.controllers.displays.McqOptionsSetter;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
@@ -20,6 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * A window that looks like CardCreatingWindow but which opens in DeckDisplay for the user to quickly edit a card.
+ */
 public class CardEditingWindow extends AnchorPane {
     @FXML
     private TextField questionField;
@@ -33,7 +36,7 @@ public class CardEditingWindow extends AnchorPane {
     private Button cancelButton;
 
     private TextArea frontBackTextArea;
-    private MCQOptionsSetter mcqOptionsSetter;
+    private McqOptionsSetter mcqOptionsSetter;
     private String cardType = "";
     private FlashCard card;
 
@@ -44,7 +47,8 @@ public class CardEditingWindow extends AnchorPane {
 
     public CardEditingWindow(FlashCard card, Consumer<FlashCard> onSave, Consumer<Boolean> onCancel) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Windows/CardEditingWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
+                    .getResource("/view/Windows/CardEditingWindow.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -78,19 +82,22 @@ public class CardEditingWindow extends AnchorPane {
     /**
      * Changes the input box from a textbox to the MCQ setter and vice versa.
      *
-     * @param isMCQ whether the user is trying to create an MCQ card
+     * @param isMcq whether the user is trying to create an MCQ card
      */
-    void changeInputBox(boolean isMCQ) {
+    void changeInputBox(boolean isMcq) {
         answerContainer.getChildren().clear();
-        if (!isMCQ) {
+        if (!isMcq) {
             frontBackTextArea = new TextArea();
             answerContainer.getChildren().add(frontBackTextArea);
         } else {
-            mcqOptionsSetter = new MCQOptionsSetter();
+            mcqOptionsSetter = new McqOptionsSetter();
             answerContainer.getChildren().add(mcqOptionsSetter);
         }
     }
 
+    /**
+     * Take the card's existing answer(s) and add them to the cardEditingWindow.
+     */
     void populateExistingAnswers() {
         if (card instanceof MultipleChoiceCard) {
             ArrayList<String> choices = ((MultipleChoiceCard) card).generateCopyOfChoices();

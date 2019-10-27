@@ -1,9 +1,9 @@
-package dream.fcard.gui.controllers.Displays;
+package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -13,7 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 
-public class MCQOptionInputRow extends HBox {
+/**
+ * The UI element to represent one multiple choice option. Housed inside the McqOptionsSetter.
+ */
+public class McqOptionInputRow extends HBox {
     @FXML
     private Label optionValue;
     @FXML
@@ -25,9 +28,11 @@ public class MCQOptionInputRow extends HBox {
     @FXML
     private RadioButton rightAnswerRadio;
 
-    public MCQOptionInputRow(ToggleGroup rightAnswer, Consumer<MCQOptionInputRow> deleteRow, Consumer<Boolean> addNewRow) {
+    public McqOptionInputRow(ToggleGroup rightAnswer, Consumer<McqOptionInputRow> deleteRow,
+                             Consumer<Boolean> addNewRow) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/MCQOptionInputRow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays"
+                    + "/MCQOptionInputRow.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -55,7 +60,11 @@ public class MCQOptionInputRow extends HBox {
         return optionText.getText();
     }
 
-    void setOptionText(String text) {optionText.setText(text);}
+    void setOptionText(String text) {
+        optionText.setText(text);
+    }
 
-    void setRightAnswerRadio() {rightAnswerRadio.setSelected(true);}
+    void setRightAnswerRadio() {
+        rightAnswerRadio.setSelected(true);
+    }
 }

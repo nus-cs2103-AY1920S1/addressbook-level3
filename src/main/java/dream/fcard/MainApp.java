@@ -26,7 +26,8 @@ public class MainApp extends Application {
             stage.setScene(scene);
             stage.setTitle("FlashCard Pro");
             stage.show();
-            stage.setOnCloseRequest(e -> StorageManager.saveAll(State.getState().getDecks())); // when the 'X' button is clicked.
+            // when the 'X' button is clicked.
+            stage.setOnCloseRequest(e -> StorageManager.saveAll(State.getState().getDecks()));
         } catch (IOException e) {
             // TODO: Our yet-to-be-reinstated-logger will replace this rudimentary error printing
             System.err.println("Failed to load app");

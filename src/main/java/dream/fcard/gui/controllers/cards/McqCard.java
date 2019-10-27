@@ -1,10 +1,10 @@
-package dream.fcard.gui.controllers.Cards;
+package dream.fcard.gui.controllers.cards;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.MultipleChoiceCard;
@@ -18,7 +18,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class MCQCard extends AnchorPane {
+/**
+ * The front view of the multiple choice card.
+ */
+public class McqCard extends AnchorPane {
     @FXML
     private Label questionLabel;
     @FXML
@@ -33,7 +36,7 @@ public class MCQCard extends AnchorPane {
     @SuppressWarnings("unchecked")
     private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
 
-    public MCQCard(MultipleChoiceCard mcqCard, Consumer<Integer> seeBackOfMcqCard, int preselectedOption) {
+    public McqCard(MultipleChoiceCard mcqCard, Consumer<Integer> seeBackOfMcqCard, int preselectedOption) {
         //if preselectedOption is -1, it means that the user has not done this card before in this session.
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Cards/Front/MCQCard.fxml"));
@@ -56,7 +59,12 @@ public class MCQCard extends AnchorPane {
         }
     }
 
-    public void populateOptions(MultipleChoiceCard mcqCard, int preselectedOption) {
+    /**
+     * Used by TestDisplay to render all the options onto the card.
+     * @param mcqCard the multiple choice card.
+     * @param preselectedOption the user's previous selection or -1.
+     */
+    private void populateOptions(MultipleChoiceCard mcqCard, int preselectedOption) {
         if (preselectedOption == -1) { //shuffle and deselect all choices
             ArrayList<String> shuffledChoices = mcqCard.getShuffledChoices();
             shuffledChoices.forEach(option -> {

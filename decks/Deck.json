@@ -1,0 +1,10 @@
+{
+    "cards": [
+        {
+            "back": "Answer",
+            "front": "Question",
+            "type": "front-back"
+        }
+    ],
+    "name": "Deck"
+}

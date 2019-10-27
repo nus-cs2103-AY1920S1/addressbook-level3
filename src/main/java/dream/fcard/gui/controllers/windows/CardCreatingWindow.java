@@ -1,10 +1,10 @@
-package dream.fcard.gui.controllers.Windows;
+package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Displays.MCQOptionsSetter;
+import dream.fcard.gui.controllers.displays.McqOptionsSetter;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -20,6 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Creates a card within CreateDeckDisplay.
+ */
 public class CardCreatingWindow extends AnchorPane {
     @FXML
     private TextField questionField;
@@ -31,7 +34,7 @@ public class CardCreatingWindow extends AnchorPane {
     private Button onAddQuestion;
 
     private TextArea frontBackTextArea;
-    private MCQOptionsSetter mcqOptionsSetter;
+    private McqOptionsSetter mcqOptionsSetter;
     private String cardType = "";
     private Deck tempDeck = new Deck();
     private Consumer<Integer> incrementCounterInParent;
@@ -40,7 +43,8 @@ public class CardCreatingWindow extends AnchorPane {
 
     public CardCreatingWindow(Consumer<Integer> incrementCounterInParent) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Windows/CardCreatingWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
+                    .getResource("/view/Windows/CardCreatingWindow.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -70,20 +74,23 @@ public class CardCreatingWindow extends AnchorPane {
     /**
      * Changes the input box from a textbox to the MCQ setter and vice versa.
      *
-     * @param isMCQ whether the user is trying to create an MCQ card
+     * @param isMcq whether the user is trying to create an MCQ card
      */
-    void changeInputBox(boolean isMCQ) {
+    void changeInputBox(boolean isMcq) {
         answerContainer.getChildren().clear();
-        if (!isMCQ) {
+        if (!isMcq) {
             frontBackTextArea = new TextArea();
             answerContainer.getChildren().add(frontBackTextArea);
         } else {
-            mcqOptionsSetter = new MCQOptionsSetter();
+            mcqOptionsSetter = new McqOptionsSetter();
             answerContainer.getChildren().add(mcqOptionsSetter);
         }
     }
 
-
+    /**
+     * Adds a card to the temporary deck inside CardCreatingWindow.
+     * @throws DuplicateInChoicesException if the user enters the same multiple choice option more than once.
+     */
     void addCardToDeck() throws DuplicateInChoicesException {
         State state = State.getState();
         if (cardType.equals("MCQ")) {
@@ -102,7 +109,7 @@ public class CardCreatingWindow extends AnchorPane {
             String front = questionField.getText();
             String back = Integer.toString(mcqOptionsSetter.getIndexOfRightAnswer()); //already 1-indexed
             ArrayList<String> choices = mcqOptionsSetter.getChoices();
-            MultipleChoiceCard mcqCard = new MultipleChoiceCard(front,back,choices);
+            MultipleChoiceCard mcqCard = new MultipleChoiceCard(front, back, choices);
             tempDeck.addNewCard(mcqCard);
         } else { //front-back
             // validation - non-empty fields
@@ -123,18 +130,26 @@ public class CardCreatingWindow extends AnchorPane {
         clearFields();
     }
 
+    /**
+     * Wipe user input from existing input fields to make way for a new card.
+     */
     void clearFields() {
         questionField.setText("");
         if (frontBackTextArea != null) {
             frontBackTextArea.setText("");
         }
         if (mcqOptionsSetter != null) {
-            mcqOptionsSetter = new MCQOptionsSetter();
+            mcqOptionsSetter = new McqOptionsSetter();
             answerContainer.getChildren().clear();
             answerContainer.getChildren().add(mcqOptionsSetter);
         }
     }
 
+    /**
+     * A deck that keeps all the cards that were made inside CardCreatingWindow. CreateDeckDisplay
+     * will pull out this deck when the user is done making a new deck.
+     * @return the deck of all newly created cards.
+     */
     public Deck getTempDeck() {
         return tempDeck;
     }

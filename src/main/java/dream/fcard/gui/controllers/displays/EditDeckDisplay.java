@@ -1,10 +1,10 @@
-package dream.fcard.gui.controllers.Displays;
+package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.CardCreatingWindow;
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.CardCreatingWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -17,6 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * The pane for adding questions to a deck as well as changing the deck's name.
+ */
 public class EditDeckDisplay extends AnchorPane {
     @FXML
     private TextField deckNameInput;
@@ -52,8 +55,8 @@ public class EditDeckDisplay extends AnchorPane {
     public EditDeckDisplay(Deck deck) {
         try {
             clearMessage.accept(true);
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/" +
-                    "CreateDeckDisplay.fxml")); // same ui component as creating a deck, but different handlers
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
+                    + "CreateDeckDisplay.fxml")); // same ui component as creating a deck, but different handlers
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -63,7 +66,7 @@ public class EditDeckDisplay extends AnchorPane {
             clearMessage.accept(true);
             deckNameInput.setText(deck.getName());
             numCards = deck.getCards().size();
-            deckSize.setText(numCards + (numCards == 1? " card": " cards"));
+            deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
             onSaveDeck.setOnAction(e -> onSaveDeck());
             cancelButton.setOnAction(e -> exitEditingMode.accept(true));
         } catch (IOException e) {

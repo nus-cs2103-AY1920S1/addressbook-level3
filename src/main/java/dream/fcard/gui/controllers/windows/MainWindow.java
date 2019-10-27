@@ -1,12 +1,11 @@
-package dream.fcard.gui.controllers.Windows;
-
+package dream.fcard.gui.controllers.windows;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Displays.DeckDisplay;
-import dream.fcard.gui.controllers.Displays.CreateDeckDisplay;
-import dream.fcard.gui.controllers.Displays.NoDecksDisplay;
+import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
+import dream.fcard.gui.controllers.displays.DeckDisplay;
+import dream.fcard.gui.controllers.displays.NoDecksDisplay;
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.ConsumerSchema;
@@ -21,7 +20,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+/**
+ * The single-page parent component.
+ */
 public class MainWindow extends VBox {
 
     @FXML
@@ -34,6 +37,8 @@ public class MainWindow extends VBox {
     private VBox displayContainer;
     @FXML
     private MenuItem onCreateNewDeck;
+    @FXML
+    private MenuItem openEditor;
     @FXML
     private MenuItem quit;
     @FXML
@@ -151,14 +156,26 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = commandLine.getText();
-        Responder.takeInput(input,State.getState());
+        Responder.takeInput(input, State.getState());
         commandLine.clear();
     }
 
+    /**
+     * Registers consumers in State for global access.
+     */
     private void registerConsumers() {
         State.getState().addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
         State.getState().addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
         State.getState().addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         State.getState().addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
+    }
+
+    /**
+     * Opens the JavaEditorController Editor.
+     */
+    @FXML
+    public void openEditor() {
+        Stage stage = new Stage();
+        stage.setTitle("JavaEditorController");
     }
 }

@@ -1,15 +1,18 @@
-package dream.fcard.gui.controllers.Displays;
+package dream.fcard.gui.controllers.displays;
 
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.Windows.MainWindow;
+import dream.fcard.gui.controllers.windows.MainWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+/**
+ * A display that guides the user to create a deck if there are no decks in the application.
+ */
 public class NoDecksDisplay extends VBox {
 
     @FXML
@@ -21,8 +24,8 @@ public class NoDecksDisplay extends VBox {
 
     public NoDecksDisplay(Consumer<Boolean> consumer) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/" +
-                    "NoDecksDisplay.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
+                    + "NoDecksDisplay.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
