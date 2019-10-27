@@ -62,16 +62,19 @@ public class ModularDisplay {
      *
      * @param paneToDisplay The view to change.
      */
-    public void swapToLoadDisplay(StackPane paneToDisplay) {
+    public void swapToHomeDisplay(StackPane paneToDisplay) {
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();
+        int avatarId = appManager.getAppSettings().getAvatarId();
 
         WordBankStatisticsList wbStatsList = appManager.getActiveWordBankStatisticsList();
         GlobalStatistics globalStats = appManager.getGlobalStatistics();
         twoSplitColumnLayout.addToLeftPane(new MainTitlePanel(
                 globalStats,
                 wbStatsList.getMostPlayedWordBankStatistics(),
-                new Random().nextInt()).getRoot());
+                avatarId == 0
+                ? new Random().nextInt(AvatarImageUtil.TOTAL_NUM) + 1
+                : avatarId).getRoot());
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
@@ -81,7 +84,7 @@ public class ModularDisplay {
      *
      * @param paneToDisplay The view to change.
      */
-    public void swapToBankDisplay(StackPane paneToDisplay) {
+    public void swapToOpenDisplay(StackPane paneToDisplay) {
         bankLabelPanel = new BankLabelPanel(appManager.getSelectedWbName());
         twoSplitRowLayout = new TwoSplitRowLayout();
         twoSplitColumnLayout = new TwoSplitColumnLayout();

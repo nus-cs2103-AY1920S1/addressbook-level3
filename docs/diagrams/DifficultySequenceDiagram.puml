@@ -1,41 +1,57 @@
 @startuml
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":UI" as ui UI_COLOR
-Participant ":AppManager" as appmanager APPMANAGER_COLOR
-Participant ":Logic" as logic LOGIC_COLOR
-Participant ":Model" as model MODEL_COLOR
-Participant ":Storage" as storage STORAGE_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "difficulty hard"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> appmanager : execute("difficulty hard")
-activate appmanager APPMANAGER_COLOR
+box UI UI_COLOR_T1
+participant ":UI" as UI UI_COLOR
+end box
+[-> LogicManager : execute(undo)
+activate LogicManager
 
-appmanager -[APPMANAGER_COLOR]> logic : execute("difficulty hard")
-activate logic LOGIC_COLOR
+LogicManager -> AddressBookParser : parseCommand(undo)
+activate AddressBookParser
 
-logic -[LOGIC_COLOR]> model : deletePerson(p)
-activate model MODEL_COLOR
+create UndoCommand
+AddressBookParser -> UndoCommand
+activate UndoCommand
 
-model -[MODEL_COLOR]-> logic
-deactivate model
+UndoCommand --> AddressBookParser
+deactivate UndoCommand
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
-activate storage STORAGE_COLOR
+AddressBookParser --> LogicManager : u
+deactivate AddressBookParser
 
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
-deactivate storage
+LogicManager -> UndoCommand : execute()
+activate UndoCommand
 
-storage --[STORAGE_COLOR]> logic
-deactivate storage
+UndoCommand -> Model : undoAddressBook()
+activate Model
 
-logic --[LOGIC_COLOR]> ui
-deactivate logic
+Model -> VersionedAddressBook : undo()
+activate VersionedAddressBook
 
-ui--[UI_COLOR]> user
-deactivate ui
+VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
+VersionedAddressBook --> Model :
+deactivate VersionedAddressBook
+
+Model --> UndoCommand
+deactivate Model
+
+UndoCommand --> LogicManager : result
+deactivate UndoCommand
+UndoCommand -[hidden]-> LogicManager : result
+destroy UndoCommand
+
+[<--LogicManager
+deactivate LogicManager
 @enduml

@@ -2,7 +2,6 @@ package seedu.address.logic.parser.settings;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.gamecommands.GuessCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,7 +17,7 @@ public class DifficultyCommandParser implements Parser<DifficultyCommand> {
         String trimmedArgs = userInput.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GuessCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DifficultyCommand.MESSAGE_USAGE));
         }
         DifficultyEnum difficulty;
         switch (trimmedArgs.toUpperCase()) {
