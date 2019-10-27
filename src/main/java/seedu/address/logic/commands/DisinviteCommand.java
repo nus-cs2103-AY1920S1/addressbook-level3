@@ -38,13 +38,14 @@ public class DisinviteCommand extends Command{
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Unable to disinvite \"%s\" as he/she has no unique search result in the current activity.";
 
-    public static final String MESSAGE_DUPLICATE_ENTRY = "\"%s\" has duplicate entries, the first one will be removed" +
-            "if he/she is not involved in any expenses.";
+    public static final String MESSAGE_SUCCESS_DISINVITE = "Disinvited \"%s\" from the activity.";
 
-    public static final String MESSAGE_SUCCESS_INVITE = "Disinvited \"%s\" into the activity.";
+    public static final String MESSAGE_RESULT = "%s\n%s";
 
-    public static final String MESSAGE_RESULT = "\n%s\n%s";
+    public static final String MESSAGE_RESULT_NONE_SUCCESS = "%s";
 
+    public static final String MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE = "Cannot disinvite \"%s\" from activity: " +
+            "involved in expense(s).";
 
     private final List<String> peopleToDisinvite;
 
@@ -76,6 +77,7 @@ public class DisinviteCommand extends Command{
         List<String> keywords;
         List<Person> findResult;
         List<Integer> idsToRemove = new ArrayList<>();
+        List<String> namesToRemove = new ArrayList<>();
         StringBuilder warningMessage = new StringBuilder();
         StringBuilder successMessage = new StringBuilder();
 
@@ -89,6 +91,7 @@ public class DisinviteCommand extends Command{
             NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
 
             findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+
             assert findResult != null : "List of people should not be null.";
 
             if (findResult.size() != 1) { //not in activity or duplicate
@@ -100,26 +103,38 @@ public class DisinviteCommand extends Command{
             Person personToDisinvite = findResult.get(0);
             Integer idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
 
-            if (idsToRemove.contains(idOfPersonToDisinvite)) {
-                String warning = String.format(MESSAGE_DUPLICATE_ENTRY, name);
-                warningMessage.append(warning).append("\n");
+            if (idsToRemove.contains(idOfPersonToDisinvite)) { // repeated entry
                 continue;
             }
 
             idsToRemove.add(idOfPersonToDisinvite);
-//            successMessage.append(String.format(MESSAGE_SUCCESS_INVITE, personToDisinvite.getName()) + "\n");
-
-
-
+            namesToRemove.add(name);
         }
 
-        for (Integer id : idsToRemove) {
+        for (int i = 0; i < idsToRemove.size(); i++) {
+            Integer id = idsToRemove.get(i);
+            String name = namesToRemove.get(i);
             activityToDisinviteFrom.disinvite(id);
+            if (participantIds.contains(id)) { // not removed, has existing expenses
+                String warning = String.format(MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE, name);
+                warningMessage.append(warning).append("\n");
+            } else { // removed, no existing expenses
+                String success = String.format(MESSAGE_SUCCESS_DISINVITE, name);
+                successMessage.append(success).append("\n");
+            }
         }
 
         model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
 
-        return new CommandResult(String.format(MESSAGE_RESULT, successMessage, warningMessage));
+        String result;
+
+        if (successMessage.toString().equals("")) {
+            result = String.format(MESSAGE_RESULT_NONE_SUCCESS, warningMessage);
+        } else {
+            result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
+        }
+
+        return new CommandResult(result);
 
     }
 
