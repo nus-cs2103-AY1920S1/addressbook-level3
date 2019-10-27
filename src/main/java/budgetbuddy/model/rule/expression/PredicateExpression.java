@@ -22,8 +22,8 @@ public class PredicateExpression extends RulePredicate {
 
     public static final String MESSAGE_TYPE_REQUIREMENTS =
             "The attribute, operator, and value of the expression have to evaluate to the correct type:\n"
-            + "e.g. amount < 5, where 'amount' evaluates to a long integer,\n"
-            + "'<' expects a long integer, and '5' is a long integer";
+            + "e.g. inamt < 5, where 'inamt' evaluates to a decimal value,\n"
+            + "'<' expects a decimal value, and '5' is a decimal value";
 
     public static final Pattern FORMAT_REGEX =
             Pattern.compile("^(?<exprAttribute>\\S+)\\s+(?<exprOperator>\\S+)\\s(?<exprValue>.*)$");

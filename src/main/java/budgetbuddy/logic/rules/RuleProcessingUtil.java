@@ -69,10 +69,10 @@ public class RuleProcessingUtil {
             return txn.getDescription();
         case IN_AMOUNT:
             return (txn.getDirection().equals(Direction.IN) ? 1 : -1)
-                    * (txn.getAmount().toLong() / 100);
+                    * (txn.getAmount().toLong() / 100.0);
         case OUT_AMOUNT:
             return (txn.getDirection().equals(Direction.OUT) ? 1 : -1)
-                    * (txn.getAmount().toLong() / 100);
+                    * (txn.getAmount().toLong() / 100.0);
         case DATE:
             return txn.getDate();
         default:
@@ -87,7 +87,7 @@ public class RuleProcessingUtil {
      */
     public static Testable parseTestable(RulePredicate predicate) {
         requireNonNull(predicate);
-        if (predicate.getType() == Rule.TYPE_EXPRESSION) {
+        if (predicate.getType().equals(Rule.TYPE_EXPRESSION)) {
             PredicateExpression predExpr = (PredicateExpression) predicate;
             return testableMap.get(predExpr.getOperator()).apply(predExpr.getAttribute(), predExpr.getValue());
         } else {
@@ -101,7 +101,7 @@ public class RuleProcessingUtil {
      */
     public static Performable parsePerformable(RuleAction action) {
         requireNonNull(action);
-        if (action.getType() == Rule.TYPE_EXPRESSION) {
+        if (action.getType().equals(Rule.TYPE_EXPRESSION)) {
             ActionExpression actExpr = (ActionExpression) action;
             return performableMap.get(actExpr.getOperator()).apply(actExpr.getValue());
         } else {
@@ -133,7 +133,7 @@ public class RuleProcessingUtil {
             break;
         case TYPE_NUMBER:
             try {
-                Long.parseLong(value.toString());
+                Double.parseDouble(value.toString());
                 break;
             } catch (NumberFormatException e) {
                 return false;

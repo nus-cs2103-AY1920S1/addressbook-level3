@@ -24,8 +24,8 @@ public class EqualToExpression extends TestableExpression {
     @Override
     public boolean test(Transaction txn) {
         requireNonNull(txn);
-        long left = (long) RuleProcessingUtil.extractAttribute(attribute, txn);
-        long right = Long.parseLong(value.toString());
+        double left = (double) RuleProcessingUtil.extractAttribute(attribute, txn);
+        double right = Double.parseDouble(value.toString());
         return left == right;
     }
 }

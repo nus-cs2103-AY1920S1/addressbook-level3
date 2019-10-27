@@ -10,9 +10,11 @@ public class Value {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS =
-            "Values should either be numerical or contain alphanumeric characters and these special characters, "
-            + "excluding the parentheses, (" + SPECIAL_CHARACTERS + "), "
+            "Values should either be numerical ( or contain alphanumeric characters and these special characters,\n"
+            + "excluding the parentheses, (" + SPECIAL_CHARACTERS + "),\n"
+            + "of length not more than 50 characters, "
             + "and should not be blank";
+    private static final String VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]{1,50}$";
 
     private final String value;
 
@@ -30,7 +32,7 @@ public class Value {
      * Returns true if a given string is a valid value.
      */
     public static boolean isValidValue(String test) {
-        return true;
+        return test.matches(VALIDATION_REGEX);
     }
 
 
