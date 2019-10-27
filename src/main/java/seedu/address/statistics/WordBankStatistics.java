@@ -43,7 +43,6 @@ public class WordBankStatistics {
 
     /**
      * Updates this word bank statistics to include {@code gameStats} of the difficulty {@code difficultyEnum}.
-     * This method does not check the validity of the {@code gameStats).
      */
     public void update(GameStatistics gameStats, DifficultyEnum difficultyEnum) {
         assert gameStats.getTitle().equals(getWordBankName());

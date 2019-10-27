@@ -1,24 +1,25 @@
 package seedu.address.statistics;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.appsettings.DifficultyEnum;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
 import static seedu.address.testutil.TypicalCards.DITTO;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.appsettings.DifficultyEnum;
+
 public class WordBankStatisticsTest {
 
     @Test
     public void getEmpty() {
         WordBankStatistics emptyWbStats = WordBankStatistics.getEmpty("empty");
-        WordBankStatistics emptyWbStats1 =new WordBankStatistics("empty",
+        WordBankStatistics emptyWbStats1 = new WordBankStatistics("empty",
                 0,
                 Optional.empty(),
                 Collections.emptyList(),
