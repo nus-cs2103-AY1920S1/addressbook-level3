@@ -45,6 +45,7 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_BUTTERFLY = "butterfly 50m";
     public static final String VALID_DATE_CHRISTMAS = "25122019";
     public static final String VALID_TIMING = "30s";
+    public static final String VALID_INDEX = "1";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
