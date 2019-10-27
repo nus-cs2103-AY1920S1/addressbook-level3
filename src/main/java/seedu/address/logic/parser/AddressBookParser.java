@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
+import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -35,6 +36,8 @@ import seedu.address.logic.commands.calendar.EditTaskCommand;
 import seedu.address.logic.commands.calendar.FindTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
 import seedu.address.logic.commands.note.AddNotesCommand;
+import seedu.address.logic.commands.note.DeleteNotesCommand;
+import seedu.address.logic.commands.note.EditNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
 
@@ -90,6 +93,8 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
@@ -100,11 +105,15 @@ public class AddressBookParser {
      * Returns a {@code NewCommand} if the command exists or an {@code UnknownCommand} if it does not.
      */
     public Command checkCommand(String userInput, String prevUnknownCommand) {
-        if (AddressBookParser.commandList.containsKey(userInput)) {
-            AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
-            return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+        if (userInput.equals("cancel")) {
+            return new CancelCommand();
         } else {
-            return new UnknownCommand(userInput);
+            if (AddressBookParser.commandList.containsKey(userInput)) {
+                AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
+                return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+            } else {
+                return new UnknownCommand(userInput);
+            }
         }
     }
     /**
@@ -119,7 +128,6 @@ public class AddressBookParser {
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
@@ -198,6 +206,12 @@ public class AddressBookParser {
             case LogoutCommand.COMMAND_WORD:
                 return new LogoutCommand();
 
+            case DeleteNotesCommand.COMMAND_WORD:
+                return new DeleteNotesCommandParser().parse(arguments);
+
+            case EditNotesCommand.COMMAND_WORD:
+                return new EditNotesCommandParser().parse(arguments);
+                
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }

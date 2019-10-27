@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.account.Account;
@@ -344,6 +345,18 @@ public class ModelManager implements Model {
     public void addNotes(Notes notes) {
         addressBook.addNotes(notes);
         updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
+    }
+
+    @Override
+    public void deleteNotes(Notes target) {
+        addressBook.removeNotes(target);
+    }
+
+    @Override
+    public void setNotes(Notes target, Notes editedNote) {
+        requireAllNonNull(target, editedNote);
+
+        addressBook.setNotes(target, editedNote);
     }
 
     @Override

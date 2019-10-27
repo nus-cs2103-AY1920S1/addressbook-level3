@@ -26,6 +26,14 @@ Class Picture
 Class UniquePersonList
 }
 
+Package CommandObject {
+Class CommandObject
+Class CommandWord
+Class CommandAction
+Class UniqueCommandsList
+}
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
@@ -47,5 +55,12 @@ Person *--> Name
 Person *--> Picture
 
 
+AddressBook *--> "1" UniqueCommandsList
+UniqueCommandsList o--> "*" CommandObject
+CommandObject *--> CommandWord
+CommandObject *--> CommandAction
+
+
 ModelManager -->"1" Person : filtered list
+ModelManager -->"1" CommandObject : filtered list
 @enduml

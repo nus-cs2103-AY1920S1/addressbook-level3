@@ -213,4 +213,18 @@ public interface Model {
     void addNotes(Notes note);
 
     void updateFilteredNotesList(Predicate<Notes> predicate);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void deleteNotes(Notes target);
+
+
+    /**
+     * Replaces the given notes {@code target} with {@code editedNote}.
+     * {@code target} must exist in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the address book.
+     */
+    void setNotes(Notes target, Notes editedNote);
 }

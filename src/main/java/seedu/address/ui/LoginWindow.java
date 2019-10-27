@@ -127,7 +127,7 @@ public class LoginWindow extends UiPart<Stage> {
     public void handleLogin() {
         try {
             String text = loginItem.getText().toLowerCase();
-            CommandResult commandResult = logic.execute(loginItem.getText());
+            CommandResult commandResult = logic.execute(loginItem.getText(), false);
             //loginItem.setText("");
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
