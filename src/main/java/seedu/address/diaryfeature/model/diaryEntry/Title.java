@@ -1,4 +1,4 @@
-package seedu.address.diaryfeature.model;
+package seedu.address.diaryfeature.model.diaryEntry;
 
 import static java.util.Objects.requireNonNull;
 

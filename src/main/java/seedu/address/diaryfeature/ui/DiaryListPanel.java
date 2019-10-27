@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.diaryfeature.model.DiaryEntry;
+import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
 /**
  * Panel containing the list of persons.

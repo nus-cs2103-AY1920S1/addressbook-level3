@@ -6,9 +6,6 @@ import java.text.ParseException;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.diaryfeature.model.DateFormatter;
-import seedu.address.diaryfeature.model.DiaryEntry;
-import seedu.address.diaryfeature.model.Title;
 import seedu.address.diaryfeature.model.exceptions.TitleException;
 
 

@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 
 import seedu.address.diaryfeature.logic.commands.AddCommand;
 import seedu.address.diaryfeature.logic.commands.ErrorCommand;
-import seedu.address.diaryfeature.model.DiaryEntry;
-import seedu.address.diaryfeature.model.Title;
+import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.diaryfeature.model.diaryEntry.Title;
 import seedu.address.diaryfeature.model.exceptions.TitleException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.ArgumentMultimap;

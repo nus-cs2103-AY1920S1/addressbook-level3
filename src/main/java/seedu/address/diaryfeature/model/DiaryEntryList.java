@@ -2,6 +2,7 @@ package seedu.address.diaryfeature.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.util.SampleDataUtil;
 
 /**

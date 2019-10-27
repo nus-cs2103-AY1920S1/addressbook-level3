@@ -6,7 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.diaryfeature.model.DiaryEntry;
+import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;

@@ -6,8 +6,8 @@ import java.util.Date;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.diaryfeature.model.DateFormatter;
-import seedu.address.diaryfeature.model.Title;
+import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
+import seedu.address.diaryfeature.model.diaryEntry.Title;
 import seedu.address.diaryfeature.model.exceptions.TitleException;
 import seedu.address.logic.parser.exceptions.ParseException;
 

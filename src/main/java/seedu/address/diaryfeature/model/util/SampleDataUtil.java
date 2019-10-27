@@ -2,9 +2,9 @@ package seedu.address.diaryfeature.model.util;
 
 import java.text.ParseException;
 
-import seedu.address.diaryfeature.model.DateFormatter;
-import seedu.address.diaryfeature.model.DiaryEntry;
-import seedu.address.diaryfeature.model.Title;
+import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
+import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.diaryfeature.model.diaryEntry.Title;
 import seedu.address.diaryfeature.model.exceptions.TitleException;
 
 
