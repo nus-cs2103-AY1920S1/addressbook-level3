@@ -25,6 +25,7 @@ import seedu.address.logic.commands.homecommands.CreateCommand;
 import seedu.address.logic.commands.homecommands.ExportCommand;
 import seedu.address.logic.commands.homecommands.ImportCommand;
 import seedu.address.logic.commands.homecommands.RemoveCommand;
+import seedu.address.logic.commands.settingcommands.AvatarCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.commands.settingcommands.HintsCommand;
 import seedu.address.logic.commands.settingcommands.ThemeCommand;
@@ -43,6 +44,7 @@ import seedu.address.logic.parser.open.AddCommandParser;
 import seedu.address.logic.parser.open.DeleteCommandParser;
 import seedu.address.logic.parser.open.EditCommandParser;
 import seedu.address.logic.parser.open.FindCommandParser;
+import seedu.address.logic.parser.settings.AvatarCommandParser;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
 import seedu.address.logic.parser.settings.HintsCommandParser;
 import seedu.address.logic.parser.settings.ThemeCommandParser;
@@ -106,6 +108,7 @@ public class ParserManager {
             temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
             temp.add(HintsCommand.class, HintsCommandParser.class);
             temp.add(ThemeCommand.class, ThemeCommandParser.class);
+            temp.add(AvatarCommand.class, AvatarCommandParser.class);
             return temp;
         case GAME:
             temp.add(GuessCommand.class, GuessCommandParser.class);

@@ -352,5 +352,15 @@ class GuessCommandTest {
         public boolean getHintsEnabled() {
             return false;
         }
+
+        @Override
+        public void setAvatarId(int avatarId) {
+
+        }
+
+        @Override
+        public int getAvatarId() {
+            return 0;
+        }
     }
 }
