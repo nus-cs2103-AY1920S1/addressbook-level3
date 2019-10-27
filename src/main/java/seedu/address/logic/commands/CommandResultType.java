@@ -10,6 +10,7 @@ public enum CommandResultType {
     SHOW_STATISTIC,
     SHOW_STUDENT,
     SHOW_SCHEDULE,
+    SHOW_GROUP,
     EXIT,
     OTHER;
 

@@ -37,7 +37,7 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_FILEPATH);
 
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FILEPATH)
-            || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE));
         }

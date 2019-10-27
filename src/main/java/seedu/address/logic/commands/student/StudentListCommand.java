@@ -13,6 +13,12 @@ public class StudentListCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " list: List of students";
     public static final String MESSAGE_SUCCESS = "Listed all students";
 
+    /**
+     * Executes the student list command.
+     * @param model {@code Model} which the command should operate on.
+     * @return Command result if the command is executed successfully.
+     * @throws CommandException -
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         return new CommandResult(generateSuccessMessage(model.getStudentSummary()), CommandResultType.SHOW_STUDENT);

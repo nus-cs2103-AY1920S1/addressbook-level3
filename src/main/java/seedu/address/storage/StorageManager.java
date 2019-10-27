@@ -218,8 +218,8 @@ public class StorageManager implements Storage {
     }
     //endregion
 
-    // ================ Event methods ==============================
 
+    //region EventRecord methods
     @Override
     public Path getEventRecordFilePath() {
         return eventStorage.getEventRecordFilePath();
@@ -247,5 +247,6 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to events data file: " + filePath);
         eventStorage.saveEvents(events, filePath);
     }
+    //endRegion
 
 }

@@ -93,6 +93,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Student> getStudentsInGroup() {
+        return model.getObservableListStudentsFromGroup();
+    }
+
+    @Override
     public ObservableList<Note> getFilteredNotesList() {
         return model.getFilteredNotesList();
     }

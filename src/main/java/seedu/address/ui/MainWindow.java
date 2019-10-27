@@ -3,9 +3,10 @@ package seedu.address.ui;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.student.Student;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -39,9 +41,12 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
+    private GroupWindow groupWindow;
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
     private EventSchedulePanel eventSchedulePanel;
+    private Node studentPanelNode;
+    private Node eventPaneNode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -122,7 +127,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        this.studentPanelNode = studentListPanel.getRoot();
+        mainPanelPlaceholder.getChildren().add(studentPanelNode);
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -137,6 +143,8 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
+        this.eventPaneNode = eventSchedulePanel.getRoot();
+        mainPanelPlaceholder.getChildren().add(eventPaneNode);
     }
 
     /**
@@ -164,6 +172,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the group window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleGroup() {
+        groupWindow = new GroupWindow();
+        //get observable list of students in group and put inside.
+        ObservableList<Student> students = logic.getStudentsInGroup();
+        groupWindow.setStudentsInGroup(students);
+        if (!groupWindow.isShowing()) {
+            groupWindow.show();
+        } else {
+            groupWindow.focus();
+        }
+    }
+
+    /**
      * Opens the slideshow window or focuses on it if it's already opened.
      */
     @FXML
@@ -180,7 +204,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleSchedule() {
-        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+        studentPanelNode.setVisible(false);
+        studentPanelNode.toBack();
+
+        eventPaneNode.setVisible(true);
+        eventPaneNode.toFront();
     }
 
     /**
@@ -188,7 +216,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStudent() {
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        eventPaneNode.setVisible(false);
+        eventPaneNode.toBack();
+
+        studentPanelNode.setVisible(true);
+        studentPanelNode.toFront();
     }
 
     /**
@@ -254,6 +286,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case SHOW_STATISTIC:
                 handleStats();
+                break;
+            case SHOW_GROUP:
+                handleGroup();
                 break;
             case SHOW_STUDENT:
                 handleStudent();
