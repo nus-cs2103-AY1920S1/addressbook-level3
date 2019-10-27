@@ -75,11 +75,8 @@
               </Tab>
             </tabs>
           </TabPane>
-
           <StackPane fx:id="historyDisplayPlaceHolder" VBox.vgrow="NEVER" styleClass="pane-with-border"/>
-
         </HBox>
-        
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
