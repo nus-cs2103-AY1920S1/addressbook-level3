@@ -2,10 +2,19 @@ package seedu.address.ui.modules;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.ui.UiPart;
+
+import javax.naming.NamingSecurityException;
+import java.io.File;
+import java.io.NotSerializableException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An UI component that displays information of a {@code Card}.
@@ -34,7 +43,7 @@ public class WordBankCard extends UiPart<Region> {
     /**
      * Card containing the details of the word bank.
      *
-     * @param wordBank The card representing its corresponding word bank.
+     * @param wordBank       The card representing its corresponding word bank.
      * @param displayedIndex The index of the word bank.
      */
     public WordBankCard(WordBank wordBank, int displayedIndex) {
@@ -60,4 +69,85 @@ public class WordBankCard extends UiPart<Region> {
         WordBankCard wordBankCard = (WordBankCard) other;
         return false;
     }
+
+    @FXML
+    private void handleDragDetection(MouseEvent event) {
+        /* drag was detected, start drag-and-drop gesture*/
+        System.out.println("onDragDetected");
+
+        /* allow MOVE transfer mode */
+        Dragboard db = cardPane.startDragAndDrop(TransferMode.COPY);
+
+        /* put a string on dragboard */
+        ClipboardContent content = new ClipboardContent();
+//        content.putString(wordBank.getName());
+        String wordBankPath = "data/wordBanks/" + wordBank.getName() + ".json";
+        File tmpFile = new File(wordBankPath);
+        System.out.println(tmpFile);
+
+//        List<String> filePathStringList = new ArrayList<>();
+//        filePathStringList.add(wordBankPath);
+
+        List<File> filePathList = new ArrayList<>();
+        filePathList.add(tmpFile);
+
+        content.putFiles(filePathList);
+//        content.putFilesByPath(filePathStringList);
+
+        db.setContent(content);
+
+        event.consume();
+        System.out.println("dragDetection done");
+    }
+
+
+//    public void handle(MouseEvent event) {
+//        List<File> vec = new ArrayList<File>();
+//        Dragboard db = source.startDragAndDrop(TransferMode.ANY);
+//        File tmpFile = new File("test.txt");
+//        try {
+//            tmpFile.createNewFile();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        vec.add(tmpFile);
+//        ClipboardContent content = new ClipboardContent();
+//        content.putFiles(vec);
+//        db.setContent(content);
+//        event.consume();
+//    }
+
+
+//    @FXML
+//    private void handleDragDropped(DragEvent event) {
+//
+//        /* data dropped */
+//        System.out.println("onDragDropped");
+//        /* if there is a string data on dragboard, read it and use it */
+//        Dragboard db = event.getDragboard();
+//        boolean success = false;
+//        if (db.hasFiles()) {
+//            System.out.println("db has files");
+//            name.setText(db.getString());
+//            success = true;
+//        }
+//        /* let the source know whether the string was successfully
+//         * transferred and used */
+//        event.setDropCompleted(success);
+//
+//        event.consume();
+//    }
+
+//    @FXML
+//    private void handleDragDone(DragEvent event) {
+//        /* the drag-and-drop gesture ended */
+//        System.out.println("onDragDone");
+//        /* if the data was successfully moved, clear it */
+//        if (event.getTransferMode() == TransferMode.MOVE) {
+//            name.setText("");
+//        }
+//
+//        event.consume();
+//    }
 }

@@ -49,6 +49,8 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     @Override
     void updateWordBank(WordBank wordBank);
 
+    Path getWordBanksFilePath();
+
     // ===================== word bank statistics =====================
     @Override
     Path getWordBankStatisticsListFilePath();

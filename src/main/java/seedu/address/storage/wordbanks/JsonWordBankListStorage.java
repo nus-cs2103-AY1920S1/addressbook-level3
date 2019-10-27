@@ -249,4 +249,15 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     public ObservableList<WordBank> getFilteredWordBankList() {
         return readOnlyWordBankList.getFilteredWordBankList();
     }
+
+    /**
+     * Retrieves the file path of word banks.
+     *
+     * @return word bank file path.
+     */
+    @Override
+    public Path getWordBanksFilePath() {
+        return wordBanksFilePath;
+    }
+
 }

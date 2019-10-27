@@ -72,15 +72,25 @@ public class LoadBankPanel extends UiPart<Region> {
     @FXML
     public void handleDragDropped(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();
-        for (File f : files) {
-            System.out.println(f);
-        }
-        File f1 = files.get(0);
-        Path p = f1.toPath();
-        String childString = p.getFileName().toString();
+        File firstFile = files.get(0);
+        if (firstFile.exists() &&
+                getExtension(firstFile).equals("json")) {
+            Path p = firstFile.toPath();
+            String childString = p.getFileName().toString();
 
-        String wordBankName = childString.substring(0, childString.length() - ".json".length());
-        storage.importWordBank(p.getParent(), wordBankName);
+            String wordBankName = childString.substring(0, childString.length() - ".json".length());
+            storage.importWordBank(p.getParent(), wordBankName);
+        }
     }
 
+    private String getExtension(File file){
+        String fileName = file.toString();
+        String extension = "";
+
+        int i = fileName.lastIndexOf('.');
+        if (i > 0 && i < fileName.length() - 1) //if the name is not empty
+            return fileName.substring(i + 1).toLowerCase();
+
+        return extension;
+    }
 }

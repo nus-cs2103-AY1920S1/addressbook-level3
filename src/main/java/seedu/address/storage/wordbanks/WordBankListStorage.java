@@ -57,7 +57,14 @@ public interface WordBankListStorage {
     /**
      * Returns an observable list of word banks.
      *
-     * @return observable list of word banks
+     * @return observable list of word banks.
      */
     ObservableList<WordBank> getFilteredWordBankList();
+
+    /**
+     * Retrieves the file path of word banks.
+     *
+     * @return word bank file path.
+     */
+    Path getWordBanksFilePath();
 }

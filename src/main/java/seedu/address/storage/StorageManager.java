@@ -74,7 +74,6 @@ public class StorageManager implements Storage {
     }
 
     @Override
-
     public ObservableList<WordBank> getFilteredWordBankList() {
         return wordBankListStorage.getFilteredWordBankList();
     }
@@ -102,6 +101,11 @@ public class StorageManager implements Storage {
     @Override
     public void updateWordBank(WordBank wordBank) {
         wordBankListStorage.updateWordBank(wordBank);
+    }
+
+
+    public Path getWordBanksFilePath() {
+        return wordBankListStorage.getWordBanksFilePath();
     }
 
     // ================ WordBankStatistics methods ==============================
