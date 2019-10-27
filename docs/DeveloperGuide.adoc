@@ -468,7 +468,12 @@ the Table of the UI.
 ==== [Proposed] Auto-Complete Feature
 
 === Cashier Tab
-This tab will act as a shopping cart to record sales item from the inventory that will contribute
+This tab will act as a shopping cart to add and record sales items that will be sold from the inventory. +
+Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be
+appended to the list of transactions on the Home tab. +
+In addition, the stock remaining in the inventory will be updated accordingly in the Inventory tab.
+
+record the sales item sold from the inventory that will contribute
 to the sales made.
 
 Only sales items can be added to the cart. If the price of the item is zero, it is not available for sale. The
