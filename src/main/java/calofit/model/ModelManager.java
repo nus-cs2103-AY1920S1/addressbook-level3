@@ -14,9 +14,11 @@ import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
+import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
+import calofit.model.meal.ReadOnlyMealLog;
 import calofit.model.util.Statistics;
 
 /**
@@ -34,7 +36,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
      */
-    public ModelManager(MealLog mealLog, ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMealLog mealLog, ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(dishDatabase, userPrefs);
 
@@ -42,7 +44,7 @@ public class ModelManager implements Model {
 
         this.dishDatabase = new DishDatabase(dishDatabase);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.mealLog = mealLog;
+        this.mealLog = new MealLog(mealLog);
         this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
         this.budget = new CalorieBudget();
     }
@@ -109,14 +111,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasDishName(Dish dish) {
-        requireNonNull(dish);
-        return dishDatabase.hasDishName(dish);
+    public Dish getDish(Dish dish) {
+        return dishDatabase.getDish(dish);
     }
 
     @Override
-    public Dish getDishByName(Dish dish) {
-        return dishDatabase.getDishByName(dish);
+    public boolean hasDishName(Name dishName) {
+        requireNonNull(dishName);
+        return dishDatabase.hasDishName(dishName);
+    }
+
+    @Override
+    public Dish getDishByName(Name dishName) {
+        return dishDatabase.getDishByName(dishName);
     }
 
     @Override
@@ -180,12 +187,26 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return dishDatabase.equals(other.dishDatabase)
                 && userPrefs.equals(other.userPrefs)
+                // && mealLog.equals(other.mealLog);
                 && filteredDishes.equals(other.filteredDishes);
+
     }
 
     @Override
     public void addMeal(Meal meal) {
         this.mealLog.addMeal(meal);
+    }
+
+    @Override
+    public void removeMeal(Meal meal) {
+        mealLog.removeMeal(meal);
+    }
+
+    @Override
+    public void setMeal(Meal target, Meal editedMeal) {
+        CollectionUtil.requireAllNonNull(target, editedMeal);
+
+        mealLog.setMeal(target, editedMeal);
     }
 
     @Override
