@@ -254,7 +254,7 @@ enum Responses {
 
                     //System.out.println(splitUserFields[0]);
 
-                    splitUserFields= splitUserFields[1].split(" back/");
+                    splitUserFields = splitUserFields[1].split(" back/");
                     front = splitUserFields[0].trim();
                     back = splitUserFields[1].trim();
                 }
@@ -275,7 +275,7 @@ enum Responses {
                     index = splitUserFields[1].trim();
                 }
 
-                System.out.println(deckName + "." + action + "." + index + "." + front + "." + back+".");
+                System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
 
                 return true; // capture is valid, end checking other commands
             }),
