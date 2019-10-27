@@ -8,7 +8,7 @@ import seedu.address.commons.core.Dictionary;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.LeetUtil;
 import seedu.address.model.password.Password;
-import seedu.address.model.password.analyser.analysis.DictionaryResult;
+import seedu.address.model.password.analyser.result.DictionaryResult;
 import seedu.address.model.password.analyser.match.DictionaryMatch;
 
 /**

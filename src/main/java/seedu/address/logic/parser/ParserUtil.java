@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.GeneratorUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.GeneratePasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.CardNumber;
 import seedu.address.model.card.Cvc;
@@ -297,5 +299,24 @@ public class ParserUtil {
             throw new ParseException(PasswordValue.MESSAGE_CONSTRAINTS);
         }
         return new PasswordValue(trimmedPasswordValue);
+    }
+
+    public static int parseLength(String s) throws ParseException {
+        try {
+            int length =  Integer.parseInt(s);
+            if (length <= 3) {
+                throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+            }
+            return length;
+        } catch (NumberFormatException e) {
+            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+        }
+    }
+
+    public static boolean parseBool(String s) throws ParseException {
+        if (!(s.equals("true") || s.equals("false"))) {
+            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_BOOLEAN);
+        }
+        return Boolean.valueOf(s);
     }
 }
