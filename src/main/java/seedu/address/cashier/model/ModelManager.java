@@ -355,10 +355,46 @@ public class ModelManager implements Model {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
+            if (description.length() >= 3) {
+                char[] arr = description.toCharArray();
+                ArrayList<String> combinations = getCombination(arr, arr.length);
+                for (int j = 0; j < combinations.size(); j++) {
+                    if (combinations.get(j).toLowerCase().contains(item.getDescription().toLowerCase())
+                            || item.getDescription().toLowerCase().contains(combinations.get(j))) {
+                        recommendedItems.add(item.getDescription());
+                        continue;
+                    }
+                }
+            }
         }
         return recommendedItems;
     }
 
+    /**
+     * Returns all subsets of the given character array that are of at least length 3.
+     *
+     * @param arr the character array
+     * @param n the length of the character array
+     * @return all subsets of the given character array that are longer than 3 characters
+     */
+    public ArrayList<String> getCombination(char[] arr, int n) {
+        ArrayList<String> result = new ArrayList<>();
+        for (int len = 1; len <= n; len++) {
+            String word = "";
+            for (int i = 0; i <= n - len; i++) {
+                //  Print characters from current starting point to current ending point
+                int j = i + len - 1;
+                for (int k = i; k <= j; k++) {
+                    word += String.valueOf(arr[k]);
+                }
+                if (word.length() >= 3) {
+                    result.add(word);
+                }
+            }
+        }
+        //return result.stream().filter(str -> str.length() > 3).collect(Collectors.toList());
+        return result;
+    }
 
     /**
      * Creates a new {@code Transaction} and append it to the data file.
