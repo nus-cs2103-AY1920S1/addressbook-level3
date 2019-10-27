@@ -112,11 +112,8 @@ public class QuizManager {
         Question question = questionBank.getQuestion(Index.fromZeroBased(questionIndex));
 
         int quizIndex = quizBank.getQuizIndex(quizId);
-        if (quizIndex != -1) {
-            Quiz quiz = quizBank.getQuiz(quizIndex);
-            return quiz.addQuestion(quizQuestionNumber, question);
-        }
-        return false;
+        Quiz quiz = quizBank.getQuiz(quizIndex);
+        return quiz.addQuestion(quizQuestionNumber, question);
     }
 
     /**
@@ -128,16 +125,13 @@ public class QuizManager {
      */
     public static boolean removeQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
         int quizIndex = quizBank.getQuizIndex(quizId);
-        if (quizIndex != -1) {
-            Quiz quiz = quizBank.getQuiz(quizIndex);
-            int numQuestions = quiz.getQuestionList().getQuestions().size();
-            if (questionNumber < 0 || questionNumber > numQuestions + 1) {
-                return false;
-            }
-            quiz.removeQuestion(questionNumber);
-            return true;
+        Quiz quiz = quizBank.getQuiz(quizIndex);
+        int numQuestions = quiz.getQuestionList().getQuestions().size();
+        if (questionNumber < 0 || questionNumber > numQuestions + 1) {
+            return false;
         }
-        return false;
+        quiz.removeQuestion(questionNumber);
+        return true;
     }
 
     /**
@@ -171,7 +165,7 @@ public class QuizManager {
 
     public static boolean checkQuizExists(String quizId, QuizBank quizBank) {
         int quizIndex = quizBank.getQuizIndex(quizId);
-        return quizIndex != 1;
+        return quizIndex != -1;
     }
 
     /**

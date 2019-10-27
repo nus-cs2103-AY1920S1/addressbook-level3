@@ -11,10 +11,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.question.Question;
 import seedu.address.model.quiz.QuizBank;
-import seedu.address.model.student.Student;
 
 /**
  * Represents the window to display a group of students.
@@ -80,7 +78,7 @@ public class QuizWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new QuestionCard(question, getIndex() + 1).getRoot());
+                setGraphic(new QuizQuestionCard(question, getIndex() + 1).getRoot());
             }
         }
     }
@@ -97,7 +95,7 @@ public class QuizWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new AnswerCard(question, getIndex() + 1).getRoot());
+                setGraphic(new QuizAnswerCard(question, getIndex() + 1).getRoot());
             }
         }
     }
@@ -114,7 +112,7 @@ public class QuizWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new QuestionsAndAnswersCard(question, getIndex() + 1).getRoot());
+                setGraphic(new QuizQuestionsAndAnswersCard(question, getIndex() + 1).getRoot());
             }
         }
     }

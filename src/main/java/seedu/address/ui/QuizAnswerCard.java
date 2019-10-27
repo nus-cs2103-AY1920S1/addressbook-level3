@@ -10,8 +10,8 @@ import seedu.address.model.question.Question;
 /**
  * An UI component that displays information of a {@code Answer}.
  */
-public class QuestionsAndAnswersCard extends UiPart<Region> {
-    private static final String FXML = "QuestionsAndAnswersListCard.fxml";
+public class QuizAnswerCard extends UiPart<Region> {
+    private static final String FXML = "QuizAnswerListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -32,11 +32,11 @@ public class QuestionsAndAnswersCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public QuestionsAndAnswersCard(Question question, int displayedIndex) {
+    public QuizAnswerCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
-        name.setText(question.getQuestion() + " Answer: " + question.getAnswer());
+        name.setText(question.getAnswer());
     }
 
     @Override
@@ -47,12 +47,12 @@ public class QuestionsAndAnswersCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof QuestionsAndAnswersCard)) {
+        if (!(other instanceof QuizAnswerCard)) {
             return false;
         }
 
         // state check
-        QuestionsAndAnswersCard card = (QuestionsAndAnswersCard) other;
+        QuizAnswerCard card = (QuizAnswerCard) other;
         return name.getText().equals(card.name.getText())
                 && question.equals(card.question);
     }

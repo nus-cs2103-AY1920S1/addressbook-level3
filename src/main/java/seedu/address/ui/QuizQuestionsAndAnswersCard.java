@@ -1,20 +1,18 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
-import seedu.address.model.student.Student;
 
 /**
- * An UI component that displays information of a {@code Question}.
+ * An UI component that displays information of a {@code Answer}.
  */
-public class QuestionCard extends UiPart<Region> {
-    private static final String FXML = "QuestionListCard.fxml";
+public class QuizQuestionsAndAnswersCard extends UiPart<Region> {
+    private static final String FXML = "QuizQuestionsAndAnswersListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -35,11 +33,20 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public QuestionCard(Question question, int displayedIndex) {
+    public QuizQuestionsAndAnswersCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
-        name.setText(question.getQuestion());
+        String text = question.getQuestion();
+        if(question instanceof McqQuestion) {
+            McqQuestion mcqQuestion = (McqQuestion) question;
+            text += "\na) " + mcqQuestion.getOptionA();
+            text += "\nb) " + mcqQuestion.getOptionB();
+            text += "\nc) " + mcqQuestion.getOptionC();
+            text += "\nd) " + mcqQuestion.getOptionD();
+        }
+        text += "\nAnswer: " + question.getAnswer();
+        name.setText(text);
     }
 
     @Override
@@ -50,12 +57,12 @@ public class QuestionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof QuestionCard)) {
+        if (!(other instanceof QuizQuestionsAndAnswersCard)) {
             return false;
         }
 
         // state check
-        QuestionCard card = (QuestionCard) other;
+        QuizQuestionsAndAnswersCard card = (QuizQuestionsAndAnswersCard) other;
         return name.getText().equals(card.name.getText())
                 && question.equals(card.question);
     }

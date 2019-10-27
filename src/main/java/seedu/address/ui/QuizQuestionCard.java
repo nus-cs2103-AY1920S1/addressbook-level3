@@ -5,13 +5,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
 
 /**
- * An UI component that displays information of a {@code Answer}.
+ * An UI component that displays information of a {@code Question}.
  */
-public class AnswerCard extends UiPart<Region> {
-    private static final String FXML = "AnswerListCard.fxml";
+public class QuizQuestionCard extends UiPart<Region> {
+    private static final String FXML = "QuizQuestionListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -32,11 +33,19 @@ public class AnswerCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public AnswerCard(Question question, int displayedIndex) {
+    public QuizQuestionCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
-        name.setText(question.getAnswer());
+        String text = question.getQuestion();
+        if(question instanceof McqQuestion) {
+            McqQuestion mcqQuestion = (McqQuestion) question;
+            text += "\na) " + mcqQuestion.getOptionA();
+            text += "\nb) " + mcqQuestion.getOptionB();
+            text += "\nc) " + mcqQuestion.getOptionC();
+            text += "\nd) " + mcqQuestion.getOptionD();
+        }
+        name.setText(text);
     }
 
     @Override
@@ -47,12 +56,12 @@ public class AnswerCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AnswerCard)) {
+        if (!(other instanceof QuizQuestionCard)) {
             return false;
         }
 
         // state check
-        AnswerCard card = (AnswerCard) other;
+        QuizQuestionCard card = (QuizQuestionCard) other;
         return name.getText().equals(card.name.getText())
                 && question.equals(card.question);
     }

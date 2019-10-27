@@ -42,12 +42,22 @@ public class QuizAddQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        boolean isSuccess = model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
-        if (isSuccess) {
-            return new CommandResult(generateSuccessMessage());
+        if (!model.checkQuizExists(quizId)) {
+            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {
-            return new CommandResult(generateFailureMessage());
+            boolean isSuccess = model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
+            if(isSuccess) {
+                return new CommandResult(generateSuccessMessage());
+            } else {
+                return new CommandResult(generateFailureMessage());
+            }
         }
+//        boolean isSuccess =
+//        if (isSuccess) {
+//            return new CommandResult(generateSuccessMessage());
+//        } else {
+//            return new CommandResult(generateFailureMessage());
+//        }
     }
 
     /**
@@ -63,7 +73,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
      * @return The String representation of a failure message.
      */
     private String generateFailureMessage() {
-        return "There is no quiz with the ID of " + quizId + ".";
+        return "That is a repeated question!";
     }
 
     @Override

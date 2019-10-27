@@ -3,8 +3,8 @@
     "windowWidth" : 1297.3333740234375,
     "windowHeight" : 737.3333129882812,
     "windowCoordinates" : {
-      "x" : -190,
-      "y" : 80
+      "x" : -255,
+      "y" : 64
     }
   },
   "addressBookFilePath" : "data\\addressbook.json",
