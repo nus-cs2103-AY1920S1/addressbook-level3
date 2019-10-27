@@ -275,7 +275,7 @@ public class Item {
                 .append("\nReminder! ")
                 .append(getReminder().get().toString());
 
-        builder.append("Priority: ")
+        builder.append("\nPriority: ")
                 .append(priority.toString());
 
         return builder.toString();
