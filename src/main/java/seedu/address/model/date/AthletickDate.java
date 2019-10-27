@@ -2,43 +2,28 @@ package seedu.address.model.date;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import seedu.address.logic.parser.exceptions.ParseException;
-
 /**
  * Represents date used in attendance and performance recording.
  */
 public class AthletickDate {
 
-    private static final String WRONG_DATE_FORMAT = "Invalid date specified.";
+    public static final String MESSAGE_CONSTRAINTS = "Please specify date in either MMYYYY or "
+            + "DDMMYYYY format.";
+    public static final String WRONG_DATE_FORMAT = "Invalid date specified.";
 
     private int day;
     private int month;
     private int year;
+    private int type;
+    private String mth;
 
-    public AthletickDate(String date) throws ParseException {
-        requireNonNull(date);
-        processDate(date);
-    }
-
-    /**
-     * Parses {@code date} and extracts the day, month and year
-     * @param date Date input by user
-     * @throws ParseException if {@code date} specified by user is invalid.
-     */
-    private void processDate(String date) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyy");
-        simpleDateFormat.setLenient(false);
-        try {
-            Date d = simpleDateFormat.parse(date);
-            day = Integer.parseInt(new SimpleDateFormat("d").format(d));
-            month = Integer.parseInt(new SimpleDateFormat("M").format(d));
-            year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
-        } catch (java.text.ParseException pe) {
-            throw new ParseException(WRONG_DATE_FORMAT);
-        }
+    public AthletickDate(int day, int month, int year, int type, String mth) {
+        requireNonNull(mth);
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.type = type;
+        this.mth = mth;
     }
 
     public int getDay() {
@@ -51,5 +36,22 @@ public class AthletickDate {
 
     public int getYear() {
         return year;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public String getMth() {
+        return mth;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof AthletickDate
+                && day == ((AthletickDate) other).day
+                && month == ((AthletickDate) other).month
+                && year == ((AthletickDate) other).year);
     }
 }

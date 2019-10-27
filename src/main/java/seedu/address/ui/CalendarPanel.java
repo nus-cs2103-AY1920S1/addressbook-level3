@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import seedu.address.model.date.AthletickDate;
 
 /**
  * UI component that is displayed when the command to view calendar is issued.
@@ -64,6 +65,18 @@ public class CalendarPanel extends UiPart<Region> {
         retrieveCurrentDate();
         setCurrentDateTitle();
         initialiseSelectedDate(0);
+        populateTrainingData();
+    }
+
+    public CalendarPanel(AthletickDate date) {
+        super(FXML);
+        setButtonImage();
+        calendar = Calendar.getInstance();
+        retrieveCurrentDate();
+        setCurrentDateTitle();
+        retrieveProvidedDate(date);
+        initialiseSelectedDate(0);
+        populateTrainingData();
     }
 
     private void setButtonImage() {
@@ -97,6 +110,12 @@ public class CalendarPanel extends UiPart<Region> {
         String currMonth = MONTHS[month];
         currYear.setText("" + year);
         currDayAndDate.setText(day + ", " + currMonth + " " + dayOfMonth);
+    }
+
+    private void retrieveProvidedDate(AthletickDate date) {
+        month = date.getMonth() - 1;
+        year = date.getYear();
+        calendar.set(year, month, 1);
     }
 
     /**
@@ -325,6 +344,18 @@ public class CalendarPanel extends UiPart<Region> {
                 counter++;
             }
         }
+    }
+
+    /**
+     * Checks and adds dot indicator to calendar for dates with training or performance entries.
+     */
+    private void populateTrainingData() {
+        // Get attendance
+            // get vbox and add image view aligned to top left
+            // add red indicator
+        // Get performance
+            // get vbox and add image view alignned to top left
+            // add purple indicator
     }
 
     /**
