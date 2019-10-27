@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
@@ -67,11 +68,12 @@ public class DeallocateCommand extends Command {
         EventDate updatedStartDate = eventToEdit.getStartDate();
         EventDate updatedEndDate = eventToEdit.getEndDate();
         EventManpowerAllocatedList updatedManpowerAllocatedList = new EventManpowerAllocatedList();
+        EventDateTimeMap eventDateTimeMap = eventToEdit.getEventDateTimeMap();
         Set<Tag> updatedTags = eventToEdit.getTags();
 
         return new Event(updatedEventName, updatedEventVenue,
                 updatedManpowerNeeded, updatedStartDate,
-                updatedEndDate, updatedManpowerAllocatedList, updatedTags);
+                updatedEndDate, updatedManpowerAllocatedList, eventDateTimeMap, updatedTags);
 
     }
 

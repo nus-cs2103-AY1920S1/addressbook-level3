@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
@@ -35,6 +36,7 @@ class JsonAdaptedEvent {
     private final String startDate;
     private final String endDate;
     private final String manpowerList;
+    private final String eventDateTimeMap;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -48,6 +50,7 @@ class JsonAdaptedEvent {
             @JsonProperty("startDate") String startDate,
             @JsonProperty("endDate") String endDate,
             @JsonProperty("manpowerList") String manpowerList,
+            @JsonProperty("eventDateTimeMap") String eventDateTimeMap,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.eventName = eventName;
         this.eventVenue = eventVenue;
@@ -55,6 +58,7 @@ class JsonAdaptedEvent {
         this.startDate = startDate;
         this.endDate = endDate;
         this.manpowerList = manpowerList;
+        this.eventDateTimeMap = eventDateTimeMap;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -70,6 +74,7 @@ class JsonAdaptedEvent {
         startDate = source.getStartDate().toString();
         endDate = source.getEndDate().toString();
         manpowerList = source.getManpowerAllocatedList().toString();
+        eventDateTimeMap = source.getEventDateTimeMap().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -135,10 +140,16 @@ class JsonAdaptedEvent {
 
         final EventManpowerAllocatedList modelManpowerAllocatedList = new EventManpowerAllocatedList(manpowerList);
 
+        if (!EventDateTimeMap.isValidEventDateTimeMap(eventDateTimeMap)) {
+            throw new IllegalValueException(EventDateTimeMap.MESSAGE_CONSTRAINTS);
+        }
+        final EventDateTimeMap modelEventDateTimeMap = new EventDateTimeMap(eventDateTimeMap);
+
         final Set<Tag> modelTags = new HashSet<>(eventTags);
 
         Event modelEvent = new Event(modelName, modelVenue,
-                modelManpowerNeeded, modelStartDate, modelEndDate, modelManpowerAllocatedList, modelTags);
+                modelManpowerNeeded, modelStartDate, modelEndDate, modelManpowerAllocatedList,
+                modelEventDateTimeMap, modelTags);
 
         return modelEvent;
     }

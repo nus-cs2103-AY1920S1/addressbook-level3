@@ -23,6 +23,7 @@ import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeePosition;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventDayTime;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
@@ -278,6 +279,33 @@ public class ParserUtil {
             throw new ParseException(EventManpowerNeeded.MESSAGE_CONSTRAINTS);
         }
         return new EventManpowerNeeded(trimmed);
+    }
+
+    /**
+     * Parses a {@code String eventDateTimeMap} into a {@code EventDateTimeMap}.
+     * Leading and trailing whitespaces will be trimmed.
+     * E.g. of String input: 03102019:1000-2000,05102019:1500-1700
+     *
+     * @throws ParseException if the given {@code EventDateTimeMap} is invalid.
+     */
+    public static EventDateTimeMap parseEventDateTimeMap(String eventDateTimeMap) throws ParseException {
+        EventDateTimeMap map = new EventDateTimeMap();
+        if (eventDateTimeMap.isEmpty()) {
+            return map;
+        }
+
+        String trimmed = eventDateTimeMap.trim();
+        try {
+            String[] eachDateTime = trimmed.split(",");
+            for (String dateTime : eachDateTime) {
+                String[] dateTimeSplit = dateTime.split(":"); //[0] is date, [1] is time-period
+                map.mapDateTime(parseDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
+            }
+        } catch (ArrayIndexOutOfBoundsException | ParseException e) {
+            throw new ParseException(EventDateTimeMap.MESSAGE_CONSTRAINTS);
+        }
+
+        return map;
     }
 
     /**

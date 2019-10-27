@@ -27,7 +27,7 @@ public class AssignDateCommand extends Command {
             + "Parameters: INDEX on/EVENTDATE time/TIMEPERIOD \n"
             + "Example: " + COMMAND_WORD + " 2 on/18/10/2019 time/0500-2000";
 
-    public static final String MESSAGE_SUCCESS = "Event has been successfully assigned!";
+    public static final String MESSAGE_SUCCESS = "[%s:%s] has been successfully assigned to Event: [%s]";
     private static final String EVENTDATE_INVALID = "Date provided is not within range of the current Event!";
 
     private final Index index;
@@ -61,7 +61,9 @@ public class AssignDateCommand extends Command {
         }
 
         eventToAssign.assignDateTime(targetEventDate, eventDayTime);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAssign.getName()), false,
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                eventToAssign.getName(), targetEventDate, eventDayTime), false,
                 false, index.getZeroBased());
     }
 

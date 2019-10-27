@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
@@ -51,15 +52,15 @@ public class AutoAllocateCommand extends Command {
     private final Set<Tag> tagList;
 
     /**
-     * @param eventIndex of the event in the filtered event list to edit (must contain a positive Integer)
+     * @param eventIndex         of the event in the filtered event list to edit (must contain a positive Integer)
      * @param manpowerCountToAdd for the event (must be a positive Integer)
-     * @param tagList list of tags to filter the list of available employees
+     * @param tagList            list of tags to filter the list of available employees
      */
     public AutoAllocateCommand(Index eventIndex, Integer manpowerCountToAdd, Set<Tag> tagList) {
         requireNonNull(eventIndex);
         requireNonNull(tagList);
 
-        assert(eventIndex.getOneBased() > 0);
+        assert (eventIndex.getOneBased() > 0);
 
         if (manpowerCountToAdd != null) {
             assert manpowerCountToAdd > 0;
@@ -72,7 +73,8 @@ public class AutoAllocateCommand extends Command {
 
     /**
      * Creates a list of employees who are available for the specified event.
-     * @param model the full list of employees
+     *
+     * @param model           the full list of employees
      * @param eventToAllocate the specified event to allocate manpower to
      */
     private List<Employee> createAvailableEmployeeListForEvent(Model model, Event eventToAllocate) {
@@ -88,6 +90,7 @@ public class AutoAllocateCommand extends Command {
 
     /**
      * Calculates the number of employees currently required by the specified event.
+     *
      * @param eventToAllocate the specified event to allocate manpower to
      */
     private Integer getManpowerNeededByEvent(Event eventToAllocate) {
@@ -151,6 +154,7 @@ public class AutoAllocateCommand extends Command {
         EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
         EventDate updatedStartDate = eventToEdit.getStartDate();
         EventDate updatedEndDate = eventToEdit.getEndDate();
+        EventDateTimeMap eventDateTimeMap = eventToEdit.getEventDateTimeMap();
         List<String> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
         Set<Tag> updatedTags = eventToEdit.getTags();
 
@@ -162,7 +166,7 @@ public class AutoAllocateCommand extends Command {
 
         return new Event(updatedEventName, updatedEventVenue,
                 updatedManpowerNeeded, updatedStartDate,
-                updatedEndDate, updatedManpowerAllocatedList, updatedTags);
+                updatedEndDate, updatedManpowerAllocatedList, eventDateTimeMap, updatedTags);
     }
 
 
