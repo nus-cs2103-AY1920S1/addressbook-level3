@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.earnings.Earnings;
-
+import seedu.address.model.task.Task;
 
 
 /**
@@ -21,18 +21,27 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private boolean unknown;
+
     private boolean showEarnings;
     private Earnings earnings;
     private boolean userRegister = false;
+    private boolean showTasks;
+    private Task task;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings) {
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean showEarnings, boolean unknown, boolean showTasks) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showEarnings = showEarnings;
+        this.unknown = unknown;
+        this.showTasks = showTasks;
+
     }
 
     /**
@@ -45,6 +54,19 @@ public class CommandResult {
         this.exit = exit;
         this.showEarnings = showEarnings;
         this.earnings = earnings;
+
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp,
+                         boolean exit, boolean showTasks, Task task) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showTasks = showTasks;
+        this.task = task;
     }
 
     /**
@@ -52,7 +74,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false, false
+        );
     }
 
     public String getFeedbackToUser() {
@@ -71,6 +94,10 @@ public class CommandResult {
         return showEarnings;
     }
 
+    public boolean isUnknown() {
+        return unknown;
+    }
+
     public Earnings getEarnings() {
         return earnings;
     }
@@ -81,6 +108,14 @@ public class CommandResult {
 
     public boolean isRegister() {
         return userRegister;
+    }
+  
+    public boolean isTasks() {
+        return showTasks;
+    }
+
+    public Task getTask() {
+        return task;
     }
 
     @Override

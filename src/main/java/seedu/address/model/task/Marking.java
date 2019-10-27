@@ -11,7 +11,9 @@ public class Marking {
     public static final String MESSAGE_CONSTRAINTS =
             "Marks should only be 'Y' or 'N'";
 
-    private static boolean isMarked;
+    private String status;
+    private boolean isMarked;
+
 
     public Marking(String marking) {
         requireNonNull(marking);
@@ -21,6 +23,19 @@ public class Marking {
         } else if (marking.equals("N")) {
             isMarked = false;
         }
+        setStatus();
+    }
+
+    private void setStatus() {
+        if (isMarked) {
+            status = "Y";
+        } else {
+            status = "N";
+        }
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     /**
@@ -33,16 +48,16 @@ public class Marking {
     @Override
     public String toString() {
         if (isMarked) {
-            return "marked\n";
+            return "Y\n";
         } else {
-            return "unmarked\n";
+            return "N\n";
         }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || other instanceof Marking // instanceof handles nulls
-                && ((Marking) other).isMarked == this.isMarked; // state check
+                || (other instanceof Marking // instanceof handles nulls
+                && ((Marking) other).isMarked == this.isMarked); // state check
     }
 }

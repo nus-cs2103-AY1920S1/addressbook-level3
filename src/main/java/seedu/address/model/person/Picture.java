@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's email in the address book.
+ * Represents a Person's picture in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPicture(String)}
  */
 public class Picture {
@@ -17,9 +17,9 @@ public class Picture {
     public final String value;
 
     /**
-     * Constructs an {@code Email}.
+     * Constructs an {@code Picture}.
      *
-     * @param picture A valid email address.
+     * @param picture A valid picture.
      */
     public Picture(String picture) {
         requireNonNull(picture);
@@ -28,7 +28,7 @@ public class Picture {
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a valid picture.
      */
     public static boolean isValidPicture(String test) {
         return test.matches(VALIDATION_REGEX);

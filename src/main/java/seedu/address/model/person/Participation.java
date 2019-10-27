@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's participation in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidParticipation(String)}
  */
 public class Participation {
@@ -16,9 +16,9 @@ public class Participation {
     public final String value;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Participation}.
      *
-     * @param participation A valid phone number.
+     * @param participation A valid participation.
      */
     public Participation(String participation) {
         requireNonNull(participation);
@@ -27,7 +27,7 @@ public class Participation {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid participation.
      */
     public static boolean isValidParticipation(String test) {
         return test.matches(VALIDATION_REGEX);

@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MARKING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
 import java.util.Set;
@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.task.Marking;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDescription;
 import seedu.address.model.task.TaskTime;
 
 /**
@@ -26,19 +26,18 @@ public class AddTaskCommandParser {
      */
     public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TASK_DESCRIPTION, PREFIX_MARKING, PREFIX_TASK_TIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_CLASSID, PREFIX_MARKING, PREFIX_TASK_TIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_DESCRIPTION, PREFIX_MARKING, PREFIX_TASK_TIME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSID, PREFIX_MARKING, PREFIX_TASK_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
 
-        TaskDescription taskDescription = ParserUtil.parseTaskDescription(argMultimap
-                .getValue(PREFIX_TASK_DESCRIPTION).get());
+        ClassId classId = ParserUtil.parseClassId(argMultimap.getValue(PREFIX_CLASSID).get());
         Marking marking = ParserUtil.parseMarking(argMultimap.getValue(PREFIX_MARKING).get());
         Set<TaskTime> taskTimeList = ParserUtil.parseTaskTimes(argMultimap.getAllValues(PREFIX_TASK_TIME));
 
-        Task task = new Task(taskDescription, taskTimeList, marking);
+        Task task = new Task(classId, taskTimeList, marking);
 
         return new AddTaskCommand(task);
     }

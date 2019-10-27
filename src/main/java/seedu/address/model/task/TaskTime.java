@@ -17,8 +17,9 @@ public class TaskTime {
                     + "with format: dd/MM/yyyy HH:mm, dd/MM/yyyy HH:mm, "
                     + "with the ending time after the starting time.";
 
-    public final String starting;
-    public final String ending;
+    public final String fullTime;
+    private final String starting;
+    private final String ending;
 
     public TaskTime(String taskTime) {
         requireAllNonNull(taskTime);
@@ -28,6 +29,7 @@ public class TaskTime {
         String endingTime = twoTime[1];
         starting = startingTime;
         ending = endingTime;
+        fullTime = starting + ", " + ending;
     }
 
     /**
@@ -73,7 +75,7 @@ public class TaskTime {
     */
     @Override
     public String toString() {
-        return "Starting:\n" + starting + "\nEnding:\n" + ending + "\n";
+        return "Starting:" + starting + " ,Ending:" + ending;
     }
 
     @Override

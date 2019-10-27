@@ -31,7 +31,6 @@ public class ChangeTabCommandParser implements Parser<ChangeTabCommand> {
         }
 
         WindowView view = ParserUtil.parseWindowView(argMultimap.getValue(PREFIX_TAB_CHANGE).get());
-
         return new ChangeTabCommand(view);
     }
 
