@@ -10,6 +10,12 @@ import seedu.mark.commons.exceptions.IllegalValueException;
 public class AnnotationTest {
 
     @Test
+    public void hasNote_success() {
+        assertEquals(true, new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE));
+        assertEquals(false, new Annotation(Highlight.YELLOW));
+    }
+
+    @Test
     public void createNew_nullHighlightAnyNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
                 new Annotation(null, AnnotationNote.SAMPLE_NOTE));
@@ -36,6 +42,12 @@ public class AnnotationTest {
         assertNotEquals(an, an2);
         an2.setHighlight(Highlight.ORANGE);
         assertEquals(an, an2);
+    }
+
+    @Test
+    public void toString_checkCorrectFormat() {
+        assertEquals("yellow :: " + AnnotationNote.SAMPLE_NOTE.toString(),
+                new Annotation(Highlight.YELLOW, AnnotationNote.SAMPLE_NOTE).toString());
     }
 
 }

@@ -5,44 +5,154 @@
     "url" : "https://alice@example.com",
     "remark" : "123, Jurong West Ave 6, #08-111",
     "folder" : "contacts",
-    "tagged" : [ "friends" ]
-    }, {
+    "tagged" : [ "friends" ],
+    "cachedCopies" : [ ]
+  }, {
     "name" : "Benson Meier",
     "url" : "https://johnd@example.com",
     "remark" : "311, Clementi Ave 2, #02-25",
     "folder" : "contacts",
     "tagged" : [ "owesMoney", "friends" ],
-    "cachedCopies": [ "<div id=\"readability-page-1\" class=\"page\">\n <div id=\"storytext\"> \n  <div id=\"js-ie-storytop\">    \n   <div id=\"cnnplayer_cvp_story_0\"> \n    <div> \n     <div id=\"vid0\" href=\"/video/news/2015/11/30/homeboy-industries-priest.cnnmoney\" onclick=\"javascript:VideoPlayerManager.playVideos('cvp_story_0'); return false;\"> \n      <video id=\"cvp_story_0\" preload=\"metadata\" poster=\"\" src=\"http://ht3.cdn.turner.com/money/big/news/2015/11/30/homeboy-industries-priest.cnnmoney_1024x576.mp4\" controls=\"controls\" width=\"300\" height=\"169\"></video> \n      <div id=\"cvp_story_0_endSlate\"> \n       <div> \n        <div>  \n         <img src=\"\" alt=\"\" width=\"620\" height=\"348\"> \n        </div>  \n       </div> \n      </div> \n     </div> \n    </div>  \n   </div> \n  </div>  \n  <h2>The U.S. has long been heralded as a land of opportunity -- a place where anyone can succeed regardless of the economic class they were born into.</h2> \n  <p> But a new report released on Monday by <a href=\"http://web.stanford.edu/group/scspi-dev/cgi-bin/\" target=\"_blank\">Stanford University's Center on Poverty and Inequality</a> calls that into question. </p>  \n  <p> The report assessed poverty levels, income and wealth inequality, economic mobility and unemployment levels among 10 wealthy countries with social welfare programs. </p> \n  <div id=\"smartassetcontainer\"> \n   <div> \n    <div> \n     <div id=\"smartasset-article\"> \n      <div> \n       <p> Powered by SmartAsset.com </p>   \n       <img src=\"https://smrt.as/ck\"> \n      </div> \n     </div> \n    </div> \n   </div> \n  </div> \n  <p> Among its key findings: the class you're born into matters much more in the U.S. than many of the other countries. </p> \n  <p> As the <a href=\"http://web.stanford.edu/group/scspi-dev/cgi-bin/publications/state-union-report\" target=\"_blank\">report states</a>: \"[T]he birth lottery matters more in the U.S. than in most well-off countries.\" </p>  \n  <p> But this wasn't the only finding that suggests the U.S. isn't quite living up to its reputation as a country where everyone has an equal chance to get ahead through sheer will and hard work. </p> \n  <p> <a href=\"http://money.cnn.com/2016/01/11/news/economy/rich-taxes/index.html?iid=EL\"><span>Related: Rich are paying more in taxes but not as much as they used to</span></a> </p>  \n  <p> The report also suggested the U.S. might not be the \"jobs machine\" it thinks it is, when compared to other countries. </p> \n  <p> It ranked near the bottom of the pack based on the levels of unemployment among men and women of prime working age. The study determined this by taking the ratio of employed men and women between the ages of 25 and 54 compared to the total population of each country. </p> \n  <p> The overall rankings of the countries were as follows:<span> <br>1. Finland <span> <br>2. Norway<span> <br>3. Australia <span> <br>4. Canada<span> <br>5. Germany<span> <br>6. France<span> <br>7. United Kingdom <span> <br>8. Italy<span> <br>9. Spain<span> <br>10. United States </span></span> </span> </span> </span> </span> </span> </span> </span> </span> </p> \n  <p> The low ranking the U.S. received was due to its extreme levels of wealth and income inequality and the ineffectiveness of its \"safety net\" -- social programs aimed at reducing poverty. </p> \n  <p> <a href=\"http://money.cnn.com/2016/01/05/news/economy/chicago-segregated/index.html?iid=EL\"><span>Related: Chicago is America's most segregated city</span></a> </p> \n  <p> The report concluded that the American safety net was ineffective because it provides only half the financial help people need. Additionally, the levels of assistance in the U.S. are generally lower than in other countries. </p>   \n  <p> <span> CNNMoney (New York) </span> <span>First published February 1, 2016: 1:28 AM ET</span> </p> \n </div>\n</div>" ]
+    "cachedCopies" : [ {
+      "html" : "<div id=\"readability-page-1\" class=\"page\">\n <div> \n  <div> \n   <div> \n    <div> \n     <div> \n      <div> \n       <div> \n        <section>  \n         <div> \n          <p> \n           <figure> \n            <amp-img srcset=\"https://bobcat.grahamdigital.com/image/upload/view?width=320&amp;height=180&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 400w, https://bobcat.grahamdigital.com/image/upload/view?width=420&amp;height=236&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 600w, https://bobcat.grahamdigital.com/image/upload/view?width=630&amp;height=353&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 768w, https://bobcat.grahamdigital.com/image/upload/view?width=420&amp;height=236&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 992w, https://bobcat.grahamdigital.com/image/upload/view?width=630&amp;height=353&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 1200w, https://bobcat.grahamdigital.com/image/upload/view?width=760&amp;height=428&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg 1201w\" src=\"https://bobcat.grahamdigital.com/image/upload/view?width=320&amp;height=180&amp;method=fit&amp;url=https://sharedmedia.grahamdigital.com/photo/2016/02/01/US-class-structure-jpg_2014379_ver1.0.jpg\" on=\"tap:lightbox1\" role=\"button\" tabindex=\"0\" title=\"\" layout=\"responsive\" width=\"1280\" height=\"720\" alt=\"\"> \n            </amp-img> \n            <small>Copyright 2016 Cable News Network/Turner Broadcasting System, Inc. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</small> \n            <amp-image-lightbox id=\"lightbox1\" layout=\"nodisplay\"></amp-image-lightbox> \n           </figure></p>    \n          <div itemprop=\"articleBody\">   \n           <p>The U.S. has long been heralded as a land of opportunity -- a place where anyone can succeed regardless of the economic class they were born into. </p>\n           <p>But a new report released Monday by Stanford University's Center on Poverty and Inequality calls that into question. </p>\n           <p>The report assessed poverty levels, income and wealth inequality, economic mobility and unemployment levels among 10 wealthy countries with social welfare programs. </p>\n           <p>Among its key findings: the class you're born into matters much more in the U.S. than many of the other countries. </p>\n           <p>As the report states: \"[T]he birth lottery matters more in the U.S. than in most well-off countries.\" </p>\n           <p>But this wasn't the only finding that suggests the U.S. isn't quite living up to its reputation as a country where everyone has an equal chance to get ahead through sheer will and hard work. </p>\n           <p>The report also suggested the U.S. might not be the \"jobs machine\" it thinks it is, when compared to other countries. </p>\n           <p>It ranked near the bottom of the pack based on the levels of unemployment among men and women of prime working age. The study determined this by taking the ratio of employed men and women between the ages of 25 and 54 compared to the total population of each country. </p>\n           <p>The overall rankings of the countries were as follows: 1. Finland 2. Norway 3. Australia 4. Canada 5. Germany 6. France 7. United Kingdom 8. Italy 9. Spain 10. United States </p>\n           <p>The low ranking the U.S. received was due to its extreme levels of wealth and income inequality and the ineffectiveness of its \"safety net\" -- social programs aimed at reducing poverty. </p>\n           <p>The report concluded that the American safety net was ineffective because it provides only half the financial help people need. Additionally, the levels of assistance in the U.S. are generally lower than in other countries. </p>\n           <p>Copyright 2016 Cable News Network/Turner Broadcasting System, Inc. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p> \n          </div>  \n         </div>\n        </section> \n       </div> \n      </div>  \n     </div> \n    </div> \n   </div> \n  </div> \n </div>\n</div>",
+      "offlineDoc" : {
+        "numStray" : 0,
+        "paragraphs" : [ {
+          "pid" : "P1",
+          "content" : "",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P4",
+          "content" : "But a new report released Monday by Stanford University's Center on Poverty and Inequality calls that into question.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P5",
+          "content" : "The report assessed poverty levels, income and wealth inequality, economic mobility and unemployment levels among 10 wealthy countries with social welfare programs.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P2",
+          "content" : "",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P3",
+          "content" : "The U.S. has long been heralded as a land of opportunity -- a place where anyone can succeed regardless of the economic class they were born into.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P14",
+          "content" : "Copyright 2016 Cable News Network/Turner Broadcasting System, Inc. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P8",
+          "content" : "But this wasn't the only finding that suggests the U.S. isn't quite living up to its reputation as a country where everyone has an equal chance to get ahead through sheer will and hard work.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P9",
+          "content" : "The report also suggested the U.S. might not be the \"jobs machine\" it thinks it is, when compared to other countries.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P6",
+          "content" : "Among its key findings: the class you're born into matters much more in the U.S. than many of the other countries.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P7",
+          "content" : "As the report states: \"[T]he birth lottery matters more in the U.S. than in most well-off countries.\"",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P12",
+          "content" : "The low ranking the U.S. received was due to its extreme levels of wealth and income inequality and the ineffectiveness of its \"safety net\" -- social programs aimed at reducing poverty.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P13",
+          "content" : "The report concluded that the American safety net was ineffective because it provides only half the financial help people need. Additionally, the levels of assistance in the U.S. are generally lower than in other countries.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P10",
+          "content" : "It ranked near the bottom of the pack based on the levels of unemployment among men and women of prime working age. The study determined this by taking the ratio of employed men and women between the ages of 25 and 54 compared to the total population of each country.",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        }, {
+          "pid" : "P11",
+          "content" : "The overall rankings of the countries were as follows: 1. Finland 2. Norway 3. Australia 4. Canada 5. Germany 6. France 7. United Kingdom 8. Italy 9. Spain 10. United States",
+          "annotation" : {
+            "highlight" : null,
+            "note" : null
+          }
+        } ]
+      }
+    } ]
   }, {
     "name" : "Carl Kurz",
     "url" : "https://heinz@example.com",
     "remark" : "wall street",
     "folder" : "family",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
   }, {
     "name" : "Daniel Meier",
     "url" : "https://cornelia@example.com",
     "remark" : "10th street",
     "folder" : "ROOT",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "friends" ],
+    "cachedCopies" : [ ]
   }, {
     "name" : "Elle Meyer",
     "url" : "https://werner@example.com",
     "remark" : "michegan ave",
     "folder" : "family",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "url" : "https://lydia@example.com",
     "remark" : "little tokyo",
     "folder" : "ROOT",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
   }, {
     "name" : "George Best",
     "url" : "https://anna@example.com",
     "remark" : "4th street",
     "folder" : "ROOT",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "cachedCopies" : [ ]
   } ],
   "folderStructure": {
     "name": "ROOT",

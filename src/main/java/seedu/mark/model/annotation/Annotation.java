@@ -13,11 +13,20 @@ public class Annotation {
     /** Paragraph notes, if any.*/
     private AnnotationNote note;
 
+    /**
+     * Constructs an {@code Annotation} with only highlight {@code colour}.
+     * {@code colour} must be non-null.
+     */
     public Annotation(Highlight colour) {
         requireNonNull(colour);
         this.colour = colour;
+        this.note = null;
     }
 
+    /**
+     * Constructs an {@code Annotation} that has highlight {@code colour} and note {@code note}.
+     * Both {@code colour} and {@code note} must be non-null.
+     */
     public Annotation(Highlight colour, AnnotationNote note) {
         this(colour);
         requireNonNull(note);
@@ -54,12 +63,13 @@ public class Annotation {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        } else if (!(other instanceof Annotation)) {
-            return false;
-        } else {
-            return this.colour.equals(((Annotation) other).colour)
-                    && (this.note == ((Annotation) other).note || this.note.equals(((Annotation) other).note));
         }
+        if (!(other instanceof Annotation)) {
+            return false;
+        }
+        return this.getHighlight().equals(((Annotation) other).getHighlight())
+                && (this.getNote() == ((Annotation) other).getNote()
+                || this.getNote().equals(((Annotation) other).getNote()));
     }
 
     @Override

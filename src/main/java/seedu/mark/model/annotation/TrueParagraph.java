@@ -6,7 +6,6 @@ import seedu.mark.commons.core.index.Index;
 
 /**
  * Represents a paragraph that exists in the cache.
- * TODO: make paragraphs immutable (so observable list does not break)
  */
 public class TrueParagraph extends Paragraph {
 
@@ -109,12 +108,12 @@ public class TrueParagraph extends Paragraph {
     public boolean equals(Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof TrueParagraph)) {
-            return false;
-        } else {
-            return this.id.equals(((TrueParagraph) o).id)
-                    && this.content.equals(((TrueParagraph) o).content)
-                    && this.annotation.equals(((TrueParagraph) o).annotation);
         }
+        if (!(o instanceof TrueParagraph)) {
+            return false;
+        }
+        return this.id.equals(((TrueParagraph) o).id)
+                && this.content.equals(((TrueParagraph) o).content)
+                && this.annotation.equals(((TrueParagraph) o).annotation);
     }
 }

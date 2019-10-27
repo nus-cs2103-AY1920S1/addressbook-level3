@@ -14,7 +14,7 @@ class AnnotationNoteTest {
     public void makeNote_validNoteContent_success() {
         try {
             AnnotationNote an = AnnotationNote.makeNote("legal note content");
-            assertEquals(AnnotationNote.makeNote("legal note content"), an);
+            assertEquals(an, AnnotationNote.makeNote("legal note content"));
             assertEquals(an.toString(), "legal note content");
         } catch (Exception e) {
             fail();

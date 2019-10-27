@@ -30,6 +30,9 @@ public class OfflineDocument {
 
     public static final String MESSAGE_INVALID_PID = "invalid paragraph index provided. "
             + "Unable to annotate nonexistent paragraph.";
+    public static final String MESSAGE_ASSERT_NOT_PHANTOM = "Cannot add annotation to phantom paragraphs.";
+    public static final String MESSAGE_ASSERT_PHANTOM_HAS_NOTE = "Annotation given does not have a note; "
+            + "no phantom paragraph can have no note";
 
     public final Logger logger = LogsCenter.getLogger(OfflineDocument.class);
 
@@ -77,9 +80,11 @@ public class OfflineDocument {
 
     /**
      * Loads stored annotations to offline document.
+     * @param annotations HashMap to map {@code Annotation} to {@code ParagraphIdentifier}; must be non-null
      * TODO: if time allows -- error message for user if paragraph was auto shifted to stray? (corrupted file)
      */
     public void loadAnnotations(HashMap<Annotation, ParagraphIdentifier> annotations) {
+        requireNonNull(annotations);
         for (Annotation a : annotations.keySet()) {
             if (a == null) {
                 logger.log(Level.WARNING, "Annotation loaded is null. Ignored.");
@@ -112,7 +117,11 @@ public class OfflineDocument {
             }
 
             Paragraph p = paragraphs.get(id);
-            p.updateId(ParagraphIdentifier.makeStrayId(Index.fromZeroBased(i + 1 - emptyCount)));
+            ParagraphIdentifier newId = ParagraphIdentifier.makeStrayId(Index.fromZeroBased(i - emptyCount));
+            p.updateId(newId);
+
+            this.paragraphs.remove(id);
+            this.paragraphs.put(newId, p);
         }
         numStray -= emptyCount;
     }
@@ -125,7 +134,7 @@ public class OfflineDocument {
      * @throws IllegalValueException if {@code pid} is invalid.
      */
     public void addAnnotation(ParagraphIdentifier pid, Annotation an) throws IllegalValueException {
-        assert !pid.isStray() : "Cannot add annotation to phantom paragraphs.";
+        assert (!pid.isStray()) : MESSAGE_ASSERT_NOT_PHANTOM;
         if (!hasParagraph(pid)) {
             throw new IllegalValueException(MESSAGE_INVALID_PID);
         }
@@ -187,7 +196,8 @@ public class OfflineDocument {
      * @param an The annotation to make stray
      */
     public void addPhantom(Annotation an) {
-        assert an.hasNote() : "Annotation given does not have a note; no phantom paragraph can have no note";
+        requireNonNull(an);
+        assert an.hasNote() : MESSAGE_ASSERT_PHANTOM_HAS_NOTE;
         numStray++;
         Paragraph p = new PhantomParagraph(Index.fromOneBased(numStray), an);
         this.paragraphs.put(p.getId(), p);

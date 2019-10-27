@@ -42,9 +42,14 @@ public class AnnotationNote {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof AnnotationNote
-                && ((AnnotationNote) other).content.equals(this.content));
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof AnnotationNote)) {
+            return false;
+        }
+
+        return ((AnnotationNote) other).content.equals(this.content);
     }
 
     @Override

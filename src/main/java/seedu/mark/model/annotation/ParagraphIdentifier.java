@@ -50,10 +50,14 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof ParagraphIdentifier
-                && ((ParagraphIdentifier) other).index.equals(this.index)
-                && ((ParagraphIdentifier) other).type == this.type);
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ParagraphIdentifier)) {
+            return false;
+        }
+        return ((ParagraphIdentifier) other).index.equals(this.index)
+                && ((ParagraphIdentifier) other).type == this.type;
     }
 
     @Override
