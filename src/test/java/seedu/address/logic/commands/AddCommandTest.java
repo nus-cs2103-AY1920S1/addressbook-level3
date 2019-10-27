@@ -260,6 +260,8 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyCalendar getCalendar() {
+            
+        }
 
         public void setTask(Task target, Task editedTask) {
 
