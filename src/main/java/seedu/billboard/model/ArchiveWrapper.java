@@ -14,7 +14,6 @@ import seedu.billboard.model.expense.Expense;
 
 /**
  * Wraps all data at the archive level
- * Duplicate archives are not allowed
  */
 public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
 
