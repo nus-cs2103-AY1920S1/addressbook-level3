@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.nio.file.Path;
 import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -251,6 +252,11 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredScheduleList(Predicate<Schedule> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<Schedule> getConflictingSchedules(Schedule schedule) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -15,9 +15,9 @@ import seedu.address.model.schedule.Schedule;
 public class TypicalSchedules {
 
     private static final Calendar DEFAULT_CALENDAR_1 = new Calendar.Builder()
-            .setDate(2019, 12, 17).setTimeOfDay(13, 0, 0).build();
+            .setDate(2019, 11, 17).setTimeOfDay(13, 0, 0).build();
     private static final Calendar DEFAULT_CALENDAR_2 = new Calendar.Builder()
-            .setDate(2020, 7, 1).setTimeOfDay(19, 30, 0).build();
+            .setDate(2020, 6, 1).setTimeOfDay(19, 30, 0).build();
     private static final Calendar CBD_CALENDAR = new Calendar.Builder()
             .setDate(2020, 11, 11).setTimeOfDay(11, 11, 0).build();
 
@@ -28,10 +28,10 @@ public class TypicalSchedules {
     private static final String DEFAULT_TAG_1 = "Carrier";
     private static final String DEFAULT_TAG_2 = "Freebie";
 
-    public static final Schedule SCHEDULEONE = new ScheduleBuilder().withId(UUID.randomUUID())
+    public static final Schedule MONDAY_SCHEDULE = new ScheduleBuilder().withId(UUID.randomUUID())
             .withCalendar(DEFAULT_CALENDAR_1).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
 
-    public static final Schedule SCHEDULETWO = new ScheduleBuilder().withId(UUID.randomUUID())
+    public static final Schedule FRIDAY_SCHEDULE = new ScheduleBuilder().withId(UUID.randomUUID())
             .withCalendar(DEFAULT_CALENDAR_2).withVenue(DEFAULT_VENUE_2).withTags(DEFAULT_TAG_2).build();
 
     public static final Schedule CBD_SCHEDULE = new ScheduleBuilder()
@@ -73,8 +73,6 @@ public class TypicalSchedules {
     public static final Schedule SCHEDULESTATSEVEN = new ScheduleBuilder().withId(UUID.randomUUID())
             .withCalendar(CBD_CALENDAR_7).withVenue(DEFAULT_VENUE_1).withTags(DEFAULT_TAG_1).build();
 
-
-
     /**
      * Returns a {@code DataBook} with all the typical schedules.
      */
@@ -87,6 +85,6 @@ public class TypicalSchedules {
     }
 
     public static List<Schedule> getTypicalSchedules() {
-        return new ArrayList<>(Arrays.asList(SCHEDULEONE, SCHEDULETWO, CBD_SCHEDULE));
+        return new ArrayList<>(Arrays.asList(MONDAY_SCHEDULE, FRIDAY_SCHEDULE, CBD_SCHEDULE));
     }
 }

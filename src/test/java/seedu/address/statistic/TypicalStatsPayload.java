@@ -1,10 +1,9 @@
-package seedu.address.commons.util;
+package seedu.address.statistic;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import seedu.address.logic.commands.statisticcommand.StatisticType;
-import seedu.address.statistic.StatsPayload;
 
 /**
  *
@@ -106,10 +105,18 @@ public class TypicalStatsPayload {
             new StatsPayloadBuilder().withStatsType(StatisticType.COST)
                     .withStartingDate(STARTING_DATE_4)
                     .withEndingDate(ENDING_DATE_5).build();
-    public static final StatsPayload DEFAULT_STATS_PAYLOAD_GRAPH4 =
+
+
+
+    public static final StatsPayload DEFAULT_STATS_PAYLOAD_STATS_PAYLOAD_TEST =
             new StatsPayloadBuilder().withStatsType(StatisticType.COST)
                     .withStartingDate(STARTING_DATE_4)
                     .withEndingDate(ENDING_DATE_4).build();
+
+    public static final StatsPayload DEFAULT_STATS_PAYLOAD_STATS_PAYLOAD_TEST_IS_DEFAULT =
+            new StatsPayloadBuilder().withStatsType(StatisticType.COST)
+                    .withStartingDate(MIN_DATE_TEST)
+                    .withEndingDate(MAX_DATE_TEST).build();
 
 
 
