@@ -1,6 +1,7 @@
 package organice.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static organice.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static organice.logic.commands.CommandTestUtil.NAME_DESC_DOCTOR_AMY;
@@ -9,6 +10,11 @@ import static organice.logic.commands.CommandTestUtil.PHONE_DESC_DOCTOR_AMY;
 import static organice.logic.commands.CommandTestUtil.TYPE_DESC_DOCTOR_AMY;
 import static organice.testutil.Assert.assertThrows;
 import static organice.testutil.TypicalPersons.DOCTOR_AMY;
+import static organice.testutil.TypicalPersons.DONOR_ELLE;
+import static organice.testutil.TypicalPersons.DONOR_FIONA;
+import static organice.testutil.TypicalPersons.DONOR_IRENE_DONOR;
+import static organice.testutil.TypicalPersons.PATIENT_CARL;
+import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.ObservableList;
 import organice.logic.commands.AddCommand;
 import organice.logic.commands.CommandResult;
 import organice.logic.commands.ListCommand;
@@ -26,6 +33,8 @@ import organice.model.Model;
 import organice.model.ModelManager;
 import organice.model.ReadOnlyAddressBook;
 import organice.model.UserPrefs;
+import organice.model.person.MatchedDonor;
+import organice.model.person.MatchedPatient;
 import organice.model.person.Person;
 import organice.storage.JsonAddressBookStorage;
 import organice.storage.JsonUserPrefsStorage;
@@ -91,6 +100,35 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getMatchList_matchDonors_allContentsAreMatches() {
+        model.addPerson(DONOR_IRENE_DONOR);
+        model.addPerson(PATIENT_IRENE);
+        model.addPerson(DONOR_ELLE);
+        model.addPerson(DONOR_FIONA);
+
+        model.matchDonors(PATIENT_IRENE);
+        ObservableList<Person> listOfMatches = model.getMatchList();
+        boolean isAllMatchedDonor = listOfMatches.stream().allMatch(match -> match instanceof MatchedDonor);
+
+        assertTrue(isAllMatchedDonor);
+    }
+
+    @Test
+    public void getMatchList_matchAllPatients_allContentsAreMatches() {
+        model.addPerson(DONOR_IRENE_DONOR);
+        model.addPerson(PATIENT_IRENE);
+        model.addPerson(PATIENT_CARL);
+        model.addPerson(DONOR_ELLE);
+        model.addPerson(DONOR_FIONA);
+
+        model.matchAllPatients();
+        ObservableList<Person> listOfMatches = model.getMatchList();
+        boolean isAllMatchedPatient = listOfMatches.stream().allMatch(match -> match instanceof MatchedPatient);
+
+        assertTrue(isAllMatchedPatient);
     }
 
     /**

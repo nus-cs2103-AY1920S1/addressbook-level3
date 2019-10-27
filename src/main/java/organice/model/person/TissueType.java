@@ -3,6 +3,9 @@ package organice.model.person;
 import static java.util.Objects.requireNonNull;
 import static organice.commons.util.AppUtil.checkArgument;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 /**
  * Represents a Person's tissue type in ORGANice.
  * Guarantees: immutable; is valid as declared in {@link #isValidTissueType(String)}
@@ -44,6 +47,25 @@ public class TissueType {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns percentage of tissue type match (0 - 100).
+     */
+    public Double getPercentageMatch(TissueType match) {
+        String[] tissueTypeThis = this.value.split(",");
+        String[] tissueTypeMatch = match.value.split(",");
+
+        HashSet<String> commonTypes = new HashSet<>(Arrays.asList(tissueTypeThis));
+        int numberOfCommonTypes = 0;
+
+        for (int i = 0; i < 6; i++) {
+            if (commonTypes.contains(tissueTypeMatch[i])) {
+                numberOfCommonTypes++;
+            }
+        }
+        Double percentage = (double) numberOfCommonTypes * 100 / 6;
+        return percentage;
     }
 
     /**

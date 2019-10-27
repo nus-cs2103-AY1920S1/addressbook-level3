@@ -12,6 +12,7 @@ import static organice.logic.commands.CommandTestUtil.VALID_NAME_DONOR_JOHN;
 import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_IRENE;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_DOCTOR_AMY;
+import static organice.logic.commands.CommandTestUtil.VALID_NRIC_DONOR_IRENE_DONOR;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_DONOR_JOHN;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_IRENE;
@@ -52,13 +53,13 @@ public class TypicalPersons {
             .withDoctorInCharge("S1532142A").build();
     public static final Patient PATIENT_DANIEL = new PatientBuilder().withAge("34").withNric("F6423467F")
             .withName("Daniel Meier").withPhone("87652533").withPriority("low")
-            .withBloodType("O+").withTissueType("10,5,3,1,6,8").withOrgan("kidney")
+            .withBloodType("O").withTissueType("10,5,3,1,6,8").withOrgan("kidney")
             .withDoctorInCharge("T5231426Q").build();
     public static final Donor DONOR_ELLE = new DonorBuilder().withAge("13").withNric("S9374923S")
-            .withName("Elle Meyer").withPhone("9482224").withBloodType("O+")
+            .withName("Elle Meyer").withPhone("9482224").withBloodType("O")
             .withTissueType("10,5,3,1,6,8").withOrgan("kidney").withOrganExpiryDate("10-May-2020").build();
     public static final Donor DONOR_FIONA = new DonorBuilder().withAge("25").withNric("F9183156L")
-            .withName("Fiona Kunz").withPhone("9482427").withBloodType("AB+")
+            .withName("Fiona Kunz").withPhone("9482427").withBloodType("AB")
             .withTissueType("7,2,3,9,6,8").withOrgan("kidney").withOrganExpiryDate("10-Jun-2020").build();
     public static final Donor DONOR_GEORGE = new DonorBuilder().withAge("44").withNric("S1234567A")
             .withName("George Best").withPhone("9482442").withBloodType("B")
@@ -80,6 +81,12 @@ public class TypicalPersons {
             .withName(VALID_NAME_DONOR_JOHN).withNric(VALID_NRIC_DONOR_JOHN).withPhone(VALID_PHONE_DONOR_JOHN)
             .withBloodType(VALID_BLOOD_TYPE_DONOR_JOHN).withTissueType(VALID_TISSUE_TYPE_DONOR_JOHN)
             .withOrgan(VALID_ORGAN_DONOR_JOHN).withOrganExpiryDate(VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN).build();
+
+    //Sample Donor that matches Irene
+    public static final Donor DONOR_IRENE_DONOR = new DonorBuilder().withAge(VALID_AGE_PATIENT_IRENE)
+            .withName("Irene Donor").withNric(VALID_NRIC_DONOR_IRENE_DONOR)
+            .withBloodType(VALID_BLOOD_TYPE_PATIENT_IRENE).withTissueType(VALID_TISSUE_TYPE_PATIENT_IRENE)
+            .withOrgan(VALID_ORGAN_PATIENT_IRENE).withOrganExpiryDate(VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN).build();
 
     // Manually added - person's details found in {@code CommandTestUtil}
     public static final Doctor DOCTOR_AMY = new DoctorBuilder().withNric(VALID_NRIC_DOCTOR_AMY)

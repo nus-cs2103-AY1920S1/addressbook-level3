@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.testutil.Assert.assertThrows;
 import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
+import static organice.testutil.TypicalPersons.DONOR_GEORGE;
 import static organice.testutil.TypicalPersons.PATIENT_BOB;
+import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -66,6 +68,38 @@ public class UniquePersonListTest {
         uniquePersonList.add(DOCTOR_ALICE);
         Person editedAlice = new DoctorBuilder(DOCTOR_ALICE).build();
         assertTrue(uniquePersonList.containsDoctor(editedAlice.getNric()));
+    }
+
+    @Test
+    public void containsPatient_patientInList_returnsTrue() {
+        uniquePersonList.add(PATIENT_IRENE);
+        uniquePersonList.add(DOCTOR_ALICE);
+        assertTrue(uniquePersonList.containsPatient(PATIENT_IRENE.getNric()));
+    }
+
+    @Test
+    public void containsPatient_patientNotInList_returnsFalse() {
+        assertFalse(uniquePersonList.containsPatient(PATIENT_IRENE.getNric()));
+    }
+
+    @Test
+    public void containsPatient_nullPatient_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniquePersonList.containsPatient(null));
+    }
+
+    @Test
+    public void getPatient_patientInList_returnsPatient() {
+        uniquePersonList.add(PATIENT_BOB);
+        uniquePersonList.add(DONOR_GEORGE);
+
+        assertEquals(PATIENT_BOB, uniquePersonList.getPatient(PATIENT_BOB.getNric()));
+    }
+    @Test
+    public void getPatient_patientNotInAddressBook_throwsPersonNotFoundException() {
+        uniquePersonList.add(PATIENT_BOB);
+        uniquePersonList.add(DONOR_GEORGE);
+
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.getPatient(PATIENT_IRENE.getNric()));
     }
 
     @Test
