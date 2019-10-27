@@ -513,7 +513,7 @@ The following is a detailed explanation of the operations `NoteListCommand` perf
 ** Cons: Not as powerful and less utility for advanced users.
 * **Alternative 2:** Many fields including tagging, redo, undo et cetera.
 ** Pros: Powerful, many features that advanced users can use.
-** Cons: Against original target of making the Notes feature super lightweight and easy to use. Should be as easy as a digital Post-It!.
+** Cons: Against original target of making the Notes feature super lightweight and easy to use. Should be as easy as a digital Post-it!
 
 [NOTE]
 Additional fields to the Note have been made optional such that it is very easy to use for beginner users and at the same time powerful for advanced ones. We
@@ -536,7 +536,7 @@ The following is an example usage scenario where the Actor/User asks Njoy for a 
 
 *Step 1*. Actor/User inputs a statistics command with data path as specified in user guide. `MainWindow#executeCommand(String commandText)` passes the user input to the `LogicManager`.
 
-*Step 2*. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the `StatisticsCommandParser` for retrieving data from the external file. All data file parsers implements the ‘DataParser’ interface.
+*Step 2*. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the `StatisticsCommandParser` for retrieving data from the external file. All data file parsers implements the `DataParser` interface.
 
 *Step 3*. Suppose the data was successfully retrieved, `Statistics` object is generated for data processing and passed into `StatisticsAddCommand`.
 
