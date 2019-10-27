@@ -93,8 +93,17 @@ public class TagCommand extends Command {
         actualIndex = model.getIndexFromStudentList(studentToTag).orElse(index);
         model.setStudentWithIndex(actualIndex, updatedStudent);
 
-        return new CommandResult(taggedStudentNotification
-                + existedTagsNotification);
+        return new CommandResult(generateSuccessMessage(taggedStudentNotification, existedTagsNotification));
+    }
+
+    /**
+     * Generates a command execution success message.
+     *
+     * @param taggedStudentNotification notification of tagged student
+     * @param existedTagsNotification   notification of existed tags
+     */
+    private String generateSuccessMessage(String taggedStudentNotification, String existedTagsNotification) {
+        return taggedStudentNotification + existedTagsNotification;
     }
 
 

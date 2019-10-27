@@ -57,7 +57,17 @@ public class AddMarkCommand extends MarkCommand {
             throw new CommandException(String.format(MESSAGE_STUDENT_ALREADY_MARKED, toMark.getOneBased()));
         }
         studentToMark.setMarked();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toMark.getOneBased()));
+        return new CommandResult(generateSuccessMessage(MESSAGE_SUCCESS, toMark.getOneBased()));
+    }
+
+    /**
+     * Generates a command execution success message.
+     *
+     * @param successMessage Success message
+     * @param index           of student to mark
+     */
+    private String generateSuccessMessage(String successMessage, int index) {
+        return String.format(successMessage, index);
     }
 
     @Override
