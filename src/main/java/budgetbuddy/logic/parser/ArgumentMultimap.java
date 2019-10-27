@@ -58,6 +58,19 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Returns the number of values for {@code prefix}.
+     *
+     * @param prefix the prefix to check
+     * @return the number of values for the prefix
+     */
+    public int getValueCount(Prefix prefix) {
+        if (!argMultimap.containsKey(prefix)) {
+            return 0;
+        }
+        return argMultimap.get(prefix).size();
+    }
+
+    /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {
