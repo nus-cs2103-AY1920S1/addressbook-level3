@@ -398,7 +398,7 @@ Tab.
 
 The following sequence diagram shows the execution of deadline command:
 
-.Sequence Diagram of Deadline Command in Reimbursement Tab (deadline package)
+.Sequence Diagram of Deadline Command in Reimbursement Tab (reimbursement package)
 image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
 
 As shown, a user needs to add a deadline to a reimbursement by specifying
@@ -422,13 +422,13 @@ Find command requires access to `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
-.Sequence Diagram of Find Command in Reimbursement Tab (deadline package)
+.Sequence Diagram of Find Command in Reimbursement Tab (reimbursement package)
 image::Reimbursement/ReimbursementFindCommandSD.png[]
 
 A user needs to find a reimbursement by providing the person's name.
 As shown in the above figure, `FindCommand` is executed by calling `findReimbursement` method in
-`ModelManager`. After the operations, that reimbursement is picked out
-and reimbursement tab only shows this single reimbursement.
+`ModelManager`. After the operations, that reimbursement is returned
+and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
 
 [[ReimbursementTabActivityDiagramFindCommand]]
 .Activity Diagram of Find Command in Reimbursement Tab (reimbursement package)
@@ -439,6 +439,15 @@ The person's name is checked whether it exists in reimbursement list.
 If not, our app informs the user that command is incorrect. If command is valid, the reimbursement
 is found and displayed in the tab.
 
+==== Back Command feature
+This command is used to return to the original list after executing find command
+
+.Sequence Diagram of Back Command in Reimbursement Tab (reimbursement package)
+image::Reimbursement/ReimbursementBackCommandSD.png[]
+
+`BackCommand` execution updates `filteredList` inside `ModelManager` to the original full `reimbursementList`.
+After the operations, the original full reimbursement list is displayed.
+
 ==== Done Command feature
 This command is used to mark a reimbursement that has been done.
 Done command requires access to `Model` of the
@@ -446,7 +455,7 @@ person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
 [[ReimbursementDoneCommandSD]]
-.Sequence Diagram of Done Command in Reimbursement Tab (deadline package)
+.Sequence Diagram of Done Command in Reimbursement Tab (reimbursement package)
 image::Reimbursement/ReimbursementDoneCommandSD.png[]
 
 A user needs to mark a reimbursement as done by specifying the person's name for the specific reimbursement.
@@ -463,7 +472,7 @@ Then `LogicManager` gets the updated transaction list and passes this list to `S
 of transaction tab to save it.
 
 [[ReimbursementUpdateTransactionsSD]]
-.Sequence Diagram of updating transactions in Reimbursement Tab (deadline package)
+.Sequence Diagram of updating transactions in Reimbursement Tab (reimbursement package)
 image::Reimbursement/ReimbursementUpdateTransactionsSD.png[]
 
 <<ReimbursementTabActivityDiagramDoneCommand, Figure 23>> shows the steps needed for done command.
@@ -476,7 +485,16 @@ containing the provided person's name is deleted from reimbursement list and wil
 image::Reimbursement/ReimbursementTabActivityDiagramDoneCommand.png[]
 
 ==== Sort Command feature
+This command is used to sort reimbursements and the user can choose to sort based on name, amount or deadline.
 
+.Sequence Diagram of Sort Command in Reimbursement Tab (reimbursement package)
+image::Reimbursement/ReimbursementSortCommandSD.png[]
+
+As shown in the above figure, `SortXYZCommand` is executed by calling `sortListByXYZ` method in
+`ModelManager`. And reimbursement list is sorted using `SortByXYZ` comparator.
+For `SortAmountCommand`, the list will be sorted in descending order of absolute value of amount.
+For `SortNameCommand`, the list will be sorted in descending alphabetical order of person's name.
+For `SortDeadlineCommand`, the list will be sorted in the order that nearest deadlines are in the front.
 
 === Inventory Tab
 
