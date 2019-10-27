@@ -63,7 +63,7 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
 
     // Details tab
     public boolean isValidDetailsTabPaneIndex(int index) {
-        return index >= 0 && index < tabsData.size() || index == 0;
+        return (index >= 0 && index < tabsData.size()) || (index == 0 && tabsData.size() == 0);
     }
 
     @Override

@@ -9,7 +9,8 @@ public enum ModelType {
     PROBLEM (0, "problem", "Problems"),
     TAG (1, "tag", "Tags"),
     PLAN (2, "plan", "Training Plans"),
-    TASK (3, "task", "Tasks");
+    TASK (3, "task", "Tasks"),
+    FINDRULE (4, "findrule", "Find Rules");
 
     private final Index displayTabPaneIndex;
     private final String commandArgumentValue;

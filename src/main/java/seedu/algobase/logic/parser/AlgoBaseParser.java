@@ -7,13 +7,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.algobase.logic.commands.AddCommand;
+import seedu.algobase.logic.commands.AddFindRuleCommand;
 import seedu.algobase.logic.commands.AddPlanCommand;
 import seedu.algobase.logic.commands.AddTagCommand;
 import seedu.algobase.logic.commands.AddTaskCommand;
+import seedu.algobase.logic.commands.ApplyCommand;
 import seedu.algobase.logic.commands.ClearCommand;
 import seedu.algobase.logic.commands.CloseTabCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
+import seedu.algobase.logic.commands.DeleteFindRuleCommand;
 import seedu.algobase.logic.commands.DeletePlanCommand;
 import seedu.algobase.logic.commands.DeleteTagCommand;
 import seedu.algobase.logic.commands.DeleteTaskCommand;
@@ -80,7 +83,7 @@ public class AlgoBaseParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
-        //Plan
+        // Plan
         case AddPlanCommand.COMMAND_WORD:
             return new AddPlanCommandParser().parse(arguments);
 
@@ -109,7 +112,16 @@ public class AlgoBaseParser {
         case UndoneTaskCommand.COMMAND_WORD:
             return new UndoneTaskCommandParser().parse(arguments);
 
-        // Tag
+        // Find Rule
+        case AddFindRuleCommand.COMMAND_WORD:
+            return new AddFindRuleCommandParser().parse(arguments);
+
+        case ApplyCommand.COMMAND_WORD:
+            return new ApplyCommandParser().parse(arguments);
+
+        case DeleteFindRuleCommand.COMMAND_WORD:
+            return new DeleteFindRuleParser().parse(arguments);
+
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 

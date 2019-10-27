@@ -5,6 +5,7 @@ import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -50,4 +51,6 @@ public interface ReadOnlyAlgoBase {
      * Returns a view of the GuiState.
      */
     GuiState getGuiState();
+
+    ObservableList<ProblemSearchRule> getFindRules();
 }
