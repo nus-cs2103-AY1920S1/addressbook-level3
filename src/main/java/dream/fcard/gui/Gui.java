@@ -39,6 +39,7 @@ public class Gui {
     private static TitleBar titleBar = new TitleBar();
     private static ScrollablePane scrollablePane = new ScrollablePane();
     private static CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
+    private static CommandTextField commandTextField = new CommandTextField();
 
     private Gui() {
         // empty constructor
@@ -120,8 +121,8 @@ public class Gui {
      * Set up the command text field with the given state and add to its placeholder.
      */
     private static void setupCommandTextField() {
-        CommandTextField commandTextField = new CommandTextField(applicationState);
-        commandTextFieldPlaceholder.add(commandTextField);
+        commandTextField.setState(applicationState);
+        commandTextFieldPlaceholder.setCommandTextField(commandTextField);
     }
 
     /**
@@ -136,7 +137,11 @@ public class Gui {
         applicationPrimaryStage.setScene(scene);
     }
 
-    /** Sets the title in the title bar of the application window. */
+    /**
+     * Sets the title in the title bar of the application window.
+     * Useful when the application changes state, e.g. displaying a different deck.
+     * @param title The title to be set in the application window.
+     */
     public static void setTitle(String title) {
         titleBar.setTitle(title);
     }

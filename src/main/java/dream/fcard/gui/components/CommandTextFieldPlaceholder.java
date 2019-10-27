@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
  */
 public class CommandTextFieldPlaceholder extends VBox implements UiComponent<VBox> {
 
+    private CommandTextField commandTextField;
+
     /**
      * Creates a new instance of CommandTextFieldPlaceholder().
      */
@@ -31,5 +33,10 @@ public class CommandTextFieldPlaceholder extends VBox implements UiComponent<VBo
 
     public void add(Node node) {
         this.getChildren().add(node);
+    }
+
+    public void setCommandTextField(CommandTextField commandTextField) {
+        this.commandTextField = commandTextField;
+        this.add(commandTextField);
     }
 }
