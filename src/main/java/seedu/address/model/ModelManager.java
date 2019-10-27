@@ -391,13 +391,6 @@ public class ModelManager implements Model {
         filteredAppointments.setPredicate(predicate);
     }
 
-    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
-        Predicate<Event> byApproved = Event -> ((Event.getStatus().isApproved() || Event.getStatus().isAcked())
-                && Event.getPersonId().equals(referenceId));
-        filteredAppointments.setPredicate(byApproved);
-    }
-
     /**
      * Returns an boolean, check whether current displaying appointments are belong to the same patient.
      */
@@ -497,13 +490,18 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return patientAddressBook.equals(other.patientAddressBook)
-                && userPrefs.equals(other.userPrefs)
+        return userPrefs.equals(other.userPrefs)
+                && patientAddressBook.equals(other.patientAddressBook)
+                && staffAddressBook.equals(other.staffAddressBook)
+                && appointmentBook.equals(other.appointmentBook)
+                && dutyRosterBook.equals(other.dutyRosterBook)
                 && filteredPatients.equals(other.filteredPatients)
-                && patientQueueList.equals(other.patientQueueList)
-                && consultationRooms.equals(other.consultationRooms)
+                && filteredStaff.equals(other.filteredStaff)
+                && filteredAppointments.equals(other.filteredAppointments)
+                && filteredDutyShifts.equals(other.filteredDutyShifts)
                 && queueManager.equals(other.queueManager)
-                && appointmentBook.equals(other.appointmentBook);
+                && consultationRooms.equals(other.consultationRooms)
+                && patientQueueList.equals(other.patientQueueList);
     }
 }
 
