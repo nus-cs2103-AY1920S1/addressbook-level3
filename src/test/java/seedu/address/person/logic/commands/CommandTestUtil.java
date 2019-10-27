@@ -203,6 +203,9 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Executes the given command and compares the expected model and actual model for person and transaction package.
+     */
     public static void assertCommandSuccessTransactionModel(Command command, Model actualModel,
                                                                 CommandResult expectedCommandResult,
                                                                 Model expectedModel,
