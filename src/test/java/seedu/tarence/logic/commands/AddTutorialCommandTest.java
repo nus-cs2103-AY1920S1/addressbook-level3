@@ -75,6 +75,17 @@ public class AddTutorialCommandTest {
         private List<Command> suggestedCommands = new ArrayList<>();
 
         @Override
+        public boolean hasTutorial(Tutorial tutorial) {
+            return false;
+        }
+
+        @Override
+        public void addTutorialToModule(Tutorial tutorial) {}
+
+        @Override
+        public void storePendingCommand(Command command) {}
+
+        @Override
         public void addTutorial(Tutorial tutorial) {
             tutorials.add(tutorial);
         }

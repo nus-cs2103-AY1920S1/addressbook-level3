@@ -3,9 +3,9 @@ package seedu.tarence.logic.parser.assignment;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MAX_SCORE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_SCORE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
@@ -39,7 +39,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
     public DeleteAssignmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_INDEX, PREFIX_NAME,
-                PREFIX_MAX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE);
+                PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE);
 
         ModCode modCode = null;
         TutName tutName = null;
@@ -62,7 +62,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
         if (validateAssignmentFormat(argMultimap)) {
             assignName = argMultimap.getValue(PREFIX_NAME).get();
             try {
-                maxScore = Integer.parseInt(argMultimap.getValue(PREFIX_MAX_SCORE).get());
+                maxScore = Integer.parseInt(argMultimap.getValue(PREFIX_SCORE).get());
             } catch (NumberFormatException e) {
                 throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_MAX_SCORE);
             }
@@ -111,7 +111,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
      * max score, start and end date, else false.
      */
     public static boolean validateAssignmentFormat(ArgumentMultimap argMultimap) {
-        return (arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MAX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE)
+        return (arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE)
                 && argMultimap.getAllValues(PREFIX_INDEX).size() <= 1);
     }
 
@@ -122,7 +122,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
      */
     public static boolean validateAssignIndexFormat(ArgumentMultimap argMultimap) {
         return (argMultimap.getAllValues(PREFIX_INDEX).size() == 2
-                && arePrefixesAbsent(argMultimap, PREFIX_NAME, PREFIX_MAX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE));
+                && arePrefixesAbsent(argMultimap, PREFIX_NAME, PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE));
     }
 
     /**

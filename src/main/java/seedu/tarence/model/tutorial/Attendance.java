@@ -64,7 +64,6 @@ public class Attendance {
      */
     public boolean isPresent(Week week, Student student) throws StudentNotFoundException, WeekNotFoundException {
         if (!this.getWeek(week).containsKey(student)) {
-
             throw new StudentNotFoundException();
         }
 

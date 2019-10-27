@@ -28,12 +28,14 @@ import seedu.tarence.logic.commands.SelectSuggestionCommand;
 import seedu.tarence.logic.commands.SetSemStartCommand;
 import seedu.tarence.logic.commands.assignment.AddAssignmentCommand;
 import seedu.tarence.logic.commands.assignment.DeleteAssignmentCommand;
+import seedu.tarence.logic.commands.assignment.SetAssignmentScoreCommand;
 import seedu.tarence.logic.commands.event.AddEventCommand;
 import seedu.tarence.logic.commands.event.DeleteEventCommand;
 import seedu.tarence.logic.commands.event.EditEventCommand;
 import seedu.tarence.logic.commands.event.ListEventsCommand;
 import seedu.tarence.logic.parser.assignment.AddAssignmentCommandParser;
 import seedu.tarence.logic.parser.assignment.DeleteAssignmentCommandParser;
+import seedu.tarence.logic.parser.assignment.SetAssignmentScoreCommandParser;
 import seedu.tarence.logic.parser.event.AddEventCommandParser;
 import seedu.tarence.logic.parser.event.DeleteEventCommandParser;
 import seedu.tarence.logic.parser.event.EditEventCommandParser;
@@ -104,6 +106,8 @@ public class ApplicationParser {
             return new AddAssignmentCommandParser().parse(arguments);
         } else if (DeleteAssignmentCommand.isMatchingCommandWord(commandWord)) {
             return new DeleteAssignmentCommandParser().parse(arguments);
+        } else if (SetAssignmentScoreCommand.isMatchingCommandWord(commandWord)) {
+            return new SetAssignmentScoreCommandParser().parse(arguments);
         } else if (AddEventCommand.isMatchingCommandWord(commandWord)) {
             return new AddEventCommandParser().parse(arguments);
         } else if (DeleteEventCommand.isMatchingCommandWord(commandWord)) {

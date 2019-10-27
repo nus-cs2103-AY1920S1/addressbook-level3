@@ -20,7 +20,10 @@ import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.exceptions.AssignmentNotFoundException;
 import seedu.tarence.model.tutorial.exceptions.DuplicateEventException;
+import seedu.tarence.model.tutorial.exceptions.InvalidScoreException;
+import seedu.tarence.model.tutorial.exceptions.StudentNotFoundException;
 
 /**
  * Represents a Tutorial.
@@ -41,20 +44,36 @@ public class Tutorial {
     // TODO: Add to storage
     protected List<Event> eventLog;
 
+    public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
+            Set<Week> weeks, Duration duration, List<Student> students,
+            ModCode modCode, Attendance attendance,
+            List<Assignment> assignments, List<Event> eventLog) {
+        requireAllNonNull(tutName, day, startTime, weeks, duration, students, modCode);
+        this.tutName = tutName;
+        this.timeTable = new TimeTable(day, startTime, weeks, duration);
+        this.students = students;
+        this.modCode = modCode;
+        this.attendance = attendance == null
+                ? new Attendance(weeks, students)
+                : attendance;
+        this.eventLog = eventLog == null
+                ? new ArrayList<>()
+                : eventLog;
+        this.assignments = new TreeMap<>();
+        if (assignments != null) {
+            for (Assignment assignment : assignments) {
+                addAssignment(assignment);
+            }
+        }
+    }
+
     /**
      * Every field must be present and not null.
      */
     public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
             Set<Week> weeks, Duration duration,
             List<Student> students, ModCode modCode) {
-        requireAllNonNull(tutName, day, startTime, weeks, duration, students, modCode);
-        this.tutName = tutName;
-        this.timeTable = new TimeTable(day, startTime, weeks, duration);
-        this.students = students;
-        this.modCode = modCode;
-        this.attendance = new Attendance(weeks, students);
-        this.assignments = new TreeMap<>();
-        this.eventLog = new ArrayList<>();
+        this(tutName, day, startTime, weeks, duration, students, modCode, null, null, null);
     }
 
     /**
@@ -63,8 +82,7 @@ public class Tutorial {
     public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
                     Set<Week> weeks, Duration duration,
                     List<Student> students, ModCode modCode, Attendance attendance) {
-        this(tutName, day, startTime, weeks, duration, students, modCode);
-        this.attendance = attendance;
+        this(tutName, day, startTime, weeks, duration, students, modCode, attendance, null, null);
     }
 
     public TutName getTutName() {
@@ -87,22 +105,42 @@ public class Tutorial {
         return attendance;
     }
 
-    public Assignment getAssignment(Index assignIndex) throws IndexOutOfBoundsException {
-        Set<Assignment> keys = ((TreeMap<Assignment, Map<Student, Integer>>) assignments).navigableKeySet();
+    public List<Assignment> getAssignments() {
+        Set<Assignment> assignmentsSet = ((TreeMap<Assignment, Map<Student, Integer>>) assignments).navigableKeySet();
+        return new ArrayList<>(assignmentsSet);
+    }
+
+    public Assignment getAssignment(Index assignIndex) {
+        List<Assignment> assignments = getAssignments();
         Integer index = assignIndex.getZeroBased();
-        int i = 0;
-        for (Assignment assignment : keys) {
-            if (index == i) {
-                return assignment;
-            }
-            i++;
+        return assignments.get(index);
+    }
+
+    /**
+     * Returns Students' scores for an Assignment.
+     */
+    public Map<Student, Integer> getAssignmentScores(Assignment assignment) {
+        if (!assignments.containsKey(assignment)) {
+            throw new AssignmentNotFoundException();
         }
-        throw new IndexOutOfBoundsException();
+        return assignments.get(assignment);
+    }
+
+    /**
+     * Returns a Student's score for an Assignment.
+     */
+    public Integer getAssignmentScore(Assignment assignment, Student student) {
+        Map<Student, Integer> assignmentScores = getAssignmentScores(assignment);
+        if (!assignmentScores.containsKey(student)) {
+            throw new StudentNotFoundException();
+        }
+        return assignmentScores.get(student);
     }
 
     public Integer getHours() {
         Integer hours = 0;
-        for (Event event : eventLog) {
+        List<Event> tutEvents = getTutorialasEvents();
+        for (Event event : tutEvents) {
             hours += (int) TimeUnit.HOURS.convert(
                     event.endTime.getTime() - event.startTime.getTime(),
                     TimeUnit.MILLISECONDS);
@@ -161,6 +199,10 @@ public class Tutorial {
     public void addStudent(Student student) {
         students.add(student);
         attendance.addStudent(student);
+        List<Assignment> assignments = getAssignments();
+        for (Assignment assignment : assignments) {
+            getAssignmentScores(assignment).remove(student);
+        }
     }
 
     /**
@@ -181,6 +223,10 @@ public class Tutorial {
     public void deleteStudent(Student student) {
         students.remove(student);
         attendance.deleteStudent(student);
+        List<Assignment> assignments = getAssignments();
+        for (Assignment assignment : assignments) {
+            setScore(assignment, student, NOT_SUBMITTED);
+        }
     }
 
     /**
@@ -196,14 +242,20 @@ public class Tutorial {
     public void addAssignment(Assignment assignment) {
         assignments.put(assignment, new HashMap<>());
         for (Student student : students) {
-            assignments.get(assignment).put(student, NOT_SUBMITTED);
+            getAssignmentScores(assignment).put(student, NOT_SUBMITTED);
         }
+        addEvent(new Event(assignment.getAssignName(),
+                assignment.getStartDate(),
+                assignment.getEndDate()));
     }
 
     /**
      * Removes an Assignment from a Tutorial. Returns true if removal is successful
      */
     public boolean deleteAssignment(Assignment assignment) {
+        deleteEvent(new Event(assignment.getAssignName(),
+                assignment.getStartDate(),
+                assignment.getEndDate()));
         return assignments.remove(assignment) != null;
     }
 
@@ -212,8 +264,26 @@ public class Tutorial {
      */
     public void setAssignment(Assignment target, Assignment assignment) {
         addAssignment(assignment);
-        assignments.get(target).putAll(assignments.get(assignment));
+        try {
+            for (Student student : students) {
+                setScore(assignment, student, getAssignmentScore(target, student));
+            }
+        } catch (InvalidScoreException e) {
+            deleteAssignment(assignment);
+            throw new InvalidScoreException();
+        }
         deleteAssignment(target);
+    }
+
+    /**
+     * Sets a Student's score for an Assignment.
+     */
+    public void setScore(Assignment assignment, Student student, Integer score) {
+        if (assignment.getMaxScore() < score || score < NOT_SUBMITTED) {
+            throw new InvalidScoreException();
+        }
+        Map<Student, Integer> assignmentScores = getAssignmentScores(assignment);
+        assignmentScores.put(student, score);
     }
 
     /**
@@ -227,9 +297,8 @@ public class Tutorial {
         eventLog.sort(Event::compareTo);
     }
 
-
     /**
-     * Remove an event based on its index in eventLog.
+     * Remove an event in eventLog.
      */
     public boolean deleteEvent(Event event) {
         return eventLog.remove(event);
