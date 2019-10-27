@@ -7,6 +7,8 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
@@ -41,7 +43,7 @@ public class DeleteCourseCommand extends Command {
     private Course toDelete;
     private Index targetIndex;
 
-    private DeleteCourseCommand(Course toDelete, Index targetIndex) {
+    public DeleteCourseCommand(Course toDelete, Index targetIndex) {
         this.toDelete = toDelete;
         this.targetIndex = targetIndex;
     }
@@ -76,6 +78,24 @@ public class DeleteCourseCommand extends Command {
     @Override
     public boolean hasInverseExecution() {
         return HAS_INVERSE;
+    }
+
+    /**
+     * Gets the {@code Index} of the {@code Course} to be deleted.
+     *
+     * @return {@code Index} of the {@code Course} to be deleted.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the {@code Course} that was deleted, which is null if the person has not been deleted yet.
+     *
+     * @return {@code Optional} of {@code Course} that was deleted, empty if person has not been deleted.
+     */
+    public Optional<Course> getDeleteCourse() {
+        return Optional.ofNullable(toDelete);
     }
 
     /**
@@ -142,20 +162,12 @@ public class DeleteCourseCommand extends Command {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        } else if (!(o instanceof DeleteCourseCommand)) {
+        }
+
+        if (!(o instanceof DeleteCourseCommand)) {
             return false;
         }
         DeleteCourseCommand other = (DeleteCourseCommand) o;
-
-        if (!isAnyNonNull(targetIndex, other.targetIndex, toDelete, other.toDelete)) {
-            return toDelete.equals(other.toDelete) && targetIndex.equals(other.targetIndex);
-        }
-        if (isNull(toDelete) && isNull(other.toDelete)) {
-            return targetIndex.equals(other.targetIndex);
-        }
-        if (isNull(targetIndex) && isNull(other.targetIndex)) {
-            return toDelete.equals(other.toDelete);
-        }
-        return false;
+        return targetIndex.equals(other.targetIndex) && Objects.equals(toDelete, other.toDelete);
     }
 }
