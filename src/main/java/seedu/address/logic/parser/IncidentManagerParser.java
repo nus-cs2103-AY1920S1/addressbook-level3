@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -84,7 +87,7 @@ public class IncidentManagerParser {
             }
 
         case ListIncidentsCommand.COMMAND_WORD:
-            return new ListIncidentsCommand();
+            return new ListIncidentsCommand(PREDICATE_SHOW_ALL_INCIDENTS);
 
         case ListVehiclesCommand.COMMAND_WORD:
             return new ListVehiclesCommand();
@@ -109,14 +112,14 @@ public class IncidentManagerParser {
 
         case SubmitCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {
-                return new SubmitCommand();
+                return new ListIncidentsCommand(PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS);
             } else {
                 return new SubmitCommandParser().parse(arguments);
             }
 
         case FillCommand.COMMAND_WORD:
             if (arguments.isEmpty()) {
-                return new FillCommand(); // TODO remove nulls by merging / inheriting commands
+                return new ListIncidentsCommand(PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS);
             } else {
                 return new FillCommandParser().parse(arguments);
             }

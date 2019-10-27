@@ -1,7 +1,5 @@
 package seedu.address.model.incident;
 
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
-
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,14 +47,15 @@ public class Incident {
     private CallerNumber callerNumber;
 
     /** Enum to track incident status. */
-    // draft - not all fields filled AND not submitted.
-    // complete - all fields filled AND not submitted.
-    // final - all fields filled AND submitted.
+    // incomplete draft - not all fields filled AND not submitted.
+    // complete draft - all fields filled AND not submitted.
+    // submitted report - all fields filled AND submitted.
     private enum Status {
-        DRAFT, COMPLETE, FINAL
+        INCOMPLETE_DRAFT, COMPLETE_DRAFT, SUBMITTED_REPORT
     }
 
-    private Status status = Status.DRAFT; // default is draft
+    // TODO delete this field once all constructors accept status as attribute.
+    private Status status = Status.INCOMPLETE_DRAFT; // default is draft
 
     /** Constructor for generating an incident draft according to 'new' command i.e. fills auto-filled fields.
      * @param operator operator generating the new incident report.
@@ -69,7 +68,7 @@ public class Incident {
         this.incidentDateTime = new IncidentDateTime();
         this.id = new IncidentId(incidentDateTime.getMonth(), incidentDateTime.getYear());
 
-        this.status = Status.DRAFT; // newly created report
+        this.status = Status.INCOMPLETE_DRAFT; // newly created report
 
         // set to null as they will be filled in later
         this.description = null;
@@ -107,38 +106,13 @@ public class Incident {
      * Constructor for generating an incident draft according to 'fill' command i.e. all fields filled.
      */
     public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
-                    CallerNumber callerNumber, Description description, Status status) {
+                    CallerNumber callerNumber, Description description) {
         this.operator = operator;
         this.location = location;
         this.incidentDateTime = incidentDateTime;
         this.id = incidentId;
         this.callerNumber = callerNumber;
         this.description = description;
-        this.status = status;
-    }
-
-    /**
-     * Returns a new updated incident report by filling callerNumber and description fields.
-     * Triggered by 'fill' command.
-     * @param toUpdate the incident to be filled.
-     * @param callerNumber phone number of the caller reporting the incident.
-     * @param description description of this incident.
-     * @return updated incident report.
-     */
-    public static Incident updateReport(Incident toUpdate, CallerNumber callerNumber, Description description) {
-        return new Incident(toUpdate.getOperator(), toUpdate.getDistrict(), toUpdate.getIncidentDateTime(),
-                toUpdate.getIncidentId(), callerNumber, description, Status.COMPLETE);
-    }
-
-    /**
-     * Returns a new updated incident report by filling callerNumber and description fields.
-     * Triggered by 'submit' command.
-     * @param toSubmit the incident report to be submitted.
-     * @return updated incident report.
-     */
-    public static Incident submitReport(Incident toSubmit) {
-        return new Incident(toSubmit.getOperator(), toSubmit.getDistrict(), toSubmit.getIncidentDateTime(),
-                toSubmit.getIncidentId(), toSubmit.getCallerNumber(), toSubmit.getDesc(), Status.FINAL);
     }
 
     public IncidentDateTime getDateTime() {
@@ -175,24 +149,36 @@ public class Incident {
                 .collect(Collectors.toSet());
     }
 
-    public Status getStatus() {
-        return status;
+    public void setStatusAsComplete() {
+        this.status = Status.COMPLETE_DRAFT;
+    }
+
+    public void setStatusAsSubmitted() {
+        this.status = Status.SUBMITTED_REPORT;
     }
 
     /**
-     * Checks if incident is a draft.
+     * Checks if incident is a complete or an incomplete draft.
      * @return true if incident is a draft, false otherwise.
      */
     public boolean isDraft() {
-        return this.status.equals(Status.DRAFT);
+        return this.status.equals(Status.COMPLETE_DRAFT) || this.status.equals(Status.INCOMPLETE_DRAFT);
     }
 
     /**
-     * Checks if incident is completely filled.
-     * @return true if incident is completely filled, false otherwise.
+     * Checks if incident is a complete draft ready for submission.
+     * @return true if incident is a complete draft, false otherwise.
      */
-    public boolean isComplete() {
-        return this.status.equals(Status.COMPLETE);
+    public boolean isCompleteDraft() {
+        return this.status.equals(Status.COMPLETE_DRAFT);
+    }
+
+    /**
+     * Checks if incident is an incomplete draft.
+     * @return true if incident is a incomplete draft, false otherwise.
+     */
+    public boolean isIncompleteDraft() {
+        return this.status.equals(Status.INCOMPLETE_DRAFT);
     }
 
     /**
@@ -200,7 +186,7 @@ public class Incident {
      * @return true if incident has been submitted, false otherwise.
      */
     public boolean isSubmitted() {
-        return this.status.equals(Status.FINAL);
+        return this.status.equals(Status.SUBMITTED_REPORT);
     }
 
     /**
