@@ -42,10 +42,6 @@ public class AddEarningsCommand extends Command {
         this.toAddEarnings = earnings;
     }
 
-    public int getNumber() {
-        return 5;
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

@@ -182,6 +182,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean userHasLoggedIn() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void isLoggedIn() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyCalendar getCalendar() {
 
             throw new AssertionError("This method should not be called.");

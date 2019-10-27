@@ -11,7 +11,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * The manager of the UI component.
@@ -22,11 +21,11 @@ public class UiManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static boolean loggedInSuccessful = false;
 
     private static MainWindow mainWindow;
 
     private Logic logic;
-    private boolean loggedInSuccessful = false;
 
     public UiManager(Logic logic) {
         super();
@@ -45,17 +44,16 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.hide();
             mainWindow.showLogin();
-            loggedInSuccessful = true;
-            if (loggedInSuccessful) {
-                mainWindow.fillStudents();
-            } else {
-                throw new ParseException("Could not login. Please try again!");
-            }
+            //mainWindow.show();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+    }
+
+    public void isAbleToLoginSuccessfully() {
+        loggedInSuccessful = true;
     }
 
     /**

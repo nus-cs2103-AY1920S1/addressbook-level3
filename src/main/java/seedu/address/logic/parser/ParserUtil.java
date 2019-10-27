@@ -264,6 +264,12 @@ public class ParserUtil {
         return new Week(trimmedWeek);
     }
 
+    /**
+     * Parses a {@code String username} into an {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
     public static Username parseUsername(String username) throws ParseException {
         requireNonNull(username);
         String trimmedUsername = username.trim();

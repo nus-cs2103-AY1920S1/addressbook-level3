@@ -5,9 +5,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.io.IOException;
+
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.account.Account;
+import seedu.address.storage.AccountStorage;
+import seedu.address.storage.JsonAccountStorage;
+import seedu.address.ui.UiManager;
 
 /**
  * Logs the user in with a username and password provided by user.
@@ -41,8 +47,20 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        AccountStorage accountStorage = new JsonAccountStorage();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, account));
+        try {
+            if (accountStorage.getAccountsList().get().sameCredentials(account.getUsername(), account.getPassword())) {
+                model.isLoggedIn();
+                UiManager.startStudentProfile();
+                return new CommandResult(String.format(MESSAGE_SUCCESS, account));
+            } else {
+                throw new CommandException("Please login again.");
+            }
+        } catch (IOException | DataConversionException | IllegalArgumentException e) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+
     }
 
     @Override

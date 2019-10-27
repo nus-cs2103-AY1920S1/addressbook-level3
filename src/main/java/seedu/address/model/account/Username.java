@@ -11,9 +11,9 @@ public class Username {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Username should only contain alphanumeric characters "
-                    + "with at least 8 characters, and it should not be blank";
+                    + "with at least 5 characters, and it should not be blank";
 
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9._-]{8,}$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9._-]{5,}$";
 
     public final String userId;
 
@@ -33,6 +33,10 @@ public class Username {
      */
     public static boolean isValidUsername(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public Username lowerCase() {
+        return new Username(userId.toLowerCase());
     }
 
     @Override

@@ -1,12 +1,12 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AccountBook;
-import seedu.address.model.account.Account;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.AccountBook;
+import seedu.address.model.account.Account;
 
 /**
  * Represents a storage for {@link seedu.address.model.account.Account}.
@@ -33,7 +33,7 @@ public interface AccountStorage {
 
     /**
      * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param account cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveAccount(Account account) throws IOException;

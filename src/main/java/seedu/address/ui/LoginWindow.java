@@ -33,7 +33,7 @@ public class LoginWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private ResultDisplay resultDisplay;
 
-    @javafx.fxml.FXML
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -126,13 +126,16 @@ public class LoginWindow extends UiPart<Stage> {
     @FXML
     public void handleLogin() {
         try {
+            String text = loginItem.getText().toLowerCase();
             CommandResult commandResult = logic.execute(loginItem.getText());
-            loginItem.setText("");
-            /*logger.info("Result: " + commandResult.feedbackToUser());
-            CommandBox commandBox = new CommandBox(this::executeCommand);
-            commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-            loginItem.setAlignment(Pos.CENTER);
-            loginCommand.setAlignment(Pos.CENTER);*/
+            //loginItem.setText("");
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (!text.startsWith("register")) {
+                primaryStage.hide();
+            }
+
         } catch (ParseException | CommandException e) {
             logger.info("Invalid command: " + loginItem.getText());
             resultDisplay.setFeedbackToUser(e.getMessage());
@@ -168,4 +171,5 @@ public class LoginWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
+
 }

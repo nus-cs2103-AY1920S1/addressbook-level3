@@ -23,6 +23,8 @@ public class CommandResult {
 
     private boolean showEarnings;
     private Earnings earnings;
+    private boolean userRegister = false;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -71,6 +73,14 @@ public class CommandResult {
 
     public Earnings getEarnings() {
         return earnings;
+    }
+
+    public void userRegistering() {
+        userRegister = !userRegister;
+    }
+
+    public boolean isRegister() {
+        return userRegister;
     }
 
     @Override

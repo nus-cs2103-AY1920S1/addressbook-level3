@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.effect.Glow?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Login" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="TutorAid" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/address_book_32.png" />
     </icons>
@@ -39,13 +40,14 @@
                 </Menu>
             </MenuBar>
 
-                <StackPane prefHeight="312.0" prefWidth="600.0" style="-fx-background-color: #ffffff;"
+                <StackPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #ffffff;"
                            VBox.vgrow="NEVER">
                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="112.0" stroke="#f7d2e0"
                                strokeType="INSIDE" width="587.0" />
                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" stroke="#f7d2e0"
                                strokeType="INSIDE" width="562.0" />
                     <ImageView fitHeight="84.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
+
                         <Image url="@../images/address_book_32.png" />
                         <effect>
                             <Glow />
@@ -53,11 +55,6 @@
                     </ImageView>
                 </StackPane>
 
-            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-                <padding>
-                    <Insets top="5" right="10" bottom="5" left="10" />
-                </padding>
-            </StackPane>
                 <StackPane fx:id="loginCommand" prefHeight="150.0" prefWidth="200.0"  style="-fx-background-color: #383838;" styleClass="pane-with-border">
                 <TextField fx:id="loginItem" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
                            prefWidth="468.0" maxWidth="600" promptText="Enter your login credentials..."

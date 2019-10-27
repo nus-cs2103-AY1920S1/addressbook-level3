@@ -44,17 +44,26 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
-            //storage.saveCalendar(model.getCalendar());
-        } catch (IOException ioe) {
+            if (model.userHasLoggedIn()) {
+                Command command = addressBookParser.parseCommand(commandText);
+                commandResult = command.execute(model);
+
+                storage.saveAddressBook(model.getAddressBook());
+                //storage.saveCalendar(model.getCalendar());
+
+            } else {
+                Command command = addressBookParser.parseCommandWithoutLoggingIn(commandText);
+                commandResult = command.execute(model);
+            }
+            return commandResult;
+        } catch (IOException | CommandException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
-        return commandResult;
+
     }
 
     @Override

@@ -96,6 +96,10 @@ public final class Authentication {
         return hash(password.toCharArray());
     }
 
+    public String hashingPassword(String password) {
+        return hash(password);
+    }
+
     /**
      * Authenticate with a password and a stored password token.
      *

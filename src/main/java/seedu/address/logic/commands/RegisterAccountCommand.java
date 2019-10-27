@@ -1,20 +1,19 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AccountBook;
-import seedu.address.model.Model;
-import seedu.address.model.account.Account;
-import seedu.address.storage.AccountStorage;
-import seedu.address.storage.JsonAccountStorage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+
+import java.io.IOException;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.authentication.Authentication;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.account.Account;
+import seedu.address.storage.AccountStorage;
+import seedu.address.storage.JsonAccountStorage;
 
 /**
  * Registers a new account with username and password
@@ -48,21 +47,19 @@ public class RegisterAccountCommand extends Command {
         this.toAddAccount = acc;
     }
 
-    public int getNumber() {
-        return 5;
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         AccountStorage accountStorage = new JsonAccountStorage();
 
-        // If earnings with same date and amount and module has already been added.
         try {
             if (accountStorage.getAccountsList().get().hasUsername(toAddAccount.getUsername())) {
                 throw new CommandException(MESSAGE_DUPLICATE_ACCOUNT);
             }
-            accountStorage.saveAccount(toAddAccount);
+            Authentication authenticator = new Authentication();
+            String newPassword = authenticator.hashingPassword(toAddAccount.getPassword());
+            Account acc = new Account(toAddAccount.getUsername(), newPassword);
+            accountStorage.saveAccount(acc);
             //model.addAccount(toAddAccount);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAddAccount));
         } catch (IOException | DataConversionException e) {

@@ -1,13 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.JsonUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AccountBook;
-import seedu.address.model.account.Account;
+import static java.util.Objects.requireNonNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +9,13 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.AccountBook;
+import seedu.address.model.account.Account;
 
 /**
  * A class to access AccountBook data stored as a json file on the hard disk.
@@ -25,7 +24,7 @@ public class JsonAccountStorage implements AccountStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAccountStorage.class);
 
-    private static final Path accountBookFilePath = Paths.get("sensitiveData", "accountslist.json");
+    private static final Path accountBookFilePath = Paths.get("data", "accountslist.json");
 
     private Path filePath;
 

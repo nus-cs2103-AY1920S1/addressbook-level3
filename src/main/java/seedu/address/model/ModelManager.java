@@ -21,11 +21,13 @@ import seedu.address.ui.UiManager;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static boolean loggedIn = false;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    //private final Account account;
+    private Account account;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Earnings> filteredEarnings;
 
@@ -51,12 +53,13 @@ public class ModelManager implements Model {
     /*public ModelManager(Account acc) {
         this(new AddressBook(), new UserPrefs());
         this.account = acc;
-    }
+    }*/
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Account acc) {
         this(addressBook, userPrefs);
         this.account = acc;
-    }*/
+        loggedIn = true;
+    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -211,4 +214,17 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons));
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+
+    public void isLoggedIn() {
+        loggedIn = !loggedIn;
+    }
+
+    @Override
+    public boolean userHasLoggedIn() {
+        return loggedIn;
+    }
 }
