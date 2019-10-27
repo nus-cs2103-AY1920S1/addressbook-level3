@@ -1,5 +1,8 @@
 package seedu.jarvis.testutil.finance;
 
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.jarvis.model.finance.purchase.Purchase;
 
 /**
@@ -16,4 +19,8 @@ public class TypicalPurchases {
             .withDescription("Dinner at Reedz Cafe")
             .withMoneySpent("5.90")
             .build();
+
+    public static List<Purchase> getTypicalPurchases() {
+        return Arrays.asList(LUNCH_JAPANESE, DINNER_REEDZ);
+    }
 }
