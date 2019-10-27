@@ -41,7 +41,7 @@ public class BudgetMonth {
         requireNonNull(date);
         checkArgument(isValidBudgetMonth(date), MESSAGE_CONSTRAINTS);
         String[] dateSplit = date.split("/");
-        int tempMonth = Integer.parseInt(dateSplit[0]);;
+        int tempMonth = Integer.parseInt(dateSplit[0]);
         int tempYear = Integer.parseInt(dateSplit[1]);
 
         return new BudgetMonth(tempMonth, tempYear);
