@@ -329,7 +329,7 @@ public class ModelManager implements Model {
     public boolean userHasLoggedIn() {
         return loggedIn;
     }
-  
+
     @Override
     public boolean hasNotes(Notes note) {
         requireNonNull(note);
