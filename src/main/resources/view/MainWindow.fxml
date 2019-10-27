@@ -86,6 +86,16 @@
                                 <StackPane fx:id="ongoingVisitPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </Tab>
+                        <Tab fx:id="appointmentTabPage" text="Appointments">
+                            <!--List Of Person Cards-->
+                            <VBox fx:id="appointmentList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                                  VBox.vgrow="ALWAYS">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <StackPane fx:id="appointmentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </Tab>
                     </tabs>
                 </TabPane>
 

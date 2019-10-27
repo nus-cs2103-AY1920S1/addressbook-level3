@@ -25,6 +25,7 @@ public class RecurringDateTime {
     private final long days;
     private final long hours;
     private final long minutes;
+    private final Long[] freqArray;
 
     /**
      * Constructs an {@code RecurringDateTime}.
@@ -33,12 +34,13 @@ public class RecurringDateTime {
      */
     public RecurringDateTime(Long[] freqArray) {
         requireAllNonNull(Arrays.asList(freqArray));
-        this.years = isNull(freqArray[0]) ? 0 : freqArray[0];
+        this.years = freqArray[0];
         this.months = freqArray[1];
         this.weeks = freqArray[2];
         this.days = freqArray[3];
         this.hours = freqArray[4];
         this.minutes = freqArray[5];
+        this.freqArray = freqArray;
     }
 
     public Long getYears() {
@@ -83,6 +85,19 @@ public class RecurringDateTime {
     public static boolean isValidFrequency(String freq) {
         Long[] freqLongArray = frequencyStringToLong(freq);
         return freqLongArray.length == EXPECTED_FREQUENCY_ARRAY_LENGTH;
+    }
+
+    /**
+     * @return boolean, which is true if frequency is non-zero
+     */
+    public boolean isRecurringFrequency() {
+        int numZeros = 0;
+        for (int i = 0; i < EXPECTED_FREQUENCY_ARRAY_LENGTH; i++) {
+            if (freqArray[i] == 0) {
+                numZeros++;
+            }
+        }
+        return (numZeros == EXPECTED_FREQUENCY_ARRAY_LENGTH);
     }
 
     /**

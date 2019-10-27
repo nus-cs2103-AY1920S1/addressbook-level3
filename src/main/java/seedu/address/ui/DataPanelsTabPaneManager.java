@@ -13,12 +13,14 @@ public class DataPanelsTabPaneManager {
     private final TabPane tabPane;
     private final Tab patientTabPage;
     private final Tab ongoingVisitTabPage;
+    private final Tab appointmentTabPage;
 
-    public DataPanelsTabPaneManager(TabPane pane, Tab patientTabPage, Tab ongoingVisitTabPage) {
-        requireAllNonNull(pane, patientTabPage, ongoingVisitTabPage);
+    public DataPanelsTabPaneManager(TabPane pane, Tab patientTabPage, Tab ongoingVisitTabPage, Tab appointmentTabPage) {
+        requireAllNonNull(pane, patientTabPage, ongoingVisitTabPage, appointmentTabPage);
         tabPane = pane;
         this.patientTabPage = patientTabPage;
         this.ongoingVisitTabPage = ongoingVisitTabPage;
+        this.appointmentTabPage = appointmentTabPage;
     }
 
     /**
@@ -35,5 +37,13 @@ public class DataPanelsTabPaneManager {
     public void changeToOngoingVisitTab() {
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
         selectionModel.select(ongoingVisitTabPage);
+    }
+
+    /**
+     * Change the current tab to ongoing visit tab.
+     */
+    public void changeToAppointmentTab() {
+        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+        selectionModel.select(appointmentTabPage);
     }
 }
