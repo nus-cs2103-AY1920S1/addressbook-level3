@@ -1,6 +1,7 @@
 package seedu.address.cashier.util;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
@@ -132,9 +133,10 @@ public class InventoryList {
      * @param item the new item to substitute the existing one
      */
     public void set(int i, Item item) {
-        if (item == null) {
+        Objects.requireNonNull(item);
+        /*if (item == null) {
             throw new NullPointerException();
-        }
+        }*/
         iArrayList.set(i, item);
     }
 
