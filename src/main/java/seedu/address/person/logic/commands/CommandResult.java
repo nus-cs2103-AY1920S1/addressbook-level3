@@ -9,18 +9,11 @@ import seedu.address.util.OverallCommandResult;
  */
 public class CommandResult extends OverallCommandResult {
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
-    /** The application should exit. */
-
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean exit) {
         super(requireNonNull(feedbackToUser), exit);
-        this.showHelp = showHelp;
     }
 
     /**
@@ -28,10 +21,7 @@ public class CommandResult extends OverallCommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false);
     }
 
-    /*public boolean isShowHelp() {
-        return showHelp;
-    }*/
 }
