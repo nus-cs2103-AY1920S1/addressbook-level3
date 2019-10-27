@@ -61,7 +61,7 @@ Adds an appointment with the description `Meeting on Monday` to the appointment 
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
-Orders supported: `type_ascending`, `type_descending`, `start_ascending`, `start_descending` +
+Orders supported: `description_ascending`, `description_descending`, `start_ascending`, `start_descending` +
 `end_ascending`, `end_descending`, `priority_ascending`, `priority_descending` +
 Format: `sort ORDER` +
 

@@ -19,17 +19,6 @@ public class EngagementList implements ReadOnlyEngagementList {
 
     private final ObservableList<Engagement> engagements;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-//    {
-//        engagements = new UniqueEngagementList();
-//    }
-
     public EngagementList() {
         engagements = FXCollections.observableArrayList();
     }
@@ -104,7 +93,7 @@ public class EngagementList implements ReadOnlyEngagementList {
      * {@code key} must exist in the engagement list.
      */
     public void removeEngagement(Engagement key) {
-        FXCollections.unmodifiableObservableList(engagements).remove(key);
+        engagements.remove(key);
     }
 
     //// util methods

@@ -29,7 +29,6 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredEngagementList(predicate);
-        //model.updateFilteredEngagementList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ENGAGEMENT_LISTED_OVERVIEW, model.getFilteredEngagementList().size()));
     }
