@@ -290,7 +290,6 @@ to the instantiation of a controller.)
 ** Cons: Restricted to public access modifiers. This violates Law of Demeter.
 // end::display[]
 
-<<<<<<< HEAD
 // tag::bin[]
 === Bin Feature
 ==== Implementation
@@ -347,9 +346,8 @@ will not be affected with a change/modification made to Bin as it is not depende
 ** Pros: More OOP like and lesser dependencies since Bin is extracted out from AddressBook. Methods related to bin
 operations are called only from within Bin.
 ** Cons: Many sections with repeated code since it is structurally similar to AddressBook.
-
 // end::bin[]
-=======
+
 //tag::history[]
 === Command History Feature
 ==== Implementation
@@ -416,9 +414,6 @@ feature to undo/redo application.
 * **Alternative 2:** Display every valid command entered by the user
 ** Pros: More accurate representation of command history, every command entered is a part of the history
 ** Cons: Clutters the command history with unnecessary commands like `history` and `undo`.
-<<<<<<< HEAD
->>>>>>> Add Command History in Developer Guide
-=======
 // end::history[]
 
 // tag::undoredo[]
@@ -507,7 +502,6 @@ HistoryManager and VersionedAddressBook.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
 Violates Single Responsibility Principle and Separation of Concerns as HistoryManager now needs to do two different things.
 // end::undoredo[]
->>>>>>> Add undo/redo in Developer Guide
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
