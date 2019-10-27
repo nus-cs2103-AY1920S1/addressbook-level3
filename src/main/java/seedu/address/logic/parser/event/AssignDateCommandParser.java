@@ -35,16 +35,20 @@ public class AssignDateCommandParser implements Parser<AssignDateCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_START_DATE, PREFIX_EVENT_TIME);
 
         //Ensure fields are compulsory
-        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_START_DATE, PREFIX_EVENT_TIME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_TIME)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignDateCommand.MESSAGE_USAGE));
         }
 
         Index eventIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-        EventDate targetDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());
         EventDayTime timePeriod = ParserUtil.parseTimePeriod(argMultimap.getValue(PREFIX_EVENT_TIME).get());
 
-        return new AssignDateCommand(eventIndex, targetDate, timePeriod);
+        if (argMultimap.getValue(PREFIX_EVENT_START_DATE).isPresent()) {
+            EventDate targetDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());
+            return new AssignDateCommand(eventIndex, targetDate, timePeriod);
+        } else {
+            return new AssignDateCommand(eventIndex, timePeriod);
+        }
     }
 
     /**

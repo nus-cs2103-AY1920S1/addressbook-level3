@@ -3,6 +3,7 @@ package seedu.address.model.event;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Stream;
 
 /**
  * Represents the Date of an Event in AddMin+. Events can span a time period of multiple days (dates).
@@ -35,6 +36,16 @@ public class EventDate {
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    /**
+     * Returns a sequential stream of Event Dates.
+     *
+     * @param endInclusive an Event Date that will be included in the Stream
+     */
+    public Stream<EventDate> datesUntil(EventDate endInclusive) {
+        return getDate().datesUntil(endInclusive.getDate().plusDays(1))
+            .map(date -> new EventDate(date));
     }
 
     @Override
