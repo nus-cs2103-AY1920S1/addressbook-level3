@@ -56,4 +56,8 @@ public class TaskList extends VisualizeList {
         TaskList tl = new TaskList();
         return super.deepCopy(tl);
     }
+
+    public boolean belongToList(Item item) {
+        return item.hasTask();
+    }
 }

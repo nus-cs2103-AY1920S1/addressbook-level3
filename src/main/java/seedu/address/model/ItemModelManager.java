@@ -337,9 +337,9 @@ public class ItemModelManager implements ItemModel {
     public Item deleteItem(int index) {
         Item item = visualList.removeItemFromList(index);
         itemStorage.remove(item);
-        taskList.removeItemFromList(item);
-        eventList.removeItemFromList(item);
-        reminderList.removeItemFromList(item);
+        taskList.remove(item);
+        eventList.remove(item);
+        reminderList.remove(item);
         if (priorityMode) {
             getNextTask();
         }
@@ -394,22 +394,41 @@ public class ItemModelManager implements ItemModel {
      */
     public void replaceItem(Item item, Item newItem) {
         int index = visualList.indexOf(item);
-        visualList.setItem(index, newItem);
+        if (index >= 0) {
+            if (visualList.belongToList(newItem)) {
+                visualList.setItem(index, newItem);
+            } else {
+                visualList.remove(index);
+            }
+        }
 
+        System.out.println(newItem.toString());
         if ((index = itemStorage.indexOf(item)) >= 0) {
             itemStorage.setItem(index, newItem);
         }
 
         if ((index = taskList.indexOf(item)) >= 0) {
-            taskList.setItem(index, newItem);
+            if (newItem.hasTask()) {
+                taskList.setItem(index, newItem);
+            } else {
+                taskList.remove(index);
+            }
         }
 
         if ((index = eventList.indexOf(item)) >= 0) {
-            eventList.setItem(index, newItem);
+            if (newItem.hasEvent()) {
+                eventList.setItem(index, newItem);
+            } else {
+                eventList.remove(index);
+            }
         }
 
         if ((index = reminderList.indexOf(item)) >= 0) {
-            reminderList.setItem(index, newItem);
+            if (newItem.hasReminder()) {
+                reminderList.setItem(index, newItem);
+            } else {
+                reminderList.remove(index);
+            }
         }
 
         if (priorityMode) {
@@ -592,17 +611,17 @@ public class ItemModelManager implements ItemModel {
      */
     public Item markComplete(int index) throws IllegalListException {
         Item item;
+        Item newItem;
         if (!(visualList instanceof TaskList)) {
             throw new IllegalListException();
         } else {
             item = visualList.get(index);
             Task task = item.getTask().get();
             Task newTask = task.markComplete();
-            Item newItem = item.changeTask(newTask);
+            newItem = item.changeTask(newTask);
             replaceItem(item, newItem);
         }
-
-        return item;
+        return newItem;
     }
 
     /**
@@ -611,26 +630,25 @@ public class ItemModelManager implements ItemModel {
 
     public Item markIncomplete(int index) throws IllegalListException {
         Item item;
+        Item newItem;
         if (!(visualList instanceof TaskList)) {
             throw new IllegalListException();
         } else {
             item = visualList.get(index);
             Task task = item.getTask().get();
             Task newTask = task.markIncomplete();
-            Item newItem = item.changeTask(newTask);
+            newItem = item.changeTask(newTask);
             replaceItem(item, newItem);
-            sortedTask.add(newItem);
         }
 
-        if (priorityMode) {
-            sortedTask.poll();
-            this.visualList = getNextTask();
-        }
-
-        return item;
+        return newItem;
     }
 
     public EventList getEventList() {
         return this.eventList;
+    }
+
+    public Item getItem(int index) {
+        return this.visualList.get(index);
     }
 }
