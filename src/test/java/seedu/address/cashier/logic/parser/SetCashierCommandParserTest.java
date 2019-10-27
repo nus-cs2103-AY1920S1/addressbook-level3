@@ -1,6 +1,6 @@
 package seedu.address.cashier.logic.parser;
 
-import static seedu.address.cashier.commands.CommandTestUtil.DESC_DESCRIPTION_STORYBOOK;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_DESCRIPTION_STORYBOOK;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_PERSON;

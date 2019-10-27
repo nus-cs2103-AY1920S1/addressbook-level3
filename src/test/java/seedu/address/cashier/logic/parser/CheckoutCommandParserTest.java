@@ -1,10 +1,10 @@
 package seedu.address.cashier.logic.parser;
 
-import static seedu.address.cashier.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
-import static seedu.address.cashier.commands.CommandTestUtil.DESC_PRICE_PAID;
-import static seedu.address.cashier.commands.CommandTestUtil.INVALID_PRICE_PAID_1;
-import static seedu.address.cashier.commands.CommandTestUtil.INVALID_PRICE_PAID_2;
-import static seedu.address.cashier.commands.CommandTestUtil.VALID_PRICE_PAID;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_PRICE_PAID;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_PRICE_PAID_1;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_PRICE_PAID_2;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_PRICE_PAID;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOUNT;

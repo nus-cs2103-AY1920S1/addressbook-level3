@@ -2,14 +2,14 @@ package seedu.address.cashier.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.cashier.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
-import static seedu.address.cashier.commands.CommandTestUtil.DESC_INDEX_1;
-import static seedu.address.cashier.commands.CommandTestUtil.DESC_QUANTITY_1;
-import static seedu.address.cashier.commands.CommandTestUtil.DESC_QUANTITY_2;
-import static seedu.address.cashier.commands.CommandTestUtil.VALID_DESCRIPTION_FISH_BURGER;
-import static seedu.address.cashier.commands.CommandTestUtil.VALID_INDEX_1;
-import static seedu.address.cashier.commands.CommandTestUtil.VALID_QUANTITY_1;
-import static seedu.address.cashier.commands.CommandTestUtil.VALID_QUANTITY_2;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_INDEX_1;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_QUANTITY_1;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_QUANTITY_2;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FISH_BURGER;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_INDEX_1;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTITY_1;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTITY_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
