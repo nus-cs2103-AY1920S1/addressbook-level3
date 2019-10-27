@@ -14,7 +14,7 @@ public class DescriptionMatchPredicate implements Predicate<Loan> {
 
     @Override
     public boolean test(Loan loan) {
-        return loan.getDescription().equals(description);
+        return loan.getDescription().toString().equalsIgnoreCase(description.toString());
     }
 
     @Override
