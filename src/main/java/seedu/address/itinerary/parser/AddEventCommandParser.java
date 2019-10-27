@@ -9,13 +9,15 @@ import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
+import seedu.address.itinerary.commands.AddEventCommand;
 import seedu.address.itinerary.model.event.Date;
 import seedu.address.itinerary.model.event.Description;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.event.Location;
+import seedu.address.itinerary.model.event.Tag;
 import seedu.address.itinerary.model.event.Time;
 import seedu.address.itinerary.model.event.Title;
-import seedu.address.itinerary.commands.AddEventCommand;
+import seedu.address.itinerary.ui.TagDropdown;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -46,8 +48,9 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        Tag tag = ParserUtil.parseTag(TagDropdown.getDropdownText());
 
-        Event event = new Event(title, date, location, description, time);
+        Event event = new Event(title, date, location, description, time, tag);
 
         return new AddEventCommand(event);
     }

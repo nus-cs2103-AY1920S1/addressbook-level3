@@ -5,11 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.util.CollectionUtil;
+import javafx.collections.transformation.SortedList;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Access the filtered event list of the itinerary.
@@ -18,10 +18,12 @@ public class Model {
     public static final Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
     private Itinerary itinerary;
     private final FilteredList<Event> filteredEvents;
+    private final SortedList<Event> sortedEvents;
 
     public Model() {
         this.itinerary = new Itinerary();
         filteredEvents = new FilteredList<>(this.itinerary.getEventList());
+        sortedEvents = new SortedList<>(filteredEvents);
     }
 
     public void addEvent(Event event) {
@@ -44,16 +46,17 @@ public class Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Expense}
+     * @return
      */
-    public ObservableList<Event> getFilteredEventList() {
-        return filteredEvents;
+    public SortedList<Event> getFilteredEventList() {
+        return sortedEvents;
     }
 
     /**
      * Filter out the events in the event list base on the predicate.
      * @param predicate the condition use to filter out the events.
      */
-    public void  updateFilteredEventList(Predicate<Event> predicate) {
+    public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
     }

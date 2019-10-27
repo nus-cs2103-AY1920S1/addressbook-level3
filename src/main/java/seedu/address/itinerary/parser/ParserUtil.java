@@ -4,11 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.itinerary.model.event.Date;
-import seedu.address.itinerary.model.event.Description;
-import seedu.address.itinerary.model.event.Location;
-import seedu.address.itinerary.model.event.Time;
-import seedu.address.itinerary.model.event.Title;
+import seedu.address.itinerary.commands.SortCommand;
+import seedu.address.itinerary.model.event.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
 
@@ -116,5 +113,27 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    public static String parseType(String type) throws ParseException {
+        String trimmedType = type.trim();
+        if (type.equals("title") || type.equals("chronological") || type.equals("completion")
+            || type.equals("location") || type.equals("priority")) {
+            return trimmedType;
+        } else {
+            throw new ParseException(SortCommand.MESSAGE_FAIL);
+        }
+    }
+
+    /**
+     * @param tag the tag that is being specified by the user.
+     * @return the labelled tag with the priority of the event.
+     * @throws ParseException if the given {@code tag} is invalid.
+     */
+    public static Tag parseTag(String tag) throws ParseException {
+        if (!Tag.isValidTag(tag)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Tag(tag);
     }
 }
