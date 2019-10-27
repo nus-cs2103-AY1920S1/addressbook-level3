@@ -8,14 +8,9 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.model.event.Date;
-import seedu.address.itinerary.model.event.Description;
-import seedu.address.itinerary.model.event.Event;
-import seedu.address.itinerary.model.event.Location;
-import seedu.address.itinerary.model.event.Time;
-import seedu.address.itinerary.model.event.Title;
+import seedu.address.itinerary.model.event.*;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
+import seedu.address.itinerary.model.Model;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.itinerary.parser.CliSyntax;
@@ -96,8 +91,10 @@ public class EditCommand extends Command {
         Time updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
         Location updatedLocation = editEventDescriptor.getLocation().orElse(eventToEdit.getLocation());
         Description updatedDescription = editEventDescriptor.getDescription().orElse(eventToEdit.getDesc());
+        Tag updatedTag = editEventDescriptor.getTag().orElse(eventToEdit.getTag());
 
-        Event event = new Event(updatedTitle, updatedDate, updatedLocation, updatedDescription, updatedTime);
+        Event event = new Event(updatedTitle, updatedDate, updatedLocation,
+                updatedDescription, updatedTime, updatedTag);
 
         if (eventToEdit.getIsDone()) {
             event.markIsDone();
@@ -134,6 +131,7 @@ public class EditCommand extends Command {
         private Time time;
         private Location location;
         private Description description;
+        private Tag tag;
 
         public EditEventDescriptor() {}
 
@@ -147,13 +145,14 @@ public class EditCommand extends Command {
             setTime(toCopy.time);
             setLocation(toCopy.location);
             setDescription(toCopy.description);
+            setTag(toCopy.tag);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, date, time, location, description);
+            return CollectionUtil.isAnyNonNull(title, date, time, location, description, tag);
         }
 
         public void setTitle(Title title) {
@@ -194,6 +193,14 @@ public class EditCommand extends Command {
 
         public Optional<Description> getDescription () {
             return Optional.ofNullable(description);
+        }
+
+        public void setTag(Tag tag) {
+            this.tag = tag;
+        }
+
+        public Optional<Tag> getTag () {
+            return Optional.ofNullable(tag);
         }
 
         @Override

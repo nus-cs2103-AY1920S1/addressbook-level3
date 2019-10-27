@@ -25,9 +25,10 @@
                      <Region fx:constant="USE_PREF_SIZE" />
                   </minWidth>
                </Label>
+               <Label fx:id="country" styleClass="cell_small_label" text="\\$country" />
             </children>
          </HBox>
-            <Label fx:id="country" styleClass="cell_small_label" text="\\$country" />
+            <Label fx:id="type" styleClass="cell_small_label" text="\\$type" />
             <Label fx:id="amount" styleClass="cell_small_label" text="\\$amount" />
             <Label fx:id="desc" styleClass="cell_small_label" text="\\$desc" />
         </VBox>

@@ -1,5 +1,6 @@
 package seedu.address.itinerary.model.event;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
@@ -11,14 +12,16 @@ public class Event {
     private Description desc;
     private Date date;
     private Time time;
+    private Tag tag;
     private boolean isDone;
 
-    public Event(Title title, Date date, Location location, Description desc, Time time) {
+    public Event(Title title, Date date, Location location, Description desc, Time time, Tag tag) {
         this.title = title;
         this.location = location;
         this.desc = desc;
         this.date = date;
         this.time = time;
+        this.tag = tag;
         this.isDone = false;
     }
 
@@ -40,6 +43,14 @@ public class Event {
 
     public Time getTime() {
         return time;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 
     public boolean getIsDone() {
@@ -130,4 +141,48 @@ public class Event {
             }
         }
     }.thenComparing(Object::toString);
+
+    /**
+     * Comparator to sort events in the events list in order of Completion.
+     */
+    public static Comparator<Event> priorityComparator = new Comparator<Event>() {
+
+        @Override
+        public int compare(Event e1, Event e2) {
+            ArrayList<String> comparisonTag = new ArrayList<>();
+            comparisonTag.add("Critical");
+            comparisonTag.add("High");
+            comparisonTag.add("Medium");
+            comparisonTag.add("Low");
+            comparisonTag.add("None");
+
+            int index1 = comparisonTag.indexOf(e1.getTag().toString().split(" ")[1]);
+            int index2 = comparisonTag.indexOf(e2.getTag().toString().split(" ")[1]);
+
+            return index1 - index2;
+        }
+    }.thenComparing(Object::toString);
+
+    /**
+     * Returns true if both expense have the same data fields.
+     * This defines a stronger notion of equality between two expenses.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+        return otherEvent.title.title.equals(this.title.title)
+                && otherEvent.date.date.equals(this.date.date)
+                && otherEvent.time.time.equals(this.time.time)
+                && otherEvent.location.location.equals(this.location.location)
+                && otherEvent.desc.desc.equals(this.desc.desc)
+                && otherEvent.tag.tag.equals(this.tag.tag);
+    }
 }

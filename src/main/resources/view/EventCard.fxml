@@ -35,6 +35,13 @@
                   <Font name="Chalkboard" size="18.0" />
                </font>
             </Label>
+            <Label fx:id="tag" text="\\$tag">
+               <HBox.margin>
+                  <Insets top="3.0" />
+               </HBox.margin></Label>
+            <VBox.margin>
+               <Insets bottom="3.0" />
+            </VBox.margin>
       </HBox>
          <VBox prefHeight="0.0" prefWidth="130.0">
             <children>

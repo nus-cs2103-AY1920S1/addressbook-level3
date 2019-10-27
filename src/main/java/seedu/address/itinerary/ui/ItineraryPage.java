@@ -10,8 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.itinerary.commands.Command;
 import seedu.address.itinerary.model.Model;
+import seedu.address.itinerary.commands.Command;
 import seedu.address.itinerary.parser.ItineraryParser;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
@@ -38,6 +38,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private EventPanel eventPanel;
     private ItineraryParser itineraryParser;
     private Model model;
+    private TagDropdown tagDropdown;
 
     @FXML
     private Scene itineraryScene;
@@ -78,8 +79,11 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        tagDropdown = new TagDropdown();
+        commandBoxPlaceholder.getChildren().add(tagDropdown.getRoot());
     }
 
     public PageType getPageType() {
@@ -113,6 +117,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            //update tagging dropDown menu
+            tagDropdown.updateDropdownText();
             Command command = itineraryParser.parseCommand(commandText);
             model.addAction(commandText);
             CommandResult commandResult = command.execute(model);

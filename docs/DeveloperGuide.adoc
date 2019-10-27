@@ -455,7 +455,17 @@ However, in the parser package of itinerary, it contains various parser objects 
 This is to ensure that each command in financial tracker have only one parser validating the command.
 The GUI also collaborate with Model Class directly, which will be changed to only communicate with Logic class in later time.
 
-==== Expense Statistics
+.Class Diagram of the Financial Tracker feature
+image::FinancialTrackerClassDiagram.png[]
+The Model,
+stores the `FinancialTracker` data which includes the `ExpenseList` which keeps track of all the expenses
+that are included by the user and stores it into the storage in a JSON file.
+
+It exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+[NOTE]
+Each time a new `Country` is selected from the javafx drop down menu, an expense list will be generated for that specific country, this
+implementation is to ease categorising and sorting.
 
 === Diary
 

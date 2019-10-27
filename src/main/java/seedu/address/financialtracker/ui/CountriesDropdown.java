@@ -29,6 +29,8 @@ public class CountriesDropdown extends UiPart<Region> {
     @FXML
     private ComboBox<String> countriesDropdown;
 
+    private static String field = null;
+
     public CountriesDropdown() {
         super(FXML);
         String[] locales = Locale.getISOCountries();
@@ -41,7 +43,11 @@ public class CountriesDropdown extends UiPart<Region> {
         countriesDropdown.getSelectionModel().select(189); // Select Singapore as default
     }
 
-    public String getDropdownText() {
-        return countriesDropdown.getValue();
+    public String updateDropdownText() {
+        return field = countriesDropdown.getValue();
+    }
+
+    public static String getDropdownText() {
+        return field;
     }
 }
