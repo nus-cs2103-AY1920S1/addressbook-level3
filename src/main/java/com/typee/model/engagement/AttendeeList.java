@@ -79,7 +79,7 @@ public class AttendeeList {
     public List<Person> getAttendees() {
         return attendees;
     }
-  
+    
     /**
      * Returns a copy of the {@code AttendeeList}.
      * @return {@code AttendeeList} with the same content.
