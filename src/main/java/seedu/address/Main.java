@@ -1,8 +1,6 @@
 package seedu.address;
 
 import javafx.application.Application;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * The main entry point to the application.
@@ -21,7 +19,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * to be the entry point of the application, we avoid this issue.
  */
 public class Main {
-    public static void main(String[] args) throws DataConversionException, IllegalValueException {
+    public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
 }

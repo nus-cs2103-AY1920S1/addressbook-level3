@@ -60,7 +60,6 @@ public class JsonWordBankStorageTest {
         jsonWordBankListStorage.saveWordBank(original);
         ReadOnlyWordBank readBack = jsonWordBankListStorage.jsonToWordBank(originalPath).get();
         assertEquals(original, readBack);
-        assertEquals(original, readBack);
 
         // Modify data, overwrite exiting file, and read back
         original.removeCard(CHARIZARD);
@@ -93,7 +92,7 @@ public class JsonWordBankStorageTest {
     }
 
     private java.util.Optional<ReadOnlyWordBank> toModelType(String filePath) throws Exception {
-        return new JsonWordBankListStorage(Paths.get(filePath)).jsonToWordBank(addToTestDataPathIfNotNull(filePath));
+        return new JsonWordBankListStorage(TEST_DATA_FOLDER).jsonToWordBank(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
