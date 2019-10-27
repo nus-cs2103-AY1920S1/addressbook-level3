@@ -1,10 +1,15 @@
 package dream.fcard.logic.respond;
 
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import dream.fcard.core.commons.core.LogsCenter;
+//import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateEnum;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.util.FileReadWrite;
@@ -13,6 +18,10 @@ import dream.fcard.util.FileReadWrite;
  * Enum of regex and response function pairs used by Responder to evaluate input.
  */
 enum Responses {
+    LOGGER(".*", (commandInput, programState) -> {
+        logger = LogsCenter.getLogger(Responses.class);
+        return false;
+    }),
     HELP("(?i)^(help)?(\\s)*(command/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
         System.out.println("Current command is HELP");
         /*Print out "Available commands are:\n" +
@@ -99,8 +108,10 @@ enum Responses {
         // }
         return true; // capture is valid, end checking other commands
     }),
-    VIEW("(?i)^(view)?(\\s)*(deck/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
+    VIEW("(?i)^(view)?(\\s)*(deck/[\\S\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
         System.out.println("Current command is VIEW");
+        LogsCenter.getLogger(Responses.class).info("Current command is VIEW");
+
         // ArrayList<Deck> allDecks = programState.getDecks();
         //  String inputName = *name of deck to find*;
         //  for (Deck curr : allDecks) {
@@ -108,35 +119,39 @@ enum Responses {
         //          curr.viewDeck();
         //      }
         //  }
+        ArrayList<Deck> decks = programState.getDecks();
+        for (int i = 0; i < decks.size(); i++) {
+            System.out.println("Deck #1: " + decks.get(i).getName());
+        }
 
         return true; // capture is valid, end checking other commands
     }),
 
-    CREATE_DECK("(?i)^(create)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)*", (commandInput, programState) -> {
-        System.out.println("Current command is CREATE");
+    CREATE("(?i)^(create)?(\\s)+(deck/[\\S\\s]+){1}(\\s)*", (commandInput, programState) -> {
 
-        // Split according to numerous white spaces in between
-        String[] userInputFields = commandInput.trim().split("\\s+");
+        System.out.println("Current command is CREATE deck");
+        LogsCenter.getLogger(Responses.class).info("Current command is CREATE deck");
 
-        // Extract user input field
-        String deckName = userInputFields[1].replaceFirst("deck/", "");
-
-        boolean isDeckExist = true;
-
-        // Check for deck that exist in state with same name
-        try {
-            Deck deck = programState.getDeck(deckName);
-        } catch (DeckNotFoundException d) {
-            isDeckExist = false;
-            Deck newDeck = new Deck(deckName);
-            programState.addDeck(newDeck);
+        if (programState.getCurrentState() != StateEnum.DEFAULT) {
+            System.out.println("Create not allowed here");
+            return false;
         }
+        // dont intercept input if not default state
+        // note all commands should have something like this
+        // even import export
 
-        if (isDeckExist) {
-            throw new DuplicateFoundException("Deck with same name exist in FlashCard Pro already - " + deckName);
+        String deckName = commandInput.split("deck/")[1].trim();
+        if (programState.hasDeck(deckName)) {
+            // REPORT DECK EXISTS
+            LogsCenter.getLogger(Responses.class).warning("Deck with same name exist - " + deckName);
+            System.out.println("Error: Deck with same name exist - " + deckName);
+        } else {
+            programState.setCurrentState(StateEnum.CREATE_STATE_FRONT);
+            programState.addDeck(deckName);
+            LogsCenter.getLogger(Responses.class).info("Deck added - " + deckName);
+            // PRINT INSTRUCTIONS TO USER HOW TO CREATE DECK
         }
-
-        return true; // capture is valid, end checking other commands
+        return true;
     }),
 
     // expanded create to take in
@@ -144,30 +159,38 @@ enum Responses {
     // compulsory set of front/ back/
     // only once each
     DECK_CREATE_REG_CARD("(?i)^(create)?(\\s)+"
-            + "(deck/[\\w\\p{Punct}]+){1}(\\s)*"
-            + "(front/[\\w\\p{Punct}]+){1}(\\s)*"
-            + "(back/[\\w\\p{Punct}]+){1}(\\s)*", (commandInput, programState) -> {
+            + "(deck/[\\S\\s]+){1}(\\s)*"
+            + "(front/[\\S\\s]+){1}(\\s)*"
+            + "(back/[\\S\\s]+){1}(\\s)*", (commandInput, programState) -> {
 
                 System.out.println("Current command is DECK_CREATE_REG_CARD");
+                LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_REG_CARD");
 
                 // Split according to numerous white spaces in between
-                String[] userInputFields = commandInput.trim().split("\\s+");
+                System.out.println(commandInput);
+                String userInput = commandInput.replaceFirst("create deck/", "");
 
-                // Extract user input field
-                String deckName = userInputFields[1].replaceFirst("deck/", "");
-                String front = userInputFields[2].replaceFirst("front/", "");
-                String back = userInputFields[3].replaceFirst("back/", "");
+                String[] userInputFields = userInput.trim().split(" front/");
+
+                String deckName = userInputFields[0];
+
+                String[] userCardFields = userInputFields[1].trim().split(" back/");
+
+                String front = userCardFields[0];
+                String back = userCardFields[1];
+
+                //System.out.println(deckName + " " + front + " " + back);
 
                 // Check if deck by the name exist
                 try {
                     Deck deck = programState.getDeck(deckName);
                     deck.addNewCard(new FrontBackCard(front, back));
+                    LogsCenter.getLogger(Responses.class).info("Card added to " + deckName);
                 } catch (DeckNotFoundException d) {
                     // Throw exception to responder
+                    LogsCenter.getLogger(Responses.class).warning("Deck not found - " + deckName);
                     throw new DeckNotFoundException(d.getMessage());
                 }
-
-                System.out.println(deckName + " " + front + " " + back);
 
                 return true; // capture is valid, end checking other commands
             }),
@@ -186,9 +209,14 @@ enum Responses {
         // *Initiate test with Test Deck*
         return true; // capture is valid, end checking other commands
     }),
-    EXIT("(?i)^(exit)?.", (commandInput, programState) -> {
+    EXIT("(?i)^(exit)?", (commandInput, programState) -> {
         System.out.println("Current command is EXIT");
+        LogsCenter.getLogger(Responses.class).info("Current command is EXIT");
+
         // Exit from application
+        // Added exit for convenience
+        System.exit(0);
+
         return true; // capture is valid, end checking other commands
     }),
 
@@ -202,10 +230,15 @@ enum Responses {
 
     UNKNOWN(".*", (commandInput, programState) -> {
         System.out.println("Sorry, I don't know what is this command.");
+        //logger.warning("Unknown command entered.");
+
+        // violates some rules, but workaround to prevent illegal forward reference
         LogsCenter.getLogger(Responses.class).warning("Unknown command entered.");
+
         return false;
     });
 
+    private static Logger logger;
     private String regex;
     private ResponseFunc func;
 
@@ -222,13 +255,15 @@ enum Responses {
      * @param s state object
      * @return boolean if the string has matched
      */
-    public boolean call(String i, State s) throws Exception {
+    public boolean call(String i, State s) {
         try {
             if (i.matches(regex)) {
                 return func.funcCall(i, s);
             }
         } catch (DeckNotFoundException | DuplicateFoundException d) {
-            throw new Exception(d.getMessage());
+            System.out.println(d.getMessage());
+
+            // gui handle
         }
         return false;
     }

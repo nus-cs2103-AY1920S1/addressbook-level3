@@ -9,12 +9,14 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
  */
 public class State {
 
+    private StateEnum currentState;
     private ArrayList<Deck> decks;
 
     /**
      * Constructor to create a State object with no Deck objects.
      */
     public State() {
+        currentState = StateEnum.DEFAULT;
         decks = new ArrayList<>();
     }
 
@@ -24,6 +26,7 @@ public class State {
      * @param initialDecks ArrayList of Deck objects to include in State object.
      */
     public State(ArrayList<Deck> initialDecks) {
+        currentState = StateEnum.DEFAULT;
         decks = initialDecks;
     }
 
@@ -72,6 +75,13 @@ public class State {
     }
 
     /**
+     * @return
+     */
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+    /**
      * Replace all decks with a new set of decks. Used by `root` command.
      *
      * @param newDecks new decks
@@ -100,5 +110,32 @@ public class State {
             }
         }
         return -1;
+    }
+
+    /**
+     * @return
+     */
+    public StateEnum getCurrentState() {
+        return currentState;
+    }
+
+    /**
+     * @param deckName
+     * @return
+     */
+    public boolean hasDeck(String deckName) {
+        for (int i = 0; i < decks.size(); i++) {
+            Deck currentDeck = decks.get((i));
+            String currentDeckName = currentDeck.getName();
+            boolean isMatchName = currentDeckName.equals(deckName);
+            if (isMatchName) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setCurrentState(StateEnum newState) {
+        currentState = newState;
     }
 }
