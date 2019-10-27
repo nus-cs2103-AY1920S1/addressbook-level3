@@ -9,11 +9,11 @@ import seedu.address.model.Model;
 import seedu.address.model.event.EventContainsKeyDatePredicate;
 
 /**
- * Finds and lists all events in event list whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all events in event list whose Start Dates corresponds to the specified LocalDate.
+ * Keyword matching is case insensitive and in the following format dd/MM/yyyy.
  */
 public class DisplayScheduleForDateCommand extends Command {
-    public static final String COMMAND_WORD = "view_schedule_date";
+    public static final String COMMAND_WORD = "display_schedule_date";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific date"
             + "Example: " + COMMAND_WORD + " on/02/12/2019";

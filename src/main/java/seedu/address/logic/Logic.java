@@ -42,7 +42,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of events */
     ObservableList<Event> getFilteredScheduledEventList();
 
-    /** Returns an unmodifiable view of the filtered list of events */
+    /** Returns an unmodifiable view of the DistinctDateList */
     ObservableList<DistinctDate> getDistinctDateList();
 
     /**

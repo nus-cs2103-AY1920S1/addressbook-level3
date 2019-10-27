@@ -12,7 +12,7 @@ import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.event.Event;
 
 /**
- * An UI component that displays information of a {@code Event}.
+ * An UI component that displays information of a {@code DistinctDate}.
  */
 public class DateCard extends UiPart<Region> {
 

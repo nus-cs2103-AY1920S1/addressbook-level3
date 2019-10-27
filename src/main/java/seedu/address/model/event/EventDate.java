@@ -42,7 +42,7 @@ public class EventDate {
     }
 
     /**
-     * Returns true if a given string is a valid month.
+     * Returns true if a given string is a valid month, year format MM/yyyy.
      */
     public static boolean isValidYearMonth(String test) {
         try {

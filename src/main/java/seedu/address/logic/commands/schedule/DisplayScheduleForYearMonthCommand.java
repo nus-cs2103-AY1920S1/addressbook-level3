@@ -9,11 +9,11 @@ import seedu.address.model.Model;
 import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
 
 /**
- * Finds and lists all events in event list whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all events in event list whose start and end dates are within the specified Year and Month.
+ * Keyword matching is case insensitive and in the following format MM/yyyy.
  */
 public class DisplayScheduleForYearMonthCommand extends Command {
-    public static final String COMMAND_WORD = "view_schedule";
+    public static final String COMMAND_WORD = "display_schedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific month, year"
             + "Example: " + COMMAND_WORD + " for/12/2019";

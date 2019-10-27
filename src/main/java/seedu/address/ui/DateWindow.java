@@ -15,7 +15,7 @@ import seedu.address.model.distinctdate.DistinctDate;
 
 
 /**
- * Controller for a fetch page
+ * New Window to display the newly generated List of DistinctDate Objects
  */
 public class DateWindow extends UiPart<Stage> {
 
@@ -46,7 +46,7 @@ public class DateWindow extends UiPart<Stage> {
 
 
     /**
-     * Shows the fetch window.
+     * Shows the Date window.
      */
     public void show() {
         logger.fine("Showing generated schedule - all dates and corresponding events.");
@@ -56,28 +56,28 @@ public class DateWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the fetch window is currently being shown.
+     * Returns true if the date window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the fetch window.
+     * Hides the date window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the date window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code DistinctDate} using a {@code DateCard}.
      */
     class DateListViewCell extends ListCell<DistinctDate> {
         @Override

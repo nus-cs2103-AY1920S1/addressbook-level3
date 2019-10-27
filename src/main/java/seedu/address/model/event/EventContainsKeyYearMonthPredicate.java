@@ -4,7 +4,7 @@ import java.time.YearMonth;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Event}'s {@code Date} matches the given Key Year Month in MM/yyyy format.
  */
 public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
     private final YearMonth yearMonth;
@@ -14,10 +14,10 @@ public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
     }
 
     /**
-     * Checks if a date is currently within the range of the Event's start and end date.
+     * Checks if a YearMonth is currently within the range of the Event's start.
      *
      * @param event Event object that is referenced
-     * @return Boolean
+     * @return Boolean result of whether it is within the Year Month
      */
     @Override
     public boolean test(Event event) {

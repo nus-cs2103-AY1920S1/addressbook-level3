@@ -16,13 +16,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new DisplayScheduleForYearMonthCommand object
  */
 public class DisplayScheduleForYearMonthParser implements Parser<DisplayScheduleForYearMonthCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindEventCommand
-     * and returns a FindEventCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DisplayScheduleForYearMonthCommand
+     * and returns a DisplayScheduleForYearMonthCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

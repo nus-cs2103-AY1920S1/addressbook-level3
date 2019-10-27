@@ -7,8 +7,10 @@ import java.util.Objects;
 import seedu.address.model.event.Event;
 
 /**
- * Represents a DistinctDate Object in the DistinctDateList
+ * Represents a DistinctDate Object, which will be stored in the DistinctDateList
  * Guarantees: details are present and not null, field values are validated.
+ * Each DistinctDate Object contains a List<Event>, list of events and a LocalDate
+ * date which it represents
  */
 public class DistinctDate {
 
@@ -24,17 +26,25 @@ public class DistinctDate {
         listOfEvents = events;
     }
 
+    /**
+     * returns the list of events which is on the specific date
+     * @return a list of events which corresponds to the specific date
+     */
     public List<Event> getListOfEvents() {
         return listOfEvents;
     }
 
+    /**
+     * returns the LocalDate date of the DistinctDate object
+     * @return the LocalDate date of the DistinctDate object
+     */
     public LocalDate getDate() {
         return date;
     }
 
     /**
-     * Returns true if both employees of the same employeeName have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two employees.
+     * Returns true if both DistinctDate object refer to the same object, or share the same LocalDate Date.
+     * This defines a weaker notion of equality between two DistinctDate.
      */
     public boolean isSameDate(DistinctDate otherDistinctDate) {
         if (otherDistinctDate == this) {
@@ -46,8 +56,8 @@ public class DistinctDate {
     }
 
     /**
-     * Returns true if both employees have the same identity and data fields.
-     * This defines a stronger notion of equality between two employees.
+     * Returns true if both DistinctDate have the same identity and data fields.
+     * This defines a stronger notion of equality between two DistinctDate.
      */
     @Override
     public boolean equals(Object other) {

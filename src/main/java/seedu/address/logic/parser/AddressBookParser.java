@@ -27,9 +27,9 @@ import seedu.address.logic.commands.event.FindEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
-import seedu.address.logic.commands.schedule.DisplayScheduleCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
+import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
 import seedu.address.logic.commands.statistics.StatisticsCommand;
 import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.logic.parser.allocate.DeallocateCommandParser;
@@ -110,8 +110,8 @@ public class AddressBookParser {
         case DisplayScheduleForYearMonthCommand.COMMAND_WORD:
             return new DisplayScheduleForYearMonthParser().parse(arguments);
 
-        case DisplayScheduleCommand.COMMAND_WORD:
-            return new DisplayScheduleCommand();
+        case GenerateScheduleCommand.COMMAND_WORD:
+            return new GenerateScheduleCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

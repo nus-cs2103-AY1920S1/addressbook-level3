@@ -11,17 +11,17 @@ import seedu.address.model.Model;
 import seedu.address.model.distinctdate.DistinctDate;
 
 /**
- * Finds and lists all events in event list whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Generates a new list of DistinctDate objects, which represented all the Dates in the current
+ * schedule. Each Date will display all the events that is held on the corresponding date.
  */
-public class DisplayScheduleCommand extends Command {
+public class GenerateScheduleCommand extends Command {
     public static final String COMMAND_WORD = "generate_schedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Display all Dates and the events on that is on those dates"
+            + ": Generates a new list and displays all Dates and the events that corresponds to those dates"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Listed entire schedule";
+    public static final String MESSAGE_SUCCESS = "Schedule Generated";
 
     @Override
     public CommandResult execute(Model model) {

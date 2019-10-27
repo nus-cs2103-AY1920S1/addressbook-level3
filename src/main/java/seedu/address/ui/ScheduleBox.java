@@ -12,9 +12,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.schedule.DisplayScheduleCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
+import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
@@ -87,8 +87,10 @@ public class ScheduleBox extends Tabs<AnchorPane> {
     }
 
     /**
-     * Inputs {@code datePicker.getVaue()} that displays the events for that specific date
-     * with an {@code EventCard}.
+     * decreases the current Month and year that is in focus if applicable. Displays all the events that
+     * are happening in that current Month and Year.
+     * @throws ParseException thrown when input format is in the wrong order or format and could not be parsed.
+     * @throws CommandException thrown when input format is in the wrong format.
      */
     @FXML
     private void onPrevClickButton() throws ParseException, CommandException {
@@ -111,8 +113,10 @@ public class ScheduleBox extends Tabs<AnchorPane> {
     }
 
     /**
-     * Inputs {@code datePicker.getVaue()} that displays the events for that specific date
-     * with an {@code EventCard}.
+     * increases the current Month and year that is in focus if applicable. Displays all the events that
+     * are happening in that current Month and Year.
+     * @throws ParseException thrown when input format is in the wrong order or format and could not be parsed.
+     * @throws CommandException thrown when input format is in the wrong format.
      */
     @FXML
     private void onNextClickButton() throws ParseException, CommandException {
@@ -135,11 +139,13 @@ public class ScheduleBox extends Tabs<AnchorPane> {
     }
 
     /**
-     * Inputs {@code datePicker.getVaue()} that displays the events for that specific date
-     * with an {@code EventCard}.
+     * generates a new window which will display a new List of date object and all the events which occurs on
+     * the corresponding dates.
+     * @throws ParseException thrown when input format is in the wrong order or format and could not be parsed.
+     * @throws CommandException thrown when input format is in the wrong format.
      */
     @FXML
     private void generateSchedule() throws ParseException, CommandException {
-        mainWindow.executeCommand(DisplayScheduleCommand.COMMAND_WORD);
+        mainWindow.executeCommand(GenerateScheduleCommand.COMMAND_WORD);
     }
 }

@@ -16,13 +16,13 @@ import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventDate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new DisplayScheduleForDateCommand object
  */
 public class DisplayScheduleForDateParser implements Parser<DisplayScheduleForDateCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindEventCommand
-     * and returns a FindEventCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DisplayScheduleForDateCommand
+     * and returns a DisplayScheduleForDateCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

@@ -245,10 +245,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into a {@code Integer month}.
+     * Parses a {@code String date} into a {@code YearMonth}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code Month} is invalid.
+     * @throws ParseException if the given {@code YearMonth} is invalid.
      */
     public static YearMonth parseYearMonth(String date) throws ParseException {
         requireNonNull(date);
