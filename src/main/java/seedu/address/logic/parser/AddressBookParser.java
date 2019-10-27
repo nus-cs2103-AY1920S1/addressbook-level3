@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
+import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -102,11 +103,15 @@ public class AddressBookParser {
      * Returns a {@code NewCommand} if the command exists or an {@code UnknownCommand} if it does not.
      */
     public Command checkCommand(String userInput, String prevUnknownCommand) {
-        if (AddressBookParser.commandList.containsKey(userInput)) {
-            AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
-            return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+        if (userInput.equals("cancel")) {
+            return new CancelCommand();
         } else {
-            return new UnknownCommand(userInput);
+            if (AddressBookParser.commandList.containsKey(userInput)) {
+                AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
+                return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+            } else {
+                return new UnknownCommand(userInput);
+            }
         }
     }
     /**
