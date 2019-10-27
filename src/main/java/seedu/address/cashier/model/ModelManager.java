@@ -407,9 +407,27 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return inventoryList.equals(other.getInventoryList())
                 && transactionList.equals(other.getTransactionList())
-                && salesList.equals(other.getSalesList());
+                && this.equalsSalesList(other.getSalesList());
     }
 
+    /**
+     * Compares the sales list with another list of items to check if all the elements of both list are equal.
+     *
+     * @param list the other list to compare against
+     * @return true if both list are exactly the same. Else, return false
+     */
+    public boolean equalsSalesList(ArrayList<Item> list) {
+        boolean result = true;
+        for (int i = 0; i < list.size(); i++) {
+            if (result && this.getSalesList().get(i).equals(list.get(i))) {
+                continue;
+            } else {
+                result = false;
+                return false;
+            }
+        }
+        return result;
+    }
 
 }
 

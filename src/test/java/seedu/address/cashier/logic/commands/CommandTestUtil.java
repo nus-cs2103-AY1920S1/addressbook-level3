@@ -33,7 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_BLACK_SHIRT = "CCA shirt";
     public static final String VALID_CATEGORY_1 = "food";
     public static final String VALID_CATEGORY_2 = "Book";
-    public static final int VALID_QUANTITY_1 = 85;
+    public static final int VALID_QUANTITY_1 = 34;
     public static final int VALID_QUANTITY_2 = 4;
     public static final int VALID_INDEX_1 = 1;
     public static final int VALID_INDEX_2 = 2;
