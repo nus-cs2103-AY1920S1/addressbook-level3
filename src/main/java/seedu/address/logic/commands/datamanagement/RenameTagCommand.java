@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 import seedu.address.model.tag.exceptions.InvalidTagNameException;
 
@@ -50,12 +51,12 @@ public class RenameTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        boolean tagExists = model.activeSpContainsTag(originalTagName);
+        boolean tagExists = model.activeSpContainsModuleTag(originalTagName);
         if (!tagExists) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, originalTagName));
         }
 
-        Tag targetTag = model.getTagFromActiveSp(originalTagName);
+        Tag targetTag = model.getModuleTagFromActiveSp(originalTagName);
         if (targetTag.isDefault()) {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
@@ -64,6 +65,8 @@ public class RenameTagCommand extends Command {
 
         try {
             toRename.rename(newTagName);
+            UniqueTagList modelTags = model.getModuleTagsFromActiveSp();
+            modelTags.updateTagMaps(originalTagName, newTagName);
         } catch (InvalidTagNameException exception) {
             throw new CommandException(MESSAGE_INVALID_TAG_NAME);
         }

@@ -36,7 +36,7 @@ public class ViewDefaultTagsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        UniqueTagList uniqueTagList = model.getTagsFromActiveSp();
+        UniqueTagList uniqueTagList = model.getModuleTagsFromActiveSp();
 
         Predicate<Tag> isTagDefault = tag -> (tag.isDefault());
 

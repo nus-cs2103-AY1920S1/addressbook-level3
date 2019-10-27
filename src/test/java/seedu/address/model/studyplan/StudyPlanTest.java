@@ -40,7 +40,7 @@ public class StudyPlanTest {
 
         StudyPlan sp1Clone = sp1Copy.clone();
         assertEquals(sp1Clone, sp1Copy);
-        assertEquals(sp1Clone.getTags(), sp1Copy.getTags());
+        assertEquals(sp1Clone.getModuleTags(), sp1Copy.getModuleTags());
         assertNotSame(sp1Copy, sp1Clone);
     }
 

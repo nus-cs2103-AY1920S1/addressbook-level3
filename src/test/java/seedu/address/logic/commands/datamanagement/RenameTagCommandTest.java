@@ -39,15 +39,17 @@ public class RenameTagCommandTest {
         String validTagNameTwo = validTagTwo.getTagName();
 
         // construct model containing study plan with one user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne).build();
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
         // construct expected model containing study plan with renamed user tag
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTags(validTagNameTwo).build();
-        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withModuleTags(validTagTwo).build();
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.deleteStudyPlan(studyPlan);
+        expectedModel.addStudyPlan(expectedStudyPlan);
         expectedModel.addToHistory();
 
         // construct command to rename one of the user tags
@@ -62,37 +64,38 @@ public class RenameTagCommandTest {
         Tag validTagOne = new TagBuilder().buildTestUserTag();
         String validTagNameOne = validTagOne.getTagName();
         Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-        String validTagNameTwo = validTagTwo.getTagName();
         Tag validTagThree = new TagBuilder().buildUserTag("anotherUserTag");
         String validTagNameThree = validTagThree.getTagName();
 
         // construct modules with user tags
-        Module cs1231 = new ModuleBuilder().withTags(validTagNameOne).build();
-        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameOne, validTagNameTwo).build();
+        Module cs1231 = new ModuleBuilder().withTags(validTagOne).build();
+        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne, validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
         moduleHashMap.put("CS1231", cs1231);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with one user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
                 .withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
         // construct two expected modules with renamed user tag
-        Module expectedCS1231 = new ModuleBuilder().withTags(validTagNameThree).build();
+        Module expectedCS1231 = new ModuleBuilder().withTags(validTagThree).build();
         Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100")
-                .withTags(validTagNameThree, validTagNameTwo).build();
+                .withTags(validTagThree, validTagTwo).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
         expectedModuleHashMap.put("CS1231", expectedCS1231);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
 
         // construct expected model containing study plan with renamed user tag
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTags(validTagNameThree, validTagNameTwo)
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withModuleTags(validTagThree, validTagTwo)
                 .withModules(expectedModuleHashMap).build();
-        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.deleteStudyPlan(studyPlan);
+        expectedModel.addStudyPlan(expectedStudyPlan);
         expectedModel.addToHistory();
 
         // construct command to rename one of the user tags
@@ -105,7 +108,6 @@ public class RenameTagCommandTest {
     public void execute_renameDefaultTag_throwsCommandException() {
         // construct user tags
         Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
         String defaultTagName = new TagBuilder().buildDefaultCoreTag().getTagName();
 
         // construct model containing study plan
@@ -128,7 +130,7 @@ public class RenameTagCommandTest {
         String defaultTagName = new TagBuilder().buildDefaultCoreTag().getTagName();
 
         // construct model containing study plan
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne).build();
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();

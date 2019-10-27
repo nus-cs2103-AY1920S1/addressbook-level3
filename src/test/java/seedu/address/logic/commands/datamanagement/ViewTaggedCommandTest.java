@@ -38,12 +38,10 @@ public class ViewTaggedCommandTest {
         // construct user tag
         Tag validTagOne = new TagBuilder().buildTestUserTag();
         String validTagNameOne = validTagOne.getTagName();
-        Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-        String validTagNameTwo = validTagTwo.getTagName();
 
         // construct two modules with the validTagOne and another with ValidTagTwo
-        Module cs1231 = new ModuleBuilder().withTags(validTagNameOne).build();
-        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameOne).build();
+        Module cs1231 = new ModuleBuilder().withTags(validTagOne).build();
+        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
         Module cs3230 = new ModuleBuilder().withModuleCode("CS3230").build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
         moduleHashMap.put("CS1231", cs1231);
@@ -51,7 +49,7 @@ public class ViewTaggedCommandTest {
         moduleHashMap.put("CS3230", cs3230);
 
         // construct model containing study plan with the user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne).withModules(moduleHashMap).build();
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
@@ -78,14 +76,14 @@ public class ViewTaggedCommandTest {
         String validTagNameTwo = validTagTwo.getTagName();
 
         // construct two modules, one with both user tags and the other with only one
-        Module cs1231 = new ModuleBuilder().withTags(validTagNameOne, validTagNameTwo).build();
-        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameOne).build();
+        Module cs1231 = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
+        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
         moduleHashMap.put("CS1231", cs1231);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with the user tags
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
                 .withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
@@ -124,7 +122,7 @@ public class ViewTaggedCommandTest {
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with the user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne)
                 .withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
@@ -146,14 +144,14 @@ public class ViewTaggedCommandTest {
         String validTagNameTwo = validTagTwo.getTagName();
 
         // construct two modules with a different tag each
-        Module cs1231 = new ModuleBuilder().withTags(validTagNameOne).build();
-        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameTwo).build();
+        Module cs1231 = new ModuleBuilder().withTags(validTagOne).build();
+        Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
         moduleHashMap.put("CS1231", cs1231);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with the user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
                 .withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());

@@ -191,8 +191,8 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.tag.UniqueTagList // instanceof handles nulls
-                && internalList.equals(((seedu.address.model.tag.UniqueTagList) other).internalList));
+                || (other instanceof UniqueTagList // instanceof handles nulls
+                && internalList.equals(((UniqueTagList) other).internalList));
     }
 
     @Override
@@ -242,4 +242,12 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         }
     }
 
+    /**
+     * Updates the hashmap of tags when tags are renamed.
+     */
+    public void updateTagMaps(String originalTagName, String newTagName) {
+        Tag tag = mapTags.get(originalTagName.toUpperCase());
+        mapTags.remove(originalTagName.toUpperCase());
+        mapTags.put(newTagName.toUpperCase(), tag);
+    }
 }

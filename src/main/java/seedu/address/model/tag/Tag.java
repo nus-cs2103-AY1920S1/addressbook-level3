@@ -10,6 +10,8 @@ public interface Tag {
 
     boolean isDefault();
 
+    boolean isPriority();
+
     boolean isSameTag(Tag other);
 
     String getTagName();

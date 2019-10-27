@@ -47,6 +47,15 @@ public class UserTag implements Tag {
     }
 
     /**
+     * Checks if the tag is a priority tag.
+     *
+     * @return False.
+     */
+    public boolean isPriority() {
+        return false;
+    }
+
+    /**
      * Returns the name of the tag.
      *
      * @return The name of the tag.

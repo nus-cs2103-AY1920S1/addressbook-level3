@@ -2,6 +2,8 @@ package seedu.address.testutil;
 
 import seedu.address.model.tag.DefaultTag;
 import seedu.address.model.tag.DefaultTagType;
+import seedu.address.model.tag.PriorityTag;
+import seedu.address.model.tag.PriorityTagType;
 import seedu.address.model.tag.UserTag;
 
 /**
@@ -35,6 +37,20 @@ public class TagBuilder {
      */
     public DefaultTag buildDefaultTag(DefaultTagType defaultTagType) {
         return new DefaultTag(defaultTagType);
+    }
+
+    /**
+     * Builds a PriorityTag of priority high
+     */
+    public PriorityTag buildPriorityHighTag() {
+        return new PriorityTag(PriorityTagType.HIGH);
+    }
+
+    /**
+     * Builds a PriorityTag of the given PriorityTagType
+     */
+    public PriorityTag buildPriorityTag(PriorityTagType priorityTagType) {
+        return new PriorityTag(priorityTagType);
     }
 
 }

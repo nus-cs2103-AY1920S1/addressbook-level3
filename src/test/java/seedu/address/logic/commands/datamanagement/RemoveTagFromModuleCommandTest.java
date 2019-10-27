@@ -43,30 +43,31 @@ public class RemoveTagFromModuleCommandTest {
         Tag validTagOne = new TagBuilder().buildTestUserTag();
         String validTagNameOne = validTagOne.getTagName();
         Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-        String validTagNameTwo = validTagTwo.getTagName();
 
         // construct a module
-        Module cs1231 = new ModuleBuilder().withTags(validTagNameOne, validTagNameTwo).build();
+        Module cs1231 = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("moduleOne", cs1231);
+        moduleHashMap.put("CS1231", cs1231);
 
         // construct model containing study plan with two user tags
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
                 .withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
         // construct the expected module with only one user tag
-        Module expectedCS1231 = new ModuleBuilder().withTags(validTagNameTwo).build();
+        Module expectedCS1231 = new ModuleBuilder().withTags(validTagTwo).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
         expectedModuleHashMap.put("CS1231", expectedCS1231);
 
         // construct expected model containing study plan with two user tags and the expected module
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo)
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
                 .withModules(expectedModuleHashMap).build();
-        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.deleteStudyPlan(studyPlan);
+        expectedModel.addStudyPlan(expectedStudyPlan);
         expectedModel.addToHistory();
 
         // construct command to remove the user tag from the module
@@ -112,7 +113,7 @@ public class RemoveTagFromModuleCommandTest {
         moduleHashMap.put("CS1231", cs1231);
 
         // construct model containing study plan with one user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne)
                 .withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());

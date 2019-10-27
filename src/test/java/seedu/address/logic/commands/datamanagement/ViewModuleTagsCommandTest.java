@@ -37,17 +37,15 @@ public class ViewModuleTagsCommandTest {
     public void execute_userTagsPresentInModule_allModuleTagsShownSuccessful() {
         // construct user tags
         Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
         Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-        String validTagNameTwo = validTagTwo.getTagName();
 
         // construct module with one user tag
-        Module cs1231s = new ModuleBuilder().withModuleCode("CS1231S").withTags(validTagNameOne).build();
+        Module cs1231s = new ModuleBuilder().withModuleCode("CS1231S").withTags(validTagOne).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
         moduleHashMap.put("CS1231S", cs1231s);
 
         // construct model containing study plan with two user tags
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
                 .withModules(moduleHashMap).build();
 
         // assign default tags to the module
@@ -77,7 +75,6 @@ public class ViewModuleTagsCommandTest {
     @Test
     public void execute_noUserTagsPresentInModule_allModuleTagsShownSuccessful() {
         Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
 
         // construct module with no user tags
         Module cs1231s = new ModuleBuilder().withModuleCode("CS1231S").build();
@@ -85,7 +82,7 @@ public class ViewModuleTagsCommandTest {
         moduleHashMap.put("CS1231S", cs1231s);
 
         // construct model containing study plan with two user tags
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne)
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne)
                 .withModules(moduleHashMap).build();
         // assign default tags to the module
         cs1231s.getTags().setTags(studyPlan.assignDefaultTags(TypicalModulesInfo.CS1231S));

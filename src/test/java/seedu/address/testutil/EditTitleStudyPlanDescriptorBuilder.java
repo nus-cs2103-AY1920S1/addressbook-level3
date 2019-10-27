@@ -49,7 +49,7 @@
 //     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditTitleStudyPlanDescriptor}
 //     * that we are building.
 //     */
-//    public EditTitleStudyPlanDescriptorBuilder withTags(String... tags) {
+//    public EditTitleStudyPlanDescriptorBuilder withModuleTags(String... tags) {
 //        Set<UserTag> tagSet = Stream.of(tags).map(UserTag::new).collect(Collectors.toSet());
 //        //descriptor.setTags(tagSet);
 //        return this;

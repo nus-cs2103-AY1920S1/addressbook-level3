@@ -47,11 +47,11 @@ public class RemoveTagFromAllCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
 
-        if (!model.activeSpContainsTag(tagName)) {
+        if (!model.activeSpContainsModuleTag(tagName)) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND_IN_STUDY_PLAN, tagName));
         }
 
-        UserTag toRemove = (UserTag) model.getTagFromActiveSp(tagName);
+        UserTag toRemove = (UserTag) model.getModuleTagFromActiveSp(tagName);
 
         boolean removed = model.removeTagFromAllModulesInActiveSp(toRemove);
 

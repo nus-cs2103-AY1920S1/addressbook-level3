@@ -7,6 +7,6 @@ public enum ResultViewType {
     TEXT,
     TAG,
     MODULE,
-    STUDY_PLAN,
-    COMMIT_HISTORY
+    SEMESTER,
+    COMMIT_HISTORY,
 }

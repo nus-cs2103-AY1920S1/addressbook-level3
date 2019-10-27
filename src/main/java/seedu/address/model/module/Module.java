@@ -191,7 +191,7 @@ public class Module implements Cloneable {
             return false;
         }
 
-        return this.moduleCode.equals(((Module) other).moduleCode);
+        return this.moduleCode.equals(((Module) other).moduleCode) && this.tags.equals(((Module) other).tags);
     }
 
     @Override

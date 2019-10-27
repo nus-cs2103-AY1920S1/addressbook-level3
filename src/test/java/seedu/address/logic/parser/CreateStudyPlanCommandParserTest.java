@@ -45,7 +45,7 @@ public class CreateStudyPlanCommandParserTest {
     /*
     @Test
     public void parse_allFieldsPresent_success() {
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder(BOB).withModuleTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -68,7 +68,7 @@ public class CreateStudyPlanCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new CreateStudyPlanCommand(expectedStudyPlan));
 
         // multiple tags - all accepted
-        StudyPlan expectedStudyPlanMultipleTags = new StudyPlanBuilder(BOB).withTags(VALID_TAG_FRIEND,
+        StudyPlan expectedStudyPlanMultipleTags = new StudyPlanBuilder(BOB).withModuleTags(VALID_TAG_FRIEND,
                 VALID_TAG_HUSBAND).build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new CreateStudyPlanCommand(expectedStudyPlanMultipleTags));
@@ -77,7 +77,7 @@ public class CreateStudyPlanCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder(AMY).withTags().build();
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder(AMY).withModuleTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new CreateStudyPlanCommand(expectedStudyPlan));
     }

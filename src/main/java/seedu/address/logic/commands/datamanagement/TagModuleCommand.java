@@ -49,16 +49,16 @@ public class TagModuleCommand extends Command {
         requireNonNull(model);
 
         Tag toAdd;
-        if (!model.activeSpContainsTag(tagName)) {
+        if (!model.activeSpContainsModuleTag(tagName)) {
             toAdd = createNewTag(tagName);
         } else {
-            toAdd = model.getTagFromActiveSp(tagName);
+            toAdd = model.getModuleTagFromActiveSp(tagName);
             if (toAdd.isDefault()) {
                 throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
             }
         }
 
-        boolean added = model.addTagToActiveSp((UserTag) toAdd, moduleCode);
+        boolean added = model.addModuleTagToActiveSp((UserTag) toAdd, moduleCode);
 
         if (!added) {
             throw new CommandException(String.format(MESSAGE_EXISTING_TAG, toAdd, moduleCode));

@@ -25,12 +25,10 @@ public class ViewAllTagsCommandTest {
     public void execute_userTagsPresentInStudyPlan_allTagsShownSuccessful() {
         // construct user tags
         Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
         Tag validTagTwo = new TagBuilder().buildUserTag("otherTag");
-        String validTagNameTwo = validTagTwo.getTagName();
 
         // construct model containing study plan with user tags
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne, validTagNameTwo).build();
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();

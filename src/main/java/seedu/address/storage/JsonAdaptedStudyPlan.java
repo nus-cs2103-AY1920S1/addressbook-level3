@@ -74,7 +74,7 @@ class JsonAdaptedStudyPlan {
             modules.add(new JsonAdaptedModule(module));
         }
 
-        for (Tag tag : source.getTags()) {
+        for (Tag tag : source.getModuleTags()) {
             if (!tag.isDefault()) {
                 tags.add(new JsonAdaptedTag(tag));
             }

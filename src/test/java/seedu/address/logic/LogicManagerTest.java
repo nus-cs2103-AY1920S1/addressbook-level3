@@ -89,7 +89,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = CreateStudyPlanCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder(AMY).withTags().build();
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder(AMY).withModuleTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addStudyPlan(expectedStudyPlan);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

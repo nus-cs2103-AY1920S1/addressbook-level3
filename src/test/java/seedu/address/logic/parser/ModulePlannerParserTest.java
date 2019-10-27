@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.logic.commands.CreateStudyPlanCommand;
 //import seedu.address.logic.commands.ClearCommand;
 //import seedu.address.logic.commands.DeleteCommand;
-//import seedu.address.logic.commands.FindCommand;
+//import seedu.address.logic.commands.FindModuleCommand;
 //import seedu.address.logic.commands.HelpCommand;
 //import seedu.address.testutil.StudyPlanUtil;
 
@@ -65,9 +65,9 @@ public class ModulePlannerParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FindModuleCommand command = (FindModuleCommand) parser.parseCommand(
+                FindModuleCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindModuleCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

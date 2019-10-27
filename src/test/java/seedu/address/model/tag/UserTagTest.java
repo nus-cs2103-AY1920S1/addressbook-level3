@@ -46,6 +46,11 @@ public class UserTagTest {
     }
 
     @Test
+    public void isPriority() {
+        assertFalse(new TagBuilder().buildDefaultCoreTag().isPriority());
+    }
+
+    @Test
     public void getTagName() {
         assertEquals("testUserTag", new TagBuilder().buildTestUserTag().getTagName());
     }

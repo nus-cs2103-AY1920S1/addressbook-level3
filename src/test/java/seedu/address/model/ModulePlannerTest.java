@@ -51,7 +51,8 @@ public class ModulePlannerTest {
     @Test
     public void resetData_withDuplicateStudyPlans_throwsDuplicateStudyPlanException() {
         // Two studyPlans with the same identity fields
-        StudyPlan editedAlice = new StudyPlanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        StudyPlan editedAlice = new StudyPlanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+            .withModuleTags(VALID_TAG_HUSBAND)
                 .build();
         List<StudyPlan> newStudyPlans = Arrays.asList(ALICE, editedAlice);
         ModulePlannerStub newData = new ModulePlannerStub(newStudyPlans);
@@ -78,7 +79,8 @@ public class ModulePlannerTest {
     @Test
     public void hasStudyPlan_studyPlanWithSameIdentityFieldsInModulePlanner_returnsTrue() {
         modulePlanner.addStudyPlan(ALICE);
-        StudyPlan editedAlice = new StudyPlanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        StudyPlan editedAlice = new StudyPlanBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+                .withModuleTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(modulePlanner.hasStudyPlan(editedAlice));
     }

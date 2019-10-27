@@ -63,16 +63,18 @@ public class TagModuleCommandTest {
 
         // construct two expected modules, one with a user tag and one without
         Module expectedCS1231 = new ModuleBuilder().build();
-        Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameOne).build();
+        Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
         expectedModuleHashMap.put("CS1231", expectedCS1231);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
 
         // construct expected model containing study plan with one user tag
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTags(validTagNameOne)
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withModuleTags(validTagOne)
                 .withModules(expectedModuleHashMap).build();
-        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.deleteStudyPlan(studyPlan);
+        expectedModel.addStudyPlan(expectedStudyPlan);
         expectedModel.addToHistory();
 
         // construct command to add a user tag
@@ -95,23 +97,25 @@ public class TagModuleCommandTest {
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with a user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne).withModules(moduleHashMap).build();
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
         // construct two expected modules, one with a tag and one without
         Module expectedCS1231 = new ModuleBuilder().build();
-        Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagNameOne).build();
+        Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
         expectedModuleHashMap.put("CS1231", expectedCS1231);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
 
         // construct expected model containing study plan with one tag and expected modules
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTags(validTagNameOne)
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withModuleTags(validTagOne)
                 .withModules(expectedModuleHashMap).build();
-        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(expectedStudyPlan).build(),
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.deleteStudyPlan(studyPlan);
+        expectedModel.addStudyPlan(expectedStudyPlan);
         expectedModel.addToHistory();
 
         // construct command to add a tag
@@ -127,12 +131,12 @@ public class TagModuleCommandTest {
         String validTagNameOne = validTagOne.getTagName();
 
         // construct a module with the user tag
-        Module cs1231 = new ModuleBuilder().withTags(validTagNameOne).build();
+        Module cs1231 = new ModuleBuilder().withTags(validTagOne).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
         moduleHashMap.put("CS1231", cs1231);
 
         // construct model containing study plan with the user tag
-        StudyPlan studyPlan = new StudyPlanBuilder().withTags(validTagNameOne).withModules(moduleHashMap).build();
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).withModules(moduleHashMap).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();

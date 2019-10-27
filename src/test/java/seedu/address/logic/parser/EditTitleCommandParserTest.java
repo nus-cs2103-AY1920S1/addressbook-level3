@@ -115,7 +115,7 @@ public class EditTitleCommandParserTest {
 
         EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withModuleTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditTitleCommand expectedCommand = new EditTitleCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -163,7 +163,7 @@ public class EditTitleCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditTitleStudyPlanDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        descriptor = new EditTitleStudyPlanDescriptorBuilder().withModuleTags(VALID_TAG_FRIEND).build();
         expectedCommand = new EditTitleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -176,7 +176,8 @@ public class EditTitleCommandParserTest {
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withModuleTags(VALID_TAG_FRIEND,
+                        VALID_TAG_HUSBAND)
                 .build();
         EditTitleCommand expectedCommand = new EditTitleCommand(targetIndex, descriptor);
 
@@ -207,7 +208,7 @@ public class EditTitleCommandParserTest {
         Index targetIndex = INDEX_THIRD_STUDYPLAN;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder().withTags().build();
+        EditTitleStudyPlanDescriptor descriptor = new EditTitleStudyPlanDescriptorBuilder().withModuleTags().build();
         EditTitleCommand expectedCommand = new EditTitleCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

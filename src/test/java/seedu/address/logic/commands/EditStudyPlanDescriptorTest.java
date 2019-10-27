@@ -54,7 +54,7 @@ public class EditStudyPlanDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withModuleTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
      */

@@ -51,7 +51,7 @@ public class RemoveTagFromModuleCommand extends Command {
 
         Tag toRemove;
         try {
-            toRemove = model.getTagFromActiveSp(tagName);
+            toRemove = model.getModuleTagFromActiveSp(tagName);
         } catch (TagNotFoundException exception) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, moduleCode, tagName));
         }

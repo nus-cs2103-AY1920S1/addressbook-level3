@@ -44,13 +44,13 @@ public class DeleteTagCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
         }
 
-        if (!model.activeSpContainsTag(tagName)) {
+        if (!model.activeSpContainsModuleTag(tagName)) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagName));
         }
 
-        UserTag toDelete = (UserTag) model.getTagFromActiveSp(tagName);
+        UserTag toDelete = (UserTag) model.getModuleTagFromActiveSp(tagName);
 
-        model.deleteTagFromActiveSp(toDelete);
+        model.deleteModuleTagFromActiveSp(toDelete);
         model.addToHistory();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));

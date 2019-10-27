@@ -433,16 +433,27 @@
     -fx-background-radius: 15;
 }
 
+#highPriority {
+    -fx-text-fill: white;
+    -fx-background-color: RED;
+}
+
+#mediumPriority {
+    -fx-text-fill: black;
+    -fx-background-color: ORANGE;
+}
+
+#lowPriority {
+    -fx-text-fill: black;
+    -fx-background-color: YELLOW;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
 #tags .label {
-    /*
-    -fx-text-fill: white;
-    -fx-background-color: #1f1f1f;
-    */
     -fx-padding: 1 5 1 5;
     -fx-border-color: black;
     -fx-border-radius: 10;

@@ -38,7 +38,7 @@ public class JsonAdaptedStudyPlanTest {
     private static final List<JsonAdaptedModule> VALID_MODULES =
             SP_1.getModules().values().stream().map(JsonAdaptedModule::new).collect(Collectors.toList());
     private static final List<JsonAdaptedTag> VALID_TAGS =
-            SP_1.getTags().asUnmodifiableObservableList().stream()
+            SP_1.getModuleTags().asUnmodifiableObservableList().stream()
                     .map(JsonAdaptedTag::new).collect(Collectors.toList());
     private static final SemesterName VALID_CURRENT_SEMESTER = SP_1.getCurrentSemester();
 
@@ -79,8 +79,8 @@ public class JsonAdaptedStudyPlanTest {
         }
 
         // tags
-        List<Tag> originalTags = SP_1.getTags().asUnmodifiableObservableList();
-        List<Tag> loadedTags = skeletalStudyPlan.getTags().asUnmodifiableObservableList();
+        List<Tag> originalTags = SP_1.getModuleTags().asUnmodifiableObservableList();
+        List<Tag> loadedTags = skeletalStudyPlan.getModuleTags().asUnmodifiableObservableList();
         for (int i = 0; i < originalTags.size(); i++) {
             Tag originalTag = originalTags.get(i);
             Tag loadedTag = loadedTags.get(i);

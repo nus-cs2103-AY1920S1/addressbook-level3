@@ -38,10 +38,13 @@ public class StudyPlanBuilder {
     // note: this Mega-List is only constructed when a study plan gets activated.
     private HashMap<String, Module> modules;
 
-    // the unique list of tags of this study plan.
+    // the unique list of module tags of this study plan.
     // All tags in an *active* study plan refer to a tag here.
     // note: this unique list of tags is only constructed when a study plan gets activated.
     private UniqueTagList tags;
+
+    // the unique list of tags for the current study plan.
+    private UniqueTagList studyPlanTags;
 
 
     /**
@@ -55,6 +58,7 @@ public class StudyPlanBuilder {
         modules = DEFAULT_MODULES;
         tags = new UniqueTagList();
         tags.initDefaultTags();
+        studyPlanTags = new UniqueTagList();
     }
 
     /**
@@ -69,7 +73,8 @@ public class StudyPlanBuilder {
         currentSemester = studyPlanToCopy.getCurrentSemester();
         isActivated = studyPlanToCopy.isActivated();
         modules = studyPlanToCopy.getModules();
-        tags = studyPlanToCopy.getTags();
+        tags = studyPlanToCopy.getModuleTags();
+        studyPlanTags = studyPlanToCopy.getStudyPlanTags();
     }
 
     /**
@@ -113,20 +118,49 @@ public class StudyPlanBuilder {
     }
 
     /**
-     * Sets the mega list of {@code tags} of the {@code StudyPlan} that we are building.
+     * Sets the mega list of module {@code tags} of the {@code StudyPlan} that we are building.
      */
-    public StudyPlanBuilder withTags(UniqueTagList tags) {
+    public StudyPlanBuilder withModuleTags(UniqueTagList tags) {
         this.tags = tags;
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code List<Tag>} and set it to the {@code StudyPlan} that we are building.
+     * Parses the module {@code tags} into a {@code List<Tag>} and set it to the {@code StudyPlan} that we are building.
      */
-    public StudyPlanBuilder withTags(String... tags) {
-        List<Tag> tagList = SampleDataUtil.getTagList(tags);
+    public StudyPlanBuilder withModuleTags(String... tags) {
+        List<Tag> tagList = SampleDataUtil.getUserTagList(tags);
         for (Tag tag: tagList) {
             this.tags.addTag(tag);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the module tags to the study plan.
+     */
+    public StudyPlanBuilder withModuleTags(Tag... tags) {
+        for (Tag tag : tags) {
+            this.tags.addTag(tag);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the mega list of {@code tags} of the {@code StudyPlan} that we are building.
+     */
+    public StudyPlanBuilder withStudyPlanTags(UniqueTagList tags) {
+        this.studyPlanTags = tags;
+        return this;
+    }
+
+    /**
+     * Parses the study plan {@code tags} into a {@code List<Tag>} and
+     * set it to the {@code StudyPlan} that we are building.
+     */
+    public StudyPlanBuilder withStudyPlanTags(Tag... tags) {
+        for (Tag tag: tags) {
+            this.studyPlanTags.addTag(tag);
         }
         return this;
     }
@@ -142,8 +176,8 @@ public class StudyPlanBuilder {
         toReturn.setIndex(index);
         toReturn.setActivated(isActivated);
         toReturn.setModules(modules);
-        toReturn.setTags(tags);
-
+        toReturn.setModuleTags(tags);
+        toReturn.setStudyPlanTags(studyPlanTags);
         return toReturn;
     }
 }

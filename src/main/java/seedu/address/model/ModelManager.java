@@ -17,6 +17,7 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
+import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -298,19 +299,27 @@ public class ModelManager implements Model {
 
     // ===================== TAGGING ==========================
 
-    public boolean addTagToActiveSp(UserTag tag, String moduleCode) {
+    public boolean addModuleTagToActiveSp(UserTag tag, String moduleCode) {
         return modulePlanner.addTagToActiveSp(tag, moduleCode);
     }
 
-    public boolean activeSpContainsTag(String tagName) {
-        return modulePlanner.activeSpContainsTag(tagName);
+    public void addStudyPlanTagToSp(Tag tag, int index) {
+        modulePlanner.addStudyPlanTagToSp(tag, index);
     }
 
-    public Tag getTagFromActiveSp(String tagName) {
+    public boolean activeSpContainsModuleTag(String tagName) {
+        return modulePlanner.activeSpContainsModuleTag(tagName);
+    }
+
+    public boolean spContainsStudyPlanTag(String tagName, int index) {
+        return modulePlanner.spContainsStudyPlanTag(tagName, index);
+    }
+
+    public Tag getModuleTagFromActiveSp(String tagName) {
         return modulePlanner.getTagFromActiveSp(tagName);
     }
 
-    public UniqueTagList getTagsFromActiveSp() {
+    public UniqueTagList getModuleTagsFromActiveSp() {
         return modulePlanner.getTagsFromActiveSp();
     }
 
@@ -318,7 +327,7 @@ public class ModelManager implements Model {
         return modulePlanner.getModuleTagsFromActiveSp(moduleCode);
     }
 
-    public void deleteTagFromActiveSp(UserTag toDelete) {
+    public void deleteModuleTagFromActiveSp(UserTag toDelete) {
         modulePlanner.deleteTagFromActiveSp(toDelete);
     }
 
@@ -336,6 +345,14 @@ public class ModelManager implements Model {
 
     public HashMap<String, Module> getModulesFromActiveSp() {
         return modulePlanner.getModulesFromActiveSp();
+    }
+
+    public UniqueSemesterList getSemestersFromActiveSp() {
+        return modulePlanner.getSemestersFromActiveSp();
+    }
+
+    public StudyPlan getStudyPlan(int index) {
+        return modulePlanner.getStudyPlan(index);
     }
 
     //=========== Undo/Redo =================================================================================

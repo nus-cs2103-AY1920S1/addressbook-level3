@@ -22,6 +22,11 @@ public class DefaultTagTest {
     }
 
     @Test
+    public void isPriority() {
+        assertFalse(new TagBuilder().buildDefaultCoreTag().isPriority());
+    }
+
+    @Test
     public void getTagName() {
         assertEquals("Core", new TagBuilder().buildDefaultCoreTag().getTagName());
     }

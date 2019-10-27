@@ -58,10 +58,10 @@ public class EditCommandTest {
 
         StudyPlanBuilder studyPlanInList = new StudyPlanBuilder(lastStudyPlan);
         StudyPlan editedStudyPlan = studyPlanInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withModuleTags(VALID_TAG_HUSBAND).build();
 
         EditStudyPlanDescriptor descriptor = new EditStudyPlanDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withPhone(VALID_PHONE_BOB).withModuleTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastStudyPlan, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_STUDYPLAN_SUCCESS, editedStudyPlan);
