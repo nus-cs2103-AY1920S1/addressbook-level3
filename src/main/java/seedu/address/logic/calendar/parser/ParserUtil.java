@@ -22,6 +22,7 @@ import seedu.address.model.calendar.task.TaskTitle;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_WEEK = "Week index to go to must be an integer from 0 to 14";
     public static final String MESSAGE_INVALID_SORT_TYPE = "Sort type must be either 'deadline' or 'title'";
 
     /**
@@ -35,6 +36,24 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code weekNumber} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static int parseWeek(String weekNumber) throws ParseException {
+        String trimmedWeekNumber = weekNumber.trim();
+        try {
+            int week = Integer.parseInt(trimmedWeekNumber);
+            if (week < 0 || week > 14) {
+                throw new ParseException(MESSAGE_INVALID_WEEK);
+            }
+            return week;
+        } catch (ParseException | NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_WEEK);
+        }
     }
 
     /**

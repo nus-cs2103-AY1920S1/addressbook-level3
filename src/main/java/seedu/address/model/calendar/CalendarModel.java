@@ -86,4 +86,6 @@ public interface CalendarModel {
     void updateFilteredTaskList(Predicate<Task> predicate);
 
     void switchSortType(String sortType);
+
+    void updateLists();
 }

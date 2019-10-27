@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.calendar.commands.AddCommand;
+import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 import seedu.address.model.calendar.tag.TaskTag;
 import seedu.address.model.calendar.task.Task;
@@ -49,7 +50,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         TaskDeadline taskDeadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TASKDEADLINE).get());
         Set<TaskTag> taskTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASKTAG));
 
-        Task task = new Task(taskTitle, taskDay, taskDescription, taskDeadline, taskTime, taskTagList);
+        Task task = new Task(taskTitle, taskDay, taskDescription, taskDeadline, taskTime, taskTagList,
+            GoCommand.getCurrentWeek());
 
         return new AddCommand(task);
     }

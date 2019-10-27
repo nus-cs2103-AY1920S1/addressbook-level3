@@ -24,14 +24,13 @@ public class Task {
     private final TaskDeadline taskDeadline;
     private final TaskTime taskTime;
     private final Set<TaskTag> taskTags = new HashSet<>();
-
-
+    private final int week;
 
     /**
      * Every field must be present and not null.
      */
     public Task(TaskTitle taskTitle, TaskDay taskDay, TaskDescription taskDescription, TaskDeadline taskDeadline,
-                TaskTime taskTime, Set<TaskTag> taskTags) {
+                TaskTime taskTime, Set<TaskTag> taskTags, int week) {
         this.taskDeadline = taskDeadline;
         requireAllNonNull(taskTitle, taskDay);
         // requireAllNonNull(taskTitle, taskDay, taskDescription, taskTime, taskTags);
@@ -40,6 +39,7 @@ public class Task {
         this.taskDescription = taskDescription;
         this.taskTime = taskTime;
         this.taskTags.addAll(taskTags);
+        this.week = week;
     }
 
     public TaskTitle getTaskTitle() {
@@ -70,6 +70,10 @@ public class Task {
         return Collections.unmodifiableSet(taskTags);
     }
 
+    public int getWeek() {
+        return week;
+    }
+
     /**
      * Returns true if both task of the same taskTitle have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -81,6 +85,7 @@ public class Task {
 
         return otherTask != null
                 && otherTask.getTaskTitle().equals(getTaskTitle())
+                && otherTask.getWeek() == getWeek()
                 && (otherTask.getTaskDay().equals(getTaskDay())
                 && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 || otherTask.getTaskDescription().equals(getTaskDescription()));
@@ -103,6 +108,7 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getTaskTitle().equals(getTaskTitle())
                 && otherTask.getTaskDay().equals(getTaskDay())
+                && otherTask.getWeek() == getWeek()
                 && otherTask.getTaskDeadline().equals(getTaskDeadline())
                 && otherTask.getTaskDescription().equals(getTaskDescription())
                 && otherTask.getTaskTime().equals(getTaskTime())

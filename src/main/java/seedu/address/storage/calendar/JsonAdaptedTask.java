@@ -31,6 +31,7 @@ class JsonAdaptedTask {
     private final String deadline;
     private final String time;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final int week;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -39,7 +40,7 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(@JsonProperty("title") String title, @JsonProperty("day") String day,
                            @JsonProperty("description") String description, @JsonProperty("time") String time,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                           @JsonProperty("deadline") String deadline) {
+                           @JsonProperty("deadline") String deadline, @JsonProperty("week") int week) {
         this.title = title;
         this.day = day;
         this.description = description;
@@ -48,6 +49,7 @@ class JsonAdaptedTask {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.week = week;
     }
 
     /**
@@ -62,6 +64,7 @@ class JsonAdaptedTask {
         tagged.addAll(source.getTaskTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        week = source.getWeek();
     }
 
     /**
@@ -122,7 +125,7 @@ class JsonAdaptedTask {
 
         final Set<TaskTag> modelTaskTags = new HashSet<>(personTaskTags);
         return new Task(modelTaskTitle, modelTaskDay, modelTaskDescription, modelTaskDeadline,
-            modelTaskTime, modelTaskTags);
+            modelTaskTime, modelTaskTags, week);
     }
 
 }

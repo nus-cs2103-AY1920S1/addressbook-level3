@@ -12,6 +12,7 @@ import seedu.address.logic.calendar.commands.Command;
 import seedu.address.logic.calendar.commands.DeleteCommand;
 import seedu.address.logic.calendar.commands.EditCommand;
 import seedu.address.logic.calendar.commands.ExitCommand;
+import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.logic.calendar.commands.HelpCommand;
 import seedu.address.logic.calendar.commands.ListCommand;
 import seedu.address.logic.calendar.commands.SortCommand;
@@ -74,6 +75,9 @@ public class AddressBookParser {
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
+
+        case GoCommand.COMMAND_WORD:
+            return new GoCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

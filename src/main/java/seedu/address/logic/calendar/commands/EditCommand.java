@@ -106,7 +106,7 @@ public class EditCommand extends Command {
         Set<TaskTag> updatedTaskTags = editPersonDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 
         return new Task(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
-            updatedTaskTime, updatedTaskTags);
+            updatedTaskTime, updatedTaskTags, taskToEdit.getWeek());
     }
 
     @Override

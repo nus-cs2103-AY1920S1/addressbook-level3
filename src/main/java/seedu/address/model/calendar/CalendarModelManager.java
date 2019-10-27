@@ -207,7 +207,7 @@ public class CalendarModelManager implements CalendarModel {
     /**
      * Update lists
      */
-    private void updateLists() {
+    public void updateLists() {
         filteredTasksByDeadline = getFilteredListByTime();
         filteredTasksByTitle = getFilteredListByTitle();
         if (isDeadlineSorted) {
