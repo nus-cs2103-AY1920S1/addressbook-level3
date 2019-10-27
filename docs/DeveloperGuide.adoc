@@ -392,7 +392,7 @@ find a reimbursement and sort reimbursements.
 This command requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Deadline field should be provided in a valid date format. The
-person's name inputted has to match a name already existing in the `Reimbursement` which is shown in our Reimbursement
+person's name inputted has to match a person's name already existing in the `Reimbursement` which is shown in our Reimbursement
 Tab.
 
 The following sequence diagram shows the execution of deadline command:
@@ -401,12 +401,20 @@ The following sequence diagram shows the execution of deadline command:
 
 image::ReimbursementDeadlineCommandSD.png[]
 
-
 As shown, when a user wants to add a deadline to a reimbursement by specifying
-the person's name and providing a date. The `DeadlineCommandParser` gets the person from `PersonModel` based on
-person's name and creates a `DeadlineCommand` with person and deadline information.
+the person's name and providing a date.
+The `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline date information.
 This `DeadlineCommand` is returned back to `LogicManager` and is executed by calling `addDeadline` method in
-`ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and saves it.
+`ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
+After that, the deadline is saved into a `.txt` file.
+
+.Activity Diagram of Deadline Command in Reimbursement Tab (reimbursement package)
+image::ReimbursementTabActivityDiagramDeadlineCommand.png[]
+
+As shown by the above activity diagram, when a user inputs a person who doesn't exist in any
+reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
+Otherwise, when the execution is successful,
+a response informs the user that deadline is successfully added to the reimbursement.
 
 ==== Done Command feature
 
