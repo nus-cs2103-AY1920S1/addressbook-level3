@@ -2,6 +2,7 @@ package budgetbuddy;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -81,7 +82,8 @@ public class MainApp extends Application {
         LoansManager loansManager = initLoansManager(storage);
         RuleManager ruleManager = initRuleManager(storage);
 
-        return new ModelManager(loansManager, ruleManager, accountsManager, userPrefs);
+        // TODO: scripts storage
+        return new ModelManager(loansManager, ruleManager, accountsManager, Collections.emptyList(), userPrefs);
     }
 
     /**

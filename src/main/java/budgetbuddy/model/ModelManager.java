@@ -3,11 +3,14 @@ package budgetbuddy.model;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
+import budgetbuddy.model.script.Script;
 import budgetbuddy.model.transaction.Transaction;
 import javafx.collections.transformation.FilteredList;
 
@@ -23,15 +26,16 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
+    private final ScriptLibraryManager scriptLibrary;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
 
     public ModelManager(LoansManager loansManager, RuleManager ruleManager, AccountsManager accountsManager,
-                        ReadOnlyUserPrefs userPrefs) {
+                        Collection<Script> scripts, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(loansManager, ruleManager, accountsManager, userPrefs);
+        requireAllNonNull(loansManager, ruleManager, accountsManager, userPrefs, scripts);
 
         logger.fine("Initializing with accounts manager: " + accountsManager + " and user prefs " + userPrefs);
 
@@ -39,11 +43,12 @@ public class ModelManager implements Model {
         this.ruleManager = new RuleManager(ruleManager.getRules());
         this.accountsManager = new AccountsManager(accountsManager.getAccountsList());
         this.userPrefs = new UserPrefs(userPrefs);
+        this.scriptLibrary = new ScriptLibraryManager(scripts);
         filteredTransactions = new FilteredList<>(this.accountsManager.getTransactionList());
     }
 
     public ModelManager() {
-        this(new LoansManager(), new RuleManager(), new AccountsManager(), new UserPrefs());
+        this(new LoansManager(), new RuleManager(), new AccountsManager(), Collections.emptyList(), new UserPrefs());
     }
 
     //=========== Loan Manager ===============================================================================
@@ -79,6 +84,13 @@ public class ModelManager implements Model {
     @Override
     public AccountsManager getAccountsManager() {
         return accountsManager;
+    }
+
+    //=========== ScriptLibrary ==============================================================================
+
+    @Override
+    public ScriptLibrary getScriptLibrary() {
+        return scriptLibrary;
     }
 
     //=========== UserPrefs ==================================================================================

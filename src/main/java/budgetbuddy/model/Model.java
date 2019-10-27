@@ -27,6 +27,13 @@ public interface Model {
     RuleManager getRuleManager();
 
     /**
+     * Returns the script library.
+     *
+     * @return the script library
+     */
+    ScriptLibrary getScriptLibrary();
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
