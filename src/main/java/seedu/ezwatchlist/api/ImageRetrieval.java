@@ -101,7 +101,7 @@ public class ImageRetrieval {
         } catch (FileAlreadyExistsException f) {
             System.err.println("Duplicate image");
         } catch (IOException e) {
-            System.err.println(e.getCause());
+            System.err.println(e + " in ImageRetrieval line 104");
             throw new OnlineConnectionException("No internet connection at downloading image");
         }
     }
