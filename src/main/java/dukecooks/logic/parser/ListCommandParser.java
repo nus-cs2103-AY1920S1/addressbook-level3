@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.logic.commands.dashboard.ListTaskCommand;
+import dukecooks.logic.commands.dashboard.ListTaskDoneCommand;
+import dukecooks.logic.commands.dashboard.ListTaskNotDoneCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
 import dukecooks.logic.commands.health.ListHealthCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
@@ -40,6 +42,12 @@ public class ListCommandParser implements Parser<ListCommand> {
 
         case ListTaskCommand.VARIANT_WORD:
             return new ListTaskCommand();
+
+        case ListTaskDoneCommand.VARIANT_WORD:
+            return new ListTaskDoneCommand();
+
+        case ListTaskNotDoneCommand.VARIANT_WORD:
+            return new ListTaskNotDoneCommand();
 
         case ListRecipeCommand.VARIANT_WORD:
             return new ListRecipeCommand();

@@ -9,7 +9,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
 
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
+    public static final String MESSAGE_INVALID_TASK_IS_COMPLETE = "Task is marked as complete, cannot be deleted";
     public static final String MESSAGE_TASK_LISTED_OVERVIEW = "%1$d tasks listed!";
+    public static final String MESSAGE_TASK_IS_ALREADY_MARKED_AS_COMPLETE = "The task is already marked as complete";
 
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The recipe index provided is invalid";
 

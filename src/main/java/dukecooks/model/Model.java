@@ -1,6 +1,7 @@
 package dukecooks.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import dukecooks.commons.core.GuiSettings;
@@ -39,6 +40,16 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Dashboard> PREDICATE_SHOW_ALL_DASHBOARD = unused -> true;
+
+    /**
+     * {@code Predicate} is true if the task is completed
+     */
+    Predicate<Dashboard> PREDICATE_SHOW_DONE_DASHBOARD = i -> (i.getTaskStatus().getDoneStatus());
+
+    /**
+     * {@code Predicate} is true if the task is incomplete
+     */
+    Predicate<Dashboard> PREDICATE_SHOW_NOT_DONE_DASHBOARD = i -> (i.getTaskStatus().getNotDoneStatus());
 
     //=========== UserPrefs ==================================================================================
 
@@ -321,6 +332,15 @@ public interface Model {
      */
     void setDashboard(Dashboard target, Dashboard editedDashboard);
 
+    /**
+     * Replaces the given dashboard and updates the task as done.
+     */
+    void doneDashboard(Dashboard key);
+
+    /**
+     * Returns true if user has 5 new completed task.
+     */
+    boolean checkForPrize(List<Dashboard> l);
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -361,9 +381,9 @@ public interface Model {
     ObservableList<Exercise> getFilteredExerciseList();
 
     /**
-    * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
-    * @throws NullPointerException if {@code predicate} is null.
-    */
+     * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredExerciseList(Predicate<Exercise> predicate);
 
     //=========== Filtered Diary Records List Accessors =============================================================

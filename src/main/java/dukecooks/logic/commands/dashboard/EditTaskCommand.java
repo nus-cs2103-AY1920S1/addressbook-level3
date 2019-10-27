@@ -1,5 +1,8 @@
 package dukecooks.logic.commands.dashboard;
 
+import static dukecooks.logic.parser.CliSyntax.PREFIX_TASKDATE;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_TASKNAME;
+import static dukecooks.model.Model.PREDICATE_SHOW_ALL_DASHBOARD;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -11,7 +14,6 @@ import dukecooks.commons.util.CollectionUtil;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
-import dukecooks.logic.parser.CliSyntax;
 import dukecooks.model.Model;
 import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.dashboard.components.DashboardName;
@@ -28,8 +30,8 @@ public class EditTaskCommand extends EditCommand {
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_TASKNAME + "TASKNAME] "
-            + "[" + CliSyntax.PREFIX_TASKDATE + "TASKDATE] ";
+            + "[" + PREFIX_TASKNAME + "TASKNAME] "
+            + "[" + PREFIX_TASKDATE + "TASKDATE] ";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -67,7 +69,7 @@ public class EditTaskCommand extends EditCommand {
         }
 
         model.setDashboard(taskToEdit, editedTask);
-        model.updateFilteredDashboardList(Model.PREDICATE_SHOW_ALL_DASHBOARD);
+        model.updateFilteredDashboardList(PREDICATE_SHOW_ALL_DASHBOARD);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
@@ -81,7 +83,7 @@ public class EditTaskCommand extends EditCommand {
         DashboardName updatedName = editTaskDescriptor.getDashboardName().orElse(taskToEdit.getDashboardName());
         TaskDate updatedTaskDate = editTaskDescriptor.getTaskDate().orElse(taskToEdit.getTaskDate());
 
-        return new Dashboard(updatedName, updatedTaskDate);
+        return new Dashboard(updatedName, updatedTaskDate, taskToEdit.getTaskStatus());
     }
 
     @Override

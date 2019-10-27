@@ -1,32 +1,45 @@
-= John Doe - Project Portfolio
+= Chua Hua Lun - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: DukeCooks
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+DukeCooks is a one-stop healthy lifestyle desktop application created for busy individuals in Singapore. The team behind DukeCooks is a group of Computer Science students from the National University of Singapore. DukeCooks was developed for CS2103T module’s team project requirement.
+
+DukeCooks uses the Command Line Interface (CLI). By using the CLI, it allows a user to easily navigate and use DukeCooks by typing in pre-configured commands defined by DukeCooks. A target user can use DukeCooks to plan their day, create recipes, manage their health, record exercise details and blog.
+
+In this document, it will provide my contributions to DukeCooks. In summary, my contributions include – implementation, testing and creating a Graphical User Interface (GUI) for the Dashboard feature.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the Dashboard Feature*
+** Description: The Dashboard feature was created with references to AddressBook3 (AB3). AB3 contain the commands – add, delete, edit, find and list. In AB3, these commands are used to create and manipulate a user’s list contact records.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** What it does: In the case for DukeCooks’s Dashboard, a person’s contact in AB3 is substituted to a task. Users are able to add a task into the Dashboard. With a list of task added in, users can choose to delete a task or edit the task with new information. In addition, users can use the find and list commands to view tasks by giving a specific keyword.
+
+** Justification: This is a needed feature for a healthy lifestyle application. In the case of DukeCooks,
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: AB3
+
+* *Minor enhancement*: added *mark as complete function*
+** Description: The command; done, is added into DukeCookds. This function is developed to enhance usability of the Dashboard.
+
+** What it does: It marks a task as complete. When a user marks a certain number of task as complete, encouragement messages will be delivered to the user.
+
+** Justification: As a way to motivate users, marking task as complete can be seen as a sense of achievement. By encouraging users to complete their task, this creates a positive feedback, increasing productivity in users.
+
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.2.1` (1 release) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
@@ -50,7 +63,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
+//include::../UserGuide.adoc[tag=dashboard]
 
 //include::../UserGuide.adoc[tag=dataencryption]
 

@@ -16,6 +16,7 @@ import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
+import dukecooks.model.dashboard.components.TaskStatus;
 
 /**
  * Parses input arguments and creates a new AddTaskCommand object
@@ -38,8 +39,9 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
 
         DashboardName name = ParserUtil.parseDashboardName(argMultimap.getValue(PREFIX_TASKNAME).get());
         TaskDate date = ParserUtil.parseTaskDate(argMultimap.getValue(PREFIX_TASKDATE).get());
+        TaskStatus status = new TaskStatus("NOT COMPLETE");
 
-        Dashboard task = new Dashboard(name, date);
+        Dashboard task = new Dashboard(name, date, status);
 
         return new AddTaskCommand(task);
     }
