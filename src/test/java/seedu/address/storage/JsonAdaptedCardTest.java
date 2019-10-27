@@ -18,8 +18,8 @@ import seedu.address.storage.wordbanks.JsonAdaptedCard;
 import seedu.address.storage.wordbanks.JsonAdaptedTag;
 
 public class JsonAdaptedCardTest {
-    private static final String INVALID_WORD = "R@chel";
-    private static final String INVALID_MEANING = "+Me4n1ng";
+    private static final String INVALID_WORD = "  "; // Empty spaces
+    private static final String INVALID_MEANING = "   "; // Empty spaces
     private static final String INVALID_TAG = "#teg";
 
     private static final String VALID_ID = ABRA.getId();
@@ -39,7 +39,7 @@ public class JsonAdaptedCardTest {
     public void toModelType_nullId_throwsIllegalValueException() {
         JsonAdaptedCard card =
                 new JsonAdaptedCard(null, VALID_WORD, VALID_MEANING, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Word.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, card::toModelType);
     }
 
