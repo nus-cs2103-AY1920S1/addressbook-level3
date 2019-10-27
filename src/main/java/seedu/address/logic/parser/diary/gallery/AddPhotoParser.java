@@ -18,12 +18,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.util.ImageChooser;
 import seedu.address.logic.commands.diary.gallery.AddPhotoCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.logic.parser.diary.fileutil.ImageChooser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.photo.Photo;
 
@@ -34,6 +34,11 @@ import seedu.address.model.diary.photo.Photo;
  * the OS gui the choose the image.
  */
 public class AddPhotoParser implements Parser<AddPhotoCommand> {
+
+    /**
+     * The allowed image extensions to look for when parsing the given file path
+     * or chosen file from the OS file chooser.
+     * */
     private static final Pattern ALLOWED_IMAGE_EXTENSIONS =
             Pattern.compile("(?:.*)(?<extension>\\.(png|jpg|jpeg))$");
 
@@ -52,6 +57,7 @@ public class AddPhotoParser implements Parser<AddPhotoCommand> {
         String filePath = getFilePath(argMultimap, imageFile);
         imageFile = new File(filePath);
 
+        //A parseException should have been thrown at this point if the image file does not exist.
         assert imageFile.exists();
         //Optionally specifiable fields by user
         LocalDateTime localDateTime = parseDateTime(argMultimap, imageFile);

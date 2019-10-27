@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 
 /**
- * Command that flips the page of the diary.
+ * Command that flips the page of the diary to the {@link DiaryEntry} with the specified day index.
  */
 public class FlipDiaryCommand extends Command {
 
@@ -34,8 +34,7 @@ public class FlipDiaryCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Optional<DiaryEntry> diaryEntry = model.getPageStatus().getTrip()
-                .getDiary().getDiaryEntry(indexToFlipTo);
+        Optional<DiaryEntry> diaryEntry = model.getPageStatus().getCurrentTripDiary().getDiaryEntry(indexToFlipTo);
 
         if (diaryEntry.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);

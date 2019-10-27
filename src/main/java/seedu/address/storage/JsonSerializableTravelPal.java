@@ -39,7 +39,7 @@ class JsonSerializableTravelPal {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableTravelPal}.
      */
-    public JsonSerializableTravelPal(ReadOnlyTravelPal source) {
+    JsonSerializableTravelPal(ReadOnlyTravelPal source) {
         trips.addAll(source.getTripList().stream().map(JsonAdaptedTrip::new).collect(Collectors.toList()));
     }
 
