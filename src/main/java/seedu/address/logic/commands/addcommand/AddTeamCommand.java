@@ -31,7 +31,7 @@ public class AddTeamCommand extends AddCommand {
             + CliSyntax.PREFIX_NAME + "Justice League "
             + CliSyntax.PREFIX_SUBJECT_NAME + "Social "
             + CliSyntax.PREFIX_PROJECT_NAME + "Catwoman Dating App "
-            + CliSyntax.PREFIX_LOCATION + "1 ";
+            + CliSyntax.PREFIX_LOCATION + "1";
 
     private Team team;
     private final Logger logger = LogsCenter.getLogger(AddTeamCommand.class);
@@ -60,8 +60,13 @@ public class AddTeamCommand extends AddCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddTeamCommand // instanceof handles nulls
-                && team.equals(((AddTeamCommand) other).team));
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof AddTeamCommand)) {
+            return false;
+        }
+        AddTeamCommand addTeamCommand = (AddTeamCommand) other;
+        return this.team.equals(addTeamCommand.team);
     }
 }

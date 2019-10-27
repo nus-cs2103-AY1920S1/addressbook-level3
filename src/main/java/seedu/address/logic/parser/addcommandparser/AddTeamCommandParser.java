@@ -12,15 +12,12 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.logic.commands.addcommand.AddTeamCommand;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Mentor;
@@ -46,12 +43,12 @@ public class AddTeamCommandParser implements Parser<AddTeamCommand> {
      */
     public AddTeamCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SUBJECT_NAME, PREFIX_PROJECT_NAME,
-                        PREFIX_LOCATION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SUBJECT_NAME,
+                        PREFIX_PROJECT_NAME, PREFIX_LOCATION);
 
         if (!AlfredParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PROJECT_NAME,
                 PREFIX_LOCATION, PREFIX_SUBJECT_NAME) || !argMultimap.getPreamble().isEmpty()) {
-            logger.severe("Parse exceptiion is thrown");
+            logger.severe("Parse exception is thrown");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTeamCommand.MESSAGE_USAGE));
         }
@@ -59,7 +56,6 @@ public class AddTeamCommandParser implements Parser<AddTeamCommand> {
         Name name = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         SubjectName subject = AlfredParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT_NAME).get());
         Name projectName = AlfredParserUtil.parseName(argMultimap.getValue(PREFIX_PROJECT_NAME).get());
-        // ProjectType projectType = AlfredParserUtil.parseProjectType(argMultimap.getValue(PREFIX_PROJECT_TYPE).get());
         Location location = AlfredParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Id id = TeamList.generateId();
         List<Participant> participants = new LinkedList<>();

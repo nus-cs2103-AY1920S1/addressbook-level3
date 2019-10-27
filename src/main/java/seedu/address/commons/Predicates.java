@@ -17,4 +17,8 @@ public class Predicates {
     public static Predicate<Team> getPredicateFindTeamByProjectName(String name) {
         return (team) -> team.getName().toString().contains(name);
     }
+
+    public static Predicate<Entity> viewSpecifiedEntity(Entity entityToView) {
+        return (entity) -> entity.equals(entityToView);
+    }
 }

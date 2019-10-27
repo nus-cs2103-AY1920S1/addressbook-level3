@@ -6,7 +6,7 @@ EntityType,ID,Name,Phone,Email
 P,1,Participant A,+65 91111111,participantA@gmail.com
 P,2,Part B,+65 82222222,participantB@hotmail.com
 P,3,Participant C,+65 933331231,participantC@yahoo.com
-EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,ProjectType,Location
-T,1,Team A,[P-1],M-3,ENVIRONMENTAL,1,Project Alpha,PLACEHOLDER,1
-T,2,Team B,[1 |   P-2| P-3],31,EDUCATion,2,Project Beta,PLACEHOLDER,2
-T,3,Team C,[1|2|3],M-33,HEALTH,3,Project Gamma,PLACEHOLDER,3
+EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location
+T,1,Team A,[P-1],M-3,ENVIRONMENTAL,1,Project Alpha,1
+T,2,Team B,[1 |   P-2| P-3],31,EDUCATion,2,Project Beta,2
+T,3,Team C,[1|2|3],M-33,HEALTH,3,Project Gamma,3

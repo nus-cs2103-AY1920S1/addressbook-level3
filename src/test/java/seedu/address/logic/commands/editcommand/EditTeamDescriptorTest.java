@@ -55,12 +55,6 @@ public class EditTeamDescriptorTest {
                 .withProjectName(VALID_PROJECT_NAME_BRUCE).build();
         assertFalse(TEAM_DESC_ALFRED.equals(editedAlfred));
 
-        // TODO: When more project type enums are added
-        // different project type -> returns false
-        //editedAlfred = new EditTeamDescriptorBuilder(TEAM_DESC_ALFRED)
-        //        .withProjectType(VALID_PROJECT_TYPE_BRUCE).build();
-        //assertFalse(TEAM_DESC_ALFRED.equals(editedAlfred));
-
         // different location -> returns false
         editedAlfred = new EditTeamDescriptorBuilder(TEAM_DESC_ALFRED)
                 .withLocation(VALID_LOCATION_BRUCE).build();

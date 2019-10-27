@@ -80,12 +80,10 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         TEAM_DESC_ALFRED = new EditTeamDescriptorBuilder().withName(VALID_NAME_ALFRED)
                 .withSubject(VALID_SUBJECT_ALFRED).withScore(VALID_SCORE_ALFRED)
-                .withProjectName(VALID_PROJECT_NAME_ALFRED)
-                .withLocation(VALID_LOCATION_ALFRED).build();
+                .withProjectName(VALID_PROJECT_NAME_ALFRED).withLocation(VALID_LOCATION_ALFRED).build();
         TEAM_DESC_BRUCE = new EditTeamDescriptorBuilder().withName(VALID_NAME_BRUCE)
                 .withSubject(VALID_SUBJECT_BRUCE).withScore(VALID_SCORE_BRUCE)
-                .withProjectName(VALID_PROJECT_NAME_BRUCE)
-                .withLocation(VALID_LOCATION_BRUCE).build();
+                .withProjectName(VALID_PROJECT_NAME_BRUCE).withLocation(VALID_LOCATION_BRUCE).build();
     }
 
     // Redundant and can be deleted

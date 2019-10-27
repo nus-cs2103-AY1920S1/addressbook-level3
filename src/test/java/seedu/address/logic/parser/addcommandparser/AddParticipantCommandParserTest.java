@@ -26,6 +26,7 @@ import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
+import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.testutil.ParticipantBuilder;
 
 class AddParticipantCommandParserTest {
@@ -34,6 +35,7 @@ class AddParticipantCommandParserTest {
 
     @Test
     void parse_allFieldsPresent_success() {
+        ParticipantList.setLastUsedId(0);
         // Expected participants with different IDs as IDs increment with each added participant.
         Participant expectedParticipant1 = new ParticipantBuilder(BOB).build();
         Participant expectedParticipant2 = new ParticipantBuilder(BOB).withId(2).build();

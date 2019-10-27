@@ -30,6 +30,7 @@ import seedu.address.model.entity.Location;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
+import seedu.address.model.entitylist.TeamList;
 import seedu.address.testutil.TeamBuilder;
 
 class AddTeamCommandParserTest {
@@ -38,6 +39,7 @@ class AddTeamCommandParserTest {
 
     @Test
     void parse_allFieldsPresent_success() {
+        TeamList.setLastUsedId(0);
         Team expectedTeam = new TeamBuilder(BRUCE).withScore(0).build();
         Team expectedTeam2 = new TeamBuilder(BRUCE).withScore(0).withId(2).build();
         Team expectedTeam3 = new TeamBuilder(BRUCE).withScore(0).withId(3).build();

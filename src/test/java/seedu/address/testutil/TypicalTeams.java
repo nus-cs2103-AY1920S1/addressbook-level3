@@ -37,7 +37,7 @@ public class TypicalTeams {
                                           SubjectName.ENVIRONMENTAL,
                                           new Score(1),
                                           new Name("Project Alpha"),
-            new Location(1));
+                                          new Location(1));
 
     public static final Team A_UPDATED = new Team(new Id(PrefixType.T, 1),
             new Name("Team A"),
@@ -64,7 +64,7 @@ public class TypicalTeams {
                                           SubjectName.EDUCATION,
                                           new Score(2),
                                           new Name("Project Beta"),
-            new Location(2));
+                                         new Location(2));
 
     public static final Team C = new Team(new Id(PrefixType.T, 3),
                                           new Name("Team C"),
@@ -73,7 +73,7 @@ public class TypicalTeams {
                                           SubjectName.HEALTH,
                                           new Score(3),
                                           new Name("Project Gamma"),
-            new Location(3));
+                                          new Location(3));
 
     //With empty Optional<Mentor>
     public static final Team D = new Team(new Id(PrefixType.T, 4),
@@ -83,7 +83,7 @@ public class TypicalTeams {
                                           SubjectName.HEALTH,
                                           new Score(5),
                                           new Name("Project Delta"),
-            new Location(4));
+                                          new Location(4));
 
     //With empty ParticipantList
     public static final Team E = new Team(new Id(PrefixType.T, 5),
@@ -93,17 +93,15 @@ public class TypicalTeams {
                                           SubjectName.HEALTH,
                                           new Score(5),
                                           new Name("Project Epsilon"),
-            new Location(5));
+                                          new Location(5));
 
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Team ALFRED = new TeamBuilder().withName(VALID_NAME_ALFRED).withLocation(VALID_LOCATION_ALFRED)
-            .withProjectName(VALID_PROJECT_NAME_ALFRED)
-            .withSubject(VALID_SUBJECT_ALFRED).build();
+            .withProjectName(VALID_PROJECT_NAME_ALFRED).withSubject(VALID_SUBJECT_ALFRED).build();
 
     public static final Team BRUCE = new TeamBuilder().withName(VALID_NAME_BRUCE).withLocation(VALID_LOCATION_BRUCE)
-            .withProjectName(VALID_PROJECT_NAME_BRUCE)
-            .withSubject(VALID_SUBJECT_BRUCE).build();
+            .withProjectName(VALID_PROJECT_NAME_BRUCE).withSubject(VALID_SUBJECT_BRUCE).build();
 
     /**
      * Retrieves a List of Typical Teams.

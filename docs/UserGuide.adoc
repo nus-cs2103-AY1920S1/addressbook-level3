@@ -399,7 +399,7 @@ Example:
 * P,,Bruce Wayne,+65 23456789,wbruce@wayne.ent,Wayne Ent.,Health
 
 ===== Team Data
-Header: `EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,ProjectType,Location`
+Header: `EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location`
 
 ****
 `Participants` - A list of participant IDs in the team. +
@@ -415,9 +415,9 @@ See example usage down below.
 
 Example:
 
-* T,T-1,Justice League,,,Social,100,Save the Earth,PLACEHOLDER,1
-* T,1,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,Placeholder,1
-* T,,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,Placeholder,1
+* T,T-1,Justice League,,,Social,100,Save the Earth,1
+* T,1,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
+* T,,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
 
 === Export Data: `export [{mentor/participant/team}] [fp/DESIRED_CSV_FILE_PATH]`
 You may export Alfred data to an external CSV file. If the desired CSV file path is left empty, Alfred will create a CSV file at the default location (`./AlfredData/Alfred_Data.csv`).

@@ -35,6 +35,7 @@ import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.SubjectName;
+import seedu.address.model.entitylist.MentorList;
 import seedu.address.testutil.MentorBuilder;
 
 class AddMentorCommandParserTest {
@@ -43,7 +44,8 @@ class AddMentorCommandParserTest {
 
     @Test
     void parse_allFieldsPresent_success() {
-        Mentor expectedMentor = new MentorBuilder(BOB).build();
+        MentorList.setLastUsedId(0);
+        Mentor expectedMentor = new MentorBuilder(BOB).withId(1).build();
         Mentor expectedMentor2 = new MentorBuilder(BOB).withId(2).build();
         Mentor expectedMentor3 = new MentorBuilder(BOB).withId(3).build();
         Mentor expectedMentor4 = new MentorBuilder(BOB).withId(4).build();

@@ -31,7 +31,6 @@ class JsonAdaptedTeam {
     private final String subject;
     private final int score;
     private final String projectName;
-    //private final String projectType;
     private final int location;
     private final List<JsonAdaptedParticipant> pList = new ArrayList<>();
     private final String prefixTypeStr;
@@ -44,7 +43,7 @@ class JsonAdaptedTeam {
     public JsonAdaptedTeam(@JsonProperty("teamName") String teamName, @JsonProperty("mentor") JsonAdaptedMentor mentor,
                            @JsonProperty("subject") String subject,
                            @JsonProperty("score") int score, @JsonProperty("projectName") String projectName,
-                           @JsonProperty("projectType") String projectType, @JsonProperty("location") int location,
+                           @JsonProperty("location") int location,
                            @JsonProperty("participants") List<JsonAdaptedParticipant> pList,
                            @JsonProperty("prefixTypeStr") String prefixTypeStr, @JsonProperty("idNum") int idNum) {
 
@@ -53,7 +52,6 @@ class JsonAdaptedTeam {
         this.subject = subject;
         this.score = score;
         this.projectName = projectName;
-        //this.projectType = projectType;
         this.location = location;
         this.prefixTypeStr = prefixTypeStr;
         this.idNum = idNum;
@@ -74,7 +72,6 @@ class JsonAdaptedTeam {
         subject = source.getSubject().name();
         score = source.getScore().toStorageValue();
         projectName = source.getProjectName().toStorageValue();
-        //projectType = source.getProjectType().name();
         location = source.getLocation().toStorageValue();
         mentor = new JsonAdaptedMentor(source.getMentor().orElse(null));
         prefixTypeStr = source.getId().getPrefix().name();
@@ -126,15 +123,6 @@ class JsonAdaptedTeam {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelProjectName = new Name(projectName);
-
-        /*if (projectType == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, ProjectType.class.getSimpleName()));
-        }
-        if (!ProjectType.isValidProjectType(projectType)) {
-            throw new IllegalValueException(ProjectType.MESSAGE_CONSTRAINTS);
-        }
-        final ProjectType modelProjectType = ProjectType.valueOf(projectType);*/
 
         if (!Location.isValidLocation(location)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);

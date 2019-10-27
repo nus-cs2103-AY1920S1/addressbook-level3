@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.AlfredException;
@@ -78,7 +77,6 @@ public class ExportTeamCommandTest {
         assertFalse(TestUtil.getFilePathInCsvUtilTestFolder(fileName).toFile().exists());
     }
 
-    @Disabled
     @Test
     public void execute_validParametersPassed_success() throws AlfredException, IOException {
         Model model = new ModelManagerStub();

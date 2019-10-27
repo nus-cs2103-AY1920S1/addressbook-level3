@@ -33,7 +33,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-
     private Stage primaryStage;
     private Logic logic;
 
@@ -42,8 +41,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandListPanel commandListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
-
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -88,7 +85,6 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
     }
-
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -294,25 +290,18 @@ public class MainWindow extends UiPart<Stage> {
             case M:
                 this.fireButton(mentorsButton);
                 break;
-
             case T:
                 this.fireButton(teamsButton);
                 break;
-
             case P:
                 this.fireButton(participantsButton);
                 break;
-
             case H:
                 this.fireButton(historyButton);
                 break;
-
-
             default:
                 logger.info("The command does not edit any of the list of Entity");
                 break;
-
-
             }
 
             return commandResult;

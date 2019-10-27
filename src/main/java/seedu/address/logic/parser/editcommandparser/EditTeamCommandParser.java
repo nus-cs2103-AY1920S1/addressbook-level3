@@ -30,8 +30,8 @@ public class EditTeamCommandParser implements Parser<EditTeamCommand> {
     public EditTeamCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SUBJECT_NAME, PREFIX_PROJECT_NAME,
-                        PREFIX_LOCATION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SUBJECT_NAME,
+                        PREFIX_PROJECT_NAME, PREFIX_LOCATION);
 
         Id id;
 

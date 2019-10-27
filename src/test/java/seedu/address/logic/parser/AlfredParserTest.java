@@ -37,6 +37,7 @@ import seedu.address.logic.commands.viewcommand.ViewTeamCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Team;
+import seedu.address.model.entitylist.TeamList;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditMentorDescriptorBuilder;
 import seedu.address.testutil.MentorBuilder;
@@ -52,9 +53,9 @@ public class AlfredParserTest {
 
     private final AlfredParser parser = new AlfredParser();
 
-    @Disabled
     @Test
     public void parseCommand_add() throws Exception {
+        TeamList.setLastUsedId(0);
         // Testing adding a new team.
         Team team = new TeamBuilder().withScore(0).build();
         AddTeamCommand addTeamCommand = (AddTeamCommand) parser.parseCommand(TeamUtil.getAddCommand(team));
