@@ -219,8 +219,6 @@ public class MainWindow extends UiPart<Stage> {
         appManager.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        //Platform.exit();
-        //System.exit(0);
     }
 
     /**
@@ -291,7 +289,8 @@ public class MainWindow extends UiPart<Stage> {
     private void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
         double percentageTimeLeft = (timeLeft * 1.0) / totalTimeGiven;
 
-        if (percentageTimeLeft <= 0.5) { // when time left is <= half of time given, switch to alert colour
+        /* when time left is <= half of totalTime given, switch to alert colour */
+        if (percentageTimeLeft <= 0.5) {
             this.timerDisplay.setAlertTextColour();
         } else {
             this.timerDisplay.setNormalTextColour();
