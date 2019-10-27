@@ -36,7 +36,7 @@ public class Price {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public double getAsDouble() {
+    public Double getAsDouble() {
         return Double.parseDouble(value);
     }
 
