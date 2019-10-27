@@ -211,5 +211,4 @@ public interface Model {
     void addNotes(Notes note);
 
     void updateFilteredNotesList(Predicate<Notes> predicate);
-  
 }
