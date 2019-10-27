@@ -1,11 +1,17 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import dream.fcard.MainApp;
+import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.core.commons.util.StringUtil;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
+import java.util.logging.Logger;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  * Manages the GUI of the application.
@@ -18,25 +24,26 @@ public class Gui {
     private static Gui gui = new Gui();
 
     // the instance of the main window of the application, containing all UI components
-    private static MainWindow applicationMainWindow = new MainWindow();
+    private static MainWindow applicationMainWindow;
     private static State applicationState;
 
+    private static final Logger logger = LogsCenter.getLogger(Gui.class);
+
     private Gui() {
-        // todo
+        // empty constructor
     }
 
-    // todo: refactor Gui's constructors
-
-    /**
-     * Instantiates the GUI object. Will be private when refactoring is complete.
-     * @param mainWindow Application window housing all other UI components.
-     * @param state The state of the application.
-     */
-    public Gui(MainWindow mainWindow, State state) {
-        applicationMainWindow = mainWindow;
+    public static void setApplicationState(State state) {
         applicationState = state;
     }
 
+    public static void setApplicationMainWindow (MainWindow mainWindow) {
+        applicationMainWindow = mainWindow;
+    }
+
+    static State getApplicationState() {
+        return applicationState;
+    }
     private static MainWindow getMainWindow() {
         return applicationMainWindow;
     }
@@ -48,6 +55,33 @@ public class Gui {
         }
         return gui;
     }
+
+    /**
+     * Starts the application's GUI.
+     *
+     * @param primaryStage The window of the application.
+     */
+    public static void start(Stage primaryStage) {
+        logger.info("Starting UI...");
+
+        // set the application icon
+        primaryStage.getIcons().add(getImage(GuiSettings.getApplicationIcon()));
+
+        try {
+            // instantiate MainWindow object and set main window to it
+            applicationMainWindow = new MainWindow(primaryStage, applicationState);
+            // todo: might make sense to call mainWindow's methods rather than putting everything in its constructor
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            //showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    private static Image getImage(String imagePath) {
+        return new Image(MainApp.class.getResourceAsStream(imagePath));
+    }
+
+
 
     /**
      * Renders the front of the given FlashCard in the GUI.

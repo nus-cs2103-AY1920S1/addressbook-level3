@@ -15,7 +15,6 @@ import javafx.stage.Stage;
  */
 public class MainWindow {
 
-    private Gui gui;
     private Stage primaryStage;
     private Scene scene;
     private State state;
@@ -34,17 +33,15 @@ public class MainWindow {
     }
 
     /**
-     * Creates and displays a main window for the application. Called by UiManager when application
-     * is started. (To be refactored)
+     * Creates and displays a main window for the application. Called by Gui when application
+     * is started.
      *
-     * @param primaryStage
-     * @param state
+     * @param primaryStage Stage representing the window of the application
+     * @param state The state of the application.
      */
     public MainWindow(Stage primaryStage, State state) {
-        // todo: refactor linkages between MainWindow, Gui and UiManager
         this.primaryStage = primaryStage;
         this.state = state;
-        this.gui = new Gui(this, state);
         onStartup();
         //testUiComponents();
     }
