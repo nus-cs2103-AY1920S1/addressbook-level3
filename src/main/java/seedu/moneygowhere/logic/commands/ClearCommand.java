@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.SpendingBook;
-import seedu.moneygowhere.model.budget.Budget;
 
 /**
  * Clears the MoneyGoWhere list.

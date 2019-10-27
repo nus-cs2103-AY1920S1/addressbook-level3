@@ -2,7 +2,8 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "budget": {
     "value" : "10000",
-    "sum": "772.50"
+    "sum": "772.50",
+    "month": "10/2019"
   },
   "spendings" : [ {
     "name" : "Apple",

@@ -1,12 +1,24 @@
 package seedu.moneygowhere.model.budget;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.moneygowhere.model.spending.Spending;
+import seedu.moneygowhere.testutil.SpendingBuilder;
+
 class BudgetTest {
+
+    private Budget oldBudget = new Budget(100, 10, "01/2010");
+    private LocalDate oldDate = LocalDate.of(2010, 01, 01);
+
+    private Budget newBudget = new Budget(123, 12, "12/2020");
+    private LocalDate newDate = LocalDate.of(2020, 12, 01);
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -38,5 +50,71 @@ class BudgetTest {
         assertTrue(Budget.isValidBudget(0));
         assertTrue(Budget.isValidBudget(0.123));
         assertTrue(Budget.isValidBudget(10000));
+    }
+
+    @Test
+    public void update_oldMonth_noUpdate() {
+        Budget temp = new Budget(123, 12, "12/2020");
+        temp.update(oldDate);
+        assertEquals(temp, newBudget);
+    }
+
+    @Test
+    public void update_sameMonth_noUpdate() {
+        Budget temp = new Budget(123, 12, "12/2020");
+        temp.update(newDate);
+        assertEquals(temp, newBudget);
+    }
+
+    @Test
+    public void update_differentMonth_update() {
+        Budget cleanBudget = new Budget(100, 0, "12/2020");
+        Budget temp = new Budget(100, 10, "01/2010");
+
+        temp.update(newDate);
+        assertEquals(temp, cleanBudget);
+    }
+
+    @Test
+    public void inSameMonth_validInput_success() {
+        Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
+        assertTrue(oldBudget.inSameMonth(temp));
+        assertFalse(newBudget.inSameMonth(temp));
+    }
+
+    @Test
+    public void addSpending_wrongDate_noAdd() {
+        Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
+        Budget newBudgetTemp = new Budget(123, 12, "12/2020");
+        newBudgetTemp.addSpending(temp);
+        assertEquals(newBudget, newBudgetTemp);
+    }
+
+    @Test
+    public void addSpending_validDate_success() {
+        Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
+        Budget oldBudgetTemp = new Budget(100, 10, "01/2010");
+        oldBudgetTemp.addSpending(temp);
+        assertEquals(oldBudget.getSum() + 10, oldBudgetTemp.getSum());
+    }
+
+    @Test
+    public void deleteSpending_wrongDate_noAdd() {
+        Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
+        Budget newBudgetTemp = new Budget(0);
+        newBudgetTemp.setBudget(newBudget);
+
+        newBudgetTemp.deleteSpending(temp);
+        assertEquals(newBudget, newBudgetTemp);
+    }
+
+    @Test
+    public void deleteSpending_validDate_success() {
+        Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
+        Budget oldBudgetTemp = new Budget(123);
+        oldBudgetTemp.setBudget(oldBudget);
+
+        oldBudgetTemp.deleteSpending(temp);
+        assertEquals(oldBudget.getSum() - 10, oldBudgetTemp.getSum());
     }
 }

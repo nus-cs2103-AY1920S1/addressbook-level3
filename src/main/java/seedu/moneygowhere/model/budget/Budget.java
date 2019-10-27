@@ -3,8 +3,11 @@ package seedu.moneygowhere.model.budget;
 import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -17,6 +20,7 @@ public class Budget {
 
     private double value;
     private double sum;
+    private BudgetMonth month;
 
     /**
      * Constructs a {@code Budget}.
@@ -27,6 +31,7 @@ public class Budget {
         checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
         this.value = budget;
         this.sum = 0;
+        this.month = BudgetMonth.now();
     }
 
     /**
@@ -35,10 +40,11 @@ public class Budget {
      * @param budget A valid budget value.
      * @param sum The current sum of all spending in the month.
      */
-    public Budget(double budget, double sum) {
+    public Budget(double budget, double sum, String month) {
         checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
         this.value = budget;
         this.sum = sum;
+        this.month = BudgetMonth.parse(month);
     }
 
     /**
@@ -50,6 +56,8 @@ public class Budget {
         requireNonNull(budget);
         checkArgument(isValidBudget(budget), MESSAGE_CONSTRAINTS);
         this.value = Double.parseDouble(budget);
+        this.sum = 0;
+        this.month = BudgetMonth.now();
     }
 
     /**
@@ -64,6 +72,23 @@ public class Budget {
      */
     public static boolean isValidBudget(double test) {
         return test >= 0.0;
+    }
+
+    /**
+     * Updates month {@code Budget} if the given date is in a different month than the on currently stored.
+     *
+     * @param date The current Date.
+     */
+    public void update(LocalDate date) {
+        Logger logger = LogsCenter.getLogger(getClass());
+        BudgetMonth temp = new BudgetMonth(date);
+        if (!this.month.equals(temp) && this.month.isBehind(date)) {
+            this.month = temp;
+            this.sum = 0;
+            logger.info("BudgetMonth has been updated");
+        } else {
+            logger.info("BudgetMonth is not updated");
+        }
     }
 
     public double getValue() {
@@ -82,6 +107,10 @@ public class Budget {
         return String.format("%.2f", sum);
     }
 
+    public String getMonthString() {
+        return month.toString();
+    }
+
     public void setValue(double value) {
         this.value = value;
     }
@@ -90,12 +119,34 @@ public class Budget {
         sum = 0;
     }
 
-    public void addSpending(Spending s) {
-        sum += Double.parseDouble(s.getCost().toString());
+    /**
+     * Checks whether a spending is in the same month of the Budget.
+     * @param s the spending to check.
+     * @return whether or not the spending is in the same month as the budget
+     */
+    public boolean inSameMonth(Spending s) {
+        BudgetMonth temp = new BudgetMonth(s.getDateValue());
+        return temp.equals(this.month);
     }
 
+    /**
+     * Adds the spending cost if it is in the same month.
+     * @param s The spending to add.
+     */
+    public void addSpending(Spending s) {
+        if (inSameMonth(s)) {
+            sum += Double.parseDouble(s.getCost().toString());
+        }
+    }
+
+    /**
+     * deletes the spending cost if it is in the same month.
+     * @param s The spending to delete.
+     */
     public void deleteSpending(Spending s) {
-        sum -= Double.parseDouble(s.getCost().toString());
+        if (inSameMonth(s)) {
+            sum -= Double.parseDouble(s.getCost().toString());
+        }
     }
 
     public double getRemainingBudget() {
@@ -105,6 +156,7 @@ public class Budget {
     public void setBudget(Budget budget) {
         this.value = budget.value;
         this.sum = budget.sum;
+        this.month = budget.month;
     }
 
     @Override
@@ -112,7 +164,8 @@ public class Budget {
         return other == this // short circuit if same object
                 || (other instanceof Budget // instanceof handles nulls
                 && value == ((Budget) other).value
-                && sum == ((Budget) other).sum);  // state check
+                && sum == ((Budget) other).sum // state check
+                && month.equals(((Budget) other).month)); // state check
     }
 
     @Override
@@ -126,8 +179,20 @@ public class Budget {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("$%.2f", value));
+        return sb.toString();
+    }
+
+    /**
+     * Return a complete description of the budget.
+     * @return A string representing the set budget only.
+     */
+    public String toStringFull() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("$%.2f", value));
         sb.append("\n current spending:");
         sb.append(String.format("$%.2f", sum));
+        sb.append("\n Remaining Budget:");
+        sb.append(String.format("$%.2f", getRemainingBudget()));
         return sb.toString();
     }
 }
