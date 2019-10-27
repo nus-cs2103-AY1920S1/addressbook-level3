@@ -70,6 +70,34 @@ public class Plan {
         return new Plan(id, name, description, startDate, endDate, taskSet);
     }
 
+    /**
+     * Returns number of solved tasks within plan.
+     * @return number of solved tasks.
+     */
+    public int getSolvedTaskCount() {
+        int solvedCount = 0;
+        for (Task task : this.getTasks()) {
+            if (task.getIsSolved()) {
+                solvedCount++;
+            }
+        }
+        return solvedCount;
+    }
+
+    /**
+     * Returns number of unsolved tasks within plan.
+     * @return number of unsolved tasks.
+     */
+    public int getUnsolvedTaskCount() {
+        int unsolvedCount = 0;
+        for (Task task : this.getTasks()) {
+            if (!task.getIsSolved()) {
+                unsolvedCount++;
+            }
+        }
+        return unsolvedCount;
+    }
+
     public Id getId() {
         return id;
     }

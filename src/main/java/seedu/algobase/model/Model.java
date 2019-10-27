@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.model.commandhistory.CommandHistory;
@@ -55,7 +57,7 @@ public interface Model {
      */
     void setAlgoBaseFilePath(Path algoBaseFilePath);
 
-    //=========== GUI state =============================================================
+    //=========== UI ====================================================================
 
     /**
      * Returns the state of the GUI.
@@ -205,8 +207,25 @@ public interface Model {
 
     //=========== Task ==================================================================
 
-    /** Returns an unmodifiable view of the filtered Plan list */
+    /**
+     * Returns an unmodifiable view of the filtered Plan list
+     */
     ObservableList<Task> getCurrentTaskList();
+
+    /**
+     * Returns the current {@code Plan}.
+     */
+    StringProperty getCurrentPlan();
+
+    /**
+     * Returns the number of solved tasks in current plan.
+     */
+    IntegerProperty getCurrentSolvedCount();
+
+    /**
+     * Returns the number of solved tasks in current plan.
+     */
+    IntegerProperty getCurrentUnsolvedCount();
 
     //========== Find Rules =============================================================
 

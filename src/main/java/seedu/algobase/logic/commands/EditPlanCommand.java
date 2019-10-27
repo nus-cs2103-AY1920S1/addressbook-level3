@@ -81,7 +81,7 @@ public class EditPlanCommand extends Command {
         Plan editedPlan = createEditedPlan(planToEdit, editPlanDescriptor);
 
         if (!planToEdit.isSamePlan(editedPlan) && model.hasPlan(editedPlan)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_PLAN, planToEdit.getPlanName()));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PLAN, editedPlan.getPlanName()));
         }
 
         model.setPlan(planToEdit, editedPlan);

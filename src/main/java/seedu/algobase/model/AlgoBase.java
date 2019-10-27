@@ -6,6 +6,8 @@ import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.commandhistory.CommandHistory;
@@ -271,6 +273,21 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     @Override
     public ObservableList<Task> getCurrentTaskList() {
         return plans.getUnmodifiableObservableTaskList();
+    }
+
+    @Override
+    public StringProperty getCurrentPlan() {
+        return plans.getCurrentPlan();
+    }
+
+    @Override
+    public IntegerProperty getCurrentSolvedCount() {
+        return plans.getCurrentSolvedCount();
+    }
+
+    @Override
+    public IntegerProperty getCurrentUnsolvedCount() {
+        return plans.getCurrentUnsolvedCount();
     }
 
     //========== Find Rules =============================================================

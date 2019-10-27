@@ -29,7 +29,7 @@ class ApplyCommandTest {
         ProblemSearchRule ruleToApply = model.getFilteredFindRuleList().get(INDEX_FIRST.getZeroBased());
         ApplyCommand command = new ApplyCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(ApplyCommand.MESSAGE_SUCCESS, ruleToApply);
+        String expectedMessage = String.format(ApplyCommand.MESSAGE_SUCCESS, ruleToApply.getName());
 
         ModelManager expectedModel = new ModelManager(model.getAlgoBase(), new UserPrefs());
         Predicate<Problem> findProblemPredicate = ruleToApply.getFindProblemPredicate();

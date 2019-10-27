@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -291,27 +293,20 @@ public class ModelManager implements Model {
         return filteredTasks;
     }
 
-    //========== Rewind =================================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code CommandHistory}.
-     */
     @Override
-    public ObservableList<CommandHistory> getCommandHistoryList() {
-        return filteredCommandHistories;
+    public StringProperty getCurrentPlan() {
+        return this.algoBase.getCurrentPlan();
     }
 
-    /**
-     * Adds the given {@code CommandHistory}.
-     *
-     * @param history the added history
-     */
     @Override
-    public void addCommandHistory(CommandHistory history) {
-        requireNonNull(history);
-        algoBase.addCommandHistory(history);
+    public IntegerProperty getCurrentSolvedCount() {
+        return this.algoBase.getCurrentSolvedCount();
     }
 
+    @Override
+    public IntegerProperty getCurrentUnsolvedCount() {
+        return this.algoBase.getCurrentUnsolvedCount();
+    }
 
     //========== Find Rules =============================================================
 
@@ -342,6 +337,20 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<ProblemSearchRule> getFilteredFindRuleList() {
         return filteredFindRules;
+    }
+
+
+    //========== Rewind =================================================================
+
+    @Override
+    public ObservableList<CommandHistory> getCommandHistoryList() {
+        return filteredCommandHistories;
+    }
+
+    @Override
+    public void addCommandHistory(CommandHistory history) {
+        requireNonNull(history);
+        algoBase.addCommandHistory(history);
     }
 
     //========== Util ===================================================================

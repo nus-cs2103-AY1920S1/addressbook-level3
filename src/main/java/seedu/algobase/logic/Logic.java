@@ -2,6 +2,8 @@ package seedu.algobase.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.logic.commands.CommandResult;
@@ -53,6 +55,15 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getProcessedTaskList();
+
+    /** Returns the current plan. */
+    StringProperty getCurrentPlan();
+
+    /** Returns the number of solved tasks in current plan. */
+    IntegerProperty getCurrentSolvedCount();
+
+    /** Returns the number of solved tasks in current plan. */
+    IntegerProperty getCurrentUnsolvedCount();
 
     /**
      * Returns an unmodifiable view of the filtered list of find rules.

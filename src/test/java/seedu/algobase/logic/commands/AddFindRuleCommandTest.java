@@ -32,7 +32,7 @@ class AddFindRuleCommandTest {
 
         CommandResult commandResult = new AddFindRuleCommand(validSearchRule).execute(modelStub);
 
-        assertEquals(String.format(AddFindRuleCommand.MESSAGE_SUCCESS, validSearchRule),
+        assertEquals(String.format(AddFindRuleCommand.MESSAGE_SUCCESS, validSearchRule.getName()),
             commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSearchRule), modelStub.findRulesAdded);
     }
@@ -43,8 +43,11 @@ class AddFindRuleCommandTest {
         AddFindRuleCommand command = new AddFindRuleCommand(validRule);
         ModelStubWithFindRule modelStubWithFindRule = new ModelStubWithFindRule(validRule);
 
-        assertThrows(CommandException.class, AddFindRuleCommand.MESSAGE_DUPLICATE_FIND_RULE, ()
-            -> command.execute(modelStubWithFindRule));
+        assertThrows(
+            CommandException.class,
+            String.format(AddFindRuleCommand.MESSAGE_DUPLICATE_FIND_RULE, validRule.getName()), ()
+                -> command.execute(modelStubWithFindRule)
+        );
     }
 
     @Test
