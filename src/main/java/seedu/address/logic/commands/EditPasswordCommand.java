@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Description;
+import seedu.address.model.password.ModifiedAt;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -94,10 +96,12 @@ public class EditPasswordCommand extends Command {
                 .getUsername().orElse(passwordToEdit.getUsername());
         PasswordValue updatedPasswordValue = editPasswordDescriptor
                 .getPasswordValue().orElse(passwordToEdit.getPasswordValue());
+        ModifiedAt updatedModifiedAt = new ModifiedAt(new Date());
         Set<Tag> updatedTags = editPasswordDescriptor
                 .getTags().orElse(passwordToEdit.getTags());
 
-        return new Password(updatedDescription, updatedUsername, updatedPasswordValue, updatedTags);
+        return new Password(updatedDescription, updatedUsername, updatedPasswordValue,
+                updatedModifiedAt, updatedTags);
     }
 
     @Override
@@ -171,7 +175,6 @@ public class EditPasswordCommand extends Command {
         public Optional<PasswordValue> getPasswordValue() {
             return Optional.ofNullable(passwordValue);
         }
-
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

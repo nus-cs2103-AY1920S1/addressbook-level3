@@ -6,12 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddPasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.password.Description;
+import seedu.address.model.password.ModifiedAt;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -38,9 +40,10 @@ public class AddPasswordCommandParser implements Parser<AddPasswordCommand> {
         Description description = ParserUtil.parsePasswordDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         PasswordValue passwordValue = ParserUtil.parsePasswordValue(argMultimap.getValue(PREFIX_PASSWORDVALUE).get());
+        ModifiedAt modifiedAt = new ModifiedAt(new Date());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Password password = new Password(description, username, passwordValue, tagList);
+        Password password = new Password(description, username, passwordValue, modifiedAt, tagList);
         return new AddPasswordCommand(password);
     }
 

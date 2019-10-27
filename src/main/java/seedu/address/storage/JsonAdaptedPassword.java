@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,10 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.password.Description;
+import seedu.address.model.password.ModifiedAt;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.DateUtil;
 
 /**
  * Jackson-friendly version of {@link Password}.
@@ -25,6 +28,8 @@ class JsonAdaptedPassword {
     private final String description;
     private final String username;
     private final String passwordValue;
+    private final String modifiedAt;
+
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,10 +39,12 @@ class JsonAdaptedPassword {
     public JsonAdaptedPassword(@JsonProperty("description") String description,
                                @JsonProperty("username") String username,
                                @JsonProperty("passwordValue") String passwordValue,
+                               @JsonProperty("modifiedAt") String modifiedAt,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.description = description;
         this.username = username;
         this.passwordValue = passwordValue;
+        this.modifiedAt = modifiedAt;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,6 +57,7 @@ class JsonAdaptedPassword {
         description = password.getDescription().value;
         username = password.getUsername().value;
         passwordValue = password.getPasswordValue().value;
+        modifiedAt = DateUtil.formatDate(password.getModifiedAt().value);
         tagged.addAll(password.getTags().stream()
                 .map(JsonAdaptedTag::new)
                .collect(Collectors.toList()));
@@ -84,8 +92,19 @@ class JsonAdaptedPassword {
         }
         final PasswordValue modelPasswordValue = new PasswordValue(passwordValue);
 
+        if (modifiedAt == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModifiedAt.class.getSimpleName()));
+        }
+
+        final ModifiedAt modelModifiedAt;
+        try {
+            modelModifiedAt = new ModifiedAt(DateUtil.parseDate(modifiedAt));
+        } catch (ParseException e) {
+            throw new IllegalValueException(ModifiedAt.MESSAGE_CONSTRAINTS);
+        }
         final Set<Tag> modelTags = new HashSet<>(passwordTags);
-        return new Password(modelDescription, modelUserName, modelPasswordValue, modelTags);
+        return new Password(modelDescription, modelUserName, modelPasswordValue, modelModifiedAt, modelTags);
     }
 
 }
