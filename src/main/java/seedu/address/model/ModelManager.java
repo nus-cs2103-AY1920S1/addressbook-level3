@@ -235,6 +235,9 @@ public class ModelManager implements Model {
     @Override
     public void filterQuizResult(QuizResultFilter quizResultFilter) throws EmptyQuizResultListException {
         this.quizResults = appData.filterQuizResult(quizResultFilter);
+        if (quizResults.isEmpty()) {
+            throw new EmptyQuizResultListException();
+        }
     }
 
     private ObservableList<QuizResult> filterQuizResultAndReturn(QuizResultFilter quizResultFilter) {

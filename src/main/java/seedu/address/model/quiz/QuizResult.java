@@ -56,6 +56,10 @@ public class QuizResult {
         return result;
     }
 
+    public String getResultToString() {
+        return result ? "Correct":"Incorrect";
+    }
+
     /**
      * Returns true if the quizResult is stored within the given time period and false otherwise.
      * @param start The starting date.

@@ -205,7 +205,7 @@ Format: `report INDEX`
 Gets an overview of the types of questions that have been attempted overall.
 A stacked bar graph, sorted by subjects will be returned.
 You can also add a `dt/` field to get questions that you have done within that time period. +
-Format: `overviewq [dt/START_DATE] [dt/END_DATE]`
+Format: `overview [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks
 

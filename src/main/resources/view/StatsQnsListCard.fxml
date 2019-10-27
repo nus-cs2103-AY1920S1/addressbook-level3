@@ -30,6 +30,7 @@
             <FlowPane fx:id="tags" />
             <!--            <Label fx:id="content" styleClass="cell_small_label" text="\$content" />-->
             <Label fx:id="answer" styleClass="cell_small_label" text="\$answer"/>
+            <Label fx:id="result" styleClass="cell_small_label" text="\$result"/>
             <Label fx:id="subject" styleClass="cell_small_label" text="\$subject"/>
             <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty"/>
             <Label fx:id="date" styleClass="cell_small_label" text="\$date"/>

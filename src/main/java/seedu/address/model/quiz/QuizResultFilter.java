@@ -118,6 +118,9 @@ public class QuizResultFilter {
                 operations.push(INCORRECT);
             }
         }
+        if (!subjects.isEmpty()) {
+            operations.push(SUBJECT);
+        }
         operations.push(DIFFICULTY);
     }
 }

@@ -24,6 +24,8 @@ public class StatsQnsListCard extends PanelComponent<Region> {
     @FXML
     private Label answer;
     @FXML
+    private Label result;
+    @FXML
     private Label subject;
     @FXML
     private Label difficulty;
@@ -36,6 +38,7 @@ public class StatsQnsListCard extends PanelComponent<Region> {
         id.setText(displayedIndex + ". ");
         questionBody.setText(quizResult.getQuestionBody().body);
         answer.setText("Your answer: " + quizResult.getAnswer().answer);
+        result.setText("Result: " + quizResult.getResultToString());
         subject.setText("Subject: " + quizResult.getSubject().subject);
         difficulty.setText("Difficulty: " + quizResult.getDifficulty().difficulty);
         date.setText("Attempted on: " + quizResult.getQuizTime());
