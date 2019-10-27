@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEvents;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 import seedu.address.testutil.PersonBuilder;
@@ -200,6 +201,11 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyEvents getEventList() {
+            return null;
+        }
+
+        @Override
+        public String addRecord(String eventName, Person person, Record record) {
             return null;
         }
     }
