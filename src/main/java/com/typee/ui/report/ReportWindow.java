@@ -3,6 +3,7 @@ package com.typee.ui.report;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -47,6 +48,8 @@ public class ReportWindow extends UiPart<Region> {
         super(FXML);
 
         logger.info(filePath.toString());
+        validateIfPathExistsAndCreate();
+
         treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
         treeViewReports.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> handleMouseClicked(event));
     }
@@ -102,6 +105,8 @@ public class ReportWindow extends UiPart<Region> {
      */
     @FXML
     private void refreshTreeView(MouseEvent event) {
+        validateIfPathExistsAndCreate();
+
         refreshFileTreeView();
         lblStatus.setText("Refreshed Directory: " + DateTimeFormatter.ofPattern("HH:MM:ss")
                 .format((LocalDateTime.now())));
@@ -123,6 +128,8 @@ public class ReportWindow extends UiPart<Region> {
             if (alert.getResult() == ButtonType.OK) {
                 isFileDeleted = new File(name).delete();
             }
+        } else {
+            lblStatus.setText("selected item not available for deletion.");
         }
 
         if (isFileDeleted) {
@@ -141,6 +148,8 @@ public class ReportWindow extends UiPart<Region> {
         if (selectedItem == null) {
             return false;
         } else if (new File(selectedItem.getValue()).isDirectory()) {
+            return false;
+        } else if (!new File(selectedItem.getValue()).exists()) {
             return false;
         }
         return true;
@@ -162,5 +171,11 @@ public class ReportWindow extends UiPart<Region> {
     private void refreshFileTreeView() {
         lblStatus.setText("");
         treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
+    }
+
+    private void validateIfPathExistsAndCreate() {
+        if (Files.notExists(filePath)) {
+            filePath.toFile().mkdir();
+        }
     }
 }
