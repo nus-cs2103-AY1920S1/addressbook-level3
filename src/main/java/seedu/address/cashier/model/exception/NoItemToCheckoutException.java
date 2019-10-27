@@ -1,13 +1,13 @@
 package seedu.address.cashier.model.exception;
 
 /**
- * Signals that the item the user input is not in the data base.
+ * Signals that there is no item in the sales list.
  */
-public class NoSuchItemException extends Exception {
+public class NoItemToCheckoutException extends Exception {
 
     private String msg;
 
-    public NoSuchItemException(String msg) {
+    public NoItemToCheckoutException(String msg) {
         super(msg);
         this.msg = msg;
     }
@@ -15,5 +15,4 @@ public class NoSuchItemException extends Exception {
     public String toString() {
         return this.msg;
     }
-
 }

@@ -1,9 +1,13 @@
 package seedu.address.cashier.model;
 
+import static seedu.address.cashier.ui.CashierMessages.NO_ITEM_TO_CHECKOUT;
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.NoItemToCheckoutException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
@@ -35,6 +39,11 @@ public class ModelManager implements Model {
     public ModelManager(InventoryList inventoryList, TransactionList transactionList) {
         this.inventoryList = inventoryList;
         this.transactionList = transactionList;
+    }
+
+    public ModelManager() {
+        this.inventoryList = new InventoryList();
+        this.transactionList = new TransactionList();
     }
 
     /**
@@ -199,7 +208,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setItem(int i, Item editedItem) throws Exception {
-        inventoryList.set(i, editedItem);
+        salesList.set(i, editedItem);
     }
 
     /**
@@ -248,7 +257,7 @@ public class ModelManager implements Model {
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
         }
-        return total;
+        return Double.parseDouble(DECIMAL_FORMAT.format(total));
     }
 
     /**
@@ -295,7 +304,7 @@ public class ModelManager implements Model {
      */
     @Override
     public double getSubtotal(Item i) {
-        return Double.parseDouble(Item.DECIMAL_FORMAT.format(i.getPrice() * i.getQuantity()));
+        return Double.parseDouble(DECIMAL_FORMAT.format(i.getPrice() * i.getQuantity()));
     }
 
     /**
@@ -332,16 +341,17 @@ public class ModelManager implements Model {
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
-            if (item.getDescription().startsWith(description)) {
+            if (item.getDescription().toLowerCase().startsWith(description.toLowerCase())) {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
             if (description.length() >= 3
-                    && ((item.getDescription().contains(description)) || description.contains(item.getDescription()))) {
+                    && ((item.getDescription().toLowerCase().contains(description.toLowerCase()))
+                    || description.toLowerCase().contains(item.getDescription().toLowerCase()))) {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
-            if (item.getDescription().endsWith(description)) {
+            if (item.getDescription().toLowerCase().endsWith(description.toLowerCase())) {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
@@ -360,7 +370,10 @@ public class ModelManager implements Model {
      * @throws Exception if the user input is invalid
      */
     @Override
-    public Transaction checkoutAsTransaction(double amount, Person person) {
+    public Transaction checkoutAsTransaction(double amount, Person person) throws NoItemToCheckoutException {
+        if (amount <= 0 && salesList.size() == 0) {
+            throw new NoItemToCheckoutException(NO_ITEM_TO_CHECKOUT);
+        }
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
                 SALES_DESCRIPTION, SALES_CATEGORY, amount, person, this.transactionList.size(), false);
         checkoutTransaction = transaction;
@@ -393,6 +406,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return inventoryList.equals(other.getInventoryList())
+                && transactionList.equals(other.getTransactionList())
                 && salesList.equals(other.getSalesList());
     }
 

@@ -45,6 +45,33 @@ public class TypicalItem {
             .withQuantity(85)
             .build();
 
+    // not meant to be added to list & not available for sale
+    public static final Item WATER = new ItemBuilder()
+            .withDescription("water")
+            .withCategory("food")
+            .withCost(4.23)
+            .withPrice(0.00)
+            .withQuantity(85)
+            .build();
+
+    // not meant to be added to list
+    public static final Item CHIPS = new ItemBuilder()
+            .withDescription("chips")
+            .withCategory("food")
+            .withCost(4.23)
+            .withPrice(5.11)
+            .withQuantity(85)
+            .build();
+
+    // not meant to be added to list
+    public static final Item BURGER_AND_CHIPS = new ItemBuilder()
+            .withDescription("burger chips")
+            .withCategory("food")
+            .withCost(4.23)
+            .withPrice(5.11)
+            .withQuantity(85)
+            .build();
+
     /**
      * Returns an {@code InventoryList} with all the typical items.
      */

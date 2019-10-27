@@ -14,6 +14,9 @@ public class CashierMessages {
     public static final String NO_CASHIER = "Sorry! Please enter the cashier's name before proceeding:\n "
             + " cashier NAME\n";
 
+    public static final String NO_ITEM_TO_CHECKOUT = "Sorry! There is no item to checkout! "
+            + "To add an item to the table, please type \"add d/DESCRIPTION\n q/QUANTITY\"";
+
     public static final String NO_SUCH_COMMAND = "Sorry! There is no such command.";
 
     public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with "

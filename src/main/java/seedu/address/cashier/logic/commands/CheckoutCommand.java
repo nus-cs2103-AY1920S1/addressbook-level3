@@ -1,10 +1,12 @@
 package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
+import static seedu.address.cashier.ui.CashierMessages.NO_ITEM_TO_CHECKOUT;
 
 import java.util.logging.Logger;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.NoItemToCheckoutException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
@@ -47,7 +49,11 @@ public class CheckoutCommand extends Command {
         } catch (NoCashierFoundException e) {
             throw new NoCashierFoundException(CashierMessages.NO_CASHIER);
         }
-        modelManager.checkoutAsTransaction(totalAmount, p);
+        try {
+            modelManager.checkoutAsTransaction(totalAmount, p);
+        } catch (NoItemToCheckoutException e) {
+            throw new NoItemToCheckoutException(NO_ITEM_TO_CHECKOUT);
+        }
         modelManager.updateInventoryList();
         ClearCommand clearCommand = new ClearCommand();
         clearCommand.execute(modelManager, personModel);

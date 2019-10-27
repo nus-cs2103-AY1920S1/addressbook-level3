@@ -17,7 +17,7 @@ import seedu.address.transaction.util.TransactionList;
 /**
  * Manages storage of Inventory List and Transaction List data in local storage.
  */
-public class StorageManager {
+public class StorageManager implements Storage {
 
     private String filepathToInventory;
     private String filepathToTransaction;
@@ -26,8 +26,8 @@ public class StorageManager {
     private final seedu.address.person.model.Model personModel;
 
     public StorageManager(File iFile, File tFile, seedu.address.person.model.Model personModel) {
-//        this.filepathToInventory = filepathToInventory;
-//        this.filepathToTransaction = filepathToTransaction;
+        /*this.filepathToInventory = filepathToInventory;
+        this.filepathToTransaction = filepathToTransaction;*/
         this.iFile = iFile;
         this.tFile = tFile;
         this.personModel = personModel;
@@ -38,10 +38,10 @@ public class StorageManager {
         iFile.getAbsoluteFile().getParentFile().mkdirs();
         iFile.createNewFile();
         BufferedReader bfr = new BufferedReader(new FileReader(iFile));
-//        File f = new File(filepathToInventory);
-//        f.getParentFile().mkdirs();
-//        f.createNewFile();
-//        BufferedReader bfr = new BufferedReader(new FileReader(f));
+        /*File f = new File(filepathToInventory);
+        f.getParentFile().mkdirs();
+        f.createNewFile();
+        BufferedReader bfr = new BufferedReader(new FileReader(f));*/
         String line = null;
         while ((line = bfr.readLine()) != null) {
             Item i = this.readInInventoryFileLine(line);
@@ -55,7 +55,7 @@ public class StorageManager {
      * @param line each line of text in the data file
      * @return the item created.
      */
-    public static Item readInInventoryFileLine(String line) {
+    public Item readInInventoryFileLine(String line) {
         String[] stringArr = line.split(" [|] ");
         Item i = null;
         if (stringArr.length == 5) {
@@ -95,10 +95,10 @@ public class StorageManager {
         tFile.getAbsoluteFile().getParentFile().mkdirs();
         tFile.createNewFile();
         BufferedReader bfr = new BufferedReader(new FileReader(tFile));
-//        File f = new File(filepathToTransaction);
-//        f.getParentFile().mkdirs();
-//        f.createNewFile();
-//        BufferedReader bfr = new BufferedReader(new FileReader(f));
+        /*File f = new File(filepathToTransaction);
+        f.getParentFile().mkdirs();
+        f.createNewFile();
+        BufferedReader bfr = new BufferedReader(new FileReader(f));*/
         String line = null;
         while ((line = bfr.readLine()) != null) {
             Transaction t = this.readInTransactionFileLine(line, personModel);
@@ -113,7 +113,7 @@ public class StorageManager {
      * @param personModel the model used to find person object
      * @return the transaction created.
      */
-    public static Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
+    public Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
