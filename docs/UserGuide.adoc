@@ -143,56 +143,216 @@ Bookings manager manages bookings and reservations made by the user. The booking
 * edit -id <id of trip> -booking <index of booking> -time <departure time>: sets the departure time of a transport booking
 * edit -id <id of trip> -booking <index of booking> -expenditure: sets the known expenditure of a booking
 
-=== Contacts Manager
-
-Throughout the Bookings Manager, there will be many contacts which you will come across. Contacts Manager helps in easy management of such contacts along with extra contacts the user wishes to enter. Default contacts include the Emergency Contacts of Police, Ambulance and Fire Brigade of the area.
-
-* addcontact -id <id of trip> -booking <index of booking> - name [name of the contact] -number [contact number] -email [email address]
 
 === Diary
 
+==== Introduction
+
+Welcome to the diary feature of _TravelPal_! The diary allows you to key in various thoughts and add photos that tie
+to each day of the trip. It offers a selection of formatting choices for your text display, and has an
+additional gallery display to the right that allows you to take a glance at all your photos quickly. Moreover, for almost
+every command, there are gui alternatives that allow you to execute the same operations.
+
+This section of the user guide explains how to use the diary.
+
+==== Diary User Interface Overview
+
+Shown below are the key elements of the diary page, while the gallery is in view.
+
+NOTE: There is an alternative mode of display (which will be touched on shortly, or see <<diary_editor_display_mode>>),
+that shows when you execute the `editor` command <<diary_editor_command>> or click the `Edit` button.
+
+image::diary/userguide/welcome_to_diary_image_annotated.png[title="Overview of diary user interface"]
+
+===== Diary Entry Display Area
+This is the main display area of your diary entry. It is able to display text, along with inline images, or just lines of
+images. The content is generated from the diary text of the entry (<<diary_text_info>>).
+
+[[diary_gallery_display]]
+===== Gallery Display
+The gallery allows you to browse through your stored photos. You can scroll the list simply with your mouse wheel.
+
+image::diary/userguide/diary_photo_user_interface.png[title="Display of a photo in the gallery display"]
+
+Each image is displayed with a description (bottom left), a date taken (top right) and a auto generated index (top left).
+
+===== Diary Day Navigation Bar
+This is the button equivalent of the `flip` command (<<diary_flip_command>>), and allows you to navigate between your
+diary entries for different days by clicking on the respective buttons.
+
+[[diary_gallery_button_bar]]
+===== Gallery Button Bar
+This smaller button bar is used for executing two other commands. Firstly, the `editor` (<<diary_editor_command>>)
+can be executede by clicking on the _Edit_ button. Secondly, the `addphoto` command may be executed
+(<<diary_addphoto_command>>) through _Add_ button.
+
+===== Add New Entry Button
+Similarly, this button executes the `create` command (<<diary_create_entry_command>>) through the user interface.
+
+[[diary_editor_display_mode]]
+==== Diary Editor User Interface
+
+This is the screen that shows when the `editor` command (<<diary_editor_command>>) is executed or the _Edit_ button
+is clicked, as mentioned in <<diary_gallery_button_bar>>.
+
+Components not highlighted in <<diary_edit_view_annotated>> below function the same way as mentioned in
+<<Diary User Interface Overview>>.
+
+[[diary_edit_view_annotated]]
+image::diary/userguide/diary_edit_view_annotated.png[title="Overview of diary user interface when the edit box is shown"]
+
+===== Diary Edit Box
+This is the text edit area that allows a convenient form of alternative input to commands for editing the Diary Entry.
+While you may feel that the special clauses _"<images 2>"_ and _"<images 5 1 3 4>"_ being used in the diagram above are
+rather unfamiliar, they are actually quite simple! (see <<Diary Text>>).
+
+TIP: For the command line input savvy users, you can use the `F1` accelerator to quickly move your keyboard focus
+back to the command line input!
+
+===== Commit Edit Button
+This is simply the button-equivalent of the `done` command (<<diary_done_command>>), and allows you to commit the
+changes you made (either through commands, or directly in the edit box) while the edit box was open.
+
+[[diary_text_info]]
+==== Diary Text
+
+The **diary text**, as you edit in the edit box (<<Diary Edit Box>>), or edit through the commands described in
+<<Diary Commands>>, are one and the same **diary text!** Hence, any commands you input to edit the text are reflected into
+the edit box automatically, and any edits you make to the edit box are considered by the commands.
+
+The diary text consists of *paragraphs*, which are simply texts separated by new line / return characters.
+
+NOTE: A paragraph of text need not span a minimum length, and can even be empty, as seen in the empty orange boxes
+in <<diary_text_line_numbering_figure>>
+
+Additionally, the diary text can use special clauses to display and format images, as described in <<diary_text_displaying_images>>.
+
+[[diary_text_line_numbering]]
+===== Diary Text Line Numbering
+Each **paragraph** of text as seen in the edit box or diary entry display (with optional accompanying image(s)) is tied to a
+specific **line number**. This **line number** is simply determined by the order of the text paragraphs as shown
+in <<diary_text_line_numbering_figure>>, from top to bottom.
+
+[[diary_text_line_numbering_figure]]
+image::diary/userguide/diary_what_is_a_paragraph.png[title = "Annotated highlights of paragraphs and their line numbers with alternating colours"]
+
+This **line number** is used for several commands described in <<Diary Commands>>.
+
+NOTE: It is trivial if using the edit box to edit text, as text editing is done directly on the **diary text**.
+
+[[diary_text_displaying_images]]
+===== Displaying images
+There are currently two main formats in which you can display images inside the diary entry display.
+
+Both of them use simple clauses that require the numbering of the photo as displayed in the gallery.
+
+====== As a mini horizontal gallery of images.
+** Format: Use a diary **text paragraph** consisting of only the clause `<images number1 number2 numberN>`, where `numberN`
+is the index of the photo as displayed in the gallery (<<diary_gallery_display>>).
+** Example: `<images 5 1 3 4>` - displays a mini gallery with the images 1, 3 and 5 as shown in the gallery.
+
+image::diary/userguide/diary_mini_gallery_edit_box.png[]
+
+====== As an inline image with an accompanying paragraph of text.
+** Format: Use a diary **text paragraph** consisting of your desired text, along with the clause
+`<images numberN>`, where `numberN` is the index of the photo as displayed in the gallery <<diary_gallery_display>>.
+** By default, the clause will place the image on the right, and the text on the left. You can include the `'left'`
+word inside the `<images left numberN>` clause as such to reverse the order.
+** Sample usage:
+
+image::diary/userguide/diary_mini_gallery_edit_box.png[]
+
 ==== Diary Commands
 
+The diary commands follow the same general format used by the rest of `TravelPal`.
+
+[[diary_create_entry_command]]
 ===== Creating a diary entry
-* create <day index>
-** Usage: creates a new diary entry for the specified day index. The entry for the day must not already exist.
+* `create <dayN>`
+** Usage: Creates a new diary entry for the specified day number.
 ** Arguments:
-*** <day index> - integer day index of the nth day of the trip
-** Example: create 1
+*** <dayN> - Positive integer nth day of the trip, which has not yet been created.
+** Example: `create 8` - creates a new diary entry for day 8 of the trip.
 
+[[diary_flip_command]]
 ===== Navigating to a diary entry
-* flip <day index>
-** Usage: Flips the diary to the day index specified.
+* `flip <dayN>`
+** Usage: Flips the diary to the day number specified.
 ** Arguments:
-*** <day index> - integer day index of the nth day's diary entry of the trip to flip to
-** Example: flip 7
+*** <dayN> - Positive integer of the nth day's diary entry to flip to.
+** Example: `flip 7` - flips to the diary entry of day 7, if it was created.
 
-===== Editing a diary entry
-* edit <initial edit box message>
-** Usage: Brings up the edit box, with the specified initial text. If no text is specified, then the text editor is populated with the currently viewed diary entry's text.
-** Arguments:
-*** <initial edit box message> - initial text to use in the edit box
-
-===== Commiting your edits
-* done
-** Usage: Commits the text currently in the edit box to the diary entry.
-** Example: done
-
+[[diary_addphoto_command]]
 ===== Adding a photo
-* addphoto fp/<file path to png or jpg image file> OR fc/<no arguments> (d/<description to be shown in the gallery> dts/<date time of photo>)
+* `addphoto fp/<file path> OR fc/<no arguments> [d/<description>] [dts/<date taken>]`
 ** Arguments:
-*** fc/ - opens the OS file gui dialog to allow choosing an image, instead of using the file path
-*** <file path> - relative file path from the location of the application's jar file, or an absolute file path.
-*** Optional: <description> - description to be shown in the gallery, of maximum length 20. (uses the file name otherwise)
-*** Optional: <date time> - date time of the format d/M/yyyy HHmm (uses the file modification date otherwise)
-** Example: addphoto fp/snowymountains.jpg d/picturesque mountains
+*** `fc/` - opens the OS file gui dialog to allow choosing an image, instead of using the file path. This takes precedence
+over the `fp/` argument if both are specified.
+*** `<file path>` - Relative file path from the location of the application's jar file, or an absolute file path.
+*** `<description>` (optional) - The description of the photo to be shown in the gallery, of maximum length 20.
+If left unspecified, the file name, truncated to the maximum length is used instead.
+*** `<date time>` (optional) - The date taken of the photo, of the format d/M/yyyy HHmm.
+If left unspecified, the last modified date of the file is used instead.
+** Example: `addphoto fp/snowymountains.jpg d/picturesque mountains`
 
 ===== Deleting a photo
-* delphoto <photo index>
+* `delphoto <photo number>`
 ** Usage: Deletes the photo indicated by the specified index in the gallery.
 ** Arguments:
-*** <photo index> - integer index of photo to delete
-** Example: delphoto 1
+*** <photo number> - Positive integer number of the photo to delete, as shown by the numbering in the gallery (see <<diary_gallery_display>>).
+** Example: `delphoto 1` - Deletes the first photo shown in the gallery.
+
+'''
+
+NOTE: The commands below are quick command line equivalents of editing the text in the edit box, as described in
+<<diary_editor_display_mode>>.
+
+===== Appending to a diary entry
+* `append <paragraph>`
+** Usage: Appends the given paragraph of text to the
+** Arguments:
+*** <paragraph> - The paragraph of text to append, as described in <<diary_text_info>>.
+** Example: `append The scenery on the road was breathtaking.`
+
+===== Inserting text in a diary entry
+* `insert i/<lineNumber> d/<paragraph>`
+** Usage: Inserts a new paragraph of text at the specified line number.
+** Arguments:
+*** `<lineNumber>` - Line number to insert the `<paragraph>` at, as described in <<diary_text_line_numbering>>.
+*** `<paragraph>` - The paragraph of text to append, as described in <<diary_text_info>>.
+** Example: `insert i/10 The food was delicious.`
+
+TIP: If the line number specified is more than the current number of lines the diary entry has, it will quickly add
+the required number of new paragraphs and insert the provided text afterward!
+
+===== Editing text in a diary entry
+* `edit [i/<lineNumber>] d/<paragraph>`
+** Usage: Edits the entire diary text of the diary entry, or a line of text.
+** Arguments:
+*** `<lineNumber>` (optional) - Line number of the text line to edit, as described in <<diary_text_line_numbering>>.
+*** `<paragraph>` - The paragraph of text to edit, as described in <<diary_text_info>>.
+** Example: `edit i/10 The food was especially delicious.`
+
+TIP: You can use this as a quick way to clear the entire diary entry's text.
+
+===== Deleting a line of text in a diary entry
+* `delete i/<lineNumber>`
+** Usage: Deletes the line of text at the specified line number.
+** Arguments:
+*** `<lineNumber>` - Line number of the text line to delete, as described in <<diary_text_line_numbering>>.
+** Example: `delete i/10`
+
+[[diary_editor_command]]
+===== Showing the edit box
+* `editor`
+** Usage: Opens the text editor window and shifts the keyboard focus to it, if it is not already opened.
+** Example: `editor`
+
+[[diary_done_command]]
+===== Commiting your edits
+* `done`
+** Usage: Commits the text currently in the edit box to the diary entry.
+** Example: `done`
 
 === Pre-trip Inventory Manager
 
