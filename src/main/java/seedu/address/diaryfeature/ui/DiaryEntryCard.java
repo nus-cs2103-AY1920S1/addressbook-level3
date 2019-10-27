@@ -1,6 +1,5 @@
 package seedu.address.diaryfeature.ui;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,13 +32,14 @@ public class DiaryEntryCard extends UiPart<Region> {
     @FXML
     private Label id;
 
+    //Image credited to: Icon made by Icongeek26 from Flaticon
 
     public DiaryEntryCard(DiaryEntry entryInput, int displayedIndex) {
         super(FXML);
         this.entry = entryInput;
-        id.setText(displayedIndex + ". ");
-        title.setText(entry.getTitle().toString());
-        date.setText(entry.getDate().toString());
+        id.setText("DIARY ENTRY NO:" + displayedIndex + ". ");
+        title.setText("TITLE: " + entry.getTitle().toString());
+        date.setText("DATE: " + entry.getDate().toString());
     }
 
     @Override

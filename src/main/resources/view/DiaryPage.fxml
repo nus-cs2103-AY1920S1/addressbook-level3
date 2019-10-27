@@ -5,45 +5,51 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="diaryPane" prefHeight="401.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="diaryPane" prefHeight="474.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
-    <top>
-    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-        <Menu mnemonicParsing="false" text="Financial Tracker">
+    <MenuBar fx:id="menuBar">
+        <Menu mnemonicParsing="false" text="My Travel Diary">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
         </Menu>
     </MenuBar>
-    </top>
-<center>
-    <VBox fx:id="entries" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-        <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-        </padding>
-        <StackPane fx:id="diaryListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+
+
+
+
+
+      <ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="311.0" prefWidth="750.0">
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      <content>
+          <StackPane fx:id="diaryListPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="750.0" prefHeight="295.0" prefWidth="750.0" />
+      </content>
+      </ScrollPane>
+      <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="431.0">
+      <children>
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="57.0" prefHeight="100.0" prefWidth="431.0" styleClass="pane-with-border">
+              <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+          </StackPane>
+      </children>
+      </VBox>
+    <VBox prefHeight="100.0" prefWidth="431.0">
+        <children>
+
+            <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="431.0" styleClass="pane-with-border">
+                <padding>
+                    <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+            </StackPane>
+        </children>
     </VBox>
-</center>
-
-<bottom>
-    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-        <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-        </padding>
-    </StackPane>
-</bottom>
-
-    <right>
-
-    <StackPane fx:id="commandBoxPlaceholder" prefHeight="32.0" prefWidth="339.0" styleClass="pane-with-border">
-        <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-        </padding>
-    </StackPane>
-    </right>
-</BorderPane>
+</VBox>

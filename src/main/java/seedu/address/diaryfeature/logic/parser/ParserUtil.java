@@ -1,10 +1,14 @@
 package seedu.address.diaryfeature.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+
+import java.util.Date;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.diaryfeature.model.diaryEntry.Date;
+import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.Title;
+import seedu.address.diaryfeature.model.exceptions.TitleException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -33,22 +37,23 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static Title parseTitle(String title)  {
+    public static Title parseTitle(String title) throws TitleException {
         requireNonNull(title);
         String trimmedTitle = title.trim();
-        return new Title(trimmedTitle);
+        Title formed = new Title(trimmedTitle);
+        return formed;
     }
-
 
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static Date parseDate(String date)  {
+    public static Date parseDate(String date) throws java.text.ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        return new Date(trimmedDate);
+        Date requiredDate = DateFormatter.convertToDate(trimmedDate);
+        return requiredDate;
     }
 
 

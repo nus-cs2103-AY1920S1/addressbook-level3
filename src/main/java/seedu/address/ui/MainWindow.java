@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -209,6 +211,22 @@ public class MainWindow extends UiPart<Stage> implements Page {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Quit after letting user read the Bye
+     *
+     */
+
+    public void exit() {
+        TimerTask myDelay = new TimerTask() {
+            @Override
+            public void run() {
+                System.exit(0);
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(myDelay,1500);
     }
 
     public PersonListPanel getPersonListPanel() {
