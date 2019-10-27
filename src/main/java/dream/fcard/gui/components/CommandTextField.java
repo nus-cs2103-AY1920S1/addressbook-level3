@@ -13,14 +13,11 @@ public class CommandTextField extends TextField implements UiComponent<TextField
     private State state;
 
     /**
-     * Creates a new instance of CommandTextField with the given State.
-     * @param state The State of the application.
+     * Creates a new instance of CommandTextField.
      */
-    public CommandTextField(State state) {
+    public CommandTextField() {
         // create text field
         super();
-
-        this.state = state;
 
         // add prompt text
         this.setPromptText("Enter command here...");
@@ -45,4 +42,8 @@ public class CommandTextField extends TextField implements UiComponent<TextField
         });
     }
     // todo: add some way to modify commandTextField's appearance when command fails
+
+    public void setState(State applicationState) {
+        this.state = applicationState;
+    }
 }

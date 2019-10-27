@@ -11,7 +11,8 @@ import dream.fcard.core.commons.core.Version;
 import dream.fcard.core.commons.exceptions.DataConversionException;
 import dream.fcard.core.commons.util.ConfigUtil;
 import dream.fcard.core.commons.util.StringUtil;
-import dream.fcard.gui.UiManager;
+import dream.fcard.gui.Gui;
+import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.State;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -25,7 +26,6 @@ public class MainApp extends Application {
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected UiManager ui;
     protected Config config;
 
     @Override
@@ -36,15 +36,13 @@ public class MainApp extends Application {
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
-
         initLogging(config);
 
         // initialise the State of the application
-        //State state = new State(StorageManager.loadDecks());
-        State state = new State(); // using no argument constructor for now
+        State applicationState = new State(StorageManager.loadDecks());
 
         // initialise UI of application
-        ui = new UiManager(state);
+        Gui.setApplicationState(applicationState);
     }
 
 
@@ -91,7 +89,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
-        ui.start(primaryStage);
+        Gui.start(primaryStage);
     }
 
     @Override

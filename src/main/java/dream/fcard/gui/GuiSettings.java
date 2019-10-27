@@ -20,14 +20,15 @@ public class GuiSettings {
     private static final String APPLICATION_ICON = "/images/address_book_32.png";
 
     // default sizing
-    private static double padding = 20;
-    private static double spacing = 10;
+    private static double padding = 20; // padding around elements
+    private static double spacing = 10; // spacing between elements laid sequentially
     private static double minHeight = 400;
     private static double minWidth = 400;
     private static double radius = 5;
 
     // default colours
     private static String primaryTextColour = "#333333";
+    private static String errorTextColour = "#F74D68"; // pinkish red accent colour used for errors
     private static String primaryUiColour = "#ABDFF6"; // blue accent colour used for flashcards
     private static String secondaryUiColour = "#F0ECEB"; // light grey used for title bar
     private static String tertiaryUiColour = "#6C7476"; // dark grey used for command box bg
@@ -40,6 +41,8 @@ public class GuiSettings {
     private static Font flashCardTextStyle = Font.font("Montserrat", FontWeight.NORMAL,
         FontPosture.REGULAR, 18);
     private static Font commandTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
+        FontPosture.REGULAR, 16);
+    private static Font statusTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
         FontPosture.REGULAR, 12);
     private static Font subtitleTextStyle = Font.font("Montserrat", FontWeight.LIGHT,
         FontPosture.REGULAR, 18);
@@ -124,6 +127,16 @@ public class GuiSettings {
         GuiSettings.primaryTextColour = primaryTextColour;
     }
 
+    /** Get the error text colour of the application. */
+    public static String getErrorTextColour() {
+        return errorTextColour;
+    }
+
+    /** Set the error text colour of the application. */
+    public static void setErrorTextColour(String errorTextColour) {
+        GuiSettings.errorTextColour = errorTextColour;
+    }
+
     /** Get the primary UI colour of the application. */
     public static String getPrimaryUiColour() {
         return primaryUiColour;
@@ -192,6 +205,16 @@ public class GuiSettings {
     /** Set the command text style of the application. */
     public static void setCommandTextStyle(Font commandTextStyle) {
         GuiSettings.commandTextStyle = commandTextStyle;
+    }
+
+    /** Get the status text style of the application. */
+    public static Font getStatusTextStyle() {
+        return statusTextStyle;
+    }
+
+    /** Set the status text style of the application. */
+    public static void setStatusTextStyle(Font statusTextStyle) {
+        GuiSettings.statusTextStyle = statusTextStyle;
     }
 
     /** Get the subtitle text style of the application. */
