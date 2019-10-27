@@ -30,7 +30,7 @@ public class DoneTaskCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_UNDONE = "%1$s marked as undone.";
     public static final String MESSAGE_INVERSE_TASK_ALREADY_UNDONE = "Task has already been marked as undone";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Index targetIndex;
     private Task doneTask;
