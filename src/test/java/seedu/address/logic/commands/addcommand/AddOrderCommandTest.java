@@ -6,12 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCustomers.ALICE;
-import static seedu.address.testutil.TypicalCustomers.BENSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PHONE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PHONE;
-import static seedu.address.testutil.TypicalPhones.ANDROIDONE;
 import static seedu.address.testutil.TypicalPhones.IPHONEXR;
 
 import java.util.ArrayList;
@@ -108,7 +106,7 @@ public class AddOrderCommandTest {
         // same object -> returns true
         assertTrue(addOrderCommandOne.equals(addOrderCommandOne));
 
-        // same values -> returns true
+        // same attributes -> returns true
         AddOrderCommand addOrderCommandOneCopy = new AddOrderCommand(INDEX_FIRST_CUSTOMER, INDEX_FIRST_PHONE, priceOne,
                 VALID_TAG_SET);
         assertTrue(addOrderCommandOne.equals(addOrderCommandOneCopy));
@@ -183,9 +181,7 @@ public class AddOrderCommandTest {
 
         public ModelStubAcceptingOrderAdded() {
             filteredCustomerList.add(ALICE);
-            filteredCustomerList.add(BENSON);
             filteredPhoneList.add(IPHONEXR);
-            filteredPhoneList.add(ANDROIDONE);
         }
 
         @Override
