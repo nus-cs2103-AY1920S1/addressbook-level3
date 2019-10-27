@@ -12,6 +12,7 @@ public enum CommandResultType {
     SHOW_SCHEDULE,
     SHOW_GROUP,
     SHOW_QUESTION,
+    SHOW_QUESTION_SEARCH,
     EXIT,
     OTHER;
 

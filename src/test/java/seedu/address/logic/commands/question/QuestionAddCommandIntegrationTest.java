@@ -8,6 +8,7 @@ import static seedu.address.testutil.question.TypicalQuestions.getTypicalSavedQu
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -24,7 +25,8 @@ import seedu.address.model.student.StudentRecord;
 public class QuestionAddCommandIntegrationTest {
 
     private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(), new StatisticsRecord(),
+        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(),
+        new StatisticsRecord(),
         new UserPrefs());
 
     @Test
@@ -41,7 +43,8 @@ public class QuestionAddCommandIntegrationTest {
 
         Question expectedQuestion = new OpenEndedQuestion(question, answer);
         String expectedMessage = "Added question: " + expectedQuestion;
-        assertCommandSuccess(addOpenCommand, model, expectedMessage, model);
+        assertCommandSuccess(addOpenCommand, model, expectedMessage, model,
+            CommandResultType.SHOW_QUESTION);
     }
 
     @Test
@@ -59,7 +62,8 @@ public class QuestionAddCommandIntegrationTest {
         Question expectedQuestion = new McqQuestion(question, answer, optionA, optionB, optionC,
             optionD);
         String expectedMessage = "Added question: " + expectedQuestion;
-        assertCommandSuccess(addMcqCommand, model, expectedMessage, model);
+        assertCommandSuccess(addMcqCommand, model, expectedMessage, model,
+            CommandResultType.SHOW_QUESTION);
     }
 
     @Test

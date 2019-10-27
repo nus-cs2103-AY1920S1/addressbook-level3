@@ -49,26 +49,21 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private Label optionDLabel;
 
+    public QuestionCard(Question question) {
+        super(FXML);
+
+        this.question = question;
+        id.setVisible(false);
+        id.setManaged(true);
+        initialiseCard(question);
+    }
+
     public QuestionCard(Question question, int displayedIndex) {
         super(FXML);
+
         this.question = question;
+        initialiseCard(question);
         id.setText(displayedIndex + ". ");
-        questionLabel.setText(question.getQuestion());
-        answerLabel.setText("Answer: " + question.getAnswer());
-
-        if (question instanceof McqQuestion) {
-            McqQuestion mcq = (McqQuestion) question;
-            optionALabel.setText("A) " + mcq.getOptionA());
-            optionBLabel.setText("B) " + mcq.getOptionB());
-            optionCLabel.setText("C) " + mcq.getOptionC());
-            optionDLabel.setText("D) " + mcq.getOptionD());
-            typeLabel.setText("MCQ");
-
-            optionFp.setVisible(true);
-        } else {
-            typeLabel.setText("Open Ended");
-            optionFp.setManaged(false); // Free occupied space
-        }
     }
 
     @Override
@@ -87,5 +82,28 @@ public class QuestionCard extends UiPart<Region> {
         QuestionCard card = (QuestionCard) other;
         return questionLabel.getText().equals(card.questionLabel.getText())
             && question.equals(card.question);
+    }
+
+    /**
+     * Initialises the variables.
+     * @param question object to be used in the card.
+     */
+    private void initialiseCard(Question question) {
+        questionLabel.setText(question.getQuestion());
+        answerLabel.setText("Answer: " + question.getAnswer());
+
+        if (question instanceof McqQuestion) {
+            McqQuestion mcq = (McqQuestion) question;
+            optionALabel.setText("A) " + mcq.getOptionA());
+            optionBLabel.setText("B) " + mcq.getOptionB());
+            optionCLabel.setText("C) " + mcq.getOptionC());
+            optionDLabel.setText("D) " + mcq.getOptionD());
+            typeLabel.setText("MCQ");
+
+            optionFp.setVisible(true);
+        } else {
+            typeLabel.setText("Open Ended");
+            optionFp.setManaged(false); // Free occupied space
+        }
     }
 }

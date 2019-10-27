@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     //private PersonListPanel personListPanel;
     private StudentListPanel studentListPanel;
     private QuestionListPanel questionListPanel;
+    private QuestionListPanel searchQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
@@ -131,8 +132,11 @@ public class MainWindow extends UiPart<Stage> {
         this.studentPanelNode = studentListPanel.getRoot();
         mainPanelPlaceholder.getChildren().add(studentPanelNode);
 
-        questionListPanel = new QuestionListPanel(logic.getAllQuestions());
+        questionListPanel = new QuestionListPanel(logic.getAllQuestions(), false);
         mainPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
+        searchQuestionListPanel = new QuestionListPanel(logic.getSearchQuestions(), true);
+        mainPanelPlaceholder.getChildren().add(searchQuestionListPanel.getRoot());
 
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -227,6 +231,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuestionSearch() {
+        searchQuestionListPanel.getRoot().toFront();
+    }
+
+    /**
      * Opens the statistics report window or focuses on it if it's already opened.
      */
     @FXML
@@ -265,7 +277,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException, IOException {
+        throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -298,6 +310,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case SHOW_QUESTION:
                 handleQuestion();
+                break;
+            case SHOW_QUESTION_SEARCH:
+                handleQuestionSearch();
                 break;
             default:
                 break;

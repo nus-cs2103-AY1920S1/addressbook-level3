@@ -65,6 +65,13 @@ public interface Logic {
      * @see seedu.address.model.Model#getAllQuestions()
      */
     ObservableList<Question> getAllQuestions();
+
+    /**
+     * Returns the list of all searched questions.
+     *
+     * @see seedu.address.model.Model#getSearchQuestions()
+     */
+    ObservableList<Question> getSearchQuestions();
     //endregion
 
     //region Statistics
