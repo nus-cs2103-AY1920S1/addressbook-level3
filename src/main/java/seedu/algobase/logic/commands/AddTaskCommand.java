@@ -39,6 +39,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_DUE_DATE + "2019-12-12";
 
     public static final String MESSAGE_SUCCESS = "New Task [%1$s] added to Plan [%2$s]";
+    public static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s]";
 
     private final AddTaskDescriptor addTaskDescriptor;
 
@@ -78,6 +79,10 @@ public class AddTaskCommand extends Command {
         }
 
         Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());
+        if (taskSet.contains(task)) {
+            return new CommandResult(
+                String.format(MESSAGE_DUPLICATE_TASK, task.getProblem().getName(), planToUpdate.getPlanName()));
+        }
         taskSet.add(task);
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);
