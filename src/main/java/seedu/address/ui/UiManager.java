@@ -95,7 +95,22 @@ public class UiManager implements Ui {
     }
 
     /**
-     * To change tab to tasks tab.
+     * To change tab to reminder tab.
+     */
+    public static void startReminders() {
+        logger.info("Changing to Reminders...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillReminders();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * To change tab to calendar tab.
      */
     public static void startCalendar() {
         logger.info("Changing to Calendar...");

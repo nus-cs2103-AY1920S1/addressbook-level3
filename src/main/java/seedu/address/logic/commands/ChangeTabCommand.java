@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAB_CHANGE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EARNINGS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REMINDERS;
 
 import seedu.address.model.Model;
 import seedu.address.model.WindowView;
@@ -57,7 +58,7 @@ public class ChangeTabCommand extends Command {
             model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
             return new CommandResult(MESSAGE_SUCCESS_NOTEPAD);
         } else if (newView.getIndexNumber() == 5) {
-            model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
+            model.updateFilteredReminderList(PREDICATE_SHOW_ALL_REMINDERS);
             return new CommandResult(MESSAGE_SUCCESS_REMINDERS);
         } else {
             return new CommandResult(MESSAGE_ERROR);

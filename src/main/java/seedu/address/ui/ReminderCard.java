@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.reminder.Reminder;
@@ -24,7 +27,7 @@ public class ReminderCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label amount;
+    private FlowPane times;
 
     public ReminderCard(Reminder reminders, int displayedIndex) {
         super(FXML);
@@ -33,6 +36,9 @@ public class ReminderCard extends UiPart<Region> {
         description.setText(reminders.getDescription().toString());
         //date.setText(reminders.getDate().dateNum);
         //amount.setText(reminders.getAmount().amount);
+        reminders.getTime().stream()
+                .sorted(Comparator.comparing(reminderTime -> reminderTime.fullTime))
+                .forEach(reminderTime -> times.getChildren().add(new Label(reminderTime.fullTime)));
     }
 
     @Override

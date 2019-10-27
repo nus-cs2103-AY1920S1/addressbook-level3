@@ -232,7 +232,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         commands.remove(key);
     }
 
-
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -272,6 +271,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeReminder(Reminder key) {
         reminder.remove(key);
+    }
+
+    /**
+     * Returns true if a reminder with the same identity as {@code reminder} exists in the address book.
+     */
+    public boolean hasReminder(Reminder reminders) {
+        requireNonNull(reminders);
+        return reminder.contains(reminders);
     }
 
     @Override

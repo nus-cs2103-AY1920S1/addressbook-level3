@@ -314,7 +314,7 @@ public class ModelManager implements Model {
     public void updateFilteredReminderList(Predicate<Reminder> predicate) {
         requireNonNull(predicate);
         filteredReminder.setPredicate(predicate);
-        UiManager.startTasks();
+        UiManager.startReminders();
     }
 
     public ObservableList<Reminder> getFilteredReminderList() {
