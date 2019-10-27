@@ -10,6 +10,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.datetime.EndDateTime;
+import seedu.address.model.datetime.RecurringDateTime;
+import seedu.address.model.datetime.StartDateTime;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -172,6 +175,64 @@ public class ParserUtil {
             visitTodoCollection.add(parseVisitTodo(visitTodoName));
         }
         return visitTodoCollection;
+    }
+
+    /**
+     * Parses a {@code String startDateTime} into a {@code StartDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startDateTime} is invalid.
+     */
+    public static StartDateTime parseStartDateTime(String startDateTime) throws ParseException {
+        requireNonNull(startDateTime);
+        String trimmedStartDateTime = startDateTime.trim();
+        if (!StartDateTime.isValidStartDateTime(trimmedStartDateTime)) {
+            throw new ParseException(StartDateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new StartDateTime(trimmedStartDateTime);
+    }
+
+    /**
+     * Parses a {@code String endDateTime} into a {@code EndDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endDateTime} is invalid.
+     */
+    public static EndDateTime parseEndDateTime(String endDateTime, String startDateTime) throws ParseException {
+        requireNonNull(endDateTime, startDateTime);
+        String trimmedEndDateTime = endDateTime.trim();
+        String trimmedStartDateTime = startDateTime.trim();
+        if (!EndDateTime.isValidEndDateTime(trimmedEndDateTime, trimmedStartDateTime)) {
+            throw new ParseException(EndDateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new EndDateTime(trimmedEndDateTime);
+    }
+
+    /**
+     * Parses a {@code String frequency} into a {@code Long}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code frequency} is invalid.
+     */
+    public static Long parseFrequency(String frequency) throws ParseException {
+        String trimmedFrequency = frequency.trim();
+        if (!RecurringDateTime.isValidFrequency(trimmedFrequency)) {
+            throw new ParseException(RecurringDateTime.MESSAGE_CONSTRAINTS);
+        }
+
+        return RecurringDateTime.getSingleFrequencyAsLong(trimmedFrequency);
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static String parseDescription(String description) throws ParseException {
+        String trimmedDescription = description.trim();
+
+        return trimmedDescription;
     }
 
 }

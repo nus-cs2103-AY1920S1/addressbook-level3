@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.datetime.EndDateTime;
 import seedu.address.model.datetime.RecurringDateTime;
 import seedu.address.model.datetime.StartDateTime;
-import seedu.address.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -28,7 +28,7 @@ public class JsonAdaptedAppointment {
     @JsonProperty("frequency")
     private final String frequency;
     @JsonProperty("patient")
-    private final Person patient;
+    private final Index patientIndex;
     @JsonProperty("description")
     private final String description;
 
@@ -39,12 +39,12 @@ public class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(@JsonProperty("startDateTime") String startDateTime,
                                   @JsonProperty("endDateTime") String endDateTime,
                                   @JsonProperty("frequency") String frequency,
-                                  @JsonProperty("patient") Person patient,
+                                  @JsonProperty("patient") Index patientIndex,
                                   @JsonProperty("description") String description) {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.frequency = frequency;
-        this.patient = patient;
+        this.patientIndex = patientIndex;
         this.description = description;
     }
 
@@ -55,7 +55,7 @@ public class JsonAdaptedAppointment {
         startDateTime = source.getStartDateTime().toJacksonJsonString();
         endDateTime = source.getEndDateTime().toJacksonJsonString();
         frequency = source.getFrequency().toJacksonJsonString();
-        patient = source.getPatient();
+        patientIndex = source.getPatientIndex();
         description = source.getDescription();
     }
 
@@ -96,15 +96,16 @@ public class JsonAdaptedAppointment {
         Long[] freqArray = RecurringDateTime.frequencyStringToLong(frequency);
         final RecurringDateTime modelFrequency = new RecurringDateTime(freqArray);
 
-        if (patient == null) {
+        if (patientIndex == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Person.class.getSimpleName()));
+                    Index.class.getSimpleName()));
         }
-        final Person modelPatient = patient;
+        final Index modelPatientIndex = patientIndex;
 
         final String modelDescription = description;
 
-        return new Appointment(modelStartDateTime, modelEndDateTime, modelFrequency, modelPatient, modelDescription);
+        return new Appointment(modelStartDateTime, modelEndDateTime, modelFrequency, modelPatientIndex,
+                modelDescription);
     }
 
 }

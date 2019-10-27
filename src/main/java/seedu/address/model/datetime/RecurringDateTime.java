@@ -1,5 +1,7 @@
 package seedu.address.model.datetime;
 
+import static java.util.Objects.isNull;
+
 import static seedu.address.commons.util.CollectionUtil.collectionToString;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -23,6 +25,7 @@ public class RecurringDateTime {
     private final long days;
     private final long hours;
     private final long minutes;
+    private final Long[] freqArray;
 
     /**
      * Constructs an {@code RecurringDateTime}.
@@ -37,6 +40,31 @@ public class RecurringDateTime {
         this.days = freqArray[3];
         this.hours = freqArray[4];
         this.minutes = freqArray[5];
+        this.freqArray = freqArray;
+    }
+
+    public Long getYears() {
+        return years;
+    }
+
+    public Long getMonths() {
+        return months;
+    }
+
+    public Long getWeeks() {
+        return weeks;
+    }
+
+    public Long getDays() {
+        return days;
+    }
+
+    public Long getHours() {
+        return hours;
+    }
+
+    public Long getMinutes() {
+        return minutes;
     }
 
     /**
@@ -60,11 +88,27 @@ public class RecurringDateTime {
     }
 
     /**
-     *
+     * @return boolean, which is true if frequency is non-zero
      */
-    public static RecurringDateTime frequencyStringToRecurringDateTime(String freq) {
-        Long[] freqLongArray = frequencyStringToLong(freq);
-        return new RecurringDateTime(freqLongArray);
+    public boolean isRecurringFrequency() {
+        int numZeros = 0;
+        for (int i = 0; i < EXPECTED_FREQUENCY_ARRAY_LENGTH; i++) {
+            if (freqArray[i] == 0) {
+                numZeros++;
+            }
+        }
+        return (numZeros == EXPECTED_FREQUENCY_ARRAY_LENGTH);
+    }
+
+    /**
+     * @return Long, which is 0 if string passed in is null
+     */
+    public static Long getSingleFrequencyAsLong(String freq) {
+        if (isNull(freq) || freq.isEmpty()) {
+            return Long.parseLong("0");
+        } else {
+            return Long.parseLong(freq);
+        }
     }
 
     /**
