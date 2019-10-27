@@ -10,6 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.performance.exceptions.DuplicateEventException;
 
+/**
+ * A list of events that enforces uniqueness between its elements and does not allow nulls.
+ * An event is considered unique by comparing using {@code Event#isSameEvent(Event)}.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Event#isSameEvent(Event)
+ */
 public class UniqueEventList implements Iterable<Event> {
 
     private final ObservableList<Event> internalList = FXCollections.observableArrayList();
@@ -17,7 +25,7 @@ public class UniqueEventList implements Iterable<Event> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent event as the given argument.
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);

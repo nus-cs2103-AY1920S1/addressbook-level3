@@ -12,6 +12,9 @@ import seedu.address.model.EventList;
 import seedu.address.model.ReadOnlyEvents;
 import seedu.address.model.performance.Event;
 
+/**
+ * An Immutable EventList that is serializable to JSON format.
+ */
 public class JsonSerializableEvents {
 
     public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";

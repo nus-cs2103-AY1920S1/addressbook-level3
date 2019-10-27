@@ -24,9 +24,9 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-                new Event("freestyle 50m"), new Event("backstroke 100m"),
-                new Event("breaststroke 100m"), new Event("butterfly 100m"),
-                new Event("medley 200m"), new Event("freestyle relay 4 x 100m")
+            new Event("freestyle 50m"), new Event("backstroke 100m"),
+            new Event("breaststroke 100m"), new Event("butterfly 100m"),
+            new Event("medley 200m"), new Event("freestyle relay 4 x 100m")
         };
     }
 

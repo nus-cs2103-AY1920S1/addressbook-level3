@@ -1,17 +1,16 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_EVENT;
-import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_TIMING;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_EVENT;
+import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_TIMING;
 
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.PerformanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.performance.Event;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -37,7 +36,8 @@ public class PerformanceCommandParser implements Parser<PerformanceCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE), pe);
         }
 
         String event = ParserUtil.parseEvent(argMultimap.getValue(PREFIX_EVENT).get());

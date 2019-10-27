@@ -16,6 +16,9 @@ import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 
+/**
+ * Jackson-friendly version of {@link Event}.
+ */
 public class JsonAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event name is missing!";

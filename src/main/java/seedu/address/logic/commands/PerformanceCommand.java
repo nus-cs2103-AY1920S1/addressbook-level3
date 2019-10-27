@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_EVENT;
 import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_EVENT;
 import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_TIMING;
 
 import java.util.List;
@@ -15,6 +15,9 @@ import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 
+/**
+ * Records a player's performance under a certain event.
+ */
 public class PerformanceCommand extends Command {
 
     public static final String COMMAND_WORD = "performance";

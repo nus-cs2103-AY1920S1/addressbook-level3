@@ -71,6 +71,10 @@ public class Event {
         return performances;
     }
 
+    /**
+     * Adds a player's performance to this event.
+     * @return Details of performance.
+     */
     public String addPerformance(Person athlete, Record record) {
         if (!performances.containsKey(athlete)) {
             ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
