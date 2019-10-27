@@ -12,6 +12,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,7 +36,12 @@ public class EditPersonCommandSuggester extends Suggester {
         }
 
         final Name personName = new Name(personNameInput.get());
-        final Person person = model.findPerson(personName);
+        Person person = null;
+        try {
+            person = model.findPerson(personName);
+        } catch (PersonNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return Optional.ofNullable(person);
     }

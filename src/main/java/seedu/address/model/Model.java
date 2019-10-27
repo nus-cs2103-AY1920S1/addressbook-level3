@@ -328,27 +328,11 @@ public interface Model {
 
     /**
      * Returns the common closest location.
-<<<<<<< HEAD
-     * @param locationNameList ArrayList of venues object
-     * @return
      */
     ClosestCommonLocationData getClosestLocationData(ArrayList<String> locationNameList);
+
     /**
      * Returns the common closest location.
-     * @param locationNameList ArrayList of string object
-=======
-     *
-     * @param
-     * @return
-
-    String getClosestLocationVenues(ArrayList<Venue> venues);
-
-    *
-     * Returns the common closest location.
-     *
-     * @param
->>>>>>> master
-     * @return
      */
     String getClosestLocationDataString(ArrayList<String> locationNameList);
 

@@ -79,30 +79,6 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-/*<<<<<<< HEAD
-    public ModelManager(ReadOnlyAddressBook addressBook,
-                        PersonList personList,
-                        GroupList groupList,
-                        PersonToGroupMappingList personToGroupMappingList,
-                        ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.personList = personList;
-        this.groupList = groupList;
-        this.personToGroupMappingList = personToGroupMappingList;
-    }
-
-    public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
-                        NusModsData nusModsData, ReadOnlyUserPrefs userPrefs, GmapsModelManager gmapsModelManager) {
-        this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-=======*/
     public ModelManager(TimeBook timeBook,
                         ReadOnlyUserPrefs userPrefs,
                         NusModsData nusModsData,
@@ -136,9 +112,6 @@ public class ModelManager implements Model {
     }
 
     public ModelManager(TimeBook timeBook) {
-/*<<<<<<< HEAD
-        this(new AddressBook(), timeBook, new NusModsData(), new UserPrefs(), new GmapsModelManager());
-=======*/
         this(timeBook, new UserPrefs(), new NusModsData(), new GmapsModelManager());
     }
 
