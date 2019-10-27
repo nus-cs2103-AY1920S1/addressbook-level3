@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 /**
  * Wraps Performance-related data at an EventList level.
  */
-public class EventList implements ReadOnlyEvents {
+public class Performance implements ReadOnlyPerformance {
 
     private final UniqueEventList events;
 
@@ -31,12 +31,12 @@ public class EventList implements ReadOnlyEvents {
         events = new UniqueEventList();
     }
 
-    public EventList() {}
+    public Performance() {}
 
     /**
-     * Creates an EventList using the Events in the {@code toBeCopied}
+     * Creates a Performance using the Events in the {@code toBeCopied}
      */
-    public EventList(ReadOnlyEvents toBeCopied) {
+    public Performance(ReadOnlyPerformance toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -54,10 +54,10 @@ public class EventList implements ReadOnlyEvents {
     /**
      * Resets the existing data of this {@code EventList} with {@code newData}.
      */
-    public void resetData(ReadOnlyEvents newData) {
+    public void resetData(ReadOnlyPerformance newData) {
         requireNonNull(newData);
 
-        setEvents(newData.getEvents());
+        setEvents(newData.getPerformance());
     }
 
     //// event-level operations
@@ -111,15 +111,15 @@ public class EventList implements ReadOnlyEvents {
     }
 
     @Override
-    public ObservableList<Event> getEvents() {
+    public ObservableList<Event> getPerformance() {
         return events.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventList // instanceof handles nulls
-                && events.equals(((EventList) other).events));
+                || (other instanceof Performance // instanceof handles nulls
+                && events.equals(((Performance) other).events));
     }
 
     @Override

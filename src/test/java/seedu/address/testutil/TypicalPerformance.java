@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.EventList;
+import seedu.address.model.Performance;
 import seedu.address.model.performance.Event;
 
 /**
  * A utility class containing a list of {@code Event} objects to be used in tests.
  */
-public class TypicalEvents {
+public class TypicalPerformance {
 
     public static final Event EVENT_ONE = new Event("freestyle 50m");
     public static final Event EVENT_TWO = new Event("backstroke 100m");
 
-    private TypicalEvents() {} // prevents instantiation
+    private TypicalPerformance() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code Performance} with all the typical events.
      */
-    public static EventList getTypicalEventList() {
-        EventList el = new EventList();
+    public static Performance getTypicalPerformance() {
+        Performance performance = new Performance();
         for (Event event : getTypicalEvents()) {
-            el.addEvent(event);
+            performance.addEvent(event);
         }
-        return el;
+        return performance;
     }
 
     public static List<Event> getTypicalEvents() {

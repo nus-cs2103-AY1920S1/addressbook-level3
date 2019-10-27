@@ -5,9 +5,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.EventList;
+import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyEvents;
+import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.performance.Event;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static Event[] getSampleEvents() {
+    private static Event[] getSampleEvents() {
         return new Event[] {
             new Event("freestyle 50m"), new Event("backstroke 100m"),
             new Event("breaststroke 100m"), new Event("butterfly 100m"),
@@ -30,12 +30,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyEvents getSampleEventList() {
-        EventList sampleEl = new EventList();
+    public static ReadOnlyPerformance getSamplePerformance() {
+        Performance samplePerformance = new Performance();
         for (Event sampleEvent : getSampleEvents()) {
-            sampleEl.addEvent(sampleEvent);
+            samplePerformance.addEvent(sampleEvent);
         }
-        return sampleEl;
+        return samplePerformance;
     }
 
     public static Person[] getSamplePersons() {

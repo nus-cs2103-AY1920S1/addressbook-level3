@@ -115,7 +115,7 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
-    ReadOnlyEvents getEventList();
+    ReadOnlyPerformance getPerformance();
 
     String addRecord(String eventName, Person person, Record record);
 
