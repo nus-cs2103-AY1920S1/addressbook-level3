@@ -374,6 +374,30 @@
     -fx-background-size: cover;
 }
 
+.tree-view {
+    -fx-background-color: white;
+}
+
+#lbl {
+    -fx-text-fill: white;
+}
+
+.tree-cell {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-border-width: 0.3pt;
+}
+
+.tree-cell:even {
+    -fx-background-color: #f0f0f5;
+}
+
+.tree-cell:selected {
+    -fx-background-color: #424d5f;
+    -fx-text-fill: white;
+}
+
 #btn-refresh {
     -fx-background-image: url('../images/btn_refresh.png');
 }

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <children>
+        <Label id="lbl" text="Documents Explorer" />
         <HBox>
-            <Button fx:id="btnRefresh" id="btn-refresh" styleClass="function_btn" />
+            <Button fx:id="btnRefresh" id="btn-refresh" styleClass="function_btn" onMouseClicked="#refreshTreeView"/>
             <Button fx:id="btnDelete" alignment="BOTTOM_RIGHT" maxHeight="10.0" maxWidth="10.0" styleClass="function_btn" />
+            <Label fx:id="lblStatus" id="lbl"/>
         </HBox>
         <TreeView fx:id="treeViewReports" prefHeight="250" />
     </children>
