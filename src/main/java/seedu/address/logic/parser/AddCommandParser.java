@@ -24,6 +24,8 @@ import seedu.address.model.loan.Loan;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private static final Loan NULL_LOAN = null;
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -51,8 +53,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             serialNumber = SerialNumberGenerator.generateSerialNumber();
         }
         Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
-        Loan loan = null; //stub for loan object
-        Book book = new Book(title, serialNumber, author, loan, genreList);
+        Book book = new Book(title, serialNumber, author, NULL_LOAN, genreList);
         return new AddCommand(book);
     }
 

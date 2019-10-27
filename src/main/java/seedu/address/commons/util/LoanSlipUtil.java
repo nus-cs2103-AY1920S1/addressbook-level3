@@ -82,9 +82,7 @@ public class LoanSlipUtil {
      * @throws LoanSlipException if there is an error reading/writing to the pdf file.
      */
     public static void createLoanSlipInDirectory() throws LoanSlipException {
-        if (!isMounted) {
-            throw new LoanSlipException("No Loan slip mounted yet");
-        }
+        assert isMounted : "No loan slip mounted";
         try {
             requireNonNull(currentLoan);
             requireNonNull(currentBook);
@@ -107,9 +105,7 @@ public class LoanSlipUtil {
      * @throws IOException if there are errors in creating the new file.
      */
     private static Document createDocument(String docName) throws IOException, LoanSlipException {
-        if (!isMounted) {
-            throw new LoanSlipException("No Loan slip mounted yet");
-        }
+        assert isMounted : "No loan slip mounted";
         String finalDest = DEST + docName + PDF_EXTENSION;
         File file = new File(finalDest);
         file.getParentFile().mkdirs();
@@ -127,32 +123,57 @@ public class LoanSlipUtil {
      * @param doc {@code LoanSlipDocument} object to be populated with data.
      */
     private static void generateLiberryLoanSlip(LoanSlipDocument doc) throws LoanSlipException {
-        if (!isMounted) {
-            throw new LoanSlipException("No Loan slip mounted yet");
-        }
-        //write logo
+        assert isMounted : "No loan slip mounted";
+        writeLogoToDoc(doc);
+        writeHeaderToDoc(doc);
+        populateTableInDoc(doc);
+        addTableToDocument(doc);
+        doc.closeDoc();
+        isGenerated = true;
+    }
+
+    /**
+     * Helper method to write the logo section of the document.
+     *
+     * @param doc {@code LoanSlipDocument} to be written to.
+     */
+    private static void writeLogoToDoc(LoanSlipDocument doc) {
         doc.writeLogo();
         doc.writeLine();
+    }
 
-        //Add paragraph to the document
+    /**
+     * Helper method to write the header section of the document.
+     *
+     * @param doc {@code LoanSlipDocument} to be written to.
+     */
+    private static void writeHeaderToDoc(LoanSlipDocument doc) {
         doc.writeHeader(currentBorrower.getName().toString());
         doc.writeLeftParagraph(currentBorrower.getBorrowerId().toString());
         doc.writeLine();
         doc.writeMidHeader("Books borrowed");
+    }
 
-        //populate table
+    /**
+     * Helper method to populate the table of the document.
+     *
+     * @param doc {@code LoanSlipDocument} to be written to.
+     */
+    private static void populateTableInDoc(LoanSlipDocument doc) throws LoanSlipException {
         String[] headerRow = new String[]{"S/N", "Book", "Due By"};
         doc.writeRow(headerRow);
         doc.writeRow(createBookRow());
+    }
 
-        //add table to document
+    /**
+     * Helper method to add the table to the document.
+     *
+     * @param doc {@code LoanSlipDocument} to be written to.
+     */
+    private static void addTableToDocument(LoanSlipDocument doc) {
         doc.submitTable();
         doc.writeLine();
         doc.writeCentralisedParagraph(BYE_MESSAGE);
-
-        //close document
-        doc.closeDoc();
-        isGenerated = true;
     }
 
     /**
@@ -161,9 +182,7 @@ public class LoanSlipUtil {
      * @return an array of string representing a row of the table.
      */
     private static String[] createBookRow() throws LoanSlipException {
-        if (!isMounted) {
-            throw new LoanSlipException("No Loan slip mounted yet");
-        }
+        assert isMounted : "No loan slip mounted";
         String[] currentBookDetails = new String[3];
         currentBookDetails[0] = currentBook.getSerialNumber().toString();
         currentBookDetails[1] = currentBook.getTitle().toString();

@@ -25,6 +25,7 @@ import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanList;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -103,8 +104,10 @@ public class EditCommand extends Command {
             updatedLoan = null;
         }
         Set<Genre> updatedGenres = editBookDescriptor.getGenres().orElse(bookToEdit.getGenres());
+        // We do not allow updating of loan history directly
+        LoanList loanHistory = bookToEdit.getLoanHistory();
 
-        return new Book(updatedTitle, updatedSerialNumber, updatedAuthor, updatedLoan, updatedGenres);
+        return new Book(updatedTitle, updatedSerialNumber, updatedAuthor, updatedLoan, updatedGenres, loanHistory);
     }
 
     @Override
@@ -133,8 +136,9 @@ public class EditCommand extends Command {
         private Title title;
         private SerialNumber serialNumber;
         private Author author;
-        private Loan loan;
         private Set<Genre> genres;
+        private Loan loan;
+        private LoanList loanHistory;
 
         public EditBookDescriptor() {}
 
@@ -148,6 +152,7 @@ public class EditCommand extends Command {
             setAuthor(toCopy.author);
             setLoan(toCopy.loan);
             setGenres(toCopy.genres);
+            setLoanHistory(toCopy.loanHistory);
         }
 
         /**
@@ -204,6 +209,14 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Genre>> getGenres() {
             return (genres != null) ? Optional.of(Collections.unmodifiableSet(genres)) : Optional.empty();
+        }
+
+        public void setLoanHistory(LoanList loanHistory) {
+            this.loanHistory = loanHistory;
+        }
+
+        public Optional<LoanList> getLoanHistory() {
+            return Optional.ofNullable(loanHistory);
         }
 
         @Override

@@ -9,7 +9,7 @@ import java.util.Iterator;
  * A list of {@code Loan} objects that represents the loans a borrower currently has.
  */
 public class LoanList implements Iterable<Loan> {
-    private ArrayList<Loan> loanList;
+    private final ArrayList<Loan> loanList;
 
     public LoanList() {
         loanList = new ArrayList<>();

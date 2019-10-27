@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_B
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
-import static seedu.address.testutil.TypicalBooks.BOOK_7;
+import static seedu.address.testutil.TypicalBooks.BOOK_7_ON_LOAN;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
 
@@ -30,6 +30,7 @@ import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
+import seedu.address.model.loan.LoanList;
 
 class LoanCommandTest {
 
@@ -53,8 +54,8 @@ class LoanCommandTest {
 
         Loan loan = new Loan(new LoanId("L000001"), toLoan, servingBorrowerId,
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
-        Book loanedOutBook = new Book(BOOK_1.getTitle(), BOOK_1.getSerialNumber(),
-                BOOK_1.getAuthor(), loan, BOOK_1.getGenres());
+        Book loanedOutBook = BOOK_1.loanOut(loan);
+        Book updatedLoanedOutBook = loanedOutBook.updateLoanHistory(loan);
 
         String actualMessage;
         try {
@@ -62,8 +63,11 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         }
-        String expectedMessage = String.format(LoanCommand.MESSAGE_SUCCESS, loanedOutBook, HOON);
+        String expectedMessage = String.format(LoanCommand.MESSAGE_SUCCESS, updatedLoanedOutBook, HOON);
         assertEquals(actualMessage, expectedMessage);
+        LoanList updatedHistory = new LoanList();
+        updatedHistory.add(loan);
+        assertEquals(updatedLoanedOutBook.getLoanHistory(), updatedHistory);
     }
 
     @Test
@@ -112,12 +116,12 @@ class LoanCommandTest {
 
     @Test
     public void execute_bookAlreadyOnLoan_loanUnsuccessful() {
-        SerialNumber toLoan = BOOK_7.getSerialNumber();
+        SerialNumber toLoan = BOOK_7_ON_LOAN.getSerialNumber();
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         borrowerRecords.addBorrower(HOON);
         BorrowerId servingBorrowerId = HOON.getBorrowerId();
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         Model model = new ModelManager(catalog, new LoanRecords(),
                 borrowerRecords, new UserPrefs());
@@ -131,7 +135,7 @@ class LoanCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         }
-        String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7);
+        String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7_ON_LOAN);
         assertEquals(actualMessage, expectedMessage);
     }
 

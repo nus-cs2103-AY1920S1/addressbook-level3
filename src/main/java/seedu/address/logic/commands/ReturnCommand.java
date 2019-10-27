@@ -74,8 +74,7 @@ public class ReturnCommand extends Command {
                     servingBorrower, bookToBeReturned));
         }
 
-        Book returnedBook = new Book(bookToBeReturned.getTitle(), bookToBeReturned.getSerialNumber(),
-                bookToBeReturned.getAuthor(), null, bookToBeReturned.getGenres());
+        Book returnedBook = bookToBeReturned.returnBook();
 
         // update Book in model to have Loan removed
         model.setBook(bookToBeReturned, returnedBook);

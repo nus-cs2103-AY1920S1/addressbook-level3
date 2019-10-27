@@ -33,7 +33,7 @@ public class JsonAdaptedBook {
     private final String serialNumber;
     private final String author;
     private final String loan;
-    private final List<JsonAdaptedTag> genres = new ArrayList<>();
+    private final List<JsonAdaptedGenre> genres = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBook} with the given person details.
@@ -43,7 +43,7 @@ public class JsonAdaptedBook {
                            @JsonProperty("serialNumber") String serialNumber,
                            @JsonProperty("author") String author,
                            @JsonProperty("loan") String loan,
-                           @JsonProperty("genres") List<JsonAdaptedTag> genres) {
+                           @JsonProperty("genres") List<JsonAdaptedGenre> genres) {
         this.title = title;
         this.serialNumber = serialNumber;
         this.author = author;
@@ -68,7 +68,7 @@ public class JsonAdaptedBook {
         }
 
         genres.addAll(source.getGenres().stream()
-                .map(JsonAdaptedTag::new)
+                .map(JsonAdaptedGenre::new)
                 .collect(Collectors.toList()));
     }
 
@@ -90,7 +90,7 @@ public class JsonAdaptedBook {
      */
     public Book toModelType(ReadOnlyLoanRecords initialLoanRecords) throws IllegalValueException {
         final List<Genre> personGenres = new ArrayList<>();
-        for (JsonAdaptedTag tag : genres) {
+        for (JsonAdaptedGenre tag : genres) {
             personGenres.add(tag.toModelType());
         }
 

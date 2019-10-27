@@ -9,7 +9,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_6;
-import static seedu.address.testutil.TypicalBooks.BOOK_7;
+import static seedu.address.testutil.TypicalBooks.BOOK_7_ON_LOAN;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
 import static seedu.address.testutil.TypicalBorrowers.IDA;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
@@ -27,6 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.BorrowerId;
+import seedu.address.testutil.BookBuilder;
 
 class ReturnCommandTest {
 
@@ -42,19 +43,19 @@ class ReturnCommandTest {
         BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
+
+        Book loanedBook = new BookBuilder(BOOK_7_ON_LOAN).build();
 
         Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
         model.setServingBorrower(servingBorrowerId);
 
         ReturnCommand returnCommand = new ReturnCommand(INDEX_FIRST_BOOK);
 
-        Book returnedBook = new Book(BOOK_7.getTitle(), BOOK_7.getSerialNumber(),
-                BOOK_7.getAuthor(), null, BOOK_7.getGenres());
-
+        Book returnedBook = loanedBook.returnBook();
         String actualMessage;
         try {
             actualMessage = returnCommand.execute(model).getFeedbackToUser();
@@ -71,7 +72,7 @@ class ReturnCommandTest {
         borrowerRecords.addBorrower(IDA);
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
@@ -97,7 +98,7 @@ class ReturnCommandTest {
         BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
@@ -154,7 +155,7 @@ class ReturnCommandTest {
         BorrowerId servingBorrowerId = HOON.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        catalog.addBook(BOOK_7);
+        catalog.addBook(BOOK_7_ON_LOAN);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
@@ -170,7 +171,7 @@ class ReturnCommandTest {
         } catch (CommandException e) {
             actualMessage = e.getMessage();
         }
-        String expectedMessage = String.format(MESSAGE_NOT_LOANED_BY_BORROWER, HOON, BOOK_7);
+        String expectedMessage = String.format(MESSAGE_NOT_LOANED_BY_BORROWER, HOON, BOOK_7_ON_LOAN);
         assertEquals(actualMessage, expectedMessage);
     }
 
