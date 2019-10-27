@@ -1,13 +1,14 @@
 package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.IntervalPart;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Date {
+public class Date implements IntervalPart<Date> {
     private static final String DAY_OF_WEEK_KEY = "dayOfWeek";
     private static final String DAY_OF_MONTH_KEY = "dayOfMonth";
     private static final String MONTH_KEY= "month";
@@ -118,8 +119,39 @@ public class Date {
         return true;
     }
 
+    public int compareTo(Date otherDate) {
+        Year otherYear = otherDate.year;
+        int compareYear = year.compareTo(otherYear);
+
+        if (compareYear != 0) {
+            return compareYear;
+        }
+
+        MonthOfYear otherMonth = otherDate.month;
+        int compareMonth = month.compareTo(otherMonth);
+
+        if (compareMonth != 0) {
+            return compareMonth;
+        }
+
+        Day otherDay = otherDate.day;
+        return day.compareTo(otherDay);
+    }
+
+    @Override
+    public Date copy() {
+        Day copiedDay = day.copy();
+        Year copiedYear = year.copy();
+        return new Date(copiedDay, month, copiedYear);
+    }
+
     @Override
     public String toString() {
         return String.format("%s %s %s", day, month, year);
+    }
+
+    @Override
+    public int compareTo(IntervalPart o) {
+        return 0;
     }
 }

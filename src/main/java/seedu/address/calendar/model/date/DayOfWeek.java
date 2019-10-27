@@ -1,8 +1,5 @@
 package seedu.address.calendar.model.date;
 
-import java.util.Optional;
-import java.util.stream.Stream;
-
 public enum DayOfWeek {
     SUN(0),
     MON(1),

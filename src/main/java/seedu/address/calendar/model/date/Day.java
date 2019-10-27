@@ -5,7 +5,7 @@ import seedu.address.calendar.model.util.DateUtil;
 /**
  * Creates a day object which contains information about the day of month and day of week.
  */
-public class Day {
+public class Day implements Comparable<Day> {
     private DayOfWeek dayOfWeek;
     private int dayOfMonth;
 
@@ -39,6 +39,14 @@ public class Day {
      */
     public int getDayOfWeekZeroIndex() {
         return DateUtil.getNumericalVal(dayOfWeek);
+    }
+
+    Day copy() {
+        return new Day(dayOfWeek, dayOfMonth);
+    }
+
+    public int compareTo(Day other) {
+        return this.dayOfMonth - other.dayOfMonth;
     }
 
     @Override

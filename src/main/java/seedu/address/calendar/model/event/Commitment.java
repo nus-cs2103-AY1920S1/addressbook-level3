@@ -17,6 +17,6 @@ public class Commitment extends Event {
 
     @Override
     public String toString() {
-        return String.format("'%s' commitment on %s", name, date);
+        return String.format("'%s' commitment on %s", name, startDate);
     }
 }
