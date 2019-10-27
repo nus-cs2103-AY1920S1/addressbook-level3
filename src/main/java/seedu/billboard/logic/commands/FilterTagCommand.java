@@ -8,7 +8,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.tag.ContainsTagPredicate;
 
 /**
- * Filters and lists all expenses which has any tags given in argument.
+ * Filters and lists all expenses with tags input by user.
  */
 public class FilterTagCommand extends TagCommand {
     public static final String COMMAND_WORD = "filter";
