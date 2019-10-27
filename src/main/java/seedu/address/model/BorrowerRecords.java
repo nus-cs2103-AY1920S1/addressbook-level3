@@ -147,4 +147,14 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
                         && (current.getPhone().equals(editedBorrower.getPhone())
                         || current.getEmail().equals(editedBorrower.getEmail())));
     }
+
+    /**
+     * Removes a borrower from the borrower records.
+     *
+     * @param borrower Borrower to be removed.
+     */
+    public void removeBorrower(Borrower borrower) {
+        listOfBorrowers.remove(borrower);
+        borrowersMap.remove(borrower.getBorrowerId());
+    }
 }

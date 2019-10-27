@@ -373,7 +373,8 @@ public class ModelManager implements Model {
 
     @Override
     public void setBorrower(Borrower borrowerToEdit, Borrower editedBorrower) {
-
+        borrowerRecords.removeBorrower(borrowerToEdit);
+        borrowerRecords.addBorrower(editedBorrower);
     }
 
     @Override

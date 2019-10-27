@@ -24,8 +24,7 @@ public class EditBorrowerCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the borrower identified "
-            + "by borrower ID. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the serving borrower. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
@@ -110,6 +109,7 @@ public class EditBorrowerCommand extends Command {
      * corresponding field value of the borrower.
      */
     public static class EditBorrowerDescriptor {
+        public static final String COMMAND_WORD = "edit";
         private Name name;
         private Phone phone;
         private Email email;
