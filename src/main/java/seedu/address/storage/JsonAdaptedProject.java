@@ -7,10 +7,7 @@ import seedu.address.model.finance.Finance;
 import seedu.address.model.project.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -95,7 +92,7 @@ class JsonAdaptedProject {
         }
 
 
-        final Set<Task> modelTasks = new HashSet<>(taskList);
+        final List<Task> modelTasks = new ArrayList<>(taskList);
 
         //need to convert the List<JsonAdaptedMeeting> to List<Meeting> then put it in the Set<Meeting> and set it to the given project.
         final List<Meeting> meetings = new ArrayList<>();

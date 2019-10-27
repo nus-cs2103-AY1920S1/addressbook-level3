@@ -19,10 +19,10 @@ public class Project {
 
     private final List<String> members = new ArrayList<>();
     private final Finance finance;
-    private final Set<Task> tasks = new HashSet<>();
+    private final List<Task> tasks = new ArrayList<>();
     private Set<Meeting> meeting = new HashSet<>();
 
-    public Project(Title name, Description description, List<String> members, Set<Task> tasks, Finance finance) {
+    public Project(Title name, Description description, List<String> members, List<Task> tasks, Finance finance) {
         requireAllNonNull(name, description);
         this.description = description;
         this.title = name;
@@ -51,8 +51,8 @@ public class Project {
         this.meeting.add(meeting);
     }
 
-    public Set<Task> getTasks() {
-        return Collections.unmodifiableSet(tasks);
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public boolean hasTask(Task task) {
@@ -94,10 +94,11 @@ public class Project {
                 .append(" Project Title: ")
                 .append(getTitle())
                 .append(" Description: ")
-                .append(getDescription());
+                .append(getDescription())
+                .append(" Members: ");
 
         for (String a : members) {
-            builder.append(a + " ");
+            builder.append(a + ",");
         }
         return builder.toString();
     }

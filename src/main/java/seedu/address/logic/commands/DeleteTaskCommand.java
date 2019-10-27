@@ -7,11 +7,8 @@ import seedu.address.model.Model;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
@@ -42,23 +39,27 @@ public class DeleteTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         requireNonNull(model);
+
+        if (!model.isCheckedOut()) {
+            throw new CommandException(model.checkoutConstrain());
+        }
+
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMembers();
-        Set<Task> taskToEdit = projectToEdit.getTasks();
+        List<Task> taskToEdit = projectToEdit.getTasks();
 
         if (index.getZeroBased() >= taskToEdit.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Set<Task> newTaskList = new HashSet<>();
         ArrayList<Task> taskList = new ArrayList<>();
         taskList.addAll(taskToEdit);
         Task task = taskList.remove(index.getZeroBased());
-        newTaskList.addAll(taskList);
         Finance finance = projectToEdit.getFinance();
 
+
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
-                projectToEdit.getMembers(), newTaskList, finance);
+                projectToEdit.getMembers(), taskList, finance);
 
         model.setProject(projectToEdit, editedProject);
         model.setWorkingProject(editedProject);
@@ -75,7 +76,7 @@ public class DeleteTaskCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddTaskCommand)) {
+        if (!(other instanceof DeleteTaskCommand)) {
             return false;
         }
 
