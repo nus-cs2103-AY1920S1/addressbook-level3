@@ -18,14 +18,14 @@ import seedu.jarvis.model.cca.exceptions.DuplicateCcaMilestoneException;
  *
  * Supports a minimal set of list operations.
  */
-public class CcaProgressList implements Iterable<CcaMilestone> {
+public class CcaMilestoneList implements Iterable<CcaMilestone> {
 
     private final ObservableList<CcaMilestone> internalList = FXCollections.observableArrayList();
     private final ObservableList<CcaMilestone> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Return the number of milestones in the CcaProgressList as an int.
+     * Return the number of milestones in the CcaMilestoneList as an int.
      */
     public int size() {
         return internalList.size();
@@ -97,7 +97,7 @@ public class CcaProgressList implements Iterable<CcaMilestone> {
         }
     }
 
-    public void setMilestones(CcaProgressList replacement) {
+    public void setMilestones(CcaMilestoneList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -130,8 +130,8 @@ public class CcaProgressList implements Iterable<CcaMilestone> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CcaProgressList // instanceof handles nulls
-                && internalList.equals(((CcaProgressList) other).internalList));
+                || (other instanceof CcaMilestoneList // instanceof handles nulls
+                && internalList.equals(((CcaMilestoneList) other).internalList));
     }
 
     @Override

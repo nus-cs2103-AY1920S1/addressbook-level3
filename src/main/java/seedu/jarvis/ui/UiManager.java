@@ -11,6 +11,7 @@ import seedu.jarvis.MainApp;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.util.StringUtil;
 import seedu.jarvis.logic.Logic;
+import seedu.jarvis.model.Model;
 
 /**
  * The manager of the UI component.
@@ -24,10 +25,12 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    private Model model;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, Model model) {
         super();
         this.logic = logic;
+        this.model = model;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, model);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

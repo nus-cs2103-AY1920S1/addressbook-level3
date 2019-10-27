@@ -160,6 +160,7 @@ task copyStylesheets(type: Copy) {
     from "${asciidoctor.sourceDir}/stylesheets"
     into "${asciidoctor.outputDir}/html5/stylesheets"
 }
+
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'

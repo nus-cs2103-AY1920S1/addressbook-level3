@@ -23,6 +23,13 @@ public class CcaCurrentProgress {
     }
 
     /**
+     * Default constructor used.
+     */
+    public CcaCurrentProgress() {
+
+    }
+
+    /**
      * Increments the current progress by 1.
      */
     public void increaseProgress() {
