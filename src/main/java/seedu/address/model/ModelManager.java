@@ -298,10 +298,7 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Entry> getFilteredExpensesAndIncomes() {
         ObservableList<Entry> list = new FilteredList<>(filteredEntries,
-                entry -> entry instanceof Expense || entry instanceof Income);
-        /*for (Income income : filteredIncomes) {
-            list.add(income);
-        }*/
+            entry -> entry instanceof Expense || entry instanceof Income);
         return list;
     }
 

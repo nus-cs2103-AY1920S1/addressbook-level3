@@ -54,7 +54,7 @@ public class EntryCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-        @Override
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {

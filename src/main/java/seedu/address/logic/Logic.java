@@ -11,7 +11,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.ExpenseReminder;
-import seedu.address.model.person.Reminder;
 import seedu.address.model.person.Wish;
 
 /**

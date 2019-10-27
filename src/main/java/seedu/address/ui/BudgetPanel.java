@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Budget;
-import seedu.address.model.person.Entry;
 
 /**
  * Side panel for budgets.
