@@ -53,6 +53,16 @@ public class McqFlashcard extends Flashcard {
     }
 
     @Override
+    public boolean isValidFlashcard() {
+       for (Choice choice : choices) {
+           if (choice.getChoice().equals(answer.getAnswer())) {
+               return true;
+           }
+       }
+       return false;
+    }
+
+    @Override
     public boolean isMcq() {
         return true;
     }

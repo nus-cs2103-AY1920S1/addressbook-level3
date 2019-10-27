@@ -150,6 +150,11 @@ public abstract class Flashcard {
     }
 
     /**
+     * Check if this flashcard's answer is in choice or not. Only applies for MCQ flashcard.
+     */
+    public abstract boolean isValidFlashcard();
+
+    /**
      * Returns true if both the question and the definitions and the tags are the same.
      * This is stronger than {@code isSameFlashCard}
      */
