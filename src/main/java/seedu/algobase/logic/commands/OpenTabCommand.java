@@ -11,6 +11,8 @@ import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabData;
+import seedu.algobase.model.gui.TabManager;
+import seedu.algobase.model.gui.exceptions.DuplicateTabDataException;
 
 /**
  * Close tabs in the GUI.
@@ -19,6 +21,7 @@ public class OpenTabCommand extends Command {
 
     public static final String COMMAND_WORD = "opentab";
     public static final String MESSAGE_SUCCESS = "opened tab %1$s!";
+    public static final String MESSAGE_SWITCH_SUCCESS = "switched to tab %1$s!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": opens a new Details Tab in the GUI\n"
         + "Parameters:\n"
@@ -76,11 +79,19 @@ public class OpenTabCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        TabManager tabManager = model.getGuiState().getTabManager();
         try {
             Id modelId = retrieveId(model, modelType, index);
             TabData tabData = new TabData(modelType, modelId);
-            model.getGuiState().getTabManager().addTab(tabData);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
+            try {
+                tabManager.addTab(tabData);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
+            } catch (DuplicateTabDataException e) {
+                assert tabManager.hasTabData(tabData);
+                Index tabIndex = tabManager.getTabIndex(tabData);
+                tabManager.setDetailsTabPaneIndex(tabIndex);
+                return new CommandResult(String.format(MESSAGE_SWITCH_SUCCESS, index.getOneBased()));
+            }
         } catch (IndexOutOfBoundsException exception) {
             throw new CommandException(String.format(MESSAGE_INVALID_INDEX, index.getOneBased()));
         } catch (IllegalArgumentException exception) {

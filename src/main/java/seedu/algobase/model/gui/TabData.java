@@ -37,7 +37,7 @@ public class TabData {
         }
 
         return otherTabData != null
-            && otherTabData.getModelType() == getModelType() && otherTabData.getModelId().equals(modelId);
+            && otherTabData.getModelType().equals(getModelType()) && otherTabData.getModelId().equals(modelId);
     }
 
 }

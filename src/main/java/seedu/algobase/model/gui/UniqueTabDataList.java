@@ -5,9 +5,11 @@ import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.gui.exceptions.DuplicateTabDataException;
 import seedu.algobase.model.gui.exceptions.TabDataNotFoundException;
 
@@ -34,6 +36,19 @@ public class UniqueTabDataList implements Iterable<TabData> {
     public boolean contains(TabData toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameTabData);
+    }
+
+    /**
+     * Returns the index of a TabData as the given argument.
+     */
+    public Index indexOf(TabData toCheck) throws NoSuchElementException {
+        requireNonNull(toCheck);
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).isSameTabData(toCheck)) {
+                return Index.fromZeroBased(i);
+            }
+        }
+        throw new NoSuchElementException("The TabData does not exist");
     }
 
     /**

@@ -88,6 +88,10 @@ public class TabManager implements ReadOnlyTabManager {
         return tabsData.asUnmodifiableObservableList();
     }
 
+    public Index getTabIndex(TabData tabData) {
+        return tabsData.indexOf(tabData);
+    }
+
     //========== Tab ====================================================================
 
     /**
