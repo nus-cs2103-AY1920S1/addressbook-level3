@@ -37,15 +37,15 @@ public class State {
     /**
      * Adds a deck object to decks list.
      *
-     * @param deck deck object
+     * @param deck Deck object to add into State.
      */
     public void addDeck(Deck deck) {
         decks.add(deck);
     }
 
     /**
-     * Removes the deck from the decks list, if there is a deck with a matching name.
-     * Else, throw exception when no deck with matching name is found.
+     * Removes the deck from the list of Deck objects, if there is a Deck object with a matching name.
+     * Else, throw exception when no Deck object with matching name is found.
      */
     public void removeDeck(String name) throws DeckNotFoundException {
         int deckIndex = getDeckIndex(name);
@@ -56,10 +56,12 @@ public class State {
     }
 
     /**
-     * Returns the deck object that matches in name, if a deck with matching name exists.
-     * Else, throw exception when no deck with matching name is found.
+     * Returns the Deck object that matches in name, if a Deck with matching name exists.
+     * Else, throw exception when no Deck with matching name is found.
      *
-     * @return index
+     * @param name String of name of Deck object looking for.
+     * @return Deck object with name.
+     * @throws DeckNotFoundException Throw exception when no matching Deck with name specified.
      */
     public Deck getDeck(String name) throws DeckNotFoundException {
         int indexOfDeck = getDeckIndex(name);
@@ -79,13 +81,14 @@ public class State {
     }
 
     /**
-     * Returns the index of a deck given the deck name, if a deck with matching name exists.
-     * Else, return -1 if no deck with matching name is found.
-     *
+     * Returns the index of a Deck given the Deck name, if a Deck with matching name exists.
+     * Else, return -1 if no Deck with matching name is found.
+     * <p>
      * Note: this method is only used internally for State processing.
      * Should not be confused with user seen indexes, since this is 0-based index.
      *
-     * @return index
+     * @param name String of name of Deck.
+     * @return Integer value of index of Deck stored in list of Deck objects.
      */
     private int getDeckIndex(String name) {
         for (int i = 0; i < decks.size(); i++) {

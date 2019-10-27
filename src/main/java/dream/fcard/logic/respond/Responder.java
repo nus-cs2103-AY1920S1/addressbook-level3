@@ -2,7 +2,6 @@ package dream.fcard.logic.respond;
 
 import dream.fcard.model.State;
 
-
 /**
  * Interface to take in user input and execute program behaviour.
  */
@@ -14,11 +13,17 @@ public class Responder {
      * @param input A String representing the user input.
      * @param state The current State of the program.
      */
-    public static void takeInput(String input, State state) {
-        for (Responses r : Responses.values()) {
-            if (r.call(input, state)) {
-                break;
+    public static void takeInput(String input, State state) throws Exception {
+        try {
+            for (Responses r : Responses.values()) {
+                if (r.call(input, state)) {
+                    break;
+                }
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+
+        //todo: handle exception
     }
 }

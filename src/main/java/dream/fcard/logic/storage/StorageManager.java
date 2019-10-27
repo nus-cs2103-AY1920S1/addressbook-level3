@@ -20,6 +20,7 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
@@ -186,6 +187,8 @@ public class StorageManager {
                 System.out.println("JSON file wrong schema");
             } catch (DuplicateInChoicesException d) {
                 System.out.println("Duplicated choices detected in Multiple Choice Card.");
+            } catch (IndexNotFoundException i) {
+                System.out.println(i.getMessage());
             }
         } catch (JsonFormatException e2) {
             System.out.println("JSON file has errors\n" + e2.getMessage());
