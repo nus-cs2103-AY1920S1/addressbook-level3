@@ -49,4 +49,11 @@ public class UnregisterCommand extends Command {
         model.unregisterBorrower(toUnregister);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UnregisterCommand // instanceof handles nulls
+                && id.equals(((UnregisterCommand) other).id));
+    }
 }
