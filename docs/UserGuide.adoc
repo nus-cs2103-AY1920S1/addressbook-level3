@@ -243,6 +243,36 @@ Examples:
 
 * `claim_earnings k/CS2103T, c/CS1231`
 
+=== Notes
+==== Add Note: `addnote`
+
+Adds Note to the list of notes. +
+Format: `addnote mod/MODULE_CODE c/CONTENT`
+
+Examples:
+
+* `addnote mod/CS2103T c/Check for project submission date`
+
+==== Edit Note: `update_earnings`
+
+Update Note in the list of notes. +
+Format: `editnote [index] mod/MODULE_CODE c/CONTENT`
+
+Examples:
+
+* `editnote 1 mod/CS2103T`
+* `editnote 1 c/check for meeting time`
+* `editnote 1 mod/CS2103 c/update project content`
+
+==== Delete Note: `deletenote`
+
+Delete Note in the list of notes. +
+Format: `deletenote [index]`
+
+Examples:
+
+* `deletenote 1`
+
 // end::delete[]
 === Clearing all entries : `clear`
 
