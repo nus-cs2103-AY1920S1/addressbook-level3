@@ -120,6 +120,7 @@ public class MainWindow extends UiPart<Stage> {
         String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
         AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
 
+        //Create a ListChangeListener for activeReminders
         ListChangeListener<Item> activeRemindersListener = new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
@@ -131,16 +132,16 @@ public class MainWindow extends UiPart<Stage> {
             private void createReminders(Change<? extends Item> c) {
                 for (Item newItem : c.getAddedSubList()) {
                     Platform.runLater(() -> {
+                        //Populate resultDisplay with reminder textbox
                         resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
                     });
                 }
             }
         };
 
+
+        //Binds a ListChangeListener to activeRemindersList
         logic.getActiveRemindersListProperty().addListener(activeRemindersListener);
-        //to listen for change in active
-        //while !active.isEmpty()
-        //resultDisplay.setFeedbackToUser(property.popReminder.getReminderMessage);
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
