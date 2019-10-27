@@ -28,7 +28,7 @@ public class CalendarModelManager implements CalendarModel {
     private final CalendarUserPrefs userPrefs;
     private FilteredList<Task> filteredTasks;
     private FilteredList<Task> filteredTasksByTimeAdded;
-    private  FilteredList<Task> filteredTasksByDeadline;
+    private FilteredList<Task> filteredTasksByDeadline;
 
     private boolean isDeadlineSorted = false;
 
@@ -47,22 +47,7 @@ public class CalendarModelManager implements CalendarModel {
 
         filteredTasksByTimeAdded = new FilteredList<>(this.calendarAddressBook.getPersonList());
 
-        SortedList<Task> sortByTimeList = new SortedList<>(this.calendarAddressBook.getPersonList(),
-            new Comparator<Task>() {
-                @Override
-                public int compare(Task x, Task y) {
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                    try {
-                        Date dateX = formatter.parse(x.getTaskDeadline().getValue());
-                        Date dateY = formatter.parse(y.getTaskDeadline().getValue());
-                        return dateX.compareTo(dateY);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        return 0;
-                    }
-                }
-            });
-        filteredTasksByDeadline = new FilteredList<>(sortByTimeList);
+        filteredTasksByDeadline = new FilteredList<>(getSortedListByTime());
     }
 
     public CalendarModelManager() {
@@ -141,22 +126,7 @@ public class CalendarModelManager implements CalendarModel {
         calendarAddressBook.setTask(target, editedTask);
 
         if (isDeadlineSorted) {
-            SortedList<Task> sortByTimeList = new SortedList<>(this.calendarAddressBook.getPersonList(),
-                new Comparator<Task>() {
-                    @Override
-                    public int compare(Task x, Task y) {
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                        try {
-                            Date dateX = formatter.parse(x.getTaskDeadline().getValue());
-                            Date dateY = formatter.parse(y.getTaskDeadline().getValue());
-                            return dateX.compareTo(dateY);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                            return 0;
-                        }
-                    }
-                });
-            filteredTasksByDeadline = new FilteredList<>(sortByTimeList);
+            filteredTasksByDeadline = new FilteredList<>(getSortedListByTime());
             filteredTasks = filteredTasksByDeadline;
             calendarAddressBook.setTasks(filteredTasks);
         }
@@ -208,15 +178,31 @@ public class CalendarModelManager implements CalendarModel {
         if (sortType.equals("deadline")) {
             isDeadlineSorted = true;
             filteredTasks = filteredTasksByDeadline;
-//            calendarAddressBook.setTasks(calendarAddressBook.tasksByDeadline);
         } else if (sortType.equals("timeadded")) {
             isDeadlineSorted = false;
             filteredTasks = filteredTasksByTimeAdded;
-//            calendarAddressBook.tasks = calendarAddressBook.tasksByTimeAdded;
         }
         calendarAddressBook.setTasks(filteredTasks);
 
         updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    private SortedList<Task> getSortedListByTime() {
+        return new SortedList<>(this.calendarAddressBook.getPersonList(),
+            new Comparator<Task>() {
+                @Override
+                public int compare(Task x, Task y) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    try {
+                        Date dateX = formatter.parse(x.getTaskDeadline().getValue());
+                        Date dateY = formatter.parse(y.getTaskDeadline().getValue());
+                        return dateX.compareTo(dateY);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
+                }
+            });
     }
 
 }

@@ -2,10 +2,6 @@ package seedu.address.model.calendar;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -19,7 +15,7 @@ import seedu.address.model.calendar.task.UniqueTaskList;
  */
 public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
 
-    public UniqueTaskList tasks;
+    private UniqueTaskList tasks;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication

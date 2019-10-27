@@ -2,15 +2,13 @@ package seedu.address.logic.calendar.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
-import seedu.address.model.calendar.task.Task;
 
-public class SortCommand extends Command{
+/**
+ * Sort the list of tasks by either TaskDeadline or the time when the task is added
+ */
+public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

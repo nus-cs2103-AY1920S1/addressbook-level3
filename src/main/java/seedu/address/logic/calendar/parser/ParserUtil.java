@@ -37,6 +37,11 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses {@code sortType} into an {@code String} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified sortType is invalid.
+     */
     public static String parseSortType(String sortType) throws ParseException {
         String trimmedSortType = sortType.trim();
         if (!trimmedSortType.equals("deadline") && !trimmedSortType.equals("timeadded")) {
