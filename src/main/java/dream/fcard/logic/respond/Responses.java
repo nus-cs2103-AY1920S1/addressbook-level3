@@ -128,7 +128,7 @@ enum Responses {
         return true; // capture is valid, end checking other commands
     }),
 
-    CREATE("(?i)^(create)?(\\s)+(deck/[\\S\\s]+){1}(\\s)*", (commandInput, programState) -> {
+    CREATE("(?i)^(create)?(\\s)+(deck/[\\S]+){1}[\\s]*", (commandInput, programState) -> {
 
         //System.out.println("Current command is CREATE_DECK");
         LogsCenter.getLogger(Responses.class).info("Current command is CREATE_DECK");
@@ -162,10 +162,22 @@ enum Responses {
         return true;
     }),
 
-    // expanded create to take in
-    // compulsory deck
-    // compulsory set of front/ back/
-    // only once each
+    DECK_CREATE_MCQ_CARD("(?i)^(create)?(\\s)+"
+            + "(deck/[\\S]+){1}(\\s)*"
+            + "(front/[\\S\\s]+){1}(\\s)*"
+            + "(back/[\\S\\s]+){1}(\\s)*"
+            + "((choice/[\\S\\s]+)(\\s)*)+" , (commandInput, programState) -> {
+
+        System.out.println("Current command is DECK_CREATE_MCQ_CARD");
+        LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_MCQ_CARD");
+
+        //System.out.println(commandInput);
+
+        LogsCenter.getLogger(Responses.class).info("DECK_CREATE_MCQ_CARD: command execution successful");
+        return true; // capture is valid, end checking other commands
+    }),
+
+    // create frontbackcard
     DECK_CREATE_REG_CARD("(?i)^(create)?(\\s)+"
             + "(deck/[\\S\\s]+){1}(\\s)*"
             + "(front/[\\S\\s]+){1}(\\s)*"
@@ -174,8 +186,6 @@ enum Responses {
                 System.out.println("Current command is DECK_CREATE_REG_CARD");
                 LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_REG_CARD");
 
-                // Split according to numerous white spaces in between
-                //System.out.println(commandInput);
                 String userInput = commandInput.replaceFirst("create deck/", "");
 
                 String[] userInputFields = userInput.trim().split(" front/");
@@ -207,6 +217,8 @@ enum Responses {
                 return true; // capture is valid, end checking other commands
             }),
 
+
+
     TEST("(?i)^(test)?(\\\\s)+(duration/[\\\\w\\\\p{Punct}]+)?(\\\\s)+(deck/[\\\\w\\\\p{Punct}]+){1}(\\\\s)*", (
             commandInput, programState) -> {
         System.out.println("Current command is TEST");
@@ -232,7 +244,7 @@ enum Responses {
         return true; // capture is valid, end checking other commands
     }),
 
-    EDIT_DECK_EDIT_CARD("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[edit]+){1}((\\s)+"
+    EDIT_DECK_EDIT_CARD("(?i)^(edit)?(\\s)+(deck/[\\S}]+){1}(\\s)+(action/[edit]+){1}((\\s)+"
             + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)?"
             + "(back/[\\S\\s]+))?(\\s)?", (
             commandInput, programState) -> {
@@ -323,7 +335,7 @@ enum Responses {
                 return true; // capture is valid, end checking other commands
             }),
 
-    EDIT_DECK_REMOVE_CARD("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[remove]+){1}((\\s)+"
+    EDIT_DECK_REMOVE_CARD("(?i)^(edit)?(\\s)+(deck/[\\S}]+){1}(\\s)+(action/[remove]+){1}((\\s)+"
             + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
             + "(back/[\\S\\s]+))?(\\s)*", (
             commandInput, programState) -> {
