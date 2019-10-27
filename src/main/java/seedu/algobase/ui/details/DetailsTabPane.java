@@ -99,7 +99,7 @@ public class DetailsTabPane extends UiPart<Region> {
      * Adds a listener to handle tab changes.
      */
     private void addListenerForTabChanges() {
-        tabManager.getTabs().addListener(new ListChangeListener<TabData>() {
+        tabManager.getDetailsTabs().addListener(new ListChangeListener<TabData>() {
             @Override
             public void onChanged(Change<? extends TabData> change) {
                 clearTabs();

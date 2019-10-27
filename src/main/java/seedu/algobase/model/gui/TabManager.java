@@ -3,19 +3,21 @@ package seedu.algobase.model.gui;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 
 
 /**
  * The main TabManager of the GUI.
  */
-public class TabManager implements ReadOnlyTabManager {
+public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
 
     private static final int STARTING_INDEX = 0;
 
@@ -80,19 +82,19 @@ public class TabManager implements ReadOnlyTabManager {
      * Adds TabData to algobase.
      * The TabData must not already exist in the algobase.
      */
-    public void addTabData(TabData tab) {
+    public void addDetailsTabData(TabData tab) {
         this.tabsData.add(tab);
     }
 
-    public void removeTabData(Index index) {
-        this.tabsData.remove(getTabs().get(index.getZeroBased()));
+    public void removeDetailsTabData(Index index) {
+        this.tabsData.remove(getDetailsTabs().get(index.getZeroBased()));
     }
 
-    public ObservableList<TabData> getTabs() {
+    public ObservableList<TabData> getDetailsTabs() {
         return tabsData.asUnmodifiableObservableList();
     }
 
-    public Index getTabIndex(TabData tabData) {
+    public Index getDetailsTabIndex(TabData tabData) {
         return tabsData.indexOf(tabData);
     }
 
@@ -107,7 +109,7 @@ public class TabManager implements ReadOnlyTabManager {
     /**
      * Returns true if a Plan with the same identity as {@code TabData} exists in the algobase.
      */
-    public boolean hasTabData(TabData tabData) {
+    public boolean hasDetailsTabData(TabData tabData) {
         requireNonNull(tabData);
         return tabsData.contains(tabData);
     }
@@ -127,4 +129,10 @@ public class TabManager implements ReadOnlyTabManager {
     public ObservableList<TabData> getTabsDataList() {
         return tabsData.asUnmodifiableObservableList();
     }
+
+    @Override
+    public Consumer<Id> addDetailsTabConsumer(ModelType modelType) {
+        return (Id id) -> addDetailsTabData(new TabData(modelType, id));
+    }
+
 }

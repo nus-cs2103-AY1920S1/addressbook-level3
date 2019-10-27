@@ -18,6 +18,7 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.ui.details.DetailsTabPane;
 import seedu.algobase.ui.display.DisplayTab;
 import seedu.algobase.ui.display.DisplayTabPane;
@@ -116,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        displayTabPane = getDisplayTabPane();
+        displayTabPane = getDisplayTabPane(logic.getGuiState().getTabManager());
         detailsTabPane = new DetailsTabPane(logic);
 
         layoutPanePlaceholder.getItems().add(displayTabPane.getRoot());
@@ -132,8 +133,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private DisplayTabPane getDisplayTabPane() {
-        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
+    private DisplayTabPane getDisplayTabPane(WriteOnlyTabManager tabManager) {
+        problemListPanel =
+            new ProblemListPanel(logic.getProcessedProblemList(), tabManager);
         planListPanel = new PlanListPanel(logic.getProcessedPlanList());
         taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelType.PROBLEM.getTabName(), problemListPanel);

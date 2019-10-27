@@ -52,7 +52,7 @@ public class JsonAdaptedTabManager {
     public TabManager toModelType(AlgoBase algoBase) throws IllegalValueException {
         TabManager tabManager = new TabManager();
         for (JsonAdaptedTab jsonAdaptedTab : tabsData) {
-            tabManager.addTabData(jsonAdaptedTab.toModelType(algoBase));
+            tabManager.addDetailsTabData(jsonAdaptedTab.toModelType(algoBase));
         }
         tabManager.setDisplayTabPaneIndex(Index.fromZeroBased(displayTabIndex));
         tabManager.setDetailsTabPaneIndex(Index.fromZeroBased(detailsTabIndex));
