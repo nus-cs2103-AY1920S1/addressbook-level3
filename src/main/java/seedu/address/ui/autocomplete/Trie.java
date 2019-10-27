@@ -6,7 +6,7 @@ package seedu.address.ui.autocomplete;
 public class Trie {
     private TrieNode root = new TrieNode();
 
-    public Trie(String[] commandsToSupport) {
+    public Trie(String... commandsToSupport) {
         for (String command : commandsToSupport) {
             this.insert(command);
         }
