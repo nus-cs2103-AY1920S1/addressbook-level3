@@ -45,7 +45,8 @@ public class TabManagerTest {
         TabManager tabManager = new TabManager();
         TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId(100000000));
         TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId(100000001));
-        tabManager.addTab(tabData1, tabData2);
+        tabManager.addTabData(tabData1);
+        tabManager.addTabData(tabData2);
         Index[] testValues = new Index[] { OLD_VALUE };
 
         tabManager.getDetailsTabPaneIndex().addListener((observable, oldValue, newValue) -> {

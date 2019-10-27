@@ -76,11 +76,15 @@ public class TabManager implements ReadOnlyTabManager {
         detailsTabPaneIndex.setValue(indexValue);
     }
 
-    public void addTab(TabData... tabs) {
-        this.tabsData.addAll(tabs);
+    /**
+     * Adds TabData to algobase.
+     * The TabData must not already exist in the algobase.
+     */
+    public void addTabData(TabData tab) {
+        this.tabsData.add(tab);
     }
 
-    public void removeTab(Index index) {
+    public void removeTabData(Index index) {
         this.tabsData.remove(getTabs().get(index.getZeroBased()));
     }
 
@@ -91,8 +95,6 @@ public class TabManager implements ReadOnlyTabManager {
     public Index getTabIndex(TabData tabData) {
         return tabsData.indexOf(tabData);
     }
-
-    //========== Tab ====================================================================
 
     /**
      * Replaces the contents of the Plan list with {@code tabsData}.
@@ -111,14 +113,6 @@ public class TabManager implements ReadOnlyTabManager {
     }
 
     /**
-     Adds a TabData to the algobase.
-     The Plan must not already exist in the algobase.
-     */
-    public void addTabData(TabData tabData) {
-        tabsData.add(tabData);
-    }
-
-    /**
      * Replaces the given Plan {@code target} in the list with {@code editedPlan}.
      * {@code target} must exist in the algobase.
      * The Plan identity of {@code editedPlan} must not be the same as another existing Plan in the algobase.
@@ -127,10 +121,6 @@ public class TabManager implements ReadOnlyTabManager {
         requireNonNull(editedTabData);
 
         tabsData.setTabData(target, editedTabData);
-    }
-
-    public void removeTabData(TabData key) {
-        tabsData.remove(key);
     }
 
     @Override

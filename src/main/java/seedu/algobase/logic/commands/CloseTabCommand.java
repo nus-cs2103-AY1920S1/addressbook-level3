@@ -34,7 +34,7 @@ public class CloseTabCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         try {
-            model.getGuiState().getTabManager().removeTab(index);
+            model.getGuiState().getTabManager().removeTabData(index);
             return new CommandResult(
                 String.format(MESSAGE_SUCCESS, index.getOneBased())
             );

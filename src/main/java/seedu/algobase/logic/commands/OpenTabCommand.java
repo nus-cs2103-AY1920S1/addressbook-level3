@@ -84,7 +84,7 @@ public class OpenTabCommand extends Command {
             Id modelId = retrieveId(model, modelType, index);
             TabData tabData = new TabData(modelType, modelId);
             try {
-                tabManager.addTab(tabData);
+                tabManager.addTabData(tabData);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
             } catch (DuplicateTabDataException e) {
                 assert tabManager.hasTabData(tabData);

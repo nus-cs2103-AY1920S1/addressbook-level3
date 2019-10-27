@@ -83,7 +83,8 @@ class SwitchTabCommandTest {
             GuiState guiState = new GuiState();
             TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId(1));
             TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId(2));
-            guiState.getTabManager().addTab(tabData1, tabData2);
+            guiState.getTabManager().addTabData(tabData1);
+            guiState.getTabManager().addTabData(tabData2);
             return guiState;
         }
     }
