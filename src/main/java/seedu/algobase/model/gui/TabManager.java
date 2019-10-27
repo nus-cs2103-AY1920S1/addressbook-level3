@@ -52,6 +52,7 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
         return displayTabPaneIndex;
     }
 
+    @Override
     public void setDisplayTabPaneIndex(Index index) throws IndexOutOfBoundsException {
         int indexValue = index.getZeroBased();
         if (!isValidDisplayTabPaneIndex(indexValue)) {
@@ -70,6 +71,7 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
         return detailsTabPaneIndex;
     }
 
+    @Override
     public void setDetailsTabPaneIndex(Index index) throws IndexOutOfBoundsException {
         int indexValue = index.getZeroBased();
         if (!isValidDetailsTabPaneIndex(indexValue)) {
@@ -86,12 +88,12 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
         this.tabsData.add(tab);
     }
 
-    public void removeDetailsTabData(Index index) {
-        this.tabsData.remove(getDetailsTabs().get(index.getZeroBased()));
+    public void removeDetailsTabData(TabData tabData) {
+        this.tabsData.remove(tabData);
     }
 
-    public ObservableList<TabData> getDetailsTabs() {
-        return tabsData.asUnmodifiableObservableList();
+    public void removeDetailsTabData(Index index) {
+        removeDetailsTabData(getTabsDataList().get(index.getZeroBased()));
     }
 
     public Index getDetailsTabIndex(TabData tabData) {
@@ -133,6 +135,11 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
     @Override
     public Consumer<Id> addDetailsTabConsumer(ModelType modelType) {
         return (Id id) -> addDetailsTabData(new TabData(modelType, id));
+    }
+
+    @Override
+    public Consumer<Id> removeDetailsTabConsumer(ModelType modelType) {
+        return (id) -> removeDetailsTabData(new TabData(modelType, id));
     }
 
 }

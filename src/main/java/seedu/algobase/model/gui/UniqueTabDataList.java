@@ -85,9 +85,13 @@ public class UniqueTabDataList implements Iterable<TabData> {
      */
     public void remove(TabData toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new TabDataNotFoundException();
+        for (TabData tabData : internalList) {
+            if (tabData.isSameTabData(toRemove)) {
+                internalList.remove(tabData);
+                return;
+            }
         }
+        throw new TabDataNotFoundException();
     }
 
     /**

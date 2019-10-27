@@ -16,9 +16,11 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.logic.Logic;
 import seedu.algobase.model.Id;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.gui.ReadOnlyTabManager;
 import seedu.algobase.model.gui.TabData;
-import seedu.algobase.model.gui.TabManager;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
@@ -32,21 +34,26 @@ public class DetailsTabPane extends UiPart<Region> {
     private static final String FXML = "DetailsTabPane.fxml";
 
     private final ReadOnlyAlgoBase algoBase;
-    private final TabManager tabManager;
+    private final ReadOnlyTabManager readOnlyTabManager;
+    private final WriteOnlyTabManager writeOnlyTabManager;
 
     @FXML
     private TabPane tabsPlaceholder;
 
     public DetailsTabPane(Logic logic) {
         super(FXML);
-        this.algoBase = logic.getAlgoBase();
-        this.tabManager = logic.getGuiState().getTabManager();
+        tabsPlaceholder.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
 
-        addTabsToTabPane(tabManager.getTabsDataList());
+        this.algoBase = logic.getAlgoBase();
+        this.readOnlyTabManager = logic.getGuiState().getTabManager();
+        this.writeOnlyTabManager = logic.getGuiState().getTabManager();
+
+        addTabsToTabPane(readOnlyTabManager.getTabsDataList());
+        selectTab(readOnlyTabManager.getDetailsTabPaneIndex().getValue().intValue());
 
         addListenerForTabChanges();
-        addListenerForIndexChange(tabManager.getDetailsTabPaneIndex());
-        addListenerToTabPaneIndexChange(tabManager::setDetailsTabPaneIndex);
+        addListenerForIndexChange(readOnlyTabManager.getDetailsTabPaneIndex());
+        addListenerToTabPaneIndexChange(writeOnlyTabManager::setDetailsTabPaneIndex);
     }
 
     /**
@@ -99,7 +106,7 @@ public class DetailsTabPane extends UiPart<Region> {
      * Adds a listener to handle tab changes.
      */
     private void addListenerForTabChanges() {
-        tabManager.getDetailsTabs().addListener(new ListChangeListener<TabData>() {
+        readOnlyTabManager.getTabsDataList().addListener(new ListChangeListener<TabData>() {
             @Override
             public void onChanged(Change<? extends TabData> change) {
                 clearTabs();
@@ -119,15 +126,32 @@ public class DetailsTabPane extends UiPart<Region> {
      * @param tabData The TabData to be converted.
      */
     private Optional<DetailsTab> convertTabDataToDetailsTab(TabData tabData) throws IllegalArgumentException {
+        ModelType modelType = tabData.getModelType();
         Id modelId = tabData.getModelId();
         try {
-            switch (tabData.getModelType()) {
+            switch (modelType) {
             case PROBLEM:
                 Problem problem = algoBase.findProblemById(modelId);
-                return Optional.of(new DetailsTab(problem.getName().fullName, new ProblemDetails(problem)));
+                return Optional.of(
+                    new DetailsTab(
+                        problem.getName().fullName,
+                        new ProblemDetails(problem),
+                        modelType,
+                        modelId,
+                        writeOnlyTabManager
+                    )
+                );
             case PLAN:
                 Plan plan = algoBase.findPlanById(modelId);
-                return Optional.of(new DetailsTab(plan.getPlanName().fullName, new PlanDetails(plan)));
+                return Optional.of(
+                    new DetailsTab(
+                        plan.getPlanName().fullName,
+                        new PlanDetails(plan),
+                        modelType,
+                        modelId,
+                        writeOnlyTabManager
+                    )
+                );
             case TAG:
                 Tag tag = algoBase.findTagById(modelId);
                 return Optional.of(new DetailsTab(tag.getName()));
