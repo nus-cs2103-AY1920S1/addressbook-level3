@@ -37,10 +37,10 @@ public class CalendarCommand extends Command {
         case 1:
             String resultMsg =
                     MESSAGE_SUCCESS_1 + date.getDay() + " " + date.getMth() + " " + date.getYear();
-            return new CommandResult(resultMsg, date);
+            return new CommandResult(resultMsg, date, model);
         case 2:
             String resultMsg2 = MESSAGE_SUCCESS_2 + date.getMth() + " " + date.getYear();
-            return new CommandResult(resultMsg2, date);
+            return new CommandResult(resultMsg2, date, model);
         default:
             throw new CommandException(MESSAGE_INVALID_DATE);
         }

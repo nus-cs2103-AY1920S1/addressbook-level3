@@ -31,7 +31,7 @@ public class ViewCommand extends Command {
         requireNonNull(model);
         switch (feature.toString()) {
         case "calendar":
-            return new CommandResult(MESSAGE_SUCCESS_1, feature);
+            return new CommandResult(MESSAGE_SUCCESS_1, feature, model);
         case "attendance":
             return new CommandResult(MESSAGE_SUCCESS_2, feature);
         case "performance":
