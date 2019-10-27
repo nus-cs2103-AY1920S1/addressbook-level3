@@ -110,7 +110,8 @@ public class CsvUtil {
      * @throws IllegalValueException if illegal values exist in the .csv file
      */
 
-    public static List<Person> readPersonsFromCsv(String fileName) throws IOException, IllegalValueException, ImportingException {
+    public static List<Person> readPersonsFromCsv(String fileName)
+            throws IOException, IllegalValueException, ImportingException {
         String pathString = importFolder + "/" + fileName + ".csv";
         Path readPath = Paths.get(pathString);
         if (!FileUtil.isFileExists(readPath)) {

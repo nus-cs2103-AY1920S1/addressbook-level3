@@ -31,10 +31,11 @@ public class ImportReplaceCommand extends Command implements MutatorCommand {
             + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "assigned_patient_data";
 
     public static final String MESSAGE_SUCCESS = "Import success!";
-    public static final String MESSAGE_FAILURE = "Import failed.";
+    public static final String MESSAGE_FAILURE = "Import failed.\n"
+            + "Check that the .csv file adheres to the format in the User Guide";
     public static final String MESSAGE_INVALID_CSV_FIELDS = "Invalid fields in csv file.";
-    public static final String MESSAGE_DUPLICATE_CSV_PERSONS = "Duplicate persons exist in the csv file." +
-            " Duplicates are not allowed.";
+    public static final String MESSAGE_DUPLICATE_CSV_PERSONS = "Duplicate persons exist in the csv file.\n"
+            + "Duplicates are not allowed.";
     public static final String MESSAGE_VISIT_ONGOING = "Cannot import when visit is ongoing";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist: %s.csv cannot be found";
 
@@ -47,6 +48,11 @@ public class ImportReplaceCommand extends Command implements MutatorCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getOngoingVisit().isPresent()) {
+            throw new CommandException(MESSAGE_VISIT_ONGOING);
+        }
+
         List<Person> importedPersons = new ArrayList<>();
 
         try {
