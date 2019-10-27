@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
 import seedu.address.model.person.Income;
 import seedu.address.model.tag.Tag;
 
@@ -23,7 +23,7 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedIncome {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
-
+    private final String category;
     private final String desc;
     private final String time;
     private final double amt;
@@ -33,8 +33,10 @@ class JsonAdaptedIncome {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedIncome(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
-                              @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedIncome(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
+                             @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.category = category;
         this.desc = desc;
         this.amt = amt;
         this.time = time;
@@ -48,6 +50,7 @@ class JsonAdaptedIncome {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedIncome(Income source) {
+        category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
         time = source.getDate().toString();
@@ -74,6 +77,8 @@ class JsonAdaptedIncome {
         if (!Description.isValidDescription(desc)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
+
+        final Category modelCategory = new Category(category, "Income");
         final Description modelDesc = new Description(desc);
 
         final Date modelTime = new Date(time);
@@ -81,7 +86,7 @@ class JsonAdaptedIncome {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Income(modelDesc, modelTime, modelAmt, modelTags);
+        return new Income(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
     }
 
 }
