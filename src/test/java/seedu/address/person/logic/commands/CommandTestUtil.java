@@ -3,7 +3,6 @@ package seedu.address.person.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.util.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.util.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.util.CliSyntax.PREFIX_NAME;
@@ -22,8 +21,6 @@ import seedu.address.person.commons.core.index.Index;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.AddressBook;
 import seedu.address.person.model.Model;
-import seedu.address.person.model.ModelManager;
-import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.NameContainsKeywordsPredicate;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.storage.AddressBookStorage;
@@ -79,10 +76,6 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
-    private static seedu.address.transaction.model.ModelManager model =
-            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private static Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -119,8 +112,8 @@ public class CommandTestUtil {
             seedu.address.reimbursement.logic.Logic reimbursementLogic =
                     new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                             transactionModel, transactionManager, personModel);
-            seedu.address.transaction.logic.Logic transactionLogic =
-                    new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
+            Logic transactionLogic =
+                    new LogicManager(transactionModel, transactionManager,
                             personModel, reimbursementModel, reimbursementManager);
 
 
@@ -208,5 +201,43 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    public static void assertCommandSuccessTransactionModel(Command command, Model actualModel,
+                                                                CommandResult expectedCommandResult,
+                                                                Model expectedModel,
+                                                                seedu.address.transaction.model.Model expectedTModel) {
+        try {
+            TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
+            ReimbursementList reimbursementList = TypicalReimbursements.getTypicalReimbursements();
+
+            //all related ModelManagers
+            seedu.address.transaction.model.Model transactionModel =
+                    new seedu.address.transaction.model.ModelManager(transactionList);
+            seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
+            seedu.address.reimbursement.model.Model reimbursementModel =
+                    new seedu.address.reimbursement.model.ModelManager(reimbursementList);
+
+            //all related StorageManagers
+            seedu.address.transaction.storage.StorageManager transactionManager =
+                    new StorageManager(File.createTempFile("testing", "tempTransaction.txt"), personModel);
+            seedu.address.reimbursement.storage.StorageManager reimbursementManager =
+                    new seedu.address.reimbursement.storage.StorageManager(
+                            File.createTempFile("testing", "tempReimbursement.txt"));
+            seedu.address.reimbursement.logic.Logic reimbursementLogic =
+                    new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
+                            transactionModel, transactionManager, personModel);
+            seedu.address.transaction.logic.Logic transactionLogic =
+                    new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
+                            personModel, reimbursementModel, reimbursementManager);
+
+
+            CommandResult result = command.execute(actualModel, transactionLogic, reimbursementLogic);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedTModel, transactionModel);
+        } catch (CommandException | IOException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 }

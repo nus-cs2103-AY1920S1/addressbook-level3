@@ -18,6 +18,7 @@ import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
+import seedu.address.transaction.ui.TransactionMessages;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -75,6 +76,22 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidPersonHasTransactionFilteredList_throwsCommandException() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+
+        assertCommandFailure(deleteCommand, model, TransactionMessages.MESSAGE_PERSON_CANNOT_BE_DELETED);
+    }
+
+    @Test
+    public void execute_invalidPersonHasTransactionUnfilteredList_throwsCommandException() {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+
+        assertCommandFailure(deleteCommand, model, TransactionMessages.MESSAGE_PERSON_CANNOT_BE_DELETED);
     }
 
     @Test
