@@ -156,17 +156,17 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public void addMeme(Meme meme) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setWeme(ReadOnlyWeme newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyWeme getWeme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMeme(Meme meme) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -197,6 +197,26 @@ public class MemeAddCommandTest {
 
         @Override
         public void setMeme(Meme target, Meme editedMeme) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTemplate(Template template) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTemplate(Template template) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTemplate(Template template) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTemplate(Template target, Template editedTemplate) {
             throw new AssertionError("This method should not be called.");
         }
 

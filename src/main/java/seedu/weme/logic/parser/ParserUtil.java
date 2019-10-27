@@ -19,6 +19,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.tag.Tag;
+import seedu.weme.model.template.Name;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -31,6 +32,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DIRECTORYPATH = "Invalid directory path given.";
 
     public static final MemeParser MEMES_PARSER = new MemeParser();
+    public static final TemplateParser TEMPLATE_PARSER = new TemplateParser();
     public static final ImportParser IMPORT_PARSER = new ImportParser();
     public static final ExportParser EXPORT_PARSER = new ExportParser();
 
@@ -48,6 +50,7 @@ public class ParserUtil {
         case CONTEXT_EXPORT:
             return EXPORT_PARSER;
         case CONTEXT_TEMPLATES:
+            return TEMPLATE_PARSER;
         case CONTEXT_STATISTICS:
             // TODO: This is a temporary placeholder until all tabs have been implemented
             return new WemeParser() {
@@ -132,6 +135,21 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Name parseName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(trimmedName);
     }
 
     /**
