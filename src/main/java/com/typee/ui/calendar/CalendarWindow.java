@@ -114,7 +114,8 @@ public class CalendarWindow extends UiPart<Region> {
             for (Engagement engagement : engagementList) {
                 LocalDateTime startDateTime = engagement.getStartTime();
                 if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()
-                        && startDateTime.getMonth().equals(calendarDate.getMonth())) {
+                        && startDateTime.getMonth().equals(calendarDate.getMonth())
+                        && startDateTime.getYear() == calendarDate.getYear()) {
                     Text appointmentDescription = new Text(engagement.getDescription());
                     StackPane.setAlignment(appointmentDescription, Pos.CENTER);
                     individualDateStackPane.getChildren().add(appointmentDescription);
