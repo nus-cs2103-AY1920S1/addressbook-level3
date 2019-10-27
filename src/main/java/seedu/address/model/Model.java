@@ -156,11 +156,18 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Reminder> getFilteredReminderList();
 
+    /** Returns an unmodifiable view of the filtered notes list */
+    ObservableList<Notes> getFilteredNotesList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEarningsList(Predicate<Earnings> predicate);
+
+    boolean userHasLoggedIn();
+
+    void isLoggedIn();
 
     void saveCommand(String command);
 
@@ -204,4 +211,18 @@ public interface Model {
     void addNotes(Notes note);
 
     void updateFilteredNotesList(Predicate<Notes> predicate);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void deleteNotes(Notes target);
+
+
+    /**
+     * Replaces the given notes {@code target} with {@code editedNote}.
+     * {@code target} must exist in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the address book.
+     */
+    void setNotes(Notes target, Notes editedNote);
 }

@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -41,39 +41,20 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, boolean isUnknown) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command;
+        if (isUnknown) {
+            command = addressBookParser.checkCommand(commandText, model.getSavedCommand());
+        } else {
+            command = addressBookParser.parseCommand(commandText);
+        }
         commandResult = command.execute(model);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        return commandResult;
-    }
-
-    /**
-     * Execution method for unknown inputs from user.
-     */
-    public CommandResult executeUnknown(String commandText) throws CommandException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
-        CommandResult commandResult;
-        if (commandText.equals("cancel")) {
-            commandResult = new CancelCommand().execute(model);
-        } else {
-            Command command = addressBookParser.checkCommand(commandText, model.getSavedCommand());
-            commandResult = command.execute(model);
-        }
-
-        try {
-            storage.saveAddressBook(model.getAddressBook());
-            //storage.saveCalendar(model.getCalendar());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -109,6 +90,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Reminder> getFilteredReminderList() {
         return model.getFilteredReminderList();
+    }
+
+    @Override
+    public ObservableList<Notes> getFilteredNotesList() {
+        return model.getFilteredNotesList();
     }
 
     @Override

@@ -278,6 +278,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         return notes.contains(note);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeNotes(Notes key) {
+        notes.remove(key);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedNote}.
+     * {@code target} must exist in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the address book.
+     */
+    public void setNotes(Notes target, Notes editedNote) {
+        requireNonNull(editedNote);
+
+        notes.setNotes(target, editedNote);
+    }
+
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";

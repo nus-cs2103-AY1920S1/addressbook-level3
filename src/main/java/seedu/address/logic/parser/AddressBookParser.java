@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
+import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -23,7 +24,9 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEarningsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.UnknownCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
@@ -32,6 +35,8 @@ import seedu.address.logic.commands.calendar.EditTaskCommand;
 import seedu.address.logic.commands.calendar.FindTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
 import seedu.address.logic.commands.note.AddNotesCommand;
+import seedu.address.logic.commands.note.DeleteNotesCommand;
+import seedu.address.logic.commands.note.EditNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
 
@@ -87,6 +92,8 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(DeleteNotesCommand.COMMAND_WORD, DeleteNotesCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(EditNotesCommand.COMMAND_WORD, EditNotesCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
     }
@@ -96,11 +103,15 @@ public class AddressBookParser {
      * Returns a {@code NewCommand} if the command exists or an {@code UnknownCommand} if it does not.
      */
     public Command checkCommand(String userInput, String prevUnknownCommand) {
-        if (AddressBookParser.commandList.containsKey(userInput)) {
-            AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
-            return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+        if (userInput.equals("cancel")) {
+            return new CancelCommand();
         } else {
-            return new UnknownCommand(userInput);
+            if (AddressBookParser.commandList.containsKey(userInput)) {
+                AddressBookParser.commandList.put(prevUnknownCommand, AddressBookParser.commandList.get(userInput));
+                return new NewCommand(AddressBookParser.commandList.get(userInput), prevUnknownCommand);
+            } else {
+                return new UnknownCommand(userInput);
+            }
         }
     }
     /**
@@ -116,11 +127,11 @@ public class AddressBookParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
         if (commandList.containsKey(commandWord)) {
+
             switch (commandList.get(commandWord)) {
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);
@@ -169,6 +180,12 @@ public class AddressBookParser {
             case UpdateEarningsCommand.COMMAND_WORD:
                 return new UpdateEarningsCommandParser().parse(arguments);
 
+            case LoginCommand.COMMAND_WORD:
+                return new LoginCommandParser().parse(arguments);
+
+            case RegisterAccountCommand.COMMAND_WORD:
+                return new RegisterAccountCommandParser().parse(arguments);
+
             case DeleteEarningsCommand.COMMAND_WORD:
                 return new DeleteEarningsCommandParser().parse(arguments);
 
@@ -184,6 +201,11 @@ public class AddressBookParser {
             case AddNotesCommand.COMMAND_WORD:
                 return new AddNotesCommandParser().parse(arguments);
 
+            case DeleteNotesCommand.COMMAND_WORD:
+                return new DeleteNotesCommandParser().parse(arguments);
+
+            case EditNotesCommand.COMMAND_WORD:
+                return new EditNotesCommandParser().parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
@@ -193,4 +215,39 @@ public class AddressBookParser {
 
     }
 
+    /**
+     * Parses user input into command for execution
+     * before user logs in.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public Command parseCommandWithoutLoggingIn(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        switch (commandWord) {
+
+        case LoginCommand.COMMAND_WORD:
+            return new LoginCommandParser().parse(arguments);
+
+        case RegisterAccountCommand.COMMAND_WORD:
+            return new RegisterAccountCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
+        }
+    }
 }
