@@ -9,12 +9,14 @@ import java.util.Objects;
  * Represents the time period of an EventDate. Contains a start time and an end time.
  */
 public class EventDayTime {
-    public static final String MESSAGE_CONSTRAINTS = "Time Period should be in the following format: HHMM-HHMM";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Time Period should be in the following format: HHMM-HHMM, StartingTime < EndingTime";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HHmm");
     private final LocalTime startTime;
     private final LocalTime endTime;
 
     public EventDayTime(LocalTime startTime, LocalTime endTime) {
+        assert endTime.isAfter(startTime);
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -36,8 +38,10 @@ public class EventDayTime {
     public static boolean isValidTime(String test) {
         try {
             String[] timeSplit = test.split("-");
-            return LocalTime.parse(timeSplit[0], FORMATTER) instanceof LocalTime
-                    && LocalTime.parse(timeSplit[1], FORMATTER) instanceof LocalTime;
+            LocalTime start = LocalTime.parse(timeSplit[0], FORMATTER);
+            LocalTime end = LocalTime.parse(timeSplit[1], FORMATTER);
+            return start instanceof LocalTime && end instanceof LocalTime
+                    && end.isAfter(start);
         } catch (DateTimeException | ArrayIndexOutOfBoundsException e) {
             return false;
         }
@@ -51,9 +55,9 @@ public class EventDayTime {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof EventDayTime // instanceof handles nulls
-            && startTime.equals(((EventDayTime) other).getStartTime()) // state check)
-            && endTime.equals(((EventDayTime) other).getEndTime())
+                || (other instanceof EventDayTime // instanceof handles nulls
+                && startTime.equals(((EventDayTime) other).getStartTime()) // state check)
+                && endTime.equals(((EventDayTime) other).getEndTime())
             );
     }
 

@@ -40,11 +40,11 @@ class EventDayTimeTest {
 
     @Test
     void eventDayTimeEquals() {
-        assertEquals(new EventDayTime(LocalTime.of(10, 20), LocalTime.of(10, 20)),
-                new EventDayTime(LocalTime.of(10, 20), LocalTime.of(10, 20)));
+        assertEquals(new EventDayTime(LocalTime.of(10, 20), LocalTime.of(10, 30)),
+                new EventDayTime(LocalTime.of(10, 20), LocalTime.of(10, 30)));
 
-        assertNotEquals(new EventDayTime(LocalTime.of(10, 20), LocalTime.of(10, 20)),
-                new EventDayTime(LocalTime.of(10, 20), LocalTime.of(10, 10)));
+        assertNotEquals(new EventDayTime(LocalTime.of(10, 30), LocalTime.of(10, 40)),
+                new EventDayTime(LocalTime.of(10, 30), LocalTime.of(10, 45)));
     }
 
 }
