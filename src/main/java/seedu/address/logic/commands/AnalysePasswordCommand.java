@@ -26,10 +26,9 @@ public class AnalysePasswordCommand extends Command {
 
     public static final String COMMAND_WORD = "analyse";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + "Analyses the entire list of passwords currently stored in the existing password book in general detail."
-            + "Optional Parameters: \n"
-            + PREFIX_STRONG + "INDEX (must be a positive integer) \n"
-            + "(Analyses the password identified by the index in greater detail.)";
+            + ": Analyses security of the entire list of passwords.\n"
+            + "OPTIONAL Parameters: \n"
+            + PREFIX_STRONG + "INDEX (Analyses the password identified by the index in greater detail.)";
     public static final String MESSAGE_INIT =
             "  ____                           ___ _____  \n"
             + " / ___|  ___  ___ _   _ _ __ ___|_ _|_   _| \n"
