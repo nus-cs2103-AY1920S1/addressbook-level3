@@ -1,5 +1,6 @@
 package seedu.elisa.ui;
 
+import java.net.URLClassLoader;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
@@ -116,6 +118,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         //Get property.addListener
+        AudioClip reminderAlarm = new AudioClip(getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString());
+
         logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
@@ -124,6 +128,7 @@ public class MainWindow extends UiPart<Stage> {
                     for (Item newItem : c.getAddedSubList()) {
                         Platform.runLater(() -> {
                             resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
+                            reminderAlarm.play(50);
                         });
                     }
                 }
