@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,10 +12,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.schedule.DisplayScheduleCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
+import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.event.Event;
 
 /**
@@ -22,27 +24,37 @@ import seedu.address.model.event.Event;
  */
 public class ScheduleBox extends Tabs<AnchorPane> {
     private static final String FXML = "Schedule.fxml";
+    private String[] monthName = {"January", "February", "March", "April",
+                                  "May", "June", "July", "August", "September",
+                                  "October", "November", "December"};
+    private int currentMonthInFocus;
+    private int currentYearInFocus;
 
     @FXML
-    private ListView<Event> eventsListView;
-
-    @FXML
-    private ListView<DistinctDate> datesListView;
+    private ListView<Event> eventScheduleListView;
 
     @FXML
     private Label dateLabel;
 
     @FXML
+    private Label monthLabel;
+
+    @FXML
+    private Label currentMonthYear;
+
+    @FXML
     private DatePicker datePicker;
 
-    public ScheduleBox(ObservableList<Event> eventList,
-                       ObservableList<DistinctDate> dateList, Logic logic, MainWindow mainWindow) {
+    public ScheduleBox(ObservableList<Event> eventList, Logic logic, MainWindow mainWindow) {
         super(FXML, mainWindow, logic);
-        eventsListView.setItems(eventList);
-        eventsListView.setCellFactory(listView -> new EventListViewCell());
-        datesListView.setItems(dateList);
-        datesListView.setCellFactory(listView -> new DateListViewCell());
+        Calendar cal = Calendar.getInstance();
+        eventScheduleListView.setItems(eventList);
+        eventScheduleListView.setCellFactory(listView -> new EventListViewCell());
         dateLabel.setText("Select Date to View Events");
+        monthLabel.setText("Select Month to View Events");
+        currentMonthInFocus = cal.get(Calendar.MONTH);
+        currentYearInFocus = cal.get(Calendar.YEAR);
+        currentMonthYear.setText(monthName[currentMonthInFocus] + "," + currentYearInFocus);
     }
 
     /**
@@ -62,22 +74,6 @@ public class ScheduleBox extends Tabs<AnchorPane> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
-     */
-    class DateListViewCell extends ListCell<DistinctDate> {
-        @Override
-        protected void updateItem(DistinctDate date, boolean empty) {
-            super.updateItem(date, empty);
-            if (empty || date == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new DateCard(date, getIndex() + 1, mainWindow).getRoot());
-            }
-        }
-    }
-
-    /**
      * Inputs {@code datePicker.getVaue()} that displays the events for that specific date
      * with an {@code EventCard}.
      */
@@ -90,4 +86,60 @@ public class ScheduleBox extends Tabs<AnchorPane> {
                 + datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
+    /**
+     * Inputs {@code datePicker.getVaue()} that displays the events for that specific date
+     * with an {@code EventCard}.
+     */
+    @FXML
+    private void onPrevClickButton() throws ParseException, CommandException {
+        if (currentMonthInFocus == 0) {
+            currentYearInFocus--;
+            currentMonthInFocus = 11;
+        } else {
+            currentMonthInFocus--;
+        }
+        if (currentMonthInFocus < 9) {
+            mainWindow.executeCommand(DisplayScheduleForYearMonthCommand.COMMAND_WORD
+                    + " " + CliSyntax.PREFIX_YEAR_MONTH + "0"
+                    + (currentMonthInFocus + 1) + "/" + currentYearInFocus);
+            currentMonthYear.setText(monthName[currentMonthInFocus] + "," + currentYearInFocus);
+        } else {
+            mainWindow.executeCommand(DisplayScheduleForYearMonthCommand.COMMAND_WORD
+                    + " " + CliSyntax.PREFIX_YEAR_MONTH + (currentMonthInFocus + 1) + "/" + currentYearInFocus);
+            currentMonthYear.setText(monthName[currentMonthInFocus] + "," + currentYearInFocus);
+        }
+    }
+
+    /**
+     * Inputs {@code datePicker.getVaue()} that displays the events for that specific date
+     * with an {@code EventCard}.
+     */
+    @FXML
+    private void onNextClickButton() throws ParseException, CommandException {
+        if (currentMonthInFocus == 11) {
+            currentYearInFocus++;
+            currentMonthInFocus = 0;
+        } else {
+            currentMonthInFocus++;
+        }
+        if (currentMonthInFocus < 9) {
+            mainWindow.executeCommand(DisplayScheduleForYearMonthCommand.COMMAND_WORD
+                    + " " + CliSyntax.PREFIX_YEAR_MONTH + "0"
+                    + (currentMonthInFocus + 1) + "/" + currentYearInFocus);
+            currentMonthYear.setText(monthName[currentMonthInFocus] + "," + currentYearInFocus);
+        } else {
+            mainWindow.executeCommand(DisplayScheduleForYearMonthCommand.COMMAND_WORD
+                    + " " + CliSyntax.PREFIX_YEAR_MONTH + (currentMonthInFocus + 1) + "/" + currentYearInFocus);
+            currentMonthYear.setText(monthName[currentMonthInFocus] + "," + currentYearInFocus);
+        }
+    }
+
+    /**
+     * Inputs {@code datePicker.getVaue()} that displays the events for that specific date
+     * with an {@code EventCard}.
+     */
+    @FXML
+    private void generateSchedule() throws ParseException, CommandException {
+        mainWindow.executeCommand(DisplayScheduleCommand.COMMAND_WORD);
+    }
 }

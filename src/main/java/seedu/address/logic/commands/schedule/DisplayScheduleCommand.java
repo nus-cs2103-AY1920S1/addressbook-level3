@@ -15,7 +15,7 @@ import seedu.address.model.distinctdate.DistinctDate;
  * Keyword matching is case insensitive.
  */
 public class DisplayScheduleCommand extends Command {
-    public static final String COMMAND_WORD = "display";
+    public static final String COMMAND_WORD = "generate_schedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Display all Dates and the events on that is on those dates"
@@ -28,7 +28,7 @@ public class DisplayScheduleCommand extends Command {
         requireNonNull(model);
         List<DistinctDate> distinctDates = DistinctDatesProcessor.generateDistinctDateList(model);
         model.updateDistinctDatesList(distinctDates);
-        return new CommandResult(MESSAGE_SUCCESS, "DisplaySchedule");
+        return new CommandResult(MESSAGE_SUCCESS, "Generate");
     }
 
     @Override

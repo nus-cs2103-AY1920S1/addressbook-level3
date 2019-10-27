@@ -24,11 +24,6 @@ public class DistinctDate {
         listOfEvents = events;
     }
 
-    public DistinctDate() {
-        this.date = null;
-        this.listOfEvents = null;
-    }
-
     public List<Event> getListOfEvents() {
         return listOfEvents;
     }

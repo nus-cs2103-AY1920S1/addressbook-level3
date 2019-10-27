@@ -2,6 +2,7 @@ package seedu.address.model.event;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
@@ -10,7 +11,9 @@ import java.util.stream.Stream;
  */
 public class EventDate {
     public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format DDMMYYYY";
+    public static final String MESSAGE_CONSTRAINTS_MONTH = "Input Month should be 1-12";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter FORMATTER_YEAR_MONTH = DateTimeFormatter.ofPattern("MM/yyyy");
 
     private final LocalDate date;
 
@@ -33,6 +36,17 @@ public class EventDate {
     public static boolean isValidDate(String test) {
         try {
             return LocalDate.parse(test, FORMATTER) instanceof LocalDate;
+        } catch (DateTimeException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid month.
+     */
+    public static boolean isValidYearMonth(String test) {
+        try {
+            return YearMonth.parse(test, FORMATTER_YEAR_MONTH) instanceof YearMonth;
         } catch (DateTimeException e) {
             return false;
         }
