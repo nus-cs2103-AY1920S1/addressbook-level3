@@ -31,6 +31,13 @@ public class ResultDisplay extends UiPart<Region> {
         );
     }
 
+    public void setReminderToUser(String feedbackToUser) {
+        requireNonNull(feedbackToUser);
+        dialogContainer.getChildren().addAll(
+                ElisaReminderBox.getElisaDialog(feedbackToUser)
+        );
+    }
+
     public void setMessageFromUser(String messageFromUser) {
         requireNonNull(messageFromUser);
         dialogContainer.getChildren().add(
