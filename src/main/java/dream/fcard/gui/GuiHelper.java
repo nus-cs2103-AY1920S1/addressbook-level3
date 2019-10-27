@@ -2,9 +2,12 @@
 package dream.fcard.gui;
 
 import dream.fcard.gui.components.DeckListView;
+import dream.fcard.gui.components.FlashCardCell;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Handles logic for displaying objects in the GUI.
@@ -47,6 +50,32 @@ public class GuiHelper {
      */
     public static DeckListView renderDeck(Deck deck) {
         //t todo
-        return new DeckListView();
+        return new DeckListView(deck);
+    }
+
+    /**
+     * Generates an ObservableList of FlashCardCells, given a Deck of FlashCards.
+     * @param deck The Deck to generate an ObservableList from.
+     * @return An ObservableList of FlashCardCells representing each flashcard in the deck.
+     */
+    public static ObservableList<FlashCardCell> toFlashCardCellList(Deck deck) {
+        ObservableList<FlashCardCell> list = FXCollections.observableArrayList();
+        int i = 1; // index of the card in the list
+        for (FlashCard card : deck.getCards()) {
+            FlashCardCell cell = toFlashCardCell(card, i);
+            list.add(cell);
+            i++;
+        }
+        return list;
+    }
+
+    /**
+     * Generates a FlashCardCell object representing the given FlashCard, to be displayed
+     * in a list in the GUI.
+     * @param flashCard The FlashCard to be displayed.
+     * @return The FlashCardCell object to be displayed in the GUI.
+     */
+    private static FlashCardCell toFlashCardCell(FlashCard flashCard, int index) {
+        return new FlashCardCell(flashCard, index);
     }
 }

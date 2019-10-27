@@ -20,8 +20,8 @@ public class GuiSettings {
     private static final String APPLICATION_ICON = "/images/address_book_32.png";
 
     // default sizing
-    private static double padding = 20;
-    private static double spacing = 10;
+    private static double padding = 20; // padding around elements
+    private static double spacing = 10; // spacing between elements laid sequentially
     private static double minHeight = 400;
     private static double minWidth = 400;
     private static double radius = 5;

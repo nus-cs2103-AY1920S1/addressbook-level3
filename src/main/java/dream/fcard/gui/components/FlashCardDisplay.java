@@ -47,4 +47,6 @@ public class FlashCardDisplay extends HBox implements UiComponent<HBox> {
         // add flashCardText to card
         this.getChildren().add(textFlow);
     }
+
+    // todo: add constructor with two arguments (front and back)
 }
