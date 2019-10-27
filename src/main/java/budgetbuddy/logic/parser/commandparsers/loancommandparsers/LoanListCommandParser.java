@@ -29,14 +29,14 @@ import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.LoansManager.SortBy;
+import budgetbuddy.model.loan.LoanSorters.SortBy;
 import budgetbuddy.model.attributes.Direction;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.predicates.AmountMatchPredicate;
 import budgetbuddy.model.loan.predicates.DateMatchPredicate;
 import budgetbuddy.model.loan.predicates.DescriptionMatchPredicate;
-import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.predicates.PersonMatchPredicate;
-import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;
 
 /**
@@ -91,6 +91,11 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
         return new LoanListCommand(optionalSortBy, filters);
     }
 
+    /**
+     * Parses an optional sort argument into a {@code SortBy}.
+     * @return The parsed {@code SortBy} enumeration.
+     * @throws ParseException If the given argument does not correspond to a {@code SortBy} value.
+     */
     private Optional<SortBy> parseSortArg(Optional<String> optionalSortArg) throws ParseException {
         if (optionalSortArg.isEmpty()) {
             return Optional.empty();
@@ -108,6 +113,12 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
         }
     }
 
+    /**
+     * Parses the preamble into predicates for filtering loans by direction and/or status.
+     * @param preambleArr The preamble as a string array. Each element is one word.
+     * @return The list of parsed predicates.
+     * @throws ParseException If the argument does not match any available direction or status filters.
+     */
     private List<Predicate<Loan>> parseDirectionStatusFilters(String[] preambleArr) throws ParseException {
         List<Predicate<Loan>> filters = new ArrayList<Predicate<Loan>>();
 
@@ -131,6 +142,8 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
             case KEYWORD_LOAN_UNPAID:
                 filters.add(getStatusPredicate(Status.UNPAID));
                 break;
+            default:
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
             }
         }
 
