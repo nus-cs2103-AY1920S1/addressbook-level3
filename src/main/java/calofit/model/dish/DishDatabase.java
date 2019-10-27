@@ -64,20 +64,25 @@ public class DishDatabase implements ReadOnlyDishDatabase {
         return dishes.contains(dish);
     }
 
+    public Dish getDish(Dish dish) {
+        requireNonNull(dish);
+        return dishes.getDish(dish);
+    }
+
     /**
      * Returns true if a dish with the same name as {@code dish} exists in the dish database.
      */
-    public boolean hasDishName(Dish dish) {
-        requireNonNull(dish);
-        return dishes.containsDishName(dish);
+    public boolean hasDishName(Name dishName) {
+        requireNonNull(dishName);
+        return dishes.containsDishName(dishName);
     }
 
     /**
      * Gets the dish by name if it is in the dish database
      */
-    public Dish getDishByName(Dish dish) {
-        requireNonNull(dish);
-        return dishes.getDishByName(dish);
+    public Dish getDishByName(Name dishName) {
+        requireNonNull(dishName);
+        return dishes.getDishByName(dishName);
     }
 
     /**

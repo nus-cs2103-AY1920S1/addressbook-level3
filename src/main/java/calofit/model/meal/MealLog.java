@@ -1,11 +1,16 @@
 package calofit.model.meal;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import calofit.commons.util.CollectionUtil;
+import calofit.model.dish.exceptions.DishNotFoundException;
 
 /**
  * Represents all meals tracked by the application.
@@ -18,6 +23,14 @@ public class MealLog {
     private ObservableList<Meal> readOnlyMeals = FXCollections.unmodifiableObservableList(observableMeals);
     private ObservableList<Meal> todayMeals = observableMeals.filtered(MealLog::isMealToday);
     private ObservableList<Meal> currentMonthMeals = observableMeals.filtered(MealLog::isMealThisMonth);
+
+    public MealLog() {}
+
+    public MealLog (MealLog toBeCopied) {
+        for (int i = 0; i < toBeCopied.observableMeals.size(); i++) {
+            this.observableMeals.add(toBeCopied.observableMeals.get(i));
+        }
+    }
 
     /**
      * Checks if the Meal object is created today.
@@ -61,10 +74,23 @@ public class MealLog {
     /**
      * Remove a meal from the meal log.
      * @param meal Meal to remove
-     * @return True if meal was in log and got removed, false otherwise.
      */
-    public boolean removeMeal(Meal meal) {
-        return observableMeals.remove(meal);
+    public void removeMeal(Meal meal) {
+        requireNonNull(meal);
+        if (!observableMeals.remove(meal)) {
+            throw new DishNotFoundException();
+        }
+    }
+
+    public void setMeal(Meal target, Meal editedMeal) {
+        CollectionUtil.requireAllNonNull(target, editedMeal);
+
+        int index = observableMeals.indexOf(target);
+        if (index == -1) {
+            throw new DishNotFoundException();
+        }
+
+        observableMeals.set(index, editedMeal);
     }
 
     /**

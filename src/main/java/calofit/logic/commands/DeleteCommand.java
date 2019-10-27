@@ -2,13 +2,14 @@ package calofit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+import javafx.collections.ObservableList;
 
 import calofit.commons.core.Messages;
 import calofit.commons.core.index.Index;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
-import calofit.model.dish.Dish;
+import calofit.model.meal.Meal;
+
 
 /**
  * Deletes a dish identified using it's displayed index from the dish database.
@@ -33,15 +34,16 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Dish> lastShownList = model.getFilteredDishList();
+        ObservableList<Meal> lastShownList = model.getMealLog().getTodayMeals();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
         }
 
-        Dish dishToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteDish(dishToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_MEAL_SUCCESS, dishToDelete));
+        Meal mealToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.getMealLog().removeMeal(mealToDelete);
+
+        return new CommandResult(String.format(MESSAGE_DELETE_MEAL_SUCCESS, mealToDelete.getDish().getName()));
     }
 
     @Override

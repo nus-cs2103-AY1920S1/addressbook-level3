@@ -78,4 +78,9 @@ public class Meal implements Comparable<Meal> {
     public int compareTo(Meal meal) {
         return timestamp.compareTo(meal.timestamp);
     }
+
+    @Override
+    public String toString() {
+        return this.dish.getName().toString() + " " + this.dish.getCalories().toString() + "cal";
+    }
 }
