@@ -180,16 +180,16 @@ public class ModelManagerTest {
     public void deleteArchive_existingArchiveName_success() {
         modelManager.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
         modelManager.deleteArchive(VALID_ARCHIVE_TAXES);
-        ModelManager expectedMM = new ModelManager();
+        ModelManager expectedModelManager = new ModelManager();
 
-        assertEquals(expectedMM, modelManager);
+        assertEquals(expectedModelManager, modelManager);
     }
 
     @Test
     public void deleteArchive_nonExistentArchiveName_success() {
         modelManager.deleteArchive(VALID_ARCHIVE_TAXES);
-        ModelManager expectedMM = new ModelManager();
-        assertEquals(expectedMM, modelManager);
+        ModelManager expectedModelManager = new ModelManager();
+        assertEquals(expectedModelManager, modelManager);
     }
 
     @Test
@@ -207,19 +207,20 @@ public class ModelManagerTest {
         modelManager.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL))));
         modelManager.deleteArchiveExpense("hobbies", KPOP_LIGHT_STICK);
 
-        ModelManager expectedMM = new ModelManager();
-        expectedMM.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(FOOTBALL))));
+        ModelManager expectedModelManager = new ModelManager();
+        expectedModelManager.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(FOOTBALL))));
 
-        assertEquals(expectedMM, modelManager);
+        assertEquals(expectedModelManager, modelManager);
     }
 
     @Test
     public void deleteArchiveExpense_nonExistentArchiveName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.deleteArchiveExpense(VALID_ARCHIVE_TAXES, KPOP_LIGHT_STICK));
+        assertThrows(NullPointerException.class, () -> modelManager
+                .deleteArchiveExpense(VALID_ARCHIVE_TAXES, KPOP_LIGHT_STICK));
     }
 
     @Test
-    public void deleteArchiveExpense_nonExistentExpenseInExistingArchive__throwsExpenseNotFoundException() {
+    public void deleteArchiveExpense_nonExistentExpenseInExistingArchive_throwsExpenseNotFoundException() {
         modelManager.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL))));
         assertThrows(ExpenseNotFoundException.class, () -> modelManager.deleteArchiveExpense("hobbies", GUCCI_SLIDES));
     }
@@ -235,9 +236,9 @@ public class ModelManagerTest {
 
         Billboard expectedBillboard = new Billboard();
         expectedBillboard.setExpenses(new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL)));
-        ModelManager expectedMM = new ModelManager(expectedBillboard, new UserPrefs());
+        ModelManager expectedModelManager = new ModelManager(expectedBillboard, new UserPrefs());
 
-        assertEquals(expectedMM, modelManager);
+        assertEquals(expectedModelManager, modelManager);
     }
 
     @Test

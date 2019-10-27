@@ -103,10 +103,10 @@ public class ArchiveWrapperTest {
     public void addArchive_validArchive_success() {
         Expense taxes = new ExpenseBuilder().withArchiveName(VALID_ARCHIVE_TAXES).build();
         archiveWrapper.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>(Arrays.asList(taxes))));
-        ArchiveWrapper expectedAW = new ArchiveWrapper(new ArrayList<>(
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(new ArrayList<>(
                 Arrays.asList(IPHONE11, GUCCI_SLIDES, KPOP_LIGHT_STICK, FOOTBALL, taxes)));
 
-        assertEquals(expectedAW, archiveWrapper);
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
     }
 
     @Test
@@ -129,42 +129,46 @@ public class ArchiveWrapperTest {
     @Test
     public void removeArchive_existingArchiveName_success() {
         archiveWrapper.removeArchive("luxury");
-        ArchiveWrapper expectedAW = new ArchiveWrapper(new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL)));
-        assertEquals(expectedAW, archiveWrapper);
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(
+                new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL)));
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
     }
 
     @Test
     public void removeArchive_nonExistentArchiveName_success() {
         archiveWrapper.removeArchive(VALID_ARCHIVE_TAXES);
-        ArchiveWrapper expectedAW = new ArchiveWrapper(getTypicalArchiveExpenses());
-        assertEquals(expectedAW, archiveWrapper);
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(getTypicalArchiveExpenses());
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
     }
 
     @Test
-    public void removeArchiveExpense_nullArchiveName__throwsNullPointerException() {
+    public void removeArchiveExpense_nullArchiveName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> archiveWrapper.removeArchiveExpense(null, KPOP_LIGHT_STICK));
     }
 
     @Test
-    public void removeArchiveExpense_nullExpense__throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> archiveWrapper.removeArchiveExpense("luxury",null));
+    public void removeArchiveExpense_nullExpense_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper.removeArchiveExpense("luxury", null));
     }
 
     @Test
-    public void removeArchiveExpense_validArchiveNameAndExpense__throwsNullPointerException() {
+    public void removeArchiveExpense_validArchiveNameAndExpense_throwsNullPointerException() {
         archiveWrapper.removeArchiveExpense("hobbies", KPOP_LIGHT_STICK);
-        ArchiveWrapper expectedAW = new ArchiveWrapper(new ArrayList<>(Arrays.asList(IPHONE11, GUCCI_SLIDES, FOOTBALL)));
-        assertEquals(expectedAW, archiveWrapper);
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(
+                new ArrayList<>(Arrays.asList(IPHONE11, GUCCI_SLIDES, FOOTBALL)));
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
     }
 
     @Test
-    public void removeArchiveExpense_nonExistentExpenseInExistingArchive__throwsExpenseNotFoundException() {
-        assertThrows(ExpenseNotFoundException.class, () -> archiveWrapper.removeArchiveExpense("luxury", KPOP_LIGHT_STICK));
+    public void removeArchiveExpense_nonExistentExpenseInExistingArchive_throwsExpenseNotFoundException() {
+        assertThrows(ExpenseNotFoundException.class, () -> archiveWrapper
+                .removeArchiveExpense("luxury", KPOP_LIGHT_STICK));
     }
 
     @Test
-    public void removeArchiveExpense_nonExistentArchiveName__throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> archiveWrapper.removeArchiveExpense(VALID_ARCHIVE_TAXES, KPOP_LIGHT_STICK));
+    public void removeArchiveExpense_nonExistentArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper
+                .removeArchiveExpense(VALID_ARCHIVE_TAXES, KPOP_LIGHT_STICK));
     }
 
     // other tests =============================================================================

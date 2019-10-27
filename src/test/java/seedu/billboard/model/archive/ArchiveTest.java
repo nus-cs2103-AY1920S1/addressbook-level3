@@ -50,7 +50,7 @@ public class ArchiveTest {
     }
 
     @Test
-    public void setArchive_EmptyExpenseList_success() {
+    public void setArchive_emptyExpenseList_success() {
         archive.add(TAXES);
         archive.setArchive(new ArrayList<>());
         assertEquals(new ArrayList<>(), archive.asUnmodifiableObservableList());
