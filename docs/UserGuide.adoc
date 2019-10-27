@@ -200,13 +200,26 @@ Examples:
 === Cashier
 
 ====
-* Cashier tab allows the cashier to key in and record the items sold from the inventory.
-* The columns will show the description of the item being sold, the amount per quantity, the quantity and the items subtotal.
-* At the side, just like other tabs, our mascot lion will reply and guide the user along to key in the correct inputs.
+* Cashier tab allows you to key in, calculate and record the items sold from the inventory.
+* The columns will show the description of the item being sold, the price per quantity, the total quantity selected
+and the subtotal of that row of items.
+* The bottom row will display the name of the cashier who is in-charge of the sales, as well as the total amount of all
+the sales items in the table.
+* At the side, just like other tabs, our mascot lion 'Leo' will reply to indicate successful addition, deletion,
+edits of items.
+* Upon wrong inputs, Leo will also prompt you and guide you along to key in the correct inputs.
+* Upon successful checkout, the Inventory tab will be immediately updated with the remaining stock left in
+the Inventory.
+* After every checkout, the sales made will also be recorded as one transaction with description "Items sold" and category "Sales"
+and the Home tab will also be updated with this
+transaction with the description
 ====
 
 * To add an item being sold:
-`add d/DESCRIPTION q/QUANTITY`
+`add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
+
+[NOTE]
+The category field is optional.
 
 * To delete an item being sold:
 `delete INDEX`
