@@ -22,6 +22,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.importexport.exceptions.ExportingException;
+import seedu.address.importexport.exceptions.ImportingException;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAdaptedPerson;
 
@@ -33,9 +34,11 @@ public class CsvUtil {
 
     private static final String MESSAGE_OVERRIDING_FORBIDDEN = "File with given filename already exists,"
             + "overriding is not allowed";
+    private static final String MESSAGE_MISSING_FILE = "File not found.";
+
     // Folder paths
     private static final String exportFolder = "exports";
-    private static final Path importFilePath = Paths.get("imports/import.csv");
+    private static final String importFolder = "imports";
 
     //=========== Writing/Export functions =============================================================
 
@@ -52,6 +55,7 @@ public class CsvUtil {
         if (FileUtil.isFileExists(writePath)) {
             throw new ExportingException(MESSAGE_OVERRIDING_FORBIDDEN);
         }
+        assert !persons.isEmpty();
         String toWrite = getCsvStringFromPersons(persons);
         FileUtil.createFile(writePath);
         logger.info("Writing export data to: " + writePath);
@@ -106,7 +110,13 @@ public class CsvUtil {
      * @throws IllegalValueException if illegal values exist in the .csv file
      */
 
-    public static List<Person> readPersonsFromCsv() throws IOException, IllegalValueException {
+    public static List<Person> readPersonsFromCsv(String fileName) throws IOException, IllegalValueException, ImportingException {
+        String pathString = importFolder + "/" + fileName + ".csv";
+        Path readPath = Paths.get(pathString);
+        if (!FileUtil.isFileExists(readPath)) {
+            throw new ImportingException(MESSAGE_MISSING_FILE);
+        }
+
         CsvMapper mapper = new CsvMapper();
         mapper.addMixIn(JsonAdaptedPerson.class, PersonMixIn.class)
                 // when an empty field is encountered, create a null object
@@ -117,7 +127,7 @@ public class CsvUtil {
                     .withArrayElementSeparator("\n");
         MappingIterator<JsonAdaptedPerson> iter = mapper.readerFor(JsonAdaptedPerson.class)
                     .with(schema)
-                    .readValues(importFilePath.toFile());
+                    .readValues(readPath.toFile());
         List<JsonAdaptedPerson> importedCsvPersons = iter.readAll();
 
         return convertImportedPersonsToPersonList(importedCsvPersons);

@@ -9,7 +9,7 @@ public class ExportingException extends Exception {
     }
 
     /**
-     * Constructs a new {@code ExportException} with the specified detail {@code message} and {@code cause}.
+     * Constructs a new {@code ExportingException} with the specified detail {@code message} and {@code cause}.
      */
     public ExportingException(String message, Throwable cause) {
         super(message, cause);
