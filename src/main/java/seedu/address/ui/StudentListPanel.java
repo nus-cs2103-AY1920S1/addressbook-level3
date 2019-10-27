@@ -14,16 +14,16 @@ import seedu.address.model.student.Student;
  * Panel containing the list of students.
  */
 public class StudentListPanel extends UiPart<Region> {
-    private static final String FXML = "StudentListPanel.fxml";
+    private static final String FXML = "ListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
-    private ListView<Student> studentListView;
+    private ListView<Student> listView;
 
     public StudentListPanel(ObservableList<Student> studentList) {
         super(FXML);
-        studentListView.setItems(studentList);
-        studentListView.setCellFactory(listView -> new StudentListViewCell());
+        listView.setItems(studentList);
+        listView.setCellFactory(listView -> new StudentListViewCell());
     }
 
     /**

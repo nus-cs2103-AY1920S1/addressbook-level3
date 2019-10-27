@@ -89,6 +89,11 @@ public class LogicManager implements Logic {
         return model.getSlideshowQuestions();
     }
 
+    @Override
+    public ObservableList<Question> getAllQuestions() {
+        return model.getAllQuestions();
+    }
+
     public ReadOnlyStatisticsRecord getStatisticsRecord() {
         return model.getStatisticsRecord();
     }

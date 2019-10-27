@@ -137,7 +137,7 @@ public class EventAddCommand extends EventCommand {
 
             return new CommandResult(generateSuccessMessage(vEvent),
                     false, false, false, false,
-                    true, false);
+                    true, false, false);
         }
     }
 

@@ -15,7 +15,7 @@ public class StudentListCommand extends StudentCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         return new CommandResult(generateSuccessMessage(model.getStudentSummary()), false, false,
-                false, false, false, true);
+                false, false, false, true, false);
     }
 
     /**

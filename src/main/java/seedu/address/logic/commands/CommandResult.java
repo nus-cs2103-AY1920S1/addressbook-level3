@@ -42,10 +42,15 @@ public class CommandResult {
     private final boolean showStudent;
 
     /**
+     * The application should show the question view.
+     */
+    private final boolean showQuestion;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean showSlideshow, boolean showStatistic,
-        boolean exit, boolean scheduleChange, boolean showStudent) {
+        boolean exit, boolean scheduleChange, boolean showStudent, boolean showQuestion) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.showSlideshow = showSlideshow;
@@ -53,6 +58,7 @@ public class CommandResult {
         this.exit = exit;
         this.scheduleChange = scheduleChange;
         this.showStudent = showStudent;
+        this.showQuestion = showQuestion;
     }
 
     /**
@@ -61,7 +67,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false, false,
-                false, false);
+                false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -92,6 +98,10 @@ public class CommandResult {
         return showStudent;
     }
 
+    public boolean isShowQuestion() {
+        return showQuestion;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -110,12 +120,13 @@ public class CommandResult {
             && exit == otherCommandResult.exit
             && scheduleChange == otherCommandResult.scheduleChange
             && showStatistic == otherCommandResult.showStatistic
-            && showStudent == otherCommandResult.showStudent;
+            && showStudent == otherCommandResult.showStudent
+            && showQuestion == otherCommandResult.showQuestion;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, showSlideshow, exit, scheduleChange, showStatistic, showStudent);
+        return Objects.hash(feedbackToUser, showHelp, showSlideshow, exit, scheduleChange, showStatistic, showStudent, showQuestion);
     }
 
 }

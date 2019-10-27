@@ -39,10 +39,10 @@ public class EventIndexCommand extends EventCommand {
         if (resultVEventIndexList.isEmpty()) {
             Pair<Index, VEvent> suggestedEventPair = model.findMostSimilarVEvent(desiredEventName);
             return new CommandResult(generateSuggestionMessage(suggestedEventPair), false,
-                    false, false, false, true, false);
+                    false, false, false, true, false, false);
         } else {
             return new CommandResult(generateResultMessage(resultVEventIndexList), false,
-                    false, false, false, true, false);
+                    false, false, false, true, false, false);
         }
     }
 

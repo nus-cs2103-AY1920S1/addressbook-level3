@@ -97,7 +97,8 @@ public class QuestionAddCommand extends QuestionCommand {
         }
 
         model.addQuestion(question);
-        return new CommandResult(generateSuccessMessage(question));
+        return new CommandResult(generateSuccessMessage(question), false, false,
+            false, false, false, false, true);
     }
 
     /**

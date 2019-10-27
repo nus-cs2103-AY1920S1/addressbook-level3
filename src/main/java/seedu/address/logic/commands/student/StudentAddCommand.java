@@ -40,7 +40,7 @@ public class StudentAddCommand extends StudentCommand {
         }
         model.addStudent(toAdd);
         return new CommandResult(generateSuccessMessage(toAdd), false, false,
-                false, false, false, true);
+                false, false, false, true, false);
     }
 
     /**

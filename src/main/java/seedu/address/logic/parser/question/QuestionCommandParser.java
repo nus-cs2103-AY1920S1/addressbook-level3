@@ -79,7 +79,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
 
             return new QuestionSlideshowCommand(argMultimap.getValue(PREFIX_SLIDESHOW).orElse(""));
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
-            return deleteCommand(index, argMultimap);
+            return deleteCommand(argMultimap);
         } else if (isEdit) { // Edit command
             return editCommand(index, argMultimap);
         } else { // Create command
@@ -155,30 +155,31 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
     /**
      * Performs validation and return the QuestionDeleteCommand object.
      *
-     * @param index       of question in the list.
      * @param argMultimap for tokenized input.
      * @return QuestionDeleteCommand object.
      * @throws ParseException
      */
-    private QuestionDeleteCommand deleteCommand(Index index, ArgumentMultimap argMultimap)
+    private QuestionDeleteCommand deleteCommand(ArgumentMultimap argMultimap)
         throws ParseException {
-        try {
-            int indexToDelete = Integer
-                .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0"));
+        Index indexToDelete;
 
-            if (indexToDelete <= 0) {
+        try {
+            indexToDelete = Index.fromOneBased(Integer
+                .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0")));
+
+            if (indexToDelete.getZeroBased() <= 0) {
                 throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         QuestionDeleteCommand.MESSAGE_USAGE));
             }
-            index.fromOneBased(indexToDelete);
+
         } catch (NumberFormatException e) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     QuestionDeleteCommand.MESSAGE_USAGE));
         }
 
-        return new QuestionDeleteCommand(index);
+        return new QuestionDeleteCommand(indexToDelete);
     }
 
     /**

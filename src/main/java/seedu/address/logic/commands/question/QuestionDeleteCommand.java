@@ -31,7 +31,8 @@ public class QuestionDeleteCommand extends QuestionCommand {
         if (index.getZeroBased() >= model.getAllQuestions().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
         }
-        return new CommandResult(generateSuccessMessage(model.deleteQuestion(index)));
+        return new CommandResult(generateSuccessMessage(model.deleteQuestion(index)), false, false,
+            false, false, false, false, true);
     }
 
     /**

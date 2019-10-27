@@ -60,6 +60,13 @@ public interface Logic {
      * @see seedu.address.model.Model#getSlideshowQuestions()
      */
     ObservableList<Question> getSlideshowQuestions();
+
+    /**
+     * Returns the list of all questions
+     *
+     * @see seedu.address.model.Model#getAllQuestions()
+     */
+    ObservableList<Question> getAllQuestions();
     //endregion
 
     //region Statistics

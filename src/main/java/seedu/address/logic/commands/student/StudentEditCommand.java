@@ -59,7 +59,7 @@ public class StudentEditCommand extends StudentCommand {
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(generateSuccessMessage(editedStudent), false, false,
-                false, false, false, true);
+                false, false, false, true, false);
     }
 
 

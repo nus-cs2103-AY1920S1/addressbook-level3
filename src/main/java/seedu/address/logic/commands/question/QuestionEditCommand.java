@@ -105,7 +105,8 @@ public class QuestionEditCommand extends QuestionCommand {
         }
 
         model.setQuestion(index, questionObj);
-        return new CommandResult(generateSuccessMessage(questionObj));
+        return new CommandResult(generateSuccessMessage(questionObj), false, false,
+            false, false, false, false, true);
     }
 
     /**

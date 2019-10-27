@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     //private PersonListPanel personListPanel;
     private StudentListPanel studentListPanel;
+    private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
@@ -122,6 +123,9 @@ public class MainWindow extends UiPart<Stage> {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
+        questionListPanel = new QuestionListPanel(logic.getAllQuestions());
+        mainPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
 
@@ -135,6 +139,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
+        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
     }
 
     /**
@@ -178,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleSchedule() {
-        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+        eventSchedulePanel.getRoot().toFront();
     }
 
     /**
@@ -186,7 +191,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStudent() {
-        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        studentListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuestion() {
+        questionListPanel.getRoot().toFront();
     }
 
     /**
@@ -262,6 +275,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowStudent()) {
                 handleStudent();
+            }
+
+            if (commandResult.isShowQuestion()) {
+                handleQuestion();
             }
 
 

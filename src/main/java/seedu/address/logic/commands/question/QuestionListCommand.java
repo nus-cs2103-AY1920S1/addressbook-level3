@@ -13,6 +13,7 @@ public class QuestionListCommand extends QuestionCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(model.getQuestionsSummary());
+        return new CommandResult(model.getQuestionsSummary(), false, false,
+            false, false, false, false, true);
     }
 }
