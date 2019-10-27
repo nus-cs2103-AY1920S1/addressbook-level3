@@ -6,7 +6,7 @@ import dream.fcard.gui.components.FlashCardCell;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
-import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

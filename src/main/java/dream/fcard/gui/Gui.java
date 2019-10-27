@@ -1,7 +1,6 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
-import dream.fcard.gui.components.DeckListView;
 import java.util.logging.Logger;
 
 import dream.fcard.MainApp;
@@ -9,6 +8,7 @@ import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.core.commons.util.StringUtil;
 import dream.fcard.gui.components.CommandBar;
 import dream.fcard.gui.components.CommandTextField;
+import dream.fcard.gui.components.DeckListView;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.gui.components.StatusBar;

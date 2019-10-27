@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  */
 public class DeckListView extends VBox {
     // todo: attempt to implement using ListView
-    ObservableList<FlashCardCell> listOfCardsInDeck;
+    private ObservableList<FlashCardCell> listOfCardsInDeck;
 
     /**
      * Creates a new instance of DeckListView representing the given deck.

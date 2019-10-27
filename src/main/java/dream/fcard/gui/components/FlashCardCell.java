@@ -2,16 +2,15 @@ package dream.fcard.gui.components;
 
 import dream.fcard.gui.GuiSettings;
 import dream.fcard.model.cards.FlashCard;
+
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
  * UI component representing the row taken up by an individual flashcard when displayed in a list.
  */
-public class FlashCardCell extends VBox {
+public class FlashCardCell extends HBox {
 
     private Text cardIndex;
     private FlashCardDisplay flashCardDisplay;
