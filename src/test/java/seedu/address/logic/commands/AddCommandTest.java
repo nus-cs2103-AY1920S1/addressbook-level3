@@ -178,6 +178,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setAvatarId(int avatarId) {
+
+        }
+
+        @Override
+        public int getAvatarId() {
+            return 0;
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }

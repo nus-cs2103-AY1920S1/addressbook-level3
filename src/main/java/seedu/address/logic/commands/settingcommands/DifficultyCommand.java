@@ -13,8 +13,7 @@ public class DifficultyCommand extends SettingsCommand {
 
     public static final String COMMAND_WORD = "difficulty";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes difficulty of games"
-            + "Parameters: DIFFICULTY [easy/medium/hard]\n"
+    public static final String MESSAGE_USAGE = "Parameters: difficulty [easy/medium/hard]\n"
             + "Example: " + COMMAND_WORD + " medium";
 
     private final DifficultyEnum difficulty;

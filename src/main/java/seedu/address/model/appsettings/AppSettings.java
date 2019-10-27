@@ -17,6 +17,7 @@ public class AppSettings implements ReadOnlyAppSettings {
     private DifficultyEnum defaultDifficulty = DifficultyEnum.EASY;
     private ThemeEnum defaultTheme = ThemeEnum.DARK;
     private boolean hintsEnabled = false;
+    private int avatarId = 0;
 
 
     /**
@@ -41,6 +42,7 @@ public class AppSettings implements ReadOnlyAppSettings {
         setDefaultDifficulty(newAppSettings.getDefaultDifficulty());
         setDefaultTheme(newAppSettings.getDefaultTheme());
         setHintsEnabled(newAppSettings.getHintsEnabled());
+        setAvatarId(newAppSettings.getAvatarId());
     }
 
     @Override
@@ -81,6 +83,16 @@ public class AppSettings implements ReadOnlyAppSettings {
     public void setHintsEnabled(boolean enabled) {
         requireNonNull(enabled);
         this.hintsEnabled = enabled;
+    }
+
+    @Override
+    public int getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(int i) {
+        requireNonNull(i);
+        this.avatarId = i;
     }
 
     @Override

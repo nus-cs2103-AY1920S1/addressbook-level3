@@ -13,8 +13,7 @@ public class ThemeCommand extends SettingsCommand {
 
     public static final String COMMAND_WORD = "theme";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes theme to light or dark."
-            + "Parameters: THEME [light/dark]\n"
+    public static final String MESSAGE_USAGE = "Parameters: theme [light/dark]\n"
             + "Example: " + COMMAND_WORD + " light";
 
     private final ThemeEnum theme;

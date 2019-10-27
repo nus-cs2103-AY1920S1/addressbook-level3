@@ -138,6 +138,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean getHintsEnabled() {
+        return appSettings.getHintsEnabled();
+    }
+
+    @Override
+    public void setAvatarId(int avatarId) {
+        requireNonNull(avatarId);
+        appSettings.setAvatarId(avatarId);
+    }
+
+    @Override
+    public int getAvatarId() {
+        return appSettings.getAvatarId();
+    }
+
+    @Override
     public long getTimeAllowedPerQuestion() {
         return this.game.getCurrentGameDifficulty().getTimeAllowedPerQuestion();
     }
@@ -155,10 +171,6 @@ public class ModelManager implements Model {
         return game.getHintFormatSizeOfCurrCard();
     }
 
-    @Override
-    public boolean getHintsEnabled() {
-        return appSettings.getHintsEnabled();
-    }
 
     //=========== UserPrefs ==================================================================================
 
