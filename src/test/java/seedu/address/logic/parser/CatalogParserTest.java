@@ -25,7 +25,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteByIndexCommand;
 import seedu.address.logic.commands.DeleteBySerialNumberCommand;
 import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditBorrowerCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -41,10 +41,13 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
+import seedu.address.model.borrower.Borrower;
 import seedu.address.model.borrower.BorrowerIdGenerator;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
-import seedu.address.testutil.EditBookDescriptorBuilder;
+import seedu.address.testutil.BorrowerBuilder;
+import seedu.address.testutil.BorrowerUtil;
+import seedu.address.testutil.EditBorrowerDescriptorBuilder;
 import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 import seedu.address.testutil.UserSettingsBuilder;
 import seedu.address.testutil.UserSettingsUtil;
@@ -85,11 +88,12 @@ public class CatalogParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Book book = new BookBuilder().build();
-        EditCommand.EditBookDescriptor descriptor = new EditBookDescriptorBuilder(book).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_BOOK.getOneBased() + " " + BookUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_BOOK, descriptor), command);
+        Borrower borrower = new BorrowerBuilder().build();
+        EditBorrowerCommand.EditBorrowerDescriptor descriptor = new EditBorrowerDescriptorBuilder(borrower)
+            .build();
+        EditBorrowerCommand command = (EditBorrowerCommand) parser.parseCommand(EditBorrowerCommand
+                .EditBorrowerDescriptor.COMMAND_WORD + " " + BorrowerUtil.getEditBorrowerDescriptorDetails(descriptor));
+        assertEquals(new EditBorrowerCommand(descriptor), command);
     }
 
     @Test
