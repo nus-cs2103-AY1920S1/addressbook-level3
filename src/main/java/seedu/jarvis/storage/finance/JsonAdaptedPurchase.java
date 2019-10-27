@@ -1,15 +1,17 @@
 package seedu.jarvis.storage.finance;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.model.finance.purchase.PurchaseDescription;
 import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 import seedu.jarvis.storage.JsonAdapter;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Jackson-friendly version of {@link Purchase}.
@@ -19,21 +21,21 @@ public class JsonAdaptedPurchase implements JsonAdapter<Purchase> {
     public static final String MESSAGE_INVALID_ATTRIBUTES = "Invalid purchase attributes.";
 
     private final String description;
-    private final String moneySpent;
+    private final String amount;
     private final String date;
 
     /**
      * Constructs a {@code JsonAdaptedPurchase} with the given purchase details.
      *
      * @param description {@code PurchaseDescription} of the purchase.
-     * @param moneySpent {@code PurchaseMoneySpent} of the purchase.
+     * @param amount {@code PurchaseMoneySpent} of the purchase.
      * @param date {@code LocalDate} of the purchase.
      */
     @JsonCreator
-    public JsonAdaptedPurchase(@JsonProperty("description") String description,
-                               @JsonProperty("moneySpent") String moneySpent, @JsonProperty("date") String date) {
+    public JsonAdaptedPurchase(@JsonProperty("description") String description, @JsonProperty("amount") String amount,
+                               @JsonProperty("date") String date) {
         this.description = description;
-        this.moneySpent = moneySpent;
+        this.amount = amount;
         this.date = date;
     }
 
@@ -44,7 +46,7 @@ public class JsonAdaptedPurchase implements JsonAdapter<Purchase> {
      */
     public JsonAdaptedPurchase(Purchase purchase) {
         description = purchase.getDescription().purchaseDescription;
-        moneySpent = purchase.getMoneySpent().toString();
+        amount = purchase.getMoneySpent().toString();
         date = purchase.getDateOfPurchase().format(Purchase.getDateFormat());
     }
 
@@ -57,16 +59,16 @@ public class JsonAdaptedPurchase implements JsonAdapter<Purchase> {
     @Override
     public Purchase toModelType() throws IllegalValueException {
         boolean isValidDescription = description != null && PurchaseDescription.isValidDescription(description);
-        boolean isValidMoneySpent = moneySpent != null && PurchaseMoneySpent.isValidAmount(moneySpent);
+        boolean isValidAmount = amount != null && PurchaseMoneySpent.isValidAmount(amount);
 
-        if (!isValidDescription || !isValidMoneySpent) {
+        if (!isValidDescription || !isValidAmount) {
             throw new IllegalValueException(MESSAGE_INVALID_ATTRIBUTES);
         }
 
         try {
             return new Purchase(
                     new PurchaseDescription(description),
-                    new PurchaseMoneySpent(moneySpent),
+                    new PurchaseMoneySpent(amount),
                     LocalDate.parse(date, Purchase.getDateFormat()));
         } catch (DateTimeParseException dtpe) {
             throw new IllegalValueException(MESSAGE_INVALID_ATTRIBUTES);
