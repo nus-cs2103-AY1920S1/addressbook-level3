@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -29,7 +30,8 @@ import seedu.address.model.student.StudentRecord;
 public class QuestionEditCommandTest {
 
     private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(), new StatisticsRecord(),
+        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(),
+        new StatisticsRecord(),
         new UserPrefs());
 
     @Test
@@ -52,7 +54,8 @@ public class QuestionEditCommandTest {
             options.get("optionD"));
         String expectedMessage = "Edited question: " + expectedQuestion;
 
-        assertCommandSuccess(editCommand, model, expectedMessage, model);
+        assertCommandSuccess(editCommand, model, expectedMessage, model,
+            CommandResultType.SHOW_QUESTION);
     }
 
     @Test
@@ -67,7 +70,8 @@ public class QuestionEditCommandTest {
         Question expectedQuestion = new OpenEndedQuestion(fields.get("question"),
             fields.get("answer"));
         String expectedMessage = "Edited question: " + expectedQuestion;
-        assertCommandSuccess(editCommand, model, expectedMessage, model);
+        assertCommandSuccess(editCommand, model, expectedMessage, model,
+            CommandResultType.SHOW_QUESTION);
     }
 
     @Test

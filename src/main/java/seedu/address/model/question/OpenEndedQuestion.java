@@ -14,4 +14,8 @@ public class OpenEndedQuestion extends Question {
     public OpenEndedQuestion(String question, String answer) {
         super(question, answer);
     }
+
+    public OpenEndedQuestion duplicate() {
+        return new OpenEndedQuestion(question, answer);
+    }
 }

@@ -62,6 +62,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_EXPORT = new Prefix("export");
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
+    public static final Prefix PREFIX_FIND = new Prefix("find/");
 
     public static final Prefix PREFIX_GROUP = new Prefix("group/");
     public static final Prefix PREFIX_GROUP_ID = new Prefix("groupID/");

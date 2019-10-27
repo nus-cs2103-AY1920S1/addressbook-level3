@@ -88,6 +88,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Question> getAllQuestions() {
+        return model.getAllQuestions();
+    }
+
+    @Override
+    public ObservableList<Question> getSearchQuestions() {
+        return model.getSearchQuestions();
+    }
+
+    @Override
     public ObservableList<Statistics> getProcessedStatistics() {
         return model.getProcessedStatistics();
     }

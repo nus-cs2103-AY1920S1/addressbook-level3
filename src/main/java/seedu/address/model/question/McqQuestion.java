@@ -65,6 +65,10 @@ public class McqQuestion extends Question {
         return optionD;
     }
 
+    public McqQuestion duplicate() {
+        return new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
+    }
+
     @Override
     public String toString() {
         return question

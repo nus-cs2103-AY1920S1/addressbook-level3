@@ -39,6 +39,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     //private PersonListPanel personListPanel;
     private StudentListPanel studentListPanel;
+    private QuestionListPanel questionListPanel;
+    private QuestionListPanel searchQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
@@ -132,21 +134,26 @@ public class MainWindow extends UiPart<Stage> {
         this.studentPanelNode = studentListPanel.getRoot();
         mainPanelPlaceholder.getChildren().add(studentPanelNode);
 
+        questionListPanel = new QuestionListPanel(logic.getAllQuestions(), false);
+        mainPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
+        searchQuestionListPanel = new QuestionListPanel(logic.getSearchQuestions(), true);
+        mainPanelPlaceholder.getChildren().add(searchQuestionListPanel.getRoot());
+
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        FooterBar footerBar = new FooterBar();
+        statusbarPlaceholder.getChildren().add(footerBar.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
-        this.eventPaneNode = eventSchedulePanel.getRoot();
-        mainPanelPlaceholder.getChildren().add(eventPaneNode);
+        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
     }
 
     /**
@@ -251,11 +258,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleSchedule() {
-        studentPanelNode.setVisible(false);
-        studentPanelNode.toBack();
-
-        eventPaneNode.setVisible(true);
-        eventPaneNode.toFront();
+        eventSchedulePanel.getRoot().toFront();
     }
 
     /**
@@ -263,11 +266,23 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStudent() {
-        eventPaneNode.setVisible(false);
-        eventPaneNode.toBack();
+        studentListPanel.getRoot().toFront();
+    }
 
-        studentPanelNode.setVisible(true);
-        studentPanelNode.toFront();
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuestion() {
+        questionListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuestionSearch() {
+        searchQuestionListPanel.getRoot().toFront();
     }
 
     /**
@@ -309,7 +324,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException, IOException {
+        throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -349,10 +364,15 @@ public class MainWindow extends UiPart<Stage> {
             case SHOW_STUDENT:
                 handleStudent();
                 break;
+            case SHOW_QUESTION:
+                handleQuestion();
+                break;
+            case SHOW_QUESTION_SEARCH:
+                handleQuestionSearch();
+                break;
             default:
                 break;
             }
-
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);

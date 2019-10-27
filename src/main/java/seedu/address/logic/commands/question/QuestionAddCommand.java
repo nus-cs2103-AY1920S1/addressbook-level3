@@ -3,6 +3,7 @@ package seedu.address.logic.commands.question;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.question.McqQuestion;
@@ -97,7 +98,7 @@ public class QuestionAddCommand extends QuestionCommand {
         }
 
         model.addQuestion(question);
-        return new CommandResult(generateSuccessMessage(question));
+        return new CommandResult(generateSuccessMessage(question), CommandResultType.SHOW_QUESTION);
     }
 
     /**

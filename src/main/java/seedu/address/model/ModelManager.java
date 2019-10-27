@@ -433,8 +433,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getSearchQuestions() {
+        return savedQuestions.getSearchQuestions();
+    }
+
+    @Override
     public Question getQuestion(Index index) {
         return savedQuestions.getQuestion(index);
+    }
+
+    @Override
+    public String searchQuestions(String textToFind) {
+        return savedQuestions.searchQuestions(textToFind);
     }
 
     @Override

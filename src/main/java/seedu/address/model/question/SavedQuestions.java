@@ -57,6 +57,14 @@ public class SavedQuestions implements ReadOnlyQuestions {
     }
 
     /**
+     * Returns all result of questions searched.
+     * @return The searched questions list.
+     */
+    public ObservableList<Question> getSearchQuestions() {
+        return questions.getSearchQuestions();
+    }
+
+    /**
      * Replaces the contents of the Question list with {@code Questions}. {@code Questions} must not
      * contain duplicate Questions.
      */
@@ -103,7 +111,17 @@ public class SavedQuestions implements ReadOnlyQuestions {
     }
 
     /**
-     * Returns the question object.
+     * Returns the summary of questions searched.
+     *
+     * @param textToFind text to find from questions list.
+     * @return Summary of questions searched.
+     */
+    public String searchQuestions(String textToFind) {
+        return questions.searchQuestions(textToFind);
+    }
+
+    /**
+     * Returns the questions summary.
      *
      * @return Summary of questions.
      */
