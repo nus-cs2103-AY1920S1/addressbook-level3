@@ -22,7 +22,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyEvents;
+import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.CalendarCompatibleRecord;
@@ -204,7 +204,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyEvents getEventList() {
+        public ReadOnlyPerformance getPerformance() {
             return null;
         }
 

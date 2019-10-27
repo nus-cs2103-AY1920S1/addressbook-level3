@@ -45,7 +45,7 @@ public class JsonAdaptedEvent {
     public JsonAdaptedEvent(Event source) {
         name = source.getName();
         HashMap<String, List<JsonAdaptedRecord>> tempPerformances = new HashMap<>(); // for json
-        HashMap<Person, List<Record>> sourcePerformances = source.getPerformances(); // actual performances
+        HashMap<Person, List<Record>> sourcePerformances = source.getRecords(); // actual performances
         sourcePerformances.forEach((person, records) -> {
             JsonAdaptedPerson newPerson = new JsonAdaptedPerson(person);
             List<JsonAdaptedRecord> tempRecords = new ArrayList<>();

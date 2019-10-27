@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEvents.getTypicalEventList;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -27,9 +27,9 @@ import seedu.address.model.person.TagMatchesPredicate;
  */
 public class FilterCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
             new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(),
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(),
             new UserPrefs());
 
     @Test
