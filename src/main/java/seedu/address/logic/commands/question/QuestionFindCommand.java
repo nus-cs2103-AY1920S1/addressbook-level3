@@ -8,12 +8,19 @@ import seedu.address.model.Model;
 /**
  * Creates a new question to be added to the question list.
  */
-public class QuestionListCommand extends QuestionCommand {
+public class QuestionFindCommand extends QuestionCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " list: List summary of questions";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " find/ [QUESTION TEXT]";
+
+    private final String textToFind;
+
+    public QuestionFindCommand(String textToFind) {
+        this.textToFind = textToFind;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(model.getQuestionsSummary(), CommandResultType.SHOW_QUESTION);
+        return new CommandResult(model.searchQuestions(textToFind),
+            CommandResultType.SHOW_QUESTION_SEARCH);
     }
 }

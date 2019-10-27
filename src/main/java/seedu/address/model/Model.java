@@ -261,9 +261,19 @@ public interface Model {
     ObservableList<Question> getAllQuestions();
 
     /**
+     * Returns the list of search questions.
+     */
+    ObservableList<Question> getSearchQuestions();
+
+    /**
      * Returns the question based on its Index.
      */
     Question getQuestion(Index index);
+
+    /**
+     * Returns the summary of questions searched.
+     */
+    String searchQuestions(String textToFind);
 
     /**
      * Replaces the question at the specified index.
