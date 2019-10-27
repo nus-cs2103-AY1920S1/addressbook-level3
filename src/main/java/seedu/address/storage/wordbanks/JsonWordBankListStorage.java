@@ -101,9 +101,10 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Creates a word bank object from the specified .json file given as filePath.
+     * Creates a word bank object from the specified json file given as filePath.
      *
      * @param filePath location of the .json word bank file. Cannot be null.
+     * @return optional read only word bank.
      */
     private Optional<ReadOnlyWordBank> jsonToWordBank(Path filePath) {
         try {
@@ -116,7 +117,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             String pathName = filePath.toString();
             int len = filePath.getParent().toString().length();
             String wordBankName = pathName.substring(len + 1, pathName.length() - ".json".length());
-            return Optional.of(jsonWordBank.get().toModelType(wordBankName));
+            return Optional.of(jsonWordBank.get().toModelTypeWithName(wordBankName));
 
         } catch (IllegalValueException | DataConversionException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
@@ -126,6 +127,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
     /**
      * Save a word bank into the default file location.
+     *
+     * @param wordBank word bank.
      */
     private void saveWordBank(ReadOnlyWordBank wordBank) {
         saveWordBank(wordBank, wordBanksFilePath);

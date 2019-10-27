@@ -19,9 +19,11 @@ import seedu.address.model.wordbank.WordBank;
 @JsonRootName(value = "wordBank")
 class JsonSerializableWordBank {
 
-    public static final String MESSAGE_DUPLICATE_WORD_BANK = "Word bank contains duplicate card(s).";
+    public static final String MESSAGE_DUPLICATE_CARDS_IN_WORD_BANK = "Word bank contains duplicate card(s).";
 
     private final List<JsonAdaptedCard> wordBank = new ArrayList<>();
+
+    private String name;
 
     /**
      * Constructs a {@code JsonSerializableWordBank} with the given word bank.
@@ -37,6 +39,7 @@ class JsonSerializableWordBank {
      * @param source future changes to this will not affect the created {@code JsonSerializableWordBank}.
      */
     public JsonSerializableWordBank(ReadOnlyWordBank source) {
+        this.name = source.getName();
         wordBank.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
     }
 
@@ -45,16 +48,24 @@ class JsonSerializableWordBank {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public WordBank toModelType(String name) throws IllegalValueException {
+    public WordBank toModelType() throws IllegalValueException {
         WordBank wordBank = new WordBank(name);
         for (JsonAdaptedCard jsonAdaptedCard : this.wordBank) {
             Card card = jsonAdaptedCard.toModelType();
             if (wordBank.hasCard(card)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_WORD_BANK);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CARDS_IN_WORD_BANK);
             }
             wordBank.addCard(card);
         }
         return wordBank;
     }
 
+    public WordBank toModelTypeWithName(String name) throws IllegalValueException {
+        this.name = name;
+        return toModelType();
+    }
+
+    public String getName() {
+        return name;
+    }
 }

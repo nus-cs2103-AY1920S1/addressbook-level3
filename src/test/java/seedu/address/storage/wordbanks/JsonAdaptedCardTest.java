@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.wordbanks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.wordbanks.JsonAdaptedCard.MISSING_FIELD_MESSAGE_FORMAT;
@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Meaning;
 import seedu.address.model.card.Word;
-import seedu.address.storage.wordbanks.JsonAdaptedCard;
-import seedu.address.storage.wordbanks.JsonAdaptedTag;
 
 public class JsonAdaptedCardTest {
     private static final String INVALID_WORD = "  "; // Empty spaces
