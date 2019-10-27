@@ -22,7 +22,7 @@ import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 
 public class AddExpenseCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private AddExpenseCommandParser parser = new AddExpenseCommandParser();
 
     // addCommand should never return a same command as another, so cannot check if the command is same as expected
 
