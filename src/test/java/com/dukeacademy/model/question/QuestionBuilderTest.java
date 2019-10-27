@@ -23,6 +23,8 @@ class QuestionBuilderTest {
     private final Set<Topic> validTopics = new HashSet<>();
     private final List<TestCase> validTestCases = new ArrayList<>();
     private final UserProgram validUserProgram = new UserProgram("Test", "");
+    private final String validDescription = "description";
+    private final Boolean validIsBookmarked = true;
 
     @BeforeEach
     void populateTopicsAndTestCases() {
@@ -44,28 +46,40 @@ class QuestionBuilderTest {
                 .withDifficulty(validDifficulty)
                 .withTopics(validTopics.toArray(Topic[]::new))
                 .withTestCases(validTestCases.toArray(TestCase[]::new))
-                .withUserProgram(validUserProgram).build());
+                .withUserProgram(validUserProgram)
+                .withDescription(validDescription)
+                .withIsBookmarked(validIsBookmarked)
+                .build());
 
         assertThrows(IllegalArgumentException.class, () -> new QuestionBuilder()
                 .withTitle(validTitle)
                 .withDifficulty(validDifficulty)
                 .withTopics(validTopics.toArray(Topic[]::new))
                 .withTestCases(validTestCases.toArray(TestCase[]::new))
-                .withUserProgram(validUserProgram).build());
+                .withUserProgram(validUserProgram)
+                .withDescription(validDescription)
+                .withIsBookmarked(validIsBookmarked)
+                .build());
 
         assertThrows(IllegalArgumentException.class, () -> new QuestionBuilder()
                 .withStatus(validStatus)
                 .withDifficulty(validDifficulty)
                 .withTopics(validTopics.toArray(Topic[]::new))
                 .withTestCases(validTestCases.toArray(TestCase[]::new))
-                .withUserProgram(validUserProgram).build());
+                .withUserProgram(validUserProgram)
+                .withDescription(validDescription)
+                .withIsBookmarked(validIsBookmarked)
+                .build());
 
         assertThrows(IllegalArgumentException.class, () -> new QuestionBuilder()
                 .withTitle(validTitle)
                 .withStatus(validStatus)
                 .withTopics(validTopics.toArray(Topic[]::new))
                 .withTestCases(validTestCases.toArray(TestCase[]::new))
-                .withUserProgram(validUserProgram).build());
+                .withUserProgram(validUserProgram)
+                .withDescription(validDescription)
+                .withIsBookmarked(validIsBookmarked)
+                .build());
 
         Question question = new QuestionBuilder()
                 .withTitle(validTitle)
@@ -73,7 +87,10 @@ class QuestionBuilderTest {
                 .withDifficulty(validDifficulty)
                 .withTopics(validTopics.toArray(Topic[]::new))
                 .withTestCases(validTestCases.toArray(TestCase[]::new))
-                .withUserProgram(validUserProgram).build();
+                .withUserProgram(validUserProgram)
+                .withDescription(validDescription)
+                .withIsBookmarked(validIsBookmarked)
+                .build();
 
         assertEquals(validTitle, question.getTitle());
         assertEquals(validStatus, question.getStatus());
@@ -81,5 +98,7 @@ class QuestionBuilderTest {
         assertEquals(validTopics, question.getTopics());
         assertEquals(validTestCases, question.getTestCases());
         assertEquals(validUserProgram, question.getUserProgram());
+        assertEquals(validDescription, question.getDescription());
+        assertEquals(validIsBookmarked, question.isBookmarked());
     }
 }

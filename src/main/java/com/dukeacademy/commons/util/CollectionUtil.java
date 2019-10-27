@@ -12,7 +12,12 @@ import java.util.stream.Stream;
  */
 public class CollectionUtil {
 
-    /** @see #requireAllNonNull(Collection) */
+    /**
+     * Require all non null.
+     *
+     * @param items the items
+     * @see #requireAllNonNull(Collection) #requireAllNonNull(Collection)#requireAllNonNull(Collection)
+     */
     public static void requireAllNonNull(Object... items) {
         requireNonNull(items);
         Stream.of(items).forEach(Objects::requireNonNull);
@@ -20,6 +25,8 @@ public class CollectionUtil {
 
     /**
      * Throws NullPointerException if {@code items} or any element of {@code items} is null.
+     *
+     * @param items the items
      */
     public static void requireAllNonNull(Collection<?> items) {
         requireNonNull(items);
@@ -28,6 +35,9 @@ public class CollectionUtil {
 
     /**
      * Returns true if {@code items} contain any elements that are non-null.
+     *
+     * @param items the items
+     * @return the boolean
      */
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);

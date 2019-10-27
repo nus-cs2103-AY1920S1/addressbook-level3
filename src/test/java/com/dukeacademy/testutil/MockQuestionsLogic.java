@@ -17,8 +17,9 @@ import javafx.collections.transformation.FilteredList;
 public class MockQuestionsLogic implements QuestionsLogic {
     private ObservableList<Question> questions;
     private FilteredList<Question> filteredQuestions;
+    private String problemStatement;
 
-    public MockQuestionsLogic() {
+    private MockQuestionsLogic() {
 
     }
 
@@ -79,4 +80,14 @@ public class MockQuestionsLogic implements QuestionsLogic {
     public void deleteAllQuestions() {
         this.questions.clear();
     }
+
+    @Override public String getProblemStatement() {
+        return this.problemStatement;
+    }
+
+    @Override public void setProblemStatement(String problemStatement) {
+        this.problemStatement = problemStatement;
+    }
+
+
 }

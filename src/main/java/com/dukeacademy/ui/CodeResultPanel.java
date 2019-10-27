@@ -48,6 +48,11 @@ public class CodeResultPanel extends UiPart<Region> {
     @FXML
     private Text actualOutput3;
 
+    /**
+     * Instantiates a new Code result panel.
+     *
+     * @param testResultObservable the test result observable
+     */
     public CodeResultPanel(Observable<TestResult> testResultObservable) {
         super(FXML);
 

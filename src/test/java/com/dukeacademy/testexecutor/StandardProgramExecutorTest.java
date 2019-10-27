@@ -19,11 +19,10 @@ import com.dukeacademy.testexecutor.models.ProgramInput;
 import com.dukeacademy.testexecutor.models.ProgramOutput;
 
 class StandardProgramExecutorTest {
-    private static Path testProgramsFolder = Paths.get("src", "test", "data", "TestPrograms",
+    private static final Path testProgramsFolder = Paths.get("src", "test", "data", "TestPrograms",
             "ProgramExecutor");
 
-    @Test
-    public void testExecuteValidProgramNoInput() throws IOException, ProgramExecutorException {
+    @Test void testExecuteValidProgramNoInput() throws IOException, ProgramExecutorException {
         StandardProgramExecutor executor = new StandardProgramExecutor();
 
         ClassFile program = new ClassFile("NoInputTest", testProgramsFolder.toString());
@@ -35,8 +34,7 @@ class StandardProgramExecutorTest {
         assertEquals(expectedOutput, output.getOutput());
     }
 
-    @Test
-    public void testExecuteValidProgramWithInput() throws IOException, ProgramExecutorException {
+    @Test void testExecuteValidProgramWithInput() throws IOException, ProgramExecutorException {
         StandardProgramExecutor executor = new StandardProgramExecutor();
 
         ClassFile program = new ClassFile("WithInputTest", testProgramsFolder.toString());
@@ -48,8 +46,7 @@ class StandardProgramExecutorTest {
         assertEquals(expectedOutput, output.getOutput());
     }
 
-    @Test
-    public void testExecuteProgramRuntimeError() throws ProgramExecutorException, FileNotFoundException {
+    @Test void testExecuteProgramRuntimeError() throws ProgramExecutorException, FileNotFoundException {
         StandardProgramExecutor executor = new StandardProgramExecutor();
 
         ClassFile programClassFile = new ClassFile("OutOfBounds", testProgramsFolder.toString());

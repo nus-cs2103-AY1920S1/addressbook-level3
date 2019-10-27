@@ -18,14 +18,27 @@ public class StandardQuestionBank implements QuestionBank {
     private final ObservableList<Question> unmodifiableQuestionList =
             FXCollections.unmodifiableObservableList(questionList);
 
+    /**
+     * Instantiates a new Standard question bank.
+     */
     public StandardQuestionBank() {
     }
 
+    /**
+     * Instantiates a new Standard question bank.
+     *
+     * @param questions the questions
+     */
     public StandardQuestionBank(Collection<Question> questions) {
         this();
         this.setQuestions(questions);
     }
 
+    /**
+     * Instantiates a new Standard question bank.
+     *
+     * @param bank the bank
+     */
     public StandardQuestionBank(QuestionBank bank) {
         this();
         this.setQuestions(bank.getReadOnlyQuestionListObservable());

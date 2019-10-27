@@ -18,14 +18,12 @@ import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 
 class ExitCommandFactoryTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
 
-    @BeforeEach
-    public void initializeTest() throws LogicCreationException {
+    @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
     }

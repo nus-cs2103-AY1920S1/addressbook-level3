@@ -20,15 +20,14 @@ import com.dukeacademy.testutil.TypicalQuestions;
 
 import javafx.collections.transformation.SortedList;
 
-public class JsonSerializableStandardQuestionBankTest {
+class JsonSerializableStandardQuestionBankTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonSerializableQuestionBankTest");
     private static final Path TYPICAL_QUESTIONS_FILE = TEST_DATA_FOLDER.resolve("typicalQuestionQuestionBank.json");
     private static final Path INVALID_QUESTION_FILE = TEST_DATA_FOLDER.resolve("invalidQuestionQuestionBank.json");
 
-    @Test
-    public void toModelType_typicalQuestionsFile_success() throws Exception {
+    @Test void toModelType_typicalQuestionsFile_success() throws Exception {
         JsonSerializableStandardQuestionBank dataFromFile = JsonUtil.readJsonFile(TYPICAL_QUESTIONS_FILE,
                 JsonSerializableStandardQuestionBank.class).get();
         StandardQuestionBank standardQuestionBankFromFile = dataFromFile.toModelType();
@@ -36,8 +35,7 @@ public class JsonSerializableStandardQuestionBankTest {
         assertTrue(this.checkQuestionBanksEqual(standardQuestionBankFromFile, typicalQuestionsStandardQuestionBank));
     }
 
-    @Test
-    public void toModelType_invalidQuestionFile_throwsIllegalValueException() throws Exception {
+    @Test void toModelType_invalidQuestionFile_throwsIllegalValueException() throws Exception {
         JsonSerializableStandardQuestionBank dataFromFile = JsonUtil.readJsonFile(INVALID_QUESTION_FILE,
                 JsonSerializableStandardQuestionBank.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);

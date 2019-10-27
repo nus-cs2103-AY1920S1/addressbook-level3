@@ -9,18 +9,20 @@ import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.StringUtil;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
-import com.dukeacademy.logic.parser.exceptions.ParseException;
 
 /**
  * Helper class used by CommandLogicManager to keep track and instantiate registered Command classes.
  */
-public class CommandParser {
+class CommandParser {
     private static final String commandNotRecognizedMessage = "Command word not recognized : ";
     private static final String commandNotValidWord = "Command is not a valid word : ";
 
-    private Map<String, CommandSupplier> commandFactoryMap;
-    private Logger logger = LogsCenter.getLogger(CommandParser.class);
+    private final Map<String, CommandSupplier> commandFactoryMap;
+    private final Logger logger = LogsCenter.getLogger(CommandParser.class);
 
+    /**
+     * Instantiates a new Command parser.
+     */
     public CommandParser() {
         this.commandFactoryMap = new HashMap<>();
     }
@@ -40,7 +42,8 @@ public class CommandParser {
      *
      * @param commandText the command text used to invoke the command.
      * @return a command instance corresponding to the command text.
-     * @throws ParseException if the command keyword or arguments are invalid.
+     * @throws InvalidCommandKeywordException   the invalid command keyword exception
+     * @throws InvalidCommandArgumentsException the invalid command arguments exception
      */
     public Command parseCommandText(String commandText) throws InvalidCommandKeywordException,
             InvalidCommandArgumentsException {

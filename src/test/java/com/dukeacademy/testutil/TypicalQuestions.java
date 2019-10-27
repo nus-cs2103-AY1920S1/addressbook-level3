@@ -26,6 +26,7 @@ public class TypicalQuestions {
                     new TestCase("100 2", "102\n"))
             .withUserProgram(new UserProgram("Adder",
                     "public class Adder { public static void main(String[] args) { } }"))
+            .withDescription("description")
             .build();
 
     private static final Question VALID_SUDOKU = new QuestionBuilder()
@@ -37,6 +38,7 @@ public class TypicalQuestions {
                     new TestCase("-1 -1 -1 -1", "False"))
             .withUserProgram(new UserProgram("Sudoku",
                     "public class Sudoku { public static void main(String[] args) { } }"))
+            .withDescription("description")
             .build();
 
     private static final Question PALINDROME_NUMBER = new QuestionBuilder()
@@ -48,6 +50,7 @@ public class TypicalQuestions {
                     new TestCase("10111", "False"))
             .withUserProgram(new UserProgram("Palindrome",
                     "public class Palindrome { public static void main(String[] args) { } }"))
+            .withDescription("description")
             .build();
 
     private static final Question SWAP_NODES_IN_PAIRS = new QuestionBuilder()
@@ -58,6 +61,7 @@ public class TypicalQuestions {
             .withTestCases(new TestCase("5 12 33 23", "4132"),
                     new TestCase("2 31 01", "1232"))
             .withUserProgram(new UserProgram("NodePairs", ""))
+            .withDescription("description")
             .build();
 
     private static final Question MERGE_K_SORTED_LISTS = new QuestionBuilder()
@@ -69,6 +73,7 @@ public class TypicalQuestions {
                     new TestCase("1 4 1 2 3 4", "1 2 3 4"))
             .withUserProgram(new UserProgram("Merge",
                     "public class Merge { public static void main(String[] args) { } }"))
+            .withDescription("description")
             .build();
 
     private TypicalQuestions() {} // prevents instantiation

@@ -14,36 +14,43 @@ public interface QuestionBank {
     /**
      * Returns an unmodifiable view of the questions in question bank.. The order of the questions in the list must
      * always follow the ordering of their unique ids at any point.
+     *
+     * @return the read only question list observable
      */
     ObservableList<Question> getReadOnlyQuestionListObservable();
 
     /**
      * Adds a new question to the question bank.
+     *
      * @param question the question to be added.
      */
     void addQuestion(Question question);
 
     /**
      * Adds the questions from a different question bank to this instance.
+     *
      * @param questionBank the question bank from which the questions are to be added.
      */
     void addQuestionBank(QuestionBank questionBank);
 
     /**
      * Replaces all the questions in the question bank with the new collection.
+     *
      * @param questions new collection of questions.
      */
     void setQuestions(Collection<Question> questions);
 
     /**
      * Replaces the question corresponding to the id provided with a new question.
-     * @param id the id of the question to be replaced
+     *
+     * @param id       the id of the question to be replaced
      * @param question the new question.
      */
     void replaceQuestion(int id, Question question);
 
     /**
      * Replaces an old question with new question.
+     *
      * @param oldQuestion the old question to be replaced.
      * @param newQuestion the new question.
      */
@@ -51,12 +58,14 @@ public interface QuestionBank {
 
     /**
      * Removes the question corresponding to the id provided.
+     *
      * @param id the id of the question to be deleted.
      */
     void removeQuestion(int id);
 
     /**
      * Removes the question given.
+     *
      * @param oldQuestion the question to be removed
      */
     void removeQuestion(Question oldQuestion);

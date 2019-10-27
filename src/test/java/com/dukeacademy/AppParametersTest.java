@@ -12,33 +12,30 @@ import org.junit.jupiter.api.Test;
 
 import javafx.application.Application;
 
-public class AppParametersTest {
+class AppParametersTest {
 
     private final ParametersStub parametersStub = new ParametersStub();
     private final AppParameters expected = new AppParameters();
 
-    @Test
-    public void parse_validConfigPath_success() {
+    @Test void parse_validConfigPath_success() {
         parametersStub.namedParameters.put("config", "config.json");
         expected.setConfigPath(Paths.get("config.json"));
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
-    @Test
-    public void parse_nullConfigPath_success() {
+    @Test void parse_nullConfigPath_success() {
         parametersStub.namedParameters.put("config", null);
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
-    @Test
-    public void parse_invalidConfigPath_success() {
+    @Test void parse_invalidConfigPath_success() {
         parametersStub.namedParameters.put("config", "a\0");
         expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
     private static class ParametersStub extends Application.Parameters {
-        private Map<String, String> namedParameters = new HashMap<>();
+        private final Map<String, String> namedParameters = new HashMap<>();
 
         @Override
         public List<String> getRaw() {

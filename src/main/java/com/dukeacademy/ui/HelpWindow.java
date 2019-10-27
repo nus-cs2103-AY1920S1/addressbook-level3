@@ -14,10 +14,16 @@ import javafx.stage.Stage;
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart<Stage> {
+class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    /**
+     * The constant USERGUIDE_URL.
+     */
+    private static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    /**
+     * The constant HELP_MESSAGE.
+     */
+    private static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -33,7 +39,7 @@ public class HelpWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HelpWindow(Stage root) {
+    private HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
         root.sizeToScene();
@@ -48,21 +54,12 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Shows the help window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
+     *
+     * @throws IllegalStateException <ul>     <li> if this method is called
+     * on a thread other than the JavaFX Application Thread.     </li>
+     * <li>         if this method is called during animation or layout processing.
+     * </li>     <li>         if this method is called on the primary stage.     </li>
+     * <li>         if {@code dialogStage} is already showing.     </li> </ul>
      */
     public void show() {
         logger.fine("Showing help page about the application.");
@@ -72,6 +69,8 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Returns true if the help window is currently being shown.
+     *
+     * @return the boolean
      */
     public boolean isShowing() {
         return getRoot().isShowing();

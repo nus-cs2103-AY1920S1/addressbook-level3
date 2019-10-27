@@ -16,7 +16,8 @@
     "userProgram" : {
       "canonicalName": "Adder",
       "sourceCode": "public class Adder { public static void main(String[] args) { } }"
-    }
+    },
+    "description" : "description"
   }, {
     "title" : "Valid Sudoku",
     "status" : "PASSED",
@@ -33,7 +34,8 @@
     "userProgram" : {
       "canonicalName": "Sudoku",
       "sourceCode": "public class Sudoku { public static void main(String[] args) { } }"
-    }
+    },
+    "description" : "description"
   }, {
     "title" : "Palindrome Number",
     "status" : "PASSED",
@@ -50,7 +52,8 @@
     "userProgram" : {
       "canonicalName": "Palindrome",
       "sourceCode": "public class Palindrome { public static void main(String[] args) { } }"
-    }
+    },
+    "description" : "description"
   }, {
     "title" : "Swap nodes in pairs",
     "status" : "NEW",
@@ -67,7 +70,8 @@
     "userProgram" : {
       "canonicalName": "NodePairs",
       "sourceCode": ""
-    }
+    },
+    "description" : "description"
   }, {
     "title" : "Merge k Sorted Lists",
     "status" : "ATTEMPTED",
@@ -84,6 +88,7 @@
     "userProgram" : {
       "canonicalName": "Merge",
       "sourceCode": "public class Merge { public static void main(String[] args) { } }"
-    }
+    },
+    "description" : "description"
   }]
 }

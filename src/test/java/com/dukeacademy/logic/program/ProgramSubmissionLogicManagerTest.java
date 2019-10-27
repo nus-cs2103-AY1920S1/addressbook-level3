@@ -259,10 +259,9 @@ class ProgramSubmissionLogicManagerTest {
         Difficulty difficulty = Difficulty.HARD;
         Set<Topic> topics = new HashSet<>();
         boolean isBookmarked = true;
-
+        String description = "description";
         return new Question(title, status, difficulty, topics, testCases,
-                new UserProgram("Main", ""), true);
-
+                new UserProgram("Main", ""), true, description);
     }
 
     @Test

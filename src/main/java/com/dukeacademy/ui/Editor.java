@@ -1,5 +1,4 @@
 package com.dukeacademy.ui;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -34,6 +33,11 @@ public class Editor extends UiPart<Region> {
     @FXML
     private TextArea textOutput;
 
+    /**
+     * Instantiates a new Editor.
+     *
+     * @param questionObservable the question observable
+     */
     public Editor(Observable<Question> questionObservable) {
         super(FXML);
 
@@ -61,6 +65,7 @@ public class Editor extends UiPart<Region> {
 
     /**
      * Saves file into user's computer upon clicking the "Save" button.
+     *
      * @param e the ActionEvent
      * @throws IOException when the user's file cannot be accessed
      */
@@ -75,10 +80,12 @@ public class Editor extends UiPart<Region> {
         fw.close();
     }
 
+
     /**
      * On click btn submit.
      *
      * @param e the e
+     * @return the string
      */
     @FXML
     public String onSubmitButtonClick(ActionEvent e) {
@@ -88,6 +95,7 @@ public class Editor extends UiPart<Region> {
 
     /**
      * Returns the current text in the editor.
+     *
      * @return current text in editor.
      */
     public UserProgram getUserProgram() {

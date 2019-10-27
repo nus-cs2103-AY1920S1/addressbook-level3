@@ -16,6 +16,12 @@ public class TestResult {
     private final long numPassed;
     private final Optional<CompileError> compileError;
 
+
+    /**
+     * Instantiates a new Test executor result.
+     *
+     * @param results the results
+     */
     public TestResult(List<TestCaseResult> results) {
         requireNonNull(results);
 
@@ -24,6 +30,11 @@ public class TestResult {
         this.compileError = Optional.empty();
     }
 
+    /**
+     * Instantiates a new Test executor result.
+     *
+     * @param compileError the compile error
+     */
     public TestResult(CompileError compileError) {
         this.results = new ArrayList<>();
         this.numPassed = 0;
@@ -32,6 +43,7 @@ public class TestResult {
 
     /**
      * Returns if the test result was successful.
+     *
      * @return true if the test was successful
      */
     public boolean isSuccessful() {
@@ -42,14 +54,29 @@ public class TestResult {
         return this.numPassed == results.size();
     }
 
+    /**
+     * Gets results.
+     *
+     * @return the results
+     */
     public List<TestCaseResult> getResults() {
         return results;
     }
 
+    /**
+     * Gets num passed.
+     *
+     * @return the num passed
+     */
     public long getNumPassed() {
         return numPassed;
     }
 
+    /**
+     * Gets compile error.
+     *
+     * @return the compile error
+     */
     public Optional<CompileError> getCompileError() {
         return compileError;
     }

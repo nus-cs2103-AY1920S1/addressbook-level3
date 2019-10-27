@@ -5,6 +5,11 @@ package com.dukeacademy.testexecutor.exceptions;
  * canonical name.
  */
 public class IncorrectCanonicalNameException extends Exception {
+    /**
+     * Instantiates a new Incorrect canonical name exception.
+     *
+     * @param message the message
+     */
     public IncorrectCanonicalNameException(String message) {
         super(message);
     }

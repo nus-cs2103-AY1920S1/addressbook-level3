@@ -23,6 +23,8 @@ public class JsonSerializableStandardQuestionBank {
 
     /**
      * Constructs a {@code JsonSerializableQuestionBank} with the given questions.
+     *
+     * @param questions the questions
      */
     @JsonCreator
     public JsonSerializableStandardQuestionBank(@JsonProperty("questions") List<JsonAdaptedQuestion> questions) {
@@ -31,6 +33,7 @@ public class JsonSerializableStandardQuestionBank {
 
     /**
      * Creates a JsonSerializableQuestionBank from the given question bank as source.
+     *
      * @param source the question bank to be used as the source.
      */
     public JsonSerializableStandardQuestionBank(QuestionBank source) {
@@ -42,6 +45,7 @@ public class JsonSerializableStandardQuestionBank {
     /**
      * Converts this question bank into the model's {@code QuestionBank} object.
      *
+     * @return the standard question bank
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public StandardQuestionBank toModelType() throws IllegalValueException {

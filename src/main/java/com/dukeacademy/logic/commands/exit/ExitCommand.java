@@ -20,6 +20,12 @@ public class ExitCommand implements Command {
     private final ProgramSubmissionLogic programSubmissionLogic;
     private final QuestionsLogic questionsLogic;
 
+    /**
+     * Instantiates a new Exit command.
+     *
+     * @param questionsLogic         the questions logic
+     * @param programSubmissionLogic the program submission logic
+     */
     public ExitCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
         this.logger = LogsCenter.getLogger(ExitCommand.class);
         this.programSubmissionLogic = programSubmissionLogic;
@@ -44,7 +50,8 @@ public class ExitCommand implements Command {
             logger.info("No question attempt found. Skipping program save.");
         }
 
-        return new CommandResult("Exiting application...", false, true);
+        return new CommandResult("Exiting application...", false,
+            true, false, false);
     }
 
     private void saveQuestion(Question oldQuestion, Question newQuestion) {

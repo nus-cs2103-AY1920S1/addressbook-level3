@@ -11,7 +11,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public class Version implements Comparable<Version> {
 
-    public static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";
+    /**
+     * The constant VERSION_REGEX.
+     */
+    private static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";
 
     private static final String EXCEPTION_STRING_NOT_VERSION = "String is not a valid Version. %s";
 
@@ -22,6 +25,14 @@ public class Version implements Comparable<Version> {
     private final int patch;
     private final boolean isEarlyAccess;
 
+    /**
+     * Instantiates a new Version.
+     *
+     * @param major         the major
+     * @param minor         the minor
+     * @param patch         the patch
+     * @param isEarlyAccess the is early access
+     */
     public Version(int major, int minor, int patch, boolean isEarlyAccess) {
         this.major = major;
         this.minor = minor;
@@ -29,26 +40,48 @@ public class Version implements Comparable<Version> {
         this.isEarlyAccess = isEarlyAccess;
     }
 
+    /**
+     * Gets major.
+     *
+     * @return the major
+     */
     public int getMajor() {
         return major;
     }
 
+    /**
+     * Gets minor.
+     *
+     * @return the minor
+     */
     public int getMinor() {
         return minor;
     }
 
+    /**
+     * Gets patch.
+     *
+     * @return the patch
+     */
     public int getPatch() {
         return patch;
     }
 
+    /**
+     * Is early access boolean.
+     *
+     * @return the boolean
+     */
     public boolean isEarlyAccess() {
         return isEarlyAccess;
     }
 
     /**
      * Parses a version number string in the format V1.2.3.
+     *
      * @param versionString version number string
      * @return a Version object
+     * @throws IllegalArgumentException the illegal argument exception
      */
     @JsonCreator
     public static Version fromString(String versionString) throws IllegalArgumentException {

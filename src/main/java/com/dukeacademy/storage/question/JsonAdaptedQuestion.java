@@ -27,12 +27,21 @@ public class JsonAdaptedQuestion {
     private final boolean isBookmarked;
     private final List<String> topics = new ArrayList<>();
     private final List<JsonAdaptedTestCase> testCases = new ArrayList<>();
-    private JsonAdaptedUserProgram userProgram;
-
+    private final JsonAdaptedUserProgram userProgram;
+    private final String description;
 
 
     /**
      * Constructs a {@code JsonAdaptedQuestion} with the given question details.
+     *
+     * @param title       the title
+     * @param status      the status
+     * @param difficulty  the difficulty
+     * @param topics      the topics
+     * @param testCases   the test cases
+     * @param userProgram the user program
+     * @param description the description
+     * @param isBookmarked the bookMark indicator
      */
     @JsonCreator
     public JsonAdaptedQuestion(@JsonProperty("title") String title, @JsonProperty("status") String status,
@@ -40,7 +49,8 @@ public class JsonAdaptedQuestion {
                                @JsonProperty("isBookmarked") boolean isBookmarked,
                                @JsonProperty("topics") List<String> topics,
                                @JsonProperty("testCases") List<JsonAdaptedTestCase> testCases,
-                               @JsonProperty("userProgram") JsonAdaptedUserProgram userProgram) {
+                               @JsonProperty("userProgram") JsonAdaptedUserProgram userProgram,
+                               @JsonProperty("description") String description) {
         this.title = title;
         this.status = status;
         this.difficulty = difficulty;
@@ -53,10 +63,13 @@ public class JsonAdaptedQuestion {
             this.testCases.addAll(testCases);
         }
         this.userProgram = userProgram;
+        this.description = description;
     }
 
     /**
      * Converts a given {@code Question} into this class for Jackson use.
+     *
+     * @param source the source
      */
     public JsonAdaptedQuestion(Question source) {
         this.title = source.getTitle();
@@ -68,11 +81,13 @@ public class JsonAdaptedQuestion {
                 .map(JsonAdaptedTestCase::new)
                 .collect(Collectors.toList()));
         this.userProgram = new JsonAdaptedUserProgram(source.getUserProgram());
+        this.description = source.getDescription();
     }
 
     /**
      * Converts this Jackson-friendly adapted question object into the model's {@code Question} object.
      *
+     * @return the question
      * @throws IllegalValueException if there were any data constraints violated in the adapted question.
      */
     public Question toModel() throws IllegalValueException {
@@ -91,6 +106,10 @@ public class JsonAdaptedQuestion {
             throw new IllegalValueException("Difficulty cannot be null.");
         }
 
+        if (description == null) {
+            throw new IllegalValueException("Description cannot be null.");
+        }
+
         final Status status = Status.valueOf(this.status);
         final Difficulty difficulty = Difficulty.valueOf(this.difficulty);
         final boolean isBookmarked = this.isBookmarked;
@@ -100,7 +119,71 @@ public class JsonAdaptedQuestion {
                 .collect(Collectors.toList());
         final UserProgram newUserProgram = this.userProgram.toModel();
 
-        return new Question(title, status, difficulty, newTopicsSet, newTestCaseList, newUserProgram, isBookmarked);
+        return new Question(title, status, difficulty, newTopicsSet,
+            newTestCaseList, newUserProgram, isBookmarked, description);
+    }
+
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
+    public String getTitle() {
+        return this.title;
+    }
+
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
+    public String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Gets difficulty.
+     *
+     * @return the difficulty
+     */
+    public String getDifficulty() {
+        return this.difficulty;
+    }
+
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Gets topics.
+     *
+     * @return the topics
+     */
+    public List<String> getTopics() {
+        return this.topics;
+    }
+
+    /**
+     * Gets test cases.
+     *
+     * @return the test cases
+     */
+    public List<JsonAdaptedTestCase> getTestCases() {
+        return this.testCases;
+    }
+
+    /**
+     * Gets user program.
+     *
+     * @return the user program
+     */
+    public JsonAdaptedUserProgram getUserProgram() {
+        return this.userProgram;
     }
 
 }

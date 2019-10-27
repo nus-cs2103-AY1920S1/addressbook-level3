@@ -10,8 +10,9 @@ public class TestExecutorUtils {
      * Checks if a given program matches the canonical name. I.e. it has the correct package and class declarations
      * to match the canonical name. E.g. dukeacademy.testexecutor.TestExecutorUtils should have the package statement
      * "package dukeacademy.testexecutor" and the class "TestExecutorUtils" declared as an outer class.
+     *
      * @param canonicalName the canonical name to be checked
-     * @param program the program to be checked
+     * @param program       the program to be checked
      * @return true of they match
      */
     public static boolean checkCanonicalNameMatchesProgram(String canonicalName, String program) {

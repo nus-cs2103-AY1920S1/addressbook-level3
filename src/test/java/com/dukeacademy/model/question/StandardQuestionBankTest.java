@@ -198,19 +198,22 @@ public class StandardQuestionBankTest {
         testCases.add(new TestCase("2", "2"));
         testCases.add(new TestCase("3", "3"));
         UserProgram userProgram = new UserProgram("Test", "public class Test { }");
+        String description = "description";
 
         if (random == 0) {
             Set<Topic> topics = new HashSet<>();
             topics.add(Topic.TREE);
             topics.add(Topic.DYNAMIC_PROGRAMMING);
 
-            return new Question(name, Status.NEW, Difficulty.HARD, topics, testCases, userProgram, true);
+            return new Question(name, Status.NEW, Difficulty.HARD, topics,
+                testCases, userProgram, true, description);
         } else {
             Set<Topic> topics = new HashSet<>();
             topics.add(Topic.LINKED_LIST);
             topics.add(Topic.RECURSION);
 
-            return new Question(name, Status.ATTEMPTED, Difficulty.EASY, topics, testCases, userProgram, false);
+            return new Question(name, Status.ATTEMPTED, Difficulty.EASY,
+                topics, testCases, userProgram, false, description);
         }
     }
 }

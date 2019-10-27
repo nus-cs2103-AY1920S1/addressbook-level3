@@ -28,10 +28,13 @@ public class StandardCompiler implements Compiler {
     private static final String messageRetrieveJavaFileFailed = "Compiler could not retrieve Java file : ";
     private static final String messageCompilerFailedUnexpected = "Compiler failed unexpectedly";
 
-    private JavaCompiler javaCompiler;
+    private final JavaCompiler javaCompiler;
     private final Logger logger = LogsCenter.getLogger(StandardCompiler.class);
 
 
+    /**
+     * Instantiates a new Standard compiler.
+     */
     public StandardCompiler() {
         this.javaCompiler = ToolProvider.getSystemJavaCompiler();
     }

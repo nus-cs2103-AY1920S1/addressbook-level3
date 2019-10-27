@@ -28,7 +28,6 @@
         <Label fx:id="title" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="topic" styleClass="cell_small_label" text="\$topic" />
       <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
       <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
     </VBox>

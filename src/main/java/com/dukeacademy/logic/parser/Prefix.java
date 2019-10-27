@@ -7,10 +7,20 @@ package com.dukeacademy.logic.parser;
 public class Prefix {
     private final String prefix;
 
+    /**
+     * Instantiates a new Prefix.
+     *
+     * @param prefix the prefix
+     */
     public Prefix(String prefix) {
         this.prefix = prefix;
     }
 
+    /**
+     * Gets prefix.
+     *
+     * @return the prefix
+     */
     public String getPrefix() {
         return prefix;
     }

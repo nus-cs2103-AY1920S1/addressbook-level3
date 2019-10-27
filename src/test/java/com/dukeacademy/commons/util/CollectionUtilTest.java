@@ -12,9 +12,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class CollectionUtilTest {
-    @Test
-    public void requireAllNonNullVarargs() {
+class CollectionUtilTest {
+    @Test void requireAllNonNullVarargs() {
         // no arguments
         assertNullPointerExceptionNotThrown();
 
@@ -44,8 +43,7 @@ public class CollectionUtilTest {
         assertNullPointerExceptionNotThrown(containingNull, new Object());
     }
 
-    @Test
-    public void requireAllNonNullCollection() {
+    @Test void requireAllNonNullCollection() {
         // lists containing nulls in the front
         assertNullPointerExceptionThrown(Arrays.asList((Object) null));
         assertNullPointerExceptionThrown(Arrays.asList(null, new Object(), ""));
@@ -73,8 +71,7 @@ public class CollectionUtilTest {
         assertNullPointerExceptionNotThrown(Arrays.asList(containingNull, new Object()));
     }
 
-    @Test
-    public void isAnyNonNull() {
+    @Test void isAnyNonNull() {
         assertFalse(CollectionUtil.isAnyNonNull());
         assertFalse(CollectionUtil.isAnyNonNull((Object) null));
         assertFalse(CollectionUtil.isAnyNonNull((Object[]) null));

@@ -13,14 +13,15 @@ import java.nio.file.Paths;
  * file does not actually exist.
  */
 public class ClassFile {
-    private String canonicalName;
-    private String classPath;
+    private final String canonicalName;
+    private final String classPath;
 
     /**
      * Note that the class file corresponding to the canonical name and class path as specified in the arguments
      * must actually exist or a FileNotFoundException will be thrown. Both arguments cannot be null.
+     *
      * @param canonicalName the canonical name of the Class file
-     * @param classPath the classpath of the Class file
+     * @param classPath     the classpath of the Class file
      * @throws FileNotFoundException if the corresponding Class file does not exists
      */
     public ClassFile(String canonicalName, String classPath) throws FileNotFoundException {
@@ -34,16 +35,27 @@ public class ClassFile {
         }
     }
 
+    /**
+     * Gets canonical name.
+     *
+     * @return the canonical name
+     */
     public String getCanonicalName() {
         return this.canonicalName;
     }
 
+    /**
+     * Gets class path.
+     *
+     * @return the class path
+     */
     public String getClassPath() {
         return this.classPath;
     }
 
     /**
      * Combines and formats the class path and canonical name of the Class file to return its absolute path.
+     *
      * @return the absolute path at which the file is Class file is located
      */
     public String getAbsolutePath() {
@@ -52,6 +64,7 @@ public class ClassFile {
 
     /**
      * Returns a Java standard File class instance that corresponds to the ClassFile instance.
+     *
      * @return a File instance corresponding to this ClassFile instance.
      */
     public File getFile() {

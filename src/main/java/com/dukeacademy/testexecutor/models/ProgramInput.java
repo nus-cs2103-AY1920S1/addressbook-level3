@@ -6,13 +6,23 @@ import static java.util.Objects.requireNonNull;
  * Represents input to be fed into a program executed by the application.
  */
 public class ProgramInput {
-    private String input;
+    private final String input;
 
+    /**
+     * Instantiates a new Program input.
+     *
+     * @param input the input
+     */
     public ProgramInput(String input) {
         requireNonNull(input);
         this.input = input;
     }
 
+    /**
+     * Gets input.
+     *
+     * @return the input
+     */
     public String getInput() {
         return this.input;
     }

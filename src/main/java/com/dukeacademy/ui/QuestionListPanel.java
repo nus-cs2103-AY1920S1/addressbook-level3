@@ -21,6 +21,11 @@ public class QuestionListPanel extends UiPart<Region> {
     @FXML
     private ListView<Question> questionListView;
 
+    /**
+     * Instantiates a new Question list panel.
+     *
+     * @param questionList the question list
+     */
     public QuestionListPanel(ObservableList<Question> questionList) {
         super(FXML);
         questionListView.setItems(questionList);

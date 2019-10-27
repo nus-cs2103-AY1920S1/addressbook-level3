@@ -23,9 +23,12 @@ import com.dukeacademy.testexecutor.models.ProgramOutput;
 public class StandardProgramExecutor implements ProgramExecutor {
     private static final String MESSAGE_PROGRAM_EXECUTION_FAILED = "The program failed to execute : ";
 
-    private Runtime runtime;
+    private final Runtime runtime;
     private final Logger logger = LogsCenter.getLogger(StandardProgramExecutor.class);
 
+    /**
+     * Instantiates a new Standard program executor.
+     */
     public StandardProgramExecutor() {
         this.runtime = Runtime.getRuntime();
     }

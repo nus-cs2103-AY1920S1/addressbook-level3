@@ -13,8 +13,13 @@ import com.dukeacademy.model.prefs.UserPrefs;
  */
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
-    private Path filePath;
+    private final Path filePath;
 
+    /**
+     * Instantiates a new Json user prefs storage.
+     *
+     * @param filePath the file path
+     */
     public JsonUserPrefsStorage(Path filePath) {
         this.filePath = filePath;
     }
@@ -31,7 +36,9 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     /**
      * Similar to {@link #readUserPrefs()}
+     *
      * @param prefsFilePath location of the data. Cannot be null.
+     * @return the optional
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {

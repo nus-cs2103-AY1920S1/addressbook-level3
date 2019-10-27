@@ -7,9 +7,8 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-public class UserPrefsTest {
-    @TempDir
-    public static Path tempFolder;
+class UserPrefsTest {
+    @TempDir public static Path tempFolder;
 
     @Test
     void testConstructorAndGetters() {

@@ -6,3 +6,7 @@ Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 Copyright by Jan Jan Kovařík - http://glyphicons.com/
 - calendar.png
 - edit.png
+
+Copyright by Freepik - https://www.flaticon.com/premium-icon/programmer_560277
+- dukeacademy_icon.png
+

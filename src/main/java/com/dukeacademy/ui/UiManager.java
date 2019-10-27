@@ -7,6 +7,7 @@ import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.util.StringUtil;
 
 import com.dukeacademy.logic.commands.CommandLogic;
+import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 
@@ -22,7 +23,10 @@ import javafx.stage.Stage;
  */
 public class UiManager implements Ui {
 
-    public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
+    /**
+     * The constant ALERT_DIALOG_PANE_FIELD_ID.
+     */
+    private static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/dukeacademy-icon.png";
@@ -30,14 +34,25 @@ public class UiManager implements Ui {
     private final CommandLogic commandLogic;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
+    private final ProblemStatementLogic problemStatementLogic;
     private MainWindow mainWindow;
 
+    /**
+     * Instantiates a new Ui manager.
+     *
+     * @param commandLogic           the command logic
+     * @param questionsLogic         the questions logic
+     * @param programSubmissionLogic the program submission logic
+     * @param problemStatementLogic  the problem statement logic
+     */
     public UiManager(CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                     ProgramSubmissionLogic programSubmissionLogic) {
+                     ProgramSubmissionLogic programSubmissionLogic,
+                     ProblemStatementLogic problemStatementLogic) {
         super();
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.problemStatementLogic = problemStatementLogic;
     }
 
     @Override
@@ -45,26 +60,34 @@ public class UiManager implements Ui {
         logger.info("Starting UI...");
 
         //Set the application icon.
-        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        primaryStage.getIcons().add(getImage());
 
         try {
             mainWindow = new MainWindow(primaryStage, commandLogic, questionsLogic,
-                    programSubmissionLogic);
+                    programSubmissionLogic, problemStatementLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+            showFatalErrorDialogAndShutdown(e);
         }
     }
 
-    private Image getImage(String imagePath) {
-        return new Image(MainApp.class.getResourceAsStream(imagePath));
+    private Image getImage() {
+        return new Image(MainApp.class.getResourceAsStream(
+            UiManager.ICON_APPLICATION));
     }
 
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    /**
+     * Show alert dialog and wait.
+     *  @param title       the title
+     * @param headerText  the header text
+     * @param contentText the content text
+     */
+    private void showAlertDialogAndWait(String title, String headerText,
+                                        String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), AlertType.ERROR, title, headerText, contentText);
     }
 
     /**
@@ -87,9 +110,10 @@ public class UiManager implements Ui {
      * Shows an error alert dialog with {@code title} and error message, {@code e},
      * and exits the application after the user has closed the alert dialog.
      */
-    private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
-        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
-        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
+    private void showFatalErrorDialogAndShutdown(Throwable e) {
+        logger.severe("Fatal error during initializing"
+            + " " + e.getMessage() + StringUtil.getDetails(e));
+        showAlertDialogAndWait("Fatal error during initializing", e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
     }

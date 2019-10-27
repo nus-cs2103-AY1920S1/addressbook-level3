@@ -10,15 +10,19 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
  * the registerCommand method.
  */
 public class CommandLogicManager implements CommandLogic {
-    private CommandParser commandParser;
+    private final CommandParser commandParser;
 
+    /**
+     * Instantiates a new Command logic manager.
+     */
     public CommandLogicManager() {
         this.commandParser = new CommandParser();
     }
 
     /**
      * Registers a command that will now be executed by this CommandLogic instance.
-     * @param commandWord the keyword of the command.
+     *
+     * @param commandWord     the keyword of the command.
      * @param commandSupplier a supplier of command instances.
      */
     public void registerCommand(String commandWord, CommandSupplier commandSupplier) {
@@ -27,6 +31,7 @@ public class CommandLogicManager implements CommandLogic {
 
     /**
      * Registers a command through its factory.
+     *
      * @param commandFactory the factory used to generate the command.
      */
     public void registerCommand(CommandFactory commandFactory) {

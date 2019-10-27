@@ -13,15 +13,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class ClassFileTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
     /**
      * Instance creation should succeed if the class file actually exists.
      * @throws IOException
      */
-    @Test
-    public void testClassFileConstructorFileExists() throws IOException {
+    @Test void testClassFileConstructorFileExists() throws IOException {
         String basePath = tempFolder.toString();
 
         tempFolder.resolve("Foo.class").toFile().createNewFile();
@@ -34,8 +32,7 @@ class ClassFileTest {
         new ClassFile("packaged.inside.Foo", basePath);
     }
 
-    @Test
-    public void testJavaFileConstructorAndGetters() throws IOException {
+    @Test void testJavaFileConstructorAndGetters() throws IOException {
         String basePath = tempFolder.toString();
 
         tempFolder.resolve("Foo.class").toFile().createNewFile();
@@ -56,8 +53,7 @@ class ClassFileTest {
     /**
      * Instance creation should fail if the class does not exist. A FileNotFoundException should be thrown.
      */
-    @Test
-    public void testClassFileConstructorFileDoesNotExists() throws IOException {
+    @Test void testClassFileConstructorFileDoesNotExists() throws IOException {
         String basePath = tempFolder.toString();
 
         assertThrows(FileNotFoundException.class, () -> new ClassFile("Foo", basePath));
@@ -78,8 +74,7 @@ class ClassFileTest {
         assertThrows(FileNotFoundException.class, () -> new ClassFile("Foo", basePath));
     }
 
-    @Test
-    public void testClassFileConstructorNullArguments() {
+    @Test void testClassFileConstructorNullArguments() {
         String basePath = tempFolder.toString();
         assertThrows(NullPointerException.class, () -> new ClassFile(null, basePath));
         assertThrows(NullPointerException.class, () -> new ClassFile("Foo", null));

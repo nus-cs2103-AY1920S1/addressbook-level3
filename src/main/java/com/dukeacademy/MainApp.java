@@ -19,7 +19,12 @@ import com.dukeacademy.logic.commands.CommandLogic;
 import com.dukeacademy.logic.commands.CommandLogicManager;
 import com.dukeacademy.logic.commands.attempt.AttemptCommandFactory;
 import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
+import com.dukeacademy.logic.commands.home.HomeCommandFactory;
+import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.submit.SubmitCommandFactory;
+import com.dukeacademy.logic.commands.view.ViewCommandFactory;
+import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
+import com.dukeacademy.logic.problemstatement.ProblemStatementLogicManager;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
@@ -42,13 +47,20 @@ import javafx.stage.Stage;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    /**
+     * The constant VERSION.
+     */
+    private static final Version VERSION = new Version(0, 6, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected Ui ui;
+    /**
+     * The Ui.
+     */
+    private Ui ui;
     private QuestionsLogic questionsLogic;
-    private ProgramSubmissionLogicManager programSubmissionLogic;
+    private ProgramSubmissionLogic programSubmissionLogic;
+    private ProblemStatementLogic problemStatementLogic;
 
     @Override
     public void init() throws Exception {
@@ -73,6 +85,8 @@ public class MainApp extends Application {
 
         questionsLogic = this.initQuestionsLogic(userPrefs);
         programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
+        problemStatementLogic = this.initProblemStatementLogic();
+
         CommandLogicManager commandLogic = this.initCommandLogic();
 
         if (this.programSubmissionLogic == null) {
@@ -81,13 +95,17 @@ public class MainApp extends Application {
             return;
         }
 
-        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic);
+        ui = this.initUi(commandLogic, questionsLogic, programSubmissionLogic,
+            problemStatementLogic);
     }
 
     /**
      * Returns a {@code Config} using the file at {@code configFilePath}. <br>
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
+     *
+     * @param configFilePath the config file path
+     * @return the config
      */
     private Config initConfig(Path configFilePath) {
         Config initializedConfig;
@@ -249,6 +267,19 @@ public class MainApp extends Application {
         SubmitCommandFactory submitCommandFactory = new SubmitCommandFactory(this.questionsLogic,
                 this.programSubmissionLogic);
         commandLogicManager.registerCommand(submitCommandFactory);
+        // Registering view command
+        ViewCommandFactory viewCommandFactory =
+            new ViewCommandFactory(this.questionsLogic, problemStatementLogic);
+        commandLogicManager.registerCommand(viewCommandFactory);
+        // Registering home command
+        HomeCommandFactory homeCommandFactory =
+            new HomeCommandFactory(this.questionsLogic,
+                this.programSubmissionLogic);
+        commandLogicManager.registerCommand(homeCommandFactory);
+        // Registering list command
+        ListCommandFactory listCommandFactory =
+            new ListCommandFactory(this.questionsLogic);
+        commandLogicManager.registerCommand(listCommandFactory);
 
         return commandLogicManager;
     }
@@ -262,6 +293,7 @@ public class MainApp extends Application {
     private QuestionsLogicManager initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
         logger.info("============================ [ Initializing question logic ] =============================");
         QuestionBankStorage storage = new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
+
         return new QuestionsLogicManager(storage);
     }
 
@@ -270,7 +302,7 @@ public class MainApp extends Application {
      *
      * @return a ProgramSubmissionLogicManager instance.
      */
-    private ProgramSubmissionLogicManager initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
+    private ProgramSubmissionLogic initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
         logger.info("============================ [ Initializing program submission logic ] "
                 + "=============================");
         try {
@@ -281,10 +313,18 @@ public class MainApp extends Application {
         }
     }
 
+    private ProblemStatementLogic initProblemStatementLogic() {
+        logger.info("============================ [ Initializing problem "
+            + "statement " + "logic ] =============================");
+        return new ProblemStatementLogicManager();
+    }
+
     private Ui initUi(CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic) {
+                      ProgramSubmissionLogic programSubmissionLogic,
+                      ProblemStatementLogic problemStatementLogic) {
         logger.info("============================ [ Initializing UI ] =============================");
-        return new UiManager(commandLogic, questionsLogic, programSubmissionLogic);
+        return new UiManager(commandLogic, questionsLogic,
+            programSubmissionLogic, problemStatementLogic);
     }
 
     @Override

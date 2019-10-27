@@ -16,30 +16,25 @@ import org.junit.jupiter.api.io.TempDir;
 import com.dukeacademy.commons.core.Config;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 
-public class ConfigUtilTest {
+class ConfigUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
-    @TempDir
-    public Path tempDir;
+    @TempDir public Path tempDir;
 
-    @Test
-    public void read_null_throwsNullPointerException() {
+    @Test void read_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> read(null));
     }
 
-    @Test
-    public void read_missingFile_emptyResult() throws DataConversionException {
+    @Test void read_missingFile_emptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
     }
 
-    @Test
-    public void read_notJsonFormat_exceptionThrown() {
+    @Test void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
     }
 
-    @Test
-    public void read_fileInOrder_successfullyRead() throws DataConversionException {
+    @Test void read_fileInOrder_successfullyRead() throws DataConversionException {
 
         Config expected = getTypicalConfig();
 
@@ -47,14 +42,12 @@ public class ConfigUtilTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
+    @Test void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
         Config actual = read("EmptyConfig.json").get();
         assertEquals(new Config(), actual);
     }
 
-    @Test
-    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+    @Test void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
 
@@ -73,18 +66,15 @@ public class ConfigUtilTest {
         return ConfigUtil.readConfig(configFilePath);
     }
 
-    @Test
-    public void save_nullConfig_throwsNullPointerException() {
+    @Test void save_nullConfig_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
     }
 
-    @Test
-    public void save_nullFile_throwsNullPointerException() {
+    @Test void save_nullFile_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(new Config(), null));
     }
 
-    @Test
-    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
+    @Test void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
         Path configFilePath = tempDir.resolve("TempConfig.json");

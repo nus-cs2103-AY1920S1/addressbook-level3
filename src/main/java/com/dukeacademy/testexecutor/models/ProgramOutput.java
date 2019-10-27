@@ -29,10 +29,21 @@ public class ProgramOutput {
         this.error = error;
     }
 
+    /**
+     * Gets empty program output.
+     *
+     * @return the empty program output
+     */
     public static ProgramOutput getEmptyProgramOutput() {
         return new ProgramOutput();
     }
 
+    /**
+     * Gets errored program output.
+     *
+     * @param errorMessage the error message
+     * @return the errored program output
+     */
     public static ProgramOutput getErroredProgramOutput(String errorMessage) {
         requireNonNull(errorMessage);
 
@@ -41,16 +52,27 @@ public class ProgramOutput {
     }
 
 
+    /**
+     * Gets output.
+     *
+     * @return the output
+     */
     public String getOutput() {
         return this.output;
     }
 
+    /**
+     * Gets runtime error.
+     *
+     * @return the runtime error
+     */
     public Optional<RuntimeError> getRuntimeError() {
         return Optional.ofNullable(this.error);
     }
 
     /**
      * Adds a string to the end of the program output.
+     *
      * @param output The string to be appended.
      * @return newly amended output.
      */
@@ -65,6 +87,7 @@ public class ProgramOutput {
 
     /**
      * Joins another program output to the end of the current output.
+     *
      * @param output The output to be appended.
      * @return newly amended output.
      */
@@ -78,6 +101,7 @@ public class ProgramOutput {
 
     /**
      * Adds a string to the end of the program output as a new line.
+     *
      * @param output The string to be appended.
      * @return newly amended output.
      */
@@ -96,6 +120,7 @@ public class ProgramOutput {
 
     /**
      * Joins another program output to the end of the current output after a new line.
+     *
      * @param output The output to be appended.
      * @return newly amended output.
      */
