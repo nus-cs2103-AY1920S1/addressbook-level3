@@ -21,7 +21,7 @@ public class Guess {
      * Returns true if the {@code word} matches the {@code guessString}.
      */
     public boolean matches(Word word) {
-        return guessString.toLowerCase().equals(word.value.toLowerCase());
+        return guessString.toLowerCase().equals(word.getValue().toLowerCase());
     }
 
     @Override

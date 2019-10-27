@@ -18,7 +18,7 @@ public class Word {
      */
     public static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN + "}$";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code Word}.
@@ -41,6 +41,10 @@ public class Word {
 
     @Override
     public String toString() {
+        return value;
+    }
+
+    public String getValue() {
         return value;
     }
 

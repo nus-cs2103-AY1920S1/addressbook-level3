@@ -26,13 +26,13 @@ public class Card {
     /**
      * Every field must be present and not null.
      */
-    public Card(Word word, Meaning meaning, Set<Tag> tags, String id) {
+    public Card(String id, Word word, Meaning meaning, Set<Tag> tags) {
         requireAllNonNull(id, word, meaning, tags);
         this.id = id;
         this.word = word;
         this.meaning = meaning;
         this.tags.addAll(tags);
-        this.hintSupplier = new HintSupplier(word.value);
+        this.hintSupplier = new HintSupplier(word.getValue());
     }
 
     /**
@@ -42,14 +42,14 @@ public class Card {
      */
     @Override
     public Card clone() {
-        return new Card(this.word, this.meaning, this.tags, this.id);
+        return new Card(this.id, this.word, this.meaning, this.tags);
     }
 
     /**
      * Creates a new {@code card} with a new id.
      */
     public static Card createNewCard(Word word, Meaning meaning, Set<Tag> tags) {
-        return new Card(word, meaning, tags, UidGenerator.get());
+        return new Card(UidGenerator.get(), word, meaning, tags);
     }
 
     public Word getWord() {
