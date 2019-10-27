@@ -1,6 +1,6 @@
 package seedu.elisa.model.item;
 
-import seedu.address.commons.core.item.Item;
+import seedu.elisa.commons.core.item.Item;
 
 /**
  * Object class to store all the items that are calendars within the program
