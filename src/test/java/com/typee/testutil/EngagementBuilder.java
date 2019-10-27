@@ -11,6 +11,7 @@ import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
+import com.typee.model.engagement.TimeSlot;
 import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.person.Person;
 
@@ -33,8 +34,7 @@ public class EngagementBuilder {
     private static final String DEFAULT_DESCRIPTION = "Tea party";
     private static final Priority DEFAULT_PRIORITY = Priority.LOW;
 
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    protected TimeSlot timeSlot;
     protected AttendeeList attendees;
     protected Location location;
     protected String description;
@@ -44,10 +44,11 @@ public class EngagementBuilder {
      * Constructs the EngagementBuilder with default details.
      */
     public EngagementBuilder() {
-        startTime = LocalDateTime.of(DEFAULT_START_YEAR,
+        LocalDateTime startTime = LocalDateTime.of(DEFAULT_START_YEAR,
                 DEFAULT_START_MONTH, DEFAULT_START_DAY, DEFAULT_START_HOUR, DEFAULT_START_MINUTE);
-        endTime = LocalDateTime.of(DEFAULT_END_YEAR,
+        LocalDateTime endTime = LocalDateTime.of(DEFAULT_END_YEAR,
                 DEFAULT_END_MONTH, DEFAULT_END_DAY, DEFAULT_END_HOUR, DEFAULT_END_MINUTE);
+        timeSlot = new TimeSlot(startTime, endTime);
         List<Person> defaultAttendees = new ArrayList<>();
         PersonBuilder personBuilder = new PersonBuilder();
         defaultAttendees.add(personBuilder.build());
@@ -61,8 +62,7 @@ public class EngagementBuilder {
      * Initializes the EngagementBuilder with the data of {@code engagementToCopy}.
      */
     public EngagementBuilder(Engagement engagementToCopy) {
-        startTime = engagementToCopy.getStartTime();
-        endTime = engagementToCopy.getEndTime();
+        timeSlot = engagementToCopy.getTimeSlot();
         attendees = engagementToCopy.getAttendees();
         location = engagementToCopy.getLocation();
         description = engagementToCopy.getDescription();
@@ -76,7 +76,7 @@ public class EngagementBuilder {
     public Engagement buildAsAppointment() {
         Engagement engagement = null;
         try {
-            engagement = Engagement.of(EngagementType.APPOINTMENT, startTime, endTime, attendees, location,
+            engagement = Engagement.of(EngagementType.APPOINTMENT, timeSlot, attendees, location,
                     description, priority);
         } catch (InvalidTimeException e) {
             // Exception should not be thrown when using the default times.
@@ -91,7 +91,7 @@ public class EngagementBuilder {
     public Engagement buildAsInterview() {
         Engagement engagement = null;
         try {
-            engagement = Engagement.of(EngagementType.INTERVIEW, startTime, endTime, attendees, location,
+            engagement = Engagement.of(EngagementType.INTERVIEW, timeSlot, attendees, location,
                     description, priority);
         } catch (InvalidTimeException e) {
             // Exception should not be thrown when using the default times.
@@ -106,7 +106,7 @@ public class EngagementBuilder {
     public Engagement buildAsMeeting() {
         Engagement engagement = null;
         try {
-            engagement = Engagement.of(EngagementType.MEETING, startTime, endTime, attendees, location,
+            engagement = Engagement.of(EngagementType.MEETING, timeSlot, attendees, location,
                     description, priority);
         } catch (InvalidTimeException e) {
             // Exception should not be thrown when using the default times.
@@ -129,8 +129,7 @@ public class EngagementBuilder {
         requireNonNull(startTime);
         requireNonNull(endTime);
         assert startTime.compareTo(endTime) < 0;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.timeSlot = new TimeSlot(startTime, endTime);
         return this;
     }
 
