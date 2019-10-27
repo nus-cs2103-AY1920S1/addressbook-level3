@@ -1,7 +1,13 @@
 package seedu.tarence.logic.finder;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -148,6 +154,37 @@ public class Finder {
         return Stream.of("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
                 .filter(day -> day.toLowerCase().startsWith(partialDay.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Gets all command classes within the {@code logic.commands} package, and searches for command words among them
+     * that autocomplete the given partial input string.
+     * @return
+     */
+    public List<String> autocompleteCommandWord (String partialCommand) {
+        // for matching file names of Command classes, excluding the abstract Command.java itself
+        Pattern commandClassPattern = Pattern.compile("[a-zA-Z]+Command\\.java");
+        // for excluding all "Verified" commands as these are not standalone commands and have no command word
+        Pattern verifiedCommandNamePattern = Pattern.compile("[a-zA-Z]+Verified");
+        // list of other, non-standalone commands to not suggest to user
+        List<String> excludedCommands = Arrays.asList("ConfirmNo", "ConfirmYes", "SelectSuggestion");
+
+        Path path = Paths.get("src/main/java/seedu/tarence/logic/commands");
+        try {
+            return Files.list(path)
+                    .filter(currPath -> !Files.isDirectory(currPath))
+                    .filter(file -> commandClassPattern.matcher(file.toString()).find())
+                    .map(file -> file.getFileName().toString())
+                    .map(file -> file.substring(0, file.indexOf("Command.java")))
+                    .filter(file -> !verifiedCommandNamePattern.matcher(file).find())
+                    .filter(file -> !excludedCommands.contains(file))
+                    .filter(file -> file.toLowerCase().startsWith(partialCommand.strip().toLowerCase()))
+                    .map(file -> file.substring(0, 1).toLowerCase() + file.substring(1))
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return excludedCommands;
     }
 
 }

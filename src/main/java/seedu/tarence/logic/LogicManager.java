@@ -43,6 +43,9 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        // save raw input to command history
+        model.saveInput(commandText);
+
         CommandResult commandResult;
         Command command;
         Optional<Tutorial> tutorialToStore = Optional.empty();
@@ -111,6 +114,11 @@ public class LogicManager implements Logic {
     @Override
     public String autocomplete(String partialInput) throws ParseException {
         return new AutocompleteHandler(model).handle(partialInput);
+    }
+
+    @Override
+    public String getPastInput(String arrowDirection) {
+        return new InputHistoryHandler(model).getPastInput(arrowDirection);
     }
 
     @Override

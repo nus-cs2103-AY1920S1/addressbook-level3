@@ -391,6 +391,36 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void saveInput(String input) {
+        application.saveInput(input);
+    }
+
+    @Override
+    public List<String> getInputHistory() {
+        return application.getInputHistory();
+    }
+
+    @Override
+    public int getInputHistoryIndex() {
+        return application.getInputHistoryIndex();
+    }
+
+    @Override
+    public void incrementInputHistoryIndex() {
+        application.incrementInputHistoryIndex();
+    }
+
+    @Override
+    public void decrementInputHistoryIndex() {
+        application.decrementInputHistoryIndex();
+    }
+
+    @Override
+    public void resetInputHistoryIndex() {
+        application.resetInputHistoryIndex();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

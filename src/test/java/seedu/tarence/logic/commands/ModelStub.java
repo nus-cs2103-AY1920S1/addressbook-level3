@@ -290,6 +290,28 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void saveInput(String input) {};
+
+    @Override
+    public List<String> getInputHistory() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public int getInputHistoryIndex() {
+        return 0;
+    }
+
+    @Override
+    public void incrementInputHistoryIndex() {}
+
+    @Override
+    public void decrementInputHistoryIndex() {}
+
+    @Override
+    public void resetInputHistoryIndex() {}
+
+    @Override
     public boolean hasInputChanged() {
         throw new AssertionError("This method should not be called.");
     }

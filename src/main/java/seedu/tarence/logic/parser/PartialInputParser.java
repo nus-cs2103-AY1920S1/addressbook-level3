@@ -22,15 +22,22 @@ public class PartialInputParser {
     /**
      * Searches for autocomplete results based on the user's input and the provided application model.
      */
-    public static PartialInput parse(String partialInput, Model model) throws ParseException {
+    public static PartialInput parse(String partialInputString, Model model) throws ParseException {
         Finder finder = new Finder(model);
 
-        ArgumentSingleValue lastPrefixValue = ArgumentTokenizer.tokenizeLastArgument(partialInput, PREFIX_EMAIL,
+        List<String> completions;
+
+        if (ArgumentTokenizer.isSingleWord(partialInputString)) {
+            // try to autocomplete command word
+            return new PartialInput(partialInputString, partialInputString,
+                finder.autocompleteCommandWord(partialInputString));
+        }
+
+        ArgumentSingleValue lastPrefixValue = ArgumentTokenizer.tokenizeLastArgument(partialInputString, PREFIX_EMAIL,
                 PREFIX_NAME, PREFIX_NUSID, PREFIX_MATNO, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_TUTORIAL_DAY);
 
         Prefix prefix = lastPrefixValue.getPrefix();
         String value = lastPrefixValue.getValue();
-        List<String> completions;
 
         if (prefix.equals(PREFIX_EMAIL)) {
             completions = finder.autocompleteEmail(value);
@@ -50,7 +57,7 @@ public class PartialInputParser {
             return null;
         }
 
-        return new PartialInput(partialInput, value, completions);
+        return new PartialInput(partialInputString, value, completions);
     }
 
 }

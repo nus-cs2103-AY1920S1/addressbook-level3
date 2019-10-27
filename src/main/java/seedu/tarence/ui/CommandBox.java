@@ -21,16 +21,18 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final CommandExecutor autocompleteExecutor;
     private final CommandExecutor inputChangedExecutor;
+    private final CommandExecutor pastInputExecutor;
 
     @FXML
     private TextField commandTextField;
 
     public CommandBox(CommandExecutor commandExecutor, CommandExecutor autocompleteExecutor,
-                      CommandExecutor inputChangedExecutor) {
+                      CommandExecutor inputChangedExecutor, CommandExecutor pastInputExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.autocompleteExecutor = autocompleteExecutor;
         this.inputChangedExecutor = inputChangedExecutor;
+        this.pastInputExecutor = pastInputExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -71,6 +73,20 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Handles the Up button pressed event.
+     * @param code
+     * @param KeyCode
+     */
+    @FXML
+    private void handlePastInput(KeyCode keyCode) throws CommandException, ParseException {
+        if (keyCode.equals(KeyCode.UP)) {
+            pastInputExecutor.execute("up");
+        } else {
+            pastInputExecutor.execute("down");
+        }
+    }
+
+    /**
      * Default handler for button pressed events.
      */
     @FXML
@@ -87,6 +103,8 @@ public class CommandBox extends UiPart<Region> {
             handleCommandEntered();
         } else if (keyEvent.getCode().equals(KeyCode.TAB)) {
             handleAutocomplete();
+        } else if (keyEvent.getCode().equals(KeyCode.UP) || keyEvent.getCode().equals(KeyCode.DOWN)) {
+            handlePastInput(keyEvent.getCode());
         } else {
             handleOtherInput();
         }
