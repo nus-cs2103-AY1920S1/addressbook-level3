@@ -1,45 +1,53 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 
-import java.util.ArrayList;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalBorrowers.ID_FIRST_BORROWER;
+import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
+import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowers;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Catalog;
+import seedu.address.model.LoanRecords;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.borrower.Borrower;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.borrower.BorrowerId;
-import seedu.address.testutil.BorrowerBuilder;
 
 public class UnregisterCommandTest {
+
+    private Model model = new ModelManager(
+            new Catalog(), new LoanRecords(), getTypicalBorrowerRecords(), new UserPrefs());
+
     @Test
     public void constructor_nullBorrowerId_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new UnregisterCommand(null));
     }
 
     @Test
-    public void execute_borrowerAcceptedByModel_unregisterSuccessful() throws Exception {
-        Model modelManager = new ModelManager();
-        Borrower validBorrower = new BorrowerBuilder().actualBuild();
-        // register the borrower
-        new RegisterCommand(validBorrower).execute(modelManager);
+    public void execute_validSerialNumber_success() {
+        UnregisterCommand command = new UnregisterCommand(ID_FIRST_BORROWER);
 
-        //unregister the borrower
-        CommandResult commandResult = new UnregisterCommand(validBorrower.getBorrowerId()).execute(modelManager);
-        assertEquals(String.format(UnregisterCommand.MESSAGE_SUCCESS, validBorrower),
-                commandResult.getFeedbackToUser());
-        assertEquals(new ArrayList<Borrower>(), modelManager.getBorrowerRecords().getBorrowerList());
+        String expectedMessage = String.format(UnregisterCommand.MESSAGE_SUCCESS, getTypicalBorrowers().get(0));
+
+        ModelManager expectedModel = new ModelManager(
+                model.getCatalog(), model.getLoanRecords(), model.getBorrowerRecords(), new UserPrefs());
+        expectedModel.unregisterBorrower(getTypicalBorrowers().get(0));
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
-    @Test void execute_borrowerIdNotFound_unregisterFailure() throws Exception {
-        Model modelManager = new ModelManager();
-        Command command = new UnregisterCommand(new BorrowerId(VALID_BORROWER_ID));
+    @Test
+    public void execute_invalidSerialNumber_throwsCommandException() {
+        BorrowerId outOfBoundBorrowerId = new BorrowerId("K9999");
+        UnregisterCommand command = new UnregisterCommand(outOfBoundBorrowerId);
 
-        assertCommandFailure(command, modelManager, MESSAGE_NO_SUCH_BORROWER_ID);
+        assertCommandFailure(command, model, MESSAGE_NO_SUCH_BORROWER_ID);
     }
+
+
 }

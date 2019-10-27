@@ -1,17 +1,17 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
+
 import seedu.address.logic.commands.UnregisterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.borrower.BorrowerId;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
-
 /**
  * Parses input arguments and creates a new UnregisterCommand object
  */
-public class UnregisterCommandParser implements Parser<UnregisterCommand>{
+public class UnregisterCommandParser implements Parser<UnregisterCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.
      *
