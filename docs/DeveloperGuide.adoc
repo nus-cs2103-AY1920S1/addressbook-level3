@@ -494,7 +494,7 @@ As shown in the above figure, `SortXYZCommand` is executed by calling `sortListB
 `ModelManager`. And reimbursement list is sorted using `SortByXYZ` comparator.
 For `SortAmountCommand`, the list will be sorted in descending order of absolute value of amount.
 For `SortNameCommand`, the list will be sorted in descending alphabetical order of person's name.
-For `SortDeadlineCommand`, the list will be sorted in the order that nearest deadlines are in the front.
+For `SortDeadlineCommand`, the list will be sorted in the order that nearest deadlines are at the front.
 
 === Inventory Tab
 
