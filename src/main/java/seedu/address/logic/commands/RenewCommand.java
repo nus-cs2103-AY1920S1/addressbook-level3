@@ -88,10 +88,7 @@ public class RenewCommand extends Command {
 
         LocalDate extendedDueDate = DateUtil.extendDate(loanToBeRenewed.getDueDate(),
                 model.getUserSettings().getRenewPeriod());
-        Loan renewedLoan = new Loan(loanToBeRenewed.getLoanId(), loanToBeRenewed.getBookSerialNumber(),
-                loanToBeRenewed.getBorrowerId(), loanToBeRenewed.getStartDate(), extendedDueDate,
-                loanToBeRenewed.getReturnDate(), loanToBeRenewed.getRenewCount() + 1,
-                loanToBeRenewed.getRemainingFineAmount(), loanToBeRenewed.getPaidFineAmount());
+        Loan renewedLoan = loanToBeRenewed.renewLoan(extendedDueDate);
 
         Book renewedBook = new Book(bookToBeRenewed.getTitle(), bookToBeRenewed.getSerialNumber(),
                 bookToBeRenewed.getAuthor(), renewedLoan, bookToBeRenewed.getGenres());

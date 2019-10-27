@@ -173,7 +173,7 @@ public class ModelManager implements Model {
      * @return Leftover amount in cents, i.e., change to be given.
      */
     @Override
-    public int payFine(int amountInCents) {
+    public int payFines(int amountInCents) {
         Borrower serving = getServingBorrower();
         LoanList updatedReturnedLoanList = new LoanList();
 
@@ -202,15 +202,10 @@ public class ModelManager implements Model {
             } else {
                 Loan updatedLoan;
                 if (payingAmount >= remainingFineAmount) { // can fully pay off this fine
-                    updatedLoan = new Loan(loan.getLoanId(), loan.getBookSerialNumber(), loan.getBorrowerId(),
-                            loan.getStartDate(), loan.getDueDate(), loan.getReturnDate(), loan.getRenewCount(),
-                            0, loan.getPaidFineAmount() + loan.getRemainingFineAmount());
+                    updatedLoan = loan.payFine(remainingFineAmount);
                     payingAmount -= remainingFineAmount;
                 } else {
-                    updatedLoan = new Loan(loan.getLoanId(), loan.getBookSerialNumber(), loan.getBorrowerId(),
-                            loan.getStartDate(), loan.getDueDate(), loan.getReturnDate(), loan.getRenewCount(),
-                            loan.getRemainingFineAmount() - payingAmount,
-                            loan.getPaidFineAmount() + payingAmount);
+                    updatedLoan = loan.payFine(payingAmount);
                     payingAmount = 0;
                 }
                 updatedReturnedLoanList.add(updatedLoan);

@@ -57,7 +57,7 @@ public class PayCommand extends Command {
             throw new CommandException(MESSAGE_NO_OUTSTANDING_FINE);
         }
 
-        int change = model.payFine(amountInCents);
+        int change = model.payFines(amountInCents);
 
         String amountPaidInDollars = FineUtil.centsToDollarString(amountInCents - change);
         // servingBorrower was updated in payFine method

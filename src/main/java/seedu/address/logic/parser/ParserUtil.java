@@ -28,7 +28,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DOLLAR_AMOUNT =
-            "Dollar amount is not a non-zero number with at most 2 decimal places.";
+            "Dollar amount should be a non-zero number with at most 2 decimal places.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

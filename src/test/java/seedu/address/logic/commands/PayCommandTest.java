@@ -40,7 +40,7 @@ class PayCommandTest {
 
         PayCommand payCommand = new PayCommand(VALID_CENT_AMOUNT);
 
-        int change = expectedModel.payFine(VALID_CENT_AMOUNT);
+        int change = expectedModel.payFines(VALID_CENT_AMOUNT);
         String amountPaidInDollars = FineUtil.centsToDollarString(VALID_CENT_AMOUNT - change);
         String outstandingFineInDollars = FineUtil.centsToDollarString(
                 expectedModel.getServingBorrower().getOutstandingFineAmount());

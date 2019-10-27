@@ -83,6 +83,41 @@ public class Loan {
         return paidFineAmount;
     }
 
+    /**
+     * Returns a new copy of the Loan object after its book is returned.
+     *
+     * @param returnDate Date which loan is returned.
+     * @param fineIncurred Fine incurred for returning the loaned book.
+     * @return A new copy of the Loan object with returnDate and remainingFineAmount updated.
+     */
+    public Loan returnLoan(LocalDate returnDate, int fineIncurred) {
+        return new Loan(this.loanId, this.bookSerialNumber, this.borrowerId, this.startDate, this.dueDate,
+                returnDate, this.renewCount, fineIncurred, 0);
+    }
+
+    /**
+     * Returns a new copy of the Loan object after it is renewed.
+     *
+     * @param extendedDueDate New dueDate after being extended.
+     * @return A new copy of the Loan object with dueDate and renewCount updated.
+     */
+    public Loan renewLoan(LocalDate extendedDueDate) {
+        return new Loan(this.loanId, this.bookSerialNumber, this.borrowerId, this.startDate, extendedDueDate,
+                this.returnDate, this.renewCount + 1, this.remainingFineAmount, this.paidFineAmount);
+    }
+
+    /**
+     * Returns a new copy of the loan object after any amount of its remaining fine is paid.
+     *
+     * @param paidAmount Amount given to pay the remainingFineAmount.
+     * @return A new copy of the Loan object with remainingFineAmount and paidFineAmount updated.
+     */
+    public Loan payFine(int paidAmount) {
+        return new Loan(this.loanId, this.bookSerialNumber, this.borrowerId, this.startDate, this.dueDate,
+                this.returnDate, this.renewCount, this.remainingFineAmount - paidAmount,
+                this.paidFineAmount + paidAmount);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

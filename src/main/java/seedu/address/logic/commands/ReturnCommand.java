@@ -78,9 +78,7 @@ public class ReturnCommand extends Command {
         LocalDate returnDate = DateUtil.getTodayDate();
         int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
                 * model.getUserSettings().getFineIncrement();
-        Loan returnedLoan = new Loan(loanToBeReturned.getLoanId(), loanToBeReturned.getBookSerialNumber(),
-                loanToBeReturned.getBorrowerId(), loanToBeReturned.getStartDate(), loanToBeReturned.getDueDate(),
-                returnDate, loanToBeReturned.getRenewCount(), fineAmount, 0);
+        Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, fineAmount);
 
         Book returnedBook = new Book(bookToBeReturned.getTitle(), bookToBeReturned.getSerialNumber(),
                 bookToBeReturned.getAuthor(), null, bookToBeReturned.getGenres());

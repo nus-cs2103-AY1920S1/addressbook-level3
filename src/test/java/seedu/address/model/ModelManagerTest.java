@@ -304,7 +304,7 @@ public class ModelManagerTest {
         Model modelManager = new ModelManager(new Catalog(), loanRecords, borrowerRecords, new UserPrefs());
         modelManager.setServingBorrower(JANNA);
 
-        modelManager.payFine(500);
+        modelManager.payFines(500);
 
         assertEquals(modelManager.getServingBorrower().getOutstandingFineAmount(), 0);
     }

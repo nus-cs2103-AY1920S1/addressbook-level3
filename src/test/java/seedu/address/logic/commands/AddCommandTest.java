@@ -219,7 +219,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public int payFine(int amountInCents) {
+        public int payFines(int amountInCents) {
             throw new AssertionError("This method should not be called.");
         }
 
