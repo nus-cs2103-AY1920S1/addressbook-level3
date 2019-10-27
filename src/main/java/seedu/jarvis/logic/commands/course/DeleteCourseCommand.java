@@ -2,7 +2,6 @@ package seedu.jarvis.logic.commands.course;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
-import static seedu.jarvis.commons.util.CollectionUtil.isAnyNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 

@@ -2,6 +2,7 @@ package seedu.jarvis.storage.history.commands.course;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
