@@ -28,8 +28,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-
-
     private Stage primaryStage;
     private Logic logic;
 
@@ -197,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
                     featureBoxPlaceholder.getChildren().add(attendance.getRoot());
                     break;
                 case "performance":
-                    PerformancePanel performance = new PerformancePanel();
+                    PerformancePanel performance = new PerformancePanel(logic.getPerformance());
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(performance.getRoot());
                     break;
