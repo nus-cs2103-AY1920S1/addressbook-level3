@@ -75,7 +75,7 @@ public class ExportCommand extends Command {
         JSONObject jsonObjectCustomerData;
         jsonObjectCustomerData = new JSONObject(customerData.toString());
         JSONArray customerDataArray = jsonObjectCustomerData.getJSONArray("customers");
-        String customerCsv = CDL.toString(customerDataArray) + "\n" + "\n";
+        String customerCsv = "Our Customers:" + "\n" + CDL.toString(customerDataArray) + "\n" + "\n";
         customerReader.close();
 
         // Building Phone CSV string.
@@ -88,7 +88,7 @@ public class ExportCommand extends Command {
         JSONObject jsonObjectPhoneData;
         jsonObjectPhoneData = new JSONObject(phoneData.toString());
         JSONArray phoneDataArray = jsonObjectPhoneData.getJSONArray("phones");
-        String phoneCsv = CDL.toString(phoneDataArray) + "\n" + "\n";
+        String phoneCsv = "Phones list:" + "\n" + CDL.toString(phoneDataArray) + "\n" + "\n";
         phoneReader.close();
 
         // Building Schedule CSV string.
@@ -101,7 +101,7 @@ public class ExportCommand extends Command {
         JSONObject jsonObjectScheduleData;
         jsonObjectScheduleData = new JSONObject(scheduleData.toString());
         JSONArray scheduleDataArray = jsonObjectScheduleData.getJSONArray("schedules");
-        String scheduleCsv = CDL.toString(scheduleDataArray) + "\n" + "\n";
+        String scheduleCsv = "Schedule list:" + "\n" + CDL.toString(scheduleDataArray) + "\n" + "\n";
         scheduleReader.close();
 
         // Building Order CSV string.
@@ -114,7 +114,7 @@ public class ExportCommand extends Command {
         JSONObject jsonObjectOrderData;
         jsonObjectOrderData = new JSONObject(orderData.toString());
         JSONArray orderDataArray = jsonObjectOrderData.getJSONArray("orders");
-        String orderCsv = CDL.toString(orderDataArray) + "\n" + "\n";
+        String orderCsv = "Current orders:" + "\n" + CDL.toString(orderDataArray) + "\n" + "\n";
         orderReader.close();
 
         // Get CSVDataString
