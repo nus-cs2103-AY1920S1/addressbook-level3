@@ -21,6 +21,7 @@ import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.PredicateExpression;
 import budgetbuddy.model.rule.expression.Value;
+import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.TransactionList;
 
@@ -257,6 +258,25 @@ public class CommandParserUtil {
             return parseActionExpr(action);
         } else {
             throw new ParseException(RuleAction.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String name} into a {@link ScriptName}.
+     *
+     * Leading and trailing whitespace is trimmed.
+     *
+     * @param name the string to parse
+     * @return the parsed script name
+     * @throws ParseException if the given string is not a valid script name
+     */
+    public static ScriptName parseScriptName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmed = name.trim();
+        try {
+            return new ScriptName(trimmed);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 

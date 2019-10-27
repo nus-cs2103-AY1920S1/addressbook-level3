@@ -2,10 +2,11 @@ package budgetbuddy.logic.commands.scriptcommands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.script.ScriptEngine;
-import budgetbuddy.logic.script.exceptions.ScriptException;
 import budgetbuddy.model.Model;
 
 /**
@@ -14,27 +15,33 @@ import budgetbuddy.model.Model;
 public class ScriptEvalCommand extends ScriptCommand {
     public static final String COMMAND_WORD = "script eval";
 
-    public static final String MESSAGE_NO_RESULT = "Script succeeded with no result.";
-    public static final String MESSAGE_SCRIPT_EXCEPTION = "Exception thrown during script evaluation\n%1$s";
-
     private final String script;
 
     public ScriptEvalCommand(String script) {
+        requireNonNull(script);
         this.script = script;
     }
 
     @Override
     public CommandResult execute(Model model, ScriptEngine scriptEngine) throws CommandException {
         requireNonNull(scriptEngine);
-        try {
-            Object result = scriptEngine.evaluateScript(script);
-            if (result == null) {
-                return new CommandResult(MESSAGE_NO_RESULT, null);
-            } else {
-                return new CommandResult(result.toString(), null);
-            }
-        } catch (ScriptException se) {
-            throw new CommandException(String.format(MESSAGE_SCRIPT_EXCEPTION, se.getMessage()), se);
+        return runScript(scriptEngine, script);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ScriptEvalCommand that = (ScriptEvalCommand) o;
+        return script.equals(that.script);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(script);
     }
 }

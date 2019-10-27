@@ -35,6 +35,11 @@ public class CliSyntax {
     // Transactions
     public static final Prefix PREFIX_RECURRENCE = new Prefix("r/");
 
+    // Scripts
+    public static final Prefix PREFIX_SCRIPT_DESCRIPTION = new Prefix("d/");
+    public static final Prefix PREFIX_SCRIPT_PATH = new Prefix("p/");
+    public static final Prefix PREFIX_SCRIPT_SOURCE = new Prefix("s/");
+
     // Date examples
     public static final String DATE_EXAMPLE = "4/20/2420";
 }

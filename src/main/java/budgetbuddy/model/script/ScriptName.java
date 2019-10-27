@@ -2,8 +2,6 @@ package budgetbuddy.model.script;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Objects;
-
 import budgetbuddy.commons.util.AppUtil;
 
 /**
@@ -22,6 +20,7 @@ public class ScriptName {
      * Constructs a script name.
      *
      * @param name A valid script name
+     * @throws IllegalArgumentException if {@code name} is not a valid script name
      */
     public ScriptName(String name) {
         requireNonNull(name);

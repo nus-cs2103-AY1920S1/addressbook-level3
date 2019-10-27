@@ -11,4 +11,6 @@ public class Messages {
 
     public static final String MESSAGE_TRANSACTIONS_LISTED_OVERVIEW = "%1$d transactions listed!";
     public static final String MESSAGE_ACCOUNTS_LISTED_OVERVIEW = "%1$d accounts listed!";
+
+    public static final String MESSAGE_NO_SUCH_SCRIPT = "Could not find a script named %1$s.";
 }

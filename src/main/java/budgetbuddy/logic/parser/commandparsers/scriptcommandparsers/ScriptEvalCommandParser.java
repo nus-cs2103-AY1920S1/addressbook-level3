@@ -4,7 +4,7 @@ import budgetbuddy.logic.commands.scriptcommands.ScriptEvalCommand;
 import budgetbuddy.logic.parser.CommandParser;
 
 /**
- * Parses input arguments and creates a new ScriptEvalCommand object
+ * Parses input arguments and creates a new {@link ScriptEvalCommand}.
  */
 public class ScriptEvalCommandParser implements CommandParser<ScriptEvalCommand> {
     @Override
