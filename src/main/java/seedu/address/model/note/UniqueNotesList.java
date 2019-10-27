@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.note.exceptions.DuplicateNotesExceptions;
 import seedu.address.model.note.exceptions.NotesNotFoundException;
 
@@ -45,11 +46,22 @@ public class UniqueNotesList implements Iterable<Notes> {
     }
 
     /**
+     * Removes the equivalent person from the list.
+     * The person must exist in the list.
+     */
+    public void remove(Notes toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new NotesNotFoundException();
+        }
+    }
+
+    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setNote(Notes target, Notes editedNote) {
+    public void setNotes(Notes target, Notes editedNote) {
         requireAllNonNull(target, editedNote);
 
         int index = internalList.indexOf(target);
@@ -60,19 +72,7 @@ public class UniqueNotesList implements Iterable<Notes> {
         if (!target.isSameNote(editedNote) && contains(editedNote)) {
             throw new DuplicateNotesExceptions();
         }
-
         internalList.set(index, editedNote);
-    }
-
-    /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
-     */
-    public void remove(Notes toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new NotesNotFoundException();
-        }
     }
 
     public void setNotes(UniqueNotesList replacement) {
