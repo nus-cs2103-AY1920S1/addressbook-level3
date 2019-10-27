@@ -184,6 +184,25 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String event} into a {@code Event}
+     */
+    public static String parseEvent(String event) {
+        requireNonNull(event);
+        String trimmedEvent = event.trim().toLowerCase();
+        return trimmedEvent;
+    }
+
+    /**
+     * Parses {@code String timing} into a {@code String}
+     */
+    public static String parseTiming(String timing) {
+        requireNonNull(timing);
+        String trimmedTiming = timing.trim();
+        // currently assume all date formats are correct before using date class that Shawn implemented
+        return trimmedTiming;
+    }
+
+    /**
      * Parses a {@code String photo} into an {@code Photo}.
      * Leading and trailing whitespaces will be trimmed.
      *

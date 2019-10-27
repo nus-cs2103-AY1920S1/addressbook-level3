@@ -20,7 +20,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEvents;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 import seedu.address.testutil.PersonBuilder;
@@ -184,6 +187,26 @@ public class AddCommandTest {
         @Override
         public Attendance getAttendance() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEvent(Event event) {
+
+        }
+
+        @Override
+        public boolean hasEvent(Event event) {
+            return false;
+        }
+
+        @Override
+        public ReadOnlyEvents getEventList() {
+            return null;
+        }
+
+        @Override
+        public String addRecord(String eventName, Person person, Record record) {
+            return null;
         }
     }
 

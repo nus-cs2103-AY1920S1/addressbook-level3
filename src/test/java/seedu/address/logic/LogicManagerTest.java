@@ -30,6 +30,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonAttendanceStorage;
+import seedu.address.storage.JsonEventStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -47,9 +48,11 @@ public class LogicManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonEventStorage eventStorage = new JsonEventStorage(temporaryFolder.resolve(("events.json")));
         JsonAttendanceStorage attendanceStorage = new JsonAttendanceStorage(temporaryFolder.resolve("attendance.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, attendanceStorage);
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, eventStorage,
+                attendanceStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -76,11 +79,14 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        JsonEventStorage eventStorage =
+                new JsonEventStorage(temporaryFolder.resolve("ioException.json"));
         JsonAttendanceStorage attendanceStorage = new JsonAttendanceStorage(temporaryFolder.resolve(
                 "ioExceptionAttendance.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, attendanceStorage);
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, eventStorage,
+                attendanceStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -134,7 +140,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getAttendance(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getEventList(),
+                model.getAttendance(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
