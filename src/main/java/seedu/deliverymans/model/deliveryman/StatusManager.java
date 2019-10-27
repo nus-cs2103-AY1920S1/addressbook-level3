@@ -4,12 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
 
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
-import seedu.deliverymans.model.deliveryman.exceptions.DuplicateDeliverymanException;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 /**
@@ -52,15 +49,16 @@ public class StatusManager {
         }
     }
 
+    /**
+     * To be added
+     */
     public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         String status = deliveryman.getStatus().getDescription();
         if (status.equals(AVAILABLE_STATUS)) {
             updateStatusOf(deliveryman, UNAVAILABLE_STATUS);
-        }
-        else if (status.equals(UNAVAILABLE_STATUS)) {
+        } else if (status.equals(UNAVAILABLE_STATUS)) {
             updateStatusOf(deliveryman, AVAILABLE_STATUS);
-        }
-        else {
+        } else {
             throw new InvalidStatusChangeException();
         }
     }

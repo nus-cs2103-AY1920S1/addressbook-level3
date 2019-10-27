@@ -7,6 +7,9 @@ import seedu.deliverymans.logic.commands.deliveryman.StatusSwitchCommand;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new StatusSwitchCommand object
+ */
 public class StatusSwitchCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the StatusCommand

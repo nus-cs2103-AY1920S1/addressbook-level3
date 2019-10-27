@@ -1,7 +1,6 @@
 package seedu.deliverymans.model.database;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -10,7 +9,6 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.StatusManager;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
-import seedu.deliverymans.model.deliveryman.exceptions.DuplicateDeliverymanException;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 
