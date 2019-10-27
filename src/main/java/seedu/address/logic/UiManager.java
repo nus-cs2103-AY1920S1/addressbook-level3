@@ -49,20 +49,7 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
 
         try {
             mainWindow = new MainWindow(primaryStage, commandInput -> {
-                // TODO: Temporary command
-                if (commandInput.equals("calendar")) {
-                    this.mainWindow.viewCalendar();
-                } else if (commandInput.equals("list")) {
-                    this.mainWindow.viewList();
-                } else if (commandInput.equals("log")) {
-                    this.mainWindow.viewLog();
-                } else if (commandInput.equals("calendar 11/2019")) {
-                    // No need for day
-                    // this.mainWindow.changeCalendarScreenDate(11, 2019);
-                } else {
-                    // Notify listeners of new command input.
-                    this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
-                }
+                this.uiListeners.forEach(listener -> listener.onCommandInput(commandInput));
             });
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
@@ -122,6 +109,22 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
 
     public void viewMonth(CalendarDate calendarDate) {
         mainWindow.viewMonth(calendarDate);
+    }
+
+    public void viewList() {
+        mainWindow.viewList();
+    }
+
+    public void viewLog() {
+        mainWindow.viewLog();
+    }
+
+    public void viewCalendar(CalendarDate calendarDate) {
+        if(calendarDate == null) {
+            mainWindow.viewCalendar();
+        } else {
+            mainWindow.changeCalendarScreenDate(calendarDate);
+        }
     }
 
     @Override
