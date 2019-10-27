@@ -153,7 +153,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_PHONE_NAME_DESC = " " + PREFIX_NAME + "iPhone &";
     public static final String INVALID_IDENTITY_NUM_DESC = " " + PREFIX_IDENTITY_NUM + "123019238901283098190212312";
-    public static final String INVALID_SERIAL_NUM_DESC = " " + PREFIX_SERIAL_NUM + "&&&&&&";
+    public static final String INVALID_SERIAL_NUM_DESC = " " + PREFIX_SERIAL_NUM + "^asad";
     public static final String INVALID_BRAND_DESC = " " + PREFIX_BRAND + "";
     public static final String INVALID_COLOUR_DESC = " " + PREFIX_COLOUR + "";
     public static final String INVALID_CAPACITY_DESC = " " + PREFIX_CAPACITY + "129";
