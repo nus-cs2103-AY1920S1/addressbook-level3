@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,6 +29,8 @@ class DiaryLine extends UiPart<GridPane> {
     private static final double GRAPHIC_WIDTH_PERCENTAGE = 30.0;
     /** The width percentage of the containing {@link GridPane} the graphic node itself should occupy. */
     private static final double GRAPHIC_NODE_WIDTH_PERCENTAGE = GRAPHIC_WIDTH_PERCENTAGE - 5.0;
+    /** The padding between the text and the graphic. */
+    private static final double GRAPHIC_TEXT_PADDING = 30.0;
 
     private static final int DEFAULT_LEFT_GRID_INDEX = 0;
     private static final int DEFAULT_RIGHT_GRID_INDEX = 1;
@@ -86,6 +89,7 @@ class DiaryLine extends UiPart<GridPane> {
         DiaryEntryPhotoCard diaryEntryPhotoCard = new DiaryEntryPhotoCard(photo);
         diaryEntryPhotoCard.bindImageViewDimensions(
                 getRoot().prefWidthProperty().multiply(GRAPHIC_NODE_WIDTH_PERCENTAGE / 100.0));
+        photoCardsDisplay.setAlignment(Pos.CENTER);
         photoCardsDisplay.getChildren().add(diaryEntryPhotoCard.getRoot());
 
         setTextGraphicConstraints(lineTextLabelIndex, photoCardIndex);
@@ -106,7 +110,7 @@ class DiaryLine extends UiPart<GridPane> {
      * @param graphicGridIndex The grid index the {@code photoCardsDisplay} should be placed in.
      */
     private void setTextGraphicConstraints(int textGridIndex, int graphicGridIndex) {
-        getRoot().setHgap(30.0);
+        getRoot().setHgap(GRAPHIC_TEXT_PADDING);
         getRoot().getColumnConstraints()
                 .get(textGridIndex).setPercentWidth(100.0 - GRAPHIC_WIDTH_PERCENTAGE);
         getRoot().getColumnConstraints()
