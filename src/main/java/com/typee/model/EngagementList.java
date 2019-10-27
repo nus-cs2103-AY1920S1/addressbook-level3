@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.typee.model.engagement.Engagement;
-import com.typee.model.engagement.UniqueEngagementList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

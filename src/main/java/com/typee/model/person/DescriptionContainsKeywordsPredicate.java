@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-import com.typee.commons.util.StringUtil;
 import com.typee.model.engagement.Engagement;
 
 /**
