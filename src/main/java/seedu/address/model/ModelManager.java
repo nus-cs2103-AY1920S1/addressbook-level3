@@ -413,6 +413,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
+        ArrayList<Flashcard> taggedFlashcards = new ArrayList<>();
+        for (Flashcard fc : addressBook.getFlashcardList()) {
+            if (predicate.test(fc)) {
+                taggedFlashcards.add(fc);
+            }
+        }
+        return taggedFlashcards;
+    }
+
+    @Override
     public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
         ArrayList<String> taggedItems = new ArrayList<>();
         int noteIndex = 0;

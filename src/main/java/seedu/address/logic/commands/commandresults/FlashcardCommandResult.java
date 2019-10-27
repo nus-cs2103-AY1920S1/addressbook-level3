@@ -59,6 +59,13 @@ public class FlashcardCommandResult extends CommandResult {
         return flashcard;
     }
 
+    public boolean isTimeTrial() {
+        return isTimeTrial;
+    }
+
+    public Optional<ArrayList<Flashcard>> getDeck() {
+        return deck;
+    }
 
     @Override
     public boolean isFlashcardCommandResult() {
