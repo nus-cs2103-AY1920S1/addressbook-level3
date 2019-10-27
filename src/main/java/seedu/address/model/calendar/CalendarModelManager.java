@@ -27,8 +27,8 @@ public class CalendarModelManager implements CalendarModel {
     private final CalendarAddressBook calendarAddressBook;
     private final CalendarUserPrefs userPrefs;
     private FilteredList<Task> filteredTasks;
-    private final FilteredList<Task> filteredTasksByTimeAdded;
-    private final FilteredList<Task> filteredTasksByDeadline;
+    private FilteredList<Task> filteredTasksByTimeAdded;
+    private  FilteredList<Task> filteredTasksByDeadline;
 
     private boolean isDeadlineSorted = false;
 
@@ -139,7 +139,29 @@ public class CalendarModelManager implements CalendarModel {
         requireAllNonNull(target, editedTask);
 
         calendarAddressBook.setTask(target, editedTask);
-        calendarAddressBook.setTasks(filteredTasks);
+
+        if (isDeadlineSorted) {
+            SortedList<Task> sortByTimeList = new SortedList<>(this.calendarAddressBook.getPersonList(),
+                new Comparator<Task>() {
+                    @Override
+                    public int compare(Task x, Task y) {
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                        try {
+                            Date dateX = formatter.parse(x.getTaskDeadline().getValue());
+                            Date dateY = formatter.parse(y.getTaskDeadline().getValue());
+                            return dateX.compareTo(dateY);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            return 0;
+                        }
+                    }
+                });
+            filteredTasksByDeadline = new FilteredList<>(sortByTimeList);
+            filteredTasks = filteredTasksByDeadline;
+            calendarAddressBook.setTasks(filteredTasks);
+        }
+
+
 
     }
 
