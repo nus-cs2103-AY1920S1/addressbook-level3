@@ -20,7 +20,6 @@ public abstract class Flashcard {
 
     // Data fields
     protected final Definition definition;
-
     protected final Set<Tag> tags = new HashSet<>();
     protected final Answer answer;
     protected final Score score;

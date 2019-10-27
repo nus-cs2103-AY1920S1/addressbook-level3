@@ -157,7 +157,6 @@ public class EditCommand extends Command {
             setAnswer(toCopy.answer);
         }
 
-
         /**
          * Returns true if at least one field is edited.
          */
