@@ -80,7 +80,7 @@ public class Quiz {
         ArrayList<Question> questions = questionList.getQuestions();
         ObservableList<Question> questionObservableList = FXCollections.observableArrayList();
 
-        for(Question question : questions) {
+        for (Question question : questions) {
             questionObservableList.add(question);
         }
 

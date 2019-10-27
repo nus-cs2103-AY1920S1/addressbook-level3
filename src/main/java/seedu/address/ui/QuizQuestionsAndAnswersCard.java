@@ -38,7 +38,7 @@ public class QuizQuestionsAndAnswersCard extends UiPart<Region> {
         this.question = question;
         id.setText(displayedIndex + ". ");
         String text = question.getQuestion();
-        if(question instanceof McqQuestion) {
+        if (question instanceof McqQuestion) {
             McqQuestion mcqQuestion = (McqQuestion) question;
             text += "\na) " + mcqQuestion.getOptionA();
             text += "\nb) " + mcqQuestion.getOptionB();

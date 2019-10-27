@@ -13,10 +13,11 @@ import javafx.collections.ObservableList;
  */
 public class QuizBank implements Iterable<Quiz> {
 
+    private static String currentlyQueriedQuiz;
+
     private final ObservableList<Quiz> quizzes = FXCollections.observableArrayList();
     private final ObservableList<Quiz> quizzesUnmodifiableList =
             FXCollections.unmodifiableObservableList(quizzes);
-    private static String currentlyQueriedQuiz;
 
     /**
      * Replaces the contents of this list with {@code Quizzes}. {@code Quizzes} must not contain

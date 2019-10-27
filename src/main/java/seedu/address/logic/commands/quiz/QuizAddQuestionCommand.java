@@ -46,18 +46,12 @@ public class QuizAddQuestionCommand extends QuizCommand {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {
             boolean isSuccess = model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
-            if(isSuccess) {
+            if (isSuccess) {
                 return new CommandResult(generateSuccessMessage());
             } else {
                 return new CommandResult(generateFailureMessage());
             }
         }
-//        boolean isSuccess =
-//        if (isSuccess) {
-//            return new CommandResult(generateSuccessMessage());
-//        } else {
-//            return new CommandResult(generateFailureMessage());
-//        }
     }
 
     /**

@@ -41,7 +41,7 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {
             boolean isSuccess = model.removeQuizQuestion(quizId, quizQuestionNumber);
-            if(isSuccess) {
+            if (isSuccess) {
                 return new CommandResult(generateSuccessMessage());
             } else {
                 return new CommandResult(generateFailureMessage());

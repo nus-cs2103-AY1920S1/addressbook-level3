@@ -13,14 +13,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUIZ_QUESTION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SHOW_QUESTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHOW_ANSWERS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SHOW_QUESTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.quiz.*;
+import seedu.address.logic.commands.quiz.QuizAddQuestionCommand;
+import seedu.address.logic.commands.quiz.QuizCommand;
+import seedu.address.logic.commands.quiz.QuizCreateAutomaticallyCommand;
+import seedu.address.logic.commands.quiz.QuizCreateManuallyCommand;
+import seedu.address.logic.commands.quiz.QuizExportCommand;
+import seedu.address.logic.commands.quiz.QuizListAnswersCommand;
+import seedu.address.logic.commands.quiz.QuizListQuestionsCommand;
+import seedu.address.logic.commands.quiz.QuizListQuestionsAndAnswersCommand;
+import seedu.address.logic.commands.quiz.QuizRemoveQuestionCommand;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -72,7 +80,8 @@ public class QuizCommandParser implements Parser<QuizCommand> {
      * @return Quiz create automatically command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
      */
-    private QuizCreateAutomaticallyCommand createAutomaticallyCommand(ArgumentMultimap argMultimap) throws ParseException {
+    private QuizCreateAutomaticallyCommand createAutomaticallyCommand(ArgumentMultimap argMultimap)
+            throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_NUM_QUESTIONS, PREFIX_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
@@ -93,7 +102,8 @@ public class QuizCommandParser implements Parser<QuizCommand> {
      * @return Quiz create manually command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
      */
-    private QuizCreateManuallyCommand createManuallyCommand(ArgumentMultimap argMultimap) throws ParseException {
+    private QuizCreateManuallyCommand createManuallyCommand(ArgumentMultimap argMultimap)
+            throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUESTION_NUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(

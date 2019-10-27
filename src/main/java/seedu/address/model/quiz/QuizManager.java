@@ -152,6 +152,11 @@ public class QuizManager {
         return questions + answers;
     }
 
+    /**
+     * Returns an observable list of questions from a quiz.
+     * @param quizBank The quiz bank.
+     * @return The observable list of questions from the quiz.
+     */
     public static ObservableList<Question> getObservableListQuestionsFromQuiz(QuizBank quizBank) {
         String quizId = QuizBank.getCurrentlyQueriedQuiz();
         int quizIndex = quizBank.getQuizIndex(quizId);
@@ -163,6 +168,12 @@ public class QuizManager {
         return questionList;
     }
 
+    /**
+     * Returns true if a quiz exists, else false.
+     * @param quizId The identifier of the quiz.
+     * @param quizBank The quiz bank.
+     * @return True if the quiz exists, else false.
+     */
     public static boolean checkQuizExists(String quizId, QuizBank quizBank) {
         int quizIndex = quizBank.getQuizIndex(quizId);
         return quizIndex != -1;
