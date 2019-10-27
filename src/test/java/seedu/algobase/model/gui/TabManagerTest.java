@@ -11,8 +11,8 @@ import seedu.algobase.model.ModelType;
 
 public class TabManagerTest {
 
-    private static final Index OLD_VALUE = Index.fromZeroBased(ModelType.PROBLEM.getDisplayTabPaneIndex());
-    private static final Index NEW_VALUE = Index.fromZeroBased(ModelType.TAG.getDisplayTabPaneIndex());
+    private static final Index OLD_VALUE = ModelType.PROBLEM.getDisplayTabPaneIndex();
+    private static final Index NEW_VALUE = ModelType.TAG.getDisplayTabPaneIndex();
     private static final Index ILLEGAL_VALUE = Index.fromZeroBased(ModelType.values().length);
 
     @Test

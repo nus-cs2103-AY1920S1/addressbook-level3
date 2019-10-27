@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
 
 import seedu.algobase.model.Model;
+import seedu.algobase.model.ModelType;
 
 /**
  * Lists all problems in the algobase to the user.
@@ -19,6 +20,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
+        model.getGuiState().getTabManager().setDisplayTabPaneIndex(ModelType.PROBLEM.getDisplayTabPaneIndex());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

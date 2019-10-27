@@ -23,7 +23,7 @@ class SwitchTabCommandTest {
     @Test
     public void execute_displayTabIndexAcceptedByModel_switchSuccessful() throws Exception {
         ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
-        Index index = Index.fromOneBased(ModelType.PLAN.getDisplayTabPaneIndex());
+        Index index = ModelType.PLAN.getDisplayTabPaneIndex();
         CommandResult commandResult = new SwitchTabCommand(TabType.DISPLAY, index).execute(modelStub);
 
         assertEquals(
