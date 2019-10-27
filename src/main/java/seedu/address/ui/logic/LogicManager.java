@@ -13,6 +13,12 @@ import seedu.address.ui.logic.exception.ParseException;
 public class LogicManager implements Logic {
     public static final String COMMAND_WORD_NAVIGATION = "go";
     public static final String COMMAND_WORD_EXIT = "exit";
+    public static final String HOME_TAB = "home";
+    public static final String MEMBERS_TAB = "members";
+    public static final String REIMBURSEMENTS_TAB = "reimbursements";
+    public static final String INVENTORY_TAB = "inventory";
+    public static final String CASHIER_TAB = "cashier";
+    public static final String OVERVIEW_TAB = "overview";
 
     @FXML
     private TabPane tabPane;
@@ -50,17 +56,17 @@ public class LogicManager implements Logic {
 
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
 
-        if (param.equalsIgnoreCase("home")) {
+        if (param.equalsIgnoreCase(HOME_TAB)) {
             selectionModel.select(0);
-        } else if (param.equalsIgnoreCase("members")) {
+        } else if (param.equalsIgnoreCase(MEMBERS_TAB)) {
             selectionModel.select(1);
-        } else if (param.equalsIgnoreCase("reimbursements")) {
+        } else if (param.equalsIgnoreCase(REIMBURSEMENTS_TAB)) {
             selectionModel.select(2);
-        } else if (param.equalsIgnoreCase("inventory")) {
+        } else if (param.equalsIgnoreCase(INVENTORY_TAB)) {
             selectionModel.select(3);
-        } else if (param.equals("cashier")) {
+        } else if (param.equalsIgnoreCase(CASHIER_TAB)) {
             selectionModel.select(4);
-        } else if (param.equalsIgnoreCase("overview")) {
+        } else if (param.equalsIgnoreCase(OVERVIEW_TAB)) {
             selectionModel.select(5);
         } else {
             throw new ParseException("A tab with that name was not found.");
