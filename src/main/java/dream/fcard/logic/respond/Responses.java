@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
-//import dream.fcard.logic.respond.commands.CreateCommand;
+////import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-import dream.fcard.model.StateEnum;
+//import dream.fcard.model.StateEnum;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.FileReadWrite;
 
 /**
@@ -132,6 +133,7 @@ enum Responses {
         System.out.println("Current command is CREATE deck");
         LogsCenter.getLogger(Responses.class).info("Current command is CREATE deck");
 
+        /*
         if (programState.getCurrentState() != StateEnum.DEFAULT) {
             System.out.println("Create not allowed here");
             return false;
@@ -140,13 +142,15 @@ enum Responses {
         // note all commands should have something like this
         // even import export
 
+         */
+
         String deckName = commandInput.split("deck/")[1].trim();
         if (programState.hasDeck(deckName)) {
             // REPORT DECK EXISTS
             LogsCenter.getLogger(Responses.class).warning("Deck with same name exist - " + deckName);
             System.out.println("Error: Deck with same name exist - " + deckName);
         } else {
-            programState.setCurrentState(StateEnum.CREATE_STATE_FRONT);
+            //programState.setCurrentState(StateEnum.CREATE_STATE_FRONT);
             programState.addDeck(deckName);
             LogsCenter.getLogger(Responses.class).info("Deck added - " + deckName);
             // PRINT INSTRUCTIONS TO USER HOW TO CREATE DECK
@@ -221,13 +225,13 @@ enum Responses {
     }),
 
     EDIT_DECK_EDIT_CARD("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[edit]+){1}((\\s)+"
-            + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
-            + "(back/[\\S\\s]+))?(\\s)*", (
+            + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)?"
+            + "(back/[\\S\\s]+))?(\\s)?", (
             commandInput, programState) -> {
-                System.out.println("Current command is EDIT");
-                LogsCenter.getLogger(Responses.class).info("Current command is EDIT");
+                System.out.println("Current command is EDIT, edit card in deck");
+                LogsCenter.getLogger(Responses.class).info("Current command is EDIT, edit card in deck");
 
-                System.out.println(commandInput);
+                //System.out.println(commandInput);
 
                 String userFields = commandInput.replaceFirst("edit(\\s)+deck/", "");
                 String[] splitUserFields = userFields.split(" action/");
@@ -247,7 +251,7 @@ enum Responses {
                 if (hasFront && hasBack) {
                     System.out.println("detect front and back");
 
-                    //System.out.println(splitUserFields[1]);
+                    //System.out.println(splitUserFields[0]);
 
                     splitUserFields = splitUserFields[1].split(" front/");
                     index = splitUserFields[0].trim();
@@ -271,15 +275,35 @@ enum Responses {
                     back = splitUserFields[1].trim();
                 }
 
-                if (!hasFront && !hasBack) {
-                    index = splitUserFields[1].trim();
+                System.out.println("Parsing completed");
+
+                System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
+
+                try {
+                    Deck deck = programState.getDeck(deckName);
+                    System.out.println("Deck obtained");
+
+                    int parsedInteger = Integer.parseInt(index);
+                    System.out.println(parsedInteger);
+
+                    if (hasFront) {
+                        deck.editFrontCardFromDeck(front, parsedInteger);
+                        System.out.println("Edit front card successsfullly");
+                    }
+
+                    if (hasBack) {
+                        deck.editBackCardInDeck(back, parsedInteger);
+                        System.out.println("Edit back card successsfullly");
+                    }
+
+                    System.out.println("Edit card successsfullly");
+                } catch (DeckNotFoundException d) {
+                    System.out.println("Error: " + d.getMessage());
+                } catch (NumberFormatException n) {
+                    System.out.println("Error: " + n.getMessage());
+                } catch (IndexNotFoundException i) {
+                    System.out.println("Error: " + i.getMessage());
                 }
-
-                //System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
-
-
-
-
                 return true; // capture is valid, end checking other commands
             }),
 
@@ -287,10 +311,10 @@ enum Responses {
             + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
             + "(back/[\\S\\s]+))?(\\s)*", (
             commandInput, programState) -> {
-                System.out.println("Current command is EDIT");
-                LogsCenter.getLogger(Responses.class).info("Current command is EDIT");
+                System.out.println("Current command is EDIT, removing deck");
+                LogsCenter.getLogger(Responses.class).info("Current command is EDIT, removing deck");
 
-                System.out.println(commandInput);
+                //System.out.println(commandInput);
 
                 String userFields = commandInput.replaceFirst("edit(\\s)+deck/", "");
                 String[] splitUserFields = userFields.split(" action/");
@@ -304,6 +328,15 @@ enum Responses {
 
                 //System.out.println(deckName + "." + action + "." + index + ".");
 
+                try {
+                    Deck deck = programState.getDeck(deckName);
+                    int parsedInteger = Integer.parseInt(index);
+                    deck.removeCardFromDeck(parsedInteger);
+                } catch (DeckNotFoundException d) {
+                    System.out.println("In edit command, not deck found - " + deckName);
+                } catch (NumberFormatException | IndexNotFoundException n) {
+                    System.out.println(n.getMessage());
+                }
 
                 return true; // capture is valid, end checking other commands
             }),

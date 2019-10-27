@@ -133,7 +133,7 @@ public class Deck implements JsonInterface {
             throw new IndexNotFoundException(errorMessage);
         }
 
-        cards.remove(indexProvided);
+        cards.remove(indexProvided - 1);
     }
 
     /**
@@ -150,7 +150,7 @@ public class Deck implements JsonInterface {
             String errorMessage = "Index entered is invalid: " + indexProvided;
             throw new IndexNotFoundException(errorMessage);
         }
-        FlashCard cardToChange = cards.get(indexProvided);
+        FlashCard cardToChange = cards.get(indexProvided - 1);
         cardToChange.editFront(newFront);
     }
 
@@ -168,7 +168,7 @@ public class Deck implements JsonInterface {
             String errorMessage = "Index entered is invalid: " + indexProvided;
             throw new IndexNotFoundException(errorMessage);
         }
-        FlashCard cardToChange = cards.get(indexProvided);
+        FlashCard cardToChange = cards.get(indexProvided - 1);
         cardToChange.editBack(newBack);
     }
 
