@@ -19,6 +19,7 @@ import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.Logic;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
+import seedu.elisa.logic.commands.OpenCommandResult;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
@@ -225,6 +226,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void openUp(Item item) {
+        taskListPanelPlaceholder.getChildren().add(new OpenItem(item).getRoot());
+    }
+
+
+
     /**
      * Updates the panels to display the correct list of item.
      */
@@ -282,6 +289,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult instanceof DownCommandResult) {
                 scrollDown(commandResult.getPane());
+                return commandResult;
+            }
+
+            if (commandResult instanceof OpenCommandResult) {
+                OpenCommandResult result = (OpenCommandResult) commandResult;
+                openUp(result.getItem());
                 return commandResult;
             }
 

@@ -15,6 +15,7 @@ import seedu.elisa.logic.commands.EditCommand;
 import seedu.elisa.logic.commands.ExitCommand;
 import seedu.elisa.logic.commands.FindCommand;
 import seedu.elisa.logic.commands.JokeCommand;
+import seedu.elisa.logic.commands.OpenCommand;
 import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.ShowCommand;
 import seedu.elisa.logic.commands.SortCommand;
@@ -111,6 +112,9 @@ public class ElisaParser {
 
         case DownCommand.COMMAND_WORD:
             return new DownCommand(description);
+
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(description, flags);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
