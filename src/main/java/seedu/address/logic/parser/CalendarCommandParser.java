@@ -23,7 +23,6 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
             AthletickDate date = ParserUtil.parseDate(trimmedArgs);
             return new CalendarCommand(date);
         } else {
-            System.out.println(trimmedArgs.length());
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
         }
