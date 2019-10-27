@@ -1,4 +1,4 @@
-package seedu.address.ui.diary;
+package seedu.address.ui.diary.gallery;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;

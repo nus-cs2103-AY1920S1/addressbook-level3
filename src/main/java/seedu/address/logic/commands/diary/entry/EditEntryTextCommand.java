@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.diary;
+package seedu.address.logic.commands.diary.entry;
 
 import static java.util.Objects.requireNonNull;
 
@@ -17,20 +17,21 @@ import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
 /**
  * {@link Command} that sets the text of the current diary entry, optionally allowing editing a specific line.
+ * If a specific line is ap
  */
-public class EditDiaryEntryCommand extends Command {
+public class EditEntryTextCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the current diary entry\n"
             + "Parameters: "
             + "[Optional: " + PREFIX_INDEX + " specific line number to edit.]\n"
             + "[Required: " + PREFIX_DESCRIPTION
-            + "New Text of the specified line or entire diary entry which is either:]\n"
+            + "New Text of the specified line or entire diary entry which is either:\n"
             + "Text lines(s) consisting of normal text"
             + "OR Text lines with '<images (positive integer of a "
             + "photo according to the gallery order)> (one per line)'\n"
-            + "OR Text lines with <images (positive integers of photos according to"
-            + " the gallery order separated by spaces) (one per line)>";
+            + "OR Text lines with '<images (positive integers of photos according to"
+            + " the gallery order separated by spaces) (one per line)>']";
 
     public static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently viewing any entry!\n";
 
@@ -43,13 +44,13 @@ public class EditDiaryEntryCommand extends Command {
     private final String newText;
     private final Index lineToEdit;
 
-    public EditDiaryEntryCommand(String newText) {
+    public EditEntryTextCommand(String newText) {
         requireNonNull(newText);
         this.newText = newText;
         this.lineToEdit = null;
     }
 
-    public EditDiaryEntryCommand(String newText, Index lineToEdit) {
+    public EditEntryTextCommand(String newText, Index lineToEdit) {
         requireAllNonNull(newText, lineToEdit);
         this.newText = newText;
         this.lineToEdit = lineToEdit;
@@ -66,21 +67,20 @@ public class EditDiaryEntryCommand extends Command {
         }
 
         if (editDescriptor == null) {
-            //Immediately commit the entry if edit box is not open
+            //There is no buffer being used, and the command should commit the change immediately
             editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
             boolean didEditSucceed = handleEditMode(editDescriptor);
 
             DiaryEntry editedDiaryEntry = editDescriptor.buildDiaryEntry();
-            model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry, editedDiaryEntry);
+            model.getPageStatus().getCurrentTripDiary().setDiaryEntry(diaryEntry, editedDiaryEntry);
             model.setPageStatus(model.getPageStatus()
-                    .withNewEditDiaryEntryDescriptor(null)
                     .withNewDiaryEntry(editedDiaryEntry));
 
             return didEditSucceed
                     ? new CommandResult(String.format(MESSAGE_EDIT_COMMITTED, newText))
                     : new CommandResult(String.format(MESSAGE_LINE_DOES_NOT_EXIST, lineToEdit.getOneBased()));
         } else {
-            //Edit the current editDescriptor in use
+            //There is an edit buffer being used
             boolean didEditSucceed = handleEditMode(editDescriptor);
 
             return didEditSucceed
@@ -111,11 +111,11 @@ public class EditDiaryEntryCommand extends Command {
             return true;
         }
 
-        if (!(obj instanceof EditDiaryEntryCommand)) {
+        if (!(obj instanceof EditEntryTextCommand)) {
             return false;
         }
 
-        EditDiaryEntryCommand otherCommand = (EditDiaryEntryCommand) obj;
+        EditEntryTextCommand otherCommand = (EditEntryTextCommand) obj;
         return newText.equals(otherCommand.newText)
                 && isBothNullOrEqual(lineToEdit, otherCommand.lineToEdit);
     }

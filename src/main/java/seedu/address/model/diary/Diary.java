@@ -36,6 +36,10 @@ public class Diary {
         return diaryEntryList.getFirstDiaryEntry();
     }
 
+    public void addDiaryEntry(DiaryEntry diaryEntry) {
+        diaryEntryList.addDiaryEntry(diaryEntry);
+    }
+
     public void setDiaryEntry(DiaryEntry target, DiaryEntry replacement) {
         diaryEntryList.setDiaryEntry(target, replacement);
     }

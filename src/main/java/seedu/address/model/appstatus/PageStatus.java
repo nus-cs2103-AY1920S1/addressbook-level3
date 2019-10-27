@@ -1,5 +1,7 @@
 package seedu.address.model.appstatus;
 
+import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.isBothNullOrEqual;
 
 import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
@@ -7,7 +9,9 @@ import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
 import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
 import seedu.address.logic.commands.preferences.EditPrefsFieldCommand.EditPrefsDescriptor;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand.EditTripDescriptor;
+import seedu.address.model.diary.Diary;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.DiaryEntryList;
 import seedu.address.model.diary.EditDiaryEntryDescriptor;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.day.Day;
@@ -281,6 +285,23 @@ public class PageStatus {
     public EditDiaryEntryDescriptor getEditDiaryEntryDescriptor() {
         return editDiaryEntryDescriptor;
     }
+
+    //------------------------Diary accessors------------------------
+
+    public Diary getCurrentTripDiary() {
+        requireNonNull(trip);
+
+        return trip.getDiary();
+    }
+
+    public DiaryEntryList getCurrentTripDiaryEntryList() {
+        Diary currentTripDiary = getCurrentTripDiary();
+        requireNonNull(currentTripDiary);
+
+        return currentTripDiary.getDiaryEntryList();
+    }
+
+    //----------------------Diary accessors end----------------------
 
     @Override
     public boolean equals(Object obj) {

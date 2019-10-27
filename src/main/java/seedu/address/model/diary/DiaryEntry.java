@@ -46,6 +46,14 @@ public class DiaryEntry {
         return dayIndex;
     }
 
+    public int getDayNumber() {
+        return dayIndex.getOneBased();
+    }
+
+    public int getZeroBasedDayNumber() {
+        return dayIndex.getZeroBased();
+    }
+
     public PhotoList getPhotoList() {
         return photoList;
     }

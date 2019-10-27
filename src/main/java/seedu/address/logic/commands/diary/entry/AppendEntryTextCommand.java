@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.diary;
+package seedu.address.logic.commands.diary.entry;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,7 +13,7 @@ import seedu.address.model.diary.EditDiaryEntryDescriptor;
  * {@link Command} that adds the new text specified by the user, and commits the data in the
  * current {@link EditDiaryEntryDescriptor} (if any) to the user diary entry.
  */
-public class AppendDiaryEntryCommand extends Command {
+public class AppendEntryTextCommand extends Command {
     public static final String COMMAND_WORD = "append";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Appends and commits text to the current diary entry\n"
@@ -27,7 +27,7 @@ public class AppendDiaryEntryCommand extends Command {
 
     private final String textToAppend;
 
-    public AppendDiaryEntryCommand(String textToAppend) {
+    public AppendEntryTextCommand(String textToAppend) {
         requireNonNull(textToAppend);
         this.textToAppend = textToAppend;
     }
@@ -36,31 +36,35 @@ public class AppendDiaryEntryCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
-        EditDiaryEntryDescriptor currentEditEntryDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
+        EditDiaryEntryDescriptor editDescriptor = model.getPageStatus().getEditDiaryEntryDescriptor();
 
         if (diaryEntry == null) {
             throw new CommandException(MESSAGE_NO_DIARY_ENTRY);
         }
 
-        EditDiaryEntryDescriptor editDescriptor = currentEditEntryDescriptor == null
-                ? new EditDiaryEntryDescriptor(diaryEntry)
-                : currentEditEntryDescriptor;
+        if (editDescriptor == null) {
+            //There is no buffer being used, and the command should commit the change immediately
+            editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
+            editDescriptor.addNewTextLine(this.textToAppend);
 
-        editDescriptor.addNewTextLine(this.textToAppend);
-        DiaryEntry newDiaryEntry = editDescriptor.buildDiaryEntry();
+            DiaryEntry editedDiaryEntry = editDescriptor.buildDiaryEntry();
+            model.getPageStatus().getCurrentTripDiary().setDiaryEntry(diaryEntry, editedDiaryEntry);
+            model.setPageStatus(model.getPageStatus()
+                    .withNewDiaryEntry(editedDiaryEntry));
 
-        model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry, newDiaryEntry);
-        model.setPageStatus(model.getPageStatus()
-                .withNewEditDiaryEntryDescriptor(null)
-                .withNewDiaryEntry(newDiaryEntry));
+            return new CommandResult(String.format(MESSAGE_APPEND_SUCCESS, this.textToAppend));
+        } else {
+            //There is an edit buffer being used
+            editDescriptor.addNewTextLine(this.textToAppend);
 
-        return new CommandResult(String.format(MESSAGE_APPEND_SUCCESS, this.textToAppend));
+            return new CommandResult(String.format(MESSAGE_APPEND_SUCCESS, this.textToAppend));
+        }
     }
 
     @Override
     public boolean equals(Object obj) {
         return this == obj
-                || (obj instanceof AppendDiaryEntryCommand
-                        && ((AppendDiaryEntryCommand) obj).textToAppend.equals(textToAppend));
+                || (obj instanceof AppendEntryTextCommand
+                        && ((AppendEntryTextCommand) obj).textToAppend.equals(textToAppend));
     }
 }

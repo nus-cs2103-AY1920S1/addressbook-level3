@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.diary;
+package seedu.address.logic.commands.diary.entry;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +15,7 @@ import seedu.address.model.diary.EditDiaryEntryDescriptor;
  * and commits the change to the current diary entry immediately if there is no {@link EditDiaryEntryDescriptor}
  * currently in use.
  */
-public class DeleteDiaryEntryCommand extends Command {
+public class DeleteEntryTextCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a line of text and commits to the "
@@ -30,7 +30,7 @@ public class DeleteDiaryEntryCommand extends Command {
 
     private final Index lineIndexToDelete;
 
-    public DeleteDiaryEntryCommand(Index lineIndexToDelete) {
+    public DeleteEntryTextCommand(Index lineIndexToDelete) {
         requireNonNull(lineIndexToDelete);
         this.lineIndexToDelete = lineIndexToDelete;
     }
@@ -52,7 +52,7 @@ public class DeleteDiaryEntryCommand extends Command {
             if (didDelete) {
                 DiaryEntry newDiaryEntry = editDescriptor.buildDiaryEntry();
 
-                model.getPageStatus().getTrip().getDiary().setDiaryEntry(diaryEntry, newDiaryEntry);
+                model.getPageStatus().getCurrentTripDiary().setDiaryEntry(diaryEntry, newDiaryEntry);
                 model.setPageStatus(model.getPageStatus()
                         .withNewEditDiaryEntryDescriptor(null)
                         .withNewDiaryEntry(newDiaryEntry));
@@ -77,7 +77,7 @@ public class DeleteDiaryEntryCommand extends Command {
     @Override
     public boolean equals(Object obj) {
         return this == obj
-                || (obj instanceof DeleteDiaryEntryCommand
-                && ((DeleteDiaryEntryCommand) obj).lineIndexToDelete.equals(lineIndexToDelete));
+                || (obj instanceof DeleteEntryTextCommand
+                && ((DeleteEntryTextCommand) obj).lineIndexToDelete.equals(lineIndexToDelete));
     }
 }
