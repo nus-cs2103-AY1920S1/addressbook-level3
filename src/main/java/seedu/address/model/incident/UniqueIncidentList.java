@@ -26,6 +26,7 @@ import seedu.address.model.incident.exceptions.IncidentNotFoundException;
  */
 public class UniqueIncidentList implements Iterable<Incident> {
 
+    private static final int NEW_INCIDENT_INSERTION_INDEX = 0; // to add incidents to front of list
     private final ObservableList<Incident> internalList = FXCollections.observableArrayList();
     private final ObservableList<Incident> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -39,7 +40,7 @@ public class UniqueIncidentList implements Iterable<Incident> {
     }
 
     /**
-     * Adds a Incident to the list.
+     * Adds an Incident to the front of the list.
      * The Incident must not already exist in the list.
      */
     public void add(Incident toAdd) {
@@ -47,7 +48,7 @@ public class UniqueIncidentList implements Iterable<Incident> {
         if (contains(toAdd)) {
             throw new DuplicateIncidentException();
         }
-        internalList.add(toAdd);
+        internalList.add(NEW_INCIDENT_INSERTION_INDEX, toAdd);
     }
 
     /**
