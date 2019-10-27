@@ -40,12 +40,10 @@ public class McqFlashcard extends Flashcard {
         return Collections.unmodifiableList(choices);
     }
 
-    /**
-     * Returns true if any choices is from the choice list
-     */
-    public boolean hasAnyChoice(List<Choice> choices) {
+    @Override
+    public boolean isValidFlashcard() {
         for (Choice choice : choices) {
-            if (getChoices().contains(choice)) {
+            if (choice.getChoice().equals(answer.getAnswer())) {
                 return true;
             }
         }

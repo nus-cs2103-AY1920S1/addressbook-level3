@@ -25,6 +25,11 @@ public class ShortAnswerFlashcard extends Flashcard {
     }
 
     @Override
+    public boolean isValidFlashcard() {
+        return true;
+    }
+
+    @Override
     public boolean isMcq() {
         return false;
     }
