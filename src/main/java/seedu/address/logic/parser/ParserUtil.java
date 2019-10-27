@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,6 +38,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter FORMATTER_YEAR_MONTH = DateTimeFormatter.ofPattern("MM/yyyy");
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -240,6 +242,21 @@ public class ParserUtil {
         }
         LocalDate newDate = LocalDate.parse(trimmed, FORMATTER);
         return new EventDate(newDate);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code YearMonth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code YearMonth} is invalid.
+     */
+    public static YearMonth parseYearMonth(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmed = date.trim();
+        if (!EventDate.isValidYearMonth(trimmed)) {
+            throw new ParseException(EventDate.MESSAGE_CONSTRAINTS_MONTH);
+        }
+        return YearMonth.parse(trimmed, FORMATTER_YEAR_MONTH);
     }
 
     /**

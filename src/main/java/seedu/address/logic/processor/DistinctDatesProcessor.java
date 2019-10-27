@@ -2,6 +2,7 @@ package seedu.address.logic.processor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,6 +67,7 @@ public class DistinctDatesProcessor {
         for (LocalDate date : datesSet) {
             datesList.add(date);
         }
+        Collections.sort(datesList);
         return datesList;
     }
 }

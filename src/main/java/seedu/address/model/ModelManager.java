@@ -228,9 +228,9 @@ public class ModelManager implements Model {
         filteredScheduledEvents.setPredicate(predicate);
     }
 
+    //=========== Distinct Dates List Accessors =============================================================
     /**
-     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
-     * {@code versionedEventBook}
+     * Returns an unmodifiable view of the list of {@code DistinctDates} which will be generated upon command call.
      */
     @Override
     public ObservableList<DistinctDate> getDistinctDatesList() {

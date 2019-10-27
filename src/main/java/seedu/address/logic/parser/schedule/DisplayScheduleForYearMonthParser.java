@@ -1,44 +1,44 @@
 package seedu.address.logic.parser.schedule;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR_MONTH;
 
+import java.time.YearMonth;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
+import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.EventContainsKeyDatePredicate;
-import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
 
 /**
- * Parses input arguments and creates a new DisplayScheduleForDateCommand object
+ * Parses input arguments and creates a new DisplayScheduleForYearMonthCommand object
  */
-public class DisplayScheduleForDateParser implements Parser<DisplayScheduleForDateCommand> {
+public class DisplayScheduleForYearMonthParser implements Parser<DisplayScheduleForYearMonthCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DisplayScheduleForDateCommand
-     * and returns a DisplayScheduleForDateCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DisplayScheduleForYearMonthCommand
+     * and returns a DisplayScheduleForYearMonthCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DisplayScheduleForDateCommand parse(String args) throws ParseException {
+    public DisplayScheduleForYearMonthCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_YEAR_MONTH);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_YEAR_MONTH)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DisplayScheduleForDateCommand.MESSAGE_USAGE));
+                    DisplayScheduleForYearMonthCommand.MESSAGE_USAGE));
         }
 
-        EventDate start = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        YearMonth yearMonth = ParserUtil.parseYearMonth(argMultimap.getValue(PREFIX_YEAR_MONTH).get());
 
-        return new DisplayScheduleForDateCommand(new EventContainsKeyDatePredicate(start.getDate()));
+        return new DisplayScheduleForYearMonthCommand(new EventContainsKeyYearMonthPredicate(yearMonth));
     }
 
     /**

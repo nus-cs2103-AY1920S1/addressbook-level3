@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Event}'s {@code Date} matches the given date in dd/MM/yyyy format.
  */
 public class EventContainsKeyDatePredicate implements Predicate<Event> {
     private final LocalDate date;

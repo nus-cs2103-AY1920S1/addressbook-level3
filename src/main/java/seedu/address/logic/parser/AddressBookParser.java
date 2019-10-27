@@ -27,8 +27,9 @@ import seedu.address.logic.commands.event.FindEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
-import seedu.address.logic.commands.schedule.DisplayScheduleCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
+import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
+import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
 import seedu.address.logic.commands.statistics.StatisticsCommand;
 import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.logic.parser.allocate.DeallocateCommandParser;
@@ -47,6 +48,7 @@ import seedu.address.logic.parser.event.FetchEventCommandParser;
 import seedu.address.logic.parser.event.FindEventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.schedule.DisplayScheduleForDateParser;
+import seedu.address.logic.parser.schedule.DisplayScheduleForYearMonthParser;
 
 /**
  * Parses user input.
@@ -105,8 +107,11 @@ public class AddressBookParser {
         case DisplayScheduleForDateCommand.COMMAND_WORD:
             return new DisplayScheduleForDateParser().parse(arguments);
 
-        case DisplayScheduleCommand.COMMAND_WORD:
-            return new DisplayScheduleCommand();
+        case DisplayScheduleForYearMonthCommand.COMMAND_WORD:
+            return new DisplayScheduleForYearMonthParser().parse(arguments);
+
+        case GenerateScheduleCommand.COMMAND_WORD:
+            return new GenerateScheduleCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

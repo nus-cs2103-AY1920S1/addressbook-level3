@@ -151,12 +151,12 @@ public interface Model {
      */
     void updateFilteredScheduledEventList(Predicate<Event> predicate);
 
-    /** Returns an unmodifiable view of the filtered event list */
+    /** Returns an unmodifiable view of the DistinctDate list */
     ObservableList<DistinctDate> getDistinctDatesList();
 
     /**
-     * Updates the filter of the filtered Event list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Updates the DistinctDatesList by taking in a new List of DistinctDate Objects
+     * @param list of DistinctDate objects to replace the old list.
      */
     void updateDistinctDatesList(List<DistinctDate> list);
 
