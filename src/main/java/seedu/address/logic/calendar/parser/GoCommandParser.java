@@ -1,7 +1,5 @@
 package seedu.address.logic.calendar.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
 
@@ -19,7 +17,7 @@ public class GoCommandParser {
             int week = ParserUtil.parseWeek(args);
             return new GoCommand(week);
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException("The format is go [weeknumber] and week number must be an int from 0 to 14");
         }
     }
 }

@@ -11,7 +11,7 @@ import seedu.address.model.calendar.task.Task;
 /**
  * Deletes all tasks contained in the current week.
  */
-public class DeleteWeekCommand extends Command {
+public class ClearWeekCommand extends Command {
     public static final String COMMAND_WORD = "clearweek";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
