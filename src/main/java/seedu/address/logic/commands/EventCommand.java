@@ -13,7 +13,7 @@ public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new event with the specified name";
-    public static final String MESSAGE_CREATE_EVENT_SUCCESS = "Event Created: %1$s";
+    public static final String MESSAGE_SUCCESS = "Event Created: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "%1$s event already exists in Athletick.";
 
     private final Event toAdd;
@@ -36,11 +36,18 @@ public class EventCommand extends Command {
 
         model.addEvent(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, toAdd.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
     }
 
     @Override
     public boolean isUndoable() {
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof EventCommand // instanceof handles nulls
+            && toAdd.equals(((EventCommand) other).toAdd));
     }
 }

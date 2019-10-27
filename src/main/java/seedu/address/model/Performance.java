@@ -101,8 +101,8 @@ public class Performance implements ReadOnlyPerformance {
      * @param r Record to be added.
      * @return Details of the performance record.
      */
-    public String addRecord(String e, Person p, Record r) {
-        return events.getEvent(e).addPerformance(p, r);
+    public void addRecord(String e, Person p, Record r) {
+        events.getEvent(e).addPerformance(p, r);
     }
 
     @Override

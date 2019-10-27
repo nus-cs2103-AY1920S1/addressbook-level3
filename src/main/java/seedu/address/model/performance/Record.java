@@ -1,5 +1,7 @@
 package seedu.address.model.performance;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.date.AthletickDate;
 
 /**
@@ -16,6 +18,8 @@ public class Record {
      * @param timing of this entry.
      */
     public Record(AthletickDate date, String timing) {
+        requireNonNull(date);
+        requireNonNull(timing);
         this.date = date;
         this.timing = timing;
     }

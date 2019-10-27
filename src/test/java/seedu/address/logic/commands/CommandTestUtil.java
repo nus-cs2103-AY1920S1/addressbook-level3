@@ -42,8 +42,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_PHOTO_AMY = "amy.png";
     public static final String VALID_PHOTO_BOB = "bob.png";
-    public static final String VALID_EVENT_BUTTERFLY = "butterfly 50m";
-    public static final String VALID_DATE_CHRISTMAS = "25122019";
+    public static final String VALID_EVENT = "freestyle 50m";
+    public static final String VALID_DATE = "25122019";
     public static final String VALID_TIMING = "30s";
     public static final String VALID_INDEX = "1";
 
@@ -59,8 +59,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String PHOTO_DESC_AMY = " " + PREFIX_IMAGE + VALID_PHOTO_AMY;
     public static final String PHOTO_DESC_BOB = " " + PREFIX_IMAGE + VALID_PHOTO_BOB;
-    public static final String EVENT_DESC_BUTTERFLY = " " + PREFIX_EVENT + VALID_EVENT_BUTTERFLY;
-    public static final String DATE_DESC_CHRISTMAS = " " + PREFIX_DATE + VALID_DATE_CHRISTMAS;
+    public static final String EVENT_DESC = " " + PREFIX_EVENT + VALID_EVENT;
+    public static final String DATE_DESC = " " + PREFIX_DATE + VALID_DATE;
     public static final String TIMING_DESC = " " + PREFIX_TIMING + VALID_TIMING;
 
 
@@ -69,7 +69,8 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_PHOTO_DESC = " " + PREFIX_IMAGE + "@default.png"; //non-alphanumeric not allowed
+    public static final String INVALID_PHOTO_DESC = " " + PREFIX_IMAGE + "@default.png"; // non-alphanumeric not allowed
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2nd Jan 2019"; // letters not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

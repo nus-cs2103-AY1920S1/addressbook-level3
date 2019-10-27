@@ -117,7 +117,7 @@ public interface Model {
 
     ReadOnlyPerformance getPerformance();
 
-    String addRecord(String eventName, Person person, Record record);
+    void addRecord(String eventName, Person person, Record record);
 
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 

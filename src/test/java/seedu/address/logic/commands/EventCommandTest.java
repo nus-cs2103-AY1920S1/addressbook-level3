@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
+import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -30,57 +30,102 @@ import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
-import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT;
+
+
+public class EventCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new EventCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_eventAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new Event(VALID_EVENT);
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new EventCommand(validEvent).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(EventCommand.MESSAGE_SUCCESS, VALID_EVENT), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateEvent_throwsCommandException() {
+        Event validEvent = new Event(VALID_EVENT);
+        EventCommand eventCommand = new EventCommand(validEvent);
+        ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+            String.format(EventCommand.MESSAGE_DUPLICATE_EVENT, VALID_EVENT), () -> eventCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Event butterly = new Event("butterly");
+        Event freestyle = new Event("freestyle");
+        EventCommand addButterflyCommand = new EventCommand(butterly);
+        EventCommand addFreeStyleCommand = new EventCommand(freestyle);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addButterflyCommand.equals(addButterflyCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        EventCommand addButterflyCommandCopy = new EventCommand(butterly);
+        assertTrue(addButterflyCommand.equals(addButterflyCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addButterflyCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addButterflyCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addButterflyCommand.equals(addFreeStyleCommand));
+    }
+
+    /**
+     * A Model stub that contains a single event.
+     */
+    private class ModelStubWithEvent extends ModelStub {
+        private final Event event;
+
+        ModelStubWithEvent(Event event) {
+            requireNonNull(event);
+            this.event = event;
+        }
+
+        @Override
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return this.event.isSameEvent(event);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the person being added.
+     */
+    private class ModelStubAcceptingEventAdded extends ModelStub {
+        final ArrayList<Event> eventsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return eventsAdded.stream().anyMatch(event::isSameEvent);
+        }
+
+        @Override
+        public void addEvent(Event event) {
+            requireNonNull(event);
+            eventsAdded.add(event);
+        }
+
+        @Override
+        public ReadOnlyPerformance getPerformance() {
+            return new Performance();
+        }
     }
 
     /**
@@ -195,7 +240,7 @@ public class AddCommandTest {
 
         @Override
         public void addEvent(Event event) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -210,7 +255,6 @@ public class AddCommandTest {
 
         @Override
         public void addRecord(String eventName, Person person, Record record) {
-
         }
 
         @Override
@@ -223,47 +267,4 @@ public class AddCommandTest {
             return false;
         }
     }
-
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
 }
