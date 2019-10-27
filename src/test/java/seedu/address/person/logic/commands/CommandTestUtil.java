@@ -31,8 +31,8 @@ import seedu.address.person.storage.JsonAddressBookStorage;
 import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.stubs.TransactionLogicStub;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.TypicalReimbursements;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
@@ -82,7 +82,6 @@ public class CommandTestUtil {
     private static seedu.address.transaction.model.ModelManager model =
             new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
     private static Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private static TransactionLogicStub transactionLogicStub = new TransactionLogicStub(model, personModel);
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -101,8 +100,8 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
                                             Model expectedModel) {
         try {
-            TransactionList transactionList = TypicalTransactions.getTypicalTransactionList();
-            ReimbursementList reimbursementList = new ReimbursementList();
+            TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
+            ReimbursementList reimbursementList = TypicalReimbursements.getTypicalReimbursements();
 
             //all related ModelManagers
             seedu.address.transaction.model.Model transactionModel =
@@ -113,16 +112,19 @@ public class CommandTestUtil {
 
             //all related StorageManagers
             seedu.address.transaction.storage.StorageManager transactionManager =
-                    new StorageManager(new File(""), personModel);
+                    new StorageManager(File.createTempFile("testing", "tempTransaction.txt"), personModel);
             seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                     new seedu.address.reimbursement.storage.StorageManager(
-                            new File("data/test/reimbursement.txt"));
+                            File.createTempFile("testing", "tempReimbursement.txt"));
             seedu.address.reimbursement.logic.Logic reimbursementLogic =
                     new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                             transactionModel, transactionManager, personModel);
+            seedu.address.transaction.logic.Logic transactionLogic =
+                    new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
+                            personModel, reimbursementModel, reimbursementManager);
 
 
-            CommandResult result = command.execute(actualModel, transactionLogicStub, reimbursementLogic);
+            CommandResult result = command.execute(actualModel, transactionLogic, reimbursementLogic);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException | IOException ce) {
@@ -152,8 +154,8 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        TransactionList transactionList = TypicalTransactions.getTypicalTransactionList();
-        ReimbursementList reimbursementList = new ReimbursementList();
+        TransactionList transactionList = TypicalTransactions.getTransactionListWithReimbursementNeeded();
+        ReimbursementList reimbursementList = TypicalReimbursements.getTypicalReimbursements();
 
         Path userPrefPath = Paths.get("data/test/userPrefs.txt");
         Path addressPath = Paths.get("data/test/address.txt");
@@ -169,25 +171,29 @@ public class CommandTestUtil {
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
 
         //all related StorageManagers
-        seedu.address.transaction.storage.StorageManager transactionManager =
-                new StorageManager(new File(""), personModel);
-        seedu.address.person.storage.StorageManager personManager =
-                new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
-        seedu.address.reimbursement.storage.StorageManager reimbursementManager =
-                new seedu.address.reimbursement.storage.StorageManager(
-                        new File("data/test/reimbursement.txt"));
+        try {
+            seedu.address.transaction.storage.StorageManager transactionManager =
+                    new StorageManager(File.createTempFile("testing", "tempTransaction.txt"), personModel);
+            seedu.address.person.storage.StorageManager personManager =
+                    new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
+            seedu.address.reimbursement.storage.StorageManager reimbursementManager =
+                    new seedu.address.reimbursement.storage.StorageManager(
+                            File.createTempFile("testing", "tempReimbursement.txt"));
 
-        Logic logic = new LogicManager(transactionModel, transactionManager, personModel,
-                reimbursementModel, reimbursementManager);
-        seedu.address.reimbursement.logic.Logic reimbursementLogic =
-                new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        transactionModel, transactionManager, personModel);
+            Logic logic = new LogicManager(transactionModel, transactionManager, personModel,
+                    reimbursementModel, reimbursementManager);
+            seedu.address.reimbursement.logic.Logic reimbursementLogic =
+                    new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
+                            transactionModel, transactionManager, personModel);
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel,
-                logic, reimbursementLogic));
+            assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel,
+                    logic, reimbursementLogic));
 
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        } catch (IOException e) {
+            throw new AssertionError("There should not be an exception making a temp file.");
+        }
     }
 
     /**

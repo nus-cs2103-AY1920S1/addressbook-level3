@@ -307,20 +307,14 @@ In addition, the `resetPredicate()` method in `ModelManager` is not called in th
 filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
 a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
 To view the full transaction list, the user would be required to input the
-Back Command where `BackCommand` calls `resetPredicate()`.
-
-The `BackCommand` is not initialised by a parser but initialised by the `TransactionTabParser` instead.
-The following detailed sequence diagram shows how the back command works:
-
-.Sequence Diagram of Back Command in Home Tab (transaction package)
-
-image::HomeTabBackCommandSequenceDiagram.png[]
+Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown at <<BackCommandSD, 3.1.3 BackCommand>>
 
 ==== Back Command Feature
 
-The `BackCommand` is not initialised by a parser but initialised by the `TransactionTabParser` instead.
+The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
+but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
-
+[[BackCommandSD]]
 .Sequence Diagram of Back Command in Home Tab (transaction package)
 
 image::HomeTabBackCommandSequenceDiagram.png[]
@@ -340,24 +334,24 @@ The above activity diagram assumes the index to be within the bounds of the tabl
 be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
 When a successful deletion is done, a response message is shown as well.
 
-==== Sort Command Feature
-The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
-alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
+//==== Sort Command Feature
+//The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
+//alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
 
-The following sequence diagram shows how the sort command works:
+//The following sequence diagram shows how the sort command works:
 
-.Sequence Diagram of Sort Command in Home Tab (transaction package)
+//.Sequence Diagram of Sort Command in Home Tab (transaction package)
 
-image::HomeTabSortCommandSequenceDiagram.png[]
+//image::HomeTabSortCommandSequenceDiagram.png[]
 
-When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
-the incorrect user input. When it is successfully sorted, there will also be a response message shown.
+//When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
+//the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
-Similar to the Delete Command, since the `resetPredicate()` method is not called as shown, the UI table will
-continue to show the filtered transaction list if the prior input is a Find Command and the list at the start
-of the activity diagram shows a filtered list by the Find Command's keywords.
-To view the full transaction list, the user would have to input the
-Back Command that calls `resetPredicate()`.
+//Similar to the Delete Command, since the `resetPredicate()` method is not called as shown, the UI table will
+//continue to show the filtered transaction list if the prior input is a Find Command and the list at the start
+//of the activity diagram shows a filtered list by the Find Command's keywords.
+//To view the full transaction list, the user would have to input the
+//Back Command that calls `resetPredicate()`.
 
 === Members Tab
 This tab will help to keep track of the contact details of members in the club or society for the treasurer.
