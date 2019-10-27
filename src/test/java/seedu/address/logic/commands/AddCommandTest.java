@@ -307,6 +307,11 @@ public class AddCommandTest {
         public boolean hasDuplicatedBorrower(Borrower editedBorrower) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void unregisterBorrower(Borrower toUnregister) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
