@@ -2,12 +2,10 @@ package seedu.mark.logic.commands;
 
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.function.Predicate;
-
 import seedu.mark.commons.core.Messages;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.predicates.BookmarkContainsKeywordsPredicate;
 import seedu.mark.storage.Storage;
 
 /**
@@ -23,9 +21,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " stack-overflow github programming";
 
-    private final Predicate<Bookmark> predicate;
+    private final BookmarkContainsKeywordsPredicate predicate;
 
-    public FindCommand(Predicate<Bookmark> predicate) {
+    public FindCommand(BookmarkContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
