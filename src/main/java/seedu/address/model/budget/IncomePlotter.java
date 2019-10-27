@@ -1,13 +1,18 @@
 package seedu.address.model.budget;
 
-import org.jfree.data.xy.XYSeries;
-import seedu.address.model.commonvariables.Date;
-import seedu.address.model.income.Income;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jfree.data.xy.XYSeries;
+
+import seedu.address.model.commonvariables.Date;
+import seedu.address.model.income.Income;
+
+/**
+ *  Represents the income portion of the Budget graph
+ */
 
 public class IncomePlotter {
     private List<Income> incomeList;

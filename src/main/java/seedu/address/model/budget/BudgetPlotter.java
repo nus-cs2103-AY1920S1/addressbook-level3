@@ -2,6 +2,10 @@ package seedu.address.model.budget;
 
 import org.jfree.data.xy.XYSeries;
 
+/**
+ *  Represents the budget portion of the Budget graph
+ */
+
 public class BudgetPlotter {
 
     private XYSeries incomeSeries;
@@ -15,15 +19,15 @@ public class BudgetPlotter {
     }
 
     /**
-     * Plots points of budget values
+     * Plots the points of budget values
      */
 
     XYSeries plotBudget() {
         double currentBudget;
-            for (int day = 1; day <= 31; day++) {
-                currentBudget = incomeSeries.indexOf(day) - claimSeries.indexOf(day);
-                budgetSeries.add(day, currentBudget);
-            }
+        for (int day = 1; day <= 31; day++) {
+            currentBudget = incomeSeries.indexOf(day) - claimSeries.indexOf(day);
+            budgetSeries.add(day, currentBudget);
+        }
         return budgetSeries;
     }
 }
