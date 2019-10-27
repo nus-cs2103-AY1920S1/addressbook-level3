@@ -10,6 +10,7 @@ import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
+import com.typee.model.engagement.TimeSlot;
 import com.typee.model.engagement.exceptions.InvalidTimeException;
 
 /**
@@ -21,8 +22,7 @@ class JsonAdaptedEngagement {
     public static final String EMPTY_LIST = "[]";
 
     private final String engagementType;
-    private final String startTime;
-    private final String endTime;
+    private final String timeSlot;
     private final String location;
     private final String attendees;
     private final String description;
@@ -32,14 +32,13 @@ class JsonAdaptedEngagement {
      * Constructs a {@code JsonAdaptedEngagement} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedEngagement(@JsonProperty("type") String type, @JsonProperty("startTime") String startTime,
-                                 @JsonProperty("endTime") String endTime, @JsonProperty("location") String location,
+    public JsonAdaptedEngagement(@JsonProperty("type") String type, @JsonProperty("timeSlot") String timeSlot,
+                                 @JsonProperty("location") String location,
                                  @JsonProperty("attendees") String attendees,
                                  @JsonProperty("description") String description,
                                  @JsonProperty("priority") String priority) {
         this.engagementType = type;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.timeSlot = timeSlot;
         this.location = location;
         this.attendees = attendees;
         this.description = description;
@@ -51,8 +50,7 @@ class JsonAdaptedEngagement {
      */
     public JsonAdaptedEngagement(Engagement source) {
         engagementType = source.getClass().getSimpleName();
-        startTime = source.getStartTime().toString();
-        endTime = source.getEndTime().toString();
+        timeSlot = source.getTimeSlot().toString();
         location = source.getLocation().toString();
         description = source.getDescription();
         attendees = source.getAttendees().toString();
@@ -65,15 +63,16 @@ class JsonAdaptedEngagement {
      * @throws IllegalValueException if there were any data constraints violated in the adapted engagement.
      */
     public Engagement toModelType() throws IllegalValueException {
-        // TODO : Date validation.
+
         final EngagementType modelType = validateAndGetEngagementType();
+        final TimeSlot modelTimeSlot = validateAndGetTimeSlot();
         final Location modelLocation = validateAndGetLocation();
         final AttendeeList modelAttendees = validateAndGetAttendees();
         final Priority modelPriority = validateAndGetPriority();
         final String modelDescription = validateAndGetDescription();
 
         try {
-            return Engagement.of(modelType, LocalDateTime.parse(startTime), LocalDateTime.parse(endTime),
+            return Engagement.of(modelType, modelTimeSlot,
                     modelAttendees, modelLocation, modelDescription, modelPriority);
         } catch (InvalidTimeException e) {
             throw new IllegalValueException(e.getMessage());
@@ -156,5 +155,16 @@ class JsonAdaptedEngagement {
             throw new IllegalValueException(EngagementType.getMessageConstraints());
         }
         return EngagementType.of(engagementType);
+    }
+
+    private TimeSlot validateAndGetTimeSlot() throws IllegalValueException {
+        if (timeSlot == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TimeSlot.class.getSimpleName()));
+        }
+        if (!TimeSlot.isValid(timeSlot)) {
+            throw new IllegalValueException(TimeSlot.MESSAGE_CONSTRAINTS);
+        }
+        return TimeSlot.of(timeSlot);
     }
 }

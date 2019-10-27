@@ -76,6 +76,17 @@ public class AttendeeList {
                     .collect(Collectors.toList());
     }
 
+    /**
+     * Returns a copy of the {@code AttendeeList}.
+     * @return {@code AttendeeList} with the same content.
+     */
+    public AttendeeList copy() {
+        List<Person> copyOfAttendees = attendees.stream()
+                .map(person -> new Person(person.getName()))
+                .collect(Collectors.toList());
+        return new AttendeeList(copyOfAttendees);
+    }
+
     @Override
     public String toString() {
         return attendees.toString();

@@ -1,5 +1,7 @@
 package com.typee.model.engagement;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -12,8 +14,7 @@ public abstract class Engagement {
 
     public static final String MESSAGE_INVALID_TIME = "The end time has to occur after the start time.";
 
-    protected LocalDateTime startTime;
-    protected LocalDateTime endTime;
+    protected TimeSlot timeSlot;
     protected AttendeeList attendees;
     protected Location location;
     protected String description;
@@ -29,10 +30,9 @@ public abstract class Engagement {
      * @param description description of the engagement.
      * @param priority priority level of the engagement.
      */
-    protected Engagement(LocalDateTime start, LocalDateTime end,
+    protected Engagement(TimeSlot timeSlot,
                          AttendeeList attendees, Location location, String description, Priority priority) {
-        this.startTime = start;
-        this.endTime = end;
+        this.timeSlot = timeSlot;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
@@ -54,14 +54,14 @@ public abstract class Engagement {
      * after or during {@code LocalDateTime endTime}.
      */
     public static Engagement of(EngagementType type,
-                                LocalDateTime start, LocalDateTime end,
+                                TimeSlot timeSlot,
                                 AttendeeList attendees, Location location, String description,
                                 Priority priority) throws InvalidTimeException {
-        if (isStartAfterEnd(start, end)) {
+        if (timeSlot.isStartAfterEnd()) {
             throw new InvalidTimeException(MESSAGE_INVALID_TIME);
         }
 
-        return makeEngagement(type, start, end, attendees, location, description, priority);
+        return makeEngagement(type, timeSlot, attendees, location, description, priority);
     }
 
     /**
@@ -76,15 +76,15 @@ public abstract class Engagement {
      *
      * @return an {@code Engagement} with the corresponding fields.
      */
-    private static Engagement makeEngagement(EngagementType type, LocalDateTime start, LocalDateTime end,
+    private static Engagement makeEngagement(EngagementType type, TimeSlot timeSlot,
                                              AttendeeList attendees, Location location,
                                              String description, Priority priority) {
         if (type.name().equalsIgnoreCase("meeting")) {
-            return new Meeting(start, end, attendees, location, description, priority);
+            return new Meeting(timeSlot, attendees, location, description, priority);
         } else if (type.name().equalsIgnoreCase("interview")) {
-            return new Interview(start, end, attendees, location, description, priority);
+            return new Interview(timeSlot, attendees, location, description, priority);
         } else {
-            return new Appointment(start, end, attendees, location, description, priority);
+            return new Appointment(timeSlot, attendees, location, description, priority);
         }
     }
 
@@ -96,27 +96,21 @@ public abstract class Engagement {
         return startTime.isAfter(endTime) || startTime.isEqual(endTime);
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setTimeSlot(TimeSlot timeSlot) {
+        requireNonNull(timeSlot);
+        this.timeSlot = timeSlot;
     }
 
     public AttendeeList getAttendees() {
-        return attendees;
+        return attendees.copy();
     }
 
     public void setAttendees(AttendeeList attendees) {
+        requireNonNull(attendees);
         this.attendees = attendees;
     }
 
@@ -125,6 +119,7 @@ public abstract class Engagement {
     }
 
     public void setLocation(Location location) {
+        requireNonNull(location);
         this.location = location;
     }
 
@@ -133,6 +128,7 @@ public abstract class Engagement {
     }
 
     public void setDescription(String description) {
+        requireNonNull(description);
         this.description = description;
     }
 
@@ -141,6 +137,7 @@ public abstract class Engagement {
     }
 
     public void setPriority(Priority priority) {
+        requireNonNull(priority);
         this.priority = priority;
     }
 
@@ -184,14 +181,13 @@ public abstract class Engagement {
                 && otherEngagement.location.equals(location)
                 && otherEngagement.attendees.equals(attendees)
                 && otherEngagement.description.equals(description)
-                && otherEngagement.startTime.equals(startTime)
-                && otherEngagement.endTime.equals(endTime)
+                && otherEngagement.timeSlot.equals(timeSlot)
                 && otherEngagement.priority.equals(priority)
                 && otherEngagement.getType().equals(this.getType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startTime, endTime, location, description, attendees, priority);
+        return Objects.hash(timeSlot, location, description, attendees, priority);
     }
 }

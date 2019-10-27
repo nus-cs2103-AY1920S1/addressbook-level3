@@ -6,11 +6,10 @@ import java.time.LocalDateTime;
  * Represents an {@code Interview}.
  */
 public class Interview extends Engagement {
-    protected Interview(LocalDateTime start, LocalDateTime end,
+    protected Interview(TimeSlot timeSlot,
                       AttendeeList attendees, Location location, String description, Priority priority) {
-        super(start, end, attendees, location, description, priority);
-        this.startTime = start;
-        this.endTime = end;
+        super(timeSlot, attendees, location, description, priority);
+        this.timeSlot = timeSlot;
         this.attendees = attendees;
         this.location = location;
         this.description = description;
@@ -25,6 +24,6 @@ public class Interview extends Engagement {
     @Override
     public String toString() {
         return String.format("Interview of %s priority from %s to %s at %s.", priority.toString(),
-                startTime.toString(), endTime.toString(), location.toString());
+                timeSlot.getStartTime().toString(), timeSlot.getEndTime().toString(), location.toString());
     }
 }

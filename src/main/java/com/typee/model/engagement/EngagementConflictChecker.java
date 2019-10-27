@@ -17,7 +17,7 @@ public class EngagementConflictChecker {
             return false;
         }
 
-        return haveTimeOverlap(firstEngagement, secondEngagement);
+        return haveTimeOverlap(firstEngagement.getTimeSlot(), secondEngagement.getTimeSlot());
     }
 
     /**
@@ -27,14 +27,8 @@ public class EngagementConflictChecker {
      * @param secondEngagement second {@code Engagement}.
      * @return true if the times overlap.
      */
-    private static boolean haveTimeOverlap(Engagement firstEngagement, Engagement secondEngagement) {
-        if (firstEngagement.getStartTime().isBefore(secondEngagement.getStartTime())) {
-            return firstEngagement.getEndTime().isAfter(secondEngagement.getStartTime());
-        } else if (secondEngagement.getStartTime().isBefore(firstEngagement.getStartTime())) {
-            return secondEngagement.getEndTime().isAfter(firstEngagement.getStartTime());
-        } else {
-            return true;
-        }
+    private static boolean haveTimeOverlap(TimeSlot firstTimeSlot, TimeSlot secondTimeSlot) {
+        return firstTimeSlot.overlapsWith(secondTimeSlot);
     }
 
     /**
