@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="50.0" prefHeight="50.0" style="-fx-background-color: white;" text="Overview">
+      <font>
+         <Font name="Devanagari Sangam MN" size="48.0" />
+      </font>
+      <padding>
+         <Insets left="5.0" top="5.0" />
+      </padding>
+      <VBox.margin>
+         <Insets />
+      </VBox.margin>
+   </Label>
     <ListView fx:id="dashboardListView" VBox.vgrow="ALWAYS" />
 </VBox>

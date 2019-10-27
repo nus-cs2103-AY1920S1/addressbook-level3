@@ -9,9 +9,9 @@ import javafx.scene.layout.Region;
 /**
  * An UI component that displays information of a {@code Record}.
  */
-public class RecordCard extends UiPart<Region> {
+public class RecordListView extends UiPart<Region> {
 
-    private static final String FXML = "RecordListCard.fxml";
+    private static final String FXML = "RecordListView.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -34,9 +34,10 @@ public class RecordCard extends UiPart<Region> {
     @FXML
     private Label value;
 
-    public RecordCard(Record record, int displayedIndex) {
+    public RecordListView(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
+        id.setText(displayedIndex + ". ");
         timestamp.setText(record.getTimestamp().timestamp);
         type.setText(record.getType().type);
         value.setText(record.getValue().value + record.getType().unit);
@@ -50,12 +51,12 @@ public class RecordCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RecordCard)) {
+        if (!(other instanceof RecordListView)) {
             return false;
         }
 
         // state check
-        RecordCard card = (RecordCard) other;
+        RecordListView card = (RecordListView) other;
         return id.getText().equals(card.id.getText())
                 && record.equals(card.record);
     }

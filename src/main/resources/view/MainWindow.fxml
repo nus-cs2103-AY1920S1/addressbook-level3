@@ -40,7 +40,7 @@
            </MenuBar>
                <VBox fx:id="feature_bar" layoutY="30.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="240.0" prefWidth="70.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
                  <children>
-                     <Label maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #f08a37#f08a37;" />
+                     <Label maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #dfcdc3;" />
                    <Button fx:id="home" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchHome" prefHeight="150.0" prefWidth="100.0">
                      <padding>
                        <Insets top="2.0" />
@@ -103,7 +103,7 @@
                    </Button>
                      <Group>
                         <children>
-                           <Label fx:id="featureMode" alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="150.0" rotate="270.0" style="-fx-background-color: #f08a37#f08a37 #f08a37#f08a37;" text="Dashboard" textFill="#b2afaf" wrapText="true">
+                           <Label fx:id="featureMode" alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="150.0" rotate="270.0" style="-fx-background-color: #be7575#be7575;" text="Dashboard" textFill="#f2eded" wrapText="true">
                               <font>
                                  <Font size="11.0" />
                               </font>
@@ -121,10 +121,7 @@
                      <SplitPane prefWidth="200.0" VBox.vgrow="ALWAYS">
                        <items>
                           <VBox fx:id="personListCard" prefWidth="200.0" styleClass="pane-with-border">
-                           <padding>
-                             <Insets bottom="10" left="10" right="10" top="10" />
-                           </padding>
-                           <StackPane fx:id="versatilePanelPlaceholder" VBox.vgrow="ALWAYS" />
+                           <StackPane fx:id="versatilePanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="193.0" VBox.vgrow="ALWAYS" />
                          </VBox>
                        </items>
                         <VBox.margin>
