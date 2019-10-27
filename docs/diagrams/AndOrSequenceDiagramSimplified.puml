@@ -17,7 +17,7 @@ end box
                     create AndNode
                     AndOrNode -> AndNode
                         return newNode
-                else isOrNode
+                else else
                     create OrNode
                     AndOrNode -> OrNode
                         return newNode
@@ -25,7 +25,7 @@ end box
                 return newNode
 
 
-            loop for child in jsonNode
+            loop child in jsonNode
                 AndOrTree -> AndOrTree : buildTreeHelper(child, newNode)
                 return
                 |||
@@ -33,7 +33,7 @@ end box
 
         else isArray
 
-            loop for child in array
+            loop child in array
                 AndOrTree -> AndOrTree : buildTreeHelper(child, currNode)
                     return
                 |||

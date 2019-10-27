@@ -22,8 +22,8 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.planner.Frequency;
-import seedu.jarvis.model.planner.Priority;
+import seedu.jarvis.model.planner.enums.Frequency;
+import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
 
 /**

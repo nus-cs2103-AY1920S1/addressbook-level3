@@ -38,7 +38,7 @@ public class Todo extends Task {
 
     /**
      * Checks if this task is equal to another task
-     * Condition for equality: same type of task && same description
+     * Condition for equality: same type of task, same description & same status
      * @param other the task to be compared to
      * @return true if both tasks are equal, false if they are not
      */
@@ -48,6 +48,6 @@ public class Todo extends Task {
             return false;
         }
 
-        return taskDes.equals(((Todo) other).taskDes);
+        return (taskDes.equals(((Todo) other).taskDes)) && status.equals(((Todo) other).getStatus());
     }
 }
