@@ -220,7 +220,7 @@ enum Responses {
         return true; // capture is valid, end checking other commands
     }),
 
-    EDIT("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[\\S]+){1}((\\s)+"
+    EDIT("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[edit]|[remove]+){1}((\\s)+"
             + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
             + "(back/[\\S\\s]+))?(\\s)*", (
             commandInput, programState) -> {
@@ -275,7 +275,9 @@ enum Responses {
                     index = splitUserFields[1].trim();
                 }
 
-                System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
+                //System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
+
+
 
                 return true; // capture is valid, end checking other commands
             }),
