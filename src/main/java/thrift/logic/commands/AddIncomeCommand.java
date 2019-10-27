@@ -6,6 +6,7 @@ import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 import thrift.logic.parser.CliSyntax;
 import thrift.model.Model;
 import thrift.model.transaction.Income;
+import thrift.model.transaction.Transaction;
 import thrift.ui.TransactionListPanel;
 
 /**
@@ -49,6 +50,9 @@ public class AddIncomeCommand extends ScrollingCommand implements Undoable {
 
     public static final String MESSAGE_SUCCESS = "New income added: %1$s";
 
+    public static final String UNDO_SUCCESS = "Deleted income: %1$s";
+    public static final String REDO_SUCCESS = "Added income: %1$s";
+
     private final Income toAdd;
 
     /**
@@ -81,14 +85,16 @@ public class AddIncomeCommand extends ScrollingCommand implements Undoable {
     }
 
     @Override
-    public void undo(Model model) {
+    public String undo(Model model) {
         requireNonNull(model);
-        model.deleteLastTransaction();
+        Transaction deletedTransaction = model.deleteLastTransaction();
+        return String.format(UNDO_SUCCESS, deletedTransaction);
     }
 
     @Override
-    public void redo(Model model) {
+    public String redo(Model model) {
         requireAllNonNull(model, toAdd);
         model.addIncome(toAdd);
+        return String.format(REDO_SUCCESS, toAdd);
     }
 }

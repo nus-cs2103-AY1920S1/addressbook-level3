@@ -36,6 +36,9 @@ public class DeleteCommand extends NonScrollingCommand implements Undoable {
 
     public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Transaction: %1$s";
 
+    public static final String UNDO_SUCCESS = "Added transaction: %1$s";
+    public static final String REDO_SUCCESS = "Deleted transaction: %1$s";
+
     private final Index targetIndex;
     private Transaction transactionToDelete;
     private Index actualIndex;
@@ -69,18 +72,20 @@ public class DeleteCommand extends NonScrollingCommand implements Undoable {
     }
 
     @Override
-    public void undo(Model model) {
+    public String undo(Model model) {
         requireAllNonNull(model, transactionToDelete);
         if (transactionToDelete instanceof Expense) {
             model.addExpense((Expense) transactionToDelete, actualIndex);
         } else if (transactionToDelete instanceof Income) {
             model.addIncome((Income) transactionToDelete, actualIndex);
         }
+        return String.format(UNDO_SUCCESS, transactionToDelete);
     }
 
     @Override
-    public void redo(Model model) {
+    public String redo(Model model) {
         requireAllNonNull(model, actualIndex);
         model.deleteTransaction(actualIndex);
+        return String.format(REDO_SUCCESS, transactionToDelete);
     }
 }

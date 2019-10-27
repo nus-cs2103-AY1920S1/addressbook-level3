@@ -141,9 +141,11 @@ public class Thrift implements ReadOnlyThrift {
 
     /**
      * Removes last transaction from this {@code Thrift}.
+     *
+     * @return deleted transaction.
      */
-    public void removeLastTransaction() {
-        transactions.removeLast();
+    public Transaction removeLastTransaction() {
+        return transactions.removeLast();
     }
 
     /**

@@ -66,6 +66,8 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
     public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated Transaction: %1$s";
     public static final String MESSAGE_ORIGINAL_TRANSACTION = "\n\nOriginal: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to update must be provided.";
+    public static final String UNDO_SUCCESS = "Updated Transaction: %1$s\nOriginal: %2$s";
+    public static final String REDO_SUCCESS = "Updated Transaction: %1$s\nOriginal: %2$s";
 
     private final Index index;
     private final UpdateTransactionDescriptor updateTransactionDescriptor;
@@ -163,15 +165,17 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
     }
 
     @Override
-    public void undo(Model model) {
+    public String undo(Model model) {
         requireAllNonNull(model, transactionToUpdate, updatedTransaction, actualIndex);
         model.setTransactionWithIndex(actualIndex, transactionToUpdate);
+        return String.format(UNDO_SUCCESS, transactionToUpdate, updatedTransaction);
     }
 
     @Override
-    public void redo(Model model) {
+    public String redo(Model model) {
         requireAllNonNull(model, transactionToUpdate, updatedTransaction, actualIndex);
         model.setTransactionWithIndex(actualIndex, updatedTransaction);
+        return String.format(REDO_SUCCESS, updatedTransaction, transactionToUpdate);
     }
 
     /**

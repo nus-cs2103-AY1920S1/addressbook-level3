@@ -19,18 +19,15 @@ public class RedoCommand extends NonScrollingCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo undone command.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Redo successful";
+    public static final String MESSAGE_SUCCESS = "Redo successful.";
 
     public static final String NO_REDOABLE_COMMAND = "No valid command to redo";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasUndoneCommand()) {
-            Undoable undoable = model.getUndoneCommand();
-            undoable.redo(model);
-            return new CommandResult(MESSAGE_SUCCESS);
-        }
-        throw new CommandException(NO_REDOABLE_COMMAND);
+        Undoable undoable = model.getUndoneCommand();
+        String outputMessage = undoable.redo(model);
+        return new CommandResult(MESSAGE_SUCCESS + "\n" + outputMessage);
     }
 }

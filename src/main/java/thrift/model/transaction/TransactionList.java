@@ -92,9 +92,11 @@ public class TransactionList implements Iterable<Transaction> {
 
     /**
      * Remove the last transaction from the list.
+     *
+     * @return removed transaction.
      */
-    public void removeLast() {
-        internalList.remove(internalList.size() - 1);
+    public Transaction removeLast() {
+        return internalList.remove(internalList.size() - 1);
     }
 
     /**

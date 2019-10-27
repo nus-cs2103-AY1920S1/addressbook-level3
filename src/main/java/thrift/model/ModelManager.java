@@ -17,6 +17,7 @@ import thrift.commons.core.LogsCenter;
 import thrift.commons.core.index.Index;
 import thrift.commons.util.CollectionUtil;
 import thrift.logic.commands.Undoable;
+import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.transaction.Budget;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
@@ -134,8 +135,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteLastTransaction() {
-        thrift.removeLastTransaction();
+    public Transaction deleteLastTransaction() {
+        return thrift.removeLastTransaction();
     }
 
     @Override
@@ -333,7 +334,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Undoable getPreviousUndoableCommand() {
+    public Undoable getPreviousUndoableCommand() throws CommandException {
         return pastUndoableCommands.getCommandToUndo();
     }
 
@@ -343,7 +344,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Undoable getUndoneCommand() {
+    public Undoable getUndoneCommand() throws CommandException {
         return pastUndoableCommands.getCommandToRedo();
     }
 

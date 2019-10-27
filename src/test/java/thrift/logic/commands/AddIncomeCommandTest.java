@@ -199,7 +199,7 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public void deleteLastTransaction() {
+        public Transaction deleteLastTransaction() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -399,8 +399,8 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public void deleteLastTransaction() {
-            thriftStub.removeLastTransaction();
+        public Transaction deleteLastTransaction() {
+            return thriftStub.removeLastTransaction();
         }
     }
 
@@ -425,8 +425,8 @@ public class AddIncomeCommandTest {
         }
 
         @Override
-        public void removeLastTransaction() {
-            transactionsAdded.remove(transactionsAdded.size() - 1);
+        public Transaction removeLastTransaction() {
+            return transactionsAdded.remove(transactionsAdded.size() - 1);
         }
     }
 }

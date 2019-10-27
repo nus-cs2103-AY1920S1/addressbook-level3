@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import thrift.commons.core.GuiSettings;
 import thrift.commons.core.index.Index;
 import thrift.logic.commands.Undoable;
+import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.transaction.Budget;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
@@ -84,8 +85,10 @@ public interface Model {
 
     /**
      * Deletes the last transaction in the full transaction list.
+     *
+     * @return deleted transaction.
      */
-    void deleteLastTransaction();
+    Transaction deleteLastTransaction();
 
     /**
      * Adds the given expense.
@@ -197,8 +200,9 @@ public interface Model {
      * Returns the previous undoable command.
      *
      * @return previous undoable command
+     * @throws CommandException if there is no command available to undo.
      */
-    Undoable getPreviousUndoableCommand();
+    Undoable getPreviousUndoableCommand() throws CommandException;
 
     /**
      * Checks if there is any undoable command to undo.
@@ -210,9 +214,10 @@ public interface Model {
     /**
      * Returns the undone command.
      *
-     * @return undone command
+     * @return undone command.
+     * @throws CommandException if there is no command available to redo.
      */
-    Undoable getUndoneCommand();
+    Undoable getUndoneCommand() throws CommandException;
 
     /**
      * Checks if there is any undone command to redo.

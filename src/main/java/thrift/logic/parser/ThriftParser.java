@@ -104,10 +104,10 @@ public class ThriftParser {
             return new ListCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new NoArgumentsCommandParser(commandWord, RedoCommand.MESSAGE_USAGE).parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new NoArgumentsCommandParser(commandWord, UndoCommand.MESSAGE_USAGE).parse(arguments);
 
         /*
          * Info related commands.
@@ -119,7 +119,7 @@ public class ThriftParser {
          * System related commands.
          */
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            return new NoArgumentsCommandParser(commandWord, ExitCommand.MESSAGE_USAGE).parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommandParser().parse(arguments);

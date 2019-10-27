@@ -42,7 +42,9 @@ public class RedoCommandTest {
         RedoCommand redoCommand = new RedoCommand();
         expectedModel.addExpense(expense);
         expectedModel.keepTrackCommands(addExpenseCommand);
-        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        String outputMessage = String.format(AddExpenseCommand.REDO_SUCCESS, expense);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS + "\n" + outputMessage,
+                expectedModel);
 
     }
 }

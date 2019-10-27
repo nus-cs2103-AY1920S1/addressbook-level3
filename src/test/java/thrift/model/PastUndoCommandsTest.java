@@ -11,6 +11,7 @@ import thrift.logic.commands.AddExpenseCommand;
 import thrift.logic.commands.AddIncomeCommand;
 import thrift.logic.commands.ListCommand;
 import thrift.logic.commands.Undoable;
+import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Income;
 import thrift.testutil.ExpenseBuilder;
@@ -21,7 +22,7 @@ public class PastUndoCommandsTest {
     private PastUndoableCommands pastUndoableCommands = new PastUndoableCommands();
 
     @Test
-    public void getCommandToUndo_undoExpenseCommand_success() {
+    public void getCommandToUndo_undoExpenseCommand_success() throws CommandException {
         Expense validExpense = new ExpenseBuilder().build();
         Undoable addExpenseCommand = new AddExpenseCommand(validExpense);
 
@@ -32,7 +33,7 @@ public class PastUndoCommandsTest {
     }
 
     @Test
-    public void getCommandToRedo_redoExpenseCommand_success() {
+    public void getCommandToRedo_redoExpenseCommand_success() throws CommandException {
 
         Expense validExpense = new ExpenseBuilder().build();
         Undoable addExpenseCommand = new AddExpenseCommand(validExpense);
@@ -52,7 +53,7 @@ public class PastUndoCommandsTest {
     }
 
     @Test
-    public void clearRedoStack_undoneCommandsClearedAfterNewUndoableCommandRuns_success() {
+    public void clearRedoStack_undoneCommandsClearedAfterNewUndoableCommandRuns_success() throws CommandException {
         Expense validExpense = new ExpenseBuilder().build();
         Undoable addExpenseCommand = new AddExpenseCommand(validExpense);
         pastUndoableCommands.addPastCommand(addExpenseCommand);

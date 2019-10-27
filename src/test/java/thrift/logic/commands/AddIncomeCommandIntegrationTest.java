@@ -39,7 +39,7 @@ public class AddIncomeCommandIntegrationTest {
     }
 
     @Test
-    public void undo_success() {
+    public void undo_success() throws CommandException {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
 
         Income validIncome = new IncomeBuilder().build();

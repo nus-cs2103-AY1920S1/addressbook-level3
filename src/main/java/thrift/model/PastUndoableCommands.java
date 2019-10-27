@@ -2,7 +2,10 @@ package thrift.model;
 
 import java.util.Stack;
 
+import thrift.logic.commands.RedoCommand;
+import thrift.logic.commands.UndoCommand;
 import thrift.logic.commands.Undoable;
+import thrift.logic.commands.exceptions.CommandException;
 
 /**
  * Stores all the past undoable commands executed by the user.
@@ -34,11 +37,15 @@ public class PastUndoableCommands {
      * Retrieves undoable command to perform undo.
      *
      * @return retrieved undoable command
+     * @throws CommandException if there is no command to undo.
      */
-    public Undoable getCommandToUndo() {
-        Undoable undoCommand = undoStack.pop();
-        addUndoneCommand(undoCommand);
-        return undoCommand;
+    public Undoable getCommandToUndo() throws CommandException {
+        if (hasUndoCommand()) {
+            Undoable undoCommand = undoStack.pop();
+            addUndoneCommand(undoCommand);
+            return undoCommand;
+        }
+        throw new CommandException(UndoCommand.NO_UNDOABLE_COMMAND);
     }
 
     /**
@@ -70,11 +77,15 @@ public class PastUndoableCommands {
      * Retrieves undone command to perform redo.
      *
      * @return retrieved undone command
+     * @throws CommandException if there is no command to redo.
      */
-    public Undoable getCommandToRedo() {
-        Undoable redoCommand = redoStack.pop();
-        undoStack.push(redoCommand);
-        return redoCommand;
+    public Undoable getCommandToRedo() throws CommandException {
+        if (hasRedoCommand()) {
+            Undoable redoCommand = redoStack.pop();
+            undoStack.push(redoCommand);
+            return redoCommand;
+        }
+        throw new CommandException(RedoCommand.NO_REDOABLE_COMMAND);
     }
 
     /**

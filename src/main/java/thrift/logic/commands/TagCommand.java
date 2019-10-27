@@ -55,6 +55,8 @@ public class TagCommand extends NonScrollingCommand implements Undoable {
     public static final String MESSAGE_ORIGINAL_TRANSACTION = "\n\nOriginal: %1$s";
     public static final String MESSAGE_NOT_TAGGED = "At least one tag must be provided.";
     public static final String MESSAGE_NO_NEW_TAGS = "Specified tag(s) already exist, the transaction was not updated.";
+    public static final String UNDO_SUCCESS = "Updated Transaction: %1$s\nOriginal: %2$s";
+    public static final String REDO_SUCCESS = "Updated Transaction: %1$s\nOriginal: %2$s";
 
     private final Index index;
     private final Set<Tag> tagSet;
@@ -153,14 +155,16 @@ public class TagCommand extends NonScrollingCommand implements Undoable {
     }
 
     @Override
-    public void undo(Model model) {
+    public String undo(Model model) {
         requireAllNonNull(model, actualIndex, updatedTransaction, transactionToTag);
         model.setTransactionWithIndex(actualIndex, transactionToTag);
+        return String.format(UNDO_SUCCESS, transactionToTag, updatedTransaction);
     }
 
     @Override
-    public void redo(Model model) {
+    public String redo(Model model) {
         requireAllNonNull(model, actualIndex, updatedTransaction, transactionToTag);
         model.setTransactionWithIndex(actualIndex, updatedTransaction);
+        return String.format(REDO_SUCCESS, updatedTransaction, transactionToTag);
     }
 }

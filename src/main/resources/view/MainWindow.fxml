@@ -12,7 +12,7 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.layout.HBox?>
-<fx:root minHeight="800" maxHeight="800" minWidth="1000" maxWidth="1000" onCloseRequest="#handleExit" title="THRIFT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="800" maxHeight="800" minWidth="1000" maxWidth="1000" onCloseRequest="#handleExit" title="THRIFT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/thrift_32.png" />
   </icons>

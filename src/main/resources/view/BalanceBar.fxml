@@ -7,9 +7,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="141.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="141.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-
       <HBox alignment="CENTER" minHeight="100.0" prefWidth="400.0" styleClass="balance-bar">
          <HBox prefHeight="100.0" prefWidth="350.0" styleClass="card-color">
             <children>
