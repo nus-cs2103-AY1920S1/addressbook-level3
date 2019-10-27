@@ -14,31 +14,31 @@ import seedu.address.commons.core.LogsCenter;
 /**
  * Represents a panel of an average graph and its legend.
  */
-public class AverageGraphPanel extends UiPart<Region> {
-    private static final String FXML = "AverageGraph.fxml";
+public class AverageGraphPane extends UiPart<Region> {
+    private static final String FXML = "AverageGraphPane.fxml";
 
     private final AverageGraph averageGraph;
 
-    private final LegendBox legendBox;
+    private final LegendPane legendPane;
 
-    private final Logger logger = LogsCenter.getLogger(AverageGraphPanel.class);
+    private final Logger logger = LogsCenter.getLogger(AverageGraphPane.class);
 
     @FXML
-    private ScrollPane lineChartScrollPane;
+    private ScrollPane scrollPane;
 
     @FXML
     private VBox vBox;
 
-    public AverageGraphPanel(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                             SimpleStringProperty recordType) {
+    public AverageGraphPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
+                            SimpleStringProperty recordType) {
         super(FXML);
 
         this.averageGraph = new AverageGraph(averageMap, averageType, recordType);
-        this.legendBox = new LegendBox(recordType);
+        this.legendPane = new LegendPane(averageMap, recordType);
 
         vBox.getChildren().add(averageGraph.getAverageGraph());
-        vBox.getChildren().add(legendBox.getRoot());
-        lineChartScrollPane.setContent(vBox);
+        vBox.getChildren().add(legendPane.getRoot());
+        scrollPane.setContent(vBox);
     }
 
 }
