@@ -129,6 +129,12 @@ This section describes some finer details on how certain features are implemente
 
 // tag::lecimage[]
 === Image support for lecture notes
+
+Usually, we do not learn best from just text; we rely on images that our minds can process more easily.
+As such, implementing images in lecture notes was considered very important. Although some lecture notes
+have multiple images, it is always possible to combine them using basic image editing software like the
+GNU Image Manipulation Program (GIMP) and Paint, so the implementation was limited to at most image per note.
+
 ==== Implementation
 
 Instead of a custom class to represent an image, JavaFX's `scene.image.Image` is used instead.
@@ -163,6 +169,12 @@ Uniform Resource Identifiers (URIs) of system files, e.g. `file:data/picture.png
 we cannot use absolute paths, since they would break when the images are moved or deleted. Instead we copy images
 into its data folder, side-by-side with the JSON file, upon execution of any `addnote` or `editnote` command with
 an image. The references are then changed to point to these local copies, becoming relative URIs.
+
+'''
+
+Unlike `Title` and `Content`, which are wrappers around `String` objects, both the use of a JavaFX
+built-in object and the system-dependent implementation of graphics-related objects required me to
+make certain critical decisions on the implementation of image support.
 
 ==== Design considerations: where to place the image?
 

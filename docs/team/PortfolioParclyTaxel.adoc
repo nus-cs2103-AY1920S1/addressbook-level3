@@ -25,7 +25,7 @@ unless otherwise specified they refer to NUStudy.
 
 == Summary of contributions
 
-This is a brief description of my contributions to NUStudy, to code, documentation
+This is a brief description of my contributions to NUStudy – to code, documentation
 and project management. These contributions show my ability to not only write good code,
 but also manage and synthesise team members' varying output into a coherent whole.
 

@@ -57,38 +57,57 @@ which can be used as `addnote t/TITLE`. Parameters can be provided in any order.
 === Lecture notes
 
 ==== Adding lecture notes: `addnote`
-Adds a lecture note. The `i/` field, if provided, brings up a dialogue where an image can be chosen from
-the file system; such an image will be displayed below the note. +
+This is the basic command for getting your lecture notes into NUStudy. The `i/` field, if provided, brings up a
+dialog where you can choose an image from your computer's file system; such an image will be displayed at the
+bottom of the note. +
 Format: `addnote t/TITLE c/CONTENT [i/]`
 
-==== Editing lecture notes: `editnote`
-Edits an existing lecture note. Providing `i/` brings up the image selection dialogue, like `addnote`;
-this can be used to change the image. At least one of `t/`, `c/` and `i/` must be provided,
-or `i/` must have the argument `none` (i.e. `i/none` to remove the image. If the image dialogue is closed
-without selecting an image, the image remains unchanged.
+Suppose you want to remember what the order-7 triangular tiling looks like and its Schläfli symbol.
+Type `addnote t/Order-7 triangular tiling c/{3,7} i/` into the command line. The file selection dialog
+will pop up, and you can select the image from your file system. Once done, you will see the lecture note:
 
-Multiple notes can share the same image, and it is possible to overwrite existing images held
+image::screenshots/addnote.png[]
+
+Your images are copied into the local application data folder of NUStudy, so don't worry about losing track of
+your images – you can always take them along with the application.
+
+==== Editing lecture notes: `editnote`
+If your lecture notes need updating, use this command, providing arguments `t/`, `c/` and `i/` (at least one)
+as you would do with `addnote`, but only those arguments you want to change. Providing `i/` brings up the same image
+selection dialog like in `addnote`.
+
+Images can explain a lot, but if you want to remove them, use `i/none` in your command, and the dialog
+will not appear. Otherwise, if you back off from choosing an image (e.g. by clicking the dialog's
+close button), nothing will happen and your images will remain safe and sound.
+
+Multiple notes can share the same image, and you can overwrite existing images currently
 in NUStudy with new ones sharing the same filename.
 
-The index must be between 1 and the number of lecture notes inclusive. +
+The index must be between 1 and the number of lecture notes inclusive. It is listed before the title of
+each lecture note:
+
+image::screenshots/index.png[]
+
 Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/[none]]`
 
 ==== Viewing lecture notes: `findnote`
-Find lecture notes whose title contains every given word (space-separated, ignoring case),
-and display them. +
+Of course, what use are virtual lecture notes if you can't search through them? This command
+displays those notes whose titles contain every word (space-separated, ignoring case) you provide
+as arguments. +
 Format: `findnote WORD [WORD]…`
 
 ==== Listing all lecture notes: `listnote`
-Simply show all lecture notes. +
+This is like running `findnote` but with no arguments. It shows all your lecture notes in their unabashed glory. +
 Format: `listnote`
 
 ==== Deleting lecture notes: `deletenote`
-Delete the lecture note with the given index, which follows the same restrictions as with `editnote`. +
+When your semester ends, surely you want to free up space on your computer so you can accept new notes
+for the coming semester? This command deletes the lecture note with the index you provide. +
 Format: `deletenote INDEX`
 
 ==== Clearing all lecture notes: `clearnote`
-Clear all lecture notes. This does not affect quiz questions, but may affect revision tasks linked
-to the cleared notes. +
+Finally, if you ever find a better application than NUStudy for your lecture notes, you can clear
+them all. Your quiz questions and revision tasks will not be affected. +
 Format: `clearnote`
 // end::lecnote[]
 
