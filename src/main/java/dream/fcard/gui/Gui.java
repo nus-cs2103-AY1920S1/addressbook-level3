@@ -27,9 +27,6 @@ public class Gui {
 
     // the one and only instance of Gui allowed
     private static Gui gui = new Gui();
-
-    // the instance of the main window of the application, containing all UI components
-    private static MainWindow applicationMainWindow;
     private static State applicationState;
 
     private static final Logger logger = LogsCenter.getLogger(Gui.class);
@@ -50,23 +47,8 @@ public class Gui {
         applicationState = state;
     }
 
-    public static void setApplicationMainWindow (MainWindow mainWindow) {
-        applicationMainWindow = mainWindow;
-    }
-
     static State getApplicationState() {
         return applicationState;
-    }
-    private static MainWindow getMainWindow() {
-        return applicationMainWindow;
-    }
-
-    /** Accessor for the Gui instance. */
-    public static Gui getInstance() {
-        if (gui == null) {
-            gui = new Gui();
-        }
-        return gui;
     }
 
     /**
@@ -84,8 +66,6 @@ public class Gui {
         primaryStage.getIcons().add(getImage(GuiSettings.getApplicationIcon()));
 
         try {
-            // instantiate MainWindow object and set main window to it
-            applicationMainWindow = new MainWindow(primaryStage, applicationState);
             Gui.onStartup();
             // todo: might make sense to call mainWindow's methods rather than putting everything in its constructor
         } catch (Throwable e) {
@@ -98,6 +78,14 @@ public class Gui {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
+    /**
+     * Temporary method for testing display of various UI components.
+     */
+    private void testUiComponents() {
+        Gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        //Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
+    }
+
     // Methods related to setting up GUI components upon application startup
     /**
      * Initialises components of the main window and shows the main window upon startup.
@@ -107,7 +95,7 @@ public class Gui {
 
         // set up initial UI components
         setupCommandTextField();
-        titleBar.setTitle("Welcome!");
+        Gui.setTitle("Welcome!");
 
         // add UI components to scene
         setupScene();
@@ -185,9 +173,6 @@ public class Gui {
 
     /** Displays a given Node in the scrollable pane of the MainWindow. */
     private static void displayInScrollablePane(Node node) {
-        // get primary display area of MainWindow
-        ScrollablePane scrollablePane = getMainWindow().getScrollablePane(); // todo: check coding standards?
-
         // remove anything currently in the display area
         //windowContents.getChildren().clear();
 
@@ -197,7 +182,6 @@ public class Gui {
 
     /** Sets the title in the title bar of the application window. */
     public static void setTitle(String title) {
-        // todo: refactor
-        //getMainWindow().setTitle(title);
+        titleBar.setTitle(title);
     }
 }
