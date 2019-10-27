@@ -420,6 +420,45 @@ The following is a detailed explanation of the operations `QuizGetQuestionsAndAn
 * ** Alternatives Considered: **
 ** To be done
 
+[[Feature-Notes]]
+=== Notes feature
+
+The notes feature acts as a lightweight,digital “Post-It” for teachers.
+
+The feature comprises of four commands namely,
+
+* <<Feature-Note-Add, `NoteAddCommand`>> - Creates a note with a description.
+* <<Feature-Note-Edit, `NoteEditCommand`>> - Edits an existing note.
+* <<Feature-Note-Delete, `NoteDeleteCommand`>> - Deletes an existing note.
+* <<Feature-Note-List, `NoteListCommand`>> -Lists all notes.
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+[[Feature-Note-Add]]
+==== Add Note Command
+
+The following is a detailed explanation of the operations `NoteAddCommand` performs. +
+
+*Step 1*. The `NoteAddCommand#execute(Model model)` method is executed and it validates that the `Note` object passed from the parser using command input is valid.
+
+*Step 2*. The method `Model#addNote(Note note)` will then be called to add the specified note to the `NotesRecord`. The `Note` added is validated for uniqueness by `Note#isSameNote(Note note)`.
+
+[NOTE]
+The `ReadOnlyNotesRecord` hides the implementation of the NotesRecord from the other layers of the software.
+
+*Step 3*. If successful, a success message will be generated and a new `CommandResult` will be returned with the generated success message. Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+*Step 4*. If the command syntax was valid and `Note` was added to the `NotesRecord`, `LogicManager` calls `Storage#saveNotesRecord(ReadOnlyNotesRecord notesRecord)` which saves the `NotesRecord` in JSON format after serializing it using the `JsonSerializableNotesRecord`.
+
+The following is a sample sequence diagram of the `NoteAddCommand`. Other commands under the notes feature follow a similar program flow; their diagrams have been omitted for brevity.
+
+.Sequence Diagram for Adding Notes
+image::DeveloperGuideResources/NotesAddSequenceDiagram.png[]
+
+.Supplementary Frame for Sequence Diagram
+image::DeveloperGuideResources/NoteAddFrame.png[]
+
 [[Feature-Statistics]]
 === Statistics feature
 
@@ -432,27 +471,30 @@ A generic data parser of external files is used to generate HashMap of student�
 .Class Diagram for Statistics Feature
 image::DeveloperGuideResources/StatisticsClassDiagram.png[]
 
+
 The following is an example usage scenario where the Actor/User asks Njoy for a statistics report.
 
-*Step 1*. Actor/User inputs a statistics command with data path as specified in user guide. ‘MainWindow#executeCommand(String commandText)’ passes the user input to the ‘LogicManager’.
+*Step 1*. Actor/User inputs a statistics command with data path as specified in user guide. `MainWindow#executeCommand(String commandText)` passes the user input to the `LogicManager`.
 
-*Step 2*. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the ‘StatisticsCommandParser’ for retrieving data from the external file. All data file parsers implements the ‘DataParser’ interface.
+*Step 2*. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the `StatisticsCommandParser` for retrieving data from the external file. All data file parsers implements the ‘DataParser’ interface.
 
-*Step 3*. Suppose the data was successfully retrieved, Statistics object is generated for data processing and passed into ‘StatisticsAddCommand’.
+*Step 3*. Suppose the data was successfully retrieved, `Statistics` object is generated for data processing and passed into `StatisticsAddCommand`.
 
-*Step 4*. Execution of this command results in the processed data being passed to the ‘ModelManager’ using ‘StatisticsAddCommand#execute’.
+*Step 4*. Execution of this command results in the processed data being passed to the `ModelManager` using `StatisticsAddCommand#execute`.
 
-*Step 5*. The success result of the Statistics command is shown on the GUI and the execution call has returned no ‘MainWindow#executeCommand(String commandText)’. It
+*Step 5*. The success result of the Statistics command is shown on the GUI and the execution call has returned no `MainWindow#executeCommand(String commandText)`. It
 recognises the command was a valid Statistics command and opens window to show the processed data.
 
 [NOTE]
-If the input file is not formatted as specified in the user guide, a ‘ParseException’ would be thrown to show error message as the result. No new window is opened.
+If the input file is not formatted as specified in the user guide, a `ParseException` would be thrown to show error message as the result. No new window is opened. The diagram below illustrates possible program control flows.
+
+.Activity Diagram for Statistics Feature
+image::DeveloperGuideResources/StatisticsActivityDiagram.png[]
 
 === Design Considerations
 
 ===== Rendering UI
 
-* ** Current Implementation: **
 * **Alternative 1 (current choice):** Opens a new window for the report generated.
 ** Pros: More space to work with, able to generate more comprehensive report that is easier to view.
 ** Cons: Data widgets are no longer stateful, they are newly created every time new report is requested.
@@ -551,66 +593,6 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-=== Generating Statistics Feature
-==== Implementation
-
-The Statistics feature is facilitated by the Statistics class.
-It takes a HashMap<String, HashMap<String, Double>> type data that matches the students name to their respective subject-score mappings and generates all relevant data available in the report. It implements the following methods.
-
-* `Statistics#initializeData()` -- Sets all relevant counters to their initial values (e.g. zero for score ranges).
-* `Statistics#processData()` -- Assigns all relevant statistics summary, such as number of data entries, min, max, mean, median and standard deviation.
-* `Statistics#allocateDistribution ()` -- Counts the number of people of who got a particular score.
-* `Statistics#sortIntoGrade ()` -- Counts the number of people of who got a particular range of scores.
-
-These data are encapsulated in the StatisticsRecord, which is carried by the Model.
-
-Given below is an example usage scenario and how the statistics are generated at each step.
-
-Step 1. The user launches the application for the first time. Model currently carries sample statistics data from the SampleStatisticsUtil class. The user types in a command requesting for generation of statistics report. (statistics file/{filePath})
-
-image::UndoRedoState0.png[]
-
-Step 2. The parser checks for syntax errors and validity of file format. If the file is in expected format (specified in the user guide), a StatisticsCommand is created with unprocessed data passed as arguments into Statistics object, and the Statistics object as arguments of a StatisticsAddCommand object.
-
-image::UndoRedoState1.png[]
-
-Step 3. The Statistics object performs data processing to be used later in the report. `StatisticsAddCommand#execute()` is invoked, which replaces the sample statistics data in the model to the one generated by the input file. Success message is returned for rendering in the User Interface. Model has updated, processed statistics.
-
-image::UndoRedoState2.png[]
-
-Step 4. If the parsing of input file was successful, ‘MainWindow#handleStats()’ opens a new Stage object to render the generated report.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the input file was not found or in invalid format, an error message is shown in the result box and no new window is opened.
-
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: Rendering UI
-* **Alternative 1 (current choice):** Opens a new window for the report generated.
-** Pros: More space to work with, able to generate more comprehensive report that is easier to view.
-** Cons: Data widgets are no longer stateful, they are newly created every time new report is requested.
-* **Alternative 2:** Render data for current state of the model on the original application.
-** Pros: Stateful, no need to recreate the widget every time there is new input data.
-** Cons: Lack of space, hard to render other UI elements such as the timetable.
-
-===== Aspect: [Proposed] Storing of generated data reports.
-* ** [Proposed] Alternative 1 (preferred choice):** Generate a pdf report every time user requests for the report.
-** Pros: Available for printing, portable.
-** Cons: Can be difficult to implement, need good understanding of API.
-* **Alternative 2:** Render a report from a stored library of reports when requested.
-** Pros: Easy to use, no need to input long file path every time.
-** Cons: User most likely have data stored in respective educational database system. Report generation is not computationally intensive and thus offers little performance advantage for effort.
-// end::Generating Statistics Feature[]
 
 === Event Feature
 ==== Implementation
