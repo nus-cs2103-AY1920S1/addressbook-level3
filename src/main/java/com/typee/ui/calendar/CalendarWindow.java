@@ -112,7 +112,7 @@ public class CalendarWindow extends UiPart<Region> {
             StackPane.setAlignment(dateText, Pos.TOP_LEFT);
             individualDateStackPane.getChildren().add(dateText);
             for (Engagement engagement : engagementList) {
-                LocalDateTime startDateTime = engagement.getStartTime();
+                LocalDateTime startDateTime = engagement.getTimeSlot().getStartTime();
                 if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()
                         && startDateTime.getMonth().equals(calendarDate.getMonth())
                         && startDateTime.getYear() == calendarDate.getYear()) {

@@ -11,7 +11,7 @@ public enum EngagementComparator implements Comparator<Engagement> {
     START_TIME {
         @Override
         public final int compare(final Engagement o1, final Engagement o2) {
-            return o1.getStartTime().compareTo(o2.getStartTime());
+            return o1.getTimeSlot().getStartTime().compareTo(o2.getTimeSlot().getStartTime());
         }
     },
     START_TIME_REVERSE {
@@ -23,7 +23,7 @@ public enum EngagementComparator implements Comparator<Engagement> {
     END_TIME {
         @Override
         public final int compare(final Engagement o1, final Engagement o2) {
-            return o1.getEndTime().compareTo(o2.getEndTime());
+            return o1.getTimeSlot().getEndTime().compareTo(o2.getTimeSlot().getEndTime());
         }
     },
     END_TIME_REVERSE {
