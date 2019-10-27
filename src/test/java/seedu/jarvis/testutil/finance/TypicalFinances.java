@@ -17,7 +17,7 @@ public class TypicalFinances {
      *
      * @return a new {@code FinanceTracker} object
      */
-    public FinanceTracker getTypicalFinanceTracker() {
+    public static FinanceTracker getTypicalFinanceTracker() {
         FinanceTracker financeTracker = new FinanceTracker();
         for (Purchase purchase : getTypicalPurchases()) {
             financeTracker.addSinglePurchase(purchase);
