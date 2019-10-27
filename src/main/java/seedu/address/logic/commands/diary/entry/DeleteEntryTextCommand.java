@@ -47,7 +47,7 @@ public class DeleteEntryTextCommand extends Command {
 
         if (editDescriptor == null) {
             editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
-            boolean didDelete = editDescriptor.deleteTextParagraph(this.lineIndexToDelete.getZeroBased());
+            boolean didDelete = editDescriptor.deleteTextParagraph(lineIndexToDelete);
 
             if (didDelete) {
                 DiaryEntry newDiaryEntry = editDescriptor.buildDiaryEntry();
@@ -64,7 +64,7 @@ public class DeleteEntryTextCommand extends Command {
                         String.format(MESSAGE_LINE_DOES_NOT_EXIST, this.lineIndexToDelete.getOneBased()));
             }
         } else {
-            boolean didDelete = editDescriptor.deleteTextParagraph(this.lineIndexToDelete.getZeroBased());
+            boolean didDelete = editDescriptor.deleteTextParagraph(lineIndexToDelete);
 
             return didDelete
                     ? new CommandResult(

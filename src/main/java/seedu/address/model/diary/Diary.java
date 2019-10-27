@@ -61,6 +61,6 @@ public class Diary {
 
     @Override
     public String toString() {
-        return " Diary Entry List: " + diaryEntryList.toString();
+        return "Diary Entry List: " + diaryEntryList.toString();
     }
 }

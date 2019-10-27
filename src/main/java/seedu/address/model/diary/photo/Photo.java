@@ -44,7 +44,6 @@ public class Photo {
     private Image image;
     private String imageFilePath;
     private String description;
-    @SuppressWarnings("CanBeFinal")
     private LocalDateTime dateTaken;
 
     /**

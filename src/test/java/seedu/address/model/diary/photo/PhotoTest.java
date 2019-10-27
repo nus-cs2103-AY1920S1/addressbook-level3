@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.model.diary.photo.Photo.MESSAGE_DESCRIPTION_CONSTRAINTS;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,19 +21,14 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
-import org.junit.jupiter.api.Test;
-
 import javafx.scene.image.Image;
+import org.junit.jupiter.api.Test;
 
 import seedu.address.MainApp;
 
 public class PhotoTest {
 
-    private static final String VALID_DESCRIPTION_1 = "abcde";
-    private static final String VALID_DESCRIPTION_2 = "*&^jausm,a";
-    private static final String INVALID_DESCRIPTION_1 = "abcdeabcdeabcdeabcdeabcde";
-    private static final String INVALID_DESCRIPTION_2 = " noWhitespacePrefix";
-    private static final Supplier<Path> VALID_IMAGE_PATH_WINDOWS = () -> {
+    static final Supplier<Path> VALID_IMAGE_PATH_WINDOWS = () -> {
         try {
             return Paths.get(URLDecoder.decode(
                     MainApp.class.getResource("/images/dummytrip.jpeg")
@@ -43,7 +39,7 @@ public class PhotoTest {
             return null;
         }
     };
-    private static final Supplier<Path> VALID_IMAGE_PATH_UNIX = () -> {
+    static final Supplier<Path> VALID_IMAGE_PATH_UNIX = () -> {
         try {
             return Paths.get(URLDecoder.decode(
                     MainApp.class.getResource("/images/dummytrip.jpeg").getPath(),
@@ -52,6 +48,11 @@ public class PhotoTest {
             return null;
         }
     };
+
+    private static final String VALID_DESCRIPTION_1 = "abcde";
+    private static final String VALID_DESCRIPTION_2 = "*&^jausm,a";
+    private static final String INVALID_DESCRIPTION_1 = "abcdeabcdeabcdeabcdeabcde";
+    private static final String INVALID_DESCRIPTION_2 = " noWhitespacePrefix";
     private static final String INVALID_IMAGE_PATH = "/";
 
     /**
@@ -87,9 +88,9 @@ public class PhotoTest {
     @Test
     void validateDescription_invalidDescription_throwsIllegalArgumentException() {
         assertAll("Invalid descriptions", () ->
-                assertThrows(IllegalArgumentException.class, () ->
+                assertThrows(IllegalArgumentException.class, MESSAGE_DESCRIPTION_CONSTRAINTS, () ->
                         new Photo("", INVALID_DESCRIPTION_1, LocalDateTime.now())), () ->
-                assertThrows(IllegalArgumentException.class, () ->
+                assertThrows(IllegalArgumentException.class, MESSAGE_DESCRIPTION_CONSTRAINTS, () ->
                         new Photo("", INVALID_DESCRIPTION_2, LocalDateTime.now())));
     }
 

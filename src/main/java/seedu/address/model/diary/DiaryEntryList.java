@@ -23,14 +23,16 @@ import seedu.address.commons.core.index.Index;
  */
 public class DiaryEntryList {
 
+    static final String MESSAGE_DUPLICATE_ENTRIES = "You cannot have multiple diary entries for a one day. ";
+
+    static final String MESSAGE_DAY_MISSING = "Attempted to execute an operation on a diary entry with day"
+            + "index %1$d but it was not found in the list.";
+
     /**
      * The comparator used for {@link DiaryEntry}s, which compares the day indexes of any two diary entries.
      */
     private static final Comparator<DiaryEntry> DIARY_ENTRY_COMPARATOR =
             Comparator.comparingInt(DiaryEntry::getDayNumber);
-
-    private static final String MESSAGE_DAY_MISSING = "Attempted to execute an operation on a diary entry with day"
-            + "index %1$d but it was not found in the list.";
 
     private final SortedList<DiaryEntry> diaryEntrySortedList;
     private final ObservableList<DiaryEntry> diaryEntryObservableList;
@@ -52,8 +54,10 @@ public class DiaryEntryList {
      *
      * @param diaryEntries The {@link Collection} of {@link DiaryEntry}s to initialize the
      *                     {@code diaryEntryObservableList} with.
+     * @throws IllegalArgumentException If there are {@link DiaryEntry}s in the specified collection
+     *                                  with the same day indexes.
      */
-    public DiaryEntryList(Collection<DiaryEntry> diaryEntries) {
+    public DiaryEntryList(Collection<DiaryEntry> diaryEntries) throws IllegalArgumentException {
         this();
         diaryEntries.forEach(this::addDiaryEntry);
     }
@@ -105,7 +109,7 @@ public class DiaryEntryList {
      */
     void addDiaryEntry(DiaryEntry diaryEntry) {
         requireNonNull(diaryEntry);
-        checkArgument(!doesClash(diaryEntry), DiaryEntry.MESSAGE_CONSTRAINTS);
+        checkArgument(!doesClash(diaryEntry), MESSAGE_DUPLICATE_ENTRIES);
 
         diaryEntryObservableList.add(diaryEntry);
     }
@@ -113,7 +117,7 @@ public class DiaryEntryList {
     /**
      * Replaces the specified {@link DiaryEntry} {@code target} with the {@code replacement}.
      *
-     * @param target The {@link DiaryEntry} to replace.
+     * @param target      The {@link DiaryEntry} to replace.
      * @param replacement The {@link DiaryEntry} to add.
      * @throws IllegalArgumentException If the supplied {@code diaryEntry} has a {@code dayIndex} that clashes
      *                                  with another {@link DiaryEntry} already in the {@code diaryEntryObservableList},

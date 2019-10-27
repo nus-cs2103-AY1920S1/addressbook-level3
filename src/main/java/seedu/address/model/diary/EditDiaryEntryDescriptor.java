@@ -2,6 +2,7 @@ package seedu.address.model.diary;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.model.diary.DiaryEntry.MAX_DIARY_TEXT_DISPLAY_LENGTH;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.diary.photo.PhotoList;
@@ -11,7 +12,6 @@ import seedu.address.model.diary.photo.PhotoList;
  * allowing discarding changes before committing to a {@link DiaryEntry}.
  */
 public class EditDiaryEntryDescriptor {
-    private static final int MAX_DIARY_TEXT_DISPLAY_LENGTH = 20;
 
     private final Index dayIndex;
     private final PhotoList photoList;
@@ -74,14 +74,9 @@ public class EditDiaryEntryDescriptor {
      *
      * @param textToInsert The {@link String} to insert.
      * @param lineNumber The {@link Index} of the line number to insert the {@code textToInsert} at.
-     * @throws IllegalArgumentException If the zero-based index of {@code lineNumber} is negative.
      */
-    public void insertTextLine(String textToInsert, Index lineNumber) throws IllegalArgumentException {
-        if (lineNumber.getZeroBased() < 0) {
-            throw new IllegalArgumentException("Illegal argument passed to insertTextLine: " + MESSAGE_INVALID_INDEX);
-        }
-
-        String[] paragraphs = this.diaryText.split("\n");
+    public void insertTextLine(String textToInsert, Index lineNumber) {
+        String[] paragraphs = this.diaryText.split("\n", -1);
         StringBuilder diaryTextBuilder = new StringBuilder();
 
         int maxIndexBeforeInsert = Math.min(lineNumber.getZeroBased(), paragraphs.length);
@@ -106,14 +101,9 @@ public class EditDiaryEntryDescriptor {
      * @param newText {@link String} of new text to replace the specified line with.
      * @param lineToEdit The {@link Index} of the line of text to edit.
      * @return True if there a paragraph of text at the specified index exists and was edited.
-     * @throws IllegalArgumentException If the zero-based index of {@code lineNumber} is negative.
      */
-    public boolean editTextLine(String newText, Index lineToEdit) throws IllegalArgumentException {
-        if (lineToEdit.getZeroBased() < 0) {
-            throw new IllegalArgumentException("Illegal argument passed to editTextLine: " + MESSAGE_INVALID_INDEX);
-        }
-
-        String[] paragraphs = this.diaryText.split("\n");
+    public boolean editTextLine(String newText, Index lineToEdit) {
+        String[] paragraphs = this.diaryText.split("\n", -1);
         if (lineToEdit.getZeroBased() >= paragraphs.length) {
             return false;
         }
@@ -129,18 +119,19 @@ public class EditDiaryEntryDescriptor {
     }
 
     /**
-     * Deletes the paragraph of text at the specified zero based index.
+     * Deletes the paragraph of text at the specified {@code lineToDelete}.
      * Paragraphs are ordered by the number of newlines in its prefix.
      *
+     * @param lineToDelete The {@link Index} of the line of text to delete.
      * @return True if there a paragraph of text at the specified index exists and was deleted.
      */
-    public boolean deleteTextParagraph(int lineToDelete) {
-        String[] paragraphs = this.diaryText.split("\n");
+    public boolean deleteTextParagraph(Index lineToDelete) {
+        String[] paragraphs = this.diaryText.split("\n", -1);
         StringBuilder diaryTextBuilder = new StringBuilder();
         boolean didDelete = false;
 
         for (int i = 0; i < paragraphs.length; i++) {
-            if (i == lineToDelete) {
+            if (i == lineToDelete.getZeroBased()) {
                 didDelete = true;
                 continue;
             }
@@ -164,7 +155,8 @@ public class EditDiaryEntryDescriptor {
                 .append(dayIndex.getOneBased())
                 .append(" Diary Text (Truncated): ")
                 .append(diaryText.substring(0, displayLength))
-                .append(" Photo List: ")
+                .append("...\n")
+                .append("Photo List:\n")
                 .append(photoList.toString());
 
         return builder.toString();
