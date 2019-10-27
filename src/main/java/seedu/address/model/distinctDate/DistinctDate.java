@@ -9,8 +9,7 @@ import seedu.address.model.event.Event;
 /**
  * Represents a DistinctDate Object, which will be stored in the DistinctDateList
  * Guarantees: details are present and not null, field values are validated.
- * Each DistinctDate Object contains a List<Event>, list of events and a LocalDate
- * date which it represents
+ * Each DistinctDate Object contains a list of events and a LocalDate date which it represents.
  */
 public class DistinctDate {
 
