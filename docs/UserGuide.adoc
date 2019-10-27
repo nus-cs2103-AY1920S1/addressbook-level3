@@ -16,6 +16,7 @@ endif::[]
 
 By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
@@ -64,6 +65,7 @@ e.g. typing *`help`* will display the help information.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+// end::introduction[]
 
 [[Features]]
 == Features
@@ -295,6 +297,7 @@ Sets a budget of `$500,000` for this month
 Returns the current monthly budget. +
 Format: `showbudget`
 
+// tag::statistics[]
 === Generating statistics : `stats`
 Returns an overview of the spending which enables the user to analyze what they have spent their money on.
 
@@ -334,7 +337,9 @@ Generates statistics for spending that fall between and including 01/01/2019 and
 * `stats` +
 Generates statistics for all spending.
 
+// end::statistics[]
 
+// tag::graph[]
 === Graphing the data : `graph`
 Shows the cost spent in the form of a line graph as seen in Figure 4.
 
@@ -362,6 +367,8 @@ Examples:
 Generates a graph for spending that fall between and including 01/01/2019 and 07/01/2019.
 * `graph` +
 Generates a graph for all spending.
+
+// end::graph[]
 
 === Adding a reminder: `reminder`
 Adds a reminder to the reminder list
