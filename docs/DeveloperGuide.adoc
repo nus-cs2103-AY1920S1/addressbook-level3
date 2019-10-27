@@ -301,9 +301,9 @@ will create the respective objects. A validation check will be done to ensure th
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
 enter the correct format of the respectives objects.
 
-** `description` would use `ParserUtil#parseDescription()` to ensure that the description typed by the user is in the correct format.
+** `description` would use `ParserUtil#parseReminderDescription()` to ensure that the description typed by the user is in the correct format.
 
-** `time` would use `ParserUtil#parseTime()` to ensure that the content is in the correct format.
+** `time` would use `ParserUtil#parseReminderTime()` to ensure that the content is in the correct format.
 
 * After validation of the individual objects, a `Reminder` object would be created with the parameters `description` and `time`.
 
@@ -324,12 +324,12 @@ This adds an `Notes` object that the user has added to record what needs to be d
 the given command is `addReminder`, thus, `AddReminderParser` object would be created with the user's input.
 
 * Step 4: `AddReminderParser` performs a validation check on each of the respective objects through
-`AddReminderParser#parse()`. In this case, it would use `ParserUtil#parseDescription()` and `ParserUtil#parseTime()`.
-It would then return a `AddNotesCommand` object with an `Notes` object.
+`AddReminderParser#parse()`. In this case, it would use `ParserUtil#parseReminderDescription()` and `ParserUtil#parseReminderTime()`.
+It would then return a `AddReminderCommand` object with a `Reminder` object.
 
 * Step 5: `LogicManager` would execute `AddReminderCommand#execute`. In this particular method, the `Reminder` object will be
 check with the rest of the prior `Reminder` object, to ensure that there is no duplicate `Reminder` object. If there are no similar
-`Reminder` object with the same parameters created previously, it would then be added into the notes list.
+`Reminder` object with the same parameters created previously, it would then be added into the reminder list.
 
 * Step 6: `AddReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Reminder` object have been successfully added.
