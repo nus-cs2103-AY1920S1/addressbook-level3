@@ -2,6 +2,7 @@ package seedu.mark.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.bookmark.Url;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -124,13 +126,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.getCurrentUrlProperty());
-        dashboardPanel = new DashboardPanel(logic);
+        dashboardPanel = new DashboardPanel(logic, getCurrentUrlChangeHandler());
         offlinePanel = new OfflinePanel(logic.getObservableDocument());
         mainViewAreaPlaceholder.getChildren().add(dashboardPanel.getRoot());
 
         bookmarkListPanel = new BookmarkListPanel(logic.getFilteredBookmarkList(),
                 logic.getCurrentUrlProperty(), logic.getBookmarkDisplayingCacheProperty(),
-                logic::setCurrentUrl, this);
+                getCurrentUrlChangeHandler());
         bookmarkListPanelPlaceholder.getChildren().add(bookmarkListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -218,6 +220,16 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+    }
+
+    public Consumer<Url> getCurrentUrlChangeHandler() {
+        return new Consumer<Url>() {
+            @Override
+            public void accept(Url url) {
+                logic.setCurrentUrl(url);
+                handleSwitchToOnline();
+            }
+        };
     }
 
     public BookmarkListPanel getBookmarkListPanel() {
