@@ -5,9 +5,7 @@ import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.meme.Meme;
@@ -28,8 +26,7 @@ public class LikeManager {
 
         logger.fine("Initializing with like data: " + data);
 
-        this.data = new LikeData();
-        this.data.setLikeMap(data.getObservableLikeData());
+        this.data = new LikeData(data.getObservableLikeData());
     }
 
     public LikeManager() {
@@ -44,37 +41,15 @@ public class LikeManager {
     /**
      * Returns an unmodifiable view of {@code LikeData}.
      */
-    public LikeData getLikeData() {
-        return data;
-    }
-
-    /**
-     * Returns an unmodifiable view of {@code LikeData}.
-     */
     public ObservableMap<String, Integer> getObservableLikeData() {
         return data.getObservableLikeData();
     }
 
     /**
-     * Returns {@code LikeData} in Map.
-     */
-    public Map<String, Integer> getLikeDataInMap() {
-        return data.getInMap();
-    }
-
-    /**
      * Replace the current like data with a new set of data.
      */
-    public void setLikeData(LikeData replacement) {
-        data.setLikeMap(replacement.getObservableLikeData());
-    }
-
-    /**
-     * Replace the current like data with a new set of data in map.
-     * @param replacement
-     */
-    public void setLikeDataFromMap(Map<String, Integer> replacement) {
-        data.setLikeMap(FXCollections.observableMap(replacement));
+    public void setLikeData(Map<String, Integer> replacement) {
+        data.setLikeMap(replacement);
     }
 
     /**

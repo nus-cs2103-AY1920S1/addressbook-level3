@@ -24,7 +24,6 @@ import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.TagWithCount;
 
@@ -276,11 +275,6 @@ public class ModelManager implements Model {
     @Override
     public Stats getStats() {
         return versionedWeme.getStats();
-    }
-
-    @Override
-    public LikeData getLikeData() {
-        return versionedWeme.getLikeData();
     }
 
     @Override

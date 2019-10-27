@@ -7,9 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javafx.collections.FXCollections;
 import seedu.weme.commons.exceptions.IllegalValueException;
-import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
 
@@ -35,7 +33,7 @@ class JsonSerializableStats {
      * @param source future changes to this will not affect the created {@code JsonSerializableWeme}.
      */
     public JsonSerializableStats(Stats source) {
-        likeMap.putAll(source.getLikeData().getInMap());
+        likeMap.putAll(source.getObservableLikeData());
     }
 
     /**
@@ -45,8 +43,7 @@ class JsonSerializableStats {
      */
     public Stats toModelType() throws IllegalValueException {
         Stats stats = new StatsManager();
-        LikeData likeData = new LikeData(FXCollections.observableMap(likeMap));
-        stats.setLikeData(likeData);
+        stats.setLikeData(likeMap);
         return stats;
     }
 

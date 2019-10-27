@@ -12,7 +12,6 @@ import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.TagWithCount;
 
@@ -216,8 +215,6 @@ public interface Model {
     /**
      * Returns the like data.
      */
-    LikeData getLikeData();
-
     ObservableMap<String, Integer> getObservableLikeData();
 
     /**

@@ -47,6 +47,7 @@ public class MemeLikeCommand extends Command {
         Meme memeToLike = lastShownList.get(index.getZeroBased());
 
         model.incrementMemeLikeCount(memeToLike);
+        model.commitWeme();
         return new CommandResult(String.format(MESSAGE_LIKE_MEME_SUCCESS, memeToLike));
     }
 

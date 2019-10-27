@@ -20,7 +20,6 @@ import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 import seedu.weme.model.template.UniqueTemplateList;
 import seedu.weme.model.util.ImageUtil;
-import seedu.weme.statistics.LikeData;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.StatsManager;
 import seedu.weme.statistics.TagWithCount;
@@ -257,11 +256,7 @@ public class Weme implements ReadOnlyWeme {
 
     @Override
     public Stats getStats() {
-        return stats;
-    }
-
-    public LikeData getLikeData() {
-        return stats.getLikeData();
+        return stats.getStats();
     }
 
     public ObservableMap<String, Integer> getObservableLikeData() {
