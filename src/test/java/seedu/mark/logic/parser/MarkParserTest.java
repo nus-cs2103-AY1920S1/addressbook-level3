@@ -13,6 +13,7 @@ import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -143,8 +144,8 @@ public class MarkParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate();
-        predicate.setIdentifierPredicate(keywords);
+        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate(
+                keywords, Collections.emptyList(), Collections.emptyList());
         assertEquals(new FindCommand(predicate), command);
     }
 

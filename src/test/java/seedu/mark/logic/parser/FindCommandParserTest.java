@@ -5,6 +5,7 @@ import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +23,8 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
-        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate();
-        predicate.setIdentifierPredicate(Arrays.asList("coding", "algorithm"));
+        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate(
+                Arrays.asList("coding", "algorithm"), Collections.emptyList(), Collections.emptyList());
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand = new FindCommand(predicate);
         assertParseSuccess(parser, "coding algorithm", expectedFindCommand);

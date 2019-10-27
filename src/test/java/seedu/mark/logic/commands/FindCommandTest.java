@@ -30,10 +30,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        BookmarkContainsKeywordsPredicate firstPredicate = new BookmarkContainsKeywordsPredicate();
-        firstPredicate.setIdentifierPredicate(Collections.singletonList("first"));
-        BookmarkContainsKeywordsPredicate secondPredicate = new BookmarkContainsKeywordsPredicate();
-        secondPredicate.setIdentifierPredicate(Collections.singletonList("second"));
+        BookmarkContainsKeywordsPredicate firstPredicate = new BookmarkContainsKeywordsPredicate(
+                Collections.singletonList("first"), Collections.emptyList(), Collections.emptyList());
+        BookmarkContainsKeywordsPredicate secondPredicate = new BookmarkContainsKeywordsPredicate(
+                Collections.singletonList("second"), Collections.emptyList(), Collections.emptyList());
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -79,8 +79,7 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code BookmarkContainKeywordsPredicate}.
      */
     private BookmarkContainsKeywordsPredicate preparePredicate(String userInput) {
-        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate();
-        predicate.setIdentifierPredicate(Arrays.asList(userInput.split("\\s+")));
-        return predicate;
+        return new BookmarkContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                Collections.emptyList(), Collections.emptyList());
     }
 }

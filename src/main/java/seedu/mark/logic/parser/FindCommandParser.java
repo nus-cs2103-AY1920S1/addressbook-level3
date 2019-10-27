@@ -35,6 +35,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> identifierKeywords = new LinkedList<>(Arrays.asList(preamble.split("\\s+")));
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
         List<String> folderKeywords = argMultimap.getAllValues(PREFIX_FOLDER);
+        // Remove keyword empty string
         identifierKeywords.removeIf(String::isEmpty);
         tagKeywords.removeIf(String::isEmpty);
         folderKeywords.removeIf(String::isEmpty);
@@ -42,7 +43,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate(identifierKeywords,
                 tagKeywords, folderKeywords);
 
-        if (!predicate.isAnyPredicatePresent()) {
+        if (!predicate.isAnyKeywordPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
