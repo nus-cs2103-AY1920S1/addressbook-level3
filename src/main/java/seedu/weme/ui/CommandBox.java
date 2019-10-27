@@ -20,6 +20,8 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final CommandPrompter commandPrompter;
 
+    private boolean isShowingCommandSuccess = false;
+
     @FXML
     private TextField commandTextField;
 
@@ -30,7 +32,11 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
             setStyleToDefault();
-            displayCommandPrompt();
+            if (!isShowingCommandSuccess) {
+                displayCommandPrompt();
+            } else {
+                isShowingCommandSuccess = false;
+            }
         });
     }
 
@@ -41,6 +47,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
+            isShowingCommandSuccess = true;
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
