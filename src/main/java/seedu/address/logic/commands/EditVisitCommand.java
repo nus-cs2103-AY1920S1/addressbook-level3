@@ -25,7 +25,7 @@ public class EditVisitCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EDIT_VISIT + "2";
 
-    public static final String MESSAGE_EDIT_VISIT_SUCCESS = "Edited visit from Person: %1$s";
+    public static final String MESSAGE_EDIT_VISIT_PROMPT = "Please edit the form";
     public static final String MESSAGE_MISSING_INDEX_PROMPT = "Please specify index of report to be edited";
 
     private final Index index;
@@ -54,7 +54,7 @@ public class EditVisitCommand extends Command {
         Person editedPerson = personToEdit;
         if (id != -1) {
             try {
-                return new CommandResult(String.format(MESSAGE_EDIT_VISIT_SUCCESS, personToEdit),
+                return new CommandResult(String.format(MESSAGE_EDIT_VISIT_PROMPT, personToEdit),
                         editedPerson.getVisitList().getObservableRecords(), index.getOneBased(),
                         id, editedPerson.getVisitList().getRecordByIndex(id));
             } catch (IndexOutOfBoundsException e) {

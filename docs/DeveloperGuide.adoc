@@ -352,7 +352,9 @@ The Visitation Report feature allows the user to `add`, `delete` and `edit` a `V
 * `VisitList#editRecord()` -- Replaces `VisitReport` object at given index in arraylist with given `VisitReport`
 * `VisitList#deleteRecord()` -- Deletes `VisitReport` by index from stored arraylist
 
+The class diagram below shows the new additions to the Person class.
 
+image::VisitClass0.png[]
 
 Given below is an example usage scenario and how every component of the Visitation Report feature behaves at each step.
 
@@ -373,6 +375,10 @@ image::EditVisit0.png[]
 If the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` runs and the check for `CommandResult#isEditVisit()` fails while the check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`.`MainWindow#handleShowVisitList()` is then called to display a pop up list showing an indexed list of all visitation records of the person.
 
 Step 4. The user edits the form and presses `f2` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
+
+The sequence diagram below shows how Step 3 and Step 4 works.
+
+image::EditVisit1.png[]
 
 Step 5. The user then decides that the report was beyond salvaging and decides to delete it. Executing the command `deletevisit 1 d/1`, `VisitList#deleteRecord()` deletes the entry from the arraylist and `Model#setPerson()` updates the person with the new `VisitList`. The `CommandResult#isShowVisitList()` check in  `MainWindow#executeCommand()` passes and a pop up list showing an indexed list of all visitation records of the person is displayed.
 
