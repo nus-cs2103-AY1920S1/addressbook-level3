@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  * Represents the Date of an Event in AddMin+. Events can span a time period of multiple days (dates).
  */
 public class EventDate {
-    public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format DDMMYYYY";
+    public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format DD/MM/YYYY";
     public static final String MESSAGE_CONSTRAINTS_MONTH = "Input Month should be 1-12";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final DateTimeFormatter FORMATTER_YEAR_MONTH = DateTimeFormatter.ofPattern("MM/yyyy");
