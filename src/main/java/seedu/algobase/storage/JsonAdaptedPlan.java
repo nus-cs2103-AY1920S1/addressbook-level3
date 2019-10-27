@@ -104,7 +104,7 @@ class JsonAdaptedPlan {
         }
 
         try {
-            return Id.generateId(Long.parseLong(id));
+            return Id.generateId(id);
         } catch (NumberFormatException e) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }

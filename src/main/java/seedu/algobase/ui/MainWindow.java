@@ -133,11 +133,13 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private DisplayTabPane getDisplayTabPane(WriteOnlyTabManager tabManager) {
+    private DisplayTabPane getDisplayTabPane(WriteOnlyTabManager writeOnlyTabManager) {
         problemListPanel =
-            new ProblemListPanel(logic.getProcessedProblemList(), tabManager);
-        planListPanel = new PlanListPanel(logic.getProcessedPlanList());
-        taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
+            new ProblemListPanel(logic.getProcessedProblemList(), writeOnlyTabManager);
+        planListPanel =
+            new PlanListPanel(logic.getProcessedPlanList(), writeOnlyTabManager);
+        taskListPanel =
+            new TaskListPanel(logic.getProcessedTaskList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelType.PROBLEM.getTabName(), problemListPanel);
         DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName());
         DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);

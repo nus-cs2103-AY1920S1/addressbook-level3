@@ -78,6 +78,6 @@ public class JsonAdaptedTab {
      * @throws IllegalValueException if string format is invalid.
      */
     public Id retrieveModelId(String modelId) throws IllegalValueException {
-        return Id.generateId(Long.parseLong(modelId));
+        return Id.generateId(modelId);
     }
 }

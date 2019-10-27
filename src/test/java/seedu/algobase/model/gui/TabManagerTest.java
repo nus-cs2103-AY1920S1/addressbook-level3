@@ -43,8 +43,8 @@ public class TabManagerTest {
     @Test
     public void setDetailsTabPaneIndex_indexWithinRange_success() {
         TabManager tabManager = new TabManager();
-        TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId(100000000));
-        TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId(100000001));
+        TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId());
+        TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId());
         tabManager.addDetailsTabData(tabData1);
         tabManager.addDetailsTabData(tabData2);
         Index[] testValues = new Index[] { OLD_VALUE };

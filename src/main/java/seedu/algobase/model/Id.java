@@ -1,12 +1,14 @@
 package seedu.algobase.model;
 
+import java.util.UUID;
+
 /**
  * Unique ID for AlgoBase models.
  */
 public class Id {
-    private final Long idValue;
+    private final String idValue;
 
-    private Id(long idValue) {
+    private Id(String idValue) {
         this.idValue = idValue;
     }
 
@@ -14,17 +16,17 @@ public class Id {
      * Generate Id based on unix timestamp.
      */
     public static Id generateId() {
-        return new Id(System.currentTimeMillis() / 1000L);
+        return new Id(UUID.randomUUID().toString());
     }
 
     /**
-     * Generate Id based on unix timestamp.
+     * Generate Id based on input value
      */
-    public static Id generateId(long idValue) {
+    public static Id generateId(String idValue) {
         return new Id(idValue);
     }
 
-    public long getIdValue() {
+    public String getIdValue() {
         return this.idValue;
     }
 
@@ -42,6 +44,6 @@ public class Id {
 
     @Override
     public String toString() {
-        return Long.toString(this.getIdValue());
+        return idValue;
     }
 }
