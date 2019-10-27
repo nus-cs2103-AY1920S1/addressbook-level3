@@ -28,6 +28,10 @@ public class TaskListPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a
+     * {@code TaskCard}w
+     */
     class TaskListViewCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task task, boolean empty) {
