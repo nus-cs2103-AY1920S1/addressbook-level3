@@ -27,6 +27,7 @@ public abstract class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private Poster poster;
+    private Genres genres;
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
@@ -190,5 +191,13 @@ public abstract class Show {
                 .append(" Actors: ");
         getActors().forEach(builder::append);
         return builder.toString();
+    }
+
+    public Genres getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Genres genres) {
+        this.genres = genres;
     }
 }
