@@ -276,11 +276,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteStaff(Person target) {
+        requireNonNull(target);
         staffAddressBook.removePerson(target);
     }
 
     @Override
     public void addStaff(Person person) {
+        requireNonNull(person);
         staffAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
@@ -288,12 +290,12 @@ public class ModelManager implements Model {
     @Override
     public void setStaff(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         staffAddressBook.setPerson(target, editedPerson);
     }
 
     @Override
     public Person resolveStaff(ReferenceId id) {
+        requireNonNull(id);
         return staffAddressBook.resolve(id);
     }
 
@@ -306,13 +308,13 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredStaffList() {
-        return filteredPatients;
+        return filteredStaff;
     }
 
     @Override
     public void updateFilteredStaffList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredPatients.setPredicate(predicate);
+        filteredStaff.setPredicate(predicate);
     }
 
 
@@ -332,7 +334,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setAppointmentSchedule(ReadOnlyAppointmentBook schedule) {
-        this.patientAddressBook.resetData(patientAddressBook);
+        this.appointmentBook.resetData(schedule);
     }
 
     @Override
@@ -437,47 +439,54 @@ public class ModelManager implements Model {
 
     @Override
     public void setDutyShiftSchedule(ReadOnlyAppointmentBook schedule) {
-
+        requireNonNull(schedule);
+        dutyRosterBook.resetData(schedule);
     }
 
     @Override
     public ReadOnlyAppointmentBook getDutyShiftBook() {
-        return null;
+        return dutyRosterBook;
     }
 
     @Override
     public boolean hasDutyShift(Event event) {
-        return false;
+        requireNonNull(event);
+        return dutyRosterBook.hasEvent(event);
     }
 
     @Override
     public boolean hasExactDutyShift(Event event) {
-        return false;
+        requireNonNull(event);
+        return dutyRosterBook.hasExactEvent(event);
     }
 
     @Override
     public void deleteDutyShift(Event event) {
-
+        requireNonNull(event);
+        dutyRosterBook.removeEvent(event);
     }
 
     @Override
     public void addDutyShift(Event event) {
-
+        requireNonNull(event);
+        dutyRosterBook.addEvent(event);
     }
 
     @Override
     public void setDutyShift(Event target, Event editedEvent) {
-
+        requireAllNonNull(target, editedEvent);
+        dutyRosterBook.setEvent(target, editedEvent);
     }
 
     @Override
     public ObservableList<Event> getFilteredDutyShiftList() {
-        return null;
+        return filteredDutyShifts;
     }
 
     @Override
     public void updateFilteredDutyShiftList(Predicate<Event> predicate) {
-
+        requireNonNull(predicate);
+        filteredDutyShifts.setPredicate(predicate);
     }
 
 

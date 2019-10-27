@@ -19,7 +19,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
  */
 public class RegisterStaffCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "newdoctor";
+    public static final String COMMAND_WORD = "hiredoctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff member to the address book. "
             + "Parameters: "
