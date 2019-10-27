@@ -220,7 +220,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * populate the contentPanel with watchlist content
+     * Populates the contentPanel with watchlist content
      */
     @FXML
     public void goToWatchlist() {
@@ -231,7 +231,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * populate the contentPanel with watched list content
+     * Populates the contentPanel with watched list content
      */
     @FXML
     public void goToWatched() {
@@ -242,7 +242,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * populate the contentPanel with search content
+     * Populates the contentPanel with search content
      */
     @FXML
     public void goToSearch() {
@@ -253,7 +253,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * populate the contentPanel with statistics content
+     * Populates the contentPanel with statistics content
      */
     @FXML
     public void goToStatistics() {
@@ -263,6 +263,11 @@ public class MainWindow extends UiPart<Stage> {
         currentButton = statisticsButton;
     }
 
+    /**
+     * Changes the style of the button when changing panels.
+     * @param a the button representing the current panel
+     * @param b the button representing the button clicked
+     */
     public void move(Button a, Button b) {
         a.getStyleClass().removeAll("button-current");
         a.getStyleClass().add("button");

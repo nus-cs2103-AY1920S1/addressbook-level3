@@ -20,13 +20,13 @@ public class StatisticsPanel extends UiPart<Region> {
     public StatisticsPanel(ObservableList<Show> forgotten) {
         super(FXML);
         forgottenView.setItems(forgotten);
-        forgottenView.setCellFactory(listView -> new forgottenViewCell());
+        forgottenView.setCellFactory(listView -> new ForgottenViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Show} using a {@code ShowCard}.
      */
-    class forgottenViewCell extends ListCell<Show> {
+    class ForgottenViewCell extends ListCell<Show> {
         @Override
         protected void updateItem(Show show, boolean empty) {
             super.updateItem(show, empty);

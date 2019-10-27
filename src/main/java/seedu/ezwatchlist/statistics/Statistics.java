@@ -12,6 +12,10 @@ public class Statistics {
         this.model = model;
     }
 
+    /**
+     * Gets the movies that are likely to be forgotten by the user.
+     * @return an observable list of forgotten shows
+     */
     public ObservableList<Show> getForgotten() {
         ObservableList<Show> watchlist = model.getWatchList().getShowList().filtered(show -> !show.isWatched().value);
         UniqueShowList forgotten = new UniqueShowList();
