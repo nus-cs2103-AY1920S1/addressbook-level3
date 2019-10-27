@@ -10,30 +10,40 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EventManager {
     private IntervalSearchTree<Date, Event> engagedSchedule = new IntervalSearchTree<>();
-    private IntervalSearchTree<Date, Event> breakSchedule = new IntervalSearchTree<>();
+    private IntervalSearchTree<Date, Event> vacationSchedule = new IntervalSearchTree<>();
 
     private HashMap<Event, List<Event>> engagements = new HashMap<>();
-    private HashMap<Event, List<Event>> breaks = new HashMap<>();
+    private HashMap<Event, List<Event>> vacations = new HashMap<>();
 
-    public boolean addBreak(Event event) throws DuplicateEventException {
-        if (breaks.containsKey(event)) {
-            List<Event> requiredList = breaks.get(event);
-            addBreak(event, requiredList);
+    public boolean add(Event event) throws DuplicateEventException, ClashException {
+        if (event.isBusy()) {
+            addEngagement(event);
+        } else {
+            addVacation(event);
+        }
+        return true;
+    }
+
+    private boolean addVacation(Event event) throws DuplicateEventException {
+        if (vacations.containsKey(event)) {
+            List<Event> requiredList = vacations.get(event);
+            addVacation(event, requiredList);
         } else {
             List<Event> newList = new ArrayList<>();
             newList.add(event);
         }
 
-        breakSchedule.insert(event);
+        vacationSchedule.insert(event);
         return true;
     }
 
-    private void addBreak(Event event, List<Event> requiredList) throws DuplicateEventException {
+    private void addVacation(Event event, List<Event> requiredList) throws DuplicateEventException {
         if (isDuplicateEvent(event, requiredList)) {
             throw new DuplicateEventException();
         }
@@ -41,10 +51,10 @@ public class EventManager {
         requiredList.add(event);
     }
 
-    public boolean addCommitment(Event event) throws DuplicateEventException, ClashException {
+    private boolean addEngagement(Event event) throws DuplicateEventException, ClashException {
         if (engagements.containsKey(event)) {
             List<Event> requiredList = engagements.get(event);
-            addCommitment(event, requiredList);
+            addEngagement(event, requiredList);
         } else {
             if (engagedSchedule.hasCollision(event)) {
                 List<String> collisions = getCollisionsAsStr(event);
@@ -52,13 +62,14 @@ public class EventManager {
             }
             List<Event> newList = new ArrayList<>();
             newList.add(event);
+            engagements.put(event, newList);
         }
 
         engagedSchedule.insert(event);
         return true;
     }
 
-    private boolean addCommitment(Event event, List<Event> requiredList) throws DuplicateEventException,
+    private boolean addEngagement(Event event, List<Event> requiredList) throws DuplicateEventException,
             ClashException {
         boolean isDuplicate = requiredList.stream()
                 .anyMatch(item -> item.equals(event));
@@ -73,20 +84,28 @@ public class EventManager {
         return true;
     }
 
-    public boolean addCommitmentIgnoreClash(Event event) throws DuplicateEventException {
+    public boolean addIgnoreClash(Event event) throws DuplicateEventException {
+        if (!event.isBusy()) {
+            assert false : "Add without clash command is only available for commitments and trips";
+        }
+        return addEngagementIgnoreClash(event);
+    }
+
+    private boolean addEngagementIgnoreClash(Event event) throws DuplicateEventException {
         if (engagements.containsKey(event)) {
             List<Event> requiredList = engagements.get(event);
-            addCommitmentIgnoreClash(event, requiredList);
+            addEngagementIgnoreClash(event, requiredList);
         } else {
             List<Event> newList = new ArrayList<>();
             newList.add(event);
+            engagements.put(event, newList);
         }
 
         engagedSchedule.insert(event);
         return true;
     }
 
-    private boolean addCommitmentIgnoreClash(Event event, List<Event> requiredList) throws DuplicateEventException {
+    private boolean addEngagementIgnoreClash(Event event, List<Event> requiredList) throws DuplicateEventException {
         boolean isDuplicate = requiredList.stream()
                 .anyMatch(item -> item.equals(event));
         if (isDuplicate) {
@@ -109,8 +128,50 @@ public class EventManager {
                 .anyMatch(item -> item.equals(event));
     }
 
+    public boolean remove(Event event) throws NoSuchElementException {
+        if (event.isBusy()) {
+            return removeEngagement(event);
+        } else {
+            return removeVacation(event);
+        }
+    }
+
+    private boolean removeEngagement(Event event) throws NoSuchElementException {
+        if (!engagements.containsKey(event)) {
+            throw new NoSuchElementException("There is no event at this time.");
+        }
+        List<Event> requiredList = engagements.get(event);
+        if (!isDuplicateEvent(event, requiredList)) {
+            throw new NoSuchElementException("There is no such event at this time.");
+        }
+        requiredList.remove(event);
+        try {
+            engagedSchedule.remove(event);
+        } catch (NoSuchElementException e) {
+            assert false : "This event should exist in engagedSchedule";
+        }
+        return true;
+    }
+
+    private boolean removeVacation(Event event) throws NoSuchElementException {
+        if (!vacations.containsKey(event)) {
+            throw new NoSuchElementException("There is no vacation at this time.");
+        }
+        List<Event> requiredList = vacations.get(event);
+        if (!isDuplicateEvent(event, requiredList)) {
+            throw new NoSuchElementException("There is no such vacation at this time.");
+        }
+        requiredList.remove(event);
+        try {
+            vacationSchedule.remove(event);
+        } catch (NoSuchElementException e) {
+            assert false : "This event should exist in vacationSchedule";
+        }
+        return true;
+    }
+
     public String suggest(EventQuery eventQuery) {
-        Stream<Event> availableSlots = breakSchedule.getCollisions(eventQuery).stream();
+        Stream<Event> availableSlots = vacationSchedule.getCollisions(eventQuery).stream();
         Deque<EventQuery> availableBlocks = findBlocks(availableSlots);
         Stream<Event> engagedSlots = engagedSchedule.getCollisions(eventQuery).stream();
         Deque<EventQuery> engagedBlocks = findBlocks(engagedSlots);
@@ -224,6 +285,26 @@ public class EventManager {
             EventQuery newAvailableBlock = new EventQuery(newStart, newEnd);
             availableBlocks.offerFirst(newAvailableBlock);
         }
+    }
+
+    public List<Event> asList() {
+        List<Event> eventList = new ArrayList<>();
+        engagements.values()
+                .stream()
+                .flatMap(listOfEvents -> listOfEvents.stream())
+                .forEach(event -> eventList.add(event));
+        vacations.values()
+                .stream()
+                .flatMap(listOfEvents -> listOfEvents.stream())
+                .forEach(event -> eventList.add(event));
+        return eventList;
+    }
+
+    public void clear() {
+        engagedSchedule = new IntervalSearchTree<>();
+        vacationSchedule = new IntervalSearchTree<>();
+        engagements = new HashMap<>();
+        vacations = new HashMap<>();
     }
 }
 

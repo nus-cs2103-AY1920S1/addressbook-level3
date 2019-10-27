@@ -2,8 +2,11 @@ package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.Commitment;
+import seedu.address.calendar.model.event.exceptions.ClashException;
+import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 public class AddCommitmentCommand extends Command {
     public static final String COMMAND_WORD = "addCommitment";
@@ -24,8 +27,13 @@ public class AddCommitmentCommand extends Command {
         this.commitment = commitment;
     }
 
-    public CommandResult execute(Calendar calendar) {
-        calendar.addEvent(commitment);
+    public CommandResult execute(Calendar calendar) throws CommandException {
+        try {
+            calendar.addEvent(commitment);
+        } catch (DuplicateEventException | ClashException e) {
+            throw new CommandException(e.getMessage());
+        }
+
         String formattedFeedback = String.format(MESSAGE_ADD_SUCCESS, commitment.toString());
         return new CommandResult(formattedFeedback);
     }

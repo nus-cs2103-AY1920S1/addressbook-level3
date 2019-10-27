@@ -1,5 +1,7 @@
 package seedu.address.calendar.model.date;
 
+import java.util.Arrays;
+
 public class Year implements Comparable<Year> {
     private int year;
 
@@ -36,5 +38,10 @@ public class Year implements Comparable<Year> {
         Year otherYear = (Year) obj;
         boolean isSameYear = this.year == otherYear.year;
         return isSameYear;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(new int[]{year});
     }
 }

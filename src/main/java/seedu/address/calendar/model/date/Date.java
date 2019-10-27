@@ -4,6 +4,7 @@ import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.util.IntervalPart;
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Optional;
@@ -213,5 +214,11 @@ public class Date implements IntervalPart<Date> {
         boolean isSameDay = day.equals(otherDay);
 
         return isSameYear && isSameMonth && isSameDay;
+    }
+
+    @Override
+    public int hashCode() {
+        Object[] arr = {day, month, year};
+        return Arrays.hashCode(arr);
     }
 }

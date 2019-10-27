@@ -54,11 +54,11 @@ public class CalendarPage extends UiPart<Scene> implements Page {
             Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
             calendar.updateCalendar(calendarStorage.readCalendar().get());
         } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Will be starting with an empty AddressBook");
-            // todo: what to do about data?
+            System.out.println("Data file not in the correct format. Will be starting with an empty Calendar");
+            // todo: what to do about data? JUST OVERWRITE
         } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty AddressBook");
-            // todo: what to do about data?
+            System.out.println("Problem while reading from the file. Will be starting with an empty Calendar");
+            // todo: what to do about data? JUST OVERWRITE
         }
         calendarLogic = new CalendarLogic(calendar, calendarStorage);
 
@@ -140,7 +140,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
 
             resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
             return commandResult;
-        } catch (ParseException e) {
+        } catch (ParseException | CommandException e) {
             resultDisplay.setDisplayText(e.getMessage());
             throw e;
         } catch (IOException ioe) {

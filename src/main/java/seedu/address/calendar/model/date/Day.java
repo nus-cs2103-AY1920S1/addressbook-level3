@@ -2,6 +2,8 @@ package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.util.DateUtil;
 
+import java.util.Arrays;
+
 /**
  * Creates a day object which contains information about the day of month and day of week.
  */
@@ -63,5 +65,11 @@ public class Day implements Comparable<Day> {
         }
         Day dayToCompare = (Day) o;
         return dayToCompare.dayOfWeek.equals(this.dayOfWeek) && dayToCompare.dayOfMonth == this.dayOfMonth;
+    }
+
+    @Override
+    public int hashCode() {
+        Object[] arr = {dayOfMonth, dayOfWeek};
+        return Arrays.hashCode(arr);
     }
 }
