@@ -71,6 +71,24 @@ public class EditTeamCommand extends EditCommand {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditTeamCommand)) {
+            return false;
+        }
+
+        // state check
+        EditTeamCommand e = (EditTeamCommand) other;
+        return id.equals(e.id)
+                && editTeamDescriptor.equals(e.editTeamDescriptor);
+    }
+
     /**
      * Creates and returns a new {@code Team} with the details {@code teamToEdit}
      * edited with {@code editTeamDescriptor}.
