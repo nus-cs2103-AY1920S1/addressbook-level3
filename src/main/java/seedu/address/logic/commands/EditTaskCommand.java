@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
-import static seedu.address.model.util.SortingOrder.CURRENT_SORTING_ORDER_FOR_TASK;
 
 
 import java.util.*;
@@ -75,13 +74,13 @@ public class EditTaskCommand extends Command {
         Task taskToEdit = taskList.remove(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
         taskList.add(index.getZeroBased(), editedTask);
-        Collections.sort(taskList, CURRENT_SORTING_ORDER_FOR_TASK);
+        Collections.sort(taskList, SortingOrder.getCurrentSortingOrderForTask());
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), taskList, projectToEdit.getFinance());
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), projectToEdit.getMembers(), taskList, projectToEdit.getFinance());
 
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask), COMMAND_WORD);
     }
 
     /**

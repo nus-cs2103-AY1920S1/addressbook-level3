@@ -12,7 +12,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.GenerateSlotCommand.*;
 
-public class GenerateSlotParser implements Parser<GenerateSlotCommand> {
+public class GenerateSlotCommandParser implements Parser<GenerateSlotCommand> {
     @Override
     public GenerateSlotCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -24,7 +24,7 @@ public class GenerateSlotParser implements Parser<GenerateSlotCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenerateSlotCommand.MESSAGE_USAGE));
         }
         try {
-            timeTables.add(new TimeTable(argMultimap.getValue(PREFIX_TIMETABLE).get()));
+            timeTables.add(ParserUtil.parseTimeTable(argMultimap.getValue(PREFIX_TIMETABLE).get()));
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_TIMETABLE_FORMAT));
         }

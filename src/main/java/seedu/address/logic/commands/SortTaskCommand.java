@@ -13,7 +13,6 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
-import static seedu.address.model.util.SortingOrder.CURRENT_SORTING_ORDER_FOR_TASK;
 
 /**
  * Sorts the tasks in the current project.
@@ -82,15 +81,16 @@ public class SortTaskCommand extends Command {
 
         ArrayList<Task> taskList = new ArrayList<>();
         taskList.addAll(taskToEdit);
-        Collections.sort(taskList, CURRENT_SORTING_ORDER_FOR_TASK);
+        Collections.sort(taskList, SortingOrder.getCurrentSortingOrderForTask());
         Finance finance = projectToEdit.getFinance();
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), taskList, finance);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<String>(), taskList, finance);
         editedProject.getMembers().addAll(members);
+
 
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
-        return new CommandResult(String.format(MESSAGE_SORT_TASK_SUCCESS, sortType));
+        return new CommandResult(String.format(MESSAGE_SORT_TASK_SUCCESS, sortType), COMMAND_WORD);
     }
 
 

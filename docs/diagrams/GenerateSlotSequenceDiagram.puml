@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":GenerateSlotCommandParser" as GenerateSlotCommandParser LOGIC_COLOR
+participant "g:GenerateSlotCommand" as GenerateSlotCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":SlotGenerator" as SlotGenerator LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("generate")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("generate")
+activate AddressBookParser
+
+create GenerateSlotCommandParser
+AddressBookParser -> GenerateSlotCommandParser
+activate GenerateSlotCommandParser
+
+GenerateSlotCommandParser --> AddressBookParser
+deactivate GenerateSlotCommandParser
+
+AddressBookParser -> GenerateSlotCommandParser : parse("")
+activate GenerateSlotCommandParser
+
+create GenerateSlotCommand
+GenerateSlotCommandParser -> GenerateSlotCommand
+activate GenerateSlotCommand
+
+GenerateSlotCommand --> GenerateSlotCommandParser : g
+deactivate GenerateSlotCommand
+
+GenerateSlotCommandParser --> AddressBookParser : g
+deactivate GenerateSlotCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+GenerateSlotCommandParser -[hidden]-> AddressBookParser
+destroy GenerateSlotCommandParser
+
+AddressBookParser --> LogicManager : g
+deactivate AddressBookParser
+
+LogicManager -> GenerateSlotCommand : execute()
+activate GenerateSlotCommand
+
+GenerateSlotCommand -> Model : getMembers()
+activate Model
+
+Model --> GenerateSlotCommand : members
+deactivate Model
+
+create SlotGenerator
+GenerateSlotCommand -> SlotGenerator
+activate SlotGenerator
+
+SlotGenerator --> GenerateSlotCommand
+deactivate SlotGenerator
+
+GenerateSlotCommand -> SlotGenerator : generate(members, duration, timeRange)
+activate SlotGenerator
+
+SlotGenerator --> GenerateSlotCommand
+deactivate SlotGenerator
+
+create CommandResult
+GenerateSlotCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> GenerateSlotCommand
+deactivate CommandResult
+
+GenerateSlotCommand --> LogicManager : result
+deactivate GenerateSlotCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

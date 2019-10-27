@@ -9,9 +9,7 @@ import seedu.address.model.project.Task;
 import seedu.address.model.project.Title;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -40,9 +38,10 @@ public class AddProjectCommandParser implements Parser<AddProjectCommand> {
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         List<Task> tasks = new ArrayList<>();
+        List<String> members = new ArrayList<>();
         Finance finance = new Finance();
 
-        Project project = new Project(title, description, tasks, finance);
+        Project project = new Project(title, description, members, tasks, finance);
 
         return new AddProjectCommand(project);
     }

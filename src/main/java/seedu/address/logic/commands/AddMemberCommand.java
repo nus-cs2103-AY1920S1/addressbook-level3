@@ -34,7 +34,7 @@ public class AddMemberCommand extends Command {
     public static final String MESSAGE_SUCCESS_MISSING_FIELDS = MESSAGE_SUCCESS + " (Please remember to fill in remaining information for member)";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the project";
     public static final String MESSAGE_WRONG_ADD_COMMAND = "This person already exists in the address book, "
-            + "please use addExistingMember instead.";
+            + "please use addFromContacts instead.";
     public static final String MESSAGE_MISSING_FIELDS = "Please remember to fill in the proper fields later.";
     private final NewMemberDescriptor toAdd;
 
@@ -52,12 +52,12 @@ public class AddMemberCommand extends Command {
         requireNonNull(model);
 
         Project projectToEdit = model.getWorkingProject().get();
-
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), projectToEdit.getTasks(), projectToEdit.getFinance());
+        String projectToEditTitle = projectToEdit.getTitle().toString();
 
         Person personToAdd = createNewMember(toAdd);
-        personToAdd.getProjects().add(editedProject.getTitle().toString());
+        personToAdd.getProjects().add(projectToEditTitle);
         List<String> memberListToEdit = projectToEdit.getMembers();
+        List<String> editedMemberList = new ArrayList<>();
 
         if (model.hasPerson(personToAdd)) {
             throw new CommandException(MESSAGE_WRONG_ADD_COMMAND);
@@ -69,14 +69,19 @@ public class AddMemberCommand extends Command {
 
         //Adding person to address book and project
         model.addPerson(personToAdd);
-        memberListToEdit.add(personToAdd.getName().fullName);
-        editedProject.getMembers().add(personToAdd.getName().fullName);
+        editedMemberList.addAll(memberListToEdit);
+        editedMemberList.add(personToAdd.getName().toString());
+
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
+                editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance());
+
         model.setProject(projectToEdit, editedProject);
+        model.setWorkingProject(editedProject);
 
         if (toAdd.isAnyFieldNotEdited()) {
-            return new CommandResult(String.format(MESSAGE_MISSING_FIELDS, personToAdd.getName().toString(), projectToEdit));
+            return new CommandResult(String.format(MESSAGE_MISSING_FIELDS, personToAdd.getName().toString(), projectToEdit), COMMAND_WORD);
         } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, personToAdd.getName().toString(), projectToEdit));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, personToAdd.getName().toString(), projectToEdit), COMMAND_WORD);
         }
     }
 

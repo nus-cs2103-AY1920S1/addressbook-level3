@@ -56,12 +56,12 @@ public class AddSpendingCommand extends Command {
 
         budgets.get(index.getZeroBased()).addSpending(toAdd);
         Project editedProject = new Project(currWorkingProject.getTitle(),
-                currWorkingProject.getDescription(), currWorkingProject.getTasks(),
+                currWorkingProject.getDescription(), currWorkingProject.getMembers(), currWorkingProject.getTasks(),
                 new Finance(budgets));
 
         model.setWorkingProject(editedProject);
         model.setProject(currWorkingProject, editedProject);
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(String.format(MESSAGE_SUCCESS), COMMAND_WORD);
     }
 
 }

@@ -4,8 +4,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
-import static seedu.address.model.util.SortingOrder.CURRENT_SORTING_ORDER_FOR_TASK;
 import seedu.address.model.util.SortingOrder;
+
 
 import java.util.*;
 
@@ -45,14 +45,13 @@ public class AddTaskCommand extends Command {
         }
 
         Project projectToEdit = model.getWorkingProject().get();
-        List<String> members = projectToEdit.getMembers();
         ArrayList<Task> taskArrayList = new ArrayList<>();
         List<Task> taskToEdit = projectToEdit.getTasks();
         taskArrayList.addAll(taskToEdit);
         taskArrayList.add(task);
-        Collections.sort(taskArrayList, CURRENT_SORTING_ORDER_FOR_TASK);
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), taskArrayList, projectToEdit.getFinance());
-        editedProject.getMembers().addAll(members);
+        Collections.sort(taskArrayList, SortingOrder.getCurrentSortingOrderForTask());
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
+                projectToEdit.getMembers(), taskArrayList, projectToEdit.getFinance());
 
         if (projectToEdit.hasTask(task)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
@@ -60,8 +59,9 @@ public class AddTaskCommand extends Command {
 
 
         model.setProject(projectToEdit, editedProject);
+        model.setWorkingProject(editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
-        return new CommandResult(String.format(MESSAGE_ADD_TASK_SUCCESS, task));
+        return new CommandResult(String.format(MESSAGE_ADD_TASK_SUCCESS, task), COMMAND_WORD);
     }
 
 

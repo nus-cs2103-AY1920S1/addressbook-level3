@@ -20,10 +20,10 @@ public class SortTaskParser implements Parser<SortTaskCommand> {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new SortTaskCommand(index);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortTaskCommand.MESSAGE_USAGE), pe);
-            }
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortTaskCommand.MESSAGE_USAGE), pe);
         }
+    }
 
 }

@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the result of a command execution.
@@ -10,6 +10,8 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
+
+    private final String commandWord;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -20,22 +22,27 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String commandWord) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.commandWord = commandWord;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, String commandWord) {
+        this(feedbackToUser, false, false, commandWord);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public String getCommandWord() {
+        return commandWord;
     }
 
     public boolean isShowHelp() {
@@ -60,12 +67,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && commandWord == otherCommandResult.commandWord;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, commandWord);
     }
 
 }

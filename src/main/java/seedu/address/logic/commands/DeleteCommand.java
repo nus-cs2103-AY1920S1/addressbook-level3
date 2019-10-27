@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
         String memberToDelete = personToDelete.getName().fullName;
         model.deleteMember(memberToDelete);
         ReadOnlyProjectList projectList = model.getProjectList();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete), COMMAND_WORD);
     }
 
     @Override

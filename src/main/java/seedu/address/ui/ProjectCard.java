@@ -9,8 +9,6 @@ import javafx.scene.layout.Region;
 import seedu.address.model.project.Project;
 import seedu.address.model.util.SortingOrder;
 
-import static seedu.address.model.util.SortingOrder.CURRENT_SORTING_ORDER_FOR_TASK;
-
 
 
 import java.util.Comparator;
@@ -50,7 +48,7 @@ public class ProjectCard extends UiPart<Region> {
     private FlowPane tasks;
     @FXML
     private FlowPane meetings;
-    int count = 0;
+    private int count = 0;
 
     public ProjectCard(Project project, int displayedIndex) {
         super(FXML);
@@ -61,7 +59,7 @@ public class ProjectCard extends UiPart<Region> {
         memberTitle.setText("Members:");
         project.getMembers().forEach(member -> members.getChildren().add(new Label(member)));
         project.getTasks().stream()
-                .sorted(CURRENT_SORTING_ORDER_FOR_TASK)
+                .sorted(SortingOrder.getCurrentSortingOrderForTask())
                 .forEach(task -> tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString())));
         taskTitle.setText("Tasks: ");
         tasks.setOrientation(Orientation.VERTICAL);

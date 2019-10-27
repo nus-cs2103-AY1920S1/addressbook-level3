@@ -6,26 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import seedu.address.model.AddressBook;
 import seedu.address.model.ProjectList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyProjectList;
-import seedu.address.model.person.*;
-
-import seedu.address.model.project.Description;
-import seedu.address.model.project.Project;
-import seedu.address.model.project.Title;
-import seedu.address.model.tag.Tag;
-
-import seedu.address.model.project.*;
-
 import seedu.address.model.finance.Finance;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
+import seedu.address.model.project.*;
+import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -84,16 +72,18 @@ public class SampleDataUtil {
     public static Project[] getSampleProjects() {
         try {
             return new Project[]{
-                new Project(new Title("CS2103T"), new Description("The mod that takes most time"),
+
+                new Project(new Title("CS2103T"), new Description("The mod that takes most time"), new ArrayList<String>(),
                             getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
                                     new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)), new Finance()),
-                new Project(new Title("GER1000"), new Description("Free and easy"),
+                new Project(new Title("GER1000"), new Description("Free and easy"), new ArrayList<String>(),
                             getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance()),
             };
         } catch (ParseException e) {
             return new Project[]{
                 new Project(new Title("CS2103T"),
-                            new Description("The mod that takes most time"),
+
+                            new Description("The mod that takes most time"), new ArrayList<String>(),
                             getTaskList(new Task(new Description("Finish GUI"), false)), new Finance())
             };
         }

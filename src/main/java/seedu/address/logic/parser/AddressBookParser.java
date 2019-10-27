@@ -48,6 +48,9 @@ public class AddressBookParser {
         case AddMemberCommand.COMMAND_WORD:
             return new AddMemberCommandParser().parse(arguments);
 
+        case AddFromContactsCommand.COMMAND_WORD:
+            return new AddFromContactsCommandParser().parse(arguments);
+
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
 
@@ -94,7 +97,7 @@ public class AddressBookParser {
             return new CheckoutCommandParser().parse(arguments);
 
         case GenerateSlotCommand.COMMAND_WORD:
-            return new GenerateSlotParser().parse(arguments);
+            return new GenerateSlotCommandParser().parse(arguments);
 
         case SortTaskCommand.COMMAND_WORD:
             return new SortTaskParser().parse(arguments);

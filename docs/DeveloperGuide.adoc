@@ -240,6 +240,100 @@ image::CommitActivityDiagram.png[]
 
 _{Explain here how the data encryption feature will be implemented}_
 
+=== Generate meeting timeslot
+==== Description of Feature
+
+The timeslot generator is used to generate meeting timings by making use of team members' timetable.
+
+Timetable of members should be inputted beforehand, and stored as a characteristic of the member.
+
+* `TimeSlotGenerator#generate()` -- Generate timeslot where *_all_* members of the currently checked out project are available. Returns a list of `timeRange`, or an empty list of `timeRange` if no such timeslot is available.
+* `TimeSlotGenerator#generateWithMostMembers()` -- Generate timeslot where *_most_* members of the currently checked out project are available. Returns a list of `timeRange`.
+
+==== Details
+
+This feature depends on the timetable stored internally as an attribute of each members:
+
+image::GenerateSlotClassDiagram.png[]
+
+The `TimeSlotGenerator` is a stateless class, and most usage would be look like this:
+
+`List<TimeRange> timeSlots = new TimeSlotGenerator().generate(members, desiredMeetingDuration, timeRange)`
+
+* `members`: List of `Person` who are members of the checked-out `Project`
+* `desiredMeetingDuration`: How long the meeting would last in hour, expressed as a positive integer
+* `timeRange`: Restrict the time range in which the timeslot is generated, e.g. working hours, from MONDAY 0900 - MONDAY 1800
+
+The following sequence diagram shows the entire process of generating timeslot after the command `generate` is given:
+
+image::GenerateSlotSequenceDiagram.png[]
+
+[NOTE]
+If `generate(members, duration, timeRange)` returns an empty `List<TimeRange>`, the program would automatically call `generateWithMostMembers(members, duration, timeRange)` and return it as result, informing the user that there is no timeslot where all members are available.
+
+==== Algorithm Used
+
+`TimeSlotGenerator#generate()` works by merging all the Timetables into a single TimeTable, and inverting the TimeTable to represent all the  time ranges where all members are free. The algorithm then iterates over all available timeslots, adding each timeslot to the list of timeslots. The algorithm terminates when all possible available TimeRange are exhausted, returning the list of TimeRange that are longer than `duration` supplied by user.
+
+`TimeSlotGenerator#generateWithMostMembers()` works by iterating over all possible combinations of members to attend the meeting, in descending order of number of members. For each possible combination, this function would call `TimeSlotGenerator#generate()`. If it returns an empty list, then the algorithm would move on to the next possible combination and try to generate a timeslot, looping until a non-empty list is returned. The algorithm would then terminate, returning the combination of members selected, and the list of `timeRange` of available timings.
+
+The sequence of events for `TimeSlotGenerator#generateWithMostMembers()` is shown in the sequence diagram below:
+
+<INSERT SEQUENCE DIAGRAM FOR ALGO, SHOWING THE LOOP>
+
+==== Design Considerations
+
+===== Aspect: How to generate timeslot with most number of available members
+
+* **Alternative 1 (current choice):** Iterate over all possible combinations of members, sorted in descending order of number of members, and call `TimeSlotGenerator#generate()` on each of these combinations.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of speed. This implementation takes O(2^n^) time for _n_  members.
+* **Alternative 2:** Use a segment tree.
+** Pros: Will use much less time.
+** Cons: Harder to implement, and more specialize towards only doing a single task.
+
+We went with options 1 as there is no real difference in speed if the number of members is restricted to below 15 members, which many projects do not normally exceed, and it is much easier to implement and maintain.
+
+=== Timetable input
+==== Description of Feature
+There are two ways to input member's timetable
+
+. Member send a formatted text file to the team leader, which would then be parsed by the system
+. Member send their NUSMods timetable URL to the team leader, and the system would fetch their timetable data using NUSMods API
+
+The main logic is implemented within the `AddTimetableCommand` class.
+
+==== Details
+
+Important functions in the `AddTimetableCommand`:
+
+* `AddTimetableCommand#getTimetableFromNUSMods(String url)` -- Fetch timetable data using NUSMods API
+* `AddTimetableCommand#getTimetableFromFile(String filepath)` -- Parse file to obtain timetable data
+
+An overview of how the `AddTimetableCommand` class works, shown in figure below:
+
+<INSERT CLASS DIAGRAM, SHOW DEPENDENCIES>
+
+User command would be in the format: `addTimetable m/member [u/url] [f/filepath]`
+
+Below diagram shows the entire process of adding timetable from file:
+
+<INSERT SEQUENCE DIAGRAM FOR FILE INPUT>
+
+Alternatively, user can input using NUSMods shared timetable URL.
+
+Following sequence diagram would delve directly into the process of fetching timetable data using NUSMods API, as the earlier portion of command parsing is similar to the above figure.
+
+<INSERT SEQUENCE DIAGRAM, starting directly from getTimetableFromNUSMods>
+
+
+==== Design Considerations (DO I EVEN NEED THIS PORTION???)
+
+===== Aspect: How to input timetable
+
+Alternatively, we can input timetable on the command line manually, but we realized that it is too troublesome and unrealistic for the user to type in so much timetable data of his many members.
+
+
 // end::dataencryption[]
 
 === Logging

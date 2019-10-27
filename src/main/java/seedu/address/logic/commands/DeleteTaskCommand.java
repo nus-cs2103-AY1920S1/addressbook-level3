@@ -7,11 +7,8 @@ import seedu.address.model.Model;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
@@ -60,12 +57,14 @@ public class DeleteTaskCommand extends Command {
         Task task = taskList.remove(index.getZeroBased());
         Finance finance = projectToEdit.getFinance();
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), taskList, finance);
-        editedProject.getMembers().addAll(members);
+
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
+                projectToEdit.getMembers(), taskList, finance);
 
         model.setProject(projectToEdit, editedProject);
+        model.setWorkingProject(editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, task), COMMAND_WORD);
     }
 
 

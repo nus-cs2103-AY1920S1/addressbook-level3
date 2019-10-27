@@ -46,7 +46,7 @@ public class GenerateSlotCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         try {
-            return new CommandResult(GenerateSlot.generate(this.timeTables, durationInHours, timeRange).toString());
+            return new CommandResult(GenerateSlot.generate(this.timeTables, durationInHours, timeRange).toString(), COMMAND_WORD);
         } catch (IllegalValueException e) {
             throw new CommandException("Generation error. Unable to generate timeslot");
         }

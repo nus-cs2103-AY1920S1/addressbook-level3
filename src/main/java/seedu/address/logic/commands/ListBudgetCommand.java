@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 import seedu.address.model.Model;
 import seedu.address.model.finance.Budget;
 import seedu.address.model.project.Project;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Lists all persons in the address book to the user.
@@ -28,6 +28,6 @@ public class ListBudgetCommand extends Command {
             sb.append(budget.toString());
             sb.append("\n");
         }
-        return new CommandResult(sb.toString());
+        return new CommandResult(sb.toString(), COMMAND_WORD);
     }
 }

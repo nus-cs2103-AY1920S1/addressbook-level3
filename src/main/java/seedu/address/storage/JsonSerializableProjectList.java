@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +13,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ProjectList;
 import seedu.address.model.ReadOnlyProjectList;
 import seedu.address.model.project.Project;
-import seedu.address.model.project.Task;
 
 /**
  * An Immutable ProjectList that is serializable to JSON format.
