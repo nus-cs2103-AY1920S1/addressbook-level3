@@ -45,7 +45,7 @@ public class RemoveMemberCommand extends Command {
                         projectToEdit.getTitle().toString()));
 
         //Creating the new member list
-        List<String> memberListToEdit = projectToEdit.getMembers();
+        List<String> memberListToEdit = projectToEdit.getMemberNames();
         memberListToEdit.remove(targetPerson.getName().toString());
         List<String> editedMemberList = new ArrayList<>();
         editedMemberList.addAll(memberListToEdit);

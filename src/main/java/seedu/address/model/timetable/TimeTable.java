@@ -1,7 +1,5 @@
 package seedu.address.model.timetable;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -13,7 +11,7 @@ public class TimeTable {
      * Takes in a formatted string of timings.
      * @param timeRanges List of TimeRange to populate the timetable.
      */
-    public TimeTable(List<TimeRange> timeRanges) throws IllegalValueException {
+    public TimeTable(List<TimeRange> timeRanges) {
         this.timeRanges = timeRanges;
     }
 

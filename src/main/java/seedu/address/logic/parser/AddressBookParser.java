@@ -101,6 +101,9 @@ public class AddressBookParser {
 
         case SortTaskCommand.COMMAND_WORD:
             return new SortTaskParser().parse(arguments);
+            
+        case AddTimetableCommand.COMMAND_WORD:
+            return new AddTimetableCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -49,7 +49,7 @@ public class SortTaskCommand extends Command {
         }
 
         Project projectToEdit = model.getWorkingProject().get();
-        List<String> members = projectToEdit.getMembers();
+        List<String> members = projectToEdit.getMemberNames();
         List<Task> taskToEdit = projectToEdit.getTasks();
         String sortType = "";
 
@@ -85,7 +85,7 @@ public class SortTaskCommand extends Command {
         Finance finance = projectToEdit.getFinance();
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<String>(), taskList, finance);
-        editedProject.getMembers().addAll(members);
+        editedProject.getMemberNames().addAll(members);
 
 
         model.setProject(projectToEdit, editedProject);

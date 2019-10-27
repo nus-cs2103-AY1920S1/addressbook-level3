@@ -95,7 +95,7 @@ public class GenerateSlot {
             inverted.add(toAdd);
             cur = timeRange.getEnd();
         }
-        inverted.add(new TimeRange(cur.getDay(), DayOfWeek.SUNDAY, cur.getTime(), LocalTime.parse("23:59")));
+        inverted.add(new TimeRange(cur.getDay(), cur.getTime(), DayOfWeek.SUNDAY, LocalTime.parse("23:59")));
         return inverted;
     }
 

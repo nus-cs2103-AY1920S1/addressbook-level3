@@ -51,7 +51,7 @@ public class AddTaskCommand extends Command {
         taskArrayList.add(task);
         Collections.sort(taskArrayList, SortingOrder.getCurrentSortingOrderForTask());
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
-                projectToEdit.getMembers(), taskArrayList, projectToEdit.getFinance());
+                projectToEdit.getMemberNames(), taskArrayList, projectToEdit.getFinance());
 
         if (projectToEdit.hasTask(task)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

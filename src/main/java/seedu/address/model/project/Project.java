@@ -67,7 +67,7 @@ public class Project {
         return this.title.equals(project.getTitle().title);
     }
 
-    public List<String> getMembers() {
+    public List<String> getMemberNames() {
         return this.members;
     }
 

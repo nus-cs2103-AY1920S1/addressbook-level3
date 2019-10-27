@@ -45,7 +45,7 @@ public class DeleteTaskCommand extends Command {
         }
 
         Project projectToEdit = model.getWorkingProject().get();
-        List<String> members = projectToEdit.getMembers();
+        List<String> members = projectToEdit.getMemberNames();
         List<Task> taskToEdit = projectToEdit.getTasks();
 
         if (index.getZeroBased() >= taskToEdit.size()) {
@@ -59,7 +59,7 @@ public class DeleteTaskCommand extends Command {
 
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
-                projectToEdit.getMembers(), taskList, finance);
+                projectToEdit.getMemberNames(), taskList, finance);
 
         model.setProject(projectToEdit, editedProject);
         model.setWorkingProject(editedProject);

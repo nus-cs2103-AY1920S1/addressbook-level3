@@ -19,7 +19,7 @@ public class TimeRange implements Comparable<TimeRange> {
         this.end = end;
     }
 
-    public TimeRange(DayOfWeek dayStart, DayOfWeek dayEnd, LocalTime timeStart, LocalTime timeEnd) throws IllegalValueException {
+    public TimeRange(DayOfWeek dayStart, LocalTime timeStart, DayOfWeek dayEnd, LocalTime timeEnd) throws IllegalValueException {
         this(new WeekTime(dayStart, timeStart), new WeekTime(dayEnd, timeEnd));
     }
 

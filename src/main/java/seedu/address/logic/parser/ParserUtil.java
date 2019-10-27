@@ -189,16 +189,18 @@ public class ParserUtil {
 
     /**
      * Parses {@code String timeRange} into a {@code TimeRange}.
+     * Example: parseTimeRange(MONDAY TUESDAY 1100 1500)
+     * @param timeRange Format "DAYSTART TIMESTART DAYEND TIMEEND"
      */
     public static TimeRange parseTimeRange(String timeRange) throws ParseException {
         requireNonNull(timeRange);
         String[] split = timeRange.trim().split(" ");
-        DayOfWeek dayStart = DayOfWeek.valueOf(split[0]);
-        DayOfWeek dayEnd = DayOfWeek.valueOf(split[1]);
-        LocalTime startTime = LocalTime.parse(split[2], DateTimeFormatter.ofPattern("HHmm"));
-        LocalTime endTime = LocalTime.parse(split[3], DateTimeFormatter.ofPattern("HHmm"));
+        DayOfWeek dayStart = DayOfWeek.valueOf(split[0].trim());
+        LocalTime startTime = LocalTime.parse(split[1].trim(), DateTimeFormatter.ofPattern("HHmm"));
+        DayOfWeek dayEnd = DayOfWeek.valueOf(split[2].trim());
+        LocalTime endTime = LocalTime.parse(split[3].trim(), DateTimeFormatter.ofPattern("HHmm"));
         try {
-            return new TimeRange(dayStart, dayEnd, startTime, endTime);
+            return new TimeRange(dayStart, startTime, dayEnd, endTime);
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
         }
@@ -245,13 +247,13 @@ public class ParserUtil {
         String[] splitted = timeTableString.split("\n");
         List<TimeRange> timeRanges = new ArrayList<>();
         for (String s : splitted) {
-            timeRanges.add(parseTimeRange(s));
+            try {
+                timeRanges.add(parseTimeRange(s));
+            } catch (ParseException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
+            }
         }
-        try {
-            return new TimeTable(timeRanges);
-        } catch (IllegalValueException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
-        }
+        return new TimeTable(timeRanges);
     }
 
     /**

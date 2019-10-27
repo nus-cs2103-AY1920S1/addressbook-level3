@@ -8,6 +8,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -79,6 +81,21 @@ public class ModelManager implements Model {
 
     public String checkoutConstrain() {
         return "Please checkout to a project before proceeding";
+    }
+
+    @Override
+    public List<Person> getMembers() {
+        List<Person> members = new ArrayList<>();
+        if (getWorkingProject().isEmpty()) {
+            return members;
+        }
+        Project workingProject = getWorkingProject().get();
+        addressBook.getPersonList().forEach(person -> {
+            if (workingProject.hasMember(person)) {
+                members.add(person);
+            }
+        });
+        return members;
     }
     //=========== UserPrefs ==================================================================================
 

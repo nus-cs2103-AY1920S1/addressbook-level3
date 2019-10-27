@@ -56,7 +56,7 @@ public class AddMemberCommand extends Command {
 
         Person personToAdd = createNewMember(toAdd);
         personToAdd.getProjects().add(projectToEditTitle);
-        List<String> memberListToEdit = projectToEdit.getMembers();
+        List<String> memberListToEdit = projectToEdit.getMemberNames();
         List<String> editedMemberList = new ArrayList<>();
 
         if (model.hasPerson(personToAdd)) {

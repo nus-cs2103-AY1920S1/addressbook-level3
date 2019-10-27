@@ -280,6 +280,8 @@ public class MainWindow extends UiPart<Stage> {
         case HelpCommand.COMMAND_WORD:
 
         case ListCommand.COMMAND_WORD:
+
+        case AddTimetableCommand.COMMAND_WORD:
             state = State.ADDRESS_BOOK;
             break;
 

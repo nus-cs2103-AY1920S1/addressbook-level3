@@ -76,7 +76,7 @@ public class EditTaskCommand extends Command {
         taskList.add(index.getZeroBased(), editedTask);
         Collections.sort(taskList, SortingOrder.getCurrentSortingOrderForTask());
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), projectToEdit.getMembers(), taskList, projectToEdit.getFinance());
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), projectToEdit.getMemberNames(), taskList, projectToEdit.getFinance());
 
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);

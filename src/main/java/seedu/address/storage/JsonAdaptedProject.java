@@ -53,7 +53,7 @@ class JsonAdaptedProject {
     public JsonAdaptedProject(Project source) {
         title = source.getTitle().title;
         description = source.getDescription().description;
-        members.addAll(source.getMembers());
+        members.addAll(source.getMemberNames());
         tasks.addAll(source.getTasks().stream()
                 .map(JsonAdaptedTask::new)
                 .collect(Collectors.toList()));

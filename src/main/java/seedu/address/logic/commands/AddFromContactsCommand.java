@@ -47,7 +47,7 @@ public class AddFromContactsCommand extends Command {
         Project projectToEdit = model.getWorkingProject().get();
         String projectToEditTitle = projectToEdit.getTitle().toString();
 
-        List<String> memberListToEdit = projectToEdit.getMembers();
+        List<String> memberListToEdit = projectToEdit.getMemberNames();
         List<String> editedMemberList = new ArrayList<>();
         editedMemberList.addAll(memberListToEdit);
         editedMemberList.add(personToAddName);

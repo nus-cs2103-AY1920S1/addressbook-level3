@@ -57,7 +57,7 @@ public class ProjectCard extends UiPart<Region> {
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
         memberTitle.setText("Members:");
-        project.getMembers().forEach(member -> members.getChildren().add(new Label(member)));
+        project.getMemberNames().forEach(member -> members.getChildren().add(new Label(member)));
         project.getTasks().stream()
                 .sorted(SortingOrder.getCurrentSortingOrderForTask())
                 .forEach(task -> tasks.getChildren().add(new Label("    " + ++count + ". " + task.toString())));

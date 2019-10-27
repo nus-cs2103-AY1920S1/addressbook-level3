@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.timetable.TimeTable;
 
 import java.util.*;
 
@@ -21,17 +22,26 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final List<String> projects = new ArrayList<>();
+    private final TimeTable timeTable;
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null, except for timeTable which can be null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, TimeTable timeTable) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.timeTable = timeTable;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, tags, new TimeTable(new ArrayList<>()));
     }
 
     public Name getName() {
@@ -62,6 +72,10 @@ public class Person {
         return this.projects;
     }
 
+    public TimeTable getTimeTable() {
+        return timeTable;
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -79,6 +93,7 @@ public class Person {
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
+     * Timetable field is not included in comparison of equality.
      */
     @Override
     public boolean equals(Object other) {
@@ -95,13 +110,15 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && ((this.getTimeTable() == null && otherPerson.getTimeTable() == null)
+                    || otherPerson.getTimeTable().equals(getTimeTable()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, timeTable);
     }
 
     @Override
@@ -117,6 +134,9 @@ public class Person {
                 .append(" Tags: ");
 
         getTags().forEach(builder::append);
+        builder.append(" TimeTable: ")
+                .append(getTimeTable());
+
         return builder.toString();
     }
 

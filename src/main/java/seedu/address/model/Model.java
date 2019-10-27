@@ -6,6 +6,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -56,6 +57,11 @@ public interface Model {
      * Give an error message to prompt the user to checkout to a project.
      */
     String checkoutConstrain();
+
+    /**
+     * Get list of members in current checked out project.
+     */
+    List<Person> getMembers();
 
     //=========== AddressBook ================================================================================
     /**
