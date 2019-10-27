@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -61,6 +63,8 @@ public class WorkerCard extends UiPart<Region> {
     private Label employmentStatus;
     @FXML
     private StackPane displayPhotoPlaceholder;
+    @FXML
+    private ImageView displayPhoto;
 
     public WorkerCard(Worker worker, int displayedIndex) {
         super(FXML);
@@ -80,11 +84,17 @@ public class WorkerCard extends UiPart<Region> {
 
 
     private void setDisplayPhoto() {
-        // Add background circle with a random pastel color
-        Circle backgroundCircle = new Circle(10);
-        backgroundCircle.setFill(Paint.valueOf(generateColor()));
+        double radiusAndXCentre = displayPhoto.getFitWidth() / 2;
+        double yCentre = displayPhoto.getFitHeight() / 2;
+        Circle circle = new Circle(radiusAndXCentre, yCentre, radiusAndXCentre);
+        if (worker.getPhoto().isPresent()) {
+            displayPhoto.setImage(new Image(worker.getPhoto().get().getPathToDataDirectory()));
+            displayPhoto.setClip(circle);
+            return;
+        }
+        circle.setFill(Paint.valueOf(generateColor()));
         Text initialsOfName = new Text(getInitials(worker.getName().toString()));
-        displayPhotoPlaceholder.getChildren().addAll(backgroundCircle, initialsOfName);
+        displayPhotoPlaceholder.getChildren().addAll(circle, initialsOfName);
     }
 
     /**
@@ -126,7 +136,7 @@ public class WorkerCard extends UiPart<Region> {
         if (wordsInName.length == 1) {
             initials = wordsInName[0].charAt(0) + "";
         } else {
-            initials = wordsInName[0].charAt(0) + wordsInName[1].charAt(1) + "";
+            initials = "" + wordsInName[0].charAt(0) + wordsInName[1].charAt(0);
         }
         return initials.toUpperCase();
     }

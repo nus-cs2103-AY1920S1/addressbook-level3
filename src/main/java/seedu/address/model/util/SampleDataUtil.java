@@ -11,6 +11,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -29,17 +30,17 @@ public class SampleDataUtil {
         }
         return new Worker[] {
             new Worker(new Name("Alex Yeoh"), new PhoneNumber("87438807"), Sex.MALE, "Working",
-                dateNow, dateNow, "Cleaner"),
+                dateNow, dateNow, "Cleaner", new Photo(Photo.PATH_TO_EXAMPLE_PHOTO)),
             new Worker(new Name("Bernice Yu"), new PhoneNumber("99272758"), Sex.FEMALE, "On paid leave",
-                dateNow, dateNow, "Coroner"),
+                dateNow, dateNow, "Coroner", null),
             new Worker(new Name("Charlotte Oliveiro"), new PhoneNumber("93210283"), Sex.FEMALE, "Working",
-                dateNow, dateNow, "Cleaner"),
+                dateNow, dateNow, "Cleaner", new Photo(Photo.PATH_TO_EXAMPLE_PHOTO)),
             new Worker(new Name("David Li"), new PhoneNumber("91031282"), Sex.MALE, "Working",
-                dateNow, dateNow, "Coroner assistant"),
+                dateNow, dateNow, "Coroner assistant", null),
             new Worker(new Name("Irfan Ibrahim"), new PhoneNumber("92492021"), Sex.MALE,
-                    "On paternity leave", dateNow, dateNow, "Cleaner"),
+                    "On paternity leave", dateNow, dateNow, "Cleaner", null),
             new Worker(new Name("Roy Balakrishnan"), new PhoneNumber("92624417"), Sex.MALE, "Working",
-                dateNow, dateNow, "Cleaner")
+                dateNow, dateNow, "Cleaner", null)
         };
     }
 

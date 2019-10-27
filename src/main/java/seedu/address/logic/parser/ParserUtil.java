@@ -293,7 +293,11 @@ public class ParserUtil {
         }
         String trimmedPath = pathToPhoto.trim();
         if (Photo.isValidPhoto(trimmedPath)) {
-            return new Photo(trimmedPath);
+            try {
+                return new Photo(trimmedPath);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
+            }
         } else {
             throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
         }

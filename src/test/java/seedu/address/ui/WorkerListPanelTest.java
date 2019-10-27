@@ -71,7 +71,8 @@ public class WorkerListPanelTest extends GuiUnitTest {
             Date dateOfBirth = Calendar.getInstance().getTime();
             String designation = "coroner";
             String employmentStatus = "on B00000001";
-            Worker worker = new Worker(name, phone, Sex.MALE, employmentStatus, dateOfBirth, dateJoined, designation);
+            Worker worker = new Worker(name, phone, Sex.MALE, employmentStatus, dateOfBirth, dateJoined, designation,
+                    null);
             backingList.add(worker);
         }
         return backingList;

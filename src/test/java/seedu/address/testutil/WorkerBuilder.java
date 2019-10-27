@@ -129,6 +129,6 @@ public class WorkerBuilder {
     }
     public Worker build() {
         UniqueIdentificationNumberMaps.clearAllEntries();
-        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation);
+        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, null);
     }
 }

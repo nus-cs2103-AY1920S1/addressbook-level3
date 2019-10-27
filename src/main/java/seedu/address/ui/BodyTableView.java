@@ -27,6 +27,7 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 
+//@@ author shaoyi1997
 /**
  * Table View for list of bodies.
  */
@@ -77,7 +78,7 @@ public class BodyTableView extends UiPart<Region> {
             }
         });
     }
-    //@@author shaoyi1997
+    //@@author
 
     private void setupColumns() {
         TableColumn<Body, IdentificationNumber> fridgeId = setupFridgeIdColumn();
@@ -201,3 +202,4 @@ public class BodyTableView extends UiPart<Region> {
         }
     }
 }
+//@@ author
