@@ -2,14 +2,13 @@ package seedu.address.model.member;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Task;
 
 /**
  * Represents a Member in the address book.
@@ -19,7 +18,8 @@ public class Member {
     // Identity fields
     private final MemberName name;
     private final MemberId id;
-
+    private Image memberImage = new Image("file:///C:\\Users\\Lynn\\Desktop\\Y2S1\\CS2103T\\tP\\tP helppp\\src\\" +
+            "main\\resources\\images\\DaUser.png");
     private final Set<Tag> tags = new HashSet<>();
 
 
@@ -37,7 +37,7 @@ public class Member {
         this.name = null;
         this.id = null;
         this.tags.addAll(null);
-    }
+}
 
     // TODO add multiple constructors so that users can add additional info later
 
@@ -57,6 +57,13 @@ public class Member {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Image getImage() {
+        return this.memberImage;
+    }
+
+    public void setImage(String url) {
+        this.memberImage = new Image("file:///" + url);
+    }
     /**
      * Returns true if both tasks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.

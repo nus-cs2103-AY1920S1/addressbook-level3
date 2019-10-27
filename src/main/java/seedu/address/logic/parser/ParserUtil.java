@@ -160,6 +160,19 @@ public class ParserUtil {
 
         return new MemberId(trimmedId);
     }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static String parseMemberImage(String url) throws ParseException {
+        requireNonNull(url);
+        String trimmedUrl = url.trim();
+
+        return trimmedUrl;
+    }
+
     /**
      * Parses {@code dateTime} into an {@code DateTime} and returns it. Leading and trailing whitespaces will be
      * trimmed.

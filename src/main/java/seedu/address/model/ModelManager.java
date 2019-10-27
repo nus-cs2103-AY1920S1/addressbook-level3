@@ -39,6 +39,8 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasksByDeadline;
     private final FilteredList<Member> filteredMembers;
     private final FilteredList<Mapping> filteredMappings;
+    private final FilteredList<TasMemMapping> filteredTasMemMappings;
+    private final FilteredList<InvMemMapping> filteredInvMemMappings;
     private final FilteredList<Inventory> filteredInventories;
     private Statistics stats;
 
@@ -63,7 +65,9 @@ public class ModelManager implements Model {
         filteredMembers = new FilteredList<>(this.projectDashboard.getMemberList());
         filteredInventories = new FilteredList<>(this.projectDashboard.getInventoryList());
         filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
-        stats = new Statistics(filteredMembers, filteredTasks, filteredMappings);
+        filteredTasMemMappings = new FilteredList<>(this.projectDashboard.getTasMemMappingList());
+        filteredInvMemMappings = new FilteredList<>(this.projectDashboard.getInvMemMappingList());
+        stats = new Statistics(filteredMembers, filteredTasks, filteredTasMemMappings, filteredInvMemMappings);
         stats.doCalculations();
     }
 
@@ -356,6 +360,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Mapping> getFilteredMappingsList() {
         return filteredMappings;
+    }
+
+    @Override
+    public ObservableList<TasMemMapping> getFilteredTasMemMappingsList() {
+        return filteredTasMemMappings;
+    }
+
+    @Override
+    public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
+        return filteredInvMemMappings;
     }
 
     @Override

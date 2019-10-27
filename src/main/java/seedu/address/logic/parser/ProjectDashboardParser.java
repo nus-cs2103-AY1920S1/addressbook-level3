@@ -24,7 +24,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.FireCommand;
-import seedu.address.logic.commands.GeneratePDFCommand;
+//import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
@@ -32,6 +32,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
+import seedu.address.logic.commands.SetImageCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -119,8 +120,8 @@ public class ProjectDashboardParser {
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);
 
-        case GeneratePDFCommand.COMMAND_WORD:
-            return new GeneratePDFCommand();
+        /*case GeneratePDFCommand.COMMAND_WORD:
+            return new GeneratePDFCommand();*/
         // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:
             return new GetStatisticsCommand();
@@ -139,6 +140,9 @@ public class ProjectDashboardParser {
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
+
+        case SetImageCommand.COMMAND_WORD:
+            return new SetImageCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

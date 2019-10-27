@@ -2,8 +2,6 @@ package seedu.address.model.member;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
 /**
  * Represents a Member's ID in the address book.
@@ -40,6 +38,14 @@ public class MemberId {
     public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidUrl(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
 
     @JsonValue
     public String getDisplayId() {

@@ -46,6 +46,10 @@ public class Task {
             timeStart = Instant.now();
         }
 
+        if (taskStatus.equals(TaskStatus.DONE)) {
+            timeEnd = Instant.now();
+        }
+
         this.tags.addAll(tags);
     }
 

@@ -223,6 +223,10 @@ public interface Model {
 
     ObservableList<Mapping> getFilteredMappingsList();
 
+    ObservableList<TasMemMapping> getFilteredTasMemMappingsList();
+
+    public ObservableList<InvMemMapping> getFilteredInvMemMappingsList();
+
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
 
     Statistics getStatistics();

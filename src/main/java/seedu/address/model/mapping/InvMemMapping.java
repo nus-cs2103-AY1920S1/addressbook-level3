@@ -17,6 +17,10 @@ public class InvMemMapping extends Mapping{
         this.inventoryIndex = inventoryIndex;
     }
 
+    public boolean hasMember(int memberIndex) {
+        return this.memberIndex == memberIndex;
+    }
+
     public int getMemberIndex() {
         return memberIndex;
     }

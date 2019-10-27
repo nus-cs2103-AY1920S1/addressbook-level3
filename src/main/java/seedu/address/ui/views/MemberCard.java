@@ -4,11 +4,11 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.member.Member;
-import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
 
 /**
@@ -36,7 +36,8 @@ public class MemberCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label displayId;
-
+    @FXML
+    private ImageView imageView;
     @FXML
     private FlowPane tags;
 
@@ -44,11 +45,12 @@ public class MemberCard extends UiPart<Region> {
         super(FXML);
         this.member = member;
         id.setText(displayedIndex + ". ");
-        displayId.setText(member.getId().getDisplayId());
+        displayId.setText("Member ID: " + member.getId().getDisplayId());
         name.setText(member.getName().fullName);
         member.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        imageView.setImage(member.getImage());
     }
 
     @Override

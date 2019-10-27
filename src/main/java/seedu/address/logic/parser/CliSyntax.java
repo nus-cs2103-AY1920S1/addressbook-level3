@@ -16,6 +16,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_MEMBER_NAME = new Prefix("mn/");
     public static final Prefix PREFIX_MEMBER_ID = new Prefix("mi/");
     public static final Prefix PREFIX_MEMBER_TAG = new Prefix("mt/");
+    public static final Prefix PREFIX_MEMBER_IMAGE = new Prefix("im/");
 
     /*Prefix definitions for inventory*/
     public static final Prefix PREFIX_INVENTORY_NAME = new Prefix("i/");

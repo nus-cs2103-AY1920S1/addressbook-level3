@@ -126,6 +126,15 @@
     -fx-text-fill: #010504;
 }
 
+.cell_memID_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #010504;
+    -fx-background-color: #7f858f;
+    ;
+}
+
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
