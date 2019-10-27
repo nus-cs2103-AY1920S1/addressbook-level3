@@ -1,9 +1,10 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.SortedSet;
-
+import java.util.Set;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import seedu.address.logic.parser.FinSecParser;
 import seedu.address.storage.SuggestionsStorage;
 
 /**
@@ -20,8 +22,11 @@ import seedu.address.storage.SuggestionsStorage;
  */
 public class AutocorrectTextField extends TextField {
 
-    /** The existing autocomplete suggestions. */
-    private final SortedSet<String> suggestions;
+    /** The autocomplete suggestions for commands. */
+    private Set<String> suggestionCommands;
+
+    /** The additional autocomplete suggestions */
+    private Set<String> addSuggestions;
 
     /** The popup used to select an entry. */
     private ContextMenu suggestionsPopup;
@@ -29,8 +34,12 @@ public class AutocorrectTextField extends TextField {
     /** Construct a new AutocorrectTextField. */
     public AutocorrectTextField() {
         super();
-        //tree set of suggestions to be shown when user is entering
-        suggestions = SuggestionsStorage.getSuggestions();
+        suggestionCommands = FinSecParser.getCommandList().keySet();
+        addSuggestions = new HashSet<>();
+        ArrayList<String> otherSuggestions = SuggestionsStorage.getSuggestions();
+        for (String other : otherSuggestions) {
+            addSuggestions.add(other);
+        }
         suggestionsPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -39,9 +48,19 @@ public class AutocorrectTextField extends TextField {
                     suggestionsPopup.hide();
                 } else {
                     //show the drop down
-                    LinkedList<String> searchResult = new LinkedList<>();
-                    searchResult.addAll(suggestions.subSet(getText(), getText() + Character.MAX_VALUE));
-                    if (suggestions.size() > 0) {
+                    ArrayList<String> searchResult = new ArrayList<>();
+                    for (String command : suggestionCommands) {
+                        //if the user entry is a subset of any of the words in the suggestions ArrayList
+                        if (command.startsWith(getText()) && command.contains(getText())) {
+                            searchResult.add(command);
+                        }
+                    }
+                    for (String word : addSuggestions) {
+                        if (word.startsWith(getText()) && word.contains(getText())) {
+                            searchResult.add(word);
+                        }
+                    }
+                    if (suggestionCommands.size() > 0) {
                         populatePopup(searchResult);
                         if (!suggestionsPopup.isShowing()) {
                             suggestionsPopup.show(AutocorrectTextField.this, Side.BOTTOM,

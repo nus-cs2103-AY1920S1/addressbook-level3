@@ -45,7 +45,8 @@ public class DeleteContactCommand extends Command {
         model.deleteContact(contactToDelete);
 
         //delete the contact details off the suggestions list
-        AutocorrectSuggestion toDelete = new AutocorrectSuggestion("n/" + contactToDelete.getName().toString());
+        AutocorrectSuggestion toDelete = new AutocorrectSuggestion("add_claim n/"
+                + contactToDelete.getName().toString());
         model.deleteAutocorrectSuggestion(toDelete);
         SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete));

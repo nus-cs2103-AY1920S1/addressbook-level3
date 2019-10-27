@@ -85,8 +85,10 @@ public class EditContactCommand extends Command {
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
 
         //update the suggestion list
-        AutocorrectSuggestion suggestionToEdit = new AutocorrectSuggestion(contactToEdit.getName().toString());
-        AutocorrectSuggestion editedSuggestion = new AutocorrectSuggestion(editedContact.getName().toString());
+        AutocorrectSuggestion suggestionToEdit = new AutocorrectSuggestion("add_claim n/"
+                + contactToEdit.getName().toString());
+        AutocorrectSuggestion editedSuggestion = new AutocorrectSuggestion("add_claim n/"
+                + editedContact.getName().toString());
         model.setAutocorrectSuggestion(suggestionToEdit, editedSuggestion);
         SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
 
