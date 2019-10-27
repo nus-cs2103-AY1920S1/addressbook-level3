@@ -11,6 +11,7 @@ import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.gui.components.TitleBar;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.FrontBackCard;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -26,14 +27,14 @@ import javafx.stage.Stage;
 public class Gui {
 
     // the one and only instance of Gui allowed
-    private static Gui gui = new Gui();
+    private static Gui gui = new Gui(); // no need for getter
     private static State applicationState;
 
     private static final Logger logger = LogsCenter.getLogger(Gui.class);
 
-    // UI components residing in the application's MainWindow
     private static Stage applicationPrimaryStage;
-    // containers
+
+    // containers for UI components
     private static VBox window = new VBox();
     private static TitleBar titleBar = new TitleBar();
     private static ScrollablePane scrollablePane = new ScrollablePane();
@@ -43,17 +44,17 @@ public class Gui {
         // empty constructor
     }
 
+    /**
+     * Sets the applicationState attribute to the current State of the application.
+     * Allows the GUI to pass State to its command text field.
+     * @param state The state of the application.
+     */
     public static void setApplicationState(State state) {
         applicationState = state;
     }
 
-    static State getApplicationState() {
-        return applicationState;
-    }
-
     /**
      * Starts the application's GUI.
-     *
      * @param primaryStage The window of the application.
      */
     public static void start(Stage primaryStage) {
@@ -67,7 +68,7 @@ public class Gui {
 
         try {
             Gui.onStartup();
-            // todo: might make sense to call mainWindow's methods rather than putting everything in its constructor
+            Gui.testUiComponents();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             //showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -81,9 +82,21 @@ public class Gui {
     /**
      * Temporary method for testing display of various UI components.
      */
-    private void testUiComponents() {
-        Gui.renderCard("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        //Gui.renderCard("Pellentesque eu placerat urna, eu tincidunt magna.");
+    private static void testUiComponents() {
+        String longStringForTesting = "Lorem ipsum dolor sit amet, "
+            + "consectetur adipscing elit. Aliquam lacinia, nunc quis dictum consectetur, "
+            + "erat nulla molestie turpis, quis finibus justo ipsum a justo. Cras quis ullamcorper "
+            + "nulla. Duis nec volutpat nibh. Praesent ut justo vestibulum, lacinia tortor mattis, "
+            + "euismod eros. Maecenas viverra erat ac eros consequat feugiat. Praesent vehicula non "
+            + "turpis tempor elementum. Suspendisse ac lacus congue, blandit nisl eget, suscipit "
+            + "eros. Donec aliquet, tellus eu consectetur ornare, odio ipsum lacinia ipsum, id "
+            + "ullamcorper magna nibh quis nulla. Nulla sagittis, quam vel condimentum commodo, "
+            + "arcu ligula lobortis erat, non consequat tortor mi non libero. Etiam orci purus, "
+            + "maximus sed suscipit ut, consectetur sed arcu.";
+        FrontBackCard flashCardForTesting = new FrontBackCard(longStringForTesting,
+            "Praesent ut est justo. Cras urna risus, ultricies posuere pharetra in, "
+                + "fringilla ac dolor. Donec a porttitor tellus, vitae ullamcorper risus.");
+        Gui.renderFront(flashCardForTesting);
     }
 
     // Methods related to setting up GUI components upon application startup
@@ -95,7 +108,7 @@ public class Gui {
 
         // set up initial UI components
         setupCommandTextField();
-        Gui.setTitle("Welcome!");
+        setTitle("Welcome!");
 
         // add UI components to scene
         setupScene();
