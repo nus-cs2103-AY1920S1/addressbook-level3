@@ -15,6 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -138,7 +140,8 @@ public class LoginWindow extends UiPart<Stage> {
 
         } catch (ParseException | CommandException e) {
             logger.info("Invalid command: " + loginItem.getText());
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setFeedbackToUser("Please login or register your account before you do any commands. Scroll down to see examples. \n\n"
+                    + LoginCommand.MESSAGE_USAGE + " \n\n" + RegisterAccountCommand.MESSAGE_USAGE);
             //throw e;
         }
     }
