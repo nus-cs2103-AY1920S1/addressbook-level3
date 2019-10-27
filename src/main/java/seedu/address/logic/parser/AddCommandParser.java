@@ -41,7 +41,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Address;
@@ -153,7 +152,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         String details = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_BODY_DETAILS).orElse(""));
         List<String> organsForDonation = ParserUtil.parseOrgansForDonation(
             argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).orElse(""));
-        Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
+        String religion = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
         String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
             .orElse(""));
         IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(

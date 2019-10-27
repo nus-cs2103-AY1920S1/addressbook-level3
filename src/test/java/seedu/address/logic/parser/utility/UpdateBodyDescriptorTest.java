@@ -18,7 +18,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.BodyBuilder;
 
@@ -85,8 +84,8 @@ class UpdateBodyDescriptorTest {
     void getSetReligion() {
         Body body = new BodyBuilder(ALICE).build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
-        descriptor.setReligion(Religion.ISLAM);
-        assertEquals(Religion.ISLAM, descriptor.getReligion().get());
+        descriptor.setReligion("Islam");
+        assertEquals("Islam", descriptor.getReligion().get());
     }
 
     @Test

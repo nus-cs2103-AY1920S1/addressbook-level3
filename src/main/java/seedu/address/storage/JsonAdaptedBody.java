@@ -20,7 +20,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -101,7 +100,7 @@ class JsonAdaptedBody {
         name = source.getName().toString();
         sex = source.getSex().toString();
         nric = source.getNric().map(Nric::toString).orElse(null);
-        religion = source.getReligion().map(Religion::toString).orElse(null);
+        religion = source.getReligion().orElse(null);
         causeOfDeath = source.getCauseOfDeath().orElse(null);
         nextOfKin = source.getNextOfKin().map(Name::toString).orElse(null);
         relationship = source.getRelationship().orElse(null);
@@ -179,11 +178,11 @@ class JsonAdaptedBody {
         }
 
         // Convert Religion
-        final Religion actualReligion;
+        final String actualReligion;
         if (religion == null) {
             actualReligion = null;
         } else {
-            actualReligion = ParserUtil.parseReligion(religion);
+            actualReligion = ParserUtil.parseStringFields(religion);
         }
 
         // Convert causeOfDeath

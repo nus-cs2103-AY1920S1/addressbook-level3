@@ -25,7 +25,7 @@ public class Body implements Entity {
     private Name name;
     private Sex sex;
     private Optional<Nric> nric;
-    private Optional<Religion> religion;
+    private Optional<String> religion;
 
     private Optional<String> causeOfDeath;
     private List<String> organsForDonation;
@@ -44,7 +44,7 @@ public class Body implements Entity {
     }
 
     public Body(Date dateOfAdmission, Name name, Sex sex, Nric nric,
-                Religion religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
+                String religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
                 String relationship, PhoneNumber kinPhoneNumber) {
         this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
@@ -133,11 +133,11 @@ public class Body implements Entity {
         this.nric = Optional.ofNullable(nric);
     }
 
-    public Optional<Religion> getReligion() {
+    public Optional<String> getReligion() {
         return religion;
     }
 
-    public void setReligion(Religion religion) {
+    public void setReligion(String religion) {
         this.religion = Optional.ofNullable(religion);
     }
 

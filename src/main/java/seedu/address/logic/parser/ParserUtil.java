@@ -18,7 +18,6 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -242,18 +241,6 @@ public class ParserUtil {
         String trimmedOrgans = stringOfOrgans.trim();
         String[] arrayOforgans = trimmedOrgans.split("\\s*,\\s*");
         return Arrays.asList(arrayOforgans);
-    }
-
-    /**
-     * Parses {@code String religion} to return the corresponding {@code Religion}.
-     */
-    public static Religion parseReligion(String religion) throws ParseException {
-        requireNonNull(religion);
-        if (religion.isEmpty()) {
-            return null;
-        }
-        String trimmedReligion = religion.trim();
-        return Religion.parseReligion(trimmedReligion);
     }
 
     /**
