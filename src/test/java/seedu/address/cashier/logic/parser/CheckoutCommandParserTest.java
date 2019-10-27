@@ -52,10 +52,10 @@ public class CheckoutCommandParserTest {
     public void parse_invalidAmountPresent_failure() {
         model.setCashier(new PersonBuilder().build());
 
-//        // with no sales item, negative price paid
-//        double totalAmount = 0;
-//        String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
-//        assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);
+        /*// with no sales item, negative price paid
+        double totalAmount = 0;
+        String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
+        assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);*/
 
         // with sales item added, insufficient price paid
         model.addItem(FISH_BURGER);
