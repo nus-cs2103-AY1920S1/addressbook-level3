@@ -2,8 +2,6 @@ package seedu.elisa.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -12,7 +10,6 @@ import javafx.beans.property.ListPropertyBase;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
-import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;

@@ -1,28 +1,32 @@
 package seedu.elisa.logic;
 
-import seedu.elisa.commons.core.LogsCenter;
-import seedu.elisa.commons.core.item.Item;
-import seedu.elisa.commons.core.item.Reminder;
-import seedu.elisa.model.ItemModel;
-import seedu.elisa.model.ItemModelManager;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import seedu.elisa.commons.core.LogsCenter;
+import seedu.elisa.commons.core.item.Item;
+import seedu.elisa.commons.core.item.Reminder;
+import seedu.elisa.model.ItemModel;
+import seedu.elisa.model.item.FutureRemindersList;
+
+/**
+ * A runnable that checks if the nearest reminder in futureReminders has a datetime that exceeds now.
+ */
 public class CheckTaskRunnable implements Runnable {
     private final Logger logger = LogsCenter.getLogger(CheckTaskRunnable.class);
-    ItemModel model;
-    ArrayList<Item> futureReminders;
-    ArrayList<Item> activeReminders;
-    Reminder reminder;
-    Item item;
+    private ItemModel model;
+    private ArrayList<Item> activeReminders;
+    private FutureRemindersList futureReminders;
+    private Reminder reminder;
+    private Item item;
 
     public CheckTaskRunnable(ItemModel model) {
         this.model = model;
         futureReminders = model.getFutureRemindersList();
 
-        while(futureReminders.size() > 0 && futureReminders.get(0).getReminder().get().getDateTime().isBefore(LocalDateTime.now())) {
+        while (futureReminders.size() > 0
+                && futureReminders.get(0).getReminder().get().getDateTime().isBefore(LocalDateTime.now())) {
             futureReminders.remove(0);
         }
 
@@ -30,6 +34,9 @@ public class CheckTaskRunnable implements Runnable {
         reminder = null;
     }
 
+    /**
+     * Method that checks if the nearest reminder in futureReminders has a datetime that exceeds now.
+     */
     public void run() {
         logger.info("----------------[LOGIC MANAGER]["
                 + "Checking for pending reminders" + "]");
@@ -52,5 +59,4 @@ public class CheckTaskRunnable implements Runnable {
             model.getActiveReminderListProperty().addReminders(activeReminders);
         }
     }
-
 }

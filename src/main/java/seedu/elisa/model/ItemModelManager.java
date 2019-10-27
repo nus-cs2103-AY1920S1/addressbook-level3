@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.PriorityQueue;
@@ -24,6 +23,7 @@ import seedu.elisa.model.exceptions.IllegalListException;
 import seedu.elisa.model.item.ActiveRemindersList;
 import seedu.elisa.model.item.CalendarList;
 import seedu.elisa.model.item.EventList;
+import seedu.elisa.model.item.FutureRemindersList;
 import seedu.elisa.model.item.ReminderList;
 import seedu.elisa.model.item.TaskList;
 import seedu.elisa.model.item.VisualizeList;
@@ -49,7 +49,7 @@ public class ItemModelManager implements ItemModel {
     //These three lists must be synchronized
     private ReminderList pastReminders;
     private ActiveRemindersList activeReminders;
-    private ArrayList<Item> futureReminders;
+    private FutureRemindersList futureReminders;
 
     private Timer timer = null;
 
@@ -69,7 +69,7 @@ public class ItemModelManager implements ItemModel {
 
         pastReminders = new ReminderList();
         activeReminders = new ActiveRemindersList(new ReminderList());
-        futureReminders = new ArrayList<Item>();
+        futureReminders = new FutureRemindersList();
 
         updateLists();
     }
@@ -108,7 +108,7 @@ public class ItemModelManager implements ItemModel {
     }
 
     @Override
-    public final ArrayList<Item> getFutureRemindersList() {
+    public final FutureRemindersList getFutureRemindersList() {
         return futureReminders;
     }
 
