@@ -341,6 +341,9 @@ public class ModelManager implements Model {
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
+            if (!item.isSellable()) {
+                continue;
+            }
             if (item.getDescription().toLowerCase().startsWith(description.toLowerCase())) {
                 recommendedItems.add(item.getDescription());
                 continue;
