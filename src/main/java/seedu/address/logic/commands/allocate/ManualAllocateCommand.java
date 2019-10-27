@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
@@ -42,7 +43,7 @@ public class ManualAllocateCommand extends Command {
 
     /**
      * @param eventIndex of the event in the filtered event list to edit
-     * @param index of the person in the filtered person list to add to event
+     * @param index      of the person in the filtered person list to add to event
      */
     public ManualAllocateCommand(Index eventIndex, Index index) {
         requireNonNull(index);
@@ -89,6 +90,7 @@ public class ManualAllocateCommand extends Command {
         EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
         EventDate updatedStartDate = eventToEdit.getStartDate();
         EventDate updatedEndDate = eventToEdit.getEndDate();
+        EventDateTimeMap updatedDateTimeMap = eventToEdit.getEventDateTimeMap();
         List<String> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
         Set<Tag> updatedTags = eventToEdit.getTags();
         updatedManpowerList.add(employeeToAdd.getEmployeeId().id);
@@ -96,7 +98,7 @@ public class ManualAllocateCommand extends Command {
 
         return new Event(updatedEventName, updatedEventVenue,
                 updatedManpowerNeeded, updatedStartDate,
-                updatedEndDate, updatedManpowerAllocatedList, updatedTags);
+                updatedEndDate, updatedManpowerAllocatedList, updatedDateTimeMap, updatedTags);
     }
 
 
