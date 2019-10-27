@@ -6,6 +6,7 @@ import dream.fcard.gui.components.FlashCardCell;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,6 +24,12 @@ public class GuiHelper {
     public static FlashCardDisplay renderFront(FlashCard flashCard) {
         // get text to be rendered
         String cardText = flashCard.getFront();
+
+        // if flashCard is a MultipleChoiceCard, add show its choices too
+        if (flashCard.hasChoices()) {
+            // todo: cannot call method getListOfChoices as it is not defined in FlashCard
+            //ArrayList<String> listOfChoices = flashCard.getListOfChoices();
+        }
 
         // generate FlashCardDisplay containing text to be rendered
         return new FlashCardDisplay(cardText);
