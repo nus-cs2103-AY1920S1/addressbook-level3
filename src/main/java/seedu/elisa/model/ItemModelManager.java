@@ -402,7 +402,6 @@ public class ItemModelManager implements ItemModel {
             }
         }
 
-        System.out.println(newItem.toString());
         if ((index = itemStorage.indexOf(item)) >= 0) {
             itemStorage.setItem(index, newItem);
         }
