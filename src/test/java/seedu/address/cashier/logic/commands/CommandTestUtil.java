@@ -37,7 +37,7 @@ public class CommandTestUtil {
     public static final int VALID_INDEX_2 = 2;
     public static final double VALID_TOTAL_AMOUNT = 843.23;
     public static final double VALID_CHANGE = 94.23;
-    public static final double VALID_PRICE_PAID = 905.23;
+    public static final double VALID_PRICE_PAID = 9999000;
 
 
     public static final String DESC_DESCRIPTION_FISH_BURGER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FISH_BURGER;

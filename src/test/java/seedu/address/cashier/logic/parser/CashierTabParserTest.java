@@ -42,6 +42,7 @@ public class CashierTabParserTest {
         AddCommand addCommand = (AddCommand) parser.parseCommand(AddCommand.COMMAND_WORD
                 + DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_1, model, personModel);
         assertEquals(new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_1), addCommand);
+        model.clearSalesList();
     }
 
     @Test
