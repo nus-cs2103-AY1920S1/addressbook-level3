@@ -12,8 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 /**
  * Parses input arguments and creates a new DeleteAppCommand object
  */
@@ -22,7 +20,7 @@ public class UnregisterStaffCommandParser implements Parser<ReversibleActionPair
     private List<Person> lastShownList;
 
     public UnregisterStaffCommandParser(Model model) {
-        this.lastShownList = model.getFilteredPersonList();
+        this.lastShownList = model.getFilteredStaffList();
     }
 
     /**

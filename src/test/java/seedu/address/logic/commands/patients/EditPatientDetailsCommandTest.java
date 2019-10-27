@@ -31,7 +31,7 @@ public class EditPatientDetailsCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Model model = TestUtil.getTypicalModelManager();
-        Person personToEdit = model.getFilteredPersonList().get(0);
+        Person personToEdit = model.getFilteredPatientList().get(0);
 
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, BOB);
 
@@ -45,7 +45,7 @@ public class EditPatientDetailsCommandTest {
     @Test
     public void execute_allFieldsSpecifiedExceptIdUnfilteredList_success() {
         Model model = TestUtil.getTypicalModelManager();
-        Person personToEdit = model.getFilteredPersonList().get(0);
+        Person personToEdit = model.getFilteredPatientList().get(0);
         Person editedPerson = new PersonBuilder(BOB).withId(personToEdit.getReferenceId().toString()).build();
 
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, editedPerson);
@@ -61,8 +61,8 @@ public class EditPatientDetailsCommandTest {
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Model model = TestUtil.getTypicalModelManager();
 
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPatientList().size());
+        Person lastPerson = model.getFilteredPatientList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
@@ -90,7 +90,7 @@ public class EditPatientDetailsCommandTest {
         Model model = TestUtil.getTypicalModelManager();
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personInFilteredList = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(
             personInFilteredList, editedPerson);
@@ -106,8 +106,8 @@ public class EditPatientDetailsCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Model model = TestUtil.getTypicalModelManager();
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person firstPerson = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPerson = model.getFilteredPatientList().get(INDEX_SECOND_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withId(secondPerson.getReferenceId().toString()).build();
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(firstPerson, editedPerson);
 

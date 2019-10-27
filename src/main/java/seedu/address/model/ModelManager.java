@@ -4,7 +4,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Date;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -211,7 +210,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         patientAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -234,12 +233,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Person> getFilteredPatientList() {
         return filteredPatients;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPatientList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPatients.setPredicate(predicate);
     }
@@ -284,7 +283,7 @@ public class ModelManager implements Model {
     public void addStaff(Person person) {
         requireNonNull(person);
         staffAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override

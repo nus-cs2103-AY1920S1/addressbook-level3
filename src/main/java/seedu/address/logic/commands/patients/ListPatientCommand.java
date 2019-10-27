@@ -1,22 +1,21 @@
 //@@author SakuraBlossom
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patients;
 
 import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends NonActionableCommand {
+public class ListPatientCommand extends NonActionableCommand {
 
     public static final String COMMAND_WORD = "patient";
 
@@ -27,7 +26,7 @@ public class FindCommand extends NonActionableCommand {
 
     private final Predicate<Person> predicate;
 
-    public FindCommand(Predicate<Person> predicate) {
+    public ListPatientCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 
@@ -44,7 +43,7 @@ public class FindCommand extends NonActionableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof ListPatientCommand // instanceof handles nulls
+                && predicate.equals(((ListPatientCommand) other).predicate)); // state check
     }
 }

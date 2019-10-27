@@ -93,16 +93,16 @@ public interface Model extends ReferenceIdResolver {
     //=========== Filtered Patient List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered patient list
      */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Person> getFilteredPatientList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPatientList(Predicate<Person> predicate);
 
 
     //=========== Staff AddressBook ================================================================================

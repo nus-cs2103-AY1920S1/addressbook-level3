@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.patients;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -34,7 +33,7 @@ public class UnregisterPatientCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         assertParseSuccess(parser, "1",
             new ReversibleActionPairCommand(
                 new UnregisterPatientCommand(personToDelete),
@@ -49,7 +48,7 @@ public class UnregisterPatientCommandParserTest {
 
     @Test
     public void parse_invalidIndexUnfilteredList_throwsParseException() {
-        assertParseFailure(parser, String.valueOf(model.getFilteredPersonList().size() + 1),
+        assertParseFailure(parser, String.valueOf(model.getFilteredPatientList().size() + 1),
             Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 

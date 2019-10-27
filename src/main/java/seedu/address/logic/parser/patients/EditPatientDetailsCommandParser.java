@@ -42,7 +42,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
     private List<Person> lastShownList;
 
     public EditPatientDetailsCommandParser(Model model) {
-        this.lastShownList = model.getFilteredPersonList();
+        this.lastShownList = model.getFilteredPatientList();
     }
 
     /**

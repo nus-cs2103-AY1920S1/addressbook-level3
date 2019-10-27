@@ -1,7 +1,5 @@
 package seedu.address.logic.parser.patients;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -22,7 +20,7 @@ public class UnregisterPatientCommandParser implements Parser<ReversibleActionPa
     private List<Person> lastShownList;
 
     public UnregisterPatientCommandParser(Model model) {
-        this.lastShownList = model.getFilteredPersonList();
+        this.lastShownList = model.getFilteredPatientList();
     }
 
     /**

@@ -26,7 +26,7 @@ public class UnregisterPatientCommandTest {
 
     @Test
     public void execute_validUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         UnregisterPatientCommand unregisterPatientCommand = new UnregisterPatientCommand(personToDelete);
 
         String expectedMessage = String.format(UnregisterPatientCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
@@ -39,7 +39,7 @@ public class UnregisterPatientCommandTest {
 
     @Test
     public void execute_invalidUnfilteredList_throwsCommandException() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         model.deletePerson(personToDelete);
         UnregisterPatientCommand unregisterPatientCommand = new UnregisterPatientCommand(personToDelete);
 
@@ -71,8 +71,8 @@ public class UnregisterPatientCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
+        model.updateFilteredPatientList(p -> false);
 
-        assertTrue(model.getFilteredPersonList().isEmpty());
+        assertTrue(model.getFilteredPatientList().isEmpty());
     }
 }

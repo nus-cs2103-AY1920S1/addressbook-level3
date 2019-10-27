@@ -29,7 +29,6 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 
 import seedu.address.storage.Storage;
-import seedu.address.ui.autocomplete.AutoCompleter;
 
 /**
  * The main LogicManager of the app.
@@ -82,7 +81,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Person> getFilteredPatientList() {
-        return model.getFilteredPersonList();
+        return model.getFilteredPatientList();
     }
 
     @Override
