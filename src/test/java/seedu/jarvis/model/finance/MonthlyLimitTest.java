@@ -6,8 +6,6 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.MonthlyLimit;
-
 public class MonthlyLimitTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

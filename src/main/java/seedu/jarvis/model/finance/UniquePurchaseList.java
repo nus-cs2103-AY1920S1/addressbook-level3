@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.finance;
 
 import static java.util.Objects.requireNonNull;
 
@@ -9,8 +9,8 @@ import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.finance.purchase.Purchase;
 
 /**
  * A list of purchases that does not allow nulls.

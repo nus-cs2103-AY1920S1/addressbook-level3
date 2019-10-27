@@ -1,6 +1,6 @@
 package seedu.jarvis.testutil;
 
-import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**

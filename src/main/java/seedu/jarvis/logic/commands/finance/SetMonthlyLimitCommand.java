@@ -7,7 +7,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.MonthlyLimit;
+import seedu.jarvis.model.finance.MonthlyLimit;
 
 /**
  * Sets a monthly limit to the finance tracker.

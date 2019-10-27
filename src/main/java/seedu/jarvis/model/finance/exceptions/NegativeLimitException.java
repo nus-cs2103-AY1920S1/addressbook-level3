@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker.exceptions;
+package seedu.jarvis.model.finance.exceptions;
 
 /**
  * Signals that the operation will result in a negative spending limit being set for the user.

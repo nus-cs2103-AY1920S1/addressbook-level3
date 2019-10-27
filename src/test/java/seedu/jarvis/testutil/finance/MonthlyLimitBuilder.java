@@ -1,6 +1,6 @@
 package seedu.jarvis.testutil.finance;
 
-import seedu.jarvis.model.financetracker.MonthlyLimit;
+import seedu.jarvis.model.finance.MonthlyLimit;
 
 /**
  * A utility class to help with building MonthyLimit objects.

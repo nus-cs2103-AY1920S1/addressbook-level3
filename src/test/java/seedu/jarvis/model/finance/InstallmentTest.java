@@ -8,9 +8,9 @@ import static seedu.jarvis.testutil.TypicalInstallments.TRANSPORT_CONCESSION;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.installment.InstallmentDescription;
+import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 
 /**
  * Tests instalment class.

@@ -1,8 +1,8 @@
 package seedu.jarvis.testutil.finance;
 
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.installment.InstallmentDescription;
+import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 
 /**
  * A utility class to help with building Installment objects.

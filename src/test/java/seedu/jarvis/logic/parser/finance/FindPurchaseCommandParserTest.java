@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.finance.FindPurchaseCommand;
-import seedu.jarvis.model.financetracker.PurchaseNameContainsKeywordsPredicate;
+import seedu.jarvis.model.finance.PurchaseNameContainsKeywordsPredicate;
 
 public class FindPurchaseCommandParserTest {
 

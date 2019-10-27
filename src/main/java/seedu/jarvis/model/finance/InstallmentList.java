@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.finance;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,8 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.address.person.exceptions.DuplicateInstallmentException;
-import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
-import seedu.jarvis.model.financetracker.installment.Installment;
+import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.finance.installment.Installment;
 
 /**
  * Manages a list of instalments saved by the user.
