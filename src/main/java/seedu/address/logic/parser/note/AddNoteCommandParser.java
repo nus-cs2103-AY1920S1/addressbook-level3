@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -39,7 +40,7 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
         if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
-            note = new Note(title, content, NoteImageSelector.selectImage());
+            note = new Note(title, content, AppUtil.selectImage());
         } else {
             note = new Note(title, content);
         }

@@ -24,7 +24,7 @@ public class StackBarChart extends UiPart<Region> {
     private static final String FXML = "StackBarChart.fxml";
 
     @FXML
-    private StackedBarChart bc;
+    private StackedBarChart<String, Number> bc;
     @FXML
     private CategoryAxis categoryAxis;
     @FXML
@@ -35,7 +35,7 @@ public class StackBarChart extends UiPart<Region> {
         int totalQuestions = 0;
         List<String> subjects = uniqueSubjectList
                 .stream()
-                .map(subject -> subject.toString())
+                .map(Subject::toString)
                 .collect(Collectors.toList());
         categoryAxis.setCategories(FXCollections.observableArrayList(subjects));
 
@@ -44,7 +44,7 @@ public class StackBarChart extends UiPart<Region> {
         ObservableList<XYChart.Series<String, Number>> stackedBarChart = FXCollections.observableArrayList();
 
         for (StackBarChartModel m : data) {
-            StackedBarChart.Series<String, Number> series = new StackedBarChart.Series<String, Number>();
+            StackedBarChart.Series<String, Number> series = new StackedBarChart.Series<>();
             series.setName(m.getDifficulty().toString());
 
             for (Pair<Subject, Integer> pair : m.getData()) {

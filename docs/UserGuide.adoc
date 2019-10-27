@@ -36,7 +36,7 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. Some commands you can try are
 * `listnote`: lists all lecture notes
-* `addnote t/Title c/Content`: adds a lecture note with title "Title" and contents "Content".
+* `addnote t/Title c/Content`: adds a lecture note with title "Title" and content "Content".
 * `deletenote 1`: deletes the first lecture note
 * `help`: open the help window
 * `exit`: exits the app
@@ -47,10 +47,10 @@ image::Ui.png[width="790"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPERCASE` are parameters you supply e.g. in `addnote t/TITLE`, `TITLE` is a parameter
+which can be used as `addnote t/TITLE`. Parameters can be provided in any order.
+* Items in square brackets are optional.
+* Items with `…`​ after them can be used zero or more times.
 ====
 
 // tag::lecnote[]
@@ -58,16 +58,19 @@ image::Ui.png[width="790"]
 
 ==== Adding lecture notes: `addnote`
 Adds a lecture note. The `i/` field, if provided, brings up a dialogue where an image can be chosen from
-the file system; such an image will be displayed beside the note. +
+the file system; such an image will be displayed below the note. +
 Format: `addnote t/TITLE c/CONTENT [i/]`
 
 ==== Editing lecture notes: `editnote`
 Edits an existing lecture note. Providing `i/` brings up the image selection dialogue, like `addnote`;
 this can be used to change the image. At least one of `t/`, `c/` and `i/` must be provided,
-or `i/` must have the argument `none` to remove the image. If the image dialogue is closed
+or `i/` must have the argument `none` (i.e. `i/none` to remove the image. If the image dialogue is closed
 without selecting an image, the image remains unchanged.
 
-The index must be between 1 and the number of notes inclusive. +
+Multiple notes can share the same image, and it is possible to overwrite existing images held
+in NUStudy with new ones sharing the same filename.
+
+The index must be between 1 and the number of lecture notes inclusive. +
 Format: `editnote INDEX [t/TITLE] [c/CONTENT] [i/[none]]`
 
 ==== Viewing lecture notes: `findnote`

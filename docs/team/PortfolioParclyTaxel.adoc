@@ -38,7 +38,7 @@ Having a unified appearance helps the student understand the content of lecture 
 unnecessary markup and distracting styles.
 ** While adding this feature I also refactored all other code throughout the application to use names relevant to
 lecture notes. This helped my teammates add their own features, setting an example for them to follow.
-** Image support was implemented in https://github.com/AY1920S1-CS2103T-F11-4/main/pull/67[#67]. Instead of a custom class,
+** Image support was implemented starting from https://github.com/AY1920S1-CS2103T-F11-4/main/pull/67[#67]. Instead of a custom class,
 I used JavaFX's _scene.image.Image_, which reduced the additional code I had to write on top of the
 _Title_ and _Content_ classes by avoiding an unnecessary wrapper.
 * As my fellow team members added their features to the code, one of the constructors of _CommandResult_
@@ -56,14 +56,14 @@ for examples.
 ** Resolved merge conflicts for teammates' pull requests (see https://github.com/AY1920S1-CS2103T-F11-4/main/pull/44[#44] for an example)
 ** Attached milestones and labels to issues and pull requests where the original authors failed to specify them
 ** Before v1.2, the only person who could merge pull requests
-* I contributed to https://github.com/nus-cs2103-AY1920S1/forum[forum] discussions, both as an answerer
-(https://github.com/nus-cs2103-AY1920S1/forum/issues/88[#88], https://github.com/nus-cs2103-AY1920S1/forum/issues/106[#106]) and asker
-(https://github.com/nus-cs2103-AY1920S1/forum/issues/68[#68], https://github.com/nus-cs2103-AY1920S1/forum/issues/100[#100]).
+* I contributed to https://github.com/nus-cs2103-AY1920S1/forum[forum] discussions, both as a receiver
+(https://github.com/nus-cs2103-AY1920S1/forum/issues/88[#88], https://github.com/nus-cs2103-AY1920S1/forum/issues/106[#106]) and source
+(https://github.com/nus-cs2103-AY1920S1/forum/issues/68[#68], https://github.com/nus-cs2103-AY1920S1/forum/issues/100[#100]) of information.
 * I reviewed the following pull requests non-trivially, among others: https://github.com/AY1920S1-CS2103T-F11-4/main/pull/40[#40],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/70[#70].
 * A detailed exposition of all code I contributed to NUStudy can be found
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Parcly-Taxel&tabRepo=AY1920S1-CS2103T-F11-4%2Fmain%5Bmaster%5D[here].
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Parcly-Taxel[here].
 
 == User guide contributions
 
