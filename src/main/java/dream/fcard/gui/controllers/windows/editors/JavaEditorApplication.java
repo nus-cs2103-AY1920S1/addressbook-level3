@@ -18,7 +18,7 @@ public class JavaEditorApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            FXMLLoader fxmlloader = new FXMLLoader(MainWindow.class.getResource("/view/Windows/Editor.fxml"));
+            FXMLLoader fxmlloader = new FXMLLoader(MainWindow.class.getResource("/view/Windows/JavaEditor.fxml"));
             AnchorPane ap = fxmlloader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

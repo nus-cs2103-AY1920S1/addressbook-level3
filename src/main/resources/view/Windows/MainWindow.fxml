@@ -38,7 +38,7 @@
                 <Menu mnemonicParsing="false" text="Utilities">
                     <items>
                   <MenuItem fx:id="jsEditor" mnemonicParsing="false" text="JavaScript playground" />
-                        <MenuItem fx:id="javaEditor" mnemonicParsing="false" onAction="#openEditor" text="Java Playground" />
+                        <MenuItem fx:id="javaEditor" mnemonicParsing="false" text="Java Playground" />
                     </items>
                 </Menu>
             </menus>

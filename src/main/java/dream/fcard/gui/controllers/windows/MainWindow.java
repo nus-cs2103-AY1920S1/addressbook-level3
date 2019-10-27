@@ -1,11 +1,14 @@
 package dream.fcard.gui.controllers.windows;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
 import dream.fcard.gui.controllers.displays.DeckDisplay;
 import dream.fcard.gui.controllers.displays.NoDecksDisplay;
+import dream.fcard.gui.controllers.windows.editors.JavaEditorApplication;
+import dream.fcard.gui.controllers.windows.editors.JsEditorApplication;
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.ConsumerSchema;
@@ -38,7 +41,9 @@ public class MainWindow extends VBox {
     @FXML
     private MenuItem onCreateNewDeck;
     @FXML
-    private MenuItem openEditor;
+    private MenuItem jsEditor;
+    @FXML
+    private MenuItem javaEditor;
     @FXML
     private MenuItem quit;
     @FXML
@@ -79,7 +84,8 @@ public class MainWindow extends VBox {
             StorageManager.saveAll(State.getState().getDecks());
             System.exit(0);
         });
-
+        javaEditor.setOnAction(e -> openEditor(true));
+        jsEditor.setOnAction(e -> openEditor(false));
         render();
     }
 
@@ -174,8 +180,17 @@ public class MainWindow extends VBox {
      * Opens the JavaEditorController Editor.
      */
     @FXML
-    public void openEditor() {
+    public void openEditor(boolean isJava) {
         Stage stage = new Stage();
-        stage.setTitle("JavaEditorController");
+        try {
+            if (isJava) {
+                (new JavaEditorApplication()).start(stage);
+            } else {
+                (new JsEditorApplication()).start(stage);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
