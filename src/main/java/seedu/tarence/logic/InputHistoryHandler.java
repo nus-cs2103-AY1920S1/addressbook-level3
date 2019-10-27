@@ -25,7 +25,7 @@ public class InputHistoryHandler {
         if (model.hasInputChanged()) {
             model.resetInputHistoryIndex();
             model.setInputChangedToFalse();
-            return inputHistory.get(1); // return last saved input
+            return inputHistory.get(0); // return last saved input
         }
 
         int inputHistoryIndex = model.getInputHistoryIndex();
