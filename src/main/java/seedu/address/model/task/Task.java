@@ -1,13 +1,10 @@
 package seedu.address.model.task;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
-import seedu.address.model.task.exceptions.RedundantOperationException;
 
 /**
  * Represents a NUStudy revision task.
@@ -35,7 +32,7 @@ public class Task {
     }
 
     public Task(Heading heading, LocalDate date, LocalTime time, boolean isDone) {
-        requireNonNull(date);
+        requireAllNonNull(heading, date, time, isDone);
         this.heading = heading;
         this.date = date;
         this.time = time;
@@ -85,7 +82,7 @@ public class Task {
         }
 
         Task otherTask = (Task) other;
-        return heading.equals(otherTask.getHeading())
+        return this.heading.equals(otherTask.getHeading())
                 && getDate().equals(otherTask.getDate())
                 && getTime().equals(otherTask.getTime())
                 && getStatusIcon().equals(otherTask.getStatusIcon());

@@ -46,7 +46,7 @@ public class Heading {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Heading // instanceof handles nulls
-                && heading.equals(((Heading) other).heading)); // state check
+                && this.heading.equals(((Heading) other).getHeading())); // state check
     }
 
     @Override
