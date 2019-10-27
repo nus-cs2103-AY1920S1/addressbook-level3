@@ -15,10 +15,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import seedu.billboard.model.tag.exceptions.DuplicateTagException;
+import seedu.billboard.model.tag.exceptions.TagNotFoundException;
 
 public class UniqueTagListTest {
     private final UniqueTagList uniqueTagList = new UniqueTagList();
+
+    @BeforeEach
+    public void initialize() {
+        uniqueTagList.setTagList(new HashMap<>());
+    }
 
     @Test
     public void contains_nullTag_throwsNullPointerException() {
@@ -42,6 +51,14 @@ public class UniqueTagListTest {
     }
 
     @Test
+    public void add_existingTag_throwsDuplicateTagException() {
+        Map<String, Tag> tags = new HashMap<>();
+        tags.put("test", new Tag("test"));
+        uniqueTagList.setTagList(tags);
+        assertThrows(DuplicateTagException.class, () -> uniqueTagList.add("test"));
+    }
+
+    @Test
     public void addNewTags_nullTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueTagList.addNewTags(null));
     }
@@ -49,6 +66,16 @@ public class UniqueTagListTest {
     @Test
     public void retrieve_nullTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueTagList.retrieveTag(null));
+    }
+
+    @Test
+    public void retrieve_newTag_throwsTagNotFoundException() {
+        assertThrows(TagNotFoundException.class, () -> uniqueTagList.retrieveTag("test"));
+    }
+
+    @Test
+    public void remove_newTag_throwsTagNotFoundException() {
+        assertThrows(TagNotFoundException.class, () -> uniqueTagList.remove("test"));
     }
 
     @Test
