@@ -21,6 +21,7 @@ import seedu.address.logic.commands.aesthetics.BackgroundCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
+import seedu.address.model.YearMonth;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.Address;
@@ -599,5 +600,19 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(e.getMessage());
         }
+    }
+
+    /**
+     * Parses a {@code String yearMonth} into a {@code YearMonth}.
+     *
+     * @throws ParseException if the given {@code yearMonth} is invalid.
+     */
+    public static YearMonth parseYearMonth(String yearMonth) throws ParseException {
+        requireNonNull(yearMonth);
+        String trimmedYearMonth = yearMonth.trim();
+        if (!YearMonth.isValidYearMonth(trimmedYearMonth)) {
+            throw new ParseException(YearMonth.MESSAGE_CONSTRAINTS);
+        }
+        return new YearMonth(yearMonth);
     }
 }

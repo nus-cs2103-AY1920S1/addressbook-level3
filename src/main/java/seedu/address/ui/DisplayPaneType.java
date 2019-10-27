@@ -13,5 +13,6 @@ public enum DisplayPaneType {
     LIST,
     DELETE,
     COLOUR,
-    BACKGROUND
+    BACKGROUND,
+    CALENDAR_MONTH
 }

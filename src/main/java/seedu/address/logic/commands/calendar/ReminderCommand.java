@@ -1,10 +1,12 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.calendar;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR_REPETITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calendar.Reminder;
@@ -23,7 +25,7 @@ public class ReminderCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_CALENDAR_DESCRIPTION + "Insulin injection "
         + PREFIX_DATETIME + "2020-05-31 16:00 "
-        + PREFIX_CALENDAR_REPETITION + "everyday";
+        + PREFIX_CALENDAR_REPETITION + "daily";
 
     public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
     public static final String MESSAGE_DUPLICATE_REMINDER = "This reminder already exists in the calendar";

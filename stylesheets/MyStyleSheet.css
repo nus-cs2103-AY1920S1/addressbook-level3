@@ -369,7 +369,7 @@
     -fx-text-fill: white;
 }
 
-.profile-scroll, .calendar-scroll{
+.profile-scroll {
     -fx-background: gray !important;
     -fx-background-color: gray !important;
     -fx-border-color: transparent !important;
