@@ -83,7 +83,6 @@ public class EntityCard extends UiPart<Region> {
             this.generateMentorCard(entity);
         } else {
             this.generateTeamCard(entity);
-
         }
     }
 

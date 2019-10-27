@@ -5,10 +5,14 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.CommandUtils;
 
 /**
  * Controller for a help page
@@ -27,6 +31,9 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label helpMessage;
 
+    @FXML
+    private ListView<HelpCommandBox> helpCommandsListView;
+
     /**
      * Creates a new HelpWindow.
      *
@@ -35,6 +42,22 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+        CommandUtils.ALL_COMMANDS_IN_HELP.stream()
+                .map(tuple -> new HelpCommandBox(tuple.getZero(), tuple.getOne()))
+                .forEach(box -> {
+                    helpCommandsListView.getItems().add(box); });
+        helpCommandsListView.setCellFactory(box -> new ListCell<HelpCommandBox>() {
+            @Override
+            protected void updateItem(HelpCommandBox item, boolean isEmpty) {
+                super.updateItem(item, isEmpty);
+
+                if (isEmpty || item == null) {
+                    setText(null);
+                } else {
+                    setGraphic(new HelpCommandBox(item.getTitle(), item.getDescription()).getRoot());
+                }
+            }
+        });
     }
 
     /**
