@@ -6,21 +6,21 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.event.EventContainsKeyDatePredicate;
+import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
 
 /**
- * Finds and lists all events in event list whose Start Dates corresponds to the specified LocalDate.
- * Keyword matching is case insensitive and in the following format dd/MM/yyyy.
+ * Finds and lists all events in event list whose start and end dates are within the specified Year and Month.
+ * Keyword matching is case insensitive and in the following format MM/yyyy.
  */
-public class DisplayScheduleForDateCommand extends Command {
-    public static final String COMMAND_WORD = "display_schedule_date";
+public class DisplayScheduleForYearMonthCommand extends Command {
+    public static final String COMMAND_WORD = "display_schedule";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific date"
-            + "Example: " + COMMAND_WORD + " on/02/12/2019";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific month, year"
+            + "Example: " + COMMAND_WORD + " for/12/2019";
 
-    private final EventContainsKeyDatePredicate predicate;
+    private final EventContainsKeyYearMonthPredicate predicate;
 
-    public DisplayScheduleForDateCommand(EventContainsKeyDatePredicate predicate) {
+    public DisplayScheduleForYearMonthCommand(EventContainsKeyYearMonthPredicate predicate) {
         this.predicate = predicate;
     }
 

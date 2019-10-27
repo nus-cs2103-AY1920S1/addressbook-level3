@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -35,7 +38,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private FetchWindow fetchWindow;
+    private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
+    private SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private StackPane schedulePlaceholder;
@@ -54,6 +59,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane tabPanePlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -123,10 +131,10 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(),
-                logic.getDistinctDateList(), logic, this);
+        scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
 
+        selectionModel = tabPanePlaceholder.getSelectionModel();
     }
 
     /**
@@ -171,6 +179,23 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the date window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void generateDate() {
+        if (dateWindow != null) {
+            dateWindow.hide();
+        }
+        dateWindow = new DateWindow(logic);
+        //fetchWindow.getRoot().setScene();
+        dateWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        if (!dateWindow.isShowing()) {
+            dateWindow.show();
+        } else {
+            dateWindow.focus();
+        }
+    }
 
     void show() {
         primaryStage.show();
@@ -220,10 +245,16 @@ public class MainWindow extends UiPart<Stage> {
                 handleFetch(commandResult.getFetch());
                 //listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
             }
-            if (commandResult.getType().equals("DisplaySchedule")) {
-                scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(),
-                        logic.getDistinctDateList(), logic, this);
-                schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
+
+            if (commandResult.getType().equals("Generate")) {
+                generateDate();
+            }
+
+            if (commandResult.getType().equals("Schedule")) {
+                selectionModel.select(1);
+            }
+            if (!commandResult.getType().equals("Schedule")) {
+                selectionModel.select(0);
             }
 
             /*if (commandResult.isFetch()) {
@@ -234,6 +265,7 @@ public class MainWindow extends UiPart<Stage> {
                 listPanel = new ListPanel(logic.getFilteredEmployeeList(), logic.getFilteredEventList());
                 listPanelPlaceholder.getChildren().set(0, listPanel.getRoot());
             }*/
+
             return commandResult;
 
         } catch (CommandException | ParseException e) {
