@@ -3,7 +3,6 @@ package seedu.algobase.model.gui;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableIntegerValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.ModelType;
@@ -21,10 +20,10 @@ public class TabManager {
     private IntegerProperty detailsTabPaneIndex =
         new SimpleIntegerProperty(STARTING_INDEX);
 
-    private ObservableList<TabData> tabs;
+    private UniqueTabDataList tabs;
 
     public TabManager() {
-        this.tabs = FXCollections.observableArrayList();
+        this.tabs = new UniqueTabDataList();
     }
 
     // Display Tab
@@ -66,10 +65,10 @@ public class TabManager {
     }
 
     public void removeTab(Index index) {
-        this.tabs.remove(index.getZeroBased());
+        this.tabs.remove(getTabs().get(index.getZeroBased()));
     }
 
     public ObservableList<TabData> getTabs() {
-        return tabs;
+        return tabs.asUnmodifiableObservableList();
     }
 }

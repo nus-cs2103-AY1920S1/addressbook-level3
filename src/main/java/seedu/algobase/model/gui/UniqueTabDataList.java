@@ -48,6 +48,21 @@ public class UniqueTabDataList implements Iterable<TabData> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Adds a list of TabsData to the list.
+     * Each individual TabData must not already exist in the list.
+     */
+    public void addAll(TabData... tabsData) {
+        requireNonNull(tabsData);
+        for (TabData tabData : tabsData) {
+            if (contains(tabData)) {
+                throw new DuplicateTabDataException();
+            }
+        }
+        for (TabData tabData : tabsData) {
+            add(tabData);
+        }
+    }
 
     /**
      * Removes the equivalent TabData from the list.
@@ -103,6 +118,13 @@ public class UniqueTabDataList implements Iterable<TabData> {
      */
     public ObservableList<TabData> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * @return the size of the UniqueTabDataList
+     */
+    public int size() {
+        return internalList.size();
     }
 
     @Override
