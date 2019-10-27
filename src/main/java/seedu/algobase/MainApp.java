@@ -54,8 +54,11 @@ public class MainApp extends Application {
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
+        // User Preferences
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
+        // AlgoBase Storage
         AlgoBaseStorage algoBaseStorage = new JsonAlgoBaseStorage(userPrefs.getAlgoBaseFilePath());
         storage = new StorageManager(algoBaseStorage, userPrefsStorage);
 

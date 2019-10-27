@@ -27,7 +27,7 @@ class JsonSerializableAlgoBase {
     private final List<JsonAdaptedProblem> problems = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedPlan> plans = new ArrayList<>();
-    private final List<JsonAdaptedTab> tabs = new ArrayList<>();
+    private final JsonAdaptedGuiState guiState;
 
     /**
      * Constructs a {@code JsonSerializableAlgoBase} with the given problems.
@@ -35,10 +35,12 @@ class JsonSerializableAlgoBase {
     @JsonCreator
     public JsonSerializableAlgoBase(@JsonProperty("problems") List<JsonAdaptedProblem> problems,
                                     @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                                    @JsonProperty("plans") List<JsonAdaptedPlan> plans) {
+                                    @JsonProperty("plans") List<JsonAdaptedPlan> plans,
+                                    @JsonProperty("guiState") JsonAdaptedGuiState guiState) {
         this.problems.addAll(problems);
         this.tags.addAll(tags);
         this.plans.addAll(plans);
+        this.guiState = guiState;
     }
 
     /**
@@ -50,6 +52,7 @@ class JsonSerializableAlgoBase {
         problems.addAll(source.getProblemList().stream().map(JsonAdaptedProblem::new).collect(Collectors.toList()));
         tags.addAll(source.getTagList().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         plans.addAll(source.getPlanList().stream().map(JsonAdaptedPlan::new).collect(Collectors.toList()));
+        guiState = new JsonAdaptedGuiState(source.getGuiState());
     }
 
     /**
@@ -77,6 +80,8 @@ class JsonSerializableAlgoBase {
             Plan plan = jsonAdaptedPlan.toModelType(algoBase);
             algoBase.addPlan(plan);
         }
+
+        algoBase.setGuiState(guiState.toModelType(algoBase));
         return algoBase;
     }
 

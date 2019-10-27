@@ -17,14 +17,14 @@ public class JsonAdaptedTab {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tab Data's %s field is missing!";
 
     private final String modelType;
-    private final String modelIndex;
+    private final int modelIndex;
 
     /**
      * Constructs a {@code JsonAdaptedTab} with the given TabData.
      */
     @JsonCreator
     public JsonAdaptedTab(@JsonProperty("name") String modelType,
-                           @JsonProperty("index") String modelIndex) {
+                           @JsonProperty("index") int modelIndex) {
         this.modelType = modelType;
         this.modelIndex = modelIndex;
     }
@@ -34,7 +34,7 @@ public class JsonAdaptedTab {
      */
     public JsonAdaptedTab(TabData tabData) {
         modelType = tabData.getModelType().toString();
-        modelIndex = tabData.getModelIndex().toString();
+        modelIndex = tabData.getModelIndex().getZeroBased();
     }
 
     /**
@@ -73,16 +73,11 @@ public class JsonAdaptedTab {
     /**
      * Converts a model index in string format to an Index Object.
      *
-     * @param modelIndex model index in string format.
+     * @param modelIndex model index in integer format.
      * @return the corresponding Index Object.
      * @throws IllegalValueException if string format is invalid.
      */
-    public Index retrieveModelIndex(String modelIndex) throws IllegalValueException {
-        if (modelIndex == null) {
-            throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Model Index"));
-        }
-
-        return Index.fromOneBased(Integer.parseInt(modelIndex));
+    public Index retrieveModelIndex(int modelIndex) throws IllegalValueException {
+        return Index.fromZeroBased(modelIndex);
     }
 }

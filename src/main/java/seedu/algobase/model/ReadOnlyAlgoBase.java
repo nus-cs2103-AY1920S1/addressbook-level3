@@ -1,7 +1,7 @@
 package seedu.algobase.model;
 
 import javafx.collections.ObservableList;
-import seedu.algobase.model.gui.TabData;
+import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
@@ -30,7 +30,7 @@ public interface ReadOnlyAlgoBase {
     ObservableList<Task> getCurrentTaskList();
 
     /**
-     * Returns an unmodifiable view of the current tab data list.
+     * Returns a view of the GuiState.
      */
-    ObservableList<TabData> getTabsDataList();
+    GuiState getGuiState();
 }

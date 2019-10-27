@@ -1,11 +1,14 @@
 package seedu.algobase.ui.details;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
@@ -13,8 +16,9 @@ import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.Logic;
 import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.TabManager;
+import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
-import seedu.algobase.ui.ProblemDetails;
+import seedu.algobase.model.tag.Tag;
 import seedu.algobase.ui.UiPart;
 
 /**
@@ -24,26 +28,47 @@ public class DetailsTabPane extends UiPart<Region> {
 
     private static final String FXML = "DetailsTabPane.fxml";
 
+    private final ObservableList<Problem> problems;
+    private final ObservableList<Plan> plans;
+    private final ObservableList<Tag> tags;
+    private final TabManager tabManager;
+
     @FXML
     private TabPane tabsPlaceholder;
 
     public DetailsTabPane(Logic logic) {
         super(FXML);
-        TabManager tabManager = logic.getGuiState().getTabManager();
-        addListenerForTabChanges(tabManager, logic);
-        addListenerForIndexChange(logic.getGuiState().getTabManager().getDetailsTabPaneIndex());
-        addListenerToTabPaneIndexChange(logic.getGuiState().getTabManager()::setDetailsTabPaneIndex);
+        this.problems = logic.getProcessedProblemList();
+        this.plans = logic.getProcessedPlanList();
+        this.tags = logic.getFilteredTagList();
+        this.tabManager = logic.getGuiState().getTabManager();
+
+        addTabsToTabPane(tabManager.getTabsDataList());
+
+        addListenerForTabChanges();
+        addListenerForIndexChange(tabManager.getDetailsTabPaneIndex());
+        addListenerToTabPaneIndexChange(tabManager::setDetailsTabPaneIndex);
+    }
+
+    /**
+     * Adds a list of TabData to the tab pane.
+     *
+     * @param tabsData List of tabs to be displayed.
+     */
+    private void addTabsToTabPane(List<? extends TabData> tabsData) {
+        tabsData.stream()
+            .map(this::convertTabDataToDetailsTab)
+            .collect(Collectors.toList())
+            .forEach(this::addTabToTabPane);
     }
 
     /**
      * Adds a list of details tabs to the tab pane.
      *
-     * @param detailsTabs List of tabs to be displayed.
+     * @param detailsTab List of tabs to be displayed.
      */
-    private void addTabsToTabPane(DetailsTab... detailsTabs) {
-        for (DetailsTab detailsTab: detailsTabs) {
-            this.tabsPlaceholder.getTabs().add(detailsTab.getTab());
-        }
+    private void addTabToTabPane(DetailsTab detailsTab) {
+        this.tabsPlaceholder.getTabs().add(detailsTab.getTab());
     }
 
     /**
@@ -73,22 +98,42 @@ public class DetailsTabPane extends UiPart<Region> {
 
     /**
      * Adds a listener to handle tab changes.
-     *
-     * @param tabManager Tab manager that processes list changes.
-     * @param logic The logic to retrieve objects from.
      */
-    private void addListenerForTabChanges(TabManager tabManager, Logic logic) {
+    private void addListenerForTabChanges() {
         tabManager.getTabs().addListener(new ListChangeListener<TabData>() {
             @Override
             public void onChanged(Change<? extends TabData> change) {
-                tabsPlaceholder.getTabs().clear();
-                for (TabData tabData : change.getList()) {
-                    Problem problem = logic.getProcessedProblemList().get(tabData.getModelIndex().getZeroBased());
-                    addTabsToTabPane(new DetailsTab(problem.getName().fullName, new ProblemDetails(problem)));
-                }
+                clearTabs();
+                addTabsToTabPane(change.getList());
                 selectLastTab();
             }
         });
+    }
+
+    private void clearTabs() {
+        tabsPlaceholder.getTabs().clear();
+    }
+
+    /**
+     * Converts a {code: TabData} object into a {code: DetailsTab} object.
+     *
+     * @param tabData The TabData to be converted.
+     */
+    private DetailsTab convertTabDataToDetailsTab(TabData tabData) throws IllegalArgumentException {
+        int zeroBasedIndex = tabData.getModelIndex().getZeroBased();
+        switch (tabData.getModelType()) {
+        case PROBLEM:
+            Problem problem = problems.get(zeroBasedIndex);
+            return new DetailsTab(problem.getName().fullName, new ProblemDetails(problem));
+        case PLAN:
+            Plan plan = plans.get(zeroBasedIndex);
+            return new DetailsTab(plan.getPlanName().fullName);
+        case TAG:
+            Tag tag = tags.get(zeroBasedIndex);
+            return new DetailsTab(tag.getName());
+        default:
+            throw new IllegalArgumentException("Model does not exist");
+        }
     }
 
     /**

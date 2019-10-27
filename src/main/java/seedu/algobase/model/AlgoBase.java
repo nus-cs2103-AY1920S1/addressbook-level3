@@ -7,8 +7,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.gui.TabData;
-import seedu.algobase.model.gui.UniqueTabDataList;
+import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.problem.Problem;
@@ -26,7 +25,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     private final UniqueProblemList problems;
     private final UniqueTagList tags;
     private final PlanList plans;
-    private final UniqueTabDataList tabsData;
+    private final GuiState guiState;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -39,7 +38,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         problems = new UniqueProblemList();
         plans = new PlanList();
         tags = new UniqueTagList();
-        tabsData = new UniqueTabDataList();
+        guiState = new GuiState();
     }
 
     public AlgoBase() {}
@@ -61,7 +60,16 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         setProblems(newData.getProblemList());
         setPlans(newData.getPlanList());
         setTags(newData.getTagList());
-        setTabsData(newData.getTabsDataList());
+        this.guiState.resetData(newData.getGuiState());
+    }
+
+    //========== Gui State ==============================================================
+    public GuiState getGuiState() {
+        return this.guiState;
+    }
+
+    public void setGuiState(GuiState guiState) {
+        this.guiState.resetData(guiState);
     }
 
     //========== Problem ================================================================
@@ -228,52 +236,6 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     @Override
     public ObservableList<Task> getCurrentTaskList() {
         return plans.getUnmodifiableObservableTaskList();
-    }
-
-    //========== Tab ====================================================================
-
-    /**
-     * Replaces the contents of the Plan list with {@code tabsData}.
-     * {@code tabsData} must not contain duplicate tabsData.
-     */
-    public void setTabsData(List<TabData> tabsData) {
-        this.tabsData.setTabsData(tabsData);
-    }
-
-    /**
-     * Returns true if a Plan with the same identity as {@code TabData} exists in the algobase.
-     */
-    public boolean hasTabData(TabData tabData) {
-        requireNonNull(tabData);
-        return tabsData.contains(tabData);
-    }
-
-    /**
-     Adds a TabData to the algobase.
-     The Plan must not already exist in the algobase.
-     */
-    public void addTabData(TabData tabData) {
-        tabsData.add(tabData);
-    }
-
-    /**
-     * Replaces the given Plan {@code target} in the list with {@code editedPlan}.
-     * {@code target} must exist in the algobase.
-     * The Plan identity of {@code editedPlan} must not be the same as another existing Plan in the algobase.
-     */
-    public void setTabData(TabData target, TabData editedTabData) {
-        requireNonNull(editedTabData);
-
-        tabsData.setTabData(target, editedTabData);
-    }
-
-    public void removeTabData(TabData key) {
-        tabsData.remove(key);
-    }
-
-    @Override
-    public ObservableList<TabData> getTabsDataList() {
-        return tabsData.asUnmodifiableObservableList();
     }
 
     //========== Util ===================================================================
