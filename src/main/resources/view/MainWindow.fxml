@@ -20,8 +20,8 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
+        <URL value="@PastelTheme.css" />
+        <URL value="@PastelExtensions.css" />
       </stylesheets>
 
       <VBox>
