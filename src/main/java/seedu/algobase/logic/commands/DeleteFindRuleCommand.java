@@ -23,7 +23,7 @@ public class DeleteFindRuleCommand extends Command {
             + "INDEX (must be a positive integer)\n"
             + "Example:\n"
             + COMMAND_WORD + " 1\n";
-    public static final String MESSAGE_SUCCESS = "Deleted Find Rule: %1$s";
+    public static final String MESSAGE_SUCCESS = "Find Rule [%1$s] deleted.";
 
     private final Index targetIndex;
 

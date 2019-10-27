@@ -64,18 +64,26 @@ public class PlanList implements Iterable<Plan> {
         internalTaskList.setAll();
     }
 
-    public void setPlans(PlanList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
     /**
      * Replaces the contents of this list with {@code plans}.
-     * {@code plans} must not contain duplicate plans.
      */
     public void setPlans(List<Plan> plans) {
         requireAllNonNull(plans);
         internalList.setAll(plans);
+
+        if (plans.size() > 0) {
+            // Default to first plan in list
+            internalTaskList.setAll(plans.get(1).getTasks());
+        }
+    }
+
+    /**
+     * Replaces the contents of this list with {@code replacement}.
+     */
+    public void setPlans(PlanList replacement) {
+        requireNonNull(replacement);
+        List<Plan> plans = replacement.internalList;
+        setPlans(plans);
     }
 
     /**

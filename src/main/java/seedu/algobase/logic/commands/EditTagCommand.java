@@ -26,8 +26,8 @@ public class EditTagCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TAG + "TAG] \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "Easy";
-    public static final String MESSAGE_EDIT_TAG_SUCCESS = "Edited Tag: %1$s";
-    public static final String MESSAGE_DUPLICATE_TAG = "This Tag already exists in the algobase.";
+    public static final String MESSAGE_EDIT_TAG_SUCCESS = "Tag [%1$s] edited.";
+    public static final String MESSAGE_DUPLICATE_TAG = "Tag [%1$s] already exists in AlgoBase.";
 
     private final Index index;
     private final String name;
@@ -57,14 +57,14 @@ public class EditTagCommand extends Command {
         Tag editedTag = createEditedTag(tagToEdit, name);
 
         if (!tagToEdit.isSameTag(editedTag) && model.hasTag(editedTag)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TAG);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAG, tagToEdit.getName()));
         }
 
         model.setTag(tagToEdit, editedTag);
         model.setTags(tagToEdit, editedTag);
 
         model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
-        return new CommandResult(String.format(MESSAGE_EDIT_TAG_SUCCESS, editedTag));
+        return new CommandResult(String.format(MESSAGE_EDIT_TAG_SUCCESS, editedTag.getName()));
     }
 
     /**

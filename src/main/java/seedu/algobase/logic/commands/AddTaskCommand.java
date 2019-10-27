@@ -38,8 +38,8 @@ public class AddTaskCommand extends Command {
             + PREFIX_PROBLEM + "10"
             + PREFIX_DUE_DATE + "2019-12-12";
 
-    public static final String MESSAGE_SUCCESS = "New Task [%1$s] added to Plan [%2$s]";
-    public static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s]";
+    public static final String MESSAGE_SUCCESS = "New Task [%1$s] added to Plan [%2$s].";
+    public static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s].";
 
     private final AddTaskDescriptor addTaskDescriptor;
 

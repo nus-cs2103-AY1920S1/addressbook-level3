@@ -15,7 +15,7 @@ import seedu.algobase.model.gui.TabType;
 public class SwitchTabCommand extends Command {
 
     public static final String COMMAND_WORD = "switchtab";
-    public static final String MESSAGE_SUCCESS = "Switched to %1$s tab %2$s!";
+    public static final String MESSAGE_SUCCESS = "Switched to [%1$s] tab [%2$s].";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Switches between Tabs in the GUI\n"
         + "Parameters:\n"
@@ -26,8 +26,8 @@ public class SwitchTabCommand extends Command {
         + PREFIX_TAB_TYPE + "display "
         + PREFIX_TAB_INDEX + "1\n";
 
-    public static final String MESSAGE_INVALID_TAB_TYPE = "There is no such tab type!";
-    public static final String MESSAGE_INVALID_TAB_INDEX = "There is no tab at index %1$s!";
+    public static final String MESSAGE_INVALID_TAB_TYPE = "Tab type [%1$s] does not exist.";
+    public static final String MESSAGE_INVALID_TAB_INDEX = "Tab at index [%1$s] does not exist.";
 
     private Index index = Index.fromZeroBased(0);
     private TabType tabType;
@@ -53,7 +53,7 @@ public class SwitchTabCommand extends Command {
                     String.format(MESSAGE_SUCCESS, tabType.DETAILS.getName(), index.getOneBased())
                 );
             default:
-                throw new CommandException(MESSAGE_INVALID_TAB_TYPE);
+                throw new CommandException(String.format(MESSAGE_INVALID_TAB_TYPE, tabType.getName()));
             }
         } catch (IndexOutOfBoundsException exception) {
             throw new CommandException(String.format(MESSAGE_INVALID_TAB_INDEX, index.getOneBased()));

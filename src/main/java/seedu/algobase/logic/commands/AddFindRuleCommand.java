@@ -20,7 +20,7 @@ public class AddFindRuleCommand extends Command {
     public static final String COMMAND_WORD = "addfindrule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a find rule to the algobase.\n"
+            + ": Adds a find rule to AlgoBase.\n"
             + "Parameters:\n"
             + "RULE_NAME "
             + "[" + PREFIX_NAME + "NAME] "
@@ -33,10 +33,12 @@ public class AddFindRuleCommand extends Command {
             + COMMAND_WORD
             + " MediumDifficulty"
             + " " + PREFIX_DIFFICULTY + "2.5-3.5\n";
-    public static final String MESSAGE_SUCCESS = "New find rule added: %1$s";
-    public static final String MESSAGE_DUPLICATE_FIND_RULE = "This find rule already exists in AlgoBase.";
+    public static final String MESSAGE_SUCCESS =
+        "New [%1$s] find rule added to AlgoBase.";
+    public static final String MESSAGE_DUPLICATE_FIND_RULE =
+        "Find rule [%1$s] already exists in AlgoBase.";
     public static final String MESSAGE_NO_CONSTRAINTS =
-        "You should provide at least one constraint for a new find rule";
+        "You should provide at least one constraint for a new find rule.";
 
     private final ProblemSearchRule toAdd;
 
@@ -50,12 +52,11 @@ public class AddFindRuleCommand extends Command {
         requireNonNull(model);
 
         if (model.hasFindRule(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_FIND_RULE);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_FIND_RULE, toAdd.getName()));
         }
 
         model.addFindRule(toAdd);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
     }
 
     @Override

@@ -50,7 +50,7 @@ public class SortCommand extends Command {
             + COMMAND_WORD + " "
             + PREFIX_SORTING_METHOD + "name "
             + PREFIX_SORTING_ORDER + "ascend";
-    public static final String MESSAGE_SUCCESS = "AlgoBase has been sorted!";
+    public static final String MESSAGE_SUCCESS = "AlgoBase has been sorted.";
 
     public static final Comparator<Problem> PROBLEM_NAME_COMPARATOR = new Comparator<Problem>() {
         @Override

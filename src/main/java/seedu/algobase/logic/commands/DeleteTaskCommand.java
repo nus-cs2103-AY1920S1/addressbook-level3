@@ -34,7 +34,7 @@ public class DeleteTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task [%1$s] deleted from Plan [%2$s]";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task [%1$s] deleted from Plan [%2$s].";
 
     private final DeleteTaskDescriptor deleteTaskDescriptor;
 
