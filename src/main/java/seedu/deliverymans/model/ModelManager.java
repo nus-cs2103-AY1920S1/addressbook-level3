@@ -319,6 +319,7 @@ public class ModelManager implements Model {
     public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         requireNonNull(deliveryman);
         deliverymenDatabase.switchDeliverymanStatus(deliveryman);
+        updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
     @Override
     public void showAvailableDeliverymen() {
@@ -492,10 +493,17 @@ public class ModelManager implements Model {
         filteredCustomers.setPredicate(predicate);
     }
 
+    /*
     @Override
     public void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate) {
         requireNonNull(predicate);
         statusSortedDeliverymen.setPredicate(predicate);
+    } */
+
+    @Override
+    public void updateAvailableDeliverymenList(Predicate<Deliveryman> predicate) {
+        requireNonNull(predicate);
+        availableDeliverymen.setPredicate(predicate);
     }
 
     @Override

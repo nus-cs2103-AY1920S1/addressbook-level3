@@ -318,7 +318,9 @@ public interface Model {
      */
     void showAvailableDeliverymen();
 
-    void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate);
+   // void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate);
+
+    void updateAvailableDeliverymenList(Predicate<Deliveryman> predicate);
 
     ObservableList<Deliveryman> getAvailableMenList();
 
