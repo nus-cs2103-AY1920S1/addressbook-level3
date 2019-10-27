@@ -350,6 +350,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isRead()) {
                 readList.setVisible(true);
+                readListPanelPlaceholder.getChildren().clear();
                 readList.setMinWidth(340);
                 fillReadParts(commandResult.getObject(), commandResult.getIndex());
             }

@@ -212,7 +212,7 @@
  * Author: Pedro Duque Vieira
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
-.button {
+.buttonSide {
     -fx-padding: 5 22 5 22;
     /*-fx-border-color: #e2e2e2;*/
     -fx-background-radius: 0;
@@ -225,17 +225,17 @@
     /*-fx-background-insets: 0 0 0 0, 0, 1, 2;*/
 }
 
-.button:hover {
+.buttonSide:hover {
     -fx-font-size: 10pt;
 }
 
-.button:pressed, .button:default:hover:pressed {
+.buttonSide:pressed, .button:default:hover:pressed {
     -fx-font-size: 10pt;
   /*-fx-background-color: white;*/
   /*-fx-text-fill: #1d1d1d;*/
 }
 
-.button:focused {
+.buttonSide:focused {
     -fx-font-size: 10pt;
     /*-fx-border-color: white, white;*/
     /*-fx-border-width: 1, 1;*/
@@ -244,7 +244,7 @@
     /*-fx-border-insets: 1 1 1 1, 0;*/
 }
 
-.button:disabled, .button:default:disabled {
+.buttonSide:disabled, .button:default:disabled {
     /*-fx-opacity: 0.4;*/
     -fx-background-color: #3e7b91;
     -fx-font-size: 10pt;

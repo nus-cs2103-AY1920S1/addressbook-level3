@@ -55,10 +55,10 @@
             </padding>
             <children >
                      <Label HBox.hgrow="ALWAYS" text="Mode: " style="-fx-text-fill: #75878E;"/>
-                     <Button fx:id="b1" HBox.hgrow="ALWAYS" text="Password" minWidth="100"/>
-                     <Button fx:id="b2" HBox.hgrow="ALWAYS" text="File" minWidth="100"/>
-                     <Button fx:id="b3" HBox.hgrow="ALWAYS" text="Card" minWidth="100"/>
-                     <Button fx:id="b4" HBox.hgrow="ALWAYS" text="Note" minWidth="100"/>
+                     <Button styleClass="buttonSide" fx:id="b1" HBox.hgrow="ALWAYS" text="Password" minWidth="100"/>
+                     <Button styleClass="buttonSide" fx:id="b2" HBox.hgrow="ALWAYS" text="File" minWidth="100"/>
+                     <Button styleClass="buttonSide" fx:id="b3" HBox.hgrow="ALWAYS" text="Card" minWidth="100"/>
+                     <Button styleClass="buttonSide" fx:id="b4" HBox.hgrow="ALWAYS" text="Note" minWidth="100"/>
                   </children>
           </VBox>
 
