@@ -146,6 +146,17 @@ public class Gui {
         applicationPrimaryStage.setScene(scene);
     }
 
+    /** Temporary method to render a FlashCardDisplay object without accessing FlashCard class. */
+    static void renderCard(String cardText) {
+        FlashCardDisplay node = new FlashCardDisplay(cardText);
+        displayInScrollablePane(node);
+    }
+
+    /** Sets the title in the title bar of the application window. */
+    public static void setTitle(String title) {
+        titleBar.setTitle(title);
+    }
+
     /**
      * Renders the front of the given FlashCard in the GUI.
      * @param flashCard The FlashCard to be rendered.
@@ -178,23 +189,15 @@ public class Gui {
         displayInScrollablePane(node);
     }
 
-    /** Temporary method to render a FlashCardDisplay object without accessing FlashCard class. */
-    static void renderCard(String cardText) {
-        FlashCardDisplay node = new FlashCardDisplay(cardText);
-        displayInScrollablePane(node);
-    }
-
-    /** Displays a given Node in the scrollable pane of the MainWindow. */
-    private static void displayInScrollablePane(Node node) {
+    /**
+     * Displays a given Node in the scrollable pane of the GUI.
+     * @param node The Node to be displayed in the scrollable pane of the GUI.
+     */
+    public static void displayInScrollablePane(Node node) {
         // remove anything currently in the display area
         //windowContents.getChildren().clear();
 
         // show the Node in the display area
-        scrollablePane.add(node);
-    }
-
-    /** Sets the title in the title bar of the application window. */
-    public static void setTitle(String title) {
-        titleBar.setTitle(title);
+        Gui.scrollablePane.add(node);
     }
 }
