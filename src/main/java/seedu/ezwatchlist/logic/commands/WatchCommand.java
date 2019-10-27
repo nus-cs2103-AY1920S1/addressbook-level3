@@ -3,6 +3,7 @@ package seedu.ezwatchlist.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -97,7 +98,7 @@ public class WatchCommand extends Command {
             return editedShow;
         } else {
             TvShow editedShow = new TvShow(name, description, updatedIsWatched,
-                    dateOfRelease, runningTime, actors, 0, 0, null);
+                    dateOfRelease, runningTime, actors, 0, 0, new ArrayList<>());
             editedShow.setPoster(poster);
             return editedShow;
         }

@@ -18,6 +18,12 @@ import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new SearchCommand object
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
+    private static final String KEY_NAME = "name";
+    private static final String KEY_TYPE = "type";
+    private static final String KEY_ACTOR = "actor";
+    private static final String KEY_IS_WATCHED = "is_watched";
+    private static final String KEY_IS_INTERNAL = "is_internal";
+
     private HashMap<String, List<String>> searchShowsHashMap = new HashMap<>();
 
     /**
@@ -30,75 +36,84 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                 ArgumentTokenizer.tokenize(
                         args, PREFIX_NAME, PREFIX_TYPE, PREFIX_IS_WATCHED, PREFIX_ACTOR, PREFIX_IS_INTERNAL);
 
-        List<String> nameOptional = argMultimap.getAllValues(PREFIX_NAME); // allow multiple values // allow 1 for now
-        Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE); // at most one value
-        List<String> actorOptional = argMultimap.getAllValues(PREFIX_ACTOR); // allow multiple values
-        Optional<String> isWatchedOptional = argMultimap.getValue(PREFIX_IS_WATCHED); // true or false
-        Optional<String> isInternalOptional = argMultimap.getValue(PREFIX_IS_INTERNAL); // true or false
+        List<String> nameList = argMultimap.getAllValues(PREFIX_NAME);
+        Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE);
+        List<String> actorList = argMultimap.getAllValues(PREFIX_ACTOR);
+        Optional<String> isWatchedOptional = argMultimap.getValue(PREFIX_IS_WATCHED);
+        Optional<String> isInternalOptional = argMultimap.getValue(PREFIX_IS_INTERNAL);
 
-        parseNameToBeSearched(nameOptional);
+        parseNameToBeSearched(nameList);
         parseTypeToBeSearched(typeOptional);
-        parseActorToBeSearched(actorOptional);
+        parseActorToBeSearched(actorList);
         parseIsWatchedToBeSearched(isWatchedOptional);
         parseIsInternalToBeSearched(isInternalOptional);
 
         return new SearchCommand(searchShowsHashMap);
     }
 
-    private void parseNameToBeSearched(List<String> nameOptional) {
-        searchShowsHashMap.put("name", nameOptional);
+    /**
+     * Parses the names to be searched.
+     * @param nameList List of names to be searched.
+     */
+    private void parseNameToBeSearched(List<String> nameList) {
+        searchShowsHashMap.put(KEY_NAME, nameList);
     }
 
     /**
-     * Parses the type of show to be watched.
-     * @param typeOptional type of the show to be watched.
+     * Parses the type to be searched.
+     * @param typeOptional Type to be searched.
      */
     private void parseTypeToBeSearched(Optional<String> typeOptional) {
-        ArrayList<String> listOfType = new ArrayList<String>();
+        ArrayList<String> listOfType = new ArrayList<String>(); // Empty if can be of any type
         if (typeOptional.isPresent()) {
-            String type = typeOptional.get().trim();
+            String type = typeOptional.get().trim().toLowerCase();
             listOfType.add(type);
         } else {
             listOfType.add("movie");
             listOfType.add("tv");
         }
-        searchShowsHashMap.put("type", listOfType);
+        searchShowsHashMap.put(KEY_TYPE, listOfType);
     }
 
     /**
-     * Parses the actor to be searched.
-     * @param actorOptional Optional actor field to be searched.
+     * Parses the actors to be searched.
+     * @param actorList List of actors to be searched.
      */
-    private void parseActorToBeSearched(List<String> actorOptional) {
-        searchShowsHashMap.put("actor", actorOptional);
+    private void parseActorToBeSearched(List<String> actorList) {
+        searchShowsHashMap.put(KEY_ACTOR, actorList);
     }
 
     /**
-     * Parses the watched status of the show.
-     * @param isWatchedOptional the watched status of the show to be searched.
+     * Parses whether the show is watched.
+     * @param isWatchedOptional True/Yes if is watched, else, False/No
      */
     private void parseIsWatchedToBeSearched(Optional<String> isWatchedOptional) {
-        ArrayList<String> listOfIsWatched = new ArrayList<String>();
-        if (isWatchedOptional.isPresent()) {
+        ArrayList<String> listOfIsWatched = new ArrayList<String>(); // Empty if can be any
+        if (isWatchedOptional.isPresent()) { // true or yes || false or no
             String isWatched = isWatchedOptional.get().trim();
             listOfIsWatched.add(isWatched);
-        } else {
-            listOfIsWatched.add("false");
-            listOfIsWatched.add("true");
         }
-        searchShowsHashMap.put("is_watched", listOfIsWatched);
+        searchShowsHashMap.put(KEY_IS_WATCHED, listOfIsWatched);
     }
 
     /**
-     * Parses the database to access the search function form.
-     * @param isInternalOptional the user defined whether the search is internal or external.
+     * Parses whether the show is internal.
+     * @param isInternalOptional True/Yes if is internal, else, False/No
      */
     private void parseIsInternalToBeSearched(Optional<String> isInternalOptional) {
-        ArrayList<String> listOfIsInternal = new ArrayList<String>();
-        if (isInternalOptional.isPresent()) {
-            String isInternal = isInternalOptional.get().trim(); // true or yes || false or no
+        ArrayList<String> listOfIsInternal = new ArrayList<String>(); // Empty if can be any
+        if (isInternalOptional.isPresent()) { // true or yes || false or no
+            String isInternal = isInternalOptional.get().trim();
             listOfIsInternal.add(isInternal);
         }
-        searchShowsHashMap.put("is_internal", listOfIsInternal);
+        searchShowsHashMap.put(KEY_IS_INTERNAL, listOfIsInternal);
+    }
+
+    /**
+     * Return the hash map of the shows to be watched based on the different category.
+     * @return Hash map of the shows to be watched based on the different category.
+     */
+    public HashMap<String, List<String>> getSearchShowsHashMap() {
+        return searchShowsHashMap;
     }
 }

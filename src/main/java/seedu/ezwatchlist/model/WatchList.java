@@ -3,8 +3,10 @@ package seedu.ezwatchlist.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.UniqueShowList;
@@ -58,9 +60,10 @@ public class WatchList implements ReadOnlyWatchList {
     }
 
     //// show-level operations
-
     /**
      * Returns true if a show with the same identity as {@code show} exists in the WatchList.
+     * @param show The show to be checked if contained in the unique watchlist.
+     * @return True if the show is contained in the unique watchlist.
      */
     public boolean hasShow(Show show) {
         requireNonNull(show);
@@ -68,7 +71,9 @@ public class WatchList implements ReadOnlyWatchList {
     }
 
     /**
-     * Returns true if a show with the same name as {@code show} exists in the WatchList.
+     * Returns true if a show with the same name as {@code name} exists in the WatchList.
+     * @param name The name of the show to be checked.
+     * @return True if the show with the same name as {@code name} exists in the WatchList.
      */
     public boolean hasName(Name name) {
         requireNonNull(name);
@@ -76,16 +81,39 @@ public class WatchList implements ReadOnlyWatchList {
     }
 
     /**
-     * Returns the list of shows that has the same name as the given argument as the current watch list.
+     * Returns the list of shows that has the same name as {@code showName} as the current watch list.
+     * @param showName The name of the show to be checked.
+     * @return The list of shows that has the same name as {@code showName} as the current watch list.
      */
-    public List<Show> getShowIfSameNameAs(Name showName) {
+    public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
-        return shows.getShowIfSameNameAs(showName);
+        return shows.getShowIfHasName(showName);
+    }
+
+    /**
+     * Returns true if a show with any of the actor as that in {@code actorSet} exists in the WatchList.
+     * @param actorSet The set of the actors to be checked.
+     * @return True if the show with any of the actor as that in {@code actorSet} exists in the WatchList.
+     */
+    public boolean hasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return shows.hasActor(actorSet);
+    }
+
+    /**
+     * Returns the list of shows that has the same name as {@code actorSet} as the current watch list.
+     * @param actorSet The set of the actors to be checked.
+     * @return The list of shows that has the same name as {@code actorSet} as the current watch list.
+     */
+    public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return shows.getShowIfHasActor(actorSet);
     }
 
     /**
      * Adds a show to the watchlist.
      * The show must not already exist in the watchlist.
+     * @param s The show to be added.
      */
     public void addShow(Show s) {
         shows.add(s);

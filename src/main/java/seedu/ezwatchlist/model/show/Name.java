@@ -6,9 +6,9 @@ package seedu.ezwatchlist.model.show;
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-
+    public static final String DEFAULT_NAME = "na";
     public static final String MESSAGE_CONSTRAINTS =
-            "Show names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Show names should only contain characters and spaces, and it should not be blank";
 
     /*
      * The first character of the show must not be a whitespace,
@@ -17,6 +17,10 @@ public class Name {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String showName;
+
+    public Name() {
+        showName = DEFAULT_NAME;
+    }
 
     /**
      * Constructs a {@code Name}.

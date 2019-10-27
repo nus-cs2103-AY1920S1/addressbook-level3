@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.exceptions.DuplicateShowException;
 import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
 
@@ -33,6 +35,8 @@ public class UniqueShowList implements Iterable<Show> {
 
     /**
      * Returns true if the list contains an equivalent show as the given argument.
+     * @param toCheck The show to be checked if present.
+     * @return True if the show to present in the internal list.
      */
     public boolean contains(Show toCheck) {
         requireNonNull(toCheck);
@@ -41,27 +45,70 @@ public class UniqueShowList implements Iterable<Show> {
 
     /**
      * Returns true if the list contains an equivalent show name as the given argument.
+     * @param showName Name of show to be searched.
+     * @return True if a show has the same name as showName.
      */
     public boolean hasShowName(Name showName) {
         requireNonNull(showName);
-        Show show = new Show(showName, new Description(), new IsWatched(false), new Date(),
+        Show movie = new Movie(showName, new Description(), new IsWatched(false), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
-        return internalList.stream().anyMatch(show::isSameName);
+        Show tvShow = new TvShow(showName, new Description(), new IsWatched(false), new Date(),
+                new RunningTime(), new HashSet<>(new ArrayList<>()),
+                0, 0, new ArrayList<>());
+        return internalList.stream().anyMatch(movie::isSameName) && internalList.stream().anyMatch(tvShow::isSameName);
     }
 
     /**
-     * Returns the list of shows that has the same name as the given argument as the current watch list.
+     * Returns the list of shows that has the same name as showName.
+     * @param showName Name of show to be searched.
+     * @return List of Show that has the same name as showName.
      */
-    public List<Show> getShowIfSameNameAs(Name showName) {
+    public List<Show> getShowIfHasName(Name showName) {
         requireNonNull(showName);
-        Show currentShow = new Show(showName, new Description(), new IsWatched(false), new Date(),
+        Show currentMovie = new Movie(showName, new Description(), new IsWatched(), new Date(),
                 new RunningTime(), new HashSet<>(new ArrayList<>()));
-        return internalList.stream().filter(show -> show.isSameName(currentShow)).collect(Collectors.toList());
+        Show currentTvShow = new TvShow(showName, new Description(), new IsWatched(), new Date(),
+                new RunningTime(), new HashSet<>(new ArrayList<>()),
+                0, 0, new ArrayList<>());
+        return internalList.stream()
+                .filter(show -> show.hasNameWithWord(currentMovie) || show.hasNameWithWord(currentTvShow))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns true if the list contains any of the actors in actorSet.
+     * @param actorSet Set of actors to be searched.
+     * @return True if a show has the same name as showName.
+     */
+    public boolean hasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        Show movie = new Movie(new Name(), new Description(), new IsWatched(), new Date(), new RunningTime(), actorSet);
+        Show tvShow = new TvShow(new Name(), new Description(), new IsWatched(),
+                new Date(), new RunningTime(), actorSet, 0, 0, new ArrayList<>());
+        return internalList.stream().anyMatch(movie::hasActorWithName)
+                || internalList.stream().anyMatch(tvShow::hasActorWithName);
+    }
+
+    /**
+     * Returns the list of shows that has any of the actor in actorSet.
+     * @param actorSet Set of Actor(s) to be searched.
+     * @return List of Show that has the actor.
+     */
+    public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        Show currentMovie = new Movie(new Name(), new Description(), new IsWatched(false), new Date(),
+                new RunningTime(), actorSet);
+        Show currentTvShow = new TvShow(new Name(), new Description(), new IsWatched(false), new Date(),
+                new RunningTime(), actorSet,
+                0, 0, new ArrayList<>());
+        return internalList.stream().filter(show -> show.isSameName(currentMovie) || show.isSameName(currentTvShow)
+        ).collect(Collectors.toList());
     }
 
     /**
      * Adds a show to the list.
      * The show must not already exist in the list.
+     * @param toAdd Show to be added.
      */
     public void add(Show toAdd) {
         requireNonNull(toAdd);
