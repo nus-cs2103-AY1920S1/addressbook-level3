@@ -54,12 +54,22 @@ public class FlashcardTabWindowController {
      * Displays the question of the flashcard specified in the flashcard tab window.
      * @param flashcard flashcard to be displayed
      */
-    public void loadFlashcard(Flashcard flashcard) {
+    public void loadTimetrialFlashcard(Flashcard flashcard) {
         qnsTextArea.setText(flashcard.getQuestion().toString());
         ansTextArea.setText(flashcard.getAnswer().toString());
         ansTextArea.setVisible(false);
         timerLabel.setVisible(true);
         startTimer();
+    }
+
+    /**
+     * Displays the question of the flashcard specified in the flashcard tab window.
+     * @param flashcard flashcard to be displayed
+     */
+    public void loadFlashcard(Flashcard flashcard) {
+        qnsTextArea.setText(flashcard.getQuestion().toString());
+        ansTextArea.setText(flashcard.getAnswer().toString());
+        ansTextArea.setVisible(false);
     }
 
     /**
@@ -94,7 +104,7 @@ public class FlashcardTabWindowController {
         int cardCount = 0;
         for (Flashcard fc: deck.get()) {
             timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION), e -> loadFlashcard(fc),
+                new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION), e -> loadTimetrialFlashcard(fc),
                 new KeyValue(currentSeconds, 0)),
                 new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION + TIMER_DURATION),
                     e -> showFlashcardAns()));

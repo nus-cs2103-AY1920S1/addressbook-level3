@@ -46,9 +46,9 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
+    assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+    assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+}
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
@@ -160,6 +160,11 @@ public class AddCommandTest {
 
         @Override
         public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

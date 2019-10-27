@@ -48,9 +48,13 @@ public class StartTimeTrialCommand extends Command {
     public CommandResult execute(Model model) throws CommandException, TagNotFoundException {
         requireNonNull(model);
 
-        Optional<ArrayList<Flashcard>> deck = Optional.of(model.getTaggedFlashcards(tagPredicate));
+        ArrayList<Flashcard> deck = model.getTaggedFlashcards(tagPredicate);
+        if (deck.size() == 0) {
+            throw new TagNotFoundException("Tag not found");
+        }
+        Optional<ArrayList<Flashcard>> optionalDeck = Optional.of(deck);
 
-        return new FlashcardCommandResult(String.format(MESSAGE_SUCCESS), true, deck);
+        return new FlashcardCommandResult(String.format(MESSAGE_SUCCESS), true, optionalDeck);
     }
 
     @Override

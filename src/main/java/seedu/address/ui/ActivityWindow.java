@@ -69,7 +69,7 @@ public class ActivityWindow extends UiPart<Region> {
     }
 
     public void displayFlashcard(Flashcard flashcard) {
-        flashcardTabWindowController.loadFlashcard(flashcard);
+        flashcardTabWindowController.loadTimetrialFlashcard(flashcard);
     }
 
     public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
