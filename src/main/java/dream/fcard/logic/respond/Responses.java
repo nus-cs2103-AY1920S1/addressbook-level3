@@ -275,7 +275,7 @@ enum Responses {
                     index = splitUserFields[1].trim();
                 }
 
-                System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
+                //System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
 
 
 
@@ -302,10 +302,10 @@ enum Responses {
 
                 String index = splitUserFields[1].trim();
 
-                System.out.println(deckName + "." + action + "." + index + ".");
+                //System.out.println(deckName + "." + action + "." + index + ".");
 
 
-        return true; // capture is valid, end checking other commands
+                return true; // capture is valid, end checking other commands
             }),
 
     UNKNOWN(".*", (commandInput, programState) -> {
