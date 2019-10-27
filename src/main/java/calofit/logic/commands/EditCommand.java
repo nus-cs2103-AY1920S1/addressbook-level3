@@ -86,7 +86,6 @@ public class EditCommand extends Command {
             if (!editDishDescriptor.getTags().get().isEmpty()) {
                 updatedTags.addAll(editDishDescriptor.getTags().get());
             } else {
-                System.out.println("i am here");
                 isTagsEmpty = true;
                 updatedTags = new HashSet<Tag>();
             }
