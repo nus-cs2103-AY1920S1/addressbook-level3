@@ -13,11 +13,12 @@ import seedu.jarvis.model.course.FulfillRequirements;
 import seedu.jarvis.model.course.Preclusion;
 import seedu.jarvis.model.course.PrereqTree;
 import seedu.jarvis.model.course.Title;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * Jackson-friendly version of {@link Course}.
  */
-public class JsonAdaptedCourse {
+public class JsonAdaptedCourse implements JsonAdapter<Course> {
     private final String title;
     private final String faculty;
     private final String description;
@@ -83,6 +84,7 @@ public class JsonAdaptedCourse {
      * @return {@code Course} of the Jackson-friendly adapted {@code Course}.
      * @throws IllegalValueException If there were any data constraints violated in the adapted {@code Course}.
      */
+    @Override
     public Course toModelType() throws IllegalValueException {
         return new Course(
                 new Title(title),

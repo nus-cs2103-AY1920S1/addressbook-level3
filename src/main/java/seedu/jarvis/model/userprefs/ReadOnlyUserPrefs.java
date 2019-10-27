@@ -19,4 +19,8 @@ public interface ReadOnlyUserPrefs {
 
     Path getCoursePlannerFilePath();
 
+    Path getPlannerFilePath();
+
+    Path getFinanceTrackerPath();
+
 }

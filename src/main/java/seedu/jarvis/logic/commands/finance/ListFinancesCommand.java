@@ -6,7 +6,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.FinanceTrackerModel;
+import seedu.jarvis.model.finance.FinanceTrackerModel;
 
 /**
  * Lists all expenditures in the finance tracker to the user.

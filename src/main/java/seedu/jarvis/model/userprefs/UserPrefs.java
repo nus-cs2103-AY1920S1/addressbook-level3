@@ -18,6 +18,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path historyManagerFilePath = Paths.get("data", "historymanager.json");
     private Path ccaTrackerFilePath = Paths.get("data", "ccatracker.json");
     private Path coursePlannerFilePath = Paths.get("data", "courseplanner.json");
+    private Path plannerFilePath = Paths.get("data", "planner.json");
+    private Path financeTrackerFilePath = Paths.get("data", "financetracker.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -67,6 +69,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     @Override
     public Path getCoursePlannerFilePath() {
         return coursePlannerFilePath;
+    }
+
+    @Override
+    public Path getPlannerFilePath() {
+        return plannerFilePath;
+    }
+
+    @Override
+    public Path getFinanceTrackerPath() {
+        return financeTrackerFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {

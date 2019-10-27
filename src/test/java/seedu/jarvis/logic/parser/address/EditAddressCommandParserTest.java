@@ -34,13 +34,13 @@ import static seedu.jarvis.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.testutil.address.EditPersonDescriptorBuilder;
 
 public class EditAddressCommandParserTest {

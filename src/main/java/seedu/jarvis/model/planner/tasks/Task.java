@@ -4,10 +4,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Represents a task object in JARVIS
@@ -21,14 +22,25 @@ public abstract class Task {
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     protected String taskDes;
-    protected Priority priority = null;
-    protected Frequency frequency = null;
-    protected Status status = Status.NOT_DONE;
+    protected Priority priority;
+    protected Frequency frequency;
+    protected Status status;
     protected Set<Tag> tags = new HashSet<>();
 
-    public Task(String taskDes) {
+    public Task(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags) {
         this.taskDes = taskDes;
+        this.priority = priority;
+        this.frequency = frequency;
+        this.status = Status.NOT_DONE;
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
     }
+
+    public Task(String taskDes) {
+        this(taskDes, null, null, Status.NOT_DONE, new HashSet<>());
+    }
+
 
     /**
      * Gets the task description of this {@code Todo}.
@@ -37,6 +49,29 @@ public abstract class Task {
     public String getTaskDescription() {
         return taskDes;
     }
+
+    /**
+     * Gets the {@code Priority} of this {@code Todo}.
+     * @return {@code Priority} of the {@code Todo}.
+     */
+    public Priority getPriority() {
+        return priority;
+    }
+
+    /**
+     * Gets the {@code Frequency} of the {@Code Todo}.
+     * @return {@code Frequency} of the {@code Todo}.
+     */
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
+    /**
+     * Gets the {@code JsonAdaptedTask} for this task.
+     *
+     * @return {@code JsonAdaptedTask}.
+     */
+    public abstract JsonAdaptedTask adaptToJsonAdaptedTask();
 
     public abstract String toString();
 
@@ -53,7 +88,7 @@ public abstract class Task {
      * Sets the Priority Level of a Task
      * @param priority User input priority level
      */
-    public void addPriority(Priority priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
@@ -61,7 +96,7 @@ public abstract class Task {
      * Sets the frequency level of a Task, i.e. how regularly a Task occurs.
      * @param freq Frequency level of a task
      */
-    public void addFrequency(Frequency freq) {
+    public void setFrequency(Frequency freq) {
         frequency = freq;
     }
 
@@ -77,7 +112,7 @@ public abstract class Task {
      * Retrieves all the tags tagged to a particular task
      * @return a set of Tags
      */
-    protected Set<Tag> getTags() {
+    public Set<Tag> getTags() {
         return this.tags;
     }
 

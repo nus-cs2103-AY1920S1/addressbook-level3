@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
@@ -21,7 +22,6 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.address.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -60,8 +60,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         }
 
         Task task = ParserUtil.buildTask(taskType, taskDes, dates);
-        task.addFrequency(frequency);
-        task.addPriority(priority);
+        task.setFrequency(frequency);
+        task.setPriority(priority);
         for (Tag tag : tagList) {
             task.addTag(tag);
         }

@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.jarvis.model.financetracker.InstallmentList;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.installment.InstallmentDescription;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.installment.InstallmentDescription;
+import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
 /**

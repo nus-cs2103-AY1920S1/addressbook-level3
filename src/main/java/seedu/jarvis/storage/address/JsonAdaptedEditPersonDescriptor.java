@@ -9,18 +9,20 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
-import seedu.jarvis.model.address.tag.Tag;
+import seedu.jarvis.storage.JsonAdapter;
+import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link EditPersonDescriptor}
  */
-public class JsonAdaptedEditPersonDescriptor {
+public class JsonAdaptedEditPersonDescriptor implements JsonAdapter<EditPersonDescriptor> {
     private final String name;
     private final String phone;
     private final String email;
@@ -70,6 +72,7 @@ public class JsonAdaptedEditPersonDescriptor {
      * @throws IllegalValueException If there were any data constraints violated in the adapted
      * {@code EditPersonDescriptor}.
      */
+    @Override
     public EditPersonDescriptor toModelType() throws IllegalValueException {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setName(new Name(name));

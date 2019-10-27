@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
-import seedu.jarvis.model.financetracker.installment.InstallmentMoneyPaid;
+import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 import seedu.jarvis.testutil.finance.EditInstallmentDescriptorBuilder;
 
 public class EditInstallmentCommandParserTest {

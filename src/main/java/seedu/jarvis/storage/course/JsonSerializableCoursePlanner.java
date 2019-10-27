@@ -10,12 +10,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.course.CoursePlanner;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * A {@code CoursePlanner} that is serializable to JSON format.
  */
 @JsonRootName(value = "courseplanner")
-public class JsonSerializableCoursePlanner {
+public class JsonSerializableCoursePlanner implements JsonAdapter<CoursePlanner> {
 
     private final List<JsonAdaptedCourse> courses = new ArrayList<>();
 
@@ -30,7 +31,7 @@ public class JsonSerializableCoursePlanner {
     /**
      * Converts a given {@code CoursePlanner} into this class for Jackson use.
      *
-     * @param coursePlanner future changes to this will not affect the created {@code JsonSerializableCoursePlanner}.
+     * @param coursePlanner Future changes to this will not affect the created {@code JsonSerializableCoursePlanner}.
      */
     public JsonSerializableCoursePlanner(CoursePlanner coursePlanner) {
         courses.addAll(coursePlanner.getCourseList().stream().map(JsonAdaptedCourse::new).collect(Collectors.toList()));
@@ -41,6 +42,7 @@ public class JsonSerializableCoursePlanner {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
+    @Override
     public CoursePlanner toModelType() throws IllegalValueException {
         CoursePlanner coursePlanner = new CoursePlanner();
         for (JsonAdaptedCourse jsonAdaptedCourse : courses) {

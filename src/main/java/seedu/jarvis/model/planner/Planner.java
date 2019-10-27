@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
@@ -22,6 +23,7 @@ public class Planner {
      */
     public Planner() {
         this.taskList = new TaskList();
+        filteredTaskList = new FilteredList<>(getTasks(), PlannerModel.PREDICATE_SHOW_ALL_TASKS);
     }
 
     /**
@@ -39,8 +41,17 @@ public class Planner {
      * Retrieves all the tasks in the planner
      * @return a list of tasks stored in the planner
      */
-    public TaskList getTasks() {
+    public TaskList getTaskList() {
         return taskList;
+    }
+
+    /**
+     * Returns the task list {@code TaskList}.
+     *
+     * @return the task list.
+     */
+    public ObservableList<Task> getTasks() {
+        return FXCollections.observableList(taskList.getTasks());
     }
 
     /**
@@ -72,14 +83,13 @@ public class Planner {
     }
 
     /**
-     * Resets all commands in {@code executedCommands} and {@code inverselyExecutedCommands} to the commands in the
-     * given {@code Planner}.
+     * Resets all tasks to the tasks in the given {@code Planner}.
      *
      * @param planner {@code Planner} to take reference from.
      */
     public void resetData(Planner planner) {
         requireNonNull(planner);
-        this.taskList = new TaskList(planner.getTasks().getTasks());
+        this.taskList = new TaskList(planner.getTaskList().getTasks());
     }
 
     /**
@@ -100,7 +110,7 @@ public class Planner {
         }
 
         //state check
-        return taskList.equals(((Planner) other).getTasks());
+        return taskList.equals(((Planner) other).getTaskList());
     }
 
     /**
