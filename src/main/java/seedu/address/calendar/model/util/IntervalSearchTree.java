@@ -1,10 +1,15 @@
 package seedu.address.calendar.model.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
     private Node root = null;
+    private HashMap<Interval, Integer> intervalTracker = new HashMap<>();
+
+    /* Methods that perform basic operations. */
 
     public Node insert(Interval interval) {
         root = insert(interval, root);
@@ -21,7 +26,7 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         Node leftSubtree = root.leftNode;
 
         if (compare == 0) {
-            // todo: insert into list
+            incrementInterval(interval);
         } else if (compare > 0) {
             updateRootMaxVal(interval, root);
             root.rightNode = insert(interval, rightSubtree);
@@ -34,7 +39,20 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         return avlBalance(root);
     }
 
-    public void remove(Interval interval) {
+    private void incrementInterval(Interval interval) {
+        if (!intervalTracker.containsKey(interval)) {
+            intervalTracker.put(interval, 1);
+            return;
+        }
+        int updatedNumberOfIntervals = intervalTracker.get(interval) + 1;
+        intervalTracker.replace(interval, updatedNumberOfIntervals);
+        return;
+    }
+
+    public void remove(Interval interval) throws NoSuchElementException {
+        if (!intervalTracker.containsKey(interval)) {
+            throw new NoSuchElementException("Unable to remove a non-existent interval");
+        }
         root = remove(interval, root);
     }
 
@@ -50,6 +68,7 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         int compare = interval.compareTo(currentInterval);
 
         if (compare == 0) {
+            decrementInterval(interval);
             if (leftSubtree == null) {
                 return rightSubtree;
             } else if (rightSubtree == null) {
@@ -71,14 +90,100 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         return avlBalance(root);
     }
 
+    private void decrementInterval(Interval interval) {
+        if (!intervalTracker.containsKey(interval)) {
+            assert false : "Deleting of non-existent value is not allowed";
+            return;
+        }
+        int updatedNumberOfIntervals = intervalTracker.get(interval) - 1;
+        if (updatedNumberOfIntervals == 0) {
+            intervalTracker.remove(interval);
+            return;
+        }
+        intervalTracker.replace(interval, updatedNumberOfIntervals);
+        return;
+    }
+
     public boolean hasCollision(Interval interval) {
         return getCollision(interval, root) != null;
+    }
+
+    private Interval getCollision(Interval newInterval, Node subtreeRoot) {
+        if (subtreeRoot == null || newInterval.isStartsAfter(subtreeRoot.max)) {
+            return null;
+        }
+
+        Interval currentInterval = subtreeRoot.interval;
+
+        if (isOverlap(currentInterval, newInterval)) {
+            return currentInterval;
+        }
+
+        Node leftSubtree = subtreeRoot.leftNode;
+        Node rightSubtree = subtreeRoot.rightNode;
+
+        if (leftSubtree != null && !newInterval.isStartsAfter(leftSubtree.max)) {
+            return getCollision(newInterval, leftSubtree);
+        } else {
+            return getCollision(newInterval, rightSubtree);
+        }
+
     }
 
     public List<Interval> getCollisions(Interval newInterval) {
         List<Interval> collisions = new ArrayList<>();
         getCollisions(newInterval, root, collisions);
         return collisions;
+    }
+
+    private void getCollisions(Interval newInterval, Node subtreeRoot, List<Interval> collisions) {
+        if (subtreeRoot == null || newInterval.isStartsAfter(subtreeRoot.max)) {
+            return;
+        }
+
+        Interval currentInterval = subtreeRoot.interval;
+        if (isOverlap(currentInterval, newInterval)) {
+            collisions.add(currentInterval);
+        }
+
+        Node leftSubtree = subtreeRoot.leftNode;
+        Node rightSubtree = subtreeRoot.rightNode;
+
+        if (leftSubtree != null && !newInterval.isStartsAfter(leftSubtree.max)) {
+            getCollisions(newInterval, leftSubtree, collisions);
+        }
+
+        if (currentInterval.isStartsAfter(newInterval.getEnd())) {
+            return;
+        }
+
+        getCollisions(newInterval, rightSubtree, collisions);
+    }
+
+    /* Helper functions that maintain interval tree. */
+
+    private boolean isOverlap(Interval currentInterval, Interval newInterval) {
+        Interval firstInterval;
+        Interval secondInterval;
+        int compare = currentInterval.compareTo(newInterval);
+
+        if (compare == 0) {
+            return true;
+        } else if (compare < 0) {
+            firstInterval = currentInterval;
+            secondInterval = newInterval;
+        } else {
+            firstInterval = newInterval;
+            secondInterval = currentInterval;
+        }
+
+        if (firstInterval.contains(secondInterval.getStart())) {
+            return true;
+        } else if (secondInterval.contains(firstInterval.getEnd())) {
+            return true;
+        }
+
+        return false;
     }
 
     private void updateRootMaxVal(Interval interval, Node root) {
@@ -92,10 +197,6 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
             return;
         }
         toUpdate.max = getMaxIntervalPart(toUpdate, otherNode);
-        /*
-        int maxOther = otherNode == null ? -1 : otherNode.max;
-        toUpdate.max = Math.max(toUpdate.max, maxOther);
-         */
     }
 
     private void updateRootMaxVal(Node leftSubtree, Node root, Node rightSubtree) {
@@ -129,6 +230,8 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         }
         return toUpdateMax;
     }
+
+    /* Helper functions that maintain balanced AVL tree. */
 
     private int computeHeight(Node leftSubtree, Node rightSubtree) {
         int rightSubtreeHeight = rightSubtree == null ? 0 : rightSubtree.height;
@@ -221,76 +324,6 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         leftSubtree.height = computeHeight(leftSubtree.leftNode, leftSubtree.rightNode);
 
         return leftSubtree;
-    }
-
-    private Interval getCollision(Interval newInterval, Node subtreeRoot) {
-        if (subtreeRoot == null || newInterval.isStartsAfter(subtreeRoot.max)) {
-            return null;
-        }
-
-        Interval currentInterval = subtreeRoot.interval;
-
-        if (isOverlap(currentInterval, newInterval)) {
-            return currentInterval;
-        }
-
-        Node leftSubtree = subtreeRoot.leftNode;
-        Node rightSubtree = subtreeRoot.rightNode;
-
-        if (leftSubtree != null && !newInterval.isStartsAfter(leftSubtree.max)) {
-            return getCollision(newInterval, leftSubtree);
-        } else {
-            return getCollision(newInterval, rightSubtree);
-        }
-
-    }
-
-    private void getCollisions(Interval newInterval, Node subtreeRoot, List<Interval> collisions) {
-        if (subtreeRoot == null || newInterval.isStartsAfter(subtreeRoot.max)) {
-            return;
-        }
-
-        Interval currentInterval = subtreeRoot.interval;
-        if (isOverlap(currentInterval, newInterval)) {
-            collisions.add(currentInterval);
-        }
-
-        Node leftSubtree = subtreeRoot.leftNode;
-        Node rightSubtree = subtreeRoot.rightNode;
-
-        if (leftSubtree != null && !newInterval.isStartsAfter(leftSubtree.max)) {
-            getCollisions(newInterval, leftSubtree, collisions);
-        }
-
-        if (currentInterval.isStartsAfter(newInterval.getEnd())) {
-            return;
-        }
-
-        getCollisions(newInterval, rightSubtree, collisions);
-    }
-
-    private boolean isOverlap(Interval currentInterval, Interval newInterval) {
-        Interval firstInterval;
-        Interval secondInterval;
-        int compare = currentInterval.compareTo(newInterval);
-
-        if (compare == 0) {
-            return true;
-        } else if (compare < 0) {
-            firstInterval = currentInterval;
-            secondInterval = newInterval;
-        } else {
-            firstInterval = newInterval;
-            secondInterval = currentInterval;
-        }
-
-        if (firstInterval.contains(secondInterval.getStart())) {
-            return true;
-        } else if (secondInterval.contains(firstInterval.getEnd())) {
-            return true;
-        }
-
-        return false;
     }
 
     private class Node {

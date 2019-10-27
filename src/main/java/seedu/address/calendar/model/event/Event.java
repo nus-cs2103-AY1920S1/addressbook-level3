@@ -69,6 +69,13 @@ public abstract class Event implements Interval<Date, Event> {
     @Override
     public int compareTo(Interval<Date, Event> other) {
         Date otherStartDate = other.getStart();
-        return startDate.compareTo(otherStartDate);
+        int startCompare = startDate.compareTo(otherStartDate);
+        if (startCompare != 0) {
+            return startCompare;
+        }
+
+        Date otherEndDate = other.getEnd();
+        int endCompare = endDate.compareTo(otherEndDate);
+        return endCompare;
     }
 }
