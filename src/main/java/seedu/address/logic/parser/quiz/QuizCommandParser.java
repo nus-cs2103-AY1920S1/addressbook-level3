@@ -26,8 +26,8 @@ import seedu.address.logic.commands.quiz.QuizCreateAutomaticallyCommand;
 import seedu.address.logic.commands.quiz.QuizCreateManuallyCommand;
 import seedu.address.logic.commands.quiz.QuizExportCommand;
 import seedu.address.logic.commands.quiz.QuizListAnswersCommand;
-import seedu.address.logic.commands.quiz.QuizListQuestionsCommand;
 import seedu.address.logic.commands.quiz.QuizListQuestionsAndAnswersCommand;
+import seedu.address.logic.commands.quiz.QuizListQuestionsCommand;
 import seedu.address.logic.commands.quiz.QuizRemoveQuestionCommand;
 
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -65,7 +65,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             return removeQuestionCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { // Export command
             return exportCommand(argMultimap);
-        } else if (argMultimap.getValue(PREFIX_SHOW_QUESTIONS).isPresent()){ // List questions command
+        } else if (argMultimap.getValue(PREFIX_SHOW_QUESTIONS).isPresent()) { // List questions command
             return listQuestionsCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_SHOW_ANSWERS).isPresent()) { // List answers command
             return listAnswersCommand(argMultimap);
