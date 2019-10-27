@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalEvents.getTypicalEventList;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -15,9 +16,9 @@ import seedu.address.testutil.FeatureBuilder;
 
 public class ViewCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new Attendance(),
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalEventList(), new Attendance(),
             new UserPrefs());
-    private ModelManager expectedModel = new ModelManager(model.getAddressBook(),
+    private ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getEventList(),
             new Attendance(), new UserPrefs());
 
     @Test

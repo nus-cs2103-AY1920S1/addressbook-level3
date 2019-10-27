@@ -17,17 +17,21 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Attendance;
+import seedu.address.model.EventList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyEvents;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.AttendanceStorage;
+import seedu.address.storage.EventStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonAttendanceStorage;
+import seedu.address.storage.JsonEventStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -61,8 +65,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        EventStorage eventStorage = new JsonEventStorage(userPrefs.getEventListFilePath());
         AttendanceStorage attendanceStorage = new JsonAttendanceStorage(userPrefs.getAttendanceFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, attendanceStorage);
+        storage = new StorageManager(addressBookStorage, eventStorage, attendanceStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -81,24 +86,45 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialAddressBook;
         ReadOnlyAddressBook initialData;
-        Optional<Attendance> attendanceOptional;
-        Attendance initialAttendance;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file for AddressBook not found. Will be starting with a sample AddressBook");
             }
+            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(
+                    "Data file for AddressBook not in the correct format. Will be starting with an empty AddressBook");
+            initialAddressBook = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(
+                    "Problem while reading from AddressBook file. Will be starting with an empty AddressBook");
+            initialAddressBook = new AddressBook();
         }
 
+        Optional<ReadOnlyEvents> eventListOptional;
+        ReadOnlyEvents initialEventsList;
+        try {
+            eventListOptional = storage.readEvents();
+            if (!eventListOptional.isPresent()) {
+                logger.info("Data file for EventList not found. Will be starting with a sample EventList");
+            }
+            initialEventsList = eventListOptional.orElseGet(SampleDataUtil::getSampleEventList);
+        } catch (DataConversionException e) {
+            logger.warning(
+                    "Data file for EventList not in the correct format. Will be starting with empty EventList");
+            initialEventsList = new EventList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from EventList file. Will be starting with an empty EventList");
+            initialEventsList = new EventList();
+        }
+
+        Optional<Attendance> attendanceOptional;
+        Attendance initialAttendance;
         try {
             attendanceOptional = storage.readAttendance();
             if (!attendanceOptional.isPresent()) {
@@ -112,8 +138,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Attendance");
             initialAttendance = new Attendance();
         }
-
-        return new ModelManager(initialData, initialAttendance, userPrefs);
+        return new ModelManager(initialAddressBook, initialEventsList, initialAttendance, userPrefs);
     }
 
     private void initLogging(Config config) {

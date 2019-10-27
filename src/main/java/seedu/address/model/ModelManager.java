@@ -9,11 +9,14 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.TrainingCommand;
 import seedu.address.model.history.HistoryManager;
+import seedu.address.model.performance.Event;
+import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.training.Training;
@@ -27,6 +30,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final Attendance attendance;
+    private final EventList eventList;
     private final FilteredList<Person> filteredPersons;
     private ReadOnlyAddressBook readOnlyAddressBook;
     private Person selectedPerson;
@@ -36,7 +40,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, Attendance attendance, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEvents eventList,
+                        Attendance attendance, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -44,12 +49,13 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.eventList = new EventList(eventList);
         this.attendance = attendance;
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new Attendance(), new UserPrefs());
+        this(new AddressBook(), new EventList(), new Attendance(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -219,4 +225,27 @@ public class ModelManager implements Model {
     public void addTraining(Training training) {
         this.attendance.addTraining(training);
     }
+
+    //=========== Performance =================================================================================
+
+    @Override
+    public void addEvent(Event event) {
+        eventList.addEvent(event);
+    }
+
+    @Override
+    public boolean hasEvent(Event event) {
+        return eventList.hasEvent(event);
+    }
+
+    @Override
+    public ReadOnlyEvents getEventList() {
+        return eventList;
+    }
+
+    @Override
+    public String addRecord(String eventName, Person person, Record record) {
+        return eventList.addRecord(eventName, person, record);
+    }
+
 }
