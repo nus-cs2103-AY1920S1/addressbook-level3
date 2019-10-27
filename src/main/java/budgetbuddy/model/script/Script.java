@@ -2,6 +2,8 @@ package budgetbuddy.model.script;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 import budgetbuddy.model.attributes.Description;
 
 /**
@@ -51,5 +53,22 @@ public class Script {
      */
     public String getCode() {
         return code;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Script script = (Script) o;
+        return name.equals(script.name) && code.equals(script.code) && description.equals(script.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code, description);
     }
 }
