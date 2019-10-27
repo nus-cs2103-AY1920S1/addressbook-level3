@@ -58,7 +58,6 @@ class JsonAdaptedTrip {
             @JsonProperty("diary") JsonAdaptedDiary diary,
             @JsonProperty("photo") Optional<JsonAdaptedTripPhoto> photo,
             @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) {
-              
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
