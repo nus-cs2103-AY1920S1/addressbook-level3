@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,7 +16,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.TrainingCommand;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
+import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
@@ -246,6 +250,16 @@ public class ModelManager implements Model {
     @Override
     public String addRecord(String eventName, Person person, Record record) {
         return eventList.addRecord(eventName, person, record);
+    }
+
+    @Override
+    public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
+        return eventList.getCalendarCompatiblePerformance(date);
+    }
+
+    @Override
+    public boolean hasPerformanceOn(AthletickDate date) {
+        return eventList.hasPerformanceOn(date);
     }
 
 }

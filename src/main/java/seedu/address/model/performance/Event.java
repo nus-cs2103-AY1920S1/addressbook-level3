@@ -3,7 +3,9 @@ package seedu.address.model.performance;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,7 +16,7 @@ public class Event {
     public static final String MESSAGE_CONSTRAINTS = "%1$s event has not been created.\n"
             + "Please use the event command to create the event first.";
 
-    public static final String INVALID_NAME_MESSAGE_CONSTRAINTS = "Evnt name should not begin with a space.\n";
+    public static final String INVALID_NAME_MESSAGE_CONSTRAINTS = "Event name should not begin with a space.\n";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -69,6 +71,44 @@ public class Event {
 
     public HashMap<Person, List<Record>> getPerformances() {
         return performances;
+    }
+
+    /**
+     * Retrieves a list of Calendar-compatible records for the Calendar.
+     * @param date of Calendar-compatible records.
+     */
+    public List<CalendarCompatibleRecord> getCalendarCompatibleRecords(AthletickDate date) {
+        List<CalendarCompatibleRecord> ccrList = new ArrayList<>();
+        performances.forEach((person, records) -> {
+            String timing = null;
+            for (Record record : records) {
+                if (record.getDate().equals(date)) {
+                    timing = record.getTiming();
+                }
+            }
+            if (timing == null) {
+                timing = "This person does not have a performance record for " + name + " event on " + date.toString();
+            }
+            CalendarCompatibleRecord ccr = new CalendarCompatibleRecord(person, timing);
+            ccrList.add(ccr);
+        });
+        return ccrList;
+    }
+
+    /**
+     * Checks if this event has a recorded performance on the given date.
+     */
+    public boolean hasPerformanceOn(AthletickDate date) {
+        AtomicBoolean answer = new AtomicBoolean(false);
+        performances.forEach((person, records) -> {
+            for (Record record : records) {
+                if (record.getDate().equals(date)) {
+                    answer.set(true);
+                    break;
+                }
+            }
+        });
+        return false;
     }
 
     /**

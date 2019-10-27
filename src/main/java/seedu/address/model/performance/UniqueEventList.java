@@ -3,11 +3,13 @@ package seedu.address.model.performance;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.exceptions.DuplicateEventException;
 
 /**
@@ -51,6 +53,29 @@ public class UniqueEventList implements Iterable<Event> {
             }
         }
         return null;
+    }
+
+    /**
+     * Method for Shawn to retrieve performance records on a particular day for the Calendar feature.
+     */
+    public HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date) {
+        HashMap<Event, List<CalendarCompatibleRecord>> hm = new HashMap<>();
+        for (Event event : internalList) {
+            hm.put(event, event.getCalendarCompatibleRecords(date));
+        }
+        return hm;
+    }
+
+    /**
+     * Checks if there are any recorded performances on the specified date.
+     */
+    public boolean hasPerformanceOn(AthletickDate date) {
+        for (Event event : internalList) {
+            if (event.hasPerformanceOn(date)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
