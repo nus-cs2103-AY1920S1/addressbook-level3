@@ -61,27 +61,37 @@ public class LogicManager implements Logic {
         //Run checker
         Runnable checkTask = new Runnable() {
             public void run() {
-                System.out.println("running checkTask");
-                Reminder reminder;
-                ArrayList<Item> reminders = model.getFutureRemindersList();
+
+                ArrayList<Item> futureReminders = model.getFutureRemindersList();
                 ArrayList<Item> activeReminders = new ArrayList<Item>(0);
-                if (reminders.size() > 0) {
-                    System.out.println("There are pending reminders: " + reminders.toString());
+                Reminder reminder = null;
+                Item item;
+
+                logger.info("----------------[LOGIC MANAGER]["
+                        + "Checking for pending reminders" + "]");
+
+                if (futureReminders.size() > 0) {
+                    logger.info("----------------[LOGIC MANAGER]["
+                            + "There are pending reminders\n" + futureReminders.toString() + "]");
                     //TODO: Check if Optional is present before .get()
-                    reminder = reminders.get(0).getReminder().get();
-                    synchronized (reminders) {
-                        while (reminder != null && reminder.getDateTime().isBefore(LocalDateTime.now())) {
-                            System.out.println("Adding a new task to be reminded.");
-                            Item item = reminders.remove(0);
-                            activeReminders.add(item);
-                            if (reminders.size() > 0) {
-                                reminder = reminders.get(0).getReminder().get();
-                            } else {
-                                reminder = null;
-                            }
+                    Item reminderItem = futureReminders.get(0);
+                    while (reminderItem.getReminder().isEmpty() && futureReminders.size() > 0) {
+                        futureReminders.remove(0);
+                    }
+                    reminder = reminderItem.getReminder().get();
+
+                    while (reminder != null && reminder.getDateTime().isBefore(LocalDateTime.now())) {
+                        logger.info("----------------[LOGIC MANAGER]["
+                                + "Transferring reminder from futureReminders to activeReminders" + "]");
+                        item = futureReminders.remove(0);
+                        activeReminders.add(item);
+                        if (futureReminders.size() > 0) {
+                            reminder = futureReminders.get(0).getReminder().get();
+                        } else {
+                            reminder = null;
                         }
                     }
-                    System.out.println("Adding in model");
+
                     model.getActiveReminderListProperty().addReminders(activeReminders);
                 }
             }
