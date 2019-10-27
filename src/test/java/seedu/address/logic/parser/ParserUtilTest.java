@@ -114,7 +114,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseDate_wrongValue_throwsParseException() {
-        assertThrows(DateTimeParseException.class, () -> ParserUtil.parseDate(WRONG_DATE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate(WRONG_DATE));
     }
 
     @Test
