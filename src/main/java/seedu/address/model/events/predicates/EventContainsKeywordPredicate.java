@@ -3,6 +3,7 @@ package seedu.address.model.events.predicates;
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.events.Event;
 
 /**
@@ -25,6 +26,6 @@ public class EventContainsKeywordPredicate implements Predicate<Event> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof EventContainsKeywordPredicate // instanceof handles nulls
-            && keyword.equals(((EventContainsKeywordPredicate) other).keyword)); // state check
+                && StringUtil.containsIgnoreCase(keyword, ((EventContainsKeywordPredicate) other).keyword));
     }
 }

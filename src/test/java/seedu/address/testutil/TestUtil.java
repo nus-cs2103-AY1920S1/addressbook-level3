@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalDutyRosterBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
 
 import java.io.IOException;
@@ -64,7 +65,8 @@ public class TestUtil {
      */
     public static ModelManager getTypicalModelManager() {
         return new ModelManager(getTypicalAddressBook(), getTypicalAddressBook(),
-            new UserPrefs(), getTypicalQueueManager(), getTypicalAppointmentBook());
+                getTypicalAppointmentBook(), getTypicalDutyRosterBook(),
+            new UserPrefs(), getTypicalQueueManager());
     }
 
 }

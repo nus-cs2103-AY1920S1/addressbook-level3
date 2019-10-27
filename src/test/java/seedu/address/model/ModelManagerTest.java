@@ -119,13 +119,18 @@ public class ModelManagerTest {
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
         AppointmentBook appointmentBook = new AppointmentBook();
+        AppointmentBook dutyRosterBook = new AppointmentBook();
         QueueManager queueManager = new QueueManager();
+
+        //appointmentBook.addEvent();
 
         // same values -> returns true
         modelManager = new ModelManager(patientAddressBook, staffAddressBook,
-            userPrefs, queueManager, appointmentBook);
+                appointmentBook, dutyRosterBook,
+            userPrefs, queueManager);
         ModelManager modelManagerCopy = new ModelManager(patientAddressBook, staffAddressBook,
-            userPrefs, queueManager, appointmentBook);
+                appointmentBook, dutyRosterBook,
+                userPrefs, queueManager);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -137,12 +142,29 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, staffAddressBook,
-            userPrefs, queueManager, appointmentBook)));
+        // different patient addressBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(
+                new AddressBook(), staffAddressBook,
+                appointmentBook, dutyRosterBook,
+                userPrefs, queueManager)));
 
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // different staff addressBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(
+                patientAddressBook, new AddressBook(),
+                appointmentBook, dutyRosterBook,
+                userPrefs, queueManager)));
+
+        // different appointment Book -> returns false
+        assertFalse(modelManager.equals(new ModelManager(
+                patientAddressBook, staffAddressBook,
+                appointmentBook, new AppointmentBook(),
+                userPrefs, queueManager)));
+
+        // different queueManager -> returns false
+        assertFalse(modelManager.equals(new ModelManager(
+                patientAddressBook, staffAddressBook,
+                appointmentBook, dutyRosterBook,
+                new UserPrefs(), queueManager)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
@@ -151,6 +173,7 @@ public class ModelManagerTest {
         differentUserPrefs.setPatientAppointmentBookFilePath(Paths.get("differentFilePath"));
         differentUserPrefs.setDutyRosterBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(patientAddressBook, staffAddressBook,
-            differentUserPrefs, queueManager, appointmentBook)));
+                appointmentBook, dutyRosterBook,
+                differentUserPrefs, queueManager)));
     }
 }

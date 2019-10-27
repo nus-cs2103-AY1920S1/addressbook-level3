@@ -30,12 +30,8 @@ class CommandHistoryTest {
 
     @Test
     void execute_performUndo_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), getTypicalAddressBook(),
-            new UserPrefs(), new QueueManager(), new AppointmentBook());
-        Model expectedModel = new ModelManager(
-            new AddressBook(model.getPatientAddressBook()),
-            new AddressBook(model.getStaffAddressBook()),
-            new UserPrefs(), new QueueManager(), new AppointmentBook());
+        Model model = new ModelManager();
+        Model expectedModel = new ModelManager();
 
         assertFalse(history.canUndo());
 
@@ -64,12 +60,8 @@ class CommandHistoryTest {
 
     @Test
     void canRedo() {
-        Model model = new ModelManager(getTypicalAddressBook(), getTypicalAddressBook(),
-            new UserPrefs(), new QueueManager(), new AppointmentBook());
-        Model expectedModel = new ModelManager(
-            new AddressBook(model.getPatientAddressBook()),
-            new AddressBook(model.getStaffAddressBook()),
-            new UserPrefs(), new QueueManager(), new AppointmentBook());
+        Model model = new ModelManager();
+        Model expectedModel = new ModelManager();
 
         assertFalse(history.canRedo());
 

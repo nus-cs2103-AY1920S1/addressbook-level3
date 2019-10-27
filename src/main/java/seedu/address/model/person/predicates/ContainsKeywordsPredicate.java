@@ -26,7 +26,7 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ContainsKeywordsPredicate // instanceof handles nulls
-                && keyword.equals(((ContainsKeywordsPredicate) other).keyword)); // state check
+                && StringUtil.containsIgnoreCase(keyword, ((ContainsKeywordsPredicate) other).keyword)); // state check
     }
 
 }

@@ -110,4 +110,11 @@ public class TypicalPersons {
     public static AppointmentBook getTypicalAppointmentBook() {
         return new AppointmentBook();
     }
+
+    /**
+     * Returns an {@code AppointmentBook} with all the typical Duty Roster.
+     */
+    public static AppointmentBook getTypicalDutyRosterBook() {
+        return new AppointmentBook();
+    }
 }

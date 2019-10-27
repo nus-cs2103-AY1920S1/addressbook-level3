@@ -1,9 +1,11 @@
 package seedu.address.logic.commands.utils;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
@@ -225,39 +227,68 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateFilteredEventList(ReferenceId referenceId) {
-
-    }
-
-    @Override
-    public void updateFilteredEventList() {
-
-    }
-
-    @Override
-    public void updateToMissedEventList() {
-
-    }
-
-    @Override
-    public void updateToSettleEventList() {
-
-    }
-
-    @Override
-    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
-
-    }
-
-
-    @Override
     public Boolean isPatientList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Boolean isMissedList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDutyShiftSchedule(ReadOnlyAppointmentBook schedule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyAppointmentBook getDutyShiftBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasDutyShift(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasExactDutyShift(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteDutyShift(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addDutyShift(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDutyShift(Event target, Event editedEvent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredDutyShiftList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredDutyShiftList(Predicate<Event> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setTabListing(OmniPanelTab tab) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void bindTabListingCommand(Consumer<OmniPanelTab> tabConsumer) {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -272,11 +303,11 @@ public class ModelStub implements Model {
 
     @Override
     public Person resolveStaff(ReferenceId id) throws EntryNotFoundException {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasStaff(ReferenceId id) {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 }

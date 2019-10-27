@@ -25,8 +25,7 @@ import seedu.address.model.userprefs.UserPrefs;
  */
 public class DequeueCommandTest {
 
-    private Model model = new ModelManager(new AddressBook(), new AddressBook(),
-        new UserPrefs(), new QueueManager(), getTypicalAppointmentBook());
+    private Model model = new ModelManager();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -39,8 +38,7 @@ public class DequeueCommandTest {
 
         String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(new AddressBook(), new AddressBook(),
-            new UserPrefs(), new QueueManager(), getTypicalAppointmentBook());
+        ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(ALICE);
         expectedModel.addPerson(BENSON);
         expectedModel.enqueuePatient(BENSON.getReferenceId());
