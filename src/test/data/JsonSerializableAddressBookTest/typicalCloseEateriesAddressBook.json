@@ -1,0 +1,46 @@
+{
+  "_comment": "AddressBook save file which contains the same Eatery values as in TypicalEaterys#getTypicalAddressBook()",
+  "eateries" : [ {
+    "name" : "Alice Pauline",
+    "isOpen" : "false",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "category": "Chinese",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "isOpen" : "false",
+    "address" : "311, Clementi Ave 2, #02-25",
+    "category": "Western",
+    "tagged" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "isOpen" : "false",
+    "address" : "wall street",
+    "category": "Western",
+    "tagged" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "isOpen" : "false",
+    "address" : "10th street",
+    "category": "Western",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "isOpen" : "false",
+    "address" : "michegan ave",
+    "category": "Western",
+    "tagged" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "isOpen" : "false",
+    "address" : "little tokyo",
+    "category": "Western",
+    "tagged" : [ ]
+  }, {
+    "name" : "George Best",
+    "isOpen" : "false",
+    "address" : "4th street",
+    "category": "Western",
+    "tagged" : [ ]
+  } ]
+}

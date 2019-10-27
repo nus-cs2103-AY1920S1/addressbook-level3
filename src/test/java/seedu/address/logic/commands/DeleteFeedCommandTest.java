@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEateries.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEateries.getTypicalOpenAddressBook;
 import static seedu.address.testutil.TypicalFeeds.getTypicalFeedList;
 
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import seedu.address.model.feed.Feed;
  */
 public class DeleteFeedCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalFeedList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalOpenAddressBook(), getTypicalFeedList(), new UserPrefs());
 
     @Test
     public void execute_validName_success() {

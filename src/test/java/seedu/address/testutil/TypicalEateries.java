@@ -69,12 +69,21 @@ public class TypicalEateries {
     /**
      * Returns an {@code AddressBook} with all the typical eateries.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static AddressBook getTypicalOpenAddressBook() {
         AddressBook ab = new AddressBook();
         for (Eatery eatery : getTypicalEateries()) {
             ab.addEatery(eatery);
             ab.toggle();
             ab.addEatery(eatery);
+        }
+        return ab;
+    }
+
+    public static AddressBook getTypicalCloseAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Eatery eatery : getTypicalEateries()) {
+            Eatery closedEatery = new EateryBuilder(eatery).withIsOpen(false).build();
+            ab.addEatery(closedEatery);
         }
         return ab;
     }
