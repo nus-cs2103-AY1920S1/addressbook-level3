@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.itinerary.model.event.Event;
@@ -48,6 +49,9 @@ public class EventCard extends UiPart<Region> {
     private Label time;
 
     @FXML
+    private Label tag;
+
+    @FXML
     private ImageView checkBox;
 
     public EventCard(Event event, int displayedIndex) {
@@ -59,6 +63,9 @@ public class EventCard extends UiPart<Region> {
         loc.setText(event.getLocation().location);
         date.setText(event.getDate().date);
         time.setText(event.getTime().time);
+        tag.setText(event.getTag().tag);
+
+        tag.setStyle(selectStyle(event.getTag().tag));
 
         Image image;
 
@@ -87,5 +94,53 @@ public class EventCard extends UiPart<Region> {
         EventCard card = (EventCard) other;
         return id.getText().equals(card.id.getText())
                 && event.equals(card.event);
+    }
+
+    private String selectStyle(String command) {
+        String priority = command.split(" ")[1];
+        switch (priority) {
+        case ("None"):
+            return "-fx-background-color: grey;"
+                    + "-fx-background-radius: 5;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-label-padding: 2;"
+                    + "-fx-text-fill: white;"
+                    + "-fx-border-color: white;";
+
+        case ("Low"):
+            return "-fx-background-color: darkorchid;"
+                    + "-fx-background-radius: 5;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-label-padding: 2;"
+                    + "-fx-text-fill: white;"
+                    + "-fx-border-color: white;";
+
+        case("Medium"):
+            return "-fx-background-color: indianred;"
+                    + "-fx-background-radius: 5;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-label-padding: 2;"
+                    + "-fx-text-fill: white;"
+                    + "-fx-border-color: white;";
+
+        case("High"):
+            return "-fx-background-color: crimson;"
+                    + "-fx-background-radius: 5;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-label-padding: 2;"
+                    + "-fx-text-fill: white;"
+                    + "-fx-border-color: white;";
+
+        case("Critical"):
+            return "-fx-background-color: darkred;"
+                    + "-fx-background-radius: 5;"
+                    + "-fx-border-radius: 5;"
+                    + "-fx-label-padding: 2;"
+                    + "-fx-text-fill: white;"
+                    + "-fx-border-color: white;";
+
+        default:
+            return "";
+        }
     }
 }

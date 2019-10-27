@@ -2,9 +2,8 @@ package seedu.address.diaryfeature.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-
-import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

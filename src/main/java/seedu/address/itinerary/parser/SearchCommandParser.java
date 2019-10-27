@@ -1,13 +1,10 @@
 package seedu.address.itinerary.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.itinerary.parser.CliSyntax.*;
 
 import seedu.address.itinerary.commands.SearchCommand;
+import seedu.address.itinerary.ui.TagDropdown;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -20,24 +17,33 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_TIME,
-                        PREFIX_LOCATION, PREFIX_DESCRIPTION);
+                        PREFIX_LOCATION, PREFIX_DESCRIPTION, PREFIX_TAG);
 
         SearchCommand.SearchEventDescriptor searchEventDescriptor = new SearchCommand.SearchEventDescriptor();
+
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
             searchEventDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
+
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             searchEventDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
+
         if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
             searchEventDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
         }
+
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             searchEventDescriptor.setLocation(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
+
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             searchEventDescriptor.setDescription(ParserUtil.parseDescription(argMultimap
                     .getValue(PREFIX_DESCRIPTION).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            searchEventDescriptor.setTag(ParserUtil.parseTag(TagDropdown.getDropdownText()));
         }
 
         if (!searchEventDescriptor.isAnyFieldEdited()) {
