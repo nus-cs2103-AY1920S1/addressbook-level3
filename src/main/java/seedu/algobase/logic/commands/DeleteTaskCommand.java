@@ -82,9 +82,9 @@ public class DeleteTaskCommand extends Command {
         private Index planIndex;
         private Index taskIndex;
 
-        public DeleteTaskDescriptor(Index planIndex, Index problemIndex) {
+        public DeleteTaskDescriptor(Index planIndex, Index taskIndex) {
             this.planIndex = planIndex;
-            this.taskIndex = problemIndex;
+            this.taskIndex = taskIndex;
         }
 
         @Override

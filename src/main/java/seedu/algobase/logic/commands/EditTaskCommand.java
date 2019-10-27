@@ -38,7 +38,7 @@ public class EditTaskCommand extends Command {
             + PREFIX_TASK + "10 "
             + PREFIX_DUE_DATE + "2019-12-12";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task [%1$s] set to be due at [%2$s] in Plan [%3$s].";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task [%1$s] set to be due at [%2$s] in Plan [%3$s].";
 
     private final EditTaskDescriptor editTaskDescriptor;
 
@@ -70,7 +70,7 @@ public class EditTaskCommand extends Command {
         model.setPlan(planToUpdate, updatedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
         return new CommandResult(
-            String.format(MESSAGE_DONE_TASK_SUCCESS,
+            String.format(MESSAGE_EDIT_TASK_SUCCESS,
                 taskToUpdate.getProblem().getName(),
                 editTaskDescriptor.targetDate,
                 updatedPlan.getPlanName()));

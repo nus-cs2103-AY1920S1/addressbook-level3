@@ -83,9 +83,9 @@ public class UndoneTaskCommand extends Command {
         private Index planIndex;
         private Index taskIndex;
 
-        public UndoneTaskDescriptor(Index planIndex, Index problemIndex) {
+        public UndoneTaskDescriptor(Index planIndex, Index taskIndex) {
             this.planIndex = planIndex;
-            this.taskIndex = problemIndex;
+            this.taskIndex = taskIndex;
         }
 
         @Override

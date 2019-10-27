@@ -83,6 +83,7 @@ public class AddTaskCommand extends Command {
             return new CommandResult(
                 String.format(MESSAGE_DUPLICATE_TASK, task.getProblem().getName(), planToUpdate.getPlanName()));
         }
+
         taskSet.add(task);
         Plan updatedPlan = Plan.updateTasks(planToUpdate, taskSet);
         model.setPlan(planToUpdate, updatedPlan);

@@ -83,9 +83,9 @@ public class DoneTaskCommand extends Command {
         private Index planIndex;
         private Index taskIndex;
 
-        public DoneTaskDescriptor(Index planIndex, Index problemIndex) {
+        public DoneTaskDescriptor(Index planIndex, Index taskIndex) {
             this.planIndex = planIndex;
-            this.taskIndex = problemIndex;
+            this.taskIndex = taskIndex;
         }
 
         @Override
