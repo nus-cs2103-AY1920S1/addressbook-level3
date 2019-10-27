@@ -20,6 +20,7 @@ import budgetbuddy.model.ModelManager;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.model.util.SampleDataUtil;
 import budgetbuddy.storage.JsonUserPrefsStorage;
 import budgetbuddy.storage.Storage;
 import budgetbuddy.storage.StorageManager;
@@ -93,9 +94,9 @@ public class MainApp extends Application {
         try {
             loansManagerOptional = storage.readLoans();
             if (loansManagerOptional.isEmpty()) {
-                logger.info("Loans file not found. Will be starting with an empty LoansManager.");
+                logger.info("Loans file not found. Will be starting with a sample LoansManager.");
             }
-            return loansManagerOptional.orElseGet(LoansManager::new);
+            return loansManagerOptional.orElseGet(SampleDataUtil::getSampleLoansManager);
         } catch (DataConversionException e) {
             logger.warning("Loans file not in the correct format. Will be starting with an empty LoansManager.");
             return new LoansManager();
