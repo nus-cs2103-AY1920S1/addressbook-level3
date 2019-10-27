@@ -39,7 +39,7 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
 
         Rectangle rectangle = new Rectangle(0, 0, 0, 0);
         rectangle.setStroke(Color.TRANSPARENT);
-        rectangle.setFill(color.deriveColor(1, 1, 1, 0.2));
+        rectangle.setFill(color);
 
         marker.setNode(rectangle);
 
@@ -59,9 +59,15 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
         super.layoutPlotChildren();
         for (Data<Y, Y> horizontalRangeMarker : horizontalRangeMarkers) {
             Rectangle rectangle = (Rectangle) horizontalRangeMarker.getNode();
-            rectangle.setY(getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()));
+
+            // Suppose y axis has range (a, b). The display position of y axis upper bound, b, is 0.
+            // If display position of c, where c is actual y coordinate, is negative, then c > b.
+            // This means c is not on y axis. We set the display position of second value
+            // of horizontalRangeMarker = 0 so that horizontalRangeMarker can be plotted on graph.
+            Double upperYDisplayPos = Math.max(getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()), 0.0);
+            rectangle.setY(upperYDisplayPos);
             rectangle.setHeight(getYAxis().getDisplayPosition(horizontalRangeMarker.getXValue())
-                - getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()));
+                    - upperYDisplayPos);
             rectangle.setX(0d);
             rectangle.setWidth(getBoundsInLocal().getWidth());
             rectangle.toBack();

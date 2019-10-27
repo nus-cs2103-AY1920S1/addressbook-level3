@@ -14,6 +14,7 @@ public class Bmi extends Record {
 
     private final Height height;
     private final Weight weight;
+    private final Double bmi;
 
     public Bmi(Height height, Weight weight, DateTime dateTime) {
         super(dateTime);
@@ -21,6 +22,8 @@ public class Bmi extends Record {
         requireNonNull(weight);
         this.height = height;
         this.weight = weight;
+        double heightInMeter = height.getHeight() / 100;
+        this.bmi = weight.getWeight() / (heightInMeter * heightInMeter);
     }
 
     public Height getHeight() {
@@ -29,6 +32,10 @@ public class Bmi extends Record {
 
     public Weight getWeight() {
         return weight;
+    }
+
+    public Double getBmi() {
+        return bmi;
     }
 
     @Override

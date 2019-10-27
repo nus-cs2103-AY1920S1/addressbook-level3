@@ -59,8 +59,7 @@ public class AverageCommandParserTest {
 
         // invalid record type
         assertParseFailure(parser, " a/WEEKLY rt/ANYHOW",
-            String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_RECORDTYPE));
+                "System does not accommodate such a record type.");
 
         // invalid count type
         assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/five",

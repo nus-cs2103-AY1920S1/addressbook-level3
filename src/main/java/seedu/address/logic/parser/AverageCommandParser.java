@@ -19,7 +19,7 @@ import seedu.address.model.statistics.AverageType;
 public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String DEFAULT_COUNT_STRING = "5";
 
-    private static final String COUNT_REGEX = "[1-9]";
+    private static final String COUNT_VALIDATION_REGEX = "[1-9]";
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
@@ -44,33 +44,8 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
         }
 
-        AverageType averageType;
-
-        switch (argMultimap.getValue(PREFIX_AVGTYPE).get().toUpperCase()) {
-        case "DAILY":
-            //fallthrough
-        case "WEEKLY":
-            //fallthrough
-        case "MONTHLY":
-            averageType = AverageType.valueOf(argMultimap.getValue(PREFIX_AVGTYPE).get().toUpperCase());
-            break;
-        default:
-            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_AVGTYPE));
-        }
-
-        RecordType recordType;
-
-        switch (argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase()) {
-        case "BLOODSUGAR":
-            //fallthrough
-        case "BMI":
-            recordType = RecordType.valueOf(argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase());
-            break;
-        default:
-            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_RECORDTYPE));
-        }
+        AverageType averageType = ParserUtil.parseAverageType(argMultimap.getValue(PREFIX_AVGTYPE).get());
+        RecordType recordType = ParserUtil.parseRecordType(argMultimap.getValue(PREFIX_RECORDTYPE).get().toUpperCase());
 
         String strCount;
 
@@ -80,7 +55,7 @@ public class AverageCommandParser implements Parser<AverageCommand> {
             strCount = DEFAULT_COUNT_STRING;
         }
 
-        if (!strCount.matches(COUNT_REGEX)) {
+        if (!strCount.matches(COUNT_VALIDATION_REGEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
                 AverageCommand.MESSAGE_INVALID_COUNT));
         }
