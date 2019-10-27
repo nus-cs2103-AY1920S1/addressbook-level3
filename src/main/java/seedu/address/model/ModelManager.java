@@ -306,6 +306,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteReminder(Reminder target) {
+        addressBook.removeReminder(target);
+    }
+
+    @Override
     public void updateFilteredReminderList(Predicate<Reminder> predicate) {
         requireNonNull(predicate);
         filteredReminder.setPredicate(predicate);

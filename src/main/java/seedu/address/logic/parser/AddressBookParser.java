@@ -29,6 +29,8 @@ import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.commands.calendar.DeleteTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
+import seedu.address.logic.commands.reminder.AddReminderCommand;
+import seedu.address.logic.commands.reminder.DeleteReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
 
@@ -169,6 +171,12 @@ public class AddressBookParser {
 
             case FindEarningsCommand.COMMAND_WORD:
                 return new FindEarningsCommandParser().parse(arguments);
+
+            case AddReminderCommand.COMMAND_WORD:
+                return new AddReminderParser().parse(arguments);
+
+            case DeleteReminderCommand.COMMAND_WORD:
+                return new DeleteReminderParser().parse(arguments);
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

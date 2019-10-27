@@ -216,4 +216,10 @@ public interface Model {
      */
     void addReminder(Reminder reminder);
 
+    /**
+     * Deletes the given reminder.
+     * {@code reminder} must not already exist in the address book.
+     */
+    void deleteReminder(Reminder reminder);
+
 }

@@ -24,6 +24,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Participation;
 import seedu.address.model.person.Picture;
 import seedu.address.model.person.Result;
+import seedu.address.model.reminder.ReminderDescription;
+import seedu.address.model.reminder.ReminderTime;
 import seedu.address.model.task.Marking;
 import seedu.address.model.task.TaskDescription;
 import seedu.address.model.task.TaskTime;
@@ -282,5 +284,42 @@ public class ParserUtil {
             throw new ParseException(Week.MESSAGE_CONSTRAINTS);
         }
         return new Week(trimmedWeek);
+    }
+
+    /**
+     * Parses a {@code String reminderDescription} into a {@code ReminderDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static ReminderDescription parseReminderDescription(String reminderDescription) {
+        requireNonNull(reminderDescription);
+        String trimmedReminderDescription = reminderDescription.trim();
+        return new ReminderDescription(trimmedReminderDescription);
+    }
+
+    /**
+     * Parses a {@code String reminderTime} into a {@code ReminderTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code taskTime} is invalid.
+     */
+    public static ReminderTime parseReminderTime(String reminderTime) throws ParseException {
+        requireNonNull(reminderTime);
+        String trimmedReminderTime = reminderTime.trim();
+        if (!ReminderTime.isValidReminderTime(trimmedReminderTime)) {
+            throw new ParseException(ReminderTime.MESSAGE_CONSTRAINTS);
+        }
+        return new ReminderTime(trimmedReminderTime);
+    }
+
+    /**
+     * Parses {@code Collection<String> reminderTimes} into a {@code Set<ReminderTime>}.
+     */
+    public static Set<ReminderTime> parseReminderTimes(Collection<String> reminderTimes) throws ParseException {
+        requireNonNull(reminderTimes);
+        final Set<ReminderTime> reminderTimeList = new HashSet<>();
+        for (String reminderTime : reminderTimes) {
+            reminderTimeList.add(parseReminderTime(reminderTime));
+        }
+        return reminderTimeList;
     }
 }

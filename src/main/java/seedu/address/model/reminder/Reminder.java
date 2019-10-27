@@ -16,27 +16,26 @@ import seedu.address.model.task.TaskTime;
  */
 public class Reminder {
     // Identity fields
-    private final Task task;
-    private final TaskDescription taskDescription;
-    private final Set<TaskTime> taskTimeSet = new HashSet<>();
+    private final ReminderDescription reminderDescription;
+    private final Set<ReminderTime> reminderTimeSet = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Reminder(Task task) {
-        requireAllNonNull(task);
-        this.task = task;
-        this.taskDescription = task.getDescription();
+    public Reminder(ReminderDescription reminderDescription, Set<ReminderTime> reminderTime) {
+        requireAllNonNull(reminderDescription);
+        this.reminderDescription = reminderDescription;
+        reminderTimeSet.addAll(reminderTime);
     }
 
 
 
-    public TaskDescription getDescription() {
-        return taskDescription;
+    public ReminderDescription getDescription() {
+        return reminderDescription;
     }
 
-    public Set<TaskTime> getTime() {
-        return Collections.unmodifiableSet(taskTimeSet);
+    public Set<ReminderTime> getTime() {
+        return Collections.unmodifiableSet(reminderTimeSet);
     }
 
 
@@ -63,19 +62,19 @@ public class Reminder {
             return true;
         }
 
-        if (!(other instanceof Task)) {
+        if (!(other instanceof Reminder)) {
             return false;
         }
 
-        Task otherPerson = (Task) other;
-        return otherPerson.getDescription().equals(getDescription())
-                && otherPerson.getTime().equals(getTime());
+        Reminder otherReminder = (Reminder) other;
+        return otherReminder.getDescription().equals(getDescription())
+                && otherReminder.getTime().equals(getTime());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(task);
+        return Objects.hash(reminderDescription, reminderTimeSet);
     }
 
     @Override
@@ -84,8 +83,7 @@ public class Reminder {
         builder.append(" Description: ")
                 .append(getDescription())
                 .append(" Time: ")
-                .append(getTime())
-                .append(" Status: ");
+                .append(getTime());
         return builder.toString();
     }
 }
