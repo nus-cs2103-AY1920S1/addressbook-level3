@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -34,6 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<Tag> filteredTags;
     private final FilteredList<Plan> filteredPlans;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<CommandHistory> filteredCommandHistories;
     private final FilteredList<ProblemSearchRule> filteredFindRules;
 
     /**
@@ -53,6 +55,7 @@ public class ModelManager implements Model {
         filteredPlans = new FilteredList<>(this.algoBase.getPlanList());
         filteredTasks = new FilteredList<>(this.algoBase.getCurrentTaskList());
         filteredFindRules = new FilteredList<>(this.algoBase.getFindRules());
+        filteredCommandHistories = new FilteredList<>(this.algoBase.getCommandHistoryList());
     }
 
     public ModelManager() {
@@ -138,8 +141,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Problem} backed by the internal list of
-     * {@code versionedAlgoBase}
+     * Returns an unmodifiable view of the list of {@code Problem}.
      */
     @Override
     public ObservableList<Problem> getFilteredProblemList() {
@@ -288,6 +290,28 @@ public class ModelManager implements Model {
     public ObservableList<Task> getCurrentTaskList() {
         return filteredTasks;
     }
+
+    //========== Rewind =================================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code CommandHistory}.
+     */
+    @Override
+    public ObservableList<CommandHistory> getCommandHistoryList() {
+        return filteredCommandHistories;
+    }
+
+    /**
+     * Adds the given {@code CommandHistory}.
+     *
+     * @param history the added history
+     */
+    @Override
+    public void addCommandHistory(CommandHistory history) {
+        requireNonNull(history);
+        algoBase.addCommandHistory(history);
+    }
+
 
     //========== Find Rules =============================================================
 

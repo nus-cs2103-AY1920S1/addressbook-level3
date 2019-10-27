@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.model.commandhistory.CommandHistory;
+import seedu.algobase.model.commandhistory.CommandHistoryList;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanList;
@@ -30,6 +32,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     private final PlanList plans;
     private final GuiState guiState;
     private final UniqueFindRuleList findRules;
+    private final CommandHistoryList commandHistories;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -43,6 +46,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         plans = new PlanList();
         tags = new UniqueTagList();
         guiState = new GuiState();
+        commandHistories = new CommandHistoryList();
         findRules = new UniqueFindRuleList();
     }
 
@@ -323,6 +327,21 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     public void removeFindRule(ProblemSearchRule toRemove) {
         requireNonNull(toRemove);
         findRules.remove(toRemove);
+    }
+
+    //========== Rewind =================================================================
+
+    @Override
+    public ObservableList<CommandHistory> getCommandHistoryList() {
+        return commandHistories.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Adds a {@code CommandHistroy} to AlgoBase.
+     */
+    public void addCommandHistory(CommandHistory history) {
+        requireNonNull(history);
+        commandHistories.add(history);
     }
 
     //========== Util ===================================================================

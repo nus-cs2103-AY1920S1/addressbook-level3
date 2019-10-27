@@ -2,6 +2,7 @@ package seedu.algobase.model;
 
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -51,6 +52,11 @@ public interface ReadOnlyAlgoBase {
      * Returns a view of the GuiState.
      */
     GuiState getGuiState();
+
+    /**
+     * Returns an unmodifiable view of the command history.
+     */
+    ObservableList<CommandHistory> getCommandHistoryList();
 
     ObservableList<ProblemSearchRule> getFindRules();
 }
