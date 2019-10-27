@@ -18,7 +18,14 @@ By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 == Introduction
 
-*AddMin+* is an all in one administration desktop application, that is specially designed for *ABC Company*, an events management start-up company with limited manpower and resources. This start-up has an admin who handles both the management of events and employees. *AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the administrative tasks of the company by providing the following functions: event creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events and providing an overview of all the data via statistics. The purpose of this user guide is show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
+*AddMin+* is an all in one administration desktop application, that is specially designed for *ABC Company*,
+an events management start-up company with limited manpower and resources. This start-up has an admin who handles both
+the management of events and employees. *AddMin+* is specially designed to ease the workload of the admin and allow
+him/her to effectively handle the administrative tasks of the company by providing the following functions: event
+creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events
+and providing an overview of all the data via statistics. The purpose of this user guide is show the user how they can
+use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using
+our app.
 
 == Quick Start
 
@@ -45,7 +52,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General. The commands that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands, for new users do refer to Section 3.1 till Section 3.4 for the specific command and how to use them. For more advanced users, you could refer to Section 4.1 for the full list of Command Summary.
+The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower, Event, and General. The commands
+that AddMin+ recognize follows a specific format, however, each category will have their own set of valid commands.
+For new users, do refer to Section 3.1 till Section 3.4 for the specific command and how to use them. For more advanced
+users, you could refer to <<Command Summary>>.
 
 *Command Format*
 
@@ -53,6 +63,7 @@ The features of AddMin+ can be grouped into 4 main categories, Finance, Manpower
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Previous commands can be accessed by using the *up-arrow keys*.
 ====
 
 === General Commands
@@ -218,7 +229,7 @@ Examples:
 
 Automatically chooses and allocates employees that meet the requirements to events .
 
-Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG] [t/TAG]...`
+Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG]...`
 
 [TIP]
 Fields in [] are optional.
@@ -230,7 +241,7 @@ Random selection of employee to allocate if supply exceeds demand of event.
 * The `NUMBER` refers to the number of employees to be allocated to the event.
 * Both `EVENT_INDEX` and `NUMBER` *must be a positive integer* 1, 2, 3, ...
 * If no `NUMBER` is specified, it is assumed to be the current manpower count required by the event.
-*
+
 ****
 
 Examples:
@@ -305,7 +316,7 @@ image::AfterFetch.png[width="600"]
 
 To allocate employees to this event, simply *click the 'allocate' button*.
 After clicking the allocate button, the employee list should be updated.
-Likewise, to free/deallocate employees, *click the 'free' button*
+Likewise, to free/deallocate employees, *click the 'free' button*.
 [NOTE]
 If the employee list is not updated, it means the current manpower available is insufficient to fulfil the
 requirements of the event.
@@ -376,7 +387,7 @@ Format: `stats_g`
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the address book and event book.
 
 Format: `clear`
 
@@ -416,12 +427,10 @@ e.g. `delete_em 2`
 e.g. `delete_ev 1`
 * *Log Working Hours*: `log INDEX DDMMYYYY HOURSWORKED` +
 e.g. `log 2 30092019 8`
-* *Done Event*: `done INDEX` +
-e.g. `done 2`
 * *Allocate Employees (Auto)*: `allocate EVENT_ID [f/TAGS]...` +
-e.g. `allocate 002 t/female`
+e.g. `allocate 1 n/2 t/female`
 * *Allocate Employees (Manual)*: `allocateM EVENT_ID [n/EMPLOYEE_NUMBER]...` +
-e.g. `allocateM 002 n/2 n/5 n/3`
+e.g. `allocatem 1 n/2 `
 * *Set DateTime to Event*: `set_ev_dt EVENT_INDEX on/EVENT_DATE time/EVENT_DAYTIME` +
 e.g. `set_ev_dt 2 on/18/10/2019 time/1000-2000`
 * *Generate Employee Payslip*: `pay n/EMPLOYEE_NUMBER f/DDMMYYY t/DDMMYYY` +

@@ -103,8 +103,8 @@ public class Event {
     /**
      * Checks if an employee is available for this event.
      *
-     * @param employee
-     * @param filteredEventList
+     * @param employee to check
+     * @param filteredEventList a complete event list.
      */
     public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
         List<Event> containsEmployeeEventList = filteredEventList.stream()
@@ -213,6 +213,7 @@ public class Event {
         builder.append(" \nEvent Manpower Count: ").append(getCurrentManpowerCount() + " / ")
                 .append(getManpowerNeeded());
         builder.append(" \nEvent Date: ").append(getStartDate()).append(" - " + getEndDate());
+        builder.append(" \nEvent DateTime: ").append(getEventDateTimeMap());
         builder.append(" \nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
