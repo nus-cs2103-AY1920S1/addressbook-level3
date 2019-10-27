@@ -1,30 +1,34 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.exceptions.ActivityNotFoundException;
 
 /**
  * Wrapper for all the activities stored by this application.
  */
+public class ActivityBook implements ReadOnlyActivityBook {
 
-public class ActivityBook {
+    private final ObservableList<Activity> activityList = FXCollections.observableArrayList();
+    private final ObservableList<Activity> unmodifiableActivityList =
+            FXCollections.unmodifiableObservableList(activityList);
 
-    private final ArrayList<Activity> activityList;
-
-    public ActivityBook() {
-        activityList = new ArrayList<Activity>();
-    }
+    public ActivityBook() { }
 
     /**
      * Creates an ActivityBook using the Activities in the {@code previousActivityBook}
      */
     public ActivityBook(ActivityBook previousActivityBook) {
-        activityList = previousActivityBook.getActivityList();
+        activityList.addAll(previousActivityBook.getActivityList());
     }
+
+    // ================ List overwrite operations ================
 
     /**
      * Returns true if an activity with the same primary key as {@code primaryKey} exists in the activity book.
@@ -38,7 +42,6 @@ public class ActivityBook {
         return false;
     }
 
-    //// list overwrite operations
     /**
      * Replaces the contents of the activity list with {@code activityList}.
      */
@@ -55,11 +58,13 @@ public class ActivityBook {
         setActivities(newData.getActivityList());
     }
 
-    //// activity-level operations
+    // ================ Activity-level operations ================
+
     /**
      * Adds an activity to the activity book.
      */
     public void addActivity(Activity a) {
+        requireNonNull(a);
         activityList.add(a);
     }
 
@@ -68,7 +73,10 @@ public class ActivityBook {
      * {@code key} must exist in the activity book.
      */
     public void removeActivity(Activity key) {
-        activityList.remove(key);
+        requireNonNull(key);
+        if (!activityList.remove(key)) {
+            throw new ActivityNotFoundException();
+        }
     }
 
     /**
@@ -76,29 +84,29 @@ public class ActivityBook {
      * {@code target} must exist in the activity book.
      */
     public void setActivity(Activity target, Activity editedActivity) {
-        requireNonNull(editedActivity);
+        requireAllNonNull(target, editedActivity);
 
-        int index = -1;
-        for (int z = 0; z < activityList.size(); z++) {
-            if (activityList.get(z).equals(target)) {
-                index = z;
-                break;
-            }
+        int index = activityList.indexOf(target);
+        if (index == -1) {
+            throw new ActivityNotFoundException();
         }
-        if (index != -1) {
-            activityList.set(index, editedActivity);
-        }
+
+        activityList.set(index, editedActivity);
     }
 
-    //// util methods
+    // ================ Utility methods ================
 
     @Override
     public String toString() {
         return activityList.size() + " activities";
     }
 
-    public ArrayList<Activity> getActivityList() {
-        return this.activityList;
+    /**
+     * Returns the backing list of activities as an unmodifiable {@code ObservableList}.
+     */
+    @Override
+    public ObservableList<Activity> getActivityList() {
+        return unmodifiableActivityList;
     }
 
     @Override

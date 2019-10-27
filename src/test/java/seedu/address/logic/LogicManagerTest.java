@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -48,13 +49,13 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new
-            JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+                JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonActivityBookStorage activityBookStorage = new
                 JsonActivityBookStorage(temporaryFolder.resolve("activityBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new
-            JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+                JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonInternalStateStorage internalStateStorage = new
-            JsonInternalStateStorage(temporaryFolder.resolve("state.json"));
+                JsonInternalStateStorage(temporaryFolder.resolve("state.json"));
         StorageManager storage = new StorageManager(addressBookStorage,
                 userPrefsStorage, internalStateStorage, activityBookStorage);
         logic = new LogicManager(model, storage);
@@ -74,8 +75,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListCommand.COMMAND_WORD + " " + PREFIX_ACTIVITY;
+        String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "activities");
+        assertCommandSuccess(listCommand, expectedMessage, model);
     }
 
     @Test
@@ -107,6 +109,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityList().remove(0));
     }
 
     /**

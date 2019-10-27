@@ -67,14 +67,18 @@ public class MainApp extends Application {
             config.getUserPrefsFilePath()
         );
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ActivityBookStorage activityBookStorage = new JsonActivityBookStorage(userPrefs.getActivityBookFilePath());
+
         InternalStateStorage internalStateStorage = new JsonInternalStateStorage(
             userPrefs.getInternalStateFilePath()
         );
         InternalState internalState = initState(internalStateStorage);
+
+        ActivityBookStorage activityBookStorage = new JsonActivityBookStorage(userPrefs.getActivityBookFilePath());
+
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(
             userPrefs.getAddressBookFilePath()
         );
+
         storage =
             new StorageManager(
                 addressBookStorage,
@@ -86,9 +90,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs, internalState, activityBookStorage);
-
         logic = new LogicManager(model, storage);
-
         ui = new UiManager(logic);
     }
 
@@ -118,6 +120,8 @@ public class MainApp extends Application {
                 addressBookOptional.orElseGet(
                     SampleDataUtil::getSampleAddressBook
                 );
+            // Update initial state after initialising sample list of contacts
+            internalState.updateInternalState();
         } catch (DataConversionException e) {
             logger.warning(
                 "Data file not in the correct format. Will be starting with an empty AddressBook"

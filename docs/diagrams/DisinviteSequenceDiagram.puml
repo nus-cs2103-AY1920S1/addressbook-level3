@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DisinviteCommandParser" as DisinviteCommandParser LOGIC_COLOR
+participant "d:DisinviteCommand" as DisinviteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "c:Context" as Context MODEL_COLOR
+participant "a:Activity" as Activity MODEL_COLOR
+end box
+
+[-> LogicManager : execute("disinvite p/ben")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("disinvite p/ben")
+activate AddressBookParser
+
+create DisinviteCommandParser
+AddressBookParser -> DisinviteCommandParser : DisinviteCommandParser()
+activate DisinviteCommandParser
+
+DisinviteCommandParser --> AddressBookParser
+deactivate DisinviteCommandParser
+
+AddressBookParser -> DisinviteCommandParser : parse("p/ben")
+activate DisinviteCommandParser
+
+create DisinviteCommand
+DisinviteCommandParser -> DisinviteCommand : DisinviteCommand("ben")
+activate DisinviteCommand
+
+DisinviteCommand --> DisinviteCommandParser : d
+deactivate DisinviteCommand
+
+DisinviteCommandParser --> AddressBookParser : d
+deactivate DisinviteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DisinviteCommandParser -[hidden]-> AddressBookParser
+destroy DisinviteCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> DisinviteCommand : execute()
+activate DisinviteCommand
+
+DisinviteCommand -> Model : getContext()
+activate Model
+
+Model--> DisinviteCommand : d
+deactivate Model
+
+DisinviteCommand -> Context : getActivity()
+activate Context
+
+Context --> DisinviteCommand : a
+deactivate Context
+
+
+DisinviteCommand -> Activity : disinvite("ben")
+activate Activity
+
+Activity --> DisinviteCommand
+deactivate Activity
+
+create CommandResult
+DisinviteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DisinviteCommand
+deactivate CommandResult
+
+DisinviteCommand --> LogicManager : result
+deactivate DisinviteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

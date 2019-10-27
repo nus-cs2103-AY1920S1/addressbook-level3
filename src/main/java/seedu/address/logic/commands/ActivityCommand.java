@@ -22,21 +22,22 @@ import seedu.address.model.person.Person;
 /**
  * Command to create a new Activity.
  */
-
 public class ActivityCommand extends Command {
+
     public static final String COMMAND_WORD = "activity";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new Activity.\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + "[" + PREFIX_PARTICIPANT + "PARTICIPANT]...\n"
             + "Example: activity t/Mala dinner p/Kaedoon p/Giak Lhee p/Veken";
+
     public static final String MESSAGE_SUCCESS =
-        "%s successfully created with following participants:\n%s\nWarnings:\n%s";
+            "%s successfully created with following participants:\n%s\nWarnings:\n%s";
     public static final String WARNING_SEARCH_RESULTS =
             "Unable to add person with search term \"%s\", as there were %d matches found.\n";
     public static final String WARNING_DUPLICATE_PERSON =
             "Person with name %s already added.\n";
-    public static final String MESSAGE_ARGUMENTS = "Title: %s";
 
     private final Title title;
     private final List<String> participants;

@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":InviteCommandParser" as InviteCommandParser LOGIC_COLOR
+participant "i:InviteCommand" as InviteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "c:Context" as Context MODEL_COLOR
+participant "a:Activity" as Activity MODEL_COLOR
+end box
+
+[-> LogicManager : execute("invite p/ben")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("invite p/ben")
+activate AddressBookParser
+
+create InviteCommandParser
+AddressBookParser -> InviteCommandParser : InviteCommandParser()
+activate InviteCommandParser
+
+InviteCommandParser --> AddressBookParser
+deactivate InviteCommandParser
+
+AddressBookParser -> InviteCommandParser : parse("p/ben")
+activate InviteCommandParser
+
+create InviteCommand
+InviteCommandParser -> InviteCommand : InviteCommand("ben")
+activate InviteCommand
+
+InviteCommand --> InviteCommandParser : i
+deactivate InviteCommand
+
+InviteCommandParser --> AddressBookParser : i
+deactivate InviteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+InviteCommandParser -[hidden]-> AddressBookParser
+destroy InviteCommandParser
+
+AddressBookParser --> LogicManager : i
+deactivate AddressBookParser
+
+LogicManager -> InviteCommand : execute()
+activate InviteCommand
+
+InviteCommand -> Model : getContext()
+activate Model
+
+Model--> InviteCommand : c
+deactivate Model
+
+InviteCommand -> Context : getActivity()
+activate Context
+
+Context --> InviteCommand : a
+deactivate Context
+
+
+InviteCommand -> Activity : invite("ben")
+activate Activity
+
+Activity --> InviteCommand
+deactivate Activity
+
+create CommandResult
+InviteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> InviteCommand
+deactivate CommandResult
+
+InviteCommand --> LogicManager : result
+deactivate InviteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

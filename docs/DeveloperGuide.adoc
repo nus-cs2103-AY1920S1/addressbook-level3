@@ -122,7 +122,9 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores a `Context` object that represents the current application context.
+* stores a JSON serializable `InternalState` object in order to keep track of primary key counters for both `Person` and `Activity`.
+* stores the Address Book and Activity Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -130,6 +132,14 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+
+[NOTE]
+`Activity` and `Expense` keeps track of the people involved by storing IDs instead of objects, hence there is no direct dependency on the `Person` class.
+[]
+
+[NOTE]
+Strictly speaking, `Context` only stores a single `Optional<Object>`, which can only be an `Activity` or `Person`. Hence, it is not actually possible for `Context` to contain both and `Activity` and `Person`, unlike what Figure 7 might suggest.
+[]
 
 [[Design-Storage]]
 === Storage component
@@ -152,6 +162,181 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::activityclass[]
+=== Activity class
+`Activity` is a class used to store activities and their details. It contains the following information:
+
+* Primary Key
+
+Each `Activity` has a unique primary key used by external classes to identify and access them, without unnecessary dependencies.
+
+* Title
+
+Title of the activity is stored using `Title`, which runs validations to ensure that the title is valid. Currently, the only restriction for the title is that it can't be blank.
+
+* Participants
+
+Participants are saved internally under `participantIds`, which only stores the primary key of `Contact` involved.
+
+* Expenses incurred by this activity
+
+Expenses are stored as `Expense`. Refer to <<Expense>> for more details. (TBD)
+
+* Outstanding balance for each participant
+
+The balance of each participants are stored internally under `participantBalances`.
+
+All `Activity` objects are stored in `ActivityBook`.
+
+The following class diagram describes the implementation of `Activity`.
+
+.Structure of the Activity class
+image::ActivityClassDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Storage of participant
+
+* **Alternative 1 (current choice):** Only storing the primary key of participants
+** *Pros*: Minimizes dependency and potential bugs.
+** *Cons*: More difficult for external classes to retrieve participant objects if necessary.
+** *Reason for choice*: Storing entire object can potentially cause bugs, as there are no mechanisms to ensure the consistency of data between `Person` object in `Activity` and `AddressBook`.
+
+* **Alternative 2:** Storing the entire `Person` object inside the `Activity`.
+** Pros: Easier to implement. Object can be easily retrieved when necessary.
+** Cons: Creates extra dependency between classes. More prone to error.
+
+// tag::createactivity[]
+=== Create activity feature
+Mechanism to create activity is facilitated by `Activity`.
+It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`. Additionally, it implements the following operation:
+
+* `Activity()` -- Constructor used to create a new `Activity`.
+
+All `Activity` models are stored inside `ActivityBook`.
+
+When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately.
+
+Adding of participant relies on keyword-based search. A set of keyword is passed in for each participant to be invited in. The keywords are used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.
+
+Given below is an example usage scenario and how the create activity mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `activity t/Breakfast p/David` command to create an activity named Breakfast in the activity book, with David as a participant.
+
+Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", only David is added into the Lunch activity as a participant.
+
+//TODO: Add sequence diagram and Activity diagram showing how this works
+
+==== Design Considerations
+
+===== Aspect: Finding the correct contact to add
+
+* **Alternative 1 (current choice):** Users can use keywords to specify the contact to be added.
+** *Pros*: Improves usability.
+** *Cons*: Difficult to implement. Necessary to handle multiple edge cases.
+** *Reason for choice*: Forcing users to specify exact full name was deemed to be too tedious.
+
+* **Alternative 2:** Users must type in the exact full name of the contact to be added.
+** Pros: Easy to implement. Low possibility of bugs.
+** Cons: Significantly decreases usability of the application.
+
+=== List feature
+
+The List mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
+
+`Context` is an immutable utility class that describes the nature of the current view of the app. It stores state information about the `ContextType` as well as an optional `Object` of interest. A `Context` may be instantiated either by
+
+* one of the factory methods `newListActivityContext` or `newListContactContext`
+* invoking the constructor with either an `Activity` or `Contact` of interest
+
+The `Context` class exposes relevant getter methods `Context#getType`, `Context#getActivity` and `Context#getContact`, and thus supports contextual behaviour of other commands.
+
+During execution, the List command creates the intended `Context` and updates the `Model` with it, along with the appropriate `FilteredList`. As `MainWindow` tracks both `FilteredList`, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.
+
+The updated `ContextType` of the `Model` is then returned to the `MainWindow` UI controller via the `CommandResult`, where it is used to switch the content displayed.
+
+Given below is an example usage scenario of a user intending to view the list of activities.
+
+Step 1. The user launches the `SplitWiser` application for the first time, which defaults to displaying the list of contacts.
+
+Step 2. The user executes the command string `list a/` to prompt the app to display the full list of activities.
+
+The following sequence diagram demonstrates the role of the respective components.
+
+image::ViewSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: representing the current context state
+
+* **Alternative 1 (current choice):** Creating an immutable `Context` class as a state container to store the appropriate information.
+** Pros: Lightweight; context state can be easily passed between components that require access, as it is encapsulated entirely within `Context`.
+** Cons: Harder to implement.
+
+* **Alternative 2:** Storing the `Context` state in a designated central component, e.g. the `ModelManager`, and exposing relevant methods to other components.
+** Pros: Trivial to implement.
+** Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.
+
+// tag::invitedisinvite[]
+=== [Proposed] Invite/Disinvite feature
+==== Proposed Implementation
+
+The invite/disinvite mechanism is facilitated by `Activity`.
+It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`. Additionally, it implements the following operations:
+
+* `Activity#invite()` -- Invites a person to the activity.
+* `Activity#disinvite()` -- Disinvites a person from the activity.
+
+These operations are exposed in the `Activity` class as `Activity#invite()` and `Activity#disinvite()` respectively.
+
+Given below is an example usage scenario and how the invite/disinvite mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast in the activity book.
+
+Step 3. The user executes `invite p/Louis ...` to invite more people into the current activity. The `invite` command calls `Activity#invite()`, inviting more participants into the activity. The activityList will then be modified which is stored in the ActivityBook.
+
+The following sequence diagram shows how the invite operation works:
+
+image::InviteSequenceDiagram.png[]
+
+NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity and decides to remove that person by executing the `disinvite` command.
+
+Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The activityList will then be modified due to a change in participants which is stored in the ActivityBook.
+
+The following sequence diagram shows how the disinvite operation works:
+
+image::DisinviteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DisinviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+==== Design Considerations
+
+===== Aspect: How invite & disinvite executes
+
+* **Alternative 1 (current choice):** Contextual based invite/disinvite based on current viewed activity.
+** Pros: More user-friendly.
+** Cons: Harder to implement.
+
+* **Alternative 2:** Invite/disinvite based on user specifying the activity number.
+** Pros: Easy to implement.
+** Cons: Have to keep retyping activity number if multiple invites/disinvites are needed.
+
+===== Aspect: Data structure to support the invite/disinvite commands
+
+* **Alternative 1 (current choice):** Use a list to store the participants ID in the activity instead of participants.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Have to find particular participant that matches the ID specified.
+* **Alternative 2:** Use list to store participants.
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Harder to implement, might form same person object from the json file if not implemented properly.
+// end::invitedisinvite[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
