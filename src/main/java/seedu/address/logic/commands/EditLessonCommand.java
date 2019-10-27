@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddLessonCommand.MESSAGE_INVALID_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
@@ -72,6 +73,8 @@ public class EditLessonCommand extends Command {
 
         if (!lessonToEdit.isSameLesson(editedLesson) && model.hasLesson(editedLesson)) {
             throw new CommandException(MESSAGE_DUPLICATE_LESSON);
+        } else if (!editedLesson.endTimeIsAfterStartTime()) {
+            throw new CommandException(MESSAGE_INVALID_END_TIME);
         }
 
         model.setLesson(lessonToEdit, editedLesson);

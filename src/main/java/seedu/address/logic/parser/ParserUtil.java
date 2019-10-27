@@ -2,9 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -218,19 +220,21 @@ public class ParserUtil {
      * Parses a {@code String time} into a {@code Time}.
      * @param time String representing time.
      * @return Time object.
+     * @throws ParseException if the given {@code time} is invalid.
      */
-    public static Time parseTime(String time) {
+    public static Time parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        String[] dateAndTime = trimmedTime.split(" ");
-        String[] date = dateAndTime[0].split("/");
-        int day = Integer.parseInt(date[0]);
-        int month = Integer.parseInt(date[1]) - 1;
-        int year = Integer.parseInt(date[2]);
-        int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
-        int min = Integer.parseInt(dateAndTime[1].substring(2));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        sdf.setLenient(false);
+        Date date = null;
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day, hour, min);
+        try {
+            date = sdf.parse(trimmedTime);
+            calendar.setTime(date);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
         return new Time(calendar);
     }
 }
