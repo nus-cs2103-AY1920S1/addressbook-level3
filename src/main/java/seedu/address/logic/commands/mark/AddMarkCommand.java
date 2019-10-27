@@ -63,11 +63,11 @@ public class AddMarkCommand extends MarkCommand {
     /**
      * Generates a command execution success message.
      *
-     * @param MESSAGE_SUCCESS Success message
-     * @param index of student to mark
+     * @param successMessage Success message
+     * @param index           of student to mark
      */
-    private String generateSuccessMessage(String MESSAGE_SUCCESS, int index) {
-        return String.format(MESSAGE_SUCCESS,index);
+    private String generateSuccessMessage(String successMessage, int index) {
+        return String.format(successMessage, index);
     }
 
     @Override
