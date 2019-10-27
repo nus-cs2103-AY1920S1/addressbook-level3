@@ -1,6 +1,5 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.gui.Gui;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -13,23 +12,6 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     protected String back;
     protected Integer priority;
 
-    //@@author nattanyz
-    /**
-     * Renders front of this flash card.
-     *
-     */
-    public void renderFront() {
-        Gui.renderFront(this);
-    }
-
-    /**
-     * Renders back of this flash card
-     *
-     */
-    public void renderBack() {
-        Gui.renderBack(this);
-    }
-    //@@author nattanyz
 
     /**
      * Evaluate if the input matches the card

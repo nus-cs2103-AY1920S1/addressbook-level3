@@ -15,7 +15,6 @@ import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-
 import javafx.scene.Node;
 
 /**
@@ -146,7 +145,7 @@ public class Deck implements JsonInterface {
             throw new IndexNotFoundException(errorMessage);
         }
 
-        cards.remove(indexProvided);
+        cards.remove(indexProvided - 1);
     }
 
     /**
@@ -165,6 +164,11 @@ public class Deck implements JsonInterface {
         }
         FlashCard cardToChange = cards.get(indexProvided);
         cardToChange.editFront(newFront);
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
     /**
@@ -201,6 +205,15 @@ public class Deck implements JsonInterface {
      */
     public String getName() {
         return deckName;
+    }
+
+    /**
+     * Sets the name of the deck.
+     *
+     * @param deckName the name of the deck.
+     */
+    public void setDeckName(String deckName) {
+        this.deckName = deckName;
     }
 
     /**

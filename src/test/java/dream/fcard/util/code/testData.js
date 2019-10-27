@@ -1,4 +1,4 @@
-const x = [1,2,3,4,5];
+var x = [1,2,3,4,5];
 for (var i in x) {
     print("The number is " + i);
 };

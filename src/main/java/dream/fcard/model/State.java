@@ -1,23 +1,57 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.Consumer;
 
+import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
 /**
  * Running state of the program.
  */
 public class State {
-
+    private static State state;
     private ArrayList<Deck> decks;
+<<<<<<< Updated upstream
     private boolean isEditMode;
     private boolean isCreateMode;
+=======
+    private HashMap<String, Consumer> consumerHashMap;
+
+    /**
+     * State is a singleton to avoid passing the state object through too many layers of objects.
+     * @return the singleton state object
+     */
+    public static State getState() {
+        if (state == null) {
+            state = new State();
+        }
+        return state;
+    }
+
+    /**
+     * Returns false if decks is non-empty, true if decks is empty.
+     */
+    public boolean isEmpty() {
+        return decks.size() == 0;
+    }
+
+    /**
+     * Returns the list of decks.
+     */
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+>>>>>>> Stashed changes
 
     /**
      * Constructor to create a State object with no Deck objects.
      */
     public State() {
-        decks = new ArrayList<>();
+        decks = StorageManager.loadDecks();
+        consumerHashMap = new HashMap<>();
     }
 
     /**
@@ -30,6 +64,7 @@ public class State {
     }
 
     /**
+<<<<<<< Updated upstream
      * Adds a new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
@@ -37,6 +72,8 @@ public class State {
     }
 
     /**
+=======
+>>>>>>> Stashed changes
      * Adds a deck object to decks list.
      *
      * @param deck deck object
@@ -98,9 +135,9 @@ public class State {
     }
 
     /**
-     * Replace all decks with a new set of decks. Used by `root` command.
+     * Load decks from StorageManager.
      *
-     * @param newDecks new decks
+     * @param newDecks the array list of all decks in Storage.
      */
     public void reloadAllDecks(ArrayList<Deck> newDecks) {
         decks = newDecks;
@@ -125,5 +162,20 @@ public class State {
             }
         }
         return -1;
+    }
+
+    public void addConsumer(String identifier, Consumer c) {
+        consumerHashMap.putIfAbsent(identifier,c);
+    }
+
+    /**
+     * This method of getting consumers generifies the type of input which leads to compiler warnings.
+     * As such, the suppress warning annotations used whenever this method is called
+     * are due to the unchecked generic Consumer types.
+     * @param identifier name of the Consumer as recorded in ConsumerSchema
+     * @return the Consumer
+     */
+    public Consumer getConsumer(String identifier) {
+        return consumerHashMap.get(identifier);
     }
 }

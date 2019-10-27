@@ -1,0 +1,10 @@
+{
+    "cards": [
+        {
+            "back": "Answer",
+            "front": "Why",
+            "type": "front-back"
+        }
+    ],
+    "name": "My First Deck"
+}
