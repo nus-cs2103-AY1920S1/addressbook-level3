@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.FileStatus;
 import seedu.address.model.util.DateUtil;
 
 /**
@@ -48,7 +49,13 @@ public class FileCard extends UiPart<Region> {
         super(FXML);
         this.file = file;
         id.setText(displayedIndex + ". ");
-        name.setText(file.getFileName().value);
+        String statusText;
+        if (file.getFileStatus() == FileStatus.ACTIVE) {
+            statusText = "";
+        } else {
+            statusText = " [" + file.getFileStatus() + "]";
+        }
+        name.setText(file.getFileName().value + statusText);
         path.setText("Location:\t\t" + file.getFilePath().value);
         Date fileEncryptedAt = file.getEncryptedAt().value;
         if (fileEncryptedAt.equals(new Date(0))) {

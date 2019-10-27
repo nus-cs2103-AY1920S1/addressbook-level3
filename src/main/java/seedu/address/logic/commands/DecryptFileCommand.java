@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FILES;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,6 +16,7 @@ import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.FileStatus;
 
 /**
  * Decrypt a file identified using it's displayed index from the file book.
@@ -56,17 +58,23 @@ public class DecryptFileCommand extends Command {
 
         EncryptedFile fileToDecrypt = lastShownList.get(targetIndex.getZeroBased());
         if (!Files.exists(Path.of(fileToDecrypt.getEncryptedPath()))) {
+            model.setFileStatus(fileToDecrypt, FileStatus.MISSING);
+            model.updateFilteredFileList(PREDICATE_SHOW_ALL_FILES);
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
         }
 
         try {
             if (!EncryptionUtil.isFileEncrypted(fileToDecrypt.getEncryptedPath())) {
+                model.setFileStatus(fileToDecrypt, FileStatus.CORRUPTED);
+                model.updateFilteredFileList(PREDICATE_SHOW_ALL_FILES);
                 throw new CommandException(MESSAGE_DECRYPT_FILE_FAILURE);
             }
             EncryptionUtil.decryptFile(fileToDecrypt.getEncryptedPath(), fileToDecrypt.getFullPath(), password);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_DELETE_FILE_FAILURE);
         } catch (GeneralSecurityException e) {
+            model.setFileStatus(fileToDecrypt, FileStatus.CORRUPTED);
+            model.updateFilteredFileList(PREDICATE_SHOW_ALL_FILES);
             throw new CommandException(MESSAGE_DECRYPT_FILE_FAILURE);
         } catch (TargetFileExistException e) {
             throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, e.getMessage()));

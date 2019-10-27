@@ -63,7 +63,13 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException, DictionaryException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parseCommand(commandText);
-        CommandResult commandResult = command.execute(model);
+        CommandResult commandResult;
+        try {
+            commandResult = command.execute(model);
+        } catch (CommandException e) {
+            saveToBook();
+            throw e;
+        }
         saveToBook();
         return commandResult;
     }

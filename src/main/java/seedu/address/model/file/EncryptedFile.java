@@ -21,35 +21,41 @@ public class EncryptedFile {
     private final FilePath filePath;
     private EncryptedAt encryptedAt;
     private ModifiedAt modifiedAt;
+    private FileStatus status;
 
     private final Set<Tag> tags = new HashSet<>();
 
     public EncryptedFile(FileName fileName,
-                          FilePath filePath,
-                          Set<Tag> tags) {
-        this(fileName, filePath, tags, false);
+                         FilePath filePath,
+                         Set<Tag> tags) {
+        this(fileName, filePath, FileStatus.ACTIVE, tags);
     }
 
     public EncryptedFile(FileName fileName,
                          FilePath filePath,
-                         Set<Tag> tags,
-                         boolean withPrefix) {
+                         FileStatus status,
+                         Set<Tag> tags) {
         requireAllNonNull(fileName, filePath, tags);
-        if (withPrefix) {
-            this.fileName = new FileName(FileNameUtil.getFileNameWithoutPrefix(fileName.value));
-        } else {
-            this.fileName = fileName;
-        }
+        this.fileName = fileName;
         this.filePath = filePath;
+        this.status = status;
         this.tags.addAll(tags);
     }
 
     public EncryptedFile(FileName fileName,
                          FilePath filePath,
                          Set<Tag> tags,
+                         boolean withPrefix) {
+        this(new FileName(FileNameUtil.getFileNameWithoutPrefix(fileName.value)), filePath, tags);
+    }
+
+    public EncryptedFile(FileName fileName,
+                         FilePath filePath,
+                         FileStatus status,
+                         Set<Tag> tags,
                          EncryptedAt encryptedAt,
                          ModifiedAt modifiedAt) {
-        this(fileName, filePath, tags);
+        this(fileName, filePath, status, tags);
         requireAllNonNull(encryptedAt, modifiedAt);
         this.encryptedAt = encryptedAt;
         this.modifiedAt = modifiedAt;
@@ -61,6 +67,14 @@ public class EncryptedFile {
 
     public FilePath getFilePath() {
         return filePath;
+    }
+
+    public FileStatus getFileStatus() {
+        return status;
+    }
+
+    public void setFileStatus(FileStatus value) {
+        status = value;
     }
 
     public void setEncryptedAt(EncryptedAt value) {
@@ -117,12 +131,13 @@ public class EncryptedFile {
                 && otherFile.getFilePath().equals(getFilePath())
                 && otherFile.getEncryptedAt().equals(getEncryptedAt())
                 && otherFile.getModifiedAt().equals(getModifiedAt())
+                && otherFile.getFileStatus().equals(getFileStatus())
                 && otherFile.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fileName, filePath, encryptedAt, modifiedAt, tags);
+        return Objects.hash(fileName, filePath, encryptedAt, modifiedAt, status, tags);
     }
 
     @Override

@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.FileStatus;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
@@ -123,6 +124,11 @@ public interface Model {
      * The file identity of {@code editedPerson} must not be the same as another existing file in the file book.
      */
     void setFile(EncryptedFile target, EncryptedFile editedFile);
+
+    /**
+     * Sets the status of the given file to the new status specified.
+     */
+    void setFileStatus(EncryptedFile target, FileStatus newStatus);
 
     /** Returns an unmodifiable view of the filtered person list
      *
