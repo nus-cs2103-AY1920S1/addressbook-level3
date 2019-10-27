@@ -5,6 +5,9 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.UniqueShowList;
 
+/**
+ * Represents a Statistics object that contains relevant information.
+ */
 public class Statistics {
     private final Model model;
 
