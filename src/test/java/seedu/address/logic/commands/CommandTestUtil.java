@@ -8,6 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_EVENT;
+import static seedu.address.logic.parser.PerformanceSyntax.PREFIX_TIMING;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -39,6 +42,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_PHOTO_AMY = "amy.png";
     public static final String VALID_PHOTO_BOB = "bob.png";
+    public static final String VALID_EVENT_BUTTERFLY = "butterfly 50m";
+    public static final String VALID_DATE_CHRISTMAS = "25122019";
+    public static final String VALID_TIMING = "30s";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -52,6 +58,10 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String PHOTO_DESC_AMY = " " + PREFIX_IMAGE + VALID_PHOTO_AMY;
     public static final String PHOTO_DESC_BOB = " " + PREFIX_IMAGE + VALID_PHOTO_BOB;
+    public static final String EVENT_DESC_BUTTERFLY = " " + PREFIX_EVENT + VALID_EVENT_BUTTERFLY;
+    public static final String DATE_DESC_CHRISTMAS = " " + PREFIX_DATE + VALID_DATE_CHRISTMAS;
+    public static final String TIMING_DESC = " " + PREFIX_TIMING + VALID_TIMING;
+
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
