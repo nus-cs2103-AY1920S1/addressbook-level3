@@ -7,7 +7,7 @@ import dukecooks.model.Model;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Lists all recipes in the Duke Cooks to the user.
+ * Lists all diaries in the Duke Cooks to the user.
  */
 public class ListDiaryCommand extends ListCommand {
 
