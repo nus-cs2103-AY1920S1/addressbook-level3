@@ -25,6 +25,12 @@ public class UserPrefsTest {
     }
 
     @Test
+    public void setExportPath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertThrows(NullPointerException.class, () -> userPrefs.setExportPath(null));
+    }
+
+    @Test
     public void setTemplateImagePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setTemplateImagePath(null));

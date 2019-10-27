@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statisticsPanel;
     private StackPane exportPanel;
     private StackPane importPanel;
+    private StackPane preferencesPanel;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -152,6 +153,7 @@ public class MainWindow extends UiPart<Stage> {
         statisticsPanel = new StackPane();
         exportPanel = new StackPane();
         importPanel = new StackPane();
+        preferencesPanel = new StackPane();
 
         MemeGridPanel memeGridPanel = new MemeGridPanel(logic.getFilteredMemeList(), logic.getObservableLikeData());
         memesPanel.getChildren().add(memeGridPanel.getRoot());
@@ -165,9 +167,12 @@ public class MainWindow extends UiPart<Stage> {
 
         MemeGridPanel exportGridPanel = new MemeGridPanel(
                 logic.getFilteredStagedMemeList(), logic.getObservableLikeData());
+
         ImportGridPanel importGridPanel = new ImportGridPanel(
                 logic.getFilteredImportList());
+        PreferencesGridPanel preferencesGridPanel = new PreferencesGridPanel(logic.getObservableUserPreferences());
 
+        preferencesPanel.getChildren().add(preferencesGridPanel.getRoot());
         exportPanel.getChildren().add(exportGridPanel.getRoot());
         importPanel.getChildren().add(importGridPanel.getRoot());
 
@@ -194,6 +199,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case CONTEXT_TEMPLATES:
             appContentPlaceholder.getChildren().add(templatesPanel);
+            break;
+        case CONTEXT_PREFERENCES:
+            appContentPlaceholder.getChildren().add(preferencesPanel);
             break;
         case CONTEXT_STATISTICS:
             appContentPlaceholder.getChildren().add(statisticsPanel);

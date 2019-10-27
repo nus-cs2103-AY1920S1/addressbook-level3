@@ -100,6 +100,7 @@ public class LogicManager implements Logic {
     public ObservableList<Meme> getFilteredImportList() {
         return model.getFilteredImportList();
     }
+
     public ObservableList<Template> getFilteredTemplateList() {
         return model.getFilteredTemplateList();
     }
@@ -112,6 +113,11 @@ public class LogicManager implements Logic {
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
+    }
+
+    @Override
+    public ObservableMap<String, String> getObservableUserPreferences() {
+        return model.getObservableUserPreferences();
     }
 
     @Override

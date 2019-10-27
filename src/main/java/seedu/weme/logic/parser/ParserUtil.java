@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.weme.model.ModelContext.CONTEXT_EXPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_IMPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
+import static seedu.weme.model.ModelContext.CONTEXT_PREFERENCES;
 import static seedu.weme.model.ModelContext.CONTEXT_STATISTICS;
 import static seedu.weme.model.ModelContext.CONTEXT_TEMPLATES;
 
@@ -52,6 +53,7 @@ public class ParserUtil {
         case CONTEXT_TEMPLATES:
             return TEMPLATE_PARSER;
         case CONTEXT_STATISTICS:
+        case CONTEXT_PREFERENCES:
             // TODO: This is a temporary placeholder until all tabs have been implemented
             return new WemeParser() {
             };
@@ -77,6 +79,8 @@ public class ParserUtil {
             return CONTEXT_EXPORT;
         } else if (trimmedContext.equals(CONTEXT_IMPORT.getContextName())) {
             return CONTEXT_IMPORT;
+        } else if (trimmedContext.equals(CONTEXT_PREFERENCES.getContextName())) {
+            return CONTEXT_PREFERENCES;
         }
         throw new ParseException(MESSAGE_INVALID_CONTEXT);
     }

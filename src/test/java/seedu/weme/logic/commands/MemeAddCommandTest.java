@@ -106,6 +106,11 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public ObservableMap<String, String> getObservableUserPreferences() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void loadMemes(List<Path> pathList) {
             throw new AssertionError("This method should not be called");
         }

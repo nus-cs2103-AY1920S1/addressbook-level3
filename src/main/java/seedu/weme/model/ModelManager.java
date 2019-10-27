@@ -107,6 +107,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableMap<String, String> getObservableUserPreferences() {
+        return userPrefs.getObservableUserPreferences();
+    }
+
+    @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);

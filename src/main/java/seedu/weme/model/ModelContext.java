@@ -9,7 +9,8 @@ public enum ModelContext {
     CONTEXT_TEMPLATES("templates"),
     CONTEXT_STATISTICS("statistics"),
     CONTEXT_EXPORT("export"),
-    CONTEXT_IMPORT("import");
+    CONTEXT_IMPORT("import"),
+    CONTEXT_PREFERENCES("preferences");
 
     private final String contextName;
 

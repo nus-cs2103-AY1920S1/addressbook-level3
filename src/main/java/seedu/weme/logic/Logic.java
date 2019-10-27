@@ -57,6 +57,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of templates */
     ObservableList<Template> getFilteredTemplateList();
 
+    /** Returns an unmodifiable view of the user preferences of Weme */
+    ObservableMap<String, String> getObservableUserPreferences();
+
     /**
      * Returns the current context.
      */
