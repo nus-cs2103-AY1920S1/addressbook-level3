@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.StatusManager;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
+import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 
 /**
@@ -148,7 +149,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         return statusManager.getAvailableDeliveryman();
     }
 
-    public void switchDeliverymanStatus(Deliveryman target) {
+    public void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
         statusManager.switchDeliverymanStatus(target);
     }
 

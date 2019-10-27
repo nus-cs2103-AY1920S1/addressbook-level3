@@ -48,7 +48,7 @@ public class StatusManager {
         }
     }
 
-    public void switchDeliverymanStatus(Deliveryman deliveryman) {
+    public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         String status = deliveryman.getStatus().getDescription();
         if (status.equals(AVAILABLE_STATUS)) {
             updateStatusOf(deliveryman, UNAVAILABLE_STATUS);

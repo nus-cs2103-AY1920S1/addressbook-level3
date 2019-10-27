@@ -27,6 +27,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -315,7 +316,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void switchDeliverymanStatus(Deliveryman deliveryman) {
+    public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         requireNonNull(deliveryman);
         deliverymenDatabase.switchDeliverymanStatus(deliveryman);
     }

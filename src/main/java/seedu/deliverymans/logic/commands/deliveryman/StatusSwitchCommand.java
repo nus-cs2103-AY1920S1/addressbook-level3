@@ -1,7 +1,6 @@
 package seedu.deliverymans.logic.commands.deliveryman;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -12,12 +11,12 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
+import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 /**
  * Changes the status of a deliveryman from AVAILABLE to UNAVAILABLE or UNAVAILABLE to AVAILABLE
  */
-public class StatusCommand extends Command {
+public class StatusSwitchCommand extends Command {
     public static final String COMMAND_WORD = "status";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the status of the deliveryman identified "
@@ -31,7 +30,7 @@ public class StatusCommand extends Command {
 
     private final Index targetIndex;
 
-    public StatusCommand(Index targetIndex) {
+    public StatusSwitchCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -45,15 +44,20 @@ public class StatusCommand extends Command {
         }
 
         Deliveryman deliverymanToEdit = lastShownList.get(targetIndex.getZeroBased());
-        model.switchDeliverymanStatus(deliverymanToEdit);
+        try {
+            model.switchDeliverymanStatus(deliverymanToEdit);
+        } catch (InvalidStatusChangeException isce) {
+            throw new InvalidStatusChangeException();
+        }
+
         return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof StatusCommand // instanceof handles nulls
-                && targetIndex.equals(((StatusCommand) other).targetIndex)); // state check
+                || (other instanceof StatusSwitchCommand // instanceof handles nulls
+                && targetIndex.equals(((StatusSwitchCommand) other).targetIndex)); // state check
     }
 }
 
