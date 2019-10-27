@@ -296,4 +296,9 @@ public interface Model {
      * Clears the image data folder of any memes that are not referenced in weme.
      */
     void cleanMemeStorage();
+
+    /**
+     * Clears the image data folder of any templates that are not referenced in Weme.
+     */
+    void cleanTemplateStorage();
 }

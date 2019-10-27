@@ -373,6 +373,24 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void cleanTemplateStorage() {
+        try {
+            Set<File> filesToKeep = new HashSet<>();
+            for (Template template : versionedWeme.getTemplateList()) {
+                File file = template.getImagePath().getFilePath().toFile();
+                filesToKeep.add(file);
+            }
+
+            Files.list(getTemplateImagePath())
+                    .map(Path::toFile)
+                    .filter(file -> !filesToKeep.contains(file))
+                    .forEach(File::delete);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
