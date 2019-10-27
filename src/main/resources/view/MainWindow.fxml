@@ -140,7 +140,7 @@
                     </StackPane>
                   </children>
                </VBox>
-   
+
               <StackPane fx:id="statusbarPlaceholder" layoutY="453.0" prefWidth="29.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             </children>
          </AnchorPane>
