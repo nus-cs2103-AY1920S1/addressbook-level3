@@ -5,7 +5,9 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.algobase.logic.parser.ParserUtil.parseDate;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,8 @@ import seedu.algobase.model.searchrule.plansearchrule.FindPlanDescriptor;
 import seedu.algobase.model.searchrule.plansearchrule.Keyword;
 import seedu.algobase.model.searchrule.plansearchrule.PlanDescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.plansearchrule.PlanNameContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.plansearchrule.TimeRange;
+import seedu.algobase.model.searchrule.plansearchrule.TimeRangePredicate;
 
 
 /**
@@ -60,6 +64,26 @@ public class FindPlanCommandParser implements Parser {
             List<Keyword> keywords = planDescriptionKeywords.stream().map(Keyword::new).collect(Collectors.toList());
             findPlanDescriptor.setPlanDescriptionPredicate(
                     new PlanDescriptionContainsKeywordsPredicate(keywords));
+        }
+
+        if (argumentMultimap.getValue(PREFIX_START_DATE).isPresent()
+                || argumentMultimap.getValue(PREFIX_END_DATE).isPresent()) {
+            if (argumentMultimap.getValue(PREFIX_START_DATE).isEmpty()
+                    || argumentMultimap.getValue(PREFIX_END_DATE).isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
+            }
+            String start = argumentMultimap.getValue(PREFIX_START_DATE).get();
+            String end = argumentMultimap.getValue(PREFIX_END_DATE).get();
+            try {
+                LocalDate startDate = parseDate(start);
+                LocalDate endDate = parseDate(end);
+                TimeRange timeRange = new TimeRange(startDate, endDate);
+                System.out.print(timeRange);
+                findPlanDescriptor.setTimeRangePredicate(new TimeRangePredicate(timeRange));
+            } catch (ParseException e) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPlanCommand.MESSAGE_USAGE), e);
+            }
         }
 
         if (!findPlanDescriptor.isAnyFieldProvided()) {

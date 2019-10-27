@@ -34,7 +34,7 @@ public class TimeRangePredicate implements Predicate<Plan> {
     @Override
     public boolean test(Plan plan) {
         assert this.timeRange != null;
-        return this.timeRange.equals(new TimeRange(plan.getStartDate(), plan.getEndDate()));
+        return this.timeRange.hasOverlap(new TimeRange(plan.getStartDate(), plan.getEndDate()));
     }
 
     @Override

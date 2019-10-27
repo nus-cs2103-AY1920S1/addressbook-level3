@@ -269,7 +269,7 @@ public class ParserUtil {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    /** Parses a {@code String date} into an {@code LocalDateTime}.
+    /** Parses a {@code String date} into an {@code LocalDate}.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */

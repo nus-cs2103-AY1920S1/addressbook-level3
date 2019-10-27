@@ -155,10 +155,10 @@ class JsonAdaptedPlan {
     }
 
     /**
-     * Converts a date in string format to a LocalDateTime Object.
+     * Converts a date in string format to a LocalDate Object.
      *
      * @param date date in string format.
-     * @return the corresponding LocalDateTime Object.
+     * @return the corresponding LocalDate Object.
      * @throws IllegalValueException if {@code date} is invalid.
      */
     private LocalDate retrieveDate(String date) throws IllegalValueException {

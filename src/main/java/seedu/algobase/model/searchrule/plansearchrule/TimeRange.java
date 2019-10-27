@@ -19,7 +19,8 @@ public class TimeRange {
     /**
      * Constructs a {@code TimeRange}.
      *
-     * @param
+     * @param startDate starting date of time range
+     * @param endDate end date of time range
      */
     public TimeRange(LocalDate startDate, LocalDate endDate) {
         requireAllNonNull(startDate, endDate);
@@ -52,5 +53,9 @@ public class TimeRange {
     @Override
     public int hashCode() {
         return this.toString().hashCode();
+    }
+
+    public boolean hasOverlap(TimeRange other) {
+        return this.startDate.isBefore(other.endDate) && other.startDate.isBefore(this.endDate);
     }
 }
