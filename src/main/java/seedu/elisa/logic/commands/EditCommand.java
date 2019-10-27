@@ -81,11 +81,11 @@ public class EditCommand extends UndoableCommand {
         this.oldItem = oldItem; //Is this line of code necessary?
         Item editedItem = null;
 
-        if ( (editItemDescriptor.getHasDeleteEvent() //Checks if Event was deleted or if Event has an update
+        if ((editItemDescriptor.getHasDeleteEvent() //Checks if Event was deleted or if Event has an update
                 || (oldItem.getEvent().isEmpty() && editItemDescriptor.getEvent().isEmpty()))
                 && (editItemDescriptor.getHasDeleteTask() //Checks if Task was deleted or if Task has an update
                 || (oldItem.getTask().isEmpty() && editItemDescriptor.getTask().isEmpty()))
-                && (editItemDescriptor.getHasDeleteReminder() //Checks if Reminder was deleted or if Reminder has an update
+                && (editItemDescriptor.getHasDeleteReminder() //Checks if Reminder was deleted or has an update
                 || (oldItem.getReminder().isEmpty() && editItemDescriptor.getReminder().isEmpty()))) {
             model.deleteItem(oldItem);
             return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, oldItem));
