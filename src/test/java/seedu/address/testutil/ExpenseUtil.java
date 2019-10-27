@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
+import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.model.expense.Expense;
 
@@ -17,7 +18,7 @@ public class ExpenseUtil {
      * Returns an add command string for adding the {@code expense}.
      */
     public static String getAddCommand(Expense expense) {
-        return AddEventCommand.COMMAND_WORD + " " + getExpenseDetails(expense);
+        return AddExpenseCommand.COMMAND_WORD + " " + getExpenseDetails(expense);
     }
 
     /**
