@@ -11,6 +11,8 @@ import seedu.address.ui.logic.exception.ParseException;
  * Manages the logic behind the transaction tab.
  */
 public class LogicManager implements Logic {
+    public static final String COMMAND_WORD_NAVIGATION = "go";
+    public static final String COMMAND_WORD_EXIT = "exit";
 
     @FXML
     private TabPane tabPane;
@@ -24,14 +26,14 @@ public class LogicManager implements Logic {
         String command = commandText.split(" ")[0];
         String param;
 
-        if (command.equals("go")) {
+        if (command.equals(COMMAND_WORD_NAVIGATION)) {
             try {
                 param = commandText.split(" ")[1];
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new ParseException("Please specify a tab to switch to.");
             }
             return goToTab(param);
-        } else if (command.equals("exit")) {
+        } else if (command.equals(COMMAND_WORD_EXIT)) {
             return new CommandResult("Exiting...", true);
         } else {
             throw new ParseException("This really shouldn't happen. How did you get here?");
