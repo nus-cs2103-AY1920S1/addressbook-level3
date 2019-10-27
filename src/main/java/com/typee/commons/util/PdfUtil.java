@@ -26,6 +26,7 @@ import com.typee.commons.core.LogsCenter;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.Location;
+import com.typee.model.engagement.TimeSlot;
 import com.typee.model.person.Person;
 import com.typee.model.report.Report;
 
@@ -46,10 +47,11 @@ public class PdfUtil {
         docProp = FileUtil.loadProperties();
         Engagement engagement = report.getEngagement();
         Document document = initDoc(engagement, report.getTo());
+        TimeSlot timeSlot = engagement.getTimeSlot();
 
         document = addIntroductionPar(document);
         document.add(createAttendeesTable(engagement.getDescription(), engagement.getLocation(),
-                engagement.getAttendees(), engagement.getStartTime(), engagement.getEndTime()));
+                engagement.getAttendees(), timeSlot.getStartTime(), timeSlot.getEndTime()));
         addConclusion(document, report.getFrom());
         document.close();
     }
@@ -58,7 +60,8 @@ public class PdfUtil {
      * Initialise and instantiates the {@code PdfWriter}.
      */
     private static Document initDoc(Engagement engagement, Person to) throws IOException, DocumentException {
-        String fileName = FOLDER_PATH + generateFileName(engagement);
+        String fileName = FOLDER_PATH + generateFileName(engagement.getTimeSlot().getStartTime(),
+                engagement.getDescription());
         Document doc = new Document();
 
         if (Files.notExists(Paths.get(FOLDER_PATH))) {
@@ -161,9 +164,9 @@ public class PdfUtil {
     /**
      * Returns a {@code String} of report file name with date followed by description.
      */
-    private static String generateFileName(Engagement engagement) {
-        String startTime = engagement.getStartTime().format(dateFormat);
-        return startTime + "_" + engagement.getDescription() + ".pdf";
+    private static String generateFileName(LocalDateTime start, String desc) {
+        String startTime = start.format(dateFormat);
+        return startTime + "_" + desc + ".pdf";
     }
 
     /**
