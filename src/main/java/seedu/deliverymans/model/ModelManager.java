@@ -315,6 +315,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void switchDeliverymanStatus(Deliveryman deliveryman) {
+        requireNonNull(deliveryman);
+        deliverymenDatabase.switchDeliverymanStatus(deliveryman);
+    }
+    @Override
     public void showAvailableDeliverymen() {
         deliverymenDatabase.setAsAvailable();
     }

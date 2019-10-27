@@ -148,6 +148,10 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         return statusManager.getAvailableDeliveryman();
     }
 
+    public void switchDeliverymanStatus(Deliveryman target) {
+        statusManager.switchDeliverymanStatus(target);
+    }
+
     // ========== util methods =================================================================================
 
     @Override

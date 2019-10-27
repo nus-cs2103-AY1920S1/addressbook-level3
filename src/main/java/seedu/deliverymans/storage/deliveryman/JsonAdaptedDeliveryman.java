@@ -90,7 +90,7 @@ public class JsonAdaptedDeliveryman {
         if (!UniqueStatusList.isValidStatus(status)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-         StatusTag modelStatus = UniqueStatusList.getCorrespondingTag(status);
+        final StatusTag modelStatus = UniqueStatusList.getCorrespondingTag(status);
 
         final Set<Tag> modelTags = new HashSet<>(deliverymanTags);
 

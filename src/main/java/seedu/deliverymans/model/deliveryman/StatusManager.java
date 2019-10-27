@@ -1,9 +1,12 @@
 package seedu.deliverymans.model.deliveryman;
 
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-// import javafx.collections.transformation.SortedList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
+import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 /**
  * A list that primarily focuses on the status of the deliverymen.
@@ -30,18 +33,31 @@ public class StatusManager {
     public void initStatusLists(UniqueDeliverymanList deliverymenList) {
         for (Deliveryman man : deliverymenList) {
             switch (man.getStatus().getDescription()) {
-                case "AVAILABLE":
-                    updateStatusOf(man, "AVAILABLE");
-                    break;
-                case "UNAVAILABLE":
-                    updateStatusOf(man, "UNAVAILABLE");
-                    break;
-                case "DELIVERING":
-                    deliveringMen.add(man);
-                    break;
-                default:
-                    return;
+            case "AVAILABLE":
+                updateStatusOf(man, "AVAILABLE");
+                break;
+            case "UNAVAILABLE":
+                updateStatusOf(man, "UNAVAILABLE");
+                break;
+            case "DELIVERING":
+                deliveringMen.add(man);
+                break;
+            default:
+                return;
             }
+        }
+    }
+
+    public void switchDeliverymanStatus(Deliveryman deliveryman) {
+        String status = deliveryman.getStatus().getDescription();
+        if (status.equals(AVAILABLE_STATUS)) {
+            updateStatusOf(deliveryman, UNAVAILABLE_STATUS);
+        }
+        else if (status.equals(UNAVAILABLE_STATUS)) {
+            updateStatusOf(deliveryman, AVAILABLE_STATUS);
+        }
+        else {
+            throw new InvalidStatusChangeException();
         }
     }
 

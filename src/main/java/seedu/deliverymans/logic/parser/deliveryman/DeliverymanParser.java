@@ -66,9 +66,8 @@ public class DeliverymanParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommand(arguments);
 
-            /**
         case StatusCommand.COMMAND_WORD:
-            return new StatusCommand(arguments); **/
+            return new StatusCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

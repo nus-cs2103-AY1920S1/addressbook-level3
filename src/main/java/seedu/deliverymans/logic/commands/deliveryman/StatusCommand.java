@@ -2,12 +2,10 @@ package seedu.deliverymans.logic.commands.deliveryman;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 
+import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
@@ -17,72 +15,45 @@ import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
 /**
- * Edits the status of deliverymen
+ * Changes the status of a deliveryman from AVAILABLE to UNAVAILABLE or UNAVAILABLE to AVAILABLE
  */
 public class StatusCommand extends Command {
     public static final String COMMAND_WORD = "status";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the status of the deliveryman identified "
-            + "by the index number used in the displayed deliverymen database. "
-            + "Existing status will be overwritten by the input status.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the status of the deliveryman identified "
+            + "by the index number used in the displayed deliverymen database.\n "
+            + "If current status is AVAILABLE, status will be changed to UNAVAILABLE. "
+            + "If current status is UNAVAILABLE, status will be changed to AVAILABLE.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_EDIT_STATUS_SUCCESS = "Set status of deliveryman %1$s as %s ";
+    public static final String MESSAGE_CHANGE_STATUS_SUCCESS = "Changed status of deliveryman %1$s ";
 
-    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the customer database.";
+    private final Index targetIndex;
 
-    private final Index index;
-    private final StatusTag newStatus;
-
-    public StatusCommand(Index index, StatusTag newStatus) {
-        requireAllNonNull(index, newStatus);
-
-        this.index = index;
-        this.newStatus = newStatus;
+    public StatusCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        /**
-        List<Deliveryman> lastShownList = model.getFilteredCustomerList();
+        List<Deliveryman> lastShownList = model.getFilteredDeliverymenList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DELIVERYMAN_DISPLAYED_INDEX);
         }
 
-        Customer customerToEdit = lastShownList.get(index.getZeroBased());
-        Customer editedCustomer = createEditedCustomer(customerToEdit, editCustomerDescriptor);
-
-        if (!customerToEdit.isSameCustomer(editedCustomer) && model.hasCustomer(editedCustomer)) {
-            throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
-        }
-
-        model.setCustomer(customerToEdit, editedCustomer);
-        model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
-         **/
-        return new CommandResult(String.format(MESSAGE_EDIT_STATUS_SUCCESS));
+        Deliveryman deliverymanToEdit = lastShownList.get(targetIndex.getZeroBased());
+        model.switchDeliverymanStatus(deliverymanToEdit);
+        return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit));
     }
-
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-
-        // state check
-        StatusCommand e = (StatusCommand) other;
-        return index.equals(e.index);
+        return other == this // short circuit if same object
+                || (other instanceof StatusCommand // instanceof handles nulls
+                && targetIndex.equals(((StatusCommand) other).targetIndex)); // state check
     }
 }
+

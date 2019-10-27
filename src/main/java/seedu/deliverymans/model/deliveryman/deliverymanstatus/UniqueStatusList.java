@@ -6,9 +6,9 @@ import java.util.Objects;
  * A list that contains 3 status tags.
  */
 public class UniqueStatusList {
-    private static final String AVAILABLE_STATUS = "AVAILABLE";
-    private static final String UNAVAILABLE_STATUS = "UNAVAILABLE";
-    private static final String DELIVERING_STATUS = "DELIVERING";
+    public static final String AVAILABLE_STATUS = "AVAILABLE";
+    public static final String UNAVAILABLE_STATUS = "UNAVAILABLE";
+    public static final String DELIVERING_STATUS = "DELIVERING";
 
     private static final StatusTag availableTag = new StatusTag(AVAILABLE_STATUS);
     private static final StatusTag unavailableTag = new StatusTag(UNAVAILABLE_STATUS);
@@ -43,9 +43,12 @@ public class UniqueStatusList {
         }
     }
 
+    /**
+     * Checks if a tag description is valid ie. matches one of the 3 tags in UniqueStatusList.
+     */
     public static boolean isValidStatus(String tagDescription) {
-        return tagDescription.equals(AVAILABLE_STATUS) || tagDescription.equals(UNAVAILABLE_STATUS) ||
-                tagDescription.equals(DELIVERING_STATUS);
+        return tagDescription.equals(AVAILABLE_STATUS) || tagDescription.equals(UNAVAILABLE_STATUS)
+                || tagDescription.equals(DELIVERING_STATUS);
     }
 
     @Override

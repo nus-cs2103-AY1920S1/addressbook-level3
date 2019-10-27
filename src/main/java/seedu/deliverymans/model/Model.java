@@ -330,6 +330,8 @@ public interface Model {
      */
     Deliveryman getOneAvailableDeliveryman();
 
+    void switchDeliverymanStatus(Deliveryman target);
+
     //=========== Order Methods =============================================================
 
     /**
