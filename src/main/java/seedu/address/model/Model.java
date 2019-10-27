@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MutatorCommand;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
 
@@ -21,6 +22,9 @@ import seedu.address.model.visit.Visit;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -61,6 +65,7 @@ public interface Model {
      * Replaces all persons in address book with new persons from the list.
      */
     void replaceStagedAddressBook(List<Person> persons);
+
     /** Returns the current AddressBook */
     ReadOnlyAddressBook getStagedAddressBook();
 
@@ -172,8 +177,69 @@ public interface Model {
      * @param record record to revert to
      * @return list of reverted records with the first reversion at index 0
      */
-    List<HistoryRecord> revertTo(HistoryRecord record);
+    List<HistoryRecord> undoTo(HistoryRecord record);
+
+    /**
+     * Redoes the previous {@link MutatorCommand} if it was an undo.
+     *
+     * @return record describing the redone command and the state after its execution
+     * @throws IllegalStateException if the previous command was not an undo
+     */
+    HistoryRecord redo() throws IllegalStateException;
 
     /** Returns an unmodifiable view of the history */
     ObservableList<HistoryRecord> getHistory();
+
+    // Appointment related methods
+
+    /**
+     * Replaces appointment book data with the data in {@code appointmentBook}.
+     */
+    void setStagedAppointmentBook(ReadOnlyAppointmentBook appointmentBook);
+
+    /**
+     * Replaces all appointments in appointment book with new appointments from the list.
+     */
+    void replaceStagedAppointmentBook(List<Appointment> appointments);
+
+    /** Returns the current AppointmentBook */
+    ReadOnlyAppointmentBook getStagedAppointmentBook();
+
+    /**
+     * Returns true if an appointment with the same identity as {@code person} exists in the appointment list.
+     */
+    boolean hasAppointment(Appointment appointment);
+
+    /**
+     * Deletes the given appointment.
+     * The appointment must exist in the appointment list.
+     */
+    void deleteAppointment(Appointment target);
+
+    /**
+     * Adds the given appointment.
+     * {@code appointment} must not already exist in the appointment list.
+     */
+    void addAppointment(Appointment appointment);
+
+    /**
+     * Replaces the given appointment {@code target} with {@code editedAppointment}.
+     * {@code target} must exist in the appointment list.
+     * The appointment identity of {@code editedAppointment} must not be the same as another existing appointment
+     * in the appointment list.
+     */
+    void setAppointment(Appointment target, Appointment editedAppointment);
+
+
+    /** Returns an unmodifiable view of the entire appointment list */
+    ObservableList<Appointment> getStagedAppointmentList();
+
+    /** Returns an unmodifiable view of the filtered appointment list */
+    FilteredList<Appointment> getFilteredAppointmentList();
+
+    /**
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 }

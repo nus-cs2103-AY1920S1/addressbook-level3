@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private AppointmentListPanel appointmentListPanel;
     private OngoingVisitListPanel ongoingVisitListPanel;
     private AutoCompletePanel autoCompletePanel;
     private ResultDisplay resultDisplay;
@@ -58,6 +59,10 @@ public class MainWindow extends UiPart<Stage> {
     private Tab patientTabPage;
     @FXML
     private Tab ongoingVisitTabPage;
+    @FXML
+    private Tab appointmentTabPage;
+    @FXML
+    private StackPane appointmentListPanelPlaceholder;
     @FXML
     private StackPane ongoingVisitPanelPlaceholder;
 
@@ -125,6 +130,9 @@ public class MainWindow extends UiPart<Stage> {
         ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
         ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
 
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -139,7 +147,8 @@ public class MainWindow extends UiPart<Stage> {
 
         dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
                 patientTabPage,
-                ongoingVisitTabPage);
+                ongoingVisitTabPage,
+                appointmentTabPage);
     }
 
     /**
@@ -188,6 +197,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public OngoingVisitListPanel getOngoingVisitListPanel() {
         return ongoingVisitListPanel;
+    }
+
+    public AppointmentListPanel getAppointmentListPanel() {
+        return appointmentListPanel;
     }
 
     public AutoCompletePanel getAutoCompletePanel() {

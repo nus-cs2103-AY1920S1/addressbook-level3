@@ -16,6 +16,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.visit.Visit;
 import seedu.address.storage.Storage;
@@ -50,9 +51,8 @@ public class LogicManager implements Logic {
         if (command instanceof MutatorCommand) {
             if (!model.hasStagedChanges()) {
                 logger.info("Command " + command + " is a MutatorCommand but did not stage changes");
-            } else {
-                model.commit((MutatorCommand) command);
             }
+            model.commit((MutatorCommand) command);
         } else {
             if (model.hasStagedChanges()) {
                 model.discardStagedChanges();
@@ -79,6 +79,11 @@ public class LogicManager implements Logic {
     @Override
     public FilteredList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public FilteredList<Appointment> getFilteredAppointmentList() {
+        return model.getFilteredAppointmentList();
     }
 
     @Override
