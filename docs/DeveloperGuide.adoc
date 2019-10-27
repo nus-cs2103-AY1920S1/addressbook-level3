@@ -556,8 +556,8 @@ image:TemplatesTabScreenshot.png[]
 * *Storage* tab
 ** Import (for importing `Meme`s and `Templates`)
 ** Export (for exporting `Meme`s and `Templates`)
-* *Settings* tab
-** Settings (showing current user preferences)
+* *Preferences* tab
+** Preferences (showing current user preferences)
 
 `ModelContext`,
 
