@@ -142,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         //Setting modularDisplay to load mode by default.
-        modularDisplay.swapToLoadDisplay(modularDisplayPlaceholder);
+        modularDisplay.swapToHomeDisplay(modularDisplayPlaceholder);
 
         //Set up the resultDisplay (main feedback for commands).
         resultDisplay = new ResultDisplay();
