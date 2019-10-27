@@ -85,10 +85,6 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         if (interval.isEndsAfter(root.max)) {
             root.max = interval.getEnd();
         }
-        /*
-        if (root.max < interval.end) {
-            root.max = interval.end;
-        }*/
     }
 
     private void updateRootMaxVal(Node toUpdate, Node otherNode) {
@@ -119,11 +115,6 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
 
         IntervalPart intermediateMax = getMaxIntervalPart(leftSubtree, rightSubtree);
         root.max = getMaxIntervalPart(root, intermediateMax);
-        /*
-        int maxLeft = leftSubtree == null ? -1 : leftSubtree.max;
-        int maxRight = rightSubtree == null ? -1 : rightSubtree.max;
-        root.max = Math.max(Math.max(maxLeft, maxRight), root.max);
-         */
     }
 
     private IntervalPart getMaxIntervalPart(Node toUpdate, Node otherNode) {
@@ -236,10 +227,6 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         if (subtreeRoot == null || newInterval.isStartsAfter(subtreeRoot.max)) {
             return null;
         }
-        /*
-        if (subtreeRoot == null || newInterval.start > subtreeRoot.max) {
-            return null;
-        } */
 
         Interval currentInterval = subtreeRoot.interval;
 
@@ -255,23 +242,13 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         } else {
             return getCollision(newInterval, rightSubtree);
         }
-        /*
-        if (leftSubtree != null && leftSubtree.max >= newInterval.start) {
-            return getCollision(newInterval, leftSubtree);
-        } else {
-            return getCollision(newInterval, rightSubtree);
-        } */
+
     }
 
     private void getCollisions(Interval newInterval, Node subtreeRoot, List<Interval> collisions) {
         if (subtreeRoot == null || newInterval.isStartsAfter(subtreeRoot.max)) {
             return;
         }
-        /*
-        if (subtreeRoot == null || newInterval.start > subtreeRoot.max) {
-            return;
-        }
-         */
 
         Interval currentInterval = subtreeRoot.interval;
         if (isOverlap(currentInterval, newInterval)) {
@@ -284,19 +261,11 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         if (leftSubtree != null && !newInterval.isStartsAfter(leftSubtree.max)) {
             getCollisions(newInterval, leftSubtree, collisions);
         }
-        /*
-        if (leftSubtree != null && leftSubtree.max >= newInterval.start) {
-            getCollisions(newInterval, leftSubtree, collisions);
-        }*/
 
         if (currentInterval.isStartsAfter(newInterval.getEnd())) {
             return;
         }
-        /*
-        if (subtreeRoot.interval.start > newInterval.end) {
-            return;
-        }
-         */
+
         getCollisions(newInterval, rightSubtree, collisions);
     }
 
@@ -320,18 +289,6 @@ class IntervalSearchTree<S extends IntervalPart<S>,  T extends Interval<S, T>>{
         } else if (secondInterval.contains(firstInterval.getEnd())) {
             return true;
         }
-
-        /*
-        if (!firstInterval.isStartsAfter(secondInterval.getStart()) &&
-                !secondInterval.isStartsAfter(firstInterval.getEnd())) {
-            return true;
-        }*/
-        /*
-        if (firstInterval.start <= secondInterval.start && secondInterval.start <= firstInterval.end) {
-            return true;
-        } else if (secondInterval.start <= firstInterval.end && firstInterval.end <= secondInterval.end) {
-            return true;
-        }*/
 
         return false;
     }
