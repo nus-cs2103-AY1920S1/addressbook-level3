@@ -198,15 +198,4 @@ public class LoansManager {
         LoansManager otherLoansManager = (LoansManager) other;
         return getLoans().equals(otherLoansManager.getLoans());
     }
-
-    /**
-     * A comparator to sortBy loans by each of their person's names in alphabetical order.
-     */
-    public static class SortByPerson implements Comparator<Loan> {
-        @Override
-        public int compare(Loan first, Loan second) {
-            return first.getPerson().getName().toString().compareTo(
-                    second.getPerson().getName().toString());
-        }
-    }
 }
