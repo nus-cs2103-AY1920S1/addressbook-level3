@@ -17,4 +17,11 @@ public class CalendarCompatibleRecord {
         this.timing = timing;
     }
 
+    public Person getAthlete() {
+        return athlete;
+    }
+
+    public String getTiming() {
+        return timing;
+    }
 }

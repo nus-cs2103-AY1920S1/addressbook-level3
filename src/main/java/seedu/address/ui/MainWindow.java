@@ -216,7 +216,8 @@ public class MainWindow extends UiPart<Stage> {
                 Model model = commandResult.getModel();
                 switch (commandResult.getDate().getType()) {
                 case 1:
-                    CalendarDetailPanel calendarDetailPanel = new CalendarDetailPanel(model);
+                    CalendarDetailPanel calendarDetailPanel =
+                            new CalendarDetailPanel(commandResult.getDate(), model);
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(calendarDetailPanel.getRoot());
                     break;
