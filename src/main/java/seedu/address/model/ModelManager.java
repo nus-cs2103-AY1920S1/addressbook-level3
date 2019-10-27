@@ -476,9 +476,6 @@ public class ModelManager implements Model {
         earliestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, -1);
         Calendar latestUnconflictedStartTime = (Calendar) startTime.clone();
         latestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, 1);
-        //System.out.println(startTime.get(Calendar.HOUR_OF_DAY));
-        //System.out.println(earliestUnconflictedStartTime.get(Calendar.HOUR_OF_DAY));
-        //System.out.println(latestUnconflictedStartTime.get(Calendar.HOUR_OF_DAY));
 
         List<Schedule> schedules = scheduleBook.getList();
         for (Schedule s: schedules) {
