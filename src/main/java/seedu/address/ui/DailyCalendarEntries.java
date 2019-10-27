@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -24,7 +26,8 @@ public class DailyCalendarEntries extends UiPart<Region> {
 
     public DailyCalendarEntries(LocalDate date, ObservableList<CalendarEntry> calendarEntries) {
         super(FXML);
-        day.setText(date.getDayOfMonth() + "");
+        day.setText(date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + date.getDayOfMonth() + " "
+                + date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
         day.setWrapText(true);
         dailyCalendarEntryList.setItems(calendarEntries
                 .filtered(calendarEntry -> calendarEntry.isOnDate(date)).sorted());

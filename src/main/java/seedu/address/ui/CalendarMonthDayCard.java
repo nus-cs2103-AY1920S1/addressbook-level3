@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.CalendarEntry;
 
@@ -27,6 +28,7 @@ public class CalendarMonthDayCard extends UiPart<Region> {
     public CalendarMonthDayCard(LocalDate date, ObservableList<CalendarEntry> calendarEntries) {
         super(FXML);
         this.date.setWrapText(true);
+        this.date.setTextFill(Color.rgb(255, 0, 0));
         this.date.setText(date.getDayOfMonth() + "");
         StringBinding stringBinding = Bindings.size(
                 calendarEntries.filtered(calendarEntry -> calendarEntry.isOnDate(date))).asString();
