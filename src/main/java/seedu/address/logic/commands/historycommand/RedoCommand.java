@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.undocommand;
+package seedu.address.logic.commands.historycommand;
 
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.Command;
@@ -8,12 +8,12 @@ import seedu.address.model.Model;
 import seedu.address.model.entity.CommandType;
 
 /**
- * Command that undoes the effects of the previous command, returning the model to its previous state.
+ * Command that redoes the effects of the previous command, returning the model to the state after re-doing the command.
  */
-public class UndoCommand extends Command {
-    public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "Undid 1 command";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the previous command";
+public class RedoCommand extends Command {
+    public static final String COMMAND_WORD = "redo";
+    public static final String MESSAGE_SUCCESS = "Re-did 1 command";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the previous command";
 
     /**
      * Executes the command and returns a CommandResult with a message.
@@ -23,8 +23,8 @@ public class UndoCommand extends Command {
      */
     public CommandResult execute(Model model) throws CommandException {
         try {
-            model.undo();
-            return new CommandResult(String.format(MESSAGE_SUCCESS), CommandType.H);
+            model.redo();
+            return new CommandResult(MESSAGE_SUCCESS, CommandType.H);
         } catch (AlfredModelHistoryException e) {
             throw new CommandException(e.getMessage());
         }

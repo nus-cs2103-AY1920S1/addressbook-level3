@@ -790,31 +790,52 @@ public class ModelManager implements Model {
     public void undo() throws AlfredModelHistoryException {
         if (this.history.canUndo()) {
             ModelHistoryRecord hr = this.history.undo();
-
-            //Set Last Used IDs for each of the EntityLists
-            ParticipantList.setLastUsedId(hr.getParticipantListLastUsedId());
-            MentorList.setLastUsedId(hr.getMentorListLastUsedId());
-            TeamList.setLastUsedId(hr.getTeamListLastUsedId());
-
-            //Update each of the EntityLists to the state in the ModelHistoryRecord hr
-            try {
-                this.participantList = hr.getParticipantList().copy();
-                this.mentorList = hr.getMentorList().copy();
-                this.teamList = hr.getTeamList().copy();
-            } catch (AlfredModelException e) {
-                throw new AlfredModelHistoryException("Unable to copy EntityLists from ModelHistoryRecord");
-            }
-
-            //Update each of the filteredEntityLists
-            this.filteredParticipantList =
-                    new FilteredList<>(this.participantList.getSpecificTypedList());
-            this.filteredMentorList =
-                    new FilteredList<>(this.mentorList.getSpecificTypedList());
-            this.filteredTeamList =
-                    new FilteredList<>(this.teamList.getSpecificTypedList());
+            updateModelState(hr);
         } else {
             throw new AlfredModelHistoryException("Unable to undo.");
         }
+    }
+
+    /**
+     * This method will return the ModelManager to the state where the previous command executed is redone.
+     * @throws AlfredModelHistoryException
+     */
+    public void redo() throws AlfredModelHistoryException {
+        if (this.history.canRedo()) {
+            ModelHistoryRecord hr = this.history.redo();
+            updateModelState(hr);
+        } else {
+            throw new AlfredModelHistoryException("Unable to redo.");
+        }
+    }
+
+    /**
+     * Updates the current Model state (for each of the EntityLists and their lastUsedIDs) using a ModelHistoryRecord.
+     * @param hr ModelHistoryRecord containing the state of each of the EntityLists and their lastUsedIDs.
+     * @throws AlfredModelHistoryException
+     */
+    private void updateModelState(ModelHistoryRecord hr) throws AlfredModelHistoryException {
+        //Set Last Used IDs for each of the EntityLists
+        ParticipantList.setLastUsedId(hr.getParticipantListLastUsedId());
+        MentorList.setLastUsedId(hr.getMentorListLastUsedId());
+        TeamList.setLastUsedId(hr.getTeamListLastUsedId());
+
+        //Update each of the EntityLists to the state in the ModelHistoryRecord hr
+        try {
+            this.participantList = hr.getParticipantList().copy();
+            this.mentorList = hr.getMentorList().copy();
+            this.teamList = hr.getTeamList().copy();
+        } catch (AlfredModelException e) {
+            throw new AlfredModelHistoryException("Unable to copy EntityLists from ModelHistoryRecord");
+        }
+
+        //Update each of the filteredEntityLists
+        this.filteredParticipantList =
+                new FilteredList<>(this.participantList.getSpecificTypedList());
+        this.filteredMentorList =
+                new FilteredList<>(this.mentorList.getSpecificTypedList());
+        this.filteredTeamList =
+                new FilteredList<>(this.teamList.getSpecificTypedList());
     }
 
     /**

@@ -17,9 +17,10 @@ import seedu.address.logic.commands.csvcommand.ExportCommand;
 import seedu.address.logic.commands.csvcommand.ImportCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.findcommand.FindCommand;
+import seedu.address.logic.commands.historycommand.HistoryCommand;
+import seedu.address.logic.commands.historycommand.RedoCommand;
+import seedu.address.logic.commands.historycommand.UndoCommand;
 import seedu.address.logic.commands.listcommand.ListCommand;
-import seedu.address.logic.commands.undocommand.HistoryCommand;
-import seedu.address.logic.commands.undocommand.UndoCommand;
 import seedu.address.logic.commands.viewcommand.ViewCommand;
 import seedu.address.logic.parser.addcommandparser.AddCommandAllocator;
 import seedu.address.logic.parser.csvcommandparser.ExportCommandParser;
@@ -92,6 +93,9 @@ public class AlfredParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

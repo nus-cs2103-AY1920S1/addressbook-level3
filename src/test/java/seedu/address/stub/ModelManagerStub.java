@@ -255,7 +255,20 @@ public class ModelManagerStub extends ModelManager {
      */
     @Override
     public void updateHistory(Command c) {
+    }
 
+    /**
+     * Placeholder method simulating the undoing of a command in ModelHistory
+     */
+    @Override
+    public void undo() {
+    }
+
+    /**
+     * Placeholder method simulating the redoing of a command in ModelHistory
+     */
+    @Override
+    public void redo() {
     }
 
     /**

@@ -97,7 +97,6 @@ public class LogicManager implements Logic {
         return model.getMentorListFilePath();
     }
 
-
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();

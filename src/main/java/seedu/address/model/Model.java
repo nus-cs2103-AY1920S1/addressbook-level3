@@ -207,6 +207,12 @@ public interface Model {
     void undo() throws AlfredModelHistoryException;
 
     /**
+     * Redoes the effects of the previously executed command and returns the model to the state
+     * after the execution of the command.
+     */
+    void redo() throws AlfredModelHistoryException;
+
+    /**
      * Gets a String detailing the previously executed commands that can be undone by the user.
      * @return String representing the previously executed commands that can be undone by the user.
      */

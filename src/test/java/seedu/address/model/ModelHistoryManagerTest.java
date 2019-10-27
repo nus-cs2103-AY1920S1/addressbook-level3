@@ -9,13 +9,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
+import seedu.address.logic.commands.addcommand.AddMentorCommand;
 import seedu.address.logic.commands.addcommand.AddParticipantCommand;
+import seedu.address.logic.commands.listcommand.ListParticipantCommand;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
+import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Name;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Phone;
 import seedu.address.model.entity.PrefixType;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.TeamList;
@@ -29,41 +33,83 @@ class ModelHistoryManagerTest {
     private TeamList tList;
     private ModelHistoryManager hm;
     private Participant newP;
+    private Mentor newM;
 
     @BeforeEach
     void beforeEach() throws AlfredException {
         pList = TypicalParticipants.getTypicalParticipantList();
-        ParticipantList.setLastUsedId(1);
+        ParticipantList.setLastUsedId(10);
         mList = TypicalMentors.getTypicalMentorList();
-        MentorList.setLastUsedId(2);
+        MentorList.setLastUsedId(10);
         tList = TypicalTeams.getTypicalTeamList();
-        TeamList.setLastUsedId(3);
+        TeamList.setLastUsedId(10);
         hm = new ModelHistoryManager(pList, ParticipantList.getLastUsedId(),
                                      mList, MentorList.getLastUsedId(),
                                      tList, TeamList.getLastUsedId());
         newP = new Participant(new Name("Test Person"),
-                               new Id(PrefixType.P, 123),
+                               new Id(PrefixType.P, 11),
                                new Email("testperson@gmail.com"),
                                new Phone("93200000"));
+
+        newM = new Mentor(new Name("Test Mentor"),
+                          new Id(PrefixType.M, 11),
+                          new Phone("+6592222222"),
+                          new Email("testmentor@gmail.com"),
+                          new Name("Test Organization"),
+                          SubjectName.SOCIAL);
     }
 
-    @Test
-    void updateHistory_changeToEntityList_success() throws AlfredModelHistoryException, AlfredException {
+    /**
+     * Helper method to simulate the execution of an AddParticipantCommand.
+     * @throws AlfredException
+     */
+    private void executeAddParticipantCommandAndUpdateModelHistory() throws AlfredException {
         pList.add(newP);
         hm.updateHistory(pList, ParticipantList.getLastUsedId(),
-                         mList, MentorList.getLastUsedId(),
-                         tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
-        assertEquals(2, hm.getLengthOfHistory());
+                mList, MentorList.getLastUsedId(),
+                tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
+    }
+
+    @Test
+    void updateHistory_isTrackableStateCommand() throws AlfredException {
+        executeAddParticipantCommandAndUpdateModelHistory();
+        assertEquals(2, hm.getLengthOfHistory()); //ModelHistoryRecord with TrackableState Command added successfully.
         assertTrue(hm.canUndo());
     }
 
     @Test
-    void updateHistory_noEntityChange_success() throws AlfredModelHistoryException {
+    void updateHistory_notTrackableStateCommand() throws AlfredException {
         hm.updateHistory(pList, ParticipantList.getLastUsedId(),
                          mList, MentorList.getLastUsedId(),
-                         tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
-        assertEquals(2, hm.getLengthOfHistory());
+                         tList, TeamList.getLastUsedId(), new ListParticipantCommand());
+        assertEquals(1, hm.getLengthOfHistory());
+        assertFalse(hm.canUndo());
+    }
+
+    @Test
+    void undo_testEqualityOfLists_success() throws AlfredException {
+        ParticipantList origPList = pList.copy();
+        executeAddParticipantCommandAndUpdateModelHistory();
         assertTrue(hm.canUndo());
+        ModelHistoryRecord hr = hm.undo();
+        ParticipantList historyPList = hr.getParticipantList();
+        assertEquals(origPList.getSpecificTypedList(), historyPList.getSpecificTypedList());
+    }
+
+    @Test
+    void undo_testLastUsedIdSetting_success() throws AlfredModelHistoryException, AlfredException {
+        int origPListLastUsedId = ParticipantList.getLastUsedId();
+        executeAddParticipantCommandAndUpdateModelHistory();
+        ModelHistoryRecord hr = hm.undo();
+        assertEquals(origPListLastUsedId, hr.getParticipantListLastUsedId());
+    }
+
+    @Test
+    void canUndo_testUndoEndPoint() throws AlfredException {
+        executeAddParticipantCommandAndUpdateModelHistory();
+        assertTrue(hm.canUndo());
+        ModelHistoryRecord hr = hm.undo();
+        assertFalse(hm.canUndo());
     }
 
     @Test
@@ -72,54 +118,63 @@ class ModelHistoryManagerTest {
     }
 
     @Test
-    void canUndo_entityChange_true() throws AlfredModelHistoryException {
+    void canRedo_testRedoEndPoint() throws AlfredException {
+        assertFalse(hm.canRedo());
+        executeAddParticipantCommandAndUpdateModelHistory();
+        assertFalse(hm.canRedo());
+        hm.undo();
+        assertTrue(hm.canRedo());
+        mList.add(newM);
+        //Overwrites the valid redo-able commands, so canRedo() should return false.
         hm.updateHistory(pList, ParticipantList.getLastUsedId(),
                          mList, MentorList.getLastUsedId(),
-                         tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
-        assertTrue(hm.canUndo());
-    }
-
-    @Test
-    void canRedo() {
-        //TODO: Update this in v1.3-1.4
+                         tList, TeamList.getLastUsedId(), new AddMentorCommand(newM));
         assertFalse(hm.canRedo());
     }
 
     @Test
-    void undo_testEqualityOfLists_success() throws AlfredException {
-        pList.add(newP);
-        hm.updateHistory(pList, ParticipantList.getLastUsedId(),
-                         mList, MentorList.getLastUsedId(),
-                         tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
-        hm.updateHistory(pList, ParticipantList.getLastUsedId(),
-                         mList, MentorList.getLastUsedId(),
-                         tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
-
-        assertTrue(hm.canUndo());
+    void redo_testEqualityOfLists_success() throws AlfredException {
+        executeAddParticipantCommandAndUpdateModelHistory();
         ModelHistoryRecord hr = hm.undo();
-        ParticipantList historyPList = hr.getParticipantList();
-        assertEquals(pList.getSpecificTypedList(), historyPList.getSpecificTypedList());
+        hr = hm.redo();
+        assertEquals(pList.getSpecificTypedList(), hr.getParticipantList().getSpecificTypedList());
     }
 
     @Test
-    void undo_testLastUsedIdSetting_success() throws AlfredModelHistoryException, AlfredException {
-        int lastUsedIdBefore = ParticipantList.getLastUsedId();
-        hm.updateHistory(pList, ParticipantList.getLastUsedId(),
-                         mList, MentorList.getLastUsedId(),
-                         tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
-        pList.add(newP);
-        hm.updateHistory(pList, ParticipantList.getLastUsedId(),
-                         mList, MentorList.getLastUsedId(),
-                         tList, TeamList.getLastUsedId(), new AddParticipantCommand(newP));
+    void redo_testLastUsedIdSetting_success() throws AlfredException {
+        executeAddParticipantCommandAndUpdateModelHistory();
         ModelHistoryRecord hr = hm.undo();
-        assertEquals(lastUsedIdBefore, hr.getParticipantListLastUsedId());
-        assertEquals(hr.getParticipantListLastUsedId(), ParticipantList.getLastUsedId());
+        hr = hm.redo();
+        assertEquals(pList.getLastUsedId(), hr.getParticipantListLastUsedId());
     }
 
     @Test
-    void redo() {
-        //TODO: Update this in v1.3-1.4
-        assertTrue(true);
+    void canRedo_initialModelHistoryManager_false() {
+        assertFalse(hm.canRedo());
+    }
+
+    @Test
+    void getCommandHistory_initial() {
+        assertEquals(hm.getCommandHistory().size(), 3);
+        assertEquals(hm.getCommandHistory().get(0).getCommandType(), CommandRecord.CommandType.END);
+        assertEquals(hm.getCommandHistory().get(1).getCommandType(), CommandRecord.CommandType.CURR);
+        assertEquals(hm.getCommandHistory().get(2).getCommandType(), CommandRecord.CommandType.END);
+    }
+
+    @Test
+    void getCommandHistory_withUndoRedo() throws AlfredException {
+        executeAddParticipantCommandAndUpdateModelHistory();
+        mList.add(newM);
+        hm.updateHistory(pList, ParticipantList.getLastUsedId(),
+                         mList, MentorList.getLastUsedId(),
+                         tList, TeamList.getLastUsedId(), new AddMentorCommand(newM));
+        hm.undo();
+        assertEquals(hm.getCommandHistory().size(), 5);
+        assertEquals(hm.getCommandHistory().get(0).getCommandType(), CommandRecord.CommandType.END);
+        assertEquals(hm.getCommandHistory().get(1).getCommandType(), CommandRecord.CommandType.REDO);
+        assertEquals(hm.getCommandHistory().get(2).getCommandType(), CommandRecord.CommandType.CURR);
+        assertEquals(hm.getCommandHistory().get(3).getCommandType(), CommandRecord.CommandType.UNDO);
+        assertEquals(hm.getCommandHistory().get(4).getCommandType(), CommandRecord.CommandType.END);
     }
 
     @Test

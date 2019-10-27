@@ -80,7 +80,7 @@ public class ModelHistoryManager implements ModelHistory {
 
     /**
      * Adds a ModelHistoryRecord to command history. This method checks for capacity constraints of the
-     * ModelHisxtoryManager and is responsible for ensuring a valid sequence of commands in history for Undo/Redo.
+     * ModelHistoryManager and is responsible for ensuring a valid sequence of commands in history for Undo/Redo.
      * @param r
      */
     private void addToHistory(ModelHistoryRecord r) {
@@ -119,9 +119,6 @@ public class ModelHistoryManager implements ModelHistory {
         if (this.canUndo()) {
             int currentIndex = this.history.indexOf(this.current); //Get prev state pointer index
             this.current = this.history.get(currentIndex - 1); //Update the current state pointer
-            ParticipantList.setLastUsedId(this.current.getParticipantListLastUsedId());
-            MentorList.setLastUsedId(this.current.getMentorListLastUsedId());
-            TeamList.setLastUsedId(this.current.getTeamListLastUsedId());
             return this.current;
         } else {
             throw new AlfredModelHistoryException("Unable to undo any further!");
@@ -230,8 +227,13 @@ public class ModelHistoryManager implements ModelHistory {
      * @throws AlfredModelHistoryException
      */
     public ModelHistoryRecord redo() throws AlfredModelHistoryException {
-        //TODO: Update this in v1.3-1.4
-        throw new AlfredModelHistoryException("Not yet implemented");
+        if (this.canRedo()) {
+            int currentIndex = this.history.indexOf(this.current);
+            this.current = this.history.get(currentIndex + 1);
+            return this.current;
+        } else {
+            throw new AlfredModelHistoryException("Unable to redo any further!");
+        }
     }
 
     /**
