@@ -13,7 +13,7 @@
 
 <?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="SecureIT" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="SecureIT" minWidth="700" minHeight="700" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -48,7 +48,7 @@
           </padding>
         </StackPane>
 
-        <HBox>
+        <HBox VBox.vgrow="ALWAYS">
           <VBox fx:id="modeList" styleClass="pane-with-border" minWidth="100" prefWidth="100" VBox.vgrow="ALWAYS"
           HBox.hgrow="NEVER">
             <padding>
@@ -57,7 +57,7 @@
             <StackPane fx:id="modeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="objectList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
+          <VBox fx:id="objectList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS"
           HBox.hgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
