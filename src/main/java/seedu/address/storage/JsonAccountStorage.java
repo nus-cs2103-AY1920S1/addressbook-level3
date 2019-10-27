@@ -2,7 +2,10 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,6 +28,7 @@ public class JsonAccountStorage implements AccountStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonAccountStorage.class);
 
     private static final Path accountBookFilePath = Paths.get("data", "accountslist.json");
+    private static File file = new File("data/accountslist.json");
 
     private Path filePath;
 
@@ -41,7 +45,7 @@ public class JsonAccountStorage implements AccountStorage {
     }
 
     @Override
-    public Optional<AccountBook> getAccountsList() throws DataConversionException, FileNotFoundException {
+    public Optional<AccountBook> getAccountsList() throws DataConversionException, IOException {
         return getAccountsList(filePath);
     }
 
@@ -51,8 +55,17 @@ public class JsonAccountStorage implements AccountStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<AccountBook> getAccountsList(Path filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<AccountBook> getAccountsList(Path filePath) throws DataConversionException, IOException {
         requireNonNull(filePath);
+
+        if (file.createNewFile()) {
+            logger.info("New File created.");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write("{\"accounts\" : [] }");
+            writer.close();
+        } else {
+            logger.info("Checking with file.");
+        }
 
         Optional<JsonSerializableAccountBook> jsonAccount = JsonUtil.readJsonFile(
                 filePath, JsonSerializableAccountBook.class);

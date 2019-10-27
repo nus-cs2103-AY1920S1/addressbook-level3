@@ -140,7 +140,8 @@ public class LoginWindow extends UiPart<Stage> {
 
         } catch (ParseException | CommandException e) {
             logger.info("Invalid command: " + loginItem.getText());
-            resultDisplay.setFeedbackToUser("Please login or register your account before you do any commands. Scroll down to see examples. \n\n"
+            resultDisplay.setFeedbackToUser("Please login or register your account before you do any commands. "
+                    + "Scroll down to see examples. \n\n"
                     + LoginCommand.MESSAGE_USAGE + " \n\n" + RegisterAccountCommand.MESSAGE_USAGE);
             //throw e;
         }
