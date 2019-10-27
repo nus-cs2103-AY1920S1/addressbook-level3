@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Represents the Date of an Event in AddMin+. Events can span a time period of multiple days (dates).
  */
 public class EventDate {
-    public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format DDMMYYYY";
+    public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format DD/MM/YYYY";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final LocalDate date;

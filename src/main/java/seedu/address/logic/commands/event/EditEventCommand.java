@@ -24,6 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventManpowerAllocatedList;
 import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
@@ -106,9 +107,19 @@ public class EditEventCommand extends Command {
         EventDate updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
 
-        return new Event(updatedEventName, updatedEventVenue,
-                updatedManpowerNeeded, updatedStartDate,
-                updatedEndDate, updatedTags);
+        if (updatedStartDate != eventToEdit.getStartDate()
+                || updatedEndDate != eventToEdit.getEndDate()) {
+            return new Event(updatedEventName, updatedEventVenue,
+                    updatedManpowerNeeded, updatedStartDate,
+                    updatedEndDate, updatedTags);
+        } else {
+            EventManpowerAllocatedList originalManpowerAllocatedList = eventToEdit.getManpowerAllocatedList();
+            EventDateTimeMap originalDateTimeMap = eventToEdit.getEventDateTimeMap();
+            return new Event(updatedEventName, updatedEventVenue,
+                    updatedManpowerNeeded, updatedStartDate,
+                    updatedEndDate, originalManpowerAllocatedList, originalDateTimeMap, updatedTags);
+        }
+
     }
 
     @Override
