@@ -26,6 +26,14 @@ import seedu.address.testutil.EditContactDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_ACTIVITY_NAME_A = "Visit Temple";
+    public static final String VALID_ACTIVITY_NAME_B = "Sushi class";
+    public static final String VALID_ACTIVITY_ADDRESS_A = "Kyoto";
+    public static final String VALID_ACTIVITY_ADDRESS_B = "Tokyo";
+    public static final String VALID_TAG_SIGHTSEEING = "sightseeing";
+    public static final String VALID_TAG_LESSON = "lesson";
+
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";

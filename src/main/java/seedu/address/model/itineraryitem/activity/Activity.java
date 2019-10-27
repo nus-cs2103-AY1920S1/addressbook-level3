@@ -9,7 +9,7 @@ import seedu.address.model.itineraryitem.ItineraryItem;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents an Accommodation in the trip planner.
+ * Represents an Activity in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Activity extends ItineraryItem {
@@ -29,7 +29,6 @@ public class Activity extends ItineraryItem {
         if (otherActivity == this) {
             return true;
         }
-
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
                 && (otherActivity.getAddress().equals(getAddress()));
