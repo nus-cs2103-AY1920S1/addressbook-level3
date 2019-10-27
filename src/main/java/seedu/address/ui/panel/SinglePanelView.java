@@ -20,6 +20,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
     public static final String FXML = "PanelView.fxml";
     private Map<PanelName, Panel> panelNamePanelHashMap;
     private Panel currentPanel;
+    private PanelName currentPanelName;
     @FXML
     private StackPane panelPlaceholder;
 
@@ -30,6 +31,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         super(FXML);
         panelNamePanelHashMap = new HashMap<>();
         currentPanel = new PlaceholderPanel();
+        currentPanelName = PanelName.CURRENT;
     }
 
     /**
@@ -51,10 +53,15 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         }
         panelNamePanelHashMap.get(panelName).view();
         currentPanel = getPanel(panelName);
+        currentPanelName = panelName;
     }
 
     public Panel getCurrentPanel() {
         return currentPanel;
+    }
+
+    public PanelName getCurrentPanelName() {
+        return currentPanelName;
     }
 
     // -------- PanelManager Method Implementations ------------------

@@ -1,12 +1,13 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-
-import java.util.Optional;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import java.util.regex.Matcher;
 
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.budget.Percentage;
@@ -159,27 +160,15 @@ public class ParserUtil {
         }
     }
 
-    /*
-    public static String formatPeriod(Period period) {
-        String periodString = period.toString();
-        switch (periodString) {
-        case "P1D":
-            return "day";
-        case "P7D":
-            //fallthrough
-        case "P1W":
-        case "P1W":
-            return "week";
-        case "P1M":
-            return "month";
-        case "P1Y":
-            return "year";
-        case "P999Y":
-            return "infinity";
-        default:
-            return periodString;
-        }
-    }
 
-     */
+    public static Input parseInput(String input) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        return new Input(commandWord, arguments);
+    }
 }

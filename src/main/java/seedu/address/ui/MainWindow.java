@@ -167,12 +167,10 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         ExpenseListPanel expenseListPanel;
         BudgetListPanel budgetListPanel;
-        EventListPanel eventListPanel;
 
         singlePanelView = new SinglePanelView();
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList(), true);
         budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
-        eventListPanel = new EventListPanel(logic.getFilteredEventList(), true);
 
         if (logic.getPrimaryBudget() != null) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
@@ -183,11 +181,16 @@ public class MainWindow extends UiPart<Stage> {
         singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
         singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME, expenseListPanel);
-        singlePanelView.setPanel(EventListPanel.PANEL_NAME, eventListPanel);
-
+        singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
         singlePanelView.setPanel(PanelName.STATISTICS_PANEL, new PlaceholderPanel());
         panelPlaceholder.getChildren().add(singlePanelView.getRoot());
-        expenseListPanel.view();
+
+        // startup panel = expense list panel
+        try {
+            singlePanelView.viewPanel(ExpenseListPanel.PANEL_NAME);
+        } catch (UnmappedPanelException e) {
+            // should not be thrown
+        }
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -337,9 +340,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Executes the command and returns the result.
+     * Executes the command and returns the result. If the command is a generic command, append the command group based
+     * on the current panel.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see Logic#execute(String, String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
             UnmappedPanelException {
@@ -349,7 +353,17 @@ public class MainWindow extends UiPart<Stage> {
             boolean initialIsNear = primaryBudget.isNear();
             boolean initialIsExceeded = primaryBudget.isExceeded();
 
-            CommandResult commandResult = logic.execute(commandText);
+            String commandGroup = "";
+            if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+                commandGroup = "budget";
+            } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+                commandGroup = "expense";
+            } else if (PanelName.EVENTS_PANEL.equals(singlePanelView.getCurrentPanelName())) {
+                commandGroup = "event";
+            } else if (BudgetListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+                commandGroup = "budget";
+            }
+            CommandResult commandResult = logic.execute(commandText, commandGroup);
 
             if (commandResult.isViewRequest()) {
                 changePanel(commandResult.viewRequest());

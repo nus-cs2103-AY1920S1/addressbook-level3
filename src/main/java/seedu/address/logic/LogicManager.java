@@ -40,11 +40,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, String commandGroup) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = mooLahParser.parseCommand(commandText, model.getUserPrefs());
+        Command command = mooLahParser.parseCommand(commandText, commandGroup, model.getUserPrefs());
         commandResult = command.run(model);
 
         save();
@@ -92,6 +92,11 @@ public class LogicManager implements Logic {
 
     public ObservableList<Event> getFilteredEventList() {
         return model.getFilteredEventList();
+    }
+
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return model.getFilteredBudgetList();
     }
 
     @Override

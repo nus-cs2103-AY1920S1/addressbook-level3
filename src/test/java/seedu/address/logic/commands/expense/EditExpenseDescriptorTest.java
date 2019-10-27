@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.expense.EditCommand.EditExpenseDescriptor;
+import seedu.address.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 public class EditExpenseDescriptorTest {

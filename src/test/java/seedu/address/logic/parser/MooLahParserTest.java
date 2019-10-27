@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandTestUtil;
-import seedu.address.logic.commands.alias.AliasCommand;
-import seedu.address.logic.commands.expense.ClearCommand;
-import seedu.address.logic.commands.expense.DeleteCommand;
-import seedu.address.logic.commands.expense.EditCommand;
-import seedu.address.logic.commands.expense.EditCommand.EditExpenseDescriptor;
-import seedu.address.logic.commands.expense.FindCommand;
-import seedu.address.logic.commands.expense.ListCommand;
+import seedu.address.logic.commands.alias.AddAliasCommand;
+import seedu.address.logic.commands.expense.ClearExpenseCommand;
+import seedu.address.logic.commands.expense.DeleteExpenseCommand;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
+import seedu.address.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;
+import seedu.address.logic.commands.expense.FindExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpenseCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.statistics.StatsCommand;
@@ -54,24 +54,24 @@ public class MooLahParserTest {
 
     @Test
     public void parseCommand_alias() throws Exception {
-        AliasCommand aliasCommand = (AliasCommand) parser.parseCommand(
+        AddAliasCommand aliasCommand = (AddAliasCommand) parser.parseCommand(
                 String.format("%s %s a %s b",
-                        AliasCommand.COMMAND_WORD, PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT),
-                readOnlyUserPrefs);
-        assertEquals(aliasCommand, new AliasCommand(AliasTestUtil.ALIAS_A_TO_B));
+                        AddAliasCommand.COMMAND_WORD, PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT),
+                "", readOnlyUserPrefs);
+        assertEquals(aliasCommand, new AddAliasCommand(AliasTestUtil.ALIAS_A_TO_B));
     }
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD, readOnlyUserPrefs) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3", readOnlyUserPrefs) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearExpenseCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ClearExpenseCommand);
+        assertTrue(parser.parseCommand(ClearExpenseCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ClearExpenseCommand);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(), readOnlyUserPrefs);
-        assertEquals(new DeleteCommand(INDEX_FIRST_EXPENSE), command);
+        DeleteExpenseCommand command = (DeleteExpenseCommand) parser.parseCommand(
+                DeleteExpenseCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(), "", readOnlyUserPrefs);
+        assertEquals(new DeleteExpenseCommand(INDEX_FIRST_EXPENSE), command);
     }
 
 
@@ -79,51 +79,51 @@ public class MooLahParserTest {
     public void parseCommand_edit() throws Exception {
         Expense expense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(expense).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditExpenseCommand command = (EditExpenseCommand) parser.parseCommand(EditExpenseCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_EXPENSE.getOneBased() + " "
                         + ExpenseUtil.getEditExpenseDescriptorDetails(descriptor),
-                readOnlyUserPrefs);
+                "", readOnlyUserPrefs);
 
-        assertEquals(new EditCommand(INDEX_FIRST_EXPENSE, descriptor), command);
+        assertEquals(new EditExpenseCommand(INDEX_FIRST_EXPENSE, descriptor), command);
     }
 
 
     @Test
     public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, readOnlyUserPrefs) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", readOnlyUserPrefs) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ExitCommand);
     }
 
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")), readOnlyUserPrefs);
-        assertEquals(new FindCommand(new DescriptionContainsKeywordsPredicate(keywords)), command);
+        FindExpenseCommand command = (FindExpenseCommand) parser.parseCommand(
+                FindExpenseCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")), "", readOnlyUserPrefs);
+        assertEquals(new FindExpenseCommand(new DescriptionContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD, readOnlyUserPrefs) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3", readOnlyUserPrefs) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof HelpCommand);
     }
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD, readOnlyUserPrefs) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3", readOnlyUserPrefs) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListExpenseCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ListExpenseCommand);
+        assertTrue(parser.parseCommand(ListExpenseCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ListExpenseCommand);
     }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand("", readOnlyUserPrefs));
+            -> parser.parseCommand("", "", readOnlyUserPrefs));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
-            -> parser.parseCommand("unknownCommand", readOnlyUserPrefs));
+            -> parser.parseCommand("unknownCommand", "", readOnlyUserPrefs));
     }
 
     @Test
@@ -133,7 +133,7 @@ public class MooLahParserTest {
                         StatsCommand.COMMAND_WORD,
                         PREFIX_START_DATE,
                         PREFIX_END_DATE),
-                readOnlyUserPrefs);
+                "", readOnlyUserPrefs);
         assertEquals(command, new StatsCommand(
                 CommandTestUtil.OCTOBER_FIRST,
                 CommandTestUtil.OCTOBER_LAST));

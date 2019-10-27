@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.commons.exceptions.RecursiveAliasException;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.alias.AliasCommand;
+import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
-import seedu.address.logic.commands.expense.ClearCommand;
-import seedu.address.logic.commands.expense.DeleteCommand;
-import seedu.address.logic.commands.expense.EditCommand;
-import seedu.address.logic.commands.expense.FindCommand;
-import seedu.address.logic.commands.expense.ListCommand;
+import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.expense.AddExpenseCommand;
+import seedu.address.logic.commands.expense.ClearExpenseCommand;
+import seedu.address.logic.commands.expense.DeleteExpenseCommand;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
+import seedu.address.logic.commands.expense.FindExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpenseCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 
@@ -70,21 +71,23 @@ public class AliasMappings implements Serializable {
     public boolean aliasUsesReservedName(Alias alias) {
         String aliasName = alias.getAliasName();
         switch (aliasName) {
-        case AddCommand.COMMAND_WORD:
+        case AddEventCommand.COMMAND_WORD:
             // fallthrough
-        case AliasCommand.COMMAND_WORD:
+        case AddExpenseCommand.COMMAND_WORD:
+            // fallthrough
+        case AddAliasCommand.COMMAND_WORD:
             // fallthrough
         case AddBudgetCommand.COMMAND_WORD:
             // fallthrough
-        case EditCommand.COMMAND_WORD:
+        case EditExpenseCommand.COMMAND_WORD:
             // fallthrough
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteExpenseCommand.COMMAND_WORD:
             // fallthrough
-        case ClearCommand.COMMAND_WORD:
+        case ClearExpenseCommand.COMMAND_WORD:
             // fallthrough
-        case FindCommand.COMMAND_WORD:
+        case FindExpenseCommand.COMMAND_WORD:
             // fallthrough
-        case ListCommand.COMMAND_WORD:
+        case ListExpenseCommand.COMMAND_WORD:
             // fallthrough
         case ExitCommand.COMMAND_WORD:
             // fallthrough
