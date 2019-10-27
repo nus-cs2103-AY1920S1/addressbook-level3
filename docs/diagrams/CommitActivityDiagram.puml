@@ -1,15 +1,14 @@
 @startuml
-start
-:User executes command;
+(*)  if "" then
+--> "Home (No Switch)"
 
-'Since the beta syntax does not support placing the condition outside the
-'diamond we place it as the true branch instead.
-
-if () then ([command commits AddressBook])
-    :Purge redunant states;
-    :Save AddressBook to
-    addressBookStateList;
-else ([else])
+if "" then
+  -->[&#91;bank <bankName>&#93;] "Home (With Switch)"
+  --> "Another activity"
+  -right-> (*)
+else
+  ->[&#91;else&#93;] "Something else"
+  -->[Ending process] (*)
 endif
-stop
+
 @enduml
