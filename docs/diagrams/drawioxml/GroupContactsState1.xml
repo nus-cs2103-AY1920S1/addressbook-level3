@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="www.draw.io" modified="2019-10-27T06:42:56.699Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="ce7re_LBIiDMEyITLtOB" version="12.1.7" type="google" pages="8">
+  <diagram name="groupcreate" id="hTtgo9pHJkn3cEQWk67z">
+    <mxGraphModel dx="768" dy="418" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-0"/>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-1" parent="87DAtGV3L7gfMUpDrmpD-0"/>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-2" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="90" y="60" width="540" height="330" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-3" value="Model State" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="330" y="70" width="80" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-4" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="110" y="100" width="330" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-5" value="AddressBook" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="240" y="110" width="80" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;taehyung:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00001&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="130" y="150" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-7" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;jungkook:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00002&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="280" y="150" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-8" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;jimin:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00003&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="130" y="220" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-9" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="450" y="100" width="160" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-10" value="GroupBook" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="490" y="110" width="80" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-11" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;yuju:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00013&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="130" y="290" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-12" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;eunha:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00014&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="280" y="290" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-13" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;bts:Group&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="470" y="150" width="120" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="87DAtGV3L7gfMUpDrmpD-1" source="87DAtGV3L7gfMUpDrmpD-4" target="87DAtGV3L7gfMUpDrmpD-4" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="87DAtGV3L7gfMUpDrmpD-1" source="87DAtGV3L7gfMUpDrmpD-2" target="87DAtGV3L7gfMUpDrmpD-2" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-16" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;suga:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00004&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="280" y="220" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-17" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;memberIds:Set&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#ffffff;strokeColor=#b85450;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="480" y="190" width="100" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-19" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#006600;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="650" y="60" width="180" height="330" as="geometry"/>
+        </mxCell>
+        <mxCell id="87DAtGV3L7gfMUpDrmpD-20" value="UI Display" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="87DAtGV3L7gfMUpDrmpD-1" vertex="1">
+          <mxGeometry x="700" y="70.5" width="80" height="26" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

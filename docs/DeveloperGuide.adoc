@@ -208,7 +208,7 @@ As an additional feature to be implemented in the future, we can store a `Tag` l
 === Storage component
 
 .Structure of the Storage Component
-image::StorageArchitectureDiagram.png[]
+image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tagline/storage/Storage.java[`Storage.java`]
 
@@ -353,8 +353,9 @@ image::GroupContactsState1.png[]
 
 The `GroupBook` model state now contains a `Group` instance for "BTS" with no members
  recorded as memberIds.
- A group with no members would not prompt the `UI` to display the contacts in the group
- while a group with members in it would cause `UI` to display all the contacts belonging
+Any command regarding `Group` would prompt the `UI` to display the contacts in the group.
+ A group with no members would cause the `UI` to be empty. As there are no contacts in the group.
+ While a group with members in it would cause `UI` to display all the contacts belonging
  to that group.
 
 
@@ -370,7 +371,7 @@ image::GroupContactsState2.png[]
 
 
 Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
- chooses to delete the contact instead of merely removing from the Group.
+ chooses to delete the contact instead of merely removing the contact from the Group.
  Executing `contact delete --i 00013`
  which then deletes the `Contact` with contactId of 00013.
  However, this does not remove the contact's id from
