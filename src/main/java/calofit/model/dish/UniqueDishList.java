@@ -38,28 +38,47 @@ public class UniqueDishList implements Iterable<Dish> {
     }
 
     /**
-     * Returns true if the list contains a dish with the same name as the given argument.
-     */
-
-    public boolean containsDishName(Dish toCheck) {
+     * Returns dish if the list contains an equivalent dish as the given argument.
+     * */
+    public Dish getDish(Dish toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameDishName);
-    }
-
-    /**
-     * Get the dish by name from the dish database
-     */
-    public Dish getDishByName(Dish get) {
-        requireNonNull(get);
         boolean foundDish = false;
         for (int i = 0; i < internalList.size(); i++) {
             Dish dish = internalList.get(i);
-            if (dish.getName().equals(get.getName())) {
+            if (dish.isSameDish(toCheck)) {
                 foundDish = true;
                 return dish;
             }
         }
-        return get;
+        return null;
+    }
+
+    /**
+     * Returns true if the list contains a dish with the same name as the given argument.
+     */
+
+    public boolean containsDishName(Name toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(dish -> {
+            return dish.getName().toLowerCase().equals(toCheck.toLowerCase());
+        });
+    }
+
+    /**
+     * Get the dish by name from the dish database
+     * returns null if dish database does not have the dish
+     */
+    public Dish getDishByName(Name get) {
+        requireNonNull(get);
+        boolean foundDish = false;
+        for (int i = 0; i < internalList.size(); i++) {
+            Dish dish = internalList.get(i);
+            if (dish.getName().toLowerCase().equals(get.toLowerCase())) {
+                foundDish = true;
+                return dish;
+            }
+        }
+        return null;
     }
 
     /**

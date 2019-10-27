@@ -9,6 +9,8 @@ import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.MealLog;
+import calofit.model.meal.ReadOnlyMealLog;
 import calofit.model.tag.Tag;
 
 /**
@@ -41,6 +43,10 @@ public class SampleDataUtil {
             sampleAb.addDish(sampleDish);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyMealLog getNewMealLog() {
+        return new MealLog();
     }
 
     /**

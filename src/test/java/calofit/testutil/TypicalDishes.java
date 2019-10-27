@@ -5,12 +5,16 @@ import static calofit.logic.commands.CommandTestUtil.VALID_NAME_MACARONI;
 import static calofit.logic.commands.CommandTestUtil.VALID_TAG_EXPENSIVE;
 import static calofit.logic.commands.CommandTestUtil.VALID_TAG_SALTY;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
+import calofit.model.meal.Meal;
+import calofit.model.meal.MealLog;
+import calofit.model.util.Timestamp;
 
 /**
  * A utility class containing a list of {@code Dish} objects to be used in tests.
@@ -80,5 +84,15 @@ public class TypicalDishes {
     public static List<Dish> getTypicalDishes() {
         return new ArrayList<>(Arrays.asList(
                 SPAGHETTI, MUSHROOM_SOUP, CHICKEN_RICE, NASI_LEMAK, CHEESE_BAKED_RICE, APPLE_PIE, CHENDOL));
+    }
+
+    public static MealLog getTypicalMealLog() {
+        MealLog mealLog = new MealLog();
+        mealLog.addMeal(dishToMeal(SPAGHETTI));
+        return mealLog;
+    }
+
+    private static Meal dishToMeal(Dish dish) {
+        return new Meal(dish, new Timestamp(LocalDateTime.now()));
     }
 }

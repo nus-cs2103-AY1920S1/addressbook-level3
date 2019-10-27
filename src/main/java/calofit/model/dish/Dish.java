@@ -69,7 +69,7 @@ public class Dish {
         //return otherDish != null && otherDish.getName().equals(getName());
 
         return otherDish != null
-                && otherDish.getName().equals(getName())
+                && otherDish.getName().toLowerCase().equals(getName().toLowerCase())
                 && otherDish.getCalories().equals(getCalories());
     }
 
@@ -84,7 +84,7 @@ public class Dish {
         }
 
         return otherDish != null
-                && otherDish.getName().equals(getName());
+                && otherDish.getName().toLowerCase().equals(getName().toLowerCase());
     }
 
     /**
@@ -102,7 +102,7 @@ public class Dish {
         }
 
         Dish otherDish = (Dish) other;
-        return otherDish.getName().equals(getName())
+        return otherDish.getName().toLowerCase().equals(getName().toLowerCase())
                 && otherDish.getCalories().equals(getCalories())
                 && otherDish.getTags().equals(getTags());
     }

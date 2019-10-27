@@ -9,5 +9,6 @@
       "z": 99
     }
   },
-  "dishDatabaseFilePath": "dishDb.json"
+  "dishDatabaseFilePath": "dishDb.json",
+  "mealLogFilePath": "mealLog.json"
 }
