@@ -379,31 +379,31 @@ to any transaction records since every transaction must be linked to a `Person` 
 
 
 === Reimbursement Tab
-This tab will help to show records of reimbursements
-that the treasurer user needs to pay to a person.
-Each reimbursement record is auto extracted from transactions.
+This tab helps to show reimbursements
+that the user has not paid to a person.
+Each reimbursement is auto extracted from transactions and grouped by person in transactions.
+So, each reimbursement shows the total amount that the user needs to reimburse a person.
+And there can not be two reimbursements that refer to the same person.
 
 The user can add deadline to a reimbursement, mark a reimbursement,
 find a reimbursement and sort reimbursements.
 
-image::ReimbursementTabClassDiagram.png[]
-
 ==== Deadline Command feature
-The deadline command is facilitated by the `VersionedtreasurerPro`. This command requires access to the `Model` of the
+This command requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Deadline field should be provided in a valid date format. The
 person's name inputted has to match a name already existing in the `Reimbursement` which is shown in our Reimbursement
 Tab.
 
-The following sequence diagram shows how the deadline command works:
+The following sequence diagram shows the execution of deadline command:
 
 .Sequence Diagram of Deadline Command in Reimbursement Tab (deadline package)
 
-image::ReimbursementTabDeadlineCommandSequenceDiagram.png[]
+image::ReimbursementDeadlineCommandSD.png[]
 
 
 As shown, when a user wants to add a deadline to a reimbursement by specifying
-the person's name. The `DeadlineCommandParser` gets the person from `PersonModel` based on
+the person's name and providing a date. The `DeadlineCommandParser` gets the person from `PersonModel` based on
 person's name and creates a `DeadlineCommand` with person and deadline information.
 This `DeadlineCommand` is returned back to `LogicManager` and is executed by calling `addDeadline` method in
 `ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and saves it.
