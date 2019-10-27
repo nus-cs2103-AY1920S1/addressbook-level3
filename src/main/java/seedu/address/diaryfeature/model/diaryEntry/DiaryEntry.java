@@ -1,13 +1,15 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Date;
 import java.util.Objects;
 
 
-    /**
-     * Represents a DiaryEntry
-     * Guarantees: details are present and not null, field values are validated, immutable.
-     */
+/**
+ * Represents a DiaryEntry
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class DiaryEntry {
 
     // Identity fields
@@ -27,6 +29,10 @@ public class DiaryEntry {
 
     public Title getTitle() {
         return title;
+    }
+
+    public String getDateAsString() {
+        return DateFormatter.convertToStringPrint(date);
     }
 
     public Date getDate() {
@@ -75,10 +81,10 @@ public class DiaryEntry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Title: ")
+        builder.append("Title: ")
                 .append(getTitle())
                 .append(" Date: ")
-                .append(getDate());
+                .append(getDateAsString());
         return builder.toString();
     }
 
