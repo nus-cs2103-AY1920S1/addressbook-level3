@@ -48,15 +48,15 @@ public class CliSyntax {
     // NOTE PREFIX
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("desc/");
+    public static final Prefix PREFIX_PRIORITY = new Prefix("priority/");
     // END OF NOTE PREFIX
 
     // TAG PREFIX
     public static final Prefix PREFIX_INDEX = new Prefix("index/");
 
     //START OF STATISTICS PREFIX
-    public static final Prefix PREFIX_METHOD = new Prefix("method/");
     public static final Prefix PREFIX_FILEPATH = new Prefix("file/");
-    //END IF STATISTICS PREFIX
+    //END OF STATISTICS PREFIX
 
     public static final Prefix PREFIX_ADD = new Prefix("add");
     public static final Prefix PREFIX_EXPORT = new Prefix("export");

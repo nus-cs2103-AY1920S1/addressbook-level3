@@ -11,6 +11,7 @@ public class Note {
 
     private String note;
     private String description;
+    private Priority priority;
 
     /**
      * Creates a new note.
@@ -24,12 +25,34 @@ public class Note {
         this.description = description;
     }
 
+    /**
+     * Creates a new note.
+     *
+     * @param note to set.
+     * @param description to the question.
+     * @param priority of the note.
+     */
+    public Note(String note, String description, Priority priority) {
+        requireAllNonNull(note, description, priority);
+        this.note = note;
+        this.description = description;
+        this.priority = priority;
+    }
+
     public String getNote() {
         return this.note;
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public void setNote(String note) {
@@ -66,7 +89,8 @@ public class Note {
         }
         Note otherNote = (Note) other;
         return otherNote.getNote().equals(getNote())
-                && otherNote.getDescription().equals(getDescription());
+                && otherNote.getDescription().equals(getDescription())
+                && otherNote.getPriority().equals(getPriority());
     }
 
     @Override
@@ -82,6 +106,8 @@ public class Note {
             .append(getNote())
             .append(" Description: ")
             .append(getDescription())
+            .append(" Priority: ")
+            .append(getPriority())
             .append("\n");
         return builder.toString();
     }

@@ -17,8 +17,9 @@ public class NoteAddCommand extends NoteCommand {
             + "Parameters:\n"
             + "note/{Note Title}\n"
             + "desc/{Description}\n"
-            + "ALL fields are required\n"
-            + "Example: note note/Tuesday desc/Grade 6A prelim papers.\n";
+            + "priority/high"
+            + "note and desc fields are required\n"
+            + "Example: note note/Tuesday desc/Grade 6A prelim papers priority/high\n";
 
     public static final String MESSAGE_SUCCESS = "New Note added: %1$s";
 

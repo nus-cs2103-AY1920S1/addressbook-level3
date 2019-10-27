@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.LogsCenter;;
 
 /**
  * Controller for a statistics report page.
@@ -48,6 +48,7 @@ public class StatsReportWindow extends UiPart<Stage> {
 
         root.getScene().getStylesheets().add("view/LightTheme.css");
         root.getScene().getStylesheets().add("view/Extensions.css");
+
     }
 
     /**
