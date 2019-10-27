@@ -35,7 +35,7 @@ public class CheckTaskRunnable implements Runnable {
     }
 
     /**
-     * Method that checks if the nearest reminder in futureReminders has a datetime that exceeds now.
+     * Method that checks if the nearest reminder in futureReminders has a datetime that exceeds current datetime..
      */
     public void run() {
         logger.info("----------------[LOGIC MANAGER]["
