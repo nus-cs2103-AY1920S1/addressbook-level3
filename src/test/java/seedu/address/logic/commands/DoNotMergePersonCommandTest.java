@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -14,57 +12,42 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.PersonBuilder;
-import seedu.address.logic.commands.merge.MergePersonCommand;
+import seedu.address.logic.commands.merge.DoNotMergePersonCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.policy.Policy;
 import seedu.address.testutil.TestUtil.ModelStub;
 
-public class MergePersonCommandTest {
+public class DoNotMergePersonCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new MergePersonCommand(null));
+        assertThrows(NullPointerException.class, () -> new DoNotMergePersonCommand(null));
     }
 
     @Test
-    public void execute_mergeWithOneDifference_mergeSuccessful() throws Exception {
+    public void execute_doNotMerge_success() throws Exception {
         Person validPerson = new PersonBuilder().build();
         Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_AMY).build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergePersonCommand(inputPerson).execute(modelStub);
-        assertEquals(String.format(MergePersonCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-            + "\n" + MergePersonCommand.MERGE_ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
-            + MergePersonCommand.MERGE_INPUT_HEADER + VALID_PHONE_AMY + MergePersonCommand.MERGE_INSTRUCTIONS,
-            commandResult.getFeedbackToUser());
-    }
-
-    @Test
-    public void execute_mergeWithMoreThanOneDifference_mergeSuccessful() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        Person inputPerson = new PersonBuilder().withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB).build();
-        ModelStubWithPerson modelStub = new ModelStubWithPerson(validPerson);
-        CommandResult commandResult = new MergePersonCommand(inputPerson).execute(modelStub);
-        assertEquals(String.format(MergePersonCommand.MERGE_COMMAND_PROMPT, Phone.DATA_TYPE)
-            + "\n" + MergePersonCommand.MERGE_ORIGINAL_HEADER + validPerson.getPhone().value + "\n"
-            + MergePersonCommand.MERGE_INPUT_HEADER + VALID_PHONE_BOB + MergePersonCommand.MERGE_INSTRUCTIONS,
-            commandResult.getFeedbackToUser());
+        CommandResult commandResult = new DoNotMergePersonCommand(inputPerson).execute(modelStub);
+        assertEquals(String.format(DoNotMergePersonCommand.MESSAGE_SUCCESS, validPerson),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        MergePersonCommand commandWithAlice = new MergePersonCommand(alice);
-        MergePersonCommand commandWithBob = new MergePersonCommand(bob);
+        DoNotMergePersonCommand commandWithAlice = new DoNotMergePersonCommand(alice);
+        DoNotMergePersonCommand commandWithBob = new DoNotMergePersonCommand(bob);
 
         // same object -> returns true
         assertTrue(commandWithAlice.equals(commandWithAlice));
 
         // same values -> returns true
-        MergePersonCommand commandWithAliceCopy = new MergePersonCommand(alice);
+        DoNotMergePersonCommand commandWithAliceCopy = new DoNotMergePersonCommand(alice);
         assertTrue(commandWithAlice.equals(commandWithAliceCopy));
 
         // different types -> returns false

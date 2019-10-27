@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COVERAGE_FIRE_INSURANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FIRE_INSURANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -13,60 +12,42 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.PolicyBuilder;
-import seedu.address.logic.commands.merge.MergePolicyCommand;
+import seedu.address.logic.commands.merge.DoNotMergePolicyCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.policy.Description;
 import seedu.address.model.policy.Policy;
 import seedu.address.testutil.TestUtil.ModelStub;
 
-public class MergePolicyCommandTest {
+public class DoNotMergePolicyCommandTest {
 
     @Test
     public void constructor_nullPolicy_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new MergePolicyCommand(null));
+        assertThrows(NullPointerException.class, () -> new DoNotMergePolicyCommand(null));
     }
 
     @Test
-    public void execute_mergeWithOneDifference_mergeSuccessful() throws Exception {
+    public void execute_doNotMerge_success() throws Exception {
         Policy validPolicy = new PolicyBuilder().build();
         Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE).build();
         ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
-        CommandResult commandResult = new MergePolicyCommand(inputPolicy).execute(modelStub);
-        assertEquals(String.format(MergePolicyCommand.MERGE_COMMAND_PROMPT, Description.DATA_TYPE)
-            + "\n" + MergePolicyCommand.MERGE_ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
-            + MergePolicyCommand.MERGE_INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE
-            + MergePolicyCommand.MERGE_INSTRUCTIONS,
-            commandResult.getFeedbackToUser());
-    }
-
-    @Test
-    public void execute_mergeWithMoreThanOneDifference_mergeSuccessful() throws Exception {
-        Policy validPolicy = new PolicyBuilder().build();
-        Policy inputPolicy = new PolicyBuilder().withDescription(VALID_DESCRIPTION_FIRE_INSURANCE)
-            .withCoverage(VALID_COVERAGE_FIRE_INSURANCE).build();
-        ModelStubWithPolicy modelStub = new ModelStubWithPolicy(validPolicy);
-        CommandResult commandResult = new MergePolicyCommand(inputPolicy).execute(modelStub);
-        assertEquals(String.format(MergePolicyCommand.MERGE_COMMAND_PROMPT, Description.DATA_TYPE)
-            + "\n" + MergePolicyCommand.MERGE_ORIGINAL_HEADER + validPolicy.getDescription().description + "\n"
-            + MergePolicyCommand.MERGE_INPUT_HEADER + VALID_DESCRIPTION_FIRE_INSURANCE
-            + MergePolicyCommand.MERGE_INSTRUCTIONS,
-            commandResult.getFeedbackToUser());
+        CommandResult commandResult = new DoNotMergePolicyCommand(inputPolicy).execute(modelStub);
+        assertEquals(String.format(DoNotMergePolicyCommand.MESSAGE_SUCCESS, validPolicy),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
     public void equals() {
         Policy health = new PolicyBuilder().withName("Health Insurance").build();
         Policy fire = new PolicyBuilder().withName("Fire Insurance").build();
-        MergePolicyCommand commandWithHealth = new MergePolicyCommand(health);
-        MergePolicyCommand commandWithFire = new MergePolicyCommand(fire);
+        DoNotMergePolicyCommand commandWithHealth = new DoNotMergePolicyCommand(health);
+        DoNotMergePolicyCommand commandWithFire = new DoNotMergePolicyCommand(fire);
 
         // same object -> returns true
         assertTrue(commandWithHealth.equals(commandWithHealth));
 
         // same values -> returns true
-        MergePolicyCommand commandWithHealthCopy = new MergePolicyCommand(health);
+        DoNotMergePolicyCommand commandWithHealthCopy = new DoNotMergePolicyCommand(health);
         assertTrue(commandWithHealth.equals(commandWithHealthCopy));
 
         // different types -> returns false
