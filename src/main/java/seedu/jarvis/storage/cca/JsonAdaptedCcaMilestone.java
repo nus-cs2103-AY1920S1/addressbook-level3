@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * Jackson-friendly version of {@link CcaMilestone}.
  */
-public class JsonAdaptedCcaMilestone {
+public class JsonAdaptedCcaMilestone implements JsonAdapter<CcaMilestone> {
     public final String fullName;
 
     /**
@@ -42,6 +43,7 @@ public class JsonAdaptedCcaMilestone {
      * @return {@code CcaMilestone} object.
      * @throws IllegalValueException If there were any data constraints violated in the adapted {@code CcaMilestone}.
      */
+    @Override
     public CcaMilestone toModelType() throws IllegalValueException {
         if (!CcaMilestone.isValidCcaMilestone(fullName)) {
             throw new IllegalValueException(CcaMilestone.MESSAGE_CONSTRAINTS);

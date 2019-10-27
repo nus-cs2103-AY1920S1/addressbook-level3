@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.model.cca.Equipment;
+import seedu.jarvis.storage.JsonAdapter;
 
 /**
  * Jackson-friendly version of {@link Equipment}.
  */
-public class JsonAdaptedEquipment {
+public class JsonAdaptedEquipment implements JsonAdapter<Equipment> {
 
     private final String equipmentName;
 
@@ -43,6 +44,7 @@ public class JsonAdaptedEquipment {
      * @return {@code Equipment} of the Jackson-friendly adapted {@code Equipment}.
      * @throws IllegalValueException If there were any data constraints violated in the adapted {@code Equipment}.
      */
+    @Override
     public Equipment toModelType() throws IllegalValueException {
         if (!Equipment.isValidEquipmentName(equipmentName)) {
             throw new IllegalValueException(Equipment.MESSAGE_CONSTRAINTS);

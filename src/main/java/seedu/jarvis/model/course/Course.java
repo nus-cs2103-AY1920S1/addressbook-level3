@@ -31,7 +31,7 @@ public class Course {
     private final Preclusion preclusion;
     private final FulfillRequirements fulfillRequirements;
 
-    public Course() {
+    private Course() {
         this.title = null;
         this.faculty = null;
         this.description = null;

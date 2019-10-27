@@ -11,13 +11,14 @@ import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.address.ClearAddressCommand;
 import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.address.JsonAdaptedPerson;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link ClearAddressCommand}.
  */
-public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand {
+public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
     public static final String MESSAGE_INVALID_COMMAND = "This command is not an ClearAddressCommand.";
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
