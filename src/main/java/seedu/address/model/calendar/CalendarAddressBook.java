@@ -2,9 +2,14 @@ package seedu.address.model.calendar;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.calendar.task.Task;
 import seedu.address.model.calendar.task.UniqueTaskList;
 
@@ -14,7 +19,7 @@ import seedu.address.model.calendar.task.UniqueTaskList;
  */
 public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
 
-    private final UniqueTaskList persons;
+    public UniqueTaskList tasks;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +29,7 @@ public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueTaskList();
+        tasks = new UniqueTaskList();
     }
 
     public CalendarAddressBook() {}
@@ -40,11 +45,19 @@ public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the task list with {@code tasks}.
-     * {@code tasks} must not contain duplicate tasks.
+     * Replaces the contents of the task list with {@code taskList}.
+     * {@code taskList} must not contain duplicate taskList.
      */
-    public void setPersons(List<Task> tasks) {
-        this.persons.setPersons(tasks);
+    public void setTasks(List<Task> taskList) {
+        this.tasks.setPersons(taskList);
+    }
+
+    public void setTasks(FilteredList<Task> taskList) {
+        UniqueTaskList uniqueTaskList = new UniqueTaskList();
+        for (Task t: taskList) {
+            uniqueTaskList.add(t);
+        }
+        this.tasks.setPersons(uniqueTaskList);
     }
 
     /**
@@ -53,7 +66,7 @@ public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
     public void resetData(ReadOnlyCalendarAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setTasks(newData.getPersonList());
     }
 
     //// task-level operations
@@ -61,17 +74,17 @@ public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.
      */
-    public boolean hasPerson(Task task) {
+    public boolean hasTask(Task task) {
         requireNonNull(task);
-        return persons.contains(task);
+        return tasks.contains(task);
     }
 
     /**
      * Adds a task to the address book.
      * The task must not already exist in the address book.
      */
-    public void addPerson(Task p) {
-        persons.add(p);
+    public void addTask(Task p) {
+        tasks.add(p);
     }
 
     /**
@@ -79,42 +92,42 @@ public class CalendarAddressBook implements ReadOnlyCalendarAddressBook {
      * {@code target} must exist in the address book.
      * The task identity of {@code editedTask} must not be the same as another existing task in the address book.
      */
-    public void setPerson(Task target, Task editedTask) {
+    public void setTask(Task target, Task editedTask) {
         requireNonNull(editedTask);
 
-        persons.setPerson(target, editedTask);
+        tasks.setPerson(target, editedTask);
     }
 
     /**
      * Removes {@code key} from this {@code CalendarAddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Task key) {
-        persons.remove(key);
+    public void removeTask(Task key) {
+        tasks.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return tasks.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Task> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return tasks.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CalendarAddressBook // instanceof handles nulls
-                && persons.equals(((CalendarAddressBook) other).persons));
+                && tasks.equals(((CalendarAddressBook) other).tasks));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return tasks.hashCode();
     }
 }

@@ -54,7 +54,7 @@ public class SampleDataUtil {
     public static ReadOnlyCalendarAddressBook getSampleAddressBook() {
         CalendarAddressBook sampleAb = new CalendarAddressBook();
         for (Task sampleTask : getSamplePersons()) {
-            sampleAb.addPerson(sampleTask);
+            sampleAb.addTask(sampleTask);
         }
         return sampleAb;
     }

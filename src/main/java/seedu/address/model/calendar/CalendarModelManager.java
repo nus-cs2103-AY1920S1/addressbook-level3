@@ -4,11 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.task.Task;
@@ -21,7 +26,11 @@ public class CalendarModelManager implements CalendarModel {
 
     private final CalendarAddressBook calendarAddressBook;
     private final CalendarUserPrefs userPrefs;
-    private final FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredTasksByTimeAdded;
+    private final FilteredList<Task> filteredTasksByDeadline;
+
+    private boolean isDeadlineSorted = false;
 
     /**
      * Initializes a CalendarModelManager with the given calendarAddressBook and userPrefs.
@@ -35,6 +44,25 @@ public class CalendarModelManager implements CalendarModel {
         this.calendarAddressBook = new CalendarAddressBook(addressBook);
         this.userPrefs = new CalendarUserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
+
+        filteredTasksByTimeAdded = new FilteredList<>(this.calendarAddressBook.getPersonList());
+
+        SortedList<Task> sortByTimeList = new SortedList<>(this.calendarAddressBook.getPersonList(),
+            new Comparator<Task>() {
+                @Override
+                public int compare(Task x, Task y) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    try {
+                        Date dateX = formatter.parse(x.getTaskDeadline().getValue());
+                        Date dateY = formatter.parse(y.getTaskDeadline().getValue());
+                        return dateX.compareTo(dateY);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
+                }
+            });
+        filteredTasksByDeadline = new FilteredList<>(sortByTimeList);
     }
 
     public CalendarModelManager() {
@@ -91,17 +119,18 @@ public class CalendarModelManager implements CalendarModel {
     @Override
     public boolean hasTask(Task task) {
         requireNonNull(task);
-        return calendarAddressBook.hasPerson(task);
+        return calendarAddressBook.hasTask(task);
     }
 
     @Override
     public void deleteTask(Task target) {
-        calendarAddressBook.removePerson(target);
+        calendarAddressBook.removeTask(target);
     }
 
     @Override
     public void addTask(Task task) {
-        calendarAddressBook.addPerson(task);
+        calendarAddressBook.addTask(task);
+        calendarAddressBook.setTasks(filteredTasks);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +138,9 @@ public class CalendarModelManager implements CalendarModel {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
-        calendarAddressBook.setPerson(target, editedTask);
+        calendarAddressBook.setTask(target, editedTask);
+        calendarAddressBook.setTasks(filteredTasks);
+
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -127,6 +158,8 @@ public class CalendarModelManager implements CalendarModel {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+        filteredTasksByTimeAdded.setPredicate(predicate);
+        filteredTasksByDeadline.setPredicate(predicate);
     }
 
     @Override
@@ -146,6 +179,22 @@ public class CalendarModelManager implements CalendarModel {
         return calendarAddressBook.equals(other.calendarAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredTasks.equals(other.filteredTasks);
+    }
+
+    @Override
+    public void switchSortType(String sortType) {
+        if (sortType.equals("deadline")) {
+            isDeadlineSorted = true;
+            filteredTasks = filteredTasksByDeadline;
+//            calendarAddressBook.setTasks(calendarAddressBook.tasksByDeadline);
+        } else if (sortType.equals("timeadded")) {
+            isDeadlineSorted = false;
+            filteredTasks = filteredTasksByTimeAdded;
+//            calendarAddressBook.tasks = calendarAddressBook.tasksByTimeAdded;
+        }
+        calendarAddressBook.setTasks(filteredTasks);
+
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
 }
