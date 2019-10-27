@@ -38,6 +38,7 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private final Statistic statistic;
     private final CommandHistory commandHistory = CommandHistory.getCommandHistory();
+    private final UndoRedoStack undoRedoStack = UndoRedoStack.getUndoRedoStack();
 
     public LogicManager(Model model, Storage storage, Statistic statistic) {
         this.model = model;
@@ -62,12 +63,9 @@ public class LogicManager implements Logic {
             storage.saveOrderBook(model.getOrderBook());
             storage.saveArchivedOrderBook(model.getArchivedOrderBook());
             commandHistory.add(commandText);
+            undoRedoStack.push(command);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-
-        } finally {
-            commandHistory.getCommandHistoryList().forEach(x -> System.out.println(x));
-
         }
 
         return commandResult;
