@@ -59,7 +59,7 @@ public class AddCommand extends Command {
             throw new NoSuchItemException(NO_SUCH_ITEM_CASHIER);
         }
         logger.info("Item added: " + i.toString());
-        return new CommandResult(String.format(MESSAGE_ADDED_ITEM, i.getDescription()));
+        return new CommandResult(String.format(MESSAGE_ADDED_ITEM, quantity, i.getDescription()));
     }
 
     @Override

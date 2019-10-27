@@ -55,9 +55,10 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
         CommandResult commandResult = addCommand.execute(modelStubWithItem, personModel);
 
-        assertEquals(String.format(MESSAGE_ADDED_ITEM, anotherItem.getDescription()),
+        assertEquals(String.format(MESSAGE_ADDED_ITEM, anotherItem.getQuantity(), anotherItem.getDescription()),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(anotherItem), modelStubWithItem.getItemsAdded());
+        model.clearSalesList();
 
     }
 
@@ -74,7 +75,7 @@ public class AddCommandTest {
 
         String expectedMessage = CashierMessages.NO_SUCH_ITEM_CASHIER;
         assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
-
+        model.clearSalesList();
     }
 
     @Test
@@ -90,6 +91,7 @@ public class AddCommandTest {
         String message = String.format(MESSAGE_INSUFFICIENT_STOCK,
                 anotherItem.getQuantity(), anotherItem.getDescription());
         assertCommandFailure(addCommand, model, message, personModel);
+        model.clearSalesList();
     }
 
     @Test
@@ -106,6 +108,7 @@ public class AddCommandTest {
         String expectedMessage = NO_SUCH_ITEM_FOR_SALE_CASHIER;
 
         assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
+        model.clearSalesList();
     }
 
 }

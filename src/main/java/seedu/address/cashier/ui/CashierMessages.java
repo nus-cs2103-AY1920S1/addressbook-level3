@@ -52,7 +52,7 @@ public class CashierMessages {
     public static final String MESSAGE_CHECKOUT_SUCCESS = "Total amount is %s.\nThe change is %s.\n"
             + "Checkout successful.";
 
-    public static final String MESSAGE_EDIT_SUCCESS = "%s: %s\nEdited successfully.";
+    public static final String MESSAGE_EDIT_SUCCESS = "Item: %s, quantity: %s\nEdited successfully.";
 
     public static final String MESSAGE_INSUFFICIENT_AMOUNT = "The total price is %s. The amount is insufficient.\n"
             + "Please input an amount of at least %s.";
@@ -60,9 +60,9 @@ public class CashierMessages {
     public static final String MESSAGE_INSUFFICIENT_STOCK = "There is insufficient stock. Only %s %s left."
             + "Please input a valid quantity.";
 
-    public static final String MESSAGE_ADDED_ITEM = "Added item:\n%s";
+    public static final String MESSAGE_ADDED_ITEM = "Added item: %s %s";
 
-    public static final String MESSAGE_DELETED_ITEM = "Deleted item:\n%s";
+    public static final String MESSAGE_DELETED_ITEM = "Deleted item: %s\n Deleted successfully.";
 
     /**
      * Returns a message containing all the items description according to the category.

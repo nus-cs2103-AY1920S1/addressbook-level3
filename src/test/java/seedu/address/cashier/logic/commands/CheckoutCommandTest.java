@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_CHECKOUT_SUCCESS;
+import static seedu.address.testutil.TypicalItem.STORYBOOK;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,7 @@ public class CheckoutCommandTest {
         Person cashier = new PersonBuilder().build();
         model.setCashier(cashier);
 
+        model.addItem(STORYBOOK);
         String expectedMessage = String.format(MESSAGE_CHECKOUT_SUCCESS, Item.DECIMAL_FORMAT.format(VALID_TOTAL_AMOUNT),
                 Item.DECIMAL_FORMAT.format(VALID_CHANGE));
 
@@ -61,6 +63,7 @@ public class CheckoutCommandTest {
         expectedModel.setCashier(new PersonBuilder().build());
 
         assertCommandSuccess(checkoutCommand, model, expectedMessage, expectedModel, personModel);
+        model.clearSalesList();
 
     }
 

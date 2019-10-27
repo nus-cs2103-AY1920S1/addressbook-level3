@@ -35,6 +35,7 @@ public class DeleteCommandTest {
         model.addItem(TypicalItem.FISH_BURGER);
 
         assertCommandSuccess(deleteCommand, model, message, expectedModel, personModel);
+        model.clearSalesList();
     }
 
     @Test
