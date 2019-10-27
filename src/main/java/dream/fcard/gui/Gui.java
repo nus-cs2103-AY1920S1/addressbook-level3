@@ -5,11 +5,12 @@ import dream.fcard.MainApp;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.core.commons.util.StringUtil;
 import dream.fcard.gui.components.CommandTextField;
-import dream.fcard.gui.components.CommandTextFieldPlaceholder;
+import dream.fcard.gui.components.CommandBar;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.gui.components.StatusBar;
 import dream.fcard.gui.components.TitleBar;
+import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
@@ -39,7 +40,7 @@ public class Gui {
     private static VBox window = new VBox();
     private static TitleBar titleBar = new TitleBar();
     private static ScrollablePane scrollablePane = new ScrollablePane();
-    private static CommandTextFieldPlaceholder commandTextFieldPlaceholder = new CommandTextFieldPlaceholder();
+    private static CommandBar commandBar = new CommandBar();
     private static CommandTextField commandTextField = new CommandTextField();
     private static StatusBar statusBar = new StatusBar();
 
@@ -125,7 +126,7 @@ public class Gui {
      */
     private static void setupCommandTextField() {
         commandTextField.setState(applicationState);
-        commandTextFieldPlaceholder.setCommandTextField(commandTextField);
+        commandBar.setCommandTextField(commandTextField);
     }
 
     /**
@@ -133,7 +134,7 @@ public class Gui {
      */
     private static void setupScene() {
         // add children to window
-        window.getChildren().addAll(titleBar, scrollablePane, commandTextFieldPlaceholder,
+        window.getChildren().addAll(titleBar, scrollablePane, commandBar,
             statusBar);
 
         // display window
@@ -179,6 +180,14 @@ public class Gui {
 
         // display the Node in the Gui
         displayInScrollablePane(node);
+    }
+
+    /**
+     * Renders a deck of FlashCards in the GUI.
+     * @param deck The deck of FlashCards to be rendered.
+     */
+    public static void renderDeck(Deck deck) {
+        // todo
     }
 
     /**

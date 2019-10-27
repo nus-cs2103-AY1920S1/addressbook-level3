@@ -9,14 +9,11 @@ import javafx.scene.layout.VBox;
 /**
  * UI component representing the placeholder for the command text field.
  */
-public class CommandTextFieldPlaceholder extends VBox implements UiComponent<VBox> {
-
-    private CommandTextField commandTextField;
-
+public class CommandBar extends VBox implements UiComponent<VBox> {
     /**
-     * Creates a new instance of CommandTextFieldPlaceholder().
+     * Creates a new instance of CommandBar().
      */
-    public CommandTextFieldPlaceholder() {
+    public CommandBar() {
         super();
 
         // set up height
@@ -36,7 +33,6 @@ public class CommandTextFieldPlaceholder extends VBox implements UiComponent<VBo
     }
 
     public void setCommandTextField(CommandTextField commandTextField) {
-        this.commandTextField = commandTextField;
         this.add(commandTextField);
     }
 }
