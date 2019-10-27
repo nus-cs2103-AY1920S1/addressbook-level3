@@ -65,76 +65,10 @@ public class ItemModelManager implements ItemModel {
         this.userPrefs = new UserPrefs(userPrefs);
         this.elisaCommandHistory = elisaCommandHistory;
 
-        //Bryan Reminder
-        pastReminders = new ReminderList();
-
-        activeReminders = new ActiveRemindersList(new ReminderList());
-
         this.jokeList = new JokeList();
-        /*
-        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
-            @Override
-            public Object getBean() {
-                return null;
-            }
 
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            public synchronized Item popReminder() {
-                if(!isEmpty()) {
-                    return remove(0);
-                } else {
-                    //Should have this throw an exception
-                    return null;
-                }
-            }
-
-            public synchronized void addReminders(Collection<Item> reminders) {
-                for (Item item:reminders) {
-                    add(0, item);
-                }
-            }
-        };
-        */
-
-        futureReminders = new ArrayList<Item>();
-
-        //Bryan Reminder
         pastReminders = new ReminderList();
-
         activeReminders = new ActiveRemindersList(new ReminderList());
-        /*
-        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
-            @Override
-            public Object getBean() {
-                return null;
-            }
-
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            public synchronized Item popReminder() {
-                if(!isEmpty()) {
-                    return remove(0);
-                } else {
-                    //Should have this throw an exception
-                    return null;
-                }
-            }
-
-            public synchronized void addReminders(Collection<Item> reminders) {
-                for (Item item:reminders) {
-                    add(0, item);
-                }
-            }
-        };
-        */
-
         futureReminders = new ArrayList<Item>();
 
         updateLists();
