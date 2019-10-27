@@ -22,6 +22,7 @@ import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
+import seedu.ezwatchlist.statistics.Statistics;
 import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
 import seedu.ezwatchlist.storage.JsonWatchListStorage;
 import seedu.ezwatchlist.storage.Storage;
@@ -45,6 +46,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected Statistics statistics;
 
     @Override
     public void init() throws Exception {
@@ -63,9 +65,11 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
+        statistics = new Statistics(model);
+
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        ui = new UiManager(logic, statistics);
     }
 
     /**

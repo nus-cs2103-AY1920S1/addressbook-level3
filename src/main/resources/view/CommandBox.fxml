@@ -9,7 +9,7 @@
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <HBox>
       <children>
-        <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..." HBox.hgrow="ALWAYS" />
+        <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..." styleClass="text-field" HBox.hgrow="ALWAYS" />
          <StackPane styleClass="stack-pane">
             <children>
                <Button alignment="BASELINE_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleCommandEntered" text="Go!">
