@@ -220,12 +220,64 @@ enum Responses {
         return true; // capture is valid, end checking other commands
     }),
 
-    EDIT("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[\\S]+){1}((\\s)+"
-            + "(index/[\\d]+){1}(\\s)*)?((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
+    EDIT("(?i)^(edit)?(\\s)+(deck/[\\S\\s}]+){1}(\\s)+(action/[edit]|[remove]+){1}((\\s)+"
+            + "(index/[\\d]+){1}(\\s)*){1}((\\s)+(front/[\\S\\s]+){1}(\\s)*)?((\\s)*"
             + "(back/[\\S\\s]+))?(\\s)*", (
             commandInput, programState) -> {
                 System.out.println("Current command is EDIT");
-                LogsCenter.getLogger(Responses.class).warning("Current command is EDIT");
+                LogsCenter.getLogger(Responses.class).info("Current command is EDIT");
+
+                System.out.println(commandInput);
+
+                String userFields = commandInput.replaceFirst("edit(\\s)+deck/", "");
+                String[] splitUserFields = userFields.split(" action/");
+
+                String deckName = splitUserFields[0].trim();
+
+                splitUserFields = splitUserFields[1].split(" index/");
+                String action = splitUserFields[0].trim();
+
+                boolean hasFront = splitUserFields[1].contains("front/");
+                boolean hasBack = splitUserFields[1].contains("back/");
+
+                String index = "";
+                String front = "";
+                String back = "";
+
+                if (hasFront && hasBack) {
+                    System.out.println("detect front and back");
+
+                    //System.out.println(splitUserFields[1]);
+
+                    splitUserFields = splitUserFields[1].split(" front/");
+                    index = splitUserFields[0].trim();
+
+                    //System.out.println(splitUserFields[0]);
+
+                    splitUserFields = splitUserFields[1].split(" back/");
+                    front = splitUserFields[0].trim();
+                    back = splitUserFields[1].trim();
+                }
+
+                if (hasFront && !hasBack) {
+                    splitUserFields = splitUserFields[1].split(" front/");
+                    index = splitUserFields[0].trim();
+                    front = splitUserFields[1].trim();
+                }
+
+                if (!hasFront && hasBack) {
+                    splitUserFields = splitUserFields[1].split(" back/");
+                    index = splitUserFields[0].trim();
+                    back = splitUserFields[1].trim();
+                }
+
+                if (!hasFront && !hasBack) {
+                    index = splitUserFields[1].trim();
+                }
+
+                //System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
+
+
 
                 return true; // capture is valid, end checking other commands
             }),
