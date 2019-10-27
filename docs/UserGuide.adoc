@@ -320,11 +320,12 @@ Views the note by <NOTE_INDEX>.
             Content: dy/dx = 0 is turning point of bellcurve.
             Tags: [difficult][MA1521]
 
-== CheatSheet
+== CheatSheet Feature:
 
 === Creating a cheatSheet: `add`
 
 * Adds a cheatSheet from user input title <TITLE> and content <CONTENT>.
+* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the cheatsheet.
 
     Format: add t/TITLE [tag/TAG]...
 
@@ -338,7 +339,7 @@ Views the note by <NOTE_INDEX>.
 
 === Editing a cheatSheet: `edit`
 
-Edits cheatSheet's content by a specified <CHEATSHEET_INDEX>.
+Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
 * The user can specify one of the optional fields to edit.
 
