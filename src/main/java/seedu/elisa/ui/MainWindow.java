@@ -120,20 +120,24 @@ public class MainWindow extends UiPart<Stage> {
         String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
         AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
 
-        logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
+        ListChangeListener<Item> activeRemindersListener = new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
-                System.out.println("Change Detected");
                 while (c.next()) {
-                    for (Item newItem : c.getAddedSubList()) {
-                        Platform.runLater(() -> {
-                            resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
-                            reminderAlarm.play(50);
-                        });
-                    }
+                    createReminders(c);
                 }
             }
-        });
+
+            private void createReminders(Change<? extends Item> c) {
+                for (Item newItem : c.getAddedSubList()) {
+                    Platform.runLater(() -> {
+                        resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
+                    });
+                }
+            }
+        };
+
+        logic.getActiveRemindersListProperty().addListener(activeRemindersListener);
         //to listen for change in active
         //while !active.isEmpty()
         //resultDisplay.setFeedbackToUser(property.popReminder.getReminderMessage);
