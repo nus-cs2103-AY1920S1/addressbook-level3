@@ -366,14 +366,14 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [s/RANGE_START] [e/RANGE_END]...`
 
 * Name
 ** is case-insensitive.
-** is considered a match as long as there is the same sequence of characters. (e.g. `CS` matches both `CS2040` and `ICSD`)
+** is considered a match as long as one word matches.
+** is matched word by word.
 * Description
-** is case-insensitive.
-** is considered a match as long as one word matches. (e.g. `Henz Ben` matches both `Martin Henz` and `Ben Leong`)
-** is matched word by word. e.g. `hello` will match `hello world` but not `helloworld`
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint.
 * Start and end range
-** is considered a match when there is time overlap. (e.g. a plan with start date of `2019-01-01 00:00:00` and end date of `2019-03-03 00:00:00` matches a plan with start date of `2019-02-02 00:00:00` and end date of `2019-04-04 00:00:00`)
->>>>>>> Update UserGuide
+** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
 
 === Tabs
 
