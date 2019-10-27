@@ -281,7 +281,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<WordBank> getFilteredWordBankList() {
-        return wordBankList.getWordBankList();
+        return wordBankList.getFilteredWordBankList();
     }
 
     @Override

@@ -49,7 +49,7 @@ public class ModularDisplay {
      * @param appManager GameManager who will render lists.
      */
     public ModularDisplay(AppManager appManager) {
-        loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
+        loadBankPanel = new LoadBankPanel(appManager.getStorage());
         titleScreenPanel = new TitleScreenPanel();
         settingsPanel = new SettingsPanel(appManager.getAppSettings());
         questionLabel = new QuestionLabel();
