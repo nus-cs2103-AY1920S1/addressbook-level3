@@ -3,44 +3,59 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: AddMin+
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop
+addressbook application for our Software Engineering project. We chose to morph it into an employee records management
+cum communication system called AddMin+. This enhanced application enables office managers to file and recall employee
+data; manage employee work schedule and leave application;
+and email employees directly without opening an email application.
+
+This is what our project looks like:
+
+._The graphical user interface for AddMin+._
+image::listview.png[]
+
+My role was to design and write the codes for the fetch and allocate features. The following sections
+illustrate these enhancements in more detail, as well as the relevant documentation
+I have added to the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *automated allocation of employees to event commands* with *GUI feature*
+** What it does: allows the user to allocate employees to an event with certain filter requirements.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Justification: This feature improves the product significantly because a user can now associate employees
+with events. The GUI feature further provides convenience for users.
+** Highlights: This enhancement affects existing commands and commands to be added in future.
+It required an in-depth analysis of design alternatives. The implementation too was challenging as it
+required significant changes to both `Event` and `Employee` classes.
+
+* *Minor enhancement*: added a *fetch_ev* command that allows the user to view more details about a specified event.
+The GUI feature allows users to simply double-click an event to execute this command. This GUI enhancement is complementary
+to the *automated allocation* feature previously mentioned.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
+*** Ensured integration of various components (e.g. storage, logic, model) during the morphing phase.
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
+*** Updated GUI to show both employee and event list
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -48,10 +63,10 @@ _{you can add/remove categories in the list above}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-----
+
 include::../UserGuide.adoc[tag=calvin]
 include::../UserGuide.adoc[tag=calvin2]
-----
+
 
 == Contributions to the Developer Guide
 

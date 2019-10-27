@@ -89,7 +89,12 @@ public class SampleDataUtil {
                     new EventManpowerNeeded("3"),
                     new EventDate(LocalDate.of(2019, 11, 23)),
                     new EventDate(LocalDate.of(2019, 11, 24)),
-                    getTagSet("fun"))
+                    getTagSet("fun")),
+            new Event(new EventName("Concert"), new EventVenue("NUS Utown"),
+                    new EventManpowerNeeded("5"),
+                    new EventDate(LocalDate.of(2019, 11, 23)),
+                    new EventDate(LocalDate.of(2019, 11, 24)),
+                    getTagSet("fun", "music"))
         };
     }
 

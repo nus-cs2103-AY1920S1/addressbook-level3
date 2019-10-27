@@ -216,7 +216,7 @@ Examples:
 === Event-Specific Management
 ==== Automated allocation of Employees to Events: `allocate` (also a GUI feature)
 
-Automatically chooses and allocates employees to events that meet the requirements.
+Automatically chooses and allocates employees that meet the requirements to events .
 
 Format: `allocate EVENT_INDEX [n/NUMBER] [t/TAG] [t/TAG]...`
 
@@ -294,17 +294,23 @@ Examples:
 * `fetch_ev 2` +
 Returns the 2rd event from the event list
 
-Alternatively, simply double-click the event card in the list.
+Alternatively, simply *double-click the event* in the list.
 
-image::BeforeFetch.png[width="790"]
+image::BeforeFetch.png[width="600"]
 
-After double-clicking, a pop-up window should show:
+After double-clicking, a pop-up window with details of the specified event should show:
+*Notice there are 2 buttons near the centre of the window.*
 
-image::AfterFetch.png[width="790"]
+image::AfterFetch.png[width="600"]
 
+To allocate employees to this event, simply *click the 'allocate' button*.
 After clicking the allocate button, the employee list should be updated.
+Likewise, to free/deallocate employees, *click the 'free' button*
+[NOTE]
+If the employee list is not updated, it means the current manpower available is insufficient to fulfil the
+requirements of the event.
 
-image::afterallocate.png[width="790"]
+image::afterallocate.png[width="600"]
 
 //end::calvin2[]
 

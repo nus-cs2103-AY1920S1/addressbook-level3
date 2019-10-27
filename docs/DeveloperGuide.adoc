@@ -224,7 +224,7 @@ by the event.
 Given below is an example usage scenario and how the auto allocation mechanism behaves at each step.
 
 ._Program flow of the Auto Allocate Feature_
-image::AutoAllocateFlowChart.png[]
+image::AutoAllocateFlowChart.png[align="center", width = "300"]
 
 **Step 1**. The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
 to the 1st event displayed in the event list.
@@ -267,30 +267,13 @@ PlantUML, the lifeline reaches the end of diagram.
 The following activity diagram summarizes what happens *after* a user successfully executes an `AutoAllocateCommand`:
 
 ._Activity Diagram of the AutoAllocate Command_
-image::AutoAllocateActivityDiagram.png[]
+image::AutoAllocateActivityDiagram.png[align="center"]
 
 ==== Design Considerations
 
 ===== Aspect: Storage of employees associated with event after successful command
 
-* **Alternative 1 (current choice):** Saves only the `Employee#EmployeeId` associated with the event.
-
-* **Alternative 2:**
-** Pros: Easy retrieval in the future.
-** Cons: Changes in `Employee` attributes have to be reflected in the event. This meant that `EditCommand` and
-`DeleteCommand` for `Employee` have to be heavily modified.
-
-===== Aspect: How to update the changes in the manpower list of an event after allocation of employee.
-
-* **Alternative 1 (current choice):** Throws exception
-** Pros: Law of Demeter.
-** Cons:
-* **Alternative 2:** Allocate the current available employees
-** Pros:
-** Cons: Testability issues.
-
-
-[width="100%", options="header" cols="1, 4, 4"]
+[width="100%", options="header" cols="3, 4, 4"]
 |========================================================================================
 |Feature      |Alternative 1 | Alternative 2
 |Storage of employees associated with event after successful command
@@ -313,10 +296,13 @@ I decided to proceed with this option because it creates less dependencies.
 | Directly modifies the `EventManpowerAllocatedList` of the specified event
 
 *Pros*: Easy to implement.
+
 *Cons*: May cause unwanted behaviours if testing is not done properly.
 
 | Create a new event with a newly created and updated manpower list.
+
 *Pros*: Defensive programming.
+
 *Cons*: Harder to implement.
 
 I decided to proceed with this option because it complies with the Law of Demeter

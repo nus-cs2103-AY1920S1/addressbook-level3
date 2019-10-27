@@ -30,7 +30,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private Model model;
 
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
