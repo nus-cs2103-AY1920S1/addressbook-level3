@@ -13,10 +13,20 @@ import seedu.mark.model.bookmark.Bookmark;
  * Tests that part of a {@code Bookmark}'s data fields (except remark) matches any of the keywords given.
  */
 public class BookmarkContainsKeywordsPredicate implements Predicate<Bookmark> {
+    private static final Predicate<Bookmark> DEFAULT_PREDICATE = PREDICATE_SHOW_NO_BOOKMARKS;
+
     private IdentifiersContainKeywordsPredicate identifierPredicate;
     private TagContainsKeywordsPredicate tagPredicate;
     private FolderContainsKeywordsPredicate folderPredicate;
-    private Predicate<Bookmark> predicate = PREDICATE_SHOW_NO_BOOKMARKS;
+
+    public BookmarkContainsKeywordsPredicate() {}
+
+    public BookmarkContainsKeywordsPredicate(List<String> identifierKeywords, List<String> tagKeywords,
+                                             List<String> folderKeywords) {
+        setIdentifierPredicate(identifierKeywords);
+        setTagPredicate(tagKeywords);
+        setFolderPredicate(folderKeywords);
+    }
 
     public Optional<Predicate<Bookmark>> getIdentifierPredicate() {
         return Optional.ofNullable(identifierPredicate);
@@ -57,10 +67,10 @@ public class BookmarkContainsKeywordsPredicate implements Predicate<Bookmark> {
     /**
      * Prepares the predicate for test
      */
-    public void preparePredicate() {
-        predicate = predicate.or(getIdentifierPredicate().orElse(PREDICATE_SHOW_NO_BOOKMARKS));
-        predicate = predicate.or(getTagPredicate().orElse(PREDICATE_SHOW_NO_BOOKMARKS));
-        predicate = predicate.or(getFolderPredicate().orElse(PREDICATE_SHOW_NO_BOOKMARKS));
+    public Predicate<Bookmark> preparePredicate() {
+        return DEFAULT_PREDICATE.or(getIdentifierPredicate().orElse(DEFAULT_PREDICATE))
+                .or(getTagPredicate().orElse(DEFAULT_PREDICATE))
+                .or(getFolderPredicate().orElse(DEFAULT_PREDICATE));
     }
 
     /**
@@ -72,8 +82,7 @@ public class BookmarkContainsKeywordsPredicate implements Predicate<Bookmark> {
 
     @Override
     public boolean test(Bookmark bookmark) {
-        preparePredicate();
-        return predicate.test(bookmark);
+        return preparePredicate().test(bookmark);
     }
 
     @Override

@@ -32,17 +32,15 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         String preamble = argMultimap.getPreamble();
-        List<String> nameKeywords = new LinkedList<>(Arrays.asList(preamble.split("\\s+")));
+        List<String> identifierKeywords = new LinkedList<>(Arrays.asList(preamble.split("\\s+")));
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
         List<String> folderKeywords = argMultimap.getAllValues(PREFIX_FOLDER);
-        nameKeywords.removeIf(String::isEmpty);
+        identifierKeywords.removeIf(String::isEmpty);
         tagKeywords.removeIf(String::isEmpty);
         folderKeywords.removeIf(String::isEmpty);
 
-        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate();
-        predicate.setIdentifierPredicate(nameKeywords);
-        predicate.setTagPredicate(tagKeywords);
-        predicate.setFolderPredicate(folderKeywords);
+        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate(identifierKeywords,
+                tagKeywords, folderKeywords);
 
         if (!predicate.isAnyPredicatePresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));

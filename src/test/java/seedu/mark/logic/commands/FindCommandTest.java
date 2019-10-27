@@ -76,7 +76,7 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code IdentifiersContainKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code BookmarkContainKeywordsPredicate}.
      */
     private BookmarkContainsKeywordsPredicate preparePredicate(String userInput) {
         BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate();
