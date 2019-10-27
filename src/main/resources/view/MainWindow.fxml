@@ -64,7 +64,7 @@
                     </VBox>
                 </HBox>
 
-                <TabPane fx:id="dataPanelsTabPane" styleClass="pane-with-border" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="dataPanelsTabPane" styleClass="pane-with-border" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
                         <Tab fx:id="patientTabPage" text="Patients">
                             <!--List Of Patient Cards-->
