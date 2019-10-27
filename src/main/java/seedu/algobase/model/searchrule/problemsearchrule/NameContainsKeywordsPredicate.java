@@ -1,5 +1,7 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -20,6 +22,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Problem> {
     private final List<Keyword> keywords;
 
     public NameContainsKeywordsPredicate(List<Keyword> keywords) {
+        requireNonNull(keywords);
         this.keywords = keywords;
     }
 
