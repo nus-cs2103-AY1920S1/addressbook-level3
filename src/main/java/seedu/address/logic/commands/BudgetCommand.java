@@ -5,18 +5,22 @@ import java.util.List;
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetGraph;
-//import seedu.address.model.budget.ClaimPlotter;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
 
 /**
- * Calculates current budget for users.
+ * Calculates projected budget for users.
  * Budget being total income minus total claim value.
  */
 
 public class BudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "budget";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Displays the projected budget, which takes in all income values and subtracts the values\n"
+            + "of all the approved claims."
+            + "It also generates a graph showing statistics for the current month";
 
     @Override
     public CommandResult execute(Model model) {
@@ -30,15 +34,15 @@ public class BudgetCommand extends Command {
         budgetGraph.displayBudgetGraph();
         budget.calculateBudget();
 
-        message = "Total income: "
+        message = "Projected income: "
                 + budget.getTotalIncome()
-                + "\nTotal claim value: "
+                + "\nProjected claim value: "
                 + budget.getTotalExpenses()
-                + "\nBudget: "
+                + "\nProjected Budget: "
                 + budget.getBudgetAmount();
 
         if (budget.isOverBudget()) {
-            message += "\nWarning, you are over budget!";
+            message += "\nWarning, you will be over budget!";
         }
 
 

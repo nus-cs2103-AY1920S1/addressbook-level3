@@ -84,21 +84,18 @@ public class BudgetGraph extends JFrame {
      */
 
     private XYDataset createDataSet(List<Claim> claimList, List<Income> incomeList) {
-        final XYSeries claim = new XYSeries("Claim");
-        ClaimPlotter claimPlotter = new ClaimPlotter(claimList, claim);
 
-        final XYSeries income = new XYSeries("Income");
-        income.add(1.0, 133);
-        income.add(2.0, 222);
-        income.add(3.0, 555.55);
+        ClaimPlotter claimPlotter = new ClaimPlotter(claimList);
+        XYSeries claim = claimPlotter.plotClaims();
 
-        final XYSeries budget = new XYSeries("Budget");
-        budget.add(3.0 , 4.0);
-        budget.add(4.0 , 5.0);
-        budget.add(5.0 , 4.0);
+        IncomePlotter incomePlotter = new IncomePlotter(incomeList);
+        XYSeries income = incomePlotter.plotIncomes();
+
+        BudgetPlotter budgetPlotter = new BudgetPlotter(income, claim);
+        XYSeries budget = budgetPlotter.plotBudget();
 
         final XYSeriesCollection dataSet = new XYSeriesCollection();
-        dataSet.addSeries(claimPlotter.plotClaims());
+        dataSet.addSeries(claim);
         dataSet.addSeries(income);
         dataSet.addSeries(budget);
         return dataSet;
