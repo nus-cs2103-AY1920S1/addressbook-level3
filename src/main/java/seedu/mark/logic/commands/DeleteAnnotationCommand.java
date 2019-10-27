@@ -1,22 +1,15 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_HIGHLIGHT;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARAGRAPH;
 
-import java.util.List;
-
-import seedu.mark.commons.core.Messages;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.OfflineCommandResult;
 import seedu.mark.model.Model;
-import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.ParagraphIdentifier;
-import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.storage.Storage;
 
 /**

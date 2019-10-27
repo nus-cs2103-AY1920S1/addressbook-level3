@@ -25,7 +25,7 @@ public class PhantomParagraph extends Paragraph {
         requireNonNull(id);
         assert note.hasNote() : "You can't create PhantomParagraph without a note.";
 
-        logger.info("new phantom created with index "+id.getOneBased());
+        logger.info("New phantom is created with index " + id.getOneBased());
         ParagraphIdentifier pi = ParagraphIdentifier.makeStrayId(id);
         this.id = pi;
         this.note = note;

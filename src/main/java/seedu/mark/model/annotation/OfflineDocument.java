@@ -20,7 +20,6 @@ import org.jsoup.select.Elements;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
-import seedu.mark.logic.commands.AnnotationCommand;
 
 /**
  * Represents the offline document (with annotations). An offline document contains content from a cache,

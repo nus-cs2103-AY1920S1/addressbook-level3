@@ -1,6 +1,5 @@
 package seedu.mark.logic.commands;
 
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -14,6 +13,10 @@ import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 
+/**
+ * Represents all commands that handle annotation requests.
+ * Supported annotation requests: add, delete, edit.
+ */
 public abstract class AnnotationCommand extends Command {
 
     public static final String MESSAGE_NO_CACHE_AVAILABLE = "No cache is available to annotate.\n"

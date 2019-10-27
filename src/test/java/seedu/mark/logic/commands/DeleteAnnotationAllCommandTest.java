@@ -107,7 +107,7 @@ class DeleteAnnotationAllCommandTest {
     }
 
     private class CachedCopyStub extends CachedCopy {
-        OfflineDocumentStub doc;
+        private OfflineDocumentStub doc;
 
         CachedCopyStub(Paragraph p) {
             super("");
@@ -121,7 +121,8 @@ class DeleteAnnotationAllCommandTest {
     }
 
     private class OfflineDocumentStub extends OfflineDocument {
-        Paragraph p;
+        private Paragraph p;
+
         OfflineDocumentStub(Paragraph p) {
             super("");
             this.p = p;
