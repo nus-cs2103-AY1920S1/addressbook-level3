@@ -64,4 +64,8 @@ public class DetailWindowDisplay {
     public FreeSchedule getFreeSchedule() {
         return freeSchedule;
     }
+
+    public FreeSchedule getFreeSchedule() {
+        return this.freeSchedule;
+    }
 }

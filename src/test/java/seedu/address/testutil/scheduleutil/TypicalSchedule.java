@@ -1,6 +1,7 @@
 package seedu.address.testutil.scheduleutil;
 
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Schedule;
 
 /**
@@ -14,7 +15,7 @@ public class TypicalSchedule {
      * @param personId of the Person
      * @return Schedule
      */
-    public static Schedule generateTypicalSchedule(PersonId personId) {
+    public static Schedule generateTypicalSchedule(PersonId personId) throws EventClashException {
         Schedule schedule = new Schedule(personId);
         schedule.addEvent(TypicalEvents.generateTypicalEvent1());
         schedule.addEvent(TypicalEvents.generateTypicalEvent2());

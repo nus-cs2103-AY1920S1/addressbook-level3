@@ -5,6 +5,7 @@ import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonList;
 
@@ -40,8 +41,15 @@ public class TimeBook {
         this.groupList.addGroup(group);
     }
 
+    /**
+     * Adds a mapping into TimeBook.
+     */
     public void addMapping(PersonToGroupMapping map) {
-        this.personToGroupMappingList.addPersonToGroupMapping(map);
+        try {
+            this.personToGroupMappingList.addPersonToGroupMapping(map);
+        } catch (DuplicateMappingException e) {
+            e.printStackTrace();
+        }
     }
 
     public PersonList getPersonList() {

@@ -36,7 +36,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class TimeBookParser {
+
     /**
      * Represents the two parts of a command: its {@code commandWord} and {@code arguments}.
      */

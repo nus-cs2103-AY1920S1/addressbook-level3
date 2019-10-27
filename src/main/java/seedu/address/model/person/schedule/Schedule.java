@@ -3,6 +3,7 @@ package seedu.address.model.person.schedule;
 import java.util.ArrayList;
 
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.exceptions.EventClashException;
 
 /**
  * Schedule of a person.
@@ -21,7 +22,16 @@ public class Schedule {
         this.events = events;
     }
 
-    public void addEvent(Event event) {
+    /**
+     * Adds an event into the schedule.
+     *
+     * @param event to be added
+     * @throws EventClashException when there is a clash in the events
+     */
+    public void addEvent(Event event) throws EventClashException {
+        if (isClash(event)) {
+            throw new EventClashException(event);
+        }
         this.events.add(event);
     }
 
