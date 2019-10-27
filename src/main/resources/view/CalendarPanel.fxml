@@ -122,15 +122,15 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                      <BorderPane.margin>
                         <Insets bottom="16.0" left="16.0" right="16.0" />
@@ -152,7 +152,7 @@
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                      <BorderPane.margin>
                         <Insets left="16.0" right="16.0" />
@@ -162,27 +162,27 @@
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
-                        <Label text="M" textFill="#00000080" GridPane.columnIndex="1">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="M" textFill="#00000080" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
-                        <Label text="T" textFill="#00000080" GridPane.columnIndex="2">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="T" textFill="#00000080" GridPane.columnIndex="2">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
-                        <Label text="W" textFill="#00000080" GridPane.columnIndex="3">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="W" textFill="#00000080" GridPane.columnIndex="3">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
-                        <Label text="T" textFill="#00000080" GridPane.columnIndex="4">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="T" textFill="#00000080" GridPane.columnIndex="4">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
-                        <Label text="F" textFill="#00000080" GridPane.columnIndex="5">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="F" textFill="#00000080" GridPane.columnIndex="5">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
-                        <Label text="S" textFill="#00000080" GridPane.columnIndex="6">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="S" textFill="#00000080" GridPane.columnIndex="6">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>

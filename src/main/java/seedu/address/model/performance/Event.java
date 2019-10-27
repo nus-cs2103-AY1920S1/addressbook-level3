@@ -80,17 +80,14 @@ public class Event {
     public List<CalendarCompatibleRecord> getCalendarCompatibleRecords(AthletickDate date) {
         List<CalendarCompatibleRecord> ccrList = new ArrayList<>();
         records.forEach((person, recordList) -> {
-            String timing = null;
+            String timing = "";
             for (Record record : recordList) {
                 if (record.getDate().equals(date)) {
                     timing = record.getTiming();
+                    CalendarCompatibleRecord ccr = new CalendarCompatibleRecord(person, timing);
+                    ccrList.add(ccr);
                 }
             }
-            if (timing == null) {
-                timing = "This person does not have a performance record for " + name + " event on " + date.toString();
-            }
-            CalendarCompatibleRecord ccr = new CalendarCompatibleRecord(person, timing);
-            ccrList.add(ccr);
         });
         return ccrList;
     }

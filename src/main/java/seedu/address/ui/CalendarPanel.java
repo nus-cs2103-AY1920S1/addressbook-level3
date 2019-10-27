@@ -412,9 +412,11 @@ public class CalendarPanel extends UiPart<Region> {
      */
     private VBox gridContent(Node ... items) {
         VBox v = new VBox();
+        v.setFillWidth(true);
+        v.setPrefHeight(Region.USE_COMPUTED_SIZE);
         v.setAlignment(Pos.TOP_CENTER);
         for (Node item : items) {
-            v.getChildren().addAll(item);
+            v.getChildren().add(item);
         }
         return v;
     }
