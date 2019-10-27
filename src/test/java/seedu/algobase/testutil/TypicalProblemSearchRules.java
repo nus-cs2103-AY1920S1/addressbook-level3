@@ -38,6 +38,26 @@ public class TypicalProblemSearchRules {
         null
     );
 
+    public static final ProblemSearchRule NAME_SEQUENCES_DUPLICATE = new ProblemSearchRule(
+        new Name("Sequences"),
+        new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("Sequences"))),
+        null,
+        null,
+        null,
+        null,
+        null
+    );
+
+    public static final ProblemSearchRule NAME_SEQUENCES_SAME_NAME_DIFFERENT_PREDICATE = new ProblemSearchRule(
+        new Name("Sequences"),
+        new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("Hello"))),
+        null,
+        null,
+        null,
+        new DifficultyIsInRangePredicate(1.0, 3.0),
+        null
+    );
+
     public static final ProblemSearchRule ALL_PREDICATE = new ProblemSearchRule(
         new Name("All predicates search rule"),
         new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("hello"))),

@@ -2,6 +2,8 @@ package seedu.algobase.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import javafx.scene.image.Image;
 import seedu.algobase.MainApp;
 
@@ -47,6 +49,24 @@ public class AppUtil {
         } catch (IllegalAccessException e) {
             throw new AssertionError("Class " + targetClass.getName()
                 + "has non-public " + fieldName + ".");
+        }
+    }
+
+    /**
+     * Returns true if two lists have the same content with the same order.
+     * @param first list to compare
+     * @param second list to compare
+     */
+    public static boolean compareTwoLists(List first, List second) {
+        if (first.size() != second.size()) {
+            return false;
+        } else {
+            for (int i = 0; i < first.size(); i = i + 1) {
+                if (!first.get(i).equals(second.get(i))) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

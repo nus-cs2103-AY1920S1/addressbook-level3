@@ -48,18 +48,6 @@ public class FindProblemDescriptor {
         this.tagPredicate = tagPredicate;
     }
 
-    /**
-     * Copy constructor.
-     */
-    public FindProblemDescriptor(FindProblemDescriptor toCopy) {
-        setNamePredicate(toCopy.namePredicate);
-        setAuthorPredicate(toCopy.authorPredicate);
-        setDescriptionPredicate(toCopy.descriptionPredicate);
-        setSourcePredicate(toCopy.sourcePredicate);
-        setDifficultyPredicate(toCopy.difficultyPredicate);
-        setTagPredicate(toCopy.tagPredicate);
-    }
-
     public boolean isAnyFieldProvided() {
         return CollectionUtil.isAnyNonNull(namePredicate, authorPredicate, descriptionPredicate, sourcePredicate,
                 difficultyPredicate, tagPredicate);

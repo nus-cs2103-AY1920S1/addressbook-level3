@@ -60,4 +60,12 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
         Difficulty difficulty = problem.getDifficulty();
         return difficulty.value >= lowerBound && difficulty.value <= upperBound;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof DifficultyIsInRangePredicate) // instanceof handles nulls
+            && lowerBound == ((DifficultyIsInRangePredicate) other).getLowerBound()
+            && upperBound == ((DifficultyIsInRangePredicate) other).getUpperBound(); // state check
+    }
 }
