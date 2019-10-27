@@ -65,7 +65,7 @@ public class TypicalProblems {
         .build();
 
     /**
-     * Returns an{@code AlgoBase} with all typical problems.
+     * Returns an {@code AlgoBase} with all typical problems.
      */
     public static AlgoBase getTypicalAlgoBase() {
         AlgoBase algoBase = new AlgoBase();

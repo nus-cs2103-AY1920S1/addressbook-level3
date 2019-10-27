@@ -1,7 +1,10 @@
 package seedu.algobase.testutil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
@@ -70,4 +73,19 @@ public class TypicalProblemSearchRules {
 
     public static final String INVALID_KEYWORD = "";
     public static final JsonAdaptedKeyword INVALID_ADAPTED_KEYWORD = new JsonAdaptedKeyword(INVALID_KEYWORD);
+
+    /**
+     * Returns an {@code AlgoBase} with all typical find rules.
+     */
+    public static AlgoBase getTypicalAlgoBase() {
+        AlgoBase algoBase = new AlgoBase();
+        for (ProblemSearchRule rule : getTypicalFindRules()) {
+            algoBase.addFindRule(rule);
+        }
+        return algoBase;
+    }
+
+    public static List<ProblemSearchRule> getTypicalFindRules() {
+        return new ArrayList<>(Arrays.asList(MEDIUM_DIFFICULTY, NAME_SEQUENCES, ALL_PREDICATE));
+    }
 }
