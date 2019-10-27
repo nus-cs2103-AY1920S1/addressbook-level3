@@ -315,8 +315,12 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    private void handleUnknown() {
-        this.unknown = !this.unknown;
+    private void setUnknownFalse() {
+        this.unknown = false;
+    }
+
+    private void setUnknownTrue() {
+        this.unknown = true;
     }
 
     public EarningsListPanel getEarningsListPanel() {
@@ -338,39 +342,33 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.address.logic.Logic#execute(String, boolean)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            CommandResult commandResult = logic.execute(commandText, this.unknown);
             if (this.unknown) {
-                CommandResult commandResult = logic.executeUnknown(commandText);
                 if (!commandResult.isUnknown()) {
-                    handleUnknown();
+                    setUnknownFalse();
                 }
-                logger.info("Result: " + commandResult.getFeedbackToUser());
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
-                return commandResult;
-            } else {
-                CommandResult commandResult = logic.execute(commandText);
-                logger.info("Result: " + commandResult.getFeedbackToUser());
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-                if (commandResult.isShowHelp()) {
-                    handleHelp();
-                }
-
-                if (commandResult.isExit()) {
-                    handleExit();
-                }
-
-                if (commandResult.isUnknown()) {
-                    handleUnknown();
-                }
-
-                return commandResult;
             }
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+
+            if (commandResult.isUnknown()) {
+                setUnknownTrue();
+            }
+
+            return commandResult;
 
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
