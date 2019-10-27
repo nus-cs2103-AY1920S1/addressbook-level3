@@ -2,7 +2,9 @@ package seedu.address.financialtracker.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
@@ -32,7 +34,8 @@ public class AddFinCommandParser implements Parser<AddFinCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFinCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_TYPE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_TYPE,
+                PREFIX_DATE, PREFIX_TIME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -42,8 +45,20 @@ public class AddFinCommandParser implements Parser<AddFinCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        Date date = Date.getCurrentDate();
-        Time time = Time.getCurrentTime();
+
+        Date date;
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        } else {
+            date = Date.getCurrentDate();
+        }
+
+        Time time;
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        } else {
+            time = Time.getCurrentTime();
+        }
 
         Expense expense = new Expense(date, time, amount, description, type);
 

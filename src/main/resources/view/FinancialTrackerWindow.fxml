@@ -9,10 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="financialTrackerPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-    </stylesheets>
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="Financial Tracker">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -32,11 +28,15 @@
         </padding>
     </StackPane>
 
-    <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" styleClass="pane-with-border" VBox.vgrow="NEVER">
+    <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="239.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
         <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
         </padding>
     </StackPane>
 
     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+   <stylesheets>
+      <URL value="@FinancialTrackerPage.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
 </VBox>

@@ -117,10 +117,10 @@
                                                  <Button fx:id="deleteCommand" mnemonicParsing="false" onAction="#copyDelete" text="Copy" />
                                                </items>
                                              </ToolBar>
-                                             <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                             <ToolBar prefHeight="40.0" prefWidth="591.0">
                                                 <items>
-                                                   <Label text="Edit expense: edit [index] a/[amount] d/[description] t/[type] c/[(select the dropdown menu)]" wrapText="true" />
-                                                   <Region prefHeight="20.0" prefWidth="249.0" />
+                                                   <Label prefHeight="18.0" prefWidth="328.0" text="Edit expense: edit [index] a/[amount] d/[description] t/[type]" wrapText="true" />
+                                                   <Region prefHeight="33.0" prefWidth="82.0" />
                                                    <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
                                                 </items>
                                              </ToolBar>
