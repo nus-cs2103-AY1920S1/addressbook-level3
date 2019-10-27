@@ -11,13 +11,14 @@ import javafx.collections.ObservableList;
 
 import calofit.commons.util.CollectionUtil;
 import calofit.model.dish.exceptions.DishNotFoundException;
+import calofit.model.meal.exceptions.DuplicateMealException;
 
 /**
  * Represents all meals tracked by the application.
  * Contains the original list of all meals input by the user.
  * Stores other lists of meals that are generated based on the original list of meals.
  */
-public class MealLog {
+public class MealLog implements ReadOnlyMealLog {
     private List<Meal> mealLog = new ArrayList<>();
     private ObservableList<Meal> observableMeals = FXCollections.observableList(mealLog);
     private ObservableList<Meal> readOnlyMeals = FXCollections.unmodifiableObservableList(observableMeals);
@@ -30,6 +31,47 @@ public class MealLog {
         for (int i = 0; i < toBeCopied.observableMeals.size(); i++) {
             this.observableMeals.add(toBeCopied.observableMeals.get(i));
         }
+    }
+
+    public MealLog(ReadOnlyMealLog toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    /**
+     * Resets the existing data of this {@code MealLog} with {@code newData}.
+     */
+    public void resetData(ReadOnlyMealLog newData) {
+        requireNonNull(newData);
+
+        setMeals(newData.getMealLog());
+    }
+
+    /**
+     * Replaces the contents of this list with {@code meals}.
+     * {@code meals} must not contain duplicate meals.
+     */
+    public void setMeals(List<Meal> meals) {
+        CollectionUtil.requireAllNonNull(meals);
+        if (!mealsAreUnique(meals)) {
+            throw new DuplicateMealException();
+        }
+
+        observableMeals.setAll(meals);
+    }
+
+    /**
+     * Returns true if {@code meals} contains only unique meals.
+     */
+    private boolean mealsAreUnique(List<Meal> meals) {
+        for (int i = 0; i < meals.size() - 1; i++) {
+            for (int j = i + 1; j < meals.size(); j++) {
+                if (meals.get(i).isSameMeal(meals.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -58,7 +100,8 @@ public class MealLog {
      * Get a list of meals eaten by the user.
      * @return Meal list
      */
-    public ObservableList<Meal> getMeals() {
+    @Override
+    public ObservableList<Meal> getMealLog() {
         return readOnlyMeals;
     }
 
@@ -94,6 +137,15 @@ public class MealLog {
     }
 
     /**
+     * Checks if a meal is in the meal log.
+     * @param meal Meal to check
+     * @return True if meal was in the Log, false otherwise.
+     */
+    public boolean hasMeal(Meal meal) {
+        return observableMeals.contains(meal);
+    }
+
+    /**
      * Gets the list of meals eaten by the user today.
      * @return the filtered Meal List that checks the TimeStamp of each Meal.
      */
@@ -108,4 +160,5 @@ public class MealLog {
     public ObservableList<Meal> getCurrentMonthMeals() {
         return currentMonthMeals;
     }
+
 }
