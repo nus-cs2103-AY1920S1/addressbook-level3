@@ -232,7 +232,7 @@ class JsonAdaptedBody {
             actualKinPhoneNumber = null;
         } else {
             if (!PhoneNumber.isValidPhoneNumber(kinPhoneNumber)) {
-                throw new IllegalValueException(PhoneNumber.VALID_NUMBER);
+                throw new IllegalValueException(PhoneNumber.MESSAGE_CONSTRAINTS);
             }
             actualKinPhoneNumber = new PhoneNumber(kinPhoneNumber);
         }

@@ -51,9 +51,8 @@ class WorkerTest {
         editedAlice = new WorkerBuilder(ALICE).withName(DEFAULT_NAME).build();
         assertFalse(ALICE.isSameWorker(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new WorkerBuilder(ALICE).withDateJoined(WorkerBuilder.DEFAULT_DATE_JOINED)
-            .withDateOfBirth(WorkerBuilder.DEFAULT_DATE_OF_BIRTH)
+        // same identity fields, different data attributes -> returns true
+        editedAlice = new WorkerBuilder(ALICE).withDateOfBirth(WorkerBuilder.DEFAULT_DATE_OF_BIRTH)
             .withEmploymentStatus(WorkerBuilder.DEFAULT_EMPLOYMENT_STATUS).build();
         assertTrue(ALICE.isSameWorker(editedAlice));
     }

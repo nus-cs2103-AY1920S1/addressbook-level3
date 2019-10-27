@@ -94,7 +94,7 @@ public class ParserUtil {
         }
         String trimmedPhone = phone.trim();
         if (!PhoneNumber.isValidPhoneNumber(trimmedPhone)) {
-            throw new ParseException(PhoneNumber.VALID_NUMBER);
+            throw new ParseException(PhoneNumber.MESSAGE_CONSTRAINTS);
         }
         return new PhoneNumber(trimmedPhone);
     }

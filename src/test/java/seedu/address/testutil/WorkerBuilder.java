@@ -8,6 +8,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 
@@ -127,6 +128,7 @@ public class WorkerBuilder {
         return this;
     }
     public Worker build() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation);
     }
 }

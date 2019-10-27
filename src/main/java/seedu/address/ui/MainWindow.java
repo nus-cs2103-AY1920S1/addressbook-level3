@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private double yOffset = 0;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private WorkerListPanel workerListPanel;
     private LineChartPanel lineChartPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -67,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane workerListPanelPlaceholder;
 
     @FXML
     private StackPane lineChartPanelPlaceholder;
@@ -143,8 +143,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() throws java.text.ParseException {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        workerListPanel = new WorkerListPanel(logic.getFilteredWorkerList());
+        workerListPanelPlaceholder.getChildren().add(workerListPanel.getRoot());
 
         lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
         lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());

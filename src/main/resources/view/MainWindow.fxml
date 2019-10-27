@@ -86,8 +86,8 @@
                         <Insets right="15.0" />
                      </padding>
                   </VBox>
-              <VBox fx:id="personList" maxHeight="575.0" maxWidth="250.0" prefHeight="575.0" prefWidth="250.0">
-                <StackPane fx:id="personListPanelPlaceholder" maxHeight="575.0" prefHeight="575.0" styleClass="stack-pane">
+              <VBox fx:id="workerList" maxHeight="575.0" maxWidth="250.0" prefHeight="575.0" prefWidth="250.0">
+                <StackPane fx:id="workerListPanelPlaceholder" maxHeight="575.0" prefHeight="575.0" styleClass="stack-pane">
                         <VBox.margin>
                            <Insets />
                         </VBox.margin>

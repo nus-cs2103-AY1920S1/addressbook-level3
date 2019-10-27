@@ -12,7 +12,7 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.person.Name;
 
-//@@author shaoyi
+//@@author shaoyi1997
 /**
  * Represents a worker entry in Mortago.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -23,9 +23,9 @@ public class Worker implements Entity {
     private final Name name;
     private Sex sex;
     private IdentificationNumber workerIdNum;
+    private Date dateJoined;
 
     // Data fields
-    private Date dateJoined;
     private Optional<String> designation;
     private Optional<Date> dateOfBirth;
     private Optional<PhoneNumber> phone;
@@ -139,7 +139,8 @@ public class Worker implements Entity {
             Worker otherWorker = (Worker) o;
             return otherWorker != null
                 && otherWorker.getName().equals(getName())
-                && otherWorker.getSex().equals(getSex());
+                && otherWorker.getSex().equals(getSex())
+                && otherWorker.getDateJoined().equals(getDateJoined());
         } else {
             return false;
         }
@@ -200,3 +201,4 @@ public class Worker implements Entity {
         return builder.toString();
     }
 }
+//@@ author

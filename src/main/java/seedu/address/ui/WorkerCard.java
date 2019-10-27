@@ -32,15 +32,30 @@ public class WorkerCard extends UiPart<Region> {
     @FXML
     private Label workerId;
     @FXML
+    private Label sex;
+    @FXML
+    private Label phoneNumber;
+    @FXML
     private Label dateJoined;
+    @FXML
+    private Label dateOfBirth;
+    @FXML
+    private Label designation;
+    @FXML
+    private Label employmentStatus;
 
     public WorkerCard(Worker worker, int displayedIndex) {
         super(FXML);
         this.worker = worker;
         id.setText(displayedIndex + ". ");
         name.setText(worker.getName().toString());
+        sex.setText(worker.getSex().toString());
         workerId.setText(worker.getIdNum().toString());
         dateJoined.setText(worker.getDateJoined().toString());
+        dateOfBirth.setText(worker.getDateOfBirth().isPresent() ? worker.getDateOfBirth().get().toString() : "-");
+        phoneNumber.setText(worker.getPhone().isPresent() ? worker.getPhone().get().toString() : "-");
+        designation.setText(worker.getDesignation().isPresent() ? worker.getDesignation().get() : "-");
+        employmentStatus.setText(worker.getEmploymentStatus().isPresent() ? worker.getEmploymentStatus().get() : "-");
     }
 
     @Override
