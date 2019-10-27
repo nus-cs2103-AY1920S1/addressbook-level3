@@ -10,8 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Feature {
 
     public static final String MESSAGE_CONSTRAINTS = "You have provided an invalid feature. "
-            + "Please indicate one of the following features "
-            + "to view: 1) calendar, 2) attendance, "
+            + "Please indicate one of the following features to view: 1) calendar, 2) attendance, "
             + "3) performance.";
 
     private final String name;

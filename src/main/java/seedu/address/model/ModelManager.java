@@ -261,5 +261,4 @@ public class ModelManager implements Model {
     public boolean hasPerformanceOn(AthletickDate date) {
         return performance.hasPerformanceOn(date);
     }
-
 }

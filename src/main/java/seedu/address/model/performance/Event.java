@@ -108,7 +108,7 @@ public class Event {
                 }
             }
         });
-        return false;
+        return answer.get();
     }
 
     /**

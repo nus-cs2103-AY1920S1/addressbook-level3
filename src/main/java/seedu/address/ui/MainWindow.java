@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -111,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerParts(Model model) {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -124,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        CalendarPanel calendarPanel = new CalendarPanel();
+        CalendarPanel calendarPanel = new CalendarPanel(model);
         featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
 
@@ -186,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
             if (!(commandResult.getFeature() == null)) {
                 switch (commandResult.getFeature().toString()) {
                 case "calendar":
-                    CalendarPanel calendarPanel = new CalendarPanel();
+                    CalendarPanel calendarPanel = new CalendarPanel(commandResult.getModel());
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
                     break;
@@ -212,14 +213,15 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (!(commandResult.getDate() == null)) {
+                Model model = commandResult.getModel();
                 switch (commandResult.getDate().getType()) {
                 case 1:
-                    CalendarDetailPanel calendarDetailPanel = new CalendarDetailPanel();
+                    CalendarDetailPanel calendarDetailPanel = new CalendarDetailPanel(model);
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(calendarDetailPanel.getRoot());
                     break;
                 case 2:
-                    CalendarPanel calendarPanel = new CalendarPanel(commandResult.getDate());
+                    CalendarPanel calendarPanel = new CalendarPanel(commandResult.getDate(), model);
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
                     break;

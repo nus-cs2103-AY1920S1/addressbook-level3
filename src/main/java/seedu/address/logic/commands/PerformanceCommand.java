@@ -70,8 +70,10 @@ public class PerformanceCommand extends Command {
 
         Person athlete = lastShownList.get(index.getZeroBased());
         Record record = createRecord();
+        date.setType(2);
         model.addRecord(event, athlete, record);
         return new CommandResult(getSuccessMessage(athlete, event, date, time));
+
     }
 
     private Record createRecord() {
