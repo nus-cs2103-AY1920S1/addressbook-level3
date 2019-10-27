@@ -15,10 +15,12 @@ public class Assignment implements Comparable<Assignment> {
     public static final String MESSAGE_CONSTRAINTS_ASSIGNMENT_NAME =
             "Assignment name should not be blank nor start/end with whitespace.";
     public static final String MESSAGE_CONSTRAINTS_MAX_SCORE =
-            "Max score should be a non-negative integer";
+            "Max score should be a non-negative integer.";
     public static final String MESSAGE_CONSTRAINTS_START_END_DATE =
             String.format("Dates should be of the format %s. "
             + "Start date should be earlier than end date.", Tutorial.DATE_FORMAT);
+    public static final String MESSAGE_CONSTRAINTS_SCORE =
+            "Score should be a non-negative integer lesser or equal to the max score.";
 
     /*
      * The first character of the assignment name must not be a whitespace,
@@ -27,14 +29,14 @@ public class Assignment implements Comparable<Assignment> {
     public static final String VALIDATION_REGEX = "^\\S+.*\\S+$";
 
     private final String assignName;
-    private final int maxScore;
+    private final Integer maxScore;
     private final Date startDate;
     private final Date endDate;
 
     /**
      * Every field must be present and not null.
      */
-    public Assignment(String assignName, int maxScore, Date startDate, Date endDate) {
+    public Assignment(String assignName, Integer maxScore, Date startDate, Date endDate) {
         requireAllNonNull(assignName, maxScore, startDate, endDate);
         checkArgument(isValidAssignName(assignName), MESSAGE_CONSTRAINTS_ASSIGNMENT_NAME);
         checkArgument(isValidMaxScore(maxScore), MESSAGE_CONSTRAINTS_MAX_SCORE);

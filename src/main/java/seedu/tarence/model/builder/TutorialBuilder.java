@@ -11,6 +11,9 @@ import java.util.TreeSet;
 
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Assignment;
+import seedu.tarence.model.tutorial.Attendance;
+import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.TimeTable;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
@@ -37,6 +40,9 @@ public class TutorialBuilder {
     private Set<Week> weeks;
     private TutName tutName;
     private List<Student> students;
+    private List<Assignment> assignments;
+    private Attendance attendance;
+    private List<Event> eventLog;
 
     public TutorialBuilder() {
         modCode = new ModCode(DEFAULT_MODCODE);
@@ -108,8 +114,28 @@ public class TutorialBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code List<Assignment>} of the {@code Tutorial} that we are building.
+     */
+    public TutorialBuilder withAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+        return this;
+    }
+
+    /**
+     * Returns the Tutorial that we are building.
+     */
     public Tutorial build() {
-        return new Tutorial(tutName, day, startTime, weeks, duration, students, modCode);
+        return new Tutorial(tutName,
+                day,
+                startTime,
+                weeks,
+                duration,
+                students,
+                modCode,
+                attendance,
+                assignments,
+                eventLog);
     }
 
 }

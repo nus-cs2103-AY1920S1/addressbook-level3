@@ -13,7 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_MATNO = new Prefix("mat/");
     public static final Prefix PREFIX_NUSID = new Prefix("nusid/");
-    public static final Prefix PREFIX_MAX_SCORE = new Prefix("max/");
+    public static final Prefix PREFIX_SCORE = new Prefix("score/");
     public static final Prefix PREFIX_MODULE = new Prefix("m/");
     public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
     public static final Prefix PREFIX_TUTORIAL_NAME = new Prefix("tn/");

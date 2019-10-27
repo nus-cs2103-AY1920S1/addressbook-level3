@@ -27,19 +27,21 @@ public abstract class AssignmentCommand extends Command {
     protected final Optional<TutName> targetTutName;
     protected final Optional<Index> targetTutIndex;
     protected final Optional<Index> targetAssignIndex;
+    protected final Optional<Index> targetStudentIndex;
     protected final Optional<String> assignName;
-    protected final Optional<Integer> maxScore;
+    protected final Optional<Integer> score;
     protected final Optional<Date> startDate;
     protected final Optional<Date> endDate;
 
     public AssignmentCommand(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
-            String assignName, Integer maxScore, Date startDate, Date endDate) {
+            Index targetStudentIndex, String assignName, Integer score, Date startDate, Date endDate) {
         this.targetModCode = Optional.ofNullable(modCode);
         this.targetTutName = Optional.ofNullable(tutName);
         this.targetTutIndex = Optional.ofNullable(tutIndex);
         this.targetAssignIndex = Optional.ofNullable(assignIndex);
+        this.targetStudentIndex = Optional.ofNullable(targetStudentIndex);
         this.assignName = Optional.ofNullable(assignName);
-        this.maxScore = Optional.ofNullable(maxScore);
+        this.score = Optional.ofNullable(score);
         this.startDate = Optional.ofNullable(startDate);
         this.endDate = Optional.ofNullable(endDate);
     }
@@ -49,14 +51,15 @@ public abstract class AssignmentCommand extends Command {
         this.targetTutName = Optional.empty();
         this.targetTutIndex = Optional.empty();
         this.targetAssignIndex = Optional.empty();
+        this.targetStudentIndex = Optional.empty();
         this.assignName = Optional.empty();
-        this.maxScore = Optional.empty();
+        this.score = Optional.empty();
         this.startDate = Optional.empty();
         this.endDate = Optional.empty();
     }
 
     public abstract AssignmentCommand build(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
-        String assignName, Integer maxScore, Date startDate, Date endDate);
+        Index targetStudentIndex, String assignName, Integer score, Date startDate, Date endDate);
 
     /**
      * Handles the creating and processing of suggested {@code AssignmentCommand}s, if the user's input does not
@@ -102,8 +105,9 @@ public abstract class AssignmentCommand extends Command {
         TutName tutName = targetTutName.get();
         Index tutIndex = null;
         Index assignIndex = targetAssignIndex.orElse(null);
+        Index studentIndex = targetStudentIndex.orElse(null);
         String assignName = this.assignName.orElse(null);
-        Integer maxScore = this.maxScore.orElse(null);
+        Integer score = this.score.orElse(null);
         Date startDate = this.startDate.orElse(null);
         Date endDate = this.endDate.orElse(null);
         List<Command> suggestedCommands = new ArrayList<>();
@@ -115,8 +119,9 @@ public abstract class AssignmentCommand extends Command {
                     tutName,
                     tutIndex,
                     assignIndex,
+                    studentIndex,
                     assignName,
-                    maxScore,
+                    score,
                     startDate,
                     endDate));
             s.append(index).append(". ").append(similarModCode).append(", ").append(tutName).append("\n");
@@ -128,8 +133,9 @@ public abstract class AssignmentCommand extends Command {
                     similarTutName,
                     tutIndex,
                     assignIndex,
+                    studentIndex,
                     assignName,
-                    maxScore,
+                    score,
                     startDate,
                     endDate);
             if (suggestedCommands.stream()
@@ -153,8 +159,9 @@ public abstract class AssignmentCommand extends Command {
                 && targetTutName.equals(((AssignmentCommand) other).targetTutName)
                 && targetTutIndex.equals(((AssignmentCommand) other).targetTutIndex)
                 && targetAssignIndex.equals(((AssignmentCommand) other).targetAssignIndex)
+                && targetStudentIndex.equals(((AssignmentCommand) other).targetStudentIndex)
                 && assignName.equals(((AssignmentCommand) other).assignName)
-                && maxScore.equals(((AssignmentCommand) other).maxScore)
+                && score.equals(((AssignmentCommand) other).score)
                 && startDate.equals(((AssignmentCommand) other).startDate)
                 && endDate.equals(((AssignmentCommand) other).endDate)); // state check
     }

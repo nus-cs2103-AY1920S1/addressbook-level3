@@ -106,7 +106,7 @@ public class AddStudentCommandTest {
         ModelStub modelStub = new ModelStubWithStudent(validStudent);
 
         assertThrows(CommandException.class,
-            AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, () -> addStudentCommand.execute(modelStub));
+                AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, () -> addStudentCommand.execute(modelStub));
     }
 
     @Test
@@ -478,7 +478,7 @@ public class AddStudentCommandTest {
     }
 
     /**
-     * A Model stub that always accept the student being added.
+     * A Model stub that always accepts the student being added.
      */
     private class ModelStubAcceptingStudentAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
@@ -573,7 +573,7 @@ public class AddStudentCommandTest {
         }
     }
 
-    private static class ModelStubStudentCommand extends seedu.tarence.logic.commands.ModelStub {
+    private class ModelStubStudentCommand extends ModelStub {
         final ArrayList<Module> modules = new ArrayList<>();
         final ArrayList<Tutorial> tutorials = new ArrayList<>();
         final ArrayList<Student> students = new ArrayList<>();

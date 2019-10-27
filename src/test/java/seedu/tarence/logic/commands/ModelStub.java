@@ -116,7 +116,6 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredStudentList(NameContainsKeywordsPredicate predicate) {
-
         throw new AssertionError("This method should not be called.");
     }
 
@@ -132,7 +131,7 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasStudent(Student student) {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -152,92 +151,98 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasStudentInTutorialAndModule(Name studName, TutName tutName, ModCode modCode) {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasModule(Module module) {
-        // TODO: Implement test for hasModule
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addModule(Module module) {
-        // TODO: Implement test for addModule
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteModule(Module module) {}
+    public void deleteModule(Module module) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
-    public void deleteTutorialsFromModule(Module module) {}
+    public void deleteTutorialsFromModule(Module module) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public boolean hasTutorial(Tutorial tutorial) {
-        // TODO: Implement test for hasTutorial
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addTutorial(Tutorial tutorial) {
-        // TODO: Implement test for addTutorial
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deleteTutorial(Tutorial tutorial) {
-        // TODO: Implement test for deleteTutorial
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteStudentsFromTutorial(Tutorial tutorial) {}
+    public void deleteStudentsFromTutorial(Tutorial tutorial) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public boolean hasModuleOfCode(ModCode modCode) {
-        // TODO: implement
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addTutorialToModule(Tutorial tutorial) {
-        // TODO: implement
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addStudentToTutorial(Student student) {
-        // TODO: implement
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasTutorialInModule(ModCode modCode, TutName tutName) {
-        // TODO: implement
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public int getNumberOfTutorialsOfName(TutName tutName) {
-        return 0;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void storePendingCommand(Command command) {};
+    public void storePendingCommand(Command command) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public Command getPendingCommand() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Command peekPendingCommand() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasPendingCommand() {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void storeSuggestedCommands(List<Command> l, String s) {};
+    public void storeSuggestedCommands(List<Command> l, String s) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public List<Command> getSuggestedCommands() {
@@ -246,33 +251,43 @@ public class ModelStub implements Model {
 
     @Override
     public String getSuggestedCorrections() {
-        return "";
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteSuggestedCommands() {};
+    public void deleteSuggestedCommands() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
-    public void storeSuggestedCompletions(PartialInput partialInput) {}
+    public void storeSuggestedCompletions(PartialInput partialInput) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public PartialInput getSuggestedCompletions() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteSuggestedCompletions() {}
+    public void deleteSuggestedCompletions() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public boolean hasSuggestedCompletions() {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setInputChangedToTrue() {}
+    public void setInputChangedToTrue() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
-    public void setInputChangedToFalse() {}
+    public void setInputChangedToFalse() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public void saveInput(String input) {};
@@ -298,6 +313,6 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasInputChanged() {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 }

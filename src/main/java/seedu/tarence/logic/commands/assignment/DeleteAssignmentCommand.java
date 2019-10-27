@@ -2,9 +2,9 @@ package seedu.tarence.logic.commands.assignment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MAX_SCORE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_SCORE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
@@ -37,20 +37,20 @@ public class DeleteAssignmentCommand extends AssignmentCommand {
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_NAME + "ASSIGNMENT NAME "
-            + PREFIX_MAX_SCORE + "MAX SCORE "
+            + PREFIX_SCORE + "MAX SCORE "
             + PREFIX_START_DATE + "START DATE "
             + PREFIX_END_DATE + "END DATE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "
             + PREFIX_NAME + "Lab01 "
-            + PREFIX_MAX_SCORE + "10 "
+            + PREFIX_SCORE + "10 "
             + PREFIX_START_DATE + "09-11-2001 0000 "
             + PREFIX_END_DATE + "31-10-2019 2359";
 
     public DeleteAssignmentCommand(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
-            String assignName, Integer maxScore, Date startDate, Date endDate) {
-        super(modCode, tutName, tutIndex, assignIndex, assignName, maxScore, startDate, endDate);
+            String assignName, Integer score, Date startDate, Date endDate) {
+        super(modCode, tutName, tutIndex, assignIndex, null, assignName, score, startDate, endDate);
     }
 
     public DeleteAssignmentCommand() {
@@ -59,9 +59,9 @@ public class DeleteAssignmentCommand extends AssignmentCommand {
 
     @Override
     public AssignmentCommand build(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
-            String assignName, Integer maxScore, Date startDate, Date endDate) {
+            Index studentIndex, String assignName, Integer score, Date startDate, Date endDate) {
         return new DeleteAssignmentCommand(modCode, tutName, tutIndex, assignIndex,
-                assignName, maxScore, startDate, endDate);
+                assignName, score, startDate, endDate);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class DeleteAssignmentCommand extends AssignmentCommand {
             // format with assignment details
             targetAssignment = new Assignment(
                     assignName.get(),
-                    maxScore.get(),
+                    score.get(),
                     startDate.get(),
                     endDate.get());
             boolean isRemoved = targetTutorial.deleteAssignment(targetAssignment);

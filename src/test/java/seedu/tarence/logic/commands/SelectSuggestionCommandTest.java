@@ -65,6 +65,17 @@ public class SelectSuggestionCommandTest {
         private List<Command> suggestedCommands = new ArrayList<>();
 
         @Override
+        public void deleteSuggestedCommands() {}
+
+        @Override
+        public boolean hasTutorial(Tutorial tutorial) {
+            return false;
+        }
+
+        @Override
+        public void addTutorialToModule(Tutorial tutorial) {}
+
+        @Override
         public void addTutorial(Tutorial tutorial) {
             tutorials.add(tutorial);
         }

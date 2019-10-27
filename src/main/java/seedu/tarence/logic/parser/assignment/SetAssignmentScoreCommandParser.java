@@ -9,12 +9,10 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_SCORE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.stream.Stream;
 
 import seedu.tarence.commons.core.index.Index;
-import seedu.tarence.logic.commands.assignment.AddAssignmentCommand;
+import seedu.tarence.logic.commands.assignment.SetAssignmentScoreCommand;
 import seedu.tarence.logic.parser.ArgumentMultimap;
 import seedu.tarence.logic.parser.ArgumentTokenizer;
 import seedu.tarence.logic.parser.Parser;
@@ -24,54 +22,46 @@ import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.TutName;
-import seedu.tarence.model.tutorial.Tutorial;
 
 /**
- * Parses input arguments and creates a new AddAssignmentCommand object
+ * Parses input arguments and creates a new SetAssignmentScoreCommand object
  */
-public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> {
+public class SetAssignmentScoreCommandParser implements Parser<SetAssignmentScoreCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddAssignmentCommand
-     * and returns an AddAssignmentCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SetAssignmentScoreCommand
+     * and returns a SetAssignmentScoreCommand object for execution.
      * @throws ParseException if the user input does not match the expected formats for the module code.
      */
-    public AddAssignmentCommand parse(String args) throws ParseException {
+    public SetAssignmentScoreCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_INDEX, PREFIX_NAME,
-                PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE);
+                PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_INDEX, PREFIX_SCORE);
 
         ModCode modCode = null;
         TutName tutName = null;
         Index tutIndex = null;
+        Index assignIndex = null;
+        Index studentIndex = null;
+        Integer score = null;
         if (validateModCodeTutNameFormat(argMultimap)) {
             modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
             tutName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIAL_NAME).get());
-        } else if (validateIndexFormat(argMultimap)) {
-            tutIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        } else if (validateTutIndexFormat(argMultimap)) {
+            tutIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAssignmentCommand.MESSAGE_USAGE));
+                    SetAssignmentScoreCommand.MESSAGE_USAGE));
         }
-
-        String assignName = argMultimap.getValue(PREFIX_NAME).get();
-        Integer maxScore;
+        assignIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(1));
+        studentIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(2));
         try {
-            maxScore = Integer.parseInt(argMultimap.getValue(PREFIX_SCORE).get());
+            score = Integer.parseInt(argMultimap.getValue(PREFIX_SCORE).get());
         } catch (NumberFormatException e) {
-            throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_MAX_SCORE);
-        }
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(Tutorial.DATE_FORMAT);
-        Date startDate;
-        Date endDate;
-        try {
-            startDate = dateFormatter.parse(argMultimap.getValue(PREFIX_START_DATE).get());
-            endDate = dateFormatter.parse(argMultimap.getValue(PREFIX_END_DATE).get());
-        } catch (java.text.ParseException e) {
-            throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_START_END_DATE);
+            throw new ParseException(Assignment.MESSAGE_CONSTRAINTS_SCORE);
         }
 
-        return new AddAssignmentCommand(modCode, tutName, tutIndex, assignName, maxScore, startDate, endDate);
+        return new SetAssignmentScoreCommand(modCode, tutName, tutIndex, assignIndex,
+                studentIndex, score);
     }
 
     /**
@@ -81,9 +71,8 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      */
     public static boolean validateModCodeTutNameFormat(ArgumentMultimap argMultimap) {
         // modcode, tutorial name present without tutorial index - first format
-        return (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_NAME,
-                PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE)
-                && arePrefixesAbsent(argMultimap, PREFIX_INDEX));
+        return (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_SCORE)
+                && argMultimap.getAllValues(PREFIX_INDEX).size() == 2);
     }
 
     /**
@@ -91,11 +80,29 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      * @return True if argument multimap contains the combination for the second format with tutorial index,
      * else false.
      */
-    public static boolean validateIndexFormat(ArgumentMultimap argMultimap) {
-        // tutorial index present without modcode or tutorial name - second format
-        return (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME,
-                PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE)
-                && arePrefixesAbsent(argMultimap, PREFIX_MODULE, PREFIX_TUTORIAL_NAME));
+    public static boolean validateTutIndexFormat(ArgumentMultimap argMultimap) {
+        return (arePrefixesPresent(argMultimap, PREFIX_INDEX)
+                && argMultimap.getAllValues(PREFIX_INDEX).size() == 3);
+    }
+
+    /**
+     * Checks the argument multimap if it contains the correct combination of arguments.
+     * @return True if argument multimap contains the combination for the format with assignment name,
+     * max score, start and end date, else false.
+     */
+    public static boolean validateAssignmentFormat(ArgumentMultimap argMultimap) {
+        return (arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE)
+                && argMultimap.getAllValues(PREFIX_INDEX).size() <= 1);
+    }
+
+    /**
+     * Checks the argument multimap if it contains the correct combination of arguments.
+     * @return True if argument multimap contains the combination for the format with assignment index,
+     * else false.
+     */
+    public static boolean validateAssignIndexFormat(ArgumentMultimap argMultimap) {
+        return (argMultimap.getAllValues(PREFIX_INDEX).size() == 2
+                && arePrefixesAbsent(argMultimap, PREFIX_NAME, PREFIX_SCORE, PREFIX_START_DATE, PREFIX_END_DATE));
     }
 
     /**

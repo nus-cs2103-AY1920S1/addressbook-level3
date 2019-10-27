@@ -59,13 +59,15 @@ public class TimeTable {
         Calendar currCalendar = Calendar.getInstance();
         Calendar tempCalender = Calendar.getInstance();
         tempCalender.setTime(Module.getSemStart());
-        tempCalender.add(Calendar.DAY_OF_MONTH, 7);
+        tempCalender.add(Calendar.DAY_OF_MONTH, -7);
 
-        for (int week = 2; week <= 14; week++) {
+        for (int week = 1; week <= 14; week++) {
             if (tempCalender.compareTo(currCalendar) <= 0) {
                 tempCalender.add(Calendar.DAY_OF_MONTH, 7);
             } else {
-                return new Week(week - 1);
+                return week == 1
+                        ? null
+                        : new Week(week - 1);
             }
         }
         return new Week(13);
