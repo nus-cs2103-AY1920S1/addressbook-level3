@@ -100,6 +100,24 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String grades} into a {@code List<Integer>}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String grades will be split by whitespace, converted to Integer.
+     *
+     * @return output The grades string to be used in updating assignment.
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseSingleAssignmentGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+
+        String trimmedGrade = grade.trim();
+        if (!AssignmentGrades.isValidGrade(trimmedGrade)) {
+            throw new ParseException(AssignmentGrades.SINGLE_ASSIGNMENT_MESSAGE_CONSTRAINTS);
+        }
+        return trimmedGrade;
+    }
+
+    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
