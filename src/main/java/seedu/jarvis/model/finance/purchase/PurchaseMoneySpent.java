@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker.purchase;
+package seedu.jarvis.model.finance.purchase;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;

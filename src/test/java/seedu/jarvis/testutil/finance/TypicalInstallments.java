@@ -1,7 +1,9 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.finance;
 
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.testutil.finance.InstallmentBuilder;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.jarvis.model.finance.installment.Installment;
 
 /**
  * A utility class containing a list of {@code Installment} objects to be used in tests.
@@ -15,4 +17,8 @@ public class TypicalInstallments {
     public static final Installment TRANSPORT_CONCESSION = new InstallmentBuilder()
             .withDescription("Transport concession")
             .withMoneySpent("25.0").build();
+
+    public static List<Installment> getTypicalInstallments() {
+        return Arrays.asList(PHONE_BILL, TRANSPORT_CONCESSION);
+    }
 }

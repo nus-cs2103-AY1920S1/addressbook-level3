@@ -1,7 +1,9 @@
-package seedu.jarvis.testutil;
+package seedu.jarvis.testutil.finance;
 
-import seedu.jarvis.model.financetracker.purchase.Purchase;
-import seedu.jarvis.testutil.finance.PurchaseBuilder;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.jarvis.model.finance.purchase.Purchase;
 
 /**
  * A utility class containing a list of {@code Purchase} objects to be used in tests.
@@ -17,4 +19,8 @@ public class TypicalPurchases {
             .withDescription("Dinner at Reedz Cafe")
             .withMoneySpent("5.90")
             .build();
+
+    public static List<Purchase> getTypicalPurchases() {
+        return Arrays.asList(LUNCH_JAPANESE, DINNER_REEDZ);
+    }
 }

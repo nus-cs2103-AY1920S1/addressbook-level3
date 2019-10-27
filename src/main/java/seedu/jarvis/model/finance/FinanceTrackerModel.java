@@ -1,12 +1,12 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.finance;
 
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.purchase.Purchase;
 
 /**
  * The API of Finance Tracker component.

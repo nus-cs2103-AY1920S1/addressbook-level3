@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker.installment;
+package seedu.jarvis.model.finance.installment;
 
 import static java.util.Objects.requireNonNull;
 

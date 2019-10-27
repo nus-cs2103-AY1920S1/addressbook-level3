@@ -20,7 +20,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
-import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.finance.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;

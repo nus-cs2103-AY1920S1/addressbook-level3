@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 import static seedu.jarvis.testutil.cca.TypicalCcas.getTypicalCcaTracker;
 import static seedu.jarvis.testutil.course.TypicalCourses.getTypicalCoursePlanner;
+import static seedu.jarvis.testutil.finance.TypicalFinances.getTypicalFinanceTracker;
 import static seedu.jarvis.testutil.history.TypicalCommands.getTypicalHistoryManager;
 import static seedu.jarvis.testutil.planner.TypicalTasks.getTypicalPlanner;
 
@@ -19,12 +20,14 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
+import seedu.jarvis.model.finance.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
+import seedu.jarvis.storage.finance.JsonFinanceTrackerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.planner.JsonPlannerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
@@ -44,8 +47,9 @@ public class StorageManagerTest {
         JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(getTempFilePath("ct"));
         JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(getTempFilePath("cp"));
         JsonPlannerStorage plannerStorage = new JsonPlannerStorage(getTempFilePath("p"));
+        JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(getTempFilePath("ft"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage, coursePlannerStorage, plannerStorage);
+                ccaTrackerStorage, coursePlannerStorage, plannerStorage, financeTrackerStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -130,4 +134,23 @@ public class StorageManagerTest {
         Planner retrieved = storageManager.readPlanner().get();
         assertEquals(original, retrieved);
     }
+
+    @Test
+    public void getPlannerFilePath() {
+        assertNotNull(storageManager.getPlannerFilePath());
+    }
+
+    @Test
+    public void financeTrackerReadSave() throws Exception {
+        FinanceTracker original = getTypicalFinanceTracker();
+        storageManager.saveFinanceTracker(original);
+        FinanceTracker retrieved = storageManager.readFinanceTracker().get();
+        assertEquals(original, retrieved);
+    }
+
+    @Test
+    public void getFinanceTrackerFilePath() {
+        assertNotNull(storageManager.getFinanceTrackerFilePath());
+    }
+
 }

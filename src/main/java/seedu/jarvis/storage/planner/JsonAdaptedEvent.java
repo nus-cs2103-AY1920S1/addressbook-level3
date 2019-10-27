@@ -1,6 +1,7 @@
 package seedu.jarvis.storage.planner;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -60,13 +61,17 @@ public class JsonAdaptedEvent extends JsonAdaptedTask implements JsonAdapter<Tas
     @Override
     public Task toModelType() throws IllegalValueException {
         validateAttributes();
-        return new Event(
-                description,
-                priority != null ? Priority.valueOf(priority) : null,
-                frequency != null ? Frequency.valueOf(frequency) : null,
-                status != null ? Status.valueOf(status) : null,
-                adaptToTags(tags),
-                LocalDate.parse(start, Task.getDateFormat()),
-                LocalDate.parse(end, Task.getDateFormat()));
+        try {
+            return new Event(
+                    description,
+                    priority != null ? Priority.valueOf(priority) : null,
+                    frequency != null ? Frequency.valueOf(frequency) : null,
+                    status != null ? Status.valueOf(status) : null,
+                    adaptToTags(tags),
+                    LocalDate.parse(start, Task.getDateFormat()),
+                    LocalDate.parse(end, Task.getDateFormat()));
+        } catch (DateTimeParseException dtpe) {
+            throw new IllegalValueException(MESSAGE_INVALID_ATTRIBUTES);
+        }
     }
 }

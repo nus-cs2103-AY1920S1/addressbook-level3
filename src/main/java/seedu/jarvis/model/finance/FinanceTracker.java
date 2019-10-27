@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.finance;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,11 +8,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
-import seedu.jarvis.model.financetracker.exceptions.NegativeLimitException;
-import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.finance.exceptions.NegativeLimitException;
+import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.purchase.Purchase;
 
 /**
  * Manages the overall functionality of the Finance Tracker feature of JARVIS. The finance tracker manages purchases

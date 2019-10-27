@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.finance;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.finance.purchase.Purchase;
 
 /**
  * Manages list of monthly expenditures made by the user.

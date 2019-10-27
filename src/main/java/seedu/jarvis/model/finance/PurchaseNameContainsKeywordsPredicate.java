@@ -1,10 +1,10 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.finance;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.jarvis.commons.util.StringUtil;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.purchase.Purchase;
 
 /**
  * Tests that a {@code Purchase}'s {@code PurchaseDescription} matches any of the keywords given.

@@ -1,16 +1,16 @@
-package seedu.jarvis.model.financetracker;
+package seedu.jarvis.model.finance.installment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the monthly limit set in the finance tracker.
+ * Represents the description of an installment in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
-public class MonthlyLimit {
+public class InstallmentMoneyPaid {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Monthly limit set should be taken as doubles, "
+            "Subscription fee of installments should Names should only contain alphanumeric characters and spaces, "
                     + "and it should not be blank";
 
     public static final String MONEY_CONSTRAINTS =
@@ -18,17 +18,17 @@ public class MonthlyLimit {
 
     public static final String VALIDATION_REGEX = "[0-9]{1,13}(\\.[0-9]*)?";
 
-    public final double monthlyLimit;
+    public final double installmentMoneyPaid;
 
     /**
-     * Constructs a {@code MonthlyLimit}.
+     * Constructs a {@code InstallmentMoneyPaid}.
      *
-     * @param value A valid purchase money paid.
+     * @param value A valid installment money paid.
      */
-    public MonthlyLimit(String value) {
+    public InstallmentMoneyPaid(String value) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
-        monthlyLimit = Double.parseDouble(value);
+        installmentMoneyPaid = Double.parseDouble(value);
     }
 
     /**
@@ -38,19 +38,21 @@ public class MonthlyLimit {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public double getMonthlyLimit() {
-        return monthlyLimit;
+    public double getInstallmentMoneyPaid() {
+        return installmentMoneyPaid;
     }
 
     @Override
     public String toString() {
-        return Double.toString(monthlyLimit);
+        return Double.toString(installmentMoneyPaid);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof MonthlyLimit
-                && monthlyLimit == ((MonthlyLimit) other).monthlyLimit);
+                || (other instanceof InstallmentMoneyPaid
+                && Double.toString(installmentMoneyPaid)
+                .equals(Double.toString(((InstallmentMoneyPaid) other).installmentMoneyPaid)));
     }
+
 }

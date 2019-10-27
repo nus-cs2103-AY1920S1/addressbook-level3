@@ -1,13 +1,13 @@
-package seedu.jarvis.model.financetracker.purchase;
+package seedu.jarvis.model.finance.installment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the description of a purchase in the finance tracker.
+ * Represents the description of an installment in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class PurchaseDescription {
+public class InstallmentDescription {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -18,17 +18,17 @@ public class PurchaseDescription {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String purchaseDescription;
+    public final String installmentDescription;
 
     /**
-     * Constructs a {@code PurchaseDescription}.
+     * Constructs a {@code InstallmentDescription}.
      *
      * @param description A valid description
      */
-    public PurchaseDescription(String description) {
+    public InstallmentDescription(String description) {
         requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
-        purchaseDescription = description;
+        installmentDescription = description;
     }
 
     /**
@@ -38,19 +38,19 @@ public class PurchaseDescription {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public String getPurchaseDescription() {
-        return purchaseDescription;
+    public String getInstallmentDescription() {
+        return installmentDescription;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof PurchaseDescription
-                && purchaseDescription.equals(((PurchaseDescription) other).purchaseDescription));
+                || (other instanceof InstallmentDescription
+                && installmentDescription.equals(((InstallmentDescription) other).installmentDescription));
     }
 
     @Override
     public int hashCode() {
-        return purchaseDescription.hashCode();
+        return installmentDescription.hashCode();
     }
 }

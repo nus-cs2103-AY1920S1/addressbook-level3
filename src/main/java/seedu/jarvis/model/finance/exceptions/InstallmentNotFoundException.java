@@ -1,4 +1,4 @@
-package seedu.jarvis.model.financetracker.exceptions;
+package seedu.jarvis.model.finance.exceptions;
 
 /**
  * Signals that the operation will try to access an installment that does not exist.
