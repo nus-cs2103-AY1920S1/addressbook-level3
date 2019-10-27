@@ -1,6 +1,5 @@
 package seedu.elisa.ui;
 
-import java.net.URLClassLoader;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -118,7 +117,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         //Get property.addListener
-        AudioClip reminderAlarm = new AudioClip(getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString());
+        String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
+        AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
 
         logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
             @Override
