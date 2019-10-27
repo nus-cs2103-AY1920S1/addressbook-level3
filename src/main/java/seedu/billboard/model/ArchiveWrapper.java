@@ -1,6 +1,7 @@
 package seedu.billboard.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,6 +89,8 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     }
 
     void removeArchive(String targetArchiveName) {
+        requireNonNull(targetArchiveName);
+
         archiveList.remove(targetArchiveName);
     }
 
@@ -116,6 +119,8 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
      * The given {@code archiveName} must exist.
      */
     void removeArchiveExpense(String archiveName, Expense key) {
+        requireAllNonNull(archiveName, key);
+
         archiveList.get(archiveName).remove(key);
     }
 
