@@ -50,7 +50,7 @@ public class DeleteIdCommand extends Command {
         if (className.equals(Task.class.getSimpleName())) {
             //deletion for Task
             if (!model.hasTask(id)) {
-                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+                throw new CommandException(String.format(MESSAGE_INVALID_ID, className));
             }
 
             Task taskToDelete = model.getTask(id);
@@ -69,7 +69,7 @@ public class DeleteIdCommand extends Command {
         } else if (className.equals(Customer.class.getSimpleName())) {
             //deletion for Customer
             if (!model.hasCustomer(id)) {
-                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+                throw new CommandException(String.format(MESSAGE_INVALID_ID, className));
             }
 
             Customer customerToDelete = model.getCustomer(id);

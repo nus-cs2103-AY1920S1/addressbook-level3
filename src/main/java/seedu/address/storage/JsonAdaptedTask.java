@@ -165,16 +165,13 @@ public class JsonAdaptedTask {
             throw new IllegalValueException(TaskStatus.MESSAGE_CONSTRAINTS);
         }
 
-        if (status.equals(TaskStatus.INCOMPLETE.toString())) {
-            task.setStatus(TaskStatus.INCOMPLETE);
-        } else if (status.equals(TaskStatus.ON_GOING.toString())) {
-            task.setStatus(TaskStatus.ON_GOING);
-
+        //if status is incomplete, then ignore, because by default is incomplete
+        if (status.equals(TaskStatus.ON_GOING.toString())) {
             //if status is ongoing, then load the eventTime to driver schedule
             Driver driver = driverManager.getDriver(Integer.parseInt(driverId));
             Schedule driverSchedule = driver.getSchedule();
             driverSchedule.add(EventTime.parse(duration));
-        } else {
+        } else if (status.equals(TaskStatus.COMPLETED.toString())) {
             //task is completed
             task.setStatus(TaskStatus.COMPLETED);
         }

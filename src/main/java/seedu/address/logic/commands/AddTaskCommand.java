@@ -6,7 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOODS;
 
+import java.time.LocalDate;
+
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Description;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
@@ -30,18 +33,22 @@ public class AddTaskCommand extends Command {
 
     public static final String MESSAGE_INVALID_CUSTOMER_ID = "Invalid customer id.";
 
-    private final Task taskToAdd;
+    private final Description description;
+    private final LocalDate date;
     private final int customerId;
 
-    public AddTaskCommand(Task taskToAdd, int customerId) {
-        requireAllNonNull(taskToAdd, customerId);
-        this.taskToAdd = taskToAdd;
+    public AddTaskCommand(Description description, LocalDate date, int customerId) {
+        requireAllNonNull(description, customerId, date);
+        this.description = description;
+        this.date = date;
         this.customerId = customerId;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        Task taskToAdd = new Task(model.getNextTaskId(), description, date);
 
         if (!model.hasCustomer(customerId)) {
             throw new CommandException(MESSAGE_INVALID_CUSTOMER_ID);

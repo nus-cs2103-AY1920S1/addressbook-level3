@@ -60,7 +60,7 @@ public class TaskList {
     public boolean hasTask(Task task) {
         Optional<Task> foundTask = tasks
                                     .stream()
-                                    .filter(currentTask -> currentTask == task)
+                                    .filter(currentTask -> currentTask.equals(task))
                                     .findFirst();
         return foundTask.isPresent();
     }

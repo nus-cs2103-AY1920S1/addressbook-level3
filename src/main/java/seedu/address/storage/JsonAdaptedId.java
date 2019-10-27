@@ -45,7 +45,7 @@ public class JsonAdaptedId {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
-    public void toModelType() throws IllegalValueException {
+    public IdManager toModelType() throws IllegalValueException {
         if (lastTaskId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "lastTaskId"));
         }
@@ -73,8 +73,6 @@ public class JsonAdaptedId {
         }
         final int modelLastDriverId = Integer.parseInt(lastDriverId);
 
-        IdManager.setLastTaskId(modelLastTaskId);
-        IdManager.setLastCustomerId(modelLastCustomerId);
-        IdManager.setLastDriverId(modelLastDriverId);
+        return new IdManager(modelLastTaskId, modelLastCustomerId, modelLastDriverId);
     }
 }

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -13,9 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.CustomerManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.task.TaskManager;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -67,12 +64,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         saveAddressBook(addressBook, filePath);
     }
 
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
-                                CustomerManager customerManager) throws IOException {
-        saveAddressBook(addressBook, taskManager, customerManager, filePath);
-    }
-
     /**
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
      *
@@ -84,30 +75,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
-    }
-
-    /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
-                                CustomerManager customerManager, Path filePath)
-            throws IOException {
-        requireNonNull(addressBook);
-        requireNonNull(filePath);
-        requireNonNull(taskManager);
-        requireNonNull(customerManager);
-
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
-
-        // Save task manager as json
-        // temp
-        JsonUtil.saveJsonFile(new JsonSerializableTaskManager(taskManager), Paths.get("data", "taskManager.json"));
-        // Save customer manager as json
-        JsonUtil.saveJsonFile(new JsonSerializableCustomerManager(customerManager),
-                Paths.get("data", "customerManager.json"));
     }
 
 }

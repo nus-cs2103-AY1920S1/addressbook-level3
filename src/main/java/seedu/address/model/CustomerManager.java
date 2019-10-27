@@ -62,4 +62,18 @@ public class CustomerManager extends EntityManager<Customer> {
     public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
         super.setPerson(customerToEdit, editedCustomer);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        CustomerManager otherObject = (CustomerManager) o;
+        return getCustomerList().equals(otherObject.getCustomerList());
+    }
 }

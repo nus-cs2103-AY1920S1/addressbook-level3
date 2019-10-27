@@ -11,8 +11,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Description;
-import seedu.address.model.id.IdManager;
-import seedu.address.model.task.Task;
 
 /**
  * Parses input arguments and creates a new AddTaskCommand object
@@ -38,9 +36,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         int customerId = ParserUtil.parseId(argMultimap.getValue(PREFIX_CUSTOMER).get());
         LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATETIME).get());
 
-        Task task = new Task(IdManager.getNextTaskId(), description, date);
-
-        return new AddTaskCommand(task, customerId);
+        return new AddTaskCommand(description, date, customerId);
     }
 
     /**

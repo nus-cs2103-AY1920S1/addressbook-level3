@@ -7,11 +7,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.CustomerManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.task.TaskManager;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -22,9 +20,11 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    private CentralManagerStorage jsonCentralManagerStorage;
+
+    public StorageManager(CentralManagerStorage jsonCentralManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.jsonCentralManagerStorage = jsonCentralManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -74,19 +74,33 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-    // Includes saving task manager & customer manager
+    // ================ Managers methods ===============================
+
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
-                                CustomerManager customerManager) throws IOException {
-        saveAddressBook(addressBook, taskManager, customerManager, addressBookStorage.getAddressBookFilePath());
+    public Path getManagerFilePath() {
+        return jsonCentralManagerStorage.getManagerFilePath();
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
-                                CustomerManager customerManager, Path filePath)
-            throws IOException {
+    public Optional<CentralManager> readManager() throws DataConversionException, IOException {
+        return readManager(jsonCentralManagerStorage.getManagerFilePath());
+    }
+
+    @Override
+    public Optional<CentralManager> readManager(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return jsonCentralManagerStorage.readManager(filePath);
+    }
+
+    @Override
+    public void saveManager(CentralManager centralManager) throws IOException {
+        saveManager(centralManager, jsonCentralManagerStorage.getManagerFilePath());
+    }
+
+    @Override
+    public void saveManager(CentralManager centralManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, taskManager, customerManager, filePath);
+        jsonCentralManagerStorage.saveManager(centralManager, filePath);
     }
 
 }

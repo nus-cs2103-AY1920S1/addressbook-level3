@@ -10,57 +10,79 @@ import seedu.address.model.task.Task;
 public class IdManager {
 
     //all unique ids start with 1
-    private static int lastTaskId = 0;
-    private static int lastCustomerId = 0;
-    private static int lastDriverId = 0;
+    private int lastTaskId = 0;
+    private int lastCustomerId = 0;
+    private int lastDriverId = 0;
 
+    public IdManager() {
+    }
+
+    public IdManager(int lastTaskId, int lastCustomerId, int lastDriverId) {
+        this.lastTaskId = lastTaskId;
+        this.lastCustomerId = lastCustomerId;
+        this.lastDriverId = lastDriverId;
+    }
 
     // getters for storage
-    public static int getLastTaskId() {
+    public int getLastTaskId() {
         return lastTaskId;
     }
 
-    public static int getLastCustomerId() {
+    public int getLastCustomerId() {
         return lastCustomerId;
     }
 
-    public static int getLastDriverId() {
+    public int getLastDriverId() {
         return lastDriverId;
     }
 
-    public static int getNextTaskId() {
+    public int getNextTaskId() {
         return lastTaskId + 1;
     }
 
-    public static int getNextCustomerId() {
+    public int getNextCustomerId() {
         return lastCustomerId + 1;
     }
 
-    public static int getNextDriverId() {
+    public int getNextDriverId() {
         return lastDriverId + 1;
     }
 
-    public static void setLastTaskId(int lastTaskId) {
-        lastTaskId = lastTaskId;
+    public void setLastTaskId(int lastId) {
+        lastTaskId = lastId;
     }
 
-    public static void setLastCustomerId(int lastCustomerId) {
-        lastCustomerId = lastCustomerId;
+    public void setLastCustomerId(int lastId) {
+        lastCustomerId = lastId;
     }
 
-    public static void setLastDriverId(int lastDriverId) {
-        lastDriverId = lastDriverId;
+    public void setLastDriverId(int lastId) {
+        lastDriverId = lastId;
     }
 
-    public static void lastTaskIdPlusOne() {
+    public void lastTaskIdPlusOne() {
         lastTaskId++;
     }
 
-    public static void lastCustomerIdPlusOne() {
+    public void lastCustomerIdPlusOne() {
         lastCustomerId++;
     }
 
-    public static void lastDriverIdPlusOne() {
+    public void lastDriverIdPlusOne() {
         lastDriverId++;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        IdManager that = (IdManager) o;
+        return getLastTaskId() == that.getLastTaskId()
+                && getLastCustomerId() == that.getLastCustomerId()
+                && getLastDriverId() == that.getLastDriverId();
     }
 }

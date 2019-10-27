@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,16 +15,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
+import seedu.address.storage.CentralManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -42,6 +37,7 @@ public class ModelManager implements Model {
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
+    private final IdManager idManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -61,12 +57,28 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         this.driverManager = new DriverManager();
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
+        this.idManager = new IdManager();
+    }
 
-        // temp
-        // to test the task commands
-        Customer testCustomer = new Customer(1, new Name("Alesx Yeoh"), new Phone("87438807"),
-                new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
-        customerManager.addPerson(testCustomer);
+    public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(centralManager, userPrefs);
+
+        logger.fine("Initializing with central manager: " + centralManager + " and user prefs " + userPrefs);
+
+        //temp
+        //to pass addressbook test case
+        this.addressBook = null;
+        filteredPersons = null;
+
+        this.userPrefs = new UserPrefs(userPrefs);
+
+        this.customerManager = centralManager.getCustomerManager();
+        this.driverManager = centralManager.getDriverManager();
+        this.taskManager = centralManager.getTaskManager();
+        this.idManager = centralManager.getIdManager();
+
+        filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
+        filteredDrivers = new FilteredList<>(driverManager.getDriverList());
     }
 
     public ModelManager() {
@@ -152,7 +164,7 @@ public class ModelManager implements Model {
      */
     public void addTask(Task task) {
         taskManager.addTask(task);
-        IdManager.lastTaskIdPlusOne();
+        idManager.lastTaskIdPlusOne();
     }
 
     public void deleteTask(Task task) {
@@ -204,6 +216,10 @@ public class ModelManager implements Model {
     }
 
     // =========== Customer Manager ===========================================================================
+    public CustomerManager getCustomerManager() {
+        return customerManager;
+    }
+
     public boolean hasCustomer(Customer customer) {
         return customerManager.hasPerson(customer);
     }
@@ -226,7 +242,7 @@ public class ModelManager implements Model {
      */
     public void addCustomer(Customer customer) {
         customerManager.addPerson(customer);
-        IdManager.lastCustomerIdPlusOne();
+        idManager.lastCustomerIdPlusOne();
     }
 
     public void deleteCustomer(Customer customer) {
@@ -234,6 +250,10 @@ public class ModelManager implements Model {
     }
 
     // =========== Driver Manager ===========================================================================
+    public DriverManager getDriverManager() {
+        return driverManager;
+    }
+
     public boolean hasDriver(Driver driver) {
         return driverManager.hasDriver(driver);
     }
@@ -255,11 +275,29 @@ public class ModelManager implements Model {
      */
     public void addDriver(Driver driver) {
         driverManager.addDriver(driver);
-        IdManager.lastDriverIdPlusOne();
+        idManager.lastDriverIdPlusOne();
     }
 
     public void deleteDriver(Driver driver) {
         driverManager.deleteDriver(driver);
+    }
+
+    // =========== IdManager =======================================================================
+
+    public int getNextTaskId() {
+        return idManager.getNextTaskId();
+    }
+
+    public int getNextCustomerId() {
+        return idManager.getNextCustomerId();
+    }
+
+    public int getNextDriverId() {
+        return idManager.getNextDriverId();
+    }
+
+    public IdManager getIdManager() {
+        return idManager;
     }
 
     // =========== Filtered Person List Accessors =============================================================
@@ -315,7 +353,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook) && userPrefs.equals(other.userPrefs)
+        return addressBook.equals(other.addressBook)
+                && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
 

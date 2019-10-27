@@ -1,16 +1,23 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Set;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Driver;
-
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -38,27 +45,35 @@ public class AddDriverCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Driver added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This Driver already exists.";
 
-    private final Driver toAdd;
-    private final int toAddId;
+    private final Name name;
+    private final Phone phone;
+    private final Email email;
+    private final Address address;
+    private final Set<Tag> tags;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddDriverCommand(Driver driver) {
-        requireNonNull(driver);
-        toAdd = driver;
-        this.toAddId = driver.getId();
+    public AddDriverCommand(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags = tags;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasDriver(toAdd)) {
+        Driver driverToAdd = new Driver(model.getNextDriverId(), name, phone, email, address, tags);
+
+        if (model.hasDriver(driverToAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON));
         }
 
-        model.addDriver(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.addDriver(driverToAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, driverToAdd));
     }
 }

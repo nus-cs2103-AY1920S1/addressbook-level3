@@ -74,4 +74,18 @@ public class DriverManager extends EntityManager<Driver> {
                 .findFirst()
                 .orElseThrow(PersonNotFoundException::new);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        DriverManager otherObject = (DriverManager) o;
+        return getDriverList().equals(otherObject.getDriverList());
+    }
 }

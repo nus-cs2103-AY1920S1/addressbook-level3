@@ -16,8 +16,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CustomerManager;
+import seedu.address.model.DriverManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
@@ -237,6 +240,11 @@ public class AddCommandTest {
         };
 
         @Override
+        public CustomerManager getCustomerManager() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public boolean hasDriver(Driver driver) {
             throw new AssertionError("This method should not be called.");
         }
@@ -270,6 +278,31 @@ public class AddCommandTest {
         }
 
         public void deleteDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public DriverManager getDriverManager() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public int getNextTaskId() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public int getNextCustomerId() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public int getNextDriverId() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public IdManager getIdManager() {
             throw new AssertionError("This method should not be called.");
         };
     }
