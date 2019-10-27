@@ -1,11 +1,14 @@
 //@@author nattanyz
 package dream.fcard.gui;
 
+import java.util.ArrayList;
+
 import dream.fcard.gui.components.DeckListView;
 import dream.fcard.gui.components.FlashCardCell;
 import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.MultipleChoiceCard;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,16 +26,20 @@ public class GuiHelper {
      */
     public static FlashCardDisplay renderFront(FlashCard flashCard) {
         // get text to be rendered
-        String cardText = flashCard.getFront();
+        StringBuilder cardText = new StringBuilder(flashCard.getFront());
 
-        // if flashCard is a MultipleChoiceCard, add show its choices too
+        // if flashCard is a MultipleChoiceCard, show its choices too
         if (flashCard.hasChoices()) {
-            // todo: cannot call method getListOfChoices as it is not defined in FlashCard
-            //ArrayList<String> listOfChoices = flashCard.getListOfChoices();
+            MultipleChoiceCard multipleChoiceCard = (MultipleChoiceCard) flashCard;
+            ArrayList<String> listOfChoices = multipleChoiceCard.getListOfChoices();
+            int i = 1;
+            for (String choice : listOfChoices) {
+                cardText.append(i).append(" ").append(choice);
+            }
         }
 
         // generate FlashCardDisplay containing text to be rendered
-        return new FlashCardDisplay(cardText);
+        return new FlashCardDisplay(cardText.toString());
     }
 
     /**
