@@ -69,8 +69,10 @@ public class MainTitlePanel extends UiPart<Region> {
         ImageView titleImage = new ImageView();
         titleImage.setImage(LOGO);
         titleImage.setPreserveRatio(true);
-        titleImage.setScaleX(2.5);
-        titleImage.setScaleY(2.5);
+        titleImage.setScaleX(0.4);
+        titleImage.setScaleY(0.4);
+        titleImage.setTranslateX(-500);
+        titleImage.setTranslateY(15);
         logoPlaceholder.setCenter(titleImage);
         int playedTimes = globalStats.getNumPlayed();
         playedTimesText.setText(playedTimes + "");
