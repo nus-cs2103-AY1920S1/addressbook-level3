@@ -20,11 +20,12 @@ import thrift.model.transaction.Remark;
 import thrift.model.transaction.Transaction;
 import thrift.model.transaction.TransactionDate;
 import thrift.model.transaction.Value;
+import thrift.ui.TransactionListPanel;
 
 /**
  * Tags a specified Transaction
  */
-public class UntagCommand extends NonScrollingCommand implements Undoable {
+public class UntagCommand extends ScrollingCommand implements Undoable {
 
     public static final String COMMAND_WORD = "untag";
 
@@ -84,7 +85,7 @@ public class UntagCommand extends NonScrollingCommand implements Undoable {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, TransactionListPanel transactionListPanel) throws CommandException {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
@@ -102,6 +103,13 @@ public class UntagCommand extends NonScrollingCommand implements Undoable {
 
         actualIndex = model.getIndexInFullTransactionList(transactionToTag).orElse(index);
         model.setTransactionWithIndex(actualIndex, updatedTransaction);
+
+        // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
+        // handle JavaFX initialization
+        if (transactionListPanel != null && model.isInView(updatedTransaction)) {
+            int untaggedIndex = index.getZeroBased();
+            transactionListPanel.getTransactionListView().scrollTo(untaggedIndex);
+        }
 
         return new CommandResult(taggedTransactionNotification
                 + nonexistentTagsNotification

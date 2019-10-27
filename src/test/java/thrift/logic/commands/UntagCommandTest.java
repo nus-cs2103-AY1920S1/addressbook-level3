@@ -1,6 +1,8 @@
 package thrift.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static thrift.logic.commands.CommandTestUtil.assertRedoCommandSuccess;
@@ -12,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import thrift.commons.core.index.Index;
+import thrift.logic.commands.exceptions.CommandException;
 import thrift.model.Model;
 import thrift.model.ModelManager;
 import thrift.model.PastUndoableCommands;
@@ -19,13 +22,14 @@ import thrift.model.UserPrefs;
 import thrift.model.tag.Tag;
 import thrift.model.transaction.Expense;
 import thrift.model.transaction.Transaction;
+import thrift.testutil.ExpenseBuilder;
 import thrift.testutil.TagSetBuilder;
 import thrift.testutil.TypicalIndexes;
 import thrift.testutil.TypicalTransactions;
 
 class UntagCommandTest {
 
-    /*TODO: The code is not working with the filtered list and instead updates the full list.
+
     @Test
     void execute_existTags_success() throws CommandException {
         Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
@@ -47,10 +51,10 @@ class UntagCommandTest {
                 expectedTag);
 
         assertNotEquals(updatedExpense.getTags(), model.getFilteredTransactionList().get(0).getTags()); //Before
-        untagCommand.execute(model);
+        untagCommand.execute(model, null);
         assertEquals(updatedExpense.getTags(), model.getFilteredTransactionList().get(0).getTags()); //After
     }
-    */
+
 
     @Test
     void undo_undoUntag_success() {

@@ -51,7 +51,7 @@ class TagCommandTest {
                 expectedTag);
 
         assertNotEquals(updatedExpense.getTags(), model.getFilteredTransactionList().get(0).getTags()); //Before
-        tagCommand.execute(model);
+        tagCommand.execute(model, null);
         assertEquals(updatedExpense.getTags(), model.getFilteredTransactionList().get(0).getTags()); //After
     }
 
