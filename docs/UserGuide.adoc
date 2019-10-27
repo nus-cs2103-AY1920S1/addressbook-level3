@@ -154,7 +154,7 @@ Example:
 Unregisters a borrower from the library records.
 Format:  `unregister id/BORROWER_ID`
 
-* Deletes the book with the specified borrower ID
+* Removes the borrower with the specified borrower ID
 
 
 Example:
