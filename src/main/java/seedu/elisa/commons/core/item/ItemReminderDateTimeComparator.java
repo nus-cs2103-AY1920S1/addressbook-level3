@@ -1,0 +1,22 @@
+package seedu.elisa.commons.core.item;
+
+import java.util.Comparator;
+
+/**
+ * A comparator between to compare the datetimes between the Reminders of two Items.
+ */
+public class ItemReminderDateTimeComparator implements Comparator<Item> {
+    @Override
+    public int compare(Item firstItem, Item secondItem) {
+        int comparisonResult = 0;
+        if (firstItem.getReminder().isEmpty()) {
+            comparisonResult = -1;
+        } else if (secondItem.getReminder().isEmpty()) {
+            comparisonResult = 1;
+        } else {
+            comparisonResult = firstItem.getReminder().get().getDateTime().compareTo(
+                    secondItem.getReminder().get().getDateTime());
+        }
+        return comparisonResult;
+    }
+}
