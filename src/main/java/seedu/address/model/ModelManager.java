@@ -14,6 +14,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseReminder;
@@ -33,6 +35,8 @@ public class ModelManager implements Model {
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;
+    private final ObservableList<Category> incomeCategoryList;
+    private final ObservableList<Category> expenseCategoryList;
     private final FilteredList<Entry> filteredEntries;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Income> filteredIncomes;
@@ -56,6 +60,9 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
+        System.out.println(incomeCategoryList.size());
+        expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
         filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());
         filteredWishes = new FilteredList<>(versionedAddressBook.getWishList());
@@ -125,6 +132,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasCategory(Category category) {
+        return versionedAddressBook.hasCategory(category);
+    }
+
+    @Override
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
         return versionedAddressBook.hasEntry(entry);
@@ -134,6 +146,11 @@ public class ModelManager implements Model {
     public boolean hasExpenseReminder(ExpenseReminder reminder) {
         requireNonNull(reminder);
         return versionedAddressBook.hasExpenseReminder(reminder);
+    }
+
+    @Override
+    public void deleteCategory(Category target) {
+        versionedAddressBook.removeCategory(target);
     }
 
     @Override
@@ -207,6 +224,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addCategory(Category category) {
+        versionedAddressBook.addCategory(category);
+    }
+
+    @Override
     public void addExpense(Expense expense) {
         versionedAddressBook.addExpense(expense);
         sortFilteredEntry(sortByTime, sortByAsc);
@@ -249,6 +271,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCategory(Category target, Category editedCategory) {
+        requireAllNonNull(target, editedCategory);
+        versionedAddressBook.setCategory(target, editedCategory);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
         versionedAddressBook.setEntry(target, editedEntry);
@@ -273,13 +301,27 @@ public class ModelManager implements Model {
         versionedAddressBook.updateExpenseReminders();
     }
 
-
+    @Override
+    public CategoryList getCategoryList() {
+        return versionedAddressBook.getCategoryList();
+    }
     // =========== Filtered Person List Accessors
 
     /**
      * Returns an unmodifiable view of the list of {@code Entry} backed by the
      * internal list of {@code versionedAddressBook}
      */
+
+    @Override
+    public ObservableList<Category> getExpenseCategoryList() {
+        return expenseCategoryList;
+    }
+
+    @Override
+    public ObservableList<Category> getIncomeCategoryList() {
+        return incomeCategoryList;
+    }
+
     @Override
     public ObservableList<Entry> getFilteredEntryList() {
         return filteredEntries;
