@@ -3,6 +3,9 @@ package seedu.revision.logic.commands.main;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answerable;
+
+import java.util.List;
 
 /**
  * Format Restore instructions for every command for display.
@@ -14,7 +17,7 @@ public class RestoreCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_CONFIRMATION_MESSAGE = "Restoring...";
+    public static final String SHOWING_CONFIRMATION_MESSAGE = " ";
 
     /**
      * Executes the command and returns the result message.
@@ -25,6 +28,12 @@ public class RestoreCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) {
+
+//        List<Answerable> lastShownList = model.getFilteredAnswerableList();
+//        for (Answerable deleteAll : lastShownList){
+//            model.deleteAnswerable(deleteAll);
+//        }
+
 
         return new CommandResult(SHOWING_CONFIRMATION_MESSAGE, false, false, false, true);
     }

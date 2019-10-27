@@ -29,17 +29,17 @@ public class SampleDataUtil {
         //TODO: Implement actual answerable
         return new Answerable[] {
             new Mcq(new Question("What is being shown?"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
-                    new Difficulty("3"), getCategorySet("Math")),
+                    new Difficulty("1"), getCategorySet("Math")),
             new Mcq(new Question("Bernice Yu"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
-                    new Difficulty("99272758"), getCategorySet("colleagues", "friends")),
+                    new Difficulty("2"), getCategorySet("colleagues", "friends")),
             new Mcq(new Question("Charlotte Oliveiro"), defaultCorrectAnswerSet, defaultWrongAnswerSet,
-                    new Difficulty("93210283"), getCategorySet("neighbours")),
+                    new Difficulty("2"), getCategorySet("neighbours")),
             new Saq(new Question("David Li"), defaultCorrectAnswerSet,
-                    new Difficulty("91031282"), getCategorySet("family")),
+                    new Difficulty("1"), getCategorySet("family")),
             new Saq(new Question("Irfan Ibrahim"), defaultCorrectAnswerSet,
-                    new Difficulty("92492021"), getCategorySet("classmates")),
+                    new Difficulty("1"), getCategorySet("classmates")),
             new Saq(new Question("Roy Balakrishnan"), defaultCorrectAnswerSet,
-                    new Difficulty("92624417"), getCategorySet("colleagues"))
+                    new Difficulty("1"), getCategorySet("colleagues"))
         };
     }
 

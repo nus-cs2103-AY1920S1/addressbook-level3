@@ -1,9 +1,22 @@
 package seedu.revision.ui;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+
 import javafx.stage.Stage;
+
+import seedu.revision.MainApp;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -11,6 +24,7 @@ import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -73,11 +87,35 @@ public class MainWindow extends Window {
      * Opens the restore window.
      */
     @FXML
-    public void handleRestore() {
-        if (!restoreWindow.isShowing()) {
-            restoreWindow.show();
-        } else {
-            restoreWindow.focus();
+    public void handleRestore() throws IOException {
+        boolean exists;
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning!");
+        alert.setHeaderText(null);
+        alert.setGraphic(null);
+        alert.setContentText("Are you sure? This cannot be undone.");
+
+        ButtonType confirmRestore = new ButtonType(
+                "Yes",
+                ButtonBar.ButtonData.OK_DONE
+        );
+
+        ButtonType declineRestore = new ButtonType(
+                "No",
+                ButtonBar.ButtonData.CANCEL_CLOSE
+        );
+        alert.getButtonTypes().setAll(confirmRestore, declineRestore);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == confirmRestore) {
+            //do something
+
+            File jsonFile = new File("data/addressbook.json");
+            exists = jsonFile.exists();
+            if (exists) {
+                jsonFile.delete();
+            }
         }
     }
 
@@ -91,7 +129,7 @@ public class MainWindow extends Window {
      * @see MainLogic#execute(String)
      */
     @Override
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = mainLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -114,7 +152,7 @@ public class MainWindow extends Window {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
