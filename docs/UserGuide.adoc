@@ -72,7 +72,7 @@ Examples:
 ==== Adding task: `add_task`
 
 Adds a task to one or more time slots. +
-Format: `addTask c/MODULE c/MODULE mark/STATUS tt/START_TIME, END_TIME...`
+Format: `add_task c/MODULE mark/STATUS tt/START_TIME, END_TIME...`
 
 [TIP]
 A task can have more than one time slots. +
@@ -82,8 +82,8 @@ STATUS should only be Y or N. +
 
 Examples:
 
-* `addTask c/CS2103T Lecture  mark/Y tt/20/9/2019 16:00, 4/10/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
-* `addTask c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
+* `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 16:00, 4/10/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
+* `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
 ==== Editing task: `edit_task`
 
