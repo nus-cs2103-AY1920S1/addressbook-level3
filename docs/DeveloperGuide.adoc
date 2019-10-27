@@ -143,7 +143,8 @@ image::LogicForR&T.png[]
 The `XYZTabParser` represents the `TransactionTabParser` for the Home Tab and `ReimbursementTabParser` for the Reimbursement
 Tab.
 
-The parsers represented by the `ABCParser` and `XYZParser`:
+The parsers represented by the `ABCParser` and `DEFParser`:
+
 `ABCParser`:
 
 * Transaction Tab:
@@ -156,7 +157,7 @@ The parsers represented by the `ABCParser` and `XYZParser`:
 ** `DoneCommandParser`
 ** `DeadlineCommandParser`
 
-`XYZParser`
+`DEFParser`
 
 * Transaction Tab:
 ** `FindCommandParser`
@@ -165,6 +166,7 @@ The parsers represented by the `ABCParser` and `XYZParser`:
 * Reimbursement Tab:
 ** `BackCommandParser`
 ** `ExitCommandParser`
+** `SortCommandParser`
 
 
 [[ICLogic]]
