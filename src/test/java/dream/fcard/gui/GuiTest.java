@@ -1,13 +1,16 @@
 //@@ author nattanyz
 package dream.fcard.gui;
 
+import java.util.ArrayList;
+
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
-import java.util.ArrayList;
 
+/** Tests for Gui. */
 public class GuiTest {
-    public static void Gui_displayFlashCardWithLongText_ShowFScrollBar() {
+    /** Verify that flashcards with long text scroll in the expected manner. */
+    public static void gui_displayFlashCardWithLongText_ShowScrollBar() {
         String longStringForTesting = "Lorem ipsum dolor sit amet, "
             + "consectetur adipscing elit. Aliquam lacinia, nunc quis dictum consectetur, "
             + "erat nulla molestie turpis, quis finibus justo ipsum a justo. Cras quis ullamcorper "
@@ -24,19 +27,23 @@ public class GuiTest {
         Gui.renderFront(flashCardForTesting);
     }
 
-    public static void Gui_addNodeToScrollablePane() {
+    /** Verify that a node can be appended to the scrollable pane. */
+    public static void gui_addNodeToScrollablePane() {
 
     }
 
-    public static void Gui_replaceNodesInScrollablePane() {
+    /** Verify that a node can replace currently existing nodes in the scrollable pane. */
+    public static void gui_replaceNodesInScrollablePane() {
 
     }
 
-    public static void Gui_displayErrorMessage() {
+    /** Verify that the GUI can display an error message. */
+    public static void gui_displayErrorMessage() {
         Gui.showError("Command not recognised :(");
     }
 
-    public static void Gui_displayDeck() {
+    /** Verify that the GUI can display a deck of cards. */
+    public static void gui_displayDeck() {
         ArrayList<FlashCard> cards = new ArrayList<>();
         String frontString = "Lorem ipsum dolor sit amet, "
             + "consectetur adipscing elit. Aliquam lacinia, nunc quis dictum consectetur, "
