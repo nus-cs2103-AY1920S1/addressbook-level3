@@ -24,6 +24,7 @@ import seedu.algobase.logic.commands.DoneTaskCommand;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.EditTagCommand;
+import seedu.algobase.logic.commands.EditTaskCommand;
 import seedu.algobase.logic.commands.ExitCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.FindPlanCommand;
@@ -110,23 +111,13 @@ public class AlgoBaseParser {
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
 
+        case EditTaskCommand.COMMAND_WORD:
+            return new EditTaskCommandParser().parse(arguments);
+
         case UndoneTaskCommand.COMMAND_WORD:
             return new UndoneTaskCommandParser().parse(arguments);
 
-        // Find Rule
-        case AddFindRuleCommand.COMMAND_WORD:
-            return new AddFindRuleCommandParser().parse(arguments);
-
-        case ApplyCommand.COMMAND_WORD:
-            return new ApplyCommandParser().parse(arguments);
-
-        case DeleteFindRuleCommand.COMMAND_WORD:
-            return new DeleteFindRuleParser().parse(arguments);
-
-        //Rewind
-        case RewindCommand.COMMAND_WORD:
-            return new RewindCommandParser().parse(arguments);
-
+        // Tag
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 
@@ -138,6 +129,20 @@ public class AlgoBaseParser {
 
         case EditTagCommand.COMMAND_WORD:
             return new EditTagCommandParser().parse(arguments);
+
+        // Find Rule
+        case AddFindRuleCommand.COMMAND_WORD:
+            return new AddFindRuleCommandParser().parse(arguments);
+
+        case ApplyCommand.COMMAND_WORD:
+            return new ApplyCommandParser().parse(arguments);
+
+        case DeleteFindRuleCommand.COMMAND_WORD:
+            return new DeleteFindRuleParser().parse(arguments);
+
+        // Rewind
+        case RewindCommand.COMMAND_WORD:
+            return new RewindCommandParser().parse(arguments);
 
         // Tab
         case SwitchTabCommand.COMMAND_WORD:

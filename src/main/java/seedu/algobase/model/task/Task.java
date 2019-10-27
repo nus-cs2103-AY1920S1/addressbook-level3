@@ -48,8 +48,8 @@ public class Task {
     }
 
     /**
-     * Creates and returns a {@code Plan} with the details of {@code planToUpdate}
-     * with an updated {@code taskSet}.
+     * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
+     * with an updated {@code isSolved}.
      */
     public static Task updateStatus(Task taskToUpdate, boolean isSolved) {
         assert taskToUpdate != null;
@@ -57,6 +57,20 @@ public class Task {
         Id id = taskToUpdate.id;
         Problem problem = taskToUpdate.problem;
         LocalDate targetDate = taskToUpdate.targetDate;
+
+        return new Task(id, problem, targetDate, isSolved);
+    }
+
+    /**
+     * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
+     * with an updated {@code targetDate}.
+     */
+    public static Task updateDueDate(Task taskToUpdate, LocalDate targetDate) {
+        assert taskToUpdate != null;
+
+        Id id = taskToUpdate.id;
+        Problem problem = taskToUpdate.problem;
+        boolean isSolved = taskToUpdate.isSolved;
 
         return new Task(id, problem, targetDate, isSolved);
     }

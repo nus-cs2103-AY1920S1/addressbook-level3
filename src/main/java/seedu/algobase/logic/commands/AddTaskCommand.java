@@ -35,7 +35,7 @@ public class AddTaskCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_PLAN + "1 "
-            + PREFIX_PROBLEM + "10"
+            + PREFIX_PROBLEM + "10 "
             + PREFIX_DUE_DATE + "2019-12-12";
 
     public static final String MESSAGE_SUCCESS = "New Task [%1$s] added to Plan [%2$s].";
