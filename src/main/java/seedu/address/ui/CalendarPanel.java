@@ -13,8 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import seedu.address.model.date.AthletickDate;
@@ -315,8 +315,8 @@ public class CalendarPanel extends UiPart<Region> {
             int row = i;
             for (int j = 0; j < 7; j++) {
                 int column = j;
-                HBox h = new HBox();
-                h.setAlignment(Pos.TOP_CENTER);
+                VBox v = new VBox();
+                v.setAlignment(Pos.TOP_CENTER);
                 Label l = new Label();
                 l.setText(days[counter]);
                 l.setPadding(new Insets(5, 0, 0, 0));
@@ -339,8 +339,8 @@ public class CalendarPanel extends UiPart<Region> {
                 } else {
                     l.setTextFill(Paint.valueOf("#999999"));
                 }
-                h.getChildren().addAll(l);
-                calendarGridPane.add(h, column, row);
+                v.getChildren().addAll(l);
+                calendarGridPane.add(v, column, row);
                 counter++;
             }
         }
