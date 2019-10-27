@@ -155,6 +155,6 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      */
     public void removeBorrower(Borrower borrower) {
         listOfBorrowers.remove(borrower);
-        borrowersMap.remove(borrower);
+        borrowersMap.remove(borrower.getBorrowerId());
     }
 }
