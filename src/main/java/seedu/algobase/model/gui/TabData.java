@@ -40,4 +40,16 @@ public class TabData {
             && otherTabData.getModelType().equals(getModelType()) && otherTabData.getModelId().equals(modelId);
     }
 
+    @Override
+    public boolean equals(Object otherTabData) {
+        if (this == otherTabData) {
+            return true;
+        }
+
+        if (!(otherTabData instanceof TabData)) {
+            return false;
+        }
+
+        return this.isSameTabData((TabData) otherTabData);
+    }
 }

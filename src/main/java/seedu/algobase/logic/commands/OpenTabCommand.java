@@ -35,13 +35,13 @@ public class OpenTabCommand extends Command {
     public static final String MESSAGE_INVALID_MODEL = "There is no such model!";
     public static final String MESSAGE_INVALID_INDEX = "There is no tab at index %1$s!";
 
-    private Index index = Index.fromZeroBased(0);
+    private Index modelIndex = Index.fromZeroBased(0);
     private ModelType modelType;
 
-    public OpenTabCommand(ModelType modelType, Index displayTabIndex) {
-        requireAllNonNull(modelType, displayTabIndex);
+    public OpenTabCommand(ModelType modelType, Index modelIndex) {
+        requireAllNonNull(modelType, modelIndex);
         this.modelType = modelType;
-        this.index = displayTabIndex;
+        this.modelIndex = modelIndex;
     }
 
     /**
@@ -81,19 +81,23 @@ public class OpenTabCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         TabManager tabManager = model.getGuiState().getTabManager();
         try {
-            Id modelId = retrieveId(model, modelType, index);
+            Id modelId = retrieveId(model, modelType, modelIndex);
             TabData tabData = new TabData(modelType, modelId);
             try {
+                // Adds a new tab and switches to that tab
                 tabManager.addDetailsTabData(tabData);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
+                Index tabIndex = tabManager.getDetailsTabIndex(tabData);
+                tabManager.setDetailsTabPaneIndex(tabIndex);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, modelIndex.getOneBased()));
+            // If TabData is not unique, switch to the existing tab
             } catch (DuplicateTabDataException e) {
                 assert tabManager.hasDetailsTabData(tabData);
                 Index tabIndex = tabManager.getDetailsTabIndex(tabData);
                 tabManager.setDetailsTabPaneIndex(tabIndex);
-                return new CommandResult(String.format(MESSAGE_SWITCH_SUCCESS, index.getOneBased()));
+                return new CommandResult(String.format(MESSAGE_SWITCH_SUCCESS, modelIndex.getOneBased()));
             }
         } catch (IndexOutOfBoundsException exception) {
-            throw new CommandException(String.format(MESSAGE_INVALID_INDEX, index.getOneBased()));
+            throw new CommandException(String.format(MESSAGE_INVALID_INDEX, modelIndex.getOneBased()));
         } catch (IllegalArgumentException exception) {
             throw new IllegalArgumentException(String.format(MESSAGE_INVALID_MODEL));
         }
