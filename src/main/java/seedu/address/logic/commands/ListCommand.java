@@ -38,6 +38,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // Contextual behaviour
         switch (this.type) {
         case CONTACT:
             model.setContext(Context.newListContactContext());

@@ -18,7 +18,7 @@ public class Context {
     /**
      * Default constructor where context type is MAIN.
      */
-    Context() {
+    public Context() {
         this.object = Optional.empty();
         this.type = ContextType.MAIN;
     }
@@ -40,7 +40,7 @@ public class Context {
     /**
      * Constructor for a VIEW_CONTACT context.
      */
-    Context(Person person) {
+    public Context(Person person) {
         requireNonNull(person);
         object = Optional.ofNullable(person);
         type = ContextType.VIEW_CONTACT;
