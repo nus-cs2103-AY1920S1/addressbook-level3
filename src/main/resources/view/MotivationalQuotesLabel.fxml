@@ -2,4 +2,22 @@
 
 
 <?import javafx.scene.control.Label?>
-<Label wrapText="true" xmlns:fx="http://javafx.com/fxml/1" fx:id="motivationalQuotesLabel" xmlns="http://javafx.com/javafx/8"/>
+<?import javafx.scene.control.ScrollPane?>
+
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="profile" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8">
+    <children>
+    <VBox maxHeight="Infinity">
+    <children>
+    <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" pannable="false" styleClass="profile-scroll" pickOnBounds="true">
+    <content>
+    <Label wrapText="true" maxHeight="Infinity" VBox.vgrow="ALWAYS" xmlns:fx="http://javafx.com/fxml/1" fx:id="motivationalQuotesLabel" xmlns="http://javafx.com/javafx/8"/>
+    </content>
+    </ScrollPane>
+    </children>
+    </VBox>
+    </children>
+</HBox>

@@ -63,14 +63,7 @@
                     </items>
                 </SplitPane>
 
-                <AnchorPane styleClass="pane-with-border">
-                    <VBox fx:id="motivationalQuotesPlaceholder" alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets top="0" right="10" bottom="0" left="10"/>
-                        </padding>
-                    </VBox>
-                </AnchorPane>
-
+                <StackPane fx:id="motivationalQuotesPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
         </Scene>
     </scene>

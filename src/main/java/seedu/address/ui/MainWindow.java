@@ -83,7 +83,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane reminderListPlaceholder;
 
     @FXML
-    private VBox motivationalQuotesPlaceholder;
+    private StackPane motivationalQuotesPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
