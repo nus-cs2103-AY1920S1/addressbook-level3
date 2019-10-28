@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -21,11 +22,13 @@ public class AddBudgetCommand extends Command {
                                                        + "Parameters: "
                                                        + PREFIX_NAME + "NAME "
                                                        + PREFIX_AMOUNT + "AMOUNT "
+                                                       + "[" + PREFIX_CURRENCY + "CURRENCY] "
                                                        + PREFIX_DATE + "START-DATE "
                                                        + PREFIX_END_DATE + "END-DATE...\n"
                                                        + "Example: " + COMMAND_WORD + " "
                                                        + PREFIX_NAME + "Japan Travel "
                                                        + PREFIX_AMOUNT + "$2000.00 "
+                                                       + PREFIX_CURRENCY + "USD "
                                                        + PREFIX_DATE + "12/12/2019 "
                                                        + PREFIX_END_DATE + "18/12/2019\n";
 

@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 
@@ -16,6 +17,7 @@ public class BudgetBuilder {
     public static final String DEFAULT_NAME = "Korea holiday";
     public static final String DEFAULT_AMOUNT = "$2500";
     public static final String DEFAULT_AMOUNT_LEFT = "$2500";
+    public static final String DEFAULT_CURRENCY = "USD";
     public static final String DEFAULT_START_DATE = "13/10/2019";
     public static final String DEFAULT_END_DATE = "25/10/2019";
     public static final ExpenseList DEFAULT_EXPENSE_LIST = getTypicalExpenseList();
@@ -23,6 +25,7 @@ public class BudgetBuilder {
     private Name name;
     private Amount amount;
     private Amount amountLeft;
+    private Currency currency;
     private Date startDate;
     private Date endDate;
     private ExpenseList expenseList;
@@ -31,6 +34,7 @@ public class BudgetBuilder {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT);
         amountLeft = new Amount(DEFAULT_AMOUNT_LEFT);
+        currency = new Currency(DEFAULT_CURRENCY);
         startDate = new Date(DEFAULT_START_DATE);
         endDate = new Date(DEFAULT_END_DATE);
         expenseList = new ExpenseList(DEFAULT_EXPENSE_LIST);
@@ -43,6 +47,7 @@ public class BudgetBuilder {
         name = budgetToCopy.getName();
         amount = budgetToCopy.getAmount();
         amountLeft = budgetToCopy.getAmountLeft();
+        currency = budgetToCopy.getCurrency();
         startDate = budgetToCopy.getStartDate();
         endDate = budgetToCopy.getEndDate();
         expenseList = budgetToCopy.getExpenseList();
@@ -65,6 +70,14 @@ public class BudgetBuilder {
     }
 
     /**
+     * Sets the {@code Currency} of the {@code Budget} that we are building.
+     */
+    public BudgetBuilder withCurrency(String currency) {
+        this.currency = new Currency(currency);
+        return this;
+    }
+
+    /**
      * Sets the {@code startDate} of the {@code Budget} that we are building.
      */
     public BudgetBuilder withStartDate(String date) {
@@ -81,6 +94,6 @@ public class BudgetBuilder {
     }
 
     public Budget build() {
-        return new Budget(name, amount, amount, startDate, endDate, expenseList);
+        return new Budget(name, amount, amount, currency, startDate, endDate, expenseList);
     }
 }

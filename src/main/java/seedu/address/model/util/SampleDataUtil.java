@@ -54,7 +54,7 @@ public class SampleDataUtil {
     public static ReadOnlyBudgetList getSampleBudgetList() {
         BudgetList sampleB1 = new BudgetList();
         sampleB1.addBudget(new Budget(new Name("Japan Travel"), new Amount("$2000.00"), new Amount("$2000.00"),
-                new Date("12/12/2019"), new Date("18/12/2019"), new ExpenseList()));
+                new Currency("USD"), new Date("12/12/2019"), new Date("18/12/2019"), new ExpenseList()));
         return sampleB1;
     }
 
