@@ -92,13 +92,13 @@ public class DiaryEntry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Title: ")
-                .append(getTitle())
-                .append(" Date: ")
-                .append(getDateAsString())
-                .append(" Place: ")
+                .append(getTitle() + "\n")
+                .append("Date: ")
+                .append(getDateAsString() + "\n")
+                .append("Place: ")
                 .append(getPlace() + "\n")
-                .append("Memory")
-                .append(getMemory());
+                .append("Memory: ")
+                .append(getMemory() + "\n");
         return builder.toString();
     }
 

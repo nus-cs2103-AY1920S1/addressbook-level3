@@ -35,6 +35,10 @@ public class DiaryModel {
         return diaryBook.deleteDiaryEntry(target);
     }
 
+    public String getEntriesAsString() {
+        return diaryBook.getEntriesAsString();
+    }
+
     /**
      *
      * @param diaryEntry
@@ -55,6 +59,8 @@ public class DiaryModel {
     public ObservableList<DiaryEntry> getFilteredDiaryEntryList() {
         return filteredDiaryBook;
     }
+
+
 
 
     @Override
