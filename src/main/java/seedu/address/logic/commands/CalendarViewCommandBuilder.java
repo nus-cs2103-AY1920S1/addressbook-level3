@@ -10,7 +10,7 @@ import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 import seedu.address.model.CalendarDate;
 
 /**
- * Represents a CommandBuilder responsible for creating {@link ListViewCommand}.
+ * Represents a CommandBuilder responsible for creating {@link  CalendarViewCommand}.
  */
 class CalendarViewCommandBuilder extends CommandBuilder {
 
@@ -30,6 +30,7 @@ class CalendarViewCommandBuilder extends CommandBuilder {
         return null;
     }
 
+    // TODO: Currently has a bug when typing "calendar" only. Either add new command or fix this.
     @Override
     Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(

@@ -101,6 +101,14 @@ public class DateTime implements Comparable<DateTime> {
         return Integer.valueOf(MINUTE_COMPOSER.compose(this.instant));
     }
 
+    public String getHourString() {
+        return HOUR_COMPOSER.compose(this.instant);
+    }
+
+    public String getMinuteString() {
+        return MINUTE_COMPOSER.compose(this.instant);
+    }
+
     /**
      * Creates a new instance of DateTime according to the clock.
      *
@@ -139,7 +147,7 @@ public class DateTime implements Comparable<DateTime> {
     public String toEnglishDateTime() {
         String monthStr = new DateFormatSymbols().getMonths()[getMonth() - 1].toLowerCase();
         monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
-        return getDay() + " " + monthStr + " " + getYear() + " " + getHour() + ":" + getMinute();
+        return getDay() + " " + monthStr + " " + getYear() + " " + getHourString() + ":" + getMinuteString();
     }
 
     @Override
