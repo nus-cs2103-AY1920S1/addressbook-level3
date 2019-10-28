@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 
 /**
  * An UI component that displays information of a {@code Item}.
@@ -44,26 +45,31 @@ public class ItemCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label reminder;
+    @FXML
+    private Label status;
+    @FXML
+    private StackPane days;
 
     public ItemCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         this.id.setText(displayedIndex + ". ");
         this.name.setText(item.getName().toString());
-        this.expiryDate.setText("Expiry date: " + item.getExpiryDate().toStringWithCountdown());
+        this.expiryDate.setText("Expiry date: " + item.getExpiryDate().toString());
         this.quantity.setText("Quantity: " + item.getQuantity().toString());
         Optional<ReminderDate> reminderDate = DateUtil.getReminderDate(
                 item.getExpiryDate().getDate(), item.getReminderThreshold().getValue());
         if (reminderDate.isPresent()) {
-            this.reminder.setText("Remind me from: " + reminderDate.get().toString());
+            this.reminder.setText("Reminder: " + reminderDate.get().toString());
         } else {
             this.reminder.setVisible(false);
         }
         this.item.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
-        // this.remainingDays.setTest();
 
-        box.setOnMouseClicked(e -> box.requestFocus());
+         this.status.setText(item.getExpiryDate().getStatus());
+
+        box.setOnMouseClicked(e -> {box.requestFocus();});
     }
 
     @Override
