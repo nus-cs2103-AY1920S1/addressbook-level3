@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.AppData;
 import seedu.address.model.note.Note;
+import seedu.address.model.question.Question;
 
 /**
  * A utility class to help with building AppData objects.
@@ -25,6 +26,14 @@ public class AppDataBuilder {
      */
     public AppDataBuilder withNote(Note note) {
         appData.addNote(note);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code Question} to the {@code AppData} that we are building.
+     */
+    public AppDataBuilder withQuestion(Question question) {
+        appData.addQuestion(question);
         return this;
     }
 

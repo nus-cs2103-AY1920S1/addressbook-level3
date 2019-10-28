@@ -1,7 +1,15 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_ALGEBRA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_CONCEPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_ALGEBRA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_CONCEPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BODY_ALGEBRA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_BODY_CONCEPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_ALGEBRA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_CONCEPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 
@@ -19,6 +27,7 @@ import seedu.address.model.task.Task;
  * A utility class containing a list of {@code Note}, {@code Question} and other objects to be used in tests.
  */
 public class TypicalAppData {
+    // notes
     public static final Note ALICE = new NoteBuilder().withTitle("Alice Pauline")
             .withContent("123, Jurong West Ave 6, #08-111").build();
     public static final Note BENSON = new NoteBuilder().withTitle("Benson Meier")
@@ -34,15 +43,32 @@ public class TypicalAppData {
     public static final Note GEORGE = new NoteBuilder().withTitle("George Best")
             .withContent("4th street").build();
 
-    public static final Question ALICE_QUESTION = new QuestionBuilder().withQuestionBody("(  ) is a measure of the "
-            + "degree of dependence between components, classes, methods, etc.").withAnswer("Coupling")
-            .withSubject("CS2103T").withDifficulty("easy").build();
+    // questions
+    public static final Question MVC_QUESTION = new QuestionBuilder()
+            .withQuestionBody("MVC design pattern refers to (  ).")
+            .withAnswer("Model View Controller")
+            .withSubject("CS2103T")
+            .withDifficulty("medium")
+            .build();
+    public static final Question TCP_QUESTION = new QuestionBuilder()
+            .withQuestionBody("A port number in TCP is (  ) bytes long.")
+            .withAnswer("2")
+            .withSubject("CS2105")
+            .withDifficulty("hard")
+            .build();
+    public static final Question UDP_QUESTION = new QuestionBuilder()
+            .withQuestionBody("UDP uses (  ) to dispatch incoming packets to different processes in the same host.")
+            .withAnswer("de-multiplexing")
+            .withSubject("CS2105")
+            .withDifficulty("hard")
+            .build();
 
+    // quiz questions
     public static final QuizResult ALICE_RESULT = new QuizResultBuilder().withAnswer("Coupling")
             .withQuestionBody("(  ) is a measure of the degree of dependence between components, classes, methods, "
                     + "etc.").withQuizTime("2019/10/10 12:00").withResult("true").build();
 
-    // Manually added
+    // Manually added notes
     public static final Note HOON = new NoteBuilder().withTitle("Hoon Meier")
             .withContent("little india").build();
     public static final Note IDA = new NoteBuilder().withTitle("Ida Mueller")
@@ -53,6 +79,20 @@ public class TypicalAppData {
             .withContent(VALID_CONTENT_AMY).build();
     public static final Note BOB = new NoteBuilder().withTitle(VALID_TITLE_BOB)
             .withContent(VALID_CONTENT_BOB).build();
+
+    // Manually added - Question's details found in {@code CommandTestUtil}
+    public static final Question CONCEPT_QUESTION = new QuestionBuilder()
+            .withQuestionBody(VALID_QUESTION_BODY_CONCEPT)
+            .withAnswer(VALID_ANSWER_CONCEPT)
+            .withSubject(VALID_SUBJECT_CONCEPT)
+            .withDifficulty(VALID_DIFFICULTY_CONCEPT)
+            .build();
+    public static final Question ALGEBRA_QUESTION = new QuestionBuilder()
+            .withQuestionBody(VALID_QUESTION_BODY_ALGEBRA)
+            .withAnswer(VALID_ANSWER_ALGEBRA)
+            .withSubject(VALID_SUBJECT_ALGEBRA)
+            .withDifficulty(VALID_DIFFICULTY_ALGEBRA)
+            .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -107,7 +147,7 @@ public class TypicalAppData {
     }
 
     public static List<Question> getTypicalQuestions() {
-        return new ArrayList<>(Arrays.asList(ALICE_QUESTION));
+        return new ArrayList<>(Arrays.asList(MVC_QUESTION, TCP_QUESTION, UDP_QUESTION, CONAN_QUESTION));
     }
 
 }

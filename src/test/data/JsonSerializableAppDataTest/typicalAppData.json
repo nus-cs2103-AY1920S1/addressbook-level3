@@ -54,9 +54,24 @@
     "status" : "[Y]"
   }],
   "questions" : [ {
-    "questionBody" : "(  ) is a measure of the degree of dependence between components, classes, methods, etc.",
-    "answer" : "Coupling",
+    "questionBody" : "MVC design pattern refers to (  ).",
+    "answer" : "Model View Controller",
     "subject" : "CS2103T",
+    "difficulty" : "medium"
+  }, {
+    "questionBody" : "A port number in TCP is (  ) bytes long.",
+    "answer" : "2",
+    "subject" : "CS2105",
+    "difficulty" : "hard"
+  }, {
+    "questionBody" : "UDP uses (  ) to dispatch incoming packets to different processes in the same host.",
+    "answer" : "de-multiplexing",
+    "subject" : "CS2105",
+    "difficulty" : "hard"
+  }, {
+    "questionBody" : "Who is your favourite female character in Detective Conan?",
+    "answer" : "Haibara Ai",
+    "subject" : "Anime",
     "difficulty" : "easy"
   } ],
   "quizResults" : [ {
