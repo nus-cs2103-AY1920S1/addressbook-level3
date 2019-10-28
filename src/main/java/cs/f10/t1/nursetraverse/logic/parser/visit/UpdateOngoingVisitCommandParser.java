@@ -1,5 +1,9 @@
 package cs.f10.t1.nursetraverse.logic.parser.visit;
 
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_REMARKS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_FINISH;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_UNFINISH;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -13,7 +17,6 @@ import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitDescriptor;
 import cs.f10.t1.nursetraverse.logic.parser.ArgumentMultimap;
 import cs.f10.t1.nursetraverse.logic.parser.ArgumentTokenizer;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.logic.parser.Parser;
 import cs.f10.t1.nursetraverse.logic.parser.ParserUtil;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
@@ -39,21 +42,21 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
     public UpdateOngoingVisitCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_VISIT_REMARKS, CliSyntax.PREFIX_VISIT_TASK_FINISH,
-                        CliSyntax.PREFIX_VISIT_TASK_UNFINISH, CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL);
+                ArgumentTokenizer.tokenize(args, PREFIX_VISIT_REMARKS, PREFIX_VISIT_TASK_FINISH,
+                        PREFIX_VISIT_TASK_UNFINISH, PREFIX_VISIT_TASK_INDEX_AND_DETAIL);
 
         UpdateOngoingVisitDescriptor updateOngoingVisitDescriptor =
                 new UpdateOngoingVisitDescriptor();
-        if (argMultimap.getValue(CliSyntax.PREFIX_VISIT_REMARKS).isPresent()) {
+        if (argMultimap.getValue(PREFIX_VISIT_REMARKS).isPresent()) {
             updateOngoingVisitDescriptor.setRemark(
-                    ParserUtil.parseRemark(argMultimap.getValue(CliSyntax.PREFIX_VISIT_REMARKS).get()));
+                    ParserUtil.parseRemark(argMultimap.getValue(PREFIX_VISIT_REMARKS).get()));
         }
         updateOngoingVisitDescriptor.setFinishedVisitTaskIndexes(
-                parseIndexes(argMultimap.getAllValues(CliSyntax.PREFIX_VISIT_TASK_FINISH)));
+                parseIndexes(argMultimap.getAllValues(PREFIX_VISIT_TASK_FINISH)));
         updateOngoingVisitDescriptor.setUnfinishedVisitTaskIndexes(
-                parseIndexes(argMultimap.getAllValues(CliSyntax.PREFIX_VISIT_TASK_UNFINISH)));
+                parseIndexes(argMultimap.getAllValues(PREFIX_VISIT_TASK_UNFINISH)));
         updateOngoingVisitDescriptor.setUpdatedVisitTaskDetails(
-                parseIndexAndDetailPairs(argMultimap.getAllValues(CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL)));
+                parseIndexAndDetailPairs(argMultimap.getAllValues(PREFIX_VISIT_TASK_INDEX_AND_DETAIL)));
 
         if (!updateOngoingVisitDescriptor.isAnyFieldUpdated()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,

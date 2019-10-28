@@ -1,5 +1,16 @@
 package cs.f10.t1.nursetraverse.logic.parser.appointment;
 
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_PATIENT_INDEX;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_DAYS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_HOURS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_MINUTES;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_MONTHS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_WEEKS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
+
 import java.util.stream.Stream;
 
 import cs.f10.t1.nursetraverse.commons.core.Messages;
@@ -7,7 +18,6 @@ import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.parser.ArgumentMultimap;
 import cs.f10.t1.nursetraverse.logic.parser.ArgumentTokenizer;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.logic.parser.Parser;
 import cs.f10.t1.nursetraverse.logic.parser.ParserUtil;
 import cs.f10.t1.nursetraverse.logic.parser.Prefix;
@@ -29,39 +39,39 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
      */
     public AddAppointmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_PATIENT_INDEX,
-                        CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME,
-                        CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME,
-                        CliSyntax.PREFIX_RECUR_YEARS, CliSyntax.PREFIX_RECUR_MONTHS, CliSyntax.PREFIX_RECUR_WEEKS,
-                        CliSyntax.PREFIX_RECUR_DAYS,
-                        CliSyntax.PREFIX_RECUR_HOURS, CliSyntax.PREFIX_RECUR_MINUTES,
-                        CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_INDEX,
+                        PREFIX_APPOINTMENT_START_DATE_AND_TIME,
+                        PREFIX_APPOINTMENT_END_DATE_AND_TIME,
+                        PREFIX_RECUR_YEARS, PREFIX_RECUR_MONTHS, PREFIX_RECUR_WEEKS,
+                        PREFIX_RECUR_DAYS,
+                        PREFIX_RECUR_HOURS, PREFIX_RECUR_MINUTES,
+                        PREFIX_APPOINTMENT_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_PATIENT_INDEX,
-                CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME,
-                CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_INDEX,
+                PREFIX_APPOINTMENT_START_DATE_AND_TIME,
+                PREFIX_APPOINTMENT_END_DATE_AND_TIME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
 
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap
-                .getValue(CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME).get());
+                .getValue(PREFIX_APPOINTMENT_START_DATE_AND_TIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap
-                .getValue(CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME).get(), argMultimap
-                .getValue(CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME).get());
+                .getValue(PREFIX_APPOINTMENT_END_DATE_AND_TIME).get(), argMultimap
+                .getValue(PREFIX_APPOINTMENT_START_DATE_AND_TIME).get());
 
-        Long years = ParserUtil.parseFrequency(argMultimap.getValue(CliSyntax.PREFIX_RECUR_YEARS).get());
-        Long months = ParserUtil.parseFrequency(argMultimap.getValue(CliSyntax.PREFIX_RECUR_MONTHS).get());
-        Long weeks = ParserUtil.parseFrequency(argMultimap.getValue(CliSyntax.PREFIX_RECUR_WEEKS).get());
-        Long days = ParserUtil.parseFrequency(argMultimap.getValue(CliSyntax.PREFIX_RECUR_DAYS).get());
-        Long hours = ParserUtil.parseFrequency(argMultimap.getValue(CliSyntax.PREFIX_RECUR_HOURS).get());
-        Long minutes = ParserUtil.parseFrequency(argMultimap.getValue(CliSyntax.PREFIX_RECUR_MINUTES).get());
+        Long years = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_YEARS).get());
+        Long months = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_MONTHS).get());
+        Long weeks = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_WEEKS).get());
+        Long days = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_DAYS).get());
+        Long hours = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_HOURS).get());
+        Long minutes = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_MINUTES).get());
         Long[] freqArray = {years, months, weeks, days, hours, minutes};
         RecurringDateTime frequency = new RecurringDateTime(freqArray);
 
-        Index indexPatient = ParserUtil.parseIndex(argMultimap.getValue(CliSyntax.PREFIX_PATIENT_INDEX).get());
+        Index indexPatient = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PATIENT_INDEX).get());
         String description = ParserUtil.parseDescription(argMultimap
-                .getValue(CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION).get());
+                .getValue(PREFIX_APPOINTMENT_DESCRIPTION).get());
 
         Appointment appointment = new Appointment(startDateTime, endDateTime, frequency, indexPatient, description);
 

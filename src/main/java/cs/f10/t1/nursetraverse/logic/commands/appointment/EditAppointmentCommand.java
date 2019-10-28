@@ -1,5 +1,15 @@
 package cs.f10.t1.nursetraverse.logic.commands.appointment;
 
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_PATIENT_INDEX;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_DAYS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_HOURS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_MINUTES;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_MONTHS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_WEEKS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -13,7 +23,6 @@ import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
@@ -31,20 +40,20 @@ public class EditAppointmentCommand extends Command implements MutatorCommand {
             + "by the index number used in the displayed appointment list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME + "APPOINTMENT_START_DATE_AND_TIME] "
-            + "[" + CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME + "APPOINTMENT_END_DATE_AND_TIME] "
-            + "[" + CliSyntax.PREFIX_PATIENT_INDEX + "APPOINTMENT_END_DATE_AND_TIME] "
-            + "[" + CliSyntax.PREFIX_RECUR_YEARS + "YEARS] "
-            + "[" + CliSyntax.PREFIX_RECUR_MONTHS + "MONTHS] "
-            + "[" + CliSyntax.PREFIX_RECUR_WEEKS + "WEEKS] "
-            + "[" + CliSyntax.PREFIX_RECUR_DAYS + "DAYS] "
-            + "[" + CliSyntax.PREFIX_RECUR_HOURS + "HOURS] "
-            + "[" + CliSyntax.PREFIX_RECUR_MINUTES + "MINUTES] "
-            + "[" + CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_APPOINTMENT_START_DATE_AND_TIME + "APPOINTMENT_START_DATE_AND_TIME] "
+            + "[" + PREFIX_APPOINTMENT_END_DATE_AND_TIME + "APPOINTMENT_END_DATE_AND_TIME] "
+            + "[" + PREFIX_PATIENT_INDEX + "APPOINTMENT_END_DATE_AND_TIME] "
+            + "[" + PREFIX_RECUR_YEARS + "YEARS] "
+            + "[" + PREFIX_RECUR_MONTHS + "MONTHS] "
+            + "[" + PREFIX_RECUR_WEEKS + "WEEKS] "
+            + "[" + PREFIX_RECUR_DAYS + "DAYS] "
+            + "[" + PREFIX_RECUR_HOURS + "HOURS] "
+            + "[" + PREFIX_RECUR_MINUTES + "MINUTES] "
+            + "[" + PREFIX_APPOINTMENT_DESCRIPTION + "DESCRIPTION] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME + "01-11-2019 1000 "
-            + CliSyntax.PREFIX_RECUR_MONTHS + "4 "
-            + CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION + "Dental and health checkup";
+            + PREFIX_APPOINTMENT_START_DATE_AND_TIME + "01-11-2019 1000 "
+            + PREFIX_RECUR_MONTHS + "4 "
+            + PREFIX_APPOINTMENT_DESCRIPTION + "Dental and health checkup";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

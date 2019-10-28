@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.commands.visit;
 
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_PATIENT_INDEX;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
@@ -12,7 +13,6 @@ import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
@@ -31,8 +31,8 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
             + ": Begins a visit for a patient. The patient is identified by the index number used in the patient "
             + "list displayed using the list or find patient commands.\n"
             + "Parameters: "
-            + CliSyntax.PREFIX_PATIENT_INDEX + "PATIENT_INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + CliSyntax.PREFIX_PATIENT_INDEX + "1 ";
+            + PREFIX_PATIENT_INDEX + "PATIENT_INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + PREFIX_PATIENT_INDEX + "1 ";
 
     public static final String MESSAGE_START_VISIT_SUCCESS = "Started a new visit under patient: %1$s";
     public static final String MESSAGE_START_VISIT_FAILURE = "There is already an ongoing visit.";

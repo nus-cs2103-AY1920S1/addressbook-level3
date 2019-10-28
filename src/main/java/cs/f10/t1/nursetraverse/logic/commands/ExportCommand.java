@@ -1,5 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.commands;
 
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_FILENAME;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_INDEXES;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
@@ -12,7 +14,6 @@ import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.importexport.CsvUtil;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ExportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
@@ -29,10 +30,10 @@ public class ExportCommand extends Command {
             + "Patients are exported selectively by index.\n"
             + "If indexes are not provided, all patients will be exported.\n"
             + "File name must be new - overriding an existing file is not permitted.\n"
-            + "Parameters: [" + CliSyntax.PREFIX_FILENAME + "FILENAME] "
-            + "[" + CliSyntax.PREFIX_INDEXES + "INDEXES]...\n"
-            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_FILENAME + "patient_data "
-            + CliSyntax.PREFIX_INDEXES + "2 " + CliSyntax.PREFIX_INDEXES + "4 " + CliSyntax.PREFIX_INDEXES + "6";
+            + "Parameters: [" + PREFIX_FILENAME + "FILENAME] "
+            + "[" + PREFIX_INDEXES + "INDEXES]...\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_FILENAME + "patient_data "
+            + PREFIX_INDEXES + "2 " + PREFIX_INDEXES + "4 " + PREFIX_INDEXES + "6";
 
     public static final String MESSAGE_SUCCESS = "Export success! File written to: ";
     public static final String MESSAGE_FAILURE = "Export failed.";

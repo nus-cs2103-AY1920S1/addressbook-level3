@@ -1,5 +1,9 @@
 package cs.f10.t1.nursetraverse.logic.commands.visit;
 
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_REMARKS;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_FINISH;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_UNFINISH;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -10,7 +14,6 @@ import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
@@ -31,16 +34,16 @@ public class UpdateOngoingVisitCommand extends Command implements MutatorCommand
             + "New Visit Tasks cannot be added or removed from an ongoing visit.\n"
             + "Visit Tasks can only be updated but their descriptions cannot be modified.\n"
             + "Parameters: "
-            + "[" + CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "TASK_INDEX DETAIL]... "
-            + "[" + CliSyntax.PREFIX_VISIT_TASK_FINISH + "TASK_INDEX]... "
-            + "[" + CliSyntax.PREFIX_VISIT_TASK_UNFINISH + "TASK_INDEX]... "
-            + "[" + CliSyntax.PREFIX_VISIT_REMARKS + "REMARKS] \n"
+            + "[" + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "TASK_INDEX DETAIL]... "
+            + "[" + PREFIX_VISIT_TASK_FINISH + "TASK_INDEX]... "
+            + "[" + PREFIX_VISIT_TASK_UNFINISH + "TASK_INDEX]... "
+            + "[" + PREFIX_VISIT_REMARKS + "REMARKS] \n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_VISIT_TASK_UNFINISH + "1 "
-            + CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "1 "
-            + CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "2 140/90mmHg "
-            + CliSyntax.PREFIX_VISIT_TASK_FINISH + "2 "
-            + CliSyntax.PREFIX_VISIT_REMARKS + "Patient may be allergic to bacitracin";
+            + PREFIX_VISIT_TASK_UNFINISH + "1 "
+            + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "1 "
+            + PREFIX_VISIT_TASK_INDEX_AND_DETAIL + "2 140/90mmHg "
+            + PREFIX_VISIT_TASK_FINISH + "2 "
+            + PREFIX_VISIT_REMARKS + "Patient may be allergic to bacitracin";
 
     public static final String MESSAGE_UPDATE_ONGOING_VISIT_SUCCESS = "Updated Visit: %1$s";
     public static final String MESSAGE_NO_ONGOING_VISIT = "There is no ongoing visit to update.";
