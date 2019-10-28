@@ -46,13 +46,13 @@ abstract class SuggesterImplTester {
     private final Supplier<Suggester> createSuggester;
 
     protected SuggesterImplTester(final Class<? extends Suggester> suggesterType) throws ReflectiveOperationException {
-        final Constructor<? extends Suggester> constructor = suggesterType.getConstructor(null);
-        suggester = constructor.newInstance(null);
+        final Constructor<? extends Suggester> constructor = suggesterType.getConstructor();
+        suggester = constructor.newInstance();
         autoTestPrefixes.addAll((List<Prefix>) suggesterType.getField("SUPPORTED_PREFIXES").get(null));
 
         createSuggester = () -> {
             try {
-                return constructor.newInstance(null);
+                return constructor.newInstance();
             } catch (ReflectiveOperationException e) {
                 Assertions.fail(e);
                 return null;
