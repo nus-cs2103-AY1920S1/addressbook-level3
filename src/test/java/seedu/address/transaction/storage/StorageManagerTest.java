@@ -14,15 +14,12 @@ import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.util.TransactionList;
 
 class StorageManagerTest {
-    private File file;
     private StorageManager storageManager;
-    private Model model;
 
     public StorageManagerTest() {
         try {
-            file = File.createTempFile("testing", "tempTransaction.txt");
-            file.deleteOnExit();
-            model = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            File file = File.createTempFile("testing", "tempTransaction.txt");
+            Model model = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             storageManager = new StorageManager(file, model);
         } catch (IOException e) {
             throw new AssertionError("This constructor should not throw an exception.");

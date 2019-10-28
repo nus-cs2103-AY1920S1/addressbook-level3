@@ -73,7 +73,7 @@ public class EditCommand extends Command {
         String updatedCategory = editTransactionDescriptor.getCategory().orElse(transactionToEdit.getCategory());
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Person updatedPerson = personModel
-                .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));;
+                .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
 
         boolean updatedIsReimbursed =
                 editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());

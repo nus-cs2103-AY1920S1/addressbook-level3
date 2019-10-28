@@ -22,7 +22,7 @@ treasurerPro (tP) is for those who *prefer to use a desktop app for managing the
 More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
 Interested?
-Jump to the <<Quick Start>> to get started.
+Let's move on to <<Quick Start>> to get started.
 Enjoy!
 
 == Quick Start
@@ -36,9 +36,9 @@ The GUI should appear in a few seconds.
 image::Ui.png[width="790"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`go /home`* and pressing kbd:[Enter] will take you to the Home tab.
+e.g. typing *`go /members`* and pressing kbd:[Enter] will take you to the Members tab.
 
-. Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of commands for each tab.
 
 [[Features]]
 == Features
@@ -90,7 +90,7 @@ Examples:
 `add dt/January 1st 2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
 
 
-If the added transaction is negative which indicates a spending, it will be shown in the Reimbursement Tab as a pending reimbursement
+If the added transaction has a negative amount which indicates a spending, it will be shown in the Reimbursement Tab as a pending reimbursement
 record for the member that spent it. If there is an existing reimbursement record for that member still pending, the amount
 of the newly added transaction will be added to the existing pending reimbursement amount.
 
@@ -142,6 +142,130 @@ Examples:
 ** `find Alex Yeoh`
 ** `find Alex`
 
+=== Reimbursements
+The reimbursement tab displays all the reimbursements the treasurer needs to pay to people.
+Each reimbursement contains a person's name, the total amount the person needs to be reimbursed,
+description of the transactions related to the person and deadline for that reimbursement.
+
+The reimbursement records are automatically extracted from transactions history with negative amount of money.
+And each person only has one aggregated reimbursement in the reimbursement list.
+All the reimbursements in reimbursement tab have not been done. Once the reimbursement is done,
+that reimbursement record will not be displayed.
+
+A user can add deadline to a reimbursement, find a reimbursement by providing the person's name,
+let the app display full list, mark a reimbursement as done and sort reimbursement lists.
+
+==== Adding deadline to a reimbursement: `deadline p/[name] dt/dd-mmm-yyyy`
+This command helps to add a deadline to a reimbursement for the person.
+
+.Diagram of deadline command in reimbursement tab
+image::Reimbursement/ReimbursementDeadlineCommand.png[]
+
+[start = 2]
+. The tab will show the added deadline for the reimbursement if the person appears in reimbursement.
+Otherwise, Leo in the right box shows response that the person is not in reimbursement list.
+
+.Diagram of successful deadline command in reimbursement tab
+image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[]
+
+[NOTE]
+The deadline date provided should be in the format of `dd-mmm-yyyy` e.g. `19-Dec-2019`.
+If you provide an invalid form e.g. `01-AAA-2019` or `19-DEC-2019` or `-1-Dec-2019`,
+Leo will remind you that the date is invalid.
+In another case, if you input an invalid date e.g. `31-Feb-2019`,
+our app helps to round it to `28-Feb-2019` and adds this deadline.
+
+[NOTE]
+If you want to modify the deadline for a reimbursement, you can use `deadline` command again
+to reassign deadline to a reimbursement.
+
+==== Finding a reimbursement for a person: `find p/[name]`
+This command helps to find out the reimbursement for the person.
+
+. Type `find p/[name]` into command box and press `enter` to execute it. e.g. `find p/Bernice Yu`
+
+.Diagram of find command in reimbursement tab
+image::Reimbursement/ReimbursementFindCommand.png[]
+[start = 2]
+. The tab will show the found reimbursement if the person appears in reimbursement.
+Otherwise, Leo in the right box shows response that the person is not in reimbursement list.
+
+.Diagram of successful find command in reimbursement tab
+image::Reimbursement/ReimbursementFindCommandSuccess.png[]
+
+==== Going back to display the full list: `Back`
+This command helps to display the full reimbursement list after `find` and `deadline` commands.
+
+. Type `back` into command box and press `enter` to execute it.
+
+.Diagram of back command in reimbursement tab
+image::Reimbursement/ReimbursementBackCommand.png[]
+
+[start = 2]
+. The tab will show the full reimbursement list.
+
+.Diagram of successful back command in reimbursement tab
+image::Reimbursement/ReimbursementBackCommandSuccess.png[]
+
+==== Marking a command as done: `done p/[name]`
+This command helps to mark a reimbursement as done and remove it from reimbursement list.
+
+. Type `done p/[name]` into command box and press `enter` to execute it. e.g. `done p/Roy Balakrishnan`
+
+.Diagram of done command in reimbursement tab
+image::Reimbursement/ReimbursementDoneCommand.png[]
+
+[start = 2]
+. The reimbursement for that person will be removed from the tab.
+
+.Diagram of successful done command in reimbursement tab
+image::Reimbursement/ReimbursementDoneCommandSuccess.png[]
+
+==== Sorting the list based on amount: `sort amount`
+This command helps to sort the reimbursement lists based on amount. And the
+list will be in descending order of the amount.
+
+. Type `sort amount` into command box and press `enter` to execute it.
+
+.Diagram of sort amount command in reimbursement tab
+image::Reimbursement/ReimbursementSortAmountCommand.png[]
+
+[start = 2]
+. The reimbursements are sorted in descending order of the amount.
+
+.Diagram of successful sort amount command in reimbursement tab
+image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[]
+
+==== Sorting the list based on name: `sort name`
+This command helps to sort the reimbursement lists based on name.
+And the list will be in alphabetical order.
+
+. Type `sort name` into command box and press `enter` to execute it.
+
+.Diagram of sort name command in reimbursement tab
+image::Reimbursement/ReimbursementSortNameCommand.png[]
+
+[start = 2]
+. The reimbursements are sorted in alphabetical order of person's name.
+
+.Diagram of successful sort name command in reimbursement tab
+image::Reimbursement/ReimbursementSortNameCommandSuccess.png[]
+
+==== Sorting the list based on deadline: `sort date`
+This command helps to sort the reimbursement lists based on deadline.
+And the reimbursements with closer deadline will be at the front.
+
+. Type `sort date` into command box and press `enter` to execute it.
+
+.Diagram of sort date command in reimbursement tab
+image::Reimbursement/ReimbursementSortDateCommand.png[]
+
+[start = 2]
+. The reimbursements are sorted by deadline date.
+
+.Diagram of successful sort date command in reimbursement tab
+image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
+
 === Inventory
 
 ====
@@ -178,24 +302,7 @@ Examples:
 ** By total cost: `sort co`
 ** By price: `sort p`
 
-=== Reimbursements
 
-====
-* The reimbursement page contains details of reimbursement for each CCA member.
-* Each reimbursement record is represented by Person, Amount, Description and Status.
-* Once the person is reimbursed, the status can be modified from Pending to Completed.
-* This page helps the treasurer to directly retrieve the amount of reimbursement for each person from expenditure histories.
-* This page also contains a Manage People button. Once clicked, a pop up page will come out and show all the CCA members’ information.
-====
-
-* To find an reimbursement:
-`find p/PERSON`
-
-* To update status:
-`update p/PERSON`
-
-* To add a person:
-`add p/PERSON a/BANK_ACCOUNT_NUMBER`
 
 === Cashier
 

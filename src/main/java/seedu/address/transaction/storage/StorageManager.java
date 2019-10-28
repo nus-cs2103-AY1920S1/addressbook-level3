@@ -16,6 +16,8 @@ import seedu.address.transaction.util.TransactionList;
  * Manages storage of transaction data in local storage.
  */
 public class StorageManager implements Storage {
+    public static final String NUM_FOR_REIMBURSED = "1";
+
     private final File file;
     private final seedu.address.person.model.Model personModel;
 
@@ -75,6 +77,6 @@ public class StorageManager implements Storage {
     }
 
     private static boolean isReimbursed(String num) {
-        return num.equals("1") ? true : false;
+        return num.equals(NUM_FOR_REIMBURSED) ? true : false;
     }
 }
