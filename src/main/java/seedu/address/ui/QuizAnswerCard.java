@@ -5,20 +5,23 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.Question;
 
 /**
- * An UI component that displays information of a {@code Answer}.
+ * An UI component that displays information of a {@code Question}.
  */
 public class QuizAnswerCard extends UiPart<Region> {
+
     private static final String FXML = "QuizAnswerListCard.fxml";
 
     /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
+     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As
+     * a consequence, UI elements' variable names cannot be set to such keywords or an exception
+     * will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on
+     * AddressBook level 4</a>
      */
 
     public final Question question;
@@ -26,17 +29,39 @@ public class QuizAnswerCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label answerLabel;
+    @FXML
+    private Label typeLabel;
     @FXML
     private Label id;
+
+    // For MCQ type
     @FXML
-    private FlowPane tags;
+    private FlowPane optionFp;
+    @FXML
+    private Label optionALabel;
+    @FXML
+    private Label optionBLabel;
+    @FXML
+    private Label optionCLabel;
+    @FXML
+    private Label optionDLabel;
+
+    public QuizAnswerCard(Question question) {
+        super(FXML);
+
+        this.question = question;
+        id.setVisible(false);
+        id.setManaged(true);
+        initialiseCard(question);
+    }
 
     public QuizAnswerCard(Question question, int displayedIndex) {
         super(FXML);
+
         this.question = question;
+        initialiseCard(question);
         id.setText(displayedIndex + ". ");
-        name.setText(question.getAnswer());
     }
 
     @Override
@@ -47,13 +72,29 @@ public class QuizAnswerCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof QuizAnswerCard)) {
+        if (!(other instanceof QuestionCard)) {
             return false;
         }
 
         // state check
         QuizAnswerCard card = (QuizAnswerCard) other;
-        return name.getText().equals(card.name.getText())
+        return answerLabel.getText().equals(card.answerLabel.getText())
                 && question.equals(card.question);
+    }
+
+    /**
+     * Initialises the variables.
+     * @param question object to be used in the card.
+     */
+    private void initialiseCard(Question question) {
+        answerLabel.setText(question.getAnswer());
+
+        if (question instanceof McqQuestion) {
+            typeLabel.setText("MCQ");
+            optionFp.setVisible(true);
+        } else {
+            typeLabel.setText("Open Ended");
+            optionFp.setManaged(false); // Free occupied space
+        }
     }
 }
