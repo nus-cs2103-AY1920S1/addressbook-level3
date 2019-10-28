@@ -17,7 +17,6 @@ public class NewCommand extends Command {
 
     public static final String COMMAND_WORD = "new";
 
-    // TODO - add params description, district, callerNumber if we are going with single-step fill instead of prompts
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Drafts an incident report to the incident management "
             + "system." + "Parameters: "
             + PREFIX_LOCATION + "DISTRICT NUMBER "

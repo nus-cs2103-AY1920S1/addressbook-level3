@@ -86,18 +86,22 @@ public class TypicalEntities {
             im.addPerson(person);
         }
 
-        im.addIncident(new Incident(ALICE, new District(2), firstValidDateTime,
+        Incident firstIncident = new Incident(ALICE, new District(2), firstValidDateTime,
                 new IncidentId(firstValidDateTime.getMonth(), firstValidDateTime.getYear()),
                 new CallerNumber("84738293"),
-                new Description("Pickpocket reported along the walkway in District 2")));
+                new Description("Pickpocket reported along the walkway in District 2"),
+                Incident.Status.INCOMPLETE_DRAFT);
+        im.addIncident(firstIncident);
 
         im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
 
-        im.addIncident(new Incident(BOB, new District(3), secondValidDateTime,
+        Incident secondIncident = new Incident(BOB, new District(3), secondValidDateTime,
                 new IncidentId(secondValidDateTime.getMonth(), secondValidDateTime.getYear()),
                 new CallerNumber("90878965"),
-                new Description("Pickpocket spotted at the pasar malam in District 3")));
+                new Description("Pickpocket spotted at the pasar malam in District 3"),
+                Incident.Status.INCOMPLETE_DRAFT);
+        im.addIncident(secondIncident);
 
         return im;
     }

@@ -95,8 +95,7 @@ public class SubmitCommand extends Command {
     public Incident submitReport(Incident toSubmit) {
         Incident updatedIncident = new Incident(toSubmit.getOperator(), toSubmit.getDistrict(),
                 toSubmit.getIncidentDateTime(), toSubmit.getIncidentId(), toSubmit.getCallerNumber(),
-                toSubmit.getDesc());
-        updatedIncident.setStatusAsSubmitted();
+                toSubmit.getDesc(), Incident.Status.SUBMITTED_REPORT); // set status to submitted
         return updatedIncident;
     }
 
