@@ -16,7 +16,7 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
 

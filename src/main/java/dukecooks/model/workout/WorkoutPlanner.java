@@ -1,4 +1,4 @@
-package dukecooks.model.workout.exercise;
+package dukecooks.model.workout;
 
 import static java.util.Objects.requireNonNull;
 
