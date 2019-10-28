@@ -1,7 +1,5 @@
 package dream.fcard.logic.respond;
 
-import java.util.ArrayList;
-
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.Gui;
 import dream.fcard.logic.respond.commands.CreateCommand;
@@ -106,25 +104,22 @@ enum Responses {
         // }
         return true; // capture is valid, end checking other commands
     }),
-    VIEW("(?i)^(view)?(\\s)*(deck/[\\S\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
-        //System.out.println("Current command is VIEW");
+    VIEW("(?i)^(view)?(\\s)*(deck/[\\S\\p{Punct}]+){1}?(\\s)*", (commandInput, programState) -> {
         LogsCenter.getLogger(Responses.class).info("Current command is VIEW");
-
-        // ArrayList<Deck> allDecks = programState.getDecks();
-        //  String inputName = *name of deck to find*;
-        //  for (Deck curr : allDecks) {
-        //      if(curr.getName().equals(inputName) {
-        //          curr.viewDeck();
-        //      }
-        //  }
-
+        /*
         ArrayList<Deck> decks = programState.getDecks();
         for (int i = 0; i < decks.size(); i++) {
-            Deck d = decks.get(i);
-            Gui.renderDeck(d);
+                Deck d = decks.get(i);
+                Gui.renderDeck(d);
 
             System.out.println("Deck #1: " + decks.get(i).getName());
         }
+         */
+        String deckName = commandInput.replaceFirst("(?i)^(view)?(\\s)*deck/", "");
+        //System.out.println(test.trim());
+        Deck d = programState.getDeck(deckName);
+        Gui.renderDeck(d);
+
         return true; // capture is valid, end checking other commands
     }),
 
