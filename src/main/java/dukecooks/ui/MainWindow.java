@@ -227,9 +227,9 @@ public class MainWindow extends UiPart<Stage> {
             featureMode.setText("Dashboard");
             break;
         case "recipe":
-            //TODO:
             versatilePanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
             featureMode.setText("Recipe");
+            recipeListPanel.handleSwitch(type);
             break;
         case "health":
             versatilePanelPlaceholder.getChildren().add(recordListPanel.getRoot());

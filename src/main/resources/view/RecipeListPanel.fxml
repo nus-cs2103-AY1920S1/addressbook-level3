@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -21,12 +23,16 @@
       <children>
          <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
             <children>
-               <ListView fx:id="recipeIndexListView" />
+               <ListView fx:id="recipeIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
             </children>
          </StackPane>
-         <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+         <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES">
             <children>
-              <ListView fx:id="recipeListView" />
+               <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                  <content>
+                     <FlowPane fx:id="recipeListView" focusTraversable="true" prefHeight="200.0" prefWidth="200.0" />
+                  </content>
+               </ScrollPane>
             </children>
          </StackPane>
       </children>
