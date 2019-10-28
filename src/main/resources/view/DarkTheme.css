@@ -490,6 +490,10 @@
     -fx-font-size: 12;
 }
 
+#personDetailContainer {
+    -fx-background-color: #222831;
+}
+
 #personDetailContainer .label {
     -fx-text-fill: #FFFFFF;
 }
@@ -572,7 +576,22 @@
 #scheduleDisplayContainer {
     -fx-background-radius: 4;
     -fx-border-radius: 4;
-    -fx-background-color: #393E46 !important;
+    -fx-border-width: 1;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: lightblue !important;
+}
+
+#scheduleDisplayContainer .label {
+    -fx-font-family: Consolas;
+}
+
+#scheduleDisplayContainer #eventName {
+    -fx-font-size: 20;
+}
+
+#scheduleDisplayContainer #venue, #timing {
+    -fx-font-size: 14;
+    -fx-opacity: 0.67;
 }
 
 #suggestions-list {
@@ -586,11 +605,11 @@
 }
 
 #upcomingScheduleHeader {
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: Garamond;
     -fx-font-size: 25;
     -fx-border-width: 2;
     -fx-border-color: lightblue;
-    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-style: hidden hidden dashed hidden;
 }
 
 #upcomingScheduleContainer {
@@ -604,5 +623,5 @@
     -fx-border-color: lightblue;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-background-color: #312228;
+    -fx-background-color: #222831;
 }

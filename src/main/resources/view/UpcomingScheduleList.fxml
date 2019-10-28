@@ -8,7 +8,7 @@
 
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml" prefWidth="400" maxHeight="400" fx:id="upcomingScheduleWrapper">
+      xmlns:fx="http://javafx.com/fxml" prefWidth="400" maxHeight="398" minHeight="398" fx:id="upcomingScheduleWrapper">
     <Label fx:id="upcomingScheduleHeader" alignment="CENTER" prefWidth="500"/>
     <ScrollPane fx:id="upcomingScheduleContainer" prefWidth="400" hbarPolicy="NEVER">
         <VBox fx:id="scheduleCards" spacing="8">

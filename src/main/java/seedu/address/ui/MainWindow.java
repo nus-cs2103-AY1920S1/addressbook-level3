@@ -269,8 +269,7 @@ public class MainWindow extends UiPart<Stage> {
         ScheduleView scheduleView = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay).getScheduleView();
         if (type.equals(ScheduleWindowDisplayType.PERSON)) {
             MonthSchedule ms = scheduleWindowDisplay.getMonthSchedules().get(0);
-            exportContainer.getChildren().addAll(new PersonDetailCard(ms.getPersonDisplay()).getRoot(),
-                    scheduleView.getRoot());
+            exportContainer.getChildren().addAll(scheduleView.getRoot());
             stackPane.getChildren().add(exportContainer);
             Scene scene = new Scene(stackPane);
             scene.getStylesheets().add("/view/DarkTheme.css");
