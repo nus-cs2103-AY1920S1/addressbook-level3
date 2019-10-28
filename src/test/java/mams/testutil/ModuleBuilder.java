@@ -112,6 +112,6 @@ public class ModuleBuilder {
      */
     public Module build() {
         return new Module(moduleCode, moduleName, moduleDescription, lecturerName,
-                timeSlot , quota, students);
+                timeSlot, quota, students);
     }
 }
