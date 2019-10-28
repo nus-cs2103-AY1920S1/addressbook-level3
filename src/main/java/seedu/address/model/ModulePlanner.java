@@ -158,6 +158,8 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
         // if this active study plan has already been activated before, then no need to activate it again.
         if (activeStudyPlan.isActivated()) {
+            // Even if it's been activated before, we need to update whether its prerequisites have been satisfied
+            activeStudyPlan.updatePrereqs();
             return activeStudyPlan;
         }
 
