@@ -35,26 +35,48 @@ to get started.
 
 Below is a list of things to do to use the application:
 
-.  Ensure you have Java `11` or above installed in your computer. +
+1.  Ensure you have Java `11` or above installed in your computer. +
 If not, install it link:{javaURL}[here].
-.  Download the latest `organice.jar` link:{repoURL}/releases[here].
-.  Copy the jar file to the folder you want to use as the home folder for your application.
-.  Double-click the file to start the application. The application should appear in a few seconds.
-The following screenshot is a sample of how the application looks like:
-+
+2.  Download the latest `organice.jar` link:{repoURL}/releases[here].
+3.  Copy the JAR file to the folder you want to use as the home folder for your application.
+4.  Double-click the JAR file to start the application. The application should appear in a few seconds.
+Figure 1 shows how the application looks like after starting it.
+
+.**How ORGANice looks upon starting up**
+
 image::Ui.png[width="790"]
-+
 
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Refer to <<Features>> for details of each command.
 
+If what you are seeing on your screen looks like what is shown in Figure 1, congratulations! You have successfully started the application.
+Now that you have have succeeded, it is time to learn about the various components in this application.
+
+== Components of ORGANice
+
+This section aims to introduce you to the various components of ORGANice.
+We will be using Figure 2, which has all the components of ORGANice labelled.
+
+.**Components of ORGANice**
+image::ORGANiceComponents.png[width="790"]
+
+The following list explains each component and the function of that component:
+
+* Component: Command Box
+** Function of component: the Command Box is a text box for you to type in commands. Commands are instructions to ORGANice to perform a feature.
+* Component: Message Display Box
+** Function of component: the Message Display Box displays messages after executing commands. These messages aim to let you know if
+you have succeeded or failed in executing a command.
+* Component: Person List
+** Function of component: the Person List is a display of people's information stored in ORGANice. You can scroll down this list to see
+more people in this application.
+
+
+Now that you know the components of ORGANice, let's move on to <<Features>> to learn how to use the features in ORGANice.
 
 [[Features]]
 == Features
 
-This section describes the list of features and commands
-in this application. Each feature is triggered by a command with a specific format. +
+This section will introduce you to the list of features and commands in this application.
+Each feature is triggered by a command with a specific format. +
 
 The list below explains how the format of the commands should be interpreted:
 ====
@@ -66,7 +88,6 @@ e.g. in a command `add n/**NAME** p/**PHONE**`, `add` is the command word while 
 are parameters.
 * Words in bold are the parameters to be supplied by the user +
 e.g. in `add **n/NAME**`, `**NAME**` is a parameter which can be used as `add n/John Doe`.
-* `[attributes]` refer to all the attributes in the <<List of Attributes>>.
 * Parameters can be in any order +
 e.g. if the command specifies `n/**NAME** p/**PHONE**`, `p/**PHONE** n/**NAME**`
 is also acceptable.
@@ -132,13 +153,21 @@ a person and the criteria for valid inputs:
 
 
 === Viewing help : `help`
-This command allows the user to access the user guide to ORGANice.
+There may be times where you do not understand how ORGANice works, or you need a simple reminder on how to use
+ORGANice. This command allows you to access the user guide to ORGANice.
 
-Format: `help`
+. Type `help` in the Command Box and press kbd:[Enter].
+. A new window is launched, as shown in Figure 3. Open the link in a browser to read this document.
+. Click the x button to close the window and return to the default display.
+
+.**Help Window**
+
+image::HelpWindow.png[width="790"]
 
 === Adding a person: `add`
 
-Adds a patient, doctor, or donor to ORGANice with the attributes given, depending on what is specified.
+This command allows you to add a patient, doctor, or donor to ORGANice with the attributes given,
+depending on what is specified.
 
 There are two methods to add a person:
 
@@ -163,7 +192,7 @@ p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**` +
 Format for adding doctors: `add t/doctor n/**NAME** ic/**NRIC** p/**PHONE**`
 
 After adding a person, ORGANice will display a form which contains the attributes of the person. Press
-the Enter key to confirm the details.
+kbd:[Enter] to confirm the details.
 
 [TIP]
 View the List of Attributes in the beginning of <<Features>> to find out what each attribute mean.
@@ -291,45 +320,41 @@ Deletes a person with the NRIC S98654322D in ORGANice.
 // end::delete[]
 === Detecting matches: `match`
 
-Currently, ORGANice only supports kidney matching. Refer to <<FAQ>> for a better understanding of the
-procedure for kidney matching.
+This command runs a kidney matching test on patients and donors in ORGANice and displays the match results.
+Refer to <<FAQ>> for a better understanding of the procedure for kidney matching.
 
-This command displays a list of patient-donor pairs that passes both the blood type and tissue
-typing tests. +
-
-There are two types of match commands. The following list explains each type of match command and describes the result
-of executing each type of command:
-
-* To get a list of patients and their number of matches, the format is: `match ic/all`
-* To get a list of potential matches a patient has with a donor, the format is: `match ic/**NRIC**`
-
-Each match is accompanied by a success rate number,
-which indicates the degree of compatibility
-between the patient and donor. +
+You can either run a kidney matching test on all patients and donors or find matching donors for a specific patient.
+To learn how to run kidney matching tests on all patients, refer to <<Matching all patients>>. To learn how to run
+kidney matching tests on a specific patient, refer to <<Matching a specific patient>>.
 
 ==== Matching a specific patient
-For example, a user wants to match a specific patient called "John Doe" and his NRIC is "S1234568R".
+This section will explain how to run kidney matching tests on a specific patient and run you through an example.
+To run a match of a specific patient, type in a command of the format `match ic/**NRIC**`.
 
-. Type `match ic/S1234568R` in the command box and press Enter.
+Here is an example. Suppose you want to match a specific patient called "John Doe" and his NRIC is "S1234568R". This is
+what you can do:
 
-. The list of donors and their success rate are displayed as shown in the screenshot below.
+. Type `match ic/S1234568R` in the Command Box and press kbd:[Enter].
+
+. The list of donors and their success rate are displayed as shown in the screenshot below. The success rate is a number
+which indicates the degree of compatibility between the patient and donor. +
 +
 image::MatchingDonorsDisplayed.png[width=790]
 +
 
 
-==== Matching all patients to all donors
-For example, a user wants to find how many donors matches each patient in ORGANice.
+==== Matching all patients
+This section will explain how to run kidney matching tests on all patients stored in ORGANice and run you
+through an example.
+To match all the patients in ORGANice, do the following:
 
-. Type `match ic/all` in the command box and press Enter.
+. Type `match ic/all` in the command box and press kbd:[Enter].
 
 . The list of patients and the number of matching donors each patient have are displayed in the screenshot below.
 +
 image::Patient Matches Displayed.png[width=790]
 +
 
-
-Matches can be sorted. Refer to <<Sorting matches>> for more information.
 
 === Sorting matches: `sort`
 Users can specify how they want the patient-donor pairs to be sorted. +
