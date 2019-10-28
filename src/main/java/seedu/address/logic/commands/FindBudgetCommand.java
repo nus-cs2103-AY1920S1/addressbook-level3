@@ -31,7 +31,7 @@ public class FindBudgetCommand extends Command {
         requireNonNull(model);
         model.updateFilteredBudgets(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredBudgets().size()));
+                String.format(Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredBudgets().size()));
     }
 
     @Override
