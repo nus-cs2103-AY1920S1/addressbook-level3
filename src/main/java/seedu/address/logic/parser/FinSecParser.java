@@ -176,7 +176,7 @@ public class FinSecParser {
                 return new SortCommand();
 
             case SortReverseCommand.COMMAND_WORD:
-               return new SortReverseCommand();
+                return new SortReverseCommand();
 
             case ApproveClaimCommand.COMMAND_WORD:
                 return new ApproveClaimCommandParser().parse(arguments);

@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.compare;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -410,6 +409,9 @@ public class ModelManager implements Model {
 
 }
 
+/**
+ * Compares 2 incomes' names
+ */
 class IncomeComparator implements Comparator<Income> {
     @Override
     public int compare(Income income1, Income income2) {

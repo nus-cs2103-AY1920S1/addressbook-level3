@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.UiManager;
 
+/**
+ * Sorts the current list in reverse order
+ */
 public class SortReverseCommand extends Command {
 
     public static final String COMMAND_WORD = "reverse";
