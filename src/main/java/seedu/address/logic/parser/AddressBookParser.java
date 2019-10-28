@@ -36,11 +36,11 @@ import seedu.address.logic.commands.calendar.EditTaskCommand;
 import seedu.address.logic.commands.calendar.FindTaskCommand;
 import seedu.address.logic.commands.calendar.ListTasksBasedOnDateCommand;
 import seedu.address.logic.commands.calendar.ListTasksCommand;
-import seedu.address.logic.commands.reminder.AddReminderCommand;
-import seedu.address.logic.commands.reminder.DeleteReminderCommand;
 import seedu.address.logic.commands.note.AddNotesCommand;
 import seedu.address.logic.commands.note.DeleteNotesCommand;
 import seedu.address.logic.commands.note.EditNotesCommand;
+import seedu.address.logic.commands.reminder.AddReminderCommand;
+import seedu.address.logic.commands.reminder.DeleteReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
 
