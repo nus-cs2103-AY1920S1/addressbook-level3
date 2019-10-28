@@ -139,6 +139,10 @@ __
 ... Sends a reminder to all members of the current project.
 ... Format: sendReminder
 
+.. Adds meeting to the Project: _addProjectMeeting_
+... Adds meeting to a currently checked out project.
+... Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]
+
 . *Sort*
 
 All sort methods follow this set of index/order pairing. Some indexes are specific to
@@ -159,3 +163,25 @@ to find out which indexes are available.
 _sortTask INDEX(Integer value from 1-4)_
 ... Example:
 _sortTask 1_ (Sort tasks by alphabetical order)
+
+. *Email*
+
+.. Sign in to Account: _signIn_
+... Signs in to the Account that that user has.
+... Format:
+__signIn [ac/ACCOUNT_EMAIL_ADDRESS] [pa/PASSWORD]
+__
+
+.. Signs out from user's account: _logOut_
+... Signs out from currently signed in account.
+... Format:
+__logout
+__
+
+.. Sends personal Email: _sendMail_
+... Sends an email to one person in the AddressBook.
+... Format: sendMail [r/RECIPIENT_OF_EMAIL] [su/SUBJECT] [me/MESSAGE_BODY]
+
+.. Sends broadcast Email: _broadcastMail_
+... Sends an email to all members in the Project.
+... Format: broadcastMail [su/SUBJECT] [me/MESSAGE_BODY]
