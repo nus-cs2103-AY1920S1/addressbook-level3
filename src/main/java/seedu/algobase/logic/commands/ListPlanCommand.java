@@ -14,7 +14,7 @@ public class ListPlanCommand extends Command {
     public static final String COMMAND_WORD = "listplan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays a list of all existing plans alphabetically.\n"
+            + ": Displays a list of all existing plans.\n"
             + "Example:\n"
             + COMMAND_WORD;
 

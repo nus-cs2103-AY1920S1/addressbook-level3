@@ -217,7 +217,7 @@ Examples:
 ==== Listing tags: `listtag`
 
 Displays a list of all existing tags. +
-Format: `liststag`
+Format: `listtag`
 
 ==== Deleting new tags: `deletetag`
 
