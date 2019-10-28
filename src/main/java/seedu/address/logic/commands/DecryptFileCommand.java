@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FILES;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
 
 /**
- * Decrypt a file identified using it's displayed index from the file book.
+ * Decrypts a file identified using it's displayed index from the file book.
  */
 public class DecryptFileCommand extends Command {
 
@@ -36,8 +34,6 @@ public class DecryptFileCommand extends Command {
             + "Target file already exists.\nRename %1$s and try again.";
     public static final String MESSAGE_DECRYPT_FILE_FAILURE = "File decryption failed. "
             + "File may be corrupted. \nUse remove command to remove the file from the file list.";
-    public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist. "
-            + "File may be renamed or deleted. \nUse remove command to remove the file from the file list.";
 
     private final Index targetIndex;
     private final String password;
@@ -57,11 +53,7 @@ public class DecryptFileCommand extends Command {
         }
 
         EncryptedFile fileToDecrypt = lastShownList.get(targetIndex.getZeroBased());
-        if (!Files.exists(Path.of(fileToDecrypt.getEncryptedPath()))) {
-            model.setFileStatus(fileToDecrypt, FileStatus.MISSING);
-            model.updateFilteredFileList(PREDICATE_SHOW_ALL_FILES);
-            throw new CommandException(MESSAGE_FILE_NOT_FOUND);
-        }
+        FileCommandUtil.checkIfFileExists(fileToDecrypt, model);
 
         try {
             if (!EncryptionUtil.isFileEncrypted(fileToDecrypt.getEncryptedPath())) {

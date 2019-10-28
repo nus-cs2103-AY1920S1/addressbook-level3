@@ -31,6 +31,8 @@ public class EncryptFileCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "File encrypted: %1$s";
     public static final String MESSAGE_FAILURE = "File encryption failed.";
+    public static final String MESSAGE_IS_DIRECTORY = "File encryption failed.\n"
+            + "SecureIT currently does not support encrypting directories.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist.";
     public static final String MESSAGE_DUPLICATE_FILE = "This file is already in the list.";
     public static final String MESSAGE_ENCRYPTED_FILE = "This file is already encrypted.\n"
@@ -59,6 +61,9 @@ public class EncryptFileCommand extends Command {
         }
         if (!Files.exists(Path.of(toAdd.getFullPath()))) {
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        }
+        if (Files.isDirectory(Path.of(toAdd.getFullPath()))) {
+            throw new CommandException(MESSAGE_IS_DIRECTORY);
         }
         try {
             if (EncryptionUtil.isFileEncrypted(toAdd.getFullPath())) {
