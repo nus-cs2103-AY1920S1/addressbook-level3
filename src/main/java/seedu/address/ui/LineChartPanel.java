@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -25,7 +27,10 @@ public class LineChartPanel extends UiPart<Region> {
 
     private static final String FXML = "LineChartPanel.fxml";
     private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
-    private static final int WINDOW_SIZE = 10;
+    private static int WINDOW_SIZE = 10;
+    private static String timeFrame = "default";
+    private static Date date = new Date();
+
     // this is used to display time in HH:mm:ss format
     final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d yyyy");
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
@@ -169,8 +174,44 @@ public class LineChartPanel extends UiPart<Region> {
         return simpleDateFormat.parse(simpleDateFormat.format(date));
     }
 
-    public XYChart.Series<String, Number> getSeries() {
-        return series;
+    public static void setTimeFrame(String newTimeFrame) {
+        timeFrame = newTimeFrame;
+    }
+
+    public static void setDate(Date newDate) {
+        date = newDate;
+    }
+
+    public static void setWindowSize(String timeFrame) {
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int year  = localDate.getYear();
+        int month = localDate.getMonthValue();
+        switch (timeFrame) {
+            case "default":
+                WINDOW_SIZE = 10;
+                break;
+            case "week":
+                WINDOW_SIZE = 7;
+                break;
+            case "month":
+                if (month == 2 && year % 4 == 0) {
+                    WINDOW_SIZE = 29; // leap year February
+                } else if (month == 2 && year % 4 != 0) {
+                    WINDOW_SIZE = 28; // regular year February
+                } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+                    WINDOW_SIZE = 30; // April, June, September, October
+                } else {
+                    WINDOW_SIZE = 31; // the rest of the months (January, March, May, July, August, October, December)
+            }
+                break;
+            case "year":
+                if (year % 4 == 0) {
+                    WINDOW_SIZE = 366; // leap year
+                } else {
+                    WINDOW_SIZE = 365;
+                }
+                break;
+        }
     }
 
     @Override

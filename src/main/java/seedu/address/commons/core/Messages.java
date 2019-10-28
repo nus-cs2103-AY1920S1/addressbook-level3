@@ -23,4 +23,14 @@ public class Messages {
     public static final String MESSAGE_INVALID_FRIDGE_ID = "Fridge ID is not valid.";
     public static final String MESSAGE_INEXISTENT_FRIDGE = "Fridge ID does not exist. Please enter an empty fridge's ID"
             + " or create a fridge before adding the body";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use the following format for"
+            + " all Mortago commands: dd/MM/yyy (example: 12/10/2019)";
+    public static final String MESSAGE_STATS_DEFAULT = "Displaying admissions statistics of the last ten days.";
+    public static final String MESSAGE_STATS_WEEK = "Displaying admissions statistics of the week that contains " +
+            "the day %1$s.";
+    public static final String MESSAGE_STATS_MONTH = "Displaying admissions statistics of the week that contains " +
+            "the day %1$s.";
+    public static final String MESSAGE_STATS_YEAR = "Displaying admissions statistics of the week that contains " +
+            "the day %1$s.";
+
 }

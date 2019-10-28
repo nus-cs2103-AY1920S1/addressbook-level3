@@ -29,6 +29,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_RELATIONSHIP = new Prefix("/relationship");
     public static final Prefix PREFIX_FLAG = new Prefix("-");
 
+    // for stats command
+    public static final Prefix PREFIX_WEEK = new Prefix("/week");
+    public static final Prefix PREFIX_MONTH = new Prefix("/month");
+    public static final Prefix PREFIX_YEAR = new Prefix("/year");
+
     // to be deleted
     //public static final Prefix PREFIX_NAME = new Prefix("n/");
     //public static final Prefix PREFIX_PHONE_NUMBER = new Prefix("p/");
