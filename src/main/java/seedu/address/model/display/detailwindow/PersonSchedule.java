@@ -20,7 +20,11 @@ public class PersonSchedule {
 
     private HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay;
 
-    public PersonSchedule(String scheduleName, PersonDisplay personDisplay, Role role, HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay) {
+    public PersonSchedule(String scheduleName,
+                          PersonDisplay personDisplay,
+                          Role role, HashMap<DayOfWeek,
+            ArrayList<PersonTimeslot>> scheduleDisplay) {
+
         this.scheduleName = scheduleName;
         this.personDisplay = personDisplay;
         this.role = role;

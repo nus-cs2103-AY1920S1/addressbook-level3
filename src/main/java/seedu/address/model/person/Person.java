@@ -71,6 +71,19 @@ public class Person {
         counter += 1;
     }
 
+    public Person(PersonDescriptor personDescriptor, int personId) {
+        this.name = personDescriptor.getName();
+        this.phone = personDescriptor.getPhone();
+        this.email = personDescriptor.getEmail();
+        this.address = personDescriptor.getAddress();
+        this.remark = personDescriptor.getRemark();
+        if (personDescriptor.getTags() != null) {
+            this.tags.addAll(personDescriptor.getTags());
+        }
+        this.personId = new PersonId(personId);
+        this.schedule = new Schedule(this.getPersonId());
+    }
+
     /**
      * Resets the counter for testing.
      */

@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMING;
@@ -41,8 +40,6 @@ public class AddEventCommand extends Command {
     public final Name name;
 
     public AddEventCommand(Name name, Event event) {
-        requireNonNull(name);
-
         this.event = event;
         this.name = name;
     }
@@ -53,10 +50,16 @@ public class AddEventCommand extends Command {
             return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_WRONG_TIMINGS));
         } else {
             try {
-                model.addEvent(name, event);
 
-                // updates main window
-                model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+                if (name == null) {
+                    model.addEvent(event);
+                    model.updateDetailWindowDisplay(LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+
+                } else {
+                    model.addEvent(name, event);
+                    model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+                }
+
 
                 // updates side panel
                 model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);

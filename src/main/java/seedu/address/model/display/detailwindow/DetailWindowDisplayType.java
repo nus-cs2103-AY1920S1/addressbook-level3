@@ -7,5 +7,6 @@ public enum DetailWindowDisplayType {
     GROUP,
     PERSON,
     DEFAULT,
+    USER,
     NONE
 }

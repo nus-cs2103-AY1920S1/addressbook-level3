@@ -7,12 +7,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.DisplayModelManager;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
@@ -43,6 +41,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.User;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
@@ -56,11 +55,10 @@ import seedu.address.websocket.Cache;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
 
-    private TimeBook timeBook = null;
+    private TimeBook timeBook;
 
     private PersonList personList;
     private GroupList groupList;
@@ -238,9 +236,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addEvent(Event event) throws EventClashException {
+        personList.getUser().addEvent(event);
+    }
+
+    @Override
     public Person editPerson(Name name, PersonDescriptor personDescriptor)
             throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException {
         return personList.editPerson(name, personDescriptor);
+    }
+
+    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException {
+        return personList.editUser(personDescriptor);
     }
 
     @Override
@@ -363,7 +370,7 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public DetailWindowDisplay getDetailWindowDisplay(){
+    public DetailWindowDisplay getDetailWindowDisplay() {
         return displayModelManager.getDetailWindowDisplay();
     }
 
@@ -380,6 +387,11 @@ public class ModelManager implements Model {
     @Override
     public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
         displayModelManager.updateDetailWindowDisplay(name, time, type, timeBook);
+    }
+
+    @Override
+    public void updateDetailWindowDisplay(LocalDateTime time, DetailWindowDisplayType type) {
+        displayModelManager.updateDetailWindowDisplay(time, type, timeBook);
     }
 
     @Override

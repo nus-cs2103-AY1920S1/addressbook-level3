@@ -37,6 +37,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.User;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
@@ -139,10 +140,21 @@ public interface Model {
     void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException;
 
     /**
+     * Adds an Event to the schedule of the User.
+     */
+    void addEvent(Event event) throws PersonNotFoundException, EventClashException;
+
+
+    /**
      * Edits the person with given Name with given PersonDescriptor.
      */
     Person editPerson(Name name, PersonDescriptor personDescriptor)
             throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException;
+
+    /**
+     * Edits the user with the given PersonDescriptor.
+     */
+    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException;
 
     /**
      * Deletes a person with given PersonId.
@@ -270,6 +282,11 @@ public interface Model {
      * Updates the current main window display with a Person's schedule.
      */
     void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type);
+
+    /**
+     * Updates the current main window display with the User's schedule.
+     */
+    void updateDetailWindowDisplay(LocalDateTime time, DetailWindowDisplayType type);
 
     /**
      * Updates the current main window display with a Group's schedule.

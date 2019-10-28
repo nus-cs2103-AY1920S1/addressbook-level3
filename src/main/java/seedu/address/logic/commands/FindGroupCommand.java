@@ -43,7 +43,9 @@ public class FindGroupCommand extends Command {
             //update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString()));
+            //return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString()));
+
+            return new CommandResult(model.getDetailWindowDisplay().freeScheduleToString());
 
         } catch (GroupNotFoundException e) {
             return new CommandResult(String.format(MESSAGE_FAILURE, groupName.toString()));

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
@@ -38,7 +37,7 @@ public class EditPersonCommand extends Command {
             + "[" + PREFIX_REMARK + "REMARK] "
             + "[" + PREFIX_TAG + "TAG]...\n";
 
-    public static final String MESSAGE_SUCCESS = "Edited Person success: %s edited";
+    public static final String MESSAGE_SUCCESS = "Edit Person success: %s edited";
     public static final String MESSAGE_FAILURE = "Unable to edit person: %s";
 
     public static final String MESSAGE_PERSON_NOT_FOUND = "Unable to find person";

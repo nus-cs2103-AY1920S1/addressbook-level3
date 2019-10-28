@@ -14,10 +14,18 @@ import seedu.address.model.person.schedule.Event;
  * List of Persons.
  */
 public class PersonList {
+
+    private User user;
     private ArrayList<Person> persons;
 
     public PersonList() {
-        this.persons = new ArrayList<Person>();
+        this.user = new User(PersonDescriptor.getDefaultUser());
+        this.persons = new ArrayList<>();
+    }
+
+    public PersonList(User user) {
+        this.user = user;
+        this.persons = new ArrayList<>();
     }
 
     /**
@@ -55,6 +63,41 @@ public class PersonList {
             }
         }
         throw new PersonNotFoundException();
+    }
+
+    /**
+     * Edits the user based on the personDescriptor.
+     *
+     * @param personDescriptor of user to be edited
+     * @return user
+     * @throws NoPersonFieldsEditedException
+     */
+    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException {
+
+        if (!personDescriptor.isAnyFieldEdited()) {
+            throw new NoPersonFieldsEditedException();
+        }
+
+        if (!personDescriptor.getName().equals(Name.emptyName())) {
+            user.setName(personDescriptor.getName());
+        }
+        if (!personDescriptor.getPhone().equals(Phone.emptyPhone())) {
+            user.setPhone(personDescriptor.getPhone());
+        }
+        if (!personDescriptor.getEmail().equals(Email.emptyEmail())) {
+            user.setEmail(personDescriptor.getEmail());
+        }
+        if (!personDescriptor.getAddress().equals(Address.emptyAddress())) {
+            user.setAddress(personDescriptor.getAddress());
+        }
+        if (!personDescriptor.getRemark().equals(Remark.emptyRemark())) {
+            user.setRemark(personDescriptor.getRemark());
+        }
+        if (personDescriptor.getTags() != null) {
+            user.addTags(personDescriptor.getTags());
+        }
+
+        return user;
     }
 
     /**
@@ -172,5 +215,9 @@ public class PersonList {
 
     public ArrayList<Person> getPersons() {
         return this.persons;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }
