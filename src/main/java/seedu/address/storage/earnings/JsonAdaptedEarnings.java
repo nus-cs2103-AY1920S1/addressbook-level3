@@ -9,6 +9,7 @@ import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.earnings.Type;
 
 /**
  * Jackson-friendly version of {@link Earnings}.
@@ -20,16 +21,18 @@ public class JsonAdaptedEarnings {
     private final String date;
     private final String classId;
     private final String amount;
+    private final String type;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedEarnings(@JsonProperty("date") String date, @JsonProperty("classId") String classId,
-                             @JsonProperty("amount") String amount) {
+                             @JsonProperty("amount") String amount, @JsonProperty("type") String type) {
         this.date = date;
         this.classId = classId;
         this.amount = amount;
+        this.type = type;
     }
 
     /**
@@ -39,6 +42,7 @@ public class JsonAdaptedEarnings {
         date = source.getDate().dateNum;
         classId = source.getClassId().value;
         amount = source.getAmount().amount;
+        type = source.getType().type;
     }
 
     /**
@@ -72,6 +76,14 @@ public class JsonAdaptedEarnings {
         }
         final Amount modelAmount = new Amount(amount);
 
-        return new Earnings(modelDate, modelClassId, modelAmount);
+        if (type == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
+        }
+        if (!Type.isValidType(type)) {
+            throw new IllegalValueException(Type.MESSAGE_CONSTRAINTS);
+        }
+        final Type modelType = new Type(type);
+
+        return new Earnings(modelDate, modelClassId, modelAmount, modelType);
     }
 }

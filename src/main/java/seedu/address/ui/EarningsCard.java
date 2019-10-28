@@ -25,6 +25,8 @@ public class EarningsCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label amount;
+    @FXML
+    private Label type;
 
     public EarningsCard(Earnings earnings, int displayedIndex) {
         super(FXML);
@@ -33,6 +35,7 @@ public class EarningsCard extends UiPart<Region> {
         classId.setText("ClassId: " + earnings.getClassId().value);
         date.setText("Date: " + earnings.getDate().dateNum);
         amount.setText("Amount: " + earnings.getAmount().amount);
+        type.setText("Type: " + earnings.getType().type);
     }
 
     @Override

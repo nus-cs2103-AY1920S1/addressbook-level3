@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,11 +22,13 @@ public class AddEarningsCommand extends Command {
 
             + "Parameters: "
             + PREFIX_DATE + "DATE "
+            + PREFIX_TYPE + "TYPE "
             + PREFIX_CLASSID + "CLASSID "
             + PREFIX_AMOUNT + "AMOUNT(in dollars) \n"
 
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "03/05/2020 "
+            + PREFIX_TYPE + "tut "
             + PREFIX_CLASSID + "CS2103T "
             + PREFIX_AMOUNT + "$55.30";
 
