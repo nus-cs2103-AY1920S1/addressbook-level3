@@ -201,12 +201,14 @@ public class ParserUtil {
                 listOfWeeks.add(new Week(i));
             }
             return listOfWeeks;
-        } else if (weeks.toLowerCase().equals("odd") || weeks.toLowerCase().equals("odd week")) { // weeks 3, 5, 7, 9, 11, 13
+        } else if (weeks.toLowerCase().equals("odd")
+                || weeks.toLowerCase().equals("odd week")) { // weeks 3, 5, 7, 9, 11, 13
             for (int i = 3; i <= 13; i += 2) {
                 listOfWeeks.add(new Week(i));
             }
             return listOfWeeks;
-        } else if (weeks.toLowerCase().equals("even") || weeks.toLowerCase().equals("even week")) { // weeks 4, 6, 8, 10, 12
+        } else if (weeks.toLowerCase().equals("even")
+                || weeks.toLowerCase().equals("even week")) { // weeks 4, 6, 8, 10, 12
             for (int i = 4; i <= 12; i += 2) {
                 listOfWeeks.add(new Week(i));
             }
@@ -215,7 +217,7 @@ public class ParserUtil {
 
         // Remove '[', ']' and blank spaces. For parsing from saved Json file.
         weeks = weeks.replace("[", "").replace("]", "").replace(" ", "");
-        
+
         // check for user input of range "x-y"
         Matcher m = PATTERN_WEEKRANGE.matcher(weeks);
         if (m.find()) {

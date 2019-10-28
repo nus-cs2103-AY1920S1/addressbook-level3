@@ -1,12 +1,10 @@
 package seedu.tarence.logic.parser;
 
 import java.util.List;
-import java.util.Map;
 
 import seedu.tarence.logic.commands.ImportCommand;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.model.util.NusModsParser;
 
 /**
  * Parses input arguments and creates a new ImportCommand object
@@ -20,7 +18,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public ImportCommand parse(String args) throws ParseException {
         List<Tutorial> importedTutorials;
         if (!validateUrlFormat(args)) {
-            throw new ParseException(ImportCommand.MESSAGE_IMPORT_FAILURE);
+            throw new ParseException(ImportCommand.MESSAGE_USAGE);
         }
         try {
             importedTutorials = NusModsParser.urlToTutorials(args);
@@ -36,8 +34,11 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public static boolean validateUrlFormat(String args) {
         int len = "https://nusmods.com/timetable/sem-1/share?".length();
         String url = args.trim();
-        return url.substring(0, len).equals("https://nusmods.com/timetable/sem-1/share?") 
-        || url.substring(0, len).contains("https://nusmods.com/timetable/sem-2/share?");
+        if (url.length() < len) {
+            return false;
+        }
+        return url.substring(0, len).equals("https://nusmods.com/timetable/sem-1/share?")
+                || url.substring(0, len).equals("https://nusmods.com/timetable/sem-2/share?");
     }
 }
 

@@ -56,7 +56,7 @@ public class SetAssignmentScoreCommandParser implements Parser<SetAssignmentScor
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetAssignmentScoreCommand.MESSAGE_USAGE));
         }
-        
+
         try {
             score = Integer.parseInt(argMultimap.getValue(PREFIX_SCORE).get());
         } catch (NumberFormatException e) {

@@ -16,14 +16,16 @@ import seedu.tarence.model.tutorial.Tutorial;
  */
 public class ImportCommand extends Command {
     public static final String MESSAGE_IMPORT_SUCCESS = "Import success";
-    public static final String MESSAGE_IMPORT_FAILURE = "Import failed; check if the url is formatted correctly";
+    public static final String MESSAGE_IMPORT_FAILURE = "Import failed: Check if the url is formatted correctly."
+            + "Otherwise, the tutorials cannot be found.";
     public static final String COMMAND_WORD = "import";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports tutorials via an NUSMods shared url.\n"
+            + "Expect a slow response the first time this command is inputted.\n"
             + "Parameters: "
-            + "NUSMODS URL"
+            + "NUSMODS URL\n"
             + "Example: " + COMMAND_WORD + " "
             + "https://nusmods.com/timetable/sem-1/share?CS1231=TUT:08,SEC:2&IS1103=TUT:19,SEC:1";
 
