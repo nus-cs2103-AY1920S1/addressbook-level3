@@ -13,6 +13,7 @@ import seedu.address.model.activity.Expense;
 class JsonAdaptedExpense {
 
     private final int personId;
+    private final int[] involvedIds;
     private final double amount;
     private final String description;
 
@@ -21,10 +22,12 @@ class JsonAdaptedExpense {
      */
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("personId") int personId, @JsonProperty("amount") double amount,
-                              @JsonProperty("description") String description) {
+                              @JsonProperty("description") String description,
+                              @JsonProperty("involvedIds") int ... involvedIds) {
         this.personId = personId;
         this.amount = amount;
         this.description = description;
+        this.involvedIds = involvedIds;
     }
 
     /**
@@ -34,6 +37,7 @@ class JsonAdaptedExpense {
         personId = source.getPersonId();
         amount = source.getAmount().value;
         description = source.getDescription();
+        involvedIds = source.getInvolved();
     }
 
     /**
@@ -47,6 +51,6 @@ class JsonAdaptedExpense {
         }
         final Amount amount = new Amount(this.amount);
 
-        return new Expense(personId, amount, description);
+        return new Expense(personId, amount, description, involvedIds);
     }
 }

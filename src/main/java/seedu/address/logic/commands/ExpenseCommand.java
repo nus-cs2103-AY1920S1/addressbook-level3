@@ -42,7 +42,7 @@ public class ExpenseCommand extends Command {
             + PREFIX_DESCRIPTION + "Bubble tea";
 
     public static final String MESSAGE_SUCCESS =
-            "Expense of %s by %s successfully created.\n  Description: %s\n  People involved: %s";
+            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n\t\t%s";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Participant search term \"%s\" has no unique search result in the current context!";
     public static final String MESSAGE_MISSING_DESCRIPTION =
