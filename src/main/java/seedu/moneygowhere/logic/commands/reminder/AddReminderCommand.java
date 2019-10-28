@@ -24,28 +24,28 @@ public class AddReminderCommand extends ReminderCommand {
 
     public static final String MESSAGE_SUCCESS = "New Reminder added: %1$s";
 
-    private final Reminder toAdd;
+    private final Reminder reminderToAdd;
 
     /**
      * Creates an AddReminderCommand to add the specified {@code reminder}
      */
     public AddReminderCommand(Reminder reminder) {
         requireNonNull(reminder);
-        toAdd = reminder;
+        reminderToAdd = reminder;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addReminder(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.addReminder(reminderToAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, reminderToAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddReminderCommand // instanceof handles nulls
-                && toAdd.equals(((AddReminderCommand) other).toAdd));
+                && reminderToAdd.equals(((AddReminderCommand) other).reminderToAdd));
     }
 }
