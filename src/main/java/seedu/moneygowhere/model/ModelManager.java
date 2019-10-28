@@ -5,6 +5,7 @@ import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -140,6 +141,11 @@ public class ModelManager implements Model {
     //=========== Reminder related functions =====================================================================
 
     @Override
+    public void deleteReminder(Reminder target) {
+        spendingBook.removeReminder(target);
+    }
+
+    @Override
     public void addReminder(Reminder reminder) {
         spendingBook.addReminder(reminder);
     }
@@ -150,9 +156,14 @@ public class ModelManager implements Model {
         return spendingBook.hasReminder(reminder);
     }
 
+    @Override
+    public List<Reminder> getReminderList() {
+        return spendingBook.getReminderList();
+    }
+
     //=========== Statistics related functions =====================================================================
     /**
-     * Returns an unmodifiable view of spending, filtered by {@code statsPredicate or graphPredicate} and sorted by date.
+     * Returns an unmodifiable view of spending, filtered by {@code statsPredicate} and sorted by date.
      *
      * @return {@code ObservableList<Spending>} of spending which fulfill the date range provided
      */

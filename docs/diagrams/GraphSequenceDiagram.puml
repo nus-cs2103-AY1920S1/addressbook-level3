@@ -55,7 +55,7 @@ deactivate SpendingBookParser
 LogicManager -> GraphCommand : execute()
 activate GraphCommand
 
-GraphCommand -> Model : updateGraphPredicate(predicate)
+GraphCommand -> Model : updateStatsPredicate(predicate)
 activate Model
 
 Model --> GraphCommand

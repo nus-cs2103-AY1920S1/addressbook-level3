@@ -564,7 +564,7 @@ For the current `graph` feature, there are 2 main commands that the user can exe
 The `GraphCommandParser` differentiates these 2 commands based on whether a valid date range is provided as illustrated in the diagram below.
 
 .Activity Diagram showing behaviour of GraphCommandParser
-image::StatsActivityDiagram.png[width="600"]
+image::GraphActivityDiagram.png[width="600"]
 
 The implementation of the Graph feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Graph mechanism behaves at each phase.
 
@@ -586,7 +586,7 @@ NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X)
 Otherwise, `GraphCommandParser` will verify whether the arguments provided were valid.
 .. If they are valid, `GraphCommand#GraphCommand(DATE_START, DATE_END)` is called to create a `GraphCommand` with the specified parameters.
 .. Else, a `ParseException` will be thrown and an error message will be shown to the user.
-4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`, which updates the `graphPredicate` in `Model`.
+4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`, which updates the `statsPredicate` in `Model`.
 
 ===== Execution
 

@@ -3,7 +3,7 @@ package seedu.moneygowhere.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.moneygowhere.commons.core.Messages.MESSAGE_SPENDINGS_LISTED_OVERVIEW;
+import static seedu.moneygowhere.commons.core.Messages.MESSAGE_SPENDING_LISTED_OVERVIEW;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moneygowhere.testutil.TypicalSpendings.CATFOOD;
 import static seedu.moneygowhere.testutil.TypicalSpendings.ENCYCLOPEDIA;
@@ -67,7 +67,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_emptyPredicate_noSpendingFound() {
-        String expectedMessage = String.format(MESSAGE_SPENDINGS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_SPENDING_LISTED_OVERVIEW, 0);
 
         List<Predicate<Spending>> predicates = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noSpendingFound() {
-        String expectedMessage = String.format(MESSAGE_SPENDINGS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_SPENDING_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
 
         List<Predicate<Spending>> predicates = new ArrayList<>();
@@ -93,7 +93,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleSpendingsFound() {
-        String expectedMessage = String.format(MESSAGE_SPENDINGS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_SPENDING_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("flight encyclopedia cat");
         List<Predicate<Spending>> predicates = new ArrayList<>();
         predicates.add(predicate);

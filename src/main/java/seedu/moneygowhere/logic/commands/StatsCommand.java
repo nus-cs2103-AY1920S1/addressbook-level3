@@ -22,14 +22,14 @@ public class StatsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD  + ": Updates the statistics panel.\n"
         + "Parameters: "
-        + PREFIX_DATE + "startDate and"
-        + PREFIX_DATE + "endDate\n"
+        + PREFIX_DATE + "DATE_START and"
+        + PREFIX_DATE + "DATE_END\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";
 
     public static final String MESSAGE_INVALID_DATERANGE = "Date range provided is invalid. "
-        + "Only 2 dates, startDate and endDate are to be provided with startDate being earlier or equal to endDate.\n"
+        + "Only 2 dates, DATE_START and DATE_END are to be provided with DATE_START being earlier or equal to DATE_END.\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";;
