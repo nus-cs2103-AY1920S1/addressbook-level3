@@ -345,6 +345,11 @@ components.
 Internally, the `Timer`
 works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate.
 
+An _Observer Pattern_ is loosly followed between the `Timer` and the other components. As opposed to defining an
+_Observable_ interface, the `AppManager` simply passes in _method pointers_ into the `Timer` to _callback_ when an
+event is triggered. The `AppManager` thus works closely with the `Timer` as the main hub to enact changes based on
+signals given by the `Timer`.
+
 [NOTE]
 To avoid
 synchronization issues with the `UI` component, all
@@ -362,6 +367,9 @@ The three main events that are currently triggered by the `Timer` component whic
 3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to retrieve a hint
 and display accordingly on the `UI`.
 
+The call-backs for each of these events are implemented as nested _Functional Interfaces_
+within the  `GameTimer` interface, which is concretized via the `GameTimerManager`.
+
 ==== Flow of Events
 
 This section describes the sequential flow of events in the life cycle of a `GameTimer` object.
@@ -373,6 +381,10 @@ The `UI` component first registers callbacks with the `AppManager`, who then reg
 the `Timer` component. Periodically, the `Timer` will notify the `AppManager` to perform tasks to notify
 the `UI` component. This is to provide better abstraction between the `UI` and `Timer`.
 
+A `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
+The `AppManager` provides information regarding the duration in which the `Timer` should run for, and whether
+to trigger `Hints` at the point when a `GameTimer` instance is created.
+
 ==== Design Considerations
 
 There were a few considerations for designing the `Timer` this way.
@@ -380,36 +392,29 @@ There were a few considerations for designing the `Timer` this way.
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
-Where to effect change when a setting is changed by the user
-| **Effecting the change inside the `execute()` command of the settings commands**: +
+Where and How to effect changes to the `Ui` and other components when the `Timer` triggers an event.
+| **Holding a reference to `Ui` and other components directly inside `GameTimer` itself**: +
+
 _Pros:_ +
-Since the Command is taking care of all the execution, there is no need to worry about extra implementation of the settings' effects in their classes. +
+Straightforward and direct, can perform many different tasks on the dependent components.  +
+
 _Cons:_ +
-However, there are certain situations that will break software design principles, such as the *Single Responsibility Principle* by doing the job of already existing classes.
-|**Effecting the change in the part of the architecture that the setting is affecting. E.g, Changing the theme inside Ui or changing the difficulty inside model** +
+Poor abstraction and high potential for cyclic dependencies, resulting in high coupling.
+
+|**Using _Functional Interfaces_ as Call-backs to notify components indirectly.** +
+
 _Pros:_ +
-This method practises good software engineering principles and it abides by the architecture diagram shown above as to where the changes of the settings are being effected. +
+Maintains abstraction and minimal coupling between `Timer` and other components  +
+
 _Cons:_ +
-This method however requires that the reader gets familiar with the whole architecture diagram as they need to know where to implement the actual change in settings as opposed to creating a new class that performs the same functionality of an existing class.
+Relies on developer to register correct call-back methods with the `Timer`. Different actions need to be
+implemented as different call-backs separately. Possible overhead in performing few levels of call-backs.
 
 3+|**Why did we choose Alternative 2:** +
-We believe that software design principles exist for a reason. Furthermore, while alternative 1 may seem a lot simpler, Alternative 2 allows for extension just by adding new methods and refrains the user from having to extensively rework the structure of the application in order to add a new setting.
-
-|**Aspect 2:** +
-How to store information regarding the different settings
-| **Storing it inside the enumerations that make up the choices for the settings** +
-_Pros:_ +
-Having the information stored inside the enum allows for immutablilty, such that no other class can change the properties of the enums. Only the developer can change the values of the enums and it will subsequently affect all the methods and functionality that relies on said enum. +
-_Cons:_ +
-In the case that the user wants to customise certain continuous settings such as time limit, they are unable to as those settings are already defined by the developer to be discrete options.
-| **Storing it inside the classes that implement the settings** +
-_Pros_ +
-The information is easily accessible from within the class itself and there is no need for extra import classes to handle the enums in alternative 1. +
-_Cons_ +
-Unlike Alternative 1, the developer can create an extension to the class implementing the setting to allow the user to customise their settings even further, allowing for continuous values to be used rather than discrete values.
-3+| **Why did we choose Alternative 1:** +
-The considerations for this aspect was mainly down to how much customisability we wanted to grant our users. While having more customisability is better in some cases,
-in this one, we do not think the added functionality of allowing the user to extensively customise their experience with our application to be particularly impactful not necessary. Moreover, alternative 2 makes for a less organised code base and we wanted to avoid that as much as possible.
+To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
+abstraction between components. This is also to make life easier when there comes a need to
+debug and resolve problems in the code.
+ +
 |===
 
 
