@@ -50,6 +50,23 @@ public class Question {
         return answer;
     }
 
+    public Answer getMockAnswer() {
+        String answerValue = answer.value;
+        int answerLength = answerValue.length();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < answerLength; i++) {
+            if (answerValue.charAt(i) == ' ') {
+                sb.append(' ');
+            } else {
+                sb.append('*');
+            }
+        }
+
+        return new Answer(sb.toString());
+    }
+
     public Category getCategory() {
         return category;
     }

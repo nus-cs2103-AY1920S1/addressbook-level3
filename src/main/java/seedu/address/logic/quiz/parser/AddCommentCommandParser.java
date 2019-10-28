@@ -17,6 +17,8 @@ public class AddCommentCommandParser implements Parser<AddCommentCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommentCommand parse(String args) throws ParseException {
+        Index index;
+        String comment;
         String trimmedArgs = args.trim();
         String[] arrParameters = trimmedArgs.split(" <val>");
 
@@ -24,9 +26,6 @@ public class AddCommentCommandParser implements Parser<AddCommentCommand> {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommentCommand.MESSAGE_USAGE));
         }
-
-        Index index;
-        String comment;
 
         try {
             index = ParserUtil.parseIndex(arrParameters[0]);

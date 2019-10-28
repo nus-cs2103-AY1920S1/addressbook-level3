@@ -28,7 +28,7 @@ public class SampleDataUtil {
                 getTagSet("general", "trivia")),
             new Question(new Name("If you have a bowl with six apples and you take away four, how many do you have?"),
                 new Comment("The explanation is on lecture 10"), new Answer("Four"),
-                new Category("CS2132"), new Type("medium"),
+                new Category("CS2132"), new Type("normal"),
                 getTagSet("tutorial")),
             new Question(new Name("What is it that goes up, but never comes down?"),
                 new Comment("The explanation is on lecture 20"), new Answer("Age"),
