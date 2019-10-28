@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.model.recipe.components.UniqueRecipeList;
 import javafx.collections.ObservableList;
 

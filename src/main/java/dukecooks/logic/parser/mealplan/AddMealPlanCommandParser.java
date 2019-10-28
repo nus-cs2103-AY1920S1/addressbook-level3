@@ -22,7 +22,6 @@ import dukecooks.logic.parser.Prefix;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanName;
-import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
 
 /**

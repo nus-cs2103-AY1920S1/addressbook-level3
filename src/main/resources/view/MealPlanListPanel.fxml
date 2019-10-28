@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Meal Plan Overview" textFill="#797373">
       <font>

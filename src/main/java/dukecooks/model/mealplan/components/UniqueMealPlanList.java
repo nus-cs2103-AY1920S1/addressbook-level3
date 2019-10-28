@@ -13,10 +13,10 @@ import javafx.collections.ObservableList;
 
 /**
  * A list of meal plans that enforces uniqueness between its elements and does not allow nulls.
- * A meal plan is considered unique by comparing using {@code MealPlan#isSamemeal plan(MealPlan)}. As such, adding and updating of
- * meal plans uses MealPlan#isSameMealPlan(MealPlan) for equality so as to ensure that the meal plan being added or updated is
- * unique in terms of identity in the UniqueMealPlanList. However, the removal of a meal plan uses MealPlan#equals(Object) so
- * as to ensure that the meal plan with exactly the same fields will be removed.
+ * A meal plan is considered unique by comparing using {@code MealPlan#isSamemeal plan(MealPlan)}. As such, adding and
+ * updating of meal plans uses MealPlan#isSameMealPlan(MealPlan) for equality so as to ensure that the meal plan being
+ * added or updated is unique in terms of identity in the UniqueMealPlanList. However, the removal of a meal plan uses
+ * MealPlan#equals(Object) so as to ensure that the meal plan with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -68,6 +68,11 @@ public class UniqueMealPlanList implements Iterable<MealPlan> {
         internalList.set(index, editedMealPlan);
     }
 
+    public void setMealPlan(UniqueMealPlanList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
     /**
      * Removes the equivalent meal plan from the list.
      * The meal plan must exist in the list.
@@ -77,11 +82,6 @@ public class UniqueMealPlanList implements Iterable<MealPlan> {
         if (!internalList.remove(toRemove)) {
             throw new MealPlanNotFoundException();
         }
-    }
-
-    public void setMealPlan(UniqueMealPlanList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
     }
 
     /**

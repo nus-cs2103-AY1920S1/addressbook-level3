@@ -39,12 +39,14 @@ public class AddMealPlanCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New meal plan added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEALPLAN = "This meal plan already exists in Duke Cooks";
 
-    private static final Set<Ingredient> DUMMY_INGREDIENTS = new HashSet<>(Arrays.
-            asList(new Ingredient("DUMMY")));
+    private static final Set<Ingredient> DUMMY_INGREDIENTS = new HashSet<>(Arrays
+            .asList(new Ingredient("DUMMY")));
     private static final Calories DUMMY_CALORIES = new Calories("0");
     private static final Carbs DUMMY_CARBS = new Carbs("0");
     private static final Fats DUMMY_FATS = new Fats("0");
     private static final Protein DUMMY_PROTEIN = new Protein("0");
+
+    private static Event event;
 
     private final MealPlan toAdd;
 
@@ -55,8 +57,6 @@ public class AddMealPlanCommand extends AddCommand {
     private final List<RecipeName> toCheckDay5;
     private final List<RecipeName> toCheckDay6;
     private final List<RecipeName> toCheckDay7;
-
-    private static Event event;
 
     /**
      * Creates an AddRecipeCommand to add the specified {@code MealPlanBook}

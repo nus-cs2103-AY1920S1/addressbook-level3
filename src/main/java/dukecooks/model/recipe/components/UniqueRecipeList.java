@@ -79,6 +79,10 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
     }
 
+    /**
+     * Retrieves the equivalent recipe from the list according to {@code RecipeName} of the Recipe.
+     * The recipe must exist in the list.
+     */
     public Recipe retrieve(Recipe recipe) {
         requireNonNull(recipe);
 
@@ -86,7 +90,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         boolean found = false;
         while (i < internalList.size()) {
             Recipe curr = internalList.get(i);
-            if (curr.isSameRecipe(recipe)){
+            if (curr.isSameRecipe(recipe)) {
                 found = true;
                 break;
             }

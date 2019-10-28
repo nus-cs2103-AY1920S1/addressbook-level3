@@ -27,9 +27,9 @@ public class DeleteMealPlanCommand extends DeleteCommand {
 
     public static final String MESSAGE_DELETE_MEALPLAN_SUCCESS = "Deleted MealPlanBook: %1$s";
 
-    private final Index targetIndex;
-
     private static Event event;
+
+    private final Index targetIndex;
 
     public DeleteMealPlanCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

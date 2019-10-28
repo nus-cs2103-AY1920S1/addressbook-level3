@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.model.health.components.Record;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -7,7 +7,6 @@ import dukecooks.logic.commands.ClearCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.model.Model;
 import dukecooks.model.mealplan.MealPlanBook;
-import dukecooks.model.recipe.RecipeBook;
 
 /**
  * Clears Duke Cooks.

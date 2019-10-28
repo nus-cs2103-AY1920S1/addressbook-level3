@@ -42,9 +42,9 @@ public class AddRecipeCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in Duke Cooks";
 
-    private final Recipe toAdd;
-
     private static Event event;
+
+    private final Recipe toAdd;
 
     /**
      * Creates an AddRecipeCommand to add the specified {@code Recipe}

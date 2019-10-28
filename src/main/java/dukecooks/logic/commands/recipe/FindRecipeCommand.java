@@ -22,9 +22,9 @@ public class FindRecipeCommand extends FindCommand {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " chicken noodle";
 
-    private final RecipeNameContainsKeywordsPredicate predicate;
-
     private static Event event;
+
+    private final RecipeNameContainsKeywordsPredicate predicate;
 
     public FindRecipeCommand(RecipeNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;

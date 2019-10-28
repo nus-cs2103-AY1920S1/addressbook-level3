@@ -77,7 +77,8 @@ public class MealPlanBook implements ReadOnlyMealPlanBook {
     /**
      * Replaces the given meal plan {@code target} in the list with {@code editedMealPlan}.
      * {@code target} must exist in Duke Cooks.
-     * The meal plan identity of {@code editedMealPlan} must not be the same as another existing meal plan in Duke Cooks.
+     * The meal plan identity of {@code editedMealPlan} must not be the same
+     * as another existing meal plan in Duke Cooks.
      */
     public void setMealPlan(MealPlan target, MealPlan editedMealPlan) {
         requireNonNull(editedMealPlan);
