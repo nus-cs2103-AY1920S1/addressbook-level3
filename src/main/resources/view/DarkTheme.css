@@ -395,7 +395,7 @@
 
 .moduleTaskCard {
     -fx-background-color: #9e9edb;
-    -fx-padding: 0 5 0 5;
+    -fx-padding: 5 5 5 10;
     -fx-border-color: white;
     -fx-border-width: 1;
     -fx-border-radius: 10;
@@ -412,7 +412,7 @@
 
 .todoTaskCard {
     -fx-background-color: #ffcccc;
-    -fx-padding: 0 5 0 5;
+    -fx-padding: 5 5 5 10;
     -fx-border-color: white;
     -fx-border-width: 1;
     -fx-border-radius: 10;

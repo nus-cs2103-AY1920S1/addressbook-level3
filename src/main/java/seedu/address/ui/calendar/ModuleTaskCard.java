@@ -36,8 +36,6 @@ public class ModuleTaskCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label address;
     @FXML
     private Label email;
@@ -49,7 +47,6 @@ public class ModuleTaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getTaskTitle().fullName);
-        phone.setText(task.getTaskDay().value);
         address.setText(task.getTaskTime().value);
         email.setText(task.getTaskDescription().value);
         task.getTaskTags().stream()

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.ReadOnlyCalendarAddressBook;
 import seedu.address.model.calendar.tag.TaskTag;
+import seedu.address.model.calendar.task.ModuleTask;
 import seedu.address.model.calendar.task.Task;
 import seedu.address.model.calendar.task.TaskDay;
 import seedu.address.model.calendar.task.TaskDeadline;
@@ -29,7 +30,7 @@ public class SampleDataUtil {
                 new TaskDescription("Update documentation"),
                 new TaskDeadline("20-03-2010"),
                 new TaskTime("12:35"), getTagSet("BUG"), 0),
-            new ToDoTask(new TaskTitle("CS2100 Lab"), new TaskDay("wednesday"),
+            new ModuleTask(new TaskTitle("CS2100 Lab"), new TaskDay("wednesday"),
                 new TaskDescription("Prepare diagram"),
                 new TaskDeadline("12-10-2015"),
                 new TaskTime("15:00"), getTagSet("CS2100"), 0),
@@ -45,7 +46,7 @@ public class SampleDataUtil {
                 new TaskDescription("Before midnight"),
                 new TaskDeadline("12-10-2014"),
                 new TaskTime("09:00"), getTagSet("CS2100"), 0),
-            new ToDoTask(new TaskTitle("CS2109 Lab"), new TaskDay("thursday"),
+            new ModuleTask(new TaskTitle("CS2109 Lab"), new TaskDay("thursday"),
                 new TaskDescription("Bring calculator"),
                 new TaskDeadline("12-10-2013"),
                 new TaskTime("09:00"), getTagSet("CS2109"), 0)
