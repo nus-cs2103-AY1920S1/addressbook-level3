@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -33,6 +36,10 @@ import seedu.address.logic.commands.ui.ViewPanelCommand;
 public class AliasMappings implements Serializable {
 
     private Map<String, Alias> aliasNameToAliasMap;
+    private static final String NON_MATCHING_KEY = "Alias' key must be the Alias' name.";
+    private static final String RESERVED_NAME = "Alias cannot use a name reserved by a built-in command.";
+    private static final String NULL_VALUE = "Either Alias or key is null.";
+
 
     private static final List<String> RESERVED_COMMAND_WORDS = List.of(
             // event
@@ -104,6 +111,45 @@ public class AliasMappings implements Serializable {
     public boolean aliasCommandWordIsAlias(Alias alias) {
         String commandWord = alias.getCommandWord();
         return aliasWithNameExists(commandWord);
+    }
+
+    public void validate() throws IllegalValueException, RecursiveAliasException {
+        for (Map.Entry<String, Alias> entry : aliasNameToAliasMap.entrySet()) {
+            Alias a = entry.getValue();
+            String aliasName = entry.getKey();
+            // alias' key is not alias name
+            if (a == null || aliasName == null) {
+                throw new IllegalValueException(NULL_VALUE);
+            }
+            if (!aliasName.equals(a.getAliasName())) {
+                throw new IllegalValueException(NON_MATCHING_KEY);
+            }
+            // alias name is reserved
+            if (aliasUsesReservedName(a)) {
+                throw new IllegalValueException(RESERVED_NAME);
+            }
+        }
+        // ensure non recursive
+        checkIfRecursive();
+    }
+
+    public void checkIfRecursive() throws RecursiveAliasException {
+        // ensure that all aliases that are chained do not chain to themselves.
+        for (Alias a : aliasNameToAliasMap.values()) {
+            Set<String> visited = new HashSet<>();
+            String currentAlias = a.getAliasName();
+            String nextCommand = a.getCommandWord();
+            // while this alias chains to another alias
+            while (aliasNameToAliasMap.containsKey(nextCommand)) {
+                // if the chain returns to a visited alias
+                if (visited.contains(currentAlias)) {
+                    throw new RecursiveAliasException(aliasNameToAliasMap.get(currentAlias));
+                }
+                visited.add(currentAlias);
+                currentAlias = nextCommand;
+                nextCommand = aliasNameToAliasMap.get(nextCommand).getCommandWord();
+            }
+        }
     }
 
     @Override

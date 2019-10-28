@@ -56,7 +56,12 @@ public class CommandBox extends UiPart<Region> {
      */
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            String input = commandTextField.getText();
+            // do not execute if input is blank
+            if (input.isEmpty()) {
+                return;
+            }
+            commandExecutor.execute(input);
             commandTextField.clear();
         } catch (CommandException | ParseException | UnmappedPanelException e) {
             setStyleToIndicateCommandFailure();

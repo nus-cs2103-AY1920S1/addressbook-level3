@@ -68,7 +68,3 @@
 .arg4 {
     -fx-fill: #690700;
 }
-
-.paragraph-box:has-caret {
-    /*-fx-background-color: #f2f9fc;*/
-}

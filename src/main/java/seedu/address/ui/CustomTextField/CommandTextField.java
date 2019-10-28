@@ -53,6 +53,7 @@ public class CommandTextField extends Region {
     private static final String COMMAND_WORD_STYLE = "command-word";
     private static final String PLACEHOLDER_STYLE = "placeholder";
     private static final String STRING_STYLE = "string";
+    private static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
 
     private static InputMap<Event> consumeCopyPasteEvent = InputMap.consume(EventPattern.anyOf(
             keyPressed(C, SHIFT_ANY, SHORTCUT_DOWN),
@@ -104,6 +105,8 @@ public class CommandTextField extends Region {
         });
 
         // to overlay elements
+        functionalTextField.setBackground(Background.EMPTY);
+        functionalTextField.setOpacity(0.0);
         StackPane stackPane = new StackPane();
         stackPane.setId("SyntaxBox"); // for css styling css
         stackPane.getChildren().addAll(visibleTextArea, functionalTextField);
@@ -195,8 +198,7 @@ public class CommandTextField extends Region {
     public void importStyleSheet(Scene parentSceneOfNode) {
         parentSceneOfNode
                 .getStylesheets()
-                .add(CommandTextField.class.getResource("/view/syntax-highlighting.css")
-                        .toExternalForm());
+                .add(CommandTextField.class.getResource("/view/syntax-highlighting.css").toExternalForm());
         enableSyntaxHighlighting();
     }
 
