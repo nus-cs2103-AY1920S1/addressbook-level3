@@ -38,7 +38,7 @@ public class DeleteExpenseReminderCommand extends Command {
         List<ExpenseReminder> lastShownList = model.getFilteredExpenseReminders();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         ExpenseReminder entryToDelete = lastShownList.get(targetIndex.getZeroBased());

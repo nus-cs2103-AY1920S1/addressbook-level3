@@ -70,7 +70,7 @@ public class EditIncomeCommand extends Command {
         List<Income> lastShownList = model.getFilteredIncomes();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Income entryToEdit = lastShownList.get(index.getZeroBased());
