@@ -16,6 +16,8 @@ public class StatisticsAddCommand extends StatisticsCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates Statistics Report\n"
             + "Parameters:\n"
             + "file/{relative/full excel file path}\n"
+            + "print/Class 6A.png\n"
+            + "Note: the print field is optional\n"
             + "Example: statistics file/C:\\Users\\MyUser\\Desktop\\SampleData.xlsx\n";
 
     public static final String MESSAGE_SUCCESS = "Statistics Generated";
@@ -39,7 +41,7 @@ public class StatisticsAddCommand extends StatisticsCommand {
         requireNonNull(model);
         model.addStatistics(toAdd);
         CommandResultType statisticsCommandResult = CommandResultType.SHOW_STATISTIC;
-        setPrintableAttributes(statisticsCommandResult);
+        setPrintableAttributes(statisticsCommandResult); //delay printable task to later to utilize javafx Node.
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), statisticsCommandResult);
     }
 
