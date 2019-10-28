@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
 
@@ -49,6 +50,6 @@ public class ListNoteCommand extends Command {
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         List<Note> lastShownList = model.getFilteredNoteList();
         String outputString = formatOutputListString(lastShownList);
-        return new CommandResult(outputString);
+        return new NoteCommandResult(outputString);
     }
 }

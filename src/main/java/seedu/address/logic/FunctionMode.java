@@ -22,6 +22,12 @@ public enum FunctionMode {
         }
     },
 
+    TIMETRIAL {
+        public String toString() {
+            return "timetrial";
+        }
+    },
+
     UNDEFINED {
         public String toString() {
             return "undefined";

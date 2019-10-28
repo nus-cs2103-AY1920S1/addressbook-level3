@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
@@ -50,7 +51,7 @@ public class DeleteFlashcardCommand extends Command {
         }
         Flashcard flashcardToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteFlashcard(flashcardToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
+        return new FlashcardCommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
     }
 
     @Override

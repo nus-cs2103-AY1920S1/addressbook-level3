@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,8 +18,8 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.FunctionMode;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -282,22 +282,27 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+        public ArrayList<String> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ArrayList<CheatSheet> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
+        public ArrayList<String> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ArrayList<Flashcard> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
+        public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ArrayList<Note> collectTaggedNotes(Predicate<Note> predicate) {
+        public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

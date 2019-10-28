@@ -1,40 +1,39 @@
-package seedu.address.logic.commands.flashcard;
+package seedu.address.logic.commands.global;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.FILTER;
+import static seedu.address.commons.core.Messages.FILTER_ALL;
 
 import java.util.ArrayList;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
+import seedu.address.model.StudyBuddyItemContainsTagPredicate;
 
 /**
- * Command to filter flashcard(s) with the related tag(s).
+ * Globally searches for any StudyBuddyItem that has tags which matches the user input of keywords.
  */
 
-public class FilterFlashcardByTagCommand extends Command {
+public class FilterAllByTagCommand extends Command {
 
-    public static final String COMMAND_WORD = FILTER;
+    public static final String COMMAND_WORD = FILTER_ALL;
 
-    public static final String MESSAGE_USAGE = "filter by tags. Find all "
-            + "related flashcards with the specified \n"
-            + "tags. Example : filter tag/hard tag/cs2101";
+    public static final String MESSAGE_USAGE = "lists every studyBuddy item filtered by tag(s)."
+            + "\nexample usage : filterall tag/cs2100 tag/important";
 
-    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter flashcards by tag(s) : ";
+    public static final String FILTER_TAG_MESSAGE_SUCCESS = "List the whole StudyBuddy by tag(s) : ";
 
     private ArrayList<String> tagKeywords;
 
-    private final FlashcardContainsTagPredicate tagPredicate;
+    private final StudyBuddyItemContainsTagPredicate tagPredicate;
 
     /**
      * Constructor for filter by tag.
      * @param predicate to test on an note object to see if it has the tag.
      * @param tagKeywords the tags provided by user input to test on the note.
      */
-    public FilterFlashcardByTagCommand(FlashcardContainsTagPredicate predicate, ArrayList<String> tagKeywords) {
+    public FilterAllByTagCommand(StudyBuddyItemContainsTagPredicate predicate, ArrayList<String> tagKeywords) {
         this.tagPredicate = predicate;
         this.tagKeywords = tagKeywords;
     }
@@ -60,15 +59,14 @@ public class FilterFlashcardByTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ArrayList<String> taggedFlashcardResult = model.collectTaggedFlashcards(tagPredicate);
-        //model.updateFilteredFlashcardList(tagPredicate);
+        ArrayList<String> tagListResult = model.collectTaggedItems(tagPredicate);
         StringBuilder sb = new StringBuilder("");
-        for (String s : taggedFlashcardResult) {
+        for (String s : tagListResult) {
             sb.append(s);
             sb.append("\n");
         }
 
-        return new FlashcardCommandResult(FILTER_TAG_MESSAGE_SUCCESS
+        return new GlobalCommandResult(FILTER_TAG_MESSAGE_SUCCESS
                 + "\n" + showTagQueries()
                 + "\n" + sb.toString());
     }

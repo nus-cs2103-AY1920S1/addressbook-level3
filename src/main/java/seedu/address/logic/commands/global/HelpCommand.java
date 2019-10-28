@@ -1,5 +1,8 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.global;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.Model;
 
 /**
@@ -16,6 +19,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        return new GlobalCommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }
