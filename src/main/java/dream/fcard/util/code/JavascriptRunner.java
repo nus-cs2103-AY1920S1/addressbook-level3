@@ -1,7 +1,9 @@
 package dream.fcard.util.code;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.tools.shell.Global;
@@ -40,10 +42,22 @@ public class JavascriptRunner {
         Context cx = Context.enter();
         try {
             Global g = new Global(cx);
-            Object result = cx.evaluateString(g, code, "<cmd>", 1, null);
-            return Context.toString(result);
+            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+            PrintStream printStream = new PrintStream(bs);
+            g.setOut(printStream);
+            Object result = cx.evaluateString(g, code, "cmd", 1, null);
+            String evaluatedObject = Context.toString(result);
+            String consoleLogs = bs.toString();
+            if (consoleLogs.isBlank()) {
+                return evaluatedObject;
+            } else {
+                return consoleLogs;
+            }
+        } catch (Exception e) {
+            return e.toString();
         } finally {
             Context.exit();
         }
     }
+
 }
