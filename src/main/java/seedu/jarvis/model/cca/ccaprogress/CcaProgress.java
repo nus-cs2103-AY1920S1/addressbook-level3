@@ -5,6 +5,7 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
+import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
 /**
  * Represents the progress of a CCA.
@@ -22,8 +23,15 @@ public class CcaProgress {
         return ccaMilestoneList;
     }
 
-    public CcaCurrentProgress getCcaCurrentProgress() {
+    public CcaCurrentProgress getCcaCurrentProgress() throws MaxProgressNotSetException {
         return ccaCurrentProgress;
+    }
+
+    /**
+     * Gets the current progress percentage of the Cca.
+     */
+    public double getCcaProgressPercentage() {
+        return ccaCurrentProgress.getProgressPercentage();
     }
 
     /**

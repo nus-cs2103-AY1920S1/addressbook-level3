@@ -76,6 +76,8 @@ public class CcaCurrentProgress {
         if (isNotSet(maxProgress)) {
             throw new MaxProgressNotSetException();
         }
+
+        System.out.println(currentProgress / maxProgress);
         return currentProgress / maxProgress;
     }
 

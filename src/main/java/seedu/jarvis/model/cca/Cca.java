@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
+import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
 /**
  * Represents a Cca in the Jarvis parser.
@@ -98,6 +99,13 @@ public class Cca {
      */
     public boolean progressAtMaxIncrement() {
         return ccaProgress.progressAtMax();
+    }
+
+    /**
+     * Gets the current progress percentage of the Cca.
+     */
+    public double getCcaProgressPercentage() throws MaxProgressNotSetException {
+        return ccaProgress.getCcaProgressPercentage();
     }
 
     /**
