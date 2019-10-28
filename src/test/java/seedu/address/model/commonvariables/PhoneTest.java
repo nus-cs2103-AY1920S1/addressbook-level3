@@ -1,4 +1,4 @@
-package seedu.address.model.contact;
+package seedu.address.model.commonvariables;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
