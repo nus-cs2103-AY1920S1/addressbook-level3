@@ -20,7 +20,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.question.Question;
 import seedu.address.model.student.Student;
 
 /**
@@ -41,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private StudentListPanel studentListPanel;
     private QuestionListPanel questionListPanel;
     private QuestionListPanel searchQuestionListPanel;
+    private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private SlideshowWindow slideShowWindow;
@@ -201,14 +201,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleQuizQuestions() {
-        quizWindow = new QuizWindow();
-        ObservableList<Question> questions = logic.getQuestionsInQuiz();
-        quizWindow.setQuestionsInQuiz(questions);
-        if (!quizWindow.isShowing()) {
-            quizWindow.show();
-        } else {
-            quizWindow.focus();
-        }
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.QUESTIONS);
+        mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+        quizQuestionListPanel.getRoot().toFront();
     }
 
     /**
@@ -216,14 +211,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleQuizAnswers() {
-        quizWindow = new QuizWindow();
-        ObservableList<Question> questions = logic.getQuestionsInQuiz();
-        quizWindow.setAnswersInQuiz(questions);
-        if (!quizWindow.isShowing()) {
-            quizWindow.show();
-        } else {
-            quizWindow.focus();
-        }
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.ANSWERS);
+        mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+        quizQuestionListPanel.getRoot().toFront();
     }
 
     /**
@@ -231,14 +221,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleQuizAll() {
-        quizWindow = new QuizWindow();
-        ObservableList<Question> questions = logic.getQuestionsInQuiz();
-        quizWindow.setQuestionsAndAnswersInQuiz(questions);
-        if (!quizWindow.isShowing()) {
-            quizWindow.show();
-        } else {
-            quizWindow.focus();
-        }
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.ALL);
+        mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+        quizQuestionListPanel.getRoot().toFront();
     }
 
     /**
