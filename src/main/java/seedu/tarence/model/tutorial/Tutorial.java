@@ -158,6 +158,9 @@ public class Tutorial {
             return tutorialEvents;
         }
         Week currWeek = timeTable.getCurrWeek();
+        if (currWeek == null) {
+            return tutorialEvents;
+        }
         Calendar startEvent = new Calendar.Builder().setInstant(Module.getSemStart()).build();
         startEvent.set(Calendar.DAY_OF_WEEK, timeTable.getDay().getValue());
         startEvent.set(Calendar.HOUR, timeTable.getStartTime().getHour());

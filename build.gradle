@@ -69,6 +69,7 @@ dependencies {
     implementation 'me.xdrop:fuzzywuzzy:1.2.0'
 
     compile "com.opencsv:opencsv:4.0"
+    compile group: 'com.google.code.gson', name: 'gson', version:'2.7'
 }
 
 shadowJar {

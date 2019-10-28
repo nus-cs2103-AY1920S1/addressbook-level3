@@ -171,10 +171,14 @@ public class ParserUtil {
      */
     public static LocalTime parseLocalTime(String localTime) throws ParseException {
         requireNonNull(localTime);
-        if (localTime.length() != 4) {
+        if (localTime.length() > 4) {
             throw new ParseException("Time entered should be in 24HR format eg 0900");
         }
-
+        try {
+            localTime = String.format("%04d", Integer.parseInt(localTime));
+        } catch (NumberFormatException e) {
+            throw new ParseException("Time entered should be in 24HR format eg 0900");
+        }
         // Converts a string from '1200' to '12:00:00'.
         localTime = localTime.substring(0, 2) + ":" + localTime.substring(2, 4) + ":00";
 
@@ -192,22 +196,27 @@ public class ParserUtil {
         requireNonNull(weeks);
         Set<Week> listOfWeeks = new TreeSet<>();
 
-        // Remove '[', ']' and blank spaces. For parsing from saved Json file.
-        weeks = weeks.replace("[", "").replace("]", "").replace(" ", "");
-
-
-        // check for user input of "odd" or "even"
-        if (weeks.toLowerCase().equals("odd")) { // weeks 3, 5, 7, 9, 11, 13
+        if (weeks.toLowerCase().equals("every week")) {
+            for (int i = 3; i <= 13; i += 1) {
+                listOfWeeks.add(new Week(i));
+            }
+            return listOfWeeks;
+        } else if (weeks.toLowerCase().equals("odd")
+                || weeks.toLowerCase().equals("odd week")) { // weeks 3, 5, 7, 9, 11, 13
             for (int i = 3; i <= 13; i += 2) {
                 listOfWeeks.add(new Week(i));
             }
             return listOfWeeks;
-        } else if (weeks.toLowerCase().equals("even")) { // weeks 4, 6, 8, 10, 12
+        } else if (weeks.toLowerCase().equals("even")
+                || weeks.toLowerCase().equals("even week")) { // weeks 4, 6, 8, 10, 12
             for (int i = 4; i <= 12; i += 2) {
                 listOfWeeks.add(new Week(i));
             }
             return listOfWeeks;
         }
+
+        // Remove '[', ']' and blank spaces. For parsing from saved Json file.
+        weeks = weeks.replace("[", "").replace("]", "").replace(" ", "");
 
         // check for user input of range "x-y"
         Matcher m = PATTERN_WEEKRANGE.matcher(weeks);

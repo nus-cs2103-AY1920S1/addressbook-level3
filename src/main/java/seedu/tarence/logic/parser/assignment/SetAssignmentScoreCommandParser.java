@@ -46,14 +46,17 @@ public class SetAssignmentScoreCommandParser implements Parser<SetAssignmentScor
         if (validateModCodeTutNameFormat(argMultimap)) {
             modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
             tutName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIAL_NAME).get());
+            assignIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
+            studentIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(1));
         } else if (validateTutIndexFormat(argMultimap)) {
             tutIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
+            assignIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(1));
+            studentIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(2));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetAssignmentScoreCommand.MESSAGE_USAGE));
         }
-        assignIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(1));
-        studentIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(2));
+
         try {
             score = Integer.parseInt(argMultimap.getValue(PREFIX_SCORE).get());
         } catch (NumberFormatException e) {
