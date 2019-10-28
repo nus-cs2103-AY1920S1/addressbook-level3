@@ -62,7 +62,7 @@ public class TypicalCards {
      * Returns a {@code WordBank} with all the typical cards.
      */
     public static WordBank getTypicalWordBank() {
-        WordBank wb = new WordBank(SAMPLE_ID);
+        WordBank wb = new WordBank("sample");
         for (Card card : getTypicalCards()) {
             wb.addCard(card);
         }

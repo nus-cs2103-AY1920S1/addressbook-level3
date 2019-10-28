@@ -34,13 +34,24 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     private Path wordBanksFilePath; // default : data/wordBanks
 
     /**
-     * Storage that contains all information related to word banks.
+     * Creates information related to word banks.
      * It also initialises the folder and sample data if necessary.
      *
      * @param filePath of storage. By default, it is at data folder.
      */
-    public JsonWordBankListStorage(Path filePath) {
-        initData(filePath);
+    public JsonWordBankListStorage(Path filePath) throws DataConversionException, IllegalValueException {
+        initDataByDefault(filePath);
+        initWordBankList();
+    }
+
+    /**
+     * Creates information related to word bank at specified folder.
+     *
+     * @param filePath of storage. By default, it is at data folder.
+     * @param folder specifies another layer of folder to contain word banks.
+     */
+    public JsonWordBankListStorage(Path filePath, String folder) throws DataConversionException, IllegalValueException {
+        initData(filePath, folder);
         initWordBankList();
     }
 
@@ -51,11 +62,26 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      *
      * @param filePath of storage. By default, it is data.
      */
-    private void initData(Path filePath) {
-        wordBanksFilePath = Paths.get(filePath.toString(), "wordBanks");
+    private void initDataByDefault(Path filePath) {
+        initData(filePath, "wordBanks");
+    }
+
+    /**
+     * Creates the wordBanks folder if it has not been initialised.
+     * By default, it is located at data/wordBanks
+     * Also creates a sample.json file if there are no word banks when initialising.
+     *
+     * @param filePath of storage. By default, it is data.
+     */
+    private void initData(Path filePath, String folder) {
+        if (folder.equals("")) {
+            wordBanksFilePath = filePath;
+        } else {
+            wordBanksFilePath = Paths.get(filePath.toString(), folder);
+        }
         try {
-            if (!filePath.toFile().exists()) {
-                Files.createDirectory(filePath);
+            if (!wordBanksFilePath.toFile().exists()) {
+                Files.createDirectory(wordBanksFilePath);
             }
             if (!wordBanksFilePath.toFile().exists()) {
                 Files.createDirectory(wordBanksFilePath);
@@ -68,7 +94,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         String[] wordBanks = wordBanksDirectory.list();
         boolean haveSampleWordBank = false;
         for (int i = 0; i < wordBanks.length; i++) {
-            if (wordBanks[i].equals(SampleDataUtil.getName())) {
+            if (wordBanks[i].equals(SampleDataUtil.getName() + ".json")) {
                 haveSampleWordBank = true;
                 break;
             }
@@ -84,7 +110,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Initialise word bank list from the word banks directory on creation
      * All json files will initialise a word bank.
      */
-    private void initWordBankList() {
+    private void initWordBankList() throws DataConversionException, IllegalValueException {
         List<WordBank> wordBankList = new ArrayList<>();
         File wordBanksDirectory = wordBanksFilePath.toFile();
         String[] pathArray = wordBanksDirectory.list();
@@ -92,7 +118,16 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         for (int i = 0; i < pathArray.length; i++) {
             if (pathArray[i].endsWith(".json")) {
                 Path wordBankPath = Paths.get(wordBanksFilePath.toString(), pathArray[i]);
-                ReadOnlyWordBank readOnlyWordBank = jsonToWordBank(wordBankPath).get();
+                ReadOnlyWordBank readOnlyWordBank = null;
+                try {
+                    readOnlyWordBank = jsonToWordBank(wordBankPath).get();
+                } catch (DataConversionException e) {
+                    throw e;
+                } catch (IllegalValueException e) {
+                    logger.info("Failed to initialise word bank list");
+                    e.printStackTrace();
+                    throw e;
+                }
                 WordBank wbToAdd = (WordBank) readOnlyWordBank;
                 wordBankList.add(wbToAdd);
             }
@@ -101,11 +136,13 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Creates a word bank object from the specified .json file given as filePath.
+     * Creates a word bank object from the specified json file given as filePath.
      *
      * @param filePath location of the .json word bank file. Cannot be null.
+     * @return optional read only word bank.
      */
-    private Optional<ReadOnlyWordBank> jsonToWordBank(Path filePath) {
+    public Optional<ReadOnlyWordBank> jsonToWordBank(Path filePath)
+            throws DataConversionException, IllegalValueException {
         try {
             requireNonNull(filePath);
             Optional<JsonSerializableWordBank> jsonWordBank = JsonUtil.readJsonFile(
@@ -116,18 +153,22 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             String pathName = filePath.toString();
             int len = filePath.getParent().toString().length();
             String wordBankName = pathName.substring(len + 1, pathName.length() - ".json".length());
-            return Optional.of(jsonWordBank.get().toModelType(wordBankName));
+            return Optional.of(jsonWordBank.get().toModelTypeWithName(wordBankName));
 
-        } catch (IllegalValueException | DataConversionException ive) {
+        } catch (DataConversionException e) {
+            throw e;
+        } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            return Optional.empty();
+            throw ive;
         }
     }
 
     /**
-     * Save a word bank into the default file location.
+     * Save a word bank into the default file location, data/wordBanks.
+     *
+     * @param wordBank word bank.
      */
-    private void saveWordBank(ReadOnlyWordBank wordBank) {
+    public void saveWordBank(ReadOnlyWordBank wordBank) {
         saveWordBank(wordBank, wordBanksFilePath);
     }
 
@@ -135,9 +176,9 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Save a word bank into the specified file location.
      * Typically used by Export command, where user writes to their system.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param filePath location of the data. Cannot be null. Eg. ~/downloads.
      */
-    private void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) {
+    void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) {
         try {
             requireNonNull(wordBank);
             requireNonNull(filePath);
@@ -145,6 +186,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             FileUtil.createIfMissing(wordBankFilePath);
             JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), wordBankFilePath);
         } catch (IOException e) {
+            assert(false);
             e.printStackTrace();
         }
     }
@@ -213,7 +255,13 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     @Override
     public void importWordBank(Path filePath, String wordBankName) {
         Path finalPath = Paths.get(filePath.toString(), wordBankName + ".json");
-        WordBank wb = (WordBank) jsonToWordBank(finalPath).get();
+        WordBank wb = null;
+        try {
+            wb = (WordBank) jsonToWordBank(finalPath).get();
+        } catch (DataConversionException | IllegalValueException e) {
+            logger.info("Unable to import " + e.getMessage());
+            e.printStackTrace();
+        }
         addWordBank(wb);
         saveWordBank(wb);
     }

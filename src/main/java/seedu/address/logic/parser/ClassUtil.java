@@ -22,10 +22,19 @@ public class ClassUtil {
         this.classPairs = new ArrayList<>();
     }
 
+    /**
+     * Adds classPair into internal list
+     * @param classPair
+     */
     public void add(ClassPair classPair) {
         classPairs.add(classPair);
     }
 
+    /**
+     * Gets List of attribute values from Command Classes in classUtil.
+     * @param attr key of attribute
+     * @return List of attribute values
+     */
     public List<String> getAttribute(String attr) {
         List<String> result = new ArrayList<>();
         for (ClassPair clsPair : classPairs) {
@@ -41,6 +50,13 @@ public class ClassUtil {
         return result;
     }
 
+    /**
+     * Gets Command based on Parser and Command Classes in classUtil.
+     * @param commandWord from user input
+     * @param arguments from user input
+     * @return Command after parsing
+     * @throws ParseException
+     */
     public Command getCommandInstance(String commandWord, String arguments)
             throws ParseException {
         for (ClassPair clsPair : classPairs) {
