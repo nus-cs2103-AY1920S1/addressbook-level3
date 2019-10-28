@@ -15,6 +15,7 @@ import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.note.NotesRecordStorage;
+import seedu.address.storage.printable.NjoyPrintable;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.quiz.QuizStorage;
 import seedu.address.storage.student.StudentRecordStorage;
@@ -98,4 +99,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, StudentRe
     @Override
     void saveNotesRecord(ReadOnlyNotesRecord notesRecord) throws IOException;
     //endregion
+
+    void savePrintable(NjoyPrintable printable) throws IOException;
 }

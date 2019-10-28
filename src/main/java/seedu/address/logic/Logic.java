@@ -15,6 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
+import seedu.address.storage.printable.NjoyPrintable;
 
 /**
  * API of the Logic component
@@ -131,4 +132,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    void savePrintable(NjoyPrintable printable) throws IOException;
 }

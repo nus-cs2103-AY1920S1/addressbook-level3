@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.Priority;
 
 /**
  * Jackson-friendly version of {@link Note}.
@@ -15,14 +16,17 @@ public class JsonAdaptedNote {
 
     private final String note;
     private final String description;
+    private final String priority;
 
     /**
      * Constructs a {@code JsonAdaptedNote} with the given note details.
      */
     @JsonCreator
-    public JsonAdaptedNote(@JsonProperty("note") String note, @JsonProperty("description") String description) {
+    public JsonAdaptedNote(@JsonProperty("note") String note, @JsonProperty("description") String description,
+                           @JsonProperty("priority") String priority) {
         this.note = note;
         this.description = description;
+        this.priority = priority;
     }
 
     /**
@@ -31,6 +35,7 @@ public class JsonAdaptedNote {
     public JsonAdaptedNote(Note source) {
         note = source.getNote();
         description = source.getDescription();
+        priority = source.getPriority().toString();
     }
 
     /**
@@ -42,6 +47,9 @@ public class JsonAdaptedNote {
         if (note == null) {
             throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
-        return new Note(note, description);
+        if (priority.isEmpty()) {
+            return new Note(note, description, Priority.UNMARKED);
+        }
+        return new Note(note, description, Priority.getPriority(priority));
     }
 }

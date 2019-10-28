@@ -14,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.Priority;
 
 /**
  * Edits the note details in the note list.
@@ -78,8 +79,11 @@ public class NoteEditCommand extends NoteCommand {
         String updatedDescription = !editNoteDescriptor.getDescription().get().equals("")
                 ? editNoteDescriptor.getDescription().get()
                 : noteToEdit.getDescription();
+        Priority priority = editNoteDescriptor.getPriority().isPresent()
+                ? editNoteDescriptor.getPriority().get()
+                : noteToEdit.getPriority();
 
-        return new Note(updatedNote, updatedDescription);
+        return new Note(updatedNote, updatedDescription, priority);
     }
 
     @Override
@@ -107,6 +111,7 @@ public class NoteEditCommand extends NoteCommand {
     public static class EditNoteDescriptor {
         private String note;
         private String description;
+        private Priority priority;
 
         public EditNoteDescriptor() {}
 
@@ -116,6 +121,7 @@ public class NoteEditCommand extends NoteCommand {
         public EditNoteDescriptor(NoteEditCommand.EditNoteDescriptor toCopy) {
             setNote(toCopy.note);
             setDescription(toCopy.description);
+            setPriority(toCopy.priority);
         }
 
         /**
@@ -141,6 +147,14 @@ public class NoteEditCommand extends NoteCommand {
             return Optional.ofNullable(description);
         }
 
+        public void setPriority(Priority priority) {
+            this.priority = priority;
+        }
+
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -157,7 +171,8 @@ public class NoteEditCommand extends NoteCommand {
             NoteEditCommand.EditNoteDescriptor e = (NoteEditCommand.EditNoteDescriptor) other;
 
             return getNote().equals(e.getNote())
-                    && getDescription().equals(e.getDescription());
+                    && getDescription().equals(e.getDescription())
+                    && getPriority().equals(e.getDescription());
         }
     }
 }
