@@ -43,14 +43,11 @@ public class EntryListPanel extends UiPart<Region> {
             } else {
                 if (entry instanceof Expense) {
                     Expense expense = (Expense) entry;
-                    System.out.println("expense");
                     setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
                 } else if (entry instanceof Income) {
                     Income income = (Income) entry;
-                    System.out.println("income");
                     setGraphic(new IncomeCard(income, getIndex() + 1).getRoot());
                 } else {
-                    System.out.println("others");
                     setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
                 }
             }
