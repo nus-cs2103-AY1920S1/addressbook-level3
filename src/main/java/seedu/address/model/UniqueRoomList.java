@@ -111,6 +111,20 @@ public class UniqueRoomList implements Iterable<Room> {
     }
 
     /**
+     * Replaces the room {@code target} in the list with {@code editedRoom}.
+     * {@code target} must exist in the list.
+     * The identity of {@code editedRoom} must not be the same as another existing room in the list.
+     */
+    public void set(Room target, Room editedRoom) {
+        requireAllNonNull(target, editedRoom);
+        int index = internalList.indexOf(target);
+        if (!internalList.remove(target)) {
+            throw new EntryNotFoundException();
+        }
+        internalList.add(index, editedRoom);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Room> asUnmodifiableObservableList() {

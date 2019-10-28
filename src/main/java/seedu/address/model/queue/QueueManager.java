@@ -77,28 +77,34 @@ public class QueueManager {
         queueList.removePatient(0);
     }
 
-    public void addRoom(ReferenceId id) {
-        roomList.addRoom(id);
+    public void addRoom(Room room) {
+        roomList.addRoom(room);
     }
 
-    public void addRoomToIndex(ReferenceId doctorReferenceId, int indexOfRoom) {
-        roomList.addRoom(doctorReferenceId, indexOfRoom);
+    public void addRoomToIndex(Room room, int indexOfRoom) {
+        roomList.addRoom(room, indexOfRoom);
     }
 
     public boolean hasId(ReferenceId id) {
         return queueList.hasId(id);
     }
 
-    public void removeRoom(ReferenceId target) {
+    public void removeRoom(Room target) {
         roomList.removeRoom(target);
     }
 
-    public boolean hasRoom(ReferenceId doctorReferenceId) {
-        return roomList.hasRoom(doctorReferenceId);
+    public boolean hasRoom(Room room) {
+        return roomList.hasRoom(room);
     }
 
     public ReferenceId getCurrentlyServed(int index) {
         return roomList.getCurrentlyServed(index);
+    }
+
+    public void setRoom(Room target, Room editedRoom) {
+        requireNonNull(editedRoom);
+
+        roomList.set(target, editedRoom);
     }
 
     public ObservableList<ReferenceId> getReferenceIdList() {

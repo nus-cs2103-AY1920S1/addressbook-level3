@@ -2,9 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 
 import seedu.address.logic.commands.common.CommandResult;
@@ -12,6 +9,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
+import seedu.address.model.common.ReferenceId;
 import seedu.address.model.queue.Room;
 
 /**
@@ -20,23 +18,37 @@ import seedu.address.model.queue.Room;
 public class UndoNextCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "next";
     public static final String MESSAGE_SUCCESS = "Next patient has been unallocated from room ";
+    public static final String MESSAGE_DUPLICATE_ROOM = "This room already exists in the list.";
 
-    private final Index targetIndex;
+    private final Room roomToEdit;
+    private final Room editedRoom;
+    private final ReferenceId patientReferenceId;
+    private final Index index;
 
-    public UndoNextCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public UndoNextCommand(Room roomToEdit, Room editedRoom, Index index, ReferenceId patientReferenceId) {
+        this.editedRoom = editedRoom;
+        this.roomToEdit = roomToEdit;
+        this.index = index;
+        this.patientReferenceId = patientReferenceId;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Room> lastShownList = model.getConsultationRoomList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ROOM_INDEX);
+        if (model.isPatientInQueue(patientReferenceId)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ROOM);
         }
-        model.undoServeNextPatient(targetIndex.getOneBased());
-        return new CommandResult(MESSAGE_SUCCESS + targetIndex);
+
+        model.enqueuePatientToIndex(patientReferenceId, 0);
+        model.removeRoom(roomToEdit);
+
+        if (model.hasRoom(editedRoom)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ROOM);
+        }
+
+        model.addRoomToIndex(editedRoom, index.getZeroBased());
+        return new CommandResult(MESSAGE_SUCCESS + editedRoom);
     }
 
 }

@@ -18,7 +18,7 @@ import javafx.scene.text.TextFlow;
 public class AutoCompleteOverlay extends UiPart<Region> {
 
     private static final int CELL_HEIGHT = 20;
-    private static final int NUM_IN_VIEW = 10;
+    private static final int NUM_IN_VIEW = 2;
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
 
     private SelectionNotifier selectionNotifier;

@@ -1,4 +1,4 @@
-package seedu.address.logic.autocomplete;
+package seedu.address.ui.autocomplete;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,0 +1,103 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandHistory" as CommandHistory LOGIC_COLOR
+participant ":EnqueueCommandParser" as EnqueueCommandParser LOGIC_COLOR
+participant "refId : ReferenceId" as ReferenceId LOGIC_COLOR
+participant "command : ReversibleActionPairCommand" as ReversibleActionPairCommand LOGIC_COLOR
+participant "addCmd : EnqueueCommand" as EnqueueCommand LOGIC_COLOR
+participant "deleteCmd : DequeueCommand" as DequeueCommand LOGIC_COLOR
+participant "result : CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("enqueue 001A")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("enqueue 001A")
+activate AddressBookParser
+
+create EnqueueCommandParser
+AddressBookParser -> EnqueueCommandParser
+activate EnqueueCommandParser
+
+EnqueueCommandParser --> AddressBookParser
+deactivate EnqueueCommandParser
+
+AddressBookParser -> EnqueueCommandParser : parse("001A")
+activate EnqueueCommandParser
+
+create ReferenceId
+EnqueueCommandParser -> ReferenceId
+activate ReferenceId
+ReferenceId --> EnqueueCommandParser
+deactivate ReferenceId
+
+create EnqueueCommand
+EnqueueCommandParser -> EnqueueCommand : EnqueueCommand(refId)
+activate EnqueueCommand
+EnqueueCommand --> EnqueueCommandParser
+deactivate EnqueueCommand
+
+create DequeueCommand
+EnqueueCommandParser -> DequeueCommand : DequeueCommand(refId)
+activate DequeueCommand
+DequeueCommand --> EnqueueCommandParser
+deactivate DequeueCommand
+
+
+create ReversibleActionPairCommand
+EnqueueCommandParser -> ReversibleActionPairCommand : ReversibleActionPair(addCmd, deleteCmd)
+activate ReversibleActionPairCommand
+ReversibleActionPairCommand --> EnqueueCommandParser
+deactivate ReversibleActionPairCommand
+
+EnqueueCommandParser --> AddressBookParser : command
+deactivate EnqueueCommandParser
+
+AddressBookParser --> CommandHistory : addToCommandHistory(command)
+activate CommandHistory
+deactivate CommandHistory
+
+deactivate EnqueueCommandParser
+EnqueueCommandParser -[hidden]-> AddressBookParser
+destroy EnqueueCommandParser
+
+AddressBookParser --> LogicManager : command
+deactivate AddressBookParser
+
+
+LogicManager -> ReversibleActionPairCommand : execute()
+activate ReversibleActionPairCommand
+
+ReversibleActionPairCommand -> EnqueueCommand : execute()
+activate EnqueueCommand
+
+EnqueueCommand -> Model : execute()
+activate Model
+
+Model --> EnqueueCommand
+deactivate Model
+
+create CommandResult
+EnqueueCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EnqueueCommand
+deactivate CommandResult
+
+EnqueueCommand --> ReversibleActionPairCommand : result
+deactivate EnqueueCommand
+
+ReversibleActionPairCommand --> LogicManager : result
+deactivate ReversibleActionPairCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

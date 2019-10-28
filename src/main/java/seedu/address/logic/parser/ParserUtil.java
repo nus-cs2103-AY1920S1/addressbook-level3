@@ -28,6 +28,7 @@ import seedu.address.model.person.parameters.StaffReferenceId;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_TIMES = "Recusive times should be a positive number";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -204,4 +205,17 @@ public class ParserUtil {
         return new Timing(startTiming, endTiming);
     }
 
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parseTimes(String recTimes) throws ParseException {
+        String trimmedtimes = recTimes.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedtimes)) {
+            throw new ParseException(MESSAGE_INVALID_TIMES);
+        }
+        return Index.fromOneBased(Integer.parseInt(trimmedtimes));
+    }
 }

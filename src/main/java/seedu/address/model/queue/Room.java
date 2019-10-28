@@ -16,6 +16,12 @@ public class Room {
     private Optional<ReferenceId> patientCurrentlyBeingServed;
     private boolean isResting;
 
+    public Room(ReferenceId doctor, Optional<ReferenceId> patient, boolean isResting) {
+        this.doctor = doctor;
+        this.patientCurrentlyBeingServed = patient;
+        this.isResting = isResting;
+    }
+
     public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
@@ -25,10 +31,11 @@ public class Room {
     public Room(ReferenceId doctor) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = Optional.empty();
+        this.isResting = false;
     }
 
     public boolean isReadyToServe() {
-        return patientCurrentlyBeingServed.isEmpty();
+        return !isResting;
     }
 
     public ReferenceId getDoctor() {
@@ -57,10 +64,6 @@ public class Room {
         patientCurrentlyBeingServed = Optional.of(id);
     }
 
-    public void rest() {
-        isResting = false;
-    }
-
     /**
      * Returns true if both rooms occupied by the same staff and patient.
      * This defines a stronger notion of equality between two consultation rooms.
@@ -78,7 +81,13 @@ public class Room {
         Room o = (Room) other;
         return getDoctor().equals(o.getDoctor())
                 && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
-                && isResting == o.isResting
                 && getCurrentPatient().equals(o.getCurrentPatient());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(doctor);
+        return builder.toString();
     }
 }

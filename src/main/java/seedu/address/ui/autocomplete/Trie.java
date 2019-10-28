@@ -1,4 +1,4 @@
-package seedu.address.logic.autocomplete;
+package seedu.address.ui.autocomplete;
 
 /**
  * Trie for AutoComplete Searches.

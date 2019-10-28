@@ -1,10 +1,10 @@
-package seedu.address.logic.autocomplete;
+package seedu.address.ui.autocomplete;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Logic Component for AutoComplete
+ * Component for AutoComplete
  */
 public class AutoCompleter {
     private static final String[] SUPPORTED_COMMANDS = {
@@ -13,12 +13,14 @@ public class AutoCompleter {
             "add",
             "addRoom",
             "appointments",
+            "break",
             "cancel",
             "changeappt",
             "dequeue",
             "doctors",
             "exit",
             "help",
+            "next",
             "missappt",
             "enqueue",
             "offduty",
@@ -27,6 +29,7 @@ public class AutoCompleter {
             "queue",
             "register",
             "removeRoom",
+            "resume",
             "settleappt",
             "update",
             "undo",

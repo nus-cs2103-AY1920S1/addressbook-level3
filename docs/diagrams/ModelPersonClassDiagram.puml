@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Interface Identical <<Interface>>
+
+Package ReferenceId {
+Interface ReferenceId <<Interface>>
+Class PersonReferenceId
+Class PatientReferenceId
+Class StaffReferenceId
+}
+
+Package UniqueList {
+Class "{abstract}\AbstractList" as AbstractList
+Class HashSet
+Class UniqueTreeList
+Class UniqueElementList
+Class UniquePersonList
+}
+
+Package Person {
+Class Person
+Class Address
+Class Email
+Class Name
+Class Phone
+}
+
+Package Tag {
+Class Tag
+}
+
+Package Events {
+Class Appointment
+Class DutyShift
+Class Event
+Class Timing
+Class DateTime
+Class Status
+}
+
+UniqueTreeList -> Identical
+UniqueTreeList *-> AbstractList
+UniqueElementList *.up-> "1" UniqueTreeList
+UniquePersonList o.down-> "*" Person
+UniquePersonList *.up-> "1" UniqueElementList
+UniquePersonList o.down-> "1" HashSet
+
+ReferenceId .-|> Identical
+PersonReferenceId .up.|> ReferenceId
+PatientReferenceId *.up-> PersonReferenceId
+StaffReferenceId *.left-> PersonReferenceId
+
+Person .up.-|> Identical
+Person *-> ReferenceId
+Person *-down-> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *-up-> "*" Tag
+
+Name -[hidden]right-> Phone
+Name -[hidden]down-> Tag
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
+
+Appointment *-down-> Event
+Appointment *-> "1" ReferenceId : Doctor
+DutyShift *-> Event
+
+Timing *--> DateTime
+Timing -[hidden]right-> Status
+
+
+Event .up.|> Identical
+Event *---> ReferenceId
+Event *--> Timing
+Event *--> Status
+
+Identical -[hidden]down----> ReferenceId
+ReferenceId -[hidden]right-> Events
+UniqueList -[hidden]down----> Identical
+
+
+@enduml
