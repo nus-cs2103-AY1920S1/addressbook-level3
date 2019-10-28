@@ -1,10 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.UiFocus;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
@@ -65,6 +64,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public Optional<UiFocus> getUiFocus() {
+        return Optional.ofNullable(uiFocus);
     }
 
     @Override

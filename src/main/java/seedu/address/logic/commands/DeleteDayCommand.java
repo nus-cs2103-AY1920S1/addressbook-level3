@@ -45,7 +45,7 @@ public class DeleteDayCommand extends DeleteCommand {
 
         Day dayToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteDay(dayToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_DAY_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_DELETE_DAY_SUCCESS, targetIndex.getOneBased()), UiFocus.AGENDA);
     }
 
     @Override

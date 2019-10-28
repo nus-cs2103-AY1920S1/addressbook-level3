@@ -43,7 +43,7 @@ public class AddDayCommand extends AddCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.addDays(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiFocus.AGENDA);
     }
 
     @Override

@@ -13,6 +13,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.events.exceptions.EventException;
+import seedu.address.logic.commands.UiFocus;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -139,16 +140,25 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
-            fillInnerParts();
+            commandResult.getUiFocus().ifPresent(this::applyUiFocusChange);
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setErrorFeedbackToUser(e.getMessage()); // @ernest: may need to rework this part
             throw e;
+        }
+    }
+
+    private void applyUiFocusChange(UiFocus uiFocus) {
+        switch (uiFocus) {
+        case AGENDA:
+            centralDisplay.setFocusToAgenda();
+        default:
+            throw new AssertionError(uiFocus.toString() + " is not handled in applyUiFocusChange.");
         }
     }
 }

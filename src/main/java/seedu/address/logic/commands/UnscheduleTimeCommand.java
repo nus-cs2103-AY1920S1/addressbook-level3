@@ -66,7 +66,7 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
 
         model.setDays(editedDays);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
-        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, editedDay));
+        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, editedDay), UiFocus.AGENDA);
     }
 
     @Override
