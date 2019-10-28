@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
 import seedu.address.model.YearMonth;
 import seedu.address.model.bio.User;
+import seedu.address.model.calendar.YearMonthDay;
 import seedu.address.ui.bio.BioPane;
 
 /**
@@ -73,8 +75,9 @@ public class MainDisplayPane {
     /**
      * Returns a calendar pane representing the Main Display Pane observed by the user.
      */
-    public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated, YearMonth yearMonth) {
-        return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth,
+    public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
+                              YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
+        return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth, yearMonthDay, isShowingWeek,
                 logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
 
     }

@@ -37,6 +37,7 @@ import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Repetition;
+import seedu.address.model.calendar.YearMonthDay;
 import seedu.address.model.food.Calorie;
 import seedu.address.model.food.Fat;
 import seedu.address.model.food.FoodName;
@@ -614,5 +615,19 @@ public class ParserUtil {
             throw new ParseException(YearMonth.MESSAGE_CONSTRAINTS);
         }
         return new YearMonth(yearMonth);
+    }
+
+    /**
+     * Parses a {@code String yearMonthDay} into a {@code YearMonthDay}.
+     *
+     * @throws ParseException if the given {@code yearMonthDay} is invalid.
+     */
+    public static YearMonthDay parseYearMonthDay(String yearMonthDay) throws ParseException {
+        requireNonNull(yearMonthDay);
+        String trimmedYearMonthDay = yearMonthDay.trim();
+        if (!YearMonthDay.isValidYearMonthDay(trimmedYearMonthDay)) {
+            throw new ParseException(YearMonthDay.MESSAGE_CONSTRAINTS);
+        }
+        return new YearMonthDay(yearMonthDay);
     }
 }

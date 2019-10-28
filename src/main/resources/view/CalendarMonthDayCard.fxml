@@ -11,7 +11,7 @@
         <Label fx:id="date" text="\$date"/>
     </center>
     <bottom>
-        <Label fx:id="entryNumber" text="" BorderPane.alignment="BOTTOM_RIGHT"/>
+        <Label fx:id="entryNumber" styleClass="red-small" text="" BorderPane.alignment="BOTTOM_RIGHT"/>
     </bottom>
 
 </BorderPane>

@@ -57,7 +57,7 @@
                             <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS"/>
                         </VBox>
 
-                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefWidth="250" prefHeight="300"
+                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefHeight="300"
                                    styleClass="pane-with-border" VBox.vgrow="ALWAYS"/>
                     </items>
                 </SplitPane>

@@ -452,7 +452,6 @@
 #entryNumber {
     -fx-font-size: 10px;
     -fx-border-radius: 5;
-    -fx-text-fill: red !important;
     -fx-padding: 0 3 0 0;
 }
 
