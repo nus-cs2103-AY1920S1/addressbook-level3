@@ -19,7 +19,9 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModeCommand;
+import seedu.address.logic.commands.ReopenCommand;
 import seedu.address.logic.commands.ReviewCommand;
+import seedu.address.logic.commands.SaveTodoCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -40,7 +42,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, boolean isMainMode) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -48,10 +50,15 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            if (isMainMode) {
+                return new AddCommandParser().parse(arguments);
+            } else {
+                return new AddTodoCommandParser().parse(arguments);
+            }
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -77,11 +84,17 @@ public class AddressBookParser {
         case CloseCommand.COMMAND_WORD:
             return new CloseCommandParser().parse(arguments);
 
+        case ReopenCommand.COMMAND_WORD:
+            return new ReopenCommandParser().parse(arguments);
+
         case ModeCommand.COMMAND_WORD:
             return new ModeCommand();
 
         case ReviewCommand.COMMAND_WORD:
             return new ReviewCommandParser().parse(arguments);
+
+        case SaveTodoCommand.COMMAND_WORD:
+            return new SaveTodoCommandParser().parse(arguments);
 
         case AddFeedCommand.COMMAND_WORD:
             return new AddFeedCommandParser().parse(arguments);
@@ -92,6 +105,8 @@ public class AddressBookParser {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+
+
     }
 
 }

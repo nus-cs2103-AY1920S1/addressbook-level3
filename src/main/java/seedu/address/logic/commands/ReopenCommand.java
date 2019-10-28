@@ -16,27 +16,28 @@ import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
 import seedu.address.model.eatery.Tag;
 
-/**
- * Sets the isOpen field of an existing eatery in the address book to false.
- */
-public class CloseCommand extends Command {
 
-    public static final String COMMAND_WORD = "close";
+/**
+ * Sets the isOpen field of an existing eatery in the address book to true.
+ */
+public class ReopenCommand extends Command {
+
+    public static final String COMMAND_WORD = "reopen";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Closes the eatery identified by the index number used in the displayed eatery list.\n"
+            + ": Reopens the eatery identified by the index number used in the displayed eatery list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EATERY_ALREADY_CLOSED = "This eatery is already closed in the address book.";
-    public static final String MESSAGE_CLOSED_EATERY_SUCCESS = "Closed Eatery: %1$s";
+    public static final String MESSAGE_EATERY_ALREADY_OPENED = "This eatery is already open in the address book.";
+    public static final String MESSAGE_REOPENED_EATERY_SUCCESS = "Reopened Eatery: %1$s";
 
     private final Index targetIndex;
 
     /**
      * @param targetIndex of the eatery in the filtered eatery list to close
      */
-    public CloseCommand(Index targetIndex) {
+    public ReopenCommand(Index targetIndex) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
@@ -50,39 +51,39 @@ public class CloseCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX);
         }
 
-        Eatery eateryToClose = lastShownList.get(targetIndex.getZeroBased());
-        if (!eateryToClose.getIsOpen()) {
-            throw new CommandException(MESSAGE_EATERY_ALREADY_CLOSED);
+        Eatery eateryToReopen = lastShownList.get(targetIndex.getZeroBased());
+        if (eateryToReopen.getIsOpen()) {
+            throw new CommandException(MESSAGE_EATERY_ALREADY_OPENED);
         }
-        Eatery closedEatery = createClosedEatery(eateryToClose);
+        Eatery reopenedEatery = createReopenedEatery(eateryToReopen);
 
-        model.setEatery(eateryToClose, closedEatery);
+        model.setEatery(eateryToReopen, reopenedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
 
-        return new CommandResult(String.format(MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery));
+        return new CommandResult(String.format(MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CloseCommand // instanceof handles nulls
-                && targetIndex.equals(((CloseCommand) other).targetIndex)); // state check
+                || (other instanceof ReopenCommand // instanceof handles nulls
+                && targetIndex.equals(((ReopenCommand) other).targetIndex)); // state check
     }
 
     /**
      * Creates and returns a {@code Eatery} with the details of {@code eateryToEdit}
      * edited with {@code editEateryDescriptor}.
      */
-    private static Eatery createClosedEatery(Eatery eateryToClose) {
-        assert eateryToClose != null;
+    private static Eatery createReopenedEatery(Eatery eateryToReopen) {
+        assert eateryToReopen != null;
 
-        Name name = eateryToClose.getName();
-        Address address = eateryToClose.getAddress();
-        Category category = eateryToClose.getCategory();
-        Set<Tag> tags = eateryToClose.getTags();
-        Eatery closedEatery = new Eatery(name, false, address, category, tags);
-        closedEatery.setReviews(eateryToClose.getReviews());
+        Name name = eateryToReopen.getName();
+        Address address = eateryToReopen.getAddress();
+        Category category = eateryToReopen.getCategory();
+        Set<Tag> tags = eateryToReopen.getTags();
+        Eatery reopenedEatery = new Eatery(name, address, category, tags);
+        reopenedEatery.setReviews(eateryToReopen.getReviews());
 
-        return closedEatery;
+        return reopenedEatery;
     }
 }

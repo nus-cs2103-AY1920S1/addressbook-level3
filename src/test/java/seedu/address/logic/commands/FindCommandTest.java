@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEateries.CARL;
 import static seedu.address.testutil.TypicalEateries.ELLE;
 import static seedu.address.testutil.TypicalEateries.FIONA;
-import static seedu.address.testutil.TypicalEateries.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalEateries.getTypicalOpenAddressBook;
 import static seedu.address.testutil.TypicalFeeds.getTypicalFeedList;
 
 import java.util.Arrays;
@@ -25,8 +25,8 @@ import seedu.address.model.eatery.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalFeedList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalFeedList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalOpenAddressBook(), getTypicalFeedList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalOpenAddressBook(), getTypicalFeedList(), new UserPrefs());
 
     @Test
     public void equals() {

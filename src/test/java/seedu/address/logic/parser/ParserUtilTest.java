@@ -15,16 +15,19 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.eatery.Address;
+import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Name;
 import seedu.address.model.eatery.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_CATEGORY = "0fish";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_CATEGORY = "Chinese";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -94,6 +97,29 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseCategory_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCategory((String) null));
+    }
+
+    @Test
+    public void parseCategory_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCategory(INVALID_CATEGORY));
+    }
+
+    @Test
+    public void parseCategory_validValueWithoutWhitespace_returnsCategory() throws Exception {
+        Category expectedCategory = new Category(VALID_CATEGORY);
+        assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_CATEGORY));
+    }
+
+    @Test
+    public void parseCategory_validValueWithWhitespace_returnsTrimmedCategory() throws Exception {
+        String categoryWithWhitespace = WHITESPACE + VALID_CATEGORY + WHITESPACE;
+        Category expectedCategory = new Category(VALID_CATEGORY);
+        assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
     }
 
     @Test

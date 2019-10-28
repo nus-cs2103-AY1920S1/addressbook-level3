@@ -40,7 +40,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = addressBookParser.parseCommand(commandText, isMainMode());
         commandResult = command.execute(model);
 
         try {
@@ -96,5 +96,14 @@ public class LogicManager implements Logic {
     @Override
     public Path getFeedListFilePath() {
         return model.getFeedListFilePath();
+    }
+
+    @Override
+    public void saveFeedList() {
+        try {
+            storage.saveFeedList(model.getFeedList());
+        } catch (IOException ioe) {
+            logger.warning(FILE_OPS_ERROR_MESSAGE + ioe);
+        }
     }
 }

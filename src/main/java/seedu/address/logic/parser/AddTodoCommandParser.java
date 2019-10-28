@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.eatery.Address;
-import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
 import seedu.address.model.eatery.Tag;
@@ -20,7 +19,7 @@ import seedu.address.model.eatery.Tag;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddTodoCommandParser implements Parser<AddCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -31,17 +30,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_CATEGORY, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_CATEGORY)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_MAIN));
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS)
+                || arePrefixesPresent(argMultimap, PREFIX_CATEGORY) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_TODO));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Eatery eatery = new Eatery(name, address, category, tagList);
+        Eatery eatery = new Eatery(name, address, tagList);
 
         return new AddCommand(eatery);
     }

@@ -69,4 +69,9 @@ public interface Logic {
      * Returns the user prefs' feed list file path.
      */
     Path getFeedListFilePath();
+
+    /**
+     * Saves the feed list to disk.
+     */
+    void saveFeedList();
 }
