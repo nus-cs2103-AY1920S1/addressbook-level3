@@ -91,7 +91,7 @@ Deletes the 1st problem in the results of the `find` command.
 ==== Editing a problem : `edit`
 
 Edits an existing problem. +
-Format: `edit INDEX [d/DELETE] [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
+Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 
 * Edits the problem at the specified `INDEX`. The index refers to the index number shown in the displayed problem list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -252,39 +252,55 @@ Examples:
 
 === Training Plans
 
-==== Creating a new training plan `addplan`
+==== Adding a plan: `addplan`
 
-Generates a new training plan. +
-Format: `addplan n/NAME`
+Generates a new plan. +
+Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
-Examples:
-
-* `addplan n/CS2040`
-
-==== Editing a training plan `editplan`
-
-Edits an existing training plan. +
-Format: `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME]`
+* Plans cannot have duplicate names.
+* `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
 
 Examples:
 
-* `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
+* `addplan n/CS2040 d/past year questions in practical exams s/2019-01-01 e/3019-12-12`
 
-==== Locating training plans by name: `findplan`
+==== Deleting a plan : `deleteplan`
 
-Finds problems whose names contain any of the given keywords. +
-Format: `findplan KEYWORD [MORE_KEYWORDS]`
+Deletes an existing plan. +
+Format: `deleteplan INDEX`
+
+* Deletes the plan at the specified `INDEX`.
+* The index refers to the index number shown in the displayed plan list.
+* The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
-* `find training-set` +
-Returns `training-set-1` and `training-set-2`
-* `find training set` +
-Returns any problem having names `training`, or `set`
+* `listplan` +
+`deleteplan 2` +
+Deletes the 2nd problem in the displayed list.
+* `findplan n/CS2040` +
+`delete 1` +
+Deletes the 1st problem in the results of the `findplan` command (will be introduced in the next section).
 
-==== Listing all training plans: `listplan`
+==== Editing a plan : `editplan`
 
-Displays a list of all existing plans alphabetically. +
+Edits an existing plan. +
+Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
+
+* Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+
+* `edit 1 d/past year questions of sit-in labs +
+Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
+* `edit 2 s/2019-08-13` +
+Edits the starting date of the 2nd plan to be `2019-08-13`.
+
+==== Listing all plans : `listplan`
+
+Displays a list of all existing plans. +
 Format: `listplan`
 
 ==== Adding a new task to a plan: `addtask`
@@ -340,6 +356,25 @@ Format: `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
 Examples:
 
 * `movetask task/1 from/1 to/2`
+
+=== Searching Plans
+
+==== Locating plans: `findplan`
+
+Finds plans fulfilling all provided constraints. +
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]...`
+
+* Name
+** is case-insensitive.
+** is considered a match as long as one word matches.
+** is matched word by word.
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint.
+* Start and end range
+** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
+** both `RANGE_START` and `RANGE_END` should be specified.
 
 === Tabs
 
@@ -482,9 +517,9 @@ e.g. `addtag n/sssp`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
 
-* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
+* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
+* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
@@ -510,4 +545,3 @@ e.g. `import format/json path/./steven_halim_secret.json`
 * *Help* : `help`
 * *Clear* : `clear`
 * *Exit* : `exit`
-

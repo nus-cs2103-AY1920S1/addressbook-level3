@@ -4,79 +4,68 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-package Logic {
-
-package Parser {
-package exceptions {
-Class ParseException
-}
-Interface Parser <<Interface>>
-Class AlgoBaseParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
-}
-
-package Command {
-package exceptions {
-Class CommandException
-}
-Class XYZCommand
-Class ClearCommand
-Class ListCommand
-Class ListPlanCommand
-Class ListTagCommand
-Class ExitCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
-}
-
-Interface Logic <<Interface>>
-Class LogicManager
-}
-
 package Model{
 Class HiddenModel #FFFFFF
+}
+
+package Logic {
+
+    package Command {
+
+        Class XYZCommand
+        Class SimpleCommand
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+        package exceptions {
+            Class CommandException
+        }
+    }
+
+    package Parser {
+        package exceptions {
+            Class ParseException
+        }
+        Interface Parser <<Interface>>
+        Class AlgoBaseParser
+        Class XYZCommandParser
+        Class CliSyntax
+        Class ParserUtil
+        Class ArgumentMultimap
+        Class ArgumentTokenizer
+        Class Prefix
+    }
+
+    Interface Logic <<Interface>>
+    Class LogicManager
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
+LogicManager ..|> Logic
 LogicManager -->"1" AlgoBaseParser
-AlgoBaseParser .left.> XYZCommandParser: creates >
+AlgoBaseParser ..> XYZCommandParser: creates >
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
+ArgumentTokenizer ..> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-AlgoBaseParser .up.> ClearCommand: creates >
-AlgoBaseParser .up.> ListCommand: creates >
-AlgoBaseParser .up.> ListPlanCommand: creates >
-AlgoBaseParser .up.> ListTagCommand: creates >
-AlgoBaseParser .up.> ExitCommand: creates >
-ClearCommand -up-|> Command
-ListCommand -up-|> Command
-ListPlanCommand -up-|> Command
-ListTagCommand -up-|> Command
-ExitCommand -up-|> Command
-LogicManager .left.> Command : executes >
+ParserUtil ..> Prefix
+ArgumentTokenizer ..> Prefix
+XYZCommand --|> Command
+AlgoBaseParser ..> SimpleCommand
+SimpleCommand --|> Command
+LogicManager ..> Command : executes >
 
 LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
+Command ..> Model
+note left of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note left of SimpleCommand: SimpleCommand = ClearCommand, ExitCommand, \nListCommand, ListPlanCommand, ListTagCommand.
 Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
+LogicManager ..> CommandResult
+Command ..> CommandResult
 CommandResult -[hidden]-> Parser
 @enduml
