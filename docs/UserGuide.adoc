@@ -38,11 +38,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in
 * **`edit`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
 * **`switchtab`**`t/display i/2` : switches to tag tab
 +
-image::UiStartTag.png[width="50%]
+image::UiStartTag.png[width="50%"]
 +
 * **`switchtab`**`t/display i/3` : switches to plan tab
 +
-image::UiStartPlan.png[width="50%]
+image::UiStartPlan.png[width="50%"]
 +
 * **`findplan`**`n/CS2040` : finds plans that with name 'CS2040'
 * **`clear`** : resets Algobase
