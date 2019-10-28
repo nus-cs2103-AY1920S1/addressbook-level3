@@ -17,6 +17,7 @@ import dukecooks.model.diary.components.Title;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.Value;
+import dukecooks.model.mealplan.components.MealPlanName;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
@@ -66,8 +67,6 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
-
-
     /**
      * Parses a {@code String name} into a {@code RecipeName}.
      * Leading and trailing whitespaces will be trimmed.
@@ -81,6 +80,21 @@ public class ParserUtil {
             throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
         }
         return new RecipeName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code MealPlanName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static MealPlanName parseMealPlanName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!MealPlanName.isValidName(trimmedName)) {
+            throw new ParseException(MealPlanName.MESSAGE_CONSTRAINTS);
+        }
+        return new MealPlanName(trimmedName);
     }
 
     /**
