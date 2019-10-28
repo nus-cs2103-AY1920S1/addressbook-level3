@@ -52,6 +52,18 @@ public class UniqueIncidentList implements Iterable<Incident> {
     }
 
     /**
+     * Appends an Incident to the back of the list.
+     * The Incident must not already exist in the list.
+     */
+    public void append(Incident toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateIncidentException();
+        }
+        internalList.add(toAdd);
+    }
+
+    /**
      * Replaces the Incident {@code target} in the list with {@code editedIncident}.
      * {@code target} must exist in the list.
      * The Incident identity of {@code editedIncident} must not be the same as another existing Incident in the list.
