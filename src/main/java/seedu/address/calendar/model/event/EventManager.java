@@ -32,11 +32,9 @@ public class EventManager {
 
     private boolean addVacation(Event event) throws DuplicateEventException {
         if (vacations.containsKey(event)) {
-            System.out.println("\nDON'T THINK IT'S HERE");
             List<Event> requiredList = vacations.get(event);
             addVacation(event, requiredList);
         } else {
-            System.out.println("\nIT'S HERE");
             List<Event> newList = new ArrayList<>();
             newList.add(event);
             vacations.put(event, newList);
