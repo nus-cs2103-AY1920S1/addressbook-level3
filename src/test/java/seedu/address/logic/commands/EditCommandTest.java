@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showIncidentAtIndex;
 import static seedu.address.testutil.IncidentBuilder.DEFAULT_CALLER;
 import static seedu.address.testutil.IncidentBuilder.DEFAULT_DISTRICT;
+import static seedu.address.testutil.IncidentBuilder.DEFAULT_ID;
 import static seedu.address.testutil.TypicalEntities.getTypicalIncidentManager;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ENTITY;
@@ -72,10 +73,11 @@ public class EditCommandTest {
         Incident lastIncident = model.getFilteredIncidentList().get(indexLastIncident.getZeroBased());
 
         IncidentBuilder incidentBuilder = new IncidentBuilder(lastIncident);
-        Incident editedIncident = incidentBuilder.withCaller(DEFAULT_CALLER).withDistrict(DEFAULT_DISTRICT).build();
+        Incident editedIncident = incidentBuilder.withCaller(DEFAULT_CALLER).withDistrict(DEFAULT_DISTRICT)
+                .withId(DEFAULT_ID).build();
 
         EditIncident editor = new EditIncidentBuilder().withCaller(DEFAULT_CALLER)
-                .withDistrict(DEFAULT_DISTRICT).build();
+                .withDistrict(DEFAULT_DISTRICT).withId(DEFAULT_ID).build();
         EditCommand editCommand = new EditCommand(indexLastIncident, editor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
@@ -107,9 +109,10 @@ public class EditCommandTest {
         showIncidentAtIndex(model, INDEX_FIRST_ENTITY);
 
         Incident incidentInFilteredList = model.getFilteredIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
-        Incident editedIncident = new IncidentBuilder(incidentInFilteredList).withCaller(DEFAULT_CALLER).build();
+        Incident editedIncident = new IncidentBuilder(incidentInFilteredList).withCaller(DEFAULT_CALLER)
+                .withId(DEFAULT_ID).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTITY,
-                new EditIncidentBuilder().withCaller(DEFAULT_CALLER).build());
+                new EditIncidentBuilder().withCaller(DEFAULT_CALLER).withId(DEFAULT_ID).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
         Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
