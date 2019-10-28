@@ -59,7 +59,7 @@ class JsonSerializableBillboard {
                     .map(x -> x.tagName).collect(Collectors.toList());
             Set<Tag> tags = billboard.retrieveTags(tagNames);
             Expense edited = new Expense(expense.getName(), expense.getDescription(), expense.getAmount(),
-                    expense.getCreated(), tags);
+                    expense.getCreated(), tags, expense.getArchiveName());
             billboard.incrementCount(tags);
 
             billboard.addExpense(edited);
