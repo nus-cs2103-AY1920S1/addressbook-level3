@@ -11,14 +11,14 @@ public class ModCode {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Module code consists of a two- or three-letter prefix that denotes the discipline, and four digits."
-            + " It may end with a single letter."
+            + " It may end with one or two letters."
             + " It should not be blank";
 
     /*
      * The first character of the module code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]?$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z]{2,3}[0-9]{4}[a-zA-Z]{0,3}?$";
 
     public final String modCode;
 

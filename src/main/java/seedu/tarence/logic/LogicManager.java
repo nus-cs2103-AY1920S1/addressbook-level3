@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
         Optional<TabNames> tabToDisplay = Optional.empty();
 
         // processes multiple commands in user input if they exit
-        String[] commandStrings = commandText.split("&");
+        String[] commandStrings = commandText.split("\\+");
         // pushes commands from back to front on top of the pending commands stack
         for (int i = commandStrings.length - 1; i >= 0; i--) {
             Command tempCommand = applicationParser.parseCommand(commandStrings[i]);
@@ -79,6 +79,7 @@ public class LogicManager implements Logic {
             // check for exit/help condition
             if (currCommandResult.isExit() || currCommandResult.isShowHelp()) {
                 // this means that previous commands won't be shown if help is inside pending commands
+                // but will be executed
                 return currCommandResult;
             }
 
