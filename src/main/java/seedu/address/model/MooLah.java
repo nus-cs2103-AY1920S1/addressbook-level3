@@ -10,6 +10,7 @@ import seedu.address.model.budget.UniqueBudgetList;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueEventList;
 import seedu.address.model.expense.UniqueExpenseList;
 
@@ -224,7 +225,12 @@ public class MooLah implements ReadOnlyMooLah {
     }
 
     void setBudget(Budget target, Budget editedBudget) {
+        requireNonNull(editedBudget);
         budgets.setBudget(target, editedBudget);
+
+        for (Expense expense : expenses) {
+            expense.setBudget(editedBudget);
+        }
     }
 
     /**
@@ -236,6 +242,12 @@ public class MooLah implements ReadOnlyMooLah {
         for (Expense expense : expenses) {
             expense.removeBudget();
         }
+    }
+
+    public void changePrimaryBudgetWindow(Timestamp pastDate) {
+        requireNonNull(pastDate);
+
+        budgets.changePrimaryBudgetWindow(pastDate);
     }
 
     //=========== Event-level operations ================================================================

@@ -12,6 +12,7 @@ import seedu.address.model.budget.exceptions.BudgetNotFoundException;
 import seedu.address.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
 import seedu.address.model.expense.Description;
+import seedu.address.model.expense.Timestamp;
 
 /**
  * A list of budgets that enforces uniqueness between its elements and does not allow nulls.
@@ -48,7 +49,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         if (contains(toAdd)) {
             throw new DuplicateBudgetException();
         }
-        toAdd.normalize();
+        toAdd.normalize(Timestamp.getCurrentTimestamp());
         internalList.add(toAdd);
         setPrimary(toAdd);
     }
@@ -108,6 +109,13 @@ public class UniqueBudgetList implements Iterable<Budget> {
             }
         }
         return primaryBudget;
+    }
+
+    public void changePrimaryBudgetWindow(Timestamp pastDate) {
+        Budget copy = Budget.deepCopy(getPrimaryBudget());
+        copy.normalize(pastDate);
+        copy.updateProportionUsed();
+        setBudget(getPrimaryBudget(), copy);
     }
 
     public boolean hasBudgetWithName(Description targetDescription) {
@@ -189,56 +197,12 @@ public class UniqueBudgetList implements Iterable<Budget> {
         requireAllNonNull(target, editedBudget);
 
         int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new BudgetNotFoundException();
+        }
+        if (!target.isSameBudget(editedBudget) && contains(editedBudget)) {
+            throw new DuplicateBudgetException();
+        }
         internalList.set(index, editedBudget);
     }
-
-    /*
-    private Budget createEditedBudget(Budget budgetToEdit, EditBudgetDescriptor editBudgetDescriptor) {
-        assert budgetToEdit != null;
-
-        boolean updatedIsPrimary = editBudgetDescriptor.getIsPrimary();
-
-        return new Budget(budgetToEdit.getDescription(), budgetToEdit.getAmount(), budgetToEdit.getStartDate(),
-                budgetToEdit.getEndDate(), budgetToEdit.getPeriod(), budgetToEdit.getExpenses(), updatedIsPrimary,
-                budgetToEdit.getProportionUsed());
-    }
-     */
-
-    /*
-    public static class EditBudgetDescriptor {
-        private boolean isPrimary;
-
-        public EditBudgetDescriptor() {}
-
-        public EditBudgetDescriptor(EditBudgetDescriptor toCopy) {
-            setIsPrimary(toCopy.isPrimary);
-        }
-
-        public void setIsPrimary(boolean isPrimary) {
-            this.isPrimary = isPrimary;
-        }
-
-        public boolean getIsPrimary() {
-            return this.isPrimary;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditExpenseDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditBudgetDescriptor e = (EditBudgetDescriptor) other;
-
-            return getIsPrimary() == e.getIsPrimary();
-        }
-    }
-    */
 }

@@ -178,6 +178,10 @@ public interface Model {
 
     void deleteBudget(Budget target);
 
+    void setBudget(Budget target, Budget editedBudget);
+
+    void changePrimaryBudgetWindow(Timestamp pastDate);
+
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Budget> getFilteredBudgetList();
 

@@ -288,6 +288,20 @@ public class ModelManager implements Model {
         mooLah.removeBudget(target);
     }
 
+    @Override
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+
+        mooLah.setBudget(target, editedBudget);
+    }
+
+    @Override
+    public void changePrimaryBudgetWindow(Timestamp pastDate) {
+        requireAllNonNull(pastDate);
+
+        mooLah.changePrimaryBudgetWindow(pastDate);
+    }
+
     //=========== Event ================================================================================
 
     @Override
