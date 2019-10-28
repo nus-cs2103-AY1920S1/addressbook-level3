@@ -45,6 +45,8 @@ Useful information for a deeper understanding of the command.
 
 == Quick Start
 
+These steps will guide you in installing MoneyGoWhere on your computer.
+
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MoneyGoWhere.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for MoneyGoWhere.
@@ -296,17 +298,8 @@ Returns the current monthly budget. +
 Format: `showbudget`
 
 === Generating statistics : `stats`
-Returns an overview of the spending which enables the user to analyze what they have spent their money on.
-
-As shown in Figure 3, data include:
-
-* Total cost spent
-* Budget set
-* Budget remaining
-* Status (Safe/Deficit)
-* A list of cost and percentage of total cost spent on each tag.
-The list is sorted in descending order based on cost. The tag with the highest cost incurred will be at the top.
-* A pie chart summarising the list of cost and percentage of total cost spent on each tag.
+Returns an overview of the spending in the form of a pie chart, with each sector representing a tag as shown in Figure 3.
+Each sector is labelled with the name and total expenditure for the tag, allowing you to better analyze your spending habits.
 
 Format: `stats d/DATE_START d/DATE_END`
 
@@ -336,7 +329,8 @@ Generates statistics for all spending.
 
 
 === Graphing the data : `graph`
-Shows the cost spent in the form of a line graph as seen in Figure 4.
+Shows a graph of total cost spent in a day against date in the form of a line graph as seen in Figure 4.
+This allows users to view trends in their spending over a specified period of time.
 
 Format: `graph d/DATE_START d/DATE_END`
 

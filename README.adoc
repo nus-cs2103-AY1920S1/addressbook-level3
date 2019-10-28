@@ -15,7 +15,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-*MoneyGoWhere* is a personal finance application targeted at students who have yet to earn a stable income.
+*MoneyGoWhere* is a personal finance application targeted at students at the National University of Singapore (NUS).
 It allows students to keep track of all their spending and their related information such as date, cost and tags.
 Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
 With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
