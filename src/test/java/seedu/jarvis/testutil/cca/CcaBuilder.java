@@ -88,6 +88,16 @@ public class CcaBuilder {
         return this;
     }
 
+    /**
+     * Sets the specified {@code CcaProgress} for the {@code Cca} that we are building.
+     *
+     * @return a CcaBuilder object.
+     */
+    public CcaBuilder withCcaProgress(CcaProgress ccaProgress) {
+        this.ccaProgress = ccaProgress;
+        return this;
+    }
+
     public Cca build() {
         return new Cca(name, ccaType, equipmentList, ccaProgress);
     }

@@ -7,6 +7,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * Lists all persons in the address book to the user.
@@ -46,8 +47,9 @@ public class ListCcaCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setViewStatus(ViewType.LIST_CCA);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     /**

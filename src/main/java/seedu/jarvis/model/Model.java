@@ -7,6 +7,8 @@ import seedu.jarvis.model.finance.FinanceTrackerModel;
 import seedu.jarvis.model.history.HistoryModel;
 import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.userprefs.UserPrefsModel;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * The API of the {@code Model} component.
@@ -17,5 +19,11 @@ import seedu.jarvis.model.userprefs.UserPrefsModel;
  */
 
 public interface Model extends AddressModel, UserPrefsModel, HistoryModel, FinanceTrackerModel,
-        CcaTrackerModel, PlannerModel, CoursePlannerModel {}
+        CcaTrackerModel, PlannerModel, CoursePlannerModel {
+
+    public ViewStatus getViewStatus();
+
+    public void setViewStatus(ViewType viewType);
+}
+
 

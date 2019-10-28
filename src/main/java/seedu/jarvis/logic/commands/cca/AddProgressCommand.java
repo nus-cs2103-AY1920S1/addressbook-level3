@@ -11,7 +11,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 
 /**
  * Adds a progress tracker to the specified cca .
@@ -39,17 +39,17 @@ public class AddProgressCommand extends Command {
     private final Index targetIndex;
     private Cca targetCca;
 
-    private final CcaProgressList toAddCcaProgressList;
+    private final CcaMilestoneList toAddCcaMilestoneList;
 
     /**
-     * Creates a {@code AddProgressCommand}, sets targetIndex to the {@code Index} and sets toAddCcaProgressList to the
+     * Creates a {@code AddProgressCommand}, sets targetIndex to the {@code Index} and sets toAddCcaMilestoneList to the
      * {@code CcaProgress} ccaProgress of the {@code Cca} at the targetIndex.
      *
      * @param targetIndex of the {@code Cca} to be deleted.
      */
-    public AddProgressCommand(Index targetIndex, CcaProgressList ccaProgressList) {
+    public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList) {
         this.targetIndex = targetIndex;
-        this.toAddCcaProgressList = ccaProgressList;
+        this.toAddCcaMilestoneList = ccaMilestoneList;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class AddProgressCommand extends Command {
         }
 
         targetCca = model.getCca(targetIndex);
-        model.addProgress(targetCca, toAddCcaProgressList);
+        model.addProgress(targetCca, toAddCcaMilestoneList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
     }
@@ -97,6 +97,6 @@ public class AddProgressCommand extends Command {
 
         // state check
         AddProgressCommand e = (AddProgressCommand) other;
-        return toAddCcaProgressList.equals(e.toAddCcaProgressList);
+        return toAddCcaMilestoneList.equals(e.toAddCcaMilestoneList);
     }
 }
