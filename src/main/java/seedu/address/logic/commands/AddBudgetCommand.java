@@ -52,16 +52,16 @@ public class AddBudgetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.hasBudget(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
+        }
+
         if (toAdd.getEndDate().localDate.isBefore(toAdd.getStartDate().localDate)) {
             throw new CommandException(MESSAGE_START_BEFORE_END);
         }
 
         if (model.hasBudgetPeriodClash(toAdd)) {
             throw new CommandException(MESSAGE_BUDGET_CLASH);
-        }
-
-        if (model.hasBudget(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
 
         model.addBudget(toAdd);

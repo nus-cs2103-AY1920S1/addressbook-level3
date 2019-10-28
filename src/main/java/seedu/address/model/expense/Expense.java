@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * Represents an expense in the expense list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Expense {
+public class Expense implements Comparable<Expense> {
 
     // Identity fields
     private final Name name;
@@ -96,6 +96,17 @@ public class Expense {
             && otherExpense.getCurrency().equals(getCurrency())
             && otherExpense.getDate().equals(getDate())
             && otherExpense.getTags().equals(getTags());
+    }
+
+    @Override
+    public int compareTo(Expense other) {
+        if (date.localDate.isBefore(other.getDate().localDate)) {
+            return -1;
+        } else if (date.localDate.isAfter(other.getDate().localDate)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
