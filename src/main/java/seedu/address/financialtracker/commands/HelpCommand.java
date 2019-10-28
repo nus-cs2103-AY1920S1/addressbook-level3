@@ -1,8 +1,6 @@
 package seedu.address.financialtracker.commands;
 
-import javafx.fxml.FXML;
 import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.ui.FinancialTrackerHelpWindow;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

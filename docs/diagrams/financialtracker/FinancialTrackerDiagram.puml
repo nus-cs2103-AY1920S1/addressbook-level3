@@ -3,7 +3,7 @@
 !include <office/Concepts/documents>
 !include <office/Users/user>
 !include <office/Users/administrator>
-!include style.puml
+!include ../style.puml
 
 Package " "<<Rectangle>>{
     Class GUI UI_COLOR
