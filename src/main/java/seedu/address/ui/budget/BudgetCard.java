@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
@@ -119,6 +120,10 @@ public class BudgetCard extends UiPart<Region> {
         } else {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-inbudget;");
         }
+    }
+
+    public void setBorder(Border border) {
+        budgetCardPane.setBorder(border);
     }
 
     @Override
