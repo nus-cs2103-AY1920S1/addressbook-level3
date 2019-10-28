@@ -131,7 +131,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     //@@author huiminlim
     @Override
-    public Boolean evaluate(String in){
+    public Boolean evaluate(String in) {
 
         int userAnswer = -1;
 

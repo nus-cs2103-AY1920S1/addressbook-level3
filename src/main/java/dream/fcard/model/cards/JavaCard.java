@@ -3,7 +3,6 @@ package dream.fcard.model.cards;
 import java.util.ArrayList;
 
 import dream.fcard.model.TestCase;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.

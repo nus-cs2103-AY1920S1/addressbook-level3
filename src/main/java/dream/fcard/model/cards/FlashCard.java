@@ -1,6 +1,5 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
