@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.suggestions.stateless;
 
-import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.commands.suggestions.Suggester;
@@ -15,9 +14,9 @@ import seedu.address.model.Model;
  * Meant to be extended/aliased for {@link seedu.address.logic.commands.Command}s that only take in a group name.
  */
 public class GroupNameSuggester extends Suggester {
-    public static final List<Prefix> SUPPORTED_PREFIXES = Collections.unmodifiableList(List.of(
+    public static final List<Prefix> SUPPORTED_PREFIXES = List.of(
             CliSyntax.PREFIX_GROUPNAME
-    ));
+    );
 
     @Override
     protected final List<String> provideSuggestions(

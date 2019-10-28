@@ -25,11 +25,25 @@ import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 public class SuggestionLogicManager implements SuggestionLogic {
     private static final ObservableList<String> EMPTY_LIST = FXCollections.emptyObservableList();
 
-    private final FilteredList<String> commandSuggestions = new FilteredList<>(SuggestingCommandUtil.getCommandWords());
+    private final FilteredList<String> commandSuggestions;
     private final Model model;
 
     public SuggestionLogicManager(final Model model) {
+        this(Objects.requireNonNull(model), SuggestingCommandUtil.getCommandWords());
+    }
+
+    public SuggestionLogicManager(final Model model, final List<String> commandWords) {
         this.model = Objects.requireNonNull(model);
+        Objects.requireNonNull(commandWords);
+
+        final ObservableList<String> observableListCommandWords;
+        if (commandWords instanceof ObservableList) {
+            observableListCommandWords = (ObservableList<String>) commandWords;
+        } else {
+            observableListCommandWords = FXCollections.observableList(commandWords);
+        }
+
+        this.commandSuggestions = new FilteredList<>(observableListCommandWords);
     }
 
     private static boolean isCaretWithinCommandWordSection(final CommandTokens commandTokens, final int caretPosition) {

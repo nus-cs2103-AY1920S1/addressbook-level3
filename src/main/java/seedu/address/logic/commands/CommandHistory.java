@@ -1,135 +1,152 @@
 package seedu.address.logic.commands;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.RandomAccess;
+import java.util.function.Predicate;
 
 /**
- * Stores the user's command history and allows for bidirectional navigation of the history.
+ * Append-only storage of the user's command history and allows for bidirectional navigation of the history.
  */
 public class CommandHistory extends ArrayList<String> {
-    private List<WeakReference<CustomListIterator>> customListIterators = new LinkedList<>();
-    private ListIterator<String> listIterator = listIterator();
+    private IndexedBasedListIterator<String> listIterator = (IndexedBasedListIterator<String>) listIterator();
 
     public String getPreviousCommand() {
-        return listIterator.hasNext() ? listIterator.next() : null;
-    }
-
-    public String getNextCommand() {
         return listIterator.hasPrevious() ? listIterator.previous() : null;
     }
 
+    public String getNextCommand() {
+        return listIterator.hasNext() ? listIterator.next() : null;
+    }
+
     public void resetHistoryPointer() {
-        listIterator = listIterator();
+        listIterator.repositionIndexToEnd();
     }
 
     @Override
     public ListIterator<String> listIterator() {
-        final CustomListIterator listIterator = new CustomListIterator(this);
+        return new IndexedBasedListIterator<>(this);
+    }
 
-        /*
-         A WeakReference is used so that the lifetime of the created CustomListIterator is determined by this method's
-         consumer rather than this instance forever preventing all CustomListIterator from being garbage collected.
-        */
-        customListIterators.add(new WeakReference<>(listIterator));
-        return listIterator;
+    @Override
+    public boolean add(final String newElement) {
+        Objects.requireNonNull(newElement);
+        if (!isEmpty() && get(size() - 1).equals(newElement)) {
+            // the command being added is exactly the same as the most recent command, so we'll skip it
+            return false;
+        }
+
+        final boolean result = super.add(newElement);
+        resetHistoryPointer();
+        return result;
     }
 
     @Override
     public void add(final int index, final String newElement) {
-        if (index != 0) {
-            throw new UnsupportedOperationException("Index must be 0");
+        Objects.requireNonNull(newElement);
+        if (index != size()) {
+            throw new UnsupportedOperationException();
         }
 
-        if (!isEmpty() && get(0).equals(newElement)) {
-            // the command being added is exactly the same as the most recent command, so we'll skip it
-            return;
-        }
+        this.add(newElement);
+    }
 
-        super.add(index, newElement);
+    @Override
+    public boolean addAll(final Collection<? extends String> c) {
+        Objects.requireNonNull(c);
+        final boolean result = super.addAll(c);
+        resetHistoryPointer();
+        return result;
+    }
 
-        /*
-         Since a new element is added to the list, we need to increment the index
-         of all ListIterators so that they still point to the correct previous/next elements
-        */
-        final Iterator<WeakReference<CustomListIterator>> customListIteratorsIterator = customListIterators.iterator();
-        while (customListIteratorsIterator.hasNext()) {
-            final WeakReference<CustomListIterator> customListIteratorReference = customListIteratorsIterator.next();
-            final CustomListIterator customListIterator = customListIteratorReference.get();
+    @Override
+    protected void removeRange(int fromIndex, int toIndex) {
+        throw new UnsupportedOperationException();
+    }
 
-            if (customListIterator == null) {
-                // The CustomListIterator has been garbage collected, so we'll remove the WeakReference container.
-                customListIteratorsIterator.remove();
-            } else {
-                customListIterator.incrementIndex();
-            }
-        }
+    @Override
+    public String remove(int index) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean removeIf(Predicate<? super String> filter) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String set(int index, String element) {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * A custom ListIterator class that allows for very basic concurrent modification of the the underlying list.
      */
-    static class CustomListIterator implements ListIterator<String> {
-        private final ArrayList<String> backingStore;
+    static class IndexedBasedListIterator<E> implements ListIterator<E> {
+        private final List<E> list;
         private int index = -1;
 
-        CustomListIterator(final ArrayList<String> backingStore) {
-            this.backingStore = backingStore;
-        }
-
-        private boolean isWithinBounds(final int index) {
-            return 0 <= index && index < backingStore.size();
-        }
-
-        private void incrementIndex() {
-            index++;
+        <RandomAccessList extends List<E> & RandomAccess> IndexedBasedListIterator(final RandomAccessList list) {
+            this.list = Objects.requireNonNull(list);
         }
 
         @Override
         public boolean hasNext() {
-            final int nextIndex = index + 1;
-            return isWithinBounds(nextIndex);
+            return index + 1 < list.size();
         }
 
         @Override
-        public String next() {
-            index = index + 1;
-            return backingStore.get(index);
+        public E next() {
+            final int i = nextIndex();
+            if (i >= list.size()) {
+                throw new NoSuchElementException();
+            }
+            index = i;
+            return list.get(index);
         }
 
         @Override
         public boolean hasPrevious() {
-            final int previousIndex = index - 1;
-            return isWithinBounds(previousIndex);
+            return index > 0;
         }
 
         @Override
-        public String previous() {
-            index = index - 1;
-            return backingStore.get(index);
+        public E previous() {
+            final int i = previousIndex();
+            if (i < 0) {
+                throw new NoSuchElementException();
+            }
+            index = i;
+            return list.get(index);
         }
 
         @Override
         public int nextIndex() {
-            final int nextIndex = index + 1;
-            if (isWithinBounds(nextIndex)) {
-                return nextIndex;
-            } else {
-                return backingStore.size();
-            }
+            return Math.min(index + 1, list.size());
         }
 
         @Override
         public int previousIndex() {
-            final int previousIndex = index - 1;
-            if (isWithinBounds(previousIndex)) {
-                return previousIndex;
-            } else {
-                return -1;
-            }
+            return index - 1;
         }
 
         @Override
@@ -138,13 +155,42 @@ public class CommandHistory extends ArrayList<String> {
         }
 
         @Override
-        public void set(String s) {
+        public void set(E s) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public void add(String s) {
+        public void add(E s) {
             throw new UnsupportedOperationException();
+        }
+
+        /**
+         * Repositions the internal index.
+         * This is used to set the internal index to -1 if it's desirable for {@link #next()} to return the first value.
+         * Also accepts the size of the underlying list so that {@link #previous()} will return the last list value.
+         *
+         * @param newIdx New value for the internal index.
+         */
+        public void repositionIndex(final int newIdx) {
+            if (newIdx < -1 || list.size() < newIdx) {
+                throw new IndexOutOfBoundsException();
+            }
+
+            index = newIdx;
+        }
+
+        /**
+         * Repositions the internal index so that {@link #next()} returns the first value of the list.
+         */
+        public void repositionIndexToStart() {
+            repositionIndex(-1);
+        }
+
+        /**
+         * Repositions the internal index so that {@link #previous()} returns the last value of the list.
+         */
+        public void repositionIndexToEnd() {
+            repositionIndex(list.size());
         }
     }
 }

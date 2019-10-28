@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.suggestions;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +13,9 @@ import seedu.address.model.Model;
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.DeletePersonCommand}.
  */
 public class DeletePersonCommandSuggester extends Suggester {
-    public static final List<Prefix> SUPPORTED_PREFIXES = Collections.unmodifiableList(List.of(
+    public static final List<Prefix> SUPPORTED_PREFIXES = List.of(
             CliSyntax.PREFIX_NAME
-    ));
+    );
 
     @Override
     protected List<String> provideSuggestions(

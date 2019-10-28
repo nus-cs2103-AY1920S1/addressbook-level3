@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.suggestions;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +15,10 @@ import seedu.address.model.group.GroupName;
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditGroupCommand}.
  */
 public class EditGroupCommandSuggester extends Suggester {
-    public static final List<Prefix> SUPPORTED_PREFIXES = Collections.unmodifiableList(List.of(
+    public static final List<Prefix> SUPPORTED_PREFIXES = List.of(
             CliSyntax.PREFIX_EDIT,
             CliSyntax.PREFIX_REMARK
-    ));
+    );
 
     protected static Optional<Group> getSelectedGroup(final Model model, final ArgumentList arguments) {
         final Optional<String> groupNameInput = arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_EDIT);
