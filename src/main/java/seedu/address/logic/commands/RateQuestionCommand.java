@@ -29,8 +29,7 @@ public class RateQuestionCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-
-        updateModel(model);
+        updateModelStatistics(model);
         // TODO: implement flashcard rating
 
         if (!model.hasTestFlashCard()) {
@@ -53,7 +52,7 @@ public class RateQuestionCommand extends Command {
     }
 
     /** Updates statistics in the model. */
-    private void updateModel(Model model) {
+    private void updateModelStatistics(Model model) {
         requireNonNull(model);
         String rating = this.rating.toString();
         assert rating.equals("good") || rating.equals("hard") || rating.equals("easy");
