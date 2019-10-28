@@ -35,7 +35,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * *`help`* : gives you a list of commands that are available.
-* **`add`**`CS2103T Lecture /at 20/9/2019 16:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
+* **`add_task c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
 
@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times e.g. `tt/TASK_TIME...` can be used as `tt/...`, `tt/... tt/...` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 =====
 
@@ -72,23 +72,24 @@ Examples:
 ==== Adding task: `add_task`
 
 Adds a task to one or more time slots. +
-Format: `add_task c/MODULE mark/STATUS tt/START_TIME, END_TIME...`
+Format: `add_task c/MODULE mark/STATUS tt/TASK_TIME...`
 
 [TIP]
 A task can have more than one time slots. +
 STATUS should only be Y or N. +
-`START_TIME` and `END_TIME` should be in the format dd/MM/YYYY HH:mm. +
-`START_TIME` and `END_TIME` should be connected with ", ".
+`TASK_TIME` should be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm". +
+If there are multiple task times, they will be automatically sorted based on their starting time.
+
 
 Examples:
 
-* `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 16:00, 4/10/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
+* `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 13:00, 20/9/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
 * `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
 ==== Editing task: `edit_task`
 
 Update task information. +
-Format: `editTask INDEX [mark/STATUS] [tt/START_TIME, END_TIME]`
+Format: `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]`
 
 [TIP]
 INDEX must be a positive integer. +
@@ -97,20 +98,21 @@ At least one element inside task should be edited.
 
 Examples:
 
-* `editTask 2 mark/N`
-* `editTask 1 tt/19/10/2019 12:00, 19/10/2019 14:00 mark/N`
+* `edit_task 2 mark/N`
+* `edit_task 1 tt/19/10/2019 12:00, 19/10/2019 14:00 mark/N`
+
 
 ==== Deleting task: `delete_task`
 
 Deletes selected task. +
-Format: `delete INDEX`
+Format: `delete_task INDEX`
 
 [TIP]
 INDEX must be a positive integer.
 
 Examples:
 
-* `delete 1`
+* `delete_task 1`
 
 ==== Finding tasks based on Module : `find_task_by_module`
 
@@ -140,6 +142,11 @@ Format: `find_task_by_date DATE ...`
 Examples:
 
 * `find_task_by_date 20/10/2019`
+
+==== Listing all tasks : `list_task`
+
+List all tasks. +
+Format: `list_tasks`
 
 
 ==== Setting Reminder Details  : `reminder`
@@ -285,15 +292,30 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Log* : +
+`login user/USERNAME pass/PASSWORD` +
+`register user/USERNAME pass/PASSWORD` +
+`logout`
+* *Tab* : `tab TAB_DESTINATION`
+* *Calendar:* +
+`add_task c/MODULE mark/STATUS tt/TASK_TIME...` +
+`edit_task INDEX [mark/STATUS] [tt/TASK_TIME]` +
+`delete_task 1` +
+`find_task_by_module MODULE ...` +
+`find_task_by_date DATE ...` +
+`list_tasks`
+* *Reminder* : `reminder INDEX STATUS`
+* *Earnings* : +
+`add_earnings d/DATE c/CLASSID amt/AMOUNT` +
+`update_earnings d/DATE c/CLASSID amt/(NEW_AMOUNT)` +
+`delete_earnings d/DATE c/CLASSID` +
+`find_earnings k/KEYWORD, ...` +
+`claim_earnings d/DATE c/CLASSID` +
+`filter_earnings VARIABLE`
+* *Note* : +
+`addnote mod/MODULE_CODE c/CONTENT` +
+`editnote [index] mod/MODULE_CODE c/CONTENT` +
+* *Clear* : `clear`
+* *Exit* : `exit`
+

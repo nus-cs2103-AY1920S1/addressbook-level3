@@ -131,15 +131,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.remove(key);
     }
 
-    /**
-     * set new string for task
-     * @return a tasks string
-     */
-    public String toTasksString() {
-        return tasks.asUnmodifiableObservableList().size() + " tasks";
-        // TODO: refine later
-    }
-
     //// person-level operations
 
     /**
@@ -338,7 +329,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && (persons.equals(((AddressBook) other).persons))
-                || (tasks.equals(((AddressBook) other).tasks)));
+                && (tasks.equals(((AddressBook) other).tasks)));
     }
 
     @Override
