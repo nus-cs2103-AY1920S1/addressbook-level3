@@ -156,4 +156,11 @@ public class QuizResultList implements Iterable<QuizResult> {
     public Iterator<QuizResult> iterator() {
         return internalList.iterator();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof QuizResultList // instanceof handles nulls
+                && internalList.equals(((QuizResultList) other).internalList));
+    }
 }
