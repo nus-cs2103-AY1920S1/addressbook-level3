@@ -4,9 +4,17 @@
 }
 
 .label {
+    -fx-font-size: 11.5pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+
+.label-dashboard {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #848484;
+    -fx-text-fill: #3e7b91;
     -fx-opacity: 0.9;
 }
 
@@ -144,7 +152,7 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(#c1c1c1, 30%);
+    -fx-background-color: derive(#3e7b91, 30%);
 }
 
 .result-display {
@@ -155,7 +163,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: transparent !important;
 }
 
 .status-bar .label {
@@ -166,7 +174,7 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#e2e2e2, 30%);
+    -fx-background-color: derive(#3e7b91, 30%);
     -fx-border-color: derive(#e2e2e2, 25%);
     -fx-border-width: 1px;
 }
@@ -319,14 +327,14 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: transparent #c7c7c7 transparent #c7c7c7;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-color: #c7c7c7 #c7c7c7 #000000 #c7c7c7;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #000000;
 }
 
 #filterField, #taskListPanel, #taskWebpage {
