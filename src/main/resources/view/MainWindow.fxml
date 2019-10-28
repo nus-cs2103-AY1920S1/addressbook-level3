@@ -20,8 +20,8 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@PastelTheme.css" />
-        <URL value="@PastelExtensions.css" />
+        <URL value="@BillboardTheme.css" />
+        <URL value="@Extensions.css" />
       </stylesheets>
 
       <VBox>
