@@ -9,7 +9,6 @@ import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.statistics.Statistics;
@@ -31,6 +30,7 @@ public class GetStatisticsCommand extends Command {
         List<Member> members = model.getFilteredMembersList();
         List<TasMemMapping> tasMemMappings = model.getFilteredTasMemMappingsList();
         List<InvMemMapping> invMemMappings = model.getFilteredInvMemMappingsList();
+
         Statistics stats = new Statistics(members, tasks, tasMemMappings, invMemMappings);
         model.setStatistics(stats);
         stats.doCalculations();

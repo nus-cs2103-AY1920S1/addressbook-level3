@@ -29,7 +29,7 @@ public class TaskListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
      */
     class TaskListViewCell extends ListCell<Task> {
         @Override

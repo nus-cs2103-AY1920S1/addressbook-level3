@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 /**
  * returns pdf of inventories.
  */
-/*public class GeneratePDFCommand extends Command {
+public class GeneratePDFCommand extends Command {
     public static final String COMMAND_WORD = "pdf";
 
     public static final String MESSAGE_SUCCESS = "Generated PDF";
@@ -137,4 +137,4 @@ package seedu.address.logic.commands;
         }
         return totalPrice;
     }
-}*/
+}

@@ -11,6 +11,7 @@ import seedu.address.logic.commands.AddMemberCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClockCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
@@ -24,7 +25,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.FireCommand;
-//import seedu.address.logic.commands.GeneratePDFCommand;
+import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
@@ -33,6 +34,7 @@ import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.commands.SetImageCommand;
+import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -61,6 +63,7 @@ public class ProjectDashboardParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
         // TASK
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
@@ -85,6 +88,7 @@ public class ProjectDashboardParser {
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
+
         // MEMBER
         case AddMemberCommand.COMMAND_WORD:
             return new AddMemberCommandParser().parse(arguments);
@@ -100,6 +104,7 @@ public class ProjectDashboardParser {
 
         case ListMemberCommand.COMMAND_WORD:
             return new ListMemberCommand();
+
         // ASSOCIATION
         case AssignCommand.COMMAND_WORD:
             return new AssignCommandParser().parse(arguments);
@@ -120,14 +125,23 @@ public class ProjectDashboardParser {
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);
 
-        /*case GeneratePDFCommand.COMMAND_WORD:
-            return new GeneratePDFCommand();*/
+        case GeneratePDFCommand.COMMAND_WORD:
+            return new GeneratePDFCommand();
+
         // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:
             return new GetStatisticsCommand();
 
         case GetStatisticsCommand.COMMAND_WORD_TASK:
             return new GetStatisticsCommand();
+
+        // SETTINGS
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
+
+        case ClockCommand.COMMAND_WORD:
+            return new ClockCommandParser().parse(arguments);
+
         // UNIVERSAL
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

@@ -11,6 +11,8 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 
@@ -73,5 +75,19 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    public Statistics getStatistics();
+    /**
+     * Returns the project statistics.
+     */
+    Statistics getStatistics();
+
+    /**
+     * Returns the current theme of +Work.
+     */
+    Theme getCurrentTheme();
+
+    /**
+     * Returns the clock format of +Work.
+     */
+    ClockFormat getClockFormat();
+
 }

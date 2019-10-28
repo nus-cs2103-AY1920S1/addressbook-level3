@@ -12,26 +12,28 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.TasMemMapping;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 
-//import seedu.address.model.task.NameContainsKeywordsPredicate;
-
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of +Work data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ProjectDashboard projectDashboard;
     private final UserPrefs userPrefs;
+    private final UserSettings userSettings;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> filteredTasksNotStarted;
     private final FilteredList<Task> filteredTasksDoing;
@@ -46,16 +48,18 @@ public class ModelManager implements Model {
 
 
     /**
-     * Initializes a ModelManager with the given projectDashboard and userPrefs.
+     * Initialises a ModelManager with the given projectDashboard, userPrefs and userSettings.
      */
-    public ModelManager(ReadOnlyProjectDashboard projectDashboard, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyProjectDashboard projectDashboard, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyUserSettings userSettings) {
         super();
-        requireAllNonNull(projectDashboard, userPrefs);
+        requireAllNonNull(projectDashboard, userPrefs, userSettings);
 
         logger.fine("Initializing with address book: " + projectDashboard + " and user prefs " + userPrefs);
 
         this.projectDashboard = new ProjectDashboard(projectDashboard);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.userSettings = new UserSettings(userSettings);
 
         filteredTasks = new FilteredList<>(this.projectDashboard.getTaskList());
         filteredTasksNotStarted = new FilteredList<>(this.projectDashboard.getTasksNotStarted());
@@ -69,10 +73,11 @@ public class ModelManager implements Model {
         filteredInvMemMappings = new FilteredList<>(this.projectDashboard.getInvMemMappingList());
         stats = new Statistics(filteredMembers, filteredTasks, filteredTasMemMappings, filteredInvMemMappings);
         stats.doCalculations();
+
     }
 
     public ModelManager() {
-        this(new ProjectDashboard(), new UserPrefs());
+        this(new ProjectDashboard(), new UserPrefs(), new UserSettings());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -213,7 +218,6 @@ public class ModelManager implements Model {
     @Override
     public void setInventory(Inventory target, Inventory editedInventory) {
         requireAllNonNull(target, editedInventory);
-
         projectDashboard.setInventory(target, editedInventory);
     }
 
@@ -244,6 +248,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return projectDashboard.equals(other.projectDashboard)
                 && userPrefs.equals(other.userPrefs)
+                && userSettings.equals(other.userSettings)
                 && filteredTasks.equals(other.filteredTasks)
                 && filteredMembers.equals(other.filteredMembers);
     }
@@ -387,5 +392,42 @@ public class ModelManager implements Model {
     @Override
     public void setStatistics(Statistics newStats) {
         this.stats = newStats;
+    }
+
+    // ========= User Settings =================================================================================
+    @Override
+    public UserSettings getUserSettings() {
+        return userSettings;
+    }
+
+    @Override
+    public Path getUserSettingsFilePath() {
+        return userSettings.getUserSettingsFilePath();
+    }
+
+    // TODO for testing purposes
+    public void setUserSettingsFilePath(Path newPath) {
+        requireAllNonNull(newPath);
+        userSettings.setUserSettingsFilePath(newPath);
+    }
+
+    @Override
+    public Theme getCurrentTheme() {
+        return userSettings.getTheme();
+    }
+
+    @Override
+    public void setCurrentTheme(Theme newTheme) {
+        userSettings.setTheme(newTheme);
+    }
+
+    @Override
+    public ClockFormat getCurrentClockFormat() {
+        return userSettings.getClockFormat();
+    }
+
+    @Override
+    public void setClockFormat(ClockFormat newClockFormat) {
+        userSettings.setClockFormat(newClockFormat);
     }
 }
