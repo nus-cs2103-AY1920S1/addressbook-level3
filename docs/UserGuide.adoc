@@ -125,7 +125,7 @@ Examples:
   `score t`
 
 ==== Getting rank of an athlete: `rank`
-Gets current position of an athlete relative to other relatives for the entire competition.
+Gets current position of an athlete relative to other athletes for the entire competition.
 
 Format: `rank n/NAME`
 
