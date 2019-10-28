@@ -2,7 +2,7 @@ package seedu.weme.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.weme.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
@@ -14,7 +14,9 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.weme.logic.parser.contextparser.MemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.logic.parser.util.ParserUtil;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.tag.Tag;

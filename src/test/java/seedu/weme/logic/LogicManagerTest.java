@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.weme.logic.commands.CommandResult;
-import seedu.weme.logic.commands.MemeListCommand;
 import seedu.weme.logic.commands.exceptions.CommandException;
+import seedu.weme.logic.commands.memecommand.MemeListCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;

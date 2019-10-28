@@ -8,11 +8,12 @@ import static seedu.weme.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.ExitCommand;
-import seedu.weme.logic.commands.HelpCommand;
-import seedu.weme.logic.commands.RedoCommand;
-import seedu.weme.logic.commands.TabCommand;
-import seedu.weme.logic.commands.UndoCommand;
+import seedu.weme.logic.commands.generalcommand.ExitCommand;
+import seedu.weme.logic.commands.generalcommand.HelpCommand;
+import seedu.weme.logic.commands.generalcommand.RedoCommand;
+import seedu.weme.logic.commands.generalcommand.TabCommand;
+import seedu.weme.logic.commands.generalcommand.UndoCommand;
+import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 public class WemeParserTest {

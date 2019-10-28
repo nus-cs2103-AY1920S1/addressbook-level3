@@ -1,11 +1,12 @@
 package seedu.weme.logic.commands;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.weme.logic.commands.TabCommand.MESSAGE_SUCCESS;
+import static seedu.weme.logic.commands.generalcommand.TabCommand.MESSAGE_SUCCESS;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.weme.logic.commands.generalcommand.TabCommand;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 

@@ -1,6 +1,6 @@
 package seedu.weme.ui;
 
-import static seedu.weme.logic.parser.ParserUtil.MESSAGE_INVALID_CONTEXT;
+import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_CONTEXT;
 
 import java.util.logging.Logger;
 

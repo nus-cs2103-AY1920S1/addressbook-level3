@@ -69,6 +69,11 @@ public class SampleDataUtil {
                 "/home/me/CS/Y2S1/ProgrammingMemes/CS2103.jpg")
                 .collect(Collectors.toSet());
         Set<String> descriptionRecords = Stream.of(
+                "A meme about doge.",
+                "A meme about Char and charmander.",
+                "A meme about joker.",
+                "A meme about toy.",
+                "A meme about a test.",
                 "OMG my favorite meme!!!",
                 "T$T: head = null",
                 "CS2103 is so fun!",
@@ -76,26 +81,35 @@ public class SampleDataUtil {
                 "My second self-made meme")
                 .collect(Collectors.toSet());
         Set<String> tagRecords = Stream.of(
+                "doge",
+                "cute",
+                "charmander",
+                "joker",
+                "toy",
+                "funny",
+                "test",
                 "CS2103",
                 "GoT",
                 "CS",
-                "CS Lectures",
+                "CSLectures",
                 "programming",
-                "cute animals",
-                "CUTE cats",
+                "cuteAnimals",
+                "CUTECATS",
                 "best",
                 "favorite",
                 "weme",
                 "wow")
                 .collect(Collectors.toSet());
         Set<String> nameRecords = Stream.of(
+                "Drake Reaction",
+                "Is This",
+                "Quiz Kid",
                 "disaster girl",
                 "hey girl",
                 "sponge bob",
                 "LOLcats",
                 "Double Rainbow",
                 "Gangnam Style",
-                "doge",
                 "TheDress")
                 .collect(Collectors.toSet());
         return new RecordsManager(pathRecords, descriptionRecords, tagRecords, nameRecords);

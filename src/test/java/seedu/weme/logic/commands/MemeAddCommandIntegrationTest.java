@@ -6,6 +6,7 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.weme.logic.commands.memecommand.MemeAddCommand;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.meme.Meme;

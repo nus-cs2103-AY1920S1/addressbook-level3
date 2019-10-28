@@ -23,6 +23,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.TagWithCount;
@@ -305,6 +306,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int getLikesByMeme(Meme meme) {
+        return versionedWeme.getLikesByMeme(meme);
+    }
+
+    @Override
     public ObservableMap<String, Integer> getObservableLikeData() {
         return versionedWeme.getObservableLikeData();
     }
@@ -313,6 +319,16 @@ public class ModelManager implements Model {
     public void incrementMemeLikeCount(Meme meme) {
         versionedWeme.incrementMemeLikeCount(meme);
     }
+
+    @Override
+    public int getCountOfTag(Tag tag) {
+        return versionedWeme.getCountOfTag(tag);
+    }
+
+    @Override
+    public List<TagWithCount> getTagsWithCountList() {
+        return versionedWeme.getTagsWithCountList();
+    };
 
     @Override
     public void clearMemeStats(Meme meme) {
@@ -352,12 +368,6 @@ public class ModelManager implements Model {
         versionedWeme.addDescription(meme.getDescription());
         versionedWeme.addTags(meme.getTags());
     }
-
-    @Override
-    public List<TagWithCount> getTagsWithCountList() {
-        return versionedWeme.getTagsWithCountList();
-    };
-
 
     @Override
     public void cleanMemeStorage() {

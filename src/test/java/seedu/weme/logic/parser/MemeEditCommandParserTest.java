@@ -12,9 +12,9 @@ import static seedu.weme.logic.commands.CommandTestUtil.VALID_DESCRIPTION_JOKER;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_FILEPATH_CHARMANDER;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_CHARMANDER;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_JOKER;
-import static seedu.weme.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST_MEME;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND_MEME;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_THIRD_MEME;
@@ -22,8 +22,9 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_THIRD_MEME;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.logic.commands.MemeEditCommand;
-import seedu.weme.logic.commands.MemeEditCommand.EditMemeDescriptor;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand;
+import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
+import seedu.weme.logic.parser.commandparser.memecommandparser.MemeEditCommandParser;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 

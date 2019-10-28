@@ -20,6 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
+import seedu.weme.logic.commands.memecommand.MemeAddCommand;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyUserPrefs;
@@ -27,6 +28,7 @@ import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.Records;
 import seedu.weme.model.Weme;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Template;
 import seedu.weme.statistics.Stats;
 import seedu.weme.statistics.TagWithCount;
@@ -306,12 +308,22 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public int getLikesByMeme(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public ObservableMap<String, Integer> getObservableLikeData() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
         public void incrementMemeLikeCount(Meme meme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public int getCountOfTag(Tag tag) {
             throw new AssertionError("This method should not be called");
         }
 
