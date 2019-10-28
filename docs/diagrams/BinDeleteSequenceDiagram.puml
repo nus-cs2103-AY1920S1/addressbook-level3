@@ -18,11 +18,11 @@ activate DeleteCommand
 DeleteCommand -> Model : deletePerson(1)
 activate Model
 
-Model -> Model : deletePerson(person)
+Model -> Model : deletePerson(personToDelete)
 activate Model
 deactivate Model
 
-Model -> BinItem **: BinItem(person)
+Model -> BinItem **: BinItem(personToDelete)
 activate BinItem
 
 BinItem --> Model : personToBin
