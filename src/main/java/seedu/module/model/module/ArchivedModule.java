@@ -1,6 +1,7 @@
 package seedu.module.model.module;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents an Archived Module. An Archived Module is an Object containing data on a module
@@ -12,14 +13,33 @@ public class ArchivedModule implements Module {
     private final String moduleCode;
     private final String title;
     private final String description;
+    private final Optional<String> prerequisite;
+    private final Optional<String> preclusion;
+    private final SemesterDetailList semesterDetails;
 
     /**
      * Every field must be present and not null.
      */
-    public ArchivedModule(String moduleCode, String title, String description) {
+    public ArchivedModule(String moduleCode, String title, String description, String prerequisite,
+        String preclusion, SemesterDetailList semesterDetails) {
         this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
+        this.prerequisite = Optional.ofNullable(prerequisite);
+        this.preclusion = Optional.ofNullable(preclusion);
+        this.semesterDetails = semesterDetails;
+    }
+
+    public Optional<String> getPreclusion() {
+        return preclusion;
+    }
+
+    public SemesterDetailList getSemesterDetails() {
+        return semesterDetails;
+    }
+
+    public Optional<String> getPrerequisite() {
+        return prerequisite;
     }
 
     public String getModuleCode() {

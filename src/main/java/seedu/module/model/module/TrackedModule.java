@@ -3,6 +3,7 @@ package seedu.module.model.module;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a TrackedModule in the ModuleList.
@@ -32,6 +33,18 @@ public class TrackedModule implements Module, Trackable {
 
     public String getDescription() {
         return archivedModule.getDescription();
+    }
+
+    public Optional<String> getPrerequisite() {
+        return archivedModule.getPrerequisite();
+    }
+
+    public Optional<String> getPreclusion() {
+        return archivedModule.getPreclusion();
+    }
+
+    public SemesterDetailList getSemesterDetails() {
+        return archivedModule.getSemesterDetails();
     }
 
     public String getDeadline() {

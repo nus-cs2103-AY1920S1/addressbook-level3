@@ -10,9 +10,9 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.module.model.module.ArchivedModuleList;
 import seedu.module.model.module.TrackedModule;
 import seedu.module.testutil.ArchivedModuleBuilder;
+import seedu.module.testutil.ModuleBookBuilder;
 import seedu.module.testutil.TrackedModuleBuilder;
 
 public class ModuleBookTest {
@@ -21,11 +21,7 @@ public class ModuleBookTest {
 
     @BeforeEach
     public void beforeEach() {
-        ModuleBook newModuleBook = new ModuleBook();
-        ArchivedModuleList archivedModules = new ArchivedModuleList();
-        archivedModules.add(new ArchivedModuleBuilder().build());
-        newModuleBook.setArchivedModules(archivedModules);
-        moduleBook = newModuleBook;
+        moduleBook = new ModuleBookBuilder().build();
     }
 
     @Test

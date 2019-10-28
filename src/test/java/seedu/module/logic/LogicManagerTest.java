@@ -32,6 +32,7 @@ import seedu.module.storage.JsonModuleBookStorage;
 import seedu.module.storage.JsonUserPrefsStorage;
 import seedu.module.storage.StorageManager;
 import seedu.module.testutil.ArchivedModuleBuilder;
+import seedu.module.testutil.ModuleBookBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,14 +44,10 @@ public class LogicManagerTest {
     private Logic logic;
 
     @BeforeEach
-    public void setUp() {
+    public void beforeEach() {
         // Set up model
-        ArchivedModuleList archivedModules = new ArchivedModuleList();
-        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
-        archivedModules.add(archivedModule);
-        ModuleBook moduleBook = new ModuleBook(archivedModules);
         model = new ModelManager();
-        model.setModuleBook(moduleBook);
+        model.setModuleBook(new ModuleBookBuilder().build());
 
         // Set up storage
         JsonModuleBookStorage moduleBookStorage =
@@ -85,7 +82,7 @@ public class LogicManagerTest {
         ArchivedModuleList archivedModules = new ArchivedModuleList();
         ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
         archivedModules.add(archivedModule);
-        ModuleBook moduleBook = new ModuleBook(archivedModules);
+        ModuleBook moduleBook = new ModuleBookBuilder().build();
 
         // Setup LogicManager with JsonmoduleBookIoExceptionThrowingStub
         JsonModuleBookStorage moduleBookStorage =

@@ -1,6 +1,7 @@
 package seedu.module.testutil;
 
 import seedu.module.model.module.ArchivedModule;
+import seedu.module.model.module.SemesterDetailList;
 
 /**
  * A utility class to help with building ArchivedModule objects.
@@ -14,11 +15,15 @@ public class ArchivedModuleBuilder {
     private String moduleCode;
     private String title;
     private String description;
+    private String prerequisite;
+    private String preclusion;
+    private SemesterDetailList semesterDetails;
 
     public ArchivedModuleBuilder() {
         moduleCode = DEFAULT_MODULE_CODE;
         title = DEFAULT_TITLE;
         description = DEFAULT_DESCRIPTION;
+        semesterDetails = new SemesterDetailList();
     }
 
     /**
@@ -54,7 +59,19 @@ public class ArchivedModuleBuilder {
         return this;
     }
 
+    /**
+     * Sets the prerequisite of the {@code ArchivedModule} that we are building.
+     */
+    public ArchivedModuleBuilder withPrerequisite(String prerequisite) {
+        this.prerequisite = prerequisite;
+        return this;
+    }
+
+    /**
+     * Constructs and returns the {@code ArchivedModule}.
+     */
     public ArchivedModule build() {
-        return new ArchivedModule(moduleCode, title, description);
+        return new ArchivedModule(moduleCode, title, description, prerequisite,
+            preclusion, semesterDetails);
     }
 }

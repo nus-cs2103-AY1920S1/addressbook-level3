@@ -14,6 +14,7 @@ import seedu.module.model.ModuleBook;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.ArchivedModuleList;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.testutil.ArchivedModuleBuilder;
 
 public class ViewCommandTest {
     private final String moduleCode = "CS2103T";
@@ -30,7 +31,7 @@ public class ViewCommandTest {
     @Test
     public void execute_viewArchivedModule_success() {
         // TODO: EXTRACT TO UTILS
-        ArchivedModule archivedModule = new ArchivedModule(moduleCode, "Software Engineering", "Lorem Ipsum");
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
         ArchivedModuleList archivedModules = new ArchivedModuleList();
         archivedModules.add(archivedModule);
         ModuleBook moduleBook = new ModuleBook(archivedModules);
@@ -46,7 +47,7 @@ public class ViewCommandTest {
     @Test
     public void execute_viewTrackedModule_success() {
         // TODO: EXTRACT TO UTILS
-        ArchivedModule archivedModule = new ArchivedModule(moduleCode, "Software Engineering", "Lorem Ipsum");
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
         ArchivedModuleList archivedModules = new ArchivedModuleList();
         archivedModules.add(archivedModule);
         TrackedModule trackedModule = new TrackedModule(archivedModule);

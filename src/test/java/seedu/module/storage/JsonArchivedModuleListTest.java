@@ -6,8 +6,8 @@ import static seedu.module.storage.JsonArchivedModuleList.readArchivedModules;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.ArchivedModuleList;
+import seedu.module.testutil.ArchivedModuleBuilder;
 
 class JsonArchivedModuleListTest {
     private static final String VALID_ARCHIVED_MODULES_FILE_PATH = "data/archivedModules.json";
@@ -18,7 +18,7 @@ class JsonArchivedModuleListTest {
         ArchivedModuleList jsonArchivedModuleList = readArchivedModules(VALID_ARCHIVED_MODULES_FILE_PATH);
         ArchivedModuleList expectedArchivedModuleList = new ArchivedModuleList();
 
-        expectedArchivedModuleList.add(new ArchivedModule("CS2103T", "Software Engineering", "Lorem Ipsum"));
+        expectedArchivedModuleList.add(new ArchivedModuleBuilder().build());
 
         assertEquals(jsonArchivedModuleList, expectedArchivedModuleList);
     }

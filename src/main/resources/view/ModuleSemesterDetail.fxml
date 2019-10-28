@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="semesterLabel" styleClass="label-bright" text="\$semester">
+         <HBox.margin>
+            <Insets right="10.0" />
+         </HBox.margin>
+      </Label>
+      <StackPane>
+         <children>
+            <HBox fx:id="examDetailBox">
+               <children>
+                  <Label styleClass="label-bright" text="Exam Date: " />
+                  <Label fx:id="examDateLabel" styleClass="label-bright" text="\$examDate">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+                  <Label styleClass="label-bright" text="Duration: " />
+                  <Label fx:id="examDurationLabel" styleClass="label-bright" text="\$examDuration">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="notOfferedLabel" styleClass="label-bright" text="Not offered" StackPane.alignment="TOP_LEFT">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Label>
+            <Label fx:id="noExamLabel" text="No Exams for this semester" StackPane.alignment="TOP_LEFT">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </StackPane>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</HBox>

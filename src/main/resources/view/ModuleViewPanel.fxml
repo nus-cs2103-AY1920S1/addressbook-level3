@@ -2,33 +2,45 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox id="mainPanel" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-        </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+
+<ScrollPane id="mainPanel" fitToWidth="true" hvalue="1.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <content>
+        <VBox id="mainPanel" alignment="CENTER_LEFT" styleClass="background">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
+            <HBox alignment="CENTER_LEFT" spacing="5" VBox.vgrow="ALWAYS">
                 <Label fx:id="moduleCode" styleClass="label-bright" text="\$moduleCode" />
                <Label fx:id="title" styleClass="label-bright" text="\$title" />
             </HBox>
-         <TextFlow styleClass="text-bright">
+         <Label styleClass="label-bright" text="Description" underline="true" />
+         <TextFlow styleClass="text-bright" VBox.vgrow="ALWAYS">
             <children>
                <Text fx:id="description" styleClass="text-bright" text="\$description" />
             </children>
          </TextFlow>
+         <Label styleClass="label-bright" text="Prerequisites" underline="true" />
+         <TextFlow styleClass="text-bright" VBox.vgrow="ALWAYS">
+            <children>
+               <Text fx:id="prerequisite" styleClass="text-bright" text="\$prerequisite" />
+            </children>
+         </TextFlow>
+         <Label styleClass="label-bright" text="Preclusions" underline="true" />
+         <TextFlow styleClass="text-bright" VBox.vgrow="ALWAYS">
+            <children>
+               <Text fx:id="preclusion" styleClass="text-bright" text="\$preclusion" />
+            </children>
+         </TextFlow>
+         <Label styleClass="label-bright" text="Semesters offered" underline="true" VBox.vgrow="ALWAYS" />
+         <ListView fx:id="semesterData" VBox.vgrow="NEVER" />
          <HBox alignment="BOTTOM_LEFT">
             <children>
                <Label styleClass="label-bright" text="Links: " />
@@ -36,8 +48,5 @@
             </children>
          </HBox>
         </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-    </GridPane>
-</HBox>
+  </content>
+</ScrollPane>

@@ -12,8 +12,8 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.module.commons.core.GuiSettings;
-import seedu.module.model.module.ArchivedModuleList;
-import seedu.module.testutil.ArchivedModuleBuilder;
+import seedu.module.testutil.ArchivedModuleListBuilder;
+import seedu.module.testutil.ModuleBookBuilder;
 
 public class ModelManagerTest {
 
@@ -81,11 +81,10 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ModuleBook moduleBook = new ModuleBook();
-        ModuleBook differentModuleBook = new ModuleBook();
-        ArchivedModuleList archivedModules = new ArchivedModuleList();
-        archivedModules.add(new ArchivedModuleBuilder().build());
-        differentModuleBook.setArchivedModules(archivedModules);
+        ModuleBook moduleBook = new ModuleBookBuilder()
+            .withArchivedModules(new ArchivedModuleListBuilder().build())
+            .build();
+        ModuleBook differentModuleBook = new ModuleBookBuilder().build();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -104,11 +103,6 @@ public class ModelManagerTest {
 
         // different ModuleBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentModuleBook, userPrefs)));
-
-        // different filteredList -> returns false
-        // String[] keywords = ALICE.getName().fullName.split("\\s+");
-        // modelManager.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        // assertFalse(modelManager.equals(new ModelManager(moduleBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
