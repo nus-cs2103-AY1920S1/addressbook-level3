@@ -35,13 +35,13 @@ import seedu.address.storage.Storage;
 public class AppManager {
 
     private Logic logic;
-    private GameTimer gameTimer = null;
-    private TimerDisplayCallBack timerDisplayCallBack = null;
+    private GameTimer gameTimer;
+    private TimerDisplayCallBack timerDisplayCallBack;
     // Call-back method to update ResultDisplay in MainWindow
-    private HintDisplayCallBack hintDisplayCallBack = null;
-    private MainWindowExecuteCallBack mainWindowExecuteCallBack = null;
-    private GameStatisticsBuilder gameStatisticsBuilder = null;
-    private QuestionDisplayCallBack questionDisplayCallBack = null;
+    private HintDisplayCallBack hintDisplayCallBack;
+    private MainWindowExecuteCallBack mainWindowExecuteCallBack;
+    private GameStatisticsBuilder gameStatisticsBuilder;
+    private QuestionDisplayCallBack questionDisplayCallBack;
 
     public AppManager(Logic logic) {
         requireAllNonNull(logic);

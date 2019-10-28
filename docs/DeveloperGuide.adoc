@@ -106,17 +106,21 @@ The `UI` component,
 [[Design-Timer]]
 === Timer component
 
-*Implementation* :
+[[fig-TimerClassDiagram]]
+.Structure of the Timer Component
+image::TimerClassDiagram.png[]
+
+*API* :
 link:{repoURL}/blob/master/src/main/java/seedu/address/appmanager/timer/GameTimer.java[`GameTimer.java`]
 
 
-_Due to this fact that this component has to work closely with the `UI` and `AppManager` (without being
-coupled directly), it is separated from the `Logic` or `Game` components._ Its roles include:
+_Due to the fact that this component has to work closely with the `UI` and `AppManager` (without being
+coupled directly), it is separated from the `Logic`, `Model` and `Game` components._ Its roles include:
 
 
-* Dealing with the timer that runs during a game session.
-* Periodically trigger events that will update either the `UI` or `AppManager` components.
-component.
+* Dealing with the countdown timer that runs during a game session.
+* Periodically triggering _callbacks_ that will notify either the `UI` or `AppManager` components.
+
 
 [[Design-Logic]]
 === Logic component
