@@ -14,6 +14,13 @@ public class CcaCurrentProgress {
     private int maxProgress = 0;
     private int currentProgress = 0;
 
+    /**
+     * Default constructor used.
+     */
+    public CcaCurrentProgress() {
+
+    }
+
     public int getMaxProgress() {
         return maxProgress;
     }

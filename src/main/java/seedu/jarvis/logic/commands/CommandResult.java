@@ -17,13 +17,16 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final boolean doSwitchPage;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean doSwitchPage) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.doSwitchPage = doSwitchPage;
     }
 
     /**
@@ -31,7 +34,15 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and boolean {@code doSwitchPage}
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean doSwitchPage) {
+        this(feedbackToUser, false, false, doSwitchPage);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +55,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean doSwitchPage() {
+        return doSwitchPage;
     }
 
     @Override
@@ -67,5 +82,4 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
 }
