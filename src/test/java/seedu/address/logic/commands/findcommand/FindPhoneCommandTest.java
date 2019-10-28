@@ -26,7 +26,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindPhoneCommand}.
  */
 public class FindPhoneCommandTest {
 
