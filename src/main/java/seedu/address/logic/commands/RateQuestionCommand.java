@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 
 import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
