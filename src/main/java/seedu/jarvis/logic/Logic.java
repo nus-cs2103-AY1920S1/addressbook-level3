@@ -2,6 +2,7 @@ package seedu.jarvis.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -60,5 +61,5 @@ public interface Logic {
     /**
      * Returns the text displayed to the user in the Course Planner.
      */
-    String getCourseTextDisplay();
+    ObservableStringValue getCourseTextDisplay();
 }

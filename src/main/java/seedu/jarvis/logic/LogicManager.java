@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
@@ -116,7 +117,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String getCourseTextDisplay() {
+    public ObservableStringValue getCourseTextDisplay() {
         return model.getDisplayText();
     }
 }
