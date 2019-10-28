@@ -1,30 +1,20 @@
 package seedu.elisa.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.elisa.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_SNOOZE;
+
+import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+
 import seedu.elisa.commons.core.Messages;
 import seedu.elisa.commons.core.index.Index;
-import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
-import seedu.elisa.commons.core.item.Item.ItemBuilder;
-import seedu.elisa.commons.core.item.ItemDescription;
-import seedu.elisa.commons.core.item.Priority;
-import seedu.elisa.commons.core.item.Reminder;
-import seedu.elisa.commons.core.item.Task;
-import seedu.elisa.commons.util.CollectionUtil;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
-import seedu.elisa.model.tag.Tag;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.elisa.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.elisa.logic.parser.CliSyntax.*;
 
 /**
  * Edits the details of an existing item in the item list.
@@ -46,6 +36,7 @@ public class SnoozeCommand extends UndoableCommand {
             + " because someone is real lazy...";
 
     private final boolean hasIndex;
+
     private final Index index;
     private final LocalDateTime newReminderOccurrence;
 
