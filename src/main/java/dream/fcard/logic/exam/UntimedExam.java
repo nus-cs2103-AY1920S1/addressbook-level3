@@ -19,12 +19,19 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public FlashCard nextCard() {
-        FlashCard card = testDeck.get(index);
-        card.getFront();
-        index++;
-        return card;
+    public FlashCard getCurrentCard() {
+        return testDeck.get(index);
     }
+
+    @Override
+    public void parseUserInputAndGrade(String answer) {
+        FlashCard currentCard = testDeck.get(index);
+        boolean isCorrect = currentCard.evaluate(answer);
+        result.mark(isCorrect);
+    }
+
+
+
 
 
 }
