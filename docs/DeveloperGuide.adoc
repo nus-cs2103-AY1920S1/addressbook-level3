@@ -238,6 +238,63 @@ The following activity diagram below summarizes how the save command works
 .Activity diagram for a sample save command
 image::SaveActivityDiagram.png[]
 
+==== Classes for Purchase Tracking feature in Model
+
+The Purchase Tracking feature was implemented with a new set of classes introduced to the Model.
+
+===== PurchaseHistory
+
+****
+`PurchaseHistory` is a singleton class containing a `PurchaseHistoryList`.
+****
+
+===== PurchaseHistoryList
+
+****
+`PurchaseHistoryList` contains an `ObservableList` of `Purchases` made by the user.
+****
+
+===== Purchase
+
+****
+`Purchase` contains a `Food` object representing the purchased food item, and a `TimeOfPurchase` representing the time of purchase.
+****
+
+===== TimeOfPurchase
+
+****
+`TimeOfPurchase` stores the time the `Purchase` was made by the user.
+****
+
+===== ReadOnlyPurchaseHistory
+
+****
+`ReadOnlyPurchaseHistory` is an interface implemented by `PurchaseHistory` to allow the other components to retrieve
+the purchase history data of the user while maintaining data integrity.
+****
+
+.Purchase-related class diagram in Model component.
+image::PurchaseHistoryClassDiagram.png[width=400]
+
+==== *Making a Purchase*
+
+The user may want to buy a food item and record the purchase. This can be done with the `buy` command.
+
+After the users enters a `buy` command, for example, `buy 1` which buys the first item in the displayed list.
+
+The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
+which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
+
+The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
+
+.Sequence diagram for `buy 1 command
+image::BuySequenceDiagram.png[]
+
+The following activity diagram below summarizes how `buy` commands works
+
+.Activity diagram for a `buy` command
+image::BuyActivityDiagram.png[]
+
 
 === Recommendation feature
 
