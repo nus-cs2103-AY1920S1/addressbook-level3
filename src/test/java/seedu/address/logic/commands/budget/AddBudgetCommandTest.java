@@ -101,6 +101,16 @@ public class AddBudgetCommandTest {
     private class ModelStub implements Model {
 
         @Override
+        public void setBudget(Budget target, Budget editedBudget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changePrimaryBudgetWindow(Timestamp pastDate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             throw new AssertionError("This method should not be called.");
         }
