@@ -61,7 +61,7 @@ Holds the data of live game sessions in-memory.
 * <<Design-Storage,*`Storage`*>>: +
 Reads data from, and writes data to, the local hard disk.
 
-For the components UI, Logic, Model and Game:
+For the components UI, Logic, Model, Timer and Game:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -113,14 +113,15 @@ image::TimerClassDiagram.png[]
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/address/appmanager/timer/GameTimer.java[`GameTimer.java`]
 
+The `Timer` consists of a `GameTimer` that will keep track of time elapsed via an internal countdown timer
+and notify the `AppManager` and `UI` components.
 
-_Due to the fact that this component has to work closely with the `UI` and `AppManager` (without being
-coupled directly), it is separated from the `Logic`, `Model` and `Game` components._ Its roles include:
-
-
-* Dealing with the countdown timer that runs during a game session.
+* Dealing with the internal countdown timer that runs during a game session.
 * Periodically triggering _callbacks_ that will notify either the `UI` or `AppManager` components.
+* Gets timestamps to trigger `Hints` via a `HintTimingQueue`
 
+_Due to the fact that the timer has to work closely with the `UI` and `AppManager` (without being
+coupled directly), it is separated from the `Logic`, `Model` and `Game` components._
 
 [[Design-Logic]]
 === Logic component
@@ -203,7 +204,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== AutoComplete feature for command execution
+=== [underline]#AutoComplete Feature# (for command execution)
 ==== Implementation
 
 The AutoComplete is facilitated by `ParserManager`.
@@ -268,7 +269,7 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::settings[]
-=== Settings
+=== [underline]#Settings Feature#
 ==== Implementation
 `AppSettings` was a class that was created to be integrated into the `Model` of the app. It currently contains these functionalities:
 
@@ -333,6 +334,27 @@ Unlike Alternative 1, the developer can create an extension to the class impleme
 The considerations for this aspect was mainly down to how much customisability we wanted to grant our users. While having more customisability is better in some cases,
 in this one, we do not think the added functionality of allowing the user to extensively customise their experience with our application to be particularly impactful not necessary. Moreover, alternative 2 makes for a less organised code base and we wanted to avoid that as much as possible.
 |===
+
+=== [underline]#Timer Feature#
+
+==== Implementation
+
+The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch during a `Game`. It also relies on
+using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
+allows the `Timer` to enact changes in other components of the system without directly holding a reference to those
+components.
+
+Internally, the `Timer`
+works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate. To avoid
+synchronization issues with the `UI` component, all
+`TimerTasks` (such as refreshing a component of the `UI`) are forced to run on the *JavaFX Application Thread*.
+
+The three main events that are triggered by the `Timer` component which require a _callback_ are:
+
+1. Time has elapsed, _callback_ to `UI` to update the timestamp shown on the GUI.
+2. Time has run out (_reached zero_), _callback_ to `AppManager` to skip over to next `Card`.
+3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to retrieve a hint
+and display accordingly on the `UI`.
 
 // end::settings[]
 

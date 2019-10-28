@@ -30,7 +30,7 @@ Class WordBank
 Game o--down-"0..*" Card
 Game -left-> DifficultyEnum
 Game --right->"1" Index
-Game --up-- Guess :verifies >
+Game ..up..> Guess :verifies >
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Game
 HiddenOutside ..> Guess
