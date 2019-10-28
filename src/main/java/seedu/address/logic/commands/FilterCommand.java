@@ -60,10 +60,5 @@ public class FilterCommand extends Command {
                 && bodyPredicate.equals(((FilterCommand) other).bodyPredicate)
                 && workerPredicate.equals(((FilterCommand) other).workerPredicate)); // state check
     }
-
-    @Override
-    public String toString() {
-        return argumentMultimap.toString();
-    }
 }
 
