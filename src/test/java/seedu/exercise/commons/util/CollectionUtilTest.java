@@ -1,10 +1,12 @@
 package seedu.exercise.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -80,6 +82,87 @@ public class CollectionUtilTest {
         assertFalse(CollectionUtil.isAnyNonNull((Object[]) null));
         assertTrue(CollectionUtil.isAnyNonNull(new Object()));
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
+    }
+
+    @Test
+    public void append_listsNonEmpty_correctAppendedList() {
+        List<String> first = new ArrayList<>();
+        List<String> second = new ArrayList<>();
+        List<String> expected = new ArrayList<>();
+
+        first.add("1");
+        second.add("2");
+
+        expected.add("1");
+        expected.add("2");
+
+        assertEquals(expected, CollectionUtil.append(first, second));
+    }
+
+    @Test
+    public void append_listEmpty_correctAppendedList() {
+        List<String> first = new ArrayList<>();
+        List<String> second = new ArrayList<>();
+        List<String> expected = new ArrayList<>();
+
+        second.add("2");
+        expected.add("2");
+
+        //Second list empty
+        assertEquals(expected, CollectionUtil.append(first, second));
+
+        //Reset for next test
+        second.clear();
+        expected.clear();
+
+        first.add("1");
+        expected.add("1");
+
+        //First list empty
+        assertEquals(expected, CollectionUtil.append(first, second));
+
+        first.clear();
+        second.clear();
+        expected.clear();
+
+        //Both lists empty
+        assertEquals(expected, CollectionUtil.append(first, second));
+    }
+
+    @Test
+    public void areListsEmpty_listsEmpty_returnsTrue() {
+        assertTrue(CollectionUtil.areListsEmpty(
+                new ArrayList<>(),
+                new ArrayList<>()
+        ));
+    }
+
+    @Test
+    public void areListsEmpty_someListEmpty_returnsFalse() {
+        List<String> nonEmpty = new ArrayList<>();
+        nonEmpty.add("a");
+        assertFalse(CollectionUtil.areListsEmpty(
+                new ArrayList<>(),
+                nonEmpty
+        ));
+    }
+
+    @Test
+    public void append_nullArguments_throwsNullPointerExceptino() {
+        //Both null
+        assertThrows(NullPointerException.class, () -> CollectionUtil.append(null, null));
+
+        //One null
+        assertThrows(NullPointerException.class, () -> CollectionUtil.append(null, new ArrayList<>()));
+    }
+
+    @Test
+    public void areListsEmpty_nullArguments_throwsNullPointerException() {
+        //Both null
+        assertThrows(NullPointerException.class, () -> CollectionUtil.areListsEmpty(null, null));
+
+        //One null
+        assertThrows(NullPointerException.class, () -> CollectionUtil.areListsEmpty(null, new ArrayList<>()));
     }
 
     /**

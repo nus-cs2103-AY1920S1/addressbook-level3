@@ -31,10 +31,6 @@
                     <Menu mnemonicParsing="false" text="Help">
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
                     </Menu>
-                    <Menu mnemonicParsing="false" text="View">
-                        <MenuItem fx:id="resolveWindowMenuItem" mnemonicParsing="false"
-                                  onAction="#handleResolve" text="Resolve"/>
-                    </Menu>
                 </MenuBar>
 
                 <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">

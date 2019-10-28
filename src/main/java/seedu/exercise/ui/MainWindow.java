@@ -47,9 +47,6 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private MenuItem resolveWindowMenuItem;
-
-    @FXML
     private StackPane scheduleListPanelPlaceholder;
 
     @FXML

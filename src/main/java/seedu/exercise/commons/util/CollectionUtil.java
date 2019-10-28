@@ -45,7 +45,11 @@ public class CollectionUtil {
         return result;
     }
 
+    /**
+     * Checks if both lists are empty. Only returns true if both are empty.
+     */
     public static <T> boolean areListsEmpty(List<T> first, List<T> second) {
+        requireAllNonNull(first, second);
         return first.isEmpty() && second.isEmpty();
     }
 }
