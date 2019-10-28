@@ -68,7 +68,7 @@ class StartCommandTest {
     @Test
     void execute_noDifficultySpecified() {
         Model dummyModel = new ModelStub();
-        dummyModel.setCurrenWordBank(threeCardWordBank);
+        dummyModel.setCurrentWordBank(threeCardWordBank);
         StartCommand dummyStartCommand1 = new StartCommand(Optional.empty());
 
         try {
@@ -86,7 +86,7 @@ class StartCommandTest {
     @Test
     void execute_difficultySpecified() {
         Model dummyModel = new ModelStub();
-        dummyModel.setCurrenWordBank(threeCardWordBank);
+        dummyModel.setCurrentWordBank(threeCardWordBank);
         StartCommand dummyStartCommand1 = new StartCommand(Optional.of(DifficultyEnum.HARD));
 
         try {
@@ -104,7 +104,7 @@ class StartCommandTest {
     @Test
     void execute_lessThanThreeCards_throwsCommandException() {
         Model dummyModel = new ModelStub();
-        dummyModel.setCurrenWordBank(twoCardWordBank);
+        dummyModel.setCurrentWordBank(twoCardWordBank);
         StartCommand dummyStartCommand1 = new StartCommand(Optional.of(DifficultyEnum.HARD));
 
         assertThrows(CommandException.class, () -> dummyStartCommand1.execute(dummyModel));
@@ -122,7 +122,7 @@ class StartCommandTest {
     @Test
     void execute_zeroCards_throwsCommandException() {
         Model dummyModel = new ModelStub();
-        dummyModel.setCurrenWordBank(zeroCardWordbank);
+        dummyModel.setCurrentWordBank(zeroCardWordbank);
         StartCommand dummyStartCommand1 = new StartCommand(Optional.of(DifficultyEnum.HARD));
 
         assertThrows(CommandException.class, () -> dummyStartCommand1.execute(dummyModel));
@@ -190,7 +190,7 @@ class StartCommandTest {
         }
 
         @Override
-        public void setCurrenWordBank(ReadOnlyWordBank currenWordBank) {
+        public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
             this.wordBank = currenWordBank;
         }
 
@@ -220,7 +220,7 @@ class StartCommandTest {
         }
 
         @Override
-        public ReadOnlyWordBank getCurrenWordBank() {
+        public ReadOnlyWordBank getCurrentWordBank() {
             return wordBank;
         }
 

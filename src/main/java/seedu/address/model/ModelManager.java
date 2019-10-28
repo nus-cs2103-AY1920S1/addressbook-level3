@@ -35,7 +35,7 @@ public class ModelManager implements Model {
 
     private boolean hasBank = false;
 
-    private WordBank currenWordBank = SampleDataUtil.getSampleWordBank();
+    private WordBank currentWordBank = SampleDataUtil.getSampleWordBank();
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
@@ -69,7 +69,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.appSettings = new AppSettings(appSettings);
 
-        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
+        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
     }
 
     public ModelManager() {
@@ -210,10 +210,10 @@ public class ModelManager implements Model {
     //=========== WordBank ================================================================================
 
     @Override
-    public void setCurrenWordBank(ReadOnlyWordBank currenWordBank) {
-        this.currenWordBank = (WordBank) currenWordBank;
+    public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
+        this.currentWordBank = (WordBank) currenWordBank;
         hasBank = true;
-        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
+        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
         //        this.wordBank.resetData(wordBank);
     }
 
@@ -221,46 +221,46 @@ public class ModelManager implements Model {
      * Clears the WordBank.
      */
     public void clearWordBank() {
-        currenWordBank.resetData(new WordBank(currenWordBank.getName()));
-        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
+        currentWordBank.resetData(new WordBank(currentWordBank.getName()));
+        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
         //        this.wordBank.resetData(wordBank);
     }
 
     @Override
-    public ReadOnlyWordBank getCurrenWordBank() {
-        return currenWordBank;
+    public ReadOnlyWordBank getCurrentWordBank() {
+        return currentWordBank;
     }
 
     @Override
     public void updateWordBank(String name) {
-        if (currenWordBank.getName().equals(name)) {
+        if (currentWordBank.getName().equals(name)) {
             hasBank = false;
-            this.currenWordBank = SampleDataUtil.getSampleWordBank();
+            this.currentWordBank = SampleDataUtil.getSampleWordBank();
         }
     }
 
     @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
-        return currenWordBank.hasCard(card);
+        return currentWordBank.hasCard(card);
     }
 
     @Override
     public void deleteCard(Card target) {
-        currenWordBank.removeCard(target);
+        currentWordBank.removeCard(target);
         wordBankStatistics.removeCardStatistics(target.getId());
     }
 
     @Override
     public void addCard(Card card) {
-        currenWordBank.addCard(card);
+        currentWordBank.addCard(card);
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
-        currenWordBank.setCard(target, editedCard);
+        currentWordBank.setCard(target, editedCard);
     }
 
     //=========== WordBankList ============================================================================
@@ -283,7 +283,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
-        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
+        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
         return filteredCards;
     }
 
@@ -355,7 +355,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return currenWordBank.equals(other.currenWordBank)
+        return currentWordBank.equals(other.currentWordBank)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCards.equals(other.filteredCards);
     }

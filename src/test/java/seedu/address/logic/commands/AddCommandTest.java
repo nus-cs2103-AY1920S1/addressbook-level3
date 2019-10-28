@@ -223,7 +223,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setCurrenWordBank(ReadOnlyWordBank newData) {
+        public void setCurrentWordBank(ReadOnlyWordBank newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -253,7 +253,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyWordBank getCurrenWordBank() {
+        public ReadOnlyWordBank getCurrentWordBank() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -340,7 +340,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyWordBank getCurrenWordBank() {
+        public ReadOnlyWordBank getCurrentWordBank() {
             return new WordBank("abc");
         }
     }

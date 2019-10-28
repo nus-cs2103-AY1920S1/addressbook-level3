@@ -1,7 +1,14 @@
 package seedu.address.logic.commands.settingscommands;
 
-import javafx.collections.ObservableList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
@@ -19,12 +26,6 @@ import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
-
-import java.nio.file.Path;
-import java.util.function.Predicate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class DifficultyCommandTest {
 
@@ -177,14 +178,15 @@ public class DifficultyCommandTest {
         }
 
         @Override
-        public void addCard(Card card) {
+        public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setWordBank(ReadOnlyWordBank newData) {
+        public void addCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public void updateWordBank(String name) {
@@ -212,7 +214,7 @@ public class DifficultyCommandTest {
         }
 
         @Override
-        public ReadOnlyWordBank getWordBank() {
+        public ReadOnlyWordBank getCurrentWordBank() {
             throw new AssertionError("This method should not be called.");
         }
 
