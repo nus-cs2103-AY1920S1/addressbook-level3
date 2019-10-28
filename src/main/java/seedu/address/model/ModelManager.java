@@ -35,7 +35,7 @@ public class ModelManager implements Model {
 
     private boolean hasBank = false;
 
-    private WordBank wordBank = SampleDataUtil.getSampleWordBank();
+    private WordBank currenWordBank = SampleDataUtil.getSampleWordBank();
     private final WordBankList wordBankList;
 
     private WordBankStatistics wordBankStatistics;
@@ -69,7 +69,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.appSettings = new AppSettings(appSettings);
 
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
     }
 
     public ModelManager() {
@@ -210,10 +210,10 @@ public class ModelManager implements Model {
     //=========== WordBank ================================================================================
 
     @Override
-    public void setWordBank(ReadOnlyWordBank wordBank) {
-        this.wordBank = (WordBank) wordBank;
+    public void setCurrenWordBank(ReadOnlyWordBank currenWordBank) {
+        this.currenWordBank = (WordBank) currenWordBank;
         hasBank = true;
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
         //        this.wordBank.resetData(wordBank);
     }
 
@@ -221,46 +221,46 @@ public class ModelManager implements Model {
      * Clears the WordBank.
      */
     public void clearWordBank() {
-        wordBank.resetData(new WordBank(wordBank.getName()));
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        currenWordBank.resetData(new WordBank(currenWordBank.getName()));
+        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
         //        this.wordBank.resetData(wordBank);
     }
 
     @Override
-    public ReadOnlyWordBank getWordBank() {
-        return wordBank;
+    public ReadOnlyWordBank getCurrenWordBank() {
+        return currenWordBank;
     }
 
     @Override
     public void updateWordBank(String name) {
-        if (wordBank.getName().equals(name)) {
+        if (currenWordBank.getName().equals(name)) {
             hasBank = false;
-            this.wordBank = SampleDataUtil.getSampleWordBank();
+            this.currenWordBank = SampleDataUtil.getSampleWordBank();
         }
     }
 
     @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
-        return wordBank.hasCard(card);
+        return currenWordBank.hasCard(card);
     }
 
     @Override
     public void deleteCard(Card target) {
-        wordBank.removeCard(target);
+        currenWordBank.removeCard(target);
         wordBankStatistics.removeCardStatistics(target.getId());
     }
 
     @Override
     public void addCard(Card card) {
-        wordBank.addCard(card);
+        currenWordBank.addCard(card);
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
-        wordBank.setCard(target, editedCard);
+        currenWordBank.setCard(target, editedCard);
     }
 
     //=========== WordBankList ============================================================================
@@ -283,7 +283,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
-        filteredCards = new FilteredList<>(this.wordBank.getCardList());
+        filteredCards = new FilteredList<>(this.currenWordBank.getCardList());
         return filteredCards;
     }
 
@@ -355,7 +355,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return wordBank.equals(other.wordBank)
+        return currenWordBank.equals(other.currenWordBank)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCards.equals(other.filteredCards);
     }
