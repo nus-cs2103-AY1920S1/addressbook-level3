@@ -125,13 +125,13 @@ Examples:
   `score t`
 
 ==== Getting rank of an athlete: `rank`
-Gets current position of an athlete relative to other athletes for the entire competition.
+Gets current position of an athlete relative to other athletes for a competition.
 
-Format: `rank n/NAME`
+Format: `rank n/NAME comp/COMPETITION`
 
 Examples:
 
-* `rank n/John`
+* `rank n/John comp/IPF 2020`
 
 ==== Affiliation of an athlete: `aff`
 Gets the name of an organisation and a country, an athlete is associated with.
