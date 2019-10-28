@@ -1,7 +1,6 @@
 package seedu.jarvis.storage.history.commands.address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.address.PersonBuilder.DEFAULT_ADDRESS;
 import static seedu.jarvis.testutil.address.PersonBuilder.DEFAULT_EMAIL;
@@ -13,7 +12,6 @@ import static seedu.jarvis.testutil.address.TypicalPersons.AMY;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.logic.commands.address.EditAddressCommand.EditPersonDescriptor;
 import seedu.jarvis.model.address.person.Person;
@@ -46,15 +44,5 @@ public class JsonAdaptedEditAddressCommandTest {
             throws Exception {
         EditAddressCommand editAddressCommand = new EditAddressCommand(VALID_INDEX, VALID_DESCRIPTOR);
         assertEquals(editAddressCommand, new JsonAdaptedEditAddressCommand(editAddressCommand).toModelType());
-    }
-
-    @Test
-    public void toModelType_validIndexValidDescriptorInvalidPersons_throwsIllegalValueException() {
-        assertThrows(IllegalValueException.class, JsonAdaptedEditAddressCommand.MESSAGE_INVALID_FIELDS, () ->
-                new JsonAdaptedEditAddressCommand(new EditAddressCommand(VALID_INDEX, VALID_DESCRIPTOR, null,
-                        EDITED_PERSON)).toModelType());
-        assertThrows(IllegalValueException.class, JsonAdaptedEditAddressCommand.MESSAGE_INVALID_FIELDS, () ->
-                new JsonAdaptedEditAddressCommand(new EditAddressCommand(VALID_INDEX, VALID_DESCRIPTOR, ORIGINAL_PERSON,
-                        null)).toModelType());
     }
 }

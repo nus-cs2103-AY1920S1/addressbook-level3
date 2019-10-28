@@ -54,6 +54,15 @@ public class SetInstallmentCommand extends Command {
     }
 
     /**
+     * Gets the {@code Installment} to be added.
+     *
+     * @return {@code Installment} to be added.
+     */
+    public Installment getAddedInstallment() {
+        return toAdd;
+    }
+
+    /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}.

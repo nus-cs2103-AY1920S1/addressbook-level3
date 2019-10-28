@@ -12,6 +12,7 @@ import seedu.jarvis.storage.history.commands.address.JsonAdaptedDeleteAddressCom
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedEditAddressCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedAddCourseCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedDeleteCourseCommand;
+import seedu.jarvis.storage.history.commands.finance.JsonAdaptedEditInstallmentCommand;
 
 /**
  * Abstract class that represents a Jackson-Friendly command.
@@ -29,7 +30,9 @@ import seedu.jarvis.storage.history.commands.course.JsonAdaptedDeleteCourseComma
         @JsonSubTypes.Type(value = JsonAdaptedEditAddressCommand.class, name = "JsonAdaptedEditAddressCommand"),
         // courseplanner
         @JsonSubTypes.Type(value = JsonAdaptedAddCourseCommand.class, name = "JsonAdaptedAddCourseCommand"),
-        @JsonSubTypes.Type(value = JsonAdaptedDeleteCourseCommand.class, name = "JsonAdaptedDeleteCourseCommand")
+        @JsonSubTypes.Type(value = JsonAdaptedDeleteCourseCommand.class, name = "JsonAdaptedDeleteCourseCommand"),
+        // financetracker
+        @JsonSubTypes.Type(value = JsonAdaptedEditInstallmentCommand.class, name = "JsonAdaptedEditInstallmentCommand")
 })
 public abstract class JsonAdaptedCommand implements JsonAdapter<Command> {
     /**
