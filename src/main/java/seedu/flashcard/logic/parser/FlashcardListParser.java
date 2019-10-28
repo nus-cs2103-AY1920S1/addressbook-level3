@@ -21,6 +21,7 @@ import seedu.flashcard.logic.commands.ListCardByTagCommand;
 import seedu.flashcard.logic.commands.ListCommand;
 import seedu.flashcard.logic.commands.ListTagCommand;
 import seedu.flashcard.logic.commands.QuizCommand;
+import seedu.flashcard.logic.commands.QuizTagCommand;
 import seedu.flashcard.logic.commands.StatsCommand;
 import seedu.flashcard.logic.commands.ViewCommand;
 import seedu.flashcard.logic.parser.exceptions.ParseException;
@@ -91,6 +92,10 @@ public class FlashcardListParser {
         case QuizCommand.COMMAND_WORD:
             isQuizMode = true;
             return new QuizCommandParser().parse(arguments);
+
+        case QuizTagCommand.COMMAND_WORD:
+            isQuizMode = true;
+            return new QuizTagCommandParser().parse(arguments);
 
         case FlipCommand.COMMAND_WORD:
             throw new ParseException(FlipCommand.MESSAGE_NULL_QUIZ_FLASHCARD);
