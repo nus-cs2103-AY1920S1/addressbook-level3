@@ -11,5 +11,5 @@
          <Font name="Arial" size="24.0" />
       </font>
    </Label>
-    <ListView fx:id="performanceListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="performanceListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS" />
 </VBox>
