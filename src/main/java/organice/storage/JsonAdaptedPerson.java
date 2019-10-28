@@ -17,6 +17,7 @@ import organice.model.person.Patient;
 import organice.model.person.Person;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
+import organice.model.person.Status;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
 
@@ -39,6 +40,7 @@ class JsonAdaptedPerson {
     protected final String organ;
     protected final String doctorInCharge;
     protected final String organExpiryDate;
+    protected final String status;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -49,7 +51,8 @@ class JsonAdaptedPerson {
             @JsonProperty("age") String age, @JsonProperty("priority") String priority,
             @JsonProperty("bloodType") String bloodType, @JsonProperty("tissueType") String tissueType,
             @JsonProperty("organ") String organ, @JsonProperty("doctorInCharge") String doctorInCharge,
-            @JsonProperty("organExpiryDate") String organExpiryDate) {
+            @JsonProperty("organExpiryDate") String organExpiryDate, @JsonProperty("status") String status) {
+
         this.type = type;
         this.nric = nric;
         this.name = name;
@@ -61,6 +64,7 @@ class JsonAdaptedPerson {
         this.organ = organ;
         this.doctorInCharge = doctorInCharge;
         this.organExpiryDate = organExpiryDate;
+        this.status = status;
     }
 
     /**
@@ -80,6 +84,7 @@ class JsonAdaptedPerson {
             organ = ((Patient) source).getOrgan().value;
             doctorInCharge = ((Patient) source).getDoctorInCharge().value;
             organExpiryDate = "";
+            status = "not processing";
         } else if (source instanceof Donor) {
             age = ((Donor) source).getAge().value;
             priority = "";
@@ -88,6 +93,7 @@ class JsonAdaptedPerson {
             organ = ((Donor) source).getOrgan().value;
             doctorInCharge = "";
             organExpiryDate = ((Donor) source).getOrganExpiryDate().value;
+            status = "not processing";
         } else if (source instanceof Doctor) {
             age = "";
             priority = "";
@@ -96,6 +102,7 @@ class JsonAdaptedPerson {
             organ = "";
             doctorInCharge = "";
             organExpiryDate = "";
+            status = "";
         } else {
             age = "";
             priority = "";
@@ -104,6 +111,7 @@ class JsonAdaptedPerson {
             organ = "";
             doctorInCharge = "";
             organExpiryDate = "";
+            status = "";
         }
     }
 
@@ -199,8 +207,18 @@ class JsonAdaptedPerson {
             }
             final OrganExpiryDate modelOrganExpiryDate = new OrganExpiryDate(organExpiryDate);
 
+            if (status == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Status.class.getSimpleName()));
+            }
+
+            if (!Status.isValidStatus(status)) {
+                throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
+            }
+            final Status modelStatus = new Status(status);
+
             return new Donor(modelType, modelNric, modelName, modelPhone, modelAge, modelBloodType, modelTissueType,
-                    modelOrgan, modelOrganExpiryDate);
+                    modelOrgan, modelOrganExpiryDate, modelStatus);
         } else if (modelType.isPatient()) {
             if (age == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -262,8 +280,18 @@ class JsonAdaptedPerson {
             }
             final DoctorInCharge modelDoctorInCharge = new DoctorInCharge(doctorInCharge);
 
+            if (status == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Status.class.getSimpleName()));
+            }
+
+            if (!Status.isValidStatus(status)) {
+                throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
+            }
+            final Status modelStatus = new Status(status);
+
             return new Patient(modelType, modelNric, modelName, modelPhone, modelAge, modelPriority,
-                    modelBloodType, modelTissueType, modelOrgan, modelDoctorInCharge);
+                    modelBloodType, modelTissueType, modelOrgan, modelDoctorInCharge, modelStatus);
         } else {
             return new Person(modelType, modelNric, modelName, modelPhone);
         }

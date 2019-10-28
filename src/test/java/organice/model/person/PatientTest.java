@@ -144,7 +144,8 @@ public class PatientTest {
         Patient irene = new PatientBuilder(PATIENT_IRENE).build();
         assertEquals("Irene Person Type: patient Nric: S1111112A Phone: 85355255 "
                 + "Age: 21 Priority: high Blood Type: O Tissue Type: 1,4,7,10,11,12 "
-                        + "Organ: kidney Doctor In Charge: S1231231B" , irene.toString());
+                + "Organ: kidney Doctor In Charge: S1231231B "
+                + "Status: not processing", irene.toString());
     }
 
     @Test

@@ -9,6 +9,7 @@ import organice.model.person.Organ;
 import organice.model.person.Patient;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
+import organice.model.person.Status;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
 
@@ -22,7 +23,7 @@ public class PatientBuilder extends PersonBuilder {
     public static final String DEFAULT_TISSUE_TYPE = "1,2,3,4,5,6";
     public static final String DEFAULT_ORGAN = "kidney";
     public static final String DEFAULT_DOCTOR_IN_CHARGE = "S1111111A";
-
+    public static final String DEFAULT_STATUS = "not processing";
 
     private Age age;
     private Priority priority;
@@ -30,6 +31,7 @@ public class PatientBuilder extends PersonBuilder {
     private TissueType tissueType;
     private Organ organ;
     private DoctorInCharge doctorInCharge;
+    private Status status;
 
     public PatientBuilder() {
         super();
@@ -40,6 +42,7 @@ public class PatientBuilder extends PersonBuilder {
         tissueType = new TissueType(DEFAULT_TISSUE_TYPE);
         organ = new Organ(DEFAULT_ORGAN);
         doctorInCharge = new DoctorInCharge(DEFAULT_DOCTOR_IN_CHARGE);
+        status = new Status(DEFAULT_STATUS);
     }
 
     /**
@@ -53,6 +56,7 @@ public class PatientBuilder extends PersonBuilder {
         tissueType = patientToCopy.getTissueType();
         organ = patientToCopy.getOrgan();
         doctorInCharge = patientToCopy.getDoctorInCharge();
+        status = patientToCopy.getStatus();
     }
 
     /**
@@ -129,7 +133,20 @@ public class PatientBuilder extends PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Status} of the {@code Patient} that we are building.
+     */
+    public PatientBuilder withStatus(String status) {
+        this.status = new Status(status);
+        return this;
+    }
+
+    /**
+     * Builds the patient according to the attributes given.
+     * @return new Patient
+     */
     public Patient build() {
-        return new Patient(type, nric, name, phone, age, priority, bloodType, tissueType, organ, doctorInCharge);
+        return new Patient(type, nric, name, phone, age, priority, bloodType, tissueType, organ, doctorInCharge,
+                status);
     }
 }

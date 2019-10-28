@@ -23,6 +23,8 @@ import static organice.logic.commands.CommandTestUtil.VALID_ORGAN_PATIENT_IRENE;
 import static organice.logic.commands.CommandTestUtil.VALID_PHONE_DONOR_JOHN;
 import static organice.logic.commands.CommandTestUtil.VALID_PHONE_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_PHONE_PATIENT_IRENE;
+import static organice.logic.commands.CommandTestUtil.VALID_STATUS_DONOR_JOHN;
+import static organice.logic.commands.CommandTestUtil.VALID_STATUS_PATIENT_IRENE;
 import static organice.logic.commands.CommandTestUtil.VALID_TISSUE_TYPE_DONOR_JOHN;
 import static organice.logic.commands.CommandTestUtil.VALID_TISSUE_TYPE_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_TISSUE_TYPE_PATIENT_IRENE;
@@ -75,18 +77,21 @@ public class TypicalPersons {
     public static final Patient PATIENT_IRENE = new PatientBuilder().withAge(VALID_AGE_PATIENT_IRENE)
             .withName(VALID_NAME_PATIENT_IRENE).withNric(VALID_NRIC_PATIENT_IRENE).withPhone(VALID_PHONE_PATIENT_IRENE)
             .withBloodType(VALID_BLOOD_TYPE_PATIENT_IRENE).withTissueType(VALID_TISSUE_TYPE_PATIENT_IRENE)
-            .withOrgan(VALID_ORGAN_PATIENT_IRENE).withDoctorInCharge(VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE).build();
+            .withOrgan(VALID_ORGAN_PATIENT_IRENE).withDoctorInCharge(VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE)
+            .withStatus(VALID_STATUS_PATIENT_IRENE).build();
     //Sample Donors
     public static final Donor DONOR_JOHN = new DonorBuilder().withAge(VALID_AGE_DONOR_JOHN)
             .withName(VALID_NAME_DONOR_JOHN).withNric(VALID_NRIC_DONOR_JOHN).withPhone(VALID_PHONE_DONOR_JOHN)
             .withBloodType(VALID_BLOOD_TYPE_DONOR_JOHN).withTissueType(VALID_TISSUE_TYPE_DONOR_JOHN)
-            .withOrgan(VALID_ORGAN_DONOR_JOHN).withOrganExpiryDate(VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN).build();
+            .withOrgan(VALID_ORGAN_DONOR_JOHN).withOrganExpiryDate(VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN)
+            .withStatus(VALID_STATUS_DONOR_JOHN).build();
 
     //Sample Donor that matches Irene
     public static final Donor DONOR_IRENE_DONOR = new DonorBuilder().withAge(VALID_AGE_PATIENT_IRENE)
             .withName("Irene Donor").withNric(VALID_NRIC_DONOR_IRENE_DONOR)
             .withBloodType(VALID_BLOOD_TYPE_PATIENT_IRENE).withTissueType(VALID_TISSUE_TYPE_PATIENT_IRENE)
-            .withOrgan(VALID_ORGAN_PATIENT_IRENE).withOrganExpiryDate(VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN).build();
+            .withOrgan(VALID_ORGAN_PATIENT_IRENE).withOrganExpiryDate(VALID_ORGAN_EXPIRY_DATE_DONOR_JOHN)
+            .withStatus(VALID_STATUS_PATIENT_IRENE).build();
 
     // Manually added - person's details found in {@code CommandTestUtil}
     public static final Doctor DOCTOR_AMY = new DoctorBuilder().withNric(VALID_NRIC_DOCTOR_AMY)
