@@ -1,6 +1,5 @@
 package seedu.jarvis.storage.history.commands.finance;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

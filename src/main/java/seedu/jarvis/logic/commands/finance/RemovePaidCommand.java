@@ -2,6 +2,9 @@ package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -10,9 +13,6 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.finance.purchase.Purchase;
-
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Deletes an existing purchase identified using its displayed index in the finance tracker.

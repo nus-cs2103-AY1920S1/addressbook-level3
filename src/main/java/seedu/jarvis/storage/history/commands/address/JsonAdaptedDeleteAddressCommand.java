@@ -16,7 +16,7 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
  */
 public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
-    public final String MESSAGE_INVALID_INDEX = "Invalid index.";
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index.";
 
     private final JsonAdaptedIndex targetIndex;
     private final JsonAdaptedPerson deletedPerson;
