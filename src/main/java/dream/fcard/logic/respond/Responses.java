@@ -1,17 +1,13 @@
 package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
-////import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.gui.Gui;
 import dream.fcard.logic.respond.commands.EditCommand;
-import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-//import dream.fcard.model.StateEnum;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;

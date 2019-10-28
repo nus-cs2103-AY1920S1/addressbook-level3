@@ -8,17 +8,20 @@ import dream.fcard.model.State;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 
-enum ACTION{
+/**
+ * Enum for actions.
+ */
+enum Action {
     EDIT, REMOVE
 }
 
 /**
- *
+ * Edit command class.
  */
 public class EditCommand implements ResponseFunc {
 
     private String deckName;
-    private ACTION action;
+    private Action action;
     private int index;
     private String front;
     private String back;
@@ -26,7 +29,7 @@ public class EditCommand implements ResponseFunc {
     private boolean hasBack;
 
     /**
-     *
+     * Constructor for edit command.
      */
     public EditCommand() {
     }
@@ -39,7 +42,8 @@ public class EditCommand implements ResponseFunc {
      * @throws DeckNotFoundException
      */
     @Override
-    public boolean funcCall(String commandInput, State programState) throws DeckNotFoundException, IndexNotFoundException {
+    public boolean funcCall(String commandInput, State programState)
+            throws DeckNotFoundException, IndexNotFoundException {
 
         boolean success = parseInput(commandInput);
 
@@ -56,12 +60,12 @@ public class EditCommand implements ResponseFunc {
         Deck deck = programState.getDeck(deckName);
         //System.out.println("Deck obtained");
 
-        if (action == ACTION.REMOVE) {
+        if (action == Action.REMOVE) {
             performRemove(deck);
         }
 
         try {
-            if (action == ACTION.EDIT) {
+            if (action == Action.EDIT) {
                 performEdit(deck);
             }
         } catch (IndexNotFoundException i) {
@@ -93,9 +97,9 @@ public class EditCommand implements ResponseFunc {
         back = "";
 
         if (inputAction.toLowerCase().equals("edit")) {
-            action = ACTION.EDIT;
+            action = Action.EDIT;
         } else if (inputAction.toLowerCase().equals("remove")) {
-            action = ACTION.REMOVE;
+            action = Action.REMOVE;
         }
         if (hasFront && hasBack) {
             splitUserFields = splitUserFields[1].split(" front/");
@@ -118,11 +122,11 @@ public class EditCommand implements ResponseFunc {
             back = splitUserFields[1].trim();
         }
 
-        if (!hasBack && !hasFront && action == ACTION.REMOVE) {
+        if (!hasBack && !hasFront && action == Action.REMOVE) {
             stringIndex = splitUserFields[1].trim();
         }
 
-        if (!hasBack && !hasFront && action == ACTION.EDIT) {
+        if (!hasBack && !hasFront && action == Action.EDIT) {
             LogsCenter.getLogger(EditCommand.class).warning("EDIT_DECK_EDIT_CARD: No changes to front back");
             Gui.showError("No back and front provided.");
             return false;
@@ -152,6 +156,11 @@ public class EditCommand implements ResponseFunc {
         }
     }
 
+    /**
+     *
+     *
+     * @param deck
+     */
     private void performRemove(Deck deck) {
         try {
             deck.removeCardFromDeck(index);

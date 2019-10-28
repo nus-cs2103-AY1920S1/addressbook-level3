@@ -1,6 +1,5 @@
 package dream.fcard.logic.respond;
 
-import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.model.State;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
