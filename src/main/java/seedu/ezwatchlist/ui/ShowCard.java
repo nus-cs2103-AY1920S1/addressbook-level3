@@ -110,7 +110,7 @@ public class ShowCard extends UiPart<Region> {
     private void setLastWatched() {
         if (show.getType().equals("Tv Show")) {
             if (show.getLastWatchedSeasonNum() == 0) {
-                lastWatched.setText("Not started watching");
+                lastWatched.setText("");
             } else {
                 lastWatched.setText("Last Watched: \nSeason " + show.getLastWatchedSeasonNum()
                         + " Episode " + show.getLastWatchedSeasonEpisode());
