@@ -21,6 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
@@ -92,13 +93,13 @@ public class EditCommand extends Command {
      */
     private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
         assert entryToEdit != null;
-
+        Category updatedCategory = editEntryDescriptor.getCategory().orElse(entryToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
         Date updatedDate = editEntryDescriptor.getDate().orElse(entryToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 
-        return new Entry(updatedName, updatedDate, updatedAmount, updatedTags);
+        return new Entry(updatedCategory, updatedName, updatedDate, updatedAmount, updatedTags);
     }
 
     @Override
@@ -124,6 +125,7 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditEntryDescriptor {
+        private Category category;
         private Description desc;
         private Date time;
         private Amount amt;
@@ -136,6 +138,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditEntryDescriptor(EditEntryDescriptor toCopy) {
+            setCategory(toCopy.category);
             setDesc(toCopy.desc);
             setAmount(toCopy.amt);
             setDate(toCopy.time);
@@ -146,7 +149,15 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(desc, amt, tags);
+            return CollectionUtil.isAnyNonNull(category, desc, time, amt, tags);
+        }
+
+        public void setCategory(Category cat) {
+            this.category = cat;
+        }
+
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         public void setDesc(Description desc) {

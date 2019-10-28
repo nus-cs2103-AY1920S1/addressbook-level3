@@ -1,3 +1,4 @@
+
 = guiltTrip() - Developer Guide
 :site-section: DeveloperGuide
 :toc:
@@ -7,12 +8,6 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:warning-caption: :warning:
-endif::[]
-
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -37,8 +32,25 @@ image::ArchitectureDiagram.png[]
 [[Design-Ui]]
 === UI component
 
-.UI Diagram
+.Structure of UI component
 image::UiClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+* The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `EntryListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+* The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component
+
+* Executes user commands using the `Logic` component.
+
+* Listens for changes to `Model` data so that the `UI` can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -140,7 +152,7 @@ The viewHistory command extends the Command class. It calls methods from the Sta
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewHistory typ/Expense")` API call.
 
 .Interactions Inside the Logic Component for the `viewHistory typ/Expense` Command
-image::ViewHistorySequenceDiagram.png[]
+image::viewHistorySequenceDiagram.png[]
 
 === Toggle Panel Command
 
@@ -168,16 +180,22 @@ Cons: Might not be as OOP as other designs.
 
 The Reminder mechanism is facilitated by the Reminder class. Each Reminder object consists of a Condition class object which represents a set of conditions to be met. When all conditions are met, the reminder is activated and its message is displayed under the Reminder Pannel. The following class diagram helps to show how the classes are related.
 
-When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed, the ConditionList object is updated to see if any conditions have been met. 
+image::ReminderClassDiagram.png[]
 
+Different types of conditions are represented by subclassess which extend the Condition class.
+To create a reminder, the user calls the method createReminder(int... indexes)
+where indexes are the indexes of conditions in the condition list.
+
+When an add/edit/delete command for any of the subclasses of Entry (Expense, Income, Wishes) is executed,
+the ConditionList object is updated to see if any conditions have been met.
+
+image::ReminderSequenceDiagram.png[]
 
 ==== Design Considerations
 
-*Current method:* Toggle the panels from within MainWindow class.
+*Current method:* Instance specific reminders are made known to the instance object, and the object is made known to the reminder. (i.e Such reminders trigger conditions are entirely based on a single Entry class object)
 
-Pros: Easy to implement.
-
-
+Pros: Allows fast method of keeping track of instance specific reminders when object is edited/deleted and loaded form storage.
 Cons: Might not be as OOP as other designs.
 == Documentation
 
@@ -193,7 +211,6 @@ Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
-
 === Target User Profile
 
 Youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending.
@@ -230,14 +247,14 @@ A convenient financial tracker targeted at users who prefer typing over other in
 |Medium|As a lazy and expert user|I want to be able to define my own shortcuts to certain functionality myself (eg. spend mala ytd lunch 10.50), and extend/customize them from time to time|so that I can complete commands with convenience and ease.
 |Medium|As a student with limited income|I need a visualizer to show my urgent wishlist|so I can see how much I have saved to each goal.
 |Medium|As a student with limited income|I need a visualizer|so I can see my expenses in proportion to my income at a glance.
-|Medium|As a student who has difficulty planning his finances |I want to have an app help me calculate what to prioritize and how heavily I should prioritize to best meet my needs. I would like the app to have filters|so I can choose what category of spending to prioritize.
+|Medium|As a student who has difficulty planning his finances |I want the app to help me calculate what to prioritize and how heavily I should prioritize to best meet my needs|so I can prioritise what I should be spending my money on.
 |Medium|As a user who do not have the habit of tracking my expenses|I want to receive some incentive/motivation when I track my expenses|so that I would continue tracking it in the long run.
 |Medium|As a forgetful user|I need to have the ability to add notes to my wishlist detailing where I want to buy the product, link to buy the product etc|so that I can easily refer to the wishlist whenever I forget about the details.
-|Medium|As a student facing problems with student debt|I need an app to help me plan my spending with respect to my loan|so that I can work on paying off my loan eventually
+|Medium|As a student facing problems with student debt|I need an app to help me plan my spending with respect to my loan|so that I can work on paying off my loan eventually.
 |Medium|As a student trying to address his/her spending habits|I need an app that reminds me if I am spending too much|so that I can work on reducing my spending and improve my habits.
 |Low|As a user|I would like to be able to import details for my wishlist using external files |so that I do not need to key each item in individually.
-|Low|As a student who’s easily influenced|I want the app to provide me with painful reminders|So that I will be wrecked with guilt after indulging in stuff I do not need.
-|Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record quickly.
+|Low|As a student who’s easily influenced|I want the app to provide me with reminders|So that I do not overindulge in things I do not need.
+|Low|As a lazy/busy student|I do not want to be required to write a description for my expense or income records every single time |so that I can save time and record many expenses quickly.
 |===
 
 [appendix]
@@ -315,11 +332,11 @@ Use Case: user adds an expense
 . The user types listAutoExpenditure.
 . GuiltTrip lists all the current automatically recurring expenditures.
 
-=== Use Case 09: Set TrackerReminder
+=== Use Case 09: Set GeneralReminder
 
 ==== MSS
 
-. User adds a TrackerReminder, indicates the quota which if exceeded will activate the reminder, and the tags nad keywords that entries should have to be tracked;
+. User adds a GeneralReminder, indicates the quota which if exceeded will activate the reminder, and the tags/ keywords that entries should have to be tracked;
 . guiltTrip() notifies user that Reminder has been added.
 
 Use case ends.
@@ -329,11 +346,11 @@ Use case ends.
 . 1a. user does not indicate if he wants to track entries with keywords or tags.
 Reminder tracks all entries.
 
-=== Use Case 10: Set DateReminder
+=== Use Case 10: Set TargetedReminder
 
 ==== MSS
 
-. User adds a DateReminder, indicate the index of the entry to track and the period before the event date to activate reminder.
+. User adds a TargetedReminder, indicate the index of the entry to target and the period before the entry date to activate reminder.
 . guiltTrip() notifies user that Reminder has been added.
 
 Use case ends.

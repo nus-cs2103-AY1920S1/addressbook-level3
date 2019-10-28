@@ -9,6 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
+import seedu.address.model.person.Income;
 
 /**
  * Panel containing the list of entries.
@@ -39,7 +41,18 @@ public class EntryListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
+                if (entry instanceof Expense) {
+                    Expense expense = (Expense) entry;
+                    System.out.println("expense");
+                    setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
+                } else if (entry instanceof Income) {
+                    Income income = (Income) entry;
+                    System.out.println("income");
+                    setGraphic(new IncomeCard(income, getIndex() + 1).getRoot());
+                } else {
+                    System.out.println("others");
+                    setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
+                }
             }
         }
     }
