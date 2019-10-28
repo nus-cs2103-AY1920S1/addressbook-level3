@@ -12,6 +12,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -28,10 +29,13 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CalendarCommandResult;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.YearMonth;
 import seedu.address.model.aesthetics.Background;
+import seedu.address.model.calendar.YearMonthDay;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
@@ -350,6 +354,28 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches the main display pane to the calendar pane.
+     */
+    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
+                                        YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay,
+                                        boolean isShowingWeek) {
+        if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
+            throw new NullPointerException();
+        } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
+            DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
+            if (paneToDisplay == null) {
+                return;
+            }
+            newPaneIsToBeCreated = newPaneIsToBeCreated;
+            mainDisplayPanePlaceholder.setStyle(null);
+            mainDisplayPanePlaceholder.getChildren().clear();
+            mainDisplayPanePlaceholder.getChildren()
+                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
+                            yearMonth, yearMonthDay, isShowingWeek).getRoot()));
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -390,7 +416,14 @@ public class MainWindow extends UiPart<Stage> {
 
             } else {
                 try {
-                    switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getnewPaneIsToBeCreated());
+                    if (commandResult.isCalendar()) {
+                        CalendarCommandResult calendarCommandResult = (CalendarCommandResult) commandResult;
+                        switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated(),
+                                calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
+                                calendarCommandResult.isShowingWeek());
+                    } else {
+                        switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
+                    }
                     logger.info("Result: " + commandResult.getFeedbackToUser());
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 } catch (NullPointerException e) {

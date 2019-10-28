@@ -104,8 +104,8 @@ public class AverageMap {
             break;
         default:
             // will not happen
+            assert false : "Record type is not supported.";
             containsRecordType = null;
-            break;
         }
         filteredRecords.setPredicate(containsRecordType);
         return filteredRecords;
@@ -147,10 +147,11 @@ public class AverageMap {
             return recordMap.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
                     .stream().map(record -> (Bmi) record)
-                    .map(record -> record.getWeight().getWeight())
+                    .map(record -> record.getBmi())
                     .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
             // will not happen
+            assert false : "Record type is not supported";
             return null;
         }
     }

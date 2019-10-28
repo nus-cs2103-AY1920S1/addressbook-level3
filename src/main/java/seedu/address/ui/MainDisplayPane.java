@@ -2,13 +2,16 @@ package seedu.address.ui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
+import seedu.address.model.YearMonth;
 import seedu.address.model.bio.User;
+import seedu.address.model.calendar.YearMonthDay;
 import seedu.address.ui.bio.BioPane;
 
 /**
@@ -34,6 +37,7 @@ public class MainDisplayPane {
      * @return A UiPart representing the Main Display Pane observed by the user.
      */
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
+        assert !displayPaneType.equals(DisplayPaneType.CALENDAR_MONTH);
         switch (displayPaneType) {
         case BIO:
             ObservableList<User> filteredUserList = logic.getFilteredUserList();
@@ -61,11 +65,21 @@ public class MainDisplayPane {
             return getMappedPane(displayPaneType, () -> new RecordListPanel(logic.getFilterRecordList()),
                 newPaneIsToBeCreated);
         case AVERAGE:
-            return getMappedPane(displayPaneType, () -> new AverageGraphPanel(logic.getAverageMap(),
-                logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
+            return getMappedPane(displayPaneType, () -> new AverageGraphPane(logic.getAverageMap(),
+                            logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
         default:
             return null;
         }
+    }
+
+    /**
+     * Returns a calendar pane representing the Main Display Pane observed by the user.
+     */
+    public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
+                              YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
+        return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth, yearMonthDay, isShowingWeek,
+                logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
+
     }
 
     /**

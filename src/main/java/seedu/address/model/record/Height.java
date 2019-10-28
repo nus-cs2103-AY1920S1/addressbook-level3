@@ -24,6 +24,10 @@ public class Height {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public double getHeight() {
+        return height;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

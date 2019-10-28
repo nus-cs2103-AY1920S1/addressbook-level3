@@ -90,10 +90,9 @@ public class Event extends CalendarEntry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Event")
-            .append(" Description: ")
+        builder.append("Event: ")
             .append(getDescription())
-            .append(" From: ")
+            .append(" From ")
             .append(getDateTime())
             .append(getEndingTimeString());
         return builder.toString();

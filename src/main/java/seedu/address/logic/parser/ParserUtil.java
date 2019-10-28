@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_IMAGE;
 
 import java.awt.Image;
@@ -15,10 +16,12 @@ import javax.imageio.ImageIO;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AverageCommand;
 import seedu.address.logic.commands.aesthetics.BackgroundCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
+import seedu.address.model.YearMonth;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.Address;
@@ -34,6 +37,7 @@ import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Repetition;
+import seedu.address.model.calendar.YearMonthDay;
 import seedu.address.model.food.Calorie;
 import seedu.address.model.food.Fat;
 import seedu.address.model.food.FoodName;
@@ -44,6 +48,7 @@ import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
+import seedu.address.model.statistics.AverageType;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -64,6 +69,22 @@ public class ParserUtil {
             return RecordType.valueOf(trimmedRType);
         } catch (IllegalArgumentException e) {
             throw new ParseException("System does not accommodate such a record type.");
+        }
+    }
+
+    /**
+     * Parses a {@code String averageType} into a {@code AverageType}. Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code averageType} does not match any of the enums.
+     */
+    public static AverageType parseAverageType(String averageType) throws ParseException {
+        requireNonNull(averageType);
+        String trimmedAverageType = averageType.trim().toUpperCase();
+        try {
+            return AverageType.valueOf(trimmedAverageType);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
+                    AverageCommand.MESSAGE_INVALID_AVGTYPE));
         }
     }
 
@@ -580,5 +601,33 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(e.getMessage());
         }
+    }
+
+    /**
+     * Parses a {@code String yearMonth} into a {@code YearMonth}.
+     *
+     * @throws ParseException if the given {@code yearMonth} is invalid.
+     */
+    public static YearMonth parseYearMonth(String yearMonth) throws ParseException {
+        requireNonNull(yearMonth);
+        String trimmedYearMonth = yearMonth.trim();
+        if (!YearMonth.isValidYearMonth(trimmedYearMonth)) {
+            throw new ParseException(YearMonth.MESSAGE_CONSTRAINTS);
+        }
+        return new YearMonth(yearMonth);
+    }
+
+    /**
+     * Parses a {@code String yearMonthDay} into a {@code YearMonthDay}.
+     *
+     * @throws ParseException if the given {@code yearMonthDay} is invalid.
+     */
+    public static YearMonthDay parseYearMonthDay(String yearMonthDay) throws ParseException {
+        requireNonNull(yearMonthDay);
+        String trimmedYearMonthDay = yearMonthDay.trim();
+        if (!YearMonthDay.isValidYearMonthDay(trimmedYearMonthDay)) {
+            throw new ParseException(YearMonthDay.MESSAGE_CONSTRAINTS);
+        }
+        return new YearMonthDay(yearMonthDay);
     }
 }

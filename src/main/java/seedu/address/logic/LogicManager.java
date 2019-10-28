@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = sugarMummyParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
-        newPaneIsToBeCreated = command.getnewPaneIsToBeCreated();
+        newPaneIsToBeCreated = command.getNewPaneIsToBeCreated();
         commandResult = command.execute(model);
 
         try {
@@ -79,7 +79,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return newPaneIsToBeCreated;
     }
 
