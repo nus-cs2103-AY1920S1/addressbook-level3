@@ -143,27 +143,6 @@ __
 ... Adds meeting to a currently checked out project.
 ... Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]
 
-. *Sort*
-
-All sort methods follow this set of index/order pairing. Some indexes are specific to
-certain methods(such as 3 and 4 are specific to sortTask). Refer to each individual method
-to find out which indexes are available.
-
-1 -- Alphabetical order
-
-2 -- Increasing order of time
-
-3 -- Whether tasks are done.
-
-4 -- Whether tasks are done and then by increasing order of time.
-
-.. Sort tasks: _sortTask_
-... Sorts tasks in the task list of current project based on given index.
-... Format:
-_sortTask INDEX(Integer value from 1-4)_
-... Example:
-_sortTask 1_ (Sort tasks by alphabetical order)
-
 . *Email*
 
 .. Sign in to Account: _signIn_
@@ -185,3 +164,24 @@ __
 .. Sends broadcast Email: _broadcastMail_
 ... Sends an email to all members in the Project.
 ... Format: broadcastMail [su/SUBJECT] [me/MESSAGE_BODY]
+
+. *Sort*
+
+All sort methods follow this set of index/order pairing. Some indexes are specific to
+certain methods(such as 3 and 4 are specific to sortTask). Refer to each individual method
+to find out which indexes are available.
+
+1 -- Alphabetical order
+
+2 -- Increasing order of time
+
+3 -- Whether tasks are done.
+
+4 -- Whether tasks are done and then by increasing order of time.
+
+.. Sort tasks: _sortTask_
+... Sorts tasks in the task list of current project based on given index.
+... Format:
+_sortTask INDEX(Integer value from 1-4)_
+... Example:
+_sortTask 1_ (Sort tasks by alphabetical order)
