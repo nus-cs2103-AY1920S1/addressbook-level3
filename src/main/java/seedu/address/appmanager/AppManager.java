@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
-import seedu.address.appmanager.timer.GameTimer;
+import seedu.address.appmanager.timer.GameTimerInterface;
 import seedu.address.commons.core.GuiSettings;
 
 import seedu.address.logic.Logic;
@@ -29,13 +29,13 @@ import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
- * Class that wraps around the entire apps logic and the GameTimer. This is done to separate all logic
- * of the game away from the GameTimer entirely, and to separate all GameTimer from the UI itself.
+ * Class that wraps around the entire apps logic and the GameTimerImpl. This is done to separate all logic
+ * of the game away from the GameTimerImpl entirely, and to separate all GameTimerImpl from the UI itself.
  */
 public class AppManager {
 
     private Logic logic;
-    private GameTimer gameTimer = null;
+    private GameTimerInterface gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
     // Call-back method to update ResultDisplay in MainWindow
     private HintDisplayCallBack hintDisplayCallBack = null;
@@ -53,7 +53,7 @@ public class AppManager {
     }
 
     private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
-        gameTimer = new GameTimer("Time Left", timeAllowedPerQuestion,
+        gameTimer = GameTimerInterface.getInstance("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack,
                 this::requestHintAndCallBack);
@@ -64,7 +64,7 @@ public class AppManager {
     }
 
     /**
-     * Checks if a GameTimer currently exists and terminates it if present.
+     * Checks if a GameTimerImpl currently exists and terminates it if present.
      */
     private void abortAnyExistingGameTimer() {
         if (this.gameTimer != null) {
@@ -106,7 +106,7 @@ public class AppManager {
             }
         }
 
-        // GameTimer is always abort when a new command is entered while Game is running.
+        // GameTimerImpl is always abort when a new command is entered while Game is running.
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {

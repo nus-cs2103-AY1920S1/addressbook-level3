@@ -282,7 +282,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Updates the timerDisplay module of MainWindow to be called from GameTimer.
+     * Updates the timerDisplay module of MainWindow to be called from GameTimerImpl.
      * @param timerMessage Message to be displayed on the TimerDisplay.
      * @param timeLeft Time in milliseconds that is left in the current timer.
      */

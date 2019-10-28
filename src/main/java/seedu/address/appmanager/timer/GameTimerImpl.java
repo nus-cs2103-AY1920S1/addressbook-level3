@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Represents a countdown timer that runs during a Game session (if enabled).
  */
-public class GameTimer implements Runnable {
+public class GameTimerImpl implements GameTimerInterface {
 
     private Timer timer;
     private long totalTimeGiven; // the initial time allocated for the timer.
@@ -28,16 +28,16 @@ public class GameTimer implements Runnable {
     private long nextTimeForHint = -100L;
 
     /**
-     * Creates a new GameTimer instance, but does not run it yet.
+     * Creates a new GameTimerImpl instance, but does not run it yet.
      *
      * @param mainMessage String of the message intended to be shown on UI.
      * @param durationInMs Duration that the Timer runs for, in milliseconds.
      * @param mainWindowExecuteCallBack call-back function to send 'skip" command back to MainWindow.
      */
-    public GameTimer(String mainMessage, long durationInMs,
-                     AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                     AppManager.TimerDisplayCallBack timerDisplayCallBack,
-                     RequestUpdateHintCallBack requestUpdateHintCallBack) {
+    public GameTimerImpl(String mainMessage, long durationInMs,
+                         AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
+                         AppManager.TimerDisplayCallBack timerDisplayCallBack,
+                         RequestUpdateHintCallBack requestUpdateHintCallBack) {
         this.mainMessage = mainMessage;
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
@@ -48,15 +48,15 @@ public class GameTimer implements Runnable {
     }
 
     /**
-     * Creates a GameTimer without callback to update hint. Todo: Give a more detailed description
+     * Creates a GameTimerImpl without callback to update hint. Todo: Give a more detailed description
      * @param mainMessage
      * @param durationInMs
      * @param mainWindowExecuteCallBack
      * @param timerDisplayCallBack
      */
-    public GameTimer(String mainMessage, long durationInMs,
-                     AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                     AppManager.TimerDisplayCallBack timerDisplayCallBack) {
+    public GameTimerImpl(String mainMessage, long durationInMs,
+                         AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
+                         AppManager.TimerDisplayCallBack timerDisplayCallBack) {
         this.mainMessage = mainMessage;
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
