@@ -19,6 +19,7 @@ public class CommandResult {
     private Person person;
     private AthletickDate date;
     private Model model;
+    private String eventName;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -77,6 +78,13 @@ public class CommandResult {
         this.model = model;
     }
 
+    public CommandResult(String feedbackToUser, AthletickDate date, Model model, String eventName) {
+        this(feedbackToUser, false, false);
+        this.date = date;
+        this.model = model;
+        this.eventName = eventName;
+    }
+
     public Feature getFeature() {
         return feature;
     }
@@ -91,6 +99,10 @@ public class CommandResult {
 
     public Model getModel() {
         return model;
+    }
+
+    public String getEventName() {
+        return eventName;
     }
 
     public String getFeedbackToUser() {

@@ -46,14 +46,22 @@ public class ParserUtil {
      * @throws ParseException if the specified feature name is invalid (not calendar / attendance
      * / performance).
      */
-    public static Feature parseFeature(String featureName) throws ParseException {
-        String trimmedFeatureName = featureName.trim();
-        if (!(trimmedFeatureName.equals("calendar")
-                | trimmedFeatureName.equals("attendance")
-                | trimmedFeatureName.equals("performance"))) {
+    public static Feature parseFeature(String input) throws ParseException {
+        requireNonNull(input);
+        String[] inputArray = input.split("\\s+", 2);
+        if (!(inputArray[0].equals("calendar")
+            | inputArray[0].equals("attendance")
+            | inputArray[0].equals("performance")
+            | inputArray[0].equals("records"))) {
             throw new ParseException(Feature.MESSAGE_CONSTRAINTS);
         }
-        return new Feature(trimmedFeatureName);
+        if (inputArray[0].equals("records")) {
+            if (inputArray.length == 1) {
+                throw new ParseException(Feature.MESSAGE_NO_EVENT);
+            }
+            return new Feature(inputArray[0], parseEvent(inputArray[1]));
+        }
+        return new Feature(inputArray[0]);
     }
 
     /**
@@ -62,6 +70,7 @@ public class ParserUtil {
      * @throws ParseException if the specified date is invalid (not length of 6 or 8).
      */
     public static AthletickDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
         String trimmedDate = date.trim();
         if (trimmedDate.length() == 6 || trimmedDate.length() == 8) {
             SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");

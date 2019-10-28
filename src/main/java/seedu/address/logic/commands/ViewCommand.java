@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.feature.Feature;
+import seedu.address.model.performance.Event;
+
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Allows user to view calendar, attendance or performance.
@@ -20,6 +23,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_SUCCESS_ATTENDANCE = "Viewing your team's attendance";
     public static final String MESSAGE_SUCCESS_PERFORMANCE = "Here are your events stored Athletick.\n"
         + "To view the performance for an event, type in the command: records EVENT_NAME";
+    public static final String MESSAGE_SUCCESS_RECORDS = "Here are the records for %1$s event.\n";
     public static final String MESSAGE_INVALID_FEATURE = "You have provided an invalid feature.";
     private final Feature feature;
 
@@ -30,13 +34,19 @@ public class ViewCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        switch (feature.toString()) {
+        switch (feature.getName()) {
         case "calendar":
             return new CommandResult(MESSAGE_SUCCESS_CALENDAR, feature, model);
         case "attendance":
             return new CommandResult(MESSAGE_SUCCESS_ATTENDANCE, feature);
         case "performance":
             return new CommandResult(MESSAGE_SUCCESS_PERFORMANCE, feature, model);
+        case "records":
+            boolean hasEvent = model.hasEvent(new Event(feature.getEventName()));
+            if (!hasEvent) {
+                throw new CommandException(String.format(Event.MESSAGE_CONSTRAINTS, feature.getEventName()));
+            }
+            return new CommandResult(MESSAGE_SUCCESS_RECORDS, feature, model);
         default:
             throw new CommandException(MESSAGE_INVALID_FEATURE);
         }
