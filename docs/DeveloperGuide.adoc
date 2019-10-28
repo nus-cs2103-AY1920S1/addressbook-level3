@@ -278,50 +278,6 @@ down the list of people.
 ** Cons: There may be 2 people with the same name and thus result in an error.
 
 === Undo / Redo feature
-
-=== Filter feature
-
-The filter command enables filtering of athletes based on their tags.
-Currently, only filtering by one tag is supported.
-Filtering by multiple tags will be available by `v1.2`.
-
-==== Implementation
-
-Filter makes use of a `TagMatchesPredicate` class to determine if the athlete has tags matching the user input.
-Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
-
-image::filter_sequence_diagram.png[]
-
-Once filtering by multiple tags is implemented, the parsing of tag from `AddressBookParser` to `FilterCommandParser` will involve splitting them by spaces and storing the tag queries in a list.
-Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
-
-However, since currently only filtering by one tag is supported,
-the parsing of tag simply involves trimming the tag of white spaces.
-
-Finally, the list shown to the user is updated through `Model#updateFilteredPersonsList()`.
-
-==== Design considerations
-
-===== Aspect: How a tag match is determined
-
-* **Alternative 1 (current choice):** Case-insensitive.
-** Pros: More user-friendly.
-** Cons: Requires converting tags to lower-case on the back-end.
-* **Alternative 2:** Case-sensitive.
-** Pros: Allows for more accurate filtering.
-** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
-
-===== Aspect: How matches for multiple tags are determined
-
-* **Alternative 1:** Exclusive matching.
-** Pros: Allows for more accurate filtering.
-** Cons: Users get fewer filter results.
-* **Alternative 2:** Optional matching.
-** Pros: Allows for more flexible searching.
-** Cons: Users may get results that they are not interested in.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -425,6 +381,47 @@ is done to keep the file name simple.
 ** Pros
 ** Cons
 
+=== Filter feature
+
+The filter command enables filtering of athletes based on their tags.
+Currently, only filtering by one tag is supported.
+Filtering by multiple tags will be available by `v1.2`.
+
+==== Implementation
+
+Filter makes use of a `TagMatchesPredicate` class to determine if the athlete has tags matching the user input.
+Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
+
+image::filter_sequence_diagram.png[]
+
+Once filtering by multiple tags is implemented, the parsing of tag from `AddressBookParser` to `FilterCommandParser` will involve splitting them by spaces and storing the tag queries in a list.
+Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
+
+However, since currently only filtering by one tag is supported,
+the parsing of tag simply involves trimming the tag of white spaces.
+
+Finally, the list shown to the user is updated through `Model#updateFilteredPersonsList()`.
+
+==== Design considerations
+
+===== Aspect: How a tag match is determined
+
+* **Alternative 1 (current choice):** Case-insensitive.
+** Pros: More user-friendly.
+** Cons: Requires converting tags to lower-case on the back-end.
+* **Alternative 2:** Case-sensitive.
+** Pros: Allows for more accurate filtering.
+** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
+
+===== Aspect: How matches for multiple tags are determined
+
+* **Alternative 1:** Exclusive matching.
+** Pros: Allows for more accurate filtering.
+** Cons: Users get fewer filter results.
+* **Alternative 2:** Optional matching.
+** Pros: Allows for more flexible searching.
+** Cons: Users may get results that they are not interested in.
+
 === Sort Command
 
 The sort command sorts the displayed list of athletes by alphabetical order. As new athletes are added to the bottom of the list, the sort command is used after to reorder the athlete list.
@@ -438,7 +435,7 @@ The following sequence diagram shows how the sort operation works:
 .Interactions Inside the Logic and Model Components for the `sort` Command
 image::SortCommandSequenceDiagram.png[]
 
-Upon completion of the above execution, the displayed list of athletes would immediately display the sorted list.
+Upon completion of the above execution, the sorted list of athletes would be displayed immediately thorugh `Model#sortByName()`.
 
 To support sorting by more parameters (e.g. by height / weight), you can simply create a new class that implements `Comparator` that compares athletes by that parameter instead. After which, you have to edit the `sort` command to support different sort command syntaxes.
 
