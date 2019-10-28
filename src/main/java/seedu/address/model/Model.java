@@ -31,6 +31,8 @@ public interface Model {
      */
     Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
 
+    Predicate<Task> PREDICATE_SHOW_NO_TASKS = task -> false;
+
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     Predicate<Task> PREDICATE_SHOW_DONE_TASKS = Task::getStatus;
@@ -38,9 +40,10 @@ public interface Model {
     Predicate<Task> PREDICATE_SHOW_NOT_DONE_TASKS = task -> !task.getStatus();
 
     Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = new Predicate<Task>() {
-        LocalDateTime now = LocalDateTime.now();
         @Override
         public boolean test(Task task) {
+            LocalDateTime now = LocalDateTime.now();
+            System.out.println(now.toString());
             if (task.getStatus()) {
                 return false;
             }

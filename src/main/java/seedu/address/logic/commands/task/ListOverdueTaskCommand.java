@@ -14,6 +14,7 @@ public class ListOverdueTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.updateFilteredTaskList(Model.PREDICATE_SHOW_NO_TASKS);
         model.updateFilteredTaskList(Model.PREDICATE_SHOW_OVERDUE_TASKS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
