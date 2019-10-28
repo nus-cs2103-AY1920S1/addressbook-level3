@@ -18,10 +18,20 @@ StorageManager o--> AlgoBaseStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonAlgoBaseStorage .left.|> AlgoBaseStorage
-JsonAlgoBaseStorage .down.> JsonSerializableAlgoBaseStorage
-JsonSerializableAlgoBaseStorage .down.> JsonAdaptedPlan
-JsonSerializableAlgoBaseStorage .down.> JsonAdaptedProblem
-JsonSerializableAlgoBaseStorage .down.> JsonAdaptedTag
-JsonAdaptedProblem .right.> JsonAdaptedTag
-JsonAdaptedPlan .right.> JsonAdaptedTask
+JsonAlgoBaseStorage .down.> JsonSerializableAlgoBase
+JsonSerializableAlgoBase .down.> JsonAdaptedGuiState
+JsonSerializableAlgoBase .down.> JsonAdaptedPlan
+JsonSerializableAlgoBase .down.> JsonAdaptedProblem
+JsonSerializableAlgoBase .down.> JsonAdaptedProblemSearchRule
+JsonSerializableAlgoBase .down.> JsonAdaptedTag
+JsonAdaptedGuiState .down.> JsonAdaptedTabManager
+JsonAdaptedProblem .down.> JsonAdaptedTag
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedNameContainsKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedAuthorMatchesKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedDescriptionContainsKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedSourceMatchesKeywordsPredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedDifficultyIsInRangePredicate
+JsonAdaptedProblemSearchRule .down.> JsonAdaptedTagIncludesKeywordsPredicate
+JsonAdaptedPlan .down.> JsonAdaptedTask
+JsonAdaptedTabManager .down.> JsonAdaptedTab
 @enduml

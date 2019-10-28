@@ -11,8 +11,18 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class DetailsTabPane
+Class DisplayTabPane
+Class TaskManagementPane
+Class FindRuleListPanel
+Class FindRuleCard
+Class ProblemListPanel
+Class ProblemCard
+Class PlanListPanel
+Class PlanCard
+Class TagListPanel
+Class TagCard
+Class TaskCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -33,28 +43,55 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> DetailsTabPane
+MainWindow *-down-> DisplayTabPane
+MainWindow *-down-> TaskManagementPane
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+DisplayTabPane *-down-> FindRuleListPanel
+DisplayTabPane *-down-> ProblemListPanel
+DisplayTabPane *-down-> PlanListPanel
+DisplayTabPane *-down-> TagListPanel
+
+TaskManagementPane -down-> TaskCard
+FindRuleListPanel -down-> FindRuleCard
+ProblemListPanel -down-> ProblemCard
+PlanListPanel -down-> PlanCard
+TagListPanel -down-> TagCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+DetailsTabPane --|> UiPart
+DisplayTabPane --|> UiPart
+TaskManagementPane --|> UiPart
+FindRuleListPanel --|> UiPart
+FindRuleCard --|> UiPart
+ProblemListPanel --|> UiPart
+ProblemCard --|> UiPart
+PlanListPanel --|> UiPart
+PlanCard --|> UiPart
+TagListPanel --|> UiPart
+TagCard --|> UiPart
+TaskCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+FindRuleCard ..> Model
+ProblemCard ..> Model
+PlanCard ..> Model
+TagCard ..> Model
+TaskCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+StatusBarFooter -[hidden]left- DetailsTabPane
+DetailsTabPane -[hidden]left- DisplayTabPane
+DisplayTabPane -[hidden]left- TaskManagementPane
 
 MainWindow -[hidden]-|> UiPart
 @enduml
