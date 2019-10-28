@@ -112,6 +112,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasRecord(Record record) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteRecord(Record record) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addRecord(Record record) {
         throw new AssertionError(
                 "This method should not be called.");

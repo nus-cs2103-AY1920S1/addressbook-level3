@@ -58,6 +58,15 @@ public class HealthRecords implements ReadOnlyHealthRecords {
     }
 
     //// record-level operations
+
+    /**
+     * Returns true if a record with the same identity as {@code record} exists in Duke Cooks.
+     */
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return healthrecords.contains(record);
+    }
+
     /**
      * Adds a record to Duke Cooks.
      * The record must not already exist in Duke Cooks.
@@ -75,6 +84,14 @@ public class HealthRecords implements ReadOnlyHealthRecords {
         requireNonNull(editedRecord);
 
         healthrecords.setRecord(target, editedRecord);
+    }
+
+    /**
+     * Removes {@code key} from this {@code HealthRecords}.
+     * {@code key} must exist in Duke Cooks.
+     */
+    public void removeRecord(Record key) {
+        healthrecords.remove(key);
     }
 
     //// util methods

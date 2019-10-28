@@ -2,6 +2,7 @@ package dukecooks.ui;
 
 import java.util.logging.Logger;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.Logic;
@@ -11,6 +12,7 @@ import dukecooks.logic.parser.exceptions.ParseException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -22,19 +24,29 @@ import javafx.stage.Stage;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class DiaryWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "DiaryWindow.fxml";
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private UiManager uiManager;
 
     // Independent Ui parts residing in this Ui container
+    private DashboardListPanel dashboardListPanel;
+    private RecipeListPanel recipeListPanel;
+    private RecordListPanel recordListPanel;
+    private PersonListPanel personListPanel;
+    private ExerciseListPanel exerciseListPanel;
     private DiaryListPanel diaryListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private Event event;
+
+    @FXML
+    private Label featureMode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -69,7 +81,7 @@ public class DiaryWindow extends UiPart<Stage> {
     @FXML
     private Button diary;
 
-    public DiaryWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -77,6 +89,7 @@ public class DiaryWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Configure the UI
+
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
@@ -124,19 +137,33 @@ public class DiaryWindow extends UiPart<Stage> {
 
     /**
      * Fills up all the placeholders of this window.
+     * with health records tab view.
      */
     void fillInnerParts() {
-        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
-        versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
+        initializePanels();
+
+        //default start up screen - dashboard page
+        versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getDiaryFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getHealthRecordsFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Initializes all Panels
+     */
+    void initializePanels() {
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
+        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
+        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
     }
 
     /**
@@ -180,25 +207,59 @@ public class DiaryWindow extends UiPart<Stage> {
     }
 
     /**
+     * Handles mode view switches of the application.
+     */
+    @FXML
+    void handleSwitch() {
+        event = Event.getInstance();
+        String mode = event.getMode();
+        String type = event.getType();
+
+        //reset panel
+        versatilePanelPlaceholder.getChildren().clear();
+
+        //TODO NOTE: Do your internal #handleSwitch in individual panels - rmb to parse type as param
+
+        switch (mode) {
+        case "dashboard":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
+            featureMode.setText("Dashboard");
+            break;
+        case "recipe":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+            featureMode.setText("Recipe");
+            break;
+        case "health":
+            versatilePanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+            featureMode.setText("Health Records");
+            recordListPanel.handleSwitch(type);
+            break;
+        case "exercise":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
+            featureMode.setText("Exercise");
+            break;
+        case "diary":
+            //TODO:
+            versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
+            featureMode.setText("Diary");
+            break;
+        default:
+            //TODO: PLEASE EDIT THIS ERROR MESSAGE TO SOMETHING USEFUL!
+            throw new AssertionError("There should exist a valid event for UiManager!");
+        }
+    }
+
+    /**
      * Switch to home page.
      */
     @FXML
     private void switchHome() {
-        primaryStage.hide();
-        DashboardWindow dashboardWindow = new DashboardWindow(getPrimaryStage(), logic);
-        dashboardWindow.show();
-        dashboardWindow.fillInnerParts();
-    }
-
-    /**
-     * Switch to profile page.
-     */
-    @FXML
-    private void switchProfile() {
-        primaryStage.hide();
-        UserProfileWindow userProfileWindow = new UserProfileWindow(getPrimaryStage(), logic);
-        userProfileWindow.show();
-        userProfileWindow.fillInnerParts();
+        event = Event.getInstance();
+        event.set("dashboard", "all");
+        resultDisplay.setFeedbackToUser("");
     }
 
     /**
@@ -206,10 +267,9 @@ public class DiaryWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchRecipe() {
-        primaryStage.hide();
-        RecipeBookWindow recipeBookWindow = new RecipeBookWindow(getPrimaryStage(), logic);
-        recipeBookWindow.show();
-        recipeBookWindow.fillInnerParts();
+        event = Event.getInstance();
+        event.set("recipe", "all");
+        resultDisplay.setFeedbackToUser("");
     }
 
     /**
@@ -217,10 +277,9 @@ public class DiaryWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchExercise() {
-        primaryStage.hide();
-        WorkoutPlannerWindow workoutPlannerWindow = new WorkoutPlannerWindow(getPrimaryStage(), logic);
-        workoutPlannerWindow.show();
-        workoutPlannerWindow.fillInnerParts();
+        event = Event.getInstance();
+        event.set("exercise", "all");
+        resultDisplay.setFeedbackToUser("");
     }
 
     /**
@@ -228,10 +287,9 @@ public class DiaryWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchHealth() {
-        primaryStage.hide();
-        HealthRecordsWindow healthWindow = new HealthRecordsWindow(getPrimaryStage(), logic);
-        healthWindow.show();
-        healthWindow.fillInnerParts();
+        event = Event.getInstance();
+        event.set("health", "all");
+        resultDisplay.setFeedbackToUser("");
     }
 
     /**
@@ -239,11 +297,9 @@ public class DiaryWindow extends UiPart<Stage> {
      */
     @FXML
     private void switchDiary() {
-        // do nothing
-    }
-
-    public DiaryListPanel getDiaryListPanel() {
-        return diaryListPanel;
+        event = Event.getInstance();
+        event.set("diary", "all");
+        resultDisplay.setFeedbackToUser("");
     }
 
     /**

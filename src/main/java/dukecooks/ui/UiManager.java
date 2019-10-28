@@ -1,8 +1,11 @@
 package dukecooks.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.logging.Logger;
 
 import dukecooks.MainApp;
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.Logic;
@@ -22,12 +25,11 @@ public class UiManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/man_cook.png";
 
+    // listener to monitor event changes
+    private Event event;
+
     private Logic logic;
-    private WorkoutPlannerWindow workoutPlannerWindow;
-    private TempWindow tempWindow;
-    private RecipeBookWindow recipeBookWindow;
-    private DiaryWindow diaryWindow;
-    private DashboardWindow dashboardWindow;
+    private MainWindow mainWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -38,16 +40,24 @@ public class UiManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 
+        //initialize event
+        event = event.getInstance();
+
+        //initialize event listener - This is responsible for firing #handleSwitch.
+        event.addPropertyChangeListener(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent e) {
+                    mainWindow.handleSwitch();
+                }
+        });
+
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            dashboardWindow = new DashboardWindow(primaryStage, logic);
-            dashboardWindow.show(); //This should be called before creating other UI parts
-            //recipeBookWindow = new RecipeBookWindow(primaryStage, logic);
-            //recipeBookWindow.show(); //This should be called before creating other UI parts
-            //recipeBookWindow.fillInnerParts();
-
+            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillInnerParts();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -59,7 +69,7 @@ public class UiManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(dashboardWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
         //showAlertDialogAndWait(recipeBookWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 

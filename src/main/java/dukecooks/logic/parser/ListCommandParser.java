@@ -11,6 +11,7 @@ import dukecooks.logic.commands.dashboard.ListTaskDoneCommand;
 import dukecooks.logic.commands.dashboard.ListTaskNotDoneCommand;
 import dukecooks.logic.commands.diary.ListDiaryCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
+import dukecooks.logic.commands.health.ListHealthCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
 
@@ -51,6 +52,9 @@ public class ListCommandParser implements Parser<ListCommand> {
 
         case ListRecipeCommand.VARIANT_WORD:
             return new ListRecipeCommand();
+
+        case ListHealthCommand.VARIANT_WORD:
+            return new ListHealthCommand();
 
         case ListExerciseCommand.VARIANT_WORD:
             return new ListExerciseCommand();
