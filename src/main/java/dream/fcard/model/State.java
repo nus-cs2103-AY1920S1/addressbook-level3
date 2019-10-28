@@ -2,6 +2,8 @@ package dream.fcard.model;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.stats.StateStats;
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
 /**
@@ -11,6 +13,7 @@ public class State {
 
     private StateEnum currentState;
     private ArrayList<Deck> decks;
+    private Statistics stateStats;
 
     /**
      * Constructor to create a State object with no Deck objects.
@@ -18,6 +21,7 @@ public class State {
     public State() {
         currentState = StateEnum.DEFAULT;
         decks = new ArrayList<>();
+        stateStats = new StateStats(this);
     }
 
     /**
@@ -137,5 +141,9 @@ public class State {
 
     public void setCurrentState(StateEnum newState) {
         currentState = newState;
+    }
+
+    public Statistics getStatistics() {
+        return this.stateStats;
     }
 }
