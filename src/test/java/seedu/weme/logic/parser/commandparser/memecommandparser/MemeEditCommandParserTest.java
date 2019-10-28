@@ -1,4 +1,4 @@
-package seedu.weme.logic.parser;
+package seedu.weme.logic.parser.commandparser.memecommandparser;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.weme.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHARMANDER;
@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test;
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
-import seedu.weme.logic.parser.commandparser.memecommandparser.MemeEditCommandParser;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 

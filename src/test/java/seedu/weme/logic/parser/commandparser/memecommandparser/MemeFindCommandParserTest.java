@@ -1,4 +1,4 @@
-package seedu.weme.logic.parser;
+package seedu.weme.logic.parser.commandparser.memecommandparser;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.logic.commands.memecommand.MemeFindCommand;
-import seedu.weme.logic.parser.commandparser.memecommandparser.MemeFindCommandParser;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 
 public class MemeFindCommandParserTest {

@@ -1,11 +1,10 @@
-package seedu.weme.logic.commands;
+package seedu.weme.logic.commands.generalcommand;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.weme.logic.commands.generalcommand.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.generalcommand.HelpCommand;
+import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 
@@ -15,7 +14,7 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        CommandResult expectedCommandResult = new CommandResult(HelpCommand.SHOWING_HELP_MESSAGE, true, false);
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }

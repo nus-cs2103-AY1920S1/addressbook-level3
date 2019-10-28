@@ -1,11 +1,11 @@
-package seedu.weme.logic.commands;
+package seedu.weme.logic.commands.memecommand;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.memecommand.MemeClearCommand;
+import seedu.weme.logic.commands.CommandTestUtil;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
@@ -18,7 +18,8 @@ public class MemeClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitWeme();
 
-        assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandTestUtil.assertCommandSuccess(new MemeClearCommand(), model, MemeClearCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test
