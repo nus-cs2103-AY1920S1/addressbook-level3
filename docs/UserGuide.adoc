@@ -45,7 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list -b`* : lists all bodies
 * *`workers`* : switches to the workers tab
-* **`add -w`**`/firstName John /lastName Doe /dob 17-05-1980` :
+* **`add -w`**`/name John Doe /dob 17-05-1980` :
 adds a worker named John Doe (with his date of birth) to the management system.
 * **`delete -w`**`2` : deletes the worker with staff ID W000002
 * *`exit`* : exits the app
@@ -324,7 +324,7 @@ and her new designation.
 
 ==== Locating entries by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds bodies or workers whose names contain any of the given keywords. +
 
 Below are some important information regarding this command:
 ****
@@ -334,14 +334,14 @@ Below are some important information regarding this command:
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
-Format: `find (keyword)...`
+Format: `find (flag) (keyword)...`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find -b John` +
+Returns any bodies having names `John`
+* `find -w Betsy Tim John` +
+Returns any workers having names `Betsy`, `Tim`, or `John`
 
 // end::find[]
 
@@ -593,6 +593,12 @@ Assign a body and task to a worker.
 Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
 
 Example:
+
+==== View admission statistics
+View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
+
+The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
+No user command is needed to display it.
 
 * `assign /bodyId 2 /staffId 1 /task send blood sample to lab for analysis` +
 Assigns worker with staff ID W00001 to body with ID B00000002 with a task description.

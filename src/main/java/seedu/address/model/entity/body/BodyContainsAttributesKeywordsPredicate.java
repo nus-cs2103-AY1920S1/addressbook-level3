@@ -26,7 +26,7 @@ import seedu.address.logic.parser.Prefix;
 //@@author dalisc
 
 /**
- * Tests that a {@code Entity}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Body}'s attributes matches any of the attributes given.
  */
 public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> {
     private ArgumentMultimap bodyMap = new ArgumentMultimap();
@@ -37,6 +37,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         this.argumentMultimap = argumentMultimap;
     }
 
+    /**
+     * Add the name of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addNameToBodyMap(Body body) {
         try {
             if (body.getName().toString().equals("")) {
@@ -50,6 +54,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the sex of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addSexToBodyMap(Body body) {
         try {
             if (body.getSex().toString().equals("")) {
@@ -63,6 +71,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the date of birth of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addDobToBodyMap(Body body) {
         try {
             if (body.getDateOfBirth().isEmpty()) {
@@ -76,6 +88,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the date of death of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addDodToBodyMap(Body body) {
         try {
             if (body.getDateOfDeath() == null) {
@@ -89,6 +105,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the date of admission of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addDoaToBodyMap(Body body) {
         try {
             if (body.getDateOfAdmission() == null) {
@@ -102,6 +122,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the cause of death of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addCauseOfDeathToBodyMap(Body body) {
         try {
             if (body.getCauseOfDeath().isEmpty()) {
@@ -115,6 +139,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the NRIC of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addNricOfDeathToBodyMap(Body body) {
         try {
             if (body.getNric().isEmpty()) {
@@ -128,6 +156,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the relation of next-of-kin of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addRelationshipToBodyMap(Body body) {
         try {
             if (body.getRelationship().isEmpty()) {
@@ -141,6 +173,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the religion of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addReligionToBodyMap(Body body) {
         try {
             if (body.getReligion().isEmpty()) {
@@ -154,6 +190,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the fridge that contains the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addFridgeIdToBodyMap(Body body) {
         try {
             if (body.getFridgeId().isEmpty()) {
@@ -167,6 +207,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the phone number of the next-of-kin of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addPhoneNokToBodyMap(Body body) {
         try {
             if (body.getKinPhoneNumber().isEmpty()) {
@@ -180,6 +224,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the name of next-of-kin of the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addNameNokToBodyMap(Body body) {
         try {
             if (body.getNextOfKin().isEmpty()) {
@@ -193,6 +241,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         }
     }
 
+    /**
+     * Add the organs donated by the body to the map, if it exists. Otherwise, add an empty string.
+     * @param body The body tested against.
+     */
     public void addOrgansForDonationToBodyMap(Body body) {
         try {
             if (body.getOrgansForDonation().isEmpty()) {
@@ -224,6 +276,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
         return check();
     }
 
+    /**
+     * Checks the attributes supplied by the user against the body with the body map.
+     * @return True if all attributes supplied by the user is also contained in the body. Otherwise, returns false.
+     */
     private boolean check() {
         boolean pass = true;
         try {
