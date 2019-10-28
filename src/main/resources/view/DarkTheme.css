@@ -352,3 +352,38 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+
+/*Solution below adapted from https://stackoverflow.com/questions/19788661/change-javafx-tab-default-look*/
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane {
+    -fx-tab-min-width:90px;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+}
