@@ -20,9 +20,11 @@ import seedu.elisa.logic.commands.OpenCommand;
 import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.RedoCommand;
 import seedu.elisa.logic.commands.ShowCommand;
+import seedu.elisa.logic.commands.SnoozeCommand;
 import seedu.elisa.logic.commands.SortCommand;
 import seedu.elisa.logic.commands.UndoCommand;
 import seedu.elisa.logic.commands.UpCommand;
+
 
 import seedu.elisa.logic.parser.exceptions.ParseException;
 
@@ -123,6 +125,9 @@ public class ElisaParser {
 
         case CloseCommand.COMMAND_WORD:
             return new CloseCommand();
+
+        case SnoozeCommand.COMMAND_WORD:
+            return new SnoozeCommandParser().parse(description, flags);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

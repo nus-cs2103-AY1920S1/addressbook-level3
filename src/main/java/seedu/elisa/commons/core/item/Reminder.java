@@ -73,8 +73,17 @@ public class Reminder {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nReminder DateTime: ")
-                .append(getDefaultDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
+        if (defaultDateTime.isEqual(occurrenceDateTime)) {
+            builder.append("\nReminder DateTime: ")
+                    .append(getDefaultDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
+        } else {
+            builder.append("\nOriginal Reminder DateTime: ")
+                    .append(getDefaultDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
+
+            builder.append("\nReminder DateTime: ")
+                    .append(getOccurrenceDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
+        }
+
         return builder.toString();
     }
 

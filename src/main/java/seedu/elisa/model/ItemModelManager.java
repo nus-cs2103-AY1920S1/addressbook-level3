@@ -393,6 +393,12 @@ public class ItemModelManager implements ItemModel {
             } else {
                 reminderList.remove(index);
             }
+
+            //Old reminder must be in active since it already rang.
+            //Find the old reminder from activeReminders and remove it.
+            activeReminders.remove(item);
+            //Put the new reminder in futureReminders.
+            futureReminders.add(newItem);
         }
 
         if (priorityMode) {
