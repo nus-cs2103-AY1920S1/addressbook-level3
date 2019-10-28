@@ -50,7 +50,7 @@ public class TypicalOrders {
             .withSchedule(Optional.of(FRIDAY_SCHEDULE)).withTags(DEFAULT_TAG_2).build();
 
     public static final Order ORDERTHREE = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERTHREE)
-            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.COMPLETED)
+            .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.UNSCHEDULED)
             .withSchedule(Optional.empty()).withTags(DEFAULT_TAG_3).build();
 
     public static final Order VIPORDER = new OrderBuilder().withCustomer(ALICE).withPhone(IPHONEXR)

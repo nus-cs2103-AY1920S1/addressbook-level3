@@ -64,6 +64,10 @@ public class CompleteOrderCommand extends Command {
             model.deletePhone(phone);
         }
 
+        if (model.hasOrder(orderToComplete)) {
+            model.deleteOrder(orderToComplete);
+        }
+
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete),
                 UiChange.ARCHIVED_ORDER);
     }

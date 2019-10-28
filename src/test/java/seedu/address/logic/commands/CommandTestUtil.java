@@ -28,20 +28,26 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.editcommand.EditCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
+import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescriptor;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.predicates.OrderContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Phone;
-import seedu.address.model.phone.predicates.IdentityNumberContainsKeywordsPredicate;
+import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
+import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
+import seedu.address.testutil.TypicalCustomers;
+import seedu.address.testutil.TypicalPhones;
 
 /**
  * Contains helper methods for testing commands.
@@ -153,7 +159,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_PHONE_NAME_DESC = " " + PREFIX_NAME + "iPhone &";
     public static final String INVALID_IDENTITY_NUM_DESC = " " + PREFIX_IDENTITY_NUM + "123019238901283098190212312";
-    public static final String INVALID_SERIAL_NUM_DESC = " " + PREFIX_SERIAL_NUM + "&&&&&&";
+    public static final String INVALID_SERIAL_NUM_DESC = " " + PREFIX_SERIAL_NUM + "^asad";
     public static final String INVALID_BRAND_DESC = " " + PREFIX_BRAND + "";
     public static final String INVALID_COLOUR_DESC = " " + PREFIX_COLOUR + "";
     public static final String INVALID_CAPACITY_DESC = " " + PREFIX_CAPACITY + "129";
@@ -187,6 +193,8 @@ public class CommandTestUtil {
     public static final EditCustomerDescriptor DESC_BEN;
     public static final EditPhoneDescriptor DESC_IPHONE;
     public static final EditPhoneDescriptor DESC_SAMSUNG;
+    public static final EditOrderDescriptor DESC_ORDER_IPHONE;
+    public static final EditOrderDescriptor DESC_ORDER_SAMSUNG;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -213,6 +221,14 @@ public class CommandTestUtil {
                 .withBrand(VALID_BRAND_SAMSUNG).withCapacity(VALID_CAPACITY_SAMSUNG).withCost(VALID_COST_SAMSUNG)
                 .withColour(VALID_COLOUR_SAMSUNG).withSerialNumber(VALID_SERIAL_NUMBER_SAMSUNG)
                 .withIdentityNumber(VALID_IDENTITY_NUMBER_SAMSUNG).build();
+
+        DESC_ORDER_IPHONE = new EditOrderDescriptorBuilder()
+                .withCustomer(TypicalCustomers.ALICE).withPhone(TypicalPhones.IPHONEPRO11)
+                .withPrice(VALID_PRICE_IPHONE).withTags(VALID_TAG_NEW).build();
+
+        DESC_ORDER_SAMSUNG = new EditOrderDescriptorBuilder()
+                .withCustomer(TypicalCustomers.ALICE).withPhone(TypicalPhones.ANDROIDONE)
+                .withPrice(VALID_PRICE_SAMSUNG).withTags(VALID_TAG_BESTSELLER).build();
     }
 
     /**
@@ -273,30 +289,44 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s customer book.
      */
     public static void showCustomerAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
 
         Customer customer = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
         final String[] splitName = customer.getCustomerName().fullName.split("\\s+");
-        model.updateFilteredCustomerList(new CustomerNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredCustomerList(new CustomerContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCustomerList().size());
     }
 
     /**
      * Updates {@code model}'s filtered list to show only the phone at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s phone book.
      */
     public static void showPhoneAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPhoneList().size());
 
         Phone phone = model.getFilteredPhoneList().get(targetIndex.getZeroBased());
         final String[] splitName = phone.getIdentityNumber().value.split("\\s+");
-        model.updateFilteredPhoneList(new IdentityNumberContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPhoneList(new PhoneContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPhoneList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the order at the given {@code targetIndex} in the
+     * {@code model}'s order book.
+     */
+    public static void showOrderAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
+
+        Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());
+        final String[] splitName = order.getId().toString().split("\\s+");
+        model.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredOrderList().size());
     }
 
 
