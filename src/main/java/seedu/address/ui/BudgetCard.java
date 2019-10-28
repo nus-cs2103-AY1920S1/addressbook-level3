@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.Budget;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class EntryCard extends UiPart<Region> {
+public class BudgetCard extends UiPart<Region> {
 
-    private static final String FXML = "EntryListCard.fxml";
+    private static final String FXML = "BudgetListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class EntryCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Entry entry;
+    public final Budget budget;
 
     @FXML
     private HBox cardPane;
@@ -35,24 +35,22 @@ public class EntryCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label amt;
-    @FXML
-    private Label category;
+    private Label spent;
     @FXML
     private FlowPane tags;
 
-    public EntryCard(Entry entry, int displayedIndex) {
+    public BudgetCard(Budget budget, int displayedIndex) {
         super(FXML);
-        this.entry = entry;
+        this.budget = budget;
         id.setText(displayedIndex + ". ");
 
-        String descWithType = entry.getDesc().fullDesc;
+        String type = budget.getType().toLowerCase();
+        String descWithType = budget.getDesc().fullDesc;
         desc.setText(descWithType);
-        date.setText(entry.getDate().toString());
-        amt.setText("$" + entry.getAmount().value);
-        category.setText(entry.getCategory().categoryName);
+        date.setText(budget.getDate().toString());
+        spent.setText("spent: $" + budget.getSpent().value);
 
-        entry.getTags().stream()
+        budget.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -70,8 +68,9 @@ public class EntryCard extends UiPart<Region> {
         }
 
         // state check
-        EntryCard card = (EntryCard) other;
+        BudgetCard card = (BudgetCard) other;
         return id.getText().equals(card.id.getText())
-                && entry.equals(card.entry);
+                && budget.equals(card.budget);
     }
 }
+
