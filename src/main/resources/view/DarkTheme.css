@@ -427,6 +427,10 @@
     -fx-text-fill: #383854;
 }
 
+.calendar-menu-bar {
+    -fx-background-color: #383854;
+}
+
 /*.todoTaskCard .list-cell:filled:even {*/
 /*    -fx-background-color: #3c3e3f;*/
 /*}*/
