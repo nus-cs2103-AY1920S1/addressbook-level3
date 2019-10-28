@@ -7,21 +7,14 @@ import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.EditCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
-import dream.fcard.model.State;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
-import dream.fcard.logic.respond.exception.DuplicateFoundException;
-import dream.fcard.logic.storage.StorageManager;
-import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.FileReadWrite;
-
-import java.util.ArrayList;
 
 /**
  * Enum of regex and response function pairs used by Responder to evaluate input.
