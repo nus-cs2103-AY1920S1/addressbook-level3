@@ -127,6 +127,10 @@ public class WorkerBuilder {
         this.designation = ParserUtil.parseStringFields(designation);
         return this;
     }
+
+    /**
+     * Constructs the {@code Worker} with the assigned attributes.
+     */
     public Worker build() {
         UniqueIdentificationNumberMaps.clearAllEntries();
         return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, null);

@@ -16,7 +16,6 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@ author shaoyi1997
-
 /**
  * Represents the display picture of a worker in Mortago.
  */
@@ -24,9 +23,9 @@ public class Photo {
 
     public static final String PATH_TO_EXAMPLE_PHOTO = "src/main/resources/images/ExamplePhoto.jpg";
     public static final String MESSAGE_CONSTRAINTS =
-            "Error in importing display photo: Photo should be less than 2MB or it does not exist.";
+        "Error in importing display photo: Photo should be less than 2MB or it does not exist.";
     public static final String MESSAGE_DATA_COPY_ERROR =
-            "Error in copying photo to the data directory";
+        "Error in copying photo to the data directory";
     public static final String PATH_TO_DATA_DIRECTORY = "data" + File.separator + "photo" + File.separator;
 
     private static final Logger logger = LogsCenter.getLogger(Photo.class);
@@ -43,6 +42,7 @@ public class Photo {
 
     /**
      * Copies the photo from the {@code originalPath} to the {@code dataDirPath}.
+     *
      * @throws ParseException if unable to copy the file.
      */
     private void copyToDataDirectory(Path originalPath, Path dataDirPath) throws IllegalArgumentException {
@@ -94,6 +94,5 @@ public class Photo {
     public int hashCode() {
         return Objects.hash(originalDirectory, dataDirectory);
     }
-
 }
 //@@ author
