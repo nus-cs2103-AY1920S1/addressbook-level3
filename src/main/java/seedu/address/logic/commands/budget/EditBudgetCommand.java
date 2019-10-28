@@ -187,7 +187,7 @@ public class EditBudgetCommand extends UndoableCommand {
         }
 
         public void setPeriod(Period period) {
-            this.period= period;
+            this.period = period;
         }
 
         public Optional<Period> getPeriod() {

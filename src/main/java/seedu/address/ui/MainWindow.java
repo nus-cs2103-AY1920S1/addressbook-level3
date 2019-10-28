@@ -396,6 +396,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Creates a popup for warnings related to budget.
+     */
     public Popup createPopup(String message) {
         Popup popup = new Popup();
         popup.setAutoFix(true);
@@ -407,6 +410,9 @@ public class MainWindow extends UiPart<Stage> {
         return popup;
     }
 
+    /**
+     * Handles the showing and disappearing of popup warnings.
+     */
     public void showPopupMessage(String message) {
         Popup popup = createPopup(message);
         popup.setOnShown(new EventHandler<WindowEvent>() {
@@ -422,6 +428,9 @@ public class MainWindow extends UiPart<Stage> {
         delay.play();
     }
 
+    /**
+     * Determines if there is a need to show warnings, and shows the corresponding warnings.
+     */
     public void showWarningIfAny(boolean initialIsNear, boolean initialIsExceeded,
                                  boolean finalIsNear, boolean finalIsExceeded) {
         if (!initialIsExceeded && finalIsExceeded) {

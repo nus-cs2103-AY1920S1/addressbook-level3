@@ -123,7 +123,9 @@ public class Budget {
         return defaultBudget;
     }
 
-
+    /**
+     * Calculates proper end date based on given start date and period.
+     */
     private Timestamp calculateEndDate() {
         Timestamp endDate = startDate.plus(period);
         if (period.getMonths() == 1 && endDate.getDayOfMonth() < startDate.getDayOfMonth()) {
@@ -132,6 +134,9 @@ public class Budget {
         return endDate.minusDays(1);
     }
 
+    /**
+     * Normalizes the budget window to the current period.
+     */
     public void normalize(Timestamp anchor) {
         LocalDateTime now = anchor.fullTimestamp;
 
@@ -142,7 +147,7 @@ public class Budget {
             LocalDateTime normalized;
             if (currentDayOfMonth >= specifiedDayOfMonth) {
                 normalized = now.withDayOfMonth(specifiedDayOfMonth);
-            } else  {
+            } else {
                 normalized = now.minusMonths(1).withDayOfMonth(specifiedDayOfMonth);
             }
             startDate = new Timestamp(normalized);

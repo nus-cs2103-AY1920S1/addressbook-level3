@@ -244,6 +244,10 @@ public class MooLah implements ReadOnlyMooLah {
         }
     }
 
+    /**
+     * Changes budget window of primary budget to a period in the past, as specified by the anchor date.
+     * @param pastDate The date to anchor the period.
+     */
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
         requireNonNull(pastDate);
 

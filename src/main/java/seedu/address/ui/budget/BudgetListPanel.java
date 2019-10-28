@@ -25,9 +25,10 @@ import seedu.address.ui.panel.PanelName;
 public class BudgetListPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Budget List");
     private static final String FXML = "ListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(BudgetListPanel.class);
     private static final Border PRIMARY_BUDGET_BORDER = new Border(new BorderStroke(Color.RED,
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+
+    private final Logger logger = LogsCenter.getLogger(BudgetListPanel.class);
 
     @FXML
     private StackPane titlePlaceHolder;

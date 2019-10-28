@@ -10,6 +10,9 @@ import seedu.address.logic.commands.budget.PastPeriodCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Timestamp;
 
+/**
+ * Parses input arguments and creates a new PastPeriodCommand object
+ */
 public class PastPeriodCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the PastPeriodCommand

@@ -9,7 +9,9 @@ import seedu.address.model.Model;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.ui.budget.BudgetPanel;
 
-
+/**
+ * Switches budget window to a period in the past.
+ */
 public class PastPeriodCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "pastperiod";
 
