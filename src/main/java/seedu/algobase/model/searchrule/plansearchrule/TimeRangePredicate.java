@@ -1,5 +1,7 @@
 package seedu.algobase.model.searchrule.plansearchrule;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.function.Predicate;
 
 import seedu.algobase.model.plan.Plan;
@@ -39,7 +41,7 @@ public class TimeRangePredicate implements Predicate<Plan> {
 
     @Override
     public boolean equals(Object other) {
-        assert timeRange != null;
+        requireNonNull(timeRange);
         return other == this
                 || (other instanceof TimeRangePredicate
                 && timeRange.equals(((TimeRangePredicate) other).timeRange));

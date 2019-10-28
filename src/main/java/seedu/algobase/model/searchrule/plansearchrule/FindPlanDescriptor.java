@@ -71,7 +71,6 @@ public class FindPlanDescriptor {
         return Optional.ofNullable(timeRangePredicate);
     }
 
-
     /**
      * Creates and returns a {@code findPlanPredicate} with the details of {@code findPlanDescriptor}.
      */

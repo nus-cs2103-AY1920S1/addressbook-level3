@@ -31,7 +31,6 @@ public class Keyword {
         return !test.isBlank();
     }
 
-
     @Override
     public String toString() {
         return keyword;

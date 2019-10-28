@@ -1,7 +1,6 @@
 package seedu.algobase.model.searchrule.plansearchrule;
 
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
-import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.algobase.logic.parser.ParserUtil.FORMATTER;
 
 import java.time.LocalDate;
@@ -23,7 +22,6 @@ public class TimeRange {
      * @param endDate end date of time range
      */
     public TimeRange(LocalDate startDate, LocalDate endDate) {
-        requireAllNonNull(startDate, endDate);
         checkArgument(isValidRange(startDate, endDate), MESSAGE_CONSTRAINTS);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -35,7 +33,6 @@ public class TimeRange {
     public static boolean isValidRange(LocalDate startDate, LocalDate endDate) {
         return startDate != null && endDate != null;
     }
-
 
     @Override
     public String toString() {
