@@ -361,6 +361,12 @@ public class ItemModelManager implements ItemModel {
 
         if ((index = reminderList.indexOf(item)) >= 0) {
             reminderList.setItem(index, newItem);
+
+            //Old reminder must be in active since it already rang.
+            //Find the old reminder from activeReminders and remove it.
+            activeReminders.remove(item);
+            //Put the new reminder in futureReminders.
+            futureReminders.add(newItem);
         }
 
         if (priorityMode) {
