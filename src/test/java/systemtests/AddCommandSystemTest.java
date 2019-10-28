@@ -35,7 +35,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.testutil.WorkerBuilder;
 import seedu.address.testutil.WorkerUtil;
 

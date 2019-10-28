@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
 
+//@@ author shaoyi1997
 /**
  * Singleton notification button to open up alerts view.
  */
@@ -67,11 +68,9 @@ public class NotificationButton extends UiPart<Region> {
      * Sets up the jumping animation for the icon number.
      */
     private void addJumpingAnimation() {
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), iconNumber);
-        double start = 0.0;
-        double end = start - 4.0;
-        translateTransition.setFromY(start);
-        translateTransition.setToY(end);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(400), iconNumber);
+        translateTransition.setFromY(0.0);
+        translateTransition.setToY(-4.0);
         translateTransition.setCycleCount(-1);
         translateTransition.setAutoReverse(true);
         translateTransition.setInterpolator(Interpolator.EASE_BOTH);
@@ -88,3 +87,4 @@ public class NotificationButton extends UiPart<Region> {
         iconNumber.setText(num + "");
     }
 }
+//@@ author

@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@ author shaoyi1997
@@ -70,8 +71,7 @@ public class Photo {
         if (pathToPhoto.isEmpty()) {
             return false;
         }
-        File photo = new File(pathToPhoto);
-        if (photo.exists()) {
+        if (FileUtil.isFileExists(Paths.get(pathToPhoto))) {
             return pathToPhoto.endsWith(".jpeg") || (pathToPhoto.endsWith(".jpg") || pathToPhoto.endsWith(".png"));
         }
         return false;

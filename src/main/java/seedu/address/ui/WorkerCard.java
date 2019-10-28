@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -14,7 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.worker.Worker;
 
@@ -29,6 +30,7 @@ public class WorkerCard extends UiPart<Region> {
     private static final int OFFET_FOR_PASTEL = 127;
     private static Random random = new Random();
     private static HashMap<Worker, String> workerToColorMap = new HashMap<>();
+    private static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
 
     /**
@@ -73,15 +75,17 @@ public class WorkerCard extends UiPart<Region> {
         name.setText(worker.getName().toString());
         sex.setText(worker.getSex().toString());
         workerId.setText(worker.getIdNum().toString());
-        dateJoined.setText(worker.getDateJoined().toString());
-        dateOfBirth.setText(worker.getDateOfBirth().isPresent() ? worker.getDateOfBirth().get().toString() : "-");
+        dateJoined.setText(formatDate(worker.getDateJoined()));
+        dateOfBirth.setText(worker.getDateOfBirth().isPresent() ? formatDate(worker.getDateOfBirth().get()) : "-");
         phoneNumber.setText(worker.getPhone().isPresent() ? worker.getPhone().get().toString() : "-");
         designation.setText(worker.getDesignation().isPresent() ? worker.getDesignation().get() : "-");
         employmentStatus.setText(worker.getEmploymentStatus().isPresent() ? worker.getEmploymentStatus().get() : "-");
         setDisplayPhoto();
     }
 
-
+    private String formatDate(Date date) {
+        return format.format(date);
+    }
 
     private void setDisplayPhoto() {
         double radiusAndXCentre = displayPhoto.getFitWidth() / 2;
@@ -93,7 +97,7 @@ public class WorkerCard extends UiPart<Region> {
             return;
         }
         circle.setFill(Paint.valueOf(generateColor()));
-        Text initialsOfName = new Text(getInitials(worker.getName().toString()));
+        Label initialsOfName = new Label(getInitials(worker.getName().toString()));
         displayPhotoPlaceholder.getChildren().addAll(circle, initialsOfName);
     }
 

@@ -10,7 +10,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_BODY = new Prefix("/body");
     public static final Prefix PREFIX_IDENTIFICATION_NUMBER = new Prefix("/id");
     public static final Prefix PREFIX_NAME = new Prefix("/name");
-    public static final Prefix PREFIX_PHONE_NUMBER = new Prefix("/phoneNo");
+    public static final Prefix PREFIX_PHONE_NUMBER = new Prefix("/phone");
     public static final Prefix PREFIX_SEX = new Prefix("/sex");
     public static final Prefix PREFIX_DATE_OF_BIRTH = new Prefix("/dob");
     public static final Prefix PREFIX_DATE_JOINED = new Prefix("/dateJoined");
