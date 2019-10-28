@@ -5,13 +5,20 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <AnchorPane fx:id="themeSetting" prefHeight="200.0" prefWidth="200.0" />
-            <AnchorPane fx:id="clockSetting" prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </VBox>
-   </children>
-</Pane>
+<?import javafx.scene.control.Label?>
+<VBox fx:id="vBox" prefHeight="800.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane fx:id="themeSetting" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <Label fx:id="themeLabel" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
+            <Label fx:id="themeLabelDark" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+            <Label fx:id="themeLabelLight" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="200.0" />
+        </children>
+    </AnchorPane>
+    <AnchorPane fx:id="clockSetting" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <Label fx:id="clockLabel" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
+            <Label fx:id="clockLabelTwelve" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="200.0" />
+            <Label fx:id="clockLabelTwentyFour" AnchorPane.bottomAnchor="184.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="200.0" />
+        </children>
+    </AnchorPane>
+</VBox>

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
@@ -23,32 +24,32 @@ public class SettingsView extends UiPart<Region> {
     private final String CLOCK_LABEL = "CLOCK-FORMAT";
 
     @FXML
+    private VBox vBox;
+    @FXML
     private AnchorPane themeSetting;
     @FXML
     private AnchorPane clockSetting;
-
-    // All possible labels
-    private Label themeLabel = new Label(THEME_LABEL);
-    private Label themeLabelDark = new Label("DARK");
-    private Label themeLabelLight = new Label("LIGHT");
-    private Label clockLabel = new Label(CLOCK_LABEL);
-    private Label clockLabelTwentyFour = new Label("24HR");
-    private Label clockLabelTwelve = new Label("12HR");
+    @FXML
+    private Label themeLabel;
+    @FXML
+    private Label themeLabelDark;
+    @FXML
+    private Label themeLabelLight;
+    @FXML
+    private Label clockLabel;
+    @FXML
+    private Label clockLabelTwentyFour;
+    @FXML
+    private Label clockLabelTwelve;
 
     public SettingsView(Theme theme, ClockFormat clockFormat) {
         super(FXML);
-
-        handleTheme(theme);
-
-        handleClock(clockFormat);
-    }
-
-    private void handleTheme(Theme theme) {
-        themeSetting.getChildren().add(new SettingsCard(themeLabel, themeLabelLight, themeLabelDark).getRoot());
-    }
-
-    private void handleClock(ClockFormat clockFormat) {
-        clockSetting.getChildren().add(new SettingsCard(clockLabel, clockLabelTwelve, clockLabelTwentyFour).getRoot());
+        themeLabel.setText(THEME_LABEL);
+        themeLabelDark.setText("DARK");
+        themeLabelLight.setText("LIGHT");
+        clockLabel.setText(CLOCK_LABEL);
+        clockLabelTwelve.setText("12HR");
+        clockLabelTwentyFour.setText("24HR");
     }
 
 }
