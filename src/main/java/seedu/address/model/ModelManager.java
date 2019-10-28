@@ -79,10 +79,6 @@ public class ModelManager implements Model {
         return workingProject.isPresent();
     }
 
-    public String checkoutConstrain() {
-        return "Please checkout to a project before proceeding";
-    }
-
     @Override
     public List<Person> getMembers() {
         List<Person> members = new ArrayList<>();

@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Spending;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class JsonAdaptedBudget {
     private final List<JsonAdaptedSpending> spendings = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedBudget} with the given {@code name, @code amount}.
+     * Constructs a {@code JsonAdaptedBudget} with the given {@code name, @code amount, @code remainingAmount, @code spendings}.
      */
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("name") String name, @JsonProperty("amount") String amount, @JsonProperty("spendings") List<JsonAdaptedSpending> spendings) {
@@ -64,7 +65,7 @@ public class JsonAdaptedBudget {
         if (!Budget.isValidAmount(amount)) {
             throw new IllegalValueException(Budget.MESSAGE_CONSTRAINTS);
         }
-        Double resultDouble = Double.valueOf(amount);
+        BigDecimal resultDouble = new BigDecimal(amount);
         List<Spending> resultSpendings = new ArrayList<>();
         for (JsonAdaptedSpending spending : spendings) {
             resultSpendings.add(spending.toModelType());

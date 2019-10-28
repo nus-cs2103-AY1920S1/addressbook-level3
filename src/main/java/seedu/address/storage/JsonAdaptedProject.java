@@ -3,8 +3,12 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.project.Meeting;
 import seedu.address.model.finance.Finance;
-import seedu.address.model.project.*;
+import seedu.address.model.project.Project;
+import seedu.address.model.project.Description;
+import seedu.address.model.project.Task;
+import seedu.address.model.project.Title;
 
 import java.text.ParseException;
 import java.util.*;
@@ -31,7 +35,6 @@ class JsonAdaptedProject {
     public JsonAdaptedProject(@JsonProperty("title") String title, @JsonProperty("description") String description, @JsonProperty("members") List<String> members,
                               @JsonProperty("tasks") List<JsonAdaptedTask> tasks, @JsonProperty("meetingList") List<JsonAdaptedMeeting> meetingList,
                               @JsonProperty("finance") JsonAdaptedFinance finance) {
-
         this.title = title;
         this.description = description;
 

@@ -11,6 +11,7 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 
 
 /**
@@ -41,7 +42,7 @@ public class AddTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         if (!model.isCheckedOut()) {
-            throw new CommandException(model.checkoutConstrain());
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
         Project projectToEdit = model.getWorkingProject().get();
@@ -56,7 +57,6 @@ public class AddTaskCommand extends Command {
         if (projectToEdit.hasTask(task)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
-
 
         model.setProject(projectToEdit, editedProject);
         model.setWorkingProject(editedProject);

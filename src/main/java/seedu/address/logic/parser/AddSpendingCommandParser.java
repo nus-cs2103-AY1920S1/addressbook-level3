@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.stream.Stream;
 
@@ -43,7 +44,7 @@ public class AddSpendingCommandParser implements Parser<AddSpendingCommand> {
         }
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_TIME).get());
-        Double spending = ParserUtil.parseSpending(argMultimap.getValue(PREFIX_EXPENSE).get());
+        BigDecimal spending = ParserUtil.parseSpending(argMultimap.getValue(PREFIX_EXPENSE).get());
         String description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()).toString();
         Spending expense = new Spending(spending, date, description);
 

@@ -11,10 +11,15 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ProjectList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyProjectList;
-import seedu.address.model.finance.Finance;
+import seedu.address.model.finance.Budget;
 import seedu.address.model.person.*;
 import seedu.address.model.project.*;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.finance.Finance;
+import seedu.address.model.finance.Spending;
+
+import static seedu.address.model.finance.Spending.DATE_FORMAT;
+import java.math.BigDecimal;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -23,7 +28,7 @@ public class SampleDataUtil {
 
     public static Person[] getSamplePersons() {
 
-        ProfilePicture profilePicture = new ProfilePicture("data/empty_profile_picture.png");
+        ProfilePicture profilePicture = new ProfilePicture("docs/empty_profile_picture.png");
 
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"), profilePicture,
@@ -72,21 +77,35 @@ public class SampleDataUtil {
         return list;
     }
 
+    public static List<Budget> getBudgetList(Budget... budgets) {
+        return Arrays.stream(budgets)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Spending> getSpendingList(Spending... spendings) {
+        return Arrays.stream(spendings)
+                .collect(Collectors.toList());
+    }
+
     public static Project[] getSampleProjects() {
         try {
             return new Project[]{
                 new Project(new Title("CS2103T"), new Description("The mod that takes most time"), new ArrayList<String>(),
-                            getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
-                                    new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)), new Finance()),
+                        getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
+                                new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)),
+                        new Finance(getBudgetList(new Budget("Team building", new BigDecimal("500.00"),
+                                        getSpendingList(new Spending(new BigDecimal("50.50"), DATE_FORMAT.parse("10/10/2019 1800"), "order in pizza"),
+                                                new Spending(new BigDecimal("200.50"), DATE_FORMAT.parse("12/10/2019 1800"), "Went for Zoukout"))),
+                                new Budget("Venue", new BigDecimal("200.00"),
+                                        getSpendingList(new Spending(new BigDecimal("20.00"), DATE_FORMAT.parse("14/10/2019 1800"), "booked conference room for discussion")))))),
                 new Project(new Title("GER1000"), new Description("Free and easy"), new ArrayList<String>(),
-                            getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance()),
+                        getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance()),
             };
         } catch (ParseException e) {
             return new Project[]{
                 new Project(new Title("CS2103T"),
-
-                            new Description("The mod that takes most time"), new ArrayList<String>(),
-                            getTaskList(new Task(new Description("Finish GUI"), false)), new Finance())
+                        new Description("The mod that takes most time"), new ArrayList<String>(),
+                        getTaskList(new Task(new Description("Finish GUI"), false)), new Finance())
             };
         }
     }

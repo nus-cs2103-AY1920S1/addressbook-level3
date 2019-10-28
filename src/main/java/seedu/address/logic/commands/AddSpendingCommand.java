@@ -9,6 +9,9 @@ import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.finance.Spending;
 import seedu.address.model.project.Project;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
+
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class AddSpendingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException, IllegalValueException {
         requireNonNull(model);
         if (!model.isCheckedOut()) {
-            throw new CommandException(model.checkoutConstrain());
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
         Project currWorkingProject = model.getWorkingProject().get();
@@ -61,6 +64,7 @@ public class AddSpendingCommand extends Command {
 
         model.setWorkingProject(editedProject);
         model.setProject(currWorkingProject, editedProject);
+        model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS), COMMAND_WORD);
     }
 

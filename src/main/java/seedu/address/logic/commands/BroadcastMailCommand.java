@@ -12,6 +12,8 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
+
 
 public class BroadcastMailCommand extends Command {
 
@@ -51,7 +53,7 @@ public class BroadcastMailCommand extends Command {
         OwnerAccount ownerAccount = model.getOwnerAccount();
 
         if (!model.isCheckedOut()) {
-            throw new CommandException(model.checkoutConstrain());
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
         List<Person> recipientsList = model.getMembers();

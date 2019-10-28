@@ -13,6 +13,7 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 
 /**
  * Sorts the tasks in the current project.
@@ -45,7 +46,7 @@ public class SortTaskCommand extends Command {
         requireNonNull(model);
 
         if (!model.isCheckedOut()) {
-            throw new CommandException(model.checkoutConstrain());
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
         Project projectToEdit = model.getWorkingProject().get();

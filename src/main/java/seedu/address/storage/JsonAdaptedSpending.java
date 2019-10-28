@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.Spending;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -72,7 +73,7 @@ public class JsonAdaptedSpending {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new Spending(Double.valueOf(spending), result, description);
+        return new Spending(new BigDecimal(spending), result, description);
     }
 
 }

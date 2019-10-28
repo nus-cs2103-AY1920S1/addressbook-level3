@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.ScrollPane?>
+<ScrollPane id="project-overview" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1 VGrow=ALWAYS">
+    <VBox id="project-overview" >
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label fx:id="title" styleClass="cell_big_label" text="\$first">
+                <minWidth>
+                    <!-- Ensures that the label text is never truncated -->
+                    <Region fx:constant="USE_PREF_SIZE"/>
+                </minWidth>
+            </Label>
+        </HBox>
+        <FlowPane fx:id="meetings"/>
+        <Label fx:id="description" styleClass="cell_small_label" text="\$description"/>
+        <Label fx:id="memberTitle" styleClass="cell_big_label" text="\$memberTitle">
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+        </Label>
+        <FlowPane fx:id="members"/>
+        <Label fx:id="taskTitle" styleClass="cell_big_label" text="\$taskTitle"/>
+        <FlowPane fx:id="tasks"/>
+        <HBox>
+            <Label styleClass="cell_big_label" text="Finance"/>
+            <VBox id="bar-chart" fx:id="wrapper" VBox.vgrow="ALWAYS">
+
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

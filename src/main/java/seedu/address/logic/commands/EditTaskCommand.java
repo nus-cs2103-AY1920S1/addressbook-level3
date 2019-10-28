@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
-
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 
 import java.util.*;
 
@@ -59,7 +59,7 @@ public class EditTaskCommand extends Command {
         requireNonNull(model);
 
         if (!model.isCheckedOut()) {
-            throw new CommandException(model.checkoutConstrain());
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
         Project projectToEdit = model.getWorkingProject().get();

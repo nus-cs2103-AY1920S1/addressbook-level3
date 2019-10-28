@@ -54,11 +54,6 @@ public interface Model {
     boolean isCheckedOut();
 
     /**
-     * Give an error message to prompt the user to checkout to a project.
-     */
-    String checkoutConstrain();
-
-    /**
      * Get list of members in current checked out project.
      */
     List<Person> getMembers();

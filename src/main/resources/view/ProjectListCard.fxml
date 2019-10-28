@@ -29,15 +29,6 @@
                 <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
             </HBox>
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-            <Label fx:id="meetingTitle" styleClass="cell_big_label" text="\$meetingTitle" />
-            <FlowPane fx:id="meetings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="vertical" prefWrapLength="45" />
-            <Label fx:id="memberTitle" styleClass="cell_big_label" text="\$memberTitle">
-            <padding>
-               <Insets top="5.0" />
-            </padding></Label>
-            <FlowPane fx:id="members" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="36.0" prefWidth="123.0" />
-            <Label fx:id="taskTitle" styleClass="cell_big_label" text="\$taskTitle" />
-            <FlowPane fx:id="tasks" />
         </VBox>
       <rowConstraints>
          <RowConstraints />

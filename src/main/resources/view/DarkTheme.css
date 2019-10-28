@@ -312,6 +312,10 @@
     -fx-border-width: 0;
 }
 
+#cardPane .label {
+    -fx-text-fill: white;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -391,3 +395,45 @@
     -fx-font-size: 13;
 }
 
+.chart-legend {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-stroke: white;
+    -fx-min-width: 300pt;
+}
+
+.chart-legend .label {
+    -fx-font-size: 8pt;
+    -fx-text-fill: white;
+}
+
+.data0.chart-pie { -fx-pie-color: turquoise; }
+
+.chart-pie-label-line {
+    -fx-stroke: white;
+    -fx-fill: white;
+}
+
+.chart-pie-label { /*this is what you need for labels*/
+    -fx-fill: white;
+    -fx-font-size: 1em;
+}
+
+#project-overview {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#project-overview .label {
+    -fx-text-fill: white;
+}
+
+.axis-label {
+    -fx-text-fill: white;
+}
+
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: white;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}

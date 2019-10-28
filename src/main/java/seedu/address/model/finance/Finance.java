@@ -1,5 +1,8 @@
 package seedu.address.model.finance;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
@@ -23,6 +26,10 @@ public class Finance {
         return budgets;
     }
 
+    public ObservableList<Budget> getBudgetObservableList() {
+        ObservableList<Budget> internalList = FXCollections.observableArrayList(budgets);
+        return internalList;
+    }
     public void addBudget(Budget budget) {
         budgets.add(budget);
     }

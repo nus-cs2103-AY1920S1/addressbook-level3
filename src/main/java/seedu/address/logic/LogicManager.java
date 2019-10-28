@@ -1,5 +1,9 @@
 package seedu.address.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,9 +20,6 @@ import seedu.address.model.project.Project;
 import seedu.address.storage.Storage;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
@@ -105,6 +106,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getProjectListFilePath() {
         return model.getProjectListFilePath();
+    }
+
+    @Override
+    public Optional<Project> getWorkingProject() {
+        return model.getWorkingProject();
     }
 
     //======== GUI =======================================================================
