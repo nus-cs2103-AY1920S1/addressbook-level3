@@ -26,6 +26,8 @@ public class DoneCommand extends UndoableCommand {
     public static final String MESSAGE_COMPLETE_ITEM_SUCCESS = "Finally! Completed Item: %1$s";
 
     private final Index targetIndex;
+    private Item oldItem;
+    private Item itemDone;
 
     public DoneCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -41,7 +43,8 @@ public class DoneCommand extends UndoableCommand {
         }
 
         try {
-            Item itemDone = model.markComplete(targetIndex.getZeroBased());
+            oldItem = model.getItem(targetIndex.getZeroBased());
+            itemDone = model.markComplete(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_COMPLETE_ITEM_SUCCESS, itemDone));
         } catch (IllegalListException e) {
             throw new CommandException("Done can only be done on the task list.");
@@ -50,11 +53,7 @@ public class DoneCommand extends UndoableCommand {
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-        try {
-            model.markIncomplete(targetIndex.getZeroBased());
-        } catch (IllegalListException e) {
-            throw new CommandException("Done/unDone can only be done on the task list.");
-        }
+        model.replaceItem(itemDone, oldItem);
     }
 
     @Override
