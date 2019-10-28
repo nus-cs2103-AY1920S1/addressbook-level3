@@ -18,7 +18,11 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 
 == Introduction
 
-*Creating and managing your students and classes have never been easier.* Njoy assistant aims to enable teachers to easily manage their students and activities right from their keyboard. With just a few commands, you will be able to *manage your classes, create questions, generate quizzes and much more!* Interested? Jump to the <<Getting Started>> to get started.
+Creating and managing your students and classes have never been easier.
+*Njoy* teaching assistant aims to enable teachers to easily manage their students and activities
+right from their keyboard. With just a few commands, you will be able to
+_manage your classes, create questions, generate quizzes and much more!_ Interested?
+Jump to <<Getting Started>> to get started.
 
 == Features
 
@@ -26,9 +30,9 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 .. Attendance taking
 //.. Note taking
 .. Record student scores
-. *Creating questions* is simple. Simply type a topic and an answer and it is done.
-.. Easy input
-.. Repeatable
+. *Create questions* that allows you to start in-class activities and distribute quizzes to your students.
+Simply define a type, a topic and an answer and you are all set.
+.. Easy input and management of your questions.
 . *Generate quizzes* for your students.
 .. Type once, generate anytime
 .. Randomised
@@ -52,16 +56,16 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. +
+e.g. typing `help` and pressing kbd:[Enter] will open the help window. +
 
 === Running .jar file
-. Download the njoy.jar file
-. Double click on ‘njoy.jar’ file to run the application
+. Download the `njoy.jar` file
+. Double click on `njoy.jar` file to run the application
 
-_If you are not able to run the application using the method above, use the following:_ +
-. Open Terminal(Mac)/Command Prompt(Windows)
-. Type cd [path to directory containing jar file]
-. Type ‘java -jar njoy.jar’ to run the application.
+_If you are not able to run the application using the method above, use the following:_
+. Open *Terminal*(Mac)/*Command Prompt*(Windows)
+. Type cd [PATH TO DIRECTORY CONTAINING .JAR FILE]
+. Type `java -jar njoy.jar` to run the application.
 
 == Commands
 
@@ -145,14 +149,119 @@ e.g. `/note create general “Remember to attend cca briefing”`
 e.g. `/note create class unity “Remember to meet john after class”`
 ////
 
-=== Generating Questions ​-​ `question`
+=== Questions ​-​ `question`
 
-Create and store questions according to the type specified.
+==== Creating a question
 
-. *Open ended questions* ​- `/question open “[topic]” “[answer]”` +
-e.g. `/question open “Which year did Singapore gain independence?” “1965”`
-. *MCQs* ​- `/question mcq “[topic]” “[answer]” “[option1]” “[option2]” “[option3]” “[option 4]”` +
-e.g `​/question mcq “Which year did Singapore gain independence?” “1965” “1963” “2019” “1926” “1965”`
+Create and store questions according to the type specified. +
+Format: `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+[NOTE]
+Note that for mcq question type, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
+
+The options supported by this feature includes:
+
+. `question` - Question topic.
+. `answer` - Answer to the question.
+. `type` - Type of question(`open` or `mcq`).
+. `a` - Option A for MCQ.
+. `b` - Option B for MCQ.
+. `c` - Option C for MCQ.
+. `d` - Option D for MCQ.
+
+Examples:
+
+* *Open ended question*: `question question/Which year did Singapore gain independence? answer/1965 type/open` +
+Creates an open ended question with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_.
+* *MCQ*: `question question/Which year did Singapore gain independence? answer/1965 type/mcq a/1965 b/1963 c/1968 d/1970` +
+Creates an mcq with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_ and
+choices _'1965', '1963', '1968', '1970'_.
+
+==== Editing a question
+
+Edit a question currently stored. All fields are *optional*. +
+Format: `question [INDEX] question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+[NOTE]
+Note that when changing question type from open ended to mcq, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+. `question` - Question topic.
+. `answer` - Answer to the question.
+. `type` - Type of question(`open` or `mcq`).
+. `a` - Option A for MCQ.
+. `b` - Option B for MCQ.
+. `c` - Option C for MCQ.
+. `d` - Option D for MCQ.
+
+Examples:
+
+* `question 1 question/What is 1+1? answer/2` +
+Edits the first question in the list changing existing question topic to _'What is 1+1?'_ and answer to _'2'_.
+* `question 1 type/mcq a/1965 b/1963 c/1968 d/1970` +
+Edits the type of the first question in the list from open ended question to mcq and state choices _'1965', '1963', '1968', '1970'_.
+
+==== Deleting a question
+
+Delete a question from the question list. +
+Format: `question delete [INDEX]`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+
+Example:
+
+* `question delete 1` +
+Deletes the first question in the list.
+
+[[Feature-Question-List]]
+==== Listing your saved questions
+
+Display the stored questions and list them in ascending order according to the time created. +
+Format: `question list`
+
+The options supported by this feature includes: +
+*_-This command does not require any additional options-_*
+
+Example:
+
+* `question list` +
+Lists the question list.
+
+[[Feature-Question-Find]]
+==== Searching for a question
+
+Search and display questions with similar terms.
+[NOTE]
+The ordering of questions is based on *similarity* and in ascending order such that the question that is most similar
+to your search term will be at the top.
+
+Format: `question find/...`
+
+The options supported by this feature includes:
+
+. `find` - Search term to find in the list of questions.
+
+Example:
+
+* `question find/What is 1+1?` +
+Searches through the question list to find questions close to the search term _'What is 1+1?'_.
+
+==== Starting a Slideshow
+
+Start a slideshow based on the questions selected. +
+Format: `question slideshow [QUESTIONS INDEX]`
+
+The options supported by this feature includes:
+
+. `[QUESTIONS INDEX]` - Index of questions *separated by a whitespace*.
+Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+
+Example:
+
+* `question slideshow 1 2 3` +
+Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 
 === Quizzes ​-​ `quiz`
 
@@ -274,14 +383,20 @@ Examples:
 * `quiz showAnswers quizID/CS2103T` +
 Shows only the answers for the quiz named CS2103T.
 
-=== Help ​-​ `/help`
+=== Help ​-​ `help`
 
-Show all available commands usable in the application.
+Opens up the help window. +
+Format: `help`
+
+The format supported by this feature includes:
+
+_-This command does not require any additional options-_
 
 == FAQ
 
 *Q*: Typing a command result in “Invalid command entered.” +
-*A*: Please ensure that the command is entered as specified in the format above. Note that all fields all mandatory except those marked as ​(optional).​
+*A*: Please ensure that the command is entered as specified in the format above.
+Note that all fields all mandatory unless stated otherwise.​
 
 == Command Summary
 

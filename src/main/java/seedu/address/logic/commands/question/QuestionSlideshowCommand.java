@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
@@ -31,6 +32,15 @@ public class QuestionSlideshowCommand extends QuestionCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+
+        // Validating the indexes
+        int noOfIndexes = model.getAllQuestions().size();
+        for (int i = 0; i < questionIndexes.size(); i++) {
+            int index = questionIndexes.get(i).getZeroBased();
+            if (index >= noOfIndexes || index < 0) {
+                throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
+            }
+        }
         model.setSlideshowQuestions(questionIndexes);
         return new CommandResult("Starting slideshow.", CommandResultType.SHOW_SLIDESHOW);
     }
