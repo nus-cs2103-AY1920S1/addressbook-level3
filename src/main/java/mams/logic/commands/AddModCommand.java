@@ -79,6 +79,8 @@ public class AddModCommand extends ModCommand {
 
         Student studentToEdit;
         Student studentWithAddedModule;
+        Module moduleToEdit;
+        Module moduleWithAddedStudent;
 
         //check if module exist
         List<Module> moduleToCheckList = lastShownModuleList.stream()
@@ -86,6 +88,7 @@ public class AddModCommand extends ModCommand {
         if (moduleToCheckList.isEmpty()) {
             throw new CommandException(MESSAGE_INVALID_MODULE);
         }
+        moduleToEdit = moduleToCheckList.get(0);
 
         //check if student exist
         if (usingIndex) { //by index
@@ -116,20 +119,34 @@ public class AddModCommand extends ModCommand {
         }
 
         //add module to student.
-        Set<Tag> ret = new HashSet<>();
         Set<Tag> studentAllTags = studentToEdit.getTags();
-        for (Tag tag : studentAllTags) {
-            ret.add(tag);
-        }
+        Set<Tag> ret = new HashSet<>(studentAllTags);
         ret.add(new Tag(moduleCode));
 
+        //add student to module field
+        Set<Tag> moduleAllStudents = moduleToEdit.getStudents();
+        Set<Tag> ret2 = new HashSet<>(moduleAllStudents);
+        ret2.add(new Tag(studentToEdit.getMatricId().toString()));
+
+        //replace old student and old module objects with edited modules.
         studentWithAddedModule = new Student(studentToEdit.getName(),
                 studentToEdit.getCredits(),
                 studentToEdit.getPrevMods(),
                 studentToEdit.getMatricId(),
                 ret);
+
+        moduleWithAddedStudent = new Module(moduleToEdit.getModuleCode(),
+                moduleToEdit.getModuleName(),
+                moduleToEdit.getModuleDescription(),
+                moduleToEdit.getLecturerName(),
+                moduleToEdit.getTimeSlot(),
+                moduleToEdit.getQuota(),
+                ret2);
+
         model.setStudent(studentToEdit, studentWithAddedModule);
+        model.setModule(moduleToEdit, moduleWithAddedStudent);
         model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
         return new CommandResult(String.format(MESSAGE_ADD_MOD_SUCCESS,
                 studentWithAddedModule.getName()));
     }
