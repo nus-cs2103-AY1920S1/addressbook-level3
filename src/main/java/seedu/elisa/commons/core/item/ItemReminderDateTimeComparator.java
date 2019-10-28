@@ -16,7 +16,6 @@ public class ItemReminderDateTimeComparator implements Comparator<Item> {
         } else {
             comparisonResult = firstItem.getReminder().get().getOccurrenceDateTime().compareTo(
                     secondItem.getReminder().get().getOccurrenceDateTime());
-
         }
         return comparisonResult;
     }
