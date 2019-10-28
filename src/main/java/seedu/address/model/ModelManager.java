@@ -509,8 +509,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean removeQuizQuestion(String quizId, int questionNumber) {
-        return savedQuizzes.removeQuizQuestion(quizId, questionNumber);
+    public boolean deleteQuizQuestion(String quizId, int questionNumber) {
+        return savedQuizzes.deleteQuizQuestion(quizId, questionNumber);
     }
 
     @Override

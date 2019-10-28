@@ -123,7 +123,7 @@ public class QuizManager {
      * @param quizBank The quiz bank.
      * @return True if the question can be removed, else false.
      */
-    public static boolean removeQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
+    public static boolean deleteQuizQuestion(String quizId, int questionNumber, QuizBank quizBank) {
         int quizIndex = quizBank.getQuizIndex(quizId);
         Quiz quiz = quizBank.getQuiz(quizIndex);
         int numQuestions = quiz.getQuestionList().getQuestions().size();
