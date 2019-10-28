@@ -28,6 +28,29 @@ public class Question {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Transform this question to become a label for the statistics bar graph.
+     * Only takes the first five words of the question.
+     */
+    public String shortenForLabel() {
+        String[] splitQuestion = question.split("\\s+");
+        String label = "";
+        int labelLength = 4;
+        for (int i = 0; i < labelLength; i++) {
+            if (i == splitQuestion.length) {
+                break;
+            }
+            label = label + splitQuestion[i] + " ";
+            if (i == labelLength - 1) {
+                label = label + "...";
+            }
+        }
+        if (splitQuestion.length > labelLength) {
+            label = label + " " + splitQuestion[splitQuestion.length - 1];
+        }
+        return label;
+    }
+
     @Override
     public String toString() {
         return question;

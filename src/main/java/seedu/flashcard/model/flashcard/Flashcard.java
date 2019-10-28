@@ -20,11 +20,13 @@ public abstract class Flashcard {
 
     // Data fields
     protected final Definition definition;
-
     protected final Set<Tag> tags = new HashSet<>();
     protected final Answer answer;
     protected final Score score;
 
+    /**
+     * This initializer is used when the user is creating a new flashcard
+     */
     public Flashcard(Question question, Definition definitions, Set<Tag> tags, Answer answer) {
         requireAllNonNull(question, definitions, tags);
         this.question = question;
@@ -32,6 +34,19 @@ public abstract class Flashcard {
         this.tags.addAll(tags);
         this.answer = answer;
         this.score = new Score();
+    }
+
+    /**
+     * This initializer should only be accessed by the storage package, because this initializer ensures the
+     * flashcard scores can be reloaded
+     */
+    public Flashcard(Question question, Definition definition, Set<Tag> tags, Answer answer, Score score) {
+        requireAllNonNull(question, definition, tags, answer, score);
+        this.question = question;
+        this.definition = definition;
+        this.tags.addAll(tags);
+        this.answer = answer;
+        this.score = score;
     }
 
     public Question getQuestion() {
@@ -133,6 +148,11 @@ public abstract class Flashcard {
     public String fullString() {
         return toString() + "\nAnswer:\n" + answer;
     }
+
+    /**
+     * Check if this flashcard's answer is in choice or not. Only applies for MCQ flashcard.
+     */
+    public abstract boolean isValidFlashcard();
 
     /**
      * Returns true if both the question and the definitions and the tags are the same.
