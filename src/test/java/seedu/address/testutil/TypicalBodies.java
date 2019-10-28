@@ -55,6 +55,23 @@ public class TypicalBodies {
             .withKinPhoneNumber("87120919")
             .build();
 
+    public static final Body CHARLES = new BodyBuilder()
+            .withDateOfAdmission("01/01/1991")
+            .withName("Charles Chachki")
+            .withSex("MALE")
+            .withNric("S1224567A")
+            .withReligion("CHRISTIANITY")
+            .withCauseOfDeath("NECROSIS")
+            .withOrgansForDonation("")
+            .withStatus("ARRIVED")
+            .withFridgeId("2")
+            .withDateOfBirth("02/09/1982")
+            .withDateOfDeath("01/06/1971")
+            .withNextOfKin("John Chachki")
+            .withRelationship("Father")
+            .withKinPhoneNumber("87120919")
+            .build();
+
     // Manually added - Bodies's details found in {@code CommandTestUtil}
     public static final Body JOHN = new BodyBuilder().withName(VALID_NAME_JOHN).withSex(VALID_SEX_JOHN)
             .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN).build();
@@ -66,6 +83,6 @@ public class TypicalBodies {
 
 
     public static List<Body> getTypicalBodies() {
-        return new ArrayList<>(Arrays.asList(ALICE, BOB));
+        return new ArrayList<>(Arrays.asList(ALICE, BOB, CHARLES));
     }
 }

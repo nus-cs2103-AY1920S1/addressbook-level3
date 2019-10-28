@@ -27,10 +27,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.FilterCommand;
+
+// @@author dalisc
 
 public class FilterCommandParserTest {
 
@@ -41,7 +41,8 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FilterCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class FilterCommandParserTest {
                 PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
                 PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-        String workerArgs = "-w /sex female /phoneNo 80080080";
+        String workerArgs = "-w /sex female /employmentStatus cleaning";
         ArgumentMultimap workerMap = ArgumentTokenizer.tokenize(workerArgs, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
@@ -73,13 +74,13 @@ public class FilterCommandParserTest {
         assertParseSuccess(parser,
                 " -b /sex male /cod natural", expectedFilterCommand1);
         assertParseSuccess(parser,
-                " -w /sex female /phoneNo 80080080", expectedFilterCommand2);
+                " -w /sex female /employmentStatus cleaning", expectedFilterCommand2);
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser,
                 " -b /sex male  /cod  natural  ", expectedFilterCommand1);
         assertParseSuccess(parser,
-                " -w /sex female   /phoneNo 80080080     /dateJoined  20/10/2019  ", expectedFilterCommand2);
+                " -w /sex female   /employmentStatus cleaning     /dateJoined  20/10/2019  ", expectedFilterCommand2);
     }
 
 }
