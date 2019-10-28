@@ -47,11 +47,23 @@ public class Incident {
     private CallerNumber callerNumber;
 
     /** Enum to track incident status. */
-    private enum Status {
-        INCOMPLETE_DRAFT, // incomplete draft - not all fields filled AND not submitted.
-        COMPLETE_DRAFT, // complete draft - all fields filled AND not submitted.
-        SUBMITTED_REPORT // submitted report - all fields filled AND submitted.
+    public enum Status {
+        INCOMPLETE_DRAFT("Incomplete Draft"), // incomplete draft - not all fields filled AND not submitted.
+        COMPLETE_DRAFT ("Complete Draft"), // complete draft - all fields filled AND not submitted.
+        SUBMITTED_REPORT("Submitted"); // submitted report - all fields filled AND submitted.
 
+        public static final String MESSAGE_CONSTRAINTS =
+                "Status can only take on one of three values: INCOMPLETE_DRAFT, COMPLETE_DRAFT, SUBMITTED_REPORT";
+
+        private String statusLabel;
+        Status(String statusLabel) {
+            this.statusLabel = statusLabel;
+        }
+
+        @Override
+        public String toString() {
+            return statusLabel;
+        }
     }
 
     // TODO delete this field once all constructors accept status as attribute.
@@ -95,13 +107,14 @@ public class Incident {
      * // TODO add vehicle field
      */
     public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
-                    CallerNumber callerNumber, Description description) {
+                    CallerNumber callerNumber, Description description, Status status) {
         this.operator = operator;
         this.location = location;
         this.incidentDateTime = incidentDateTime;
         this.id = incidentId;
         this.callerNumber = callerNumber;
         this.description = description;
+        this.status = status;
         // this.vehicle = TODO
     }
 
@@ -133,22 +146,14 @@ public class Incident {
         return incidentDateTime;
     }
 
+    public Status getStatus() {
+        return this.status;
+    }
+
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
-    }
-
-    public void setStatusAsIncomplete() {
-        this.status = Status.INCOMPLETE_DRAFT;
-    }
-
-    public void setStatusAsComplete() {
-        this.status = Status.COMPLETE_DRAFT;
-    }
-
-    public void setStatusAsSubmitted() {
-        this.status = Status.SUBMITTED_REPORT;
     }
 
     /**

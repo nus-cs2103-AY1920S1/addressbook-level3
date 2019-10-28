@@ -135,11 +135,19 @@ public class IncidentManager implements ReadOnlyIncidentManager {
     }
 
     /**
-     * Adds an incident to the incident manager.
+     * Adds an incident to the front of the list in incident manager.
      * The incident must not already exist in the incident manager.
      */
     public void addIncident(Incident i) {
         incidents.add(i);
+    }
+
+    /**
+     * Adds an incident to the back of the list in incident manager.
+     * The incident must not already exist in the incident manager.
+     */
+    public void appendIncident(Incident i) {
+        incidents.append(i);
     }
 
     /**
