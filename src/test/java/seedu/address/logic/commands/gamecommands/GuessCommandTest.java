@@ -179,7 +179,7 @@ class GuessCommandTest {
         }
 
         @Override
-        public void setWordBank(ReadOnlyWordBank wordBank) {
+        public void setCurrenWordBank(ReadOnlyWordBank currenWordBank) {
 
         }
 
@@ -209,7 +209,7 @@ class GuessCommandTest {
         }
 
         @Override
-        public ReadOnlyWordBank getWordBank() {
+        public ReadOnlyWordBank getCurrenWordBank() {
             return null;
         }
 

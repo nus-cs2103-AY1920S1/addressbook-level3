@@ -39,7 +39,7 @@ public interface Logic extends UiLogicHelper {
     /**
      * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getWordBank()
+     * @see seedu.address.model.Model#getCurrenWordBank()
      */
     ReadOnlyWordBank getAddressBook();
 
