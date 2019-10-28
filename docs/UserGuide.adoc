@@ -50,54 +50,102 @@ A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Scienc
 * Each command must begin with a command word. See each command below for the list of associated command words.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user eg. `DESCRIPTION_OF_TASK` denotes that you should provide a short description of the task.
 * Items enclosed by square brackets are optional parameters that can be passed in eg. `view OBJECT_ID [l/]` can be used as `view A0122432Z l/` or `view 230293`.
-* Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[f/FILTER]...` can be used as `{nbsp}` (i.e. 0 times), `f/CS` , `f/CS f/YEAR4` etc.
+* Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[m/PARAMETER]...` can be used as, `m/CS2103` , `m/210` etc.
 * Parameters within square brackets can be supplied in any order.
 ====
 
 === Viewing single objects: `view`
 
-This command brings up an object with fully expanded details on a single pane. If no pane is specified within the tags, the object defaults to showing up on the right pane.
+This command brings up an item with fully expanded details on a single pane. Multiple MAMS items can be displayed
+in one single command, as long as they are from different types.
 
-Format: `view OBJECT_ID [l/] [r/]`
+Format: `view [a/INDEX] [m/INDEX] [s/INDEX]`
+
+Note: Even though all the parameter tags are marked as optional, at least one must be present for the command to
+execute. In the case where a parameter tag is used more than once, the last tag of that type will be accepted.
 
 Tags:
-`[l/]` displays the object on the left pane
-`[r/]` displays the object on the right pane
 
-Examples:
+* `a/INDEX`: displays the expanded details of the appeal at `INDEX` on the displayed appeal list
+* `m/INDEX`: displays the expanded details of the module at `INDEX` on the displayed module list
+* `s/INDEX`: displays the expanded details of the student at `INDEX` on the displayed student list
 
-* `view A0122432Z l/`
+*Examples:*
 
-Sample output: Fully expanded administrative details of the student with matriculation ID A0122432Z on the left pane.
+Sample Input:
 
-* `view 230293`
+* `view m/7`
 
-Sample output: Fully expanded administrative details of the appeal with case ID 230293 on the right pane.
+image::ViewCommandDemoBefore.png[width="790"]
 
-* `view CS2103 r/`
+Sample Output: Fully expanded administrative details of the module at index 7.
 
-Sample output: Fully expanded administrative details of the CS2103 module on the right pane.
+image::ViewCommandDemoAfter.png[width="790"]
 
 === Listing objects by specified lists: `list`
 
-Format: list OBJECT_TYPE `[f/FILTER]... [r/] [l/]`
+Format: `list [-a] [-m] [-s]`
 
 Tags:
-`[f/FILTER]` specifies the filters that are applied on the results of the list command. Each FILTER is delimited by commas following the `f/` tag, with no spaces. When this tag is not present, the program defaults to displaying the full list. As with the `view` command, if both `/r` and `/l` tags are not present, the program defaults to displaying the lists on the right pane.
 
-Examples:
+* `-a`: lists out all appeals in MAMS
+* `-m`: lists out all modules in MAMS
+* `-s`: lists out all students in MAMS
+* if no tags are specified, `list` command will behave as though all three tags have be applied. ie. it will
+list out all appeals, modules, and students.
 
-* `list`
+*Examples:*
 
-Sample Output: Shows a list of all appeals by default on the right pane
+Sample Input:
 
-* `list module f/CS`
+* `list -a -s`
 
-Sample Output: Shows a list of modules filtered by the CS (Computer Science) tag, on the right pane
+image::ListCommandDemoBefore.png[width="790"]
 
-* `list students f/YEAR4,CS l/`
+Sample Output: Lists all appeals and students in MAMS
 
-Sample Output: Shows a list of students filtered by the Year4 and CS tags, displayed on the left pane.
+image::ListCommandDemoAfter.png[width="790"]
+
+=== Command History
+
+==== Cycle through command history
+
+In the command box (the area where you type in commands), you can cycle through your previous inputs by using the
+kbd:[&uarr;] and kbd:[&darr;] arrow keys. They will autofill the command box with the previous and next input stored
+in the command history respectively.
+
+Example:
+
+image::HistoryCommandArrowDemoBefore.png[width="790"]
+
+After pressing kbd:[&uarr;]
+
+image::HistoryCommandArrowDemoAfter.png[width="790"]
+
+==== Show command history: `history`
+
+Opens a separate window displaying the command history in MAMS. The display of the command feedback can be turned
+off.
+
+Format: `history [-h]`
+
+Tags:
+
+* `-h`: hide the command feedback in the history window
+* if no tags are supplied, the `history` command will show both command input and command feedback history in the
+history window.
+
+*Examples:*
+
+Sample Input:
+
+* `history`
+
+image::HistoryCommandDemo.png[width="790"]
+
+Sample Output: Opens a window displaying command history
+
+image::HistoryWindowDemo.png[width="790"]
 
 === Show clashes: `clash`
 
@@ -301,52 +349,52 @@ There is no need to save manually.
 
 == Command Summary
 
-* **list** `list [type] [/filter/]`
-- e.g. `list modules CS`
+* **list**:  `list [-a] [-m] [-s]`
+- e.g. `list -a -s` to list out all appeals and students in MAMS.
 
-* **view** `view [type of object] [side to show info]`
-- e.g. `view A0180000A right/`
-to view details of student A0180000A on the right screen
-- e.g. `view 301934 left/`
-This brings up the full, untruncated, details of appeal #301934 on the left pane.
+* **view**: `view [a/INDEX] [m/INDEX] [s/INDEX]`
+- e.g. `view a/1 m/7` to view expanded details of appeal and module at indexes 1 and 7 respectively
 
-* **clash** `clash [MODULE_CODE] [MODULE_CODE] `
+* **history**: `history [-h]`
+- eg. `history` to open the history window
+
+* **clash**: `clash [MODULE_CODE] [MODULE_CODE] `
 - e.g. `clash cs1010 cs1020`
 Shows clash details between the 2 specified modules
 
-* **clash** `clash [STUDENT_ID]`
+* **clash**: `clash [STUDENT_ID]`
 - e.g. `clash A01234567H`
 Shows if there are clashes in a student’s (preallocated) timetable.
 
-* **clash** `clash [APPEAL_NUMBER]`
+* **clash**: `clash [APPEAL_NUMBER]`
 - e.g. `clash #301935`
 Shows if the module a student is requesting for clashes with his/her current existing modules.
 
-* **addmod** `addmod STUDENT_ID MODULE_CODE`
+* **addmod**: `addmod STUDENT_ID MODULE_CODE`
 - e.g `addmod A0180000A CS2103`
 To add module CS2103 to student A0180000A
 
-* **removemod** `removemod STUDENT_ID MODULE_CODE`
+* **removemod**: `removemod STUDENT_ID MODULE_CODE`
 - e.g `removemod A0180000A CS2103`
 To remove module CS2103 from student A0180000A
 
-* **switchmod** `switchmod STUDENT_ID MODULE_CODE1 MODULE_CODE2`
+* **switchmod**: `switchmod STUDENT_ID MODULE_CODE1 MODULE_CODE2`
 - e.g `switchmod A0180000A CS2103 CS2103T`
 To remove module CS2103 and add module 2103T to student A0180000A
 
-* **set** `set STUDENT_ID NEW_MC`
+* **set**: `set STUDENT_ID NEW_MC`
 - e.g. `set A0180000A 28`
 To set the student’s maximum modular credit for this semester to a new value.
 
-* **remark** `remark STUDENT_ID REMARKS`
+* **remark**: `remark STUDENT_ID REMARKS`
 - e.g. `remark A0180000A timetable clash waivered`
 To add remarks to a student’s particulars page
 
-* **approve** `approve INDEX`
+* **approve**: `approve INDEX`
 - e.g. `approve 2`
 Marks the 2nd appeal in the appeal list as approved.
 
-* **reject** `reject INDEX`
+* **reject**: `reject INDEX`
 - e.g. `reject 3`
 Marks the 3rd appeal in the filtered list as rejected.
 
