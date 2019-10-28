@@ -36,6 +36,7 @@ import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
 import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
+import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
 import dukecooks.storage.recipe.JsonRecipeBookStorage;
 import dukecooks.testutil.Assert;
@@ -58,6 +59,8 @@ public class LogicManagerTest {
                 new JsonDashboardStorage(temporaryFolder.resolve("dashboard.json"));
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookStorage(temporaryFolder.resolve("recipes.json"));
+        JsonMealPlanBookStorage mealPlanBookStorage =
+                new JsonMealPlanBookStorage(temporaryFolder.resolve("mealplans.json"));
         JsonUserProfileStorage userProfileStorage =
                 new JsonUserProfileStorage(temporaryFolder.resolve("dukecooks.json"));
         JsonHealthRecordsStorage healthRecordsStorage =
@@ -69,7 +72,8 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, healthRecordsStorage,
-                recipeBookStorage, workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
+                recipeBookStorage, mealPlanBookStorage, workoutPlannerStorage, diaryStorage,
+                dashboardStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -108,6 +112,9 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
         JsonRecipeBookStorage recipeBookStorage =
                 new JsonRecipeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRecipeBook.json"));
+        // Setup LogicManager with JsonMealPlanBookIoExceptionThrowingStub
+        JsonMealPlanBookStorage mealPlanBookStorage =
+                new JsonMealPlanBookStorage(temporaryFolder.resolve("mealplans.json"));
         // Setup LogicManager with JsonUserProfileIoExceptionThrowingStub
         JsonUserProfileStorage userProfileStorage =
                 new JsonUserProfileIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDukeCooks.json"));
@@ -125,7 +132,8 @@ public class LogicManagerTest {
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         //StorageManager storage = new StorageManager(recipeBookStorage, userPrefsStorage);
         StorageManager storage = new StorageManager(userProfileStorage, null,
-                recipeBookStorage, workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
+                recipeBookStorage, mealPlanBookStorage, workoutPlannerStorage, diaryStorage,
+                dashboardStorage, userPrefsStorage);
         new JsonUserPrefsStorage(temporaryFolder
                 .resolve("ioExceptionUserPrefs.json"));
         logic = new LogicManager(model, storage);
@@ -204,7 +212,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getUserProfile(), model.getDashboardRecords(),
-                model.getHealthRecords(), model.getRecipeBook(), model.getWorkoutPlanner(),
+                model.getHealthRecords(), model.getRecipeBook(), model.getMealPlanBook(), model.getWorkoutPlanner(),
                 model.getDiaryRecords(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
