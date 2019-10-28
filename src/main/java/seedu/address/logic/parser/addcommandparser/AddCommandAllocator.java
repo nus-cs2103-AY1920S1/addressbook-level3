@@ -45,6 +45,7 @@ public class AddCommandAllocator implements CommandAllocator<AddCommand> {
             return new AddTeamCommandParser().parse(args);
 
         default:
+            logger.warning("Failed to find appropriate allocator...");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         }

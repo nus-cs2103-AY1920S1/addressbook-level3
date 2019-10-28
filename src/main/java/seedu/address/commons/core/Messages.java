@@ -14,5 +14,6 @@ public class Messages {
     // to set restrictions as some operations can only be applied to some entity
     public static final String MESSAGE_INVALID_TYPE = "The type of entity is invalid";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team index provided is invalid";
 
 }

@@ -1,11 +1,16 @@
 package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.Score;
 
 /**
  * Helper functions for handling strings.
@@ -62,6 +67,23 @@ public class StringUtil {
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
+        }
+    }
+
+    /**
+     * Validates whether {@code score} is a valid integer.
+     *
+     * @param score the string representation of the score under check.
+     * @throws ParseException if the score is not a valid integer.
+     */
+    public static void validateScore(String score) throws ParseException {
+        if (score.equals("")) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        try {
+            int scoreValue = Integer.parseInt(score);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Score.MESSAGE_CONSTRAINTS);
         }
     }
 

@@ -20,6 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.MissingEntityException;
 import seedu.address.commons.exceptions.ModelValidationException;
 import seedu.address.logic.commands.Command;
@@ -28,6 +29,7 @@ import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
+import seedu.address.model.entity.Score;
 import seedu.address.model.entity.Team;
 import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.ParticipantList;
@@ -429,6 +431,63 @@ public class ModelManager implements Model {
         this.validateNewTeamObject(updatedTeam);
         this.teamList.update(teamId, updatedTeam);
         this.saveList(PrefixType.T);
+    }
+
+    /**
+     * Updates the given team's score with the given score.
+     *
+     * @param team the team who's score is to be updated.
+     * @param score the score to which the team's score will be updated.
+     * @throws AlfredException if the update fails.
+     */
+    public void updateTeamScore(Team team, Score score) throws AlfredException {
+        team.setScore(score);
+        updateTeam(team.getId(), team);
+    }
+
+    /**
+     * Adds to the given team's score the given score.
+     *
+     * @param team the team who's score is to be added to.
+     * @param score the score by which the team's score will be increased.
+     * @throws AlfredException if the update fails.
+     */
+    public void addTeamScore(Team team, Score score) throws AlfredException {
+        int currentScore = Integer.parseInt(team.getScore().toString());
+        int scoreToAdd = Integer.parseInt(score.toString());
+
+        if (currentScore == Score.MAX_SCORE) {
+            throw new IllegalValueException(Score.MAX_SCORE_MESSAGE);
+        } else if (currentScore + scoreToAdd > 100) {
+            team.setScore(new Score(100));
+        } else {
+            Score newScore = new Score(currentScore + scoreToAdd);
+            team.setScore(newScore);
+        }
+        updateTeam(team.getId(), team);
+    }
+
+    /**
+     * Subtracts the given score from the given team's current score.
+     *
+     * @param team the team who's score is to be subtracted from.
+     * @param score the score which will be subtracted from the team's current score.
+     * @throws AlfredException if the update fails.
+     */
+    @Override
+    public void subtractTeamScore(Team team, Score score) throws AlfredException {
+        int currentScore = Integer.parseInt(team.getScore().toString());
+        int scoreToSub = Integer.parseInt(score.toString());
+
+        if (currentScore == Score.MIN_SCORE) {
+            throw new IllegalValueException(Score.MIN_SCORE_MESSAGE);
+        } else if (currentScore - scoreToSub < 0) {
+            team.setScore(new Score(0));
+        } else {
+            Score newScore = new Score(currentScore - scoreToSub);
+            team.setScore(newScore);
+        }
+        updateTeam(team.getId(), team);
     }
 
     /**

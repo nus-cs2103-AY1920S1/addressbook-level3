@@ -15,6 +15,7 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.Score;
 import seedu.address.model.entity.Team;
 import seedu.address.model.entitylist.ReadOnlyEntityList;
 import seedu.address.model.person.Person;
@@ -123,6 +124,12 @@ public interface Model {
     void addMentorToTeam(Id teamId, Mentor mentor) throws AlfredException;
 
     void updateTeam(Id teamId, Team team) throws AlfredException;
+
+    void updateTeamScore(Team team, Score score) throws AlfredException;
+
+    void addTeamScore(Team team, Score score) throws AlfredException;
+
+    void subtractTeamScore(Team team, Score score) throws AlfredException;
 
     Team deleteTeam(Id id) throws AlfredException;
 
