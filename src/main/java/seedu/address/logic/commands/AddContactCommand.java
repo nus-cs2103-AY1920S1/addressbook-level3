@@ -55,7 +55,7 @@ public class AddContactCommand extends Command {
 
         model.addContact(toAdd);
         //adding the contact's name into the suggestion list.
-        AutocorrectSuggestion addName = new AutocorrectSuggestion("add_claim n/" + toAdd.getName().toString());
+        AutocorrectSuggestion addName = new AutocorrectSuggestion("add_claim n/" + toAdd.getName().fullName);
         model.addAutocorrectSuggestion(addName);
         SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
