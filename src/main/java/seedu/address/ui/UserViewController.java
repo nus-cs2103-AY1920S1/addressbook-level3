@@ -2,9 +2,9 @@ package seedu.address.ui;
 
 
 import javafx.fxml.FXML;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 
 /**
  * Controller class for the user views.
@@ -23,7 +23,7 @@ public class UserViewController {
     /**
      * Replaces the view displayed to the user with a new one.
      *
-     * @param uiPart the Ui part to be swapped in.
+     * @param uiPart the UiPart to be swapped in.
      */
     public void setUserView(UiPart<Region> uiPart) {
         userViewHolder.getChildren().clear(); // clear the view

@@ -89,9 +89,11 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadTaskStats());
             break;
 
-        case "clear":
-
         case "clock":
+            paneToRender.getChildren().add(userViewMain.loadSettingsView());
+            break;
+
+        case "clear":
 
         case "home":
             paneToRender.getChildren().add(userViewMain.loadDashboard());

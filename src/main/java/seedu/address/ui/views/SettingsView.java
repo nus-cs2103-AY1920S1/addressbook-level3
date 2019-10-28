@@ -2,19 +2,23 @@ package seedu.address.ui.views;
 
 import java.util.logging.Logger;
 
-import javax.swing.plaf.synth.Region;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
 import seedu.address.ui.UiPart;
 
+/**
+ * Layout displaying the current settings in +Work.
+ */
 public class SettingsView extends UiPart<Region> {
     private static final String FXML = "SettingsWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(SettingsView.class);
+
     private final String THEME_LABEL = "THEME";
     private final String CLOCK_LABEL = "CLOCK-FORMAT";
 
@@ -40,11 +44,11 @@ public class SettingsView extends UiPart<Region> {
     }
 
     private void handleTheme(Theme theme) {
-        themeSetting = new SettingsCard(themeLabel, themeLabelLight, themeLabelDark).getRoot();
+        themeSetting.getChildren().add(new SettingsCard(themeLabel, themeLabelLight, themeLabelDark).getRoot());
     }
 
     private void handleClock(ClockFormat clockFormat) {
-        clockSetting = new SettingsCard(clockLabel, clockLabelTwelve, clockLabelTwentyFour).getRoot();
+        clockSetting.getChildren().add(new SettingsCard(clockLabel, clockLabelTwelve, clockLabelTwentyFour).getRoot());
     }
 
 }

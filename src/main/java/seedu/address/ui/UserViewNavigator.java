@@ -5,6 +5,7 @@ import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.InventoryListPanel;
 import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.MemberStatisticsView;
+import seedu.address.ui.views.SettingsView;
 import seedu.address.ui.views.TaskListPanel;
 import seedu.address.ui.views.TaskStatisticsView;
 
@@ -25,6 +26,7 @@ public class UserViewNavigator {
     private InventoryListPanel inventoryListPanel;
     private MemberStatisticsView memberStatsView;
     private TaskStatisticsView taskStatsView;
+    private SettingsView settingsView;
 
     /**
      * Stores the main controller for later use in navigation tasks.
@@ -77,7 +79,7 @@ public class UserViewNavigator {
     }
 
     /**
-     * Relays to controller to swap current user view with task list.
+     * Relays to controller to swap current user view with member list.
      * @param logic to access task data
      */
     public void loadMemberStatsView(Logic logic) {
@@ -92,6 +94,15 @@ public class UserViewNavigator {
     public void loadTaskStatsView(Logic logic) {
         taskStatsView = new TaskStatisticsView(logic.getStatistics(), logic.getFilteredTaskList());
         userViewController.setUserView(taskStatsView);
+    }
+
+    /**
+     * Relays to the controller to swap current user view with settings view.
+     * @param logic to access settings data
+     */
+    public void loadSettingsView(Logic logic) {
+        settingsView = new SettingsView(logic.getCurrentTheme(), logic.getClockFormat());
+        userViewController.setUserView(settingsView);
     }
 
 }
