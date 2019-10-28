@@ -11,7 +11,7 @@ import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.financetracker.MonthlyLimit;
+import seedu.jarvis.model.finance.MonthlyLimit;
 
 /**
  * Parses input arguments and creates a new SetMonthlyLimitCommand object

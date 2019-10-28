@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -67,7 +68,8 @@ public class AddCcaCommand extends Command {
         }
 
         model.addCca(toAddCca);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCca));
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAddCca), false);
     }
 
     @Override

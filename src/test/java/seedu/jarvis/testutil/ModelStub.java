@@ -15,18 +15,20 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.MonthlyLimit;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.FinanceTracker;
+import seedu.jarvis.model.finance.MonthlyLimit;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -334,7 +336,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList) {
+    public void addProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList) {
         throw new AssertionError("This method should not be called.");
 
     }
@@ -437,6 +439,16 @@ public class ModelStub implements Model {
 
     @Override
     public CoursePlanner getCoursePlanner() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ViewStatus getViewStatus() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setViewStatus(ViewType viewType) {
         throw new AssertionError("This method should not be called.");
     }
 }

@@ -2,9 +2,9 @@ package seedu.jarvis.testutil.finance;
 
 import java.time.LocalDate;
 
-import seedu.jarvis.model.financetracker.purchase.Purchase;
-import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
-import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
+import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.model.finance.purchase.PurchaseDescription;
+import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 
 /**
  * A utility class to help with building Purchase objects.

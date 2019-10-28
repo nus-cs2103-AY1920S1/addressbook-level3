@@ -6,8 +6,6 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
-
 public class PurchaseMoneySpentTest {
 
     @Test

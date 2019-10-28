@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Cca's milestone in the CcaProgressList.
+ * Represents a Cca's milestone in the CcaMilestoneList.
  * Guarantees: immutable; is valid as declared in {@link #isValidCcaMilestone(String)}
  */
 public class CcaMilestone {

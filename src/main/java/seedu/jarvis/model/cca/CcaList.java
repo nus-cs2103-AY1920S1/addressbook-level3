@@ -8,7 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.exceptions.CcaNotFoundException;
 import seedu.jarvis.model.cca.exceptions.DuplicateCcaException;
 
@@ -127,12 +127,12 @@ public class CcaList {
      * Adds a progress to the chosen {@code Cca}.
      *
      * @param toBeUpdatedCca is the chosen Cca.
-     * @param ccaProgressList is added to the Cca.
+     * @param ccaMilestoneList is added to the Cca.
      */
-    public void addProgress(Cca toBeUpdatedCca, CcaProgressList ccaProgressList) {
-        requireAllNonNull(toBeUpdatedCca, ccaProgressList);
+    public void addProgress(Cca toBeUpdatedCca, CcaMilestoneList ccaMilestoneList) {
+        requireAllNonNull(toBeUpdatedCca, ccaMilestoneList);
 
-        toBeUpdatedCca.addProgress(ccaProgressList);
+        toBeUpdatedCca.addProgress(ccaMilestoneList);
     }
 
     /**

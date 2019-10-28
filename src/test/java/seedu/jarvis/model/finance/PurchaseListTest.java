@@ -13,10 +13,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.jarvis.model.financetracker.PurchaseList;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
-import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
-import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
+import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.model.finance.purchase.PurchaseDescription;
+import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 /**

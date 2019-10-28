@@ -7,7 +7,7 @@ import java.util.Arrays;
 import seedu.jarvis.logic.commands.finance.FindPurchaseCommand;
 import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.model.financetracker.PurchaseNameContainsKeywordsPredicate;
+import seedu.jarvis.model.finance.PurchaseNameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindPurchaseCommand object

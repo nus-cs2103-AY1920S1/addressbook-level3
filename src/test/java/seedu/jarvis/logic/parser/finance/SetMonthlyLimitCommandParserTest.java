@@ -11,7 +11,7 @@ import static seedu.jarvis.logic.parser.ParserUtil.MONEY_MESSAGE_CONSTRAINTS;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
-import seedu.jarvis.model.financetracker.MonthlyLimit;
+import seedu.jarvis.model.finance.MonthlyLimit;
 import seedu.jarvis.testutil.finance.MonthlyLimitBuilder;
 
 public class SetMonthlyLimitCommandParserTest {

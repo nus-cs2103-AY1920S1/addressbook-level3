@@ -53,8 +53,8 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand implemen
      */
     @Override
     public Command toModelType() throws IllegalValueException {
-        return deletedPerson != null
-                ? new DeleteAddressCommand(targetIndex.toModelType(), deletedPerson.toModelType())
-                : new DeleteAddressCommand(targetIndex.toModelType());
+        return new DeleteAddressCommand(
+                targetIndex.toModelType(),
+                deletedPerson != null ? deletedPerson.toModelType() : null);
     }
 }

@@ -1,10 +1,13 @@
 package seedu.jarvis.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -16,7 +19,11 @@ import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.ui.address.PersonListPanel;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.model.viewstatus.ViewType;
+import seedu.jarvis.ui.address.PersonListView;
+import seedu.jarvis.ui.cca.CcaListView;
+import seedu.jarvis.ui.template.View;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -25,14 +32,20 @@ import seedu.jarvis.ui.address.PersonListPanel;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final int PLANNER_INDEX = 0;
+    private static final int MODULES_INDEX = 1;
+    private static final int CCAS_INDEX = 2;
+    private static final int FINANCES_INDEX = 3;
+    private static final String MESSAGE_VIEW_NOT_IMPLEMENTED = "View not yet implemented.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private Model model;
+    private CommandUpdater commandUpdater;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,20 +56,36 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    @FXML
+    private TabPane tabPanePlaceHolder;
+
+    @FXML
+    private StackPane plannerContentPlaceholder;
+
+    @FXML
+    private StackPane moduleContentPlaceholder;
+
+    @FXML
+    private StackPane ccaContentPlaceholder;
+
+    @FXML
+    private StackPane financeContentPlaceholder;
+
+    @FXML
+    private StackPane historyDisplayPlaceHolder;
+
+    public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.model = model;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -108,9 +137,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -161,10 +187,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -184,11 +206,107 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.doSwitchPage()) {
+                handleSwitch();
+                commandUpdater.executeUpdateCallback();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Gets the model's current {@code PageStatus} and switches the content in the selected placeholder.
+     */
+    private void handleSwitch() {
+        ViewType currentViewType = model.getViewStatus().getViewType();
+        View<? extends Node> newView;
+        StackPane toUpdatePlaceHolder;
+
+        switch (currentViewType) {
+
+        case LIST_ADDRESS:
+            newView = new PersonListView(this, logic, model);
+            toUpdatePlaceHolder = ccaContentPlaceholder;
+            break;
+
+        case LIST_CCA:
+            newView = new CcaListView(this, logic, model);
+            toUpdatePlaceHolder = ccaContentPlaceholder;
+            break;
+
+        default:
+            resultDisplay.setFeedbackToUser(
+                    String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
+            return;
+        }
+
+        switchContent(newView, toUpdatePlaceHolder);
+        this.commandUpdater = newView::fillPage;
+        switchPage(toUpdatePlaceHolder);
+    }
+
+    /**
+     * Allows callback to be executed.
+     */
+    @FunctionalInterface
+    public interface CommandUpdater {
+        void executeUpdateCallback();
+    }
+
+    /**
+     * Switches the content in the {@code contentPlaceholder} {@code StackPane}.
+     *
+     * @param view The {@code Page} to switch to.
+     */
+    private void switchContent(View<? extends Node> view, StackPane toUpdatePlaceHolder) {
+        setWindowDefaultSize(model.getGuiSettings());
+        Node pageNode = view.getRoot();
+
+        List<Node> currentChildren = toUpdatePlaceHolder.getChildren();
+        int numChildren = currentChildren.size();
+        assert numChildren == 0 || numChildren == 1;
+
+        toUpdatePlaceHolder.getChildren().add(pageNode);
+
+        if (numChildren == 1) {
+            Node previousPage = currentChildren.get(0);
+            currentChildren.remove(previousPage);
+        }
+    }
+
+    /**
+     * Switches the tabPane to the correct tab. Each {@targetStackPane} is associated with a tab.
+     */
+    private void switchPage(StackPane targetStackPane) {
+
+        String stackPaneId = targetStackPane.getId();
+
+        switch (stackPaneId) {
+
+        case "plannerContentPlaceholder":
+            tabPanePlaceHolder.getSelectionModel().select(PLANNER_INDEX);
+            break;
+
+        case "moduleContentPlaceholder":
+            tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
+            break;
+
+        case "ccaContentPlaceholder" :
+            tabPanePlaceHolder.getSelectionModel().select(CCAS_INDEX);
+            break;
+
+        case "financeContentPlaceholder" :
+            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
+            break;
+
+        default:
+            return;
+
         }
     }
 }
