@@ -90,7 +90,7 @@ public class Dashboard {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDashboardName())
                 .append(" Date: ").append(getTaskDate())
-                .append("Status: ").append(getTaskStatus());
+                .append(" Status: ").append(getTaskStatus());
         return builder.toString();
     }
 
