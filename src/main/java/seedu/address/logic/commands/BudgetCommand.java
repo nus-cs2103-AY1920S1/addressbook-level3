@@ -46,6 +46,6 @@ public class BudgetCommand extends Command {
         }
 
 
-        return new CommandResult(message, false, false, false, false);
+        return new CommandResult(message, false, false, false, false, false);
     }
 }
