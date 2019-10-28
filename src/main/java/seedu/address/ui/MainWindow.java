@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ActivityListPanel activityListPanel;
     private PersonDetailsPanel personDetailsPanel;
+    private ActivityDetailsPanel activityDetailsPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -160,6 +161,10 @@ public class MainWindow extends UiPart<Stage> {
         case VIEW_CONTACT:
             personDetailsPanel = new PersonDetailsPanel(newContext.getContact().get());
             contentContainer.getChildren().add(personDetailsPanel.getRoot());
+            break;
+        case VIEW_ACTIVITY:
+            activityDetailsPanel = new ActivityDetailsPanel(newContext.getActivity().get());
+            contentContainer.getChildren().add(activityDetailsPanel.getRoot());
             break;
         default:
             // Do nothing (leave content container empty)

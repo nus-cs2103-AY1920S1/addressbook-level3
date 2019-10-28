@@ -110,39 +110,41 @@
     -fx-focus-color: transparent;
 }
 
-.person-details {
+.person-details, .activity-details {
     /* Add horizontal divider to visually separate details of contact from activity listings */
     -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #dbdbdb, #ababab, #dbdbdb);
     -fx-border-width: 0 0 2px 0;
 }
 
-.person-details .image-container, .person-details .data-container {
+.person-details .image-container, .person-details .data-container,
+.activity-details .image-container, .activity-details .data-container {
     /* Add internal padding */
     -fx-padding: 8;
 }
 
-.person-details .person-name {
+.person-details .person-name, .activity-details .activity-title {
     -fx-font-family: "Noto Sans CJK SC Black", "Segoe UI", sans-serif;
     -fx-font-weight: bolder;
-    -fx-font-size: 23px;
+    -fx-font-size: 22px;
     -fx-text-alignment: center;
 }
 
-.person-details .tag-list {
+.person-details .tag-list, .activity-details .participant-list {
     -fx-padding: 0 0 4 0;
 }
 
-.person-details .person-phone-container {
-    -fx-padding: 0 0 2 0;
+.person-details .person-phone-container, .activity-details .activity-participant-count {
+    -fx-padding: 0 0 12 0;
 }
 
-.person-details .person-phone {
+.person-details .person-phone, .activity-details .activity-spending {
     -fx-padding: 0;
     -fx-font-size: 18px;
     -fx-text-alignment: center;
 }
 
-.person-details .person-address, .person-details .person-email {
+.person-details .person-address, .person-details .person-email,
+.activity-details .activity-participant-count {
     -fx-padding: 0;
     -fx-font-size: 15px;
     -fx-text-alignment: center;
