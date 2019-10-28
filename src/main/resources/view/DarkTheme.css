@@ -34,6 +34,7 @@
     -eventCardColor2: #4ACFAC;
     -eventCardColor3: #7E8CE0;
     -eventCardColor4: #FFA48E;
+    -currentDateColor: #CBF0B6;
     -white: #FFFFFF;
     -black: #000000;
 }
@@ -216,9 +217,9 @@
     -fx-font-size: 11pt;
 }
 
-#monthYearTitle {
+#monthYearTitle, #timelineTitle, #upcomingViewTitle {
     -fx-font-family: "Roboto Medium";
-    -fx-font-size: 14pt
+    -fx-font-size: 13pt
 }
 
 /** For Timeline **/
@@ -238,19 +239,19 @@
     -fx-background-color: -surfaceColor;
 }
 
-#timelineTitle {
-    -fx-font-family: "Roboto Medium";
-    -fx-font-size: 16pt;
-    -fx-font-underline: true;
-}
-
-
 #line0, #line1, #line2, #line3, #line4, #line5,
 #line6, #line7, #line8, #line9, #line10, #line11,
 #line12, #line13, #line14, #line15, #line16, #line17,
 #line18, #line19, #line20, #line21, #line22, #line23 {
     -fx-background-color: -lineColor;
     -fx-opacity: 0.6;
+}
+
+/** For Upcoming View **/
+
+#upcomingViewBase {
+    -fx-background-color: -surfaceColor;
+    -fx-background-radius: 8;
 }
 
 /** For List Panel **/
@@ -292,4 +293,27 @@
     -fx-font-size: 10pt;
 }
 
+/** For Upcoming Event Card **/
+#upcomingEventBase {
+    -fx-background-color: -eventCardColor3;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+}
 
+#upcomingWeekDay {
+    -fx-font-family: "Roboto Light";
+    -fx-text-fill: -white;
+    -fx-font-size: 10pt;
+}
+
+#upcomingDay {
+    -fx-font-family: "Roboto Medium";
+    -fx-text-fill: -white;
+    -fx-font-size: 14pt;
+}
+
+#upcomingEventName {
+    -fx-font-family: "Roboto Light";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 13pt;
+}

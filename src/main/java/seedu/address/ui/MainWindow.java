@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.listeners.UserOutputListener;
@@ -279,7 +281,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
             public void changed(ObservableValue<? extends Number> observableValue,
                                 Number oldSceneWidth,
                                 Number newSceneWidth) {
-                calendarPanel.resizeTimelineView();
+                calendarPanel.resizeCalendarPanel();
             }
         });
     }
@@ -291,10 +293,17 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
 
+    private List<EventSource> sortDateEventList(List<EventSource> events) {
+        List<EventSource> sortedDateEventList = new ArrayList<EventSource>(events);
+        sortedDateEventList.sort(new EventDateComparator());
+        return sortedDateEventList;
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
-        this.listPanel.onEventListChange(events);
-        this.calendarPanel.onEventListChange(events);
+        List<EventSource> sortedDateEventList = sortDateEventList(events);
+        this.listPanel.onEventListChange(sortedDateEventList);
+        this.calendarPanel.onEventListChange(sortedDateEventList);
     }
 
     @Override

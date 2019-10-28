@@ -11,7 +11,7 @@
 
 <VBox fx:id="calendarBase" style="-fx-background-radius: 8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <StackPane minHeight="50.0">
+      <StackPane minHeight="35.0">
          <children>
             <Label fx:id="monthYearTitle" text="\$month" textFill="WHITE" underline="true">
                <font>

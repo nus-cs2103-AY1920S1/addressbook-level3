@@ -22,7 +22,7 @@ public class CalendarPanel extends UiPart<Region> {
 
     private CalendarScreen calendarScreen;
     private TimelineView timelineView;
-    private Details details;
+    private UpcomingView upcomingView;
     private CalendarDate calendarDate;
     private List<EventSource> eventList;
 
@@ -33,7 +33,7 @@ public class CalendarPanel extends UiPart<Region> {
     private VBox calendarScreenPlaceholder;
 
     @FXML
-    private VBox detailsPlaceholder;
+    private StackPane upcomingViewPlaceholder;
 
     /**
      * Constructor for CalendarPanel. Contains the 3 main viewing points for the calendar panel.
@@ -41,7 +41,7 @@ public class CalendarPanel extends UiPart<Region> {
      *
      * @see TimelineView
      * @see CalendarScreen
-     * @see Details
+     * @see UpcomingView
      */
     public CalendarPanel() {
         super(FXML);
@@ -50,11 +50,11 @@ public class CalendarPanel extends UiPart<Region> {
 
         this.calendarScreen = new CalendarScreen(this.calendarDate);
         this.timelineView = new TimelineDayView(this.calendarDate, eventList);
-        this.details = new Details();
+        this.upcomingView = new UpcomingView();
 
         timelinePlaceholder.getChildren().add(this.timelineView.getRoot()); // Left
         calendarScreenPlaceholder.getChildren().add(this.calendarScreen.getRoot()); // Top Right
-        detailsPlaceholder.getChildren().add(this.details.getRoot()); // Bottom Right
+        upcomingViewPlaceholder.getChildren().add(this.upcomingView.getRoot()); // Bottom Right
 
     }
 
@@ -73,8 +73,9 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * Re-sizes the TimelineView.
      */
-    public void resizeTimelineView() {
+    public void resizeCalendarPanel() {
         timelineView.resizeTimelineView();
+        upcomingView.resizeUpcomingView(eventList);
     }
 
     /**
@@ -120,6 +121,7 @@ public class CalendarPanel extends UiPart<Region> {
     public void onEventListChange(List<EventSource> events) {
         this.timelineView.eventChange(events);
         this.calendarScreen.eventChange(events);
+        this.upcomingView.eventChange(events);
         this.eventList = events;
     }
 }
