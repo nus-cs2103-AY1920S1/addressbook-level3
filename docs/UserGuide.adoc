@@ -152,7 +152,7 @@ And each person only has one aggregated reimbursement in the reimbursement list.
 All the reimbursements in reimbursement tab have not been done. Once the reimbursement is done,
 that reimbursement record will not be displayed.
 
-[[Note]]
+[NOTE]
 The reimbursements only count the outflow transactions. When a transaction has negative amount, it means
 the person in that transaction pays for the CCA first and you need to reimburse the person for the expense.
 
