@@ -16,6 +16,7 @@ import static java.util.Objects.requireNonNull;
 public class TrueFalse extends Answerable {
     public static final String MESSAGE_CONSTRAINTS = " Correct answer"
             + " should only be True/False (case insensitive)";
+    public static final String VALIDATION_REGEX = "(?i)(true|false)";
 
     private final static Logger logger = Logger.getLogger(TrueFalse.class.getName());
 
@@ -34,9 +35,9 @@ public class TrueFalse extends Answerable {
     public static boolean isValidTrueFalse(TrueFalse trueFalse) {
         requireNonNull(trueFalse);
         if (trueFalse.getCorrectAnswerList().stream()
-                .anyMatch(a -> a.getAnswer().matches(TrueFalseAnswer.VALIDATION_REGEX)) ||
+                .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX)) ||
                 trueFalse.getWrongAnswerList().stream()
-                .anyMatch(a -> a.getAnswer().matches(TrueFalseAnswer.VALIDATION_REGEX))) {
+                .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX))) {
             return false;
         }
 

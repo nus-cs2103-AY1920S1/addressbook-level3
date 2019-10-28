@@ -34,38 +34,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code answer} is invalid.
      */
-    private static Answer parseAnswer(String answer) throws ParseException {
+    public static Answer parseAnswer(String answer) throws ParseException {
         requireNonNull(answer);
         String trimmedAnswer = answer.trim();
-        boolean answerIsValid;
-
-        switch (type) {
-        case "tf":
-            answerIsValid = Answer.isValidAnswer(trimmedAnswer, TrueFalseAnswer.VALIDATION_REGEX);
-            if (!answerIsValid) {
-                throw new ParseException(TrueFalseAnswer.MESSAGE_CONSTRAINTS);
-            } else {
-                return new TrueFalseAnswer(trimmedAnswer);
-            }
-        case "saq":
-            answerIsValid = Answer.isValidAnswer(trimmedAnswer, SaqAnswer.VALIDATION_REGEX);
-            if (!answerIsValid) {
-                throw new ParseException(SaqAnswer.MESSAGE_CONSTRAINTS);
-            } else {
-                return new SaqAnswer(trimmedAnswer);
-            }
-        case "mcq":
-            answerIsValid = Answer.isValidAnswer(trimmedAnswer, McqAnswer.VALIDATION_REGEX);
-            if (!answerIsValid) {
-                throw new ParseException(SaqAnswer.MESSAGE_CONSTRAINTS);
-            } else {
-                return new McqAnswer(trimmedAnswer);
-            }
-        default:
-            throw new ParseException(QuestionType.MESSAGE_CONSTRAINTS);
+        if (!Answer.isValidAnswer(trimmedAnswer)) {
+            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
         }
+        return new Answer(trimmedAnswer);
     }
-
 
     /**
      * Parses {@code Collection<String> answers} into a {@code Set<Answer>}.

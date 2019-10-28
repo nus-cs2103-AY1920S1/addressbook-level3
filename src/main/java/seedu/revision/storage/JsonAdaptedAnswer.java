@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.revision.commons.exceptions.IllegalValueException;
-import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
-import seedu.revision.model.answerable.answer.McqAnswer;
-import seedu.revision.model.answerable.answer.SaqAnswer;
-import seedu.revision.model.answerable.answer.TrueFalseAnswer;
 
 /**
  * Jackson-friendly version of {@link Answer}.
@@ -42,18 +38,8 @@ class JsonAdaptedAnswer {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted category.
      */
-    public Answer toModelType(String questionType) throws IllegalValueException {
-
-        switch(questionType.toLowerCase()) {
-        case "mcq":
-            return new McqAnswer(answer);
-        case "tf":
-            return new TrueFalseAnswer(answer);
-        case "saq":
-            return new SaqAnswer(answer);
-        default:
-            throw new IllegalValueException(QuestionType.MESSAGE_CONSTRAINTS);
-        }
+    public Answer toModelType() throws IllegalValueException {
+        return new Answer(answer);
     }
 
 }
