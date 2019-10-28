@@ -158,6 +158,7 @@ Format: `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
 [NOTE]
 Note that for mcq question type, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
 
+[%hardbreaks]
 The options supported by this feature includes:
 
 . `question` - Question topic.
@@ -168,24 +169,25 @@ The options supported by this feature includes:
 . `c` - Option C for MCQ.
 . `d` - Option D for MCQ.
 
+[%hardbreaks]
 Examples:
 
-* Open ended question - `question question/Which year did Singapore gain independence? answer/1965 type/open` +
+* *Open ended question*: `question question/Which year did Singapore gain independence? answer/1965 type/open` +
 Creates an open ended question with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_.
-* MCQ - `question question/Which year did Singapore gain independence? answer/1965 type/mcq a/1965 b/1963 c/1968 d/1970` +
+* *MCQ*: `question question/Which year did Singapore gain independence? answer/1965 type/mcq a/1965 b/1963 c/1968 d/1970` +
 Creates an mcq with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_ and
 choices _'1965', '1963', '1968', '1970'_.
 
 ==== Editing a question
 
-Edit a question currently stored. All input are *optional*. +
+Edit a question currently stored. All fields are *optional*. +
 Format: `question [INDEX] question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
 [NOTE]
 Note that when changing question type from open ended to mcq, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
 
 The options supported by this feature includes:
 
-. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, `find`>>find commands.
+. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
 . `question` - Question topic.
 . `answer` - Answer to the question.
 . `type` - Type of question(`open` or `mcq`).
@@ -208,7 +210,7 @@ Format: `question delete [INDEX]`
 
 The options supported by this feature includes:
 
-. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, `find`>>find commands.
+. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
 
 Example:
 
@@ -257,7 +259,7 @@ Format: `question slideshow [QUESTIONS INDEX]`
 The options supported by this feature includes:
 
 . `[QUESTIONS INDEX]` - Index of questions *separated by a whitespace*.
-Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, `find`>>find commands.
+Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
 
 Example:
 
