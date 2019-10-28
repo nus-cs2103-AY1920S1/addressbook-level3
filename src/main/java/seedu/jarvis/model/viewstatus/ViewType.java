@@ -6,5 +6,6 @@ package seedu.jarvis.model.viewstatus;
 public enum ViewType {
     HOME_PAGE,
     LIST_CCA,
+    LIST_PLANNER,
     LIST_ADDRESS
 }

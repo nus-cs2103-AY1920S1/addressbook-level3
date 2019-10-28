@@ -23,6 +23,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
+import seedu.jarvis.ui.planner.TaskListView;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -237,6 +238,11 @@ public class MainWindow extends UiPart<Stage> {
         case LIST_CCA:
             newView = new CcaListView(this, logic, model);
             toUpdatePlaceHolder = ccaContentPlaceholder;
+            break;
+
+        case LIST_PLANNER:
+            newView = new TaskListView(this, logic, model);
+            toUpdatePlaceHolder = plannerContentPlaceholder;
             break;
 
         default:
