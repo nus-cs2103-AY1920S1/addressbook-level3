@@ -9,11 +9,13 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
+import seedu.algobase.logic.commands.RewindCommand;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.AlgoBaseParser;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -46,6 +48,10 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = algoBaseParser.parseCommand(commandText);
         commandResult = command.execute(model);
+        // We don't consider RewindCommand as a valid candidate to be stored in the command history.
+        if (!(command instanceof RewindCommand)) {
+            model.addCommandHistory(new CommandHistory(commandText)); // Save command text for rewind feature
+        }
 
         try {
             storage.saveAlgoBase(model.getAlgoBase());
@@ -66,13 +72,13 @@ public class LogicManager implements Logic {
         return model.getGuiState();
     }
 
-    @Override
-    public ObservableList<Tag> getFilteredTagList() {
-        return model.getFilteredTagList();
-    }
-
     public ObservableList<Problem> getProcessedProblemList() {
         return model.getFilteredProblemList();
+    }
+
+    @Override
+    public ObservableList<Tag> getProcessedTagList() {
+        return model.getFilteredTagList();
     }
 
     @Override

@@ -15,6 +15,7 @@ import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.Logic;
 import seedu.algobase.logic.commands.CommandResult;
+import seedu.algobase.logic.commands.RewindCommand;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
@@ -39,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private DisplayTabPane displayTabPane;
     private DetailsTabPane detailsTabPane;
     private ProblemListPanel problemListPanel;
+    private TagListPanel tagListPanel;
     private PlanListPanel planListPanel;
     private TaskListPanel taskListPanel;
     private FindRuleListPanel findRuleListPanel;
@@ -135,11 +137,12 @@ public class MainWindow extends UiPart<Stage> {
 
     private DisplayTabPane getDisplayTabPane() {
         problemListPanel = new ProblemListPanel(logic.getProcessedProblemList());
+        tagListPanel = new TagListPanel(logic.getProcessedTagList());
         planListPanel = new PlanListPanel(logic.getProcessedPlanList());
         taskListPanel = new TaskListPanel(logic.getProcessedTaskList());
         findRuleListPanel = new FindRuleListPanel(logic.getProcessedFindRuleList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelType.PROBLEM.getTabName(), problemListPanel);
-        DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName());
+        DisplayTab tagListPanelTab = new DisplayTab(ModelType.TAG.getTabName(), tagListPanel);
         DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);
         DisplayTab taskListPanelTab = new DisplayTab(ModelType.TASK.getTabName(), taskListPanel);
         DisplayTab findRuleListPaneTab = new DisplayTab(ModelType.FINDRULE.getTabName(), findRuleListPanel);
@@ -192,6 +195,10 @@ public class MainWindow extends UiPart<Stage> {
         return problemListPanel;
     }
 
+    public TagListPanel getTagListPanel() {
+        return tagListPanel;
+    }
+
     public PlanListPanel getPlanListPanel() {
         return planListPanel;
     }
@@ -213,6 +220,13 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
+            // For rewind commands, result displayed is not what .getFeedbackToUser() returns.
+            if (commandResult.isRewind()) {
+                resultDisplay.setFeedbackToUser(RewindCommand.MESSAGE_SUCCESS);
+                return commandResult;
+            }
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
