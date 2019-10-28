@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.achievements.logic.AchievementsLogic;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,7 +36,7 @@ public class AchievementsPage extends UiPart<Region> implements Page {
 
     private static final PageType pagetype = PageType.ACHIEVEMENTS;
 
-    private static final String FXML = "Achievements.fxml";
+    private static final String FXML = "achievements/Achievements.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -70,15 +71,11 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     @FXML
     private Label test;
 
-    public AchievementsPage AchievementsPage(AchievementsPage achievementsPage) {
-        return new AchievementsPage(achievementsPage.primaryStage, achievementsPage.achievementsLogic);
-    }
-
     public AchievementsPage(Stage primaryStage, AchievementsLogic achievementsLogic) {
-
         super(FXML, new BorderPane());
         this.primaryStage = primaryStage;
         this.achievementsLogic = achievementsLogic;
+
         this.achievementsScene = new Scene(achievementsPane);
     }
 
@@ -122,7 +119,8 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        achievementsPlaceholder.getChildren().add(new AchievementsCard().getRoot());
+        achievementsPlaceholder.getChildren().clear();
+        achievementsPlaceholder.getChildren().add(new AchievementsCard(achievementsLogic).getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -188,11 +186,11 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-//        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(),
-//                primaryStage.getHeight(),
-//                (int) primaryStage.getX(),
-//                (int) primaryStage.getY());
-//        addressBookLogic.setGuiSettings(guiSettings);
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(),
+                primaryStage.getHeight(),
+                (int) primaryStage.getX(),
+                (int) primaryStage.getY());
+        achievementsLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -202,10 +200,7 @@ public class AchievementsPage extends UiPart<Region> implements Page {
 
         setAccelerators();
 
-        this.helpWindow = new HelpWindow();
-        this.codeWindow = new CodeWindow();
         fillInnerParts();
-//        test.setText("Total Number of Persons: " + achievementsLogic.getTotalPersons());
         return achievementsScene;
     }
 

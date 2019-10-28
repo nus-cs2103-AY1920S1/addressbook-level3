@@ -48,13 +48,47 @@
 /* Card Styling */
 #cardPane {
     -fx-background-color: linear-gradient(to right, #EA60A8, #AE5A99);
-    -fx-background-radius: 5, 5;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: darkorchid;
 }
 
-#cardPane .label{
-  -fx-font-size: 12pt;
-  -fx-font-family: "Segoe UI";
-  -fx-text-fill: white;
+#indexBox {
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-alignment: center;
+}
+
+#index {
+    -fx-text-fill: purple;
+    -fx-font-size: 40pt;
+    -fx-font-family: "Impact";
+    -fx-label-padding: 10;
+}
+
+#tag {
+    -fx-font-family: "helvetica neue";
+    -fx-font-size: 10pt;
+}
+
+#title {
+    -fx-font-family: "Times new Roman";
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
+
+#detailsHeader {
+    -fx-font-family: "serif";
+    -fx-text-fill: white;
+    -fx-font-size: 13pt;
+}
+
+#details {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-font-size: 12pt;
 }
 
 /* Lin Wei's CSS for Reference */

@@ -71,8 +71,8 @@ public class ItineraryParser {
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         default:
             throw new ParseException("I know you like travelling but the input command is out of this "

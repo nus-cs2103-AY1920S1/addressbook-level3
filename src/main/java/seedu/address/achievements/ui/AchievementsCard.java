@@ -1,53 +1,42 @@
 package seedu.address.achievements.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.achievements.logic.AchievementsLogic;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays the various achievements in a card.
  */
 public class AchievementsCard extends UiPart<Region> {
 
-    private static final String FXML = "AchievementsCard.fxml";
+    private static final String FXML = "achievements/AchievementsCard.fxml";
 
-    @FXML
-    private HBox cardPane;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private VBox cardPlaceholder;
 
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
-
-
-    public AchievementsCard() {
+    public AchievementsCard(AchievementsLogic logic) {
         super(FXML);
-        cardPlaceholder.getChildren().addAll(new AchievementsTitleLabel("Total Contacts: ", "10 / 200").getRoot(), new AchievementsProgressBar(0.5).getRoot());
+        logger.info("" + logic.getTotalPersons());
+        cardPlaceholder.getChildren().addAll(
+                                             new AchievementsTitleLabel("Address Book").getRoot(),
+                                             new AchievementsDataLabel("Total Contacts: ", ""
+                                                     + logic.getTotalPersons(), "200").getRoot(),
+                                             new AchievementsProgressBar(logic.getTotalPersons() / 200.0).getRoot(),
+                                             new AchievementsHorizontalBarChart("Contacts",
+                                                                                "Countries",
+                                                                                "Number",
+                                                                                logic.getAddressChartData()).getRoot()
+                                            //new AchievementsVerticalBarChart("Contacts",
+                                            //                                 "Countries",
+                                            //                                 "Number").getRoot(),
+                                            //new AchievementsPieChart("Countries").getRoot()
+        );
     }
-
-//    @Override
-//    public boolean equals(Object other) {
-//        // short circuit if same object
-//        if (other == this) {
-//            return true;
-//        }
-//
-//        // instanceof handles nulls
-//        if (!(other instanceof AchievementsCard)) {
-//            return false;
-//        }
-//
-//        // state check
-//        AchievementsCard card = (AchievementsCard) other;
-//        return id.getText().equals(card.id.getText())
-//                && person.equals(card.person);
-//    }
 }

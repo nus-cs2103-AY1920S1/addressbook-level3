@@ -28,7 +28,7 @@ public class LogicManager implements Logic {
         // main model is used to save gui settings
         this.userPrefsModel = model.getUserPrefsModel();
         this.addressBookLogic = new AddressBookLogicManager(userPrefsModel, model.getAddressBookModel(), storage);
-        this.achievementsLogic = new AchievementsLogicManager(model.statisticsModelSupplier());
+        this.achievementsLogic = new AchievementsLogicManager(userPrefsModel, model.statisticsModelSupplier());
         this.storage = storage;
     }
 
