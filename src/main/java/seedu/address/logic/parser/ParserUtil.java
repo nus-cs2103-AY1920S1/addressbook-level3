@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -17,7 +19,8 @@ import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
-import seedu.address.model.earnings.Type;
+import seedu.address.model.earnings.Month;
+import seedu.address.model.earnings.Week;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.ModuleCode;
 import seedu.address.model.person.Attendance;
