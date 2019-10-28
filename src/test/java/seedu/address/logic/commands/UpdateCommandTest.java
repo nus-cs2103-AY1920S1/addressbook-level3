@@ -182,7 +182,6 @@ public class UpdateCommandTest {
         updateCommand.execute(model);
 
         assertEquals(model.getFilteredNotifList().size(), 0);
-
     }
 
     @Test
@@ -216,7 +215,6 @@ public class UpdateCommandTest {
         updateCommand.execute(model);
 
         assertEquals(model.getFilteredNotifList().size(), 1);
-
     }
 
     @Test
@@ -231,7 +229,8 @@ public class UpdateCommandTest {
         updateCommand.execute(model);
 
         assertEquals(model.getFilteredNotifList().size(), 1);
-
+        model.deleteEntity(body);
+        model.deleteNotif(model.getFilteredNotifList().get(0));
     }
     //@@author
 
