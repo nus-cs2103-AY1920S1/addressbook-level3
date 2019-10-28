@@ -42,7 +42,7 @@ public class ModuleTaskCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane calendartags;
 
     public ModuleTaskCard(Task task, int displayedIndex) {
         super(FXML);
@@ -54,7 +54,7 @@ public class ModuleTaskCard extends UiPart<Region> {
         email.setText(task.getTaskDescription().value);
         task.getTaskTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
-            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .forEach(tag -> calendartags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
