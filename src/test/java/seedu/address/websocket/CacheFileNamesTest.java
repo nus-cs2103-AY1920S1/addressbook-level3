@@ -28,5 +28,4 @@ class CacheFileNamesTest {
         assertEquals("src/main/resources/ApiResponseCache/NusModsApi/Venues.json",
                 CacheFileNames.VENUES_FULL_PATH);
     }
-
 }

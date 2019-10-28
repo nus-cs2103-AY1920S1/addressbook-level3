@@ -54,19 +54,19 @@ class CacheTest {
     @Test
     void loadModuleList() {
         ModuleList moduleList = Cache.loadModuleList().get();
-        assertTrue( moduleList.toString().contains("AY2019/2020 LL4287V ASEAN Law and Policy"));
+        assertTrue(moduleList.toString().contains("AY2019/2020 LL4287V ASEAN Law and Policy"));
     }
 
     @Test
     void loadModule() {
-        Module module = Cache.loadModule(new ModuleId("AY2019/2020","CS2103T")).get();
-        assertEquals( module.toString(), "AY2019/2020 CS2103T Software Engineering");
+        Module module = Cache.loadModule(new ModuleId("AY2019/2020", "CS2103T")).get();
+        assertEquals(module.toString(), "AY2019/2020 CS2103T Software Engineering");
     }
 
     @Test
     void loadVenues() {
         JSONArray venues = Cache.loadVenues();
-        assertEquals( 556, venues.size());
+        assertEquals(556, venues.size());
     }
 
     @Test
