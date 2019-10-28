@@ -14,7 +14,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.DeleteBudgetCommand;
+import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.ListBudgetCommand;
+import seedu.address.logic.commands.budget.PastPeriodCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.expense.ClearCommand;
@@ -67,6 +69,8 @@ public class MooLahParser {
             return new AddBudgetCommandParser().parse(arguments);
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+        case EditBudgetCommand.COMMAND_WORD:
+            return new EditBudgetCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
         case ClearCommand.COMMAND_WORD:
@@ -97,6 +101,8 @@ public class MooLahParser {
             return new ListBudgetCommand();
         case DeleteBudgetCommand.COMMAND_WORD:
             return new DeleteBudgetCommandParser().parse(arguments);
+        case PastPeriodCommand.COMMAND_WORD:
+            return new PastPeriodCommandParser().parse(arguments);
         default:
             // check if alias exists
             if (readOnlyUserPrefs.hasAlias(commandWord)) {
