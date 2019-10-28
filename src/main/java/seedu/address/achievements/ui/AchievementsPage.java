@@ -75,8 +75,10 @@ public class AchievementsPage extends UiPart<Region> implements Page {
         super(FXML, new BorderPane());
         this.primaryStage = primaryStage;
         this.achievementsLogic = achievementsLogic;
-
+        this.helpWindow = new HelpWindow();
         this.achievementsScene = new Scene(achievementsPane);
+        fillInnerParts();
+        setAccelerators();
     }
 
     private void setAccelerators() {
@@ -119,14 +121,22 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        achievementsPlaceholder.getChildren().clear();
-        achievementsPlaceholder.getChildren().add(new AchievementsCard(achievementsLogic).getRoot());
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Refresh UI with new data from Statistics.
+     */
+    void refreshUi() {
+        achievementsPlaceholder.getChildren().clear();
+        achievementsPlaceholder.getChildren().add(new AchievementsCard(achievementsLogic).getRoot());
     }
 
     /**
@@ -197,10 +207,7 @@ public class AchievementsPage extends UiPart<Region> implements Page {
 
     @Override
     public Scene getScene() {
-
-        setAccelerators();
-
-        fillInnerParts();
+        refreshUi();
         return achievementsScene;
     }
 
