@@ -68,7 +68,7 @@ dependencies {
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: jUnitVersion
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: jUnitVersion
 
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
