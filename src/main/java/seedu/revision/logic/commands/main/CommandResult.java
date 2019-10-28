@@ -1,5 +1,7 @@
 package seedu.revision.logic.commands.main;
 
+import seedu.revision.model.Model;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
@@ -22,6 +24,9 @@ public class CommandResult {
 
     /** The restore window will open. */
     private final boolean showRestore;
+
+    /** To pass the Model. */
+    private static Model model = null;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -48,12 +53,13 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean start, boolean restore) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean start, boolean restore, Model model) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.start = start;
         this.showRestore = restore;
+        this.model = model;
     }
 
     /**
@@ -80,7 +86,9 @@ public class CommandResult {
         return start;
     }
 
-    public boolean isShowRestore() { return showRestore; }
+    public boolean isShowRestore(Model passedModel) {
+        passedModel = model;
+        return showRestore; }
 
     @Override
     public boolean equals(Object other) {

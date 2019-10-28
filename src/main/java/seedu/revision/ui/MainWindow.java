@@ -24,6 +24,7 @@ import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.Model;
 
 
 /**
@@ -37,6 +38,8 @@ public class MainWindow extends Window {
     public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(primaryStage, mainLogic, quizLogic);
     }
+
+    Model passedModel;
 
     /**
      * Fills up all the placeholders of this window.
@@ -87,7 +90,7 @@ public class MainWindow extends Window {
      * Opens the restore window.
      */
     @FXML
-    public void handleRestore() throws IOException {
+    public void handleRestore(Model passedModel) throws IOException {
         boolean exists;
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning!");
@@ -110,6 +113,8 @@ public class MainWindow extends Window {
 
         if (result.get() == confirmRestore) {
             //do something
+
+            passedModel.setAddressBookFilePath(Paths.get("data/addressbookRestore.json"));
 
             File jsonFile = new File("data/addressbook.json");
             exists = jsonFile.exists();
@@ -147,8 +152,8 @@ public class MainWindow extends Window {
                 handleStart();
             }
 
-            if (commandResult.isShowRestore()) {
-                handleRestore();
+            if (commandResult.isShowRestore(passedModel)) {
+                handleRestore(passedModel);
             }
 
             return commandResult;
