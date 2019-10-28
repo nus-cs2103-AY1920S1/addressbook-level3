@@ -1,36 +1,36 @@
 package seedu.exercise.logic.parser;
 
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.exercise.logic.commands.CommandTestUtil.FULL_NAME_DESC_ENDDATE;
-import static seedu.exercise.logic.commands.CommandTestUtil.FULL_NAME_DESC_RATING;
-import static seedu.exercise.logic.commands.CommandTestUtil.FULL_NAME_DESC_REMARK;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_FULL_NAME_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_PARAMETER_TYPE_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_PREFIX_NAME_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.PARAMETER_TYPE_DESC_ENDDATE;
-import static seedu.exercise.logic.commands.CommandTestUtil.PARAMETER_TYPE_DESC_RATING;
-import static seedu.exercise.logic.commands.CommandTestUtil.PARAMETER_TYPE_DESC_REMARK;
-import static seedu.exercise.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.exercise.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.exercise.logic.commands.CommandTestUtil.PREFIX_NAME_DESC_ENDDATE;
-import static seedu.exercise.logic.commands.CommandTestUtil.PREFIX_NAME_DESC_RATING;
-import static seedu.exercise.logic.commands.CommandTestUtil.PREFIX_NAME_DESC_REMARK;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_FULL_NAME_RATING;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_PARAMETER_TYPE_RATING;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_PREFIX_NAME_RATING;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.exercise.model.property.CustomProperty.FULL_NAME_CONSTRAINTS;
 import static seedu.exercise.model.property.CustomProperty.PREFIX_NAME_CONSTRAINTS;
 import static seedu.exercise.model.property.ParameterType.PARAMETER_CONSTRAINTS;
-import static seedu.exercise.testutil.TypicalCustomProperties.RATING;
+import static seedu.exercise.testutil.CommonTestData.FULL_NAME_DESC_END_DATE;
+import static seedu.exercise.testutil.CommonTestData.FULL_NAME_DESC_RATING;
+import static seedu.exercise.testutil.CommonTestData.FULL_NAME_DESC_REMARK;
+import static seedu.exercise.testutil.CommonTestData.INVALID_FULL_NAME_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_PARAMETER_TYPE_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_NAME_DESC;
+import static seedu.exercise.testutil.CommonTestData.PARAMETER_TYPE_DESC_END_DATE;
+import static seedu.exercise.testutil.CommonTestData.PARAMETER_TYPE_DESC_RATING;
+import static seedu.exercise.testutil.CommonTestData.PARAMETER_TYPE_DESC_REMARK;
+import static seedu.exercise.testutil.CommonTestData.PREAMBLE_NON_EMPTY;
+import static seedu.exercise.testutil.CommonTestData.PREAMBLE_WHITESPACE;
+import static seedu.exercise.testutil.CommonTestData.PREFIX_NAME_DESC_END_DATE;
+import static seedu.exercise.testutil.CommonTestData.PREFIX_NAME_DESC_RATING;
+import static seedu.exercise.testutil.CommonTestData.PREFIX_NAME_DESC_REMARK;
+import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
+import static seedu.exercise.testutil.CommonTestData.VALID_PARAMETER_TYPE_RATING;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_RATING;
+import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.RATING;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.commands.CustomAddCommand;
 import seedu.exercise.logic.commands.CustomCommand;
 import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.testutil.CustomPropertyBuilder;
+import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
 class CustomCommandParserTest {
 
@@ -46,18 +46,18 @@ class CustomCommandParserTest {
                 new CustomAddCommand(expectedCustomProperty));
 
         // multiple short names - last short name accepted
-        assertParseSuccess(parser, PREFIX_NAME_DESC_ENDDATE + PREFIX_NAME_DESC_RATING
+        assertParseSuccess(parser, PREFIX_NAME_DESC_END_DATE + PREFIX_NAME_DESC_RATING
                         + FULL_NAME_DESC_RATING + PARAMETER_TYPE_DESC_RATING,
                 new CustomAddCommand(expectedCustomProperty));
 
         // multiple full names - last full name accepted
-        assertParseSuccess(parser, PREFIX_NAME_DESC_RATING + FULL_NAME_DESC_ENDDATE
+        assertParseSuccess(parser, PREFIX_NAME_DESC_RATING + FULL_NAME_DESC_END_DATE
                         + FULL_NAME_DESC_RATING + PARAMETER_TYPE_DESC_RATING,
                 new CustomAddCommand(expectedCustomProperty));
 
         // multiple parameter types - last parameter type accepted
         assertParseSuccess(parser, PREFIX_NAME_DESC_RATING + FULL_NAME_DESC_RATING
-                        + PARAMETER_TYPE_DESC_ENDDATE + PARAMETER_TYPE_DESC_RATING,
+                        + PARAMETER_TYPE_DESC_END_DATE + PARAMETER_TYPE_DESC_RATING,
                 new CustomAddCommand(expectedCustomProperty));
     }
 

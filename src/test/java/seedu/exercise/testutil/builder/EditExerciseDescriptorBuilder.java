@@ -1,4 +1,4 @@
-package seedu.exercise.testutil.exercise;
+package seedu.exercise.testutil.builder;
 
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.exercise.logic.commands.CommandTestUtil.CATEGORY_DESC_EXERCISE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
+import static seedu.exercise.testutil.CommonTestData.CATEGORY_DESC_EXERCISE;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,9 +21,9 @@ import seedu.exercise.logic.commands.HelpCommand;
 import seedu.exercise.logic.commands.ListCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
-import seedu.exercise.testutil.exercise.ExerciseUtil;
+import seedu.exercise.testutil.ExerciseUtil;
+import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
 
 public class ExerciseBookParserTest {
 
@@ -46,8 +46,8 @@ public class ExerciseBookParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteExerciseCommand command = (DeleteExerciseCommand) parser.parseCommand(
             DeleteExerciseCommand.COMMAND_WORD + " " + CATEGORY_DESC_EXERCISE + " "
-                + PREFIX_INDEX + INDEX_FIRST_EXERCISE.getOneBased());
-        assertEquals(new DeleteExerciseCommand(INDEX_FIRST_EXERCISE), command);
+                + PREFIX_INDEX + INDEX_ONE_BASED_FIRST.getOneBased());
+        assertEquals(new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST), command);
     }
 
     @Test
@@ -55,8 +55,8 @@ public class ExerciseBookParserTest {
         Exercise build = new ExerciseBuilder().build();
         EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(build).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_EXERCISE.getOneBased() + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_EXERCISE, descriptor), command);
+            + INDEX_ONE_BASED_FIRST.getOneBased() + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_ONE_BASED_FIRST, descriptor), command);
     }
 
     @Test

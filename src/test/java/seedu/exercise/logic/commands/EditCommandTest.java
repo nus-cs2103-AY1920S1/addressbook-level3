@@ -2,18 +2,18 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.logic.commands.CommandTestUtil.DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.DESC_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_BASKETBALL;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.CommonTestData.DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.DESC_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_NAME_BASKETBALL;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +25,8 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
+import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -40,7 +40,7 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Exercise editedExercise = new ExerciseBuilder().build();
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(editedExercise).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
@@ -78,8 +78,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE, new EditCommand.EditExerciseDescriptor());
-        Exercise editedExercise = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST, new EditCommand.EditExerciseDescriptor());
+        Exercise editedExercise = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
@@ -92,12 +92,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
+        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
 
-        Exercise exerciseInFilteredList = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
+        Exercise exerciseInFilteredList = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         Exercise editedExercise =
             new ExerciseBuilder(exerciseInFilteredList).withName(VALID_NAME_BASKETBALL).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
+        EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST,
             new EditExerciseDescriptorBuilder().withName(VALID_NAME_BASKETBALL).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
@@ -112,21 +112,21 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateExerciseUnfilteredList_failure() {
-        Exercise firstExercise = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
+        Exercise firstExercise = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(firstExercise).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_EXERCISE, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_SECOND, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
     @Test
     public void execute_duplicateExerciseFilteredList_failure() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
+        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
 
         // edit exercise in filtered list into a duplicate in exercise book
         Exercise exerciseInList = model.getExerciseBookData().getResourceList()
-            .get(INDEX_SECOND_EXERCISE.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
+            .get(INDEX_ONE_BASED_SECOND.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_ONE_BASED_FIRST,
             new EditExerciseDescriptorBuilder(exerciseInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_EXERCISE);
@@ -148,8 +148,8 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidExerciseIndexFilteredList_failure() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
-        Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
+        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
+        Index outOfBoundIndex = INDEX_ONE_BASED_SECOND;
         // ensures that outOfBoundIndex is still in bounds of exercise book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseBookData().getResourceList().size());
 
@@ -161,11 +161,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_EXERCISE, DESC_AEROBICS);
+        final EditCommand standardCommand = new EditCommand(INDEX_ONE_BASED_FIRST, DESC_AEROBICS);
 
         // same values -> returns true
         EditExerciseDescriptor copyDescriptor = new EditExerciseDescriptor(DESC_AEROBICS);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_EXERCISE, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_ONE_BASED_FIRST, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -178,10 +178,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_EXERCISE, DESC_AEROBICS)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_ONE_BASED_SECOND, DESC_AEROBICS)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_EXERCISE, DESC_BASKETBALL)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_ONE_BASED_FIRST, DESC_BASKETBALL)));
     }
 
 }

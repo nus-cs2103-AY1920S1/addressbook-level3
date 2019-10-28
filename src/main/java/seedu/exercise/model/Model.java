@@ -188,6 +188,13 @@ public interface Model {
     void addSchedule(Schedule schedule);
 
     /**
+     * Removes a {@code schedule} for the user.
+     * This method will not add the schedule to exercise tracker for tracking.
+     */
+    void removeSchedule(Schedule schedule);
+
+
+    /**
      * Returns the data in the regime book
      */
     ReadOnlyResourceBook<Schedule> getAllScheduleData();

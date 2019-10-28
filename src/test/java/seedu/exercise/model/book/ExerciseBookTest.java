@@ -3,11 +3,11 @@ package seedu.exercise.model.book;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_BASKETBALL;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.exercise.TypicalExercises.WALK;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.exceptions.DuplicateResourceException;
 import seedu.exercise.model.resource.Exercise;
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
 
 public class ExerciseBookTest {
 

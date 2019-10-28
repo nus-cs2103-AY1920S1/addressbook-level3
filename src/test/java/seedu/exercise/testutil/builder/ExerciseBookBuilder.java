@@ -1,4 +1,4 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.builder;
 
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;

@@ -119,6 +119,7 @@ public class LogicManager implements Logic {
         return model.getStatistic();
     }
 
+    @Override
     public Conflict getConflict() {
         requireMainAppState(State.IN_CONFLICT);
         return model.getConflict();

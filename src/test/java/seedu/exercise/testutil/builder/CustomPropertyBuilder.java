@@ -1,4 +1,4 @@
-package seedu.exercise.testutil;
+package seedu.exercise.testutil.builder;
 
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.property.CustomProperty;

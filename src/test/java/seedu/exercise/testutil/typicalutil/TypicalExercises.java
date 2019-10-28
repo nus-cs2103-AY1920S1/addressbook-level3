@@ -1,17 +1,17 @@
-package seedu.exercise.testutil.exercise;
+package seedu.exercise.testutil.typicalutil;
 
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_UNIT_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_UNIT_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_NAME_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_NAME_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_UNIT_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_UNIT_BASKETBALL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +19,7 @@ import java.util.List;
 
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
 
 /**
  * A utility class containing a list of {@code Exercise} objects to be used in tests.

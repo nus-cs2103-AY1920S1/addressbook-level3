@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.exercise.TypicalExercises.SWIM;
-import static seedu.exercise.testutil.exercise.TypicalExercises.WALK;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.SWIM;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +20,7 @@ import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
-import seedu.exercise.testutil.ExerciseBookBuilder;
+import seedu.exercise.testutil.builder.ExerciseBookBuilder;
 
 public class ModelManagerTest {
 

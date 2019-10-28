@@ -1,4 +1,4 @@
-package seedu.exercise.testutil.exercise;
+package seedu.exercise.testutil.builder;
 
 import java.util.HashSet;
 import java.util.Set;
