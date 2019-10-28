@@ -17,7 +17,7 @@ class JsonAdaptedMealPlan {
     private final String name;
 
     /**
-     * Constructs a {@code JsonAdaptedMealPlan} with the given recipe details.
+     * Constructs a {@code JsonAdaptedMealPlan} with the given meal plan details.
      */
     @JsonCreator
     public JsonAdaptedMealPlan(@JsonProperty("name") String name) {
@@ -32,9 +32,9 @@ class JsonAdaptedMealPlan {
     }
 
     /**
-     * Converts this Jackson-friendly adapted recipe object into the model's {@code MealPlan} object.
+     * Converts this Jackson-friendly adapted meal plan object into the model's {@code MealPlan} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted meal plan.
      */
     public MealPlan toModelType() throws IllegalValueException {
         if (name == null) {

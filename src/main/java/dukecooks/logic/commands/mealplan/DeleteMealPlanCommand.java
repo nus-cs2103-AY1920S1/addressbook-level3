@@ -48,7 +48,7 @@ public class DeleteMealPlanCommand extends DeleteCommand {
         model.deleteMealPlan(mealPlanToDelete);
 
         event = Event.getInstance();
-        event.set("mealplan", "all");
+        event.set("mealPlan", "all");
 
         return new CommandResult(String.format(MESSAGE_DELETE_MEALPLAN_SUCCESS, mealPlanToDelete));
     }

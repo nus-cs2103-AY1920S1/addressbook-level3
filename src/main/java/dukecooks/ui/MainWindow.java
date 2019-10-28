@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private DashboardListPanel dashboardListPanel;
     private RecipeListPanel recipeListPanel;
+    private MealPlanListPanel mealPlanListPanel;
     private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
     private ExerciseListPanel exerciseListPanel;
@@ -161,6 +162,7 @@ public class MainWindow extends UiPart<Stage> {
     void initializePanels() {
         dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
@@ -228,8 +230,13 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case "recipe":
             versatilePanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
-            featureMode.setText("Recipe");
+            featureMode.setText("Recipe Book: Recipes");
             recipeListPanel.handleSwitch(type);
+            break;
+        case "mealPlan":
+            versatilePanelPlaceholder.getChildren().add(mealPlanListPanel.getRoot());
+            featureMode.setText("Recipe Book: Meal Plans");
+            mealPlanListPanel.handleSwitch(type);
             break;
         case "health":
             versatilePanelPlaceholder.getChildren().add(recordListPanel.getRoot());

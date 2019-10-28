@@ -25,7 +25,7 @@ public class ListMealPlanCommand extends ListCommand {
         model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
 
         event = Event.getInstance();
-        event.set("mealplan", "all");
+        event.set("mealPlan", "all");
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

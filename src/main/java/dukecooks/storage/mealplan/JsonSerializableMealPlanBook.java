@@ -19,15 +19,15 @@ import dukecooks.model.mealplan.components.MealPlan;
 @JsonRootName(value = "exercisecatalogue")
 class JsonSerializableMealPlanBook {
 
-    public static final String MESSAGE_DUPLICATE_RECIPE = "MealPlans list contains duplicate recipe(s).";
+    public static final String MESSAGE_DUPLICATE_MEALPLAN = "Meal Plans list contains duplicate meal plan(s).";
 
     private final List<JsonAdaptedMealPlan> mealPlans = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableMealPlanBook} with the given recipes.
+     * Constructs a {@code JsonSerializableMealPlanBook} with the given meal plans.
      */
     @JsonCreator
-    public JsonSerializableMealPlanBook(@JsonProperty("recipes") List<JsonAdaptedMealPlan> mealPlans) {
+    public JsonSerializableMealPlanBook(@JsonProperty("mealPlans") List<JsonAdaptedMealPlan> mealPlans) {
         this.mealPlans.addAll(mealPlans);
     }
 
@@ -50,7 +50,7 @@ class JsonSerializableMealPlanBook {
         for (JsonAdaptedMealPlan jsonAdaptedMealPlan : mealPlans) {
             MealPlan mealPlan = jsonAdaptedMealPlan.toModelType();
             if (mealPlanBook.hasMealPlan(mealPlan)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_RECIPE);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEALPLAN);
             }
             mealPlanBook.addMealPlan(mealPlan);
         }

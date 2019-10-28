@@ -36,7 +36,7 @@ public class FindMealPlanCommand extends FindCommand {
         model.updateFilteredMealPlanList(predicate);
 
         event = Event.getInstance();
-        event.set("mealplan", "all");
+        event.set("mealPlan", "all");
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEALPLAN_LISTED_OVERVIEW, model.getFilteredMealPlanList().size()));

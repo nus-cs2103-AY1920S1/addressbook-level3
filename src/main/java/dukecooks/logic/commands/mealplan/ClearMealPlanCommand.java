@@ -25,7 +25,7 @@ public class ClearMealPlanCommand extends ClearCommand {
         model.setMealPlanBook(new MealPlanBook());
 
         event = Event.getInstance();
-        event.set("mealplan", "all");
+        event.set("mealPlan", "all");
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
