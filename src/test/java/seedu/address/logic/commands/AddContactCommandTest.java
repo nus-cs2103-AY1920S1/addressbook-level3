@@ -257,6 +257,16 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public void sortFilteredContactList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredContactList() {
+
+        }
+
+        @Override
         public void updateFilteredContactList(Predicate<Contact> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -267,6 +277,16 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public void sortFilteredClaimList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimList() {
+
+        }
+
+        @Override
         public void updateFilteredClaimList(Predicate<Claim> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -274,6 +294,16 @@ public class AddContactCommandTest {
         @Override
         public ObservableList<Income> getFilteredIncomeList() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredIncomeList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeList() {
+
         }
 
         @Override

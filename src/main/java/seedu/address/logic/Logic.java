@@ -40,7 +40,7 @@ public interface Logic {
     ReadOnlyFinSec getFinSec();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Contact> getFilteredPersonList();
+    ObservableList<Contact> getFilteredContactList();
 
     /** Returns an unmodifiable view of the filtered list of claims */
     ObservableList<Claim> getFilteredClaimList();

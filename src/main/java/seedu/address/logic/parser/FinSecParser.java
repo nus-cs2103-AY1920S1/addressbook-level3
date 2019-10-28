@@ -31,6 +31,8 @@ import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RejectClaimCommand;
 import seedu.address.logic.commands.ShortCutRequestCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SortReverseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commanditem.CommandItem;
 
@@ -96,6 +98,8 @@ public class FinSecParser {
         FinSecParser.commandList.put(HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
         FinSecParser.commandList.put(ApproveClaimCommand.COMMAND_WORD, ApproveClaimCommand.COMMAND_WORD);
         FinSecParser.commandList.put(BudgetCommand.COMMAND_WORD, BudgetCommand.COMMAND_WORD);
+        FinSecParser.commandList.put(SortCommand.COMMAND_WORD, SortCommand.COMMAND_WORD);
+        FinSecParser.commandList.put(SortReverseCommand.COMMAND_WORD, SortReverseCommand.COMMAND_WORD);
         FinSecParser.commandList.put(CheckCommand.COMMAND_WORD, CheckCommand.COMMAND_WORD);
         FinSecParser.commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
         FinSecParser.commandList.put(FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD);
@@ -167,6 +171,12 @@ public class FinSecParser {
 
             case CheckCommand.COMMAND_WORD:
                 return new CheckCommandParser().parse(arguments);
+
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand();
+
+            case SortReverseCommand.COMMAND_WORD:
+                return new SortReverseCommand();
 
             case ApproveClaimCommand.COMMAND_WORD:
                 return new ApproveClaimCommandParser().parse(arguments);

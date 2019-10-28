@@ -225,6 +225,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
 
+    /** Sorts Contact list */
+    void sortFilteredContactList();
+
+    /** Sorts contacts in reverse order */
+    void sortReverseFilteredContactList();
+
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -234,6 +240,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered claim list */
     ObservableList<Claim> getFilteredClaimList();
 
+    /** Sorts Claims list */
+    void sortFilteredClaimList();
+
+    /** Sorts claims in reverse order */
+    void sortReverseFilteredClaimList();
+
     /**
      * Updates the filter of the filtered claim list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -242,6 +254,12 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered income list */
     ObservableList<Income> getFilteredIncomeList();
+
+    /** Sorts Incomes list */
+    void sortFilteredIncomeList();
+
+    /** Sorts incomes in reverse order */
+    void sortReverseFilteredIncomeList();
 
     /**
      * Updates the filter of the filtered income list to filter by the given {@code predicate}.
