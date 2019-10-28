@@ -97,4 +97,8 @@ public class ProcessVenues {
             return currLocation;
         }
     }
+    public static void main(String[] args) {
+        ProcessVenues processVenues = new ProcessVenues().process();
+        processVenues.generateImages();
+    }
 }
