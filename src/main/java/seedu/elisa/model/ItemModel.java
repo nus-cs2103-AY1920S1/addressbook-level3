@@ -69,6 +69,8 @@ public interface ItemModel {
 
     public Item deleteItem(int index);
 
+    public Item deleteItem(Item item);
+
     public VisualizeList getVisualList();
 
     public void setVisualList(String listString) throws IllegalValueException;
