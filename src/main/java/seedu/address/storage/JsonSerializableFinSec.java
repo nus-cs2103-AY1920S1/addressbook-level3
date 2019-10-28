@@ -28,7 +28,7 @@ import seedu.address.model.income.Income;
 
 class JsonSerializableFinSec {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate contact(s).";
     public static final String MESSAGE_DUPLICATE_COMMAND = "Commands list contains duplicate command(s).";
 
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();

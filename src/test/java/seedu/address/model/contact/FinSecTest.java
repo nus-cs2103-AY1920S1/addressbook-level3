@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.contact;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalObjects.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ContactBuilder;
 
 public class FinSecTest {
@@ -22,6 +21,10 @@ public class FinSecTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Contact contact = new ContactBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> contact.getTags().remove(0));
+    }
+
+    @Test
+    public void isSameIncome() {
     }
 
     @Test

@@ -39,7 +39,7 @@ public class JsonAdaptedCommandItem {
     /**
      * Converts this Jackson-friendly adapted CommandItem object into the model's {@code CommandItem} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public CommandItem toModelType() throws IllegalValueException {
 

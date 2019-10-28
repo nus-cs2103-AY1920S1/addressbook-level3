@@ -46,7 +46,7 @@ public class EditContactCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited FinSec: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This contact already exists in the address book.";
 
@@ -85,8 +85,10 @@ public class EditContactCommand extends Command {
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_PERSONS);
 
         //update the suggestion list
-        AutocorrectSuggestion suggestionToEdit = new AutocorrectSuggestion(contactToEdit.getName().toString());
-        AutocorrectSuggestion editedSuggestion = new AutocorrectSuggestion(editedContact.getName().toString());
+        AutocorrectSuggestion suggestionToEdit = new AutocorrectSuggestion("add_claim n/"
+                + contactToEdit.getName().toString());
+        AutocorrectSuggestion editedSuggestion = new AutocorrectSuggestion("add_claim n/"
+                + editedContact.getName().toString());
         model.setAutocorrectSuggestion(suggestionToEdit, editedSuggestion);
         SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
 

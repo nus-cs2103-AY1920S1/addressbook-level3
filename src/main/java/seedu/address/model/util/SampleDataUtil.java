@@ -28,22 +28,7 @@ public class SampleDataUtil {
 
     public static AutocorrectSuggestion[] getSampleSuggestions() {
         return new AutocorrectSuggestion[] {
-            new AutocorrectSuggestion("goto contacts"),
-            new AutocorrectSuggestion("goto incomes"),
-            new AutocorrectSuggestion("goto claims"),
-            new AutocorrectSuggestion("add_contact"),
-            new AutocorrectSuggestion("add_income"),
-            new AutocorrectSuggestion("add_claim"),
-            new AutocorrectSuggestion("exit"),
-            new AutocorrectSuggestion("help"),
-            new AutocorrectSuggestion("edit_contact"),
-            new AutocorrectSuggestion("edit_claim"),
-            new AutocorrectSuggestion("edit_income"),
-            new AutocorrectSuggestion("delete_contact"),
-            new AutocorrectSuggestion("delete_claim"),
-            new AutocorrectSuggestion("delete_income"),
-            new AutocorrectSuggestion("n/john doe")
-
+            new AutocorrectSuggestion("add_claim n/john doe")
         };
     }
 

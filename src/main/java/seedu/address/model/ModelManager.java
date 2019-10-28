@@ -19,6 +19,7 @@ import seedu.address.model.claim.Claim;
 import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
+import seedu.address.storage.SuggestionsStorage;
 import seedu.address.ui.UiManager;
 
 /**
@@ -51,6 +52,7 @@ public class ModelManager implements Model {
         filteredClaims = new FilteredList<>(this.finSec.getClaimList());
         filteredIncomes = new FilteredList<>(this.finSec.getIncomeList());
         filteredSuggestions = new FilteredList<>(this.finSec.getAutocorrectSuggestionList());
+        SuggestionsStorage.setSuggestionList(filteredSuggestions);
         filteredCommands = new FilteredList<>(this.finSec.getCommandsList());
         savedCommand = new Stack<String>();
     }
