@@ -10,7 +10,7 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
 public class TfAnswer implements Answer {
 
     public static final String MESSAGE_CONSTRAINTS = "Answer can only be True or False";
-    public static final String VALIDATION_REGEX = "(?i)(true | false)";
+    public static final String VALIDATION_REGEX = "(?i)(true|false)";
 
     public final String answer;
     /**

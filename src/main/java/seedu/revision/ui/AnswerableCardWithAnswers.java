@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.answer.Answer;
 
 /**
@@ -64,6 +65,8 @@ public class AnswerableCardWithAnswers extends UiPart<Region> {
         this.answerable = answerable;
         if (answerable instanceof Mcq) {
             questionType.setText("Question type: MCQ");
+        } else if (answerable instanceof TrueFalse) {
+            questionType.setText("Question type: T/F");
         } else {
             questionType.setText("Question type: SAQ");
         }

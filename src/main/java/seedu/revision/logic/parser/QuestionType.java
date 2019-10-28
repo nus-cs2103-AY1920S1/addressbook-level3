@@ -9,7 +9,7 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
 public class QuestionType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Question type should only be mcq or saq";
+            "Question type should only be mcq, tf, or saq";
     /*
      * The first character of the question type must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -33,16 +33,7 @@ public class QuestionType {
      * Returns true if a given string is a valid question.
      */
     public boolean isValidQuestionType(String test) {
-        switch(test) {
-        case "tf":
-            // fall through
-        case "mcq":
-        //fallthrough
-        case "saq":
             return test.matches(VALIDATION_REGEX);
-        default:
-            return false;
-        }
     }
 
     public String getType() {

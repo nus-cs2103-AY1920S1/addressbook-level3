@@ -5,6 +5,7 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
@@ -41,12 +42,14 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed answerable list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + " " + PREFIX_QUESTION_TYPE + " (compulsory, can only be mcq, tf, or saq) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_CATEGORY + "ADDRESS] "
             + "[" + PREFIX_CATEGORY + "category]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DIFFICULTY + "91234567 ";
+            + PREFIX_QUESTION_TYPE + "mcq"
+            + PREFIX_DIFFICULTY + "100 ";
 
     public static final String MESSAGE_EDIT_ANSWERABLE_SUCCESS = "Edited Answerable: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

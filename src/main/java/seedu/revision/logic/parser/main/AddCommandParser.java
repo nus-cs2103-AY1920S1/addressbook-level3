@@ -72,8 +72,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             answerable = new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
             return new AddCommand(answerable);
         case "tf":
-            answerable = new TrueFalse(question, correctAnswerList, wrongAnswerList,
-                                difficulty, categories);
+            answerable = new TrueFalse(question, correctAnswerList, difficulty, categories);
             return new AddCommand(answerable);
         case "saq":
             answerable = new Saq(question, correctAnswerList, difficulty, categories);
@@ -89,33 +88,36 @@ public class AddCommandParser implements Parser<AddCommand> {
         int numCorrect = argMultimap.getAllValues(PREFIX_CORRECT).size();
         int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
 
-        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG, PREFIX_CATEGORY,
+        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
                 PREFIX_DIFFICULTY) && argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
 
-        if (type.equalsIgnoreCase("mcq")) {
-            if (numCorrect == 1 && numWrong == 3) {
+            switch (type.toLowerCase()) {
+            case "mcq":
+                if (numCorrect == 1 && numWrong == 3 && arePrefixesPresent(argMultimap, PREFIX_WRONG)) {
+                    this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
+                    this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG), type);
+                    return true;
+                } else {
+                    throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
+                }
+            case "tf":
+                if (numCorrect == 1 || numWrong == 0) {
+                    this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
+                    return true;
+                } else {
+                    throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
+                }
+
+            case "saq":
                 this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
-                this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG), type);
                 return true;
-            } else {
-                throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
+            default:
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
-        } else if (type.equalsIgnoreCase("tf")) {
-            if (numCorrect == 1 || numWrong == 1) {
-                this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
-                this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
-                return true;
-            } else {
-                throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
-            }
-        } else if (type.equalsIgnoreCase("saq")) {
-            this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
-            return true;
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+
     }
 
 

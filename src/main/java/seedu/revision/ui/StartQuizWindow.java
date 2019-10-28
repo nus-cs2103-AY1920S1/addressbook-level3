@@ -19,6 +19,11 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.TrueFalse;
+import seedu.revision.ui.answers.AnswersGridPane;
+import seedu.revision.ui.answers.McqAnswersGridPane;
+import seedu.revision.ui.answers.TfAnswersGridPane;
 
 
 /**
@@ -26,6 +31,7 @@ import seedu.revision.model.answerable.Answerable;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class StartQuizWindow extends Window {
+
 
     public MainWindow mainWindow;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -65,8 +71,14 @@ public class StartQuizWindow extends Window {
         answerableIterator = filteredAnswerableList.iterator();
         currentAnswerable = answerableIterator.next();
 
+        if (currentAnswerable instanceof Mcq) {
+            answersGridPane = new McqAnswersGridPane(AnswersGridPane.MCQ_GRID_PANE_FXML, currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            answersGridPane = new TfAnswersGridPane(AnswersGridPane.TF_GRID_PANE_FXML, currentAnswerable);
+        } else {
 
-        answersGridPane = new AnswersGridPane(currentAnswerable);
+        }
+
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         questionDisplay = new ResultDisplay();
@@ -174,6 +186,7 @@ public class StartQuizWindow extends Window {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
 
             currentAnswerable = answerableIterator.next();
             currentProgressIndex.set(getCurrentProgressIndex() + 1);

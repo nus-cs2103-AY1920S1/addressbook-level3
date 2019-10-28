@@ -40,6 +40,7 @@ public class MainLogicManager implements MainLogic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
+
         //Parse user input from String to a Command
         Command command = mainParser.parseCommand(commandText);
         //Executes the Command and stores the result

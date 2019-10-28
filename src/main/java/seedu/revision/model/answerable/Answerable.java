@@ -21,7 +21,6 @@ public abstract class Answerable {
 
     protected final Question question;
     protected final Difficulty difficulty;
-
     protected final ArrayList<Answer> correctAnswerList;
     protected final ArrayList<Answer> wrongAnswerList;
     protected final ArrayList<Answer> combinedAnswerList;
