@@ -1,7 +1,5 @@
 package seedu.ifridge.model.food;
 
-import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
 
 

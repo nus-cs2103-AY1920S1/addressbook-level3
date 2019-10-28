@@ -1,7 +1,10 @@
 package seedu.ifridge.logic.parser.shoppinglist;
 
+import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.stream.Stream;
+
 import seedu.ifridge.commons.core.index.Index;
-import seedu.ifridge.logic.commands.shoppinglist.AddShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.AddTemplateShoppingCommand;
 import seedu.ifridge.logic.parser.ArgumentMultimap;
 import seedu.ifridge.logic.parser.ArgumentTokenizer;
@@ -9,13 +12,8 @@ import seedu.ifridge.logic.parser.Parser;
 import seedu.ifridge.logic.parser.ParserUtil;
 import seedu.ifridge.logic.parser.Prefix;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
-import seedu.ifridge.model.food.Amount;
-import seedu.ifridge.model.food.Name;
-import seedu.ifridge.model.food.ShoppingItem;
 
-import java.util.stream.Stream;
 
-import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new AddCommand object

@@ -1,6 +1,11 @@
 package seedu.ifridge.model.food;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.ifridge.model.tag.Tag;
 
@@ -65,15 +70,6 @@ public class GroceryItem extends Food {
             return false;
         }
         return true;
-    }
-
-    public boolean isSameName(Food other) {
-        if (!(other.getName().equals(this.getName()))) {
-            return false;
-        }
-        else {
-            return true;
-        }
     }
 
     @Override

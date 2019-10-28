@@ -130,6 +130,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ShoppingItem getShoppingItem(ShoppingItem shoppingItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyGroceryList getGroceryList() {
             throw new AssertionError("This method should not be called.");
         }

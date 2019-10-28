@@ -12,7 +12,12 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
-import seedu.ifridge.model.food.*;
+import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Food;
+import seedu.ifridge.model.food.GroceryItem;
+import seedu.ifridge.model.food.Name;
+import seedu.ifridge.model.food.ShoppingItem;
+import seedu.ifridge.model.food.UniqueTemplateItems;
 
 
 /**
@@ -69,6 +74,11 @@ public class AddTemplateShoppingCommand extends Command {
                 && templateIndex.equals(((AddTemplateShoppingCommand) other).templateIndex));
     }
 
+    /**
+     * Update all items into the shopping list. If an item with the same name already exists,
+     * the items should be updated. Otherwise, a new item is inserted into the list.
+     * @param model model to be edited
+     */
     public void updateShoppingList(Model model) {
         requireNonNull(model);
         List<ShoppingItem> shoppingList = model.getFilteredShoppingList();
@@ -77,8 +87,7 @@ public class AddTemplateShoppingCommand extends Command {
             ShoppingItem toAdd = itemsToAdd.get(i);
             if (model.hasShoppingItem(toAdd)) {
                 replacePreviousItem(model.getShoppingItem(toAdd), toAdd, model);
-            }
-            else {
+            } else {
                 model.addShoppingItem(toAdd);
             }
         }
@@ -132,7 +141,6 @@ public class AddTemplateShoppingCommand extends Command {
         Amount reqAmt = toCheck.getAmount();
         for (int i = 0; i < groceryList.size(); i++) {
             GroceryItem g = groceryList.get(i);
-            /**Add functionality to be non-case sensitive*/
             if (g.isSameName(toCheck) && !g.hasExpired()) {
                 reqAmt = reqAmt.reduceBy(g.getAmount());
             }

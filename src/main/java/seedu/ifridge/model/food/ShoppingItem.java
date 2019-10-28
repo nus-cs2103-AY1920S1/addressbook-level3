@@ -40,15 +40,6 @@ public class ShoppingItem extends Food {
         return new ShoppingItem(this.getName(), this.getAmount(), this.isBought(), urgent);
     }
 
-    public boolean isSameName(ShoppingItem other) {
-        if (!(other.getName().equals(this.getName()))) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
     public GroceryItem getBoughtItem(Amount amount, ExpiryDate expiryDate) {
         return new GroceryItem(this.getName(), amount, expiryDate, new HashSet<>());
     }

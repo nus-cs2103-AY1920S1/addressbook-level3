@@ -53,6 +53,22 @@ public class Food {
                 && otherFood.getName().equals(getName());
     }
 
+    /**
+     * Checks whether the item has the same name as the other.
+     * @param other food item to be checked against
+     * @return
+     */
+    public boolean isSameName(Food other) {
+        String thisName = this.getName().toString().toUpperCase();
+        String otherName = other.getName().toString().toUpperCase();
+
+        if (!thisName.equals(otherName)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

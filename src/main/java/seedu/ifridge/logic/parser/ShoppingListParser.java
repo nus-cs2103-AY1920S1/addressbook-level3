@@ -8,9 +8,19 @@ import java.util.regex.Pattern;
 
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.HelpCommand;
-import seedu.ifridge.logic.commands.shoppinglist.*;
+import seedu.ifridge.logic.commands.shoppinglist.AddShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.AddTemplateShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.BoughtShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.DeleteShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.EditShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.ListShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.MergeShoppingCommand;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
-import seedu.ifridge.logic.parser.shoppinglist.*;
+import seedu.ifridge.logic.parser.shoppinglist.AddShoppingCommandParser;
+import seedu.ifridge.logic.parser.shoppinglist.AddTemplateShoppingCommandParser;
+import seedu.ifridge.logic.parser.shoppinglist.BoughtShoppingCommandParser;
+import seedu.ifridge.logic.parser.shoppinglist.DeleteShoppingCommandParser;
+import seedu.ifridge.logic.parser.shoppinglist.EditShoppingCommandParser;
 
 /**
  * Parses user input.
