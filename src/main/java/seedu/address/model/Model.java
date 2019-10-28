@@ -48,11 +48,7 @@ public interface Model {
                 return false;
             }
             LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
-            if (taskDateTime.compareTo(now) < 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return !task.getStatus() && taskDateTime.isBefore(now);
         }
     };
 

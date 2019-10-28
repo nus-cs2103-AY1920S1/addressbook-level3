@@ -48,7 +48,6 @@ public class DoneTaskCommand extends Command {
         }
 
         model.markTaskAsDone(taskDone);
-        //model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskDone));
     }
 
