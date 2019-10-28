@@ -21,7 +21,7 @@ public class ApiQueryFactory {
         QueryResult queryResult;
         queryResult = new CacheApiQuery(url, cachePath).execute();
         if (queryResult.getResponseCode() != 200) {
-            queryResult = new ApiQuery(url, cachePath).execute();
+            //queryResult = new ApiQuery(url, cachePath).execute();
         }
 
         return queryResult;

@@ -27,6 +27,7 @@ public class GmapsApiStub extends GmapsApi {
         loadStubResponse();
     }
 
+    /*
     @Override
     public JSONObject getLocation(String locationName) throws ConnectException {
         if (validLocationList.contains(locationName)) {
@@ -34,7 +35,7 @@ public class GmapsApiStub extends GmapsApi {
         } else {
             return zeroResultsApiResponse;
         }
-    }
+    }*/
 
     /**
      * This method is used to load the stub api response

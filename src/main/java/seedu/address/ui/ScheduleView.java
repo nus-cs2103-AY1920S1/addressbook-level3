@@ -189,8 +189,12 @@ public class ScheduleView extends UiPart<Region> {
     }
 
     private int getTimeDifference(int startTime, int endTime) {
-        int hours = (endTime - startTime) / 100;
-        int minutes = (endTime - startTime) % 100;
+        int startTimeHours = startTime / 100;
+        int endTimeHours = endTime / 100;
+        int hours = endTimeHours - startTimeHours;
+        int startTimeMinutes = startTime % 100;
+        int endTimeMinutes = endTime % 100;
+        int minutes = endTimeMinutes - startTimeMinutes;
         return hours * 60 + minutes;
     }
 
@@ -212,6 +216,7 @@ public class ScheduleView extends UiPart<Region> {
             Region busyTimeslot = new Block(getTimeDifference(startTime, endTime)).makeColouredTimeslot(color);
             if (originalTimeStamp != startTime) {
                 int timeUntilBusy = getTimeDifference(originalTimeStamp, startTime);
+                System.out.println("start: " + originalTimeStamp + " / end: " + startTime + " / " + timeUntilBusy);
                 Region freeTimeslot = new Block(timeUntilBusy).makeEmptyTimeslot();
                 timeslotContainer.getChildren().add(freeTimeslot);
             }

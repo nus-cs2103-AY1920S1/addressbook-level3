@@ -585,7 +585,8 @@ public class ModelManager implements Model {
 
     @Override
     public Hashtable<String, Object> getClosestLocationData(ArrayList<String> locationNameList) {
-        return gmapsModelManager.closestLocationData(locationNameList);
+        //return gmapsModelManager.closestLocationData(locationNameList);
+        return null;
     }
 
     @Override
