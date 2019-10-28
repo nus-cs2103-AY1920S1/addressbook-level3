@@ -30,7 +30,7 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the AddressBookModel, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the AddressBookModel, UndoCommand and HistoryCommand) and unit tests for
  * EditCommand.
  */
 public class EditCommandTest {
