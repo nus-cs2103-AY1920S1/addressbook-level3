@@ -11,11 +11,11 @@
 <?import javafx.stage.Stage?>
 
 
-<fx:root maxHeight="520.0" maxWidth="1500.0" minHeight="300.0" minWidth="600.0" title="FlashMind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1000.0" maxWidth="1500.0" minHeight="800.0" minWidth="1500.0" title="FlashMind" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <scene>
         <Scene>
-         <HBox maxHeight="700.0" maxWidth="700.0" minHeight="420.0" minWidth="400.0" prefHeight="683.0" prefWidth="400.0">
+         <HBox maxHeight="1.7976931348623157E308" maxWidth="700.0" minHeight="420.0" minWidth="950.0" prefHeight="683.0" prefWidth="900.0">
             <children>
                <VBox>
                   <children>
@@ -34,13 +34,13 @@
                        </menus>
                      </MenuBar>
                      <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" />
-                     <StackPane fx:id="resultDisplayPlaceholder" minHeight="220.0" minWidth="200.0" styleClass="pane-with-border" />
-                     <StackPane fx:id="statisticsDisplayPlaceholder" prefHeight="150.0" prefWidth="200.0" styleClass="pane-with-border" />
+                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="400" minHeight="250.0" maxWidth="Infinity" minWidth="950.0" styleClass="pane-with-border" />
+                     <StackPane fx:id="statisticsDisplayPlaceholder" maxHeight="1.7976931348623157E308" minHeight="443.0" maxWidth="Infinity" minWidth="950.0" styleClass="pane-with-border" />
                   </children>
                </VBox>
-               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="800.0" minWidth="500.0" styleClass="pane-with-border-2">
+               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="1000.0" minWidth="550.0" styleClass="pane-with-border-2">
                   <children>
-                     <StackPane fx:id="flashcardListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="503.0" minWidth="500.0" prefHeight="503.0" prefWidth="203.0" styleClass="pane-with-border-2" />
+                     <StackPane fx:id="flashcardListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1000" minHeight="1000.0" minWidth="550.0" prefHeight="503.0" styleClass="pane-with-border-2" />
                   </children>
                </VBox>
             </children>
