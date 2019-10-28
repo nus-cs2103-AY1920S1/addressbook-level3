@@ -2,15 +2,12 @@ package seedu.deliverymans.model.deliveryman;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
-import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
 import seedu.deliverymans.model.deliveryman.exceptions.DeliverymanNotFoundException;
 import seedu.deliverymans.model.deliveryman.exceptions.DuplicateDeliverymanException;
 

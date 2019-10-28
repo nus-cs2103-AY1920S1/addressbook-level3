@@ -3,7 +3,6 @@ package seedu.deliverymans.model.deliveryman;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
-import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.isValidStatus;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,6 +69,10 @@ public class StatusManager {
         deliveringMen.add(deliveryman);
     }
 
+    /**
+     * Removes a deliveryman from the relevant status list.
+     * Guarantees: Deliveryman exists in one of the 3 status lists.
+     */
     public void removeDeliveryman(Deliveryman target) {
         requireNonNull(target);
 
