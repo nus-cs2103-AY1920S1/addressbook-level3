@@ -7,6 +7,9 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.group.GroupRemark;
 import seedu.address.model.group.exceptions.DuplicateGroupException;
 
+/**
+ * Sample GroupList.
+ */
 public class SampleGroupList {
 
     public static final GroupDescriptor GROUP1 = new GroupDescriptor(
@@ -21,8 +24,11 @@ public class SampleGroupList {
             new GroupRemark("Friends")
     );
 
+    /**
+     * Generates a sample GroupList.
+     */
     public static GroupList generateSampleGroupList() {
-        try{
+        try {
             GroupList groupList = new GroupList();
             groupList.addGroup(GROUP1);
             groupList.addGroup(GROUP2);

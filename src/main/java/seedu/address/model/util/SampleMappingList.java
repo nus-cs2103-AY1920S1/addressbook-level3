@@ -8,10 +8,16 @@ import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+/**
+ * Sample MappingList.
+ */
 public class SampleMappingList {
 
+    /**
+     * Generates a sample MappingList.
+     */
     public static PersonToGroupMappingList generateMappingList(PersonList personList, GroupList groupList) {
-        try{
+        try {
             PersonToGroupMappingList mappingList = new PersonToGroupMappingList();
 
             mappingList.addPersonToGroupMapping(

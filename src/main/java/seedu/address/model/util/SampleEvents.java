@@ -1,18 +1,21 @@
 package seedu.address.model.util;
 
-import seedu.address.model.person.schedule.Event;
-import seedu.address.model.person.schedule.Timeslot;
-import seedu.address.model.person.schedule.Venue;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.person.schedule.Event;
+import seedu.address.model.person.schedule.Timeslot;
+import seedu.address.model.person.schedule.Venue;
+
+/**
+ * Sample Events.
+ */
 public class SampleEvents {
 
-    public static Event LUNCH1 = new Event(
+    public static final Event LUNCH1 = new Event(
             "Lunch 1",
             new ArrayList<>(List.of(
                     new Timeslot(
@@ -38,7 +41,7 @@ public class SampleEvents {
             ))
     );
 
-    public static Event LUNCH2 = new Event(
+    public static final Event LUNCH2 = new Event(
             "Lunch 2",
             new ArrayList<>(List.of(
                     new Timeslot(
@@ -64,7 +67,7 @@ public class SampleEvents {
             ))
     );
 
-    public static Event LECTURE1 = new Event(
+    public static final Event LECTURE1 = new Event(
             "CS2103 lecture",
             new ArrayList<>(List.of(
                     new Timeslot(
@@ -82,7 +85,7 @@ public class SampleEvents {
             ))
     );
 
-    public static Event LECTURE2 = new Event(
+    public static final Event LECTURE2 = new Event(
             "MA1521 lecture",
             new ArrayList<>(List.of(
                     new Timeslot(
@@ -104,7 +107,7 @@ public class SampleEvents {
             ))
     );
 
-    public static Event LECTURE3 = new Event(
+    public static final Event LECTURE3 = new Event(
             "LSM1301 lecture",
             new ArrayList<>(List.of(
                     new Timeslot(
@@ -126,7 +129,7 @@ public class SampleEvents {
             ))
     );
 
-    public static Event LECTURE4 = new Event(
+    public static final Event LECTURE4 = new Event(
             "GEQ1000 lecture",
             new ArrayList<>(List.of(
                     new Timeslot(
@@ -148,7 +151,7 @@ public class SampleEvents {
             ))
     );
 
-    public static Event LECTURE5 = new Event(
+    public static final Event LECTURE5 = new Event(
             "CS2101 lecture",
             new ArrayList<>(List.of(
                     new Timeslot(

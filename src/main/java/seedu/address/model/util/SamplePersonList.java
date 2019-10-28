@@ -1,5 +1,17 @@
 package seedu.address.model.util;
 
+import static seedu.address.model.util.SampleEvents.LECTURE1;
+import static seedu.address.model.util.SampleEvents.LECTURE2;
+import static seedu.address.model.util.SampleEvents.LECTURE3;
+import static seedu.address.model.util.SampleEvents.LECTURE4;
+import static seedu.address.model.util.SampleEvents.LECTURE5;
+import static seedu.address.model.util.SampleEvents.LUNCH1;
+import static seedu.address.model.util.SampleEvents.LUNCH2;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -12,18 +24,9 @@ import seedu.address.model.person.User;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.tag.Tag;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static seedu.address.model.util.SampleEvents.LECTURE1;
-import static seedu.address.model.util.SampleEvents.LECTURE2;
-import static seedu.address.model.util.SampleEvents.LECTURE3;
-import static seedu.address.model.util.SampleEvents.LECTURE4;
-import static seedu.address.model.util.SampleEvents.LECTURE5;
-import static seedu.address.model.util.SampleEvents.LUNCH1;
-import static seedu.address.model.util.SampleEvents.LUNCH2;
-
+/**
+ * Sample PersonList.
+ */
 public class SamplePersonList {
 
     public static final PersonDescriptor ALICE = new PersonDescriptor(
@@ -71,9 +74,12 @@ public class SamplePersonList {
             getTagSet("Friends")
     );
 
+    /**
+     * Generates a sample PersonList.
+     */
     public static PersonList generateSamplePersonList() {
 
-        try{
+        try {
             User user = new User(ALICE);
             user.addEvent(LUNCH1);
             user.addEvent(LECTURE1);
