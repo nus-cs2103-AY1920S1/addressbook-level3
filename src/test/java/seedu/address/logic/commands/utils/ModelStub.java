@@ -1,11 +1,13 @@
 package seedu.address.logic.commands.utils;
 
+import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.OmniPanelTab;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
@@ -217,12 +219,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addAppointment(Event event) {
+    public void scheduleAppointment(Event appointment) throws CommandException {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setAppointment(Event target, Event editedEvent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ListIterator<Event> getAppointmentsInConflict(Event toCheck) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public int getNumberOfAppointmentsInConflict(Event toCheck) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -272,12 +284,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addDutyShift(Event event) {
+    public void scheduleDutyShift(Event dutyShift) throws CommandException {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setDutyShift(Event target, Event editedEvent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ListIterator<Event> getDutyShiftInConflict(Event toCheck) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public int getNumberOfDutyShiftInConflict(Event toCheck) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -293,7 +315,6 @@ public class ModelStub implements Model {
 
     @Override
     public void setTabListing(OmniPanelTab tab) {
-        throw new AssertionError("This method should not be called.");
     }
 
     @Override

@@ -22,7 +22,7 @@ import seedu.address.model.common.UniqueElementList;
 public class UniqueEventList extends UniqueElementList<Event> {
 
     /**
-     * Returns a list of {@code Event} whose timing is in conflict with the given {@code event}.
+     * Returns a ListIterator of {@code Event} whose timing is in conflict with the given {@code event}.
      */
     public ListIterator<Event> getEventsInConflict(Event toCheck) {
         requireNonNull(toCheck);
@@ -48,7 +48,7 @@ public class UniqueEventList extends UniqueElementList<Event> {
     }
 
     /**
-     * Returns a list of {@code Event} whose timing is in conflict with the given {@code event}.
+     * Returns the number of {@code Event} whose timing is in conflict with the given {@code event}.
      */
     public int countNumberOfEventsInConflict(Event toCheck) {
         requireNonNull(toCheck);
@@ -60,7 +60,7 @@ public class UniqueEventList extends UniqueElementList<Event> {
 
     /**
      * Returns true if the number of unique events which timings are in conflict
-     * is lesser or equal to {@code maxNumberOfConcurrentEvents} and the events in conflict does not
+     * is lesser than {@code maxNumberOfConcurrentEvents} and the events in conflict does not
      * involve the same person given in {@code event}.
      */
     public boolean allowedToSchedule(Event toCheck, int maxNumberOfConcurrentEvents) {

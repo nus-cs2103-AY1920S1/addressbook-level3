@@ -1,6 +1,7 @@
 //@@author SakuraBlossom
 package seedu.address.model;
 
+import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -8,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.OmniPanelTab;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -242,17 +244,30 @@ public interface Model extends ReferenceIdResolver {
     void deleteAppointment(Event event);
 
     /**
-     * Adds the given event.
-     * {@code person} must not already exist in the schedule.
+     * Schedules a given {@code appointment}.
+     *
+     * @throws CommandException if the number of unique events which timings are in conflict
+     * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
+     * involves the same patient given in {@code appointment}.
      */
-    void addAppointment(Event event);
+    void scheduleAppointment(Event appointment) throws CommandException;
 
     /**
      * Replaces the given event {@code target} with {@code editedEvent}.
      * {@code target} must exist in the schedule.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
-    void setAppointment(Event target, Event editedEvent);
+    void setAppointment(Event target, Event editedEvent) throws CommandException;
+
+    /**
+     * Returns a ListIterator of appointments whose timing is in conflict with the given {@code event}.
+     */
+    ListIterator<Event> getAppointmentsInConflict(Event toCheck);
+
+    /**
+     * Returns the number of appointments whose timing is in conflict with the given {@code event}.
+     */
+    int getNumberOfAppointmentsInConflict(Event toCheck);
 
 
     //=========== Filtered Appointment List Accessors ==============================================================
@@ -288,31 +303,43 @@ public interface Model extends ReferenceIdResolver {
     /**
      * Returns true if an appointment with the same identity as {@code event} exists in the schedule.
      */
-    boolean hasDutyShift(Event event);
+    boolean hasDutyShift(Event dutyShift);
 
     /**
      * Returns true if an exact {@code event} exists in the schedule.
      */
-    boolean hasExactDutyShift(Event event);
+    boolean hasExactDutyShift(Event dutyShift);
 
     /**
      * Deletes the given event.
      * The event must exist in the schedule.
      */
-    void deleteDutyShift(Event event);
+    void deleteDutyShift(Event dutyShift) throws CommandException;
 
     /**
-     * Adds the given event.
-     * {@code person} must not already exist in the schedule.
+     * Schedules a given {@code dutyShift}.
+     *
+     * @throws CommandException if the dutyShifts in conflict
+     * involves the same staff member given in {@code dutyShift}.
      */
-    void addDutyShift(Event event);
+    void scheduleDutyShift(Event dutyShift) throws CommandException;
 
     /**
      * Replaces the given event {@code target} with {@code editedEvent}.
      * {@code target} must exist in the schedule.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
-    void setDutyShift(Event target, Event editedEvent);
+    void setDutyShift(Event target, Event editedEvent) throws CommandException;
+
+    /**
+     * Returns a ListIterator of duty shifts whose timing is in conflict with the given {@code event}.
+     */
+    ListIterator<Event> getDutyShiftInConflict(Event toCheck);
+
+    /**
+     * Returns the number of duty shifts whose timing is in conflict with the given {@code event}.
+     */
+    int getNumberOfDutyShiftInConflict(Event toCheck);
 
 
     //=========== Filtered DutyShift List Accessors ==============================================================

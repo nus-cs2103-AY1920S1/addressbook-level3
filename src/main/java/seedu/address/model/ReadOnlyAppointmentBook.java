@@ -1,6 +1,7 @@
 //@@author SakuraBlossom
 package seedu.address.model;
 
+import java.util.ListIterator;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.events.Event;
@@ -15,6 +16,11 @@ public interface ReadOnlyAppointmentBook {
      * This list will not contain any duplicate events.
      */
     ObservableList<Event> getEventList();
+
+    /**
+     * Returns a ListIterator of {@code Event} whose timing is in conflict with the given {@code event}.
+     */
+    public ListIterator<Event> getEventsInConflict(Event toCheck);
 
     /**
      * Returns the number of unique events which timings are in conflict

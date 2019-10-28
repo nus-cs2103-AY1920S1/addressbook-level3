@@ -20,7 +20,7 @@ class JsonAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
-    private final String patientId;
+    private final String id;
     private final String startTime;
     private final String endTime;
     private final String status;
@@ -29,9 +29,9 @@ class JsonAdaptedEvent {
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
      */
     @JsonCreator
-    public JsonAdaptedEvent(@JsonProperty("patientId") String patientId, @JsonProperty("start") String start,
+    public JsonAdaptedEvent(@JsonProperty("id") String id, @JsonProperty("start") String start,
                             @JsonProperty("end") String end, @JsonProperty("status") String status) {
-        this.patientId = patientId;
+        this.id = id;
         this.startTime = start;
         this.endTime = end;
         this.status = status;
@@ -42,7 +42,7 @@ class JsonAdaptedEvent {
      */
     public JsonAdaptedEvent(Event source) {
 
-        patientId = source.getPersonId().toString();
+        id = source.getPersonId().toString();
         startTime = source.getEventTiming().getStartTime().toString();
         endTime = source.getEventTiming().getEndTime().toString();
         status = source.getStatus().toString();
@@ -55,11 +55,11 @@ class JsonAdaptedEvent {
      */
     public Event toModelType() throws IllegalValueException {
 
-        if (patientId == null) {
+        if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     PatientReferenceId.class.getSimpleName()));
         }
-        final PersonReferenceId patientReferenceId = ParserUtil.parsePatientReferenceId(patientId);
+        final PersonReferenceId patientReferenceId = ParserUtil.parsePatientReferenceId(id);
 
         if (startTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Start Date"));

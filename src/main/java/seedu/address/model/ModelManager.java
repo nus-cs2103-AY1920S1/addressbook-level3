@@ -4,6 +4,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -14,8 +15,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.events.Event;
+import seedu.address.model.exceptions.EntryNotFoundException;
 import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -29,6 +32,18 @@ import seedu.address.model.userprefs.UserPrefs;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    public static final String MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF =
+            "Scheduling staff doctors for appointments is current unsupported.";
+    public static final String MESSAGE_NOT_ENOUGH_STAFF =
+            "Insufficient staff doctor(s) on duty from %1$s.\n"
+            + "All %2$d staff doctor(s) have been assigned an appointment.";
+    public static final String MESSAGE_NOT_OVERLAPPING_DUTYSHIFT =
+            "Staff doctor already has a duty shift from %1$s.";
+    public static final String MESSAGE_NOT_OVERLAPPING_APPOINTMENT =
+            "Patient already has an appointment from %1$s.";
+    public static final String MESSAGE_SCHEDULE_DUTYSHIFT_FOR_PATIENTS =
+            "Scheduling patients for duty shifts is not allowed.";
 
     private final UserPrefs userPrefs;
 
@@ -348,33 +363,76 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasAppointment(Event event) {
-        requireNonNull(event);
         return appointmentBook.hasEvent(event);
     }
 
     @Override
     public boolean hasExactAppointment(Event event) {
-        requireNonNull(event);
         return appointmentBook.hasExactEvent(event);
     }
 
     @Override
     public void deleteAppointment(Event event) {
         appointmentBook.removeEvent(event);
+    }
+
+    private void scheduleAppointment(Event appointment, Event ignoreEventCase) throws CommandException {
+        int numOfAvailableStaff = getNumberOfDutyShiftInConflict(appointment);
+        ListIterator<Event> itr = getAppointmentsInConflict(appointment);
+
+        //TODO: edge case, scheduling a staff member
+        if (hasStaff(appointment.getPersonId())) {
+            throw new CommandException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
+        }
+
+        int countNumberOfConcurrentAppointments = 0;
+        while (itr.hasNext()) {
+            Event apt = itr.next();
+            countNumberOfConcurrentAppointments++;
+            if (appointment.getPersonId().isSameAs(apt.getPersonId())
+                && !appointment.equals(ignoreEventCase)) {
+                throw new CommandException(
+                        String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT,
+                                apt.getEventTiming().toString()));
+
+            } else if (numOfAvailableStaff <= countNumberOfConcurrentAppointments) {
+                throw new CommandException(
+                        String.format(MESSAGE_NOT_ENOUGH_STAFF,
+                                appointment.getEventTiming().toString(),
+                                numOfAvailableStaff));
+            }
+        }
+
+        appointmentBook.addEvent(appointment);
+
+        //TODO: Display events only around appointment timing.
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void addAppointment(Event event) {
-        appointmentBook.addEvent(event);
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
+    public void scheduleAppointment(Event appointment) throws CommandException {
+        scheduleAppointment(appointment, null);
     }
 
     @Override
-    public void setAppointment(Event target, Event editedEvent) {
+    public void setAppointment(Event target, Event editedEvent) throws CommandException {
         requireAllNonNull(target, editedEvent);
+        if (!hasExactAppointment(target)){
+            throw new EntryNotFoundException();
+        }
 
-        appointmentBook.setEvent(target, editedEvent);
+        scheduleAppointment(editedEvent, target);
+        deleteAppointment(target);
+    }
+
+    @Override
+    public ListIterator<Event> getAppointmentsInConflict(Event toCheck) {
+        return appointmentBook.getEventsInConflict(toCheck);
+    }
+
+    @Override
+    public int getNumberOfAppointmentsInConflict(Event toCheck) {
+        return appointmentBook.countNumberOfEventsInConflict(toCheck);
     }
 
 
@@ -437,33 +495,77 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasDutyShift(Event event) {
-        requireNonNull(event);
-        return dutyRosterBook.hasEvent(event);
+    public boolean hasDutyShift(Event dutyShift) {
+        requireNonNull(dutyShift);
+        return dutyRosterBook.hasEvent(dutyShift);
     }
 
     @Override
-    public boolean hasExactDutyShift(Event event) {
-        requireNonNull(event);
-        return dutyRosterBook.hasExactEvent(event);
+    public boolean hasExactDutyShift(Event dutyShift) {
+        requireNonNull(dutyShift);
+        return dutyRosterBook.hasExactEvent(dutyShift);
     }
 
     @Override
-    public void deleteDutyShift(Event event) {
-        requireNonNull(event);
-        dutyRosterBook.removeEvent(event);
+    public void deleteDutyShift(Event dutyShift) throws CommandException {
+        requireNonNull(dutyShift);
+        if (!hasExactDutyShift(dutyShift)){
+            throw new EntryNotFoundException();
+        }
+
+        int numOfAvailableStaff = getNumberOfDutyShiftInConflict(dutyShift);
+        int numOfAppointments = getNumberOfAppointmentsInConflict(dutyShift);
+
+        if (numOfAvailableStaff <= numOfAppointments) {
+            throw new CommandException(
+                String.format(MESSAGE_NOT_ENOUGH_STAFF,
+                        dutyShift.getEventTiming().toString(),
+                        numOfAvailableStaff));
+        }
+
+        dutyRosterBook.removeEvent(dutyShift);
     }
 
     @Override
-    public void addDutyShift(Event event) {
-        requireNonNull(event);
-        dutyRosterBook.addEvent(event);
+    public void scheduleDutyShift(Event dutyShift) throws CommandException {
+
+        //TODO: edge case, scheduling a staff member
+        if (hasPatient(dutyShift.getPersonId())) {
+            throw new CommandException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
+        }
+
+        ListIterator<Event> itr = getDutyShiftInConflict(dutyShift);
+
+        while (itr.hasNext()) {
+            Event shift = itr.next();
+            if (dutyShift.getPersonId().isSameAs(shift.getPersonId())) {
+                throw new CommandException(
+                        String.format(MESSAGE_NOT_OVERLAPPING_DUTYSHIFT,
+                                shift.getEventTiming().toString()));
+
+            }
+        }
+
+        dutyRosterBook.addEvent(dutyShift);
+
+        //TODO: Display events only around appointment timing.
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
     @Override
-    public void setDutyShift(Event target, Event editedEvent) {
-        requireAllNonNull(target, editedEvent);
-        dutyRosterBook.setEvent(target, editedEvent);
+    public void setDutyShift(Event target, Event editedEvent) throws CommandException {
+        deleteDutyShift(target);
+        scheduleDutyShift(editedEvent);
+    }
+
+    @Override
+    public ListIterator<Event> getDutyShiftInConflict(Event toCheck) {
+        return dutyRosterBook.getEventsInConflict(toCheck);
+    }
+
+    @Override
+    public int getNumberOfDutyShiftInConflict(Event toCheck) {
+        return dutyRosterBook.countNumberOfEventsInConflict(toCheck);
     }
 
     @Override

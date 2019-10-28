@@ -1,6 +1,7 @@
 package seedu.address.model.events;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -8,7 +9,6 @@ import java.util.ListIterator;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.common.UniqueElementList;
 
 /**
  * Wraps all data at the appointment-book level
@@ -55,7 +55,6 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      * Returns true if a event with the same identity as {@code event} exists in the address book.
      */
     public boolean hasEvent(Event event) {
-        requireNonNull(event);
         return events.contains(event);
     }
 
@@ -63,27 +62,15 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      * Returns true if an exact {@code event} exists in the address book.
      */
     public boolean hasExactEvent(Event event) {
-        requireNonNull(event);
         return events.containsExact(event);
     }
 
     /**
-     * Adds a event to the address book.
-     * The event must not already exist in the address book.
+     * Adds a event to the appointment book.
+     * The event must not already exist in the appointment book an
      */
     public void addEvent(Event p) {
         events.add(p);
-    }
-
-    /**
-     * Replaces the given event {@code target} in the list with {@code editedEvent}.
-     * {@code target} must exist in the address book.
-     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
-     */
-    public void setEvent(Event target, Event editedEvent) {
-        requireNonNull(editedEvent);
-
-        events.set(target, editedEvent);
     }
 
     /**
@@ -105,6 +92,11 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ListIterator<Event> getEventsInConflict(Event toCheck) {
+        return events.getEventsInConflict(toCheck);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class ModelAcceptingEventAddedStub extends ModelStub {
     }
 
     @Override
-    public void addAppointment(Event event) {
+    public void scheduleAppointment(Event event) {
         requireNonNull(event);
         eventsAdded.add(event);
     }

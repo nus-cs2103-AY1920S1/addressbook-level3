@@ -50,7 +50,7 @@ public class AckAppCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ACKED);
         }
 
-        model.addAppointment(editedEvent);
+        model.scheduleAppointment(editedEvent);
         model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
 
