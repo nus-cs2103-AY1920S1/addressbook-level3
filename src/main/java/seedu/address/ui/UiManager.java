@@ -118,7 +118,7 @@ public class UiManager implements Ui {
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
     }
- 
+
     /**
      * To change tab to notepad tab/
      */
