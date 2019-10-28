@@ -4,22 +4,45 @@
 :stylesDir: ../stylesheets
 
 == Introduction
+
+=== Purpose of portfolio
+The purpose of this portfolio is to document my overall contributions to the Software Engineering project, *Billboard*.
+
 === About the project
 My team of 4 software engineering students and I were tasked with enhancing a basic command line
-interface desktop addressbook application for our Software Engineering project. We chose to morph
-it into a personal financial management system called Billboard. This enhanced application enables
-students to record their daily expenses; better manage and track expenses by tagging and archiving them;
+interface desktop addressbook application for our Software Engineering project. We decided to morph
+it into a personal financial management system called *Billboard*.
+
+This enhanced application enables students to record their daily expenses;
+better manage and track expenses by tagging and archiving them;
 and visually analyze overall spending by generating graphs from expense data.
 
-=== Purpose of this portfolio
-The purpose of this portfolio is to document my overall contributions to Billboard.
+This is what our project looks like:
 
+.The graphical user interface for *Billboard*
+image::BillboardGUI.png[]
+
+The role I played in this project was to design and implement the code for the `archive` feature. Additionally, I was
+tasked with improving the application's aesthetically design by adding cosmetic tweaks to the application's graphical user interface.
+The following sections illustrate these enhancements in greater detail, as well as the relevant documentation I have added to the user and
+developer guides in relation to these enhancements.
+
+Note the following formatting used in this document:
+
+|===
+|`archive`|A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+
+|`ArchiveWrapper`|Blue text with grey highlight indicates a component, class or object in the architecture of the application.
+
+|===
 
 == Summary of contributions
+This section summarises my coding, documentation, and other helpful contributions to the team project.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* *Major enhancement*: I added *the feature of archiving expenses*
+** What it does: allows the user to archive old expenses. Multiple archives can be created, and the user will be able to revert/"unarchive" an expense should they choose.
+** Justification: This feature improves the product significantly as it helps achieve one of its goals of enabling students to better organise expenses. Archiving fulfills this
+as it declutters the user's list of current expenses and also allows the user to separate expenses into different expense lists.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
