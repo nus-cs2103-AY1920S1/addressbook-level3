@@ -2,8 +2,10 @@ package dukecooks.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import dukecooks.commons.core.index.Index;
@@ -29,6 +31,7 @@ import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
+import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
 
 
@@ -395,5 +398,33 @@ public class ParserUtil {
             throw new ParseException(Type.MESSAGE_CONSTRAINTS);
         }
         return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String recipe} into a {@code RecipeName} for addition into a meal plan.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recipe} is invalid.
+     */
+    public static RecipeName parseRecipe(String recipe) throws ParseException {
+        requireNonNull(recipe);
+        String trimmedRecipe = recipe.trim();
+        if (!RecipeName.isValidName(trimmedRecipe)) {
+            throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
+        }
+
+        return new RecipeName(trimmedRecipe);
+    }
+
+    /**
+     * Parses {@code Collection<String> recipes} into a {@code List<RecipeName>}.
+     */
+    public static List<RecipeName> parseRecipes(Collection<String> recipes) throws ParseException {
+        requireNonNull(recipes);
+        final List<RecipeName> recipeList = new ArrayList<>();
+        for (String recipeName : recipes) {
+            recipeList.add(parseRecipe(recipeName));
+        }
+        return recipeList;
     }
 }

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.model.recipe.components.UniqueRecipeList;
 import javafx.collections.ObservableList;
 
@@ -91,6 +92,15 @@ public class RecipeBook implements ReadOnlyRecipeBook {
      */
     public void removeRecipe(Recipe key) {
         recipes.remove(key);
+    }
+
+    /**
+     * Returns a {@code Recipe} found within {@code RecipeBook} if
+     * it shares a name with the given {@code recipe}.
+     */
+    public Recipe retrieveRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+        return recipes.retrieve(recipe);
     }
 
     //// util methods

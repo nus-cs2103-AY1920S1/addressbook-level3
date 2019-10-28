@@ -422,6 +422,13 @@ public class ModelManager implements Model {
         recipeBook.setRecipe(target, editedRecipe);
     }
 
+    @Override
+    public Recipe retrieveRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+
+        return recipeBook.retrieveRecipe(recipe);
+    }
+
     //=========== Meal Plan Book ================================================================================
 
     @Override

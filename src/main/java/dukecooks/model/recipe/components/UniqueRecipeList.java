@@ -79,6 +79,27 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
     }
 
+    public Recipe retrieve(Recipe recipe) {
+        requireNonNull(recipe);
+
+        int i = 0;
+        boolean found = false;
+        while (i < internalList.size()) {
+            Recipe curr = internalList.get(i);
+            if (curr.isSameRecipe(recipe)){
+                found = true;
+                break;
+            }
+            i++;
+        }
+
+        if (!found) {
+            throw new RecipeNotFoundException();
+        }
+
+        return internalList.get(i);
+    }
+
     public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

@@ -186,6 +186,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Recipe retrieveRecipe(Recipe recipe) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
         throw new AssertionError("This method should not be called.");
     }

@@ -242,6 +242,13 @@ public interface Model {
      */
     void setRecipe(Recipe target, Recipe editedRecipe);
 
+    /**
+     * Searches the given {@code recipe} within {@code recipeBook} for {@code Recipe} with matching name.
+     * {@code recipe} must exist in Duke Cooks.
+     * Returns {@code Recipe} found within {@code recipeBook}.
+     */
+    Recipe retrieveRecipe(Recipe recipe);
+
     //=========== Meal Plan Book  ================================================================================
 
     /**
