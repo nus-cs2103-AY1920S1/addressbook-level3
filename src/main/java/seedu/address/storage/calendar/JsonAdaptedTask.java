@@ -32,6 +32,7 @@ class JsonAdaptedTask {
     private final String time;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final int week;
+    private final boolean isPersistent;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -40,7 +41,8 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(@JsonProperty("title") String title, @JsonProperty("day") String day,
                            @JsonProperty("description") String description, @JsonProperty("time") String time,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                           @JsonProperty("deadline") String deadline, @JsonProperty("week") int week) {
+                           @JsonProperty("deadline") String deadline, @JsonProperty("week") int week,
+                           @JsonProperty("isPersistent") boolean isPersistent) {
         this.title = title;
         this.day = day;
         this.description = description;
@@ -50,6 +52,7 @@ class JsonAdaptedTask {
             this.tagged.addAll(tagged);
         }
         this.week = week;
+        this.isPersistent = isPersistent;
     }
 
     /**
@@ -65,6 +68,7 @@ class JsonAdaptedTask {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         week = source.getWeek();
+        isPersistent = source.isPersistent();
     }
 
     /**
@@ -124,8 +128,10 @@ class JsonAdaptedTask {
         final TaskTime modelTaskTime = new TaskTime(time);
 
         final Set<TaskTag> modelTaskTags = new HashSet<>(personTaskTags);
+        // TODO: change to Task
         return new Task(modelTaskTitle, modelTaskDay, modelTaskDescription, modelTaskDeadline,
-            modelTaskTime, modelTaskTags, week);
+            modelTaskTime, modelTaskTags, week, isPersistent) {
+        };
     }
 
 }

@@ -13,7 +13,7 @@ import seedu.address.model.calendar.tag.TaskTag;
  * Represents a Task in the CalendarAddressbook.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Task {
+public abstract class Task {
 
     // Identity fields
     private final TaskTitle taskTitle;
@@ -25,12 +25,17 @@ public class Task {
     private final TaskTime taskTime;
     private final Set<TaskTag> taskTags = new HashSet<>();
     private final int week;
+    protected final boolean isPersistent;
+
+    public boolean isPersistent() {
+        return isPersistent;
+    }
 
     /**
      * Every field must be present and not null.
      */
     public Task(TaskTitle taskTitle, TaskDay taskDay, TaskDescription taskDescription, TaskDeadline taskDeadline,
-                TaskTime taskTime, Set<TaskTag> taskTags, int week) {
+                TaskTime taskTime, Set<TaskTag> taskTags, int week, boolean isPersistent) {
         this.taskDeadline = taskDeadline;
         requireAllNonNull(taskTitle, taskDay);
         // requireAllNonNull(taskTitle, taskDay, taskDescription, taskTime, taskTags);
@@ -40,6 +45,7 @@ public class Task {
         this.taskTime = taskTime;
         this.taskTags.addAll(taskTags);
         this.week = week;
+        this.isPersistent = isPersistent;
     }
 
     public TaskTitle getTaskTitle() {
