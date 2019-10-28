@@ -1,15 +1,24 @@
 package seedu.address.ui;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -19,7 +28,6 @@ import seedu.address.model.question.Question;
  * Controller for a help page
  */
 public class SlideshowWindow extends UiPart<Stage> {
-
     public static final String TIP = "Press 'Esc' to quit slideshow\n"
         + "Press 'Space' to show the answer\n"
         + "Use the 'Left/Right' arrow keys to navigate";
@@ -39,6 +47,8 @@ public class SlideshowWindow extends UiPart<Stage> {
     private Label tipLabel;
     @FXML
     private Label questionNoLabel;
+    @FXML
+    private VBox testVBox;
 
     /**
      * Creates a new SlideshowWindow.

@@ -379,6 +379,7 @@ public interface Model {
     List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);
     ObservableList<VEvent> getVEventList();
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
+    String saveToICSFile(String targetDir) throws IOException;
     //endregion
 
     //region Statistics

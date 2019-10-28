@@ -77,6 +77,9 @@ public class EventEditCommand extends EventCommand {
         LocalDateTime endDateTime = (!this.endDateTimeString.isBlank())
                 ? LocalDateTime.parse(this.endDateTimeString)
                 : eventObject.getEndDateTime();
+        String uniqueIdentifier = (!eventObject.getUniqueIdentifier().isBlank())
+                ? EventUtil.generateUID(eventName, startDateTime.toString(), endDateTime.toString())
+                : eventObject.getUniqueIdentifier();
         RecurrenceRule recurrenceRule;
         if (this.recurTypeString.isBlank()) {
             recurrenceRule = vEventObject.getRecurrenceRule();
@@ -89,10 +92,11 @@ public class EventEditCommand extends EventCommand {
         }
 
         vEventObject = new VEvent();
+        vEventObject.setUniqueIdentifier(uniqueIdentifier);
         vEventObject.setSummary(eventName);
         vEventObject.setDateTimeStart(startDateTime);
         vEventObject.setDateTimeEnd(endDateTime);
-        vEventObject.setUniqueIdentifier(EventAddCommand.UNIQUE_IDENTIFIER);
+        vEventObject.setUniqueIdentifier();
         vEventObject.setRecurrenceRule(recurrenceRule);
 
         Categories colorCategory = new Categories(colorNumberString);

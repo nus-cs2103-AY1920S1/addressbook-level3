@@ -65,10 +65,10 @@ public class EventUtil {
     }
 
     /**
-     *
+     * Converts a recurrenceString to a RecurrenceRule object.
      * @param recurrenceString
      * @return returns a RecurrenceRule object which is used to configure VEVents
-     * @throws IllegalValueException
+     * @throws IllegalValueException for invalid recurrenceString.
      */
     public static RecurrenceRule stringToRecurrenceRule(String recurrenceString) throws IllegalValueException {
         recurrenceString = recurrenceString.toLowerCase();
@@ -81,5 +81,25 @@ public class EventUtil {
         } else {
             throw new IllegalValueException("recurrence string type is not valid. value passedL " + recurrenceString);
         }
+    }
+
+    /**
+     * Generates a unique identifier for VEvents using current dateTime and the following parameters
+     * @param eventName name of event
+     * @param startDateTime startDateTime string representation of event
+     * @param endDateTime endDateTime string representation of event
+     * @return a unique string identifier based on the current DateTime.
+     */
+    public static String generateUID(String eventName, String startDateTime, String endDateTime) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(LocalDateTime.now().toString());
+        sb.append("-");
+        sb.append(eventName);
+        sb.append("-");
+        sb.append(startDateTime);
+        sb.append("-");
+        sb.append(endDateTime);
+        sb.append(".njoyAssistant");
+        return sb.toString();
     }
 }

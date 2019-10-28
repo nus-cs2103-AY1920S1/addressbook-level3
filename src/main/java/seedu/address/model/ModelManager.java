@@ -596,6 +596,11 @@ public class ModelManager implements Model {
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
     };
+
+    @Override
+    public String saveToICSFile(String targetDir) throws IOException {
+        return eventRecord.saveToICSFile(targetDir);
+    };
     //endregion
 
     @Override

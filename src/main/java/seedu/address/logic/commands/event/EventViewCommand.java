@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.event;
 
+import java.io.IOException;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;

@@ -1,13 +1,20 @@
 package seedu.address.ui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -181,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the schedule window or focuses on it if it's already opened.
+     * Opens the schedule panel or focuses on it if it's already opened.
      */
     @FXML
     public void handleSchedule() {
@@ -193,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the schedule window or focuses on it if it's already opened.
+     * Opens the student panel or focuses on it if it's already opened.
      */
     @FXML
     public void handleStudent() {

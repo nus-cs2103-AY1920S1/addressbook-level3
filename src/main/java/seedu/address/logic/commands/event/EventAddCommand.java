@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,7 +29,6 @@ public class EventAddCommand extends EventCommand {
             + "Example: event eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
             + "endDateTime/2019-10-21T15:00 recur/none color/1";
 
-    public static final String UNIQUE_IDENTIFIER = "njoyassistant";
     private final String weeklyRecurrenceRule = "FREQ=WEEKLY;INTERVAL=1";
     private final String dailyRecurrenceRule = "FREQ=DAILY;INTERVAL=1";
 
@@ -114,7 +114,8 @@ public class EventAddCommand extends EventCommand {
         vEvent.setDateTimeStart(startDateTime);
         vEvent.setDateTimeEnd(endDateTime);
 
-        vEvent.setUniqueIdentifier(UNIQUE_IDENTIFIER);
+        String uniqueIdentifier = EventUtil.generateUID(eventName, startDateTimeString, endDateTimeString);
+        vEvent.setUniqueIdentifier(uniqueIdentifier);
 
         if (recurTypeString.equals("weekly")) {
             vEvent.setRecurrenceRule(weeklyRecurrenceRule);
