@@ -44,4 +44,9 @@ public class OutTransaction extends Transaction implements BankAccountOperation 
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("Out transaction of %s", super.toString());
+    }
 }
