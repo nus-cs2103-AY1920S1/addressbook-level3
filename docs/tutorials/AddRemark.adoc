@@ -16,7 +16,7 @@ toc::[]
 
 In this tutorial, we'll walk you through the implementation of a new command -- `remark`.
 
-This command allows users of the AddressBook application to add optional remarks to people in their address book and edit it if required.
+This command allows users of the Classroom application to add optional remarks to people in their address book and edit it if required.
 The command should have the format of `remark INDEX r/REMARK`.
 An example of the command is `remark 2 r/Likes baseball`.
 
@@ -56,7 +56,7 @@ public class RemarkCommand extends Command {
 
 === Hook `RemarkCommand` into the application
 
-Now that we have our `RemarkCommand` ready to be executed, we need to update `AddressBookParser#parseCommand()` to recognize the `remark` keyword.
+Now that we have our `RemarkCommand` ready to be executed, we need to update `ClassroomParser#parseCommand()` to recognize the `remark` keyword.
 Add the new command to the `switch` block by creating a new `case` that returns a new instance of `RemarkCommand`.
 
 You can refer to the changes in this link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/7d04e49e364dad661cd88f462f01923fba972d2c#diff-5338391f3f6fbb4022c44add6590b74f[diff].
@@ -238,7 +238,7 @@ public RemarkCommand parse(String args) throws ParseException {
 }
 ----
 
-NOTE: Don't forget to update `AddressBookParser` to use our new `RemarkCommandParser`!
+NOTE: Don't forget to update `ClassroomParser` to use our new `RemarkCommandParser`!
 
 If you are stuck, check out the sample link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/efdcdf0e80cec9489f7b47e3f65824f4688ad8f7#diff-fc19ecee89c3732a62fbc8c840250508[here].
 
@@ -308,13 +308,13 @@ Refer to link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b
 
 == Updating Storage
 
-AddressBook stores data by serializing `JsonAdaptedPerson` into `json` with the help of an external library -- Jackson.
+Classroom stores data by serializing `JsonAdaptedPerson` into `json` with the help of an external library -- Jackson.
 Let's update `JsonAdaptedPerson` to work with our new `Student`!
 
 While the changes to code may be minimal, the test data will have to be updated as well.
 
-WARNING: You must delete AddressBook's storage file located at `/data/addressbook.json` before running it!
-Not doing so will cause AddressBook to default to an empty address book!
+WARNING: You must delete Classroom's storage file located at `/data/addressbook.json` before running it!
+Not doing so will cause Classroom to default to an empty address book!
 
 Check out link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/ce4f9b70f524d2395948861d80d57fda9ae6e82e#diff-07708562699e2436c717f3330bafae1e[this commit] to see what the changes entail.
 
@@ -420,6 +420,6 @@ link:https://github.com/nus-cs2103-AY1920S1/addressbook-level3/commit/b3307d7a42
 
 == Conclusion
 
-This concludes the tutorial for adding a new `Command` to AddressBook.
+This concludes the tutorial for adding a new `Command` to Classroom.
 
 //Link to more discussions

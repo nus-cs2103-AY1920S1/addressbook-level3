@@ -93,7 +93,6 @@ public class UniqueStudentList implements Iterable<Student> {
         if (!studentsAreUnique(students)) {
             throw new DuplicateStudentException();
         }
-
         internalList.setAll(students);
     }
     /**

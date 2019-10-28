@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private StudentListPanel studentListPanel;
+    private AssignmentListPanel assignmentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReminderListPanel reminderListPanel;
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane studentListPanelPlaceholder;
+
+    @FXML
+    private StackPane combinedListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -121,15 +125,20 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
 
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        //studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
-        //reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
-        //reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+
+        combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getClassroomFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -183,6 +192,10 @@ public class MainWindow extends UiPart<Stage> {
         return reminderListPanel;
     }
 
+    public AssignmentListPanel getAssignmentListPanel() {
+        return assignmentListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -193,6 +206,15 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (logic.isDisplayStudents()) {
+                combinedListPanelPlaceholder.getChildren().clear();
+                combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+            } else {
+                combinedListPanelPlaceholder.getChildren().clear();
+                combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+            }
+
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

@@ -5,11 +5,11 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyClassroom <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Classroom
+Class ReadOnlyClassroom
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -21,36 +21,54 @@ Class Address
 Class Email
 Class Name
 Class Phone
-Class UniquePersonList
+Class ParentPhone
+Class MedicalCondition
+Class UniqueStudentList
 }
 
 Package Tag {
 Class Tag
+}
+
+Package Assignment {
+Class Assignment
+Class AssignmentGrades
+Class AssignmentName
+Class UniqueAssignmentList
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Classroom .up.|> ReadOnlyClassroom
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Classroom
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Student
+Classroom *--> "1" UniqueStudentList
+UniqueStudentList o--> "*" Student
 Student *--> Name
 Student *--> Phone
 Student *--> Email
 Student *--> Address
+Student *--> ParentPhone
+Student *--> "*" MedicalCondition
 Student *--> "*" Tag
+
+Classroom *--> "1" UniqueAssignmentList
+UniqueAssignmentList o--> "*" Assignment
+Assignment *--> AssignmentName
+Assignment *--> AssignmentGrades
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
+Email -[hidden]right-> ParentPhone
+ParentPhone -[hidden]right-> MedicalCondition
 
-ModelManager -->"1" Student : filtered list
+ModelManager -->"1" Classroom : filtered list
 @enduml
