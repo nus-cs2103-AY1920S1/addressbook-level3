@@ -539,7 +539,47 @@ Format: `exit`
 
 // end::exit[]
 
+=== Document Generation
+
+// tag::genReport[]
+
+==== Generate report for a specific body: `genReport`
+Generate an individual report in a PDF filename `Report <body_ID>.pdf` located in `Mortago` file.
+
+Format: `genReport bodyID`
+
+Example:
+
+* `genReport B123` +
+Outputs the report PDF for body ID B00000123
+
+// end::genReport[]
+
+// tag::genReports[]
+
+==== Generate reports for all bodies: `genReports`
+Generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in `Mortago` file.
+
+Format: `genReports`
+
+// end::genReports[]
+
+// tag::genReportSummary[]
+
+==== Generate summary report for all bodies: `genReportSummary`
+Generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in `Mortago` file.
+
+Format: `genReportSummary`
+
+// end::genReportSummary[]
+
 === Administrative
+==== View admission statistics
+View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
+
+The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
+No user command is needed to display it.
+
 ==== Archive entries: `archive` `[coming in v2.0]`
 Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
 
@@ -569,7 +609,7 @@ Display of all archived worker entries, in order of archive date
 
 // tag::feedback[]
 
-==== Give and view feedback: `feedback`
+==== Give and view feedback: `feedback` `[coming in v2.0]`
 Give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
 
 Format:
@@ -587,57 +627,17 @@ Display of all feedback entered
 
 // tag::assign[]
 
-==== Assign tasks to worker: `assign`
+==== Assign tasks to worker: `assign` `[coming in v2.0]`
 Assign a body and task to a worker.
 
 Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 
 Example:
 
-==== View admission statistics
-View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
-
-The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
-No user command is needed to display it.
-
 * `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
 Assigns worker with workerID W00001 to body with ID B00000002 with a task description.
 
 // end::assign[]
-
-=== Document Generation
-
-// tag::genReport[]
-
-==== Generate report for a specific body: `genReport`
-Generate an individual report in a PDF filename `Report <body_ID>.pdf` located in `Mortago` file.
-
-Format: `genReport bodyID`
-
-Example:
-
-* `genReport B123` +
-Outputs the report PDF for body ID B00000123
-
-// end::genReport[]
-
-// tag::genReports[]
-
-==== Generate reports for all bodies: `genReports`
-Generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in `Mortago` file.
-
-Format: `genReports`
-
-// end::report[]
-
-// tag::genReportSummary[]
-
-==== Generate summary report for all bodies: `genReportSummary`
-Generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in `Mortago` file.
-
-Format: `genReportSummary`
-
-// end::reports[]
 
 === Help
 
@@ -712,6 +712,15 @@ Lists emergency help hotlines.
     Format: `redo`
 * *Exit*: `exit`
 
+* *Generate report* : `genReport`
+    ** Generate an individual report in a PDF. +
+    Format: `genReport bodyID`
+* *Generate all reports* : `genReports`
+    ** Generate all individual reports in a PDF. +
+    Format: `genReports`
+* *Generate summary report* : `genReportSummary`
+    ** Generate an overview for all reports in a PDF. +
+    Format: `genReportSummary`
 
 * *Archive entries* : `archive` `[coming in v2.0]`
     ** Archive old or irrelevant entries.
@@ -719,27 +728,16 @@ Lists emergency help hotlines.
 * *View archived entries* : `archives` `[coming in v2.0]`
     ** Display all archived entries.
     Format: `archives -flag`
-* *Give and view feedback* : `feedback`
+* *Give and view feedback* : `feedback` `[coming in v2.0]`
     * Give workers feedback and displays a history of all feedback entered.
-    Format: `feedback /id staffID /notes notes`, feedback`
-* *Assign tasks* : `assign`
+    Format: `feedback /id workerID /notes notes`, feedback`
+* *Assign tasks* : `assign` `[coming in v2.0]`
     ** Assign a body and task to a worker.
-    Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
-* *Generate report* : `genReport`
-    ** Generate an individual report from the app automatically
-    Format: `genReport bodyID`
-* *View a select report* : `report`
-    ** Receive details of a past individual report.
-    Format: `report bodyID`
-* *View past reports* : `reports`
-    ** Receive a list of past reports.
-    Format: `reports`
-
-
-* *Help summary*: `help`
+    Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
+* *Help summary*: `help` `[coming in v2.0]`
     ** Get information about the commands
-    Format: `help -flag`
-* *Help for specific command* : `help command`
+    Format: `help -flag` `[coming in v2.0]`
+* *Help for specific command* : `help command` `[coming in v2.0]`
 * *Help hotlines* : `hotlines` `[coming in v2.0]`
 
 == Glossary
@@ -749,7 +747,9 @@ Lists emergency help hotlines.
 
 *Command Line Interface (CLI)* : a text-based user interface (UI) used to view and manage computer files +
 
-*Graphical User Interface (GUI)* : an interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text
+*Graphical User Interface (GUI)* : an interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text +
 
-*Operating system (OS)* :the low-level software that supports a computer's basic functions, such as scheduling tasks and controlling peripherals
+*Operating System (OS)* :the low-level software that supports a computer's basic functions, such as scheduling tasks and controlling peripherals +
+
+*Portable Document Format (PDF)* : a file format for capturing and sending electronic documents in exactly the intended format
 
