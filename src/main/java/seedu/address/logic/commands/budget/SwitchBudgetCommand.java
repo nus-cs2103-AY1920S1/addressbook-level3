@@ -17,7 +17,7 @@ import seedu.address.ui.budget.BudgetPanel;
 public class SwitchBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "switch";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the primary budget to another budget. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the primary budget to another budget.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION ";
 

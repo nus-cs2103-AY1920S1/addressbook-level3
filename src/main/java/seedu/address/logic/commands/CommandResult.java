@@ -111,7 +111,6 @@ public class CommandResult {
     }
 
 
-
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
