@@ -3,8 +3,13 @@ package seedu.address.model.question;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +21,7 @@ import seedu.address.commons.core.index.Index;
 public class QuestionBank implements Iterable<Question> {
 
     private final ObservableList<Question> questions = FXCollections.observableArrayList();
+    private final ObservableList<Question> questionsFiltered = FXCollections.observableArrayList();
     private final ObservableList<Question> questionsUnmodifiableList =
         FXCollections.unmodifiableObservableList(questions);
 
@@ -108,12 +114,21 @@ public class QuestionBank implements Iterable<Question> {
     }
 
     /**
-     * Returns all the questions in a question bank in an ArrayList representation.
+     * Returns all the questions in a question bank in an ObservableList representation.
      *
-     * @return All the questions in the question bank in an ArrayList representation.
+     * @return All the questions in the question bank in an ObservableList representation.
      */
     public ObservableList<Question> getAllQuestions() {
         return questions;
+    }
+
+    /**
+     * Returns all the questions in a question bank in an ObservableList representation.
+     *
+     * @return All the questions in the question bank in an ObservableList representation.
+     */
+    public ObservableList<Question> getSearchQuestions() {
+        return questionsFiltered;
     }
 
     /**
@@ -147,22 +162,51 @@ public class QuestionBank implements Iterable<Question> {
     }
 
     /**
-     * Printing out the list of questions and how many are there.
+     * Returns the summary of questions searched.
+     *
+     * @param textToFind text to find from questions list.
+     * @return Summary of questions searched.
+     */
+    public String searchQuestions(String textToFind) {
+        questionsFiltered.clear();
+        int textToFindSize = textToFind.length();
+        int similarityThreshold = (int) (textToFindSize * 0.4); // 40% match
+        ArrayList<Question> similiarAl = new ArrayList<>(); // Used for grouping similiar terms
+
+        // 2-levels of searching occurs here
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i).duplicate();
+            Index index = Index.fromZeroBased(i);
+
+            String questionStr = question.getQuestion();
+            int difference = LevenshteinDistance.getDefaultInstance()
+                .apply(textToFind, questionStr);
+
+            if (StringUtils.containsIgnoreCase(questionStr,
+                textToFind)) { // Search if text forms a subset of the question
+                question.setQuestion(index.getOneBased() + ". " + question.getQuestion());
+                questionsFiltered.add(question);
+            } else if (difference <= similarityThreshold) { // Search for similar terms
+                question.setQuestion(index.getOneBased() + ". " + question.getQuestion());
+                similiarAl.add(question);
+            }
+        }
+
+        questionsFiltered.addAll(similiarAl);
+        questionsFiltered.sort(Comparator.comparingInt(o -> o.getQuestion().length()));
+
+        return "Displaying results for \'" + textToFind + "\' and similar terms.\n"
+            + "Found " + questionsFiltered.size() + " results";
+    }
+
+    /**
+     * Returns the questions summary.
      *
      * @return Summary of questions.
      */
     public String getQuestionsSummary() {
-        String summary = "There are currently " + questions.size() + " questions saved.\n"
-            + "Here is the list of questions:\n";
-
-        for (int i = 0; i < questions.size(); i++) {
-            summary += (i + 1) + ". " + "\"" + questions.get(i) + "\"";
-
-            if ((i + 1) != questions.size()) {
-                summary += "\n";
-            }
-        }
-
+        String summary = "Below is the list of questions.\n"
+            + "There are currently " + questions.size() + " questions saved.\n";
         return summary;
     }
 

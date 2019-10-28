@@ -26,9 +26,9 @@ public class GroupCreateManuallyCommand extends GroupCommand {
     private final ArrayList<Integer> studentNumbers;
 
     /**
-     * Creates a QuizCreateManuallyCommand instance with the appropriate attributes.
+     * Creates a GroupCreateManuallyCommand instance with the appropriate attributes.
      *
-     * @param fields The fields to be edited, including quizID and questions.
+     * @param fields The fields to be edited, including groupID and students.
      */
     public GroupCreateManuallyCommand(HashMap<String, String> fields) {
         String groupId = fields.get("groupID");
@@ -67,7 +67,7 @@ public class GroupCreateManuallyCommand extends GroupCommand {
         if (numStudents == 1) {
             return "Created group: " + groupId + " with " + numStudents + " student.";
         } else {
-            return "Created quiz: " + groupId + " with " + studentNumbers.size() + " students.";
+            return "Created group: " + groupId + " with " + studentNumbers.size() + " students.";
         }
     }
 

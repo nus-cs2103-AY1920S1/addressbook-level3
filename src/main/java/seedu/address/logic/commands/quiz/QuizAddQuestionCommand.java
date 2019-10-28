@@ -1,8 +1,10 @@
 package seedu.address.logic.commands.quiz;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizBank;
 
 /**
  * Represents an add question command, specific to a quiz.
@@ -42,11 +44,16 @@ public class QuizAddQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        boolean isSuccess = model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
-        if (isSuccess) {
-            return new CommandResult(generateSuccessMessage());
+        if (!model.checkQuizExists(quizId)) {
+            return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {
-            return new CommandResult(generateFailureMessage());
+            boolean isSuccess = model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
+            if (isSuccess) {
+                QuizBank.setCurrentlyQueriedQuiz(quizId);
+                return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
+            } else {
+                return new CommandResult(generateFailureMessage());
+            }
         }
     }
 
@@ -63,7 +70,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
      * @return The String representation of a failure message.
      */
     private String generateFailureMessage() {
-        return "There is no quiz with the ID of " + quizId + ".";
+        return "That is a repeated question!";
     }
 
     @Override

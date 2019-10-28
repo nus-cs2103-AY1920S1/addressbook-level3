@@ -8,5 +8,5 @@ import seedu.address.logic.commands.Command;
 public abstract class GroupCommand extends Command {
 
     public static final String COMMAND_WORD = "group";
-
+    public static final String GROUP_DOES_NOT_EXIST = "Group with ID '%1$s' not exist, create group first. ";
 }

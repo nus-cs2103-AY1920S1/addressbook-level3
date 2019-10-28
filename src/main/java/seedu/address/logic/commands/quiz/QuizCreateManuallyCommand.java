@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizBank;
 
 /**
  * Represents an quiz create command (manual).
@@ -50,8 +52,12 @@ public class QuizCreateManuallyCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (model.checkQuizExists(quizId)) {
+            return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
+        }
+        QuizBank.setCurrentlyQueriedQuiz(quizId);
         model.createQuizManually(quizId, questionNumbers);
-        return new CommandResult(generateSuccessMessage());
+        return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
     }
 
     /**

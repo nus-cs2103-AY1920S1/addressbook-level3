@@ -12,7 +12,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("ad/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
     // END OF ADDRESS BOOK PREFIX
 
     // EVENT PREFIX
@@ -38,14 +37,22 @@ public class CliSyntax {
     public static final Prefix PREFIX_SLIDESHOW = new Prefix("slideshow");
     // END OF QUESTION PREFIX
 
+    // MARK PREFIX
+    public static final Prefix PREFIX_UNMARK = new Prefix("unmark");
+    // END OF MARK PREFIX
+
     // STUDENT PREFIX
-    public static final Prefix PREFIX_STUDENT = new Prefix("student/");
+    public static final Prefix PREFIX_STUDENT = new Prefix("name/");
+    public static final Prefix PREFIX_TAG = new Prefix("tag/");
     // END OF STUDENT PREFIX
 
     // NOTE PREFIX
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("desc/");
     // END OF NOTE PREFIX
+
+    // TAG PREFIX
+    public static final Prefix PREFIX_INDEX = new Prefix("index/");
 
     //START OF STATISTICS PREFIX
     public static final Prefix PREFIX_METHOD = new Prefix("method/");
@@ -56,6 +63,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_EXPORT = new Prefix("export");
     public static final Prefix PREFIX_LIST = new Prefix("list");
     public static final Prefix PREFIX_DELETE = new Prefix("delete");
+    public static final Prefix PREFIX_FIND = new Prefix("find/");
 
     public static final Prefix PREFIX_GROUP = new Prefix("group/");
     public static final Prefix PREFIX_GROUP_ID = new Prefix("groupID/");
@@ -69,5 +77,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_NUM_QUESTIONS = new Prefix("numQuestions/");
     public static final Prefix PREFIX_QUESTION_NUMBER = new Prefix("questionNumber/");
     public static final Prefix PREFIX_QUIZ_QUESTION_NUMBER = new Prefix("quizQuestionNumber/");
+    public static final Prefix PREFIX_SHOW_QUESTIONS = new Prefix("showQuestions");
+    public static final Prefix PREFIX_SHOW_ANSWERS = new Prefix("showAnswers");
 
 }

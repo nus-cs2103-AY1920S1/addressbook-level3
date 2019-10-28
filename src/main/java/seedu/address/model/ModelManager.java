@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -75,7 +76,7 @@ public class ModelManager implements Model {
                 savedQuizzes, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
-            "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+                "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.groupList = new ListOfGroups();
@@ -187,34 +188,21 @@ public class ModelManager implements Model {
     }
     //endregion
 
-    //region StudentRecord
-    @Override
-    public void setStudentRecordFilePath(Path studentRecordFilePath) {
-        requireNonNull(studentRecordFilePath);
-        userPrefs.setStudentRecordFilePath(studentRecordFilePath);
-    }
-
-    @Override
-    public Path getStudentRecordFilePath() {
-        return userPrefs.getStudentRecordFilePath();
-    }
-
-    @Override
-    public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
-        this.studentRecord.resetData(studentRecord);
-    }
-
-    @Override
-    public ReadOnlyStudentRecord getStudentRecord() {
-        return studentRecord;
-    }
-
-    //endregion
-
     //region FilteredStudent List Accessors
     @Override
     public ObservableList<Student> getFilteredStudentList() {
         return studentRecord.getStudentList();
+    }
+
+    @Override
+    public Optional<Index> getIndexFromStudentList(Student student) {
+        return studentRecord.getIndex(student);
+    }
+
+    @Override
+    public void setStudentWithIndex(Index index, Student student) {
+        requireAllNonNull(index, student);
+        studentRecord.setStudentWithIndex(index, student);
     }
 
     @Override
@@ -239,30 +227,94 @@ public class ModelManager implements Model {
     public void addStatistics(Statistics statistic) {
         statisticsRecord.setStatistics(statistic);
     }
+
+    //region Mark
+    /**
+     * Mark a student who is struggling academically.
+     *
+     * @param student Student who is struggling with academics.
+     */
+    public void markStudent(Student student) {
+        student.setMarked();
+    }
+
+    /**
+     * Unmark a student who has been wrongly marked/has made significant improvements and
+     * no longer needs to be monitored.
+     *
+     * @param student
+     */
+    public void unmarkStudent(Student student) {
+        student.setUnmarked();
+    }
+
+    public boolean getIsMarked(Student student) {
+        return student.getIsMarked();
+    }
+    //endregion
+
     //region Students
+
+    /**
+     * Checks if the student list has a particular student.
+     *
+     * @param student Student to be checked.
+     * @return true if the student is present in the list of students.
+     */
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return studentRecord.hasStudent(student);
     }
 
+    /**
+     * Gets the student record in read only format.
+     *
+     * @return Read only version of the student record.
+     */
+    @Override
+    public ReadOnlyStudentRecord getStudentRecord() {
+        return studentRecord;
+    }
+
+    /**
+     * Deletes a student in the student list.
+     *
+     * @param target Student to be deleted.
+     */
     @Override
     public void deleteStudent(Student target) {
         studentRecord.removeStudent(target);
     }
 
+    /**
+     * Adds student to student list.
+     *
+     * @param student Student to be added.
+     */
     @Override
     public void addStudent(Student student) {
         studentRecord.addStudent(student);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    /**
+     * Edits a student that is currently in the student list to a new student.
+     *
+     * @param target        Student to be edited.
+     * @param editedStudent New student.
+     */
     @Override
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
         studentRecord.setStudent(target, editedStudent);
     }
 
+    /**
+     * Gets string representation of the student list.
+     *
+     * @return String representation of the student list.
+     */
     @Override
     public String getStudentSummary() {
         return studentRecord.getStudentSummary();
@@ -290,9 +342,10 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Adds a student to a group. {@code groupId} Must already exist in the list of groups. {@code
-     * studentNumber} Must already exist in the list of students. {@code groupIndexNumber} Must
-     * already exist in the quiz.
+     * Adds a student to a group.
+     * {@code groupId} Must already exist in the list of groups.
+     * {@code studentNumber} Must already exist in the list of students.
+     * {@code groupIndexNumber} Must already exist in the quiz.
      */
     public boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber) {
         int questionIndex = studentNumber - 1;
@@ -329,6 +382,39 @@ public class ModelManager implements Model {
         }
         return students;
     }
+
+    /**
+     * Returns observable list of students of currently queried group.
+     *
+     * @return Observable list of students in the currently queried group.
+     */
+    public ObservableList<Student> getObservableListStudentsFromGroup() {
+        String groupId = ListOfGroups.getCurrentlyQueriedGroup();
+        int groupIndex = groupList.getGroupIndex(groupId);
+        ObservableList<Student> studentList = null;
+        if (groupIndex != -1) {
+            Group group = groupList.getGroup(groupIndex);
+            studentList = group.getObservableListStudents();
+        }
+        return studentList;
+    }
+
+    /**
+     * Check if group exists.
+     *
+     * @param groupId ID of the specified group.
+     */
+    public boolean checkGroupExists(String groupId) {
+        boolean groupExists = false;
+        ArrayList<Group> groupArrayList = groupList.getGroupList();
+        for (Group group : groupArrayList) {
+            if (group.getGroupId().equals((groupId))) {
+                groupExists = true;
+                break;
+            }
+        }
+        return groupExists;
+    }
     //endregion
 
     //region Questions
@@ -348,8 +434,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Question> getSearchQuestions() {
+        return savedQuestions.getSearchQuestions();
+    }
+
+    @Override
     public Question getQuestion(Index index) {
         return savedQuestions.getQuestion(index);
+    }
+
+    @Override
+    public String searchQuestions(String textToFind) {
+        return savedQuestions.searchQuestions(textToFind);
     }
 
     @Override
@@ -421,6 +517,16 @@ public class ModelManager implements Model {
     @Override
     public String getQuestionsAndAnswers(String quizId) {
         return savedQuizzes.getQuestionsAndAnswers(quizId);
+    }
+
+    @Override
+    public ObservableList<Question> getObservableListQuestionsFromQuiz() {
+        return savedQuizzes.getObservableListQuestionsFromQuiz();
+    }
+
+    @Override
+    public boolean checkQuizExists(String quizId) {
+        return savedQuizzes.checkQuizExists(quizId);
     }
 
     @Override
@@ -618,8 +724,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }

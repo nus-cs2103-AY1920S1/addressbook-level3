@@ -88,8 +88,38 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Question> getAllQuestions() {
+        return model.getAllQuestions();
+    }
+
+    @Override
+    public ObservableList<Question> getSearchQuestions() {
+        return model.getSearchQuestions();
+    }
+
+    @Override
     public ObservableList<Statistics> getProcessedStatistics() {
         return model.getProcessedStatistics();
+    }
+
+    @Override
+    public ObservableList<Student> getStudentsInGroup() {
+        return model.getObservableListStudentsFromGroup();
+    }
+
+    @Override
+    public ObservableList<Question> getQuestionsInQuiz() {
+        return model.getObservableListQuestionsFromQuiz();
+    }
+
+    @Override
+    public ObservableList<Question> getAnswersInQuiz() {
+        return model.getObservableListQuestionsFromQuiz();
+    }
+
+    @Override
+    public ObservableList<Question> getQuestionsAndAnswersInQuiz() {
+        return model.getObservableListQuestionsFromQuiz();
     }
 
     @Override

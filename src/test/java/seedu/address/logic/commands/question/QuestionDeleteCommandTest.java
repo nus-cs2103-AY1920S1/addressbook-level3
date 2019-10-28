@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -25,7 +26,8 @@ import seedu.address.model.student.StudentRecord;
 public class QuestionDeleteCommandTest {
 
     private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(), new StatisticsRecord(),
+        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(),
+        new StatisticsRecord(),
         new UserPrefs());
 
     @Test
@@ -35,7 +37,8 @@ public class QuestionDeleteCommandTest {
 
         Question expectedQuestion = model.getQuestion(index);
         String expectedMessage = "Deleted question: " + expectedQuestion;
-        assertCommandSuccess(deleteCommand, model, expectedMessage, model);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, model,
+            CommandResultType.SHOW_QUESTION);
     }
 
     @Test

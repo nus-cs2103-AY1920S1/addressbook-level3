@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.question;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -13,6 +14,6 @@ public class QuestionListCommand extends QuestionCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(model.getQuestionsSummary());
+        return new CommandResult(model.getQuestionsSummary(), CommandResultType.SHOW_QUESTION);
     }
 }

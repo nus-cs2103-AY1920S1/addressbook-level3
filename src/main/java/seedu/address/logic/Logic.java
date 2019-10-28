@@ -58,6 +58,20 @@ public interface Logic {
      * @see seedu.address.model.Model#getSlideshowQuestions()
      */
     ObservableList<Question> getSlideshowQuestions();
+
+    /**
+     * Returns the list of all questions
+     *
+     * @see seedu.address.model.Model#getAllQuestions()
+     */
+    ObservableList<Question> getAllQuestions();
+
+    /**
+     * Returns the list of all searched questions.
+     *
+     * @see seedu.address.model.Model#getSearchQuestions()
+     */
+    ObservableList<Question> getSearchQuestions();
     //endregion
 
     //region Statistics
@@ -83,6 +97,26 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of students
      */
     ObservableList<Student> getFilteredStudentList();
+
+    /**
+     * Returns an unmodifiable view of the students in queried group.
+     */
+    ObservableList<Student> getStudentsInGroup();
+
+    /**
+     * Returns an unmodifiable view of the questions in queried quiz.
+     */
+    ObservableList<Question> getQuestionsInQuiz();
+
+    /**
+     * Returns an unmodifiable view of the answers in queried quiz.
+     */
+    ObservableList<Question> getAnswersInQuiz();
+
+    /**
+     * Returns an unmodifiable view of the questions and answers in queried quiz.
+     */
+    ObservableList<Question> getQuestionsAndAnswersInQuiz();
 
     //region VEvents
     ObservableList<VEvent> getVEventList();
