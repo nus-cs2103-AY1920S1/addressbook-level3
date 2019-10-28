@@ -25,17 +25,6 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
         return null;
     }
 
-    /* TODO: Remove this method or find a use for it.
-    public synchronized Item popReminder() {
-        if(!isEmpty()) {
-            return remove(0);
-        } else {
-            //Should have this throw an exception
-            return null;
-        }
-    }
-    */
-
     /**
      * Adds a reminder to ActiveRemindersList
      *
