@@ -23,6 +23,7 @@ public class Project {
     private Set<Meeting> meeting = new HashSet<>();
 
     public Project(Title name, Description description, List<String> members, List<Task> tasks, Finance finance) {
+
         requireAllNonNull(name, description);
         this.description = description;
         this.title = name;
@@ -85,7 +86,6 @@ public class Project {
     public boolean hasMember(Person person) {
         return members.contains(person.getName().fullName);
     }
-
 
     @Override
     public String toString() {

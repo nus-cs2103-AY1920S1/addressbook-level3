@@ -115,6 +115,29 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    //=========== Email Account for Owner of application ======================================================
+
+    /**
+     * Checks whether User has signed in using his Email Account
+     */
+    boolean isSignedIn();
+
+    /**
+     * Lets user signs in with the given Account.
+     */
+    void signIn(OwnerAccount ownerAccount) throws Exception;
+
+    /**
+     * Returns user's Email Account
+     */
+    OwnerAccount getOwnerAccount();
+
+    /**
+     * Signs out of the Account
+     */
+    void logOut();
+
+
     //=========== Project list ================================================================================
     /**
      * Returns the user prefs' project list file path.

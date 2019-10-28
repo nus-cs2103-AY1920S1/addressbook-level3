@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.commands.LogOutCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,6 +99,15 @@ public class AddressBookParser {
 
         case GenerateSlotCommand.COMMAND_WORD:
             return new GenerateSlotCommandParser().parse(arguments);
+
+        case SendMailCommand.COMMAND_WORD:
+            return new SendMailCommandParser().parse(arguments);
+
+        case SignInCommand.COMMAND_WORD:
+            return new SignInCommandParser().parse(arguments);
+
+        case LogOutCommand.COMMAND_WORD:
+            return new LogOutCommandParser().parse(arguments);
 
         case SortTaskCommand.COMMAND_WORD:
             return new SortTaskParser().parse(arguments);

@@ -9,7 +9,11 @@ import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.timetable.TimeTable;
 
-import java.util.*;
+import java.util.Optional;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collections;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;

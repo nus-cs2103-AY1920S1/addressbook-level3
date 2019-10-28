@@ -6,12 +6,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
 import seedu.address.model.util.SortingOrder;
 
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * An UI component that displays information of a {@code Project}.
@@ -48,6 +51,10 @@ public class ProjectCard extends UiPart<Region> {
     private FlowPane tasks;
     @FXML
     private FlowPane meetings;
+
+    @FXML
+    private Label meetingTitle;
+
     private int count = 0;
 
     public ProjectCard(Project project, int displayedIndex) {
@@ -64,9 +71,8 @@ public class ProjectCard extends UiPart<Region> {
         taskTitle.setText("Tasks: ");
         tasks.setOrientation(Orientation.VERTICAL);
         tasks.setPrefWrapLength(100);
-        project.getListOfMeeting().stream()
-                .sorted(Comparator.comparing(m -> m.getTime().getDate()))
-                .forEach(meeting -> meetings.getChildren().add(new Label(meeting.getDescription().description + " " + meeting.getTime().time)));
+        meetingTitle.setText("Meetings:");
+        displayMeeting(meetings, project);
     }
 
     @Override
@@ -85,5 +91,14 @@ public class ProjectCard extends UiPart<Region> {
         ProjectCard card = (ProjectCard) other;
         return id.getText().equals(card.id.getText())
                 && project.equals(card.project);
+    }
+
+    public void displayMeeting(FlowPane meetings, Project project) {
+        List<Meeting> listOfMeetings = new ArrayList<Meeting>(project.getListOfMeeting());
+        int meetingCount = 1;
+        listOfMeetings.sort(Comparator.comparing(m -> m.getTime().getDate()));
+        for (Meeting meeting: listOfMeetings) {
+            meetings.getChildren().add(new Label("    " + meetingCount++ + ". " + meeting.getDescription().description + " " + meeting.getTime().time));
+        }
     }
 }

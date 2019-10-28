@@ -240,6 +240,31 @@ public class ModelManager implements Model {
         updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
     }
 
+    //=========== Email Account for Owner of application ======================================================
+
+    private OwnerAccount ownerAccount;
+    private boolean isSignedIn = false;
+
+    public void signIn(OwnerAccount ownerAccount) throws Exception {
+        String account = ownerAccount.getEmail().value;
+        String pass = ownerAccount.getPassword();
+        Mailer.sendEmail(account, pass, "cs2103t17@gmail.com", "SignInCheck", "Email Exists and can sign in");
+        this.ownerAccount = ownerAccount;
+        this.isSignedIn = true;
+    }
+
+    public boolean isSignedIn() {
+        return this.isSignedIn;
+    }
+
+    public OwnerAccount getOwnerAccount() {
+        return this.ownerAccount;
+    }
+
+    public void logOut() {
+        this.ownerAccount = null;
+        this.isSignedIn = false;
+    }
 
     //=========== Filtered Project List Accessors =============================================================
 
