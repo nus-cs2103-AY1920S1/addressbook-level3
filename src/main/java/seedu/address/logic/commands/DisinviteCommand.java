@@ -19,12 +19,12 @@ import seedu.address.model.person.Person;
 /**
  * Disinvites a person to the activity.
  */
-public class DisinviteCommand extends Command{
+public class DisinviteCommand extends Command {
 
     public static final String COMMAND_WORD = "disinvite";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Disinvites participant(s) " +
-            "from current viewed Activity.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Disinvites participant(s) "
+            + "from current viewed Activity.\n"
             + "Parameters: "
             + "[" + PREFIX_PARTICIPANT + "PARTICIPANT]...\n"
             + "Example: disinvite p/Ben p/David";
@@ -44,8 +44,8 @@ public class DisinviteCommand extends Command{
 
     public static final String MESSAGE_RESULT_NONE_SUCCESS = "%s";
 
-    public static final String MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE = "Cannot disinvite \"%s\" from activity: " +
-            "involved in expense(s).";
+    public static final String MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE = "Cannot disinvite \"%s\" from activity: "
+            + "involved in expense(s).";
 
     private final List<String> peopleToDisinvite;
 
@@ -133,6 +133,8 @@ public class DisinviteCommand extends Command{
         } else {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
         }
+
+        // TODO: check disinvite function again with the updated expense
 
         return new CommandResult(result);
 
