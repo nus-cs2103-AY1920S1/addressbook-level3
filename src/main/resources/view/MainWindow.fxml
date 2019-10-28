@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
@@ -18,13 +17,9 @@
     <Image url="@/images/dukeacademy-icon.png" />
   </icons>
   <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
+    <Scene stylesheets="@DukeAcademyStyle.css">
 
-      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="792.0">
+      <VBox>
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -33,50 +28,43 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
+            <HBox spacing="15.0" style="-fx-border-color: #ff1e00;" VBox.vgrow="NEVER">
+               <children>
+              <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="258.0" style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" top="15.0" />
+                     </HBox.margin>
+              </StackPane>
+              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.6" prefWidth="550.0" style="-fx-border-color: #000000;" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+              </StackPane>
+               </children>
+            </HBox>
+            <HBox style="-fx-border-color: #ff1e00;" VBox.vgrow="ALWAYS">
+               <children>
+                  <StackPane fx:id="questionListPanelPlaceholder" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="252.0" style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </StackPane>
+                  <StackPane fx:id="problemStatementPlaceholder" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="300.0" style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
+                  <VBox style="-fx-border-color: #ff1e00;">
+                     <children>
+                        <AnchorPane fx:id="editorPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="350.0" style="-fx-border-color: #000000;" VBox.vgrow="ALWAYS" />
+                        <AnchorPane fx:id="codeResultPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="350.0" style="-fx-border-color: #000000;" VBox.vgrow="NEVER" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #ff1e00;">
+                     <children>
+                        <AnchorPane fx:id="homePagePlaceholder" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
 
-        <StackPane fx:id="commandBoxPlaceholder" prefHeight="35.0" prefWidth="688.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="93.0" prefHeight="93.0" prefWidth="688.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" minWidth="340" prefWidth="662.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-               <HBox prefHeight="225.0" prefWidth="722.0" spacing="30.0" VBox.vgrow="ALWAYS">
-                  <children>
-                <StackPane fx:id="questionListPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="209.0">
-                        <HBox.margin>
-                           <Insets left="10.0" />
-                        </HBox.margin>
-                     </StackPane>
-                      <StackPane fx:id="problemStatementPlaceholder" alignment="CENTER_LEFT" prefWidth="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     <VBox prefHeight="200.0" prefWidth="100.0">
-                        <children>
-                           <AnchorPane fx:id="editorPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="410.0" />
-                           <AnchorPane fx:id="codeResultPanelPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="410.0" />
-                        </children>
-                     </VBox>
-                     <VBox prefHeight="200.0" prefWidth="100.0">
-                        <children>
-                           <AnchorPane fx:id="homePagePlaceholder" prefHeight="200.0" prefWidth="200.0" />
-                        </children>
-                     </VBox>
-                  </children>
-                  <VBox.margin>
-                     <Insets left="5.0" />
-                  </VBox.margin>
-               </HBox>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="688.0" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="21.6" prefWidth="879.2" style="-fx-border-color: #ff1e00;" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>
