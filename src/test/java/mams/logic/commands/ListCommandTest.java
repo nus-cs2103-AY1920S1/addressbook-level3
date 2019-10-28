@@ -7,6 +7,9 @@ import static mams.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalMams.getTypicalMams;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -209,5 +212,28 @@ public class ListCommandTest {
                 model,
                 MESSAGE_LIST_ALL_SUCCESS,
                 expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        ListCommand listAll = new ListCommand(true, true, true);
+        ListCommand listAppealModule = new ListCommand(true, true, false);
+        ListCommand listAppeal = new ListCommand(true, false, false);
+
+        // same object -> returns true
+        assertTrue(listAll.equals(listAll));
+
+        // same values -> returns true
+        assertTrue(listAll.equals(new ListCommand(true, true, true)));
+
+        // different types -> returns false
+        assertFalse(listAll.equals(1));
+
+        // null -> returns false
+        assertFalse(listAll.equals(null));
+
+        // different internal values -> returns false
+        assertFalse(listAll.equals(listAppealModule));
+        assertFalse(listAll.equals(listAppeal));
     }
 }

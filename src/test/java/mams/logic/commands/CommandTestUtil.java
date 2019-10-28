@@ -153,4 +153,34 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredStudentList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show all appeals in MAMS.
+     */
+    public static void showAllAppeals(Model model) {
+        model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show all modules in MAMS.
+     */
+    public static void showAllModules(Model model) {
+        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show all students in MAMS.
+     */
+    public static void showAllStudents(Model model) {
+        model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+    }
+
+    /**
+     * Updates {@code model}'s filtered lists to show all items in all three lists of MAMS.
+     */
+    public static void showAll(Model model) {
+        showAllAppeals(model);
+        showAllModules(model);
+        showAllStudents(model);
+    }
+
 }

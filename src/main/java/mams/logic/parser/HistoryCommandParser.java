@@ -16,6 +16,7 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
      * and returns HistoryCommand object for execution.
      * @param args {@code String} to be parsed
      */
+    @Override
     public HistoryCommand parse(String args) {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_HIDE_OUTPUT);

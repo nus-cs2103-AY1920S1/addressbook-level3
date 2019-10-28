@@ -48,6 +48,19 @@ public class ViewCommand extends Command {
         this.params = params;
     }
 
+    /**
+     * Execute ViewCommand and displays the expanded view of items in the specified indexes.
+     *
+     * In the case of multiple specifed indexes:
+     * If at least one of the parameters are out of bounds, then no lists will be updated.
+     * That is to say, even if the appealIndex was valid, but the supplied studentIndex in
+     * ViewCommandParameters was out of bounds, then appeal list will not be updated and an
+     * error will be thrown. This is by design - if appeal list had been updated, then the user
+     * will have to go back and delete the appeal list argument from the previous command
+     * before he can reuse the command. (Remember that if ViewCommand is performed successfully on an appeal,
+     * the new displayed appeal list now only has one item with an Index of 1, so the old Index is no
+     * longer valid, and old command is no longer reusable)
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         // Defensive check: ViewCommandParser should have ensured at least one parameter is present
@@ -95,7 +108,7 @@ public class ViewCommand extends Command {
      * @param lastShownStudentList student list to check {@code studentIndex} against
      * @throws CommandException if any of the indexes are out of bounds within their specific lists
      */
-    private void verifyAllIndexesWithinBounds(List<Appeal> lastShownAppealList,
+    protected void verifyAllIndexesWithinBounds(List<Appeal> lastShownAppealList,
                                               List<Module> lastShownModuleList,
                                               List<Student> lastShownStudentList) throws CommandException {
         StringBuilder errorMessage = new StringBuilder();
@@ -121,7 +134,7 @@ public class ViewCommand extends Command {
         }
 
         if (indexOutOfBounds) {
-            throw new CommandException(errorMessage.toString());
+            throw new CommandException(errorMessage.toString().trim());
         }
     }
 

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,9 +60,17 @@ public class CommandHistoryTest {
         CommandHistory differentCommandHistory = new CommandHistory();
         differentCommandHistory.add(VALID_COMMAND_2, VALID_COMMAND_OUTPUT_2);
 
+        // same object -> same hashcode
+        assertEquals(commandHistory.hashCode(), commandHistory.hashCode());
+
+        // same internal values -> same hashcode
         assertEquals(commandHistory.hashCode(), sameCommandHistory.hashCode());
 
+        // different internal values -> different hashcode
         assertNotEquals(commandHistory.hashCode(), differentCommandHistory.hashCode());
+
+        // different object types -> different hashcode
+        assertNotEquals(commandHistory.hashCode(), Objects.hash(0));
     }
 
     @Test
@@ -76,8 +85,8 @@ public class CommandHistoryTest {
         anotherAppendedCommandHistory.add(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
         anotherAppendedCommandHistory.add(INVALID_COMMAND_2, VALID_COMMAND_OUTPUT_1);
 
+        // internal value different -> different hashcode
         assertNotEquals(commandHistory.hashCode(), appendedCommandHistory.hashCode());
-
         assertNotEquals(commandHistory.hashCode(), anotherAppendedCommandHistory.hashCode());
     }
 
