@@ -16,23 +16,50 @@ endif::[]
 
 By: `AY1920S1-CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+
+This section specifies the purpose of this document and design goals of Athletick.
+
+=== Purpose
+
+This document describes the software architecture and system design of Athletick, a team management desktop application for coaches and team captains of timing-based performance sports. It also includes some of the design considerations for the implementation of Athletick's features.
+
+The intended audience of this document includes the developers and software testers of Athletick.
+
+=== Design goals
+
+Athletick was developed as part of CS2103T, a software engineering module taken in the National University of Singapore. We were tasked to morph a generic https://se-education.org/addressbook-level3/[address book application] that manages contacts into an application that manages something else. At the end of the project, it should be ready to be continued by future developers.
+
+As part of the project constraints, the input to Athletick needs to be primarily Command-Line Interface (CLI). Non-CLI inputs will reduce the suitability of the product to our target users. Taking this into consideration, the following principles guide the design of Athletick:
+
+. **Friendlier Syntax**
++
+In order to cater to beginner and experienced users of Athletick, we have provided shorter aliases for our command words. This helps new users to use intuitive and self-explanatory commands, while advanced users can accomplish their tasks more quickly with a shorter command syntax.
+
+. **Optimised Performance**
++
+Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable sluggishness in performance for typical usage. To achieve this, we used optimal data structures for storing and retrieval of data.
+
+
+. **Designer Friendly**
++
+As Athletick is intended for future student developers like us to make modifications and extensions to its behaviour, adhering to the high-level design architecture strictly was a necessity. This translates to extensive use of abstractions for code clarity. Additionally, we provided Javadoc comments for our classes and methods for developers to understand how they work.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
 
-== Design
+== System design
+
+This section introduces the high-level design of Athletick and gives you a basic understanding of how each component operates and interacts with one another.
 
 [[Design-Architecture]]
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[width=400]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+The *_Architecture Diagram_* given above explains the high-level design of Athletick. Given below is a quick overview of each component.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -46,9 +73,9 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Ui,*`UI`*>>: Displays the UI of Athletick.
+* <<Design-Logic,*`Logic`*>>: Executes commands from the user.
+* <<Design-Model,*`Model`*>>: Holds the data of Athletick in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -56,7 +83,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (refer to the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -66,7 +93,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component Interactions for `delete 1` Command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -142,7 +169,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Athletick data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -151,7 +178,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.
 
 === Training & Attendance feature
 
@@ -184,49 +211,73 @@ using trainings attended / total trainings would not give an accurate reflection
 
 Also, our `select` function shows attendance rate of a `Person` and a HashMap provides the fastest access time to check whether a `Person` attended a training session.
 
-=== Filter feature
+=== Performance feature
 
-The filter command enables filtering of athletes based on their tags.
-Currently, only filtering by one tag is supported.
-Filtering by multiple tags will be available by `v1.2`.
+=== Calendar feature
+
+The calendar feature allows users to view training and performance records entered into Athletick on a specific date.
 
 ==== Implementation
 
-Filter makes use of a `TagMatchesPredicate` class to determine if the athlete has tags matching the user input.
-Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
+==== Design considerations
 
-image::filter_sequence_diagram.png[]
+=== Select feature
+==== Implementation
+The select feature is facilitated by `SelectCommand` class. It extends `Command` and parses the arguments using
+`SelectCommandParser`. It implements the one operation:
 
-Once filtering by multiple tags is implemented, the parsing of tag from `AddressBookParser` to `FilterCommandParser` will involve splitting them by spaces and storing the tag queries in a list.
-Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
+* `CommandResult#execute()` - Executes the selectCommand which returns the person selected to be displayed in the UI.
 
-However, since currently only filtering by one tag is supported,
-the parsing of tag simply involves trimming the tag of white spaces.
+Other operations that were implemented to aid the `SelectCommand` feature are:
 
-Finally, the list shown to the user is updated through `Model#updateFilteredPersonsList()`.
+* `Model#selectPerson()` -- Returns the person that was stored.
+* `Model#storePerson(Person)` -- Stores the person that was selected.
+* `Logic#getPerson()` -- Retrieves the person that was selected to display their personal information in the UI.
 
-==== Design Considerations
+These operations are exposed in the Model interface as `Model#selectPerson()` and `Model#storePerson
+(Person)` and in the Logic interface as `Logic#getPerson()`.
 
-===== Aspect: How a tag match is determined
+An example usage scenario is given below which elaborates how the select command works at each step.
 
-* **Alternative 1 (current choice):** Case-insensitive.
-** Pros: More user-friendly.
-** Cons: Requires converting tags to lower-case on the back-end.
-* **Alternative 2:** Case-sensitive.
-** Pros: Allows for more accurate filtering.
-** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
+Step 1. The user executes the `select 3` command to display the personal information of the 3rd person in the address
+book. When the command is executed, the person selected at the specified index will be stored in ModelManager as
+`selectedPerson` using the operation `Model#storePerson(Person)`.
+//image
 
-===== Aspect: How matches for multiple tags are determined
+Step 2. After the command has been executed, the selected person is retrieved in the MainWindow class. It checks
+whether a person has been selected and displays the selected person's personal information.
+//snippet and image
 
-* **Alternative 1:** Exclusive matching.
-** Pros: Allows for more accurate filtering.
-** Cons: Users get fewer filter results.
-* **Alternative 2:** Optional matching.
-** Pros: Allows for more flexible searching.
-** Cons: Users may get results that they are not interested in.
+The implementation was done this way because the Ui component interacts with both the Logic and Model component.
+Firstly, the Ui component takes in the input from the user and allows the Logic component to parse the argument.
+After the argument has been parsed, the person is stored in the Model component which houses most of the data of the
+app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected person.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+==== Design considerations
+
+===== Aspect: In what way is the personal information of the selected person going to be displayed
+
+* Alternative 1 (current choice): Displaying it in a feature box.
+** Pros: Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
+** Cons: Aesthetic is not as good compared to the other alternatives.
+* Alternative 2: Displaying it in a tab form.
+** Pros: Looks more organised compared to the other alternatives
+** Cons: Not as intuitive to use as mouse has to be used to switch around tabs.
+* Alternative 3: Displaying via a pop-up.
+** Pros: Looks neater and organised.
+** Cons: Increase the use of mouse to close the window and may be distracting to user.
+
+===== Aspect: How to select a person
+
+* Alternative 1 (current choice): Choosing by the index number.
+** Pros: Intuitive to use and can be used with other commands such as `FindCommand` and `FilterCommand` to narrow
+down the list of people.
+** Cons: Additional step of filtering before selecting a person.
+* Alternative 2: Choosing by name.
+** Pros: Can omit the filtering step and select the person directly.
+** Cons: There may be 2 people with the same name and thus result in an error.
+
+=== Undo / Redo feature
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -307,59 +358,6 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-=== Select feature
-==== Implementation
-The select feature is facilitated by `SelectCommand` class. It extends `Command` and parses the arguments using
-`SelectCommandParser`. It implements the one operation:
-
-* `CommandResult#execute()` - Executes the selectCommand which returns the person selected to be displayed in the UI.
-
-Other operations that were implemented to aid the `SelectCommand` feature are:
-
-* `Model#selectPerson()` -- Returns the person that was stored.
-* `Model#storePerson(Person)` -- Stores the person that was selected.
-* `Logic#getPerson()` -- Retrieves the person that was selected to display their personal information in the UI.
-
-These operations are exposed in the Model interface as `Model#selectPerson()` and `Model#storePerson
-(Person)` and in the Logic interface as `Logic#getPerson()`.
-
-An example usage scenario is given below which elaborates how the select command works at each step.
-
-Step 1. The user executes the `select 3` command to display the personal information of the 3rd person in the address
-book. When the command is executed, the person selected at the specified index will be stored in ModelManager as
-`selectedPerson` using the operation `Model#storePerson(Person)`.
-//image
-
-Step 2. After the command has been executed, the selected person is retrieved in the MainWindow class. It checks
-whether a person has been selected and displays the selected person's personal information.
-//snippet and image
-
-The implementation was done this way because the Ui component interacts with both the Logic and Model component.
-Firstly, the Ui component takes in the input from the user and allows the Logic component to parse the argument.
-After the argument has been parsed, the person is stored in the Model component which houses most of the data of the
-app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected person.
-
-==== Design Consideration
-===== Aspect: In what way is the personal information of the selected person going to be displayed
-* Alternative 1 (current choice): Displaying it in a feature box.
-** Pros: Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
-** Cons: Aesthetic is not as good compared to the other alternatives.
-* Alternative 2: Displaying it in a tab form.
-** Pros: Looks more organised compared to the other alternatives
-** Cons: Not as intuitive to use as mouse has to be used to switch around tabs.
-* Alternative 3: Displaying via a pop-up.
-** Pros: Looks neater and organised.
-** Cons: Increase the use of mouse to close the window and may be distracting to user.
-
-==== Aspect: How to select a person
-* Alternative 1 (current choice): Choosing by the index number.
-** Pros: Intuitive to use and can be used with other commands such as `FindCommand` and `FilterCommand` to narrow
-down the list of people.
-** Cons: Additional step of filtering before selecting a person.
-* Alternative 2: Choosing by name.
-** Pros: Can omit the filtering step and select the person directly.
-** Cons: There may be 2 people with the same name and thus result in an error.
-
 === Adding/editing photo feature
 ==== Implementation
 The sub feature of `AddCommand` and `EditCommand` allows the inclusion of photo for a person. The sub feature is
@@ -376,14 +374,80 @@ is done to keep the file name simple.
 
 ==== Design Consideration
 ===== Aspect: Regular expression for the file name
-* Alternative 1 (current choice): To use alphanumerics only.
+* **Alternative 1 (current choice):** To use alphanumerics only.
 ** Pros: Keeps it simple without the confusion of special characters.
 ** Cons:
-* Alternative 2: Alphanumerics and special characters.
+* **Alternative 2:** Alphanumerics and special characters.
 ** Pros
 ** Cons
 
-// end::dataencryption[]
+=== Filter feature
+
+The filter command enables filtering of athletes based on their tags.
+Currently, only filtering by one tag is supported.
+Filtering by multiple tags will be available by `v1.2`.
+
+==== Implementation
+
+Filter makes use of a `TagMatchesPredicate` class to determine if the athlete has tags matching the user input.
+Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
+
+image::filter_sequence_diagram.png[]
+
+Once filtering by multiple tags is implemented, the parsing of tag from `AddressBookParser` to `FilterCommandParser` will involve splitting them by spaces and storing the tag queries in a list.
+Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
+
+However, since currently only filtering by one tag is supported,
+the parsing of tag simply involves trimming the tag of white spaces.
+
+Finally, the list shown to the user is updated through `Model#updateFilteredPersonsList()`.
+
+==== Design considerations
+
+===== Aspect: How a tag match is determined
+
+* **Alternative 1 (current choice):** Case-insensitive.
+** Pros: More user-friendly.
+** Cons: Requires converting tags to lower-case on the back-end.
+* **Alternative 2:** Case-sensitive.
+** Pros: Allows for more accurate filtering.
+** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
+
+===== Aspect: How matches for multiple tags are determined
+
+* **Alternative 1:** Exclusive matching.
+** Pros: Allows for more accurate filtering.
+** Cons: Users get fewer filter results.
+* **Alternative 2:** Optional matching.
+** Pros: Allows for more flexible searching.
+** Cons: Users may get results that they are not interested in.
+
+=== Sort Command
+
+The sort command sorts the displayed list of athletes by alphabetical order. As new athletes are added to the bottom of the list, the sort command is used after to reorder the athlete list.
+
+==== Implementation
+
+The `sort` command makes use of a `PersonComparator` that orders athletes in alphabetical order by comparing their names. The comparison is case-insensitive.
+
+The following sequence diagram shows how the sort operation works:
+
+.Interactions Inside the Logic and Model Components for the `sort` Command
+image::SortCommandSequenceDiagram.png[]
+
+Upon completion of the above execution, the sorted list of athletes would be displayed immediately thorugh `Model#sortByName()`.
+
+To support sorting by more parameters (e.g. by height / weight), you can simply create a new class that implements `Comparator` that compares athletes by that parameter instead. After which, you have to edit the `sort` command to support different sort command syntaxes.
+
+==== Design considerations
+===== Aspect: When should the athlete list should be sorted
+* **Alternative 1 (current choice):** Sort address book after user issues the `sort` command
+** Pros: Users are able to view their newly added athletes at the bottom of the list which is more user-friendly especially when the list of athletes is very long. Allows future expansion to sort by other methods (e.g. performance scores) easily as we only have to create new comparators to order the athletes.
+** Cons: Additional overhead required in terms of having to create an additional command for users to issue.
+
+* **Alternative 2:** Sort address book persistently in alphabetical order
+** Pros: Sorting is automated
+** Cons: The list is unable to be sorted by other methods (e.g. attendance rate) unless we implement alternative 1 so the alternative 2 is more limited.
 
 === Logging
 

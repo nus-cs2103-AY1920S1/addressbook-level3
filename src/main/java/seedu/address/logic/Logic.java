@@ -40,6 +40,8 @@ public interface Logic {
 
     Person getPerson();
 
+    String getPersonAttendance();
+
     /**
      * Returns the user prefs' GUI settings.
      */

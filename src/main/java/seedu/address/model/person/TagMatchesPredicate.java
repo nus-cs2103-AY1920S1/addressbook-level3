@@ -1,35 +1,33 @@
 package seedu.address.model.person;
 
+import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that any of a {@code Person}'s {@code Tag} matches any of the keywords given.
  */
 public class TagMatchesPredicate implements Predicate<Person> {
+    private final List<String> tagQueries;
 
-    private final String tagQuery;
-
-    public TagMatchesPredicate(String tagQuery) {
-        this.tagQuery = tagQuery;
+    public TagMatchesPredicate(List<String> tagQueries) {
+        this.tagQueries = tagQueries;
     }
 
     @Override
     public boolean test(Person person) {
-        boolean contains = false;
-        for (Tag tag : person.getTags()) {
-            if ((tag.tagName).equalsIgnoreCase(tagQuery)) {
-                contains = true;
-            }
-        }
-        return contains;
+        String allTags = person.getTags().toString()
+                .replaceAll("\\[|\\]", "").replaceAll(",", " ");
+
+        return tagQueries.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(allTags, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TagMatchesPredicate // instanceof handles nulls
-                && tagQuery.equals(((TagMatchesPredicate) other).tagQuery)); // state check
+                && tagQueries.equals(((TagMatchesPredicate) other).tagQueries)); // state check
     }
 }

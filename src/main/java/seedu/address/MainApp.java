@@ -19,7 +19,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Attendance;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.Performance;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPerformance;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
@@ -28,7 +30,9 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.AttendanceStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonAttendanceStorage;
+import seedu.address.storage.JsonPerformanceStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.PerformanceStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -40,7 +44,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(2, 5, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -61,8 +65,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        PerformanceStorage performanceStorage = new JsonPerformanceStorage(userPrefs.getEventListFilePath());
         AttendanceStorage attendanceStorage = new JsonAttendanceStorage(userPrefs.getAttendanceFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, attendanceStorage);
+        storage = new StorageManager(addressBookStorage, performanceStorage, attendanceStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -70,7 +75,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        ui = new UiManager(logic, model);
         HistoryManager.getAddressBooks().push(model.getAddressBookDeepCopy());
     }
 
@@ -81,28 +86,52 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialAddressBook;
         ReadOnlyAddressBook initialData;
-        Optional<Attendance> attendanceOptional;
-        Attendance initialAttendance;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file for Athletick not found. Will be starting with a sample "
+                        + "team list");
             }
+            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(
+                    "Data file for Athletick not in the correct format. Will be starting with an "
+                            + "empty team list");
+            initialAddressBook = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(
+                    "Problem while reading from Athletick file. Will be starting with an empty "
+                            + "team list");
+            initialAddressBook = new AddressBook();
         }
 
+        Optional<ReadOnlyPerformance> performanceOptional;
+        ReadOnlyPerformance initialEventsList;
+        try {
+            performanceOptional = storage.readEvents();
+            if (!performanceOptional.isPresent()) {
+                logger.info("Data file for EventList not found. Will be starting with a sample EventList");
+            }
+            initialEventsList = performanceOptional.orElseGet(SampleDataUtil::getSamplePerformance);
+        } catch (DataConversionException e) {
+            logger.warning(
+                    "Data file for EventList not in the correct format. Will be starting with empty EventList");
+            initialEventsList = new Performance();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from EventList file. Will be starting with an empty EventList");
+            initialEventsList = new Performance();
+        }
+
+        Optional<Attendance> attendanceOptional;
+        Attendance initialAttendance;
         try {
             attendanceOptional = storage.readAttendance();
             if (!attendanceOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample Attendance");
             }
             initialAttendance = attendanceOptional.orElse(new Attendance());
         } catch (DataConversionException e) {
@@ -112,8 +141,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Attendance");
             initialAttendance = new Attendance();
         }
-
-        return new ModelManager(initialData, initialAttendance, userPrefs);
+        return new ModelManager(initialAddressBook, initialEventsList, initialAttendance, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -174,7 +202,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty team list");
             initializedPrefs = new UserPrefs();
         }
 
@@ -190,13 +218,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Athletick " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Athletick ] " + "=============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
