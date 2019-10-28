@@ -2,7 +2,7 @@ package dream.fcard.gui.components;
 
 import java.io.IOException;
 
-import dream.fcard.gui.MainWindow;
+import dream.fcard.core.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 public class JavaEditorApplication extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         try {
-            FXMLLoader fxmlloader = new FXMLLoader(MainWindow.class.getResource("/view/Windows/JavaEditor.fxml"));
+            FXMLLoader fxmlloader = new FXMLLoader(Main.class.getResource("/view/Windows/JavaEditor.fxml"));
             AnchorPane ap = fxmlloader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
