@@ -7,8 +7,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModulesInfo;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
+import seedu.address.model.studyplan.exceptions.InvalidTitleException;
 
 /**
  * Creates a new studyPlan.
@@ -48,8 +50,12 @@ public class CreateStudyPlanCommand extends Command {
             studyPlanToAdd = new StudyPlan(modulesInfo, model.getModulePlanner().getCurrentSemester());
         } else {
             // study plan with a title
-            studyPlanToAdd = new StudyPlan(new Title(studyPlanName), modulesInfo,
-                    model.getModulePlanner().getCurrentSemester());
+            try {
+                SemesterName currentSemester = model.getModulePlanner().getCurrentSemester();
+                studyPlanToAdd = new StudyPlan(new Title(studyPlanName), modulesInfo, currentSemester);
+            } catch (InvalidTitleException e) {
+                return new CommandResult(Title.MESSAGE_CONSTRAINTS);
+            }
         }
 
         if (model.hasStudyPlan(studyPlanToAdd)) {

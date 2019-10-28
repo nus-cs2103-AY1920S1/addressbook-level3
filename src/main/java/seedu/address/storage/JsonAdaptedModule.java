@@ -63,6 +63,25 @@ class JsonAdaptedModule {
      * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
     public Module toModelType() throws IllegalValueException {
+        if (moduleCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModuleCode.class.getSimpleName()));
+        }
+        if (!ModuleCode.isValidCode(moduleCode)) {
+            throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
+        }
+
+        if (color == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Color.class.getSimpleName()));
+        }
+
+        try {
+            Color.valueOf(color);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(Color.MESSAGE_CONSTRAINTS);
+        }
+
         List<Tag> tags = new ArrayList<>();
         for (JsonAdaptedTag userTag : userTags) {
             Tag tag = userTag.toModelType();

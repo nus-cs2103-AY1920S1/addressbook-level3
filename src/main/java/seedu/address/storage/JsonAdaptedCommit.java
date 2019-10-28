@@ -34,13 +34,29 @@ class JsonAdaptedCommit {
         commitMessage = source.getCommitMessage();
     }
 
+    public String getCommitMessage() {
+        return commitMessage;
+    }
+
+    public JsonAdaptedStudyPlan getStudyPlan() {
+        return studyPlan;
+    }
+
     /**
      * Converts this Jackson-friendly adapted commit object into the model's {@code Commit} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Commit.
      */
     public Commit toModelType() throws IllegalValueException {
+        if (studyPlan == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    StudyPlan.class.getSimpleName()));
+        }
         StudyPlan modelStudyPlan = studyPlan.toModelType();
+
+        if (commitMessage == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "commit message"));
+        }
         String modelCommitMessage = commitMessage;
 
         return new Commit(modelStudyPlan, modelCommitMessage);

@@ -29,6 +29,7 @@ public enum Color {
     WHITE("WHITE", "#FFFFFF"),
     GREY("GREY", "#808080");
 
+    public static final String MESSAGE_CONSTRAINTS = "This color is not valid";
 
     private String colorName;
     private String hexValue;

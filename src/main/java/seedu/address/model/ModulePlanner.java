@@ -37,7 +37,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     private final ModulesInfo modulesInfo;
     private final VersionTrackingManager versionTrackingManager;
     private StudyPlan activeStudyPlan;
-    private SemesterName currentSemester;
+    private SemesterName currentSemester = SemesterName.Y1S1; // default value
 
     public ModulePlanner() {
         studyPlans = new UniqueStudyPlanList();
@@ -181,20 +181,40 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             UniqueModuleList uniqueModuleList = semester.getModules();
             for (Module skeletalModule : uniqueModuleList) {
                 Module actualModule = megaModuleHash.get(skeletalModule.getModuleCode().toString());
-                uniqueModuleList.setModule(skeletalModule, actualModule);
+                // if (skeletalModule != actualModule) {
+                if (!skeletalModule.equals(actualModule)) {
+                    uniqueModuleList.setModule(skeletalModule, actualModule);
+                }
             }
         }
 
-        // TODO: get user-defined tags from mega tag list, and make the tags refer to the megalist of tags
-        // TODO: this is done?
+        // replaces the module tags with the reference to the actual tags in study plan mega tag list
+        UniqueTagList megaModuleTagList = activeStudyPlan.getModuleTags();
         for (Module module : megaModuleHash.values()) {
             UniqueTagList tagList = module.getTags();
+            UniqueTagList newTagList = changeTagPointers(tagList, megaModuleTagList);
+            module.setTags(newTagList);
         }
 
         activeStudyPlan.updatePrereqs();
         activeStudyPlan.setActivated(true);
 
         return activeStudyPlan;
+    }
+
+    /**
+     * Changes the tags in module tag list to point to the actual tag object in study plan during activation.
+     */
+    private UniqueTagList changeTagPointers(UniqueTagList moduleTagList, UniqueTagList megaTagList) {
+        UniqueTagList newTagList = new UniqueTagList();
+        for (Tag tag : moduleTagList) {
+            for (Tag actualTag : megaTagList) {
+                if (tag.equals(actualTag)) {
+                    newTagList.addTag(actualTag);
+                }
+            }
+        }
+        return newTagList;
     }
 
     /**

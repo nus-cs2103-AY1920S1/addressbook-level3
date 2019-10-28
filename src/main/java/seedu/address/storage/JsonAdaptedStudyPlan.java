@@ -27,10 +27,11 @@ class JsonAdaptedStudyPlan {
     private final int index;
     private final List<JsonAdaptedSemester> semesters = new ArrayList<>();
     private final SemesterName currentSemester;
+    private final List<JsonAdaptedTag> studyPlanTags = new ArrayList<>();
 
     // each study plan also keeps track of a unique module list and a unique tag list
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
-    private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedTag> moduleTags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedStudyPlan} with the given StudyPlan details.
@@ -40,8 +41,9 @@ class JsonAdaptedStudyPlan {
                                 @JsonProperty("title") String title, @JsonProperty("index") int index,
                                 @JsonProperty("semesters") List<JsonAdaptedSemester> semesters,
                                 @JsonProperty("modules") List<JsonAdaptedModule> modules,
-                                @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                                @JsonProperty("currentSemester") SemesterName currentSemester) {
+                                @JsonProperty("moduleTags") List<JsonAdaptedTag> moduleTags,
+                                @JsonProperty("currentSemester") SemesterName currentSemester,
+                                @JsonProperty("studyPlanTags") List<JsonAdaptedTag> studyPlanTags) {
         this.totalNumber = totalNumber;
         this.title = title;
         this.index = index;
@@ -52,8 +54,11 @@ class JsonAdaptedStudyPlan {
         if (modules != null) {
             this.modules.addAll(modules);
         }
-        if (tags != null) {
-            this.tags.addAll(tags);
+        if (moduleTags != null) {
+            this.moduleTags.addAll(moduleTags);
+        }
+        if (studyPlanTags != null) {
+            this.studyPlanTags.addAll(studyPlanTags);
         }
     }
 
@@ -76,8 +81,12 @@ class JsonAdaptedStudyPlan {
 
         for (Tag tag : source.getModuleTags()) {
             if (!tag.isDefault()) {
-                tags.add(new JsonAdaptedTag(tag));
+                moduleTags.add(new JsonAdaptedTag(tag));
             }
+        }
+
+        for (Tag tag : source.getStudyPlanTags()) {
+            studyPlanTags.add(new JsonAdaptedTag(tag));
         }
     }
 
@@ -88,19 +97,13 @@ class JsonAdaptedStudyPlan {
      * @throws IllegalValueException if there were any data constraints violated in the adapted StudyPlan.
      */
     public StudyPlan toModelType() throws IllegalValueException {
-        /*
-        final List<Semester> studyPlanSemesters = new ArrayList<>();
-        for (JsonAdaptedSemester semester : semesters) {
-            studyPlanSemesters.add(semester.toModelType());
-        }
-         */
 
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
-        // if (!Name.isValidName(name)) {
-        //    throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        // }
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        }
         final Title modelTitle = new Title(title);
 
         if (index == 0) {
@@ -118,12 +121,18 @@ class JsonAdaptedStudyPlan {
         }
 
         final List<Tag> modelTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tags) {
+        for (JsonAdaptedTag tag : moduleTags) {
             modelTags.add(tag.toModelType());
         }
 
+        final List<Tag> modelStudyPlanTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : studyPlanTags) {
+            modelStudyPlanTags.add(tag.toModelType());
+        }
+
         StudyPlan result =
-                new StudyPlan(modelTitle, index, modelSemesters, modelModules, modelTags, currentSemester);
+                new StudyPlan(modelTitle, index, modelSemesters, modelModules,
+                        modelTags, currentSemester, modelStudyPlanTags);
         StudyPlan.setTotalNumberOfStudyPlans(totalNumber);
 
         return result;

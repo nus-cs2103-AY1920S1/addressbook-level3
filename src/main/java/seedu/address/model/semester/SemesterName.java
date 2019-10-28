@@ -14,6 +14,7 @@ public enum SemesterName {
     Y5S1, Y5S2, Y5ST1, Y5ST2;
 
     public static final String VALIDATION_REGEX = "Y[1-5]ST?[1-2]";
+    public static final String MESSAGE_CONSTRAINTS = "The semester name must follow this format: " + VALIDATION_REGEX;
 
     public static SemesterName getEnum(int year, int semester) {
         switch (year) {

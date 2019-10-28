@@ -77,12 +77,11 @@ class JsonAdaptedSemester {
      * @throws IllegalValueException if there were any data constraints violated in the adapted semester.
      */
     public Semester toModelType() throws IllegalValueException {
-        // TODO: Change this later!
-        /*
-        if (!Semester.isValidSemesterName(semesterName)) {
-            throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
+
+        if (!SemesterName.isValidSemesterName(semesterName)) {
+            throw new IllegalValueException(SemesterName.MESSAGE_CONSTRAINTS);
         }
-        */
+
         SemesterName modelSemesterName = SemesterName.valueOf(semesterName);
         List<Module> modelModules = new ArrayList<>();
         for (JsonAdaptedSkeletalModule skeletalModule : modules) {

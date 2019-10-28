@@ -6,6 +6,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.studyplan.Title;
+import seedu.address.model.studyplan.exceptions.InvalidTitleException;
 
 /**
  * Edits the title of an existing studyPlan in the module planner.
@@ -34,7 +36,11 @@ public class EditTitleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.changeActiveStudyPlanTitle(newTitle);
+        try {
+            model.changeActiveStudyPlanTitle(newTitle);
+        } catch (InvalidTitleException e) {
+            return new CommandResult(Title.MESSAGE_CONSTRAINTS);
+        }
 
         return new CommandResult(String.format(MESSAGE_EDIT_STUDYPLAN_SUCCESS, newTitle), true, false);
     }

@@ -41,11 +41,13 @@ class JsonAdaptedSkeletalModule {
      * @throws IllegalValueException if there were any data constraints violated in the adapted semester.
      */
     public Module toModelType() throws IllegalValueException {
-        // TODO: Change this later to check the validity of module names
-
-        //        if (!Module.isValidModuleCode(moduleCode)) {
-        //            throw new IllegalValueException(Module.MESSAGE_CONSTRAINTS);
-        //        }
+        if (!ModuleCode.isValidCode(moduleCode)) {
+            throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
+        }
+        if (moduleCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModuleCode.class.getSimpleName()));
+        }
 
         return new Module(new ModuleCode(moduleCode));
     }

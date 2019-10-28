@@ -2,6 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.storage.JsonAdaptedStudyPlan.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalStudyPlans.SP_1;
 
 import java.util.HashMap;
@@ -10,10 +12,12 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.Title;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -21,17 +25,11 @@ import seedu.address.model.tag.Tag;
  */
 public class JsonAdaptedStudyPlanTest {
 
-    /*
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
-
-     */
+    private static final String INVALID_TITLE = "AAAAAAAAAAAAAAAAAAAAA"; // 21 characters
 
     private static final int VALID_TOTAL_NUMBER = 10;
     private static final String VALID_TITLE = SP_1.getTitle().toString();
+    private static final int VALID_INDEX = SP_1.getIndex();
     private static final List<JsonAdaptedSemester> VALID_SEMESTERS =
             SP_1.getSemesters().asUnmodifiableObservableList().stream()
                     .map(JsonAdaptedSemester::new).collect(Collectors.toList());
@@ -41,17 +39,43 @@ public class JsonAdaptedStudyPlanTest {
             SP_1.getModuleTags().asUnmodifiableObservableList().stream()
                     .map(JsonAdaptedTag::new).collect(Collectors.toList());
     private static final SemesterName VALID_CURRENT_SEMESTER = SP_1.getCurrentSemester();
+    private static final List<JsonAdaptedTag> VALID_STUDY_PLAN_TAGS =
+            SP_1.getStudyPlanTags().asUnmodifiableObservableList().stream()
+                    .map(JsonAdaptedTag::new).collect(Collectors.toList());
 
     @Test
     public void toModelType_validStudyPlanDetails_returnsStudyPlan() throws Exception {
-        boolean result = true;
-
         JsonAdaptedStudyPlan adaptedStudyPlan = new JsonAdaptedStudyPlan(SP_1);
         StudyPlan skeletalStudyPlan = adaptedStudyPlan.toModelType();
 
+        assertTrue(studyPlanLoadedCorrectly(SP_1, skeletalStudyPlan));
+    }
+
+    @Test
+    public void toModelType_invalidTitle_throwsIllegalValueException() {
+        JsonAdaptedStudyPlan studyPlan =
+                new JsonAdaptedStudyPlan(VALID_TOTAL_NUMBER, INVALID_TITLE, VALID_INDEX,
+                        VALID_SEMESTERS, VALID_MODULES, VALID_TAGS, VALID_CURRENT_SEMESTER, VALID_STUDY_PLAN_TAGS);
+        String expectedMessage = Title.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, studyPlan::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullTitle_throwsIllegalValueException() {
+        JsonAdaptedStudyPlan studyPlan = new JsonAdaptedStudyPlan(VALID_TOTAL_NUMBER, null, VALID_INDEX,
+                VALID_SEMESTERS, VALID_MODULES, VALID_TAGS, VALID_CURRENT_SEMESTER, VALID_STUDY_PLAN_TAGS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, studyPlan::toModelType);
+    }
+
+    /**
+     * Returns a boolean to indicate whether the study plan has been loaded correctly from JSON.
+     */
+    public static boolean studyPlanLoadedCorrectly(StudyPlan originalStudyPlan, StudyPlan skeletalStudyPlan) {
         // test whether this study plan is rendered properly. compare between original and loaded (from Json)
+        boolean result = true;
         // semesters
-        List<Semester> originalSemesters = SP_1.getSemesters().asUnmodifiableObservableList();
+        List<Semester> originalSemesters = originalStudyPlan.getSemesters().asUnmodifiableObservableList();
         List<Semester> loadedSemesters = skeletalStudyPlan.getSemesters().asUnmodifiableObservableList();
         for (int i = 0; i < originalSemesters.size(); i++) {
             SemesterName originalSemesterName = originalSemesters.get(i).getSemesterName();
@@ -62,13 +86,13 @@ public class JsonAdaptedStudyPlanTest {
         }
 
         // title
-        assertEquals(SP_1.getTitle(), skeletalStudyPlan.getTitle());
+        assertEquals(originalStudyPlan.getTitle(), skeletalStudyPlan.getTitle());
 
         // index
-        assertEquals(SP_1.getIndex(), skeletalStudyPlan.getIndex());
+        assertEquals(originalStudyPlan.getIndex(), skeletalStudyPlan.getIndex());
 
         // modules
-        HashMap<String, Module> originalModules = SP_1.getModules();
+        HashMap<String, Module> originalModules = originalStudyPlan.getModules();
         HashMap<String, Module> loadedModules = skeletalStudyPlan.getModules();
         for (Module module : originalModules.values()) {
             String originalModuleCode = module.getModuleCode().value;
@@ -79,7 +103,7 @@ public class JsonAdaptedStudyPlanTest {
         }
 
         // tags
-        List<Tag> originalTags = SP_1.getModuleTags().asUnmodifiableObservableList();
+        List<Tag> originalTags = originalStudyPlan.getModuleTags().asUnmodifiableObservableList();
         List<Tag> loadedTags = skeletalStudyPlan.getModuleTags().asUnmodifiableObservableList();
         for (int i = 0; i < originalTags.size(); i++) {
             Tag originalTag = originalTags.get(i);
@@ -89,25 +113,16 @@ public class JsonAdaptedStudyPlanTest {
             }
         }
 
-        assertTrue(result);
+        // study plan tags
+        List<Tag> originalStudyPlanTags = originalStudyPlan.getStudyPlanTags().asUnmodifiableObservableList();
+        List<Tag> loadedStudyPlanTags = skeletalStudyPlan.getStudyPlanTags().asUnmodifiableObservableList();
+        for (int i = 0; i < originalStudyPlanTags.size(); i++) {
+            Tag originalStudyPlanTag = originalStudyPlanTags.get(i);
+            Tag loadedStudyPlanTag = loadedStudyPlanTags.get(i);
+            if (!originalStudyPlanTag.equals(loadedStudyPlanTag)) {
+                result = false;
+            }
+        }
+        return result;
     }
-
-    /*
-    @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedStudyPlan studyPlan =
-                new JsonAdaptedStudyPlan(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, studyPlan::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedStudyPlan studyPlan = new JsonAdaptedStudyPlan(null, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, studyPlan::toModelType);
-    }
-
-     */
 }

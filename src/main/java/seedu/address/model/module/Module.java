@@ -147,6 +147,14 @@ public class Module implements Cloneable {
     }
 
     /**
+     * Changes the tag list of the module.
+     * @param tags
+     */
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+
+    /**
      * This method verifies previous semester codes against the prerequisite tree, and updates its
      * {@code prereqsSatisfied} property accordingly.
      * <p>
@@ -191,7 +199,13 @@ public class Module implements Cloneable {
             return false;
         }
 
-        return this.moduleCode.equals(((Module) other).moduleCode) && this.tags.equals(((Module) other).tags);
+        if ((tags == null && ((Module) other).tags != null) || (tags != null && ((Module) other).tags == null)) {
+            return false;
+        } else if (tags == null && ((Module) other).tags == null) {
+            return this.moduleCode.equals(((Module) other).moduleCode);
+        } else {
+            return this.moduleCode.equals(((Module) other).moduleCode) && this.tags.equals(((Module) other).tags);
+        }
     }
 
     @Override
