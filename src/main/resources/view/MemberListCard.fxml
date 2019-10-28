@@ -12,6 +12,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -41,9 +42,17 @@
                 <Insets bottom="5" right="5"/>
             </padding>
             </FlowPane>
-                <ImageView fx:id="imageView">
-
-                </ImageView>
+            <VBox maxHeight="50.0" HBox.hgrow="ALWAYS">
+                <children>
+                    <ImageView fx:id="imageView" layoutX="20" layoutY="20">
+                    </ImageView>
+                </children>
+            </VBox>
+            <VBox maxHeight="50.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                <children>
+                   <Text id="listTasks"/>
+                </children>
+            </VBox>
         </VBox>
         <rowConstraints>
             <RowConstraints />

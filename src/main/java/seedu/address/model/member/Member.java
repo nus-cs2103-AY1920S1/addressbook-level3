@@ -21,7 +21,6 @@ public class Member {
     private final String url;
     private final Set<Tag> tags = new HashSet<>();
 
-
     /**
      * Every field must be present and not null.
      */

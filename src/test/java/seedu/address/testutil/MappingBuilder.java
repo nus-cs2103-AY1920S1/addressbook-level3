@@ -1,16 +1,14 @@
 package seedu.address.testutil;
 
 import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.TasMemMapping;
-import seedu.address.model.member.Member;
-import seedu.address.model.task.Task;
 
 public class MappingBuilder {
     public static final String DEFAULT_NAME = "Sample Mapping";
 
     private int memberIndex;
     private int taskIndex;
+    private int invIndex;
 
     public MappingBuilder() {
         //Dummy constructor until Mapping Testing is decided
@@ -24,6 +22,14 @@ public class MappingBuilder {
     public MappingBuilder(TasMemMapping mappingToCopy) {
         memberIndex = mappingToCopy.getMemberIndex();
         taskIndex = mappingToCopy.getTaskIndex();
+    }
+
+    /**
+     * Initializes the TaskBuilder with the data of {@code taskToCopy}.
+     */
+    public MappingBuilder(InvMemMapping mappingToCopy) {
+        memberIndex = mappingToCopy.getMemberIndex();
+        invIndex = mappingToCopy.getInventoryIndex();
     }
 
     /**
@@ -42,8 +48,20 @@ public class MappingBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Price} of the {@code Inventory} that we are building.
+     */
+    public MappingBuilder withInv(int invIndex) {
+        this.invIndex = invIndex;
+        return this;
+    }
 
-    public TasMemMapping build() {
+
+    public TasMemMapping tasMemMappingBuild() {
         return new TasMemMapping(taskIndex, memberIndex);
+    }
+
+    public InvMemMapping invMemMappingBuild() {
+        return new InvMemMapping(memberIndex, invIndex);
     }
 }

@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import seedu.address.model.member.Member;
 import seedu.address.ui.UiPart;
 
@@ -42,6 +42,8 @@ public class MemberCard extends UiPart<Region> {
     private ImageView imageView;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Text listTasks;
 
     public MemberCard(Member member, int displayedIndex) {
         super(FXML);
@@ -59,8 +61,8 @@ public class MemberCard extends UiPart<Region> {
             imageView.setImage(member.getImage());
         }
 
-        Circle clip = new Circle(60, 60, 60);
-        imageView.setClip(clip);
+        imageView.setFitHeight(120);
+        imageView.setFitWidth(120);
     }
 
     @Override

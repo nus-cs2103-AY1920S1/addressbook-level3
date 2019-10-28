@@ -302,6 +302,16 @@ public class AddMemberCommandTest {
         }
 
         @Override
+        public ObservableList<TasMemMapping> getFilteredTasMemMappingsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredMappingsList(Predicate<Mapping> predicate) {
             throw new AssertionError("This method should not be called.");
         }
