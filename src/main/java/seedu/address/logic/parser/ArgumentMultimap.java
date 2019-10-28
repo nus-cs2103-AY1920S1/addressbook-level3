@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
 
 import java.util.ArrayList;
