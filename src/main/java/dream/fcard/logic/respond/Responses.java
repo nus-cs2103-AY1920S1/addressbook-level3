@@ -124,7 +124,7 @@ enum Responses {
     STATS("(?i)^(stats)?(\\s)*(deck/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
         LogsCenter.getLogger(Responses.class).info("Current command is STATS");
         String deckName = commandInput.replaceFirst("(?i)^(stats)?(\\s)*deck/", "");
-        if(deckName.strip().equals("")) {
+        if (deckName.strip().equals("")) {
             Gui.renderStats(programState.getStatistics());
         } else {
             Gui.renderStats(programState.getDeck(deckName).getStatistics());

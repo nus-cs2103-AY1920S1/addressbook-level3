@@ -2,6 +2,9 @@ package dream.fcard.logic.stats;
 
 import java.time.LocalDateTime;
 
+/**
+ * A class that extends Statistics which has statistics unique to cards.
+ */
 public class CardStats extends Statistics {
     private int timesUsed;
     private LocalDateTime lastModified;
