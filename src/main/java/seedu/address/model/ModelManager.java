@@ -395,12 +395,14 @@ public class ModelManager implements Model {
                         String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT,
                                 apt.getEventTiming().toString()));
 
-            } else if (numOfAvailableStaff <= countNumberOfConcurrentAppointments) {
-                throw new CommandException(
-                        String.format(MESSAGE_NOT_ENOUGH_STAFF,
-                                appointment.getEventTiming().toString(),
-                                numOfAvailableStaff));
             }
+        }
+
+        if (numOfAvailableStaff <= countNumberOfConcurrentAppointments) {
+            throw new CommandException(
+                    String.format(MESSAGE_NOT_ENOUGH_STAFF,
+                            appointment.getEventTiming().toString(),
+                            numOfAvailableStaff));
         }
 
         appointmentBook.addEvent(appointment);

@@ -15,10 +15,10 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path patientAddressBookFilePath = Paths.get("patientDetails.json");
-    private Path staffAddressBookFilePath = Paths.get("staffDetails.json");
-    private Path appointmentBookFilePath = Paths.get("appointments.json");
-    private Path dutyRosterBookFilePath = Paths.get("dutyRoster.json");
+    private Path patientAddressBookFilePath = Paths.get("data", "patientDetails.json");
+    private Path staffAddressBookFilePath = Paths.get("data", "staffDetails.json");
+    private Path appointmentBookFilePath = Paths.get("data", "appointments.json");
+    private Path dutyRosterBookFilePath = Paths.get("data", "dutyRoster.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -125,5 +125,4 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal duty roster data file location : " + dutyRosterBookFilePath);
         return sb.toString();
     }
-
 }
