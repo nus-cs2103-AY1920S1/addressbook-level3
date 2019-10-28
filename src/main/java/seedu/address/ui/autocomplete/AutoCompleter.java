@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class AutoCompleter {
     private static final Map<String, HashSet> SUPPORTED_ARGUMENTS = Map.ofEntries(
-        Map.entry("add", new HashSet(Arrays.asList("-name", "-id")))
+        Map.entry("add", new HashSet(Arrays.asList("-name", "-id", "-phone", "-address")))
     );
 
     private static final String[] SUPPORTED_COMMANDS = {
@@ -62,7 +62,7 @@ public class AutoCompleter {
      * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
-        if (currentQuery.contains(" ")) {
+        if (currentQuery.matches("(.* )?(?<!-)\\w+\\s+$")) {
             try {
                 HashSet<String> available = (HashSet) SUPPORTED_ARGUMENTS.get(currentQuery.substring(0,
                     currentQuery.indexOf(' ')))
