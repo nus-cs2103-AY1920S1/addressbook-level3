@@ -16,6 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.allocate.AutoAllocateCommand;
+import seedu.address.logic.commands.allocate.DeallocateCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.employee.Employee;
@@ -34,6 +36,7 @@ public class FetchWindow extends UiPart<Stage> {
     private ObservableList<Employee> employeeList;
     private ObservableList<Event> filteredEventList;
     private Event event;
+    private ErrorWindow errorWindow;
 
     @FXML
     private ListView<Employee> personListView;
@@ -78,10 +81,14 @@ public class FetchWindow extends UiPart<Stage> {
             @Override
             public void handle(MouseEvent e) {
                 try {
-                    logic.execute("allocate " + eventOneBasedIndex);
+                    logic.execute(AutoAllocateCommand.COMMAND_WORD + " " + eventOneBasedIndex);
                     updateCards();
                 } catch (CommandException | ParseException ex) {
-                    logger.fine("This should not appear!");
+                    if (errorWindow != null) {
+                        errorWindow.hide();
+                    }
+                    errorWindow = new ErrorWindow(ex.getMessage());
+                    errorWindow.show();
                 }
             }
         };
@@ -91,10 +98,10 @@ public class FetchWindow extends UiPart<Stage> {
             public void handle(MouseEvent e) {
                 int oneBasedIndex = index + 1;
                 try {
-                    logic.execute("free " + oneBasedIndex);
+                    logic.execute(DeallocateCommand.COMMAND_WORD + " " + oneBasedIndex);
                     updateCards();
                 } catch (CommandException | ParseException ex) {
-                    logger.fine("This should not appear!");
+                    logger.info("This should not appear!");
                 }
             }
         };

@@ -13,6 +13,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.allocate.DeallocateCommand;
+import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 
@@ -72,10 +74,10 @@ public class EmployeeCard extends UiPart<Region> {
                     if (mouseEvent.getClickCount() == 2) {
                         try {
                             if (isAllocate && (event.getCurrentManpowerCount() < event.getManpowerNeeded().value)) {
-                                logic.execute("allocatem " + eventOneBasedIndex
+                                logic.execute(ManualAllocateCommand.COMMAND_WORD + " " + eventOneBasedIndex
                                         + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
                             } else {
-                                logic.execute("free " + eventOneBasedIndex
+                                logic.execute(DeallocateCommand.COMMAND_WORD + " " + eventOneBasedIndex
                                         + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
                             }
 

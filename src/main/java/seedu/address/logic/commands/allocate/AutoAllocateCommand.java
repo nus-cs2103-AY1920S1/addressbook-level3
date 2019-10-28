@@ -35,11 +35,11 @@ public class AutoAllocateCommand extends Command {
     public static final String COMMAND_WORD = "allocate";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Auto allocates a specified number of people to an event."
+            + ": Allocates a specified number of available employees to an event."
             + "\n"
             + "Parameters: EVENT_INDEX "
             + "[" + PREFIX_MANPOWER_TO_ADD + "NUMBER_OF_EMPLOYEES_TO_ALLOCATE] "
-            + "[" + PREFIX_TAG + "TAG]\n"
+            + "[" + PREFIX_TAG + "TAG FOR FILTER]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "3 "
             + PREFIX_TAG + "male";
@@ -75,7 +75,7 @@ public class AutoAllocateCommand extends Command {
      * Creates a list of employees who are available for the specified event.
      *
      * @param model           the full list of employees
-     * @param eventToAllocate the specified event to allocate manpower to
+     * @param eventToAllocate the specified event to allocate employees
      */
     private List<Employee> createAvailableEmployeeListForEvent(Model model, Event eventToAllocate) {
         List<Employee> employeeList = model.getFilteredEmployeeList();

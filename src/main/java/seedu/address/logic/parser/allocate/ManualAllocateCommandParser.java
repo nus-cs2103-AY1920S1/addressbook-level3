@@ -36,7 +36,13 @@ public class ManualAllocateCommandParser {
         }
         try {
             eventIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_EMPLOYEE_NUMBER).get());
+
+            if (argMultimap.getValue(PREFIX_EMPLOYEE_NUMBER).isPresent()) {
+                index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_EMPLOYEE_NUMBER).get());
+            } else {
+                throw new ParseException("Invalid Employee Index!");
+            }
+
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ManualAllocateCommand.MESSAGE_USAGE), pe);
