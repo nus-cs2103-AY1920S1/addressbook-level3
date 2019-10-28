@@ -13,6 +13,7 @@ import org.mozilla.javascript.tools.shell.Global;
  * Returns output as a string.
  */
 public class JavascriptRunner {
+
     /**
      * Evaluates JS code from a given filepath. Uses FileImporter to read in the file.
      * @param filepath

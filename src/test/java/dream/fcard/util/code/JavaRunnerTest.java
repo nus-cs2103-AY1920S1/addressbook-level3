@@ -26,6 +26,6 @@ class JavaRunnerTest {
         fw.close();
         String result = JavaRunner.compileAndRun("./src/test"
                 + "/java/dream/fcard/util/data/Test.java");
-        assertEquals("Hello from JavaRunnerTest\n", result);
+        assertEquals("\nHello from JavaRunnerTest\n", result);
     }
 }
