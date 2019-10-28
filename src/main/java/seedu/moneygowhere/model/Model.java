@@ -115,4 +115,8 @@ public interface Model {
      * Returns true if a Reminder with the same identity as {@code Reminder} exists in the Reminder list.
      */
     boolean hasReminder(Reminder reminder);
+
+    ObservableList<Spending> getStatsList();
+
+    void updateStatsPredicate(Predicate<Spending> statsPredicate);
 }

@@ -1,6 +1,7 @@
 package seedu.moneygowhere.logic;
 
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
@@ -27,14 +28,6 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Executes the command and returns the graph data.
-     * @param commandText The command as entered by the user.
-     * @return the hashmap of spending data
-     * @throws ParseException If an error occurs during parsing.
-     */
-    Map<Date, Double> getGraphData(String commandText) throws ParseException;
-
-    /**
      * Returns the SpendingBook.
      *
      * @see seedu.moneygowhere.model.Model#getSpendingBook()
@@ -59,9 +52,15 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    Map<Tag, Double> getStatsData(String commandText) throws ParseException;
+    /**
+     * Returns a map of spending with key and value pair representing data for the statistics chart.
+     */
+    LinkedHashMap<String, Double> getStatsData();
 
-    String getStatsMessage(String commandText) throws ParseException;
+    /**
+     * Returns a map of spending with key and value pair representing data for the graph.
+     */
+    LinkedHashMap<String, Double> getGraphData();
 
     /**
      * Returns the previous user inputted command with respect to the current index.

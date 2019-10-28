@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.spending.Date;
@@ -21,15 +24,23 @@ public class GraphCommand extends Command {
 
     public static final String COMMAND_WORD = "graph";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Displays a graph of all spendings within the date range specified "
-        + "by the user input. If no user input is given, the date range will be the whole date range.\n"
-        + "Parameters: startDate and endDate (endDate must be later or equal to startDate)\n"
+    public static final String MESSAGE_SUCCESS = "Successfully updated the graph panel.\n";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD  + ": Updates the graph panel.\n"
+        + "Parameters: "
+        + PREFIX_DATE + "startDate and"
+        + PREFIX_DATE + "endDate\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";
 
-    public static final String SHOWING_GRAPH_MESSAGE = "Opened graph window.";
+    public static final String MESSAGE_INVALID_DATERANGE = "Date range provided is invalid. "
+        + "Only 2 dates, startDate and endDate are to be provided with startDate being earlier or equal to endDate.\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_DATE + "today "
+        + PREFIX_DATE + "tomorrow ";;
+
+    private final Logger logger = Logger.getLogger("Graph Logger");
 
     private Date startDate;
     private Date endDate;
@@ -55,65 +66,22 @@ public class GraphCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        //To reset the spending list to default after previous commands
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
-        return new CommandResult(SHOWING_GRAPH_MESSAGE, true, false, false);
+        model.updateStatsPredicate(getGraphPredicate());
+        logger.log(Level.INFO, "Showing graph from " + startDate  + " to " + endDate);
+        return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }
 
-    @Override
-    public Map<Date, Double> getGraphData(Model model) {
-        List<Spending> lastShownList = filterListByDate(model);
-        Set<Date> dateSet = getDateSet(lastShownList);
-        return getCostSpentPerDate(lastShownList, dateSet);
-    }
-
-    /**
-     * Returns a map displaying cost spent per date
-     */
-    private Map<Date, Double> getCostSpentPerDate(List<Spending> lastShownList, Set<Date> dateSet) {
-        Map<Date, Double> costPerDateList = new TreeMap<>();
-
-        for (Date e: dateSet) {
-            costPerDateList.put(e, 0.00);
-        }
-
-        for (Spending a: lastShownList) {
-            double currentCost = costPerDateList.get(a.getDate());
-            double updatedCost = currentCost + Double.parseDouble(a.getCost().toString());
-            costPerDateList.replace(a.getDate(), updatedCost);
-        }
-
-        return costPerDateList;
-    }
-
-    /**
-     * Returns a list of distinct dates from the list of spending provided.
-     */
-    private Set<Date> getDateSet(List<Spending> lastShownList) {
-        Set<Date> dateSet = new TreeSet<>();
-
-        for (Spending i: lastShownList) {
-            dateSet.add(i.getDate());
-        }
-
-        return dateSet;
-    }
-
-    /**
-     * Returns a list of spending filtered by the specified date range if provided.
-     */
-    private List<Spending> filterListByDate(Model model) {
-        List<Spending> lastShownList;
-
-        if (startDate != null && endDate != null) {
-            lastShownList = model.getFilteredSpendingList().filtered(s-> {
+    public Predicate<Spending> getGraphPredicate() {
+        if (startDate == null && endDate == null) {
+            return PREDICATE_SHOW_ALL_SPENDINGS;
+        } else {
+            return s-> {
                 return s.getDate().value.compareTo(startDate.value) >= 0
                     && s.getDate().value.compareTo(endDate.value) <= 0;
-            });
-        } else {
-            lastShownList = model.getFilteredSpendingList();
+            };
         }
-
-        return lastShownList;
     }
 
     @Override

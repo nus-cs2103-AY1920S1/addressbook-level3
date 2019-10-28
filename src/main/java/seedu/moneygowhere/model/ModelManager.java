@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -28,6 +29,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Spending> filteredSpendings;
     private final SortedList<Spending> sortedSpendings;
+
+    private Predicate<Spending> statsPredicate;
 
     /**
      * Initializes a ModelManager with the given spendingBook and userPrefs.
@@ -145,6 +148,29 @@ public class ModelManager implements Model {
     public boolean hasReminder(Reminder reminder) {
         requireNonNull(reminder);
         return spendingBook.hasReminder(reminder);
+    }
+
+    //=========== Statistics related functions =====================================================================
+    /**
+     * Returns an unmodifiable view of spending, filtered by {@code statsPredicate or graphPredicate} and sorted by date.
+     *
+     * @return {@code ObservableList<Spending>} of spending which fulfill the date range provided
+     */
+    @Override
+    public ObservableList<Spending> getStatsList() {
+        FilteredList<Spending> filteredList = new FilteredList<>(getFilteredSpendingList());
+        filteredList.setPredicate(statsPredicate);
+
+        SortedList<Spending> sortedList = new SortedList<>(filteredList);
+        Comparator<Spending> byDate = (Spending a, Spending b) -> (a.getDate().compareTo(b.getDate()));
+        sortedList.setComparator(byDate);
+
+        return FXCollections.unmodifiableObservableList(sortedList);
+    }
+
+    @Override
+    public void updateStatsPredicate(Predicate<Spending> predicate) {
+        statsPredicate = predicate;
     }
 
     //=========== Filtered Spending List Accessors =============================================================

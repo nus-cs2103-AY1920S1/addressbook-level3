@@ -1,5 +1,6 @@
 package seedu.moneygowhere.ui;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -19,7 +20,6 @@ import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.spending.Date;
-import seedu.moneygowhere.model.tag.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -207,15 +207,14 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowGraph()) {
-                Map<Date, Double> statsData = logic.getGraphData(commandText);
-                graphWindow.loadData(statsData);
+                LinkedHashMap<String, Double> graphData = logic.getGraphData();
+                graphWindow.loadData(graphData);
                 handleGraph();
             }
 
             if (commandResult.isShowStats()) {
-                String statsMessage = logic.getStatsMessage(commandText);
-                Map<Tag, Double> statsData = logic.getStatsData(commandText);
-                statsWindow.loadData(statsData, statsMessage);
+                LinkedHashMap<String, Double> statsData = logic.getStatsData();
+                statsWindow.loadData(statsData);
                 handleStats();
             }
 

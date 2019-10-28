@@ -1,7 +1,6 @@
 package seedu.moneygowhere.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_SPENDING_DISPLAYED_INDEX;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.COST_DESC_AMY;
@@ -9,11 +8,13 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.AMY;
+import static seedu.moneygowhere.testutil.TypicalSpendings.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -96,24 +97,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getGraphData_validCommand_success() throws Exception {
-        Map<Date, Double> data = logic.getGraphData(GraphCommand.COMMAND_WORD);
-        assertTrue(data != null);
-    }
-
-    @Test
-    public void getStatsData_validCommand_success() throws Exception {
-        Map<Tag, Double> data = logic.getStatsData(StatsCommand.COMMAND_WORD);
-        assertTrue(data != null);
-    }
-
-    @Test
-    public void getStatsMessage_validCommand_success() throws Exception {
-        String data = logic.getStatsMessage(StatsCommand.COMMAND_WORD);
-        assertTrue(data != null);
-    }
-
-    @Test
     public void getFilteredSpendingList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredSpendingList().remove(0));
     }
@@ -143,6 +126,36 @@ public class LogicManagerTest {
         logic.getPrevCommand();
         logic.getPrevCommand();
         assertEquals(listCommand, logic.getNextCommand());
+    }
+
+    @Test
+    public void getStatsData_success() {
+        Date startDate = APPLE.getDate();
+        Date endDate = BANANA.getDate();
+        Predicate<Spending> expectedPredicate = s-> {
+            return s.getDate().value.compareTo(startDate.value) >= 0
+                && s.getDate().value.compareTo(endDate.value) <= 0;
+        };
+        LinkedHashMap<String, Double> statsData = new LinkedHashMap<>();
+        statsData.put(APPLE.getTags().iterator().next().tagName, Double.parseDouble(APPLE.getCost().toString()) +
+            Double.parseDouble(BANANA.getCost().toString()));
+        model.updateFilteredSpendingList(expectedPredicate);
+        assertNotEquals(statsData, logic.getStatsData());
+    }
+
+    @Test
+    public void getGraphData_success() {
+        Date startDate = APPLE.getDate();
+        Date endDate = BANANA.getDate();
+        Predicate<Spending> expectedPredicate = s-> {
+            return s.getDate().value.compareTo(startDate.value) >= 0
+                && s.getDate().value.compareTo(endDate.value) <= 0;
+        };
+        LinkedHashMap<String, Double> graphData = new LinkedHashMap<>();
+        graphData.put(APPLE.getDate().value, Double.parseDouble(APPLE.getCost().toString()));
+        graphData.put(BANANA.getDate().value, Double.parseDouble(BANANA.getCost().toString()));
+        model.updateFilteredSpendingList(expectedPredicate);
+        assertNotEquals(graphData, logic.getGraphData());
     }
 
     /**
