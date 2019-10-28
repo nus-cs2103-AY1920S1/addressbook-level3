@@ -55,11 +55,9 @@ public class FindPlanCommandParser implements Parser {
         FindPlanDescriptor findPlanDescriptor = new FindPlanDescriptor();
 
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
-            List<String> planNameKeywords =
-                    getArgumentValueAsList(argumentMultimap.getValue(PREFIX_NAME).get());
+            List<String> planNameKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_NAME).get());
             List<Keyword> keywords = planNameKeywords.stream().map(Keyword::new).collect(Collectors.toList());
-            findPlanDescriptor.setPlanNamePredicate(
-                    new PlanNameContainsKeywordsPredicate(keywords));
+            findPlanDescriptor.setPlanNamePredicate(new PlanNameContainsKeywordsPredicate(keywords));
         }
 
         if (argumentMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
