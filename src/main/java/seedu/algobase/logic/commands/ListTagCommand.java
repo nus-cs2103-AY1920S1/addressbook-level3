@@ -12,14 +12,11 @@ import seedu.algobase.model.ModelType;
 public class ListTagCommand extends Command {
 
     public static final String COMMAND_WORD = "listtag";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays a list of all existing tags.\n"
             + "Example:\n"
             + COMMAND_WORD;
-
-    public static final String MESSAGE_SUCCESS = "Listed all tags";
-
+    public static final String MESSAGE_SUCCESS = "All tags listed.";
 
     @Override
     public CommandResult execute(Model model) {

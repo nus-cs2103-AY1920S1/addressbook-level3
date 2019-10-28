@@ -2,12 +2,12 @@
 
 start
 
-:User executes an AddTask command;
+:User executes an AddTaskCommand;
 
 if () then ([command is valid])
-	:Instantiate an AddTaskCommand with a corresponding predicate;
+	:Instantiate an AddTaskCommand with a corresponding AddTaskDescriptor;
 	:Execute AddTaskCommand;
-	:Update UI with filtered task list;
+	:Update UI with current plan with corresponding task list;
 else ([else])
 	:Throw an exception;
 	:Update UI to notify the user;

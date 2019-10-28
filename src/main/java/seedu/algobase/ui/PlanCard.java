@@ -10,6 +10,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.Id;
@@ -45,10 +46,20 @@ public class PlanCard extends UiPart<Region> {
         super(FXML);
         this.plan = plan;
         id.setText(displayedIndex + ". ");
+        id.setWrapText(true);
+        id.setTextAlignment(TextAlignment.JUSTIFY);
         planName.setText(plan.getPlanName().fullName + " (" + plan.getTasks().size() + " tasks)");
+        planName.setWrapText(true);
+        planName.setTextAlignment(TextAlignment.JUSTIFY);
         planDescription.setText(plan.getPlanDescription().value);
+        planDescription.setWrapText(true);
+        planDescription.setTextAlignment(TextAlignment.JUSTIFY);
         startDate.setText(plan.getStartDate().format(ParserUtil.FORMATTER));
+        startDate.setWrapText(true);
+        startDate.setTextAlignment(TextAlignment.JUSTIFY);
         endDate.setText(plan.getEndDate().format(ParserUtil.FORMATTER));
+        endDate.setWrapText(true);
+        endDate.setTextAlignment(TextAlignment.JUSTIFY);
         addMouseClickListener(writeOnlyTabManager.addDetailsTabConsumer(ModelType.PLAN));
     }
 

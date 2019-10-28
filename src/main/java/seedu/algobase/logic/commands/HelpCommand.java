@@ -15,10 +15,11 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Shows program usage instructions.\n"
-        + "Parameter:\n"
-        + "COMMAND_NAME (can be empty if you want a list of possible commands)\n"
-        + "Example: " + COMMAND_WORD + " find";
+            + ": Shows program usage instructions.\n"
+            + "Parameter:\n"
+            + "COMMAND_NAME (can be empty if you want a list of possible commands)\n"
+            + "Example:\n"
+            + COMMAND_WORD + " find";
 
     private final boolean isListAllCommands;
     private final Class commandClass;

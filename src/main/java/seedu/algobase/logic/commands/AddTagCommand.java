@@ -14,13 +14,16 @@ public class AddTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addtag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Tag to the algobase. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a Tag to AlgoBase.\n"
+            + "Parameters:\n"
             + PREFIX_TAG + "TAG NAME\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TAG + "Easy";
+            + "Example:\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TAG + "Easy";
 
-    public static final String MESSAGE_SUCCESS = "New Tag added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TAG = "This Tag already exists in the algobase.";
+    public static final String MESSAGE_SUCCESS = "New Tag [%1$s] added to AlgoBase.";
+    public static final String MESSAGE_DUPLICATE_TAG = "Tag [%1$s] already exists in AlgoBase.";
 
     private final Tag toAdd;
 
@@ -37,11 +40,11 @@ public class AddTagCommand extends Command {
         requireNonNull(model);
 
         if (model.hasTag(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TAG);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAG, toAdd.getName()));
         }
 
         model.addTag(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
     }
 
     @Override

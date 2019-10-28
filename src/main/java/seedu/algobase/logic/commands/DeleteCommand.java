@@ -19,10 +19,12 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the Problem identified by the index number used in the displayed Problem list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters:\n"
+            + "INDEX (must be a positive integer)\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PROBLEM_SUCCESS = "Deleted Problem: %1$s";
+    public static final String MESSAGE_DELETE_PROBLEM_SUCCESS = "Problem [%1$s] deleted.";
 
     private final Index targetIndex;
 
@@ -41,7 +43,7 @@ public class DeleteCommand extends Command {
 
         Problem problemToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteProblem(problemToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PROBLEM_SUCCESS, problemToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PROBLEM_SUCCESS, problemToDelete.getName()));
     }
 
     @Override

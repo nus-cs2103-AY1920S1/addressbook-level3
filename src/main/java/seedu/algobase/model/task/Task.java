@@ -48,15 +48,29 @@ public class Task {
     }
 
     /**
-     * Creates and returns a {@code Plan} with the details of {@code planToUpdate}
-     * with an updated {@code taskSet}.
+     * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
+     * with an updated {@code isSolved}.
      */
     public static Task updateStatus(Task taskToUpdate, boolean isSolved) {
-        assert taskToUpdate != null;
+        requireAllNonNull(taskToUpdate, isSolved);
 
         Id id = taskToUpdate.id;
         Problem problem = taskToUpdate.problem;
         LocalDate targetDate = taskToUpdate.targetDate;
+
+        return new Task(id, problem, targetDate, isSolved);
+    }
+
+    /**
+     * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
+     * with an updated {@code targetDate}.
+     */
+    public static Task updateDueDate(Task taskToUpdate, LocalDate targetDate) {
+        requireAllNonNull(taskToUpdate, targetDate);
+
+        Id id = taskToUpdate.id;
+        Problem problem = taskToUpdate.problem;
+        boolean isSolved = taskToUpdate.isSolved;
 
         return new Task(id, problem, targetDate, isSolved);
     }
@@ -138,15 +152,13 @@ public class Task {
         }
 
         Task otherTask = (Task) other;
-        return otherTask.getProblem().equals(getProblem())
-                && otherTask.getIsSolved().equals(getIsSolved())
-                && otherTask.getTargetDate().equals(getTargetDate());
+        return otherTask.getProblem().equals(getProblem());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(problem, isSolved, targetDate);
+        return Objects.hash(problem);
     }
 
     @Override

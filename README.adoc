@@ -27,5 +27,3 @@ Technical interviews are hard. Unless you are extraordinarily gifted, you will l
 
 * We would like to acknowledge the original source of the code, AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
-
-== Licence : link:LICENSE[MIT]

@@ -24,13 +24,17 @@ import seedu.algobase.logic.commands.DoneTaskCommand;
 import seedu.algobase.logic.commands.EditCommand;
 import seedu.algobase.logic.commands.EditPlanCommand;
 import seedu.algobase.logic.commands.EditTagCommand;
+import seedu.algobase.logic.commands.EditTaskCommand;
 import seedu.algobase.logic.commands.ExitCommand;
+import seedu.algobase.logic.commands.ExportCommand;
 import seedu.algobase.logic.commands.FindCommand;
 import seedu.algobase.logic.commands.FindPlanCommand;
 import seedu.algobase.logic.commands.HelpCommand;
+import seedu.algobase.logic.commands.ImportCommand;
 import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.ListPlanCommand;
 import seedu.algobase.logic.commands.ListTagCommand;
+import seedu.algobase.logic.commands.MoveTaskCommand;
 import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.RewindCommand;
 import seedu.algobase.logic.commands.SortCommand;
@@ -110,23 +114,16 @@ public class AlgoBaseParser {
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
 
+        case EditTaskCommand.COMMAND_WORD:
+            return new EditTaskCommandParser().parse(arguments);
+
+        case MoveTaskCommand.COMMAND_WORD:
+            return new MoveTaskCommandParser().parse(arguments);
+
         case UndoneTaskCommand.COMMAND_WORD:
             return new UndoneTaskCommandParser().parse(arguments);
 
-        // Find Rule
-        case AddFindRuleCommand.COMMAND_WORD:
-            return new AddFindRuleCommandParser().parse(arguments);
-
-        case ApplyCommand.COMMAND_WORD:
-            return new ApplyCommandParser().parse(arguments);
-
-        case DeleteFindRuleCommand.COMMAND_WORD:
-            return new DeleteFindRuleParser().parse(arguments);
-
-        //Rewind
-        case RewindCommand.COMMAND_WORD:
-            return new RewindCommandParser().parse(arguments);
-
+        // Tag
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 
@@ -139,7 +136,28 @@ public class AlgoBaseParser {
         case EditTagCommand.COMMAND_WORD:
             return new EditTagCommandParser().parse(arguments);
 
-        // Tab
+        // Find Rule
+        case AddFindRuleCommand.COMMAND_WORD:
+            return new AddFindRuleCommandParser().parse(arguments);
+
+        case ApplyCommand.COMMAND_WORD:
+            return new ApplyCommandParser().parse(arguments);
+
+        case DeleteFindRuleCommand.COMMAND_WORD:
+            return new DeleteFindRuleParser().parse(arguments);
+
+        // Rewind
+        case RewindCommand.COMMAND_WORD:
+            return new RewindCommandParser().parse(arguments);
+
+        // Storage
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
+
+        // UI
         case SwitchTabCommand.COMMAND_WORD:
             return new SwitchTabCommandParser().parse(arguments);
 

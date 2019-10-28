@@ -188,18 +188,20 @@ the task management feature.
 
 ==== Current Implementation
 
-The task management feature mainly involves four main behaviours:
+The task management feature mainly involves six main behaviours:
 
 * `AlgoBase#addTask()` - create a new task for a problem and add it to a specified plan.
 * `AlgoBase#deleteTask()` - delete an existing task from a specified plan.
 * `AlgoBase#doneTask()` - mark a task as done in a specified plan.
+* `AlgoBase#editTask()` - edit the due date of a task in a specified plan.
+* `AlgoBase#moveTask()` - move a task from one plan to another.
 * `AlgoBase#undoneTask()` - mark a task as undone in a specified plan.
 
 Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
 
 The following activity diagram summarizes what happens when a user executes the `AddTask` command:
 
-.Activity Diagram for the Execution of `AddTask` Command
+.Activity Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskCommandActivityDiagram.png[]
 
 Step 1. The user launches the application.
@@ -208,23 +210,42 @@ Step 2. AlgoBase displays a list of existing problems and plans in the UI.
 
 Step 3. The user executes `addtask plan/1 prob/1` to add the problem with index 1 in the list to the plan with index 1.
 The `AddTask` command calls `Plan#updateTasks` to create a new plan from the original plan with this additional task.
-After that, `Model#setPlan()` is called to replace the original plan with the updated plan in the `PlanList`.
+After that, `Model#setPlan` is called to replace the original plan with the updated plan in the `PlanList`
+stored in `AlgoBase`.
 
 The following sequence diagram shows how the `addtask` operation works:
 
-.Sequence Diagram for the Execution of `AddTask` Command
+.Sequence Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskSequenceDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: Data structure to support the task commands.
 
-* Alternative 1 (current choice): Use a `HashSet` in current AlgoBase to save all tasks in a plan.
-** Pros: Users can manage the tasks conveniently.
-** Cons: Harder to implement for relational storage.
-* Alternative 2: Simply keep tasks as a part of a plan.
-** Pros: No need to save the task separately in the storage, all tasks are under plans.
-** Cons: Does not keep track of relations between tasks and plans.
+* Alternative 1 (current choice): Use a `HashSet` to store tasks in a plan.
+** Pros: Duplicate tasks can be checked easily.
+** Cons: Harder to identify tasks by index.
+* Alternative 2: Use an `ArrayList` to store tasks in a plan.
+** Pros: Tasks can be identified by index easily.
+** Cons: Harder to check for duplicates.
+
+===== Aspect: How to store problem details within tasks to support the task commands.
+
+* Alternative 1 (current choice): Store a problem object in each task.
+** Pros: Changes in problem details will be reflected in the relevant tasks as well.
+** Cons: Relational storage is required to keep track of this relationship.
+* Alternative 2: Copy all problem details and store as separate fields in each task.
+** Pros: No need to implement relational storage. There will be less coupling between problems and tasks as well.
+** Cons: Changes in problem details will not be reflected in the relevant tasks.
+
+===== Aspect: Relational storage to support the task commands.
+
+* Alternative 1 (current choice): Use an additional `id` field to identify problems and tasks.
+** Pros: Id is immutable over time.
+** Cons: An additional field is needed for the models.
+* Alternative 2: Use object hash to identify problems and tasks.
+** Pros: No need to store another additional field in the models.
+** Cons: Object hash can change over time.
 
 // end::task[]
 //@@author
@@ -250,6 +271,7 @@ Step 2. The user executes `addtag t/easy` to add a tag named [easy] which have n
 
 The following sequence diagram shows how the `deletetag` operation works:
 
+.Sequence Diagram for `AddTagCommand`
 image::AddTagSequenceDiagram.png[]
 
 Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
@@ -262,6 +284,7 @@ Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in
 
 The following activity diagram summarizes what happens when a user executes a new tag modifying command
 
+.Activity Diagram for tag commands
 image::TagActivityDiagram.png[]
 
 ==== Design considerations
@@ -624,11 +647,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add tasks to a plan |better prepare for interview
 
-|`* * *` |user |mark tasks as complete/incomplete within plans |better prepare for interview
+|`* * *` |user |mark tasks as done/undone within plans |keep track of progress within each plan
+
+|`* * *` |user |edit due dates of tasks |better manage progress for each plan
+
+|`* * *` |user |move tasks among plans |better manage progress for each plan
 
 |`* * *` |user |import database from <<json,JSON>> files |easily transfer data from one computer to another
 
-|`* * *` |user |export data into JSON format |easily transfer data from one computer to another
+|`* * *` |user |export data into <<json,JSON>> format |easily transfer data from one computer to another
 
 |`* *` |advanced user |export data into CSV format |do some manipulation/processing on the data
 
@@ -908,7 +935,67 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 11: Switch between View of Items
+=== Use Case 11: Edit Due Dates of Tasks
+
+*MSS*
+
+1.  User requests to edit due date of an existing task
+by entering the index of the plan, index of the task and new due date.
+2.  AlgoBase edits the due date of the specified task in the specified plan.
+3.  AlgoBase indicates that the existing task is edited successfully.
+4.  AlgoBase displays details of the task updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the index of plan is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[none]
+* 2b. AlgoBase detects that the index of task is out of bounds.
++
+[none]
+** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 12: Move Tasks between Plans
+
+*MSS*
+
+1.  User requests to move an existing task from one plan to another
+by entering the index of the task and the indices of the plans involved.
+2.  AlgoBase moves the specified task from the specified "from" plan to the "to" plan.
+3.  AlgoBase indicates that the existing task is moved successfully.
+4.  AlgoBase displays list of tasks of the "to" plan updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the index of either plan is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[none]
+* 2b. AlgoBase detects that the index of task is out of bounds.
++
+[none]
+** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 13: Switch between View of Items
 
 *MSS*
 
@@ -927,12 +1014,52 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 12: See details of an item
+=== Use Case 14: See details of an item
 
 *MSS*
 
 1.  User requests to see the details of a specified item from the list of items.
 2.  AlgoBase displays the details of that item.
++
+Use case ends.
+
+[discrete]
+=== Use Case 15: Export AlgoBase data
+
+*MSS*
+
+1.  User requests to export AlgoBase data to a specified path.
+2.  AlgoBase exports AlgoBase data to a file name `algobase.json` in the specified location.
+3.  AlgoBase indicates that AlgoBase data are exported successfully.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the specified path is invalid.
++
+[none]
+** 2a1. AlgoBase informs user that the export is unsuccessful because the path is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use Case 16: Import AlgoBase data
+
+*MSS*
+
+1.  User requests to import data from a specified file into AlgoBase.
+2.  AlgoBase imports data from the specified file into AlgoBase.
+3.  AlgoBase indicates that the data are imported into AlgoBase successfully.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the specified file does not exist.
++
+[none]
+** 2a1. AlgoBase informs user that the import is unsuccessful because the file path is invalid.
 +
 Use case ends.
 

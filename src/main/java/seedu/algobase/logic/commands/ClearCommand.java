@@ -15,7 +15,7 @@ public class ClearCommand extends Command {
             + "Clears all entries from AlgoBase.\n"
             + "Example: \n"
             + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "AlgoBase has been cleared!";
+    public static final String MESSAGE_SUCCESS = "AlgoBase has been cleared.";
 
 
     @Override

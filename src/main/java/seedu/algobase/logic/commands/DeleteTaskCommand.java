@@ -34,7 +34,7 @@ public class DeleteTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task [%1$s] deleted from Plan [%2$s]";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task [%1$s] deleted from Plan [%2$s].";
 
     private final DeleteTaskDescriptor deleteTaskDescriptor;
 
@@ -82,9 +82,9 @@ public class DeleteTaskCommand extends Command {
         private Index planIndex;
         private Index taskIndex;
 
-        public DeleteTaskDescriptor(Index planIndex, Index problemIndex) {
+        public DeleteTaskDescriptor(Index planIndex, Index taskIndex) {
             this.planIndex = planIndex;
-            this.taskIndex = problemIndex;
+            this.taskIndex = taskIndex;
         }
 
         @Override

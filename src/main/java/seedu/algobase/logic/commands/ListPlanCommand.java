@@ -13,14 +13,11 @@ import seedu.algobase.model.ModelType;
 public class ListPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "listplan";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays a list of all existing plans.\n"
             + "Example:\n"
             + COMMAND_WORD;
-
-    public static final String MESSAGE_SUCCESS = "Listed all plans";
-
+    public static final String MESSAGE_SUCCESS = "All plans listed.";
 
     @Override
     public CommandResult execute(Model model) {

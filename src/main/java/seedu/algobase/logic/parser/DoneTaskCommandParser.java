@@ -4,8 +4,6 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.util.stream.Stream;
-
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.DoneTaskCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -23,8 +21,8 @@ public class DoneTaskCommandParser implements Parser<DoneTaskCommand> {
     public DoneTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_TASK);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAN)
-            || !arePrefixesPresent(argMultimap, PREFIX_TASK)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PLAN)
+            || !ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TASK)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneTaskCommand.MESSAGE_USAGE));
         }
@@ -49,14 +47,6 @@ public class DoneTaskCommandParser implements Parser<DoneTaskCommand> {
             new DoneTaskCommand.DoneTaskDescriptor(planIndex, taskIndex);
 
         return new DoneTaskCommand(doneTaskDescriptor);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

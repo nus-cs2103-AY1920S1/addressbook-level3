@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
@@ -62,13 +63,29 @@ public class ProblemCard extends UiPart<Region> {
         super(FXML);
         this.problem = problem;
         id.setText(displayedIndex + ". ");
+        id.setWrapText(true);
+        id.setTextAlignment(TextAlignment.JUSTIFY);
         name.setText(problem.getName().fullName);
+        name.setWrapText(true);
+        name.setTextAlignment(TextAlignment.JUSTIFY);
         author.setText(problem.getAuthor().value);
+        author.setWrapText(true);
+        author.setTextAlignment(TextAlignment.JUSTIFY);
         description.setText(problem.getDescription().value);
+        description.setWrapText(true);
+        description.setTextAlignment(TextAlignment.JUSTIFY);
         weblink.setText(problem.getWebLink().value);
+        weblink.setWrapText(true);
+        weblink.setTextAlignment(TextAlignment.JUSTIFY);
         difficulty.setText(problem.getDifficulty().toString());
+        difficulty.setWrapText(true);
+        difficulty.setTextAlignment(TextAlignment.JUSTIFY);
         remark.setText(problem.getRemark().value);
+        remark.setWrapText(true);
+        remark.setTextAlignment(TextAlignment.JUSTIFY);
         source.setText(problem.getSource().value);
+        source.setWrapText(true);
+        source.setTextAlignment(TextAlignment.JUSTIFY);
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

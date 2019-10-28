@@ -314,6 +314,15 @@ Examples:
 
 * `donetask plan/1 task/1`
 
+==== Editing due date of a task from a plan: `edittask`
+
+Edits the due date of a specified task from a specified plan. +
+Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
+
+Examples:
+
+* `edittask plan/1 task/1 due/2019-12-12`
+
 ==== Marking a task as undone: `undonetask`
 
 Marks a specified task in a specified plan as undone. +
@@ -322,6 +331,15 @@ Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
 Examples:
 
 * `undonetask plan/1 task/1`
+
+==== Moving a task from one plan to another: `movetask`
+
+Moves a specified task from a specified plan to another. +
+Format: `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+
+Examples:
+
+* `movetask task/1 from/1 to/2`
 
 === Tabs
 
@@ -365,31 +383,27 @@ Examples:
 
 ==== Importing data: `import`
 
-Imports external data of a specified format (e.g. CSV, JSON) into local storage. +
-Format: `import f/FORMAT p/PATH`
+Imports external data of a specified format (e.g. JSON) into local storage. +
+Format: `import format/FORMAT path/FILE_PATH`
 
-* Format can be ‘CSV’ or ‘JSON’.
-* Directory refers to the full path of the output file.
+* Format can only be `JSON`.
+* File path refers to the relative path of the input file.
 
 Examples:
 
-* `import t/plan p/./steven_halim_secret.json`
+* `import format/json path/./steven_halim_secret.json`
 
 ==== Exporting data: `export`
 
-Exports data into a specified format (e.g. CSV, JSON). +
-Format: `export f/FORMAT p/DIRECTORY`
+Exports data into a specified format (e.g. JSON). +
+Format: `export format/FORMAT path/DIRECTORY_PATH`
 
-* Format can be ‘CSV’ or ‘JSON’.
-* Directory refers to the full path of the output file.
+* Format can only be `JSON`.
+* Directory path refers to the relative path of the directory to store the output file.
 
 Examples:
 
-* `export f/csv p/./`
-
-=== Encryption
-
-==== Encrypting data files `[coming in v2.0]`
+* `export format/json path/.`
 
 === Miscellaneous
 
@@ -431,6 +445,10 @@ Format: `exit`
 
 AlgoBase data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Encryption
+
+==== Encrypting data files `[coming in v2.0]`
 
 == FAQ
 
@@ -475,15 +493,19 @@ e.g. `find training set`
 e.g. `addtask plan/1 prob/2`
 * *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `deletetask plan/1 task/2`
+* *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
+e.g. `edittask plan/1 task/2 due/2019-12-12`
 * *Mark Task as done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `donetask plan/1 task/2`
 * *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `undonetask plan/1 task/2`
+* *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+e.g. `movetask task/1 from/1 to/2`
 
-* *Importing data* : `import f/FORMAT p/PATH` +
-e.g. `import t/plan p/./steven_halim_secret.json`
-* *Exporting data* : `export f/FORMAT p/DIRECTORY` +
-e.g. `export f/csv p/./`
+* *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
+e.g. `export format/json path/.`
+* *Importing data* : `import format/FORMAT path/FILE_PATH` +
+e.g. `import format/json path/./steven_halim_secret.json`
 
 * *Help* : `help`
 * *Clear* : `clear`

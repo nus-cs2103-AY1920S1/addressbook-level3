@@ -20,8 +20,8 @@ import seedu.algobase.model.gui.exceptions.DuplicateTabDataException;
 public class OpenTabCommand extends Command {
 
     public static final String COMMAND_WORD = "opentab";
-    public static final String MESSAGE_SUCCESS = "opened tab %1$s!";
-    public static final String MESSAGE_SWITCH_SUCCESS = "switched to tab %1$s!";
+    public static final String MESSAGE_SUCCESS = "Tab [%1$s] opened.";
+    public static final String MESSAGE_SWITCH_SUCCESS = "Switched to tab [%1$s].";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": opens a new Details Tab in the GUI\n"
         + "Parameters:\n"
@@ -32,8 +32,8 @@ public class OpenTabCommand extends Command {
         + PREFIX_MODEL_TYPE + "problem "
         + PREFIX_MODEL_INDEX + "1\n";
 
-    public static final String MESSAGE_INVALID_MODEL = "There is no such model!";
-    public static final String MESSAGE_INVALID_INDEX = "There is no tab at index %1$s!";
+    public static final String MESSAGE_INVALID_MODEL = "Model [%1$s] does not exist.";
+    public static final String MESSAGE_INVALID_INDEX = "Tab at index [%1$s] does not exist.";
 
     private Index modelIndex = Index.fromZeroBased(0);
     private ModelType modelType;
@@ -99,7 +99,7 @@ public class OpenTabCommand extends Command {
         } catch (IndexOutOfBoundsException exception) {
             throw new CommandException(String.format(MESSAGE_INVALID_INDEX, modelIndex.getOneBased()));
         } catch (IllegalArgumentException exception) {
-            throw new IllegalArgumentException(String.format(MESSAGE_INVALID_MODEL));
+            throw new IllegalArgumentException(String.format(MESSAGE_INVALID_MODEL, modelType.getTabName()));
         }
     }
 }

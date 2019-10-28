@@ -37,11 +37,6 @@ public class FindCommand extends Command {
             + PREFIX_AUTHOR + " Tung Kam Chuen";
     public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
 
-    /**
-     * {@code ALWAYS_TRUE_PROBLEM_PREDICATE} is a non-restrictive predicate that always returns true, which
-     * is used as a placeholder for predicates not provided by the user.
-     */
-    private static final Predicate<Problem> ALWAYS_TRUE_PROBLEM_PREDICATE = problem -> true;
     private final Predicate<Problem> predicate;
     private final FindProblemDescriptor descriptor;
 

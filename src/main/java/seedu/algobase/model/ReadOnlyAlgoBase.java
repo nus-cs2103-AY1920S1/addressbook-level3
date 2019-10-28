@@ -1,5 +1,7 @@
 package seedu.algobase.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.commandhistory.CommandHistory;
@@ -16,16 +18,20 @@ import seedu.algobase.model.task.Task;
 public interface ReadOnlyAlgoBase {
 
     /**
+     * Returns the {@code Problem} with the same id in the algobase.
+     */
+    Problem findProblemById(Id problemId) throws IllegalValueException;
+
+    /**
      * Returns an unmodifiable view of the problems list.
      * This list will not contain any duplicate problems.
      */
     ObservableList<Problem> getProblemList();
 
     /**
-     * Returns the {@code Problem} with the same id in the algobase.
+     * Returns an unmodifiable view of the tags list.
+     * This list will not contain any duplicate tags.
      */
-    Problem findProblemById(Id problemId) throws IllegalValueException;
-
     ObservableList<Tag> getTagList();
 
     /**
@@ -49,14 +55,34 @@ public interface ReadOnlyAlgoBase {
     ObservableList<Task> getCurrentTaskList();
 
     /**
-     * Returns a view of the GuiState.
+     * Returns an unmodifiable view of the command history.
+     * Returns current plan name.
      */
-    GuiState getGuiState();
+    StringProperty getCurrentPlan();
+
+    /**
+     * Returns the number of solved tasks in current plan.
+     */
+    IntegerProperty getCurrentSolvedCount();
+
+    /**
+     * Returns the number of solved tasks in current plan.
+     */
+    IntegerProperty getCurrentUnsolvedCount();
+
+    /**
+     * Returns an unmodifiable view of the find rule list.
+     */
+    ObservableList<ProblemSearchRule> getFindRules();
 
     /**
      * Returns an unmodifiable view of the command history.
      */
     ObservableList<CommandHistory> getCommandHistoryList();
 
-    ObservableList<ProblemSearchRule> getFindRules();
+    /**
+     * Returns a view of the GuiState.
+     */
+    GuiState getGuiState();
+
 }

@@ -29,7 +29,10 @@ class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validProblem).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validProblem), commandResult.getFeedbackToUser());
+        assertEquals(
+            String.format(AddCommand.MESSAGE_SUCCESS, validProblem.getName()),
+            commandResult.getFeedbackToUser()
+        );
         assertEquals(Arrays.asList(validProblem), modelStub.problemsAdded);
     }
 

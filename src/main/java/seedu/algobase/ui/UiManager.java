@@ -36,6 +36,7 @@ public class UiManager implements Ui {
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        primaryStage.setMaximized(true);
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);
