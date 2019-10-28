@@ -614,3 +614,19 @@
     -fx-text-fill: #121212;
     -fx-font-size: 15;
 }
+
+#fridgeListPlaceholder .label {
+    -fx-text-fill: white;
+    -fx-font-size: 10;
+    -fx-font-weight: 100;
+}
+
+.selectedBodyId {
+    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(to right, #FF7597, #FF0266);
+    -fx-padding: 4 6 4 6;
+    -fx-border-width: 0;
+    -fx-background-radius: 5;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}

@@ -70,17 +70,29 @@
                                <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
                            </effect>
                         </StackPane>
-                      <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="100.0" prefHeight="100.0" styleClass="stack-pane">
+                        <HBox>
                            <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
-                          <effect>
-                              <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
-                          </effect>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                      </StackPane>
+                           <children>
+                            <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="100.0" prefHeight="100.0" prefWidth="775.0" styleClass="stack-pane">
+                                <effect>
+                                    <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
+                                </effect>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="5.0" />
+                                 </padding>
+                            </StackPane>
+                              <StackPane fx:id="fridgeListPlaceholder" prefWidth="200.0" styleClass="stack-pane">
+                                  <effect>
+                                      <DropShadow blurType="GAUSSIAN" height="28.91" offsetY="2.0" radius="11.9775" spread="0.23" />
+                                  </effect>
+                                  <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets right="15.0" />
