@@ -1,4 +1,4 @@
-package dukecooks.model.workout.exercise;
+package dukecooks.model.workout;
 
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;

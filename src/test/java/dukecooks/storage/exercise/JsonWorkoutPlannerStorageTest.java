@@ -15,8 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import dukecooks.commons.exceptions.DataConversionException;
-import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.testutil.Assert;
 
 public class JsonWorkoutPlannerStorageTest {
