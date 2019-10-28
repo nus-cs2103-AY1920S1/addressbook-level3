@@ -13,11 +13,10 @@ import seedu.address.logic.commands.OutCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.util.Date;
 
@@ -36,14 +35,13 @@ public class OutCommandParser implements Parser<OutCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Person person = new Person(name);
+        Description description = new Description(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        BankAccountOperation transaction = new OutTransaction(amount, date, categoryList, person);
+        BankAccountOperation transaction = new OutTransaction(amount, date, description, categoryList);
 
         return new OutCommand(transaction);
 

@@ -13,10 +13,9 @@ import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.category.Category;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.util.Date;
 
@@ -34,14 +33,13 @@ public class InCommandParser implements Parser<InCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Person person = new Person(name);
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
-        BankAccountOperation transaction = new InTransaction(amount, date, categoryList, person);
+        BankAccountOperation transaction = new InTransaction(amount, date, description, categoryList);
 
         return new InCommand(transaction);
 

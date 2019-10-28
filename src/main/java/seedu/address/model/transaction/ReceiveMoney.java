@@ -8,12 +8,12 @@ import seedu.address.model.util.Date;
  * Concrete class to encapsulate payments from other People to self
  */
 public class ReceiveMoney extends Payment {
-    public ReceiveMoney(Person person, Amount amount, Date date) {
-        super(person, amount, date);
+    public ReceiveMoney(Person person, Amount amount, Date date, Description description) {
+        super(person, amount, date, description);
     }
 
-    public ReceiveMoney(Person person, Amount amount) {
-        super(person, amount);
+    public ReceiveMoney(Person person, Amount amount, Description description) {
+        super(person, amount, description);
     }
 
     @Override

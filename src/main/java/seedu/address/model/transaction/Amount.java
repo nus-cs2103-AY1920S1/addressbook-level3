@@ -9,13 +9,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Amount implements Comparable<Amount> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amounts should only be in integer or double, and it should not be blank";
+        "Amounts should only be in integer or double, and it should not be blank";
 
     public static final String DOUBLE_CONSTRAINTS =
-            "Doubles passed into Amount constructor should have maximum 2 decimal places";
+        "Doubles passed into Amount constructor should have maximum 2 decimal places";
 
     public static final String SHARE_CONSTRAINTS =
-            "Shares cannot be negative";
+        "Shares cannot be negative";
 
     private int amount;
 
@@ -39,10 +39,17 @@ public class Amount implements Comparable<Amount> {
     }
 
     /**
-     * Returns amount in cents
+     * Returns amount in cents.
      */
     public int getAmount() {
         return this.amount;
+    }
+
+    /**
+     * Sets amount in cents.
+     */
+    public void setAmount(Amount amount) {
+        this.amount = amount.amount;
     }
 
     /**
@@ -96,6 +103,7 @@ public class Amount implements Comparable<Amount> {
 
     /**
      * Create new Amount of 0
+     *
      * @return Amount of 0
      */
     public static Amount zero() {
@@ -110,8 +118,8 @@ public class Amount implements Comparable<Amount> {
     @Override
     public boolean equals(Object obj) {
         return this == obj
-                || (obj instanceof Amount
-                && amount == ((Amount) obj).amount);
+            || (obj instanceof Amount
+            && amount == ((Amount) obj).amount);
     }
 
     @Override
