@@ -19,6 +19,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
+import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindAnswerCommand;
 import seedu.address.logic.commands.FindCategoryCommand;
@@ -152,9 +153,26 @@ public class KeyboardFlashCardsParserTest {
     }
 
     @Test
-    public void parseCommand_rateQuestion() throws Exception {
+    public void parseCommand_rateQuestionInTestMode_success() throws Exception {
         parser.startTestMode();
         RateQuestionCommand command = (RateQuestionCommand) parser.parseCommand("rate good");
         assertEquals(new RateQuestionCommand(parser, new Rating("good")), command);
+    }
+
+    @Test
+    public void parseCommand_rateQuestionNotInTestMode_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("rate good"));
+    }
+
+    @Test
+    public void parseCommand_endInTestMode_throwsParseException() throws Exception {
+        parser.startTestMode();
+        EndTestCommand command = (EndTestCommand) parser.parseCommand("end");
+        assertEquals(new EndTestCommand(parser), command);
+    }
+
+    @Test
+    public void parseCommand_endNotInTestMode_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("ans"));
     }
 }
