@@ -6,12 +6,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddFileCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DecryptFileCommand;
 import seedu.address.logic.commands.EncryptFileCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindFileCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListFileCommand;
+import seedu.address.logic.commands.MoveFileCommand;
+import seedu.address.logic.commands.RemoveFileCommand;
+import seedu.address.logic.commands.RenameFileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -57,8 +63,26 @@ public class FileBookParser {
         case DecryptFileCommand.COMMAND_WORD:
             return new DecryptFileCommandParser().parse(arguments, password);
 
+        case AddFileCommand.COMMAND_WORD:
+            return new AddFileCommandParser().parse(arguments);
+
+        case RemoveFileCommand.COMMAND_WORD:
+            return new RemoveFileCommandParser().parse(arguments);
+
+        case FindFileCommand.COMMAND_WORD:
+            return new FindFileCommandParser().parse(arguments);
+
+        case RenameFileCommand.COMMAND_WORD:
+            return new RenameFileCommandParser().parse(arguments);
+
+        case MoveFileCommand.COMMAND_WORD:
+            return new MoveFileCommandParser().parse(arguments);
+
         case GoToCommand.COMMAND_WORD:
             return new GoToCommandParser().parse(arguments);
+
+        case ListFileCommand.COMMAND_WORD:
+            return new ListFileCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -4,12 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.GeneralSecurityException;
+import java.util.Date;
 
+import seedu.address.commons.exceptions.TargetFileExistException;
 import seedu.address.commons.util.EncryptionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.file.EncryptedAt;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.ModifiedAt;
 
 /**
  * Encrypt a file identified using it's file path.
@@ -19,13 +25,20 @@ public class EncryptFileCommand extends Command {
     public static final String COMMAND_WORD = "encrypt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Encrypts the file in user's file system specified the file path.\n"
-            + "Parameters: FILEPATH\n"
-            + "Example: " + COMMAND_WORD + " ~/Desktop/sample.txt";
+            + ": Encrypts a file in user's file system using the specified file path.\n"
+            + "Parameters: FILEPATH [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD + " /Desktop/Test.txt t/personal";
 
     public static final String MESSAGE_SUCCESS = "File encrypted: %1$s";
     public static final String MESSAGE_FAILURE = "File encryption failed.";
-    public static final String MESSAGE_DUPLICATE_FILE = "This file is already encrypted.";
+    public static final String MESSAGE_IS_DIRECTORY = "File encryption failed.\n"
+            + "SecureIT currently does not support encrypting directories.";
+    public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist.";
+    public static final String MESSAGE_DUPLICATE_FILE = "This file is already in the list.";
+    public static final String MESSAGE_ENCRYPTED_FILE = "This file is already encrypted.\n"
+            + "Use add command to add encrypted files to the list.";
+    public static final String MESSAGE_TARGET_FILE_EXISTS = "File decryption failed. "
+            + "Target file already exists.\nRename %1$s and try again.";
 
     private final EncryptedFile toAdd;
     private final String password;
@@ -46,13 +59,31 @@ public class EncryptFileCommand extends Command {
         if (model.hasFile(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FILE);
         }
-
+        if (!Files.exists(Path.of(toAdd.getFullPath()))) {
+            throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+        }
+        if (Files.isDirectory(Path.of(toAdd.getFullPath()))) {
+            throw new CommandException(MESSAGE_IS_DIRECTORY);
+        }
         try {
-            EncryptionUtil.encryptFile(toAdd.getFullPath(), password);
-        } catch (IOException e) {
+            if (EncryptionUtil.isFileEncrypted(toAdd.getFullPath())) {
+                throw new CommandException(MESSAGE_ENCRYPTED_FILE);
+            }
+            toAdd.setModifiedAt(
+                    new ModifiedAt(
+                            new Date(
+                                    Files.getLastModifiedTime(
+                                            Path.of(toAdd.getFullPath())
+                                    ).toMillis()
+                            )
+                    )
+            );
+            EncryptionUtil.encryptFile(toAdd.getFullPath(), toAdd.getEncryptedPath(), password);
+            toAdd.setEncryptedAt(new EncryptedAt(new Date()));
+        } catch (IOException | GeneralSecurityException e) {
             throw new CommandException(MESSAGE_FAILURE);
-        } catch (GeneralSecurityException e) {
-            throw new CommandException(MESSAGE_FAILURE);
+        } catch (TargetFileExistException e) {
+            throw new CommandException(String.format(MESSAGE_TARGET_FILE_EXISTS, e.getMessage()));
         }
         model.addFile(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

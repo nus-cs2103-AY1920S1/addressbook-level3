@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.FileStatus;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
@@ -20,7 +21,8 @@ public interface Model {
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    Predicate<EncryptedFile> PREDICATE_SHOW_ALL_FILES = unused -> true;
+
     Predicate<Card> PREDICATE_SHOW_ALL_CARDS = unused -> true;
 
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
@@ -122,6 +124,11 @@ public interface Model {
      * The file identity of {@code editedPerson} must not be the same as another existing file in the file book.
      */
     void setFile(EncryptedFile target, EncryptedFile editedFile);
+
+    /**
+     * Sets the status of the given file to the new status specified.
+     */
+    void setFileStatus(EncryptedFile target, FileStatus newStatus);
 
     /** Returns an unmodifiable view of the filtered person list
      *

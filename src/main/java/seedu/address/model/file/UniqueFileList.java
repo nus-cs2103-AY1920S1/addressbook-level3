@@ -61,6 +61,24 @@ public class UniqueFileList implements Iterable<EncryptedFile> {
     }
 
     /**
+     * Sets the status of the given file to the new status specified.
+     */
+    public void setFileStatus(EncryptedFile target, FileStatus newStatus) {
+        requireAllNonNull(target, newStatus);
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new FileNotFoundException();
+        }
+
+        internalList.set(index, new EncryptedFile(target.getFileName(),
+                target.getFilePath(),
+                newStatus,
+                target.getTags(),
+                target.getEncryptedAt(),
+                target.getModifiedAt()));
+    }
+
+    /**
      * Removes the equivalent file from the list.
      * The file must exist in the list.
      */

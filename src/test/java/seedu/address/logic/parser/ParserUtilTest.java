@@ -14,6 +14,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.file.FileName;
+import seedu.address.model.file.FilePath;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,6 +28,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_FULL_PATH = "";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +36,9 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_FILE_NAME = "Test.txt";
+    private static final String VALID_FILE_PATH = "/Users/Desktop";
+    private static final String VALID_FULL_PATH = "/Users/Desktop/Test.txt";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -192,5 +198,34 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseFileName_validValue_returnsFileName() throws Exception {
+        FileName expectedFileName = new FileName(VALID_FILE_NAME);
+        assertEquals(expectedFileName, ParserUtil.parseFileName(VALID_FULL_PATH));
+    }
+
+    @Test
+    public void parseFileName_emptyPath_returnsFileName() throws Exception {
+        FileName expectedFileName = new FileName(VALID_FILE_NAME);
+        assertEquals(expectedFileName, ParserUtil.parseFileName(VALID_FILE_NAME));
+    }
+
+    @Test
+    public void parseFileName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFileName(INVALID_FULL_PATH));
+    }
+
+    @Test
+    public void parseFilePath_validValue_returnsFilePath() throws Exception {
+        FilePath expectedFilePath = new FilePath(VALID_FILE_PATH);
+        assertEquals(expectedFilePath, ParserUtil.parseFilePath(VALID_FULL_PATH));
+    }
+
+    @Test
+    public void parseFileName_emptyPath_returnsFilePath() throws Exception {
+        FilePath expectedFileName = new FilePath("");
+        assertEquals(expectedFileName, ParserUtil.parseFilePath(VALID_FILE_NAME));
     }
 }

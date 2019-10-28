@@ -5,7 +5,7 @@ package seedu.address.model.file;
  */
 public class FileName {
 
-    public static final String MESSAGE_CONSTRAINTS = "File name should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "File name should not be empty";
 
     public final String value;
 
@@ -22,7 +22,7 @@ public class FileName {
      * Returns true if a given string is a valid file name.
      */
     public static boolean isValidFileName(String test) {
-        return !("".equals(test.trim()));
+        return !("".equals(test)); // trim not required since empty space can be valid file name
     }
 
     @Override

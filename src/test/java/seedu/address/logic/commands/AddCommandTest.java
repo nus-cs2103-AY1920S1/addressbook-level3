@@ -27,6 +27,7 @@ import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.FileStatus;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
@@ -174,6 +175,11 @@ public class AddCommandTest {
 
         @Override
         public void setFile(EncryptedFile target, EncryptedFile editedFile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFileStatus(EncryptedFile target, FileStatus status) {
             throw new AssertionError("This method should not be called.");
         }
 

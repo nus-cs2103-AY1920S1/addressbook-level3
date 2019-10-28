@@ -30,6 +30,7 @@
       <FlowPane fx:id="tags" />
       <Label fx:id="path" styleClass="cell_small_label" text="\$path" />
       <Label fx:id="encryptedAt" styleClass="cell_small_label" text="\$encryptedAt" />
+      <Label fx:id="modifiedAt" styleClass="cell_small_label" text="\$modifiedAt" />
     </VBox>
   </GridPane>
 </HBox>

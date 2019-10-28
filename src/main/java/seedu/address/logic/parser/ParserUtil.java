@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -180,14 +181,12 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String fullPath} into a {@code FileName}.
-     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code fullPath} is invalid.
+     * @throws ParseException if the given {@code fullPath} does not contain valid file name.
      */
     public static FileName parseFileName(String fullPath) throws ParseException {
         requireNonNull(fullPath);
-        String trimmedFullPath = fullPath.trim();
-        String fileName = Path.of(trimmedFullPath).getFileName().toString();
+        String fileName = Path.of(fullPath).getFileName().toString();
         if (!FileName.isValidFileName(fileName)) {
             throw new ParseException(FileName.MESSAGE_CONSTRAINTS);
         }
@@ -196,19 +195,17 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String fullPath} into a {@code FilePath}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code fullPath} is invalid.
      */
-    public static FilePath parseFilePath(String fullPath) throws ParseException {
+    public static FilePath parseFilePath(String fullPath) {
         requireNonNull(fullPath);
-        String trimmedFullPath = fullPath.trim();
-        String filePath = Path.of(trimmedFullPath).getParent().toString();
-        if (!FilePath.isValidFilePath(filePath)) {
-            throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
+        Optional<Path> parentPath = Optional.ofNullable(Path.of(fullPath).getParent());
+        if (parentPath.isPresent()) {
+            return new FilePath(parentPath.get().toString());
+        } else {
+            return new FilePath("");
         }
-        return new FilePath(filePath);
     }
+
     //Notes ====================================================================================================
     /**
      * Parses a {@code String name} into a {@code Name}.

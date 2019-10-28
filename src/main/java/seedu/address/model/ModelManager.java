@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.FileStatus;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
@@ -197,8 +198,13 @@ public class ModelManager implements Model {
     @Override
     public void setFile(EncryptedFile target, EncryptedFile editedFile) {
         requireAllNonNull(target, editedFile);
-
         fileBook.setFile(target, editedFile);
+    }
+
+    @Override
+    public void setFileStatus(EncryptedFile target, FileStatus newStatus) {
+        requireAllNonNull(target, newStatus);
+        fileBook.setFileStatus(target, newStatus);
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.file.EncryptedFile;
+import seedu.address.model.file.FileStatus;
 import seedu.address.model.file.UniqueFileList;
 
 /**
@@ -74,6 +75,14 @@ public class FileBook implements ReadOnlyFileBook {
         requireNonNull(editedFile);
 
         files.setFile(target, editedFile);
+    }
+
+    /**
+     * Sets the status of the given file to the new status specified.
+     */
+    public void setFileStatus(EncryptedFile target, FileStatus newStatus) {
+        requireNonNull(newStatus);
+        files.setFileStatus(target, newStatus);
     }
 
     /**
