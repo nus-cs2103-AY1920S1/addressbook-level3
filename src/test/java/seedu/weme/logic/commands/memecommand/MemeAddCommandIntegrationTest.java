@@ -1,4 +1,4 @@
-package seedu.weme.logic.commands;
+package seedu.weme.logic.commands.memecommand;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertAddCommandSuccess;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
@@ -6,7 +6,7 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.memecommand.MemeAddCommand;
+import seedu.weme.logic.commands.CommandTestUtil;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.meme.Meme;
@@ -31,7 +31,7 @@ public class MemeAddCommandIntegrationTest {
     public void execute_newMeme_success() throws Exception {
         Meme validMeme = new MemeBuilder().build();
 
-        assertAddCommandSuccess(new MemeAddCommand(validMeme), model,
+        CommandTestUtil.assertAddCommandSuccess(new MemeAddCommand(validMeme), model,
                 String.format(MemeAddCommand.MESSAGE_SUCCESS, validMeme), validMeme);
     }
 

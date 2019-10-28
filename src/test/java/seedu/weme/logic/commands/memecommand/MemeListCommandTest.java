@@ -1,4 +1,4 @@
-package seedu.weme.logic.commands;
+package seedu.weme.logic.commands.memecommand;
 
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.logic.commands.CommandTestUtil.showMemeAtIndex;
@@ -8,7 +8,7 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.memecommand.MemeListCommand;
+import seedu.weme.logic.commands.CommandTestUtil;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
 import seedu.weme.model.UserPrefs;
@@ -29,7 +29,8 @@ public class MemeListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new MemeListCommand(), model, MemeListCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandTestUtil.assertCommandSuccess(new MemeListCommand(), model, MemeListCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test

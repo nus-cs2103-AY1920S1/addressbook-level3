@@ -1,4 +1,4 @@
-package seedu.weme.logic.commands;
+package seedu.weme.logic.commands.memecommand;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,8 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
-import seedu.weme.logic.commands.memecommand.MemeClearCommand;
-import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
@@ -40,7 +38,7 @@ public class MemeEditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Meme editedMeme = new MemeBuilder().build();
-        MemeEditCommand.EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(editedMeme).build();
+        EditMemeDescriptor descriptor = new EditMemeDescriptorBuilder(editedMeme).build();
         MemeEditCommand memeEditCommand = new MemeEditCommand(INDEX_FIRST_MEME, descriptor);
 
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);

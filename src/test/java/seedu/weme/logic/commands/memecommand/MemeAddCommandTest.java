@@ -1,4 +1,4 @@
-package seedu.weme.logic.commands;
+package seedu.weme.logic.commands.memecommand;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
-import seedu.weme.logic.commands.memecommand.MemeAddCommand;
+import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyUserPrefs;

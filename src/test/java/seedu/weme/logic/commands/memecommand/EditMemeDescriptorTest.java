@@ -1,4 +1,4 @@
-package seedu.weme.logic.commands;
+package seedu.weme.logic.commands.memecommand;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,7 +10,6 @@ import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_JOKER;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 
 public class EditMemeDescriptorTest {
