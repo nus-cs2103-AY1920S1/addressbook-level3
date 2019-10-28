@@ -3,14 +3,20 @@ package seedu.moneygowhere.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.spending.SpendingList;
+import seedu.moneygowhere.model.util.CurrencyDataUtil;
 
 /**
  * Wraps all data at the address-book level
@@ -20,6 +26,8 @@ public class SpendingBook implements ReadOnlySpendingBook {
     private final SpendingList spendings;
     private final Budget budget;
     private List<Reminder> reminders;
+    private Set<Currency> currencies;
+    private Currency currencyInUse;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -32,6 +40,9 @@ public class SpendingBook implements ReadOnlySpendingBook {
         spendings = new SpendingList();
         budget = new Budget(0);
         reminders = new ArrayList<>();
+        currencies = new HashSet<>();
+        currencies.addAll(Arrays.asList(CurrencyDataUtil.getSampleCurrencies()));
+        currencyInUse = CurrencyDataUtil.getDefaultCurrency();
     }
 
     public SpendingBook() {}
@@ -60,6 +71,8 @@ public class SpendingBook implements ReadOnlySpendingBook {
     public void resetData(ReadOnlySpendingBook newData) {
         requireNonNull(newData);
 
+        setCurrencies(newData.getCurrencies());
+        setCurrencyInUse(newData.getCurrencyInUse());
         setSpendings(newData.getSpendingList());
         setBudget(newData.getBudget());
         setReminders(newData.getReminderList());
@@ -137,6 +150,47 @@ public class SpendingBook implements ReadOnlySpendingBook {
         reminders.remove(key);
     }
 
+    //// Currency-level operations
+
+    /**
+     * Replaces the contents of the Currency list with {@code currencies}.
+     */
+    public void setCurrencies(Set<Currency> currencies) {
+        requireNonNull(currencies);
+        this.currencies.clear();
+        this.currencies.addAll(currencies);
+    }
+
+    /**
+     * Sets the currency in use. It must be present in {@code currencies}.
+     */
+    public void setCurrencyInUse(Currency currency) {
+        this.currencyInUse = currency;
+    }
+
+    /**
+     * Returns true if a Currency with the same identity as {@code currency} exists in MoneyGoWhere.
+     */
+    public boolean hasCurrency(Currency currency) {
+        requireNonNull(currency);
+        return currencies.contains(currency);
+    }
+
+    /**
+     * Adds a Currency to the currency list.
+     */
+    public void addCurrency(Currency c) {
+        currencies.add(c);
+    }
+
+    /**
+     * Removes {@code key} from this {@code SpendingBook}.
+     * {@code key} must exist in the Currency list.
+     */
+    public void removeCurrency(Currency key) {
+        currencies.remove(key);
+    }
+
     //// Budget related operations
 
     @Override
@@ -170,16 +224,28 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     @Override
+    public Set<Currency> getCurrencies() {
+        return Collections.unmodifiableSet(currencies);
+    }
+
+    @Override
+    public Currency getCurrencyInUse() {
+        return currencyInUse;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SpendingBook // instanceof handles nulls
                 && spendings.equals(((SpendingBook) other).spendings)
                 && reminders.equals(((SpendingBook) other).reminders)
+                && currencies.equals(((SpendingBook) other).currencies)
+                && currencyInUse.equals(((SpendingBook) other).currencyInUse)
                 && budget.equals(((SpendingBook) other).budget));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(spendings, reminders, budget);
+        return Objects.hash(spendings, reminders, budget, currencies);
     }
 }

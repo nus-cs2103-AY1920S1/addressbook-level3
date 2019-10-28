@@ -75,7 +75,7 @@ public class ImportCommand extends Command {
         Cost cost = ParserUtil.parseCost(metaCost);
         Set<Tag> tagList = ParserUtil.parseTags(Arrays.asList(tags));
 
-        return new Spending(name, date, remark, cost, tagList);
+        return new Spending(name, date, remark, cost, null, tagList);
 
     }
 

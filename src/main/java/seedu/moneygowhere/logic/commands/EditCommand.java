@@ -95,7 +95,8 @@ public class EditCommand extends Command {
         Cost updatedCost = editSpendingDescriptor.getCost().orElse(spendingToEdit.getCost());
         Set<Tag> updatedTags = editSpendingDescriptor.getTags().orElse(spendingToEdit.getTags());
 
-        return new Spending(updatedName, updatedDate, updatedRemark, updatedCost, updatedTags);
+        return new Spending(updatedName, updatedDate, updatedRemark, updatedCost, spendingToEdit.getCurrency(),
+                updatedTags);
     }
 
     @Override

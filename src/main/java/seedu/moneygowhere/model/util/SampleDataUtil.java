@@ -22,21 +22,27 @@ public class SampleDataUtil {
         return new Spending[]{
             new Spending(new Name("Chicken rice"), new Date("1/1/2019"), new Remark("Tasty."),
                 new Cost("4.00"),
+                CurrencyDataUtil.getDefaultCurrency().name,
                 getTagSet("food")),
             new Spending(new Name("Taxi"), new Date("2/1/2019"), new Remark("I was late for school."),
                 new Cost("25.50"),
+                CurrencyDataUtil.getDefaultCurrency().name,
                 getTagSet("transport", "regret")),
             new Spending(new Name("Math textbook"), new Date("3/1/2019"), new Remark("I hate this."),
                 new Cost("32.00"),
+                CurrencyDataUtil.getDefaultCurrency().name,
                 getTagSet("education", "regret")),
             new Spending(new Name("Movie"), new Date("4/1/2019"), new Remark("Excited!"),
                 new Cost("10"),
+                CurrencyDataUtil.getDefaultCurrency().name,
                 getTagSet("entertainment")),
             new Spending(new Name("Gold Watch"), new Date("5/1/2019"), new Remark("It's about time."),
                 new Cost("250"),
+                CurrencyDataUtil.getDefaultCurrency().name,
                 getTagSet("entertainment", "aesthetics")),
             new Spending(new Name("Concert ticket"), new Date("6/1/2019"), new Remark("I love music festivals."),
                 new Cost("180"),
+                CurrencyDataUtil.getDefaultCurrency().name,
                 getTagSet("entertainment"))
         };
     }

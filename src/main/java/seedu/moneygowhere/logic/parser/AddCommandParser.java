@@ -44,7 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Cost cost = ParserUtil.parseCost(argMultimap.getValue(PREFIX_COST).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Spending spending = new Spending(name, date, remark, cost, tagList);
+        Spending spending = new Spending(name, date, remark, cost, null, tagList);
 
         return new AddCommand(spending);
     }

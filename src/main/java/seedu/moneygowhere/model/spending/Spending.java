@@ -21,18 +21,20 @@ public class Spending {
     private final Remark remark;
 
     private final Cost cost;
+    private final String currency;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Spending(Name name, Date date, Remark remark, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, date, remark, cost, tags);
+    public Spending(Name name, Date date, Remark remark, Cost cost, String currency, Set<Tag> tags) {
+        requireAllNonNull(name, date, remark, cost, currency, tags);
 
         this.name = name;
         this.date = date;
         this.remark = remark;
         this.cost = cost;
+        this.currency = currency;
         this.tags.addAll(tags);
     }
 
@@ -50,6 +52,10 @@ public class Spending {
 
     public Cost getCost() {
         return cost;
+    }
+
+    public String getCurrency() {
+        return currency;
     }
 
     /**
@@ -71,7 +77,8 @@ public class Spending {
 
         return otherSpending != null
                 && otherSpending.getName().equals(getName())
-                && (otherSpending.getDate().equals(getDate()) || otherSpending.getRemark().equals(getRemark()));
+                && (otherSpending.getDate().equals(getDate()) || otherSpending.getRemark().equals(getRemark()))
+                && (otherSpending.getCurrency().equals(getCurrency()));
     }
 
     /**
@@ -93,6 +100,7 @@ public class Spending {
                 && otherSpending.getDate().equals(getDate())
                 && otherSpending.getCost().equals(getCost())
                 && otherSpending.getRemark().equals(getRemark())
+                && otherSpending.getCurrency().equals(getCurrency())
                 && otherSpending.getTags().equals(getTags());
     }
 
