@@ -15,7 +15,7 @@ import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
 
 /**
- * Utility class that handles exporting of FlashCards to an external file.
+ * Utility class that handles exporting of FlashCards to an external document file.
  */
 public class DocumentExportUtil {
 
