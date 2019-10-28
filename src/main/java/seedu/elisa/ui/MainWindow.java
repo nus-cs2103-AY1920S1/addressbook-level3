@@ -9,8 +9,12 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
@@ -19,6 +23,7 @@ import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.Logic;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
+import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
@@ -40,6 +45,10 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private final Image redElisa = new Image(getClass().getClassLoader()
+            .getResource("images/RedElisa.png").toString());
+    private final Image blueElisa = new Image(getClass().getClassLoader()
+            .getResource("images/ElisaImageWithoutWords.png").toString());
 
     private Stage primaryStage;
     private Logic logic;
@@ -50,6 +59,9 @@ public class MainWindow extends UiPart<Stage> {
     private ReminderListPanel reminderListPanel;
     private CalendarPanel calendarPanel;
     private ResultDisplay resultDisplay;
+
+    private String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
+    private AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -74,6 +86,21 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private TabPane viewsPlaceholder;
+
+    @FXML
+    private ImageView elisaImage;
+
+    @FXML
+    private Text elisaText;
+
+    @FXML
+    private Text elisaDescription;
+
+    @FXML
+    private Text elisaDescription2;
+
+    private final Paint elisaBlueColor = elisaText.getFill();
+    private final Paint elisaRedColor = Paint.valueOf("e50010");
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -101,10 +128,32 @@ public class MainWindow extends UiPart<Stage> {
                     }
                 }
         );
+
+        logic.getPriorityMode().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    elisaImage.setImage(redElisa);
+                    setElisaTextColor(elisaRedColor);
+                } else {
+                    elisaImage.setImage(blueElisa);
+                    setElisaTextColor(elisaBlueColor);
+                    if (logic.isSystemToggle()) {
+                        Platform.runLater(() -> resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF));
+                    }
+                }
+            }
+        });
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    private void setElisaTextColor(Paint color) {
+        elisaText.setFill(color);
+        elisaDescription.setFill(color);
+        elisaDescription2.setFill(color);
     }
 
     /**
@@ -117,8 +166,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         //Get property.addListener
-        String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
-        AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
 
         logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
             @Override
