@@ -9,10 +9,13 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.ActivityBook;
+import seedu.address.model.Context;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Title;
 import seedu.address.model.person.NameContainsAllKeywordsPredicate;
@@ -30,9 +33,7 @@ public class ActivityCommandTest {
         assertThrows(NullPointerException.class, () -> new ActivityCommand(null, null));
     }
 
-    /**
-     * TODO: put this back after abstracting out view change @Test
-     */
+    @Test
     public void execute_validActivityWithoutParticipants_addSuccessful() throws Exception {
         ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
         Activity validActivity = new ActivityBuilder().build();
@@ -46,9 +47,7 @@ public class ActivityCommandTest {
         assertEquals(Arrays.asList(validActivity), modelStub.activityList);
     }
 
-    /**
-     * TODO: put this back after abstracting out view change @Test
-     */
+    @Test
     public void execute_validActivityWithParticipant_addSuccessful() throws Exception {
         ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
         Activity validActivity = new ActivityBuilder().addPerson(TypicalPersons.ALICE).build();
@@ -64,9 +63,26 @@ public class ActivityCommandTest {
         assertEquals(Arrays.asList(validActivity), modelStub.activityList);
     }
 
-    /**
-     * TODO: put this back after abstracting out view change @Test
-     */
+    @Test
+    public void execute_validActivityWithExactMatchParticipant_addSuccessful() throws Exception {
+        ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
+        modelStub.addPerson(TypicalPersons.GEORGE_FIRSTNAME);
+        Activity validActivity = new ActivityBuilder()
+                .addPerson(TypicalPersons.GEORGE_FIRSTNAME).build();
+
+        ArrayList<String> searchTerms = new ArrayList<String>();
+        searchTerms.add("George");
+
+        CommandResult commandResult =
+                new ActivityCommand(new Title(ActivityBuilder.DEFAULT_TITLE), searchTerms)
+                .execute(modelStub);
+
+        assertEquals(String.format(ActivityCommand.MESSAGE_SUCCESS, validActivity, "George", ""),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validActivity), modelStub.activityList);
+    }
+
+    @Test
     public void execute_validActivityWithInvalidParticipant_multipleMatches() throws Exception {
         ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
         modelStub.addPerson(TypicalPersons.ANDY);
@@ -144,6 +160,17 @@ public class ActivityCommandTest {
         }
 
         @Override
+        public Optional<Person> findPersonByName(String searchTerm) {
+            requireNonNull(searchTerm);
+            for (Person person : personList) {
+                if (person.getName().fullName.toLowerCase().equals(searchTerm.toLowerCase())) {
+                    return Optional.of(person);
+                }
+            }
+            return Optional.empty();
+        }
+
+        @Override
         public void addActivity(Activity activity) {
             requireNonNull(activity);
             activityList.add(activity);
@@ -154,6 +181,16 @@ public class ActivityCommandTest {
             ActivityBook activityBook = new ActivityBook();
             activityBook.setActivities(activityList);
             return activityBook;
+        }
+
+        @Override
+        public void setContext(Context context) {
+            return;
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+            return;
         }
     }
 
