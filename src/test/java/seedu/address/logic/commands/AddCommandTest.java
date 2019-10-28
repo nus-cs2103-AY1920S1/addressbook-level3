@@ -29,6 +29,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.SortByCond;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -285,6 +286,16 @@ public class AddCommandTest {
         @Override
         public ObservableList<Note> getFilteredNoteList() {
             return null;
+        }
+
+        @Override
+        public void sortNoteBook() {
+
+        }
+
+        @Override
+        public void editNoteSortByCond(SortByCond sortByCond) {
+
         }
 
         @Override

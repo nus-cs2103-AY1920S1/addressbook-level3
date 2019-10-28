@@ -1,13 +1,14 @@
 package seedu.address.model.note;
 
+import java.util.Date;
+
 import seedu.address.model.util.DateUtil;
 
-import java.util.Date;
 
 /**
  * Represents a File's encryption date and time in SecureIT.
  */
-public class DateModified {
+public class DateAdded {
 
     public static final String MESSAGE_CONSTRAINTS = "Date should be in the format of dd/MM/yyyy HHmm";
 
@@ -16,15 +17,12 @@ public class DateModified {
     /**
      * Constructs an {@code EncryptedAt} field.
      *
-     * @param dateModified A note's last modified date and time.
+     * @param dateAdded A note's last modified date and time.
      */
-    public DateModified(Date dateModified) {
-        value = dateModified;
+    public DateAdded(Date dateAdded) {
+        value = dateAdded;
     }
 
-    public DateModified update() {
-        return new DateModified(new Date());
-    }
     @Override
     public String toString() {
         return DateUtil.formatDate(value);
@@ -33,8 +31,8 @@ public class DateModified {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DateModified // instanceof handles nulls
-                && value.equals(((DateModified) other).value)); // state check
+                || (other instanceof DateAdded // instanceof handles nulls
+                && value.equals(((DateAdded) other).value)); // state check
     }
 
     @Override

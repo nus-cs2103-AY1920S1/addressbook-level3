@@ -1,39 +1,38 @@
-package seedu.address.model.util;
-
-
-import seedu.address.model.note.Note;
+package seedu.address.model.note;
 
 import java.util.Comparator;
 
 /**
- * Represents a File's encryption date and time in SecureIT.
+ * Represents a Note's Sorting condition.
  */
-public class SortByUtil {
-    public static final String DATEMODIFIED = "DateModified";
-    public static final String DATECREATED = "DateCreated";
-    public static final String NUMOFACCESS = "NumOfAccess";
-    public static final String MESSAGE_CONSTRAINTS = "Sort condition should be either" + DATECREATED + ", or " +
-            DATECREATED + " or " + NUMOFACCESS;
+public class SortByCond {
+    public static final String DATEMODIFIED = "datemodified";
+    public static final String DATEADDED = "dateadded";
+    public static final String NUMOFACCESS = "numofaccess";
+    public static final String MESSAGE_CONSTRAINTS = "Sort condition should be either" + DATEADDED + ", or "
+            + DATEMODIFIED + " or " + NUMOFACCESS;
 
     public final String sortByCond;
     public final Comparator<Note> sortComparator;
 
     /**
-     * Constructs an {@code EncryptedAt} field.
-     *
+     * Constructs an {@code SortByCond} field with date modified as the default condition.
      */
-    public SortByUtil() {
+    public SortByCond() {
         this.sortByCond = DATEMODIFIED;
-//        return new SortByCond(sortByCond, new SortByDateCreated());
         this.sortComparator = new SortByDateModified();
     }
 
-    public SortByUtil(String sortByCond) {
-        switch (sortByCond) {
-//        case DATECREATED:
-////            this.sortByCond = DATECREATED;
-////            this.sortComparator = new SortByDateCreated();
-////             break;
+    /**
+     * Constructs an {@code SortByCond} field
+     * @param sortByCond condition for the sorting of notes.
+     */
+    public SortByCond(String sortByCond) {
+        switch (sortByCond.toLowerCase()) {
+        case DATEADDED:
+            this.sortByCond = DATEADDED;
+            this.sortComparator = new SortByDateAdded();
+            break;
         case NUMOFACCESS:
             this.sortByCond = NUMOFACCESS;
             this.sortComparator = new SortByNumOfAccess();
@@ -45,15 +44,22 @@ public class SortByUtil {
         }
     }
 
+    /**
+     * Gets the Comparator object based on the sorting condition.
+     * @return Comparator object.
+     */
     public Comparator<Note> getSortComparator() {
         return sortComparator;
     }
 
+    /**
+     * Returns true if given string is a valid sorting condition.
+     */
     public static boolean isValidSortByCond(String sortByCond) {
-        return sortByCond.equals("DateModified") || sortByCond.equals("DateCreated") ||
-                sortByCond.equals("NumOfAccess");
+        String editedSortByCond = sortByCond.toLowerCase();
+        return sortByCond.equals(DATEMODIFIED) || sortByCond.equals(DATEADDED)
+                || sortByCond.equals(NUMOFACCESS);
     }
-
 
     @Override
     public String toString() {
@@ -63,8 +69,8 @@ public class SortByUtil {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SortByUtil // instanceof handles nulls
-                && sortByCond.equals(((SortByUtil) other).sortByCond)); // state check
+                || (other instanceof SortByCond // instanceof handles nulls
+                && sortByCond.equals(((SortByCond) other).sortByCond)); // state check
     }
 
     @Override
@@ -72,14 +78,22 @@ public class SortByUtil {
         return sortByCond.hashCode();
     }
 
+    /**
+     * Comparator class that compares notes based on its NumOfAccess attribute.
+     */
     class SortByNumOfAccess implements Comparator<Note> {
+        @Override
         public int compare(Note a, Note b) {
             Integer numOfAccessA = Integer.valueOf(a.getNumOfAccess().numOfAccess);
             Integer numOfAccessB = Integer.valueOf(b.getNumOfAccess().numOfAccess);
             return (numOfAccessB.compareTo(numOfAccessA));
         }
     }
+    /**
+     * Comparator class that compares notes based on its DateModified attribute.
+     */
     class SortByDateModified implements Comparator<Note> {
+        @Override
         public int compare(Note a, Note b) {
             if (a.getDateModified().value.before(b.getDateModified().value)) {
                 return 1;
@@ -90,15 +104,19 @@ public class SortByUtil {
             }
         }
     }
-//    class SortByDateCreated implements Comparator<Note> {
-//        public int compare(Note a, Note b) {
-//            if (a.getDateCreated().value.before(b.getDateCreated().value)) {
-//                return -1;
-//            } else if (a.getDateCreated().value.after(b.getDateCreated().value)) {
-//                return 1;
-//            } else {
-//                return 0;
-//            }
-//        }
-//    }
+    /**
+     * Comparator class that compares notes based on its DateAdded attribute.
+     */
+    class SortByDateAdded implements Comparator<Note> {
+        @Override
+        public int compare(Note a, Note b) {
+            if (a.getDateAdded().value.before(b.getDateAdded().value)) {
+                return 1;
+            } else if (a.getDateAdded().value.after(b.getDateAdded().value)) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
 }

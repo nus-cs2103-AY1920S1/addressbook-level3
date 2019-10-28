@@ -61,7 +61,6 @@ public class EditNoteCommandParser implements Parser<EditNoteCommand> {
         if (!editNoteDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditNoteCommand.MESSAGE_NOT_EDITED);
         }
-
         return new EditNoteCommand(index, editNoteDescriptor);
     }
 

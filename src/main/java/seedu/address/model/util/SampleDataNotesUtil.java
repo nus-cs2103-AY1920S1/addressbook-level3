@@ -2,37 +2,34 @@ package seedu.address.model.util;
 
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
-import seedu.address.model.PasswordBook;
-import seedu.address.model.ReadOnlyPasswordBook;
-import seedu.address.model.password.Description;
-import seedu.address.model.password.Password;
-import seedu.address.model.password.PasswordValue;
-import seedu.address.model.password.Username;
+import seedu.address.model.NoteBook;
+import seedu.address.model.ReadOnlyNoteBook;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.Description;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.Title;
+
 
 /**
  * Contains utility methods for populating {@code PasswordBook} with sample data.
  */
-public class SampleDataPasswordUtil {
-    public static Password[] getSamplePasswords() {
-        return new Password[] {
-            new Password(new Description("Gmail"), new Username("Randomguy"),
-                        new PasswordValue("password"), getTagSet("SocialMedia")),
-            new Password(new Description("Gmail1"), new Username("Randomguy1"),
-                        new PasswordValue("password1"), getTagSet("Work")),
-            new Password(new Description("Gmail2"), new Username("Randomguy2"),
-                        new PasswordValue("password2"), getTagSet("SocialMedia")),
-            new Password(new Description("Gmail3"), new Username("Randomguy3"),
-                        new PasswordValue("password3"), getTagSet("Game")),
-            new Password(new Description("Gmail4"), new Username("Randomguy4"),
-                        new PasswordValue("password4"), getTagSet("Help")),
+public class SampleDataNotesUtil {
+    public static Note[] getSampleNotes() {
+        return new Note[] {
+            new Note(new Title("Secret Diary"), new Description("Keeps track of everyday things"),
+                    getTagSet("Personal"), new Content("Content of my everyday life")),
+            new Note(new Title("Office tracker"), new Description("Keeps track of my what i do in the office"),
+                    getTagSet("Work"), new Content("Content of my everyday office life")),
+            new Note(new Title("Project information"), new Description("Critical information for XYZ project"),
+                    getTagSet("Work"), new Content("Content of XYZ Project"))
         };
     }
 
-    public static ReadOnlyPasswordBook getSamplePasswordBook() {
-        PasswordBook samplePb = new PasswordBook();
-        for (Password samplePassword : getSamplePasswords()) {
-            samplePb.addPassword(samplePassword);
+    public static ReadOnlyNoteBook getSampleNoteBook() {
+        NoteBook sampleNb = new NoteBook();
+        for (Note sampleNote : getSampleNotes()) {
+            sampleNb.addNote(sampleNote);
         }
-        return samplePb;
+        return sampleNb;
     }
 }

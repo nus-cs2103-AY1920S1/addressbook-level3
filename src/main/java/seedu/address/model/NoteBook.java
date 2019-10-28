@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.UniqueNoteList;
 
 
@@ -18,6 +19,7 @@ import seedu.address.model.note.UniqueNoteList;
 public class NoteBook implements ReadOnlyNoteBook {
 
     private final UniqueNoteList notes;
+    private SortByCond sortByCond;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,7 +32,13 @@ public class NoteBook implements ReadOnlyNoteBook {
         notes = new UniqueNoteList();
     }
 
-    public NoteBook() {}
+    public NoteBook() {
+        this.sortByCond = new SortByCond();
+    }
+
+    public NoteBook(SortByCond sortByCond) {
+        this.sortByCond = sortByCond;
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -46,10 +54,17 @@ public class NoteBook implements ReadOnlyNoteBook {
      */
     public void resetData(ReadOnlyNoteBook newData) {
         requireNonNull(newData);
-
         setNotes(newData.getNoteList());
+        setSortByCond(newData.getSortByCond());
     }
 
+    /**
+     * Sorts the notes of the existing data according using (@code SortByCond).
+     */
+    public void sortNotes() {
+        notes.sortNotes(sortByCond);
+
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -65,6 +80,13 @@ public class NoteBook implements ReadOnlyNoteBook {
     //=========== Notes =============================================================
     //// list overwrite operations
 
+    public SortByCond getSortByCond() {
+        return sortByCond;
+    }
+
+    public void setSortByCond(SortByCond sortByCond) {
+        this.sortByCond = sortByCond;
+    }
     /**
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
