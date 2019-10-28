@@ -252,13 +252,15 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     /**
      * Fills the {@code diaryRightPlaceholder} {@link VBox} with the {@code diaryGallery},
      * removing the {@code diaryEntryEditBox}, if the {@code diaryGallery} is not already inside.
+     * Also updates the current {@code photoList} instance of the {@code diaryGallery} to the current
+     * {@code currentEntry}'s photo list.
      */
     private void swapRightToGallery() {
         if (!diaryRightPlaceholder.getChildren().contains(diaryGallery.getRoot())) {
             ObservableList<Node> placeHolderChildren = diaryRightPlaceholder.getChildren();
             placeHolderChildren.clear();
-            diaryGallery.setPhotoList(currentEntry.getPhotoList());
             placeHolderChildren.add(diaryGallery.getRoot());
         }
+        diaryGallery.setPhotoList(currentEntry.getPhotoList());
     }
 }
