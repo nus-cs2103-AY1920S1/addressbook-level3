@@ -14,8 +14,8 @@ public class MatchedDonor extends Donor {
      * Every field must be present and not null.
      */
     public MatchedDonor(Type type, Nric nric, Name name, Phone phone, Age age,
-            BloodType bloodType, TissueType tissueType, Organ organ, OrganExpiryDate organExpiryDate) {
-        super(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate);
+            BloodType bloodType, TissueType tissueType, Organ organ, OrganExpiryDate organExpiryDate, Status status) {
+        super(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate, status);
         successRate = "";
     }
 
@@ -24,7 +24,7 @@ public class MatchedDonor extends Donor {
      */
     public MatchedDonor(Donor toAdd) {
         this(toAdd.getType(), toAdd.getNric(), toAdd.getName(), toAdd.getPhone(), toAdd.getAge(), toAdd.getBloodType(),
-                toAdd.getTissueType(), toAdd.getOrgan(), toAdd.getOrganExpiryDate());
+                toAdd.getTissueType(), toAdd.getOrgan(), toAdd.getOrganExpiryDate(), toAdd.getStatus());
         successRate = toAdd.getSuccessRate();
     }
 
@@ -58,7 +58,8 @@ public class MatchedDonor extends Donor {
                 && otherPerson.getBloodType().equals(getBloodType())
                 && otherPerson.getTissueType().equals(getTissueType())
                 && otherPerson.getOrgan().equals(getOrgan())
-                && otherPerson.getOrganExpiryDate().equals(getOrganExpiryDate());
+                && otherPerson.getOrganExpiryDate().equals(getOrganExpiryDate())
+                && otherPerson.getStatus().equals(getStatus());
     }
 
     @Override

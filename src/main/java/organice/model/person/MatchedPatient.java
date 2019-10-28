@@ -13,8 +13,8 @@ public class MatchedPatient extends Patient {
      * Every field must be present and not null.
      */
     public MatchedPatient(Type type, Nric nric, Name name, Phone phone, Age age, Priority priority,
-            BloodType bloodType, TissueType tissueType, Organ organ, DoctorInCharge doctorInCharge) {
-        super(type, nric, name, phone, age, priority, bloodType, tissueType, organ, doctorInCharge);
+            BloodType bloodType, TissueType tissueType, Organ organ, DoctorInCharge doctorInCharge, Status status) {
+        super(type, nric, name, phone, age, priority, bloodType, tissueType, organ, doctorInCharge, status);
     }
 
     /**
@@ -22,7 +22,8 @@ public class MatchedPatient extends Patient {
      */
     public MatchedPatient(Patient toAdd) {
         this(toAdd.getType(), toAdd.getNric(), toAdd.getName(), toAdd.getPhone(), toAdd.getAge(), toAdd.getPriority(),
-                toAdd.getBloodType(), toAdd.getTissueType(), toAdd.getOrgan(), toAdd.getDoctorInCharge());
+                toAdd.getBloodType(), toAdd.getTissueType(), toAdd.getOrgan(), toAdd.getDoctorInCharge(),
+                toAdd.getStatus());
     }
 
     /**
@@ -33,7 +34,7 @@ public class MatchedPatient extends Patient {
     }
 
     /**
-     * Retrives the number of matches the represented {@code Patient} has with all {@code Donors}.
+     * Retrieves the number of matches the represented {@code Patient} has with all {@code Donors}.
      */
     public int getNumberOfMatches() {
         return numberOfMatches;
@@ -63,7 +64,8 @@ public class MatchedPatient extends Patient {
                 && otherPerson.getBloodType().equals(getBloodType())
                 && otherPerson.getTissueType().equals(getTissueType())
                 && otherPerson.getOrgan().equals(getOrgan())
-                && otherPerson.getDoctorInCharge().equals(getDoctorInCharge());
+                && otherPerson.getDoctorInCharge().equals(getDoctorInCharge())
+                && otherPerson.getStatus().equals(getStatus());
     }
 
     @Override
