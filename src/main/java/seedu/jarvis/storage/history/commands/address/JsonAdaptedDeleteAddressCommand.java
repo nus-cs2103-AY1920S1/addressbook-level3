@@ -15,7 +15,9 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
  * Jackson-friendly version of {@link DeleteAddressCommand}.
  */
 public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
-    public static final String MESSAGE_INVALID_COMMAND = "This command is not a DeleteAddressCommand.";
+
+    public final String MESSAGE_INVALID_INDEX = "Invalid index.";
+
     private final JsonAdaptedIndex targetIndex;
     private final JsonAdaptedPerson deletedPerson;
 
@@ -53,6 +55,10 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand implemen
      */
     @Override
     public Command toModelType() throws IllegalValueException {
+        if (targetIndex == null) {
+            throw new IllegalValueException(MESSAGE_INVALID_INDEX);
+        }
+
         return new DeleteAddressCommand(
                 targetIndex.toModelType(),
                 deletedPerson != null ? deletedPerson.toModelType() : null);
