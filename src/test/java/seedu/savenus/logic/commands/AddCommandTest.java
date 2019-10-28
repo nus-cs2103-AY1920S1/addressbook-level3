@@ -35,8 +35,6 @@ import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
-import seedu.savenus.model.wallet.DaysToExpire;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 import seedu.savenus.testutil.FoodBuilder;
@@ -147,7 +145,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setWallet(RemainingBudget remainingBudget, DaysToExpire daysToExpire) {
+        public void setWallet(Wallet newWallet) {
             throw new AssertionError("This method should not be called.");
         }
 

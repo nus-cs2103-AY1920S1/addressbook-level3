@@ -33,8 +33,6 @@ import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
-import seedu.savenus.model.wallet.DaysToExpire;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
@@ -237,12 +235,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setWallet(RemainingBudget newRemainingBudget, DaysToExpire newDaysToExpire)
+    public void setWallet(Wallet newWallet)
             throws BudgetDurationOutOfBoundsException, BudgetAmountOutOfBoundsException {
-        requireNonNull(newRemainingBudget);
-        wallet.setRemainingBudget(newRemainingBudget);
-        requireNonNull(newDaysToExpire);
-        wallet.setDaysToExpire(newDaysToExpire);
+        requireNonNull(newWallet);
+        wallet.setRemainingBudget(newWallet.getRemainingBudget());
+        wallet.setDaysToExpire(newWallet.getDaysToExpire());
     }
 
     @Override

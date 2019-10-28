@@ -10,15 +10,14 @@ participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
+participant ":newWallet:Wallet" as newWallet MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 participant ":Wallet" as Wallet MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
 participant ":Storage" as Storage STORAGE_COLOR
-participant ":JsonWalletStorage" as JsonWalletStorage STORAGE_COLOR
-participant ":JsonSerializableWallet" as JsonSerializableWallet STORAGE_COLOR
-participant ":JsonAdaptedWallet" as JsonAdaptedWallet STORAGE_COLOR
+participant ":WalletStorage" as WalletStorage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("budget 100 10")
@@ -37,9 +36,17 @@ deactivate BudgetCommandParser
 SaveNusParser -> BudgetCommandParser : parse("10.00")
 activate BudgetCommandParser
 
+create newWallet
+BudgetCommandParser -> newWallet
+activate newWallet
+
+newWallet --> BudgetCommandParser : newWallet
+deactivate newWallet
+
 create BudgetCommand
-BudgetCommandParser -> BudgetCommand
+BudgetCommandParser -> BudgetCommand : newWallet
 activate BudgetCommand
+
 
 BudgetCommand --> BudgetCommandParser : d
 deactivate BudgetCommand
@@ -56,11 +63,32 @@ deactivate SaveNusParser
 LogicManager -> BudgetCommand : execute()
 activate BudgetCommand
 
-BudgetCommand -> Model : setRemainingBudget(RemainingBudget remainingbudget)
+BudgetCommand -> Model : setWallet(Wallet newWallet)
 activate Model
 
-BudgetCommand -> Model : setDaysToExpire(DaysToExpire DaysToExpire)
+Model -> Model : setRemainingBudget(RemainingBudget newAmt)
 activate Model
+
+Model -> Wallet : setRemainingBudget(RemainingBudget newAmt)
+activate Wallet
+
+Wallet --> Model
+deactivate Wallet
+
+Model --> Model
+deactivate Model
+
+Model -> Model : setDaysToExpire(DaysToExpire newDuration)
+activate Model
+
+Model -> Wallet : setDaysToExpire(DaysToExpire newDuration)
+activate Wallet
+
+Wallet --> Model
+deactivate Wallet
+
+Model --> Model
+deactivate Model
 
 Model --> BudgetCommand
 deactivate Model
@@ -75,31 +103,14 @@ deactivate CommandResult
 BudgetCommand --> LogicManager : result
 deactivate BudgetCommand
 
-[<--LogicManager
-deactivate LogicManager
-
-LogicManager -> Storage : saveWallet(model.getWallet())
+LogicManager -> Storage : saveWallet(Wallet wallet)
 activate Storage
 
-Storage -> JsonWalletStorage : saveWallet(ReadOnlyWallet Wallet)
-activate JsonWalletStorage
+Storage -> WalletStorage : saveWallet(Wallet wallet)
+activate WalletStorage
 
-create JsonSerializableWallet
-JsonWalletStorage -> JsonSerializableWallet
-activate JsonSerializableWallet
-
-create JsonAdaptedWallet
-JsonSerializableWallet -> JsonAdaptedWallet
-activate JsonAdaptedWallet
-
-JsonAdaptedWallet --> JsonSerializableWallet
-deactivate JsonAdaptedWallet
-
-JsonSerializableWallet --> JsonWalletStorage
-deactivate JsonSerializableWallet
-
-JsonWalletStorage --> Storage
-deactivate JsonWalletStorage
+WalletStorage --> Storage
+deactivate WalletStorage
 
 Storage --> LogicManager
 deactivate Storage

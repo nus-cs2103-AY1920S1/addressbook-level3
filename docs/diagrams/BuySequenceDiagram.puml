@@ -9,16 +9,15 @@ participant ":BuyCommand" as BuyCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box Model MODEL_LOGIC_COLOR_T1
+box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":Wallet" as Wallet MODEL_COLOR
 participant ":PurchaseHistory" as PurchaseHistory MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
 participant ":Storage" as Storage STORAGE_COLOR
 participant ":JsonPurchaseHistoryStorage" as JsonPurchaseHistoryStorage STORAGE_COLOR
-participant ":JsonSerializablePurchaseHistory" as JsonSerializablePurchaseHistory STORAGE_COLOR
-participant ":JsonAdaptedPurchase" as JsonAdaptedPurchase STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("buy 1")
@@ -41,23 +40,47 @@ create BuyCommand
 BuyCommandParser -> BuyCommand
 activate BuyCommand
 
-BuyCommand --> BuyCommandParser :
+BuyCommand --> BuyCommandParser : : d
 deactivate BuyCommand
 
-BuyCommandParser --> SaveNusParser :
+BuyCommandParser --> SaveNusParser : : d
 deactivate BuyCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 BuyCommandParser -[hidden]-> SaveNusParser
 destroy BuyCommandParser
 
-SaveNusParser --> LogicManager :
+SaveNusParser --> LogicManager : d
 deactivate SaveNusParser
 
 LogicManager -> BuyCommand : execute()
 activate BuyCommand
 
-BuyCommand -> Model : addPurchase(Purchase purchase)
+BuyCommand -> Model : buyFood(Food foodToBuy)
 activate Model
+
+Model -> Model : deductFromWallet(Price foodPrice)
+activate Model
+
+Model -> Wallet : deductFromWallet(Price foodPrice)
+activate Wallet
+
+Wallet --> Model
+deactivate Wallet
+
+Model --> Model
+deactivate Model
+
+Model -> Model : addPurchase(Purchase purchase)
+activate Model
+
+Model -> PurchaseHistory : addPurchase(Purchase purchase)
+activate PurchaseHistory
+
+PurchaseHistory --> Model
+deactivate PurchaseHistory
+
+Model --> Model
+deactivate Model
 
 Model --> BuyCommand
 deactivate Model
@@ -72,28 +95,11 @@ deactivate CommandResult
 BuyCommand --> LogicManager : result
 deactivate BuyCommand
 
-[<--LogicManager
-deactivate LogicManager
-
-LogicManager -> Storage : savePurchaseHistory(model.getPurchaseHistory())
+LogicManager -> Storage : savePurchaseHistory(PurchaseHistory purchaseHistory)
 activate Storage
 
-Storage -> JsonPurchaseHistoryStorage : savePurchaseHistory(ReadOnlyPurchaseHistory PurchaseHistory)
+Storage -> JsonPurchaseHistoryStorage : savePurchaseHistory(PurchaseHistory purchaseHistory)
 activate JsonPurchaseHistoryStorage
-
-create JsonSerializablePurchaseHistory
-JsonPurchaseHistoryStorage -> JsonSerializablePurchaseHistory
-activate JsonSerializablePurchaseHistory
-
-create JsonAdaptedPurchase
-JsonSerializablePurchaseHistory -> JsonAdaptedPurchase
-activate JsonAdaptedPurchase
-
-JsonAdaptedPurchase --> JsonSerializablePurchaseHistory
-deactivate JsonAdaptedPurchase
-
-JsonSerializablePurchaseHistory --> JsonPurchaseHistoryStorage
-deactivate JsonSerializablePurchaseHistory
 
 JsonPurchaseHistoryStorage --> Storage
 deactivate JsonPurchaseHistoryStorage
