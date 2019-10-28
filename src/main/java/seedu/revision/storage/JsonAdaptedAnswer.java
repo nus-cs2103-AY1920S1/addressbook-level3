@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.revision.commons.exceptions.IllegalValueException;
-import seedu.revision.logic.parser.QuestionType;
+import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.answerable.answer.SaqAnswer;
-import seedu.revision.model.answerable.answer.TfAnswer;
+import seedu.revision.model.answerable.answer.TrueFalseAnswer;
 
 /**
  * Jackson-friendly version of {@link Answer}.
@@ -48,7 +48,7 @@ class JsonAdaptedAnswer {
         case "mcq":
             return new McqAnswer(answer);
         case "tf":
-            return new TfAnswer(answer);
+            return new TrueFalseAnswer(answer);
         case "saq":
             return new SaqAnswer(answer);
         default:

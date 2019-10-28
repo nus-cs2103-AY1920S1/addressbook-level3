@@ -48,12 +48,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditAnswerableDescriptor editAnswerableDescriptor = new EditCommand.EditAnswerableDescriptor();
-        String questionType;
-        if (argMultimap.getValue((PREFIX_QUESTION_TYPE)).isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        } else {
-            questionType = argMultimap.getValue(PREFIX_QUESTION_TYPE).get();
-        }
+
+//        String questionType;
+//        if (argMultimap.getValue((PREFIX_QUESTION_TYPE)).isEmpty()) {
+//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+//        } else {
+//            questionType = argMultimap.getValue(PREFIX_QUESTION_TYPE).get();
+//        }
 
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
             editAnswerableDescriptor.setQuestion(
@@ -67,11 +68,11 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
             editAnswerableDescriptor.setCorrectAnswerList(
-                    ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), questionType));
+                    ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
         }
         if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
             editAnswerableDescriptor.setWrongAnswerList(
-                    ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG), questionType));
+                    ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
         }
 
         parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))

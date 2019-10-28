@@ -1,6 +1,8 @@
 package seedu.revision.model.answerable.answer;
 
 
+import seedu.revision.model.answerable.Saq;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
 
@@ -23,6 +25,19 @@ public class SaqAnswer implements Answer {
         requireNonNull(answer);
         checkArgument(isValidAnswer(answer), MESSAGE_CONSTRAINTS);
         this.answer = answer;
+    }
+
+    /**
+     * Empty Saq Answer used for validation.
+     * @return empty Saq Answer.
+     */
+    public static SaqAnswer emptySaqAnswer() {
+        return new SaqAnswer("");
+    }
+
+    @Override
+    public String getAnswer() {
+        return answer;
     }
 
     /**

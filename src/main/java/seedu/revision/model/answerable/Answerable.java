@@ -71,8 +71,8 @@ public abstract class Answerable {
 
     /**
      * Returns true if question has been answered correctly and false if it has been answered wrongly.
-     * @param selectedAnswer answer
-     * @return true if correct or false if wrong
+     * @param selectedAnswer answer that user selected.
+     * @return true if correct or false if wrong.
      */
     public boolean isCorrect(Answer selectedAnswer) {
         if (correctAnswerList.contains(selectedAnswer)) {

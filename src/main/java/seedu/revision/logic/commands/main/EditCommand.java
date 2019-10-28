@@ -2,11 +2,9 @@ package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.ArrayList;
@@ -21,13 +19,14 @@ import seedu.revision.commons.core.index.Index;
 import seedu.revision.commons.util.CollectionUtil;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
-import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
@@ -54,6 +53,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_ANSWERABLE_SUCCESS = "Edited Answerable: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank.";
+    public static final String MESSAGE_INVALID_MCQ = "MCQ Must have 1 correct answer and 3 wrong answers. All of which "
+            + "cannot be blank.";
+    public static final String MESSAGE_INVALID_TRUEFALSE = "T/F Questions can only have true/false as their answers.";
+    public static final String MESSAGE_INVALID_SAQ = "SAQ answers cannot be blank.";
 
     private final Index index;
     private final EditAnswerableDescriptor editAnswerableDescriptor;
@@ -82,6 +85,8 @@ public class EditCommand extends Command {
         Answerable answerableToEdit = lastShownList.get(index.getZeroBased());
         Answerable editedAnswerable = createEditedAnswerable(answerableToEdit, editAnswerableDescriptor);
 
+        validateEditCommand(answerableToEdit, editedAnswerable);
+
         if (!answerableToEdit.isSameAnswerable(editedAnswerable) && model.hasAnswerable(editedAnswerable)) {
             throw new CommandException(MESSAGE_DUPLICATE_ANSWERABLE);
         }
@@ -89,6 +94,28 @@ public class EditCommand extends Command {
         model.setAnswerable(answerableToEdit, editedAnswerable);
         model.updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
         return new CommandResult(String.format(MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable));
+    }
+
+    private boolean validateEditCommand(Answerable answerableToEdit, Answerable editedAnswerable)
+            throws CommandException {
+        //TODO: Use more descriptive error statements
+        if (answerableToEdit instanceof Mcq) {
+            if (!Mcq.isValidMcq((Mcq) editedAnswerable)) {
+                throw new CommandException(MESSAGE_INVALID_MCQ);
+            }
+        }
+        if (answerableToEdit instanceof Saq) {
+            if (!Saq.isValidSaq((Saq) editedAnswerable)) {
+                throw new CommandException(MESSAGE_INVALID_SAQ);
+            }
+        }
+        if (answerableToEdit instanceof TrueFalse) {
+            if (!TrueFalse.isValidTrueFalse((TrueFalse) editedAnswerable)) {
+                throw new CommandException(MESSAGE_INVALID_TRUEFALSE);
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -140,6 +167,7 @@ public class EditCommand extends Command {
      * corresponding field value of the answerable.
      */
     public static class EditAnswerableDescriptor {
+        private QuestionType questionType;
         private Question question;
         private ArrayList<Answer> correctAnswerList;
         private ArrayList<Answer> wrongAnswerList;
@@ -154,6 +182,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code categories} is used internally.
          */
         public EditAnswerableDescriptor(EditAnswerableDescriptor toCopy) {
+            setQuestionType(toCopy.questionType);
             setQuestion(toCopy.question);
             setCorrectAnswerList(toCopy.correctAnswerList);
             setWrongAnswerList(toCopy.wrongAnswerList);
@@ -165,7 +194,15 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, correctAnswerList, wrongAnswerList, difficulty, categories);
+            return CollectionUtil.isAnyNonNull(questionType, question, correctAnswerList, wrongAnswerList, difficulty, categories);
+        }
+
+        public QuestionType getQuestionType() {
+            return questionType;
+        }
+
+        public void setQuestionType(QuestionType questionType) {
+            this.questionType = questionType;
         }
 
         public void setQuestion(Question question) {
@@ -203,7 +240,6 @@ public class EditCommand extends Command {
         public void setCategories(Set<Category> categories) {
             this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
-
 
         /**
          * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}

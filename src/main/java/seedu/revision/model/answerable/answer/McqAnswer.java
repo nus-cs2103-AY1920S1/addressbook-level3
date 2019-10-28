@@ -30,6 +30,19 @@ public class McqAnswer implements Answer {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Empty Mcq Answer used for validation.
+     * @return empty Mcq Answer.
+     */
+    public static McqAnswer emptyMcqAnswer() {
+        return new McqAnswer("");
+    }
+
+    @Override
+    public String getAnswer() {
+        return answer;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

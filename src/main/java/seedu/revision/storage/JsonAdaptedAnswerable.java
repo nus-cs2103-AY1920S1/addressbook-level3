@@ -126,11 +126,16 @@ class JsonAdaptedAnswerable {
 
         final Set<Category> modelCategories = new HashSet<>(answerableTags);
 
-        if (wrongAnswerSet.isEmpty()) {
-            return new Saq (modelQuestion, modelCorrectAnswerSet, modelDifficulty, modelCategories);
-        } else {
+        switch (questionType) {
+        case "mcq":
             return new Mcq(modelQuestion, modelCorrectAnswerSet, modelWrongAnswerSet,
                     modelDifficulty, modelCategories);
+        case "saq":
+            return new Saq (modelQuestion, modelCorrectAnswerSet, modelDifficulty, modelCategories);
+        case "tf":
+            return new TrueFalse(modelQuestion, modelCorrectAnswerSet, modelDifficulty, modelCategories);
+        default:
+            throw new IllegalValueException("Invalid question type");
         }
     }
 }

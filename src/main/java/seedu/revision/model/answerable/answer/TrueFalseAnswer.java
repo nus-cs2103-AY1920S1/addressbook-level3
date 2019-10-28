@@ -7,7 +7,7 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  * Represents a Answer in the revision tool.
  * Guarantees: immutable; name is valid as declared in {@link #isValidAnswer(String)}
  */
-public class TfAnswer implements Answer {
+public class TrueFalseAnswer implements Answer {
 
     public static final String MESSAGE_CONSTRAINTS = "Answer can only be True or False";
     public static final String VALIDATION_REGEX = "(?i)(true|false)";
@@ -18,12 +18,24 @@ public class TfAnswer implements Answer {
      *
      * @param answer A valid mcq answer.
      */
-    public TfAnswer(String answer) {
+    public TrueFalseAnswer(String answer) {
         requireNonNull(answer);
         checkArgument(isValidAnswer(answer), MESSAGE_CONSTRAINTS);
         this.answer = answer;
     }
 
+    /**
+     * Empty TrueFalse Answer used for validation.
+     * @return empty TrueFalse Answer.
+     */
+    public static TrueFalseAnswer emptyTrueFalseAnswer() {
+        return new TrueFalseAnswer("");
+    }
+
+    @Override
+    public String getAnswer() {
+        return answer;
+    }
 
     @Override
     public boolean isValidAnswer(String test) {
@@ -33,8 +45,8 @@ public class TfAnswer implements Answer {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TfAnswer // instanceof handles nulls
-                && answer.equals(((TfAnswer) other).answer)); // state check
+                || (other instanceof TrueFalseAnswer // instanceof handles nulls
+                && answer.equals(((TrueFalseAnswer) other).answer)); // state check
     }
 
     @Override

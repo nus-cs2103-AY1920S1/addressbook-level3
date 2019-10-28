@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.answer.SaqAnswer;
 import seedu.revision.model.category.Category;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Answerable in the Test Bank.
@@ -17,8 +20,21 @@ public class Saq extends Answerable {
      */
     public Saq(Question question, ArrayList<Answer> correctAnswerList, Difficulty difficulty,
                Set<Category> categories) {
-        //TODO: Find a better way to initialise this
         super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
+    }
+
+    /**
+     * Checks whether the input Saq is valid.
+     * @param saq the saq to validate.
+     * @return boolean to indicate whether Saq is valid or not.
+     */
+    public static boolean isValidSaq(Saq saq) {
+        requireNonNull(saq);
+        if (saq.getCorrectAnswerList().contains(SaqAnswer.emptySaqAnswer())
+                || saq.getWrongAnswerList().contains(SaqAnswer.emptySaqAnswer())) {
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -12,10 +12,11 @@ import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.answerable.answer.SaqAnswer;
-import seedu.revision.model.answerable.answer.TfAnswer;
+import seedu.revision.model.answerable.answer.TrueFalseAnswer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.Mode;
 
@@ -33,18 +34,18 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code answer} is invalid.
      */
-    private static Answer parseAnswer(String answer, String type ) throws ParseException {
+    private static Answer parseAnswer(String answer) throws ParseException {
         requireNonNull(answer);
         String trimmedAnswer = answer.trim();
         boolean answerIsValid;
 
         switch (type) {
         case "tf":
-            answerIsValid = Answer.isValidAnswer(trimmedAnswer, TfAnswer.VALIDATION_REGEX);
+            answerIsValid = Answer.isValidAnswer(trimmedAnswer, TrueFalseAnswer.VALIDATION_REGEX);
             if (!answerIsValid) {
-                throw new ParseException(TfAnswer.MESSAGE_CONSTRAINTS);
+                throw new ParseException(TrueFalseAnswer.MESSAGE_CONSTRAINTS);
             } else {
-                return new TfAnswer(trimmedAnswer);
+                return new TrueFalseAnswer(trimmedAnswer);
             }
         case "saq":
             answerIsValid = Answer.isValidAnswer(trimmedAnswer, SaqAnswer.VALIDATION_REGEX);
@@ -69,11 +70,11 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> answers} into a {@code Set<Answer>}.
      */
-    public static ArrayList<Answer> parseAnswers(Collection<String> answers, String type) throws ParseException {
+    public static ArrayList<Answer> parseAnswers(Collection<String> answers) throws ParseException {
         requireNonNull(answers);
         final ArrayList<Answer> answerList = new ArrayList<>();
         for (String answer : answers) {
-            Answer newAnswer = parseAnswer(answer, type);
+            Answer newAnswer = parseAnswer(answer);
             if (answerList.contains(newAnswer)) {
                 throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
             }

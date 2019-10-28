@@ -7,7 +7,7 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
-import seedu.revision.model.answerable.answer.TfAnswer;
+import seedu.revision.model.answerable.answer.TrueFalseAnswer;
 
 public class TfInputCommand extends Command {
     public static final String MESSAGE_USAGE = "Input can only be T or F (case insensitive)";
@@ -28,10 +28,10 @@ public class TfInputCommand extends Command {
 
         switch (tfInput.toLowerCase()) {
         case "t":
-            selectedAnswer = new TfAnswer("TRUE");
+            selectedAnswer = new TrueFalseAnswer("TRUE");
             break;
         case "f":
-            selectedAnswer = new TfAnswer("FALSE");
+            selectedAnswer = new TrueFalseAnswer("FALSE");
             break;
         default:
             selectedAnswer = null;

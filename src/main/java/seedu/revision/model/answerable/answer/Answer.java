@@ -10,4 +10,6 @@ public interface Answer {
     }
 
     boolean isValidAnswer(String test);
+
+    public String getAnswer();
 }
