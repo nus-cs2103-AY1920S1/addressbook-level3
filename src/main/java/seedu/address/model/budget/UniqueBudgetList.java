@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.exceptions.BudgetNotFoundException;
 import seedu.address.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
+import seedu.address.model.budget.exceptions.NotPastPeriodException;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Timestamp;
 
@@ -111,7 +112,15 @@ public class UniqueBudgetList implements Iterable<Budget> {
         return primaryBudget;
     }
 
+    /**
+     * Changes window of primary budget to a past one specified by the anchor date.
+     */
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
+        requireAllNonNull(pastDate);
+
+        if (pastDate.getDate().isAfter(getPrimaryBudget().getStartDate().getDate().minusDays(1))) {
+            throw new NotPastPeriodException();
+        }
         Budget copy = Budget.deepCopy(getPrimaryBudget());
         copy.normalize(pastDate);
         copy.updateProportionUsed();
