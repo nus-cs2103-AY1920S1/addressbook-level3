@@ -26,7 +26,7 @@ to work with a Command Line Interface (CLI)* while still having the benefits of 
 Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
 tasks, and alerts. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary management to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
 
-Interested? Jump to <<Quick-Start>> to get started. Enjoy!
+Interested? Refer to <<Quick-Start>> below to get started. Enjoy!
 
 [[Quick-Start]]
 == Quick Start
@@ -573,7 +573,7 @@ Display of all archived worker entries, in order of archive date
 Give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
 
 Format:
-`feedback /id staffID /details details`
+`feedback /id workerID /details details`
 `feedback`
 
 Example:
@@ -590,7 +590,7 @@ Display of all feedback entered
 ==== Assign tasks to worker: `assign`
 Assign a body and task to a worker.
 
-Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
+Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 
 Example:
 
@@ -600,8 +600,8 @@ View a line-chart of the number of bodies admitted to the morgue over the past 1
 The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
 No user command is needed to display it.
 
-* `assign /bodyId 2 /staffId 1 /task send blood sample to lab for analysis` +
-Assigns worker with staff ID W00001 to body with ID B00000002 with a task description.
+* `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
+Assigns worker with workerID W00001 to body with ID B00000002 with a task description.
 
 // end::assign[]
 
@@ -609,8 +609,8 @@ Assigns worker with staff ID W00001 to body with ID B00000002 with a task descri
 
 // tag::genReport[]
 
-==== Generate report on the deceased: `genReport`
-Generate an individual report from the app automatically
+==== Generate report for a specific body: `genReport`
+Generate an individual report in a PDF filename `Report <body_ID>.pdf` located in `Mortago` file.
 
 Format: `genReport bodyID`
 
@@ -621,29 +621,21 @@ Outputs the report PDF for body ID B00000123
 
 // end::genReport[]
 
-// tag::report[]
+// tag::genReports[]
 
-==== View past individual reports: `report`
-Receive details of a past individual report.
+==== Generate reports for all bodies: `genReports`
+Generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in `Mortago` file.
 
-Format: `report bodyID`
-
-Example:
-
-* `report B1` +
-Outputs the past report of body ID B00000001
+Format: `genReports`
 
 // end::report[]
 
-// tag::reports[]
+// tag::genReportSummary[]
 
-==== View past reports: `reports`
-Receive a list of past reports.
+==== Generate summary report for all bodies: `genReportSummary`
+Generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in `Mortago` file.
 
-Format: `reports`
-
-Example: `reports` +
-Outputs the list of past reports
+Format: `genReportSummary`
 
 // end::reports[]
 
