@@ -18,7 +18,7 @@ public class ShowCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a month view of the requested month"
             + "Parameters: "
             + CliSyntax.PREFIX_MONTH + " MONTH "
-            + "[" + CliSyntax.PREFIX_YEAR + "YEAR]" + "\n"
+            + "[" + CliSyntax.PREFIX_YEAR + " YEAR]" + "\n"
             + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MONTH + " Dec " + CliSyntax.PREFIX_YEAR + " 2019";
 
     private MonthOfYear monthOfYear;

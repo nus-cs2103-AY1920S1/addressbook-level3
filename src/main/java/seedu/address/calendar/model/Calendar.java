@@ -4,6 +4,7 @@ import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.Year;
 import seedu.address.calendar.model.event.Event;
 import seedu.address.calendar.model.event.EventManager;
+import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.model.util.DateUtil;
@@ -69,6 +70,14 @@ public class Calendar {
      */
     public boolean deleteEvent(Event event) throws NoSuchElementException {
         return events.remove(event);
+    }
+
+    public String suggest(EventQuery eventQuery) {
+        return events.suggest(eventQuery);
+    }
+
+    public String suggest(EventQuery eventQuery, int minPeriod) {
+        return events.suggest(eventQuery, minPeriod);
     }
 
     // todo: extract the following and implement it using model manager

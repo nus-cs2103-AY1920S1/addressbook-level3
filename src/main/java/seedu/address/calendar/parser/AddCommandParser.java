@@ -56,8 +56,8 @@ class AddCommandParser {
                 CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_START_DAY);
 
         // assumptions: if nothing is specified, it will be the same as those of the start date
-        Date endDate = DateParser.parseEndDate(argMultimap, startDate, CliSyntax.PREFIX_START_MONTH,
-                CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_START_DAY);
+        Date endDate = DateParser.parseEndDate(argMultimap, startDate, CliSyntax.PREFIX_END_MONTH,
+                CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_END_DAY);
 
         boolean isValidPeriod = EventQuery.isValidEventTime(startDate, endDate);
 

@@ -158,7 +158,7 @@ public class Date implements IntervalPart<Date> {
         int yearInt = javaDate.get(Calendar.YEAR);
         int monthInt = javaDate.get(Calendar.MONTH);
         int dayOfMonth = javaDate.get(Calendar.DAY_OF_MONTH);
-        int dayOfWeekInt = javaDate.get(Calendar.DAY_OF_WEEK) - 2;
+        int dayOfWeekInt = javaDate.get(Calendar.DAY_OF_WEEK) - 1;
 
         Year year = new Year(yearInt);
         MonthOfYear monthOfYear = DateUtil.convertJavaMonth(monthInt);

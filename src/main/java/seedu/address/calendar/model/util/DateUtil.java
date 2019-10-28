@@ -1,10 +1,9 @@
 package seedu.address.calendar.model.util;
 
-import seedu.address.calendar.model.date.Day;
-import seedu.address.calendar.model.date.DayOfWeek;
-import seedu.address.calendar.model.date.MonthOfYear;
-import seedu.address.calendar.model.date.Year;
+import seedu.address.calendar.model.date.*;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -15,6 +14,20 @@ public class DateUtil {
     /* The following is used for day-related purposes. */
     public static DayOfWeek toDayOfWeek(int dayAsInt) {
         return DayOfWeekUtil.of(dayAsInt);
+    }
+
+    public static long daysBetween(Date startDate, Date endDate) {
+        LocalDate start = toLocalDate(startDate);
+        LocalDate end = toLocalDate(endDate);
+        return ChronoUnit.DAYS.between(start, end);
+    }
+
+    private static LocalDate toLocalDate(Date date) {
+        int dayOfMonth = date.getDay().getDayOfMonth();
+        int month = date.getMonth().getNumericalVal();
+        int year = date.getYear().getNumericalValue();
+
+        return LocalDate.of(year, month, dayOfMonth);
     }
 
     /* The following is used for year-related purposes. */

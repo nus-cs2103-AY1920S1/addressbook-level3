@@ -57,4 +57,12 @@ public class EventQuery extends Interval<Date, EventQuery> {
         int endCompare = endDate.compareTo(otherEndDate);
         return endCompare;
     }*/
+    @Override
+    public String toString() {
+        boolean isOneDayLong = startDate.equals(endDate);
+        if (isOneDayLong) {
+            return String.format("On %s", startDate);
+        }
+        return String.format("From %s to %s", startDate, endDate);
+    }
 }

@@ -3,6 +3,7 @@ package seedu.address.calendar.model.event;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
+import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.util.IntervalSearchTree;
 
 import java.util.ArrayList;
@@ -190,6 +191,23 @@ public class EventManager {
         Deque<EventQuery> engagedBlocks = findBlocks(engagedSlots);
         return findSuitableBlocks(availableBlocks, engagedBlocks).stream()
                 .map(Object::toString)
+                .reduce("", (prev, curr) ->  prev + curr + "\n")
+                .trim();
+    }
+
+    public String suggest(EventQuery eventQuery, int minPeriod) {
+        Stream<Event> availableSlots = vacationSchedule.getCollisions(eventQuery).stream();
+        Deque<EventQuery> availableBlocks = findBlocks(availableSlots);
+        Stream<Event> engagedSlots = engagedSchedule.getCollisions(eventQuery).stream();
+        Deque<EventQuery> engagedBlocks = findBlocks(engagedSlots);
+        return findSuitableBlocks(availableBlocks, engagedBlocks).stream()
+                .filter(block -> {
+                    Date startDate = block.getStart();
+                    Date endDate = block.getEnd();
+                    long period = DateUtil.daysBetween(startDate, endDate);
+                    return period >= minPeriod;
+                })
+                .map(Object::toString)
                 .reduce("", (prev, curr) -> {
                     return prev + curr + "\n";
                 })
@@ -200,15 +218,26 @@ public class EventManager {
         LinkedList<EventQuery> availableBlocks = new LinkedList<>();
         originalSlots.sorted()
                 .forEach(current -> {
+                    if (availableBlocks.isEmpty()) {
+                        Date currentStart = current.getStart();
+                        Date currentEnd = current.getEnd();
+                        availableBlocks.offer(new EventQuery(currentStart, currentEnd));
+                        return;
+                    }
                     EventQuery previous = availableBlocks.getLast();
                     Date currentStart = current.getStart();
                     Date currentEnd = current.getEnd();
-                    if (previous.isOverlap(current)) {
+                    if (!previous.isOverlap(current)) {
                         availableBlocks.add(new EventQuery(currentStart, currentEnd));
                         return;
                     }
                     Date previousStart = previous.getStart();
+                    boolean isPrevEndsLater = previous.isEndsAfter(currentEnd);
+                    if (isPrevEndsLater) {
+                        return;
+                    }
                     EventQuery joinedBlock = new EventQuery(previousStart, currentEnd);
+                    availableBlocks.removeLast();
                     availableBlocks.add(joinedBlock);
                 });
         return availableBlocks;
@@ -216,7 +245,6 @@ public class EventManager {
 
     private List<EventQuery> findSuitableBlocks(Deque<EventQuery> availableBlocks, Deque<EventQuery> engagedBlocks) {
         List<EventQuery> suitableBlocks = new ArrayList<>();
-
         while (!availableBlocks.isEmpty() || !engagedBlocks.isEmpty()) {
             if (availableBlocks.isEmpty()) {
                 break;
@@ -238,7 +266,6 @@ public class EventManager {
                 availableBlocks.poll();
                 continue;
             }
-
             segmentCurrentAvailableBlock(currentAvailableBlock, currentEngagedBlock, availableBlocks);
         }
 
