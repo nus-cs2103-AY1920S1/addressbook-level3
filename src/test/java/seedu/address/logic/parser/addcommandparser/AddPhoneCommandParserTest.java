@@ -22,6 +22,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_NAME_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_NAME_DESC_SAMSUNG;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUM_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUM_DESC_SAMSUNG;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BESTSELLER;
@@ -66,7 +67,7 @@ public class AddPhoneCommandParserTest {
         Phone expectedPhone = new PhoneBuilder(IPHONEPRO11).withTags(VALID_TAG_NEW, VALID_TAG_BESTSELLER).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, IDENTITY_NUM_DESC_IPHONE
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + IDENTITY_NUM_DESC_IPHONE
                         + SERIAL_NUM_DESC_IPHONE + PHONE_NAME_DESC_IPHONE
                         + BRAND_DESC_IPHONE + CAPACITY_DESC_IPHONE + COLOUR_DESC_IPHONE
                         + COST_DESC_IPHONE + TAG_DESC_NEW + TAG_DESC_BESTSELLER,

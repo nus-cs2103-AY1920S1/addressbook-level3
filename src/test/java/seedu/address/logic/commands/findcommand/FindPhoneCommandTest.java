@@ -15,7 +15,6 @@ import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +23,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
-import seedu.address.model.phone.Phone;
-import seedu.address.model.phone.predicates.PhoneNameContainsKeywordsPredicate;
+import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindPhoneCommand}.
  */
 public class FindPhoneCommandTest {
 
@@ -41,10 +39,10 @@ public class FindPhoneCommandTest {
 
     @Test
     public void equals() {
-        Predicate<Phone> firstPredicate =
-                new PhoneNameContainsKeywordsPredicate(Collections.singletonList("first"));
-        Predicate<Phone> secondPredicate =
-                new PhoneNameContainsKeywordsPredicate(Collections.singletonList("second"));
+        PhoneContainsKeywordsPredicate firstPredicate =
+                new PhoneContainsKeywordsPredicate(Collections.singletonList("first"));
+        PhoneContainsKeywordsPredicate secondPredicate =
+                new PhoneContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindPhoneCommand findFirstCommand = new FindPhoneCommand(firstPredicate);
         FindPhoneCommand findSecondCommand = new FindPhoneCommand(secondPredicate);
@@ -67,9 +65,9 @@ public class FindPhoneCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noPhoneFound() {
         String expectedMessage = String.format(MESSAGE_PHONE_LISTED_OVERVIEW, 0);
-        PhoneNameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        PhoneContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindPhoneCommand command = new FindPhoneCommand(predicate);
         expectedModel.updateFilteredPhoneList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,9 +75,9 @@ public class FindPhoneCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multiplePhonesFound() {
         String expectedMessage = String.format(MESSAGE_PHONE_LISTED_OVERVIEW, 3);
-        PhoneNameContainsKeywordsPredicate predicate = preparePredicate("iPhone");
+        PhoneContainsKeywordsPredicate predicate = preparePredicate("iPhone");
         FindPhoneCommand command = new FindPhoneCommand(predicate);
         expectedModel.updateFilteredPhoneList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -87,9 +85,9 @@ public class FindPhoneCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code CustomerNameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code PhoneContainsKeywordsPredicate}.
      */
-    private PhoneNameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new PhoneNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private PhoneContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new PhoneContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

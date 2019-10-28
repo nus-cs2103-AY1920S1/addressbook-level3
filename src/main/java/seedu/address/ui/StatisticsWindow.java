@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 import javafx.scene.chart.CategoryAxis;
@@ -18,15 +19,17 @@ public class StatisticsWindow extends UiPart<Stage> {
     private static final String FXML = "StatisticsWindow.fxml";
     private XYChart.Series<String, Number> axisSeries;
     @FXML
-    private Label statsLabel;
-    @FXML
-    private Label testLabel;
-    @FXML
     private CategoryAxis xAxis;
     @FXML
     private NumberAxis yAxis;
     @FXML
     private LineChart<String, Number> testChart;
+    @FXML
+    private Label valueLabel;
+    @FXML
+    private Label startingDateLabel;
+    @FXML
+    private Label endingDateLabel;
 
 
     /**
@@ -42,28 +45,37 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * utility method to create statistic window with the data
+     * utility method to create statistic window with the data in user input date mode
      * @param statsLabel the title of the stats
      * @param axisSeries  graph data from logic
      */
     public StatisticsWindow(String statsLabel, XYChart.Series<String, Number> axisSeries) {
         this(new Stage(), Optional.of(axisSeries));
         this.testChart.setTitle(statsLabel);
+        setMiscStatsLabel(statsLabel, axisSeries);
+
     }
 
-    /**
-     * utility method to create statistic window with the data
-     * @param statisticsResult the result of the statistic
-     * @param statsLabel the title of the stats
-     */
-    public StatisticsWindow(String statisticsResult, String statsLabel) {
-        this(new Stage(), Optional.empty());
-
-        this.testLabel.setText(statisticsResult);
-        this.statsLabel.setText(statsLabel);
-        this.testChart.setVisible(false);
+    private void setMiscStatsLabel(String statsLabel, XYChart.Series<String, Number> axisSeries) {
+        this.valueLabel.setText("Displaying monthly view of " + statsLabel);
+        ObservableList<XYChart.Data<String, Number>> axisSeriesData = axisSeries.getData();
+        XYChart.Data<String, Number> firstData = axisSeriesData
+                .stream()
+                .findFirst().get();
+        XYChart.Data<String, Number> lastData = axisSeriesData
+                .stream()
+                .reduce((first, second) -> second).get();
+        this.startingDateLabel.setText(
+                "Initial value of " + statsLabel
+                        + "\n" + firstData.getYValue() + " on " + firstData.getXValue()
+        );
+        this.startingDateLabel.setWrapText(true);
+        this.endingDateLabel.setText(
+                "Final value of " + statsLabel + "\n"
+                        + lastData.getYValue() + " on " + lastData.getXValue()
+        );
+        this.endingDateLabel.setWrapText(true);
     }
-
 
     /**
      * intialize the chart in the fxml file
