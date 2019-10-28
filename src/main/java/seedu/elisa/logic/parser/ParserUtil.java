@@ -130,11 +130,6 @@ public class ParserUtil {
 
         try {
             formattedDateTime = getFormattedDateTime(trimmedDateTime);
-<<<<<<< HEAD
-=======
-            //TODO: Check for formattedDateTime before now.
-            // -> throws error: You can't snooze backwards in time you lazy bird.
->>>>>>> Halfway adding SnoozeCommand
         } catch (DateTimeParseException e) {
             throw new ParseException("Date Time format given is incorrect. "
                     + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
@@ -142,14 +137,11 @@ public class ParserUtil {
                     + "of \"-r 10.min.later\"");
         }
 
-<<<<<<< HEAD
         //Checks if you are snoozing to a dateTime that is before now.
         if (formattedDateTime.isBefore(LocalDateTime.now())) {
             throw new ParseException("You can't snooze backwards in time you lazy bird.");
         }
 
-=======
->>>>>>> Halfway adding SnoozeCommand
         return Optional.of(formattedDateTime);
     }
 
