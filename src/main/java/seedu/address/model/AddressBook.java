@@ -283,8 +283,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedReminder);
         reminder.setReminder(reminders, editedReminder);
     }
-  
-    /** 
+
+    /**
      * Add note into address book.
      * @param e notes.
      */
