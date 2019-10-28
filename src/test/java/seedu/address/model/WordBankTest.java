@@ -27,7 +27,7 @@ import seedu.address.testutil.CardBuilder;
 
 public class WordBankTest {
 
-    private final WordBank wordBank = new WordBank("typicalWordBank");
+    private final WordBank wordBank = new WordBank("sample");
 
     @Test
     public void constructor() {

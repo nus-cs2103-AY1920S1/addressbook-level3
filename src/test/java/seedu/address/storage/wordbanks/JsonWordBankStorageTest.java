@@ -6,11 +6,13 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
 import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -18,11 +20,8 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 
 public class JsonWordBankStorageTest {
-    private static final Path TEST_DATA_FOLDER =
+    private Path testDataFolder =
             Paths.get("src", "test", "data", "JsonWordBankListStorageTest");
-
-    @TempDir
-    public Path testFolder;
 
     @Test
     public void readWordBank_nullFilePath_throwsNullPointerException() {
@@ -61,10 +60,10 @@ public class JsonWordBankStorageTest {
 
     @Test
     public void readAndSaveWordBank_allInOrder_success() throws Exception {
-        Path filePath = TEST_DATA_FOLDER;
+        Path filePath = testDataFolder;
         JsonWordBankListStorage jsonWordBankListStorage = new JsonWordBankListStorage(filePath);
         WordBank original = getTypicalWordBank();
-        Path originalPath = Paths.get(TEST_DATA_FOLDER.toString(), "wordBanks", getTypicalWordBank() + ".json");
+        Path originalPath = Paths.get(testDataFolder.toString(), "wordBanks", getTypicalWordBank() + ".json");
 
         // Save in new file and read back
         jsonWordBankListStorage.saveWordBank(original);
@@ -76,6 +75,23 @@ public class JsonWordBankStorageTest {
         jsonWordBankListStorage.saveWordBank(original);
         readBack = jsonWordBankListStorage.jsonToWordBank(originalPath).get();
         assertEquals(original, readBack);
+
+        Path p = Paths.get(testDataFolder.toString(), "wordBanks", "sample.json");
+        appendNewLine(p);
+    }
+
+    /**
+     * Append new line to pass check style.
+     *
+     * @param p the file to append new line with.
+     */
+    private void appendNewLine(Path p) {
+        String s = System.lineSeparator();
+        try {
+            Files.write(p, s.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 
     /**
@@ -83,18 +99,18 @@ public class JsonWordBankStorageTest {
      */
     private void saveWordBank(ReadOnlyWordBank wordBank, String filePath, String testFolder)
             throws DataConversionException, IllegalValueException {
-        new JsonWordBankListStorage(TEST_DATA_FOLDER, testFolder)
+        new JsonWordBankListStorage(testDataFolder, testFolder)
                 .saveWordBank(wordBank, addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
     private java.util.Optional<ReadOnlyWordBank> readWordBank(String filePath, String testFolder) throws Exception {
-        return new JsonWordBankListStorage(TEST_DATA_FOLDER, testFolder)
+        return new JsonWordBankListStorage(testDataFolder, testFolder)
                 .jsonToWordBank(addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String testFolder, String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(testFolder).resolve(prefsFileInTestDataFolder)
+                ? testDataFolder.resolve(testFolder).resolve(prefsFileInTestDataFolder)
                 : null;
     }
 

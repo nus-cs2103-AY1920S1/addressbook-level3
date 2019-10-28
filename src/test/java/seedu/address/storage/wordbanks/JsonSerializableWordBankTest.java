@@ -18,7 +18,7 @@ public class JsonSerializableWordBankTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test",
             "data", "JsonSerializableWordBankTest");
-    private static final Path TYPICAL_WORD_BANK_FILE = TEST_DATA_FOLDER.resolve("typicalWordBank.json");
+    private static final Path TYPICAL_WORD_BANK_FILE = TEST_DATA_FOLDER.resolve("sample.json");
     private static final Path INVALID_WORD_BANK_FILE = TEST_DATA_FOLDER.resolve("invalidWordBank.json");
     private static final Path DUPLICATE_CARDS_IN_WORD_BANK_FILE =
             TEST_DATA_FOLDER.resolve("duplicateCardsInWordBank.json");
@@ -27,7 +27,7 @@ public class JsonSerializableWordBankTest {
     public void toModelType_typicalWordBankFile_success() throws Exception {
         JsonSerializableWordBank dataFromFile = JsonUtil.readJsonFile(TYPICAL_WORD_BANK_FILE,
                 JsonSerializableWordBank.class).get();
-        WordBank wordBankFromFile = dataFromFile.toModelTypeWithName("typicalWordBank");
+        WordBank wordBankFromFile = dataFromFile.toModelTypeWithName("sample");
         WordBank typicalWordBank = TypicalCards.getTypicalWordBank();
         assertEquals(wordBankFromFile, typicalWordBank);
     }

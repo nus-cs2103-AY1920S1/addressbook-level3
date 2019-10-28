@@ -80,8 +80,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             wordBanksFilePath = Paths.get(filePath.toString(), folder);
         }
         try {
-            if (!filePath.toFile().exists()) {
-                Files.createDirectory(filePath);
+            if (!wordBanksFilePath.toFile().exists()) {
+                Files.createDirectory(wordBanksFilePath);
             }
             if (!wordBanksFilePath.toFile().exists()) {
                 Files.createDirectory(wordBanksFilePath);
@@ -94,7 +94,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
         String[] wordBanks = wordBanksDirectory.list();
         boolean haveSampleWordBank = false;
         for (int i = 0; i < wordBanks.length; i++) {
-            if (wordBanks[i].equals(SampleDataUtil.getName())) {
+            if (wordBanks[i].equals(SampleDataUtil.getName() + ".json")) {
                 haveSampleWordBank = true;
                 break;
             }
@@ -164,7 +164,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     * Save a word bank into the default file location.
+     * Save a word bank into the default file location, data/wordBanks.
      *
      * @param wordBank word bank.
      */
@@ -176,7 +176,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Save a word bank into the specified file location.
      * Typically used by Export command, where user writes to their system.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param filePath location of the data. Cannot be null. Eg. ~/downloads.
      */
     void saveWordBank(ReadOnlyWordBank wordBank, Path filePath) {
         try {

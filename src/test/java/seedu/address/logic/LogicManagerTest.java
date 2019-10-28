@@ -6,11 +6,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 
 //import seedu.address.logic.commands.CommandResult;
 
@@ -37,8 +36,9 @@ import seedu.address.storage.wordbanks.JsonWordBankListStorage;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
-    @TempDir
-    public Path temporaryFolder;
+    private Path temporaryFolder =
+            Paths.get("src", "test", "data", "LogicManagerTest");
+
 
     private Model model = new ModelManager();
     private Logic logic;
@@ -46,7 +46,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() throws DataConversionException, IllegalValueException {
         JsonWordBankListStorage addressBookStorage =
-                new JsonWordBankListStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonWordBankListStorage(temporaryFolder);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         WordBankStatisticsListStorage wordBankStatisticsListStorage =
                new JsonWordBankStatisticsListStorage(Path.of("dummyWbStats"));
