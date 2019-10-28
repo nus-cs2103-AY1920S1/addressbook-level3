@@ -19,10 +19,10 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
-        if (elisaCommandHistory.size() == 0) {
+        if (elisaCommandHistory.sizeUndo() == 0) {
             throw new CommandException(Messages.MESSAGE_NOTHING_TO_UNDO);
         } else {
-            UndoableCommand lastDone = elisaCommandHistory.popCommand();
+            UndoableCommand lastDone = elisaCommandHistory.popUndo();
             lastDone.reverse(model);
             return new CommandResult("Undo [" + lastDone.getCommandWord() + "] command successful!"
                     + " Try to do it right this time..");
