@@ -372,9 +372,34 @@
     -fx-text-fill: black;
 }
 
-
-
 .moduleTaskCard {
-    -fx-background-color: #995B57;
-    -fx-text-fill: black;
+    -fx-background-color: #666699;
+}
+
+.moduleTaskCard .label {
+    -fx-text-fill: #1d1d1d;
+}
+
+.moduleTaskCard .cell_big_label {
+    -fx-text-fill: #ffcccc;
+}
+
+.todoTaskCard {
+    -fx-background-color: #ffcccc;
+}
+
+.todoTaskCard .label {
+    -fx-text-fill: #1d1d1d;
+}
+
+.todoTaskCard .cell_big_label {
+    -fx-text-fill: #383854;
+}
+
+.todoTaskCard .list-cell:filled:even {
+    -fx-background-color: #3c3e3f;
+}
+
+.todoTaskCard .list-cell:filled:odd {
+    -fx-background-color: #515658;
 }
