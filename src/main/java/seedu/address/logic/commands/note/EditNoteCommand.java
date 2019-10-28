@@ -1,11 +1,18 @@
 package seedu.address.logic.commands.note;
 
+import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,9 +81,21 @@ public class EditNoteCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
-        model.setNote(noteToEdit, editedNote);
+        Note replaced = editedNote;
+        // Defensively copy images to data folder
+        if (nonNull(editedNote.getImage())) {
+            Path sourcePath = Paths.get(URI.create(editedNote.getImageUrl()).getPath());
+            Path destPath = model.getAppDataFilePath().getParent().resolve(sourcePath.getFileName().toString());
+            try {
+                Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
+                replaced = new Note(editedNote.getTitle(), editedNote.getContent(), new Image("file:" + destPath));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        model.setNote(noteToEdit, replaced);
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, replaced));
     }
 
     /**

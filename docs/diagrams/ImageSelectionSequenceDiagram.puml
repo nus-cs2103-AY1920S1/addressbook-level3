@@ -3,7 +3,7 @@
 
 participant ":EditNoteCommandParser" as ENCP LOGIC_COLOR
 participant ":EditNoteDescriptor" as END LOGIC_COLOR
-participant ":NoteImageSelector" as NIS LOGIC_COLOR
+participant ":AppUtil" as NIS LOGIC_COLOR
 Actor User as U USER_COLOR
 
 [-> ENCP: parse()

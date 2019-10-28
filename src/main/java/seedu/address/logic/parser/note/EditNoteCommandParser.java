@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.commands.note.EditNoteCommand;
 import seedu.address.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -46,7 +47,7 @@ public class EditNoteCommandParser implements Parser<EditNoteCommand> {
             if (argMultimap.getValue(PREFIX_IMAGE).get().equals("none")) {
                 editNoteDescriptor.setImageRemoved(true);
             } else {
-                editNoteDescriptor.setImage(NoteImageSelector.selectImage());
+                editNoteDescriptor.setImage(AppUtil.selectImage());
             }
         }
 
