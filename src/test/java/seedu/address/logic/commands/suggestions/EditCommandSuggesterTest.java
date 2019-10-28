@@ -20,6 +20,7 @@ abstract class EditCommandSuggesterTest extends SuggesterImplTester {
             throws ReflectiveOperationException {
         super(suggesterType);
         this.editType = editType;
+        disableAutoTestFor(CliSyntax.PREFIX_GROUPNAME, CliSyntax.PREFIX_NAME);
     }
 
     @Test
