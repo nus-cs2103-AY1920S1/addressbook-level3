@@ -50,7 +50,7 @@ public class LogicManagerTest {
     private seedu.address.reimbursement.logic.Logic reimbursementLogic;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws Exception {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -79,18 +79,25 @@ public class LogicManagerTest {
                 new seedu.address.reimbursement.storage.StorageManager(
                         new File(FILE_PATH_REIMBURSEMENT));
 
+        //For Inventory Storage and Manager
+        seedu.address.inventory.model.Model inventoryModel =
+                new seedu.address.inventory.model.ModelManager(inventoryList);
+        seedu.address.inventory.storage.StorageManager inventoryManager =
+                new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
+
+        seedu.address.transaction.logic.Logic transactionLogic =
+                new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager, personModel,
+                        reimbursementModel, reimbursementManager);
+        seedu.address.inventory.logic.Logic inventoryLogic =
+                new seedu.address.inventory.logic.LogicManager(
+                        (seedu.address.inventory.model.ModelManager) inventoryModel,
+                        inventoryManager);
+
         //For Cashier Storage and Manager
         seedu.address.cashier.model.ModelManager cashierModel =
                 new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
         seedu.address.cashier.storage.StorageManager cashierManager =
-                new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
-                        new File(FILE_PATH_TRANSACTION), personModel);
-
-        //For Inventory Storage and Manager
-        seedu.address.inventory.model.ModelManager inventoryModel =
-                new seedu.address.inventory.model.ModelManager(inventoryList);
-        seedu.address.inventory.storage.StorageManager inventoryManager =
-                new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
+                new seedu.address.cashier.storage.StorageManager(inventoryLogic, transactionLogic);
 
         //All related logics
         transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,

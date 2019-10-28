@@ -49,7 +49,7 @@ public class CashierMessages {
 
     public static final String MESSAGE_ADD_CASHIER = "Added cashier successfully. Cashier-in-charge is: %s.\n";
 
-    public static final String MESSAGE_CHECKOUT_SUCCESS = "Total amount is %s.\nThe change is %s.\n"
+    public static final String MESSAGE_CHECKOUT_SUCCESS = "Total amount is $%s.\nThe change is $%s.\n"
             + "Checkout successful.";
 
     public static final String MESSAGE_EDIT_SUCCESS = "Item: %s, quantity: %s\nEdited successfully.";

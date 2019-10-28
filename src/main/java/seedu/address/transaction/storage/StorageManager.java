@@ -80,11 +80,7 @@ public class StorageManager implements Storage {
         return num.equals(NUM_FOR_REIMBURSED) ? true : false;
     }
 
-    /**
-     * Appends the specified transaction to the data file.
-     * @param transaction the transaction to be written to file
-     * @throws Exception if the input is invalid
-     */
+    @Override
     public void appendToTransaction(Transaction transaction) throws Exception {
         FileWriter fw = new FileWriter(this.file, true);
         TransactionList transactionList = readTransactionList();

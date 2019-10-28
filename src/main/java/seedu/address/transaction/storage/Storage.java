@@ -28,6 +28,6 @@ public interface Storage {
      * @param transaction the transaction to be written to file
      * @throws Exception if the input is invalid
      */
-    public void appendToTransaction(Transaction transaction) throws Exception;
+    void appendToTransaction(Transaction transaction) throws Exception;
 
 }

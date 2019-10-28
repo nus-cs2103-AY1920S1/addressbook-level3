@@ -49,14 +49,13 @@ public class LogicManager implements Logic {
         if (command instanceof CheckoutCommand) {
             writeInInventoryFile();
 
-            System.out.println("was written into inventory");
             Transaction transaction = model.getCheckoutTransaction();
-            //storage.appendToTransaction(transaction);
-            System.out.println("was written into transac");
+            storage.appendToTransaction(transaction);
+            //System.out.println("was written into transac");
             transactionModel.addTransaction(transaction);
-            System.out.println("was updated in trasns");
+            //System.out.println("was updated in trasns");
             inventoryModel.readInUpdatedList();
-            System.out.println("was updated in inve");
+            //System.out.println("was updated in inve");
         }
         return commandResult;
     }
@@ -66,18 +65,18 @@ public class LogicManager implements Logic {
      */
     @Override
     public void readInUpdatedList() throws Exception {
-        model.getUpdatedLists((storage.getInventoryList(inventoryModel.getInventoryList())), transactionModel.getTransactionList());
+        model.getUpdatedLists(storage.getInventoryList(), storage.getTransactionList());
     }
 
     @Override
     public void writeInInventoryFile() throws Exception {
-        //storage.writeToInventoryFile(model.getInventoryList());
-        InventoryList inventoryList = model.getInventoryList();
+        storage.writeToInventoryFile(model.getInventoryList());
+        /*InventoryList inventoryList = model.getInventoryList();
         ArrayList<Item> list = inventoryList.getiArrayList();
         seedu.address.inventory.util.InventoryList inventoryList1 =
                 new seedu.address.inventory.util.InventoryList(list);
         System.out.println("inside writing");
-        inventoryModel.resetAndWriteIntoInventoryFile(inventoryList1);
+        inventoryModel.resetAndWriteIntoInventoryFile(inventoryList1);*/
     }
 
     public InventoryList getInventoryList() {

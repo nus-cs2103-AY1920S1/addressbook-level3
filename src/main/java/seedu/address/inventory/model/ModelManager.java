@@ -131,11 +131,4 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
-    public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception {
-        System.out.println("inside write");
-        this.inventoryList = inventoryList;
-        System.out.println("inside write 2");
-        writeInInventoryFile();
-    }
 }

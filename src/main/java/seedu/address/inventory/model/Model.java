@@ -28,6 +28,4 @@ public interface Model {
 
     InventoryList getInventoryList();
 
-    void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception;
-
 }

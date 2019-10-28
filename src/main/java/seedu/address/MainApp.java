@@ -115,14 +115,14 @@ public class MainApp extends Application {
                 reimbursementModel, reimbursementStorage);
 
         inventoryLogic = new
-                seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,
+                seedu.address.inventory.logic.LogicManager(//cashierModel, cashierStorage,
                 inventoryModel, inventoryStorage);
 
         //For Cashier Storage and Manager
         cashierStorage = new seedu.address.cashier.storage.StorageManager(inventoryLogic, transactionLogic);
-        cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage.getInventoryList(inventoryModel.getInventoryList()),
-                cashierStorage.getTransactionList(transactionModel.getTransactionList()));
-                //cashierStorage.getInventoryList(),
+        cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage.getInventoryList(),
+                cashierStorage.getTransactionList());
+        //cashierStorage.getInventoryList(),
 
         //For Overview Storage and Manager
         overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
