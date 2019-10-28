@@ -32,13 +32,8 @@ public class Trie {
      */
     public TrieNode find(String word) {
         TrieNode current = root;
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            TrieNode node = current.getChildren().get(ch);
-            if (node == null) {
-                return null;
-            }
-            current = node;
+        for (int i = 0; i < word.length() && current != null; i++) {
+            current = current.getChildren().get(word.charAt(i));
         }
         return current;
     }
