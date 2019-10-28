@@ -105,5 +105,11 @@ public interface Model {
      */
     boolean hasTransactionWithName(String name);
 
+    /**
+     * Appends the transaction to the transaction list.
+     * @param transaction the transaction to be appended
+     */
+    void appendToTransactionFile(Transaction transaction);
+
     Predicate<Transaction> getPredicate();
 }

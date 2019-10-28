@@ -97,6 +97,10 @@ public class InventoryList {
         return iList.get(i);
     }
 
+    public ArrayList<Item> getInventoryListInArrayList() {
+        return this.iList;
+    }
+
     /**
      * Comparator to compare by the name in transaction.
      */
@@ -135,4 +139,5 @@ public class InventoryList {
             return a.getCategory().compareTo(b.getCategory());
         }
     }
+
 }

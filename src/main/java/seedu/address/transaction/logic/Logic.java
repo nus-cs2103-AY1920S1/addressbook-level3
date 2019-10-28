@@ -49,4 +49,10 @@ public interface Logic {
      * @param transaction Transaction to be added.
      */
     void addTransaction(Transaction transaction);
+
+    /**
+     * Appends a transaction to the storage.
+     * @param transaction Transaction to be appended.
+     */
+    public void appendToTransactionFile(Transaction transaction) throws Exception;
 }

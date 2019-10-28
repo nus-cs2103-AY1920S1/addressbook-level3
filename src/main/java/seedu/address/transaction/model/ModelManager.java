@@ -173,6 +173,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void appendToTransactionFile(Transaction transaction) {
+        this.transactionList.add(transaction);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

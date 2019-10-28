@@ -2,6 +2,7 @@ package seedu.address.transaction.storage;
 
 import java.io.IOException;
 
+import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
 /**
@@ -21,4 +22,12 @@ public interface Storage {
      * @throws IOException If an error occurs when writing the file.
      */
     void writeFile(TransactionList transactionList) throws IOException;
+
+    /**
+     * Appends the specified transaction to the data file.
+     * @param transaction the transaction to be written to file
+     * @throws Exception if the input is invalid
+     */
+    public void appendToTransaction(Transaction transaction) throws Exception;
+
 }

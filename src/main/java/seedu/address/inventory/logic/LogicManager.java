@@ -1,8 +1,12 @@
 package seedu.address.inventory.logic;
 
+import java.util.ArrayList;
+
 import seedu.address.inventory.logic.commands.Command;
 import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
+import seedu.address.inventory.model.Item;
+import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -12,7 +16,7 @@ public class LogicManager implements Logic {
     private final seedu.address.cashier.model.ModelManager cashierManager;
     private final seedu.address.cashier.storage.StorageManager cashierStorage;
     private InventoryTabParser parser;
-    private final seedu.address.inventory.model.ModelManager inventoryModel;
+    private seedu.address.inventory.model.ModelManager inventoryModel;
     private final seedu.address.inventory.storage.Storage inventoryStorage;
 
     public LogicManager(seedu.address.cashier.model.ModelManager cashierManager,
@@ -43,12 +47,27 @@ public class LogicManager implements Logic {
         return inventoryModel.getInventoryList();
     }
 
+    @Override
+    public ArrayList<Item> getInventoryListInArrayList() throws Exception {
+        ArrayList<Item> inventoryList = inventoryModel.getInventoryListInArrayList();
+        return inventoryList;
+        //return inventoryModel.getInventoryListInArrayList();
+    }
+
     public InventoryList getInventoryListFromFile() throws Exception {
         return this.inventoryStorage.getInventoryList();
     }
 
     public void writeIntoInventoryFile() throws Exception {
         inventoryModel.writeInInventoryFile();
+    }
+
+    @Override
+    public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception {
+        System.out.println("inside write");
+        this.inventoryModel = new ModelManager(inventoryList);
+
+        writeIntoInventoryFile();
     }
 }
 

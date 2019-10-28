@@ -79,4 +79,24 @@ public class StorageManager implements Storage {
     private static boolean isReimbursed(String num) {
         return num.equals(NUM_FOR_REIMBURSED) ? true : false;
     }
+
+    /**
+     * Appends the specified transaction to the data file.
+     * @param transaction the transaction to be written to file
+     * @throws Exception if the input is invalid
+     */
+    public void appendToTransaction(Transaction transaction) throws Exception {
+        FileWriter fw = new FileWriter(this.file, true);
+        TransactionList transactionList = readTransactionList();
+        String textFileMsg = "";
+        if (transactionList.size() == 0) {
+            textFileMsg = (transactionList.size() + 1) + ". " + transaction.toWriteIntoFile();
+        } else {
+            textFileMsg = System.lineSeparator() + (transactionList.size() + 1) + ". "
+                    + transaction.toWriteIntoFile();
+        }
+        fw.write(textFileMsg);
+        fw.close();
+    }
+
 }

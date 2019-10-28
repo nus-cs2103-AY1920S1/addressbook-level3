@@ -155,7 +155,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void addItemByDescription_existingSimilarItem_validItem_successful() throws NoSuchItemException {
+    public void addItemByDescription_existingSimilarItem_successful() throws NoSuchItemException {
         setInventoryList();
         int qtyAdded = 5;
 
@@ -495,7 +495,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public  void equalsSalesList_differentSize_failure() {
+    public void equalsSalesList_differentSize_failure() {
         modelManager.addItem(CHIPS);
 
         ArrayList<Item> list = new ArrayList<>();
@@ -506,7 +506,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public  void equalsSalesList_differentItems_failure() {
+    public void equalsSalesList_differentItems_failure() {
         modelManager.addItem(CHIPS);
         modelManager.addItem(STORYBOOK);
 

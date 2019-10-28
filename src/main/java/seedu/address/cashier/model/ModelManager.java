@@ -36,6 +36,9 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given inventory list and transaction list.
      */
     public ModelManager(InventoryList inventoryList, TransactionList transactionList) {
+        System.out.println("got initialise");
+        System.out.println(inventoryList.size());
+        System.out.println(transactionList.size());
         this.inventoryList = inventoryList;
         this.transactionList = transactionList;
     }
