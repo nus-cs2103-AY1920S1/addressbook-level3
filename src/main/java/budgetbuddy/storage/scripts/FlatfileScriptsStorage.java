@@ -9,11 +9,14 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import budgetbuddy.commons.core.LogsCenter;
+import budgetbuddy.commons.exceptions.DataConversionException;
+import budgetbuddy.commons.util.JsonUtil;
 import budgetbuddy.model.ScriptLibrary;
 import budgetbuddy.model.ScriptLibraryManager;
 import budgetbuddy.model.attributes.Description;
@@ -25,6 +28,7 @@ import budgetbuddy.storage.scripts.exceptions.ScriptsStorageException;
  * Stores scripts as separate files in a directory.
  */
 public class FlatfileScriptsStorage implements ScriptsStorage {
+    private static final String DESCRIPTIONS_PATH = "descriptions.json";
     private static final Logger logger = LogsCenter.getLogger(FlatfileScriptsStorage.class);
     private static final FilenameFilter scriptFilenameFilter = (file, name) ->
             name.toLowerCase().endsWith(".js")
@@ -34,6 +38,7 @@ public class FlatfileScriptsStorage implements ScriptsStorage {
 
     /**
      * Constructs a flatfile script storage that stores scripts at the specified path.
+     *
      * @param scriptsPath the path at which to store scripts
      */
     public FlatfileScriptsStorage(Path scriptsPath) {
@@ -52,6 +57,18 @@ public class FlatfileScriptsStorage implements ScriptsStorage {
             throw new ScriptsStorageException("Scripts path does not point to a directory");
         }
 
+        Path scriptDescriptionsJson = scriptsPath.resolve(DESCRIPTIONS_PATH);
+        Map<ScriptName, Description> descMap;
+        try {
+            descMap =
+                    JsonUtil.readJsonFile(scriptDescriptionsJson, JsonSerializableScriptDescriptionMap.class)
+                            .map(JsonSerializableScriptDescriptionMap::getDescriptionMap).orElse(null);
+        } catch (DataConversionException e) {
+            logger.warning(String.format(
+                    "Exception while reading scripts description file; using blank descriptions. %s", e));
+            descMap = null;
+        }
+
         File[] scriptFiles = scriptsDir.listFiles(scriptFilenameFilter);
 
         ArrayList<Script> scripts = new ArrayList<>();
@@ -60,8 +77,15 @@ public class FlatfileScriptsStorage implements ScriptsStorage {
             String scriptFileName = scriptFile.getName();
             ScriptName scriptName = scriptFileNameToScriptName(scriptFileName);
 
-            // TODO: Handle description
-            scripts.add(new Script(scriptName, new Description(""), scriptCode));
+            Description scriptDesc = null;
+            if (descMap != null) {
+                scriptDesc = descMap.get(scriptName);
+            }
+            if (scriptDesc == null) {
+                scriptDesc = new Description("");
+            }
+
+            scripts.add(new Script(scriptName, scriptDesc, scriptCode));
         }
 
         return new ScriptLibraryManager(scripts);
@@ -77,9 +101,9 @@ public class FlatfileScriptsStorage implements ScriptsStorage {
             throw new IOException("Failed to create scripts directory");
         }
 
-        Set<Path> existingScriptFiles = Arrays.stream(scriptsDir.listFiles(scriptFilenameFilter))
-                .map(File::toPath)
-                .collect(Collectors.toSet());
+        Set<Path> existingScriptFiles =
+                Arrays.stream(scriptsDir.listFiles(scriptFilenameFilter)).map(File::toPath)
+                        .collect(Collectors.toSet());
 
         for (Script script : scripts.getScriptList()) {
             String scriptFileName = scriptToScriptFileName(script);
@@ -93,7 +117,9 @@ public class FlatfileScriptsStorage implements ScriptsStorage {
             Files.delete(leftoverScriptFile);
         }
 
-        // TODO: Handle description
+        Path scriptDescriptionsJson = scriptsPath.resolve(DESCRIPTIONS_PATH);
+        JsonSerializableScriptDescriptionMap jsonDescMap = new JsonSerializableScriptDescriptionMap(scripts);
+        JsonUtil.saveJsonFile(jsonDescMap, scriptDescriptionsJson);
     }
 
     private static ScriptName scriptFileNameToScriptName(String scriptFileName) {
