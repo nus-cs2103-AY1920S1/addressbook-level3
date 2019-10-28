@@ -101,6 +101,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return versionedBankAccount.hasBudget(budget);
+    }
+
+    @Override
     public void deleteTransaction(BankAccountOperation transaction) {
         versionedBankAccount.removeTransaction(transaction);
     }
