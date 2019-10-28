@@ -23,6 +23,29 @@ enum Responses {
     LOGGER(".*", (commandInput, programState) -> {
         return false;
     }),
+
+    NEXT("(?i)^(next)(\\s)?", (commandInput, programState) -> {
+        LogsCenter.getLogger(Responses.class).info("Current command is NEXT");
+        if (programState.getCurrentState() == StateEnum.TEST_ONGOING_WAITING_NEXT) {
+            Exam exam = ExamRunner.getCurrentExam();
+            exam.upIndex();
+            try {
+                FlashCard newCard = exam.getCurrentCard();
+                String question = newCard.getFront();
+                LogsCenter.getLogger(Responses.class).info(question);
+                programState.setCurrentState(StateEnum.TEST_ONGOING_WAITING_ANS);
+            } catch (IndexOutOfBoundsException e) {
+                LogsCenter.getLogger(Responses.class).info("You have reached the end of the test!");
+                LogsCenter.getLogger(Responses.class).info(exam.getResult());
+                programState.setCurrentState(StateEnum.DEFAULT);
+            }
+        } else {
+            //eventually make into exception
+            LogsCenter.getLogger(Responses.class).info("There is no active test right now!");
+        }
+        return true;
+    }),
+
     HELP("(?i)^(help)?(\\s)*(command/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
         System.out.println("Current command is HELP");
         /*Print out "Available commands are:\n" +

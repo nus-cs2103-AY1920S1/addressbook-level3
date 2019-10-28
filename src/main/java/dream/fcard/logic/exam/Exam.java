@@ -12,4 +12,7 @@ public interface Exam {
 
     public void parseUserInputAndGrade(String answer);
 
+    public void upIndex();
+
+    public String getResult();
 }

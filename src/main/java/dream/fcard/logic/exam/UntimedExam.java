@@ -30,7 +30,15 @@ public class UntimedExam implements Exam {
         result.mark(isCorrect);
     }
 
+    @Override
+    public void upIndex() {
+        this.index++;
+    }
 
+    @Override
+    public String getResult() {
+        return this.result.getScore();
+    }
 
 
 
