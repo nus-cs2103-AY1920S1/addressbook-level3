@@ -24,7 +24,6 @@ public class PlanCard extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(PlanCard.class);
 
-
     private static final String FXML = "PlanListCard.fxml";
 
     public final Plan plan;

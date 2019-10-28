@@ -23,7 +23,7 @@ class CloseTabCommandTest {
     }
 
     /**
-     * A Model stub that always accepts the problem being added.
+     * A Model stub that has a problem list with sample data and a GuiState with 2 tabs in its tab manager.
      */
     private class ModelStub extends DefaultModelStub {
 
