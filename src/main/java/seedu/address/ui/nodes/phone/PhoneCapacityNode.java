@@ -1,22 +1,22 @@
-package seedu.address.ui.graphs;
+package seedu.address.ui.nodes.phone;
 
-import seedu.address.model.customer.Customer;
+import seedu.address.model.phone.Phone;
 import seedu.address.ui.Node;
 
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class CustomerNameNode extends Node<Customer> {
+public class PhoneCapacityNode extends Node<Phone> {
 
-    public CustomerNameNode(List<Customer> backingList) {
+    public PhoneCapacityNode(List<Phone> backingList) {
         super(backingList);
     }
 
     @Override
     public SortedSet<String> getValues() {
         SortedSet<String> values = new TreeSet<>();
-        backingList.forEach(customer -> values.add(customer.getCustomerName().toString()));
+        backingList.forEach(phone -> values.add(phone.getCapacity().toString()));
         return values;
     }
 

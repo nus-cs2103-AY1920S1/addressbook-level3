@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class Graph<T> {
 
-    private static final Pattern prefixPattern = Pattern.compile(" [a-z]/");
+    private static final Pattern prefixPattern = Pattern.compile(" .{1,2}/");
 
     private final Node<T> startingNode;
     private final List<Edge<T>> edges;

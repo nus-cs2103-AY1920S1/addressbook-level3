@@ -1,4 +1,4 @@
-package seedu.address.ui.graphs;
+package seedu.address.ui.nodes.customer;
 
 import seedu.address.model.customer.Customer;
 import seedu.address.ui.Node;

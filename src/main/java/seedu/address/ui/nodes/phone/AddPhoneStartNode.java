@@ -1,15 +1,15 @@
-package seedu.address.ui.graphs;
+package seedu.address.ui.nodes.phone;
 
-import seedu.address.model.customer.Customer;
+import seedu.address.model.phone.Phone;
 import seedu.address.ui.Node;
 
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class AddCustomerStartNode extends Node<Customer> {
+public class AddPhoneStartNode extends Node<Phone> {
 
-    public AddCustomerStartNode(List<Customer> backingList) {
+    public AddPhoneStartNode(List<Phone> backingList) {
         super(backingList);
     }
 
