@@ -2,7 +2,6 @@ package seedu.address.logic.finance.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -156,40 +155,21 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String sortAttr} into an {@code String}.
+     * Parses a {@code String conditionalAmounts} into list of conditional amounts.
      * Leading and trailing whitespaces will be trimmed.
-     * Valid inputs are "day" and "amt" (case insensitive).
      *
-     * @throws ParseException if the given {@code sortAttr} is invalid.
+     * @throws ParseException if the given {@code conditionalAmounts} is invalid.
      */
-    public static String parseSort(String sortAttr) throws ParseException {
-        requireNonNull(sortAttr);
-        String trimmedAttr = sortAttr.trim().toLowerCase();
-        if (!trimmedAttr.equals("day") && !trimmedAttr.equals("amt")) {
-            throw new ParseException("Sort attribute should either be \"day\" or \"amt\"!");
+    public static String[] parseConditionalAmount(String conditionalAmounts) throws ParseException {
+        // TODO
+        requireNonNull(conditionalAmounts);
+        boolean check = true;
+        if (!check) {
+            throw new ParseException("Conditionals should be in the form [SIGN]AMOUNT. \n"
+                    + "Where SIGN can be \"=\", \"<\" or \">\". \n"
+                    + "Example: > 800");
         }
-        return trimmedAttr;
-    }
-
-    /**
-     * Parses {@code Collection<String> filterTypes} into a {@code Set<String>}.
-     * Valid log entry types to filter by are "spend", "income", "borrow", "lend".
-     * Case insensitive.
-     */
-    public static ArrayList<String> parseFilterTypes(String types) throws ParseException {
-        requireNonNull(types);
-        String[] typeList = types.trim().split("\\s+");
-        final ArrayList<String> typeSet = new ArrayList<String>();
-        for (String currType : typeList) {
-            String t = currType.toLowerCase();
-            if (!t.equals("spend") && !t.equals("income")
-                && !t.equals("borrow") && !t.equals("lend")) {
-                throw new ParseException("Filter attribute should either be"
-                        + "\"spend\", \"income\", \"borrow\" or \"lend\"!");
-            }
-            typeSet.add(t);
-        }
-        return typeSet;
+        return null;
     }
 
 }

@@ -6,11 +6,11 @@ import java.util.function.Predicate;
 /**
  * Tests that a {@code LogEntry}'s type matches any of the log entry types specified by user.
  */
-public class LogEntryMatchLogEntryTypesPredicate implements Predicate<LogEntry> {
+public class LogEntryMatchesLogEntryTypesPredicate implements Predicate<LogEntry> {
 
     private final List<String> entryTypes;
 
-    public LogEntryMatchLogEntryTypesPredicate(List<String> entryTypes) {
+    public LogEntryMatchesLogEntryTypesPredicate(List<String> entryTypes) {
         this.entryTypes = entryTypes;
     }
 
@@ -30,8 +30,8 @@ public class LogEntryMatchLogEntryTypesPredicate implements Predicate<LogEntry> 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof LogEntryMatchLogEntryTypesPredicate // instanceof handles nulls
-                && entryTypes.equals(((LogEntryMatchLogEntryTypesPredicate) other).entryTypes)); // state check
+                || (other instanceof LogEntryMatchesLogEntryTypesPredicate // instanceof handles nulls
+                && entryTypes.equals(((LogEntryMatchesLogEntryTypesPredicate) other).entryTypes)); // state check
     }
 
 }

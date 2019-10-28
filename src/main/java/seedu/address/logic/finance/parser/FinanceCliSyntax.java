@@ -18,7 +18,6 @@ public class FinanceCliSyntax {
     public static final Prefix PREFIX_TO = new Prefix("<to>");
 
     /* For find command */
-    public static final Prefix PREFIX_SORT = new Prefix("<sort>");
     public static final Prefix PREFIX_TYPE = new Prefix("<type>");
     public static final Prefix PREFIX_KEYWORD = new Prefix("<keyword>");
 
