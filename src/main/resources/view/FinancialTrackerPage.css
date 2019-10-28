@@ -1,8 +1,3 @@
-.background {
-    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
-    background-color: #383838; /* Used in the default.html file */
-}
-
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -84,6 +79,7 @@
     -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
 }
 
+/*expense list styling*/
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -140,10 +136,12 @@
     -fx-border-top-width: 1px;
 }
 
+/* status bar styling*/
 .status-bar {
     -fx-background-color:  derive(#61045F, 50%);
 }
 
+/* resultdisplay panel styling */
 .result-display {
     -fx-background-color:  derive(#61045F, 50%);;
     -fx-font-family: "Segoe UI Light";
@@ -172,24 +170,16 @@
     -fx-text-fill: white;
 }
 
-.grid-pane {
-    -fx-background-color: derive(#61045F, 30%);
-    -fx-border-color: derive(#61045F, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .stack-pane {
-    -fx-background-color: derive(#61045F, 30%);
-}
-
+/* menu item styling */
 .context-menu {
-    -fx-background-color: derive(#61045F, 50%);
-}
+     -fx-background-color: derive(#61045F, 50%);
+ }
 
 .context-menu .label {
     -fx-text-fill: white;
 }
 
+/* menu bar styling */
 .menu-bar {
     -fx-background-color: derive(#61045F, 20%);
 }
@@ -353,6 +343,7 @@
     -fx-background-insets: 2;
 }
 
+/* Combo Selection Box styling */
 .combo-box .list-cell {
     -fx-background: white;
     -fx-background-color: transparent;
@@ -410,4 +401,28 @@
 
 .combo-box-base:disabled {
     -fx-opacity: 0.4;
+}
+
+/* Header Styling */
+#header {
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+}
+
+/* Font styling */
+#financialTracker {
+    -fx-font-family: "Times new Roman";
+    -fx-text-fill: white;
+    -fx-font-size: 30pt;
+}
+
+/* The divider */
+#dottedLine {
+    -fx-font-family: "Times new Roman";
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
+
+/* border between header and body */
+#border {
+    /*-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);*/
 }
