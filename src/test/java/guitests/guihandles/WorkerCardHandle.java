@@ -3,6 +3,7 @@ package guitests.guihandles;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.ui.WorkerCard;
 
 //@@ author shaoyi1997-reused
 /**
@@ -86,9 +87,9 @@ public class WorkerCardHandle extends NodeHandle<Node> {
         return getName().equals(worker.getName().toString())
                 && getSex().equalsIgnoreCase(worker.getSex().toString())
                 && getWorkerId().equals(worker.getIdNum().toString())
-                && getDateJoined().equals(worker.getDateJoined().toString())
+                && getDateJoined().equals(WorkerCard.formatDate(worker.getDateJoined()))
                 && getDateOfBirth().equals(worker.getDateOfBirth().isPresent()
-                        ? worker.getDateOfBirth().get().toString() : "-")
+                        ? WorkerCard.formatDate(worker.getDateOfBirth().get()) : "-")
                 && getDesignation().equals(worker.getDesignation().isPresent()
                         ? worker.getDesignation().get() : "-")
                 && getEmploymentStatus().equals(worker.getEmploymentStatus().isPresent()

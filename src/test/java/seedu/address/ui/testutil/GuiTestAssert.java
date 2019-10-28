@@ -8,6 +8,7 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.WorkerCardHandle;
 import guitests.guihandles.WorkerListPanelHandle;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.ui.WorkerCard;
 
 //@@ author shaoyi1997-reused
 /**
@@ -35,12 +36,12 @@ public class GuiTestAssert {
     public static void assertCardDisplaysWorker(Worker expectedWorker, WorkerCardHandle actualCard) {
         assertEquals(expectedWorker.getName().toString(), actualCard.getName());
         assertEquals(expectedWorker.getSex().toString(), actualCard.getSex());
-        assertEquals(expectedWorker.getDateJoined().toString(), actualCard.getDateJoined());
+        assertEquals(WorkerCard.formatDate(expectedWorker.getDateJoined()), actualCard.getDateJoined());
         assertEquals(expectedWorker.getIdNum().toString(), actualCard.getWorkerId());
         assertEquals(expectedWorker.getPhone().isPresent() ? expectedWorker.getPhone().get().toString() : "-",
                 actualCard.getPhone());
-        assertEquals(expectedWorker.getDateOfBirth().isPresent() ? expectedWorker.getDateOfBirth().get().toString()
-                : "-", actualCard.getDateOfBirth());
+        assertEquals(expectedWorker.getDateOfBirth().isPresent()
+                ? WorkerCard.formatDate(expectedWorker.getDateOfBirth().get()) : "-", actualCard.getDateOfBirth());
         assertEquals(expectedWorker.getDesignation().isPresent() ? expectedWorker.getDesignation().get()
                 : "-", actualCard.getDesignation());
         assertEquals(expectedWorker.getEmploymentStatus().isPresent()

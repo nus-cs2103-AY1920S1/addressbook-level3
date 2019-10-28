@@ -83,7 +83,7 @@ public class WorkerCard extends UiPart<Region> {
         setDisplayPhoto();
     }
 
-    private String formatDate(Date date) {
+    public static String formatDate(Date date) {
         return format.format(date);
     }
 
