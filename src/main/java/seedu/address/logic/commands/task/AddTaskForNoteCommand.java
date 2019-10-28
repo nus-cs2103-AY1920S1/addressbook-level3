@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -12,7 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Title;
-import seedu.address.model.note.exceptions.NoteNotFoundException;
 import seedu.address.model.task.Task;
 
 /**
@@ -24,11 +24,11 @@ public class AddTaskForNoteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note revision task to NUStudy. "
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
-            + PREFIX_DATE + "DATE"
-            + PREFIX_TIME + "TIME"
+            + PREFIX_DATE + "DATE "
+            + PREFIX_TIME + "TIME "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Lecture 1 "
-            + PREFIX_DATE + "15/10/2019"
+            + PREFIX_DATE + "15/10/2019 "
             + PREFIX_TIME + "1500";
 
     public static final String MESSAGE_SUCCESS = "Revision task added: %1$s";
@@ -49,11 +49,11 @@ public class AddTaskForNoteCommand extends Command {
         requireNonNull(model);
 
         if (!hasValidNoteForTask(model)) {
-            throw new NoteNotFoundException();
+            throw new CommandException(Messages.MESSAGE_NOTE_NOT_FOUND);
         }
 
         if (model.hasTask(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_TASK);
         }
 
         model.addTask(toAdd);

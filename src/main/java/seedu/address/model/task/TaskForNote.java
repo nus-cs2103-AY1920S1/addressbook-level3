@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -20,6 +22,7 @@ public class TaskForNote extends Task {
      */
     public TaskForNote(Note note, LocalDate date, LocalTime time) {
         super(date, time);
+        requireNonNull(note);
         super.heading = new Heading(note.getTitle().toString());
     }
 
