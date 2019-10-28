@@ -7,15 +7,15 @@
 
 ---
 
-== Introduction
+== 1. Introduction
 
 This document serves to note down my contributions to Mortago, our team’s product for our Software Engineering project.
 
-Our team consists of five computer science undergraduates undertaking CS2103T Software Engineering module. We were tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project. We chose to morph it into a mortuary management system called Mortago.
+Our team consists of five computer science undergraduates undertaking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our Software Engineering project. We chose to morph it into a mortuary management system called Mortago.
 
 Mortago is a desktop application used for managing mortuaries efficiently. It is primarily used for keeping records of entries into the mortuary.
 
-The user keys in commands using a Command Line Interface (CLI), and views the command results on a Graphical User Interface (GUI) created with JavaFX. Mortago was built upon a given base code provided by the SE-EDU team. It is written in Java, and has about 20kLoC.
+The user keys in commands using a CLI, and views the command results on a Graphical User Interface (GUI) created with JavaFX. Mortago was built upon a given base code provided by the SE-EDU team. It is written in Java, and has about 20kLoC.
 
 Here are the main features of Mortago:
 
@@ -25,35 +25,50 @@ Here are the main features of Mortago:
 4.	View Statistics
 5.	Undo and Redo
 
-== Summary of contributions
+== 2. Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+This section provides the overall view of my contributions to Mortago. All my pull requests (PRs) can be found https://github.com/AY1920S1-CS2103T-T13-2/main/pulls?q=is%3Apr+assignee%3Abernicechio+is%3Aclosed[here].
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+*2.1. Major Enhancements*
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+I have contributed 3 supportive enhancements for Mortago’s main feature Generate PDF. Generate PDF automatically generates reports with the specified command.
 
-* *Other contributions*:
+* *2.1.1. Major enhancement 1:* added the ability to create a PDF document which contains reports for all bodies in the mortuary
+** *What it does:* This enhancement allows the manager to automatically generate all full reports for all bodies in a PDF document.
+** *Justification:* This enhancement provides convenience for the manager to generate reports for all bodies using a single command.
+** *Highlights:* //TODO This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** *Credits:* The https://github.com/itext/itext7[iText Library] is heavily used in this feature to facilitate generating a PDF file in Java.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+* *2.1.2. Major enhancement 2:* added the ability to create a PDF document which serves as the report for a specific body
+** *What it does:* This enhancement allows the manager to automatically generate a single full report containing details of a specific body in a PDF document.
+** *Justification:* In the event that the details of a specific body has been updated, this enhancement provides flexibility for the manager to generate an updated report for the specific body.
+** *Highlights:* //TODO This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** *Credits:* The https://github.com/itext/itext7[iText Library] is heavily used in this feature to facilitate generating a PDF file in Java.
+
+* *2.1.3. Major enhancement 3:* added the ability to create a PDF document which contains a tabular view for all bodies in the mortuary
+** *What it does:* This enhancement allows the manager to have a brief overview of all the bodies in a PDF document.
+** *Justification:* This enhancement highlights key information of each body to the manager so that the manager need not go through every full body report.
+** *Highlights:* //TODO This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** *Credits:* The https://github.com/itext/itext7[iText Library] is heavily used in this feature to facilitate generating a PDF file in Java.
+
+*2.2. Minor enhancement*: morphed `list` command to allow the manager to list all bodies, workers and fridges in the application.
+
+*2.3. Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=bernicechio&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom[via RepoSense]]
+
+*2.4. Other contributions*:
+
+** Project management: //TODO Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features: wrote additional tests for existing features to increase coverage to 82% (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/71[#71])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** made cosmetic tweaks to existing contents of the Developer Guide (Commits https://github.com[#14])
+*** updated existing diagrams of the Developer Guide (Commits https://github.com[#14])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (iText) to the project (https://github.com[#42])
 
 _{you can add/remove categories in the list above}_
 
@@ -78,9 +93,4 @@ include::../DeveloperGuide.adoc[tag=genpdf]
 
 include::../DeveloperGuide.adoc[tag=genpdf]
 
-
-== PROJECT: PowerPointLabs
-
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
