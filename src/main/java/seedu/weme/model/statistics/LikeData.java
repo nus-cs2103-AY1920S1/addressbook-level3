@@ -1,4 +1,4 @@
-package seedu.weme.statistics;
+package seedu.weme.model.statistics;
 
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 

@@ -12,7 +12,7 @@ import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.FileUtil;
 import seedu.weme.commons.util.JsonUtil;
-import seedu.weme.statistics.Stats;
+import seedu.weme.model.statistics.Stats;
 
 /**
  * A class to access Weme statistics data stored as a json file on the hard disk.

@@ -21,11 +21,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.exceptions.DuplicateMemeException;
+import seedu.weme.model.statistics.Stats;
+import seedu.weme.model.statistics.StatsManager;
+import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.Stats;
-import seedu.weme.statistics.StatsManager;
-import seedu.weme.statistics.TagWithCount;
 import seedu.weme.testutil.MemeBuilder;
 
 public class WemeTest {

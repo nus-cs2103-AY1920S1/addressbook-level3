@@ -14,7 +14,7 @@ import javafx.scene.layout.Region;
 
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.statistics.TagWithCount;
+import seedu.weme.model.statistics.TagWithCount;
 
 /**
  * Panel containing the statistical data about memes in Weme.

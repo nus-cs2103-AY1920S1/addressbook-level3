@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.TagContainsKeywordsPredicate;
-import seedu.weme.statistics.Stats;
-import seedu.weme.statistics.StatsManager;
+import seedu.weme.model.statistics.Stats;
+import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.testutil.WemeBuilder;
 
 public class ModelManagerTest {

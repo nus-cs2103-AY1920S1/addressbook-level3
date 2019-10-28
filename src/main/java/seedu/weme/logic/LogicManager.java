@@ -23,8 +23,8 @@ import seedu.weme.model.Model;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.Stats;
 import seedu.weme.storage.Storage;
 
 /**

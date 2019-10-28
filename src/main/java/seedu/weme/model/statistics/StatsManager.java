@@ -1,4 +1,4 @@
-package seedu.weme.statistics;
+package seedu.weme.model.statistics;
 
 import static java.util.Objects.requireNonNull;
 

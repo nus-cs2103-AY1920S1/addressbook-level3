@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
-import seedu.weme.statistics.Stats;
-import seedu.weme.statistics.StatsManager;
+import seedu.weme.model.statistics.Stats;
+import seedu.weme.model.statistics.StatsManager;
 
 /**
  * An Immutable Stats that is serializable to JSON format.

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.weme.commons.exceptions.DataConversionException;
-import seedu.weme.statistics.Stats;
+import seedu.weme.model.statistics.Stats;
 
 /**
  * An interface for statistics data storage access.

@@ -23,10 +23,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.statistics.Stats;
+import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Template;
-import seedu.weme.statistics.Stats;
-import seedu.weme.statistics.TagWithCount;
 
 /**
  * Represents the in-memory model of Weme data.

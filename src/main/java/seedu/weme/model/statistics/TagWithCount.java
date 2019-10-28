@@ -1,4 +1,4 @@
-package seedu.weme.statistics;
+package seedu.weme.model.statistics;
 
 import seedu.weme.model.tag.Tag;
 
