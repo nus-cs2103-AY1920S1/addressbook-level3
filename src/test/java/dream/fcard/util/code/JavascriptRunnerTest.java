@@ -14,7 +14,6 @@ class JavascriptRunnerTest {
     void evaluateFromFile_success() throws IOException {
         Path path = Paths.get("./src/test/java/dream/fcard/util/code/testData.js");
         String output = JavascriptRunner.evaluateFromFile(path.toString());
-        System.out.print(output);
         assertEquals(output, "undefined");
     }
 
