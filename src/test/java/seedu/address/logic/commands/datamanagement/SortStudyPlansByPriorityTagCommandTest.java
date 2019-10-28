@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.datamanagement;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -53,6 +55,27 @@ public class SortStudyPlansByPriorityTagCommandTest {
                 new SortStudyPlansByPriorityTagCommand();
         assertCommandSuccess(sortStudyPlansByPriorityTagCommand, model,
                 SortStudyPlansByPriorityTagCommand.MESSAGE_NO_STUDYPLAN, model);
+    }
+
+    @Test
+    public void equals() {
+        SortStudyPlansByPriorityTagCommand sortStudyPlansByPriorityTagCommand =
+                new SortStudyPlansByPriorityTagCommand();
+
+        // same object -> returns true
+        assertTrue(sortStudyPlansByPriorityTagCommand.equals(sortStudyPlansByPriorityTagCommand));
+
+        // same type -> returns true
+        SortStudyPlansByPriorityTagCommand sortStudyPlansByPriorityTagCommandCopy =
+                new SortStudyPlansByPriorityTagCommand();
+        assertTrue(sortStudyPlansByPriorityTagCommand.equals(sortStudyPlansByPriorityTagCommandCopy));
+
+        // different types -> returns false
+        assertFalse(sortStudyPlansByPriorityTagCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(sortStudyPlansByPriorityTagCommand.equals(null));
+
     }
 
 }

@@ -73,4 +73,10 @@ public class SortStudyPlansByPriorityTagCommand extends Command {
         return new CommandResult(toReturn.toString());
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortStudyPlansByPriorityTagCommand); // instanceof handles nulls and type check
+    }
+
 }

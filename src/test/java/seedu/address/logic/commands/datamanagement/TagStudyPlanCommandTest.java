@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,6 +22,14 @@ import seedu.address.testutil.TypicalModulesInfo;
 
 public class TagStudyPlanCommandTest {
 
+    private Tag validTagOne;
+
+    @BeforeEach
+    public void setUp() {
+        // construct priority tag
+        validTagOne = new TagBuilder().buildPriorityHighTag();
+    }
+
     @Test
     public void constructor_nullPriorityLevel_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TagStudyPlanCommand(null, 1));
@@ -28,9 +37,6 @@ public class TagStudyPlanCommandTest {
 
     @Test
     public void execute_tagNotInStudyPlan_addSuccessful() {
-        // construct priority tag
-        Tag validTagOne = new TagBuilder().buildPriorityHighTag();
-
         // construct model containing study plan with no tags
         StudyPlan studyPlan = new StudyPlanBuilder().build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
@@ -52,8 +58,6 @@ public class TagStudyPlanCommandTest {
 
     @Test
     public void execute_otherPriorityTagInStudyPlan_addSuccessful() {
-        // construct priority tag
-        Tag validTagOne = new TagBuilder().buildPriorityHighTag();
         Tag validTagTwo = new TagBuilder().buildPriorityTag(PriorityTagType.LOW);
 
         // construct model containing study plan with one tag
@@ -77,9 +81,6 @@ public class TagStudyPlanCommandTest {
 
     @Test
     public void execute_tagInStudyPlan_throwsCommandException() {
-        // construct priority tag
-        Tag validTagOne = new TagBuilder().buildPriorityHighTag();
-
         // construct model containing study plan with the tag
         StudyPlan studyPlan = new StudyPlanBuilder().withStudyPlanTags(validTagOne).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),

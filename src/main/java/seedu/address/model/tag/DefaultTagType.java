@@ -4,40 +4,47 @@ package seedu.address.model.tag;
  * Represents default tag types.
  */
 public enum DefaultTagType {
-    COMPLETED("Completed"),
-    CORE("Core"),
-    SU("S/U-able"),
-    UE("UE"),
-    ULR("ULR"),
-    COMSEC_P("ComSec:P"), // P means primary, E means elective
-    COMSEC_E("ComSec:E"), // computer security
-    SE_P("SE:P"), // software engineering
-    SE_E("SE:E"),
-    CGG_P("CGG:P"), // computer games and graphics
-    CGG_E("CGG:E"),
-    ALGO_P("Algo:P"), // algorithm design
-    ALGO_E("Algo:E"),
-    PARA_P("Para:P"), // parallel computing
-    PARA_E("Para:E"),
-    MIR_P("MIR:P"), // multimedia information retrieval
-    MIR_E("MIR:E"),
-    AI_P("AI:P"), // artificial intelligence
-    AI_E("AI:E"),
-    NDS_P("NDS:P"), // networking and distributed systems
-    NDS_E("NDS:E"),
-    PL_P("PL:P"), // programming languages
-    PL_E("PL:E"),
-    DB_P("DB:P"), // database systems
-    DB_E("DB:E");
+    COMPLETED("Completed", "A module with this tag has been completed"),
+    CORE("Core", "A core module is compulsory for all students in the NUS Computer "
+            + "Science course in order to fulfill the graduation requirements"),
+    SU("S/U-able", "Satisfactory / Unsatisfactory Option"),
+    UE("UE", "Unrestricted Elective"),
+    ULR("ULR", "University Level Requirements"),
+    COMSEC_P("ComSec:P", "Computer Security Primary"), //P is primary, E is elective
+    COMSEC_E("ComSec:E", "Computer Security Elective"),
+    SE_P("SE:P", "Software Engineering Primary"),
+    SE_E("SE:E", "Software Engineering Elective"),
+    CGG_P("CGG:P", "Computer Games and Graphics Primary"),
+    CGG_E("CGG:E", "Computer Games and Graphics Elective"),
+    ALGO_P("Algo:P", "Algorithm Design Primary"),
+    ALGO_E("Algo:E", "Algorithm Design Elective"),
+    PARA_P("Para:P", "Parallel Computing Primary"),
+    PARA_E("Para:E", "Parallel Computing Elective"),
+    MIR_P("MIR:P", "Multimedia Information Retrieval Primary"),
+    MIR_E("MIR:E", "Multimedia Information Retrieval Elective"),
+    AI_P("AI:P", "Artificial Intelligence Primary"),
+    AI_E("AI:E", "Artificial Intelligence Elective"),
+    NDS_P("NDS:P", "Networking and Distributed Systems Primary"),
+    NDS_E("NDS:E", "Networking and Distributed Systems Elective"),
+    PL_P("PL:P", "Programming Languages Primary"),
+    PL_E("PL:E", "Programming Languages Elective"),
+    DB_P("DB:P", "Database Systems Primary"),
+    DB_E("DB:E", "Database Systems Elective");
 
     private String defaultTagTypeName;
+    private String description;
 
-    DefaultTagType(String defaultTagTypeName) {
+    DefaultTagType(String defaultTagTypeName, String description) {
         this.defaultTagTypeName = defaultTagTypeName;
+        this.description = description;
     }
 
     public String getDefaultTagTypeName() {
         return defaultTagTypeName;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**

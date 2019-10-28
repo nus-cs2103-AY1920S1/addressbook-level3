@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,13 +15,12 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
          </columnConstraints>
          <children>
-            <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+            <VBox fx:id="tagListCard" alignment="CENTER_LEFT" GridPane.columnIndex="0">
                <padding>
                   <Insets bottom="5" left="5" right="5" top="5" />
                </padding>
                <children>
                   <StackPane fx:id="tags" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS" />
-                  <Label fx:id="tagDescription" styleClass="cell_small_label" text="\$Tag description" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

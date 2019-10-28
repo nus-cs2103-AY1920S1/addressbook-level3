@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,6 +25,16 @@ import seedu.address.testutil.TypicalModule;
 import seedu.address.testutil.TypicalModulesInfo;
 
 public class TagModuleCommandTest {
+
+    private Tag validTagOne;
+    private String validTagNameOne;
+
+    @BeforeEach
+    public void setUp() {
+        // construct user tag
+        validTagOne = new TagBuilder().buildTestUserTag();
+        validTagNameOne = validTagOne.getTagName();
+    }
 
     @Test
     public void constructor_nullTagName_throwsNullPointerException() {
@@ -44,10 +55,6 @@ public class TagModuleCommandTest {
 
     @Test
     public void execute_tagNotPresentInStudyPlan_newTagCreatedAndAddSuccessful() {
-        // construct user tags
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct two modules with no user tags
         Module cs1231s = new ModuleBuilder().build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").build();
@@ -85,10 +92,6 @@ public class TagModuleCommandTest {
 
     @Test
     public void execute_tagPresentInStudyPlan_addSuccessful() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct two modules with no user tags
         Module cs1231s = new ModuleBuilder().build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").build();
@@ -126,10 +129,6 @@ public class TagModuleCommandTest {
 
     @Test
     public void execute_tagPresentInModule_throwsCommandException() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct a module with the user tag
         Module cs1231s = new ModuleBuilder().withTags(validTagOne).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
@@ -167,9 +166,6 @@ public class TagModuleCommandTest {
 
     @Test
     public void execute_moduleDoesNotExist_throwsCommandException() {
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct model containing study plan
         StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),

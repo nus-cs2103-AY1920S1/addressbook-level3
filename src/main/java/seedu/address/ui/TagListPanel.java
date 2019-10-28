@@ -2,7 +2,8 @@ package seedu.address.ui;
 
 //import java.util.logging.Logger;
 
-import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 //import seedu.address.commons.core.LogsCenter;
 
@@ -25,12 +27,29 @@ public class TagListPanel extends UiPart<Region> {
 
     public TagListPanel(ObservableList<Tag> tags) {
         super(FXML);
-        tags.sort(new Comparator<Tag>() {
-            public int compare(Tag tag1, Tag tag2) {
-                return tag1.getTagName().compareTo(tag2.getTagName());
+
+        List<Tag> tagList = tags.stream().sorted((tag1, tag2) -> {
+            if (tag1.isDefault()) {
+                if (tag2.isDefault()) {
+                    return tag1.getTagName().compareTo(tag2.getTagName());
+                } else {
+                    return -1;
+                }
+            } else {
+                if (tag2.isDefault()) {
+                    return 1;
+                } else {
+                    return tag1.getTagName().compareTo(tag2.getTagName());
+                }
             }
-        });
-        tagListView.setItems(tags);
+        })
+            .collect(Collectors.toUnmodifiableList());
+
+        UniqueTagList uniqueTagList = new UniqueTagList();
+        uniqueTagList.setTags(tagList);
+        ObservableList<Tag> observableTags = uniqueTagList.asUnmodifiableObservableList();
+
+        tagListView.setItems(observableTags);
         tagListView.setCellFactory(listView -> new TagListViewCell());
     }
 

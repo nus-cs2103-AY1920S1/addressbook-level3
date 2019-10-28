@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
@@ -28,6 +29,16 @@ import seedu.address.ui.ResultViewType;
 
 public class ViewModuleTagsCommandTest {
 
+    private Tag validTagOne;
+    private Tag validTagTwo;
+
+    @BeforeEach
+    public void setUp() {
+        // construct user tags
+        validTagOne = new TagBuilder().buildTestUserTag();
+        validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
+    }
+
     @Test
     public void constructor_nullModuleCode_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ViewModuleTagsCommand(null));
@@ -35,10 +46,6 @@ public class ViewModuleTagsCommandTest {
 
     @Test
     public void execute_userTagsPresentInModule_allModuleTagsShownSuccessful() {
-        // construct user tags
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-
         // construct module with one user tag
         Module cs1231s = new ModuleBuilder().withModuleCode("CS1231S").withTags(validTagOne).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
@@ -74,8 +81,6 @@ public class ViewModuleTagsCommandTest {
 
     @Test
     public void execute_noUserTagsPresentInModule_allModuleTagsShownSuccessful() {
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-
         // construct module with no user tags
         Module cs1231s = new ModuleBuilder().withModuleCode("CS1231S").build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();

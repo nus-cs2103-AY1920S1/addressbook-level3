@@ -289,41 +289,41 @@ _P_ modules are modules that count towards Focus Area Primaries for _FOCUS_AREA_
 _E_ modules are modules that count towards Focus Area Electives for _FOCUS_AREA_NAME_.
 ****
 
-==== Viewing all tags : `viewalltags`
+==== Viewing all tags : `viewallmodtags`
 Shows all tag types. +
-Format: `viewalltags`
+Format: `viewallmodtags`
 
-==== Renaming an existing tag : `renametag`
+==== Renaming an existing tag : `renamemodtag`
 Renames a tag. +
-Format: `renametag ORIGINAL_TAG_NAME NEW_TAG_NAME`
+Format: `renamemodtag ORIGINAL_TAG_NAME NEW_TAG_NAME`
 
 [NOTE]
 Only user-created tags can be renamed, i.e. default tag cannot be renamed.
 
 Example:
 
-* `renametag exchange sep` +
+* `renamemodtag exchange sep` +
 Renames the tag name from _exchange_ to _sep_.
 
-==== Tagging modules : `addtag`
+==== Tagging modules : `tagmod`
 Attaches a tag to a module. +
-Format: `tag MODULE_CODE TAG_NAME`
+Format: `tagmod MODULE_CODE TAG_NAME`
 
 [TIP]
 If a tag with the given `TAG_NAME` does not exist, a new tag will automatically be created and tagged to the specified module.
 
 Example:
 
-* `tag cs3230 exchange` +
+* `tagmod cs3230 exchange` +
 Attaches the tag with name _exchange_ to _CS3230_.
 
-==== Removing a tag from a module: `removetag`
+==== Removing a tag from a module: `removemodtag`
 Removes a tag from a module. +
-Format: `removetag MODULE_CODE TAG_NAME`
+Format: `removemodtag MODULE_CODE TAG_NAME`
 
 Example:
 
-* `removetag cs3230 exchange`
+* `removemodtag cs3230 exchange`
 
 ==== Removing a tag from all modules: `removeall`
 Removes a tag from all modules that it is attached to. +
@@ -333,16 +333,16 @@ Example:
 
 * `removeall exchange`
 
-==== Deleting tags: `deletetag`
+==== Deleting tags: `deletemodtag`
 Deletes a tag completely and removes it from any module that it is attached to. +
-Format: `deletetag TAG_NAME`
+Format: `deletemodtag TAG_NAME`
 
 [NOTE]
 Only user-created tags can be deleted, i.e. default tag cannot be deleted.
 
 Example:
 
-* `deletetag exchange`
+* `deletemodtag exchange`
 
 ==== Viewing modules with specific tags : `viewtagged`
 Shows all modules attached to all the specified tags. +
@@ -357,15 +357,15 @@ Shows all modules that are tagged as _core_ and _completed_.
 
 ==== Viewing tags for a specific module : `viewtags`
 Shows all tags attached to the specified module. +
-Format `viewtags MODULE_CODE`
+Format: `viewtags MODULE_CODE`
 
 Examples:
 
 * `viewtags cs2030`
 
-==== Removing all tags from the study plan : `removealltags`
+==== Removing all tags from the study plan : `removeallmodtags`
 Removes all user-created tags in the entire study plan. +
-Format `removealltags`
+Format: `removeallmodtags`
 
 ==== Finding modules using the module code : `findmod`
 Shows which semester the specified module is located at. +
@@ -376,22 +376,39 @@ Examples:
 * `findmod cs1101s`
 * `findmod cs2103`
 
-==== Finding module code using keywords : `getmodcode`
-Shows module codes of all modules with names that contain the specified keywords. +
-Format: `getmodcode KEYWORDS`
+==== Adding priority tags to a study plan : `tagsp`
+Attaches a priority tag to the study plan. +
+Format: `tagsp PRIORITY_LEVEL STUDY_PLAN_INDEX`
+
+[NOTE]
+The `PRIORITY_LEVEL` must be entered in the format `priority_` followed by one of the priority level types
+as shown below.
+
+****
+List of priority tags:
+
+* `HIGH` +
+* `MEDIUM` +
+* `LOW`
+****
 
 Examples:
 
-* `getmodcode algorithms`
-* `getmodcode programming`
+* `tagsp priority_high 1`
+* `tagsp priority_low 3`
 
-==== Viewing modules that can be taken in a given semester : `validmods`
-Shows all the modules that can be taken in a given semester based on whether prerequisites have been met. +
-Format: `validmods SEMESTER`
+==== Removing priority tags from study plan: `removesptag`
+Removes the priority tag from the study plan. +
+Format: `removesptag PRIORITY_LEVEL STUDY_PLAN_INDEX`
 
-Example:
+Examples
 
-* `validmods y2s1`
+* `removesptag priority_high 1`
+* `removesptag priority_low 3`
+
+==== Listing study plans by priority: `listbypriority`
+Lists all study plans in the order of their priorities. +
+Format: `listbypriority`
 
 === Verification
 

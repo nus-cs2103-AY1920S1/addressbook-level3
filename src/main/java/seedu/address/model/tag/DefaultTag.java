@@ -56,6 +56,13 @@ public class DefaultTag implements Tag {
     }
 
     /**
+     * Returns the description of the default tag type.
+     */
+    public String getDescription() {
+        return defaultTagType.getDescription();
+    }
+
+    /**
      * Returns true if the other tag is also a {@code DefaultTag} and both tags have the same default type.
      *
      * @param other The other {@code Tag}.

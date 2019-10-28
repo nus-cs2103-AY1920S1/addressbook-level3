@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,20 +25,28 @@ import seedu.address.testutil.TypicalModulesInfo;
 
 public class RenameTagCommandTest {
 
+    private Tag validTagOne;
+    private String validTagNameOne;
+    private Tag validTagTwo;
+    private String validTagNameTwo;
+
+    @BeforeEach
+    public void setUp() {
+        // construct user tags
+        validTagOne = new TagBuilder().buildTestUserTag();
+        validTagNameOne = validTagOne.getTagName();
+        validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
+        validTagNameTwo = validTagTwo.getTagName();
+    }
+
     @Test
     public void constructor_nullTagName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ViewTaggedCommand("exchange", null));
-        assertThrows(NullPointerException.class, () -> new ViewTaggedCommand(null, "exchange"));
+        assertThrows(NullPointerException.class, () -> new ViewTaggedCommand(validTagNameOne, null));
+        assertThrows(NullPointerException.class, () -> new ViewTaggedCommand(null, validTagNameOne));
     }
 
     @Test
     public void execute_tagPresentInStudyPlan_renameSuccessful() {
-        // construct user tags
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-        Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-        String validTagNameTwo = validTagTwo.getTagName();
-
         // construct model containing study plan with one user tag
         StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
@@ -60,10 +69,7 @@ public class RenameTagCommandTest {
 
     @Test
     public void execute_tagPresentInStudyPlanAndModules_renameSuccessful() {
-        // construct user tags
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-        Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
+        // construct another user tag
         Tag validTagThree = new TagBuilder().buildUserTag("anotherUserTag");
         String validTagNameThree = validTagThree.getTagName();
 
@@ -106,8 +112,6 @@ public class RenameTagCommandTest {
 
     @Test
     public void execute_renameDefaultTag_throwsCommandException() {
-        // construct user tags
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
         String defaultTagName = new TagBuilder().buildDefaultCoreTag().getTagName();
 
         // construct model containing study plan
@@ -124,9 +128,6 @@ public class RenameTagCommandTest {
 
     @Test
     public void execute_renameToDefaultTagName_throwsCommandException() {
-        // construct user tags
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
         String defaultTagName = new TagBuilder().buildDefaultCoreTag().getTagName();
 
         // construct model containing study plan
@@ -143,9 +144,6 @@ public class RenameTagCommandTest {
 
     @Test
     public void execute_tagNotPresentInStudyPlan_throwsCommandException() {
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct model containing study plan with no user tags
         StudyPlan studyPlan = new StudyPlanBuilder().build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),

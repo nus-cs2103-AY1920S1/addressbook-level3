@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
@@ -27,6 +28,21 @@ import seedu.address.ui.ResultViewType;
 
 public class ViewTaggedCommandTest {
 
+    private Tag validTagOne;
+    private String validTagNameOne;
+    private Tag validTagTwo;
+    private String validTagNameTwo;
+
+    @BeforeEach
+    public void setUp() {
+        // construct user tag
+        validTagOne = new TagBuilder().buildTestUserTag();
+        validTagNameOne = validTagOne.getTagName();
+        validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
+        validTagNameTwo = validTagTwo.getTagName();
+
+    }
+
     @Test
     public void constructor_nullTagName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ViewTaggedCommand("exchange", "core", null));
@@ -35,10 +51,6 @@ public class ViewTaggedCommandTest {
 
     @Test
     public void execute_oneInputTagPresentInSomeModules_modulesShownSuccessful() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct two modules with the validTagOne and another with ValidTagTwo
         Module cs1231s = new ModuleBuilder().withTags(validTagOne).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
@@ -69,12 +81,6 @@ public class ViewTaggedCommandTest {
 
     @Test
     public void execute_multipleInputsTagsPresentInSomeModules_modulesShownSuccessful() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-        Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-        String validTagNameTwo = validTagTwo.getTagName();
-
         // construct two modules, one with both user tags and the other with only one
         Module cs1231s = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
@@ -110,10 +116,6 @@ public class ViewTaggedCommandTest {
 
     @Test
     public void execute_oneInputTagNotPresentInAnyModules_throwsCommandException() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct two modules with no tags
         Module cs1231s = new ModuleBuilder().build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").build();
@@ -137,12 +139,6 @@ public class ViewTaggedCommandTest {
 
     @Test
     public void execute_multipleInputsTagsNotPresentInAnyModules_throwsCommandException() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-        Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-        String validTagNameTwo = validTagTwo.getTagName();
-
         // construct two modules with a different tag each
         Module cs1231s = new ModuleBuilder().withTags(validTagOne).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagTwo).build();

@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,6 +25,16 @@ import seedu.address.testutil.TypicalModulesInfo;
 
 public class RemoveTagFromAllCommandTest {
 
+    private Tag validTagOne;
+    private String validTagNameOne;
+
+    @BeforeEach
+    public void setUp() {
+        // construct user tag
+        validTagOne = new TagBuilder().buildTestUserTag();
+        validTagNameOne = validTagOne.getTagName();
+    }
+
     @Test
     public void constructor_nullTagName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new RemoveTagFromAllCommand(null));
@@ -31,10 +42,6 @@ public class RemoveTagFromAllCommandTest {
 
     @Test
     public void execute_tagPresentInStudyPlanAndModules_removeSuccessful() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct two modules with the user tag and one module without
         Module cs1231s = new ModuleBuilder().withTags(validTagOne).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
@@ -77,8 +84,6 @@ public class RemoveTagFromAllCommandTest {
 
     @Test
     public void execute_tagNotPresentInStudyPlan_throwsCommandException() {
-        String validTagName = new TagBuilder().buildTestUserTag().getTagName();
-
         // construct model containing study plan with no user tags
         StudyPlan studyPlan = new StudyPlanBuilder().build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
@@ -86,17 +91,13 @@ public class RemoveTagFromAllCommandTest {
         model.activateFirstStudyPlan();
 
         // construct command to remove the user tag from all modules
-        RemoveTagFromAllCommand removeTagFromAllCommand = new RemoveTagFromAllCommand(validTagName);
+        RemoveTagFromAllCommand removeTagFromAllCommand = new RemoveTagFromAllCommand(validTagNameOne);
         assertThrows(CommandException.class, () -> removeTagFromAllCommand.execute(model),
                 RemoveTagFromAllCommand.MESSAGE_TAG_NOT_FOUND_IN_STUDY_PLAN);
     }
 
     @Test
     public void execute_tagNotInAnyModule_throwsCommandException() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct two modules with no user tags
         Module cs1231s = new ModuleBuilder().build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").build();

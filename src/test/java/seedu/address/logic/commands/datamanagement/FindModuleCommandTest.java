@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
@@ -27,6 +28,27 @@ import seedu.address.ui.ResultViewType;
 
 public class FindModuleCommandTest {
 
+    private Module cs1101s;
+    private HashMap<String, Module> moduleHashMap;
+    private StudyPlan studyPlan;
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        // construct module
+        cs1101s = TypicalModuleHashMap.getTypicalModuleHashMap().get("CS1101S");
+        moduleHashMap = new HashMap<String, Module>();
+        moduleHashMap.put("CS1101S", cs1101s);
+
+        // construct model containing study plan with module in certain semesters
+        studyPlan = new StudyPlanBuilder().withModules(moduleHashMap).build();
+        studyPlan.addModuleToSemester(cs1101s.getModuleCode(), SemesterName.Y1S1);
+        studyPlan.addModuleToSemester(cs1101s.getModuleCode(), SemesterName.Y3S2);
+        model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        model.activateFirstStudyPlan();
+    }
+
     @Test
     public void constructor_nullModuleCode_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new FindModuleCommand(null));
@@ -34,19 +56,6 @@ public class FindModuleCommandTest {
 
     @Test
     public void execute_modulePresentInStudyPlan_findSuccessful() {
-        // construct module
-        Module cs1101s = TypicalModuleHashMap.getTypicalModuleHashMap().get("CS1101S");
-        HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1101S", cs1101s);
-
-        // construct model containing study plan with module in certain semesters
-        StudyPlan studyPlan = new StudyPlanBuilder().withModules(moduleHashMap).build();
-        studyPlan.addModuleToSemester(cs1101s.getModuleCode(), SemesterName.Y1S1);
-        studyPlan.addModuleToSemester(cs1101s.getModuleCode(), SemesterName.Y3S2);
-        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
-                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
-        model.activateFirstStudyPlan();
-
         // construct list of semesters that should be shown
         UniqueSemesterList expectedList = new UniqueSemesterList();
         Semester semesterOne = new Semester(SemesterName.Y1S1);
@@ -68,12 +77,6 @@ public class FindModuleCommandTest {
 
     @Test
     public void execute_moduleNotPresentInStudyPlan_throwsCommandException() {
-        // construct model containing study plan with no modules
-        StudyPlan studyPlan = new StudyPlanBuilder().build();
-        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
-                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
-        model.activateFirstStudyPlan();
-
         // construct command to find module
         FindModuleCommand findModuleCommand = new FindModuleCommand("CS3230");
 
@@ -83,12 +86,6 @@ public class FindModuleCommandTest {
 
     @Test
     public void execute_moduleDoesNotExist_throwsCommandException() {
-        // construct model containing study plan
-        StudyPlan studyPlan = new StudyPlanBuilder().build();
-        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
-                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
-        model.activateFirstStudyPlan();
-
         // construct command to find non-existent module
         FindModuleCommand findModuleCommand = new FindModuleCommand("CS3333");
 

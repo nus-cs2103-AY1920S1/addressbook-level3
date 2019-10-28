@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,6 +26,17 @@ import seedu.address.testutil.TypicalModulesInfo;
 
 public class RemoveTagFromModuleCommandTest {
 
+    private Tag validTagOne;
+    private String validTagNameOne;
+    private Tag validTagTwo;
+
+    @BeforeEach
+    public void setUp() {
+        validTagOne = new TagBuilder().buildTestUserTag();
+        validTagNameOne = validTagOne.getTagName();
+        validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
+    }
+
     @Test
     public void constructor_nullTagName_throwsNullPointerException() {
         String validModuleCode = TypicalModule.CS1101S.getModuleCode().toString();
@@ -33,18 +45,12 @@ public class RemoveTagFromModuleCommandTest {
 
     @Test
     public void constructor_nullModuleCode_throwsNullPointerException() {
-        String validTagName = new TagBuilder().buildTestUserTag().getTagName();
-        assertThrows(NullPointerException.class, () -> new TagModuleCommand(null, validTagName));
+        assertThrows(NullPointerException.class, () -> new TagModuleCommand(null, validTagNameOne));
     }
 
     @Test
     public void execute_tagPresentInModule_deleteSuccessful() {
-        // construct user tags
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-        Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
-
-        // construct a module
+        // construct a module with two user tags
         Module cs1231s = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
         moduleHashMap.put("CS1231S", cs1231s);
@@ -80,8 +86,6 @@ public class RemoveTagFromModuleCommandTest {
 
     @Test
     public void execute_tagNotPresentInStudyPlan_throwsCommandException() {
-        String validTagName = new TagBuilder().buildTestUserTag().getTagName();
-
         // construct a module with no user tags
         Module cs1231s = new ModuleBuilder().build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
@@ -95,18 +99,14 @@ public class RemoveTagFromModuleCommandTest {
 
         // construct command to remove the user tag from the module
         RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231S",
-                validTagName);
+                validTagNameOne);
         assertThrows(CommandException.class, () -> removeTagFromModuleCommand.execute(model),
                 String.format(RemoveTagFromModuleCommand.MESSAGE_TAG_NOT_FOUND, cs1231s.getModuleCode().toString(),
-                        validTagName));
+                        validTagNameOne));
     }
 
     @Test
     public void execute_tagNotPresentInModule_throwsCommandException() {
-        // construct user tag
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct a module with no user tags
         Module cs1231s = new ModuleBuilder().build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
@@ -131,13 +131,8 @@ public class RemoveTagFromModuleCommandTest {
     public void execute_removeDefaultTag_throwsCommandException() {
         String validDefaultTagName = new TagBuilder().buildDefaultCoreTag().getTagName();
 
-        // construct a module with no user tags
-        Module cs1231s = new ModuleBuilder().build();
-        HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231S", cs1231s);
-
-        // construct model containing study plan with no user tags
-        StudyPlan studyPlan = new StudyPlanBuilder().withModules(moduleHashMap).build();
+        // construct model containing study plan
+        StudyPlan studyPlan = new StudyPlanBuilder().build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
@@ -151,9 +146,6 @@ public class RemoveTagFromModuleCommandTest {
 
     @Test
     public void execute_moduleDoesNotExist_throwsCommandException() {
-        Tag validTagOne = new TagBuilder().buildTestUserTag();
-        String validTagNameOne = validTagOne.getTagName();
-
         // construct model containing study plan
         StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).build();
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
