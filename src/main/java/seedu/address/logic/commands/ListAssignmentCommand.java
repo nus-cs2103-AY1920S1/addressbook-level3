@@ -2,11 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
-
-import java.util.List;
+import static seedu.address.model.Model.PREDICATE_SHOW_NO_STUDENTS;
 
 import seedu.address.model.Model;
-import seedu.address.model.assignment.Assignment;
 
 /**
  * Lists all assignments in the classroom to the user.
@@ -22,11 +20,8 @@ public class ListAssignmentCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        List<Assignment> assignmentList = model.getFilteredAssignmentList();
-        String output = MESSAGE_SUCCESS + "\n\n";
-        for (Assignment assignment:assignmentList) {
-            output += assignment.toString() + "\n\n";
-        }
-        return new CommandResult(output);
+        model.updateFilteredStudentList(PREDICATE_SHOW_NO_STUDENTS);
+        model.displayAssignments();
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

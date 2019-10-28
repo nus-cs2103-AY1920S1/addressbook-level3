@@ -14,23 +14,24 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteLessonCommand;
-import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditLessonCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GetStudentGradesCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListLessonCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateGradesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ClassroomParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -57,8 +58,8 @@ public class AddressBookParser {
         case ListAssignmentCommand.COMMAND_WORD:
             return new ListAssignmentCommand();
 
-        case EditAssignmentCommand.COMMAND_WORD:
-            return new EditAssignmentCommandParser().parse(arguments);
+        case UpdateGradesCommand.COMMAND_WORD:
+            return new UpdateGradesCommandParser().parse(arguments);
 
         case AddAssignmentCommand.COMMAND_WORD:
             return new AddAssignmentCommandParser().parse(arguments);
@@ -107,6 +108,9 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommandParser().parse(arguments);
+
+        case GetStudentGradesCommand.COMMAND_WORD:
+            return new GetStudentGradesCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

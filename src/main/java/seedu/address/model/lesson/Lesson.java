@@ -3,7 +3,7 @@ package seedu.address.model.lesson;
 import java.util.Objects;
 
 /**
- * Represents a lesson in the AddressBook.
+ * Represents a Lesson in the Classroom.
  */
 public class Lesson {
     private final Time startTime;
@@ -50,6 +50,14 @@ public class Lesson {
                 && otherLesson.getStartTime().equals(this.getStartTime())
                 && otherLesson.getEndTime().equals(this.getEndTime())
                 && otherLesson.getName().equals(this.getName());
+    }
+
+    /**
+     * Returns true if the end time is after the start time.
+     * @return
+     */
+    public boolean endTimeIsAfterStartTime() {
+        return endTime.getTime().after(startTime.getTime());
     }
 
     @Override

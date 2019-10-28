@@ -1,26 +1,24 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddLessonCommand.MESSAGE_INVALID_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REPEAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LESSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.Time;
-import seedu.address.model.Model;
 
 /**
  * Edits the details of an existing lesson in the address book.
@@ -75,6 +73,8 @@ public class EditLessonCommand extends Command {
 
         if (!lessonToEdit.isSameLesson(editedLesson) && model.hasLesson(editedLesson)) {
             throw new CommandException(MESSAGE_DUPLICATE_LESSON);
+        } else if (!editedLesson.endTimeIsAfterStartTime()) {
+            throw new CommandException(MESSAGE_INVALID_END_TIME);
         }
 
         model.setLesson(lessonToEdit, editedLesson);

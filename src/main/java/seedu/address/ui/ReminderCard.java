@@ -18,7 +18,7 @@ public class ReminderCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Classroom level 4</a>
      */
 
     public final Lesson lesson;
@@ -41,8 +41,8 @@ public class ReminderCard extends UiPart<Region> {
         this.lesson = lesson;
         id.setText(displayedIndex + ". ");
         className.setText(lesson.getName().className);
-        startTime.setText(lesson.getStartTime().getTime().toString());
-        endTime.setText(lesson.getEndTime().getTime().toString());
+        startTime.setText(lesson.getStartTime().getStringTime());
+        endTime.setText(lesson.getEndTime().getStringTime());
     }
 
     @Override

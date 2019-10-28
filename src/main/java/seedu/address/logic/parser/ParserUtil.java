@@ -2,9 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,8 +14,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
-import seedu.address.model.assignment.Grade;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Time;
 import seedu.address.model.student.Address;
@@ -67,8 +69,8 @@ public class ParserUtil {
     public static AssignmentName parseAssignmentName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!AssignmentName.isValidAssignmentName(trimmedName)) {
+            throw new ParseException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         return new AssignmentName(trimmedName);
     }
@@ -78,18 +80,41 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      * String grades will be split by whitespace, converted to Integer and stored in List.
      *
+     * @return output The grades string to be used in updating assignment.
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static List<Grade> parseAssignmentGrades(String grades) throws ParseException {
+    public static List<String> parseAssignmentGrades(String grades) throws ParseException {
         requireNonNull(grades);
-        List<Grade> output = new ArrayList<>();
+
+        List<String> output = new ArrayList<>();
+
         String trimmedGrades = grades.trim();
         String[] individualGrades = trimmedGrades.split(" ");
+        if (!AssignmentGrades.isValidGrade(individualGrades)) {
+            throw new ParseException(AssignmentGrades.MESSAGE_CONSTRAINTS);
+        }
         for (String grade: individualGrades) {
-            Integer integerGrade = Integer.parseInt(grade);
-            output.add(new Grade(integerGrade.toString()));
+            output.add(grade);
         }
         return output;
+    }
+
+    /**
+     * Parses a {@code String grades} into a {@code List<Integer>}.
+     * Leading and trailing whitespaces will be trimmed.
+     * String grades will be split by whitespace, converted to Integer.
+     *
+     * @return output The grades string to be used in updating assignment.
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseSingleAssignmentGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+
+        String trimmedGrade = grade.trim();
+        if (!AssignmentGrades.isValidGrade(trimmedGrade)) {
+            throw new ParseException(AssignmentGrades.SINGLE_ASSIGNMENT_MESSAGE_CONSTRAINTS);
+        }
+        return trimmedGrade;
     }
 
     /**
@@ -213,19 +238,21 @@ public class ParserUtil {
      * Parses a {@code String time} into a {@code Time}.
      * @param time String representing time.
      * @return Time object.
+     * @throws ParseException if the given {@code time} is invalid.
      */
-    public static Time parseTime(String time) {
+    public static Time parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        String[] dateAndTime = trimmedTime.split(" ");
-        String[] date = dateAndTime[0].split("/");
-        int day = Integer.parseInt(date[0]);
-        int month = Integer.parseInt(date[1]) - 1;
-        int year = Integer.parseInt(date[2]);
-        int hour = Integer.parseInt(dateAndTime[1].substring(0, 2));
-        int min = Integer.parseInt(dateAndTime[1].substring(2));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        sdf.setLenient(false);
+        Date date = null;
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day, hour, min);
+        try {
+            date = sdf.parse(trimmedTime);
+            calendar.setTime(date);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
         return new Time(calendar);
     }
 }
