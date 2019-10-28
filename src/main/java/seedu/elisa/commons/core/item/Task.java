@@ -49,7 +49,7 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
 
-        builder.append(" Completed: ")
+        builder.append("\nCompleted: ")
                 .append(isComplete().toString());
         return builder.toString();
     }
