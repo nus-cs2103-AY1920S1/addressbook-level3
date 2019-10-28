@@ -23,41 +23,51 @@ import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
 
 /**
- * Allocates a person to an event.
+ * Allocates an employee from the  to an event.
  */
 public class ManualAllocateCommand extends Command {
 
     public static final String COMMAND_WORD = "allocatem";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manually allocates a person to an event."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manually allocates an employee to an event."
             + "\n"
             + "Parameters: EVENT_INDEX "
             + "PERSON_INDEX (must be valid positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
-    public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Person: %1$s to %2$s";
+    public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Employee: %1$s to %2$s";
 
-    private final Index index;
+    private final Index employeeIndex;
     private final Index eventIndex;
     private final String employeeId;
 
     /**
      * @param eventIndex of the event in the filtered event list to edit
-     * @param index      of the person in the filtered person list to add to event
+     * @param employeeIndex      of the employee in the filtered employee list to add to event
      */
-    public ManualAllocateCommand(Index eventIndex, Index index) {
-        requireNonNull(index);
+    public ManualAllocateCommand(Index eventIndex, Index employeeIndex) {
+        requireNonNull(employeeIndex);
         requireNonNull(eventIndex);
 
-        this.index = index;
+        this.employeeIndex = employeeIndex;
         this.eventIndex = eventIndex;
         this.employeeId = null;
     }
 
-    public ManualAllocateCommand(Index eventIndex, String employeeId) { //internal function for GUI
+    /**
+     * A ManualAllocateCommand to allocate employee with specified {@code EmployeeId} to the specified event.
+     * This constructor is used for GUI purposes.
+     *
+     * @param eventIndex of the event in the filtered event list to edit
+     * @param employeeId      of the employee to add to the event
+     */
+    public ManualAllocateCommand(Index eventIndex, String employeeId) {
+        requireNonNull(employeeId);
+        requireNonNull(eventIndex);
+
         this.eventIndex = eventIndex;
-        this.index = null;
+        this.employeeIndex = null;
         this.employeeId = employeeId;
     }
 
@@ -80,8 +90,8 @@ public class ManualAllocateCommand extends Command {
 
         Event newEventForAllocation = createEditedEvent(eventToAllocate, personToAdd);
         model.setEvent(eventToAllocate, newEventForAllocation);
-        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, personToAdd.getEmployeeName().fullName,
-                newEventForAllocation.getName().eventName));
+        return new CommandResult(String.format(MESSAGE_ALLOCATE_EVENT_SUCCESS, personToAdd.getEmployeeName(),
+                newEventForAllocation.getName()));
     }
 
     @Override
@@ -93,7 +103,7 @@ public class ManualAllocateCommand extends Command {
 
         List<Employee> lastShownList = model.getFilteredEmployeeList();
         List<Event> lastShownEventList = model.getFilteredEventList();
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (employeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
         }
 
@@ -101,7 +111,7 @@ public class ManualAllocateCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Employee personToAdd = lastShownList.get(index.getZeroBased());
+        Employee personToAdd = lastShownList.get(employeeIndex.getZeroBased());
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
 
         if (eventToAllocate.getCurrentManpowerCount() == eventToAllocate.getManpowerNeeded().value) {
@@ -155,7 +165,7 @@ public class ManualAllocateCommand extends Command {
 
         // state check
         ManualAllocateCommand e = (ManualAllocateCommand) other;
-        return index.equals(e.index) && eventIndex.equals(e.eventIndex);
+        return employeeIndex.equals(e.employeeIndex) && eventIndex.equals(e.eventIndex);
     }
 
 }

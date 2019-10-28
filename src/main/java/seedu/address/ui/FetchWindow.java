@@ -101,7 +101,11 @@ public class FetchWindow extends UiPart<Stage> {
                     logic.execute(DeallocateCommand.COMMAND_WORD + " " + oneBasedIndex);
                     updateCards();
                 } catch (CommandException | ParseException ex) {
-                    logger.info("This should not appear!");
+                    if (errorWindow != null) {
+                        errorWindow.hide();
+                    }
+                    errorWindow = new ErrorWindow(ex.getMessage());
+                    errorWindow.show();
                 }
             }
         };
@@ -212,6 +216,5 @@ public class FetchWindow extends UiPart<Stage> {
             }
         }
     }
-
 
 }

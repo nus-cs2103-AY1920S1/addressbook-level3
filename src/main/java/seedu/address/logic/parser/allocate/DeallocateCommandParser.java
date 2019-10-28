@@ -23,12 +23,11 @@ public class DeallocateCommandParser {
      */
     public DeallocateCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_EMPLOYEE_ID);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EMPLOYEE_ID);
 
         Index index;
 
-        if (argMultimap.getValue(PREFIX_EMPLOYEE_ID).isPresent()) { //internal call by UI, guaranteed no exceptions
+        if (argMultimap.getValue(PREFIX_EMPLOYEE_ID).isPresent()) { //internal call by UI
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             String employeeId = argMultimap.getValue(PREFIX_EMPLOYEE_ID).get();
             return new DeallocateCommand(index, employeeId);
