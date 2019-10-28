@@ -1,9 +1,5 @@
 package seedu.address.logic;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -18,6 +14,11 @@ import seedu.address.model.ReadOnlyProjectList;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Project;
 import seedu.address.storage.Storage;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
@@ -51,6 +52,24 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        return commandResult;
+    }
+
+    @Override
+    public CommandResult executeImageDrop(File imgFile, Person person) throws CommandException, IllegalValueException {
+        int index = 1;
+        for (Person curr : model.getFilteredPersonList()) {
+            if (curr.getName().equals(person.getName())) {
+                break;
+            } else {
+                index++;
+            }
+        }
+        String commandText = "addProfilePicture " + index + " f/" + imgFile.getPath();
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        CommandResult commandResult;
+        commandResult = execute(commandText);
         return commandResult;
     }
 

@@ -220,7 +220,7 @@ public class MainWindow extends UiPart<Stage> {
     private void changeUiDisplay(State nextState) {
         switch (nextState) {
         case ADDRESS_BOOK:
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic);
             projectListPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
             currentState = nextState;
             break;
@@ -268,6 +268,8 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case AddCommand.COMMAND_WORD:
+
+        case AddProfilePictureCommand.COMMAND_WORD:
 
         case ClearCommand.COMMAND_WORD:
 

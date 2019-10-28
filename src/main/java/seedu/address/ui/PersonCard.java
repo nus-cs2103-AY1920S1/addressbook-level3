@@ -2,12 +2,23 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -25,9 +36,12 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Person person;
+    private final Logic logic;
 
     @FXML
     private HBox cardPane;
+    @FXML
+    private ImageView profilePicture;
     @FXML
     private Label name;
     @FXML
@@ -45,9 +59,20 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane projects;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Person person, int displayedIndex, Logic logic) {
         super(FXML);
         this.person = person;
+        this.logic = logic;
+
+        File imgFile = new File(person.getProfilePicture().toString());
+
+        try {
+            Image img = new Image(new FileInputStream(imgFile));
+            profilePicture.setImage(img);
+        } catch (FileNotFoundException e) {
+            e.getMessage();
+        }
+
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
@@ -59,6 +84,22 @@ public class PersonCard extends UiPart<Region> {
         person.getProjects().stream()
                 .forEach(project -> projects.getChildren().add(new Label(project)));
         projectHeader.setText("Projects:");
+    }
+
+    @FXML
+    private void handleDragOver(DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+    }
+
+    @FXML
+    private void handleDrop(DragEvent event) throws FileNotFoundException, CommandException, IllegalValueException {
+        List<File> files = event.getDragboard().getFiles();
+        File imgFile = files.get(0);
+        Image img = new Image(new FileInputStream(imgFile));
+        profilePicture.setImage(img);
+        logic.executeImageDrop(imgFile, person);
     }
 
     @Override

@@ -20,5 +20,6 @@
     </orderEntry>
     <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.openjfx:javafx-base:mac:11" level="project" />
+    <orderEntry type="module" module-name="AB3.main" scope="TEST" />
   </component>
 </module>

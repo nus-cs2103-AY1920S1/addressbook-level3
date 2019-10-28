@@ -15,6 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIME = new Prefix("c/");
     public static final Prefix PREFIX_BUDGET = new Prefix("b/");
     public static final Prefix PREFIX_EXPENSE = new Prefix("ex/");
+    public static final Prefix PREFIX_FILE_PATH = new Prefix(("f/"));
     public static final Prefix PREFIX_RECIPIENT = new Prefix("r/");
     public static final Prefix PREFIX_PASSWORD = new Prefix("pa/");
     public static final Prefix PREFIX_ACCOUNT = new Prefix("ac/");

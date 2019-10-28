@@ -89,11 +89,12 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        ProfilePicture updatedProfilePicture = editPersonDescriptor.getProfilePicture().orElse(personToEdit.getProfilePicture());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         TimeTable timeTable = personToEdit.getTimeTable(); // Timetable is not affected by edit command. Just copy.
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, timeTable);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedProfilePicture, updatedAddress, updatedTags, timeTable);
     }
 
     @Override
@@ -122,6 +123,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private ProfilePicture profilePicture;
         private Address address;
         private Set<Tag> tags;
 
@@ -135,6 +137,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setProfilePicture(toCopy.profilePicture);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -168,6 +171,14 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setProfilePicture(ProfilePicture profilePicture) {
+            this.profilePicture = profilePicture;
+        }
+
+        public Optional<ProfilePicture> getProfilePicture() {
+            return Optional.ofNullable(profilePicture);
         }
 
         public void setAddress(Address address) {
@@ -213,6 +224,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getProfilePicture().equals(e.getProfilePicture())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

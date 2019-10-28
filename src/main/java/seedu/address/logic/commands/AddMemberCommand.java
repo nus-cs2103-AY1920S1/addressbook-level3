@@ -89,6 +89,7 @@ public class AddMemberCommand extends Command {
         Name name = newMemberDescriptor.getName();
         Phone phone = newMemberDescriptor.getPhone();
         Email email = newMemberDescriptor.getEmail();
+        ProfilePicture profilePicture = newMemberDescriptor.getProfilePicture();
         Address address = newMemberDescriptor.getAddress();
         Set<Tag> tags;
         if (newMemberDescriptor.getTags().isEmpty()) {
@@ -97,13 +98,14 @@ public class AddMemberCommand extends Command {
             tags = newMemberDescriptor.getTags().get();
         }
 
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, profilePicture, address, tags);
     }
 
     public static class NewMemberDescriptor {
         private Name name;
         private Phone phone = new Phone("00000000");
         private Email email = new Email("no_email@added");
+        private ProfilePicture profilePicture = new ProfilePicture("");
         private Address address = new Address("-none-");
         private Set<Tag> tags;
 
@@ -113,6 +115,7 @@ public class AddMemberCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setProfilePicture(toCopy.profilePicture);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -146,6 +149,14 @@ public class AddMemberCommand extends Command {
 
         public Email getEmail() {
             return email;
+        }
+
+        public void setProfilePicture(ProfilePicture profilePicture) {
+            this.profilePicture = profilePicture;
+        }
+
+        public ProfilePicture getProfilePicture() {
+            return profilePicture;
         }
 
         public void setAddress(Address address) {
@@ -191,6 +202,7 @@ public class AddMemberCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getProfilePicture().equals(e.getProfilePicture())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

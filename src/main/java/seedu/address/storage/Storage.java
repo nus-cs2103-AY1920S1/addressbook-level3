@@ -40,4 +40,5 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, ProjectLi
     @Override
     void saveProjectList(ReadOnlyProjectList projectList) throws IOException;
 
+
 }
