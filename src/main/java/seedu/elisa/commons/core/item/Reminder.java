@@ -67,7 +67,7 @@ public class Reminder {
      * @return A new Reminder with the new default dateTime for the reminder.
      */
     public Reminder changeDefaultDateTime(LocalDateTime dateTime) {
-        return new Reminder(dateTime, occurrenceDateTime);
+        return new Reminder(dateTime, dateTime);
     }
 
     @Override
