@@ -150,6 +150,18 @@ Classes used by multiple components are in the `seedu.flashcard.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Quiz and Flip feature
+In the flashcard system, quiz and flip is a special function that can help the user quiz themselves on the flashcards and see
+there own improvements. The flip command, which is answering the quizzed flashcard, can only be used when a current flashcard is being quizzed.
+The following sequence diagram shows how the quiz and flip diagram works.
+
+image::QuizSequenceDiagram.png[]
+
+After each flip, the each flashcard can automatically record how many correct answers and wrong answers has the user did on this flashcard.
+In order to see the stats command helps the user to see their progress while doing the quizzes. Below is a sequence diagram of how this command
+works.
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
