@@ -64,7 +64,7 @@ public class EditMemberCommand extends Command {
         Member memberToEdit = null;
 
         for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i).getId() == id) {
+            if (lastShownList.get(i).getId().equals(id)) {
                 contains = true;
                 memberToEdit = lastShownList.get(i);
                 break;

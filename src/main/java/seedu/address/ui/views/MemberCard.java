@@ -4,10 +4,12 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import seedu.address.model.member.Member;
 import seedu.address.ui.UiPart;
 
@@ -50,7 +52,15 @@ public class MemberCard extends UiPart<Region> {
         member.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        imageView.setImage(member.getImage());
+
+        if (member.getImage() == null) {
+            imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+        } else {
+            imageView.setImage(member.getImage());
+        }
+
+        Circle clip = new Circle(60, 60, 60);
+        imageView.setClip(clip);
     }
 
     @Override

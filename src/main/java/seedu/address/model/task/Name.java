@@ -41,8 +41,9 @@ public class Name {
     public static boolean isValidMemberName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
-
+    public static boolean isValidName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
     @Override
     public String toString() {
         return fullName;

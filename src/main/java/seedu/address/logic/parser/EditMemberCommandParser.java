@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_TAG;
 
@@ -27,12 +28,12 @@ public class EditMemberCommandParser implements Parser<EditMemberCommand> {
     public EditMemberCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MEMBER_NAME, PREFIX_MEMBER_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_MEMBER_ID, PREFIX_MEMBER_NAME, PREFIX_MEMBER_TAG);
 
         MemberId id;
 
         try {
-            id = ParserUtil.parseMemberId(argMultimap.getPreamble());
+            id = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditMemberCommand.MESSAGE_USAGE), pe);

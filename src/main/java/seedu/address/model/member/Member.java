@@ -18,8 +18,7 @@ public class Member {
     // Identity fields
     private final MemberName name;
     private final MemberId id;
-    private Image memberImage = new Image("file:///C:\\Users\\Lynn\\Desktop\\Y2S1\\CS2103T\\tP\\tP helppp\\src\\" +
-            "main\\resources\\images\\DaUser.png");
+    private final String url;
     private final Set<Tag> tags = new HashSet<>();
 
 
@@ -31,12 +30,25 @@ public class Member {
         this.name = name;
         this.id = id;
         this.tags.addAll(tags);
+        this.url = null;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Member(MemberName name, MemberId id, Set<Tag> tags, String url) {
+        requireAllNonNull(name, tags);
+        this.name = name;
+        this.id = id;
+        this.tags.addAll(tags);
+        this.url = url;
     }
 
     public Member() {
         this.name = null;
         this.id = null;
         this.tags.addAll(null);
+        this.url = null;
 }
 
     // TODO add multiple constructors so that users can add additional info later
@@ -58,12 +70,19 @@ public class Member {
     }
 
     public Image getImage() {
-        return this.memberImage;
+        Image memImage;
+        if (this.url == null) {
+            memImage = null;
+        } else {
+            memImage = new Image("file:///" + url);
+        }
+        return memImage;
     }
 
-    public void setImage(String url) {
-        this.memberImage = new Image("file:///" + url);
+    public String getImageUrl() {
+        return this.url;
     }
+
     /**
      * Returns true if both tasks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
