@@ -6,6 +6,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appsettings.ThemeEnum;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Class that represents a command to change the Model's difficulty for all its games.
  */
@@ -19,11 +21,12 @@ public class ThemeCommand extends SettingsCommand {
     private final ThemeEnum theme;
 
     public ThemeCommand(ThemeEnum theme) {
+        requireNonNull(theme);
         this.theme = theme;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         model.setDefaultTheme(this.theme);
         return new CommandResult("Theme now set to: " + theme);
     }
