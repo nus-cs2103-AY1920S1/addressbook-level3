@@ -487,9 +487,6 @@ Checks if the command a user wants to map his unknown command to is valid and ex
 to exit the operation.
 * `AddressBookParser#initialiseBasicCommands()` -- Initialises the functionality of the `AddressBookParser` by adding
 the basic command mappings to its TreeMap.
-* `MainWindow#setUnknownFalse()` -- Restores a previously undone address book state from its history.
-* `MainWindow#setUnknownTrue()` -- Restores a previously undone address book state from its history.
-
 
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
