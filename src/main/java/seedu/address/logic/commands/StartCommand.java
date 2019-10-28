@@ -72,7 +72,8 @@ public class StartCommand extends Command {
         }
         CategoryContainsAnyKeywordsPredicate predicate = processSearchTerm();
         model.updateFilteredFlashCardList(predicate);
-        return new LinkedList<>(model.getFilteredFlashCardList());
+        LinkedList<FlashCard> filteredList = new LinkedList<>(model.getFilteredFlashCardList());
+        return filteredList;
     }
 
     /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */

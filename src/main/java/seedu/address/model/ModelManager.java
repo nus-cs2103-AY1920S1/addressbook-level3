@@ -213,6 +213,7 @@ public class ModelManager implements Model {
     @Override
     public void initializeTestModel(List<FlashCard> testList) {
         flashCardTestModel = new FlashCardTestModel(testList);
+        hideFlashCardList();
     }
 
     @Override
@@ -234,6 +235,10 @@ public class ModelManager implements Model {
     @Override
     public FlashCard getCurrentTestFlashCard() {
         return flashCardTestModel.getCurrentFlashCard();
+    }
+
+    private void hideFlashCardList() {
+        updateFilteredFlashCardList(pred -> false);
     }
 
     //@@author LeowWB
