@@ -1,7 +1,5 @@
 package dream.fcard.logic.respond;
 
-import java.util.ArrayList;
-
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.Gui;
 import dream.fcard.logic.respond.commands.CreateCommand;
