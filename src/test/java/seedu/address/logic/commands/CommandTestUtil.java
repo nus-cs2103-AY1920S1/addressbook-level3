@@ -114,7 +114,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCardList().size());
 
         Card card = model.getFilteredCardList().get(targetIndex.getZeroBased());
-        final String[] splitName = card.getWord().value.split("\\s+");
+        final String[] splitName = card.getWord().getValue().split("\\s+");
         model.updateFilteredCardList(new WordContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCardList().size());

@@ -42,8 +42,8 @@ public class CardCard extends UiPart<Region> {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
-        word.setText(card.getWord().value);
-        meaning.setText(card.getMeaning().value);
+        word.setText(card.getWord().getValue());
+        meaning.setText(card.getMeaning().toString());
 
         card.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

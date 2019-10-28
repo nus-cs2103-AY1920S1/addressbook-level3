@@ -16,9 +16,9 @@ public class Meaning {
     /*
      * The description should contain 1-MAX_LEN characters, and not all are white spaces.
      */
-    public static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN + "}$";
+    private static final String VALIDATION_REGEX = "^(?=.*\\S).{1," + MAX_LEN + "}$";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code Meaning}.
@@ -40,6 +40,10 @@ public class Meaning {
 
     @Override
     public String toString() {
+        return value;
+    }
+
+    public String getValue() {
         return value;
     }
 
