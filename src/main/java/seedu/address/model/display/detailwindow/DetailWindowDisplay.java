@@ -9,32 +9,26 @@ import seedu.address.model.display.sidepanel.GroupDisplay;
  */
 public class DetailWindowDisplay {
 
-    private ArrayList<WeekSchedule> weekSchedules;
-    private DetailWindowDisplayType detailWindowDisplayType;
     private GroupDisplay groupDisplay;
 
+    private ArrayList<PersonSchedule> personSchedules;
     private FreeSchedule freeSchedule;
 
-    public DetailWindowDisplay(ArrayList<WeekSchedule> weekSchedules, DetailWindowDisplayType detailWindowDisplayType,
-                               GroupDisplay groupDisplay) {
-        this.detailWindowDisplayType = detailWindowDisplayType;
-        this.weekSchedules = weekSchedules;
-        this.groupDisplay = groupDisplay;
+    private DetailWindowDisplayType detailWindowDisplayType;
 
-        this.freeSchedule = new FreeSchedule(this.weekSchedules);
-
+    public DetailWindowDisplay(ArrayList<PersonSchedule> personSchedules, DetailWindowDisplayType detailWindowDisplayType) {
+        this(personSchedules, null, null, detailWindowDisplayType);
     }
 
-    public DetailWindowDisplay(ArrayList<WeekSchedule> weekSchedules, DetailWindowDisplayType detailWindowDisplayType) {
+    public DetailWindowDisplay(ArrayList<PersonSchedule> personSchedules, FreeSchedule freeSchedule, GroupDisplay groupDisplay, DetailWindowDisplayType detailWindowDisplayType) {
+        this.personSchedules = personSchedules;
+        this.freeSchedule = freeSchedule;
+        this.groupDisplay = groupDisplay;
         this.detailWindowDisplayType = detailWindowDisplayType;
-        this.weekSchedules = weekSchedules;
-        this.groupDisplay = null;
-
-        this.freeSchedule = new FreeSchedule(this.weekSchedules);
     }
 
     public DetailWindowDisplay() {
-        this.weekSchedules = new ArrayList<>();
+        this.personSchedules = new ArrayList<>();
         this.detailWindowDisplayType = DetailWindowDisplayType.DEFAULT;
         this.groupDisplay = null;
 
@@ -42,7 +36,7 @@ public class DetailWindowDisplay {
     }
 
     public DetailWindowDisplay(DetailWindowDisplayType type) {
-        this.weekSchedules = new ArrayList<>();
+        this.personSchedules = new ArrayList<>();
         this.detailWindowDisplayType = type;
         this.groupDisplay = null;
 
@@ -53,8 +47,8 @@ public class DetailWindowDisplay {
         return detailWindowDisplayType;
     }
 
-    public ArrayList<WeekSchedule> getWeekSchedules() {
-        return weekSchedules;
+    public ArrayList<PersonSchedule> getPersonSchedules() {
+        return personSchedules;
     }
 
     public GroupDisplay getGroupDisplay() {

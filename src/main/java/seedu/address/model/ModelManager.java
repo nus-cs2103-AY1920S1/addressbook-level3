@@ -13,12 +13,10 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.display.DisplayModelManager;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
-import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.model.display.sidepanel.GroupDisplay;
-import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -73,8 +71,7 @@ public class ModelManager implements Model {
     private GmapsModelManager gmapsModelManager;
 
     // UI display
-    private DetailWindowDisplay detailWindowDisplay;
-    private SidePanelDisplay sidePanelDisplay;
+    private DisplayModelManager displayModelManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -89,6 +86,7 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
         this.gmapsModelManager = gmapsModelManager;
         this.nusModsData = nusModsData;
+        this.displayModelManager = new DisplayModelManager();
 
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
@@ -365,79 +363,38 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public DetailWindowDisplay getDetailWindowDisplay() {
-        return detailWindowDisplay;
+    public DetailWindowDisplay getDetailWindowDisplay(){
+        return displayModelManager.getDetailWindowDisplay();
     }
 
     @Override
     public SidePanelDisplay getSidePanelDisplay() {
-        return sidePanelDisplay;
+        return displayModelManager.getSidePanelDisplay();
     }
 
     @Override
     public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
-        this.detailWindowDisplay = detailWindowDisplay;
+        displayModelManager.updateDetailWindowDisplay(detailWindowDisplay);
     }
 
     @Override
     public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
-        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        try {
-            WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
-            weekSchedules.add(weekSchedule);
-            DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
-            updateDetailWindowDisplay(detailWindowDisplay);
-        } catch (PersonNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        displayModelManager.updateDetailWindowDisplay(name, time, type, timeBook);
     }
 
     @Override
     public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
-        try {
-            Group group = groupList.findGroup(groupName);
-            GroupId groupId = group.getGroupId();
-            GroupDisplay groupDisplay = new GroupDisplay(group);
-            ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
-            ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-            for (int i = 0; i < personIds.size(); i++) {
-                Person person = findPerson(personIds.get(i));
-                Role role = findRole(personIds.get(i), groupId);
-                if (role == null) {
-                    role = Role.emptyRole();
-                }
-                WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
-                weekSchedules.add(weekSchedule);
-            }
-            DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
-            updateDetailWindowDisplay(detailWindowDisplay);
-        } catch (GroupNotFoundException | MappingNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        displayModelManager.updateDetailWindowDisplay(groupName, time, type, timeBook);
     }
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay) {
-        this.sidePanelDisplay = sidePanelDisplay;
+        displayModelManager.updateSidePanelDisplay(sidePanelDisplay);
     }
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
-        SidePanelDisplay sidePanelDisplay;
-        ArrayList<PersonDisplay> displayPersons = new ArrayList<>();
-        ArrayList<GroupDisplay> displayGroups = new ArrayList<>();
-        ArrayList<Person> persons = timeBook.getPersonList().getPersons();
-        ArrayList<Group> groups = timeBook.getGroupList().getGroups();
-        for (int i = 0; i < persons.size(); i++) {
-            displayPersons.add(new PersonDisplay(persons.get(i)));
-        }
-        for (int i = 0; i < groups.size(); i++) {
-            displayGroups.add(new GroupDisplay(groups.get(i)));
-        }
-        sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
-        updateSidePanelDisplay(sidePanelDisplay);
+        displayModelManager.updateSidePanelDisplay(type, timeBook);
     }
 
     //=========== Suggesters =============================================================

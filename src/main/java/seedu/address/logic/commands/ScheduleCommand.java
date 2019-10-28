@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
@@ -47,9 +47,9 @@ public class ScheduleCommand extends Command {
         // update side panel
         model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
 
-        ArrayList<WeekSchedule> schedules = model.getDetailWindowDisplay().getWeekSchedules();
+        ArrayList<PersonSchedule> schedules = model.getDetailWindowDisplay().getPersonSchedules();
         String output = "";
-        for (WeekSchedule s : schedules) {
+        for (PersonSchedule s : schedules) {
             output += s.toString() + "\n";
         }
         return new CommandResult(MESSAGE_SUCCESS + output);

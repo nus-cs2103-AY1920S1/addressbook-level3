@@ -16,8 +16,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.model.display.detailwindow.DayTimeslot;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.detailwindow.PersonSchedule;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 
 /**
  * A class to generate a schedule table (ui) from a Schedule object.
@@ -50,24 +50,24 @@ public class ScheduleExport {
         initialiseTableCells();
     }
 
-    public ScheduleExport(WeekSchedule weekSchedule) {
+    public ScheduleExport(PersonSchedule personSchedule) {
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         initialise();
         initialiseHeaders();
         initialiseTableCells();
-        HashMap<DayOfWeek, ArrayList<DayTimeslot>> scheduleMap = weekSchedule.getWeekSchedule();
+        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleMap = personSchedule.getScheduleDisplay();
         showIndividualSchedule(scheduleMap, listOfColors.get((int) (Math.random() * (listOfColors.size() - 1))));
     }
 
-    public ScheduleExport(ArrayList<WeekSchedule> weekSchedules, List<String> colors) {
+    public ScheduleExport(ArrayList<PersonSchedule> personSchedules, List<String> colors) {
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
         this.currentDate = LocalDate.now();
         this.colors = colors;
         initialise();
         initialiseHeaders();
         initialiseTableCells();
-        showGroupSchedule(weekSchedules);
+        showGroupSchedule(personSchedules);
     }
 
     private ScheduleExport initialise() {
@@ -212,13 +212,13 @@ public class ScheduleExport {
         return hours * 60 + minutes;
     }
 
-    private VBox getDayVBoxOfIndividualSchedule(ArrayList<DayTimeslot> daySchedule, String color) {
+    private VBox getDayVBoxOfIndividualSchedule(ArrayList<PersonTimeslot> daySchedule, String color) {
         VBox timeslotContainer = new VBox();
         timeslotContainer.setStyle("-fx-padding: 0 2 0 2; -fx-border-width: 2;");
         timeslotContainer.getChildren().add(makeEmptyTimeslot(30));
         int originalTimeStamp = startTime * 100;
         for (int j = 0; j < daySchedule.size(); j++) {
-            DayTimeslot timeslot = daySchedule.get(j);
+            PersonTimeslot timeslot = daySchedule.get(j);
             int startTime = TimeFormatter.formatTimeToInt(timeslot.getStartTime());
             int endTime = TimeFormatter.formatTimeToInt(timeslot.getEndTime());
             Region busyTimeslot = makeColouredTimeslot(getTimeDifference(startTime, endTime), color);
@@ -239,10 +239,10 @@ public class ScheduleExport {
      * @param color Color of the blocks in the table view.
      * @return  GridPane table view of the individual's schedule.
      */
-    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<DayTimeslot>> scheduleMap,
+    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleMap,
                                            String color) {
         for (int i = 1; i <= 7; i++) {
-            ArrayList<DayTimeslot> daySchedule = scheduleMap.get(DayOfWeek.of(i));
+            ArrayList<PersonTimeslot> daySchedule = scheduleMap.get(DayOfWeek.of(i));
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
             VBox timeslotContainer = getDayVBoxOfIndividualSchedule(daySchedule, color);
             dayStackPane.getChildren().add(timeslotContainer);
@@ -255,7 +255,7 @@ public class ScheduleExport {
      * @param schedules An array list of schedule maps obtained from calling getScheduleMap on a Schedule Object.
      * @return  GridPane table view of schedules.
      */
-    public GridPane showGroupSchedule(ArrayList<WeekSchedule> schedules) {
+    public GridPane showGroupSchedule(ArrayList<PersonSchedule> schedules) {
         //Assign colors to each schedule.
         //Draw VBox of each individual's schedule.
         //Put VBoxes of all individuals' timeslot for the day into HBox.
@@ -266,7 +266,7 @@ public class ScheduleExport {
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
             HBox groupTimeslot = new HBox();
             for (int j = 0; j < schedules.size(); j++) {
-                HashMap<DayOfWeek, ArrayList<DayTimeslot>> personSchedule = schedules.get(j).getWeekSchedule();
+                HashMap<DayOfWeek, ArrayList<PersonTimeslot>> personSchedule = schedules.get(j).getScheduleDisplay();
                 VBox dayScheduleVBox = getDayVBoxOfIndividualSchedule(personSchedule.get(DayOfWeek.of(i)),
                         colors.get(j));
                 HBox.setHgrow(dayScheduleVBox, Priority.ALWAYS);

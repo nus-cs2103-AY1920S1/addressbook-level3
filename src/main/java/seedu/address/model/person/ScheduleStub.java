@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.model.mapping.Role;
+import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
@@ -20,7 +19,7 @@ public class ScheduleStub {
     public ScheduleStub() {
     }
 
-    public WeekSchedule getSchedule() {
+    public PersonSchedule getSchedule() {
         Person p = new Person(new PersonDescriptor());
         p.setName(new Name("AlexwithaverylongnameSolongthateventhespellingofthisentiresentenceisonlyafraction"
                 + "ofhistruename"));
@@ -55,6 +54,7 @@ public class ScheduleStub {
             return null;
         }
         p.setSchedule(schedule);
-        return new WeekSchedule("TestSchedule", LocalDateTime.now(), p, Role.emptyRole());
+        return null;
+        //return new ScheduleDisplayModel("TestSchedule", LocalDateTime.now(), p, Role.emptyRole());
     }
 }
