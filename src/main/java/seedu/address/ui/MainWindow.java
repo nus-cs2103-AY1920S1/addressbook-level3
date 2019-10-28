@@ -16,8 +16,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Context;
 import seedu.address.model.ContextType;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing a status
@@ -33,8 +31,8 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ListPanel<Person> personListPanel;
-    private ListPanel<Activity> activityListPanel;
+    private PersonListPanel personListPanel;
+    private ActivityListPanel activityListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -83,8 +81,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the containers of this window.
      */
     void fillInnerParts() {
-        personListPanel = new ListPanel<Person>(logic.getFilteredPersonList());
-        activityListPanel = new ListPanel<Activity>(logic.getFilteredActivityList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
 
         // Show contacts by default
         contentContainer.getChildren().add(personListPanel.getRoot());
@@ -163,11 +161,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public ListPanel<Person> getPersonListPanel() {
+    public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
 
-    public ListPanel<Activity> getActivityListPanel() {
+    public ActivityListPanel getActivityListPanel() {
         return activityListPanel;
     }
 
