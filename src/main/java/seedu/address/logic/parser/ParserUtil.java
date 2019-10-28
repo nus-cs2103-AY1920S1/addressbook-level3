@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import seedu.address.commons.core.index.Index;
@@ -199,13 +200,13 @@ public class ParserUtil {
     public static TimeRange parseTimeRange(String timeRange) throws ParseException {
         requireNonNull(timeRange);
         String[] split = timeRange.trim().split(" ");
-        DayOfWeek dayStart = DayOfWeek.valueOf(split[0].trim());
-        LocalTime startTime = LocalTime.parse(split[1].trim(), DateTimeFormatter.ofPattern("HHmm"));
-        DayOfWeek dayEnd = DayOfWeek.valueOf(split[2].trim());
-        LocalTime endTime = LocalTime.parse(split[3].trim(), DateTimeFormatter.ofPattern("HHmm"));
         try {
+            DayOfWeek dayStart = DayOfWeek.valueOf(split[0].trim().toUpperCase());
+            LocalTime startTime = LocalTime.parse(split[1].trim(), DateTimeFormatter.ofPattern("HHmm"));
+            DayOfWeek dayEnd = DayOfWeek.valueOf(split[2].trim().toUpperCase());
+            LocalTime endTime = LocalTime.parse(split[3].trim(), DateTimeFormatter.ofPattern("HHmm"));
             return new TimeRange(dayStart, startTime, dayEnd, endTime);
-        } catch (IllegalValueException e) {
+        } catch (IllegalValueException | ArrayIndexOutOfBoundsException | java.lang.IllegalArgumentException | DateTimeParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeRange.MESSAGE_CONSTRAINTS));
         }
     }
