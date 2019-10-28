@@ -132,6 +132,7 @@ public class ShowCard extends UiPart<Region> {
                 mainWindow.executeCommand("watch " + displayedIndex);
             } catch (CommandException | ParseException | OnlineConnectionException e) {
                 //do nothing for now
+                mainWindow.getResultDisplay().setFeedbackToUser(e.getMessage());
             }
         }
     }
