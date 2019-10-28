@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
@@ -50,7 +51,7 @@ public class Budget {
         this.endDate = calculateEndDate();
         this.expenses = FXCollections.observableArrayList();
         this.isPrimary = false;
-        this.proportionUsed = new Percentage(0);
+        this.proportionUsed = calculateProportionUsed();
     }
 
     //Constructor for system.
@@ -63,7 +64,7 @@ public class Budget {
         this.period = period;
         this.endDate = calculateEndDate();
         this.isPrimary = false;
-        this.proportionUsed = new Percentage(0);
+        this.proportionUsed = calculateProportionUsed();
         this.expenses = expenses;
     }
 
@@ -131,8 +132,8 @@ public class Budget {
         return endDate.minusDays(1);
     }
 
-    public void normalize() {
-        LocalDateTime now = LocalDateTime.now();
+    public void normalize(Timestamp anchor) {
+        LocalDateTime now = anchor.fullTimestamp;
 
         if (period.getMonths() == 1) {
 
@@ -184,21 +185,15 @@ public class Budget {
      */
     public void addExpense(Expense e) {
         if (!expenses.contains(e)) {
-            /*
-            ObservableList<Expense> updatedExpenseList = FXCollections.observableArrayList();
-            updatedExpenseList.addAll(expenses);
-            updatedExpenseList.add(e);
-            expenses = updatedExpenseList;
-
-             */
             expenses.add(e);
         }
     }
 
     public double getExpenseSum() {
+        List<Expense> currentExpenses = getCurrentPeriodExpenses();
         double sum = 0;
-        for (int i = 0; i < expenses.size(); i++) {
-            sum += expenses.get(i).getPrice().getAsDouble();
+        for (int i = 0; i < currentExpenses.size(); i++) {
+            sum += currentExpenses.get(i).getPrice().getAsDouble();
         }
         return sum;
     }
@@ -220,29 +215,6 @@ public class Budget {
      */
     public boolean isExceeded() {
         return getExpenseSum() > amount.getAsDouble();
-    }
-
-    /**
-     * dummy.
-     * @param date
-     * @return
-     */
-    public boolean expired(Timestamp date) {
-        return date.isAfter(endDate) || date.isEqual(endDate);
-    }
-
-    /**
-     * dymmy.
-     * @param date
-     */
-    public void refresh(Timestamp date) {
-        assert expired(date) : "Budget is refreshed only when expired";
-        long daysDiff = ChronoUnit.DAYS.between(endDate.getFullTimestamp(), date.getFullTimestamp());
-        long periodDays = ChronoUnit.DAYS.between(startDate.getFullTimestamp(), endDate.getFullTimestamp());
-        long cycles = daysDiff / periodDays;
-        long offset = cycles * periodDays;
-        startDate = endDate.plusDays(offset);
-        endDate = startDate.plus(period);
     }
 
     public boolean isPrimary() {
@@ -274,14 +246,6 @@ public class Budget {
             }
         }
         expenses.remove(toRemove);
-
-        /*
-        ObservableList<Expense> updatedExpenseList = FXCollections.observableArrayList();
-        updatedExpenseList.addAll(expenses);
-        updatedExpenseList.remove(toRemove);
-        expenses = updatedExpenseList;
-
-         */
     }
 
     public void clearExpenses() {
@@ -298,25 +262,17 @@ public class Budget {
             int index = expenses.indexOf(target);
             expenses.set(index, editedExpense);
         }
-        /*
-        ObservableList<Expense> updatedExpenseList = FXCollections.observableArrayList();
-        updatedExpenseList.addAll(expenses);
-        if (updatedExpenseList.contains(target)) {
-            int index = updatedExpenseList.indexOf(target);
-            updatedExpenseList.set(index, editedExpense);
-        }
-        expenses = updatedExpenseList;
-        */
-
     }
 
     public ObservableList<Expense> getCurrentPeriodExpenses() {
         ObservableList<Expense> currentPeriodExpenses = FXCollections.observableArrayList();
-        expenses.stream().forEach(expense -> {
-            if (withinCurrentPeriod(expense.getTimestamp())) {
-                currentPeriodExpenses.add(expense);
-            }
-        });
+        if (expenses != null) {
+            expenses.stream().forEach(expense -> {
+                if (withinCurrentPeriod(expense.getTimestamp())) {
+                    currentPeriodExpenses.add(expense);
+                }
+            });
+        }
         return currentPeriodExpenses;
     }
 
@@ -338,8 +294,8 @@ public class Budget {
      * @return A boolean indicating whether the timestamp is within the current period.
      */
     public boolean withinCurrentPeriod(Timestamp timestamp) {
-        return (timestamp.isAfter(startDate) || timestamp.isEqual(startDate))
-                && (timestamp.isBefore(endDate));
+        return timestamp.getDate().isAfter(startDate.getDate().minusDays(1))
+                && timestamp.getDate().isBefore(endDate.getDate().plusDays(1));
     }
 
     /**
@@ -368,9 +324,9 @@ public class Budget {
         Budget otherBudget = (Budget) other;
         return otherBudget.description.equals(description)
                 && otherBudget.amount.equals(amount)
-                && otherBudget.startDate.equals(startDate)
+                && otherBudget.startDate.getDate().equals(startDate.getDate())
                 && otherBudget.period.equals(period)
-                && otherBudget.endDate.equals(endDate)
+                && otherBudget.endDate.getDate().equals(endDate.getDate())
                 && otherBudget.expenses.equals(expenses)
                 && otherBudget.isPrimary == isPrimary
                 && otherBudget.proportionUsed.equals(proportionUsed);
@@ -379,7 +335,8 @@ public class Budget {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, startDate, period, amount);
+        return Objects.hash(description, amount, startDate, endDate, period, expenses,
+                isPrimary, proportionUsed);
     }
 
     @Override

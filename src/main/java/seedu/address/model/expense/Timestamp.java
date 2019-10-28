@@ -111,6 +111,10 @@ public class Timestamp implements Comparable<Timestamp> {
         return fullTimestamp;
     }
 
+    public LocalDate getDate() {
+        return fullTimestamp.toLocalDate();
+    }
+
     public boolean isBefore(Timestamp other) {
         return this.fullTimestamp.isBefore(other.fullTimestamp);
     }
