@@ -1,5 +1,7 @@
 package dukecooks.model.diary.components;
 
+import javafx.collections.ObservableList;
+
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
@@ -40,9 +42,7 @@ public class Diary {
         return diaryName;
     }
 
-    public ArrayList<Page> getPages() {
-        return pages;
-    }
+
 
     /**
      * Returns true if both persons of the same diaryName have at least one other identity field that is the same.

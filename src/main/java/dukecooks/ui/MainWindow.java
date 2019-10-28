@@ -245,6 +245,7 @@ public class MainWindow extends UiPart<Stage> {
             //TODO:
             versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
             featureMode.setText("Diary");
+            diaryListPanel.handleSwitch(type);
             break;
         default:
             //TODO: PLEASE EDIT THIS ERROR MESSAGE TO SOMETHING USEFUL!

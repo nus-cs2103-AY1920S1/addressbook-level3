@@ -319,6 +319,45 @@
     -fx-font-size: 25px;
 }
 
+#pageInputPanel #pageHeader {
+    -fx-font-size: 36px;
+}
+
+#pageInputPanel #pageSubHeader {
+    -fx-font-size: 20px;
+}
+
+#pageInputPanel .text-field {
+    -fx-prompt-text-fill: grey;
+    -fx-font-size: 12px;
+}
+
+#pageInputPanel #errorMessage {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}
+
+#pageInputPanel #confirmButton {
+    -fx-background-color: #81c784;
+    -fx-border-radius: 5;
+    -fx-text-fill: black;
+}
+
+#pageInputPanel #cancelButton {
+    -fx-background-color: #ff5252;
+    -fx-border-radius: 5;
+    -fx-text-fill: black ;
+}
+
+#pageViewPanel #diaryHeader {
+    -fx-font-size: 36;
+    -fx-background-color: #ffe0b2;
+}
+
+#pageViewPanel #diaryHeaderContainer {
+    -fx-background-color: #ffe0b2;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
