@@ -34,10 +34,15 @@ public class Photo {
 
     public Photo(String pathToPhoto) throws IllegalArgumentException {
         requireNonNull(pathToPhoto);
+        if (pathToPhoto.equals(PATH_TO_EXAMPLE_PHOTO)) {
+            originalDirectory = PATH_TO_EXAMPLE_PHOTO;
+            dataDirectory = PATH_TO_EXAMPLE_PHOTO;
+            return;
+        }
         this.originalDirectory = pathToPhoto;
         File photo = new File(originalDirectory);
         this.dataDirectory = PATH_TO_DATA_DIRECTORY + photo.getName();
-        copyToDataDirectory(photo.toPath(), Paths.get(this.dataDirectory));
+        copyToDataDirectory(Paths.get(originalDirectory), Paths.get(this.dataDirectory));
     }
 
     /**

@@ -39,7 +39,7 @@ class PhotoTest {
     @Test
     void toString_examplePhoto_equal() {
         assertEquals("Original Directory: " + Photo.PATH_TO_EXAMPLE_PHOTO + "\nData Directory: "
-                + "data\\photo\\ExamplePhoto.jpg", photo.toString());
+                + Photo.PATH_TO_EXAMPLE_PHOTO, photo.toString());
     }
 
     @Test
