@@ -60,7 +60,6 @@ public class StatusManager {
 
     public void addAvailableMan(Deliveryman deliveryman) {
         availableMen.add(deliveryman);
-        //scanStatusLists();
     }
 
     public void addUnavailableMan(Deliveryman deliveryman) {
@@ -73,7 +72,7 @@ public class StatusManager {
 
     public void removeDeliveryman(Deliveryman target) {
         requireNonNull(target);
-        //scanStatusLists();
+
         for (Deliveryman man: availableMen) {
             if (target.isSameDeliveryman(man)) {
                 availableMen.remove(man);
@@ -185,11 +184,9 @@ public class StatusManager {
         }
     }
 
-    /*
     /**
-     * Scans through the lists to check if they are correctly updated.
+     * Scans through the lists to check if they are correctly updated. Otherwise, correct the discrepancies.
      */
-    /*
     public void scanStatusLists() {
         for (Deliveryman man: availableMen) {
             if (!man.getStatus().getDescription().equals("AVAILABLE")) {
@@ -209,5 +206,5 @@ public class StatusManager {
             }
         }
     }
-    */
+
 }

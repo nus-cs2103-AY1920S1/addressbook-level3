@@ -7,7 +7,7 @@ import java.sql.Time;
  */
 public class DeliveryRecord {
 
-    private Time timeJoined;
+    public Time timeJoined;
     private int noOrdersCompleted;
 
 }
