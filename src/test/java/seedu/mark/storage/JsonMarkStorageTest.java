@@ -10,7 +10,6 @@ import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -21,7 +20,7 @@ import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Folder;
 
 public class JsonMarkStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonMarkStorageTest");
+    private static final Path TEST_DATA_FOLDER = Path.of("src", "test", "data", "JsonMarkStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -32,7 +31,7 @@ public class JsonMarkStorageTest {
     }
 
     private java.util.Optional<ReadOnlyMark> readMark(String filePath) throws Exception {
-        return new JsonMarkStorage(Paths.get(filePath)).readMark(addToTestDataPathIfNotNull(filePath));
+        return new JsonMarkStorage(Path.of(filePath)).readMark(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -98,7 +97,7 @@ public class JsonMarkStorageTest {
      */
     private void saveMark(ReadOnlyMark mark, String filePath) {
         try {
-            new JsonMarkStorage(Paths.get(filePath))
+            new JsonMarkStorage(Path.of(filePath))
                     .saveMark(mark, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

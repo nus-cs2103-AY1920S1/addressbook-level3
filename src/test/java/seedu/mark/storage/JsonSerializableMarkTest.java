@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.mark.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ import seedu.mark.testutil.TypicalBookmarks;
 
 public class JsonSerializableMarkTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableMarkTest");
+    private static final Path TEST_DATA_FOLDER = Path.of("src", "test", "data", "JsonSerializableMarkTest");
     private static final Path TYPICAL_BOOKMARKS_FILE = TEST_DATA_FOLDER.resolve("typicalBookmarksMark.json");
     private static final Path INVALID_BOOKMARK_FILE = TEST_DATA_FOLDER.resolve("invalidBookmarkMark.json");
     private static final Path DUPLICATE_BOOKMARK_FILE = TEST_DATA_FOLDER.resolve("duplicateBookmarkMark.json");
