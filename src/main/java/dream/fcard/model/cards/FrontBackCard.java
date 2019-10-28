@@ -60,7 +60,7 @@ public class FrontBackCard extends FlashCard {
      * @return Boolean value, if correct return true, else return false.
      * @throws IndexNotFoundException
      */
-    public Boolean evaluate(String in) throws IndexNotFoundException {
+    public Boolean evaluate(String in) {
         return in.equals(back);
     }
 

@@ -31,7 +31,7 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
      * @param in String input fron user.
      * @return Boolean value, true if user input matches FlashCard answer, else return false.
      */
-    public abstract Boolean evaluate(String in) throws IndexNotFoundException;
+    public abstract Boolean evaluate(String in);
 
     /**
      * Returns front text of card.

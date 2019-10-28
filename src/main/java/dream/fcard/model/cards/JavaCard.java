@@ -19,7 +19,7 @@ public class JavaCard extends FlashCard {
     }
 
     @Override
-    public Boolean evaluate(String in) throws IndexNotFoundException {
+    public Boolean evaluate(String in) {
         //TODO: Evaluating Java code can be done inside here
         return null;
     }
