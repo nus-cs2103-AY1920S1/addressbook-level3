@@ -117,6 +117,12 @@
     -fx-border-width: 1;
 }
 
+.card:hover {
+    -fx-border-color: #4a738a;
+    -fx-border-radius: 15px;
+    -fx-border-width: 2;
+}
+
 .card:focused > .stack-pane-days {
     -fx-background-color: #588fa8;
 }
