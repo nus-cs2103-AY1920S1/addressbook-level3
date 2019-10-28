@@ -54,21 +54,21 @@ public class InviteCommandTest {
         model.setContext(new Context(activity));
         List<String> peopleToInvite = new ArrayList<>();
         peopleToInvite.add(ALICE.getName().toString());
-        List<Integer> IdsToInvite = new ArrayList<>();
-        IdsToInvite.add(ALICE.getPrimaryKey());
+        List<Integer> idsToInvite = new ArrayList<>();
+        idsToInvite.add(ALICE.getPrimaryKey());
         InviteCommand inviteCommand = new InviteCommand(peopleToInvite);
         inviteCommand.execute(model);
 
         assertEquals(1, activity.getParticipantIds().size());
-        assertEquals(IdsToInvite, activity.getParticipantIds());
+        assertEquals(idsToInvite, activity.getParticipantIds());
 
         peopleToInvite.add(BENSON.getName().fullName);
-        IdsToInvite.add(BENSON.getPrimaryKey());
+        idsToInvite.add(BENSON.getPrimaryKey());
         inviteCommand = new InviteCommand(peopleToInvite);
         inviteCommand.execute(model);
 
         assertEquals(2, activity.getParticipantIds().size());
-        assertEquals(IdsToInvite, activity.getParticipantIds());
+        assertEquals(idsToInvite, activity.getParticipantIds());
 
 
     }
@@ -82,24 +82,24 @@ public class InviteCommandTest {
         model.addActivity(activity);
         model.setContext(new Context(activity));
         List<String> peopleToInvite = new ArrayList<>();
-        List<Integer> IdsToInvite = new ArrayList<>();
+        List<Integer> idsToInvite = new ArrayList<>();
         peopleToInvite.add(ALICE.getName().toString());
         peopleToInvite.add(ALICE.getName().toString());
-        IdsToInvite.add(ALICE.getPrimaryKey());
+        idsToInvite.add(ALICE.getPrimaryKey());
         InviteCommand inviteCommand = new InviteCommand(peopleToInvite);
         inviteCommand.execute(model);
 
         assertEquals(1, activity.getParticipantIds().size());
-        assertEquals(IdsToInvite, activity.getParticipantIds());
+        assertEquals(idsToInvite, activity.getParticipantIds());
 
         peopleToInvite.add(BENSON.getName().toString());
         peopleToInvite.add(BENSON.getName().toString());
-        IdsToInvite.add(BENSON.getPrimaryKey());
+        idsToInvite.add(BENSON.getPrimaryKey());
         inviteCommand = new InviteCommand(peopleToInvite);
         inviteCommand.execute(model);
 
         assertEquals(2, activity.getParticipantIds().size());
-        assertEquals(IdsToInvite, activity.getParticipantIds());
+        assertEquals(idsToInvite, activity.getParticipantIds());
     }
 
     @Test
@@ -111,22 +111,22 @@ public class InviteCommandTest {
         model.addActivity(activity);
         model.setContext(new Context(activity));
         List<String> peopleToInvite = new ArrayList<>();
-        List<Integer> IdsToInvite = new ArrayList<>();
+        List<Integer> idsToInvite = new ArrayList<>();
         peopleToInvite.add(ALICE.getName().fullName);
-        IdsToInvite.add(ALICE.getPrimaryKey());
+        idsToInvite.add(ALICE.getPrimaryKey());
         InviteCommand inviteCommand = new InviteCommand(peopleToInvite);
         inviteCommand.execute(model);
 
         assertEquals(1, activity.getParticipantIds().size());
-        assertEquals(IdsToInvite, activity.getParticipantIds());
+        assertEquals(idsToInvite, activity.getParticipantIds());
 
         peopleToInvite.add(BENSON.getName().fullName);
-        IdsToInvite.add(BENSON.getPrimaryKey());
+        idsToInvite.add(BENSON.getPrimaryKey());
         inviteCommand = new InviteCommand(peopleToInvite);
         inviteCommand.execute(model);
 
         assertEquals(2, activity.getParticipantIds().size());
-        assertEquals(IdsToInvite, activity.getParticipantIds());
+        assertEquals(idsToInvite, activity.getParticipantIds());
 
     }
 
