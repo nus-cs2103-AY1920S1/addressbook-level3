@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
@@ -81,12 +82,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 PatientReferenceId.class.getSimpleName()));
         }
-        if (!PersonReferenceId.isValidId(id)) {
-            throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
-        } else if (!PatientReferenceId.isValidPatientId(id)) {
-            throw new ParseException(PatientReferenceId.MESSAGE_CONSTRAINTS);
-        }
-        final PatientReferenceId modelReferenceId = new PatientReferenceId(id);
+        final PersonReferenceId modelReferenceId = ParserUtil.parsePatientReferenceId(id);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

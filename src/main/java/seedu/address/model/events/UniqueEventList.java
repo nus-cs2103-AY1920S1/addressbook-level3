@@ -53,7 +53,7 @@ public class UniqueEventList extends UniqueElementList<Event> {
 
     /**
      * Returns true if the number of unique events which timings are in conflict
-     * is lesser or equal to {@code maxNumberofConcurrentEvents} and the events in conflict does not
+     * is lesser or equal to {@code maxNumberOfConcurrentEvents} and the events in conflict does not
      * involve the same person given in {@code event}.
      */
     public boolean allowedToSchedule(Event toCheck, int maxNumberOfConcurrentEvents) {
