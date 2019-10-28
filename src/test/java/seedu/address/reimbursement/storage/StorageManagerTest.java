@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.TypicalReimbursements;
+import seedu.address.testutil.TypicalTransactions;
 
 
 public class StorageManagerTest {
@@ -16,6 +17,8 @@ public class StorageManagerTest {
     private StorageManager storageManager;
 
     public StorageManagerTest() {
+        TypicalTransactions.resetTransactionsForReimbursement();
+        TypicalReimbursements.resetReimbursements();
         try {
             file = File.createTempFile("testingStorage", "tempReimbursement.txt");
             file.deleteOnExit();
@@ -24,7 +27,6 @@ public class StorageManagerTest {
             throw new AssertionError("This constructor should not throw an exception.");
         }
     }
-
 
     @Test
     public void fileReadSave() throws Exception {

@@ -10,15 +10,17 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
-import seedu.address.testutil.ReimbursementBuilder;
-import seedu.address.testutil.TransactionBuilder;
-import seedu.address.testutil.TypicalDeadlines;
-import seedu.address.testutil.TypicalPersons;
-import seedu.address.testutil.TypicalTransactions;
+import seedu.address.testutil.*;
 import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.util.TransactionList;
 
 public class ReimbursementListTest {
+
+    public ReimbursementListTest() {
+        TypicalTransactions.resetTransactionsForReimbursement();
+        TypicalReimbursements.resetReimbursements();
+    }
+
     @Test
     public void constructor_empty_success() {
         ReimbursementList reimbursementList = new ReimbursementList();

@@ -20,6 +20,11 @@ import seedu.address.transaction.model.Transaction;
 
 public class ReimbursementTest {
 
+    public ReimbursementTest() {
+        TypicalTransactions.resetTransactionsForReimbursement();
+        TypicalReimbursements.resetReimbursements();
+    }
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Reimbursement(null));

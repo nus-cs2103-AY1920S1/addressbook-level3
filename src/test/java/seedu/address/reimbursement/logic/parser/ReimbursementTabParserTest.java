@@ -18,10 +18,19 @@ import seedu.address.reimbursement.logic.commands.SortAmountCommand;
 import seedu.address.reimbursement.logic.commands.SortDeadlineCommand;
 import seedu.address.reimbursement.logic.commands.SortNameCommand;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalReimbursements;
+import seedu.address.testutil.TypicalTransactions;
 
 public class ReimbursementTabParserTest {
-    private static final ReimbursementTabParser parser = new ReimbursementTabParser();
-    private Model personModel = new ModelManager();
+    private static ReimbursementTabParser parser;
+    private Model personModel;
+
+    public ReimbursementTabParserTest() {
+        TypicalTransactions.resetTransactionsForReimbursement();
+        TypicalReimbursements.resetReimbursements();
+        parser = new ReimbursementTabParser();
+        personModel = new ModelManager();
+    }
 
     @Test
     public void parser_invalidCommand_exceptionThrown() {

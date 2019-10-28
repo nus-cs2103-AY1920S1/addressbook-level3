@@ -30,8 +30,10 @@ public class LogicManagerTest {
     private Logic logic;
 
     public LogicManagerTest() {
-        try {
+        TypicalTransactions.resetTransactionsForReimbursement();
+        TypicalReimbursements.resetReimbursements();
 
+        try {
             reimbursementModel = new ModelManager(TypicalReimbursements.getTypicalReimbursements());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
