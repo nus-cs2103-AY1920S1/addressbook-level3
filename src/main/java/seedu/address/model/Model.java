@@ -284,6 +284,10 @@ public interface Model {
      */
     void updateSidePanelDisplay(SidePanelDisplayType type);
 
+    /**
+     * Gets the user information.
+     */
+    Person getUser();
     //=========== Suggesters =============================================================
 
     /**

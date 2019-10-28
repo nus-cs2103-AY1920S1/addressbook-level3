@@ -1,5 +1,9 @@
 package seedu.address.ui.util;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -9,15 +13,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.ui.UiPart;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
-
 /**
  * A class to show the calendar view in default home page.
  */
 public class Calendar extends UiPart<Region> {
-    private static String FXML = "Calendar.fxml";
+    private static final String FXML = "Calendar.fxml";
     private LocalDate today;
 
     @FXML
@@ -42,7 +42,10 @@ public class Calendar extends UiPart<Region> {
         fillInDates();
     }
 
-    public void initialiseCalendarHeader() {
+    /**
+     * Method to initialise calendar headers from MON to SUN.
+     */
+    private void initialiseCalendarHeader() {
         for (int i = 1; i <= 7; i++) {
             String day = DayOfWeek.of(i).toString().substring(0, 3);
             Label dayLabel = new Label(day);
@@ -50,7 +53,10 @@ public class Calendar extends UiPart<Region> {
         }
     }
 
-    public void fillInDateArray() {
+    /**
+     * Helper method to fill in array with dates to easily generate the calendar view.
+     */
+    private void fillInDateArray() {
         Month month = today.getMonth();
         LocalDate startingDate = LocalDate.of(today.getYear(), month, 1);
         int offset = startingDate.getDayOfWeek().getValue() - 1;
@@ -65,7 +71,10 @@ public class Calendar extends UiPart<Region> {
         }
     }
 
-    public void fillInDates() {
+    /**
+     * Method to put the date labels in the calendar.
+     */
+    private void fillInDates() {
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 6; j++) {
                 LocalDate date = dateArray[i + j * 7];
@@ -83,6 +92,11 @@ public class Calendar extends UiPart<Region> {
         }
     }
 
+    /**
+     * Method to wrap label in the container for styling purposes.
+     * @param label Label to be wrapped in container.
+     * @return The container that has wrapped the label.
+     */
     private StackPane wrapLabelInStackPane(Label label) {
         Region region = new Region();
         StackPane stackPane = new StackPane();

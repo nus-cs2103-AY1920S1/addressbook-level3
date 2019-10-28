@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.ui.util.GroupDetailCard;
 import seedu.address.ui.util.MemberList;
@@ -30,7 +30,8 @@ public class GroupInformation extends UiPart<Region> {
 
     public GroupInformation(ScheduleWindowDisplay scheduleWindowDisplay, List<String> colors) {
         super(FXML);
-        List<WeekSchedule> wkschds = MonthSchedule.getWeekSchedulesForWeek(scheduleWindowDisplay.getMonthSchedules(), 0);
+        List<WeekSchedule> wkschds = MonthSchedule.getWeekSchedulesForWeek(scheduleWindowDisplay.getMonthSchedules(),
+                0);
         ArrayList<String> names = wkschds.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));

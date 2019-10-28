@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
  * A class to generate the locations view display.
  */
 public class LocationsView extends UiPart<Region> {
-    private static String FXML = "LocationsView.fxml";
+    private static final String FXML = "LocationsView.fxml";
 
     private static String firstLocation = "First choice: ";
     private static String secondLocation = "Second choice: ";
@@ -33,7 +33,8 @@ public class LocationsView extends UiPart<Region> {
         imageView.setFitWidth(400.0);
         imageView.setFitHeight(400.0);
         locationMapPlaceholder.getChildren().add(imageView);
-        textContainer.getChildren().addAll(new Label(firstLocation), new Label(secondLocation), new Label(thirdLocation));
+        textContainer.getChildren().addAll(new Label(firstLocation),
+                new Label(secondLocation), new Label(thirdLocation));
     }
 
 }

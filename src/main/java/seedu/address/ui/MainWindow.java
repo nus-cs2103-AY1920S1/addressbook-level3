@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -26,8 +26,6 @@ import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
-import seedu.address.model.person.ScheduleStub;
-import seedu.address.model.person.schedule.Event;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.DefaultStartView;
@@ -56,9 +54,6 @@ public class MainWindow extends UiPart<Stage> {
     private ScheduleViewManager scheduleViewManager;
 
     private SidePanelDisplayType currentSidePanelDisplay;
-
-    //Stubs
-    private List<Event> eventStubs = new ScheduleStub().eventStubs();
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -162,7 +157,10 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
-        detailsViewPlaceholder.getChildren().add(new DefaultStartView(eventStubs).getRoot());
+        detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
+                .getMonthSchedules().get(0)
+                .getWeekScheduleOf(0)
+                .getWeekSchedule().get(LocalDate.now().getDayOfWeek())).getRoot());
     }
 
     /**
@@ -337,7 +335,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleTabSwitch();
                 break;
             case HOME:
-                handleChangeOnDetailsView(new DefaultStartView(eventStubs).getRoot());
+                handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
+                        .getMonthSchedules().get(0)
+                        .getWeekScheduleOf(0)
+                        .getWeekSchedule().get(LocalDate.now().getDayOfWeek())).getRoot());
                 handleChangeToTabsPanel();
                 break;
             default:

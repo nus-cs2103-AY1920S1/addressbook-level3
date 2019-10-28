@@ -17,9 +17,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -43,6 +43,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.UserStub;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.websocket.Cache;
@@ -73,6 +74,7 @@ public class ModelManager implements Model {
     // UI display
     private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
+    private Person user = new UserStub();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -93,6 +95,7 @@ public class ModelManager implements Model {
         this.personList = personList;
         this.groupList = groupList;
         this.personToGroupMappingList = personToGroupMappingList;
+        initialiseDefaultWindowDisplay();
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
@@ -126,6 +129,7 @@ public class ModelManager implements Model {
         Group.setCounter(groupCounter + 1);
 
         this.userPrefs = new UserPrefs(userPrefs);
+        initialiseDefaultWindowDisplay();
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
@@ -263,7 +267,9 @@ public class ModelManager implements Model {
     @Override
     public Person findPerson(Name name) {
         Person person = personList.findPerson(name);
-        if (person != null) {
+        if (name.equals(user.getName())) {
+            return user;
+        } else if (person != null) {
             return person;
         } else {
             return null;
@@ -412,6 +418,11 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
+    public Person getUser() {
+        return user;
+    }
+
+    @Override
     public ScheduleWindowDisplay getScheduleWindowDisplay() {
         return scheduleWindowDisplay;
     }
@@ -475,6 +486,10 @@ public class ModelManager implements Model {
         }
         sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
         updateSidePanelDisplay(sidePanelDisplay);
+    }
+
+    public void initialiseDefaultWindowDisplay() {
+        updateDetailWindowDisplay(user.getName(), LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
     }
 
     //=========== Suggesters =============================================================

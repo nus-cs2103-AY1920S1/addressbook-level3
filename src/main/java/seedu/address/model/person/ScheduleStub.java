@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.display.schedulewindow.DayTimeslot;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.person.schedule.Event;
@@ -45,7 +46,7 @@ public class ScheduleStub {
     public ScheduleStub() {
     }
 
-    public WeekSchedule getSchedule() {
+    public WeekSchedule getWeekSchedule() {
         p.setName(new Name("AlexwithaverylongnameSolongthateventhespellingofthisentiresentenceisonlyafraction"
                 + "ofhistruename"));
         Event monday1pmTo3pm = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2, timeslot3,
@@ -55,17 +56,25 @@ public class ScheduleStub {
         return new WeekSchedule("TestSchedule", LocalDateTime.now(), p, Role.emptyRole());
     }
 
-    public List<Event> eventStubs() {
-        Event event1 = new Event("Test run!");
-        Event event2 = new Event("Test run 2");
-        Event event3 = new Event("Test run 3");
-        Event event4 = new Event("E4");
-        Event event5 = new Event("E5");
-        event1.addTimeslot(timeslot1);
-        event2.addTimeslot(timeslot2);
-        event3.addTimeslot(timeslot3);
-        event4.addTimeslot(timeslot4);
-        event5.addTimeslot(timeslot5);
+    public Schedule getSchedule() {
+        p.setName(new Name("ME"));
+        Event event = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2)));
+        Schedule result = new Schedule(new PersonId(-1));
+        schedule.addEvent(event);
+        return schedule;
+    }
+
+    /**
+     * Stub to create a list of day timeslots to show the events that is happening on this day.
+     * @return List of DayTimeslot.
+     */
+    public List<DayTimeslot> eventStubs() {
+        DayTimeslot event1 = new DayTimeslot("Test run1!", startTime1.toLocalTime(), endTime1.toLocalTime(), venue);
+        DayTimeslot event2 = new DayTimeslot("Test run2!", startTime2.toLocalTime(), endTime2.toLocalTime(), venue);
+        DayTimeslot event3 = new DayTimeslot("Test run3!", startTime3.toLocalTime(), endTime3.toLocalTime(), venue);
+        DayTimeslot event4 = new DayTimeslot("Test run4!", startTime4.toLocalTime(), endTime4.toLocalTime(), venue);
+        DayTimeslot event5 = new DayTimeslot("Test run5!", startTime5.toLocalTime(), endTime5.toLocalTime(), venue);
+
         return List.of(event1, event2, event3, event4, event5);
     }
 }

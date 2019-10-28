@@ -16,17 +16,17 @@ public interface ScheduleViewManager {
         ArrayList<String> colors = ColorGenerator
                 .generateColorList(scheduleWindowDisplay.getMonthSchedules().size());
         switch(displayType) {
-            case PERSON:
-                //There is only 1 schedule in the scheduleWindowDisplay
-                return new IndividualScheduleViewManager(scheduleWindowDisplay.getMonthSchedules().get(0),
-                        scheduleWindowDisplay.getMonthSchedules().get(0).getPersonDisplay(), colors.get(0));
-            case GROUP:
-                return new GroupScheduleViewManager(scheduleWindowDisplay.getMonthSchedules(),
-                        colors,
-                        scheduleWindowDisplay.getGroupDisplay().getGroupName(),
-                        scheduleWindowDisplay.getFreeSchedules());
-            default:
-                break;
+        case PERSON:
+            //There is only 1 schedule in the scheduleWindowDisplay
+            return new IndividualScheduleViewManager(scheduleWindowDisplay.getMonthSchedules().get(0),
+                    scheduleWindowDisplay.getMonthSchedules().get(0).getPersonDisplay(), colors.get(0));
+        case GROUP:
+            return new GroupScheduleViewManager(scheduleWindowDisplay.getMonthSchedules(),
+                    colors,
+                    scheduleWindowDisplay.getGroupDisplay().getGroupName(),
+                    scheduleWindowDisplay.getFreeSchedules());
+        default:
+            break;
         }
         return null;
     }

@@ -28,10 +28,10 @@ public class MonthSchedule {
 
     public MonthSchedule(Person person, LocalDateTime now, Role role) {
         this.role = role;
-        weekSchedules[0] = new WeekSchedule(person.getName().fullName, now, person, Role.emptyRole());
-        weekSchedules[1] = new WeekSchedule(person.getName().fullName, now.plusDays(7), person, Role.emptyRole());
-        weekSchedules[2] = new WeekSchedule(person.getName().fullName, now.plusDays(14), person, Role.emptyRole());
-        weekSchedules[3] = new WeekSchedule(person.getName().fullName, now.plusDays(21), person, Role.emptyRole());
+        weekSchedules[0] = new WeekSchedule(person.getName().fullName, now, person, role);
+        weekSchedules[1] = new WeekSchedule(person.getName().fullName, now.plusDays(7), person, role);
+        weekSchedules[2] = new WeekSchedule(person.getName().fullName, now.plusDays(14), person, role);
+        weekSchedules[3] = new WeekSchedule(person.getName().fullName, now.plusDays(21), person, role);
         personDisplay = new PersonDisplay(person);
     }
 

@@ -5,6 +5,9 @@ import seedu.address.model.Model;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 
+/**
+ * Command to toggle schedule view to show the subsequent week.
+ */
 public class ToggleNextWeekCommand extends Command {
 
     public static final String COMMAND_WORD = "nw";

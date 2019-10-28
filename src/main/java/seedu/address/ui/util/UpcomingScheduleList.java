@@ -8,10 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.person.schedule.Event;
-import seedu.address.model.person.schedule.Timeslot;
+import seedu.address.model.display.schedulewindow.DayTimeslot;
 import seedu.address.ui.UiPart;
 
+/**
+ * Ui Component to show the upcoming schedules for the user.
+ */
 public class UpcomingScheduleList extends UiPart<Region> {
     private static final String FXML = "UpcomingScheduleList.fxml";
 
@@ -23,9 +25,9 @@ public class UpcomingScheduleList extends UiPart<Region> {
     private VBox scheduleCards;
 
     private LocalDate date;
-    private List<Event> eventsToday;
+    private List<DayTimeslot> eventsToday;
 
-    public UpcomingScheduleList(LocalDate date, List<Event> eventsToday) {
+    public UpcomingScheduleList(LocalDate date, List<DayTimeslot> eventsToday) {
         super(FXML);
         this.eventsToday = eventsToday;
         this.date = date;
@@ -34,13 +36,13 @@ public class UpcomingScheduleList extends UiPart<Region> {
         initialiseContent();
     }
 
+    /**
+     * Method to initialise contents in the container of the list.
+     */
     public void initialiseContent() {
-        for (int i = 0; i < eventsToday.size(); i++) {
-            Event event = eventsToday.get(i);
-            for (Timeslot t : event.getTimeslots()) {
-                ScheduleDisplayCard scheduleDisplayCard = new ScheduleDisplayCard(event.getEventName(), t);
-                scheduleCards.getChildren().add(scheduleDisplayCard.getRoot());
-            }
+        for (DayTimeslot t : eventsToday) {
+            ScheduleDisplayCard scheduleDisplayCard = new ScheduleDisplayCard(t);
+            scheduleCards.getChildren().add(scheduleDisplayCard.getRoot());
         }
     }
 }

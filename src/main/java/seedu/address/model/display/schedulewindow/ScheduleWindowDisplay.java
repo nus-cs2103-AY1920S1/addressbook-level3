@@ -21,14 +21,15 @@ public class ScheduleWindowDisplay {
      * @param scheduleWindowDisplayType The type to be displayed.
      * @param groupDisplay Group information to be displayed.
      */
-    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules, ScheduleWindowDisplayType scheduleWindowDisplayType,
+    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules,
+                                 ScheduleWindowDisplayType scheduleWindowDisplayType,
                                  GroupDisplay groupDisplay) {
         this.scheduleWindowDisplayType = scheduleWindowDisplayType;
         this.monthSchedules = monthSchedules;
         this.groupDisplay = groupDisplay;
 
         this.freeSchedules = new ArrayList<>();
-        for (int i = 0 ; i < monthSchedules.size(); i++) {
+        for (int i = 0; i < monthSchedules.size(); i++) {
             ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 weekSchedules.add(monthSchedules.get(i).getWeekScheduleOf(j));
@@ -42,13 +43,14 @@ public class ScheduleWindowDisplay {
      * @param monthSchedules Contains 1 WeekSchedule Object.
      * @param scheduleWindowDisplayType Most likely to be PERSON.
      */
-    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules, ScheduleWindowDisplayType scheduleWindowDisplayType) {
+    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules,
+                                 ScheduleWindowDisplayType scheduleWindowDisplayType) {
         this.scheduleWindowDisplayType = scheduleWindowDisplayType;
         this.monthSchedules = monthSchedules;
         this.groupDisplay = null;
 
         this.freeSchedules = new ArrayList<>();
-        for (int i = 0 ; i < monthSchedules.size(); i++) {
+        for (int i = 0; i < monthSchedules.size(); i++) {
             ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 weekSchedules.add(monthSchedules.get(i).getWeekScheduleOf(j));
