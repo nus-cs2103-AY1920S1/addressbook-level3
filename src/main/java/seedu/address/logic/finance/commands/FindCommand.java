@@ -4,32 +4,48 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.finance.Model;
-import seedu.address.model.finance.logentry.DescriptionContainsKeywordsPredicate;
-
+import seedu.address.model.finance.logentry.LogEntryContainsCategoriesPredicate;
+import seedu.address.model.finance.logentry.LogEntryContainsKeywordsPredicate;
+import seedu.address.model.finance.logentry.LogEntryMatchLogEntryTypesPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all log entries in finance log with fields containing any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all log entries whose description contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers. "
+            + "Sorting by amount or day, or filtering by entry type (Spend, Income, Borrow, Lend) is also possible. "
+            + "At least one field must be filled in.\n"
+            + "Parameters: <sort> day/amount <filter> spend/income/borrow/lend "
+            + "<keyword> KEYWORD [MORE_KEYWORDS]... <cat> CATEGORY_NAME [MORE_CATEGORY_NAMES]\n"
+            + "Example: " + COMMAND_WORD + "<sort> day <filter> borrow";
 
-    private final DescriptionContainsKeywordsPredicate predicate;
+    private final String sortAttr;
+    private final LogEntryMatchLogEntryTypesPredicate logEntryTypesPredicate;
+    private final LogEntryContainsKeywordsPredicate keywordsPredicate;
+    private final LogEntryContainsCategoriesPredicate categoriesPredicate;
 
-    public FindCommand(DescriptionContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(String sortAttr,
+                       LogEntryMatchLogEntryTypesPredicate logEntryTypesPredicate,
+                       LogEntryContainsKeywordsPredicate keywordsPredicate,
+                       LogEntryContainsCategoriesPredicate categoriesPredicate) {
+        this.sortAttr = sortAttr;
+        this.logEntryTypesPredicate = logEntryTypesPredicate;
+        this.keywordsPredicate = keywordsPredicate;
+        this.categoriesPredicate = categoriesPredicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredLogEntryList(predicate);
+        model.updateFilteredLogEntryList(logEntryTypesPredicate);
+        model.updateFilteredLogEntryList(keywordsPredicate);
+        model.updateFilteredLogEntryList(categoriesPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_LOG_ENTRIES_LISTED_OVERVIEW, model.getFilteredLogEntryList().size()));
     }
@@ -38,6 +54,9 @@ public class FindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && sortAttr.equals(((FindCommand) other).sortAttr)
+                && logEntryTypesPredicate.equals(((FindCommand) other).logEntryTypesPredicate)
+                && keywordsPredicate.equals(((FindCommand) other).keywordsPredicate)
+                && categoriesPredicate.equals(((FindCommand) other).categoriesPredicate)); // state check
     }
 }

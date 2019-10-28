@@ -11,9 +11,11 @@ import seedu.address.logic.finance.commands.Command;
 import seedu.address.logic.finance.commands.DeleteCommand;
 import seedu.address.logic.finance.commands.EditCommand;
 import seedu.address.logic.finance.commands.ExitCommand;
+import seedu.address.logic.finance.commands.FindCommand;
 import seedu.address.logic.finance.commands.HelpCommand;
 import seedu.address.logic.finance.commands.IncomeCommand;
 import seedu.address.logic.finance.commands.LendCommand;
+import seedu.address.logic.finance.commands.ListCommand;
 import seedu.address.logic.finance.commands.SpendCommand;
 import seedu.address.logic.finance.commands.SwitchCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
@@ -63,6 +65,12 @@ public class FinanceLogParser {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
