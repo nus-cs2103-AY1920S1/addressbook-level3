@@ -18,7 +18,7 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 
 == Introduction
 
-*Creating and managing your students and classes have never been easier.* Njoy assistant aims to enable teachers to easily manage their students and activities right from their keyboard. With just a few commands, you will be able to *manage your classes, create questions, generate quizzes and much more!*
+*Creating and managing your students and classes have never been easier.* Njoy assistant aims to enable teachers to easily manage their students and activities right from their keyboard. With just a few commands, you will be able to *manage your classes, create questions, generate quizzes and much more!* Interested? Jump to the <<Getting Started>> to get started.
 
 == Features
 
@@ -43,6 +43,16 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 .. Trends of the academic year
 
 == Getting Started
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `njoy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your NjoyAssistant.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. +
 
 === Running .jar file
 . Download the njoy.jar file
@@ -135,7 +145,7 @@ e.g. `/note create general “Remember to attend cca briefing”`
 e.g. `/note create class unity “Remember to meet john after class”`
 ////
 
-=== Generating Questions ​-​ `/question`
+=== Generating Questions ​-​ `question`
 
 Create and store questions according to the type specified.
 
@@ -144,25 +154,125 @@ e.g. `/question open “Which year did Singapore gain independence?” “1965�
 . *MCQs* ​- `/question mcq “[topic]” “[answer]” “[option1]” “[option2]” “[option3]” “[option 4]”` +
 e.g `​/question mcq “Which year did Singapore gain independence?” “1965” “1963” “2019” “1926” “1965”`
 
-=== Quizzes ​-​ `/quiz`
+=== Quizzes ​-​ `quiz`
 
-Create and store quizzes using questions specified. Users are also able to edit the quizzes after creation.
+==== Creating a Quiz manually: `manual`
 
-. *Creating quizzes manually* ​- `/quiz manual/ quizID/[quizName] questionNumbers/[questionNumbers]` +
-e.g. `/quiz manual/ quizID/CS2103T_Quiz questionNumbers/1 2 3`
-This creates a quiz named "CS2103T_Quiz" and adds question numbers 1, 2 and 3 from the question bank to the quiz.
-. *Creating quizzes automatically* ​- `/quiz auto/ quizID/[quizName] numQuestions/[numberOfQuestions] type/[typeOfQuestion]` +
-e.g. `/quiz auto/ quizID/CS2103T_Quiz numQuestions/3 type/open`
-This creates a quiz named "CS2103T_Quiz" and adds 3 questions from the question bank to the quiz, ensuring there are no duplicates.
-. *Adding questions to quizzes* ​- `/quiz add quizID/[quizName] questionNumber/[questionNumber] quizQuestionNumber/[quizQuestionNumber]` +
-e.g. `/quiz add quizID/CS2103T_Quiz questionNumber/1 quizQuestionNumber/3`
-This adds the question number 1 from the question bank to the quiz "CS2103T_Quiz"'s question number 3, shifting questions previously at or after question 3, down by 1 question. I.e question 3 becomes question 4, question 4 becomes question 5 to accomodate for the added question.
-. *Removing questions from quizzes* ​- `/quiz remove quizID/[quizName] quizQuestionNumber/[quizQuestionNumber]` +
-e.g. `/quiz remove quizID/CS2103T_Quiz quizQuestionNumber/3`
-This removes the question number 3 from the quiz "CS2103T_Quiz", shifting questions previously after question 3, up by 1 question. I.e question 4 becomes question 3, question 5 becomes question 4 to acoomodate for the removed question.
-. *List all questions and answers in a readable format* ​- `/quiz list quizID/[quizName]` +
-e.g. `/quiz list quizID/CS2103T_Quiz`
-This fetches the quiz named "CS2103T_Quiz" and displays all the questions followed by answers of the quiz.
+Allows a user to create a quiz manually. +
+Format: `quiz manual quizID/... questionNumber/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of the quiz)
+- `Question Numbers` (The question numbers you want to add to the quiz)
+
+Examples:
+
+* `quiz manual quizID/CS2103T questionNumber/1 2 3` +
+Adds question numbers 1, 2 and 3 to the quiz named CS2103T.
+
+==== Creating a Quiz automatically: `auto`
+
+Allows a user to create a quiz automatically. +
+Format: `quiz auto quizID/... numQuestions/... type/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of the quiz)
+- `Number of Questions` (The number of questions you want added to the quiz)
+- `Question Type` (mcq, open, all)
+
+Examples:
+
+* `quiz auto quizID/CS2103T numQuestions/2 type/mcq` +
+Adds 2 questions of type mcq to the quiz named CS2103T.
+
+==== Adding a Question to a Quiz: `add`
+
+Allows a user to add a question to a quiz. +
+Format: `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of your quiz)
+- `Question Number` (The question number you want to add to the quiz)
+- `Quiz Question Number` (The question number in the quiz you want to add the question to)
+
+Examples:
+
+* `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3` +
+Adds question 2 to the quiz question number 3 for the quiz named CS2103T.
+
+==== Deleting a Question from a Quiz: `delete`
+
+Allows a user to delete a question from a quiz. +
+Format: `quiz delete quizID/... quizQuestionNumber/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of the quiz)
+- `Quiz Question Number` (The question number of the question in the quiz to be deleted)
+
+Examples:
+
+* `quiz delete quizID/CS2103T quizQuestionNumber/3` +
+Deletes the quiz question number 3 for the quiz named CS2103T.
+
+==== Exporting a Quiz to HTML: `export`
+
+Allows a user to export a quiz to a HTML file. +
+Format: `quiz export quizID/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of the quiz)
+
+Examples:
+
+* `quiz export quizID/CS2103T` +
+Exports the quiz named CS2103T to a HTML file.
+
+==== Listing a Quiz: `list`
+
+Allows a user to list a quiz's questions and answers. +
+Format: `quiz list quizID/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of the quiz)
+
+Examples:
+
+* `quiz list quizID/CS2103T` +
+Lists the questions and answers for the quiz named CS2103T.
+
+==== Showing only a Quiz's Questions: `showQuestions`
+
+Allows a user to show only a quiz's questions. +
+Format: `quiz showQuestions quizID/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of the quiz)
+
+Examples:
+
+* `quiz showQuestions quizID/CS2103T` +
+Shows only the questions for the quiz named CS2103T.
+
+==== Showing only a Quiz's Answers: `showAnswers`
+
+Allows a user to show only a quiz's answers. +
+Format: `quiz showAnswers quizID/...`
+
+The format supported by this feature includes:
+
+- `Quiz ID` (The name of the quiz)
+
+Examples:
+
+* `quiz showAnswers quizID/CS2103T` +
+Shows only the answers for the quiz named CS2103T.
 
 === Help ​-​ `/help`
 
@@ -172,3 +282,14 @@ Show all available commands usable in the application.
 
 *Q*: Typing a command result in “Invalid command entered.” +
 *A*: Please ensure that the command is entered as specified in the format above. Note that all fields all mandatory except those marked as ​(optional).​
+
+== Command Summary
+
+* *Help* : `help`
+* *Creating a Quiz Manually* : `quiz manual quizID/... questionNumber/...`
+* *Creating a Quiz Automatically* : `quiz auto quizID/... numQuestions/... type/...` [Where type is: mcq, open or all]
+* *Adding a Question to Quiz* : `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
+* *Deleting a Question from Quiz* : `quiz delete quizID/... quizQuestionNumber/...`
+* *Listing a Quiz* : `quiz list quizID/...`
+* *Showing only Questions of a Quiz* : `quiz showQuestions quizID/...`
+* *Showing only Answers of a Quiz* : `quiz showAnswers quizID/...`

@@ -72,8 +72,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_GROUP_INDEX_NUMBER = new Prefix("groupIndexNumber/");
 
     public static final Prefix PREFIX_QUIZ = new Prefix("quiz/");
-    public static final Prefix PREFIX_MODE_AUTO = new Prefix("auto/");
-    public static final Prefix PREFIX_MODE_MANUAL = new Prefix("manual/");
+    public static final Prefix PREFIX_MODE_AUTO = new Prefix("auto");
+    public static final Prefix PREFIX_MODE_MANUAL = new Prefix("manual");
     public static final Prefix PREFIX_QUIZ_ID = new Prefix("quizID/");
     public static final Prefix PREFIX_NUM_QUESTIONS = new Prefix("numQuestions/");
     public static final Prefix PREFIX_QUESTION_NUMBER = new Prefix("questionNumber/");
