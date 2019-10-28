@@ -42,4 +42,14 @@ public class Movie extends Show {
         return 0;
     }
 
+    @Override
+    public int getNumOfSeasons() {
+        return 0;
+    }
+
+    @Override
+    public int getNumOfEpisodesOfSeason(int seasonNum) {
+        return 0;
+    }
+
 }

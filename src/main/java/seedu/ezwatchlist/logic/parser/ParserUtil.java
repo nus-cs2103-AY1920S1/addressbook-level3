@@ -22,7 +22,7 @@ import seedu.ezwatchlist.model.show.RunningTime;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_NUM_OF_EPISODES = "Number of episodes is a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_NUM_OF_EPISODES = "Number of episodes is an unsigned integer.";
     public static final String MESSAGE_INVALID_NUM_OF_SEASONS = "Number of seasons is a non-zero unsigned integer.";
 
     /**
@@ -197,7 +197,7 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_NUM_OF_SEASONS);
         }
 
-        if (intNumberOfSeasonsWatched < 0) {
+        if (intNumberOfSeasonsWatched <= 0) {
             throw new ParseException(MESSAGE_INVALID_NUM_OF_SEASONS);
         }
 

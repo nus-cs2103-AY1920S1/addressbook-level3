@@ -65,4 +65,13 @@ public class TvShow extends Show {
         return episodeNum;
     }
 
+    @Override
+    public int getNumOfSeasons() {
+        return tvSeasons.size();
+    }
+
+    @Override
+    public int getNumOfEpisodesOfSeason(int seasonNum) {
+        return tvSeasons.get(seasonNum - 1).getTotalNumOfEpisodes();
+    }
 }

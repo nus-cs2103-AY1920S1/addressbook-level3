@@ -36,28 +36,24 @@ public class WatchCommandParser implements Parser<WatchCommand> {
 
         int numOfEpisodesWatched;
         int numOfSeasonsWatched;
-        boolean isToggle = true;
+        boolean seasonsArePresent = false;
+        boolean episodesArePresent = false;
         WatchCommand.WatchShowDescriptor watchShowDescriptor = new WatchCommand.WatchShowDescriptor();
 
-        if (argMultimap.getValue(PREFIX_NUM_OF_EPISODES).isPresent()) {
-            numOfEpisodesWatched = ParserUtil.parseNumOfEpisodesWatched(
-                    argMultimap.getValue(PREFIX_NUM_OF_EPISODES).get());
-            watchShowDescriptor.setNumOfEpisodesWatched(numOfEpisodesWatched);
-            isToggle = false;
-        } else {
-
-        }
-        /*
         if (argMultimap.getValue(PREFIX_NUM_OF_SEASONS).isPresent()) {
-            numOfSeasonsWatched = ParserUtil.parseNumOfEpisodesWatched(
-                    argMultimap.getValue(PREFIX_NUM_OF_SEASONS).get());
-            watchShowDescriptor.setNumberOfSeasonsWatched(numOfSeasonsWatched);
-        }*/
-
-        if(argMultimap.getValue(PREFIX_NUM_OF_EPISODES).isPresent()
-                && argMultimap.getValue(PREFIX_NUM_OF_SEASONS).isPresent()) {
-
+            numOfSeasonsWatched =
+                    ParserUtil.parseNumOfSeasonsWatched(argMultimap.getValue(PREFIX_NUM_OF_SEASONS).get());
+            watchShowDescriptor.setNumOfSeasonsWatched(numOfSeasonsWatched);
+            seasonsArePresent = true;
         }
-        return new WatchCommand(index, watchShowDescriptor, isToggle);
+        if (argMultimap.getValue(PREFIX_NUM_OF_EPISODES).isPresent()) {
+            numOfEpisodesWatched =
+                    ParserUtil.parseNumOfEpisodesWatched(argMultimap.getValue(PREFIX_NUM_OF_EPISODES).get());
+            watchShowDescriptor.setNumOfEpisodesWatched(numOfEpisodesWatched);
+            episodesArePresent = true;
+        }
+
+        return new WatchCommand(index, watchShowDescriptor, seasonsArePresent, episodesArePresent);
     }
+
 }

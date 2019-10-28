@@ -87,6 +87,10 @@ public abstract class Show {
 
     public abstract int getLastWatchedSeasonEpisode();
 
+    public abstract int getNumOfSeasons();
+
+    public abstract int getNumOfEpisodesOfSeason(int seasonNum);
+
     /**
      * Returns an immutable actor set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
