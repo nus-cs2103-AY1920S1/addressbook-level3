@@ -242,27 +242,25 @@ Format: `rlist`
 
 ==== Add a revision task for a note: `rn`
 Adds a revision task for a note to the current revision task list +
-Format: +
-`rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+The GUI will display all tasks upon completing the command +
+Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
 
 ==== Add a revision task for a question: `rq`
 Adds a revision task for a question to the current revision task list +
-Format: +
-`rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME`
+The GUI will display all tasks upon completing the command +
+Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME`
 
 ==== Remove revision task: `rdelete`
 Removes the specified revision task from current list +
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
 Format: `rdelete INDEX_OF_TASK`
 
 ==== Clear current revision plan: `rclear`
 Deletes all revision tasks
 Format: `rclear`
 
-==== Edit revision task: `redit`
-Edits the specified revision task
-Format: `redit INDEX`
-
 ==== Mark the revision task as done: `rdone`
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
 Format: `rdone INDEX`
 
 ==== View completed revision tasks: `finished`
@@ -270,7 +268,7 @@ Displays the list of revision tasks which are completed +
 Format: `finished`
 
 ==== View uncompleted revision task: `unfinished`
-Displays the list of revision tasks that are yet to be completed
+Displays the list of revision tasks that are yet to be completed +
 Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`

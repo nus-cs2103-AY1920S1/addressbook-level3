@@ -6,6 +6,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
+/**
+ * Displays all tasks that are yet to complete.
+ */
 public class ListNotDoneTaskCommand extends Command {
     public static final String COMMAND_WORD = "unfinished";
 

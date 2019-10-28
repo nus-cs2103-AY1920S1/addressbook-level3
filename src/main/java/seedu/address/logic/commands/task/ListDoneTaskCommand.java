@@ -6,10 +6,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
+/**
+ * Displays all tasks that have been done.
+ */
 public class ListDoneTaskCommand extends Command {
     public static final String COMMAND_WORD = "finished";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks that has been done";
+    public static final String MESSAGE_SUCCESS = "Listed all tasks that have been done";
 
     @Override
     public CommandResult execute(Model model) {
