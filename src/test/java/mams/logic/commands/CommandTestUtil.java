@@ -30,12 +30,12 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_CREDITS_AMY = "20";
     public static final String VALID_CREDITS_BOB = "20";
-    public static final String VALID_PREVMODS_AMY = "amy@example.com";
-    public static final String VALID_PREVMODS_BOB = "bob@example.com";
+    public static final String VALID_PREVMODS_AMY = "CS1010, CS2101";
+    public static final String VALID_PREVMODS_BOB = "CS1010, CS2105";
     public static final String VALID_MATRICID_AMY = "A0169928E";
     public static final String VALID_MATRICID_BOB = "A0124123Q";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_APPEAL1 = "C000001";
+    public static final String VALID_TAG_APPEAL2 = "C000002";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -45,8 +45,8 @@ public class CommandTestUtil {
     public static final String PREVMODS_DESC_BOB = " " + PREFIX_PREVMODS + VALID_PREVMODS_BOB;
     public static final String MATRICID_DESC_AMY = " " + PREFIX_STUDENT + VALID_MATRICID_AMY;
     public static final String MATRICID_DESC_BOB = " " + PREFIX_STUDENT + VALID_MATRICID_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_APPEAL2;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_APPEAL1;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_CREDITS_DESC = " " + PREFIX_CREDITS + "6"; // too low
@@ -63,10 +63,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withCredits(VALID_CREDITS_AMY).withPrevMods(VALID_PREVMODS_AMY).withMatricId(VALID_MATRICID_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_APPEAL2).build();
         DESC_BOB = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withCredits(VALID_CREDITS_BOB).withPrevMods(VALID_PREVMODS_BOB).withMatricId(VALID_MATRICID_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_APPEAL1, VALID_TAG_APPEAL2).build();
     }
 
     /**

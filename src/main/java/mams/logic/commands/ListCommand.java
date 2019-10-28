@@ -11,15 +11,15 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all following items:%1$s";
+    public static final String MESSAGE_LIST_SUCCESS = "Listed all following items:%1$s";
 
     public static final String APPEALS = "appeals";
     public static final String MODULES = "modules";
     public static final String STUDENTS = "students";
 
-    private boolean showAppeals;
-    private boolean showModules;
-    private boolean showStudents;
+    private final boolean showAppeals;
+    private final boolean showModules;
+    private final boolean showStudents;
 
     public ListCommand(boolean showAppeals, boolean showModules, boolean showStudents) {
         this.showAppeals = showAppeals;
@@ -49,6 +49,25 @@ public class ListCommand extends Command {
             msg.append(STUDENTS);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, msg));
+        return new CommandResult(String.format(MESSAGE_LIST_SUCCESS, msg));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ListCommand)) {
+            return false;
+        }
+
+        // state check
+        ListCommand v = (ListCommand) other;
+        return showAppeals == v.showAppeals
+                && showModules == v.showModules
+                && showStudents == v.showStudents;
     }
 }

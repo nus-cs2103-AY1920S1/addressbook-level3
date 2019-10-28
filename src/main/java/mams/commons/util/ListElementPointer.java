@@ -1,24 +1,19 @@
-package mams.ui;
+package mams.commons.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Has a cursor that points to an element in the list, and is able to iterate through the list.
- * This is different from {@code ListIterator}, which has a cursor that points in between elements.
- * The {@code ListIterator}'s behaviour: when making alternating calls of {@code next()} and
- * {@code previous()}, the same element is returned on both calls.
- * In contrast, {@code ListElementPointer}'s behaviour: when making alternating calls of
- * {@code next()} and {@code previous()}, the next and previous elements are returned respectively.
+ * Class representing an iterable pointer to a List.
  */
 public class ListElementPointer<T> {
     private List<T> list;
     private int index;
 
     /**
-     * Constructs {@code ListElementPointer} which is backed by a defensive copy of {@code list}.
-     * The cursor points to the last element in {@code list}.
+     * Constructs {@code ListElementPointer}, and initialize cursor
+     * to point to the last element in {@code list}.
      */
     public ListElementPointer(List<T> list) {
         this.list = new ArrayList<>(list);
@@ -33,7 +28,8 @@ public class ListElementPointer<T> {
     }
 
     /**
-     * Returns true if calling {@code #next()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #next()}, if next element exists
+     * ie. calling {@code #next()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasNext() {
         int nextIndex = index + 1;
@@ -41,7 +37,8 @@ public class ListElementPointer<T> {
     }
 
     /**
-     * Returns true if calling {@code #previous()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #previous()} if previous element exists
+     * ie. calling {@code #previous()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasPrevious() {
         int previousIndex = index - 1;
@@ -49,7 +46,8 @@ public class ListElementPointer<T> {
     }
 
     /**
-     * Returns true if calling {@code #current()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #current()} if current element exists
+     * ie. calling {@code #current()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasCurrent() {
         return isWithinBounds(index);

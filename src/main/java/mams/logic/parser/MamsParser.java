@@ -11,6 +11,7 @@ import mams.logic.commands.EditCommand;
 import mams.logic.commands.ExitCommand;
 import mams.logic.commands.FindCommand;
 import mams.logic.commands.HelpCommand;
+import mams.logic.commands.HistoryCommand;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.RemoveModCommand;
 import mams.logic.commands.ResolveCommand;
@@ -89,6 +90,9 @@ public class MamsParser {
 
         case SaveCommand.COMMAND_STORE:
             return new SaveCommandParser().parse(arguments);
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

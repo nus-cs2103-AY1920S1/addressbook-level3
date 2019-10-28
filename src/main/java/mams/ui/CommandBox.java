@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import mams.commons.util.ListElementPointer;
 import mams.logic.InputOutput;
 import mams.logic.Logic;
 import mams.logic.commands.CommandResult;
