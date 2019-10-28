@@ -110,9 +110,8 @@ public class Event {
 
     /**
      * Adds a player's performance to this event.
-     * @return Details of performance.
      */
-    public String addPerformance(Person athlete, Record record) {
+    public void addPerformance(Person athlete, Record record) {
         if (!records.containsKey(athlete)) {
             ArrayList<Record> initialisedPerformanceEntries = new ArrayList<>();
             initialisedPerformanceEntries.add(record);
@@ -128,8 +127,24 @@ public class Event {
             // adding the athlete again with their updated record for this event
             records.put(athlete, currentPerformanceEntries);
         }
-        return "For " + athlete.getName() + " in the " + name + " event, on " + record.getDate().toString()
-                + " with a timing of " + record.getTiming();
+    }
+
+    /**
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two persons.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+        return otherEvent.getName().equals(name);
     }
 
 }

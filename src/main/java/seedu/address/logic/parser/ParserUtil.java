@@ -53,7 +53,7 @@ public class ParserUtil {
                 | trimmedFeatureName.equals("performance"))) {
             throw new ParseException(Feature.MESSAGE_CONSTRAINTS);
         }
-        return new Feature(featureName);
+        return new Feature(trimmedFeatureName);
     }
 
     /**

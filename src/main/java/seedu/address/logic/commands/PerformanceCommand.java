@@ -32,21 +32,24 @@ public class PerformanceCommand extends Command {
             + PREFIX_DATE + "02102019 "
             + PREFIX_TIMING + "30s";
 
-    public static final String MESSAGE_SUCCESS = "Performance record added: %1$s";
-
-    private final String event;
     private final Index index;
+    private final String event;
     private final AthletickDate date;
     private final String time;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates a PerformanceCommand to add the record under the event.
      */
     public PerformanceCommand(Index index, String event, AthletickDate date, String time) {
-        this.event = event;
         this.index = index;
+        this.event = event;
         this.date = date;
         this.time = time;
+    }
+
+    public static final String getSuccessMessage(Person p, String e, AthletickDate d, String t) {
+        return "Performance record added for " + p.getName().fullName + " under " + e + " event, on "
+            + d.toString() + " with a timing of " + t;
     }
 
     @Override
@@ -67,9 +70,9 @@ public class PerformanceCommand extends Command {
 
         Person athlete = lastShownList.get(index.getZeroBased());
         Record record = createRecord();
-        String response = model.addRecord(event, athlete, record);
         date.setType(2);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, response), date, model);
+        model.addRecord(event, athlete, record);
+        return new CommandResult(getSuccessMessage(athlete, event, date, time));
 
     }
 

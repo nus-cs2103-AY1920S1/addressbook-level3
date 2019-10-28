@@ -248,8 +248,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String addRecord(String eventName, Person person, Record record) {
-        return performance.addRecord(eventName, person, record);
+    public void addRecord(String eventName, Person person, Record record) {
+        performance.addRecord(eventName, person, record);
     }
 
     @Override
