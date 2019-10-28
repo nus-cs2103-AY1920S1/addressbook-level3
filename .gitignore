@@ -10,6 +10,7 @@ src/main/resources/docs/
 
 # Storage/log files
 /data/addressbook.json
+/data/output.json
 /config.json
 /preferences.json
 /*.log.*
