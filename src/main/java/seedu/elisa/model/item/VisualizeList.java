@@ -181,4 +181,11 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         super.clear();
     }
 
+    /**
+     * Checks if an item belongs to this list.
+     * @param item the item to be check
+     * @return a boolean true if the item belong to this list and false otherwise
+     */
+    public abstract boolean belongToList(Item item);
+
 }

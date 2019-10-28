@@ -121,4 +121,6 @@ public interface ItemModel {
     void updateCommandHistory(Command command);
 
     public EventList getEventList();
+
+    public Item getItem(int index);
 }
