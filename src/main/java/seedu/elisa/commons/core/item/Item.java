@@ -275,7 +275,7 @@ public class Item {
                 .append("\nReminder! ")
                 .append(getReminder().get().toString());
 
-        builder.append("Priority: ")
+        builder.append("\nPriority: ")
                 .append(priority.toString());
 
         return builder.toString();
@@ -360,7 +360,7 @@ public class Item {
             if (newItem.getItemDescription() == null) {
                 throw new IllegalArgumentException("Description must be provided!");
             }
-            if (newItem.getTask() == null && newItem.getEvent() == null && newItem.getReminder() == null) {
+            if (newItem.getTask().isEmpty() && newItem.getEvent().isEmpty() && newItem.getReminder().isEmpty()) {
                 throw new IllegalArgumentException("Task, Event & Reminder cannot all be empty!");
             }
 
