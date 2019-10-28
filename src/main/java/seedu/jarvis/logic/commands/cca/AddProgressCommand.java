@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVELS;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 
@@ -37,24 +38,56 @@ public class AddProgressCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CCA = "This specific progress already exists in this cca.";
 
     private final Index targetIndex;
-    private Cca targetCca;
-
     private final CcaMilestoneList toAddCcaMilestoneList;
+    private Cca targetCca;
 
     /**
      * Creates a {@code AddProgressCommand}, sets targetIndex to the {@code Index} and sets toAddCcaMilestoneList to the
      * {@code CcaProgress} ccaProgress of the {@code Cca} at the targetIndex.
      *
      * @param targetIndex of the {@code Cca} to be deleted.
+     * @param ccaMilestoneList {@code CcaMilestoneList}.
+     * @param targetCca {@code Cca}.
      */
-    public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList) {
+    public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList, Cca targetCca) {
+        requireAllNonNull(targetCca, ccaMilestoneList);
         this.targetIndex = targetIndex;
         this.toAddCcaMilestoneList = ccaMilestoneList;
+        this.targetCca = targetCca;
+    }
+
+    public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList) {
+        this(targetIndex, ccaMilestoneList, null);
     }
 
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Index} of the target {@code Cca}.
+     *
+     * @return {@code Index} of the target {@code Cca}.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the target {@code Cca}.
+     * @return Target {@code Cca}.
+     */
+    public Cca getTargetCca() {
+        return targetCca;
+    }
+
+    /**
+     * Gets the {@code CcaMilestoneList}.
+     * @return {@code CcaMilestoneList}.
+     */
+    public CcaMilestoneList getCcaMilestoneList() {
+        return toAddCcaMilestoneList;
     }
 
     @Override
