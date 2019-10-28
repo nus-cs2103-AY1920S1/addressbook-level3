@@ -5,11 +5,14 @@ import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
 ////import dream.fcard.logic.respond.commands.CreateCommand;
+import dream.fcard.logic.exam.Exam;
+import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 //import dream.fcard.model.StateEnum;
+import dream.fcard.model.StateEnum;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -219,17 +222,21 @@ enum Responses {
 
 
 
-    TEST("(?i)^(test)?(\\\\s)+(duration/[\\\\w\\\\p{Punct}]+)?(\\\\s)+(deck/[\\\\w\\\\p{Punct}]+){1}(\\\\s)*", (
+    TEST("(?i)^(test)?(\\s)+(duration/[\\w\\p{Punct}]+)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)*", (
             commandInput, programState) -> {
         System.out.println("Current command is TEST");
-        // ArrayList<Deck> allDecks = programState.getDecks();
-        // String inputName = *name of deck to find*;
-        // Deck testDeck;
-        // for (Deck curr : allDecks) {
-        //      if(curr.getName().equals(inputName) {
-        //          testDeck = curr;
-        //      }
-        // }
+        ArrayList<Deck> allDecks = programState.getDecks();
+        String inputName = commandInput.split("deck/")[1];
+        try {
+            Deck retrievedDeck = programState.getDeck(inputName);
+            ExamRunner.createExam(retrievedDeck);
+            Exam exam = ExamRunner.getCurrentExam();
+            exam.nextCard();
+            programState.setCurrentState(StateEnum.TEST_ONGOING_WAITING_ANS);
+        } catch (DeckNotFoundException e) {
+            e.printStackTrace();
+        }
+
         // *Initiate test with Test Deck*
         return true; // capture is valid, end checking other commands
     }),
