@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox>
-    <Label contentDisplay="CENTER" styleClass="result-display" text="CAP:">
-      <padding>
-         <Insets bottom="1.0" left="5.0" right="5.0" top="1.0" />
-      </padding>
-      <font>
-         <Font name="AdobeGothicStd-Bold" size="13.0" />
-      </font>
-    </Label>
-
-    <StackPane prefHeight="8.0" prefWidth="38.0" styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-        <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="1.0" />
-        </padding>
-        <Label fx:id="infoDisplay" styleClass="result-display" StackPane.alignment="TOP_LEFT" />
-    </StackPane>
-</VBox>
+<StackPane prefHeight="23.0" prefWidth="100.0" styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="20.0" prefWidth="90.0">
+      <children>
+         <Label fx:id="capDisplay" prefHeight="23.0" styleClass="result-display" />
+         <Label prefHeight="24.0" prefWidth="40" />
+         <Label fx:id="mcDisplay" prefHeight="23.0" styleClass="result-display" />
+      </children>
+   </HBox>
+</StackPane>

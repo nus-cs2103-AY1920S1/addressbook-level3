@@ -367,3 +367,7 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.pie_chart_design .label {
+    -fx-text-fill: black;
+}
