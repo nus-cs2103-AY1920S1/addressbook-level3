@@ -2,10 +2,15 @@ package seedu.weme.logic.prompter.commandprompter.memecommandprompter;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.weme.logic.commands.memecommand.MemeEditCommand.MESSAGE_USAGE;
+import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
+import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.util.ArgumentTokenizer.getLastArgument;
+import static seedu.weme.logic.parser.util.ArgumentTokenizer.removeLastArgument;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
-import static seedu.weme.logic.prompter.util.PrompterUtil.findSimilarArguments;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarArguments;
+
+import java.util.regex.Matcher;
 
 import seedu.weme.logic.parser.util.ArgumentTokenizer;
 import seedu.weme.logic.prompter.Prompter;
@@ -20,9 +25,13 @@ import seedu.weme.model.Model;
 public class MemeEditCommandPrompter implements Prompter {
 
     @Override
-    public CommandPrompt prompt(Model model, String arguments) throws PromptException {
+    public CommandPrompt prompt(Model model, String userInput) throws PromptException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        matcher.matches();
+        final String arguments = matcher.group(ARGUMENTS);
+
         if (arguments.isBlank()) {
-            return new CommandPrompt(MESSAGE_USAGE);
+            return new CommandPrompt(MESSAGE_USAGE, userInput);
         }
 
         ArgumentTokenizer.tokenize(arguments, PREFIX_DESCRIPTION, PREFIX_TAG);
@@ -38,12 +47,13 @@ public class MemeEditCommandPrompter implements Prompter {
                 } else {
                     Integer.parseInt(arguments.trim());
                 }
-                return new CommandPrompt(MESSAGE_USAGE);
+                return new CommandPrompt(MESSAGE_USAGE, userInput);
             } catch (NumberFormatException e) {
                 throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
         }
 
-        return findSimilarArguments(model, lastArgument);
+        String inputWithoutLastArgument = removeLastArgument(userInput, PREFIX_DESCRIPTION, PREFIX_TAG);
+        return promptSimilarArguments(model, inputWithoutLastArgument, lastArgument);
     }
 }

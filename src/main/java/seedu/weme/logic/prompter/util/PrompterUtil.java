@@ -13,7 +13,6 @@ import static seedu.weme.model.ModelContext.CONTEXT_STATISTICS;
 import static seedu.weme.model.ModelContext.CONTEXT_TEMPLATES;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -57,6 +56,9 @@ import seedu.weme.model.ModelContext;
  */
 public class PrompterUtil {
     public static final int PREFIX_LENGTH = 2;
+
+    // Delimiter separating command word and arguments.
+    public static final String COMMAND_DELIMITER = " ";
 
     public static final int MAX_RESULTS_DISPLAY = 3;
 
@@ -191,13 +193,21 @@ public class PrompterUtil {
     }
 
     /**
-     * Find most similar records from current data for the argument in user input.
+     * Sort given set of strings by similarity to the argument.
+     * @return Stream containing the sorted records.
+     */
+    public static Stream<String> sortStringsBySimilarity(Set<String> strings, String argument) {
+        return strings
+                .stream()
+                .sorted((a, b) -> compareStrings(a.toLowerCase(), b.toLowerCase(), argument.toLowerCase()));
+    }
+
+    /**
+     * Find most similar strings for the argument, limited by {@code MAX_RESULT_DISPLAY}.
      * @return String containing the most similar records separated by line break.
      */
     public static String findSimilarStrings(Set<String> strings, String argument) {
-        return strings
-                .stream()
-                .sorted((a, b) -> compareStrings(a.toLowerCase(), b.toLowerCase(), argument.toLowerCase()))
+        return sortStringsBySimilarity(strings, argument)
                 .limit(MAX_RESULTS_DISPLAY)
                 .reduce((x, y) -> x + '\n' + y)
                 .orElse("");
@@ -205,38 +215,52 @@ public class PrompterUtil {
 
 
     /**
-     * Find most similar arguments from current data for the last argument in user input.
-     * @return CommandPrompt including the most similar arguments
+     * Find the most similar string to the argument.
      */
-    public static CommandPrompt findSimilarArguments(Model model, LastArgument lastArgument)
-            throws PromptException {
+    public static String findMostSimilarString(Set<String> strings, String argument) {
+        return sortStringsBySimilarity(strings, argument).findFirst().orElse("");
+    }
+
+    /**
+     * Find most similar command words to the input command word.
+     * @return CommandPrompt containing the most similar command words
+     */
+    public static CommandPrompt promptCommandWord(Set<String> commandWords, String commandWord) {
+        String similarCommands = findSimilarStrings(commandWords, commandWord);
+        String mostSimilarCommand = findMostSimilarString(commandWords, commandWord);
+        return new CommandPrompt(similarCommands, mostSimilarCommand);
+    }
+
+    /**
+     * Find most similar arguments from records for the last argument in user input.
+     * @return CommandPrompt containing the most similar arguments
+     */
+    public static CommandPrompt promptSimilarArguments(
+            Model model, String inputWithoutLastArgument, LastArgument lastArgument) throws PromptException {
+        String lastArgumentValue = lastArgument.getArgument();
         switch (lastArgument.getPrefix().toString()) {
         case PREFIX_FILEPATH_STRING:
-            return new CommandPrompt(findSimilarStrings(model.getPathRecords(), lastArgument.getArgument()));
+            Set<String> pathRecords = model.getPathRecords();
+            return new CommandPrompt(findSimilarStrings(pathRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(pathRecords, lastArgumentValue));
 
         case PREFIX_DESCRIPTION_STRING:
-            return new CommandPrompt(findSimilarStrings(model.getDescriptionRecords(), lastArgument.getArgument()));
+            Set<String> descriptionRecords = model.getDescriptionRecords();
+            return new CommandPrompt(findSimilarStrings(descriptionRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(descriptionRecords, lastArgumentValue));
 
         case PREFIX_TAG_STRING:
-            return new CommandPrompt(findSimilarStrings(model.getTagRecords(), lastArgument.getArgument()));
+            Set<String> tagRecords = model.getTagRecords();
+            return new CommandPrompt(findSimilarStrings(tagRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(tagRecords, lastArgumentValue));
 
         case PREFIX_NAME_STRING:
-            return new CommandPrompt(findSimilarStrings(model.getNameRecords(), lastArgument.getArgument()));
+            Set<String> nameRecords = model.getNameRecords();
+            return new CommandPrompt(findSimilarStrings(nameRecords, lastArgumentValue),
+                    inputWithoutLastArgument + findMostSimilarString(nameRecords, lastArgumentValue));
 
         default:
             throw new PromptException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
-    }
-
-    /**
-     * Returns contexts that start with the input string in alphabetical order.
-     */
-    public static List<String> findSimilarContexts(String input) {
-        return CONTEXTS
-                .stream()
-                .filter(c -> startsWith(input, c))
-                .sorted()
-                .limit(MAX_RESULTS_DISPLAY)
-                .collect(Collectors.toList());
     }
 }

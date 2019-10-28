@@ -141,7 +141,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         try {
-            resultDisplay.setFeedbackToUser(logic.prompt("").toString());
+            resultDisplay.setFeedbackToUser(logic.prompt("").getCommandPrompt());
         } catch (PromptException e) {
             // Acts as a placeholder.
         }
@@ -307,11 +307,13 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Parse the user input and display the suggestions in ResultDisplay.
      * @param commandText text input from CommandBox
+     * @return String complete command for auto-completion
      */
-    private void promptCommand(String commandText) throws PromptException {
+    private String promptCommand(String commandText) throws PromptException {
         try {
             CommandPrompt commandPrompt = logic.prompt(commandText);
-            resultDisplay.setFeedbackToUser(commandPrompt.toString());
+            resultDisplay.setFeedbackToUser(commandPrompt.getCommandPrompt());
+            return commandPrompt.getCompleteCommand();
         } catch (PromptException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

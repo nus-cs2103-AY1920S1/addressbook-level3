@@ -1,9 +1,13 @@
 package seedu.weme.logic.prompter.commandprompter.memecommandprompter;
 
+import static seedu.weme.logic.commands.memecommand.MemeDeleteCommand.COMMAND_WORD;
+import static seedu.weme.logic.prompter.util.PrompterUtil.COMMAND_DELIMITER;
 import static seedu.weme.logic.prompter.util.PrompterUtil.MAX_RESULTS_DISPLAY;
 import static seedu.weme.logic.prompter.util.PrompterUtil.NO_LISTED_MEME;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.weme.logic.prompter.Prompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
@@ -14,20 +18,31 @@ import seedu.weme.model.Model;
  * Prompt arguments for MemeDeleteCommand.
  */
 public class MemeDeleteCommandPrompter implements Prompter {
+    private static final String PREAMBLE = COMMAND_WORD + COMMAND_DELIMITER;
 
     /**
      * Suggests the indices of possible memes to be deleted, in ascending order of the number of likes
      * the meme has received.
      */
     @Override
-    public CommandPrompt prompt(Model model, String arguments) throws PromptException {
-        return new CommandPrompt(model
+    public CommandPrompt prompt(Model model, String userInput) throws PromptException {
+        List<String> possibleArguments = model
                 .getFilteredMemeList()
                 .stream()
                 .sorted(Comparator.comparingInt(meme -> model.getLikesByMeme(meme)))
                 .map(meme -> String.valueOf(model.getFilteredMemeList().indexOf(meme) + 1))
-                .limit(MAX_RESULTS_DISPLAY)
-                .reduce((x, y) -> x + '\n' + y)
-                .orElse(NO_LISTED_MEME));
+                .collect(Collectors.toList());
+
+        return new CommandPrompt(
+                possibleArguments
+                        .stream()
+                        .limit(MAX_RESULTS_DISPLAY)
+                        .reduce((x, y) -> x + '\n' + y)
+                        .orElse(NO_LISTED_MEME),
+                PREAMBLE + possibleArguments
+                        .stream()
+                        .findFirst()
+                        .orElse(NO_LISTED_MEME)
+        );
     }
 }
