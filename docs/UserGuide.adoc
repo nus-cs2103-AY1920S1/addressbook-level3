@@ -59,10 +59,15 @@ respectively.
 // end::features[]
 
 // tag::universalCommand[]
+
+{nbsp} + 
+
 === Universal commands
 
 These are general commands to assist you in controlling the app, which are not directly related to the customer,
 restaurant and deliverymen.
+
+{nbsp} +
 
 ==== Viewing help `-help`
 
@@ -77,6 +82,8 @@ Format: `-help`
 * Help with a specific context command: `-help cxt/CONTEXT cmd/COMMAND`
 
 ** Example: `-help -cxt customer -cmd sort`
+
+{nbsp} +
 
 ==== Switching context
 
@@ -98,6 +105,8 @@ This command switches to the deliveryman context for you to enter deliveryman-sp
 
 Format: `-deliveryman`
 
+{nbsp} +
+
 ==== Adding of orders `-add_order`
 This command adds a new order to the database to be processed. The deliveryman to deliver the order will be allocated
 automatically based on the internal algorithms.
@@ -112,6 +121,8 @@ Requirements:
 exists currently in the database.
 
 * The quantity of food to be delivered also be provided and be greater than 0.
+
+{nbsp} +
 
 ==== Editing of orders `-edit_order`
 This enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
@@ -142,6 +153,8 @@ Requirements:
 
 * Delivery status `completed/DELIVERY_STATUS` must be true or false, if present.
 
+{nbsp} +
+
 ==== Deleting of orders `-delete_order`
 This command enables you to delete an unwanted/cancelled order in the database by its index.
 
@@ -149,10 +162,14 @@ Format: `-delete_order INDEX`
 
 Example: `-delete_order 3`
 
+{nbsp} +
+
 ==== Viewing order summary `-order_summary`
 This command brings up the current order summary for your viewing.
 
 Format: `-order_summary`
+
+{nbsp} +
 
 ==== Undoing command `-undo`
 This command undoes the effects of a command that you have previously executed.
@@ -167,6 +184,8 @@ Successfully undid: (your previous command here)
 The command which you last performed has now been reversed. Subsequent invocations of `undo` will
 reverse commands which you have performed even earlier.
 
+{nbsp} +
+
 ==== Redoing command `-redo`
 This command redoes the effects of a command that you have just undone, in effect undoing an undo.
 Similarly to `undo`, this command can be used multiple times in succession to bring back multiple
@@ -178,6 +197,8 @@ After performing `redo`, the result pane will show:
 
 Successfully redid: (your previous command here)
 
+{nbsp} +
+
 ==== Exiting program `-exit`
 This command exits the program.
 
@@ -185,6 +206,8 @@ Format: `-exit`
 
 // end::universalCommand[]
 // tag::customerCommand[]
+
+{nbsp} +
 
 === Customer commands
 
@@ -196,6 +219,8 @@ This is a customer and its information.
 
  screenshot of finalised CustomerCard
 
+{nbsp} +
+
 ==== Adding a customer: `add`
 
 This command allows you to add a new customer to the customer list. Name and phone number are necessary to a customer. Tags in customers are optional to include. They are used to specify the customer's favourite cuisine. Multiple tags can be added to one customer.
@@ -203,6 +228,8 @@ This command allows you to add a new customer to the customer list. Name and pho
 Format: `add n/NAME p/PHONE [t/TAG]...`
 
 Example: `add n/John Doe p/91234567 t/Japanese t/Noodles`
+
+{nbsp} +
 
 ==== Editing a customer: `edit`
 
@@ -212,6 +239,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
 
 Example: `edit 1 n/John Hoe p/97654321 t/Indian`
 
+{nbsp} +
+
 ==== Deleting a customer: `delete`
 
 This command allows you to delete an existing customer in the customer list. The index of a customer needs to be provided.
@@ -219,6 +248,8 @@ This command allows you to delete an existing customer in the customer list. The
 Format: `delete INDEX`
 
 Example: `delete 1`
+
+{nbsp} +
 
 ==== Viewing a customer's order history: `history`
 
@@ -230,16 +261,25 @@ Example: `history 1`
 
 // end::customerCommand[]
 // tag::restaurantCommand[]
+
+{nbsp} +
+
 === Restaurant commands
 
 Commands in the restaurant context
+
+{nbsp} +
 
 ==== Adding a restaurant: `add`
 This command adds a restaurant to the restaurant database.
 
 Format: `add n/NAME l/LOCATION [t/TAG]...`
 
+* `LOCATION` can only be one of the following locations: Jurong, Tuas, Woodlands, Bishan, City, Marina, Changi, Punggol.
+
 Example: `add n/KFC l/Jurong t/FastFood`
+
+{nbsp} +
 
 ==== Deleting a restaurant: `delete`
 This command deletes the restaurant at the specified index in the restaurant list from the restaurant database.
@@ -249,6 +289,8 @@ Format: `delete INDEX`
 * `INDEX` must be a positive integer from 1 to n, the number of restaurants in the restaurant list.
 
 Example: `delete 1`
+
+{nbsp} +
 
 ==== Entering EditMode: `edit`
 This command enters EditMode for the restaurant identified by the specified index in the restaurant list.
@@ -261,6 +303,8 @@ image::userguide\EditMode.png[width="790"]
 Format: `edit INDEX`
 
 Example: `edit 1`
+
+{nbsp} +
 
 ==== Editing restaurant's details (under EditMode): `editdetails`
 This command edits the details of the restaurant under EditMode.
@@ -277,12 +321,16 @@ Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 
 Example: `editdetails n/New KFC l/Tuas`
 
+{nbsp} +
+
 ==== Adding food item (under EditMode): `add`
 This command adds a food item to the menu of the restaurant under EditMode.
 
 Format: `add n/NAME a/PRICE [t/TAG]...`
 
 Example: `add n/Chicken a/7.90 t/Recommended`
+
+{nbsp} +
 
 ==== Deleting food item (under EditMode): `delete`
 This command deletes the food item at the specified index in the menu of the restaurant under EditMode.
@@ -292,6 +340,8 @@ Format: `remove INDEX`
 * `INDEX` must be a positive integer from 1 to n, the number of food items in the restaurant's menu.
 
 Example: `remove 1`
+
+{nbsp} +
 
 ==== Adding a rating (under EditMode): 'rate'
 This command adds a rating to the restaurant under EditMode and updates the new average rating of all the ratings
@@ -305,14 +355,20 @@ Format: `rate RATING`
 
 Example: `rate 4`
 
+{nbsp} +
+
 ==== Exiting EditMode: 'exitedit'
 This command exits EditMode for the specific restaurant and returns to the list of restaurants
 
 Format: `exitedit`
 
+{nbsp} +
+
 === Deliverymen commands
 
 These are the commands you can use after entering the deliverymen context (via the command `deliverymen`).
+
+{nbsp} +
 
 ==== Adding a deliveryman: `add`
 
@@ -322,6 +378,8 @@ Format: `add n/NAME p/PHONE`
 
 Example: `add n/John Doe p/91234567`
 
+{nbsp} +
+
 ==== Editing a deliveryman: `edit`
 
 This command allows you to edit an existing deliveryman in the deliverymen database. You must edit at least one field (eg. name, phone number).
@@ -329,6 +387,8 @@ This command allows you to edit an existing deliveryman in the deliverymen datab
 Format: `edit INDEX [n/NAME] [p/PHONE]`
 
 Example: `edit 1 n/John Hoe p/97654321`
+
+{nbsp} +
 
 ==== Deleting a deliveryman: `delete`
 
@@ -338,6 +398,8 @@ Format: `delete INDEX`
 
 Example: `delete 1`
 
+{nbsp} +
+
 ==== Listing available deliverymen
 
 This command allows you to view all the deliverymen who are available for delivery (ie. ready to be assigned food orders).
@@ -346,6 +408,8 @@ Format: `lista`
 
 Example: `lista`
 
+{nbsp} +
+
 ==== Entering a specific deliveryman
 
 This command allows you to view a deliveryman's basic information.
@@ -353,6 +417,8 @@ This command allows you to view a deliveryman's basic information.
 Format: `list NAME`
 
 Example: `list Stanley Tay`
+
+{nbsp} +
 
 ==== Assigning order to a deliveryman
 
@@ -364,6 +430,8 @@ Format: `assn NAME #ORDERINDEX`
 
 Example: `assn Stanley Tay #12`
 
+{nbsp} +
+
 ==== Obtaining a list of deliverymen eligible for pay rise
 
 This command allows you to view a list of deliverymen who have met the pre-determined requirements for a pay rise.
@@ -374,6 +442,8 @@ Format: `payrise`
 
 Example: `payrise`
 
+
+{nbsp} +
 
 == Command summary
 
