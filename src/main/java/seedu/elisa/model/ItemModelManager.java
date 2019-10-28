@@ -512,22 +512,11 @@ public class ItemModelManager implements ItemModel {
         }, date);
     }
 
-    /**
-     * Handles the turning off of priority mode when exiting the application.
-     */
-    public void forceOffPriorityMode() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
-
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
 
         if (sortedTask.peek().getTask().get().isComplete()) {
-            priorityMode = false;
-            return taskList;
+            toggleOffPriorityMode();
         }
 
         result.add(sortedTask.peek());
