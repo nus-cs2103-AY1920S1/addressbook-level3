@@ -180,11 +180,11 @@ public class Appeal {
         return newModule;
     }
 
-    public String getModule_to_add() {
+    public String getModuleToAdd() {
         return moduleToAdd;
     }
 
-    public String getModule_to_drop() {
+    public String getModuleToDrop() {
         return moduleToDrop;
     }
 
@@ -280,9 +280,9 @@ public class Appeal {
                 .append(" New module: ")
                 .append(getNewModule())
                 .append(" Module to add: ")
-                .append(getModule_to_add())
+                .append(getModuleToAdd())
                 .append(" Module to drop ")
-                .append(getModule_to_drop())
+                .append(getModuleToDrop())
                 .append(" Resolved?:")
                 .append(isResolved())
                 .append(" Result: ")

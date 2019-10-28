@@ -42,8 +42,8 @@ public class MassApprove extends Approve {
                                 appealToApprove.getAppealDescription(),
                                 appealToApprove.getPreviousModule(),
                                 appealToApprove.getNewModule(),
-                                appealToApprove.getModule_to_add(),
-                                appealToApprove.getModule_to_drop(),
+                                appealToApprove.getModuleToAdd(),
+                                appealToApprove.getModuleToDrop(),
                                 true,
                                 "APPROVED",
                                 "");
