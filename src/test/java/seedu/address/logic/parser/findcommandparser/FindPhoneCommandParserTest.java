@@ -8,17 +8,17 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.findcommand.FindCustomerCommand;
-import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
+import seedu.address.logic.commands.findcommand.FindPhoneCommand;
+import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
 
-public class FindCustomerCommandParserTest {
+public class FindPhoneCommandParserTest {
 
-    private FindCustomerCommandParser parser = new FindCustomerCommandParser();
+    private FindPhoneCommandParser parser = new FindPhoneCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                FindCustomerCommand.MESSAGE_USAGE));
+                FindPhoneCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -26,12 +26,12 @@ public class FindCustomerCommandParserTest {
 
         // no leading and trailing whitespaces
 
-        FindCustomerCommand expectedFindCommand =
-                new FindCustomerCommand(new CustomerContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+        FindPhoneCommand expectedFindCommand =
+                new FindPhoneCommand(new PhoneContainsKeywordsPredicate(Arrays.asList("iPhone", "Galaxy")));
+        assertParseSuccess(parser, "iPhone Galaxy", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n iPhone \n \t Galaxy  \t", expectedFindCommand);
     }
 
 }

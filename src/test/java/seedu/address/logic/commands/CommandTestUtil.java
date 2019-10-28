@@ -33,12 +33,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Phone;
-import seedu.address.model.phone.predicates.IdentityNumberContainsKeywordsPredicate;
+import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
@@ -280,7 +280,7 @@ public class CommandTestUtil {
 
         Customer customer = model.getFilteredCustomerList().get(targetIndex.getZeroBased());
         final String[] splitName = customer.getCustomerName().fullName.split("\\s+");
-        model.updateFilteredCustomerList(new CustomerNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredCustomerList(new CustomerContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCustomerList().size());
     }
@@ -294,7 +294,7 @@ public class CommandTestUtil {
 
         Phone phone = model.getFilteredPhoneList().get(targetIndex.getZeroBased());
         final String[] splitName = phone.getIdentityNumber().value.split("\\s+");
-        model.updateFilteredPhoneList(new IdentityNumberContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPhoneList(new PhoneContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPhoneList().size());
     }
