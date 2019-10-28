@@ -5,6 +5,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 
 /**
@@ -35,7 +36,7 @@ public class Account {
         return name;
     }
 
-    public TransactionList getTransaction() {
+    public TransactionList getTransactionList() {
         return transactionList;
     }
 
@@ -43,9 +44,13 @@ public class Account {
         this.name = name;
     }
 
+    public void addTransaction(Transaction toAdd) {
+        this.transactionList.add(toAdd);
+    }
     /**
      * Returns true if both accounts of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two accounts.
+     * This defines a weaker notion of equality between two accounts, where no 2 accounts should have the same
+     * name or the same transaction list.
      */
     public boolean isSameAccount(Account otherAccount) {
         if (otherAccount == this) {
@@ -53,8 +58,8 @@ public class Account {
         }
 
         return otherAccount != null
-                && otherAccount.getName().equals(getName())
-                && (otherAccount.getTransaction().equals(getTransaction()));
+                && (otherAccount.getName().equals(getName())
+                    || otherAccount.getTransactionList().equals(getTransactionList()));
     }
 
     /**
@@ -73,7 +78,7 @@ public class Account {
 
         Account otherAccount = (Account) other;
         return otherAccount.getName().equals(getName())
-                && otherAccount.getTransaction().equals(getTransaction());
+                && otherAccount.getTransactionList().equals(getTransactionList());
     }
 
     @Override

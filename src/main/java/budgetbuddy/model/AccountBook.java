@@ -99,13 +99,19 @@ public class AccountBook implements ReadOnlyAccountBook {
     }
 
     /**
-     * Adds a transaction to the AccountBook
+     * Adds a transaction to the AccountBook.
+     * There should be an account assigned to the Transaction by now.
      */
-    //TODO implement addTransaction
     public void addTransaction(Transaction toAdd) {
+        requireNonNull(toAdd.getAccount());
         Account accountToCheck = toAdd.getAccount();
         if (accounts.contains(accountToCheck)) {
-
+           Account accountToAdd = accounts.get(accountToCheck);
+           accountToAdd.addTransaction(toAdd);
+        } else {
+            //the account doesn't exist in the AccountBook so we add it to the AccountBook
+            addAccount(accountToCheck);
+            accountToCheck.addTransaction(toAdd);
         }
     }
 
