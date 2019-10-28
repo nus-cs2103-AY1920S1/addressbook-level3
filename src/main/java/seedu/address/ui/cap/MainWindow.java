@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private SemesterListPanel semesterListPanel;
     private InformationPanel informationPanel;
+    private CapPieChart pieChartDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane pieChartDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -128,6 +132,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        setGraphDisplay();
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCapLogFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -195,6 +201,9 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             informationPanel.setCapToUser(logic.getFilteredCapInformation());
+            informationPanel.setMcToUser(logic.getFilteredMcInformation());
+
+            setGraphDisplay();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -202,5 +211,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void setGraphDisplay() {
+        pieChartDisplay = new CapPieChart(logic.getFilteredGradeCounts());
+        pieChartDisplayPlaceholder.getChildren().add((pieChartDisplay.getRoot()));
     }
 }

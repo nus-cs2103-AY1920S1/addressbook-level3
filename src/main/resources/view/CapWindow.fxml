@@ -7,11 +7,12 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Modulo" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="800" minWidth="1100" onCloseRequest="#handleExit" title="Modulo" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/modulo.png" />
   </icons>
@@ -37,27 +38,37 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
+            <HBox prefHeight="700" prefWidth="1100">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <StackPane fx:id="capPanelPlaceholder" maxHeight="30" minHeight="30" prefHeight="30" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
+                          <padding>
+                            <Insets bottom="5" left="10" right="10" top="5" />
+                          </padding>
+                        </StackPane>
 
-        <StackPane fx:id="capPanelPlaceholder" maxHeight="50" minHeight="50" prefHeight="50" styleClass="pane-without-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="gradeList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="semesterListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-          <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-        </VBox>
-
+                       <VBox fx:id="gradeList" minWidth="600" prefWidth="600" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                         <padding>
+                           <Insets bottom="10" left="10" right="10" top="10" />
+                         </padding>
+                         <StackPane fx:id="semesterListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                         <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                       </VBox>
+                     </children>
+                  </VBox>
+                    <StackPane fx:id="pieChartDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" >
+                      <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                      </padding>
+                    </StackPane>
+               </children>
+            </HBox>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
