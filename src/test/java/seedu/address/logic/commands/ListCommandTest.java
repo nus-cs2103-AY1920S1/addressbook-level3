@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.CommandSubType;
 import seedu.address.model.Context;
-import seedu.address.model.ContextType;
 import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -37,7 +36,7 @@ public class ListCommandTest {
                 model.getAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
         expectedModel.setContext(Context.newListContactContext());
         expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "contacts");
-        expectedResult = new CommandResult(expectedMessage, ContextType.LIST_CONTACT);
+        expectedResult = new CommandResult(expectedMessage, Context.newListContactContext());
     }
 
     @Test
@@ -62,7 +61,7 @@ public class ListCommandTest {
     public void execute_activityListIsFiltered_showsEverything() {
         expectedModel.setContext(Context.newListActivityContext());
         expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "activities");
-        expectedResult = new CommandResult(expectedMessage, ContextType.LIST_ACTIVITY);
+        expectedResult = new CommandResult(expectedMessage, Context.newListActivityContext());
 
         model.updateFilteredActivityList((activity) ->
             activity.getTitle().equals(new Title("Lunch")));

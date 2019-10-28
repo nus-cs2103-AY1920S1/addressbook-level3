@@ -12,7 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandSubType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Context;
-import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
@@ -56,9 +55,10 @@ public class ViewCommand extends Command {
             }
 
             Person personToView = listedPersons.get(targetIndex.getZeroBased());
-            model.setContext(new Context(personToView));
+            Context newContactContext = new Context(personToView);
+            model.setContext(newContactContext);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "contact"), ContextType.VIEW_CONTACT);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "contact"), newContactContext);
         case ACTIVITY:
             List<Activity> listedActivities = model.getFilteredActivityList();
 
@@ -67,9 +67,10 @@ public class ViewCommand extends Command {
             }
 
             Activity activityToView = listedActivities.get(targetIndex.getZeroBased());
-            model.setContext(new Context(activityToView));
+            Context newActivityContext = new Context(activityToView);
+            model.setContext(newActivityContext);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "activity"), ContextType.VIEW_ACTIVITY);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "activity"), newActivityContext);
         default:
             throw new CommandException(MESSAGE_UNKNOWN_VIEW_TYPE);
         }

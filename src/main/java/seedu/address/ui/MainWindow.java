@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -12,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
@@ -141,10 +144,14 @@ public class MainWindow extends UiPart<Stage> {
      * {@code ContextType}.
      * @param newContext the {@code ContextType} of the updated GUI view
      */
-    private void contextSwitch(ContextType newContext) {
+    private void contextSwitch(Context newContext) {
+        requireNonNull(newContext);
+
         contentContainer.getChildren().clear();
 
-        switch (newContext) {
+        ContextType newContextType = newContext.getType();
+
+        switch (newContextType) {
         case LIST_ACTIVITY:
             contentContainer.getChildren().add(activityListPanel.getRoot());
             break;
@@ -183,7 +190,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            Optional<ContextType> newContext = commandResult.getUpdatedContext();
+            Optional<Context> newContext = commandResult.getUpdatedContext();
             if (newContext.isPresent()) {
                 logger.info("Updated context: " + newContext.get().toString());
                 contextSwitch(newContext.get());

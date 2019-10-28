@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.model.activity.Activity;
@@ -70,6 +71,11 @@ public class Context {
 
     public Optional<Person> getContact() {
         return object.filter(x -> type == ContextType.VIEW_CONTACT).map(x->(Person) x);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, object);
     }
 
     @Override

@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.ContextType;
+import seedu.address.model.Context;
+import seedu.address.testutil.TypicalActivities;
+import seedu.address.testutil.TypicalPersons;
 
 public class CommandResultTest {
     @Test
@@ -36,16 +38,20 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
 
-        CommandResult contextualResult = new CommandResult("output", ContextType.LIST_ACTIVITY);
+        CommandResult contextualResult = new CommandResult("output", new Context(TypicalPersons.ALICE));
 
         // identity -> returns true
-        assertTrue(contextualResult.equals(new CommandResult("output", ContextType.LIST_ACTIVITY)));
+        assertTrue(contextualResult.equals(new CommandResult("output", new Context(TypicalPersons.ALICE))));
 
-        // empty context -> returns false
-        assertFalse(contextualResult.equals(commandResult));
+        // empty Context -> returns false
+        assertFalse(contextualResult.equals(new CommandResult("output")));
 
-        // non-empty but different context -> returns false
-        assertFalse(contextualResult.equals(new CommandResult("output", ContextType.VIEW_ACTIVITY)));
+        // different ContextType -> returns false
+        assertFalse(contextualResult.equals(new CommandResult("output", Context.newListContactContext())));
+        assertFalse(contextualResult.equals(new CommandResult("output", new Context(TypicalActivities.BREAKFAST))));
+
+        // same ContextType but different value -> returns false
+        assertFalse(contextualResult.equals(new CommandResult("output", new Context(TypicalPersons.BOB))));
     }
 
     @Test
@@ -64,15 +70,20 @@ public class CommandResultTest {
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
 
-        CommandResult contextualResult = new CommandResult("feedback", ContextType.VIEW_ACTIVITY);
+        CommandResult contextualResult = new CommandResult("feedback", new Context(TypicalActivities.BREAKFAST));
+        int expectedHash = contextualResult.hashCode();
 
         // identity -> returns same hashcode
-        assertEquals(contextualResult.hashCode(),
-                new CommandResult("feedback", ContextType.VIEW_ACTIVITY).hashCode());
+        assertEquals(expectedHash, new CommandResult("feedback", new Context(TypicalActivities.BREAKFAST)).hashCode());
 
-        // different context type -> returns different hashcode
-        assertNotEquals(contextualResult.hashCode(),
-                new CommandResult("feedback", ContextType.VIEW_CONTACT).hashCode());
+        // empty Context -> returns false
+        assertNotEquals(expectedHash, new CommandResult("feedback").hashCode());
 
+        // different ContextType -> returns different hashcode
+        assertNotEquals(expectedHash, new CommandResult("feedback", Context.newListActivityContext()).hashCode());
+        assertNotEquals(expectedHash, new CommandResult("feedback", new Context(TypicalPersons.ALICE)).hashCode());
+
+        // same ContextType but different value -> returns false
+        assertNotEquals(expectedHash, new CommandResult("feedback", new Context(TypicalActivities.LUNCH)).hashCode());
     }
 }

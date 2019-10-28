@@ -53,6 +53,7 @@ public class Activity {
         this.title = title;
         invite(ids);
     }
+
     /**
       Constructor for Activity. Sets primary key automatically.
      * @param title Title of the activity.
