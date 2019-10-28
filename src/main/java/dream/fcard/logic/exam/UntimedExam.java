@@ -11,6 +11,7 @@ public class UntimedExam implements Exam {
 
     private final ArrayList<FlashCard> testDeck;
     private Result result;
+    private int index = 0;
 
     public UntimedExam(ArrayList<FlashCard> deck) {
         this.testDeck = deck;
@@ -18,9 +19,10 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public FlashCard nextCard(int index) {
+    public FlashCard nextCard() {
         FlashCard card = testDeck.get(index);
         card.getFront();
+        index++;
         return card;
     }
 
