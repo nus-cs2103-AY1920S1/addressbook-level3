@@ -102,7 +102,8 @@ public class ConfigUtilTest {
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
-        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
+        Path configFilePath = Paths.get("test/data/ConfigUtilTest",
+                addToTestDataPathIfNotNull(configFileInTestDataFolder).toString());
         ConfigUtil.saveConfig(config, configFilePath);
     }
 

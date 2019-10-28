@@ -17,24 +17,31 @@ public class SampleDataUtil {
     private static final String name = "sample";
 
     public static Card[] getSampleCards() {
-        return new Card[] {
-            new Card(new Word("Abra"), new Meaning("It sleeps eighteen hours a day, but employs telekinesis even "
-                    + "while sleeping."),
-                    getTagSet("psychic"), "abrajfbeoudnjcp"),
-            new Card(new Word("Butterfree"), new Meaning("Its wings are covered with poisonous dust. If you see "
-                    + "one flapping its wings, be careful not to inhale any of the dust."),
-                    getTagSet("bug", "flying"), "butterfreejdfbo"),
-            new Card(new Word("Charizard"), new Meaning("It flies around the sky in search of powerful "
-                    + "opponents. It breathes fire of such great heat that it melts anything. However, it never turns "
-                    + "its fiery breath on any opponent weaker than itself."),
-                    getTagSet("fire", "flying"), "charizardaiudan"),
-            new Card(new Word("Ditto"), new Meaning("Its transformation ability is perfect. However, if it "
-                    + "is made to laugh, it can't maintain its disguise."),
-                    getTagSet("normal"), "dittonfjsdodc"),
-            new Card(new Word("Eevee"), new Meaning("Possessing an unbalanced and unstable genetic makeup, it "
-                    + "conceals many possible evolutions."),
-                    getTagSet("normal"), "eeveeouhvdsn")
-        };
+        Card card1 = new Card("abrajfbeoudnjcp", new Word("Abra"),
+                new Meaning("It sleeps eighteen hours a day, but employs telekinesis even while sleeping."),
+                getTagSet("psychic"));
+
+        Card card2 = new Card("butterfreejdfbo", new Word("Butterfree"),
+                new Meaning("Its wings are covered with poisonous dust. If you see "
+                        + "one flapping its wings, be careful not to inhale any of the dust."),
+                getTagSet("bug", "flying"));
+
+        Card card3 = new Card("charizardaiudan", new Word("Charizard"),
+                new Meaning("It flies around the sky in search of powerful opponents. It breathes fire of "
+                        + "such great heat that it melts anything. However, it never turns "
+                        + "its fiery breath on any opponent weaker than itself."),
+                getTagSet("fire", "flying"));
+
+        Card card4 = new Card("dittonfjsdodc", new Word("Ditto"),
+                new Meaning("Its transformation ability is perfect. However, if it "
+                        + "is made to laugh, it can't maintain its disguise."),
+                getTagSet("normal"));
+
+        Card card5 = new Card("eeveeouhvdsn", new Word("Eevee"),
+                new Meaning("Possessing an unbalanced and unstable genetic makeup, it "
+                        + "conceals many possible evolutions."),
+                getTagSet("normal"));
+        return new Card[]{card1, card2, card3, card4, card5};
     }
 
     public static WordBank getSampleWordBank() {

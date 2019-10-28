@@ -48,8 +48,8 @@ public class CardWithInfoCard extends UiPart<Region> {
                 + card + "\n\n\n" + cardStatistics);
         }
 
-        cardWord.setText(card.getWord().value);
-        cardMeaning.setText(card.getMeaning().value);
+        cardWord.setText(card.getWord().getValue());
+        cardMeaning.setText(card.getMeaning().getValue());
         cardMeaning.setWrapText(true);
         cardMeaning.prefWidthProperty().bind(cardContainer.widthProperty());
         card.getTags().stream()
