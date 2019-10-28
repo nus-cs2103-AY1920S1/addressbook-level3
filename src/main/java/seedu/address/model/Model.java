@@ -60,7 +60,7 @@ public interface Model {
     /**
      * Replaces word bank data with the data in {@code wordBank}.
      */
-    void setCurrenWordBank(ReadOnlyWordBank currenWordBank);
+    void setCurrentWordBank(ReadOnlyWordBank currentWordBank);
 
     /**
      * Set the word bank to default if the removed.
@@ -90,7 +90,7 @@ public interface Model {
     /**
      * Returns the WordBank
      */
-    ReadOnlyWordBank getCurrenWordBank();
+    ReadOnlyWordBank getCurrentWordBank();
 
     /**
      * Returns true if a card with the same name as {@code card} exists in the word bank.

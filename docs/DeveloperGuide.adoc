@@ -304,12 +304,12 @@ We believe that software design principles exist for a reason. Furthermore, whil
 How to store information regarding the different settings
 | **Storing it inside the enumerations that make up the choices for the settings** +
 _Pros:_ +
-Having the information stored inside the enum allows for immutablilty, such that no other class can change the properties of the enums. Only the developer can change the values of the enums and it will subsequently affect all the methods and functionality that relies on said enum.
+Having the information stored inside the enum allows for immutablilty, such that no other class can change the properties of the enums. Only the developer can change the values of the enums and it will subsequently affect all the methods and functionality that relies on said enum. +
 _Cons:_ +
 In the case that the user wants to customise certain continuous settings such as time limit, they are unable to as those settings are already defined by the developer to be discrete options.
 | **Storing it inside the classes that implement the settings** +
 _Pros_ +
-The information is easily accessible from within the class itself and there is no need for extra import classes to handle the enums in alternative 1.
+The information is easily accessible from within the class itself and there is no need for extra import classes to handle the enums in alternative 1. +
 _Cons_ +
 Unlike Alternative 1, the developer can create an extension to the class implementing the setting to allow the user to customise their settings even further, allowing for continuous values to be used rather than discrete values.
 3+| **Why did we choose Alternative 1:** +

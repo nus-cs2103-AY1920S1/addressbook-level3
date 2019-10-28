@@ -1,22 +1,17 @@
-package seedu.address.logic.commands;
-
-import static java.util.Objects.requireNonNull;
+package seedu.address.logic.commands.settingscommands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.cardcommands.AddCommand;
-
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.settingcommands.ThemeCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appsettings.AppSettings;
@@ -31,63 +26,27 @@ import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
-import seedu.address.testutil.CardBuilder;
 
-public class AddCommandTest {
+public class ThemeCommandTest {
 
     @Test
-    public void constructor_nullCard_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullTheme_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new ThemeCommand(null));
     }
 
     @Test
-    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
-        Card validCard = new CardBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validCard).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
+    public void execute_properArgument_success() {
+        ModelStub stub = new ModelStub();
+        ThemeCommand testCommand = new ThemeCommand(ThemeEnum.LIGHT);
+        assertEquals(ThemeEnum.DARK, stub.getDefaultTheme());
+        CommandResult result = testCommand.execute(stub);
+        assertEquals(ThemeEnum.LIGHT, stub.getDefaultTheme());
+        assertEquals("Theme now set to: " + ThemeEnum.LIGHT, result.getFeedbackToUser());
     }
 
-    //    @Test
-    //    public void execute_duplicateCard_throwsCommandException() {
-    //        Card validCard = new CardBuilder().build();
-    //        AddCommand addCommand = new AddCommand(validCard);
-    //        ModelStub modelStub = new ModelStubWithCard(validCard);
-    //
-    //     assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_CARD, () -> addCommand.execute(modelStub));
-    //    }
-
-    @Test
-    public void equals() {
-        Card abra = new CardBuilder().withWord("Abra").build();
-        Card butterfree = new CardBuilder().withWord("Butterfree").build();
-        AddCommand addAbraCommand = new AddCommand(abra);
-        AddCommand addButterfreeCommand = new AddCommand(butterfree);
-
-        // same object -> returns true
-        assertEquals(addAbraCommand, addAbraCommand);
-
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(abra);
-        assertEquals(addAbraCommand, addAliceCommandCopy);
-
-        // different types -> returns false
-        assertNotEquals(1, addAbraCommand);
-
-        // null -> returns false
-        assertNotEquals(null, addAbraCommand);
-
-        // different Card -> returns false
-        assertNotEquals(addAbraCommand, addButterfreeCommand);
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
     private class ModelStub implements Model {
+
+        private ThemeEnum testTheme = ThemeEnum.DARK;
 
         @Override
         public void setGame(Game game) {
@@ -129,7 +88,6 @@ public class AddCommandTest {
 
         @Override
         public void setDefaultDifficulty(DifficultyEnum difficultyEnum) {
-
         }
 
         @Override
@@ -144,12 +102,12 @@ public class AddCommandTest {
 
         @Override
         public void setDefaultTheme(ThemeEnum themeEnum) {
-
+            this.testTheme = themeEnum;
         }
 
         @Override
         public ThemeEnum getDefaultTheme() {
-            return null;
+            return this.testTheme;
         }
 
         @Override
@@ -218,12 +176,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCard(Card card) {
-            throw new AssertionError("This method should not be called.");
+        public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
+
         }
 
         @Override
-        public void setCurrentWordBank(ReadOnlyWordBank newData) {
+        public void addCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -303,45 +261,5 @@ public class AddCommandTest {
         }
     }
 
-    /**
-     * A Model stub that contains a single card.
-     */
-    private class ModelStubWithCard extends ModelStub {
-        private final Card card;
-
-        ModelStubWithCard(Card card) {
-            requireNonNull(card);
-            this.card = card;
-        }
-
-        @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return this.card.isSameMeaning(card);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the card being added.
-     */
-    private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameMeaning);
-        }
-
-        @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
-        }
-
-        @Override
-        public ReadOnlyWordBank getCurrentWordBank() {
-            return new WordBank("abc");
-        }
-    }
 }
+
