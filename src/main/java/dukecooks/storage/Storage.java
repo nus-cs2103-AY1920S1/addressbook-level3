@@ -79,7 +79,7 @@ public interface Storage extends RecipeBookStorage, MealPlanBookStorage, UserPre
 
 
 
-    // ================ Recipe Book methods ==============================
+    // ================ Meal Plan Book methods ==============================
 
     @Override
     Path getRecipesFilePath();

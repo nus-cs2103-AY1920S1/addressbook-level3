@@ -150,7 +150,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getMealPlanFilePath() {
+    public Path getMealPlansFilePath() {
         return model.getMealPlansFilePath();
     }
 
