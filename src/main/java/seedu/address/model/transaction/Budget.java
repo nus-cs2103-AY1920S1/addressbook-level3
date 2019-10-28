@@ -116,7 +116,8 @@ public class Budget {
         } else if (obj instanceof Budget) {
             Budget inObj = (Budget) obj;
             return amount.equals(inObj.amount)
-                && deadline.equals(inObj.deadline);
+                && deadline.equals(inObj.deadline)
+                && valid == inObj.valid;
         } else {
             return false;
         }

@@ -1,32 +1,27 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
-
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-
-
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model,
+ * UndoCommand and RedoCommand) and unit tests for UpdateCommand.
  */
-public class EditCommandTest {
-
+public class UpdateCommandTest {
+    /*
     private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
 
-    /*
+    private String typeTransaction = "t";
+    private String typeBudget = "b";
+
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Transaction editedTransaction = new TransactionBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedTransaction).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, descriptor);
+        BankAccountOperation editedTransaction = new TransactionBuilder().build();
+        UpdateTransactionDescriptor descriptor = new UpdateTransactionDescriptorBuilder(editedTransaction).build();
+        UpdateCommand updateCommand = new UpdateCommand(typeTransaction ,INDEX_FIRST_TRANSACTION, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTransaction);
-
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, editedTransaction);
         Model expectedModel = new ModelManager(new BankAccount(model.getBankAccount()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        BankAccountOperation txn = model.getFilteredTransactionList().get(0);
+        expectedModel.setTransaction(txn, editedTransaction);
+        assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
 
@@ -114,7 +109,7 @@ public class EditCommandTest {
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
-     */
+
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
@@ -158,5 +153,7 @@ public class EditCommandTest {
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_TRANSACTION, DESC_BOB)));
     }
+
      */
+
 }

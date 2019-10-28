@@ -17,6 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.util.Date;
 
 /**
@@ -52,6 +53,21 @@ public class ParserUtil {
     public static String parseType(String oneBasedIndex) throws ParseException {
         String trimmedType = oneBasedIndex.trim().substring(0, 1);
         return trimmedType;
+    }
+
+    /**
+     * Parses a {@code String descriptions} into a {@code Description}. Leading and trailing
+     * whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Name.isValidName(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
     }
 
     /**
@@ -183,7 +199,13 @@ public class ParserUtil {
         requireNonNull(shares);
         final List<Integer> intShares = new ArrayList<>();
         for (String share : shares) {
-            intShares.add(Integer.parseInt(share));
+            try {
+                intShares.add(Integer.parseInt(share.trim()));
+            } catch (NumberFormatException ex) {
+                // TODO: CORRECT?
+                throw new ParseException(Amount.SHARE_CONSTRAINTS);
+            }
+
         }
         return intShares;
     }
@@ -194,9 +216,14 @@ public class ParserUtil {
      * @param s input
      * @return Amount
      */
-    public static Amount parseAmount(String s) {
+    public static Amount parseAmount(String s) throws ParseException {
         requireNonNull(s);
-        return new Amount(Double.parseDouble(s));
+        try {
+            return new Amount(Double.parseDouble(s));
+        } catch (NumberFormatException ex) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+
     }
 
 }

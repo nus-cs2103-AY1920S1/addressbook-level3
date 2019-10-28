@@ -6,8 +6,9 @@ import java.util.Set;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,9 +17,12 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TransactionBuilder {
 
-    public static final String DEFAULT_AMOUNT = "1";
+    public static final String DEFAULT_AMOUNT = "100";
     public static final String DEFAULT_DATE = "10102019";
+    public static final String DEFAULT_CATEGORY = "category";
+    public static final String DEFAULT_DESCRIPTION = "milk";
 
+    private Description description;
     private Amount amount;
     private Date date;
     private Set<Category> categories;
@@ -26,15 +30,18 @@ public class TransactionBuilder {
     public TransactionBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         date = new Date(DEFAULT_DATE);
+        description = new Description(DEFAULT_DESCRIPTION);
         categories = new HashSet<>();
+        categories.add(new Category(DEFAULT_CATEGORY));
     }
 
     /**
      * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
      */
-    public TransactionBuilder(Transaction transactionToCopy) {
+    public TransactionBuilder(BankAccountOperation transactionToCopy) {
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
+        description = transactionToCopy.getDescription();
         categories = new HashSet<>(transactionToCopy.getCategories());
     }
 
@@ -56,17 +63,29 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code Transaction} that we are building.
+     * Sets the {@code date} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withDate(String date) {
         this.date = new Date(date);
         return this;
     }
 
-
-    // TODO: Change constructor
-    public BankAccountOperation build() {
-        return new InTransaction(amount, date, categories);
+    /**
+     * Sets the {@code description} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withDescription(String description) {
+        this.description = new Description(description);
+        return this;
     }
 
+    /**
+     * Builds BankOperation of InTransaction or OutTransaction
+     */
+    public BankAccountOperation build() {
+        if (amount.isNegative()) {
+            return new OutTransaction(amount, date, description, categories);
+        } else {
+            return new InTransaction(amount, date, description, categories);
+        }
+    }
 }

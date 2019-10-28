@@ -1,0 +1,14 @@
+@startuml
+
+start
+:User executes Delete command;
+if () then ([Valid Type and Index]          )
+    :Locate target entry;
+    :Delete target entry from storage;
+    :Display success message;
+else (          [else])
+    :Display error message;
+endif
+stop
+
+@enduml

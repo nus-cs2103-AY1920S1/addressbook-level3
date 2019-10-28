@@ -16,9 +16,9 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = SortCommand.COMMAND_WORD + ": Sorts the transaction "
-            + "in the bank account. "
-            + "Parameter: BY\n"
-            + "Example: " + SortCommand.COMMAND_WORD + " amount";
+        + "in the bank account. "
+        + "Parameter: BY\n"
+        + "Example: " + SortCommand.COMMAND_WORD + " amount";
 
     public static final String MESSAGE_SUCCESS = "Sorted all transactions";
 
@@ -34,9 +34,21 @@ public class SortCommand extends Command {
         requireNonNull(model);
 
         List<BankAccountOperation> sortedTransactionHistory =
-                model.getBankAccount().getSortedTransactionHistory(comparator);
+            model.getBankAccount().getSortedTransactionHistory(comparator);
         model.setTransactions(sortedTransactionHistory);
         model.commitBankAccount();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof SortCommand) {
+            SortCommand sortCommand = (SortCommand) obj;
+            return comparator.equals(sortCommand.comparator);
+        } else {
+            return false;
+        }
     }
 }
