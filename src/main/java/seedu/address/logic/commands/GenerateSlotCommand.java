@@ -21,11 +21,11 @@ public class GenerateSlotCommand extends Command {
     public static final String COMMAND_WORD = "generate";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Generate timeslot from requested meeting duration and time range\n"
-            + "Parameters: DURATION (Must be integer)\n"
-            + "Parameters: TIMERANGE (DAY TIME DAY TIME)\n"
+            + "Parameters: DURATION (must be positive integer) "
+            + "[r/TIMERANGE (DAY TIME DAY TIME)]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DURATION + "2 "
-            + "[" + PREFIX_TIMERANGE + "MONDAY 0800 FRIDAY 1700]";
+            + "[" + PREFIX_TIMERANGE + "MONDAY 0800 MONDAY 1700]";
     public static final String MESSAGE_NOT_CHECKED_OUT = "A project must be checked out first before running this command";
     public static final String MESSAGE_UNKNOWN_ERROR = "Unknown error occured in generation algorithm. Please contact the dev team to report on this bug";
     private int durationInHours;

@@ -87,6 +87,18 @@ __
 __addTask s/Finish GUI c/06/10/2019 1600
 __
 
+.. Add Task: _addTimetable_
+
+... Adds timetable to a person to record down their schedule.
+
+... Format:
+__addTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]
+__
+... Example:
+__addTimetable 3 f//home/john/Desktop/aliceTimetable.txt
+__addTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27
+__
+
 . *Edit*
 .. Edit project: _edit_
 ... Edit the attributes of the project.
@@ -129,11 +141,18 @@ _delete 1_
 __attach [mt/MEETING_INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]...
 __
 
-.. Generate next meeting date: _generate_
-... Come up with next meeting date.
+.. Generate meeting timing: `generate`
+
+... Generates a meeting time that everyone is available.
+
+... Prerequisite: A project is checked out using the command `checkout`, and timetables have been assigned to the members with the command `addTimetable`
+
 ... Format:
-__generateTiming [mt/MEETING_INDEX]
-__
+`generate d/DURATION r/TIMERANGE`
+
+... Example:
+`generate d/2 r/MONDAY 0900 MONDAY 1800`
+
 
 .. Send reminder: _Reminder_
 ... Sends a reminder to all members of the current project.
