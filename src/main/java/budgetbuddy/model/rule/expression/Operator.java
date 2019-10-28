@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import budgetbuddy.logic.rules.RuleProcessingUtil;
+import budgetbuddy.logic.rules.RuleProcessor;
 
 /**
  * Represents an Operator in an expression.
@@ -13,16 +13,16 @@ import budgetbuddy.logic.rules.RuleProcessingUtil;
  */
 public enum Operator {
     // Predicate operators
-    LESS_THAN("<", RuleProcessingUtil.TYPE_NUMBER),
-    MORE_THAN(">", RuleProcessingUtil.TYPE_NUMBER),
-    LESS_EQUAL("<=", RuleProcessingUtil.TYPE_NUMBER),
-    MORE_EQUAL(">=", RuleProcessingUtil.TYPE_NUMBER),
-    EQUAL_TO("=", RuleProcessingUtil.TYPE_NUMBER),
-    CONTAINS("contains", RuleProcessingUtil.TYPE_STRING, RuleProcessingUtil.TYPE_NUMBER),
+    LESS_THAN("<", RuleProcessor.TYPE_NUMBER),
+    MORE_THAN(">", RuleProcessor.TYPE_NUMBER),
+    LESS_EQUAL("<=", RuleProcessor.TYPE_NUMBER),
+    MORE_EQUAL(">=", RuleProcessor.TYPE_NUMBER),
+    EQUAL_TO("=", RuleProcessor.TYPE_NUMBER),
+    CONTAINS("contains", RuleProcessor.TYPE_STRING, RuleProcessor.TYPE_NUMBER),
 
     // Action operators
-    SET_CATEGORY("setcategory", RuleProcessingUtil.TYPE_STRING),
-    SET_DESC("setdesc", RuleProcessingUtil.TYPE_STRING);
+    SET_CATEGORY("setcategory", RuleProcessor.TYPE_STRING),
+    SET_DESC("setdesc", RuleProcessor.TYPE_STRING);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Operators should be valid for their expression and not be blank\n"

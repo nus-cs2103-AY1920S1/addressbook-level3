@@ -33,7 +33,7 @@ import budgetbuddy.model.transaction.Transaction;
 /**
  * Contains utility methods and constants used for processing rules.
  */
-public class RuleProcessingUtil {
+public class RuleProcessor {
     public static final String TYPE_STRING = "STRING";
     public static final String TYPE_NUMBER = "NUMBER";
     public static final String TYPE_DATE = "DATE";
@@ -58,7 +58,7 @@ public class RuleProcessingUtil {
     /**
      * Is a private constructor for a static-only class.
      */
-    private RuleProcessingUtil() {}
+    private RuleProcessor() {}
 
     /**
      * Returns the value of a transaction's attribute given the transaction.
