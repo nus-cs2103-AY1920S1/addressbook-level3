@@ -301,6 +301,8 @@ public class DisplayModelManager {
 
                 isClash = false;
 
+                ArrayList<Venue> currentLastVenues = new ArrayList<>(lastVenues);
+
                 // loop through each person
                 for (int j = 0; j < personSchedules.size(); j++) {
                     ArrayList<PersonTimeslot> timeslots = personSchedules.get(j)
@@ -312,7 +314,7 @@ public class DisplayModelManager {
                         // record the latest venue for each clash
                         if (timeslots.get(k).isClash(currentTime)) {
                             isClash = true;
-                            lastVenues.set(j, timeslots.get(k).getVenue());
+                            currentLastVenues.set(j, timeslots.get(k).getVenue());
                             break;
                         }
                     }
@@ -326,6 +328,7 @@ public class DisplayModelManager {
                     if (newFreeStartTime != null) {
                         freeSchedule.get(DayOfWeek.of(i))
                                 .add(new FreeTimeslot(new ArrayList<>(lastVenues), newFreeStartTime, currentTime));
+                        lastVenues = new ArrayList<>(currentLastVenues);
                         newFreeStartTime = null;
                     }
                 }

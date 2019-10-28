@@ -25,6 +25,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.ModuleSummaryList;
+import seedu.address.model.util.SampleTimeBook;
 import seedu.address.storage.JsonTimeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -87,9 +88,9 @@ public class MainApp extends Application {
             if (!timeBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty timebook");
             }
-            timeBook = timeBookOptional.orElse(new TimeBook());
+            timeBook = timeBookOptional.orElse(SampleTimeBook.generateSampleTimeBook());
         } catch (Exception e) {
-            timeBook = new TimeBook();
+            timeBook = SampleTimeBook.generateSampleTimeBook();
             logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 

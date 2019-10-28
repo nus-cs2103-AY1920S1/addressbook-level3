@@ -33,6 +33,15 @@ public class PersonDescriptor {
         this.tags = null;
     }
 
+    public PersonDescriptor(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.remark = remark;
+        this.tags = tags;
+    }
+
     public static PersonDescriptor getDefaultUser() {
         PersonDescriptor personDescriptor = new PersonDescriptor();
         personDescriptor.setName(DEFAULT_USER_NAME);
