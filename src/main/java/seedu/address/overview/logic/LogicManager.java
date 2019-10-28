@@ -176,7 +176,7 @@ public class LogicManager implements Logic {
      * Helper method to reduce code duplication.
      * Checks if threshold has been met.
      */
-    static Optional<CommandResult> checkThreshold(double amount, double target, double threshold, String message) {
+    private Optional<CommandResult> checkThreshold(double amount, double target, double threshold, String message) {
         if (target == 0.0 || threshold == 0.0) {
             return Optional.empty();
         } else if ((amount / target) * 100 >= threshold) {
