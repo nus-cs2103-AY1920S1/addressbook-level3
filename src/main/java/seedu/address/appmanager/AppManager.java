@@ -29,8 +29,8 @@ import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
- * Class that wraps around the entire apps logic and the GameTimerManager. This is done to separate all logic
- * of the game away from the GameTimerManager entirely, and to separate all GameTimerManager from the UI itself.
+ * Class that serves as a hub for communication between the GUI and The internal components.
+ * This is done to separate all logic of the game away from the GameTimer entirely.
  */
 public class AppManager {
 
@@ -54,11 +54,11 @@ public class AppManager {
 
     private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
         gameTimer = GameTimer.getInstance("Time Left", timeAllowedPerQuestion,
-                this.mainWindowExecuteCallBack,
-                this.timerDisplayCallBack,
-                this::requestHintAndCallBack);
+                this::skipOverToNextQuestion,
+                this::updateTimerDisplay,
+                this::updateHints);
         if (logic.hintsAreEnabled()) {
-            gameTimer.setHintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
+            gameTimer.initHintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
         }
 
     }
@@ -126,10 +126,6 @@ public class AppManager {
         return logic.getActiveWordBankStatistics().getWordBankName();
     }
 
-    private void requestHintAndCallBack() {
-        this.hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
-    }
-
     public Logic getLogic() {
         return logic;
     }
@@ -182,22 +178,64 @@ public class AppManager {
         return logic.getAddressBookFilePath();
     }
 
-    public void setTimerDisplayCallBack(TimerDisplayCallBack updateTimerDisplay) {
+    // <---------------------------------------- CallBacks to Pass Into Timer------------------------------------>
+
+    private void updateHints() {
+        this.hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
+    }
+
+    private void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
+        this.timerDisplayCallBack.updateTimerDisplay(timerMessage, timeLeft, totalTimeGiven);
+    }
+
+    /**
+     * Calls-back to the UI to simulate a `skip` command being passed into the program.
+     */
+    private void skipOverToNextQuestion() {
+        try {
+            this.mainWindowExecuteCallBack.execute("skip");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // <---Methods to register UI components to be called back by AppManager------------------------------------->
+
+    /**
+     * Registers a method that will be called by the AppManager to update the UI's TimerDisplay
+     * @param updateTimerDisplay Method to register.
+     */
+    public void registerTimerDisplayCallBack(TimerDisplayCallBack updateTimerDisplay) {
         requireAllNonNull(updateTimerDisplay);
         this.timerDisplayCallBack = updateTimerDisplay;
     }
 
-    public void setHintDisplayCallBack(HintDisplayCallBack updateHintDisplay) {
+    /**
+     * Registers a method that will be called by the AppManager to update the UI's HintDisplay
+     * @param updateHintDisplay Method to register.
+     */
+    public void registerHintDisplayCallBack(HintDisplayCallBack updateHintDisplay) {
         requireAllNonNull(updateHintDisplay);
         this.hintDisplayCallBack = updateHintDisplay;
     }
 
-    public void setMainWindowExecuteCallBack(MainWindowExecuteCallBack mainWindowExecuteCallBack) {
+    /**
+     * Registers a method that will be called by the AppManager to simulate a 'skip' command as though
+     * it were a user.
+     * @param mainWindowExecuteCallBack Method to register.
+     */
+    public void registerMainWindowExecuteCallBack(MainWindowExecuteCallBack mainWindowExecuteCallBack) {
         requireAllNonNull(mainWindowExecuteCallBack);
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
     }
 
-    public void setQuestionDisplayCallBack(QuestionDisplayCallBack questionDisplayCallBack) {
+    /**
+     * Registers a method that will be called by the AppManager to up the UI's QuestionDisplay.
+     * @param questionDisplayCallBack Method to register.
+     */
+    public void registerQuestionDisplayCallBack(QuestionDisplayCallBack questionDisplayCallBack) {
         requireAllNonNull(questionDisplayCallBack);
         this.questionDisplayCallBack = questionDisplayCallBack;
     }

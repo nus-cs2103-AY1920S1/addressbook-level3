@@ -114,10 +114,10 @@ image::TimerClassDiagram.png[]
 link:{repoURL}/blob/master/src/main/java/seedu/address/appmanager/timer/GameTimer.java[`GameTimer.java`]
 
 The `Timer` consists of a `GameTimer` that will keep track of time elapsed via an internal countdown timer
-and notify the `AppManager` and `UI` components.
+and notify the `AppManager`, who will notify the `UI` components.
 
 * Dealing with the internal countdown timer that runs during a game session.
-* Periodically triggering _callbacks_ that will notify either the `UI` or `AppManager` components.
+* Periodically triggering _callbacks_ that will notify either the `AppManager` component.
 * Gets timestamps to trigger `Hints` via a `HintTimingQueue`
 
 _Due to the fact that the timer has to work closely with the `UI` and `AppManager` (without being
@@ -332,7 +332,7 @@ in this one, we do not think the added functionality of allowing the user to ext
 
 === [underline]#Timer Feature#
 
-==== Implementation
+==== Implementation Overview
 
 The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch during a `Game`. It also relies on
 using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
@@ -350,6 +350,10 @@ The three main events that are triggered by the `Timer` component which require 
 2. Time has run out (_reached zero_), _callback_ to `AppManager` to skip over to next `Card`.
 3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to retrieve a hint
 and display accordingly on the `UI`.
+
+==== Flow of Events
+
+This section describes the sequential flow of events in the life cycle of a `GameTimer` object.
 
 // end::settings[]
 

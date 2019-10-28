@@ -155,13 +155,13 @@ public class MainWindow extends UiPart<Stage> {
         timerDisplay = new TimerDisplay();
         timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
         //Set up callback function in AppManager to update TimerDisplay
-        appManager.setTimerDisplayCallBack(this::updateTimerDisplay);
+        appManager.registerTimerDisplayCallBack(this::updateTimerDisplay);
         //Set up callback function in AppManager to update HintDisplay
-        appManager.setHintDisplayCallBack(this::updateHintDisplay);
+        appManager.registerHintDisplayCallBack(this::updateHintDisplay);
         //Set up callback function in AppManager to update QuestionDisplay
-        appManager.setQuestionDisplayCallBack(this::updateQuestionDisplay);
+        appManager.registerQuestionDisplayCallBack(this::updateQuestionDisplay);
         //Set up callback function in AppManager to call MainWindow's executeCommand
-        appManager.setMainWindowExecuteCallBack(this::executeCommand);
+        appManager.registerMainWindowExecuteCallBack(this::executeCommand);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());

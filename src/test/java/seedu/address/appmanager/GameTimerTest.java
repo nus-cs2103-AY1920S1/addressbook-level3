@@ -12,16 +12,12 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import seedu.address.appmanager.timer.GameTimer;
-import seedu.address.appmanager.timer.GameTimerManager;
-import seedu.address.logic.commands.CommandResult;
 
 @ExtendWith(ApplicationExtension.class)
 public class GameTimerTest {
 
     private GameTimer dummyTimer;
-    private MainWindowStub mainWindowStub;
-    private TimerDisplayStub timerDisplayStub;
-    private HintDisplayStub hintDisplayStub;
+    private AppManagerStub appManagerStub;
 
     /**
      * Initializes the JavaFX Application Thread when this test starts.
@@ -33,16 +29,14 @@ public class GameTimerTest {
     @Test
     public void run() {
         Platform.runLater(() -> {
-            mainWindowStub = new MainWindowStub();
-            timerDisplayStub = new TimerDisplayStub();
-            hintDisplayStub = new HintDisplayStub();
+            appManagerStub = new AppManagerStub();
 
-            AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
-            AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
-            GameTimerManager.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    10, dummyMainCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    10, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
             dummyTimer.run();
             try {
                 Thread.sleep(100);
@@ -50,8 +44,8 @@ public class GameTimerTest {
                 e.printStackTrace();
             }
             Platform.runLater(() -> {
-                assertTrue(mainWindowStub.isExecutedFromGameTimer);
-                assertTrue(timerDisplayStub.isUpdatedFromGameTimer);
+                assertTrue(appManagerStub.skipCalled);
+                assertTrue(appManagerStub.timerDisplayUpdated);
             });
         });
 
@@ -61,20 +55,18 @@ public class GameTimerTest {
     @Test
     public void run_durationIsZero() {
         Platform.runLater(() -> {
-            mainWindowStub = new MainWindowStub();
-            timerDisplayStub = new TimerDisplayStub();
-            hintDisplayStub = new HintDisplayStub();
+            appManagerStub = new AppManagerStub();
 
-            AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
-            AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
-            GameTimerManager.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    10, dummyMainCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    10, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
             dummyTimer.run();
             Platform.runLater(() -> {
-                assertFalse(mainWindowStub.isExecutedFromGameTimer);
-                assertFalse(timerDisplayStub.isUpdatedFromGameTimer);
+                assertFalse(appManagerStub.skipCalled);
+                assertFalse(appManagerStub.timerDisplayUpdated);
             });
         });
     }
@@ -83,52 +75,44 @@ public class GameTimerTest {
     @Test
     public void abortTimer() {
         Platform.runLater(() -> {
-            mainWindowStub = new MainWindowStub();
-            timerDisplayStub = new TimerDisplayStub();
-            hintDisplayStub = new HintDisplayStub();
+            appManagerStub = new AppManagerStub();
 
-            AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
-            AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
-            GameTimerManager.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    1000, dummyMainCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    10, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
             dummyTimer.abortTimer();
             // abortTimer() is supposed to pass timeLeft = 0 to the timerDisplay.
-            assertTrue(timerDisplayStub.timeLeftEqualsZero);
+            assertTrue(appManagerStub.timeLeftIsZero);
         });
 
     }
 
 
 
-    // Stub class for TimerDisplay component of UI
-    class TimerDisplayStub {
-        private boolean isUpdatedFromGameTimer = false;
-        private boolean timeLeftEqualsZero = false;
+    // Stub Class for AppManager's methods that will be called from GameTimer
+    private class AppManagerStub {
 
-        void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
-            this.isUpdatedFromGameTimer = true;
-            this.timeLeftEqualsZero = timeLeft == 0 ? true : false;
+        private boolean skipCalled = false;
+        private boolean hintsUpdated = false;
+        private boolean timerDisplayUpdated = false;
+        private boolean timeLeftIsZero = false;
+
+        private void skipOver() {
+            skipCalled = true;
         }
-    }
 
-    // Stub class for MainWindow component of UI
-    class MainWindowStub {
-        private boolean isExecutedFromGameTimer = false;
-
-        CommandResult execute(String commandText) {
-            isExecutedFromGameTimer = true;
-            return null;
+        private void updateHints() {
+            hintsUpdated = true;
         }
-    }
 
-    class HintDisplayStub {
-        private boolean isExecutedFromGameTimer = false;
-
-        void requestHint() {
-            isExecutedFromGameTimer = true;
+        private void updateTimer(String timerMessage, long timeLeft, long totalTimeGiven) {
+            timeLeftIsZero = timeLeft == 0 ? true : false;
+            timerDisplayUpdated = true;
         }
+
     }
 
 }

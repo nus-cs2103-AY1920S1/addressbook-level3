@@ -5,10 +5,6 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 
-import seedu.address.appmanager.AppManager;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 /**
  * Represents a countdown timer that runs during a Game session (if enabled).
  */
@@ -18,9 +14,9 @@ public class GameTimerManager implements GameTimer {
     private long totalTimeGiven; // the initial time allocated for the timer.
     private long timeLeft; // the time left of this timer, updated by the timer.
     private String mainMessage;
-    private AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack;
-    private AppManager.TimerDisplayCallBack timerDisplayCallBack;
-    private RequestUpdateHintCallBack requestUpdateHintCallBack;
+    private SkipOverCallBack skipOverCallBack;
+    private UpdateTimerCallBack updateTimerCallBack;
+    private UpdateHintCallBack updateHintCallBack;
     private boolean cancelled = false;
     // By default no hints (and by extension by HintTimingQueue) are provided.
     private HintTimingQueue hintTimingQueue = null;
@@ -32,18 +28,19 @@ public class GameTimerManager implements GameTimer {
      *
      * @param mainMessage String of the message intended to be shown on UI.
      * @param durationInMs Duration that the Timer runs for, in milliseconds.
-     * @param mainWindowExecuteCallBack call-back function to send 'skip" command back to MainWindow.
+     * @param skipOverCallBack call-back function to send 'skip" command back to MainWindow.
      */
     public GameTimerManager(String mainMessage, long durationInMs,
-                            AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                            AppManager.TimerDisplayCallBack timerDisplayCallBack,
-                            RequestUpdateHintCallBack requestUpdateHintCallBack) {
+                            SkipOverCallBack skipOverCallBack,
+                            UpdateTimerCallBack updateTimerCallBack,
+                            UpdateHintCallBack updateHintCallBack) {
         this.mainMessage = mainMessage;
-        this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
-        this.timerDisplayCallBack = timerDisplayCallBack;
-        this.requestUpdateHintCallBack = requestUpdateHintCallBack;
+        this.skipOverCallBack = skipOverCallBack;
+        this.updateTimerCallBack = updateTimerCallBack;
+        this.updateHintCallBack = updateHintCallBack;
         this.totalTimeGiven = durationInMs;
         this.timeLeft = totalTimeGiven;
+        // Mark this Timer thread as Daemon or else Java won't exit properly.
         this.timer = new Timer(true);
     }
 
@@ -56,10 +53,10 @@ public class GameTimerManager implements GameTimer {
         if (!Thread.currentThread().getName().equals("JavaFX Application Thread")) {
             // Ensuring any changes to UI are always called from JavaFX Application Thread.
             Platform.runLater(() ->
-                    timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven));
+                    updateTimerCallBack.updateTimerDisplay("", 0, totalTimeGiven));
             return;
         }
-        timerDisplayCallBack.updateTimerDisplay("", 0, totalTimeGiven);
+        updateTimerCallBack.updateTimerDisplay("", 0, totalTimeGiven);
 
     }
 
@@ -97,36 +94,31 @@ public class GameTimerManager implements GameTimer {
     }
 
     /**
-     * Performs a callBack to the UI to update the timer display accordingly.
+     * Performs a callBack to AppManager to notify that TimerDisplay needs to be updated.
      */
     private void callBackToUpdateTimerDisplay() {
-        timerDisplayCallBack.updateTimerDisplay(
+        updateTimerCallBack.updateTimerDisplay(
                 mainMessage + ": " + ((double) timeLeft) / 1000,
                 timeLeft, totalTimeGiven);
     }
 
     /**
-     * Stops the current TimerTask and performs a callBack to MainWindow to simulate a skip command.
+     * Stops the current TimerTask and performs a callBack to AppManager to simulate a skip command.
      */
     private void stopAndCallBackToSkipOver() {
         cancelled = true;
         timer.cancel();
 
-        // Makes a call-back to the mainWindow to execute a 'skip' command
-        try {
-            mainWindowExecuteCallBack.execute("skip");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (CommandException e) {
-            e.printStackTrace();
-        }
+        // Makes a call-back to the AppManager to execute a 'skip' command
+        skipOverCallBack.skipOverToNextQuestion();
+
     }
 
     /**
      * Performs a callback to AppManager requesting for more hints to be shown.
      */
     private void callBackToUpdateHints() {
-        requestUpdateHintCallBack.requestHint();
+        updateHintCallBack.requestHint();
         nextTimeForHint =
                 hintTimingQueue.isEmpty() ? -100L : hintTimingQueue.pollNextTimeToUpdate();
     }
@@ -142,18 +134,9 @@ public class GameTimerManager implements GameTimer {
      * Initializes the queue of timestamps to request for hints based on the {@code hintFormatSize}
      * and {@code timeAllowedPerQuestion}.
      */
-    public void setHintTimingQueue(int hintFormatSize, long timeAllowedPerQuestion) {
+    public void initHintTimingQueue(int hintFormatSize, long timeAllowedPerQuestion) {
         this.hintTimingQueue = new HintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
         nextTimeForHint = hintTimingQueue.pollNextTimeToUpdate();
-    }
-
-    /**
-     * Call-back functional interface from GameManager to MainWindow, represents the GameManager sending
-     * a command to the app as though it were another user.
-     */
-    @FunctionalInterface
-    public interface RequestUpdateHintCallBack {
-        void requestHint();
     }
 
 }

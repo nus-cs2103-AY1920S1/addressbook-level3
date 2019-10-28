@@ -1,7 +1,5 @@
 package seedu.address.appmanager.timer;
 
-import seedu.address.appmanager.AppManager;
-
 /**
  * API for GameTimer, specifies the required methods for a GameTimer to operate as intended with AppManager
  */
@@ -13,15 +11,38 @@ public interface GameTimer extends Runnable {
 
     long getElapsedMillis();
 
-    void setHintTimingQueue(int hintFormatSize, long timeAllowedPerQuestion);
+    void initHintTimingQueue(int hintFormatSize, long timeAllowedPerQuestion);
 
     static GameTimer getInstance(String mainMessage, long totalDurationAllowed,
-                                 AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                                 AppManager.TimerDisplayCallBack timerDisplayCallBack,
-                                 GameTimerManager.RequestUpdateHintCallBack requestUpdateHintCallBack) {
+                                 SkipOverCallBack skipOverCallBack,
+                                 UpdateTimerCallBack updateTimerCallBack,
+                                 UpdateHintCallBack updateHintCallBack) {
         return new GameTimerManager(mainMessage, totalDurationAllowed,
-                mainWindowExecuteCallBack, timerDisplayCallBack, requestUpdateHintCallBack);
+                skipOverCallBack, updateTimerCallBack, updateHintCallBack);
 
     }
 
+    /**
+     * Call-back method from GameTimer to AppManager to Update Hints
+     */
+    @FunctionalInterface
+    interface UpdateHintCallBack {
+        void requestHint();
+    }
+
+    /**
+     * Call-back method from GameTimer to AppManager to Skip over to next question
+     */
+    @FunctionalInterface
+    interface SkipOverCallBack {
+        void skipOverToNextQuestion();
+    }
+
+    /**
+     * Call-back method from GameTimer to AppManager to update the Timer Display in UI
+     */
+    @FunctionalInterface
+    interface UpdateTimerCallBack {
+        void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven);
+    }
 }
