@@ -19,12 +19,11 @@ import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
-import seedu.jarvis.ui.address.PersonListPanel;
-import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
+import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -50,7 +49,6 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private CoursePlannerWindow coursePlannerWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -148,10 +146,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        //coursePlannerWindow = new CoursePlannerWindow(logic);
-        //coursePlannerWindow.fillInnerParts();
-        //coursePlannerPlaceholder.getChildren().add(coursePlannerWindow.getRoot());
     }
 
     /**
@@ -188,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -246,9 +240,14 @@ public class MainWindow extends UiPart<Stage> {
             toUpdatePlaceHolder = ccaContentPlaceholder;
             break;
 
+        case LIST_COURSE:
+            newView = new CoursePlannerWindow(this, logic, model);
+            toUpdatePlaceHolder = moduleContentPlaceholder;
+            break;
+
         default:
             resultDisplay.setFeedbackToUser(
-                    String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
+                String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
             return;
         }
 
