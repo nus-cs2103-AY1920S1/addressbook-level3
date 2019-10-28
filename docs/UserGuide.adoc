@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Typee - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -66,9 +66,8 @@ Format: `list`
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
-
 [TIP]
-Orders supported: `type_ascending`, `type_descending`, `start_ascending`, `start_descending` +
+Orders supported: `description_ascending`, `description_descending`, `start_ascending`, `start_descending` +
 `end_ascending`, `end_descending`, `priority_ascending`, `priority_descending` +
 
 Format: `sort ORDER`
