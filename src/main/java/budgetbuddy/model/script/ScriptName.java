@@ -34,7 +34,7 @@ public class ScriptName {
      * @param name The string to validate
      * @return true if {@code name} is a valid script name
      */
-    public boolean isValidName(String name) {
+    public static boolean isValidName(String name) {
         return name.matches(VALIDATION_REGEX);
     }
 
