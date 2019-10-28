@@ -10,12 +10,12 @@ import seedu.address.model.util.Frequency;
 
 /**
  * Represents a Person's name in the address book. Guarantees: immutable; is
- * valid as declared in {@link #isValidDescription(String)}
+ * valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Dates should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace, otherwise " " (a
@@ -69,8 +69,8 @@ public class Date {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidDescription(String test) {
-        return test == null; // put this for now
+    public static boolean isValidDate(String test) {
+        return test != null; // put this for now
         // return test.matches(VALIDATION_REGEX);
     }
 
@@ -88,7 +88,8 @@ public class Date {
 
     @Override
     public String toString() {
-        return date.toString();
+        return fullTime;
+        //date.toString();
     }
 
     @Override

@@ -30,7 +30,6 @@ public abstract class Reminder {
         isActivated = bool;
     }
 
-
     @Override
     public String toString() {
         return "(" + isActivated + ") " + message;

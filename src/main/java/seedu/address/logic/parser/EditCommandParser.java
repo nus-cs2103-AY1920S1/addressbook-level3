@@ -53,7 +53,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editEntryDescriptor.setDate(ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE).get()));
+            editEntryDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {

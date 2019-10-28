@@ -48,7 +48,7 @@ public class EditExpenseCommandParser implements Parser<EditExpenseCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editExpenseDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_DATE).get()));
+            editExpenseDescriptor.setTime(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {

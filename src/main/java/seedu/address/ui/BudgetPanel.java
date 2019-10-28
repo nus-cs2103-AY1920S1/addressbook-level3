@@ -8,8 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-//import seedu.address.model.person.BudgetStub;
-import seedu.address.model.person.Entry;
+import seedu.address.model.person.Budget;
 
 /**
  * Side panel for budgets.
@@ -19,9 +18,9 @@ public class BudgetPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);
 
     @FXML
-    private ListView<Entry> budgetListView;
+    private ListView<Budget> budgetListView;
 
-    public BudgetPanel(ObservableList<Entry> budgetList) {
+    public BudgetPanel(ObservableList<Budget> budgetList) {
         super(FXML);
         budgetListView.setItems(budgetList);
         budgetListView.setCellFactory(listView -> new BudgetListViewCell());
@@ -30,9 +29,9 @@ public class BudgetPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class BudgetListViewCell extends ListCell<Entry> {
+    class BudgetListViewCell extends ListCell<Budget> {
         @Override
-        protected void updateItem(Entry entry, boolean empty) {
+        protected void updateItem(Budget entry, boolean empty) {
             super.updateItem(entry, empty);
 
             if (empty || entry == null) {
@@ -40,7 +39,7 @@ public class BudgetPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
+                setGraphic(new BudgetCard(entry, getIndex() + 1).getRoot());
             }
         }
     }

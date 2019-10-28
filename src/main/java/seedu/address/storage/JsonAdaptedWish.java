@@ -11,22 +11,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
 import seedu.address.model.person.Wish;
 import seedu.address.model.tag.Tag;
 
 
 /**
- * Jackson-friendly version of {@link Entry}.
+ * Jackson-friendly version of {@link Wish}.
  */
 class JsonAdaptedWish {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Wish's %s field is missing!";
 
+    private final String category;
     private final String desc;
-    private final String time;
+    private final String date;
     private final double amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -34,11 +35,13 @@ class JsonAdaptedWish {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedWish(@JsonProperty("desc") String desc, @JsonProperty("amt") double amt,
-                             @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedWish(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
+                           @JsonProperty("amt") double amt, @JsonProperty("date") String date,
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.category = category;
         this.desc = desc;
         this.amt = amt;
-        this.time = time;
+        this.date = date;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -49,9 +52,10 @@ class JsonAdaptedWish {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedWish(Wish source) {
+        category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().value;
-        time = source.getDate().toString();
+        date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -77,10 +81,18 @@ class JsonAdaptedWish {
         }
         final Description modelDesc = new Description(desc);
 
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+        }
+        /*if (!Date.isValidDate(date)) {
+            throw new IllegalValueException((Date.MESSAGE_CONSTRAINTS));
+        }*/
+        final Date modelDate = new Date(date);
 
-        final Date modelDate = new Date(time);
+        final Category modelCategory = new Category(category, "Expense");
         final Amount modelAmt = new Amount(amt);
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Wish(modelDesc, modelDate, modelAmt, modelTags);
+        return new Wish(modelCategory, modelDesc, modelDate, modelAmt, modelTags);
     }
 }
