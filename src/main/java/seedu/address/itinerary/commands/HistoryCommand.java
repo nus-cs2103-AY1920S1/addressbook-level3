@@ -9,8 +9,8 @@ import seedu.address.logic.commands.CommandResult;
 /**
  * Give a history on the previous action being called in the itinerary.
  */
-public class RedoCommand extends Command {
-    public static final String COMMAND_WORD = "redo";
+public class HistoryCommand extends Command {
+    public static final String COMMAND_WORD = "history";
     public static final String MESSAGE_SUCCESS = "Commands called for this session (Most recent → Earliest):\n%1$s";
     private static final String MESSAGE_NO_REDO = "You have not yet entered any commands yet for this session.\n"
             + "Let's start using TravEzy now! Use help for more information! ٩◔‿◔۶";

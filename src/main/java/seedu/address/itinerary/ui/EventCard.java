@@ -57,7 +57,7 @@ public class EventCard extends UiPart<Region> {
     public EventCard(Event event, int displayedIndex) {
         super(fxmlCard);
         this.event = event;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         title.setText(event.getTitle().title);
         desc.setText(event.getDesc().desc);
         loc.setText(event.getLocation().location);
@@ -100,7 +100,7 @@ public class EventCard extends UiPart<Region> {
         String priority = command.split(" ")[1];
         switch (priority) {
         case ("None"):
-            return "-fx-background-color: grey;"
+            return "-fx-background-color: darkslategrey;"
                     + "-fx-background-radius: 5;"
                     + "-fx-border-radius: 5;"
                     + "-fx-label-padding: 2;"

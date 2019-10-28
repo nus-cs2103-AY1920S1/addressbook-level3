@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import seedu.address.logic.Logic;
@@ -39,6 +40,11 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+    /**
+     * Alternate constructor for the CommandBox. Capable of doing auto-correct and recalling previous actions.
+     * @param commandExecutor is the input user gave to be executed.
+     * @param history is the previous actions called by the user stored in a list.
+     */
     public CommandBox(CommandExecutor commandExecutor, List<String> history) {
         super(FXML);
         this.commandExecutor = commandExecutor;
@@ -48,7 +54,7 @@ public class CommandBox extends UiPart<Region> {
         String[] possibleSuggestions = {
                 // For basic command
                 "greet", "summary", "goto", "goto calendar", "goto financial_tracker", "goto diary",
-                "goto main", "goto achievements", "exit", "list", "help", "redo", "undo", "wish"
+                "goto main", "goto achievements", "exit", "list", "help", "history", "undo", "wish"
                 // For the add command
                 , "add", "add title/", "add title/ date/ time/ l/ d/"
                 // For the edit, done and delete command
@@ -59,7 +65,9 @@ public class CommandBox extends UiPart<Region> {
                 , "search", "search title/", "search title/ date/ time/ l/ d/ tag/"
         };
 
-        TextFields.bindAutoCompletion(commandTextField, possibleSuggestions);
+        AutoCompletionBinding<String> autoComplete =
+                TextFields.bindAutoCompletion(commandTextField, possibleSuggestions);
+        autoComplete.setVisibleRowCount(3);
         historySnapshot = new ListElementPointer(history);
     }
 

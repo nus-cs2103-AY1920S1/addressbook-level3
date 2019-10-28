@@ -2,14 +2,18 @@ package seedu.address.itinerary.ui;
 
 import java.util.logging.Logger;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.commands.Command;
@@ -18,11 +22,7 @@ import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.CommandBox;
-import seedu.address.ui.Page;
-import seedu.address.ui.PageType;
-import seedu.address.ui.ResultDisplay;
-import seedu.address.ui.UiPart;
+import seedu.address.ui.*;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -36,10 +36,20 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private ResultDisplay resultDisplay;
+
     private EventPanel eventPanel;
+
     private ItineraryParser itineraryParser;
+
     private Model model;
+
     private TagDropdown tagDropdown;
+
+    private Stage primaryStage;
+
+    private HelpWindow helpWindow;
+
+    private CodeWindow codeWindow;
 
     @FXML
     private Scene itineraryScene;
@@ -59,12 +69,10 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
-
-    public ItineraryPage() {
+    public ItineraryPage(Stage primaryStage) {
         super(fxmlWindow);
         this.itineraryScene = new Scene(itineraryPane);
+        this.primaryStage = primaryStage;
         this.itineraryParser = new ItineraryParser();
         this.model = new Model();
         fillInnerParts();
@@ -87,20 +95,28 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         commandBoxPlaceholder.getChildren().add(tagDropdown.getRoot());
     }
 
-    public PageType getPageType() {
-        return pageType;
-    }
-
-    public Scene getScene() {
-        return itineraryScene;
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
+        }
     }
 
     /**
-     * Changes application page.
+     * Opens the help window or focuses on it if it's already opened.
      */
-    @SuppressWarnings("unused")
     @FXML
-    private void handlePageChange(CommandResult commandResult) {
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
     }
 
     /**
@@ -108,7 +124,24 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handleExit() {
-        this.itineraryScene.getWindow().hide();
+        helpWindow.hide();
+        primaryStage.hide();
+    }
+
+    @Override
+    public Scene getScene() {
+        setAccelerators();
+
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
+
+        fillInnerParts();
+        return itineraryScene;
+    }
+
+    @Override
+    public PageType getPageType() {
+        return pageType;
     }
 
     /**
@@ -130,8 +163,8 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
                 handleExit();
             }
 
-            if (commandResult.isShowPage()) {
-                handlePageChange(commandResult);
+            if (commandResult.isShowHelp()) {
+                handleHelp();
             }
 
             return commandResult;
@@ -140,5 +173,25 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void setAccelerators() {
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    /**
+     * Sets the accelerator of a MenuItem.
+     *
+     * @param keyCombination the KeyCombination value of the accelerator
+     */
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+        menuItem.setAccelerator(keyCombination);
+
+        itineraryScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
     }
 }
