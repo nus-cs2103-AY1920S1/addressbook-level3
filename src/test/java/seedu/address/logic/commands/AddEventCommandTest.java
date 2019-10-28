@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ZACK;
 
@@ -28,14 +28,12 @@ class AddEventCommandTest {
 
     @Test
     public void constructor_allNull_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () ->
-                new AddEventCommand(null, null));
+        assertDoesNotThrow(() -> new AddEventCommand(null, null));
     }
 
     @Test
     public void constructor_nullName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () ->
-                new AddEventCommand(null, TypicalEvents.generateTypicalEvent1()));
+        assertDoesNotThrow(() -> new AddEventCommand(null, TypicalEvents.generateTypicalEvent1()));
     }
 
     @Test
