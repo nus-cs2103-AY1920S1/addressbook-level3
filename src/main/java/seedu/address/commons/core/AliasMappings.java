@@ -27,6 +27,8 @@ import seedu.address.logic.commands.expense.ListExpenseCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 
 /**
@@ -39,6 +41,7 @@ public class AliasMappings implements Serializable {
     private static final String NON_MATCHING_KEY = "Alias' key must be the Alias' name.";
     private static final String RESERVED_NAME = "Alias cannot use a name reserved by a built-in command.";
     private static final String NULL_VALUE = "Either Alias or key is null.";
+    private static final String INVALID_ALIAS = "Alias mappings contains an invalid Alias.";
 
 
     private static final List<String> RESERVED_COMMAND_WORDS = List.of(
@@ -117,6 +120,12 @@ public class AliasMappings implements Serializable {
         for (Map.Entry<String, Alias> entry : aliasNameToAliasMap.entrySet()) {
             Alias a = entry.getValue();
             String aliasName = entry.getKey();
+            try {
+                ParserUtil.parseAlias(a.getAliasName(), a.getInput());
+            } catch (ParseException e) {
+                throw new IllegalValueException(INVALID_ALIAS);
+            }
+
             // alias' key is not alias name
             if (a == null || aliasName == null) {
                 throw new IllegalValueException(NULL_VALUE);
