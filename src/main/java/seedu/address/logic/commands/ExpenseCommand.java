@@ -141,7 +141,7 @@ public class ExpenseCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                payingPerson.getName(), amount, description, successMessage.toString()));
+                amount, payingPerson.getName(), description, successMessage.toString()));
     }
 
     /**

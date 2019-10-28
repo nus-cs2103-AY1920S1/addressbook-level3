@@ -62,7 +62,7 @@ public class ExpenseCommandTest {
         CommandResult commandResult = commandOneName.execute(model);
 
         assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
-                TypicalPersons.ALICE.getName(), amount, emptyString, TypicalPersons.BENSON.getName() + "\n"),
+                amount, TypicalPersons.ALICE.getName(), emptyString, TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
         expenses.clear(); // for some odd reason @BeforeAll doesn't do this properly?
@@ -95,7 +95,7 @@ public class ExpenseCommandTest {
         CommandResult commandResult = commandMultipleNames.execute(model);
 
         assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
-                TypicalPersons.ALICE.getName(), amount, emptyString, TypicalPersons.BENSON.getName() + "\n"),
+                amount, TypicalPersons.ALICE.getName(), emptyString, TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
         expenses.clear();
@@ -126,7 +126,7 @@ public class ExpenseCommandTest {
         CommandResult commandResult = command.execute(model);
 
         assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
-                TypicalPersons.ALICE.getName(), amount, notEmptyString, TypicalPersons.BENSON.getName() + "\n"),
+                amount, TypicalPersons.ALICE.getName(), notEmptyString, TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
         // It should add a whole activity wrapping all the contacts, and then
