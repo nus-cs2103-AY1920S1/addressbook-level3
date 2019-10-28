@@ -300,7 +300,7 @@ image::ExportActivityDiagram.png[width=320,height=480]
 
 //@@author keiteo
 // tag::dataencryption[]
-=== Test Yourself Mode
+=== Test mode
 Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
 flashcards contained in the system will be tested.
 
