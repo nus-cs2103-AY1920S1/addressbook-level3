@@ -6,24 +6,35 @@ import dream.fcard.util.code.JavascriptRunner;
 import dream.fcard.util.datastructures.Pair;
 
 /**
- * This class takes in a Java file, an ArrayList of test cases, and runs the input against each test case.
+ * This class takes in a JS file, an ArrayList of test cases, and runs the input against each test case.
  */
 public class JsTestCaseRunner {
-    private String expectedOutput; //contains no input, just an output
+    private String expectedOutput;
     private String userAttempt;
+    private String consoleDisplay;
+
 
     public JsTestCaseRunner(String codeToRun, String expectedOutput) {
         this.expectedOutput = expectedOutput;
         this.userAttempt = codeToRun;
     }
 
+    public String getConsoleDisplay() {
+        return consoleDisplay;
+    }
+
     /**
      * Runs the user's attempt at writing a function against the assertions that the user has written.
-     * @return (TotalTestCases, (TotalCorrect, TotalWrong)) in a Pair object.
+     *
+     * @return (TotalTestCases, ( TotalCorrect, TotalWrong)) in a Pair object.
      */
     public Pair<Integer, Pair<Integer, Integer>> testCode() {
-        String finalCode = processjs(userAttempt, expectedOutput);
+        String finalCode = processJs(userAttempt, expectedOutput);
         String output = JavascriptRunner.evaluateString(finalCode);
+        consoleDisplay = output;
+        output = output.replaceAll("pass", "")
+                .replaceAll("fail", "")
+                .strip();
         Scanner sc = new Scanner(output);
         int total = sc.nextInt();
         int correct = sc.nextInt();
@@ -38,7 +49,8 @@ public class JsTestCaseRunner {
      * @param expectedOutput the user's assertions.
      * @return the final piece of code that the evaluator can use to score the user.
      */
-    private String processjs(String userInput, String expectedOutput) {
+
+    private String processJs(String userInput, String expectedOutput) {
         StringBuilder sb = new StringBuilder();
         sb.append("var correct = 0;\n"
                 + "var wrong = 0;\n"
@@ -46,9 +58,12 @@ public class JsTestCaseRunner {
                 + "\n"
                 + "function assert(actual, expected) {\n"
                 + "    if (actual == expected) {\n"
-                + "        correct++;\n"
+
+                + "        correct++;"
+                + "        print('pass');\n"
                 + "    } else {\n"
                 + "        wrong++;\n"
+                + "        print('fail');\n"
                 + "    }\n"
                 + "    total++;\n"
                 + "}\n");
