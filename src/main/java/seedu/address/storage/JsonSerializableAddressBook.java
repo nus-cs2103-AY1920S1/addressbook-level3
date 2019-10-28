@@ -51,7 +51,6 @@ class JsonSerializableAddressBook {
                                        @JsonProperty("commands") List<JsonAdaptedCommand> commands,
                                        @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
                                        @JsonProperty("reminders") List<JsonAdaptedReminder> reminders,
-                                        @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
                                        @JsonProperty("notes") List<JsonAdaptedNote> notes) {
 
         this.persons.addAll(persons);
