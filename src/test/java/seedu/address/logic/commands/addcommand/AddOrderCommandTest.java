@@ -73,7 +73,7 @@ public class AddOrderCommandTest {
 
         CommandResult commandResult =
                 new AddOrderCommand(VALID_CUSTOMER_INDEX, VALID_PHONE_INDEX, VALID_PRICE, VALID_TAG_SET)
-                        .execute(modelStub);
+                        .executeUndoableCommand(modelStub);
         Order order = modelStub.ordersAdded.get(0);
 
         Order copyOrder = new OrderBuilder(order).build();
@@ -91,7 +91,7 @@ public class AddOrderCommandTest {
                 .withPrice(VALID_PRICE.toString()).withTags().build());
 
         assertThrows(CommandException.class, AddOrderCommand.MESSAGE_DUPLICATE_ORDER, ()
-            -> addOrderCommand.execute(modelStub));
+            -> addOrderCommand.executeUndoableCommand(modelStub));
     }
 
     @Test

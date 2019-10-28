@@ -23,7 +23,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Cancels an order identified using it's displayed index from the seller manager.
  */
-public class CancelOrderCommand extends Command {
+public class CancelOrderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "cancel";
 
@@ -41,7 +41,7 @@ public class CancelOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownList = model.getFilteredOrderList();
 

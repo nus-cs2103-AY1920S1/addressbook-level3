@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
@@ -21,7 +22,7 @@ import seedu.address.model.phone.Phone;
 /**
  * Adds a phone to SML.
  */
-public class AddPhoneCommand extends Command {
+public class AddPhoneCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add-p";
 
@@ -60,7 +61,7 @@ public class AddPhoneCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPhone(toAdd)) {

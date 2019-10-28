@@ -23,7 +23,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Completes an order identified using it's displayed index from the seller manager.
  */
-public class CompleteOrderCommand extends Command {
+public class CompleteOrderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "complete";
 
@@ -41,7 +41,7 @@ public class CompleteOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownList = model.getFilteredOrderList();
 

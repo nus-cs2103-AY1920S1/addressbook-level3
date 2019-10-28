@@ -20,6 +20,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -33,7 +34,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing order in SML.
  */
-public class EditOrderCommand extends Command {
+public class EditOrderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit-o";
 
@@ -77,7 +78,7 @@ public class EditOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownOrderList = model.getFilteredOrderList();
 

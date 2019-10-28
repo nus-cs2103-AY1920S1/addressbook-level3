@@ -31,7 +31,7 @@ public class AddPhoneCommandTest {
         ModelStubAcceptingPhoneAdded modelStub = new ModelStubAcceptingPhoneAdded();
         Phone validPhone = new PhoneBuilder().build();
 
-        CommandResult commandResult = new AddPhoneCommand(validPhone).execute(modelStub);
+        CommandResult commandResult = new AddPhoneCommand(validPhone).executeUndoableCommand(modelStub);
 
         assertEquals(String.format(AddPhoneCommand.MESSAGE_SUCCESS, validPhone), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPhone), modelStub.phonesAdded);
@@ -44,7 +44,7 @@ public class AddPhoneCommandTest {
         ModelStub modelStub = new ModelStubWithPhone(validPhone);
 
         assertThrows(CommandException.class, AddPhoneCommand.MESSAGE_DUPLICATE_PHONE, ()
-            -> addPhoneCommand.execute(modelStub));
+            -> addPhoneCommand.executeUndoableCommand(modelStub));
     }
 
     @Test

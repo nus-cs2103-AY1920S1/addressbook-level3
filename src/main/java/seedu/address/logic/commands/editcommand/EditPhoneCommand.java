@@ -23,6 +23,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Brand;
@@ -40,7 +41,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing phone in SML.
  */
-public class EditPhoneCommand extends Command {
+public class EditPhoneCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit-p";
 
@@ -80,7 +81,7 @@ public class EditPhoneCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
         List<Phone> lastShownList = model.getFilteredPhoneList();
 
